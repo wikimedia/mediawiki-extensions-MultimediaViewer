@@ -1,0 +1,65 @@
+.mw-lightbox-title-div {
+	text-align: left;
+	padding-left: 10px;
+	font-weight: bold;
+
+	color: white;
+
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	height: 50px;
+
+	/* FF 3.6+ */
+	background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+
+	/* Chrome, Safari 4+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,1)));
+
+	/* Chrome 10+, Safari 5.1+ */
+	background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%);
+
+	/* Opera 11.10+ */
+	background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%);
+
+	/* IE10+ */
+	background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%);
+
+	/* W3C */
+	background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%);
+
+	/* IE 6-9 */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 );
+}
+
+.mw-lightbox-extra-info-div {
+	height: 50px;
+	position: absolute;
+	bottom: -50px;
+	right: 0px;
+	left: 0px;
+
+	background-color: black;
+	color: white;
+
+	text-align: left;
+	padding-left: 10px;
+}
+
+.mw-lightbox-extra-info-div a,
+.mw-lightbox-extra-info-div a:hover,
+.mw-lightbox-extra-info-div a:visited,
+.mw-lightbox-extra-info-div a:active,
+.mw-lightbox-extra-info-div a:link {
+	color: white;
+	text-decoration: none;
+}
+
+.mw-lightbox .lb-container {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}

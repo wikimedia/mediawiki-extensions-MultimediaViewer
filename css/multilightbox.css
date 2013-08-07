@@ -1,0 +1,88 @@
+.mlb-overlay {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 1000;
+	background-color: rgba(0,0,0,0.9);
+}
+
+.mlb-wrapper {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 1001;
+}
+
+.mlb-main {
+	margin-top: 20px;
+	width: 80%;
+	margin-right: auto;
+	margin-left: auto;
+	position: relative;
+}
+
+.mlb-image {
+	width: 100%;
+}
+
+.mlb-image img {
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.mlb-controls {
+	margin-right: auto;
+	margin-left: auto;
+	width: 80%;
+	min-height: 32px;
+	border-bottom: 1px solid #7d7c81;
+	margin-bottom: 40px;
+	position: relative;
+}
+
+.mlb-close {
+	cursor: pointer;
+	background-image: url("../img/close.svg");
+	width: 32px;
+	height: 32px;
+	border-right: 1px solid #7d7c81;
+	border-bottom: 1px solid #7d7c81;
+	position: absolute;
+	bottom: -1px;
+	left: -32px;
+}
+
+.mlb-fullscreen {
+	cursor: pointer;
+	background-image: url("../img/fullscreen.svg");
+	width: 32px;
+	height: 32px;
+	border-left: 1px solid #7d7c81;
+	border-bottom: 1px solid #7d7c81;
+	position: absolute;
+	bottom: -1px;
+	right: -32px;
+}
+
+.mlb-fullscreen-div {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 1002;
+}
+
+.mlb-fullscreen-div .mlb-main {
+	margin-top: 10px;
+	width: 100%;
+}
+
+.mlb-fullscreen-div .mlb-fullscreen {
+	background-image: url("../img/defullscreen.svg");
+}

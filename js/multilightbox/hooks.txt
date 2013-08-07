@@ -1,0 +1,64 @@
+These are the available hook types. You can register functions to handle these
+by calling lightboxHooks.register( 'typeOfHook', function () { ... } );
+
+modifyInterface
+	Arguments: None
+	ThisArg: LightboxInterface
+	Called: From LightboxInterface constructor
+
+modifyDefaultPreDiv
+	Arguments: None
+	ThisArg: LightboxInterface
+	Called: From LightboxInterface setupPreDiv method, if defaults are loaded
+
+modifyDefaultPostDiv
+	Arguments: None
+	ThisArg: LightboxInterface
+	Called: From LightboxInterface setupPostDiv method, if defaults are loaded
+
+addToPreDiv
+	Arguments:
+		* addToPre - Array - Add jQuery elements here to be added to the pre-image div
+	ThisArg: LightboxInterface
+	Called: From LightboxInterface constructor
+
+addToPostDiv
+	Arguments:
+		* addToPost - Array - Add jQuery elements here to be added to the post-image div
+	ThisArg: LightboxInterface
+	Called: From LightboxInterface constructor
+
+imageLoaded
+	Arguments: None
+	ThisArg: LightboxInterface
+	Called: From LightboxInterface-defined callback when image is done loading
+
+modifyImageObject
+	Arguments: None
+	ThisArg: LightboxImage
+	Called: From LightboxImage constructor
+
+modifyImageElement
+	Arguments: None
+	ThisArg: HTMLImageElement
+	Called: From LightboxImage getImageElement method
+
+nextImage
+	Arguments: None
+	ThisArg: MultiLightbox
+	Called: From MultiLightbox next method
+
+prevImage
+	Arguments: None
+	ThisArg: MultiLightbox
+	Called: From MultiLightbox prev method
+
+noNextImage
+	Arguments: None
+	ThisArg: MultiLightbox
+	Called: From MultiLightbox next method when user tries to reach too-high index
+
+noPrevImage
+	Arguments: None
+	ThisArg: MultiLightbox
+	Called: From MultiLightbox prev method when user tries to reach negative index
