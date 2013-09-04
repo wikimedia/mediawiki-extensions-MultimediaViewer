@@ -10,19 +10,20 @@
 
 		function handleFullscreenChange() {
 			// If we're no longer in fullscreen mode, make sure
-			if ( !this.fullscreenButtonJustPressed &&
+			if ( !lbinterface.fullscreenButtonJustPressed &&
 					!document.fullscreenElement &&
 					!document.mozFullScreenElement &&
 					!document.webkitFullScreenElement ) {
-				this.fullscreen();
+				lbinterface.fullscreen();
 			} else if ( this.fullscreenButtonJustPressed ) {
-				this.fullscreenButtonJustPressed = false;
+				lbinterface.fullscreenButtonJustPressed = false;
 			}
 		}
 
 		var result,
 			addToPre = [],
-			addToPost = [];
+			addToPost = [],
+			lbinterface = this;
 
 		this.$overlay = $( '<div>' )
 			.addClass( 'mlb-overlay' );
@@ -56,18 +57,18 @@
 			this.$main
 		);
 
-		lightboxHooks.callAll( 'modifyInterface', this );
+		lightboxHooks.callAll( 'modifyinterface', this );
 
 		window.addEventListener( 'keyup', function ( e ) {
 			if ( e.keyCode === 27 ) {
 				// Escape button pressed
-				this.unattach();
+				lbinterface.unattach();
 			}
-		}.bind( this ) );
+		} );
 
-		window.addEventListener( 'fullscreenchange', handleFullscreenChange.bind( this ) );
-		window.addEventListener( 'mozfullscreenchange', handleFullscreenChange.bind( this ) );
-		window.addEventListener( 'webkitfullscreenchange', handleFullscreenChange.bind( this ) );
+		window.addEventListener( 'fullscreenchange', handleFullscreenChange );
+		window.addEventListener( 'mozfullscreenchange', handleFullscreenChange );
+		window.addEventListener( 'webkitfullscreenchange', handleFullscreenChange );
 	}
 
 	LIP = LightboxInterface.prototype;
@@ -128,6 +129,8 @@
 		var ele = image.getImageElement( function () {
 				iface.$image = $( ele );
 				iface.$imageDiv.html( ele );
+				image.globalMaxWidth = iface.$image.width();
+				image.globalMaxHeight = iface.$image.height();
 				image.autoResize( ele );
 
 				window.addEventListener( 'resize', function () {
@@ -142,6 +145,8 @@
 	};
 
 	LIP.setupPreDiv = function ( buildDefaults, toAdd ) {
+		var lbinterface = this;
+
 		if ( buildDefaults ) {
 			this.$controlBar = $( '<div>' )
 				.addClass( 'mlb-controls' );
@@ -149,15 +154,17 @@
 			this.$closeButton = $( '<div>' )
 				.text( ' ' )
 				.addClass( 'mlb-close' )
-				.click( this.unattach.bind( this ) );
+				.click( function () {
+					lbinterface.unattach();
+				} );
 
 			this.$fullscreenButton = $( '<div>' )
 				.text( ' ' )
 				.addClass( 'mlb-fullscreen' )
 				.click( function () {
-					this.fullscreenButtonJustPressed = true;
-					this.fullscreen();
-				}.bind( this ) );
+					lbinterface.fullscreenButtonJustPressed = true;
+					lbinterface.fullscreen();
+				} );
 
 			this.$controlBar.append(
 				this.$closeButton,
