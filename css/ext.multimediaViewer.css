@@ -63,3 +63,23 @@
 	left: 0px;
 	right: 0px;
 }
+
+.mlb-fullscreen-div {
+	background-color: rgb( 255, 255, 255 );
+}
+
+.mlb-overlay {
+	background-color: rgba( 255, 255, 255, 0.9 );
+}
+
+.mlb-close {
+	background-image: url( '../img/mw-close.svg' );
+}
+
+.mlb-fullscreen-div .mlb-fullscreen {
+	background-image: url( '../img/mw-defullscreen.svg' );
+}
+
+.mlb-fullscreen {
+	background-image: url( '../img/mw-fullscreen.svg' );
+}
