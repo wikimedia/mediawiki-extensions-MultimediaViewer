@@ -33,6 +33,7 @@ $messages['en'] = array(
 	'multimediaviewer-repository' => 'Learn more on $1',
 	'multimediaviewer-datetime-created' => 'Created on $1',
 	'multimediaviewer-datetime-uploaded' => 'Uploaded on $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Uploaded}} by $1',
 );
 
 /** Message documentation (Message documentation)
@@ -46,6 +47,7 @@ $messages['qqq'] = array(
 	'multimediaviewer-repository' => 'Link to the repository where the image is hosted. $1 is the display name of that site.',
 	'multimedia-datetime-created' => 'Date and time the image or work was created. $1 is always a date string, no need to translate.',
 	'multimedia-datetime-uploaded' => 'Date and time the image was uploaded - fallback in case there is no data for creation date. $1 is always a date string, no need to translate.',
+	'multimediaviewer-userpage-link' => 'Link to the user page for the uploader of the image. $1 is the username of the uploader, $2 is their gender.',
 );
 
 /** Arabic (العربية)
