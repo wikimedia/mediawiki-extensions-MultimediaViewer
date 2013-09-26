@@ -82,4 +82,30 @@
 
 .mlb-fullscreen {
 	background-image: url( '../img/mw-fullscreen.svg' );
+
+.mw-mlb-file-title {
+	color: #FFFFFF;
+	vertical-align: middle;
+	margin-left: 10px;
+}
+
+.mw-mlb-image-metadata {
+	margin-top: 30px;
+	width: 100%;
+	position: relative;
+}
+
+.mw-mlb-image-desc-div,
+.mw-mlb-image-links-div {
+	width: 50%;
+	position: absolute;
+	top: 0px;
+}
+
+.mw-mlb-image-desc-div {
+	left: 0px;
+}
+
+.mw-mlb-image-links-div {
+	right: 0px;
 }
