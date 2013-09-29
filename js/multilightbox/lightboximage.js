@@ -28,11 +28,11 @@
 
 	LIP.autoResize = function ( ele ) {
 		function updateRatios() {
-			if ( imgHeight !== 0 ) {
+			if ( imgHeight ) {
 				imgHeightRatio = imgMaxHeight / imgHeight;
 			}
 
-			if ( imgHeight !== 0 ) {
+			if ( imgWidth ) {
 				imgWidthRatio = imgMaxWidth / imgWidth;
 			}
 		}
@@ -46,6 +46,14 @@
 			imgMaxHeight = winHeight * 0.5,
 			imgWidth = $img.width(),
 			imgHeight = $img.height();
+
+		if ( this.globalMaxWidth && imgMaxWidth > this.globalMaxWidth ) {
+			imgMaxWidth = this.globalMaxWidth;
+		}
+
+		if ( this.globalMaxHeight && imgMaxHeight > this.globalMaxHeight ) {
+			imgMaxHeight = this.globalMaxHeight;
+		}
 
 		updateRatios();
 
