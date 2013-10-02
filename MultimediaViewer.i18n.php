@@ -26,9 +26,9 @@ $messages = array();
  * @author Mark Holmquist <mtraceur@member.fsf.org>
  */
 $messages['en'] = array(
-	'multimediaviewer-desc' => 'Adds a nicer-looking multimedia viewer for images',
-	'multimediaviewer-pref' => 'Enable nicer image viewing',
-	'multimediaviewer-pref-desc' => 'Enables a nicer-looking multimedia viewer for images on pages that have thumbnails. Uses a third party lightbox library and JavaScript.',
+	'multimediaviewer-desc' => 'Expand thumbnails in a larger size in a lightbox.',
+	'multimediaviewer-pref' => 'Media Viewer',
+	'multimediaviewer-pref-desc' => 'Improve your multimedia viewing experience with this new tool. It displays images in larger size on pages that have thumbnails. Images are shown in a nicer lightbox overlay, and can also be viewed in full-size.',
 	'multimediaviewer-file-page' => 'Go to corresponding file page',
 );
 

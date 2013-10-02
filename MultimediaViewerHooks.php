@@ -43,7 +43,7 @@ class MultimediaViewerHooks {
 			'desc-message' => 'multimediaviewer-pref-desc',
 			'info-link' => 'https://mediawiki.org/wiki/Multimedia/Media_Viewer',
 			'discussion-link' => 'https://mediawiki.org/wiki/Talk:Multimedia/Media_Viewer',
-//			'screenshot' => $wgExtensionAssetsPath . '/MultimediaViewer/images/screenshot.png',
+			'screenshot' => $wgExtensionAssetsPath . '/MultimediaViewer/img/viewer.svg',
 		);
 
 		return true;
