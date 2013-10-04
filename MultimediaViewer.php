@@ -81,7 +81,7 @@ $wgHooks['BeforePageDisplay'][] = 'MultimediaViewerHooks::getModules';
 $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'MultimediaViewer',
-	'descriptionmsg' => 'multimediaviewer-extension-description',
+	'descriptionmsg' => 'multimediaviewer-desc',
 	'version' => '0.1',
 	'author' => array(
 		'MarkTraceur (Mark Holmquist)',
