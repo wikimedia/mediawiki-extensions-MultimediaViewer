@@ -124,6 +124,10 @@
 	background-size: contain;
 }
 
+.mw-mlb-image-links li.mw-mlb-repo-li:before {
+	background-image: url( '../img/repo.svg' );
+}
+
 .mw-mlb-image-links li.empty:before {
 	background-image: none !important;
 }
