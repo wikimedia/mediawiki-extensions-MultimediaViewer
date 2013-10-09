@@ -69,6 +69,23 @@ $messages['ja'] = array(
 	'multimediaviewer-file-page' => '対応するファイル ページに移動',
 );
 
+/** Macedonian (македонски)
+ * @author Bjankuloski06
+ */
+$messages['mk'] = array(
+	'multimediaviewer-desc' => 'Додава поубав прегледувач на слики',
+	'multimediaviewer-pref' => 'Вклучи поубаво прегледување на слики',
+	'multimediaviewer-pref-desc' => 'Дава поубаво прегледување на слики на страници со минијатури. Користи надворешна Lightbox-библиотека и JavaScript.',
+	'multimediaviewer-file-page' => 'Оди на соодветната податотечна страница',
+);
+
+/** Russian (русский)
+ * @author Okras
+ */
+$messages['ru'] = array(
+	'multimediaviewer-desc' => 'Добавляет более красивый просмотрщик изображений',
+);
+
 /** Ukrainian (українська)
  * @author Andriykopanytsia
  */
