@@ -37,7 +37,8 @@
 			'sha1',
 			'mime',
 			'mediatype',
-			'metadata'
+			'metadata',
+			'extmetadata'
 		];
 
 	function MultimediaViewer() {
@@ -78,7 +79,8 @@
 				viewer.lightbox.open();
 
 				viewer.fetchImageInfo( fileTitle, function ( imageInfo ) {
-					var repoInfo, articlePath,
+					var extmeta,
+						repoInfo, articlePath,
 						ui = viewer.lightbox.iface,
 						innerInfo = imageInfo.imageinfo[0] || {};
 
@@ -113,6 +115,8 @@
 					}
 
 					ui.$repoLi.toggleClass( 'empty', !Boolean( repoInfo ) );
+
+					extmeta = innerInfo.extmetadata;
 				} );
 
 				return false;
