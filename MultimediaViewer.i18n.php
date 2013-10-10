@@ -69,6 +69,14 @@ $messages['ja'] = array(
 	'multimediaviewer-file-page' => '対応するファイル ページに移動',
 );
 
+/** Korean (한국어)
+ * @author Hym411
+ */
+$messages['ko'] = array(
+	'multimediaviewer-desc' => '사진을 위한 더 편리한 멀티미디어 뷰어를 추가',
+	'multimediaviewer-pref' => '더 나은 사진 보기 활성화',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */
@@ -84,6 +92,9 @@ $messages['mk'] = array(
  */
 $messages['ru'] = array(
 	'multimediaviewer-desc' => 'Добавляет более красивый просмотрщик изображений',
+	'multimediaviewer-pref' => 'Включить более красивый просмотрщик изображений',
+	'multimediaviewer-pref-desc' => 'Включает более красивый просмотрщик изображений на страницах, имеющих миниатюры. Использует стороннюю лайтбокс-библиотеку и JavaScript.',
+	'multimediaviewer-file-page' => 'Перейти на страницу соответствующего файла',
 );
 
 /** Ukrainian (українська)
@@ -94,4 +105,14 @@ $messages['uk'] = array(
 	'multimediaviewer-pref' => 'Увімкнути приємніший перегляд зображень',
 	'multimediaviewer-pref-desc' => 'Вмикає приємніший мультимедійний переглядач зображень на сторінки, які містять ескізи. Використовується у сторонніх бібліотеках lightbox і JavaScript.',
 	'multimediaviewer-file-page' => 'Перейти на сторінку відповідного файлу',
+);
+
+/** Simplified Chinese (中文（简体）‎)
+ * @author Qiyue2001
+ */
+$messages['zh-hans'] = array(
+	'multimediaviewer-desc' => '添加一个更美观的图像多媒体查看器',
+	'multimediaviewer-pref' => '启用更美观的图像查看器',
+	'multimediaviewer-pref-desc' => '启用更美观的多媒体查看器查看有缩略图的页面上的图像。使用第三方库Lightbox和JavaScript。',
+	'multimediaviewer-file-page' => '转到相应的文件页',
 );
