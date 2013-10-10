@@ -34,6 +34,7 @@ $messages['en'] = array(
 	'multimediaviewer-datetime-created' => 'Created on $1',
 	'multimediaviewer-datetime-uploaded' => 'Uploaded on $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Uploaded}} by $1',
+	'multimediaviewer-credit' => '$1 - $2',
 );
 
 /** Message documentation (Message documentation)
@@ -48,6 +49,7 @@ $messages['qqq'] = array(
 	'multimedia-datetime-created' => 'Date and time the image or work was created. $1 is always a date string, no need to translate.',
 	'multimedia-datetime-uploaded' => 'Date and time the image was uploaded - fallback in case there is no data for creation date. $1 is always a date string, no need to translate.',
 	'multimediaviewer-userpage-link' => 'Link to the user page for the uploader of the image. $1 is the username of the uploader, $2 is their gender.',
+	'multimediaviewer-credit' => 'Credit line for images - $1 is HTML describing the authour, $2 is HTML describing the source. Neither are usernames, so GENDER is useless. Both come directly from the API, the extended metadata imageinfo prop in particular. They will usually be derived from the HTML output from wikitext on a file description page - however, no complicated HTML, only links, will be allowed.',
 );
 
 /** Arabic (العربية)

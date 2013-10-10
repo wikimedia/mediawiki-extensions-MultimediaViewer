@@ -86,3 +86,7 @@
 .mlb-fullscreen-div .mlb-fullscreen {
 	background-image: url("../img/defullscreen.svg");
 }
+
+.mw-mlb-credit.empty {
+	display: none;
+}

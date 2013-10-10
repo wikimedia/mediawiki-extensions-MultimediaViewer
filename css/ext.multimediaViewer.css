@@ -89,6 +89,10 @@
 	padding: 0px;
 }
 
+.mw-mlb-author {
+	font-weight: bold;
+}
+
 .mw-mlb-image-metadata {
 	margin-top: 30px;
 	width: 64%;

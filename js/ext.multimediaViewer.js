@@ -154,6 +154,7 @@
 						desc,
 						datetime, dtmsg,
 						username,
+						source, author,
 						ui = viewer.lightbox.iface,
 						innerInfo = imageInfo.imageinfo[0] || {};
 
@@ -238,6 +239,46 @@
 						}
 
 						ui.$datetimeLi.toggleClass( 'empty', !Boolean( datetime ) );
+
+						source = extmeta.Credit;
+						author = extmeta.Artist;
+
+						if ( source ) {
+							source = source.value;
+							ui.$source.html( source );
+						}
+
+						if ( author ) {
+							author = author.value;
+							ui.$author.html( author );
+						}
+
+						ui.$author.html(
+							whitelistHtml( ui.$author )
+						);
+
+						ui.$source.html(
+							whitelistHtml( ui.$source )
+						);
+
+						if ( source && author ) {
+							ui.$credit.html(
+								mw.message(
+									'multimediaviewer-credit',
+									ui.$author.get( 0 ).outerHTML,
+									ui.$source.get( 0 ).outerHTML
+								).plain()
+							);
+						} else {
+							// Clobber the contents and only have one of the fields
+							if ( source ) {
+								ui.$credit.html( ui.$source );
+							} else if ( author ) {
+								ui.$credit.html( ui.$author );
+							}
+						}
+
+						ui.$credit.toggleClass( 'empty', !Boolean( source ) && !Boolean( author ) );
 					}
 				} );
 
@@ -317,9 +358,29 @@
 			this.$title = $( '<p>' )
 				.addClass( 'mw-mlb-title' );
 
+			this.$source = $( '<span>' )
+				.addClass( 'mw-mlb-source' );
+
+			this.$author = $( '<span>' )
+				.addClass( 'mw-mlb-author' );
+
+			this.$credit = $( '<p>' )
+				.addClass( 'mw-mlb-credit' )
+				.addClass( 'empty' )
+				.html(
+					mw.message(
+						'multimediaviewer-credit',
+						this.$author.get( 0 ).outerHTML,
+						this.$source.get( 0 ).outerHTML
+					).plain()
+				);
+
 			this.$titleDiv = $( '<div>' )
 				.addClass( 'mw-mlb-title-contain' )
-				.append( this.$title );
+				.append(
+					this.$title,
+					this.$credit
+				);
 
 			this.$controlBar.append( this.$titleDiv );
 
