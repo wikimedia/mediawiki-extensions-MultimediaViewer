@@ -62,6 +62,16 @@ $messages['fr'] = array(
 	'multimediaviewer-file-page' => 'Aller à la page du fichier correspondant',
 );
 
+/** Galician (galego)
+ * @author Toliño
+ */
+$messages['gl'] = array(
+	'multimediaviewer-desc' => 'Engade un agradable visor de ficheiros multimedia para as imaxes',
+	'multimediaviewer-pref' => 'Activar unha visualización das imaxes máis agradable',
+	'multimediaviewer-pref-desc' => 'Activa un agradable visor de ficheiros multimedia para as imaxes nas páxinas que teñen miniaturas. Utiliza unha biblioteca lightbox de terceiros e JavaScript.',
+	'multimediaviewer-file-page' => 'Ir á páxina de ficheiro correspondente',
+);
+
 /** Japanese (日本語)
  * @author Shirayuki
  */
