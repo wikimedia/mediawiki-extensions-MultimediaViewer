@@ -91,7 +91,8 @@
 
 .mw-mlb-image-metadata {
 	margin-top: 30px;
-	width: 100%;
+	width: 64%;
+	margin: 30px auto;
 	position: relative;
 }
 
@@ -104,6 +105,10 @@
 
 .mw-mlb-image-desc-div {
 	left: 0px;
+}
+
+.mw-mlb-image-desc {
+	color: #6f7073;
 }
 
 .mw-mlb-image-links-div {

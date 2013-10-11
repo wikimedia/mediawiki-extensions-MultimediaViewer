@@ -117,6 +117,7 @@
 
 					var extmeta,
 						repoInfo, articlePath,
+						desc,
 						ui = viewer.lightbox.iface,
 						innerInfo = imageInfo.imageinfo[0] || {};
 
@@ -153,6 +154,17 @@
 					ui.$repoLi.toggleClass( 'empty', !Boolean( repoInfo ) );
 
 					extmeta = innerInfo.extmetadata;
+
+					if ( extmeta ) {
+						desc = extmeta.ImageDescription;
+
+						if ( desc ) {
+							desc = desc.value;
+							ui.$imageDesc.html(
+								whitelistHtml( $( desc ) )
+							);
+						}
+					}
 				} );
 
 				return false;
@@ -316,7 +328,9 @@
 				format: 'json',
 				titles: filename,
 				prop: 'imageinfo',
-				iiprop: iiprops.join( '|' )
+				iiprop: iiprops.join( '|' ),
+				// Short-circuit, don't fallback, to save some tiny amount of time
+				iiextmetadatalanguage: mw.config.get( 'wgUserLanguage', false ) || mw.config.get( 'wgContentLanguage', 'en' )
 			},
 			viewer = this;
 
