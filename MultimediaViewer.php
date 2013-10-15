@@ -72,6 +72,8 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 	'messages' => array(
 		'multimediaviewer-file-page',
 		'multimediaviewer-repository',
+		'multimediaviewer-datetime-created',
+		'multimediaviewer-datetime-uploaded',
 	),
 ), $moduleInfo );
 
