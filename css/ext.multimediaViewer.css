@@ -78,9 +78,9 @@
 	background-image: url( '../img/mw-fullscreen.svg' );
 }
 
+.mw-mlb-license,
 .mw-mlb-title-contain {
 	vertical-align: middle;
-	margin-left: 10px;
 }
 
 .mw-mlb-title {
@@ -155,4 +155,45 @@
 
 .mw-mlb-credit.empty {
 	display: none;
+}
+
+.mw-mlb-license-contain,
+.mw-mlb-title-credit {
+	display: inline-block;
+}
+
+.mw-mlb-license-contain {
+	width: 30%;
+}
+
+.mw-mlb-title-credit {
+	width: 70%;
+}
+
+.mw-mlb-title-contain {
+	padding-left: 10px;
+}
+
+.mw-mlb-license {
+	padding-right: 10px;
+}
+
+.mw-mlb-license.empty {
+	display: none;
+}
+
+.mw-mlb-license.cc-license:before {
+	background-size: contain;
+	background-image: url( '../img/cc.svg' );
+	display: inline-block;
+	vertical-align: middle;
+	height: 20px;
+	width: 20px;
+	content: ' ';
+	margin-right: 5px;
+}
+
+.mw-mlb-license-contain,
+.mw-mlb-license {
+	text-align: right;
 }

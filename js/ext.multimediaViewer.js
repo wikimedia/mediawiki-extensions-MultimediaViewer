@@ -213,6 +213,15 @@
 
 			this.$imageLinks.append( this.$usernameLi );
 
+			this.$license = $( '<a>' )
+				.addClass( 'mw-mlb-license' )
+				.addClass( 'empty' )
+				.prop( 'href', '#' );
+
+			this.$licensePara = $( '<p>' )
+				.addClass( 'mw-mlb-license-contain' )
+				.html( this.$license );
+
 			this.$title = $( '<p>' )
 				.addClass( 'mw-mlb-title' );
 
@@ -233,11 +242,18 @@
 					).plain()
 				);
 
-			this.$titleDiv = $( '<div>' )
-				.addClass( 'mw-mlb-title-contain' )
+			this.$titleAndCredit = $( '<div>' )
+				.addClass( 'mw-mlb-title-credit' )
 				.append(
 					this.$title,
 					this.$credit
+				);
+
+			this.$titleDiv = $( '<div>' )
+				.addClass( 'mw-mlb-title-contain' )
+				.append(
+					this.$titleAndCredit,
+					this.$licensePara
 				);
 
 			this.$controlBar.append( this.$titleDiv );
@@ -363,6 +379,7 @@
 			repoInfo, articlePath,
 			desc,
 			datetime, dtmsg,
+			license, msgname,
 			username,
 			source, author,
 			ui = this.lightbox.iface,
@@ -482,7 +499,31 @@
 			}
 
 			ui.$credit.toggleClass( 'empty', !Boolean( source ) && !Boolean( author ) );
+
+			license = extmeta.License;
 		}
+
+		if ( license ) {
+			license = license.value;
+		}
+
+		msgname = 'multimediaviewer-license-' + ( license || '' );
+
+		if ( !license || !mw.messages.exists( msgname ) ) {
+			// Cannot display, fallback or fail
+			license = 'default';
+			msgname = 'multimediaviewer-license-default';
+		}
+
+		if ( license ) {
+			articlePath = articlePath || mw.config.get( 'wgArticlePath', '' );
+			ui.$license
+				.text( mw.message( msgname ).text() )
+				.prop( 'href', articlePath.replace( '$1', fileTitle.getPrefixedText() ) )
+				.toggleClass( 'cc-license', license.substr( 0, 2 ) === 'cc' );
+		}
+
+		ui.$license.toggleClass( 'empty', !license );
 	};
 
 	MultimediaViewer.prototype.fetchImageInfo = function ( fileTitle, cb ) {
