@@ -17,6 +17,16 @@
 
 ( function ( mw, $ ) {
 	var MultiLightbox, LightboxImage, lightboxHooks,
+		validExtensions = {
+			'jpg': true,
+			'jpeg': true,
+			'gif': true,
+			'svg': true,
+			'png': true,
+			'tiff': true,
+			'tif': true
+		},
+
 		iiprops = [
 			'timestamp',
 			'user',
@@ -48,6 +58,11 @@
 				filePageLink = $link.prop( 'href' ),
 				fileTitle = mw.Title.newFromImg( $thumb ),
 				index = urls.length;
+
+			if ( !validExtensions[fileTitle.getExtension().toLowerCase()] ) {
+				// Not a valid extension, skip this one
+				return;
+			}
 
 			$links.data( 'filePageLink', filePageLink );
 			urls.push( new LightboxImage( fileLink ) );
