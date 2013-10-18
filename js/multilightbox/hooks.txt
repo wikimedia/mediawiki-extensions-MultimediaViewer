@@ -62,3 +62,13 @@ noPrevImage
 	Arguments: None
 	ThisArg: MultiLightbox
 	Called: From MultiLightbox prev method when user tries to reach negative index
+
+fullscreen
+	Arguments: None
+	ThisArg: LightboxInterface
+	Called: From LightboxInterface fullscreen method when user is going to fullscreen interface.
+
+defullscreen
+	Arguments: None
+	ThisArg: LightboxInterface
+	Called: From LightboxInterface fullscreen method when user is leaving fullscreen interface.

@@ -204,7 +204,7 @@
 				.html( this.$imageDescDiv )
 				.append( this.$imageLinkDiv );
 
-			this.$wrapper.append( this.$imageMetadata );
+			this.$postDiv.append( this.$imageMetadata );
 
 			this.$repo = $( '<a>' )
 				.addClass( 'mw-mlb-repo' )
@@ -225,6 +225,18 @@
 				.append( this.$title );
 
 			this.$controlBar.append( this.$titleDiv );
+		} );
+
+		lightboxHooks.register( 'fullscreen', function () {
+			if ( this.$imageMetadata ) {
+				this.$imageMetadata.hide();
+			}
+		} );
+
+		lightboxHooks.register( 'defullscreen', function () {
+			if ( this.$imageMetadata ) {
+				this.$imageMetadata.show();
+			}
 		} );
 	}
 

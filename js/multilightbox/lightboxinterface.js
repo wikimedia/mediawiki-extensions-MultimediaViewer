@@ -102,8 +102,10 @@
 				}
 			}
 
-			this.$fullscreen.detach();
 			this.$wrapper.html( this.$main.detach() );
+			this.$fullscreen = this.$fullscreen.detach();
+
+			lightboxHooks.callAll( 'defullscreen', this );
 		} else {
 			this.$fullscreen = this.$fullscreen || $( '<div>' )
 				.addClass( 'mlb-fullscreen-div' );
@@ -120,6 +122,8 @@
 			} else if ( fullscreen.webkitRequestFullScreen ) {
 				fullscreen.webkitRequestFullScreen();
 			}
+
+			lightboxHooks.callAll( 'fullscreen', this );
 		}
 
 		this.isFullScreen = !this.isFullScreen;
