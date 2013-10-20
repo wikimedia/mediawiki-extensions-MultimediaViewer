@@ -42,13 +42,23 @@ $messages['qqq'] = array(
 	'multimediaviewer-file-page' => 'Text for a link to the file page for an image.',
 );
 
+/** Arabic (العربية)
+ * @author مشعل الحربي
+ */
+$messages['ar'] = array(
+	'multimediaviewer-desc' => 'توسيع المصغرات إلى حجم أكبر في نافذة منبثقة.',
+	'multimediaviewer-pref' => 'عارض الوسائط',
+	'multimediaviewer-pref-desc' => 'حسن تجربة مشاهدة الوسائط المتعددة مع هذه الأداة الجديدة، حيث تعمل على عرض الصور بحجم أكبر على الصفحات التي تحتوي صورًا مصغرة. وتظهر الصور في صندوق منبثق أجمل، ويمكن أيضًا عرضها بالحجم الكامل.',
+	'multimediaviewer-file-page' => 'الذهاب إلى الصفحة التابعة للملف',
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  */
 $messages['de'] = array(
-	'multimediaviewer-desc' => 'Ergänzt einen schöneren Multimediabetrachter für Bilder',
-	'multimediaviewer-pref' => 'Schönere Bildbetrachtung aktivieren',
-	'multimediaviewer-pref-desc' => 'Aktiviert einen schöneren Multimediabetrachter für Bilder auf Seiten, die Vorschaubilder enthalten. Benutzt eine Drittpartei-Lightbox-Bibliothek und JavaScript.',
+	'multimediaviewer-desc' => 'Vorschaubilder in einem Leuchtkasten vergrößern.',
+	'multimediaviewer-pref' => 'Medienbetrachter',
+	'multimediaviewer-pref-desc' => 'Dieses neue Werkzeug steigert dein Multimedia-Betrachtungserlebnis. Es zeigt Bilder auf Seiten größer an, die Vorschaubilder haben. Bilder werden in einem schöneren Leuchtkastenoverlay angezeigt und können auch als Vollbild dargestellt werden.',
 	'multimediaviewer-file-page' => 'Gehe zur dazugehörigen Dateiseite',
 );
 
@@ -76,6 +86,7 @@ $messages['gl'] = array(
  * @author Shirayuki
  */
 $messages['ja'] = array(
+	'multimediaviewer-pref' => 'メディア ビューアー',
 	'multimediaviewer-file-page' => '対応するファイル ページに移動',
 );
 
@@ -91,9 +102,9 @@ $messages['ko'] = array(
  * @author Bjankuloski06
  */
 $messages['mk'] = array(
-	'multimediaviewer-desc' => 'Додава поубав прегледувач на слики',
-	'multimediaviewer-pref' => 'Вклучи поубаво прегледување на слики',
-	'multimediaviewer-pref-desc' => 'Дава поубаво прегледување на слики на страници со минијатури. Користи надворешна Lightbox-библиотека и JavaScript.',
+	'multimediaviewer-desc' => 'Зголемување на минијатурите во прегледувач на слики',
+	'multimediaviewer-pref' => 'Прегледувач на слики и снимки',
+	'multimediaviewer-pref-desc' => 'Дава поубаво прегледување на слики на страници. Ги прикажува поголеми на страниците со минијатури. Можат да се прегледуваат и во полна големина.',
 	'multimediaviewer-file-page' => 'Оди на соодветната податотечна страница',
 );
 
@@ -111,9 +122,9 @@ $messages['ru'] = array(
  * @author Andriykopanytsia
  */
 $messages['uk'] = array(
-	'multimediaviewer-desc' => 'Додає приємніший мультимедійний переглядач зображень',
-	'multimediaviewer-pref' => 'Увімкнути приємніший перегляд зображень',
-	'multimediaviewer-pref-desc' => 'Вмикає приємніший мультимедійний переглядач зображень на сторінки, які містять ескізи. Використовується у сторонніх бібліотеках lightbox і JavaScript.',
+	'multimediaviewer-desc' => 'Розгорнути мініатюри в більшому розмірі у лайтбоксі.',
+	'multimediaviewer-pref' => 'Медіа переглядач',
+	'multimediaviewer-pref-desc' => 'Поліпшити ваші враження від перегляду мультимедіа з цим новим інструментом. Він відображає зображення у більшому розмірі на сторінках, які мають ескізи. Зображення показані у кращому накладенні і також відображаються в натуральну величину.',
 	'multimediaviewer-file-page' => 'Перейти на сторінку відповідного файлу',
 );
 
