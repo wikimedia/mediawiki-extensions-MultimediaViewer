@@ -86,7 +86,9 @@ $messages['gl'] = array(
  * @author Shirayuki
  */
 $messages['ja'] = array(
+	'multimediaviewer-desc' => '縮小画像を lightbox 内に拡大表示する',
 	'multimediaviewer-pref' => 'メディア ビューアー',
+	'multimediaviewer-pref-desc' => 'この新しいツールは、マルチメディアの表示体験を改善します。縮小画像があるページで、その画像をより大きなサイズで表示します。画像は lightbox オーバーレイ内に表示され、完全なサイズで表示させることもできます。',
 	'multimediaviewer-file-page' => '対応するファイル ページに移動',
 );
 
@@ -112,9 +114,9 @@ $messages['mk'] = array(
  * @author Okras
  */
 $messages['ru'] = array(
-	'multimediaviewer-desc' => 'Добавляет более красивый просмотрщик изображений',
-	'multimediaviewer-pref' => 'Включить более красивый просмотрщик изображений',
-	'multimediaviewer-pref-desc' => 'Включает более красивый просмотрщик изображений на страницах, имеющих миниатюры. Использует стороннюю лайтбокс-библиотеку и JavaScript.',
+	'multimediaviewer-desc' => 'Добавляет более красивый просмотрщик изображений', # Fuzzy
+	'multimediaviewer-pref' => 'Медиа-просмотрщик',
+	'multimediaviewer-pref-desc' => 'Включает более красивый просмотрщик изображений на страницах, имеющих миниатюры. Использует стороннюю лайтбокс-библиотеку и JavaScript.', # Fuzzy
 	'multimediaviewer-file-page' => 'Перейти на страницу соответствующего файла',
 );
 
@@ -129,11 +131,12 @@ $messages['uk'] = array(
 );
 
 /** Simplified Chinese (中文（简体）‎)
+ * @author Liuxinyu970226
  * @author Qiyue2001
  */
 $messages['zh-hans'] = array(
-	'multimediaviewer-desc' => '添加一个更美观的图像多媒体查看器',
-	'multimediaviewer-pref' => '启用更美观的图像查看器',
-	'multimediaviewer-pref-desc' => '启用更美观的多媒体查看器查看有缩略图的页面上的图像。使用第三方库Lightbox和JavaScript。',
+	'multimediaviewer-desc' => '添加一个更美观的图像多媒体查看器', # Fuzzy
+	'multimediaviewer-pref' => '媒体查看器',
+	'multimediaviewer-pref-desc' => '启用更美观的多媒体查看器查看有缩略图的页面上的图像。使用第三方库Lightbox和JavaScript。', # Fuzzy
 	'multimediaviewer-file-page' => '转到相应的文件页',
 );
