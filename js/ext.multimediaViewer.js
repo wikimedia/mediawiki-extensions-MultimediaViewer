@@ -79,6 +79,42 @@
 				viewer.lightbox.open();
 
 				viewer.fetchImageInfo( fileTitle, function ( imageInfo ) {
+					function whitelistHtml( $ele ) {
+						function test( $ele ) {
+							return $ele.jquery && (
+								$ele.is( 'a' ) ||
+								false
+							);
+						}
+
+						var $children,
+							whitelisted = '';
+
+						if ( $ele && $ele.jquery && $ele.contents ) {
+							$children = $ele.contents();
+						} else if ( $ele && $ele.textContent ) {
+							return $ele.textContent;
+						} else if ( $ele ) {
+							return $ele;
+						}
+
+						if ( !$children || $children.length === 0 ) {
+							return $ele.text();
+						}
+
+						$children.each( function ( i, ele ) {
+							var $ele = $( ele );
+
+							if ( test( $ele ) === true ) {
+								whitelisted += $ele.html( whitelistHtml( $ele ) ).get( 0 ).outerHTML;
+							} else {
+								whitelisted += '<span>' + whitelistHtml( $ele ) + '</span>';
+							}
+						} );
+
+						return whitelisted;
+					}
+
 					var extmeta,
 						repoInfo, articlePath,
 						ui = viewer.lightbox.iface,
