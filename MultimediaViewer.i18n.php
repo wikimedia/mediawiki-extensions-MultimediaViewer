@@ -52,6 +52,16 @@ $messages['ar'] = array(
 	'multimediaviewer-file-page' => 'الذهاب إلى الصفحة التابعة للملف',
 );
 
+/** Asturian (asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'multimediaviewer-desc' => 'Espande les miniatures a mayor tamañu nun visor.',
+	'multimediaviewer-pref' => 'Visor de medios',
+	'multimediaviewer-pref-desc' => 'Ameyore la esperiencia al ver multimedia con esta nueva ferramienta. Amuesa les imaxes a mayor tamañu nes páxines que tienen miniatures. Les imaxes vense nuna guapa capa de visor, y puen vese tamién a tamañu completu.',
+	'multimediaviewer-file-page' => 'Dir a la páxina del ficheru correspondiente',
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  */
@@ -114,9 +124,9 @@ $messages['mk'] = array(
  * @author Okras
  */
 $messages['ru'] = array(
-	'multimediaviewer-desc' => 'Добавляет более красивый просмотрщик изображений', # Fuzzy
+	'multimediaviewer-desc' => 'Раскрывает эскизы в большие изображения внутри лайтбокса.',
 	'multimediaviewer-pref' => 'Медиа-просмотрщик',
-	'multimediaviewer-pref-desc' => 'Включает более красивый просмотрщик изображений на страницах, имеющих миниатюры. Использует стороннюю лайтбокс-библиотеку и JavaScript.', # Fuzzy
+	'multimediaviewer-pref-desc' => 'Улучшает просмотр мультимедиа-файлов новым инструментом. Он раскрывает эскизы в большие изображения внутри лайтбокса. Изображения показываются в более красивом лайтбоксе, а также могут быть открыты в оригинальном разрешении.',
 	'multimediaviewer-file-page' => 'Перейти на страницу соответствующего файла',
 );
 
