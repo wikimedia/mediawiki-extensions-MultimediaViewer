@@ -57,7 +57,7 @@
 			this.$main
 		);
 
-		lightboxHooks.callAll( 'modifyinterface', this );
+		lightboxHooks.callAll( 'modifyInterface', this );
 
 		window.addEventListener( 'keyup', function ( e ) {
 			if ( e.keyCode === 27 ) {
