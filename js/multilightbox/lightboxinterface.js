@@ -76,6 +76,12 @@
 
 	LIP = LightboxInterface.prototype;
 
+	LIP.empty = function () {
+		this.$imageDiv.empty();
+
+		lightboxHooks.callAll( 'clearInterface', this );
+	};
+
 	LIP.attach = function () {
 		$( document.body )
 			.append(

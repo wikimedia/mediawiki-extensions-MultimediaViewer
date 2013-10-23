@@ -238,6 +238,11 @@
 				this.$imageMetadata.show();
 			}
 		} );
+
+		lightboxHooks.register( 'clearInterface', function () {
+			this.$imageDesc.empty();
+			this.$title.empty();
+		} );
 	}
 
 	MultimediaViewer.prototype.fetchRepoInfo = function ( cb ) {

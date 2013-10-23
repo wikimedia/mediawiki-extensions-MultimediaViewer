@@ -72,3 +72,8 @@ defullscreen
 	Arguments: None
 	ThisArg: LightboxInterface
 	Called: From LightboxInterface fullscreen method when user is leaving fullscreen interface.
+
+clearInterface
+	Arguments: None
+	ThisArg: LightboxInterface
+	Called: From LightboxInterface empty method when the interface is being cleared.
