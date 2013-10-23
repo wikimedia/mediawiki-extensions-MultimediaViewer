@@ -26,7 +26,7 @@
 		return ele;
 	};
 
-	LIP.autoResize = function ( ele ) {
+	LIP.autoResize = function ( ele, ratio ) {
 		function updateRatios() {
 			if ( imgHeight ) {
 				imgHeightRatio = imgMaxHeight / imgHeight;
@@ -38,12 +38,13 @@
 		}
 
 		var imgWidthRatio, imgHeightRatio,
+			multRatio = ratio || 0.5,
 			$window = $( window ),
 			winWidth = $window.width(),
 			winHeight = $window.height(),
 			$img = $( ele ),
-			imgMaxWidth = winWidth * 0.5,
-			imgMaxHeight = winHeight * 0.5,
+			imgMaxWidth = winWidth * multRatio,
+			imgMaxHeight = winHeight * multRatio,
 			imgWidth = $img.width(),
 			imgHeight = $img.height();
 

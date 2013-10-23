@@ -63,6 +63,9 @@
 			if ( e.keyCode === 27 ) {
 				// Escape button pressed
 				lbinterface.unattach();
+				if ( lbinterface.isFullScreen ) {
+					lbinterface.fullscreen();
+				}
 			}
 		} );
 
@@ -135,10 +138,10 @@
 				iface.$imageDiv.html( ele );
 				image.globalMaxWidth = iface.$image.width();
 				image.globalMaxHeight = iface.$image.height();
-				image.autoResize( ele );
+				image.autoResize( ele, iface.isFullScreen ? 0.9 : 0.5 );
 
 				window.addEventListener( 'resize', function () {
-					image.autoResize( ele );
+					image.autoResize( ele, iface.isFullScreen ? 0.9 : 0.5 );
 				} );
 
 				lightboxHooks.callAll( 'imageLoaded', iface );
