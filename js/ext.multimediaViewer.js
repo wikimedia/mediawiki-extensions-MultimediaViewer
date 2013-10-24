@@ -131,10 +131,29 @@
 						return whitelisted;
 					}
 
+					function setUserpageLink( username, gender ) {
+						var userpage = 'User:' + username,
+							userTitle = mw.Title.newFromText( userpage );
+
+						ui.$username
+							.text(
+								mw.message( 'multimediaviewer-userpage-link', username, gender ).text()
+							)
+							.prop( 'href', userTitle.getUrl() );
+
+						if ( articlePath ) {
+							ui.$username
+								.prop( 'href', articlePath.replace( '$1', userTitle.getPrefixedText() ) );
+						}
+
+						ui.$usernameLi.toggleClass( 'empty', !Boolean( username ) );
+					}
+
 					var extmeta,
 						repoInfo, articlePath,
 						desc,
 						datetime, dtmsg,
+						username,
 						ui = viewer.lightbox.iface,
 						innerInfo = imageInfo.imageinfo[0] || {};
 
@@ -169,6 +188,28 @@
 					}
 
 					ui.$repoLi.toggleClass( 'empty', !Boolean( repoInfo ) );
+
+					username = innerInfo.user;
+
+					if ( username ) {
+						// Fetch the gender from the uploader's home wiki
+						// TODO this is ugly as hell, let's fix this in core.
+						new mw.Api( {
+							ajax: {
+								url: repoInfo.apiurl || mw.util.wikiScript( 'api' )
+							}
+						} ).get( {
+							action: 'query',
+							list: 'users',
+							ususers: username,
+							usprop: 'gender'
+						} ).done( function ( data ) {
+							var gender = data.query.users[0].gender;
+							setUserpageLink( username, gender );
+						} ).fail( function () {
+							setUserpageLink( username, 'unknown' );
+						} );
+					}
 
 					extmeta = innerInfo.extmetadata;
 
@@ -262,6 +303,17 @@
 
 			this.$imageLinks.append( this.$datetimeLi );
 
+			this.$username = $( '<a>' )
+				.addClass( 'mw-mlb-username' )
+				.prop( 'href', '#' );
+
+			this.$usernameLi = $( '<li>' )
+				.addClass( 'mw-mlb-username-li' )
+				.addClass( 'empty' )
+				.html( this.$username );
+
+			this.$imageLinks.append( this.$usernameLi );
+
 			this.$title = $( '<p>' )
 				.addClass( 'mw-mlb-title' );
 
@@ -350,34 +402,34 @@
 
 				viewer.setRepoInfo( data.query.repos );
 
-				$.each( data.query.pages, function ( i, page ) {
-					imageInfo = page;
-					return false;
-				} );
+				if ( data.query.pages ) {
+					$.each( data.query.pages, function ( i, page ) {
+						imageInfo = page;
+						return false;
+					} );
 
-				if ( viewer.imageInfo[filename] === undefined ) {
-					if ( sitename === null ) {
-						viewer.imageInfo[filename] = imageInfo;
-					} else {
-						viewer.imageInfo[filename] = {};
+					if ( viewer.imageInfo[filename] === undefined ) {
+						if ( sitename === null ) {
+							viewer.imageInfo[filename] = imageInfo;
+						} else {
+							viewer.imageInfo[filename] = {};
+						}
+
+						viewer.imageInfo[filename].sites = {};
+
+						if ( !viewer.imageInfo[filename].imageinfo ||
+								viewer.imageInfo[filename].imageinfo.length === 0 ) {
+							viewer.imageInfo[filename].imageinfo = [{}];
+						}
 					}
 
-					viewer.imageInfo[filename].sites = {};
-
-					if ( !viewer.imageInfo[filename].imageinfo ||
-							viewer.imageInfo[filename].imageinfo.length === 0 ) {
-						viewer.imageInfo[filename].imageinfo = [{}];
-					}
+					viewer.imageInfo[filename].sites[sitename] = imageInfo;
 				}
 
-				viewer.imageInfo[filename].sites[sitename] = imageInfo;
-
-				if ( imageInfo.pageid ) {
-					viewer.imageInfo[filename].pageid = imageInfo.pageid;
+				if ( viewer.imageInfo[filename] ) {
+					// Give back the information we have
+					cb( viewer.imageInfo[filename], viewer.repoInfo );
 				}
-
-				// Give back the information we have
-				cb( viewer.imageInfo[filename], viewer.repoInfo );
 			};
 		}
 

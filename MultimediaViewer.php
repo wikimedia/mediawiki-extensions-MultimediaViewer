@@ -74,6 +74,7 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 		'multimediaviewer-repository',
 		'multimediaviewer-datetime-created',
 		'multimediaviewer-datetime-uploaded',
+		'multimediaviewer-userpage-link',
 	),
 ), $moduleInfo );
 
