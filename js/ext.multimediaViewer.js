@@ -63,13 +63,41 @@
 				viewer.lightbox.open();
 
 				viewer.fetchImageInfo( fileTitle, function ( imageInfo ) {
-					var ui = viewer.lightbox.iface,
+					var repoInfo, articlePath,
+						ui = viewer.lightbox.iface,
 						innerInfo = imageInfo.imageinfo[0] || {};
 
 					viewer.lightbox.images[index].src = innerInfo.url;
 					viewer.lightbox.open();
 
 					ui.$title.text( fileTitle.getNameText() );
+
+					if ( viewer.repoInfo ) {
+						repoInfo = viewer.repoInfo[imageInfo.imagerepository];
+					}
+
+					if ( repoInfo ) {
+						if ( repoInfo.displayname ) {
+							ui.$repo.text(
+								mw.message( 'multimediaviewer-repository', repoInfo.displayname ).text()
+							);
+						} else {
+							ui.$repo.text(
+								mw.message( 'multimediaviewer-repository', mw.config.get( 'wgSiteName' ) ).text()
+							);
+						}
+
+						if ( repoInfo.server && repoInfo.articlepath ) {
+							articlePath = repoInfo.server + repoInfo.articlepath;
+						} else {
+							articlePath = mw.config.get( 'wgArticlePath' );
+						}
+
+						ui.$repo
+							.prop( 'href', articlePath.replace( '$1', fileTitle.getPrefixedText() ) );
+					}
+
+					ui.$repoLi.toggleClass( 'empty', !Boolean( repoInfo ) );
 				} );
 
 				return false;
@@ -83,10 +111,10 @@
 		lightboxHooks.register( 'imageLoaded', function () {
 			// Add link wrapper to the image div, put image inside it
 			this.$imageLink = $( '<a>' )
-				.addClass( 'mw-mlb-image-link' )
-				.html( this.$image.detach() );
+			.addClass( 'mw-mlb-image-link' )
+			.html( this.$image.detach() );
 
-			this.$imageDiv.append( this.$imageLink );
+		this.$imageDiv.append( this.$imageLink );
 		} );
 
 		lightboxHooks.register( 'modifyInterface', function () {
@@ -110,6 +138,17 @@
 				.append( this.$imageLinkDiv );
 
 			this.$wrapper.append( this.$imageMetadata );
+
+			this.$repo = $( '<a>' )
+				.addClass( 'mw-mlb-repo' )
+				.prop( 'href', '#' );
+
+			this.$repoLi = $( '<li>' )
+				.addClass( 'mw-mlb-repo-li' )
+				.addClass( 'empty' )
+				.append( this.$repo );
+
+			this.$imageLinks.append( this.$repoLi );
 
 			this.$title = $( '<p>' )
 				.addClass( 'mw-mlb-title' );
@@ -136,6 +175,7 @@
 				if ( !data || !data.query ) {
 					// Damn, failure. Do it gracefully-ish.
 					cb( {} );
+					return;
 				}
 
 				viewer.setRepoInfo( data.query.repos );
@@ -162,8 +202,6 @@
 	MultimediaViewer.prototype.fetchImageInfo = function ( fileTitle, cb ) {
 		function apiCallback( sitename ) {
 			return function ( data ) {
-				var ii, iikeys, i;
-
 				if ( !data || !data.query ) {
 					// No information, oh well
 					return;
@@ -193,16 +231,6 @@
 
 				viewer.imageInfo[filename].sites[sitename] = imageInfo;
 
-				ii = imageInfo.imageinfo[0];
-				iikeys = Object.keys( ii );
-				for ( i = 0; i < iikeys.length; i++ ) {
-					viewer.imageInfo[filename].imageinfo[0][iikeys[i]] = ii[iikeys[i]];
-				}
-
-				if ( imageInfo.title ) {
-					viewer.imageInfo[filename].title = imageInfo.title;
-				}
-
 				if ( imageInfo.pageid ) {
 					viewer.imageInfo[filename].pageid = imageInfo.pageid;
 				}
@@ -223,7 +251,7 @@
 				apiArgs.meta = 'filerepoinfo';
 			}
 
-			viewer.api.get( apiArgs ).done( apiCallback( '' ) );
+			viewer.api.get( apiArgs ).done( apiCallback( null ) );
 		}
 
 		var imageInfo,

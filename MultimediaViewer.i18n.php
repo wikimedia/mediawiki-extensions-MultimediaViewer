@@ -30,6 +30,7 @@ $messages['en'] = array(
 	'multimediaviewer-pref' => 'Media Viewer',
 	'multimediaviewer-pref-desc' => 'Improve your multimedia viewing experience with this new tool. It displays images in larger size on pages that have thumbnails. Images are shown in a nicer lightbox overlay, and can also be viewed in full-size.',
 	'multimediaviewer-file-page' => 'Go to corresponding file page',
+	'multimediaviewer-repository' => 'Learn more on $1',
 );
 
 /** Message documentation (Message documentation)
@@ -40,6 +41,7 @@ $messages['qqq'] = array(
 	'multimediaviewer-pref' => 'Preference title',
 	'multimediaviewer-pref-desc' => 'Description of preference',
 	'multimediaviewer-file-page' => 'Text for a link to the file page for an image.',
+	'multimediaviewer-repository' => 'Link to the repository where the image is hosted. $1 is the display name of that site.',
 );
 
 /** Arabic (العربية)
