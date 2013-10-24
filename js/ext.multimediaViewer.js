@@ -39,7 +39,15 @@
 			'mediatype',
 			'metadata',
 			'extmetadata'
-		];
+		],
+
+		mmvLogActions = {
+			'thumbnail-link-click': 'User clicked on thumbnail to open lightbox.',
+			'enlarge-link-click': 'User clicked on enlarge link to open lightbox.',
+			'fullscreen-link-click': 'User clicked on fullscreen button in lightbox.',
+			'defullscreen-link-click': 'User clicked on button to return to normal lightbox view.',
+			'close-link-click': 'User clicked on the lightbox close button.'
+		};
 
 	function MultimediaViewer() {
 		var $thumbs = $( '.thumbimage' ),
@@ -70,6 +78,14 @@
 			urls[index].filePageLink = filePageLink;
 
 			$links.click( function ( e ) {
+				var $this = $( this );
+
+				if ( $this.is( 'a.image' ) ) {
+					viewer.log( 'thumbnail-link-click' );
+				} else if ( $this.is( '.magnify a' ) ) {
+					viewer.log( 'enlarge-link-click' );
+				}
+
 				e.preventDefault();
 
 				viewer.lightbox.currentIndex = index;
@@ -202,6 +218,8 @@
 		} );
 
 		lightboxHooks.register( 'modifyInterface', function () {
+			var ui = this;
+
 			this.$imageDesc = $( '<p>' )
 				.addClass( 'mw-mlb-image-desc' );
 
@@ -252,6 +270,18 @@
 				.append( this.$title );
 
 			this.$controlBar.append( this.$titleDiv );
+
+			this.$closeButton.click( function () {
+				viewer.log( 'close-link-click' );
+			} );
+
+			this.$fullscreenButton.click( function () {
+				if ( ui.isFullScreen ) {
+					viewer.log( 'fullscreen-link-click' );
+				} else {
+					viewer.log( 'defullscreen-link-click' );
+				}
+			} );
 		} );
 
 		lightboxHooks.register( 'fullscreen', function () {
@@ -384,6 +414,19 @@
 		} else {
 			this.fetchRepoInfo( function ( res ) {
 				cb( viewer.imageInfo[filename], res );
+			} );
+		}
+	};
+
+	MultimediaViewer.prototype.log = function ( action ) {
+		mw.log( mmvLogActions[action] || action );
+
+		if ( mw.eventLog ) {
+			mw.eventLog.logEvent( 'MediaViewer', {
+				version: '1.0',
+				action: action,
+				userId: mw.user.getId(),
+				editCount: mw.config.get( 'wgUserEditCount', 0 )
 			} );
 		}
 	};
