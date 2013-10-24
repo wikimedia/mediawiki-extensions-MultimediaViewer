@@ -3,8 +3,6 @@
 	padding-left: 10px;
 	font-weight: bold;
 
-	color: white;
-
 	position: absolute;
 	bottom: 0px;
 	left: 0px;
@@ -40,9 +38,6 @@
 	right: 0px;
 	left: 0px;
 
-	background-color: black;
-	color: white;
-
 	text-align: left;
 	padding-left: 10px;
 }
@@ -52,7 +47,6 @@
 .mw-lightbox-extra-info-div a:visited,
 .mw-lightbox-extra-info-div a:active,
 .mw-lightbox-extra-info-div a:link {
-	color: white;
 	text-decoration: none;
 }
 
@@ -82,11 +76,17 @@
 
 .mlb-fullscreen {
 	background-image: url( '../img/mw-fullscreen.svg' );
+}
 
-.mw-mlb-file-title {
-	color: #FFFFFF;
+.mw-mlb-title-contain {
 	vertical-align: middle;
 	margin-left: 10px;
+}
+
+.mw-mlb-title {
+	margin-bottom: 1px;
+	margin-top: 0px;
+	padding: 0px;
 }
 
 .mw-mlb-image-metadata {
@@ -108,4 +108,22 @@
 
 .mw-mlb-image-links-div {
 	right: 0px;
+}
+
+.mw-mlb-image-links li {
+	list-style: none;
+}
+
+.mw-mlb-image-links li:before {
+	display: inline-block;
+	vertical-align: middle;
+	height: 16px;
+	width: 16px;
+	content: ' ';
+	margin-right: 10px;
+	background-size: contain;
+}
+
+.mw-mlb-image-links li.empty:before {
+	background-image: none !important;
 }

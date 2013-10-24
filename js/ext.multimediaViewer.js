@@ -58,25 +58,18 @@
 
 				viewer.lightbox.currentIndex = index;
 
-				viewer.fetchImageInfo( fileTitle, function ( imageInfo ) {
-					var $title, title;
+				// Open with a basic thumbnail and no information - fill in async
+				viewer.lightbox.images[index].src = this.src;
+				viewer.lightbox.open();
 
-					viewer.lightbox.images[index].src = imageInfo.imageinfo[0].url;
+				viewer.fetchImageInfo( fileTitle, function ( imageInfo ) {
+					var ui = viewer.lightbox.iface,
+						innerInfo = imageInfo.imageinfo[0] || {};
+
+					viewer.lightbox.images[index].src = innerInfo.url;
 					viewer.lightbox.open();
 
-					$title = $( '.mw-mlb-file-title' );
-
-					title = new mw.Title( imageInfo.title );
-
-					if ( $title.length === 0 ) {
-						$( '.mlb-controls' ).append(
-							$( '<span>' )
-								.addClass( 'mw-mlb-file-title' )
-								.text( title.getNameText() )
-						);
-					} else {
-						$title.text( title.getNameText() );
-					}
+					ui.$title.text( fileTitle.getNameText() );
 				} );
 
 				return false;
@@ -97,12 +90,16 @@
 		} );
 
 		lightboxHooks.register( 'modifyInterface', function () {
-			this.$imageDesc = $( '<p>' ).addClass( 'mw-mlb-image-desc' );
+			this.$imageDesc = $( '<p>' )
+				.addClass( 'mw-mlb-image-desc' );
+
 			this.$imageDescDiv = $( '<div>' )
 				.addClass( 'mw-mlb-image-desc-div' )
-				.html( this.$imageLinks );
+				.html( this.$imageDesc );
 
-			this.$imageLinks = $( '<ul>' ).addClass( 'mw-mlb-image-links' );
+			this.$imageLinks = $( '<ul>' )
+				.addClass( 'mw-mlb-image-links' );
+
 			this.$imageLinkDiv = $( '<div>' )
 				.addClass( 'mw-mlb-image-links-div' )
 				.html( this.$imageLinks );
@@ -113,6 +110,15 @@
 				.append( this.$imageLinkDiv );
 
 			this.$wrapper.append( this.$imageMetadata );
+
+			this.$title = $( '<p>' )
+				.addClass( 'mw-mlb-title' );
+
+			this.$titleDiv = $( '<div>' )
+				.addClass( 'mw-mlb-title-contain' )
+				.append( this.$title );
+
+			this.$controlBar.append( this.$titleDiv );
 		} );
 	}
 
