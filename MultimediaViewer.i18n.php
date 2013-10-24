@@ -31,6 +31,8 @@ $messages['en'] = array(
 	'multimediaviewer-pref-desc' => 'Improve your multimedia viewing experience with this new tool. It displays images in larger size on pages that have thumbnails. Images are shown in a nicer lightbox overlay, and can also be viewed in full-size.',
 	'multimediaviewer-file-page' => 'Go to corresponding file page',
 	'multimediaviewer-repository' => 'Learn more on $1',
+	'multimediaviewer-datetime-created' => 'Created on $1',
+	'multimediaviewer-datetime-uploaded' => 'Uploaded on $1',
 );
 
 /** Message documentation (Message documentation)
@@ -42,6 +44,8 @@ $messages['qqq'] = array(
 	'multimediaviewer-pref-desc' => 'Description of preference',
 	'multimediaviewer-file-page' => 'Text for a link to the file page for an image.',
 	'multimediaviewer-repository' => 'Link to the repository where the image is hosted. $1 is the display name of that site.',
+	'multimedia-datetime-created' => 'Date and time the image or work was created. $1 is always a date string, no need to translate.',
+	'multimedia-datetime-uploaded' => 'Date and time the image was uploaded - fallback in case there is no data for creation date. $1 is always a date string, no need to translate.',
 );
 
 /** Arabic (العربية)

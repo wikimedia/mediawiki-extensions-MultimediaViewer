@@ -118,6 +118,7 @@
 					var extmeta,
 						repoInfo, articlePath,
 						desc,
+						datetime, dtmsg,
 						ui = viewer.lightbox.iface,
 						innerInfo = imageInfo.imageinfo[0] || {};
 
@@ -164,6 +165,22 @@
 								whitelistHtml( $( desc ) )
 							);
 						}
+
+						datetime = extmeta.DateTimeOriginal || extmeta.DateTime;
+
+						if ( datetime ) {
+							dtmsg = (
+								'multimediaviewer-datetime-' +
+								( extmeta.DateTimeOriginal ? 'created' : 'uploaded' )
+							);
+							datetime = datetime.value;
+
+							ui.$datetime.text(
+								mw.message( dtmsg, datetime ).text()
+							);
+						}
+
+						ui.$datetimeLi.toggleClass( 'empty', !Boolean( datetime ) );
 					}
 				} );
 
@@ -216,6 +233,16 @@
 				.append( this.$repo );
 
 			this.$imageLinks.append( this.$repoLi );
+
+			this.$datetime = $( '<span>' )
+				.addClass( 'mw-mlb-datetime' );
+
+			this.$datetimeLi = $( '<li>' )
+				.addClass( 'mw-mlb-datetime-li' )
+				.addClass( 'empty' )
+				.html( this.$datetime );
+
+			this.$imageLinks.append( this.$datetimeLi );
 
 			this.$title = $( '<p>' )
 				.addClass( 'mw-mlb-title' );
