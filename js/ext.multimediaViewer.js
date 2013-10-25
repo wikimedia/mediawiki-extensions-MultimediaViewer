@@ -227,11 +227,17 @@
 						datetime = extmeta.DateTimeOriginal || extmeta.DateTime;
 
 						if ( datetime ) {
+							// get rid of HTML tags
+							datetime = datetime.value.replace( /<.*?>/g, '' );
+							// try to use built in date formatting
+							if ( new Date( datetime ) ) {
+								datetime = ( new Date( datetime ) ).toLocaleDateString();
+							}
+
 							dtmsg = (
 								'multimediaviewer-datetime-' +
 								( extmeta.DateTimeOriginal ? 'created' : 'uploaded' )
 							);
-							datetime = datetime.value;
 
 							ui.$datetime.text(
 								mw.message( dtmsg, datetime ).text()
