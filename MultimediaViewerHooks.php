@@ -23,11 +23,20 @@
 
 class MultimediaViewerHooks {
 
-	// Add JavaScript to the page when an image is on it
-	// and the user has enabled the feature.
+	/*
+	 * Handler for BeforePageDisplay hook
+	 * Add JavaScript to the page when an image is on it
+	 * and the user has enabled the feature if BetaFeatures is installed
+	 * @param OutputPage $out
+	 * @param Skin $skin
+	 * @return bool
+	 */
 	static function getModules( &$out, &$skin ) {
-		if ( BetaFeatures::isFeatureEnabled( $out->getUser(), 'multimedia-viewer' ) &&
-				count( $out->getFileSearchOptions() ) > 0 ) {
+		if ( class_exists( 'BetaFeatures')
+			&& !BetaFeatures::isFeatureEnabled( $out->getUser(), 'multimedia-viewer' ) ) {
+			return true;
+		}
+		if ( count( $out->getFileSearchOptions() ) > 0 ) {
 			$out->addModules( array( 'ext.multimediaViewer' ) );
 		}
 
