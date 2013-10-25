@@ -39,15 +39,15 @@ $messages['en'] = array(
 
 /** Message documentation (Message documentation)
  * @author Mark Holmquist <mtraceur@member.fsf.org>
+ * @author Shirayuki
  */
 $messages['qqq'] = array(
 	'multimediaviewer-desc' => '{{desc|name=Multimedia Viewer|url=https://www.mediawiki.org/wiki/Extension:MultimediaViewer}}',
 	'multimediaviewer-pref' => 'Preference title',
 	'multimediaviewer-pref-desc' => 'Description of preference',
 	'multimediaviewer-file-page' => 'Text for a link to the file page for an image.',
-	'multimediaviewer-repository' => 'Link to the repository where the image is hosted. $1 is the display name of that site.',
-	'multimedia-datetime-created' => 'Date and time the image or work was created. $1 is always a date string, no need to translate.',
-	'multimedia-datetime-uploaded' => 'Date and time the image was uploaded - fallback in case there is no data for creation date. $1 is always a date string, no need to translate.',
+	'multimediaviewer-repository' => 'Link to the repository where the image is hosted. Parameters:
+* $1 - the display name of that site',
 	'multimediaviewer-userpage-link' => 'Link to the user page for the uploader of the image. $1 is the username of the uploader, $2 is their gender.',
 	'multimediaviewer-credit' => 'Credit line for images - $1 is HTML describing the authour, $2 is HTML describing the source. Neither are usernames, so GENDER is useless. Both come directly from the API, the extended metadata imageinfo prop in particular. They will usually be derived from the HTML output from wikitext on a file description page - however, no complicated HTML, only links, will be allowed.',
 );
@@ -80,6 +80,10 @@ $messages['de'] = array(
 	'multimediaviewer-pref' => 'Medienbetrachter',
 	'multimediaviewer-pref-desc' => 'Dieses neue Werkzeug steigert dein Multimedia-Betrachtungserlebnis. Es zeigt Bilder auf Seiten größer an, die Vorschaubilder haben. Bilder werden in einem schöneren Leuchtkastenoverlay angezeigt und können auch als Vollbild dargestellt werden.',
 	'multimediaviewer-file-page' => 'Gehe zur dazugehörigen Dateiseite',
+	'multimediaviewer-repository' => 'Mehr erfahren auf $1',
+	'multimediaviewer-datetime-created' => 'Erstellt am $1',
+	'multimediaviewer-datetime-uploaded' => 'Hochgeladen am $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Hochgeladen}} von $1',
 );
 
 /** French (français)
@@ -110,6 +114,7 @@ $messages['ja'] = array(
 	'multimediaviewer-pref' => 'メディア ビューアー',
 	'multimediaviewer-pref-desc' => 'この新しいツールは、マルチメディアの表示体験を改善します。縮小画像があるページで、その画像をより大きなサイズで表示します。画像は lightbox オーバーレイ内に表示され、完全なサイズで表示させることもできます。',
 	'multimediaviewer-file-page' => '対応するファイル ページに移動',
+	'multimediaviewer-repository' => '$1の詳細情報',
 );
 
 /** Korean (한국어)
@@ -128,6 +133,7 @@ $messages['mk'] = array(
 	'multimediaviewer-pref' => 'Прегледувач на слики и снимки',
 	'multimediaviewer-pref-desc' => 'Дава поубаво прегледување на слики на страници. Ги прикажува поголеми на страниците со минијатури. Можат да се прегледуваат и во полна големина.',
 	'multimediaviewer-file-page' => 'Оди на соодветната податотечна страница',
+	'multimediaviewer-repository' => 'Дознајте повеќе на $1',
 );
 
 /** Russian (русский)
@@ -138,6 +144,7 @@ $messages['ru'] = array(
 	'multimediaviewer-pref' => 'Медиа-просмотрщик',
 	'multimediaviewer-pref-desc' => 'Улучшает просмотр мультимедиа-файлов новым инструментом. Он раскрывает эскизы в большие изображения внутри лайтбокса. Изображения показываются в более красивом лайтбоксе, а также могут быть открыты в оригинальном разрешении.',
 	'multimediaviewer-file-page' => 'Перейти на страницу соответствующего файла',
+	'multimediaviewer-repository' => 'Подробнее на $1',
 );
 
 /** Ukrainian (українська)
@@ -148,6 +155,10 @@ $messages['uk'] = array(
 	'multimediaviewer-pref' => 'Медіа переглядач',
 	'multimediaviewer-pref-desc' => 'Поліпшити ваші враження від перегляду мультимедіа з цим новим інструментом. Він відображає зображення у більшому розмірі на сторінках, які мають ескізи. Зображення показані у кращому накладенні і також відображаються в натуральну величину.',
 	'multimediaviewer-file-page' => 'Перейти на сторінку відповідного файлу',
+	'multimediaviewer-repository' => 'Дізнайтеся більше на $1',
+	'multimediaviewer-datetime-created' => 'Створено $1',
+	'multimediaviewer-datetime-uploaded' => 'Завантажено $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Завантажив|Завантажила}} $1',
 );
 
 /** Simplified Chinese (中文（简体）‎)
@@ -159,4 +170,5 @@ $messages['zh-hans'] = array(
 	'multimediaviewer-pref' => '媒体查看器',
 	'multimediaviewer-pref-desc' => '启用更美观的多媒体查看器查看有缩略图的页面上的图像。使用第三方库Lightbox和JavaScript。', # Fuzzy
 	'multimediaviewer-file-page' => '转到相应的文件页',
+	'multimediaviewer-repository' => '了解更多关于$1',
 );
