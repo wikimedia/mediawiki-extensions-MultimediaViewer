@@ -48,8 +48,28 @@ $messages['qqq'] = array(
 	'multimediaviewer-file-page' => 'Text for a link to the file page for an image.',
 	'multimediaviewer-repository' => 'Link to the repository where the image is hosted. Parameters:
 * $1 - the display name of that site',
-	'multimediaviewer-userpage-link' => 'Link to the user page for the uploader of the image. $1 is the username of the uploader, $2 is their gender.',
-	'multimediaviewer-credit' => 'Credit line for images - $1 is HTML describing the authour, $2 is HTML describing the source. Neither are usernames, so GENDER is useless. Both come directly from the API, the extended metadata imageinfo prop in particular. They will usually be derived from the HTML output from wikitext on a file description page - however, no complicated HTML, only links, will be allowed.',
+	'multimediaviewer-datetime-created' => 'Used in JavaScript code. Parameters:
+* $1 - time and date (formatted)
+See also:
+* {{msg-mw|Multimediaviewer-datetime-uploaded}}',
+	'multimediaviewer-datetime-uploaded' => 'Used in JavaScript code. Parameters:
+* $1 - time and date (formatted)
+See also:
+* {{msg-mw|Multimediaviewer-datetime-created}}',
+	'multimediaviewer-userpage-link' => 'Link to the user page for the uploader of the image.
+
+Used in JavaScript code.
+
+Parameters:
+* $1 - the username of the uploader
+* $2 - their gender',
+	'multimediaviewer-credit' => 'Credit line for images. Parameters:
+* $1 - HTML describing the author
+* $2 - HTML describing the source
+
+Neither parameters are usernames, so GENDER is useless. Both come directly from the API, the extended metadata imageinfo prop in particular.
+
+They will usually be derived from the HTML output from wikitext on a file description page - however, no complicated HTML, only links, will be allowed.',
 );
 
 /** Arabic (العربية)
@@ -86,14 +106,28 @@ $messages['de'] = array(
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Hochgeladen}} von $1',
 );
 
+/** Finnish (suomi)
+ * @author Nike
+ */
+$messages['fi'] = array(
+	'multimediaviewer-datetime-created' => 'Luotu $1',
+	'multimediaviewer-datetime-uploaded' => 'Tallennettu $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Tallentanut}} $1',
+);
+
 /** French (français)
  * @author Gomoko
+ * @author Ltrlg
  */
 $messages['fr'] = array(
-	'multimediaviewer-desc' => 'Ajoute une jolie visionneuse multimédia pour les images',
-	'multimediaviewer-pref' => 'Activer un affichage des images plus joli',
-	'multimediaviewer-pref-desc' => 'Active une jolie visionneuse multimédia pour les images dans les pages qui ont des vignettes. Utilise une bibliothèque tierce légère et JavaScript.',
+	'multimediaviewer-desc' => 'Agrandit les vignettes dans une visionneuse.',
+	'multimediaviewer-pref' => 'Visionneuse de Médias',
+	'multimediaviewer-pref-desc' => 'Active une jolie visionneuse multimédia pour les images dans les pages qui ont des vignettes. Utilise une bibliothèque tierce légère et JavaScript.', # Fuzzy
 	'multimediaviewer-file-page' => 'Aller à la page du fichier correspondant',
+	'multimediaviewer-repository' => 'En savoir plus sur $1',
+	'multimediaviewer-datetime-created' => 'Créé le $1',
+	'multimediaviewer-datetime-uploaded' => 'Téléversé le $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Téléversé}} par $1',
 );
 
 /** Galician (galego)
@@ -115,6 +149,9 @@ $messages['ja'] = array(
 	'multimediaviewer-pref-desc' => 'この新しいツールは、マルチメディアの表示体験を改善します。縮小画像があるページで、その画像をより大きなサイズで表示します。画像は lightbox オーバーレイ内に表示され、完全なサイズで表示させることもできます。',
 	'multimediaviewer-file-page' => '対応するファイル ページに移動',
 	'multimediaviewer-repository' => '$1の詳細情報',
+	'multimediaviewer-datetime-created' => '作成日時: $1',
+	'multimediaviewer-datetime-uploaded' => 'アップロード日時: $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|アップロード}}者: $1',
 );
 
 /** Korean (한국어)
@@ -123,6 +160,15 @@ $messages['ja'] = array(
 $messages['ko'] = array(
 	'multimediaviewer-desc' => '사진을 위한 더 편리한 멀티미디어 뷰어를 추가',
 	'multimediaviewer-pref' => '더 나은 사진 보기 활성화',
+);
+
+/** Luxembourgish (Lëtzebuergesch)
+ * @author Robby
+ */
+$messages['lb'] = array(
+	'multimediaviewer-repository' => 'Méi gewuer ginn op $1',
+	'multimediaviewer-datetime-uploaded' => 'Eropgelueden den $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Eropgeluede}} vum $1',
 );
 
 /** Macedonian (македонски)
@@ -134,6 +180,9 @@ $messages['mk'] = array(
 	'multimediaviewer-pref-desc' => 'Дава поубаво прегледување на слики на страници. Ги прикажува поголеми на страниците со минијатури. Можат да се прегледуваат и во полна големина.',
 	'multimediaviewer-file-page' => 'Оди на соодветната податотечна страница',
 	'multimediaviewer-repository' => 'Дознајте повеќе на $1',
+	'multimediaviewer-datetime-created' => 'Создадено на $1',
+	'multimediaviewer-datetime-uploaded' => 'Подигнато на $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Подигнато}} од $1',
 );
 
 /** Russian (русский)
@@ -145,6 +194,9 @@ $messages['ru'] = array(
 	'multimediaviewer-pref-desc' => 'Улучшает просмотр мультимедиа-файлов новым инструментом. Он раскрывает эскизы в большие изображения внутри лайтбокса. Изображения показываются в более красивом лайтбоксе, а также могут быть открыты в оригинальном разрешении.',
 	'multimediaviewer-file-page' => 'Перейти на страницу соответствующего файла',
 	'multimediaviewer-repository' => 'Подробнее на $1',
+	'multimediaviewer-datetime-created' => 'Создано в $1',
+	'multimediaviewer-datetime-uploaded' => 'Загружено в $1',
+	'multimediaviewer-userpage-link' => 'Загружено {{GENDER:$2|участником|участницей}} $1',
 );
 
 /** Ukrainian (українська)
@@ -159,6 +211,14 @@ $messages['uk'] = array(
 	'multimediaviewer-datetime-created' => 'Створено $1',
 	'multimediaviewer-datetime-uploaded' => 'Завантажено $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Завантажив|Завантажила}} $1',
+);
+
+/** Volapük (Volapük)
+ * @author Malafaya
+ */
+$messages['vo'] = array(
+	'multimediaviewer-datetime-created' => 'Pejafon tü $1',
+	'multimediaviewer-datetime-uploaded' => 'Pelöpükon tü $1',
 );
 
 /** Simplified Chinese (中文（简体）‎)
