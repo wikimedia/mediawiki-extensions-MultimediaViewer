@@ -152,3 +152,7 @@
 .mw-mlb-image-links li.mw-mlb-datetime-li.empty:before {
 	background-image: none;
 }
+
+.mw-mlb-credit.empty {
+	display: none;
+}
