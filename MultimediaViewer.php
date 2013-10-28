@@ -79,16 +79,21 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 	),
 ), $moduleInfo );
 
-if ( isset( $wgResourceModules['ext.eventLogging'] ) ) {
-	$wgResourceModules['schema.MediaViewer'] = array(
-		'class' => 'ResourceLoaderSchemaModule',
-		'schema' => 'MediaViewer',
-		'revision' => 6055641,
-	);
+$wgExtensionFunctions[] = function () {
+	global $wgResourceModules;
 
-	$wgResourceModules['ext.multimediaViewer']['dependencies'][] = 'ext.eventLogging';
-	$wgResourceModules['ext.multimediaViewer']['dependencies'][] = 'schema.MediaViewer';
-}
+	if ( isset( $wgResourceModules['ext.eventLogging'] ) ) {
+		$wgResourceModules['schema.MediaViewer'] = array(
+			'class' => 'ResourceLoaderSchemaModule',
+			'schema' => 'MediaViewer',
+			'revision' => 6055641,
+		);
+
+		$wgResourceModules['ext.multimediaViewer']['dependencies'][] = 'ext.eventLogging';
+		$wgResourceModules['ext.multimediaViewer']['dependencies'][] = 'schema.MediaViewer';
+	}
+};
+
 
 $wgAutoloadClasses['MultimediaViewerHooks'] = __DIR__ . '/MultimediaViewerHooks.php';
 $wgHooks['GetBetaFeaturePreferences'][] = 'MultimediaViewerHooks::getBetaPreferences';
