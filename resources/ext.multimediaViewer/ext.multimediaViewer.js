@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function ( mw, $, moment ) {
 	var MultiLightbox, LightboxImage, lightboxHooks, MMVP,
 		validExtensions = {
 			'jpg': true,
@@ -694,10 +694,7 @@
 			if ( datetime ) {
 				// get rid of HTML tags
 				datetime = datetime.value.replace( /<.*?>/g, '' );
-				// try to use built in date formatting
-				if ( new Date( datetime ) ) {
-					datetime = ( new Date( datetime ) ).toLocaleDateString();
-				}
+				datetime = this.formatDate( datetime );
 
 				dtmsg = (
 					'multimediaviewer-datetime-' +
@@ -866,6 +863,20 @@
 		}
 	};
 
+	/**
+	 * Transforms a date string into localized, human-readable format.
+	 * Unrecognized strings are returned unchanged.
+	 * @param {string} dateString
+	 * @return {string}
+	 */
+	MultimediaViewer.prototype.formatDate = function ( dateString ) {
+		var date = moment( dateString );
+		if ( !date.isValid() ) {
+			return dateString;
+		}
+		return date.format( 'LL' );
+	};
+
 	$( function () {
 		MultiLightbox = window.MultiLightbox;
 		LightboxImage = window.LightboxImage;
@@ -895,4 +906,4 @@
 			}
 		} );
 	};
-}( mediaWiki, jQuery ) );
+}( mediaWiki, jQuery, moment ) );
