@@ -77,3 +77,8 @@ clearInterface
 	Arguments: None
 	ThisArg: LightboxInterface
 	Called: From LightboxInterface empty method when the interface is being cleared.
+
+imageResize
+	Arguments: None
+	ThisArg: LightboxInterface
+	Called: From LightboxInterface resize listener. Return false to override default behaviour.

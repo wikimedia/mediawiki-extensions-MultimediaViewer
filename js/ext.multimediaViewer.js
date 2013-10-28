@@ -91,201 +91,19 @@
 				viewer.lightbox.currentIndex = index;
 
 				// Open with a basic thumbnail and no information - fill in async
-				viewer.lightbox.images[index].src = this.src;
+				viewer.lightbox.images[index].src = mw.config.get( 'wgScriptPath', '' ) + '/resources/jquery/images/spinner-large.gif';
 				viewer.lightbox.open();
 
 				viewer.fetchImageInfo( fileTitle, function ( imageInfo ) {
-					function whitelistHtml( $ele ) {
-						function test( $ele ) {
-							return $ele.jquery && (
-								$ele.is( 'a' ) ||
-								false
-							);
-						}
+					var imageEle = new Image();
 
-						var $children,
-							whitelisted = '';
+					imageEle.onload = function () {
+						viewer.lightbox.iface.replaceImageWith( imageEle );
 
-						if ( $ele && $ele.jquery && $ele.contents ) {
-							$children = $ele.contents();
-						} else if ( $ele && $ele.textContent ) {
-							return $ele.textContent;
-						} else if ( $ele ) {
-							return $ele;
-						}
+						viewer.setImageInfo( fileTitle, imageInfo );
+					};
 
-						if ( !$children || $children.length === 0 ) {
-							return $ele.text();
-						}
-
-						$children.each( function ( i, ele ) {
-							var $ele = $( ele );
-
-							if ( test( $ele ) === true ) {
-								whitelisted += $ele.html( whitelistHtml( $ele ) ).get( 0 ).outerHTML;
-							} else {
-								whitelisted += '<span>' + whitelistHtml( $ele ) + '</span>';
-							}
-						} );
-
-						return whitelisted;
-					}
-
-					function setUserpageLink( username, gender ) {
-						var userpage = 'User:' + username,
-							userTitle = mw.Title.newFromText( userpage );
-
-						ui.$username
-							.text(
-								mw.message( 'multimediaviewer-userpage-link', username, gender ).text()
-							)
-							.prop( 'href', userTitle.getUrl() );
-
-						if ( articlePath ) {
-							ui.$username
-								.prop( 'href', articlePath.replace( '$1', userTitle.getPrefixedText() ) );
-						}
-
-						ui.$usernameLi.toggleClass( 'empty', !Boolean( username ) );
-					}
-
-					var extmeta,
-						repoInfo, articlePath,
-						desc,
-						datetime, dtmsg,
-						username,
-						source, author,
-						ui = viewer.lightbox.iface,
-						innerInfo = imageInfo.imageinfo[0] || {};
-
-					viewer.lightbox.images[index].src = innerInfo.url;
-					viewer.lightbox.open();
-
-					ui.$title.text( fileTitle.getNameText() );
-
-					if ( viewer.repoInfo ) {
-						repoInfo = viewer.repoInfo[imageInfo.imagerepository];
-					}
-
-					if ( repoInfo ) {
-						if ( repoInfo.displayname ) {
-							ui.$repo.text(
-								mw.message( 'multimediaviewer-repository', repoInfo.displayname ).text()
-							);
-						} else {
-							ui.$repo.text(
-								mw.message( 'multimediaviewer-repository', mw.config.get( 'wgSiteName' ) ).text()
-							);
-						}
-
-						if ( repoInfo.server && repoInfo.articlepath ) {
-							articlePath = repoInfo.server + repoInfo.articlepath;
-						} else {
-							articlePath = mw.config.get( 'wgArticlePath' );
-						}
-
-						ui.$repo
-							.prop( 'href', articlePath.replace( '$1', fileTitle.getPrefixedText() ) );
-					}
-
-					ui.$repoLi.toggleClass( 'empty', !Boolean( repoInfo ) );
-
-					username = innerInfo.user;
-
-					if ( username ) {
-						// Fetch the gender from the uploader's home wiki
-						// TODO this is ugly as hell, let's fix this in core.
-						new mw.Api( {
-							ajax: {
-								url: repoInfo.apiurl || mw.util.wikiScript( 'api' )
-							}
-						} ).get( {
-							action: 'query',
-							list: 'users',
-							ususers: username,
-							usprop: 'gender'
-						} ).done( function ( data ) {
-							var gender = data.query.users[0].gender;
-							setUserpageLink( username, gender );
-						} ).fail( function () {
-							setUserpageLink( username, 'unknown' );
-						} );
-					}
-
-					extmeta = innerInfo.extmetadata;
-
-					if ( extmeta ) {
-						desc = extmeta.ImageDescription;
-
-						if ( desc ) {
-							desc = desc.value;
-							ui.$imageDesc.html(
-								whitelistHtml( $( desc ) )
-							);
-						}
-
-						datetime = extmeta.DateTimeOriginal || extmeta.DateTime;
-
-						if ( datetime ) {
-							// get rid of HTML tags
-							datetime = datetime.value.replace( /<.*?>/g, '' );
-							// try to use built in date formatting
-							if ( new Date( datetime ) ) {
-								datetime = ( new Date( datetime ) ).toLocaleDateString();
-							}
-
-							dtmsg = (
-								'multimediaviewer-datetime-' +
-								( extmeta.DateTimeOriginal ? 'created' : 'uploaded' )
-							);
-
-							ui.$datetime.text(
-								mw.message( dtmsg, datetime ).text()
-							);
-						}
-
-						ui.$datetimeLi.toggleClass( 'empty', !Boolean( datetime ) );
-
-						source = extmeta.Credit;
-						author = extmeta.Artist;
-
-						if ( source ) {
-							source = source.value;
-							ui.$source.html( source );
-						}
-
-						if ( author ) {
-							author = author.value;
-							ui.$author.html( author );
-						}
-
-						ui.$author.html(
-							whitelistHtml( ui.$author )
-						);
-
-						ui.$source.html(
-							whitelistHtml( ui.$source )
-						);
-
-						if ( source && author ) {
-							ui.$credit.html(
-								mw.message(
-									'multimediaviewer-credit',
-									ui.$author.get( 0 ).outerHTML,
-									ui.$source.get( 0 ).outerHTML
-								).plain()
-							);
-						} else {
-							// Clobber the contents and only have one of the fields
-							if ( source ) {
-								ui.$credit.html( ui.$source );
-							} else if ( author ) {
-								ui.$credit.html( ui.$author );
-							}
-						}
-
-						ui.$credit.toggleClass( 'empty', !Boolean( source ) && !Boolean( author ) );
-					}
+					imageEle.src = imageInfo.imageinfo[0].thumburl || imageInfo.imageinfo[0].url;
 				} );
 
 				return false;
@@ -295,6 +113,41 @@
 		if ( $thumbs.length > 0 ) {
 			this.lightbox = new MultiLightbox( urls );
 		}
+
+		lightboxHooks.register( 'imageResize', function () {
+			var api = new mw.Api(),
+				ratio = this.isFullScreen ? 0.9 : 0.5,
+				filename = viewer.currentImageFilename,
+				ui = this;
+
+			api.get( {
+				action: 'query',
+				format: 'json',
+				titles: filename,
+				prop: 'imageinfo',
+				iiprop: 'url',
+				iiurlwidth: Math.floor( ratio * $( window ).width() * 1.1 ),
+				iiurlheight: Math.floor( ratio * $( window ).height() * 1.1 )
+			} ).done( function ( data ) {
+				var imageInfo, innerInfo,
+					image = new Image();
+
+				$.each( data.query.pages, function ( i, page ) {
+					imageInfo = page;
+					return false;
+				} );
+
+				innerInfo = imageInfo.imageinfo[0];
+
+				image.onload = function () {
+					ui.replaceImageWith( image );
+				};
+
+				image.src = innerInfo.thumburl || innerInfo.url;
+			} );
+
+			return false;
+		} );
 
 		lightboxHooks.register( 'imageLoaded', function () {
 			// Add link wrapper to the image div, put image inside it
@@ -418,6 +271,8 @@
 		lightboxHooks.register( 'clearInterface', function () {
 			this.$imageDesc.empty();
 			this.$title.empty();
+
+			viewer.currentImageFilename = null;
 		} );
 	}
 
@@ -459,6 +314,197 @@
 		}
 	};
 
+	MultimediaViewer.prototype.setImageInfo = function ( fileTitle, imageInfo ) {
+		function whitelistHtml( $ele ) {
+			function test( $ele ) {
+				return $ele.jquery && (
+					$ele.is( 'a' ) ||
+					false
+				);
+			}
+
+			var $children,
+				whitelisted = '';
+
+			if ( $ele && $ele.jquery && $ele.contents ) {
+				$children = $ele.contents();
+			} else if ( $ele && $ele.textContent ) {
+				return $ele.textContent;
+			} else if ( $ele ) {
+				return $ele;
+			}
+
+			if ( !$children || $children.length === 0 ) {
+				return $ele.text();
+			}
+
+			$children.each( function ( i, ele ) {
+				var $ele = $( ele );
+
+				if ( test( $ele ) === true ) {
+					whitelisted += $ele.html( whitelistHtml( $ele ) ).get( 0 ).outerHTML;
+				} else {
+					whitelisted += '<span>' + whitelistHtml( $ele ) + '</span>';
+				}
+			} );
+
+			return whitelisted;
+		}
+
+		function setUserpageLink( username, gender ) {
+			var userpage = 'User:' + username,
+				userTitle = mw.Title.newFromText( userpage );
+
+			ui.$username
+				.text(
+					mw.message( 'multimediaviewer-userpage-link', username, gender ).text()
+				)
+				.prop( 'href', userTitle.getUrl() );
+
+			if ( articlePath ) {
+				ui.$username
+					.prop( 'href', articlePath.replace( '$1', userTitle.getPrefixedText() ) );
+			}
+
+			ui.$usernameLi.toggleClass( 'empty', !Boolean( username ) );
+		}
+
+		var extmeta,
+			repoInfo, articlePath,
+			desc,
+			datetime, dtmsg,
+			username,
+			source, author,
+			ui = this.lightbox.iface,
+			innerInfo = imageInfo.imageinfo[0] || {};
+
+		ui.$title.text( fileTitle.getNameText() );
+
+		if ( this.repoInfo ) {
+			repoInfo = this.repoInfo[imageInfo.imagerepository];
+		}
+
+		if ( repoInfo ) {
+			if ( repoInfo.displayname ) {
+				ui.$repo.text(
+					mw.message( 'multimediaviewer-repository', repoInfo.displayname ).text()
+				);
+			} else {
+				ui.$repo.text(
+					mw.message( 'multimediaviewer-repository', mw.config.get( 'wgSiteName' ) ).text()
+				);
+			}
+
+			if ( repoInfo.server && repoInfo.articlepath ) {
+				articlePath = repoInfo.server + repoInfo.articlepath;
+			} else {
+				articlePath = mw.config.get( 'wgArticlePath' );
+			}
+
+			ui.$repo
+				.prop( 'href', articlePath.replace( '$1', fileTitle.getPrefixedText() ) );
+		}
+
+		ui.$repoLi.toggleClass( 'empty', !Boolean( repoInfo ) );
+
+		username = innerInfo.user;
+
+		if ( username ) {
+			// Fetch the gender from the uploader's home wiki
+			// TODO this is ugly as hell, let's fix this in core.
+			new mw.Api( {
+				ajax: {
+					url: repoInfo.apiurl || mw.util.wikiScript( 'api' )
+				}
+			} ).get( {
+				action: 'query',
+				list: 'users',
+				ususers: username,
+				usprop: 'gender'
+			} ).done( function ( data ) {
+				var gender = data.query.users[0].gender;
+				setUserpageLink( username, gender );
+			} ).fail( function () {
+				setUserpageLink( username, 'unknown' );
+			} );
+		}
+
+		extmeta = innerInfo.extmetadata;
+
+		if ( extmeta ) {
+			desc = extmeta.ImageDescription;
+
+			if ( desc ) {
+				desc = desc.value;
+				ui.$imageDesc.html(
+					whitelistHtml( $( desc ) )
+				);
+			}
+
+			datetime = extmeta.DateTimeOriginal || extmeta.DateTime;
+
+			if ( datetime ) {
+				// get rid of HTML tags
+				datetime = datetime.value.replace( /<.*?>/g, '' );
+				// try to use built in date formatting
+				if ( new Date( datetime ) ) {
+					datetime = ( new Date( datetime ) ).toLocaleDateString();
+				}
+
+				dtmsg = (
+					'multimediaviewer-datetime-' +
+					( extmeta.DateTimeOriginal ? 'created' : 'uploaded' )
+				);
+
+				ui.$datetime.text(
+					mw.message( dtmsg, datetime ).text()
+				);
+			}
+
+			ui.$datetimeLi.toggleClass( 'empty', !Boolean( datetime ) );
+
+			source = extmeta.Credit;
+			author = extmeta.Artist;
+
+			if ( source ) {
+				source = source.value;
+				ui.$source.html( source );
+			}
+
+			if ( author ) {
+				author = author.value;
+				ui.$author.html( author );
+			}
+
+			ui.$author.html(
+				whitelistHtml( ui.$author )
+			);
+
+			ui.$source.html(
+				whitelistHtml( ui.$source )
+			);
+
+			if ( source && author ) {
+				ui.$credit.html(
+					mw.message(
+						'multimediaviewer-credit',
+						ui.$author.get( 0 ).outerHTML,
+						ui.$source.get( 0 ).outerHTML
+					).plain()
+				);
+			} else {
+				// Clobber the contents and only have one of the fields
+				if ( source ) {
+					ui.$credit.html( ui.$source );
+				} else if ( author ) {
+					ui.$credit.html( ui.$author );
+				}
+			}
+
+			ui.$credit.toggleClass( 'empty', !Boolean( source ) && !Boolean( author ) );
+		}
+	};
+
 	MultimediaViewer.prototype.fetchImageInfo = function ( fileTitle, cb ) {
 		function apiCallback( sitename ) {
 			return function ( data ) {
@@ -474,6 +520,8 @@
 						imageInfo = page;
 						return false;
 					} );
+
+					viewer.currentImageFilename = filename;
 
 					if ( viewer.imageInfo[filename] === undefined ) {
 						if ( sitename === null ) {
@@ -516,12 +564,15 @@
 
 		var imageInfo,
 			filename = fileTitle.getPrefixedText(),
+			ratio = this.lightbox.iface.isFullScreen ? 0.9 : 0.5,
 			apiArgs = {
 				action: 'query',
 				format: 'json',
 				titles: filename,
 				prop: 'imageinfo',
 				iiprop: iiprops.join( '|' ),
+				iiurlwidth: Math.floor( ratio * $( window ).width() * 1.1 ),
+				iiurlheight: Math.floor( ratio * $( window ).height() * 1.1 ),
 				// Short-circuit, don't fallback, to save some tiny amount of time
 				iiextmetadatalanguage: mw.config.get( 'wgUserLanguage', false ) || mw.config.get( 'wgContentLanguage', 'en' )
 			},

@@ -147,7 +147,11 @@
 				image.autoResize( ele, iface.isFullScreen ? 0.9 : 0.5 );
 
 				window.addEventListener( 'resize', function () {
-					image.autoResize( ele, iface.isFullScreen ? 0.9 : 0.5 );
+					var result = lightboxHooks.callAll( 'imageResize', iface );
+
+					if ( result !== false ) {
+						image.autoResize( iface.$image.get( 0 ), iface.isFullScreen ? 0.9 : 0.5 );
+					}
 				} );
 
 				lightboxHooks.callAll( 'imageLoaded', iface );
@@ -155,6 +159,19 @@
 			iface = this;
 
 		this.currentImage = image;
+	};
+
+	LIP.replaceImageWith = function ( imageEle ) {
+		var $image = $( imageEle );
+
+		this.currentImage.src = imageEle.src;
+
+		this.$image.replaceWith( $image );
+		this.$image = $image;
+
+		this.currentImage.globalMaxWidth = this.$image.width();
+		this.currentImage.globalMaxHeight = this.$image.height();
+		this.currentImage.autoResize( imageEle, this.isFullScreen ? 0.9 : 0.5 );
 	};
 
 	LIP.setupPreDiv = function ( buildDefaults, toAdd ) {
