@@ -46,7 +46,8 @@
 			'enlarge-link-click': 'User clicked on enlarge link to open lightbox.',
 			'fullscreen-link-click': 'User clicked on fullscreen button in lightbox.',
 			'defullscreen-link-click': 'User clicked on button to return to normal lightbox view.',
-			'close-link-click': 'User clicked on the lightbox close button.'
+			'close-link-click': 'User clicked on the lightbox close button.',
+			'site-link-click': 'User clicked on the link to the file description page.'
 		};
 
 	function MultimediaViewer() {
@@ -295,9 +296,28 @@
 	};
 
 	MMVP.initializeRepoLink = function () {
+		var viewer = this;
+
 		this.ui.$repo = $( '<a>' )
 			.addClass( 'mw-mlb-repo' )
 			.prop( 'href', '#' );
+
+		this.ui.$repo.click( function ( e ) {
+			var $link = $( this );
+			viewer.log( 'site-link-click' );
+			// If the user is navigating away, we have to add a timeout to fix that.
+			if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey ) {
+				// Just ignore this case - either they're opening in a new
+				// window and the logging will work, or they're not trying to
+				// navigate away from the page and we should leave them alone.
+				return;
+			}
+
+			e.preventDefault();
+			setTimeout( function () {
+				window.location.href = $link.prop( 'href' );
+			}, 500 );
+		} );
 
 		this.ui.$repoLi = $( '<li>' )
 			.addClass( 'mw-mlb-repo-li' )
