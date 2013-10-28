@@ -144,9 +144,9 @@ $messages['gl'] = array(
  * @author Shirayuki
  */
 $messages['ja'] = array(
-	'multimediaviewer-desc' => '縮小画像を lightbox 内に拡大表示する',
+	'multimediaviewer-desc' => '縮小画像を Lightbox 内に拡大表示する',
 	'multimediaviewer-pref' => 'メディア ビューアー',
-	'multimediaviewer-pref-desc' => 'この新しいツールは、マルチメディアの表示体験を改善します。縮小画像があるページで、その画像をより大きなサイズで表示します。画像は lightbox オーバーレイ内に表示され、完全なサイズで表示させることもできます。',
+	'multimediaviewer-pref-desc' => 'この新しいツールは、マルチメディアの表示体験を改善します。縮小画像があるページで、その画像をより大きなサイズで表示します。画像は Lightbox オーバーレイ内に表示され、完全なサイズで表示させることもできます。',
 	'multimediaviewer-file-page' => '対応するファイル ページに移動',
 	'multimediaviewer-repository' => '$1の詳細情報',
 	'multimediaviewer-datetime-created' => '作成日時: $1',
