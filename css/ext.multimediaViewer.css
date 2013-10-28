@@ -121,6 +121,8 @@
 
 .mw-mlb-image-links li {
 	list-style: none;
+	font-size: 0.8em;
+	color: #3f4040;
 }
 
 .mw-mlb-image-links li:before {
