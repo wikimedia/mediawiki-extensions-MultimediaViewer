@@ -201,3 +201,16 @@
 .mw-mlb-license {
 	text-align: right;
 }
+
+.mw-mlb-image-links li.empty {
+	display: none;
+}
+
+.mw-mlb-use-file-dialog label {
+	display: block;
+	font-weight: bold;
+}
+
+.mw-mlb-use-file-dialog input {
+	width: 100%;
+}

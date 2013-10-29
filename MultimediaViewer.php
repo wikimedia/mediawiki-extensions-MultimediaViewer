@@ -67,6 +67,7 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 		'multilightbox',
 		'multilightbox.image',
 		'mediawiki.Title',
+		'jquery.ui.dialog',
 	),
 
 	'messages' => array(
@@ -76,6 +77,10 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 		'multimediaviewer-datetime-uploaded',
 		'multimediaviewer-userpage-link',
 		'multimediaviewer-credit',
+		'multimediaviewer-use-file',
+		'multimediaviewer-use-file-owt',
+		'multimediaviewer-use-file-own',
+		'multimediaviewer-use-file-offwiki',
 	),
 ), $moduleInfo );
 

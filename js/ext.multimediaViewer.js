@@ -222,6 +222,110 @@
 				.addClass( 'mw-mlb-license-contain' )
 				.html( this.$license );
 
+			this.$useFile = $( '<a>' )
+				.addClass( 'mw-mlb-usefile' )
+				.prop( 'href', '#' )
+				.text( mw.message( 'multimediaviewer-use-file' ).text() )
+				.click( function () {
+					function selectAllOnEvent() {
+						var $this = $( this );
+
+						if ( $this.is( 'label' ) ) {
+							$this = $this.parent().find( '#' + $this.prop( 'for' ) );
+						}
+
+						$this.selectAll();
+
+						return false;
+					}
+
+					var $this = $( this ),
+
+						fileTitle = $this.data( 'title' ),
+
+						filename = fileTitle.getPrefixedText(),
+						desc = fileTitle.getNameText(),
+
+						src = $this.data( 'src' ),
+						link = $this.data( 'link' ) || src,
+
+						owtId = 'mw-mlb-use-file-onwiki-thumb',
+						ownId = 'mw-mlb-use-file-onwiki-normal',
+						owId = 'mw-mlb-use-file-offwiki',
+
+						$owtLabel = $( '<label>' )
+							.prop( 'for', owtId )
+							.text( mw.message( 'multimediaviewer-use-file-owt' ).text() ),
+
+						$owtField = $( '<input>' )
+							.prop( 'type', 'text' )
+							.prop( 'id', owtId )
+							.prop( 'readonly', true )
+							.click( selectAllOnEvent )
+							.val( '[[' + filename + '|thumb|' + desc + ']]' ),
+
+						$onWikiThumb = $( '<div>' )
+							.append( $owtLabel,
+								$owtField
+							),
+
+						$ownLabel = $( '<label>' )
+							.prop( 'for', ownId )
+							.text( mw.message( 'multimediaviewer-use-file-own' ).text() ),
+
+						$ownField = $( '<input>' )
+							.prop( 'type', 'text' )
+							.prop( 'id', ownId )
+							.prop( 'readonly', true )
+							.click( selectAllOnEvent )
+							.val( '[[' + filename + '|' + desc + ']]' ),
+
+						$onWikiNormal = $( '<div>' )
+							.append(
+								$ownLabel,
+								$ownField
+							),
+
+						$owLabel = $( '<label>' )
+							.prop( 'for', owId )
+							.text( mw.message( 'multimediaviewer-use-file-offwiki' ).text() ),
+
+						$owField = $( '<input>' )
+							.prop( 'type', 'text' )
+							.prop( 'id', owId )
+							.prop( 'readonly', true )
+							.click( selectAllOnEvent )
+							.val( '<a href="' + link + '"><img src="' + src + '" /></a>' ),
+
+						$offWiki = $( '<div>' )
+							.append(
+								$owLabel,
+								$owField
+							);
+
+					ui.$dialog = $( '<div>' )
+						.addClass( 'mw-mlb-use-file-dialog' )
+						.append(
+							$onWikiThumb,
+							$onWikiNormal,
+							$offWiki
+						)
+						.dialog( {
+							width: 750
+						} );
+
+					$owtField.click();
+
+					return false;
+				} );
+
+			this.$useFileLi = $( '<li>' )
+				.addClass( 'mw-mlb-usefile-li' )
+				.addClass( 'empty' )
+				.append( this.$useFile );
+
+			this.$imageLinks.append( this.$useFileLi );
+
 			this.$title = $( '<p>' )
 				.addClass( 'mw-mlb-title' );
 
@@ -259,6 +363,10 @@
 			this.$controlBar.append( this.$titleDiv );
 
 			this.$closeButton.click( function () {
+				if ( ui.$dialog ) {
+					ui.$dialog.dialog( 'close' );
+				}
+
 				viewer.log( 'close-link-click' );
 			} );
 
@@ -288,6 +396,12 @@
 			this.$title.empty();
 
 			viewer.currentImageFilename = null;
+
+			this.$useFile.data( 'title', null );
+			this.$useFile.data( 'link', null );
+			this.$useFile.data( 'src', null );
+
+			this.$useFileLi.addClass( 'empty' );
 		} );
 	}
 
@@ -376,7 +490,7 @@
 		}
 
 		var extmeta,
-			repoInfo, articlePath,
+			repoInfo, articlePath, linkToRepo,
 			desc,
 			datetime, dtmsg,
 			license, msgname,
@@ -386,6 +500,10 @@
 			innerInfo = imageInfo.imageinfo[0] || {};
 
 		ui.$title.text( fileTitle.getNameText() );
+
+		ui.$useFile.data( 'title', fileTitle );
+		ui.$useFile.data( 'src', innerInfo.url );
+		ui.$useFileLi.removeClass( 'empty' );
 
 		if ( this.repoInfo ) {
 			repoInfo = this.repoInfo[imageInfo.imagerepository];
@@ -408,8 +526,14 @@
 				articlePath = mw.config.get( 'wgArticlePath' );
 			}
 
-			ui.$repo
-				.prop( 'href', articlePath.replace( '$1', fileTitle.getPrefixedText() ) );
+			linkToRepo = articlePath.replace( '$1', fileTitle.getPrefixedText() );
+
+			if ( repoInfo.local ) {
+				linkToRepo = mw.config.get( 'wgServer' ) + linkToRepo;
+			}
+
+			ui.$repo.prop( 'href', linkToRepo );
+			ui.$useFile.data( 'link', linkToRepo );
 		}
 
 		ui.$repoLi.toggleClass( 'empty', !Boolean( repoInfo ) );
@@ -632,4 +756,23 @@
 	} );
 
 	mw.MultimediaViewer = MultimediaViewer;
+
+	// Quick hack to select all text in a text box
+	$.fn.selectAll = function () {
+		return this.each( function () {
+			var range,
+				start = 0,
+				end = this.value.length;
+
+			if ( this.setSelectionRange ) {
+				this.setSelectionRange( start, end );
+			} else if ( this.createTextRange ) {
+				range = this.createTextRange();
+				range.collapse( true );
+				range.moveEnd( 'character', end );
+				range.moveStart( 'character', start );
+				range.select();
+			}
+		} );
+	};
 }( mediaWiki, jQuery ) );

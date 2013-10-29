@@ -51,6 +51,11 @@ $messages['en'] = array(
 	'multimediaviewer-license-cc-pd' => 'Public Domain',
 	'multimediaviewer-license-cc-zero' => 'CC 0',
 	'multimediaviewer-license-default' => 'Licensing information',
+
+	'multimediaviewer-use-file' => 'Use this file',
+	'multimediaviewer-use-file-owt' => 'Use this file on a wiki page, as a thumbnail',
+	'multimediaviewer-use-file-own' => 'Use this file on a wiki page, inline',
+	'multimediaviewer-use-file-offwiki' => 'Use this file on another website',
 );
 
 /** Message documentation (Message documentation)
@@ -72,8 +77,7 @@ See also:
 * $1 - time and date (formatted)
 See also:
 * {{msg-mw|Multimediaviewer-datetime-created}}',
-	'multimediaviewer-userpage-link' => 'Link to the user page for the uploader of the image. $1 is the username of the uploader, $2 is their gender.',
-	'multimediaviewer-credit' => 'Credit line for images - $1 is HTML describing the authour, $2 is HTML describing the source. Neither are usernames, so GENDER is useless. Both come directly from the API, the extended metadata imageinfo prop in particular. They will usually be derived from the HTML output from wikitext on a file description page - however, no complicated HTML, only links, will be allowed.',
+
 	'multimediaviewer-license-cc-by-1.0' => 'Very short label for the Creative Commons Attribution license, version 1.0, used in a link to the file information page that has more licensing information.',
 	'multimediaviewer-license-cc-sa-1.0' => 'Very short label for the Creative Commons ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.',
 	'multimediaviewer-license-cc-by-sa-1.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.',
@@ -88,6 +92,26 @@ See also:
 	'multimediaviewer-license-cc-pd' => 'Very short label for the Creative Commons Public Domain license, used in a link to the file information page that has more licensing information.',
 	'multimediaviewer-license-cc-zero' => 'Very short label for the Creative Commons Zero license, used in a link to the file information page that has more licensing information.',
 	'multimediaviewer-license-default' => 'Short label for a link to generic license information.',
+
+	'multimediaviewer-userpage-link' => 'Link to the user page for the uploader of the image.
+
+Used in JavaScript code.
+
+Parameters:
+* $1 - the username of the uploader
+* $2 - their gender',
+	'multimediaviewer-credit' => 'Credit line for images. Parameters:
+* $1 - HTML describing the author
+* $2 - HTML describing the source
+
+Neither parameters are usernames, so GENDER is useless. Both come directly from the API, the extended metadata imageinfo prop in particular.
+
+They will usually be derived from the HTML output from wikitext on a file description page - however, no complicated HTML, only links, will be allowed.',
+
+	'multimediaviewer-use-file' => 'Link that opens a dialog with options for sharing the file, e.g. onwiki or on another site. Similar to the Commons gadget stockPhoto.',
+	'multimediaviewer-use-file-owt' => 'Label for wikitext used to show an image with the thumb option and a helpful caption. Similar to the Commons gadget stockPhoto.',
+	'multimediaviewer-use-file-own' => 'Label for wikitext used to show an image inline with a helpful title attribute. Similar to the Commons gadget stockPhoto.',
+	'multimediaviewer-use-file-offwiki' => 'Label for HTML used to show an image on an external site, with a link back to the wiki. Similar to the Commons gadget stockPhoto.',
 );
 
 /** Arabic (العربية)
