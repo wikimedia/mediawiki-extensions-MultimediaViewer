@@ -22,6 +22,11 @@
  */
 
 class MultimediaViewerHooks {
+	/** Link to more information about this module */
+	protected static $infoLink = '//mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer';
+
+	/** Link to a page where this module can be discussed */
+	protected static $discussionLink = '//mediawiki.org/wiki/Special:MyLanguage/Talk:Multimedia/About_Media_Viewer';
 
 	/*
 	 * Handler for BeforePageDisplay hook
@@ -31,7 +36,7 @@ class MultimediaViewerHooks {
 	 * @param Skin $skin
 	 * @return bool
 	 */
-	static function getModules( &$out, &$skin ) {
+	public static function getModules( &$out, &$skin ) {
 		if ( class_exists( 'BetaFeatures')
 			&& !BetaFeatures::isFeatureEnabled( $out->getUser(), 'multimedia-viewer' ) ) {
 			return true;
@@ -44,17 +49,30 @@ class MultimediaViewerHooks {
 	}
 
 	// Add a beta preference to gate the feature
-	static function getBetaPreferences( $user, &$prefs ) {
+	public static function getBetaPreferences( $user, &$prefs ) {
 		global $wgExtensionAssetsPath;
 
 		$prefs['multimedia-viewer'] = array(
 			'label-message' => 'multimediaviewer-pref',
 			'desc-message' => 'multimediaviewer-pref-desc',
-			'info-link' => 'https://mediawiki.org/wiki/Multimedia/Media_Viewer',
-			'discussion-link' => 'https://mediawiki.org/wiki/Talk:Multimedia/Media_Viewer',
+			'info-link' => self::$infoLink,
+			'discussion-link' => self::$discussionLink,
 			'screenshot' => $wgExtensionAssetsPath . '/MultimediaViewer/img/viewer.svg',
 		);
 
+		return true;
+	}
+
+	/**
+	 * Export variables used in both PHP and JS to keep DRY
+	 * @param array $vars
+	 * @return bool
+	 */
+	public static function resourceLoaderGetConfigVars( &$vars ) {
+		$vars['wgMultimediaViewer'] = array(
+			'infoLink' => self::$infoLink,
+			'discussionLink' => self::$discussionLink,
+		);
 		return true;
 	}
 }

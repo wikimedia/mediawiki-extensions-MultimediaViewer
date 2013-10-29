@@ -181,6 +181,26 @@
 
 			this.$postDiv.append( this.$imageMetadata );
 
+			this.$mmvAboutLink = $( '<a>' )
+				.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).infoLink )
+				.text( mw.message( 'multimediaviewer-about-mmv' ).text() )
+				.addClass( 'mw-mlb-mmv-about-link' );
+
+			this.$mmvDiscussLink = $( '<a>' )
+				.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).discussionLink )
+				.text( mw.message( 'multimediaviewer-discuss-mmv' ).text() )
+				.addClass( 'mw-mlb-mmv-discuss-link' );
+
+			this.$mmvAboutLinks = $( '<div>' )
+				.addClass( 'mw-mlb-mmv-about-links' )
+				.append(
+					this.$mmvAboutLink,
+					' | ',
+					this.$mmvDiscussLink
+				);
+
+			this.$imageMetadata.append( this.$mmvAboutLinks );
+
 			this.$repo = $( '<a>' )
 				.addClass( 'mw-mlb-repo' )
 				.prop( 'href', '#' );

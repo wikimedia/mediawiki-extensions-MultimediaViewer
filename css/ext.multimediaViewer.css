@@ -104,21 +104,12 @@
 
 .mw-mlb-image-desc-div,
 .mw-mlb-image-links-div {
+	display: inline-block;
 	width: 50%;
-	position: absolute;
-	top: 0px;
-}
-
-.mw-mlb-image-desc-div {
-	left: 0px;
 }
 
 .mw-mlb-image-desc {
 	color: #6f7073;
-}
-
-.mw-mlb-image-links-div {
-	right: 0px;
 }
 
 .mw-mlb-image-links li {
@@ -213,4 +204,10 @@
 
 .mw-mlb-use-file-dialog input {
 	width: 100%;
+}
+
+.mw-mlb-mmv-about-links {
+	font-size: 0.8em;
+	padding-top: 20px;
+	width: 50%;
 }

@@ -56,6 +56,9 @@ $messages['en'] = array(
 	'multimediaviewer-use-file-owt' => 'Use this file on a wiki page, as a thumbnail',
 	'multimediaviewer-use-file-own' => 'Use this file on a wiki page, inline',
 	'multimediaviewer-use-file-offwiki' => 'Use this file on another website',
+
+	'multimediaviewer-about-mmv' => 'About Media Viewer',
+	'multimediaviewer-discuss-mmv' => 'Leave feedback',
 );
 
 /** Message documentation (Message documentation)
@@ -112,6 +115,9 @@ They will usually be derived from the HTML output from wikitext on a file descri
 	'multimediaviewer-use-file-owt' => 'Label for wikitext used to show an image with the thumb option and a helpful caption. Similar to the Commons gadget stockPhoto.',
 	'multimediaviewer-use-file-own' => 'Label for wikitext used to show an image inline with a helpful title attribute. Similar to the Commons gadget stockPhoto.',
 	'multimediaviewer-use-file-offwiki' => 'Label for HTML used to show an image on an external site, with a link back to the wiki. Similar to the Commons gadget stockPhoto.',
+	
+	'multimediaviewer-about-mmv' => 'Text for a link to a page with more information about Media Viewer software.',
+	'multimediaviewer-discuss-mmv' => 'Text for a link to a page where the user can discuss the Media Viewer software.',
 );
 
 /** Arabic (العربية)

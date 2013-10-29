@@ -81,6 +81,8 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 		'multimediaviewer-use-file-owt',
 		'multimediaviewer-use-file-own',
 		'multimediaviewer-use-file-offwiki',
+		'multimediaviewer-about-mmv',
+		'multimediaviewer-discuss-mmv',
 	),
 ), $moduleInfo );
 
@@ -124,6 +126,7 @@ foreach ( $licenses as $license ) {
 $wgAutoloadClasses['MultimediaViewerHooks'] = __DIR__ . '/MultimediaViewerHooks.php';
 $wgHooks['GetBetaFeaturePreferences'][] = 'MultimediaViewerHooks::getBetaPreferences';
 $wgHooks['BeforePageDisplay'][] = 'MultimediaViewerHooks::getModules';
+$wgHooks['ResourceLoaderGetConfigVars'][] = 'MultimediaViewerHooks::resourceLoaderGetConfigVars';
 
 $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
