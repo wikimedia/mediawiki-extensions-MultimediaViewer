@@ -99,7 +99,6 @@
 
 					imageEle.onload = function () {
 						viewer.lightbox.iface.replaceImageWith( imageEle );
-
 						viewer.setImageInfo( fileTitle, imageInfo );
 					};
 
@@ -315,40 +314,31 @@
 	};
 
 	MultimediaViewer.prototype.setImageInfo = function ( fileTitle, imageInfo ) {
-		function whitelistHtml( $ele ) {
-			function test( $ele ) {
-				return $ele.jquery && (
-					$ele.is( 'a' ) ||
-					false
-				);
-			}
+		function whitelistHtml( $el ) {
+			var child, $prev, $child = $el.children().first();
 
-			var $children,
-				whitelisted = '';
+			while ( $child && $child.length ) {
+				child = $child.get( 0 );
 
-			if ( $ele && $ele.jquery && $ele.contents ) {
-				$children = $ele.contents();
-			} else if ( $ele && $ele.textContent ) {
-				return $ele.textContent;
-			} else if ( $ele ) {
-				return $ele;
-			}
-
-			if ( !$children || $children.length === 0 ) {
-				return $ele.text();
-			}
-
-			$children.each( function ( i, ele ) {
-				var $ele = $( ele );
-
-				if ( test( $ele ) === true ) {
-					whitelisted += $ele.html( whitelistHtml( $ele ) ).get( 0 ).outerHTML;
-				} else {
-					whitelisted += '<span>' + whitelistHtml( $ele ) + '</span>';
+				if ( child.nodeType !== child.ELEMENT_NODE ) {
+					return;
 				}
-			} );
 
-			return whitelisted;
+				whitelistHtml( $child );
+
+				if ( !$child.is( 'a' ) ) {
+					$prev = $child.prev();
+					$child.replaceWith( $child.contents() );
+				} else {
+					$prev = $child;
+				}
+
+				if ( $prev && $prev.length === 1 ) {
+					$child = $prev.next();
+				} else {
+					$child = $el.children().first();
+				}
+			}
 		}
 
 		function setUserpageLink( username, gender ) {
@@ -436,9 +426,7 @@
 
 			if ( desc ) {
 				desc = desc.value;
-				ui.$imageDesc.html(
-					whitelistHtml( $( desc ) )
-				);
+				whitelistHtml( ui.$imageDesc.append( $.parseHTML( desc ) ) );
 			}
 
 			datetime = extmeta.DateTimeOriginal || extmeta.DateTime;
@@ -468,21 +456,13 @@
 
 			if ( source ) {
 				source = source.value;
-				ui.$source.html( source );
+				whitelistHtml( ui.$source.empty().append( $.parseHTML( source ) ) );
 			}
 
 			if ( author ) {
 				author = author.value;
-				ui.$author.html( author );
+				whitelistHtml( ui.$author.empty().append( $.parseHTML( author ) ) );
 			}
-
-			ui.$author.html(
-				whitelistHtml( ui.$author )
-			);
-
-			ui.$source.html(
-				whitelistHtml( ui.$source )
-			);
 
 			if ( source && author ) {
 				ui.$credit.html(
