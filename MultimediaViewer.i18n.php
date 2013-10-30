@@ -72,25 +72,10 @@ See also:
 * $1 - time and date (formatted)
 See also:
 * {{msg-mw|Multimediaviewer-datetime-created}}',
-	'multimediaviewer-userpage-link' => 'Link to the user page for the uploader of the image.
-
-Used in JavaScript code.
-
-Parameters:
-* $1 - the username of the uploader
-* $2 - their gender',
-	'multimediaviewer-credit' => 'Credit line for images. Parameters:
-* $1 - HTML describing the author
-* $2 - HTML describing the source
-
-Neither parameters are usernames, so GENDER is useless. Both come directly from the API, the extended metadata imageinfo prop in particular.
-
-They will usually be derived from the HTML output from wikitext on a file description page - however, no complicated HTML, only links, will be allowed.',
 	'multimediaviewer-userpage-link' => 'Link to the user page for the uploader of the image. $1 is the username of the uploader, $2 is their gender.',
 	'multimediaviewer-credit' => 'Credit line for images - $1 is HTML describing the authour, $2 is HTML describing the source. Neither are usernames, so GENDER is useless. Both come directly from the API, the extended metadata imageinfo prop in particular. They will usually be derived from the HTML output from wikitext on a file description page - however, no complicated HTML, only links, will be allowed.',
-
-	'multimediaviewer-license-cc-sa-1.0' => 'Very short label for the Creative Commons ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.',
 	'multimediaviewer-license-cc-by-1.0' => 'Very short label for the Creative Commons Attribution license, version 1.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-sa-1.0' => 'Very short label for the Creative Commons ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.',
 	'multimediaviewer-license-cc-by-sa-1.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.',
 	'multimediaviewer-license-cc-by-2.0' => 'Very short label for the Creative Commons Attribution license, version 2.0, used in a link to the file information page that has more licensing information.',
 	'multimediaviewer-license-cc-by-sa-2.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.0, used in a link to the file information page that has more licensing information.',
@@ -106,6 +91,7 @@ They will usually be derived from the HTML output from wikitext on a file descri
 );
 
 /** Arabic (العربية)
+ * @author Claw eg
  * @author مشعل الحربي
  */
 $messages['ar'] = array(
@@ -113,6 +99,8 @@ $messages['ar'] = array(
 	'multimediaviewer-pref' => 'عارض الوسائط',
 	'multimediaviewer-pref-desc' => 'حسن تجربة مشاهدة الوسائط المتعددة مع هذه الأداة الجديدة، حيث تعمل على عرض الصور بحجم أكبر على الصفحات التي تحتوي صورًا مصغرة. وتظهر الصور في صندوق منبثق أجمل، ويمكن أيضًا عرضها بالحجم الكامل.',
 	'multimediaviewer-file-page' => 'الذهاب إلى الصفحة التابعة للملف',
+	'multimediaviewer-datetime-created' => 'أنشئت في $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|رفع}} بواسطة $1',
 );
 
 /** Asturian (asturianu)
@@ -123,6 +111,10 @@ $messages['ast'] = array(
 	'multimediaviewer-pref' => 'Visor de medios',
 	'multimediaviewer-pref-desc' => 'Ameyore la esperiencia al ver multimedia con esta nueva ferramienta. Amuesa les imaxes a mayor tamañu nes páxines que tienen miniatures. Les imaxes vense nuna guapa capa de visor, y puen vese tamién a tamañu completu.',
 	'multimediaviewer-file-page' => 'Dir a la páxina del ficheru correspondiente',
+	'multimediaviewer-repository' => 'Ver más en $1',
+	'multimediaviewer-datetime-created' => 'Creáu el $1',
+	'multimediaviewer-datetime-uploaded' => 'Xubíu el $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Xubíu}} por $1',
 );
 
 /** German (Deutsch)
