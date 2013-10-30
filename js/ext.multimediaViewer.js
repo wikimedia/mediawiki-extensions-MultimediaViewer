@@ -284,8 +284,20 @@
 		} );
 
 		lightboxHooks.register( 'clearInterface', function () {
-			this.$imageDesc.empty();
-			this.$title.empty();
+			this.$imageDesc.empty().addClass( 'empty' );
+			this.$title.empty().addClass( 'empty' );
+			this.$credit.empty().addClass( 'empty' );
+
+			this.$username.empty();
+			this.$usernameLi.addClass( 'empty' );
+
+			this.$repo.empty();
+			this.$repoLi.addClass( 'empty' );
+
+			this.$datetime.empty();
+			this.$datetimeLi.addClass( 'empty' );
+
+			this.$license.empty().addClass( 'empty' );
 
 			viewer.currentImageFilename = null;
 		} );
