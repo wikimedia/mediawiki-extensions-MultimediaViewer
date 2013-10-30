@@ -35,6 +35,22 @@ $messages['en'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Uploaded on $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Uploaded}} by $1',
 	'multimediaviewer-credit' => '$1 - $2',
+
+	// Licenses
+	'multimediaviewer-license-cc-by-1.0' => 'CC BY 1.0',
+	'multimediaviewer-license-cc-sa-1.0' => 'CC SA 1.0',
+	'multimediaviewer-license-cc-by-sa-1.0' => 'CC BY-SA 1.0',
+	'multimediaviewer-license-cc-by-2.0' => 'CC BY 2.0',
+	'multimediaviewer-license-cc-by-sa-2.0' => 'CC BY-SA 2.0',
+	'multimediaviewer-license-cc-by-2.1' => 'CC BY 2.1',
+	'multimediaviewer-license-cc-by-sa-2.1' => 'CC BY-SA 2.1',
+	'multimediaviewer-license-cc-by-2.5' => 'CC BY 2.5',
+	'multimediaviewer-license-cc-by-sa-2.5' => 'CC BY-SA 2.5',
+	'multimediaviewer-license-cc-by-3.0' => 'CC BY 3.0',
+	'multimediaviewer-license-cc-by-sa-3.0' => 'CC BY-SA 3.0',
+	'multimediaviewer-license-cc-pd' => 'Public Domain',
+	'multimediaviewer-license-cc-zero' => 'CC 0',
+	'multimediaviewer-license-default' => 'Licensing information',
 );
 
 /** Message documentation (Message documentation)
@@ -70,6 +86,23 @@ Parameters:
 Neither parameters are usernames, so GENDER is useless. Both come directly from the API, the extended metadata imageinfo prop in particular.
 
 They will usually be derived from the HTML output from wikitext on a file description page - however, no complicated HTML, only links, will be allowed.',
+	'multimediaviewer-userpage-link' => 'Link to the user page for the uploader of the image. $1 is the username of the uploader, $2 is their gender.',
+	'multimediaviewer-credit' => 'Credit line for images - $1 is HTML describing the authour, $2 is HTML describing the source. Neither are usernames, so GENDER is useless. Both come directly from the API, the extended metadata imageinfo prop in particular. They will usually be derived from the HTML output from wikitext on a file description page - however, no complicated HTML, only links, will be allowed.',
+
+	'multimediaviewer-license-cc-sa-1.0' => 'Very short label for the Creative Commons ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-1.0' => 'Very short label for the Creative Commons Attribution license, version 1.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-sa-1.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-2.0' => 'Very short label for the Creative Commons Attribution license, version 2.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-sa-2.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-2.1' => 'Very short label for the Creative Commons Attribution license, version 2.1, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-sa-2.1' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.1, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-2.5' => 'Very short label for the Creative Commons Attribution license, version 2.5, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-sa-2.5' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.5, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-3.0' => 'Very short label for the Creative Commons Attribution license, version 3.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-sa-3.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 3.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-pd' => 'Very short label for the Creative Commons Public Domain license, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-zero' => 'Very short label for the Creative Commons Zero license, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-default' => 'Short label for a link to generic license information.',
 );
 
 /** Arabic (العربية)

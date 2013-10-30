@@ -94,6 +94,27 @@ $wgExtensionFunctions[] = function () {
 	}
 };
 
+$licenses = array(
+	'cc-by-1.0',
+	'cc-sa-1.0',
+	'cc-by-sa-1.0',
+	'cc-by-2.0',
+	'cc-by-sa-2.0',
+	'cc-by-2.1',
+	'cc-by-sa-2.1',
+	'cc-by-2.5',
+	'cc-by-sa-2.5',
+	'cc-by-3.0',
+	'cc-by-sa-3.0',
+	'cc-by-sa-3.0-migrated',
+	'cc-pd',
+	'cc-zero',
+	'default',
+);
+
+foreach ( $licenses as $license ) {
+	$wgResourceModules['ext.multimediaViewer']['messages'][] = 'multimediaviewer-license-' . $license;
+}
 
 $wgAutoloadClasses['MultimediaViewerHooks'] = __DIR__ . '/MultimediaViewerHooks.php';
 $wgHooks['GetBetaFeaturePreferences'][] = 'MultimediaViewerHooks::getBetaPreferences';
