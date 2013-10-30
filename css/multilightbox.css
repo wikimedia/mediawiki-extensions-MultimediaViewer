@@ -9,7 +9,7 @@
 }
 
 .mlb-wrapper {
-	position: absolute;
+	position: fixed;
 	top: 0px;
 	left: 0px;
 	right: 0px;
@@ -85,8 +85,4 @@
 
 .mlb-fullscreen-div .mlb-fullscreen {
 	background-image: url("../img/defullscreen.svg");
-}
-
-.mw-mlb-credit.empty {
-	display: none;
 }
