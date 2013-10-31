@@ -141,7 +141,7 @@
 	LIP.load = function ( image ) {
 		var ele = image.getImageElement( function () {
 				iface.$image = $( ele );
-				iface.$imageDiv.html( ele );
+				iface.$imageDiv.append( iface.$image );
 				image.globalMaxWidth = iface.$image.width();
 				image.globalMaxHeight = iface.$image.height();
 				image.autoResize( ele, iface.isFullScreen ? 0.9 : 0.5 );
