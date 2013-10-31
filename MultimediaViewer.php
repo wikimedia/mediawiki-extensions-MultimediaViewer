@@ -68,6 +68,7 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 		'multilightbox.image',
 		'mediawiki.Title',
 		'jquery.ui.dialog',
+		'jquery.spinner',
 	),
 
 	'messages' => array(

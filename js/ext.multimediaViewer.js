@@ -90,15 +90,24 @@
 
 				viewer.lightbox.currentIndex = index;
 
-				// Open with a basic thumbnail and no information - fill in async
-				viewer.lightbox.images[index].src = mw.config.get( 'wgScriptPath', '' ) + '/resources/jquery/images/spinner-large.gif';
+				// Open with the already-loaded thumbnail
+				// Avoids trying to load /wiki/Undefined and doesn't
+				// cost any network time - the library currently needs
+				// some src attribute to work. Will fix.
+				viewer.lightbox.images[index].src = $this.closest( '.thumb' ).find( '.image img' ).prop( 'src' );
 				viewer.lightbox.open();
+				viewer.lightbox.iface.$imageDiv.append( $.createSpinner( {
+					id: 'mw-mlb-loading-spinner',
+					size: 'large'
+				} ) );
 
 				viewer.fetchImageInfo( fileTitle, function ( imageInfo ) {
 					var imageEle = new Image();
 
 					imageEle.onload = function () {
 						viewer.lightbox.iface.replaceImageWith( imageEle );
+						viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
+						$.removeSpinner( 'mw-mlb-loading-spinner' );
 						viewer.setImageInfo( fileTitle, imageInfo );
 					};
 
@@ -148,17 +157,11 @@
 			return false;
 		} );
 
-		lightboxHooks.register( 'imageLoaded', function () {
-			// Add link wrapper to the image div, put image inside it
-			this.$imageLink = $( '<a>' )
-			.addClass( 'mw-mlb-image-link' )
-			.html( this.$image.detach() );
-
-		this.$imageDiv.append( this.$imageLink );
-		} );
-
 		lightboxHooks.register( 'modifyInterface', function () {
 			var ui = this;
+
+			this.$imageDiv
+				.addClass( 'empty' );
 
 			this.$imageDesc = $( '<p>' )
 				.addClass( 'mw-mlb-image-desc' );
@@ -434,6 +437,8 @@
 			this.$useFile.data( 'src', null );
 
 			this.$useFileLi.addClass( 'empty' );
+
+			this.$imageDiv.addClass( 'empty' );
 		} );
 	}
 
