@@ -15,7 +15,7 @@
 					!document.mozFullScreenElement &&
 					!document.webkitFullScreenElement ) {
 				lbinterface.fullscreen();
-			} else if ( this.fullscreenButtonJustPressed ) {
+			} else if ( lbinterface.fullscreenButtonJustPressed ) {
 				lbinterface.fullscreenButtonJustPressed = false;
 			}
 		}
