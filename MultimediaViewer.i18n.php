@@ -80,22 +80,6 @@ See also:
 * $1 - time and date (formatted)
 See also:
 * {{msg-mw|Multimediaviewer-datetime-created}}',
-
-	'multimediaviewer-license-cc-by-1.0' => 'Very short label for the Creative Commons Attribution license, version 1.0, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-sa-1.0' => 'Very short label for the Creative Commons ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-sa-1.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-2.0' => 'Very short label for the Creative Commons Attribution license, version 2.0, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-sa-2.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.0, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-2.1' => 'Very short label for the Creative Commons Attribution license, version 2.1, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-sa-2.1' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.1, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-2.5' => 'Very short label for the Creative Commons Attribution license, version 2.5, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-sa-2.5' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.5, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-3.0' => 'Very short label for the Creative Commons Attribution license, version 3.0, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-sa-3.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 3.0, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-pd' => 'Very short label for the Creative Commons Public Domain license, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-zero' => 'Very short label for the Creative Commons Zero license, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-default' => 'Short label for a link to generic license information.',
-
 	'multimediaviewer-userpage-link' => 'Link to the user page for the uploader of the image.
 
 Used in JavaScript code.
@@ -110,12 +94,40 @@ Parameters:
 Neither parameters are usernames, so GENDER is useless. Both come directly from the API, the extended metadata imageinfo prop in particular.
 
 They will usually be derived from the HTML output from wikitext on a file description page - however, no complicated HTML, only links, will be allowed.',
-
+	'multimediaviewer-license-cc-by-1.0' => 'Very short label for the Creative Commons Attribution license, version 1.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-sa-1.0' => 'Very short label for the Creative Commons ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-sa-1.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-2.0' => 'Very short label for the Creative Commons Attribution license, version 2.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-sa-2.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-2.1' => 'Very short label for the Creative Commons Attribution license, version 2.1, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-sa-2.1' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.1, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-2.5' => 'Very short label for the Creative Commons Attribution license, version 2.5, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-sa-2.5' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.5, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-3.0' => 'Very short label for the Creative Commons Attribution license, version 3.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-sa-3.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 3.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-pd' => 'Very short label for the Creative Commons Public Domain license, used in a link to the file information page that has more licensing information.
+{{Identical|Public domain}}',
+	'multimediaviewer-license-cc-zero' => 'Very short label for the Creative Commons Zero license, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-default' => 'Short label for a link to generic license information.
+{{Identical|License information}}',
 	'multimediaviewer-use-file' => 'Link that opens a dialog with options for sharing the file, e.g. onwiki or on another site. Similar to the Commons gadget stockPhoto.',
-	'multimediaviewer-use-file-owt' => 'Label for wikitext used to show an image with the thumb option and a helpful caption. Similar to the Commons gadget stockPhoto.',
-	'multimediaviewer-use-file-own' => 'Label for wikitext used to show an image inline with a helpful title attribute. Similar to the Commons gadget stockPhoto.',
+	'multimediaviewer-use-file-owt' => 'Label for input box which has wikitext used to show an image with the thumb option and a helpful caption.
+
+The wikitext is like <code><nowiki>[[filename|thumb|desc]]</nowiki></code>.
+
+Similar to the Commons gadget stockPhoto.
+
+See also:
+* {{msg-mw|Multimediaviewer-use-file-own}}',
+	'multimediaviewer-use-file-own' => 'Label for input box which has wikitext used to show an image inline with a helpful title attribute.
+
+The wikitext is like <code><nowiki>[[filename|desc]]</nowiki></code>.
+
+Similar to the Commons gadget stockPhoto.
+
+See also:
+* {{msg-mw|Multimediaviewer-use-file-owt}}',
 	'multimediaviewer-use-file-offwiki' => 'Label for HTML used to show an image on an external site, with a link back to the wiki. Similar to the Commons gadget stockPhoto.',
-	
 	'multimediaviewer-about-mmv' => 'Text for a link to a page with more information about Media Viewer software.',
 	'multimediaviewer-discuss-mmv' => 'Text for a link to a page where the user can discuss the Media Viewer software.',
 );
@@ -149,6 +161,7 @@ $messages['ast'] = array(
 
 /** German (Deutsch)
  * @author Metalhead64
+ * @author Snatcher
  */
 $messages['de'] = array(
 	'multimediaviewer-desc' => 'Vorschaubilder in einem Leuchtkasten vergrößern.',
@@ -159,6 +172,28 @@ $messages['de'] = array(
 	'multimediaviewer-datetime-created' => 'Erstellt am $1',
 	'multimediaviewer-datetime-uploaded' => 'Hochgeladen am $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Hochgeladen}} von $1',
+	'multimediaviewer-license-cc-pd' => 'Gemeinfrei',
+	'multimediaviewer-license-default' => 'Lizenzinformation',
+	'multimediaviewer-use-file' => 'Diese Datei weiterverwenden',
+	'multimediaviewer-use-file-owt' => 'Diese Datei als Vorschaubild auf einer Wikiseite verwenden',
+	'multimediaviewer-use-file-own' => 'Diese Datei auf einer Wikiseite verwenden, Inline',
+	'multimediaviewer-use-file-offwiki' => 'Diese Datei auf einer anderen Website verwenden',
+	'multimediaviewer-about-mmv' => 'Über Media Viewer',
+	'multimediaviewer-discuss-mmv' => 'Eine Rückmeldung hinterlassen',
+);
+
+/** Spanish (español)
+ * @author Fitoschido
+ */
+$messages['es'] = array(
+	'multimediaviewer-pref' => 'Visor multimedia',
+	'multimediaviewer-pref-desc' => 'Mejore su experiencia de visualización multimedia con esta herramienta. Muestra imágenes en mayor tamaño en páginas que tienen miniaturas. Las imágenes se muestran en una ventana superpuesta agradable que también le permite verlas en tamaño completo.',
+	'multimediaviewer-file-page' => 'Ir a la página del archivo correspondiente',
+	'multimediaviewer-repository' => 'Más información en $1',
+	'multimediaviewer-datetime-created' => 'Creado el $1',
+	'multimediaviewer-datetime-uploaded' => 'Subido el $1',
+	'multimediaviewer-license-cc-pd' => 'Dominio público',
+	'multimediaviewer-license-default' => 'Información de licencia',
 );
 
 /** Finnish (suomi)
@@ -177,12 +212,18 @@ $messages['fi'] = array(
 $messages['fr'] = array(
 	'multimediaviewer-desc' => 'Agrandit les vignettes dans une visionneuse.',
 	'multimediaviewer-pref' => 'Visionneuse de Médias',
-	'multimediaviewer-pref-desc' => 'Active une jolie visionneuse multimédia pour les images dans les pages qui ont des vignettes. Utilise une bibliothèque tierce légère et JavaScript.', # Fuzzy
+	'multimediaviewer-pref-desc' => 'Améliorer votre expérience de visualisation multimédia avec ce nouvel outil. Il affiche les images en grande taille sur les pages qui ont des vignettes. Les images sont affichées dans un joli cadre Lightbox, et peuvent aussi être affichées en taille réelle.',
 	'multimediaviewer-file-page' => 'Aller à la page du fichier correspondant',
 	'multimediaviewer-repository' => 'En savoir plus sur $1',
 	'multimediaviewer-datetime-created' => 'Créé le $1',
 	'multimediaviewer-datetime-uploaded' => 'Téléversé le $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Téléversé}} par $1',
+	'multimediaviewer-license-cc-pd' => 'Domaine public',
+	'multimediaviewer-license-default' => 'Informations de licence',
+	'multimediaviewer-use-file' => 'Utiliser ce fichier',
+	'multimediaviewer-use-file-owt' => 'Utiliser ce fichier comme vignette sur une page de wiki',
+	'multimediaviewer-use-file-own' => 'Utiliser ce fichier dans une ligne sur une page de wiki',
+	'multimediaviewer-use-file-offwiki' => 'Utiliser ce fichier sur un autre site web',
 );
 
 /** Galician (galego)
@@ -207,6 +248,24 @@ $messages['ja'] = array(
 	'multimediaviewer-datetime-created' => '作成日時: $1',
 	'multimediaviewer-datetime-uploaded' => 'アップロード日時: $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|アップロード}}者: $1',
+	'multimediaviewer-license-cc-by-1.0' => 'CC 表示 1.0',
+	'multimediaviewer-license-cc-sa-1.0' => 'CC 継承 1.0',
+	'multimediaviewer-license-cc-by-sa-1.0' => 'CC 表示-継承 1.0',
+	'multimediaviewer-license-cc-by-2.0' => 'CC 表示 2.0',
+	'multimediaviewer-license-cc-by-sa-2.0' => 'CC 表示-継承 2.0',
+	'multimediaviewer-license-cc-by-2.1' => 'CC 表示 2.1',
+	'multimediaviewer-license-cc-by-sa-2.1' => 'CC 表示-継承 2.1',
+	'multimediaviewer-license-cc-by-2.5' => 'CC 表示 2.5',
+	'multimediaviewer-license-cc-by-sa-2.5' => 'CC 表示-継承 2.5',
+	'multimediaviewer-license-cc-by-3.0' => 'CC 表示 3.0',
+	'multimediaviewer-license-cc-by-sa-3.0' => 'CC 表示-継承 3.0',
+	'multimediaviewer-license-cc-pd' => 'パブリック・ドメイン',
+	'multimediaviewer-license-cc-zero' => 'CC 0',
+	'multimediaviewer-license-default' => 'ライセンス情報',
+	'multimediaviewer-use-file' => 'このファイルを使用',
+	'multimediaviewer-use-file-owt' => 'このファイルをウィキページ内 (サムネイル) で使用',
+	'multimediaviewer-use-file-own' => 'このファイルをウィキページ内 (インライン) で使用',
+	'multimediaviewer-use-file-offwiki' => 'このファイルを別のウェブサイトで使用',
 );
 
 /** Korean (한국어)
@@ -238,6 +297,22 @@ $messages['mk'] = array(
 	'multimediaviewer-datetime-created' => 'Создадено на $1',
 	'multimediaviewer-datetime-uploaded' => 'Подигнато на $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Подигнато}} од $1',
+	'multimediaviewer-license-cc-pd' => 'Јавна сопственост',
+	'multimediaviewer-license-default' => 'Информации за лиценца',
+);
+
+/** Occitan (occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'multimediaviewer-desc' => 'Agrandís las vinhetas dins una visionadoira.',
+	'multimediaviewer-pref' => 'Visionadoira de Mèdias',
+	'multimediaviewer-file-page' => 'Anar a la pagina del fichièr correspondent',
+	'multimediaviewer-repository' => 'Ne saber mai sus $1',
+	'multimediaviewer-datetime-created' => 'Creat lo $1',
+	'multimediaviewer-datetime-uploaded' => 'Mandat lo $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Mandat}} per $1',
+	'multimediaviewer-license-cc-pd' => 'Domeni public',
 );
 
 /** Russian (русский)
@@ -252,6 +327,14 @@ $messages['ru'] = array(
 	'multimediaviewer-datetime-created' => 'Создано в $1',
 	'multimediaviewer-datetime-uploaded' => 'Загружено в $1',
 	'multimediaviewer-userpage-link' => 'Загружено {{GENDER:$2|участником|участницей}} $1',
+	'multimediaviewer-license-cc-pd' => 'Общественное достояние',
+	'multimediaviewer-license-default' => 'Информация о лицензировании',
+	'multimediaviewer-use-file' => 'Использовать этот файл',
+	'multimediaviewer-use-file-owt' => 'Использовать этот файл на вики-странице, с уменьшенной копией',
+	'multimediaviewer-use-file-own' => 'Использовать этот файл на вики-странице, в полный размер',
+	'multimediaviewer-use-file-offwiki' => 'Использовать этот файл на другом сайте',
+	'multimediaviewer-about-mmv' => 'О Медиа-просмотрщике',
+	'multimediaviewer-discuss-mmv' => 'Оставить отзыв',
 );
 
 /** Ukrainian (українська)
@@ -266,6 +349,12 @@ $messages['uk'] = array(
 	'multimediaviewer-datetime-created' => 'Створено $1',
 	'multimediaviewer-datetime-uploaded' => 'Завантажено $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Завантажив|Завантажила}} $1',
+	'multimediaviewer-license-cc-pd' => 'Суспільне надбання',
+	'multimediaviewer-license-default' => 'Відомості про ліцензію',
+	'multimediaviewer-use-file' => 'Використовувати цей файл',
+	'multimediaviewer-use-file-owt' => 'Використовувати цей файл на вікі-сторінці у вигляді мініатюри',
+	'multimediaviewer-use-file-own' => 'Використовувати цей файл на вікі-сторінці у тексті',
+	'multimediaviewer-use-file-offwiki' => 'Використовувати цей файл на іншому веб-сайті',
 );
 
 /** Volapük (Volapük)
