@@ -136,16 +136,16 @@
 	background-image: url( '../img/user.svg' );
 }
 
-.mw-mlb-image-links li.empty:before {
-	background-image: none !important;
-}
-
 .mw-mlb-image-links li.mw-mlb-datetime-li:before {
 	background-image: url( '../img/time.svg' );
 }
 
-.mw-mlb-image-links li.mw-mlb-datetime-li.empty:before {
-	background-image: none;
+.mw-mlb-image-links li.mw-mlb-usefile-li:before {
+	background-image: url( '../img/use.svg' );
+}
+
+.mw-mlb-image-links li.empty:before {
+	background-image: none !important;
 }
 
 .mw-mlb-credit.empty {
