@@ -13,7 +13,8 @@
 			if ( !lbinterface.fullscreenButtonJustPressed &&
 					!document.fullscreenElement &&
 					!document.mozFullScreenElement &&
-					!document.webkitFullScreenElement ) {
+					!document.webkitFullScreenElement &&
+					!document.msFullScreenElement) {
 				lbinterface.fullscreen();
 			} else if ( lbinterface.fullscreenButtonJustPressed ) {
 				lbinterface.fullscreenButtonJustPressed = false;
@@ -72,6 +73,7 @@
 		window.addEventListener( 'fullscreenchange', handleFullscreenChange );
 		window.addEventListener( 'mozfullscreenchange', handleFullscreenChange );
 		window.addEventListener( 'webkitfullscreenchange', handleFullscreenChange );
+		window.addEventListener( 'msfullscreenchange', handleFullscreenChange );
 	}
 
 	LIP = LightboxInterface.prototype;
@@ -101,13 +103,16 @@
 		if ( this.isFullScreen ) {
 			if ( !document.fullscreenElement &&
 					!document.mozFullScreenElement &&
-					!document.webkitFullScreenElement ) {
+					!document.webkitFullScreenElement &&
+					!document.msFullScreenElement ) {
 				if ( document.cancelFullScreen ) {
 					document.cancelFullScreen();
 				} else if ( document.mozCancelFullScreen ) {
 					document.mozCancelFullScreen();
 				} else if ( document.webkitCancelFullScreen ) {
 					document.webkitCancelFullScreen();
+				} else if ( document.msCancelFullScreen ) {
+					document.msCancelFullScreen();
 				}
 			}
 
@@ -130,6 +135,8 @@
 				fullscreen.mozRequestFullScreen();
 			} else if ( fullscreen.webkitRequestFullScreen ) {
 				fullscreen.webkitRequestFullScreen();
+			} else if ( fullscreen.msRequestFullscreen ) {
+				fullscreen.msRequestFullscreen();
 			}
 
 			lightboxHooks.callAll( 'fullscreen', this );
