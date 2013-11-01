@@ -106,10 +106,16 @@
 .mw-mlb-image-links-div {
 	display: inline-block;
 	width: 50%;
+	height: 100px;
+	vertical-align: top;
 }
 
 .mw-mlb-image-desc {
 	color: #6f7073;
+}
+
+.mw-mlb-image-desc-div {
+	overflow-y: auto;
 }
 
 .mw-mlb-image-links li {
@@ -221,6 +227,7 @@
 	display: block;
 }
 
+.mw-mlb-image-desc-div.empty,
 .mlb-image.empty img {
 	display: none;
 }

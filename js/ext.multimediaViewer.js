@@ -169,6 +169,7 @@
 
 			this.$imageDescDiv = $( '<div>' )
 				.addClass( 'mw-mlb-image-desc-div' )
+				.addClass( 'empty' )
 				.html( this.$imageDesc );
 
 			this.$imageLinks = $( '<ul>' )
@@ -416,7 +417,8 @@
 		} );
 
 		lightboxHooks.register( 'clearInterface', function () {
-			this.$imageDesc.empty().addClass( 'empty' );
+			this.$imageDesc.empty();
+			this.$imageDescDiv.addClass( 'empty' );
 			this.$title.empty().addClass( 'empty' );
 			this.$credit.empty().addClass( 'empty' );
 
@@ -602,6 +604,8 @@
 
 		if ( extmeta ) {
 			desc = extmeta.ImageDescription;
+
+			ui.$imageDescDiv.toggleClass( 'empty', !desc );
 
 			if ( desc ) {
 				desc = desc.value;
