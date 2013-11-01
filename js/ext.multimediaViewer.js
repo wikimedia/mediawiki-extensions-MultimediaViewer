@@ -125,6 +125,7 @@
 		lightboxHooks.register( 'imageResize', function () {
 			var api = new mw.Api(),
 				ratio = this.isFullScreen ? 0.9 : 0.5,
+				density = $.devicePixelRatio(),
 				filename = viewer.currentImageFilename,
 				ui = this;
 
@@ -134,8 +135,8 @@
 				titles: filename,
 				prop: 'imageinfo',
 				iiprop: 'url',
-				iiurlwidth: Math.floor( ratio * $( window ).width() * 1.1 ),
-				iiurlheight: Math.floor( ratio * $( window ).height() * 1.1 )
+				iiurlwidth: Math.floor( density * ratio * $( window ).width() * 1.1 ),
+				iiurlheight: Math.floor( density * ratio * $( window ).height() * 1.1 )
 			} ).done( function ( data ) {
 				var imageInfo, innerInfo,
 					image = new Image();
@@ -747,14 +748,15 @@
 		var imageInfo,
 			filename = fileTitle.getPrefixedText(),
 			ratio = this.lightbox.iface.isFullScreen ? 0.9 : 0.5,
+			density = $.devicePixelRatio(),
 			apiArgs = {
 				action: 'query',
 				format: 'json',
 				titles: filename,
 				prop: 'imageinfo',
 				iiprop: iiprops.join( '|' ),
-				iiurlwidth: Math.floor( ratio * $( window ).width() * 1.1 ),
-				iiurlheight: Math.floor( ratio * $( window ).height() * 1.1 ),
+				iiurlwidth: Math.floor( density * ratio * $( window ).width() * 1.1 ),
+				iiurlheight: Math.floor( density * ratio * $( window ).height() * 1.1 ),
 				// Short-circuit, don't fallback, to save some tiny amount of time
 				iiextmetadatalanguage: mw.config.get( 'wgUserLanguage', false ) || mw.config.get( 'wgContentLanguage', 'en' )
 			},

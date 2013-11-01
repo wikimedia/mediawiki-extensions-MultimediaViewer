@@ -69,6 +69,7 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 		'mediawiki.Title',
 		'jquery.ui.dialog',
 		'jquery.spinner',
+		'jquery.hidpi',
 	),
 
 	'messages' => array(
