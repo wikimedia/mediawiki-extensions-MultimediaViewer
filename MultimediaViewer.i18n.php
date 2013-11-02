@@ -129,7 +129,8 @@ See also:
 * {{msg-mw|Multimediaviewer-use-file-owt}}',
 	'multimediaviewer-use-file-offwiki' => 'Label for HTML used to show an image on an external site, with a link back to the wiki. Similar to the Commons gadget stockPhoto.',
 	'multimediaviewer-about-mmv' => 'Text for a link to a page with more information about Media Viewer software.',
-	'multimediaviewer-discuss-mmv' => 'Text for a link to a page where the user can discuss the Media Viewer software.',
+	'multimediaviewer-discuss-mmv' => 'Text for a link to a page where the user can discuss the Media Viewer software.
+{{Identical|Leave feedback}}',
 );
 
 /** Arabic (العربية)
@@ -159,6 +160,26 @@ $messages['ast'] = array(
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Xubíu}} por $1',
 );
 
+/** Bengali (বাংলা)
+ * @author Aftab1995
+ */
+$messages['bn'] = array(
+	'multimediaviewer-pref' => 'মিডিয়া ভিউয়ার',
+	'multimediaviewer-file-page' => 'সংশ্লিষ্ট ফাইল পৃষ্ঠাতে যান',
+	'multimediaviewer-repository' => '$1-এ আরও জানুন',
+	'multimediaviewer-datetime-created' => '$1-এ তৈরী হয়েছে',
+	'multimediaviewer-datetime-uploaded' => '$1-এ আপলোডকৃত',
+	'multimediaviewer-userpage-link' => '$1 দ্বারা {{GENDER:$2|আপলোডকৃত}}',
+	'multimediaviewer-license-cc-pd' => 'পাবলিক ডোমেইন',
+	'multimediaviewer-license-default' => 'লাইসেন্সের তথ্য',
+	'multimediaviewer-use-file' => 'এই ফাইলটি ব্যবহার করুন',
+	'multimediaviewer-use-file-owt' => 'থাম্বনেইল হিসাবে, উইকি পাতায় এই ফাইলটি ব্যবহার করুন',
+	'multimediaviewer-use-file-own' => 'ইনলাইন হিসাবে, উইকি পাতায় এই ফাইলটি ব্যবহার করুন',
+	'multimediaviewer-use-file-offwiki' => 'অন্য ওয়েবসাইটে এই ফাইলটি ব্যবহার করুন',
+	'multimediaviewer-about-mmv' => 'মিডিয়া ভিউয়ার সম্পর্কে',
+	'multimediaviewer-discuss-mmv' => 'আপনার প্রতিক্রিয়া জানান',
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  * @author Snatcher
@@ -183,6 +204,7 @@ $messages['de'] = array(
 );
 
 /** Spanish (español)
+ * @author Benfutbol10
  * @author Fitoschido
  */
 $messages['es'] = array(
@@ -194,6 +216,7 @@ $messages['es'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Subido el $1',
 	'multimediaviewer-license-cc-pd' => 'Dominio público',
 	'multimediaviewer-license-default' => 'Información de licencia',
+	'multimediaviewer-discuss-mmv' => 'Dejar comentarios',
 );
 
 /** Finnish (suomi)
@@ -208,6 +231,7 @@ $messages['fi'] = array(
 /** French (français)
  * @author Gomoko
  * @author Ltrlg
+ * @author NemesisIII
  */
 $messages['fr'] = array(
 	'multimediaviewer-desc' => 'Agrandit les vignettes dans une visionneuse.',
@@ -224,16 +248,32 @@ $messages['fr'] = array(
 	'multimediaviewer-use-file-owt' => 'Utiliser ce fichier comme vignette sur une page de wiki',
 	'multimediaviewer-use-file-own' => 'Utiliser ce fichier dans une ligne sur une page de wiki',
 	'multimediaviewer-use-file-offwiki' => 'Utiliser ce fichier sur un autre site web',
+	'multimediaviewer-about-mmv' => 'À propos de la visionneuse de médias',
+	'multimediaviewer-discuss-mmv' => 'Laisser un avis',
 );
 
 /** Galician (galego)
  * @author Toliño
  */
 $messages['gl'] = array(
-	'multimediaviewer-desc' => 'Engade un agradable visor de ficheiros multimedia para as imaxes',
-	'multimediaviewer-pref' => 'Activar unha visualización das imaxes máis agradable',
-	'multimediaviewer-pref-desc' => 'Activa un agradable visor de ficheiros multimedia para as imaxes nas páxinas que teñen miniaturas. Utiliza unha biblioteca lightbox de terceiros e JavaScript.',
+	'multimediaviewer-desc' => 'Engade un agradable visor de ficheiros multimedia para as imaxes', # Fuzzy
+	'multimediaviewer-pref' => 'Activar unha visualización das imaxes máis agradable', # Fuzzy
+	'multimediaviewer-pref-desc' => 'Activa un agradable visor de ficheiros multimedia para as imaxes nas páxinas que teñen miniaturas. Utiliza unha biblioteca lightbox de terceiros e JavaScript.', # Fuzzy
 	'multimediaviewer-file-page' => 'Ir á páxina de ficheiro correspondente',
+	'multimediaviewer-license-cc-pd' => 'Dominio público',
+	'multimediaviewer-discuss-mmv' => 'Deixe un comentario',
+);
+
+/** Italian (italiano)
+ * @author Beta16
+ */
+$messages['it'] = array(
+	'multimediaviewer-datetime-created' => 'Creato il $1',
+	'multimediaviewer-datetime-uploaded' => 'Caricato il $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Caricato}} da $1',
+	'multimediaviewer-license-cc-pd' => 'Pubblico dominio',
+	'multimediaviewer-use-file' => 'Usa questo file',
+	'multimediaviewer-discuss-mmv' => 'Lascia un commento',
 );
 
 /** Japanese (日本語)
@@ -266,6 +306,8 @@ $messages['ja'] = array(
 	'multimediaviewer-use-file-owt' => 'このファイルをウィキページ内 (サムネイル) で使用',
 	'multimediaviewer-use-file-own' => 'このファイルをウィキページ内 (インライン) で使用',
 	'multimediaviewer-use-file-offwiki' => 'このファイルを別のウェブサイトで使用',
+	'multimediaviewer-about-mmv' => 'メディア ビューアーについて',
+	'multimediaviewer-discuss-mmv' => 'フィードバックを送信',
 );
 
 /** Korean (한국어)
@@ -280,9 +322,16 @@ $messages['ko'] = array(
  * @author Robby
  */
 $messages['lb'] = array(
+	'multimediaviewer-pref' => 'Media Viewer',
 	'multimediaviewer-repository' => 'Méi gewuer ginn op $1',
 	'multimediaviewer-datetime-uploaded' => 'Eropgelueden den $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Eropgeluede}} vum $1',
+	'multimediaviewer-use-file' => 'Benotzt dëse Fichier',
+	'multimediaviewer-use-file-owt' => 'Dëse Fichier op enger Wikisäit als Miniaturbild benotzen',
+	'multimediaviewer-use-file-own' => 'Benotzt dëse Fichier op enger Wiki-Säit, inline',
+	'multimediaviewer-use-file-offwiki' => 'Dëse Fichier op engem aneren Internetsite benotzen',
+	'multimediaviewer-about-mmv' => 'Iwwer Media Viewer',
+	'multimediaviewer-discuss-mmv' => 'Feedback verloossen',
 );
 
 /** Macedonian (македонски)
@@ -299,6 +348,12 @@ $messages['mk'] = array(
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Подигнато}} од $1',
 	'multimediaviewer-license-cc-pd' => 'Јавна сопственост',
 	'multimediaviewer-license-default' => 'Информации за лиценца',
+	'multimediaviewer-use-file' => 'Употребете ја податотекава',
+	'multimediaviewer-use-file-owt' => 'Употребете ја податотекава на викистраница, како минијатура',
+	'multimediaviewer-use-file-own' => 'Употребете ја податотекава на викистраница, во ред',
+	'multimediaviewer-use-file-offwiki' => 'Употребете ја податотекава на друго место на интернет',
+	'multimediaviewer-about-mmv' => 'За Медиумскиот прегледувач',
+	'multimediaviewer-discuss-mmv' => 'Дајте мислење',
 );
 
 /** Occitan (occitan)
@@ -313,6 +368,18 @@ $messages['oc'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Mandat lo $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Mandat}} per $1',
 	'multimediaviewer-license-cc-pd' => 'Domeni public',
+);
+
+/** Pashto (پښتو)
+ * @author Ahmed-Najib-Biabani-Ibrahimkhel
+ */
+$messages['ps'] = array(
+	'multimediaviewer-datetime-created' => 'په $1 جوړ شو',
+	'multimediaviewer-datetime-uploaded' => 'په $1 پورته شو',
+	'multimediaviewer-license-cc-pd' => 'ټولگړی شپول',
+	'multimediaviewer-license-default' => 'د منښتليک مالومات',
+	'multimediaviewer-use-file' => 'دا دوتنه کارول',
+	'multimediaviewer-use-file-owt' => 'دا دوتنه د ويکي په يو مخ، د بټنوک په توگه کارول',
 );
 
 /** Russian (русский)
@@ -355,6 +422,8 @@ $messages['uk'] = array(
 	'multimediaviewer-use-file-owt' => 'Використовувати цей файл на вікі-сторінці у вигляді мініатюри',
 	'multimediaviewer-use-file-own' => 'Використовувати цей файл на вікі-сторінці у тексті',
 	'multimediaviewer-use-file-offwiki' => 'Використовувати цей файл на іншому веб-сайті',
+	'multimediaviewer-about-mmv' => 'Про медіапереглядач',
+	'multimediaviewer-discuss-mmv' => 'Залишити відгук',
 );
 
 /** Volapük (Volapük)
