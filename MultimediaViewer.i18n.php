@@ -180,6 +180,13 @@ $messages['bn'] = array(
 	'multimediaviewer-discuss-mmv' => 'আপনার প্রতিক্রিয়া জানান',
 );
 
+/** Chechen (нохчийн)
+ * @author Умар
+ */
+$messages['ce'] = array(
+	'multimediaviewer-discuss-mmv' => 'Язде хьайна хетарг',
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  * @author Snatcher
@@ -268,11 +275,21 @@ $messages['gl'] = array(
  * @author Beta16
  */
 $messages['it'] = array(
+	'multimediaviewer-desc' => 'Espandere le miniature in un dimensioni maggiori in un Lightbox.',
+	'multimediaviewer-pref' => 'Media Viewer',
+	'multimediaviewer-pref-desc' => 'Migliora la vostra esperienza di visione multimediale con questo nuovo strumento. Visualizza le immagini in dimensioni maggiori su pagine che hanno le miniature. Le immagini sono mostrate in un gradevole Lightbox e possono anche essere visualizzate a dimensione originale.',
+	'multimediaviewer-file-page' => 'Vai alla corrispondente pagina del file',
+	'multimediaviewer-repository' => 'Ulteriori informazioni su $1',
 	'multimediaviewer-datetime-created' => 'Creato il $1',
 	'multimediaviewer-datetime-uploaded' => 'Caricato il $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Caricato}} da $1',
 	'multimediaviewer-license-cc-pd' => 'Pubblico dominio',
+	'multimediaviewer-license-default' => 'Informazioni sulla licenza',
 	'multimediaviewer-use-file' => 'Usa questo file',
+	'multimediaviewer-use-file-owt' => 'Usa questo file in una pagina wiki, come miniatura',
+	'multimediaviewer-use-file-own' => 'Usa questo file in una pagina wiki, in linea',
+	'multimediaviewer-use-file-offwiki' => 'Usa questo file su un altro sito',
+	'multimediaviewer-about-mmv' => 'Su Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Lascia un commento',
 );
 
@@ -402,6 +419,19 @@ $messages['ru'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Использовать этот файл на другом сайте',
 	'multimediaviewer-about-mmv' => 'О Медиа-просмотрщике',
 	'multimediaviewer-discuss-mmv' => 'Оставить отзыв',
+);
+
+/** Swedish (svenska)
+ * @author WikiPhoenix
+ */
+$messages['sv'] = array(
+	'multimediaviewer-license-cc-pd' => 'Allmän egendom',
+	'multimediaviewer-license-default' => 'Licensinformation',
+	'multimediaviewer-use-file' => 'Använd denna fil',
+	'multimediaviewer-use-file-owt' => 'Använd denna fil på en wikisida, som en miniatyr',
+	'multimediaviewer-use-file-offwiki' => 'Använd denna fil på en annan webbplats',
+	'multimediaviewer-about-mmv' => 'Om Media Viewer',
+	'multimediaviewer-discuss-mmv' => 'Lämna feedback',
 );
 
 /** Ukrainian (українська)
