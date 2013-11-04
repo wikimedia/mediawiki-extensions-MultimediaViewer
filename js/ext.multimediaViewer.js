@@ -50,7 +50,7 @@
 		};
 
 	function MultimediaViewer() {
-		var $thumbs = $( '.thumbimage' ),
+		var $thumbs = $( '.gallery .image img, a.image img' ),
 			urls = [],
 			viewer = this;
 
@@ -90,11 +90,18 @@
 
 				viewer.lightbox.currentIndex = index;
 
+				if ( $thumbContain.length === 0 ) {
+					// This isn't a thumbnail! Just use the link.
+					$thumbContain = $link;
+				} else if ( $thumbContain.is( '.thumb' ) ) {
+					$thumbContain = $thumbContain.find( '.image' );
+				}
+
 				// Open with the already-loaded thumbnail
 				// Avoids trying to load /wiki/Undefined and doesn't
 				// cost any network time - the library currently needs
 				// some src attribute to work. Will fix.
-				viewer.lightbox.images[index].src = $this.closest( '.thumb' ).find( '.image img' ).prop( 'src' );
+				viewer.lightbox.images[index].src = $thumbContain.find( 'img' ).prop( 'src' );
 				viewer.lightbox.open();
 				viewer.lightbox.iface.$imageDiv.append( $.createSpinner( {
 					id: 'mw-mlb-loading-spinner',

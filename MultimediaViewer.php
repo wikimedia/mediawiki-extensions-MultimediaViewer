@@ -127,7 +127,8 @@ foreach ( $licenses as $license ) {
 
 $wgAutoloadClasses['MultimediaViewerHooks'] = __DIR__ . '/MultimediaViewerHooks.php';
 $wgHooks['GetBetaFeaturePreferences'][] = 'MultimediaViewerHooks::getBetaPreferences';
-$wgHooks['BeforePageDisplay'][] = 'MultimediaViewerHooks::getModules';
+$wgHooks['BeforePageDisplay'][] = 'MultimediaViewerHooks::getModulesForArticle';
+$wgHooks['CategoryPageView'][] = 'MultimediaViewerHooks::getModulesForCategory';
 $wgHooks['ResourceLoaderGetConfigVars'][] = 'MultimediaViewerHooks::resourceLoaderGetConfigVars';
 
 $wgExtensionCredits['other'][] = array(
