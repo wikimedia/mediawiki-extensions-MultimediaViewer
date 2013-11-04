@@ -210,6 +210,14 @@ $messages['de'] = array(
 	'multimediaviewer-discuss-mmv' => 'Eine Rückmeldung hinterlassen',
 );
 
+/** Greek (Ελληνικά)
+ * @author Astralnet
+ */
+$messages['el'] = array(
+	'multimediaviewer-use-file' => 'Χρησιμοποιήστε αυτό το αρχείο',
+	'multimediaviewer-about-mmv' => 'Περί το Media Viewer',
+);
+
 /** Spanish (español)
  * @author Benfutbol10
  * @author Fitoschido
