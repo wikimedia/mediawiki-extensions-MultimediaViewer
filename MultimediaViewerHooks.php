@@ -28,7 +28,24 @@ class MultimediaViewerHooks {
 	/** Link to a page where this module can be discussed */
 	protected static $discussionLink = '//mediawiki.org/wiki/Special:MyLanguage/Talk:Multimedia/About_Media_Viewer';
 
-	/*
+	/**
+	 * Handler for all places where we add the modules
+	 * Could be on article pages or on Category pages
+	 * @param OutputPage $out
+	 * @return bool
+	 */
+	protected static function getModules( &$out ) {
+		if ( class_exists( 'BetaFeatures')
+			&& !BetaFeatures::isFeatureEnabled( $out->getUser(), 'multimedia-viewer' ) ) {
+			return true;
+		}
+
+		$out->addModules( array( 'ext.multimediaViewer' ) );
+
+		return true;
+	}
+
+	/**
 	 * Handler for BeforePageDisplay hook
 	 * Add JavaScript to the page when an image is on it
 	 * and the user has enabled the feature if BetaFeatures is installed
@@ -36,13 +53,26 @@ class MultimediaViewerHooks {
 	 * @param Skin $skin
 	 * @return bool
 	 */
-	public static function getModules( &$out, &$skin ) {
-		if ( class_exists( 'BetaFeatures')
-			&& !BetaFeatures::isFeatureEnabled( $out->getUser(), 'multimedia-viewer' ) ) {
-			return true;
-		}
+	public static function getModulesForArticle( &$out, &$skin ) {
 		if ( count( $out->getFileSearchOptions() ) > 0 ) {
-			$out->addModules( array( 'ext.multimediaViewer' ) );
+			return self::getModules( $out );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Handler for CategoryPageView hook
+	 * Add JavaScript to the page if there are images in the category
+	 * @param CategoryPage $catPage
+	 * @return bool
+	 */
+	public static function getModulesForCategory( &$catPage ) {
+		$title = $catPage->getTitle();
+		$cat = Category::newFromTitle( $title );
+		if ( $cat->getFileCount() > 0 ) {
+			$out = $catPage->getContext()->getOutput();
+			return self::getModules( $out );
 		}
 
 		return true;
