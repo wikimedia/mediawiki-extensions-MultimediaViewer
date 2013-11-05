@@ -9,15 +9,17 @@ fi
 JSDIR=$MLDIR/lib
 CSSDIR=$MLDIR/css
 IMGDIR=$MLDIR/img
+HOOKSFILE=$MLDIR/hooks.txt
+LOCALMLDIR=resources/multilightbox
 
 if [ $1 = "--reverse" ]; then
-	cp js/multilightbox/* $JSDIR
-	cp css/multilightbox.css $CSSDIR
+	cp $LOCALMLDIR/*.js $JSDIR
+	cp $LOCALMLDIR/multilightbox.css $CSSDIR
 	cp img/close.svg img/fullscreen.svg img/defullscreen.svg $IMGDIR
-	cp js/multilightbox/hooks.txt $MLDIR
+	cp $LOCALMLDIR/hooks.txt $HOOKSFILE
 else
-	cp $JSDIR/* js/multilightbox/
-	cp $CSSDIR/* css/
+	cp $JSDIR/* resources/multilightbox/
+	cp $CSSDIR/* resources/multilightbox/
 	cp $IMGDIR/* img/
-	cp $MLDIR/hooks.txt js/multilightbox/
+	cp $HOOKSFILE resources/multilightbox/
 fi

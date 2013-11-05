@@ -67,15 +67,18 @@
 }
 
 .mlb-close {
-	background-image: url( '../img/mw-close.svg' );
+	/* @embed */
+	background-image: url(img/mw-close.svg);
 }
 
 .mlb-fullscreen-div .mlb-fullscreen {
-	background-image: url( '../img/mw-defullscreen.svg' );
+	/* @embed */
+	background-image: url(img/mw-defullscreen.svg);
 }
 
 .mlb-fullscreen {
-	background-image: url( '../img/mw-fullscreen.svg' );
+	/* @embed */
+	background-image: url(img/mw-fullscreen.svg);
 }
 
 .mw-mlb-license,
@@ -135,19 +138,23 @@
 }
 
 .mw-mlb-image-links li.mw-mlb-repo-li:before {
-	background-image: url( '../img/repo.svg' );
+	/* @embed */
+	background-image: url(img/repo.svg);
 }
 
 .mw-mlb-image-links li.mw-mlb-username-li:before {
-	background-image: url( '../img/user.svg' );
+	/* @embed */
+	background-image: url(img/user.svg);
 }
 
 .mw-mlb-image-links li.mw-mlb-datetime-li:before {
-	background-image: url( '../img/time.svg' );
+	/* @embed */
+	background-image: url(img/time.svg);
 }
 
 .mw-mlb-image-links li.mw-mlb-usefile-li:before {
-	background-image: url( '../img/use.svg' );
+	/* @embed */
+	background-image: url(img/use.svg);
 }
 
 .mw-mlb-image-links li.empty:before {
@@ -185,7 +192,8 @@
 
 .mw-mlb-license.cc-license:before {
 	background-size: contain;
-	background-image: url( '../img/cc.svg' );
+	/* @embed */
+	background-image: url(img/cc.svg);
 	display: inline-block;
 	vertical-align: middle;
 	height: 20px;

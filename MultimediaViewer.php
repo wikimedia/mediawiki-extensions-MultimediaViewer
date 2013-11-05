@@ -21,46 +21,51 @@
  * @copyright Copyright © 2013, Mark Holmquist
  */
 
-$moduleInfo = array(
-	'localBasePath' => __DIR__,
-	'remoteExtPath' => 'MultimediaViewer',
+$moduleInfoML = array(
+	'localBasePath' => __DIR__ . '/resources/multilightbox',
+	'remoteExtPath' => 'MultimediaViewer/resources/multilightbox',
+);
+
+$moduleInfoMMV = array(
+	'localBasePath' => __DIR__ . '/resources/ext.multimediaViewer',
+	'remoteExtPath' => 'MultimediaViewer/resources/ext.multimediaViewer',
 );
 
 $wgExtensionMessagesFiles['MultimediaViewer'] = __DIR__ . '/MultimediaViewer.i18n.php';
 
 $wgResourceModules['multilightbox.interface'] = array_merge( array(
 	'scripts' => array(
-		'js/multilightbox/lightboxinterface.js',
+		'lightboxinterface.js',
 	),
 
 	'styles' => array(
-		'css/multilightbox.css',
+		'multilightbox.css',
 	),
-), $moduleInfo );
+), $moduleInfoML );
 
 $wgResourceModules['multilightbox.image'] = array_merge( array(
 	'scripts' => array(
-		'js/multilightbox/lightboximage.js',
+		'lightboximage.js',
 	),
-), $moduleInfo );
+), $moduleInfoML );
 
 $wgResourceModules['multilightbox'] = array_merge( array(
 	'scripts' => array(
-		'js/multilightbox/multilightbox.js',
+		'multilightbox.js',
 	),
 
 	'dependencies' => array(
 		'multilightbox.interface',
 	),
-), $moduleInfo );
+), $moduleInfoML );
 
 $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 	'scripts' => array(
-		'js/ext.multimediaViewer.js',
+		'ext.multimediaViewer.js',
 	),
 
 	'styles' => array(
-		'css/ext.multimediaViewer.css',
+		'ext.multimediaViewer.css',
 	),
 
 	'dependencies' => array(
@@ -86,7 +91,7 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 		'multimediaviewer-about-mmv',
 		'multimediaviewer-discuss-mmv',
 	),
-), $moduleInfo );
+), $moduleInfoMMV );
 
 $wgExtensionFunctions[] = function () {
 	global $wgResourceModules;

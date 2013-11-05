@@ -87,7 +87,7 @@ class MultimediaViewerHooks {
 			'desc-message' => 'multimediaviewer-pref-desc',
 			'info-link' => self::$infoLink,
 			'discussion-link' => self::$discussionLink,
-			'screenshot' => $wgExtensionAssetsPath . '/MultimediaViewer/img/viewer.svg',
+			'screenshot' => $wgExtensionAssetsPath . '/MultimediaViewer/viewer.svg',
 		);
 
 		return true;
