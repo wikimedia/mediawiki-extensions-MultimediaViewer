@@ -187,6 +187,28 @@ $messages['ce'] = array(
 	'multimediaviewer-discuss-mmv' => 'Язде хьайна хетарг',
 );
 
+/** Czech (čeština)
+ * @author Mormegil
+ */
+$messages['cs'] = array(
+	'multimediaviewer-desc' => 'Roztáhne náhledy obrázků do lightboxu.',
+	'multimediaviewer-pref' => 'Prohlížeč médií',
+	'multimediaviewer-pref-desc' => 'Pomocí tohoto nástroje si můžete zpříjemnit prohlížení multimédií. Na stránkách, na kterých se používají náhledy obrázků, umožňuje prohlížení těchto obrázků ve větší velikosti. Obrázky se zobrazí v hezčím lightboxu přes stránku a lze si je prohlédnout také v plné velikosti.',
+	'multimediaviewer-file-page' => 'Přejít na stránku s popisem souboru',
+	'multimediaviewer-repository' => 'Více informací na {{grammar:6sg|$1}}',
+	'multimediaviewer-datetime-created' => 'Vytvořeno $1',
+	'multimediaviewer-datetime-uploaded' => 'Načteno $1',
+	'multimediaviewer-userpage-link' => 'Načteno {{GENDER:$2|uživatelem|uživatelkou}} $1',
+	'multimediaviewer-license-cc-pd' => 'Volné dílo',
+	'multimediaviewer-license-default' => 'Informace o licenci',
+	'multimediaviewer-use-file' => 'Použít tento soubor',
+	'multimediaviewer-use-file-owt' => 'Použít tento soubor na wiki, jako náhled',
+	'multimediaviewer-use-file-own' => 'Použít tento soubor na wiki, uvnitř textu',
+	'multimediaviewer-use-file-offwiki' => 'Použít tento soubor na jiné webové stránce',
+	'multimediaviewer-about-mmv' => 'O prohlížeči médií',
+	'multimediaviewer-discuss-mmv' => 'Sdělte svůj názor',
+);
+
 /** German (Deutsch)
  * @author Metalhead64
  * @author Snatcher
