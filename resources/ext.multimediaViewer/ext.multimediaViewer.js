@@ -16,7 +16,7 @@
  */
 
 ( function ( mw, $ ) {
-	var MultiLightbox, LightboxImage, lightboxHooks,
+	var MultiLightbox, LightboxImage, lightboxHooks, MMVP,
 		validExtensions = {
 			'jpg': true,
 			'jpeg': true,
@@ -172,248 +172,7 @@
 
 		lightboxHooks.register( 'modifyInterface', function () {
 			var ui = this;
-
-			this.$imageDiv
-				.addClass( 'empty' );
-
-			this.$imageDesc = $( '<p>' )
-				.addClass( 'mw-mlb-image-desc' );
-
-			this.$imageDescDiv = $( '<div>' )
-				.addClass( 'mw-mlb-image-desc-div' )
-				.addClass( 'empty' )
-				.html( this.$imageDesc );
-
-			this.$imageLinks = $( '<ul>' )
-				.addClass( 'mw-mlb-image-links' );
-
-			this.$imageLinkDiv = $( '<div>' )
-				.addClass( 'mw-mlb-image-links-div' )
-				.html( this.$imageLinks );
-
-			this.$imageMetadata = $( '<div>' )
-				.addClass( 'mw-mlb-image-metadata' )
-				.html( this.$imageDescDiv )
-				.append( this.$imageLinkDiv );
-
-			this.$postDiv.append( this.$imageMetadata );
-
-			this.$mmvAboutLink = $( '<a>' )
-				.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).infoLink )
-				.text( mw.message( 'multimediaviewer-about-mmv' ).text() )
-				.addClass( 'mw-mlb-mmv-about-link' );
-
-			this.$mmvDiscussLink = $( '<a>' )
-				.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).discussionLink )
-				.text( mw.message( 'multimediaviewer-discuss-mmv' ).text() )
-				.addClass( 'mw-mlb-mmv-discuss-link' );
-
-			this.$mmvAboutLinks = $( '<div>' )
-				.addClass( 'mw-mlb-mmv-about-links' )
-				.append(
-					this.$mmvAboutLink,
-					' | ',
-					this.$mmvDiscussLink
-				);
-
-			this.$imageMetadata.append( this.$mmvAboutLinks );
-
-			this.$repo = $( '<a>' )
-				.addClass( 'mw-mlb-repo' )
-				.prop( 'href', '#' );
-
-			this.$repoLi = $( '<li>' )
-				.addClass( 'mw-mlb-repo-li' )
-				.addClass( 'empty' )
-				.append( this.$repo );
-
-			this.$imageLinks.append( this.$repoLi );
-
-			this.$datetime = $( '<span>' )
-				.addClass( 'mw-mlb-datetime' );
-
-			this.$datetimeLi = $( '<li>' )
-				.addClass( 'mw-mlb-datetime-li' )
-				.addClass( 'empty' )
-				.html( this.$datetime );
-
-			this.$imageLinks.append( this.$datetimeLi );
-
-			this.$username = $( '<a>' )
-				.addClass( 'mw-mlb-username' )
-				.prop( 'href', '#' );
-
-			this.$usernameLi = $( '<li>' )
-				.addClass( 'mw-mlb-username-li' )
-				.addClass( 'empty' )
-				.html( this.$username );
-
-			this.$imageLinks.append( this.$usernameLi );
-
-			this.$license = $( '<a>' )
-				.addClass( 'mw-mlb-license' )
-				.addClass( 'empty' )
-				.prop( 'href', '#' );
-
-			this.$licensePara = $( '<p>' )
-				.addClass( 'mw-mlb-license-contain' )
-				.html( this.$license );
-
-			this.$useFile = $( '<a>' )
-				.addClass( 'mw-mlb-usefile' )
-				.prop( 'href', '#' )
-				.text( mw.message( 'multimediaviewer-use-file' ).text() )
-				.click( function () {
-					function selectAllOnEvent() {
-						var $this = $( this );
-
-						if ( $this.is( 'label' ) ) {
-							$this = $this.parent().find( '#' + $this.prop( 'for' ) );
-						}
-
-						$this.selectAll();
-
-						return false;
-					}
-
-					var $this = $( this ),
-
-						fileTitle = $this.data( 'title' ),
-
-						filename = fileTitle.getPrefixedText(),
-						desc = fileTitle.getNameText(),
-
-						src = $this.data( 'src' ),
-						link = $this.data( 'link' ) || src,
-
-						owtId = 'mw-mlb-use-file-onwiki-thumb',
-						ownId = 'mw-mlb-use-file-onwiki-normal',
-						owId = 'mw-mlb-use-file-offwiki',
-
-						$owtLabel = $( '<label>' )
-							.prop( 'for', owtId )
-							.text( mw.message( 'multimediaviewer-use-file-owt' ).text() ),
-
-						$owtField = $( '<input>' )
-							.prop( 'type', 'text' )
-							.prop( 'id', owtId )
-							.prop( 'readonly', true )
-							.click( selectAllOnEvent )
-							.val( '[[' + filename + '|thumb|' + desc + ']]' ),
-
-						$onWikiThumb = $( '<div>' )
-							.append( $owtLabel,
-								$owtField
-							),
-
-						$ownLabel = $( '<label>' )
-							.prop( 'for', ownId )
-							.text( mw.message( 'multimediaviewer-use-file-own' ).text() ),
-
-						$ownField = $( '<input>' )
-							.prop( 'type', 'text' )
-							.prop( 'id', ownId )
-							.prop( 'readonly', true )
-							.click( selectAllOnEvent )
-							.val( '[[' + filename + '|' + desc + ']]' ),
-
-						$onWikiNormal = $( '<div>' )
-							.append(
-								$ownLabel,
-								$ownField
-							),
-
-						$owLabel = $( '<label>' )
-							.prop( 'for', owId )
-							.text( mw.message( 'multimediaviewer-use-file-offwiki' ).text() ),
-
-						$owField = $( '<input>' )
-							.prop( 'type', 'text' )
-							.prop( 'id', owId )
-							.prop( 'readonly', true )
-							.click( selectAllOnEvent )
-							.val( '<a href="' + link + '"><img src="' + src + '" /></a>' ),
-
-						$offWiki = $( '<div>' )
-							.append(
-								$owLabel,
-								$owField
-							);
-
-					ui.$dialog = $( '<div>' )
-						.addClass( 'mw-mlb-use-file-dialog' )
-						.append(
-							$onWikiThumb,
-							$onWikiNormal,
-							$offWiki
-						)
-						.dialog( {
-							width: 750
-						} );
-
-					$owtField.click();
-
-					return false;
-				} );
-
-			this.$useFileLi = $( '<li>' )
-				.addClass( 'mw-mlb-usefile-li' )
-				.addClass( 'empty' )
-				.append( this.$useFile );
-
-			this.$imageLinks.append( this.$useFileLi );
-
-			this.$title = $( '<p>' )
-				.addClass( 'mw-mlb-title' );
-
-			this.$source = $( '<span>' )
-				.addClass( 'mw-mlb-source' );
-
-			this.$author = $( '<span>' )
-				.addClass( 'mw-mlb-author' );
-
-			this.$credit = $( '<p>' )
-				.addClass( 'mw-mlb-credit' )
-				.addClass( 'empty' )
-				.html(
-					mw.message(
-						'multimediaviewer-credit',
-						this.$author.get( 0 ).outerHTML,
-						this.$source.get( 0 ).outerHTML
-					).plain()
-				);
-
-			this.$titleAndCredit = $( '<div>' )
-				.addClass( 'mw-mlb-title-credit' )
-				.append(
-					this.$title,
-					this.$credit
-				);
-
-			this.$titleDiv = $( '<div>' )
-				.addClass( 'mw-mlb-title-contain' )
-				.append(
-					this.$titleAndCredit,
-					this.$licensePara
-				);
-
-			this.$controlBar.append( this.$titleDiv );
-
-			this.$closeButton.click( function () {
-				if ( ui.$dialog ) {
-					ui.$dialog.dialog( 'close' );
-				}
-
-				viewer.log( 'close-link-click' );
-			} );
-
-			this.$fullscreenButton.click( function () {
-				if ( ui.isFullScreen ) {
-					viewer.log( 'fullscreen-link-click' );
-				} else {
-					viewer.log( 'defullscreen-link-click' );
-				}
-			} );
+			viewer.initializeInterface( ui );
 		} );
 
 		lightboxHooks.register( 'fullscreen', function () {
@@ -431,7 +190,7 @@
 		lightboxHooks.register( 'clearInterface', function () {
 			this.$imageDesc.empty();
 			this.$imageDescDiv.addClass( 'empty' );
-			this.$title.empty().addClass( 'empty' );
+			this.$title.empty();
 			this.$credit.empty().addClass( 'empty' );
 
 			this.$username.empty();
@@ -457,7 +216,313 @@
 		} );
 	}
 
-	MultimediaViewer.prototype.fetchRepoInfo = function ( cb ) {
+	MMVP = MultimediaViewer.prototype;
+
+	MMVP.initializeInterface = function ( ui ) {
+		this.ui = ui;
+
+		this.initializeHeader();
+		this.initializeImage();
+		this.initializeImageMetadata();
+		this.initializeAboutLinks();
+
+		this.registerLogging();
+	};
+
+	MMVP.initializeImage = function () {
+		this.ui.$imageDiv
+			.addClass( 'empty' );
+	};
+
+	MMVP.initializeImageDesc = function () {
+		this.ui.$imageDesc = $( '<p>' )
+			.addClass( 'mw-mlb-image-desc' );
+
+		this.ui.$imageDescDiv = $( '<div>' )
+			.addClass( 'mw-mlb-image-desc-div' )
+			.addClass( 'empty' )
+			.append( this.ui.$imageDesc );
+
+		this.ui.$imageMetadata.append( this.ui.$imageDescDiv );
+	};
+
+	MMVP.initializeImageLinks = function () {
+		this.ui.$imageLinks = $( '<ul>' )
+			.addClass( 'mw-mlb-image-links' );
+
+		this.ui.$imageLinkDiv = $( '<div>' )
+			.addClass( 'mw-mlb-image-links-div' )
+			.append( this.ui.$imageLinks );
+
+		this.ui.$imageMetadata.append( this.ui.$imageLinkDiv );
+
+		this.initializeRepoLink();
+		this.initializeDatetime();
+		this.initializeUploader();
+		this.initializeFileUsage();
+	};
+
+	MMVP.initializeImageMetadata = function () {
+		this.ui.$imageMetadata = $( '<div>' )
+			.addClass( 'mw-mlb-image-metadata' );
+
+		this.ui.$postDiv.append( this.ui.$imageMetadata );
+
+		this.initializeImageDesc();
+		this.initializeImageLinks();
+	};
+
+	MMVP.initializeAboutLinks = function () {
+		this.ui.$mmvAboutLink = $( '<a>' )
+			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).infoLink )
+			.text( mw.message( 'multimediaviewer-about-mmv' ).text() )
+			.addClass( 'mw-mlb-mmv-about-link' );
+
+		this.ui.$mmvDiscussLink = $( '<a>' )
+			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).discussionLink )
+			.text( mw.message( 'multimediaviewer-discuss-mmv' ).text() )
+			.addClass( 'mw-mlb-mmv-discuss-link' );
+
+		this.ui.$mmvAboutLinks = $( '<div>' )
+			.addClass( 'mw-mlb-mmv-about-links' )
+			.append(
+				this.ui.$mmvAboutLink,
+				' | ',
+				this.ui.$mmvDiscussLink
+			);
+
+		this.ui.$imageMetadata.append( this.ui.$mmvAboutLinks );
+	};
+
+	MMVP.initializeRepoLink = function () {
+		this.ui.$repo = $( '<a>' )
+			.addClass( 'mw-mlb-repo' )
+			.prop( 'href', '#' );
+
+		this.ui.$repoLi = $( '<li>' )
+			.addClass( 'mw-mlb-repo-li' )
+			.addClass( 'empty' )
+			.append( this.ui.$repo );
+
+		this.ui.$imageLinks.append( this.ui.$repoLi );
+	};
+
+	MMVP.initializeDatetime = function () {
+		this.ui.$datetime = $( '<span>' )
+			.addClass( 'mw-mlb-datetime' );
+
+		this.ui.$datetimeLi = $( '<li>' )
+			.addClass( 'mw-mlb-datetime-li' )
+			.addClass( 'empty' )
+			.append( this.ui.$datetime );
+
+		this.ui.$imageLinks.append( this.ui.$datetimeLi );
+	};
+
+	MMVP.initializeUploader = function () {
+		this.ui.$username = $( '<a>' )
+			.addClass( 'mw-mlb-username' )
+			.prop( 'href', '#' );
+
+		this.ui.$usernameLi = $( '<li>' )
+			.addClass( 'mw-mlb-username-li' )
+			.addClass( 'empty' )
+			.append( this.ui.$username );
+
+		this.ui.$imageLinks.append( this.ui.$usernameLi );
+	};
+
+	MMVP.initializeFileUsage = function () {
+		var viewer = this;
+
+		this.ui.$useFile = $( '<a>' )
+			.addClass( 'mw-mlb-usefile' )
+			.prop( 'href', '#' )
+			.text( mw.message( 'multimediaviewer-use-file' ).text() )
+			.click( function () {
+				function selectAllOnEvent() {
+					var $this = $( this );
+
+					if ( $this.is( 'label' ) ) {
+						$this = $this.parent().find( '#' + $this.prop( 'for' ) );
+					}
+
+					$this.selectAll();
+
+					return false;
+				}
+
+				var $this = $( this ),
+
+					fileTitle = $this.data( 'title' ),
+
+					filename = fileTitle.getPrefixedText(),
+					desc = fileTitle.getNameText(),
+
+					src = $this.data( 'src' ),
+					link = $this.data( 'link' ) || src,
+
+					owtId = 'mw-mlb-use-file-onwiki-thumb',
+					ownId = 'mw-mlb-use-file-onwiki-normal',
+					owId = 'mw-mlb-use-file-offwiki',
+
+					$owtLabel = $( '<label>' )
+						.prop( 'for', owtId )
+						.text( mw.message( 'multimediaviewer-use-file-owt' ).text() ),
+
+					$owtField = $( '<input>' )
+						.prop( 'type', 'text' )
+						.prop( 'id', owtId )
+						.prop( 'readonly', true )
+						.click( selectAllOnEvent )
+						.val( '[[' + filename + '|thumb|' + desc + ']]' ),
+
+					$onWikiThumb = $( '<div>' )
+						.append( $owtLabel,
+							$owtField
+						),
+
+					$ownLabel = $( '<label>' )
+						.prop( 'for', ownId )
+						.text( mw.message( 'multimediaviewer-use-file-own' ).text() ),
+
+					$ownField = $( '<input>' )
+						.prop( 'type', 'text' )
+						.prop( 'id', ownId )
+						.prop( 'readonly', true )
+						.click( selectAllOnEvent )
+						.val( '[[' + filename + '|' + desc + ']]' ),
+
+					$onWikiNormal = $( '<div>' )
+						.append(
+							$ownLabel,
+							$ownField
+						),
+
+					$owLabel = $( '<label>' )
+						.prop( 'for', owId )
+						.text( mw.message( 'multimediaviewer-use-file-offwiki' ).text() ),
+
+					$owField = $( '<input>' )
+						.prop( 'type', 'text' )
+						.prop( 'id', owId )
+						.prop( 'readonly', true )
+						.click( selectAllOnEvent )
+						.val( '<a href="' + link + '"><img src="' + src + '" /></a>' ),
+
+					$offWiki = $( '<div>' )
+						.append(
+							$owLabel,
+							$owField
+						);
+
+				viewer.ui.$dialog = $( '<div>' )
+					.addClass( 'mw-mlb-use-file-dialog' )
+					.append(
+						$onWikiThumb,
+						$onWikiNormal,
+						$offWiki
+					)
+					.dialog( {
+						width: 750
+					} );
+
+				$owtField.click();
+
+				return false;
+			} );
+
+		this.ui.$useFileLi = $( '<li>' )
+			.addClass( 'mw-mlb-usefile-li' )
+			.addClass( 'empty' )
+			.append( this.ui.$useFile );
+
+		this.ui.$imageLinks.append( this.ui.$useFileLi );
+	};
+
+	MMVP.initializeHeader = function () {
+		this.ui.$titleDiv = $( '<div>' )
+			.addClass( 'mw-mlb-title-contain' );
+
+		this.ui.$controlBar.append( this.ui.$titleDiv );
+
+		this.initializeTitleAndCredit();
+		this.initializeLicense();
+	};
+
+	MMVP.initializeTitleAndCredit = function () {
+		this.ui.$titleAndCredit = $( '<div>' )
+			.addClass( 'mw-mlb-title-credit' );
+
+		this.ui.$titleDiv.append( this.ui.$titleAndCredit );
+
+		this.initializeTitle();
+		this.initializeCredit();
+	};
+
+	MMVP.initializeTitle = function () {
+		this.ui.$title = $( '<p>' )
+			.addClass( 'mw-mlb-title' );
+
+		this.ui.$titleAndCredit.append( this.ui.$title );
+	};
+
+	MMVP.initializeCredit = function () {
+		this.ui.$source = $( '<span>' )
+			.addClass( 'mw-mlb-source' );
+
+		this.ui.$author = $( '<span>' )
+			.addClass( 'mw-mlb-author' );
+
+		this.ui.$credit = $( '<p>' )
+			.addClass( 'mw-mlb-credit' )
+			.addClass( 'empty' )
+			.html(
+				mw.message(
+					'multimediaviewer-credit',
+					this.ui.$author.get( 0 ).outerHTML,
+					this.ui.$source.get( 0 ).outerHTML
+				).plain()
+			);
+
+		this.ui.$titleAndCredit.append( this.ui.$credit );
+	};
+
+	MMVP.initializeLicense = function () {
+		this.ui.$license = $( '<a>' )
+			.addClass( 'mw-mlb-license' )
+			.addClass( 'empty' )
+			.prop( 'href', '#' );
+
+		this.ui.$licensePara = $( '<p>' )
+			.addClass( 'mw-mlb-license-contain' )
+			.append( this.ui.$license );
+
+		this.ui.$titleDiv.append( this.ui.$licensePara );
+	};
+
+
+	MMVP.registerLogging = function () {
+		var viewer = this;
+
+		this.ui.$closeButton.click( function () {
+			if ( viewer.ui.$dialog ) {
+				viewer.ui.$dialog.dialog( 'close' );
+			}
+
+			viewer.log( 'close-link-click' );
+		} );
+
+		this.ui.$fullscreenButton.click( function () {
+			if ( viewer.ui.isFullScreen ) {
+				viewer.log( 'fullscreen-link-click' );
+			} else {
+				viewer.log( 'defullscreen-link-click' );
+			}
+		} );
+	};
+
+	MMVP.fetchRepoInfo = function ( cb ) {
 		var viewer = this;
 
 		if ( this.repoInfo !== undefined ) {
@@ -480,7 +545,7 @@
 		}
 	};
 
-	MultimediaViewer.prototype.setRepoInfo = function ( repos ) {
+	MMVP.setRepoInfo = function ( repos ) {
 		var i, repo;
 
 		repos = repos || [];
@@ -495,7 +560,7 @@
 		}
 	};
 
-	MultimediaViewer.prototype.setImageInfo = function ( fileTitle, imageInfo ) {
+	MMVP.setImageInfo = function ( fileTitle, imageInfo ) {
 		function whitelistHtml( $el ) {
 			var child, $prev, $child = $el.children().first();
 
@@ -704,7 +769,7 @@
 		ui.$license.toggleClass( 'empty', !license );
 	};
 
-	MultimediaViewer.prototype.fetchImageInfo = function ( fileTitle, cb ) {
+	MMVP.fetchImageInfo = function ( fileTitle, cb ) {
 		function apiCallback( sitename ) {
 			return function ( data ) {
 				if ( !data || !data.query ) {
@@ -788,7 +853,7 @@
 		}
 	};
 
-	MultimediaViewer.prototype.log = function ( action ) {
+	MMVP.log = function ( action ) {
 		mw.log( mmvLogActions[action] || action );
 
 		if ( mw.eventLog ) {
