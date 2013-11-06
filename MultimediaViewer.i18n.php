@@ -50,7 +50,7 @@ $messages['en'] = array(
 	'multimediaviewer-license-cc-by-sa-3.0' => 'CC BY-SA 3.0',
 	'multimediaviewer-license-cc-pd' => 'Public Domain',
 	'multimediaviewer-license-cc-zero' => 'CC 0',
-	'multimediaviewer-license-default' => 'Licensing information',
+	'multimediaviewer-license-default' => 'View license',
 
 	'multimediaviewer-use-file' => 'Use this file',
 	'multimediaviewer-use-file-owt' => 'Use this file on a wiki page, as a thumbnail',
