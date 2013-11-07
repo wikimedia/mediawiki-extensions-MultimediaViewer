@@ -108,8 +108,7 @@ They will usually be derived from the HTML output from wikitext on a file descri
 	'multimediaviewer-license-cc-pd' => 'Very short label for the Creative Commons Public Domain license, used in a link to the file information page that has more licensing information.
 {{Identical|Public domain}}',
 	'multimediaviewer-license-cc-zero' => 'Very short label for the Creative Commons Zero license, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-default' => 'Short label for a link to generic license information.
-{{Identical|License information}}',
+	'multimediaviewer-license-default' => 'Short label for a link to generic license information.',
 	'multimediaviewer-use-file' => 'Link that opens a dialog with options for sharing the file, e.g. onwiki or on another site. Similar to the Commons gadget stockPhoto.',
 	'multimediaviewer-use-file-owt' => 'Label for input box which has wikitext used to show an image with the thumb option and a helpful caption.
 
@@ -294,7 +293,7 @@ $messages['fr'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Téléversé le $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Téléversé}} par $1',
 	'multimediaviewer-license-cc-pd' => 'Domaine public',
-	'multimediaviewer-license-default' => 'Informations de licence', # Fuzzy
+	'multimediaviewer-license-default' => 'Afficher la licence',
 	'multimediaviewer-use-file' => 'Utiliser ce fichier',
 	'multimediaviewer-use-file-owt' => 'Utiliser ce fichier comme vignette sur une page de wiki',
 	'multimediaviewer-use-file-own' => 'Utiliser ce fichier dans une ligne sur une page de wiki',
@@ -362,7 +361,7 @@ $messages['ja'] = array(
 	'multimediaviewer-license-cc-by-sa-3.0' => 'CC 表示-継承 3.0',
 	'multimediaviewer-license-cc-pd' => 'パブリック・ドメイン',
 	'multimediaviewer-license-cc-zero' => 'CC 0',
-	'multimediaviewer-license-default' => 'ライセンス情報', # Fuzzy
+	'multimediaviewer-license-default' => 'ライセンスを閲覧',
 	'multimediaviewer-use-file' => 'このファイルを使用',
 	'multimediaviewer-use-file-owt' => 'このファイルをウィキページ内 (サムネイル) で使用',
 	'multimediaviewer-use-file-own' => 'このファイルをウィキページ内 (インライン) で使用',
@@ -408,7 +407,7 @@ $messages['mk'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Подигнато на $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Подигнато}} од $1',
 	'multimediaviewer-license-cc-pd' => 'Јавна сопственост',
-	'multimediaviewer-license-default' => 'Информации за лиценца', # Fuzzy
+	'multimediaviewer-license-default' => 'Погл. лиценцата',
 	'multimediaviewer-use-file' => 'Употребете ја податотекава',
 	'multimediaviewer-use-file-owt' => 'Употребете ја податотекава на викистраница, како минијатура',
 	'multimediaviewer-use-file-own' => 'Употребете ја податотекава на викистраница, во ред',
@@ -429,6 +428,23 @@ $messages['oc'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Mandat lo $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Mandat}} per $1',
 	'multimediaviewer-license-cc-pd' => 'Domeni public',
+);
+
+/** Polish (polski)
+ * @author WTM
+ */
+$messages['pl'] = array(
+	'multimediaviewer-repository' => 'Dowiedz się więcej o {{GRAMMAR:D.lp|$1}}',
+	'multimediaviewer-datetime-created' => 'Utworzony $1',
+	'multimediaviewer-datetime-uploaded' => 'Przesłany $1',
+	'multimediaviewer-userpage-link' => 'Przesłany przez {{GENDER:$2|użytkownika|użytkowniczkę}} $1',
+	'multimediaviewer-license-cc-pd' => 'Domena publiczna',
+	'multimediaviewer-license-default' => 'Zobacz licencję',
+	'multimediaviewer-use-file' => 'Użyj tego pliku',
+	'multimediaviewer-use-file-owt' => 'Użyj tego pliku na stronie wiki, jako miniatura',
+	'multimediaviewer-use-file-own' => 'Użyj tego pliku na stronie wiki, wewnątrz tekstu',
+	'multimediaviewer-use-file-offwiki' => 'Użyj tego pliku na innej stronie internetowej',
+	'multimediaviewer-discuss-mmv' => 'Prześlij opinię',
 );
 
 /** Pashto (پښتو)
@@ -491,7 +507,7 @@ $messages['uk'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Завантажено $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Завантажив|Завантажила}} $1',
 	'multimediaviewer-license-cc-pd' => 'Суспільне надбання',
-	'multimediaviewer-license-default' => 'Відомості про ліцензію', # Fuzzy
+	'multimediaviewer-license-default' => 'Перегляд ліцензії',
 	'multimediaviewer-use-file' => 'Використовувати цей файл',
 	'multimediaviewer-use-file-owt' => 'Використовувати цей файл на вікі-сторінці у вигляді мініатюри',
 	'multimediaviewer-use-file-own' => 'Використовувати цей файл на вікі-сторінці у тексті',
