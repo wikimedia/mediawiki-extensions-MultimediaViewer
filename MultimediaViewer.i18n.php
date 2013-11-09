@@ -314,6 +314,28 @@ $messages['gl'] = array(
 	'multimediaviewer-discuss-mmv' => 'Deixe un comentario',
 );
 
+/** Hebrew (עברית)
+ * @author Amire80
+ */
+$messages['he'] = array(
+	'multimediaviewer-desc' => 'הגדלת תמונות ממוזערות בשיטת לייטבוקס.',
+	'multimediaviewer-pref' => 'מציג מדיה',
+	'multimediaviewer-pref-desc' => 'הכלי החדש הזה משפר את חוויית המולטימדיה שלך. הוא מציג תמונות מוגדלות בדפים עם תמונות ממוזעזרות. התמונות מוצגות בשכבה בסגנון "לייטבוקס" וניתן להציג אותן גם בגודל מלא.',
+	'multimediaviewer-file-page' => 'מעבר אל דף הקובץ המתאים',
+	'multimediaviewer-repository' => 'מידע נוסף על $1',
+	'multimediaviewer-datetime-created' => 'נוצר ב־$1',
+	'multimediaviewer-datetime-uploaded' => 'הועלה ב־$1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|הועלה}} על־ידי $1',
+	'multimediaviewer-license-cc-pd' => 'נחלת הכלל',
+	'multimediaviewer-license-default' => 'הצגת הרישיון',
+	'multimediaviewer-use-file' => 'שימוש בקובץ הזה',
+	'multimediaviewer-use-file-owt' => 'שימוש בקובץ בזה בדף ויקי כתמונה ממוזערת',
+	'multimediaviewer-use-file-own' => 'שימוש בקובץ הזה בדף ויקי ברצף הטקסט',
+	'multimediaviewer-use-file-offwiki' => 'שימוש בקובץ הזה באתר אחר',
+	'multimediaviewer-about-mmv' => 'אודות מציג מדיה',
+	'multimediaviewer-discuss-mmv' => 'השארת תגובה',
+);
+
 /** Italian (italiano)
  * @author Beta16
  */
@@ -386,6 +408,7 @@ $messages['lb'] = array(
 	'multimediaviewer-repository' => 'Méi gewuer ginn op $1',
 	'multimediaviewer-datetime-uploaded' => 'Eropgelueden den $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Eropgeluede}} vum $1',
+	'multimediaviewer-license-default' => 'Lizenz weisen',
 	'multimediaviewer-use-file' => 'Benotzt dëse Fichier',
 	'multimediaviewer-use-file-owt' => 'Dëse Fichier op enger Wikisäit als Miniaturbild benotzen',
 	'multimediaviewer-use-file-own' => 'Benotzt dëse Fichier op enger Wiki-Säit, inline',
@@ -460,6 +483,7 @@ $messages['ps'] = array(
 );
 
 /** Russian (русский)
+ * @author Kaganer
  * @author Okras
  */
 $messages['ru'] = array(
@@ -472,7 +496,7 @@ $messages['ru'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Загружено в $1',
 	'multimediaviewer-userpage-link' => 'Загружено {{GENDER:$2|участником|участницей}} $1',
 	'multimediaviewer-license-cc-pd' => 'Общественное достояние',
-	'multimediaviewer-license-default' => 'Информация о лицензировании', # Fuzzy
+	'multimediaviewer-license-default' => 'Посмотр лицензии',
 	'multimediaviewer-use-file' => 'Использовать этот файл',
 	'multimediaviewer-use-file-owt' => 'Использовать этот файл на вики-странице, с уменьшенной копией',
 	'multimediaviewer-use-file-own' => 'Использовать этот файл на вики-странице, в полный размер',
@@ -481,17 +505,47 @@ $messages['ru'] = array(
 	'multimediaviewer-discuss-mmv' => 'Оставить отзыв',
 );
 
+/** Slovenian (slovenščina)
+ * @author Eleassar
+ */
+$messages['sl'] = array(
+	'multimediaviewer-desc' => 'Razširitev sličic v prikazovalniku.',
+	'multimediaviewer-pref' => 'Predstavnostni pregledovalnik',
+	'multimediaviewer-pref-desc' => 'S tem orodjem lahko izboljšate svojo izkušnjo pri ogledovanju predstavnostnih vsebin. Orodje prikazuje slike na straneh s sličicami v večji velikosti in v lepšem okvirčku Lightbox, mogoč pa je tudi celozaslonski prikaz.',
+	'multimediaviewer-file-page' => 'Pojdi na pripadajočo opisno stran datoteke.',
+	'multimediaviewer-repository' => 'Več o $1',
+	'multimediaviewer-datetime-created' => 'Ustvarjeno: $1',
+	'multimediaviewer-datetime-uploaded' => 'Naloženo: $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Naložil|Naložila}}: $1',
+	'multimediaviewer-license-cc-pd' => 'javna last',
+	'multimediaviewer-license-default' => 'Prikaz licence',
+	'multimediaviewer-use-file' => 'Uporaba datoteke',
+	'multimediaviewer-use-file-owt' => 'Uporaba datoteke kot sličice na wikistrani',
+	'multimediaviewer-use-file-own' => 'Uporaba datoteke znotrajvrstično na wikistrani',
+	'multimediaviewer-use-file-offwiki' => 'Uporaba datoteke na drugi spletni strani',
+	'multimediaviewer-about-mmv' => 'O Predstavnostnem pregledovalniku',
+	'multimediaviewer-discuss-mmv' => 'Pustite povratno informacijo',
+);
+
 /** Swedish (svenska)
+ * @author Ainali
  * @author WikiPhoenix
  */
 $messages['sv'] = array(
+	'multimediaviewer-pref' => 'Mediavisare',
+	'multimediaviewer-pref-desc' => 'Förbättra din multimediatittarupplevelse med detta nya verktyg. Den visar bilder i större storlek på sidor som har miniatyrer. Bilder visas i ett trevligare Ljuslådeöverlägg, och kan också ses i full storlek.',
+	'multimediaviewer-file-page' => 'Gå till motsvarande filsida',
+	'multimediaviewer-repository' => 'Läs mer på $1',
+	'multimediaviewer-datetime-created' => 'Skapades $1',
+	'multimediaviewer-datetime-uploaded' => 'Laddades upp $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Uppladdad}} av $1',
 	'multimediaviewer-license-cc-pd' => 'Allmän egendom',
-	'multimediaviewer-license-default' => 'Licensinformation', # Fuzzy
+	'multimediaviewer-license-default' => 'Visa licens',
 	'multimediaviewer-use-file' => 'Använd denna fil',
 	'multimediaviewer-use-file-owt' => 'Använd denna fil på en wikisida, som en miniatyr',
 	'multimediaviewer-use-file-offwiki' => 'Använd denna fil på en annan webbplats',
-	'multimediaviewer-about-mmv' => 'Om Media Viewer',
-	'multimediaviewer-discuss-mmv' => 'Lämna feedback',
+	'multimediaviewer-about-mmv' => 'Om Mediavisaren',
+	'multimediaviewer-discuss-mmv' => 'Ge återkoppling',
 );
 
 /** Ukrainian (українська)
