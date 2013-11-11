@@ -255,6 +255,14 @@ $messages['es'] = array(
 	'multimediaviewer-discuss-mmv' => 'Dejar comentarios',
 );
 
+/** Persian (فارسی)
+ * @author Ebraminio
+ */
+$messages['fa'] = array(
+	'multimediaviewer-pref' => 'نمایش‌دهندهٔ رسانه',
+	'multimediaviewer-pref-desc' => 'تجربهٔ بازدید چندرسانه‌ای شما با این ابزار جدید بهبود می‌یابد و تصاویر را در اندازهٔ بزرگتر در صفحه‌هایی که بندانگشتی دارند نمایش می‌دهد. تصاویر در پوشش سبک زیباتری نمایش داده می‌شوند و همچنین می‌توانند در اندازهٔ اصلی نمایش داده شوند.',
+);
+
 /** Finnish (suomi)
  * @author Nike
  * @author Stryn
@@ -299,7 +307,7 @@ $messages['fr'] = array(
 	'multimediaviewer-use-file-own' => 'Utiliser ce fichier dans une ligne sur une page de wiki',
 	'multimediaviewer-use-file-offwiki' => 'Utiliser ce fichier sur un autre site web',
 	'multimediaviewer-about-mmv' => 'À propos de la visionneuse de médias',
-	'multimediaviewer-discuss-mmv' => 'Laisser un avis',
+	'multimediaviewer-discuss-mmv' => 'Laisser un avis à propos de la visionneuse de médias',
 );
 
 /** Galician (galego)
