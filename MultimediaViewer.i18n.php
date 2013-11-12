@@ -344,6 +344,28 @@ $messages['he'] = array(
 	'multimediaviewer-discuss-mmv' => 'השארת תגובה',
 );
 
+/** Iloko (Ilokano)
+ * @author Lam-ang
+ */
+$messages['ilo'] = array(
+	'multimediaviewer-desc' => 'Mangpadakkel kadagiti bassit a ladawan iti dakdakkel iti maysa a Lightbox.',
+	'multimediaviewer-pref' => 'Media Viewer',
+	'multimediaviewer-pref-desc' => 'Pasayaatem ti panagsanay a panagbuya ti nadumaduma a midia iti daytoy a ramit. Daytoy ket agiparang kadagiti dakdakkel a ladawan kadagiti panid nga addaan kadagiti bassit a ladawan. Dagiti ladawan ket maiparang ti nasaysayaat a tuon ti Lightbox, ken mabalin pay a makita iti napno a kadakkel.',
+	'multimediaviewer-file-page' => 'Mapan iti maitutop a panid ti papeles',
+	'multimediaviewer-repository' => 'Agadal pay ti adu idiay $1',
+	'multimediaviewer-datetime-created' => 'Pinartuat idi $1',
+	'multimediaviewer-datetime-uploaded' => 'Inkarga idi $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Inkarga}} babaen ni $1',
+	'multimediaviewer-license-cc-pd' => 'Dominio a Publiko',
+	'multimediaviewer-license-default' => 'Kitaen ti lisensia',
+	'multimediaviewer-use-file' => 'Usaren daytoy a papeles',
+	'multimediaviewer-use-file-owt' => 'Usaren daytoy a papeles iti panid ti wiki, a kas bassit a ladawan',
+	'multimediaviewer-use-file-own' => 'Usaren daytoy a papeles iti panid ti wiki, a nailinia',
+	'multimediaviewer-use-file-offwiki' => 'Usaren daytoy a papeles iti sabali a website',
+	'multimediaviewer-about-mmv' => 'Maipanggep ti Media Viewer',
+	'multimediaviewer-discuss-mmv' => 'Mangibati ti feedback',
+);
+
 /** Italian (italiano)
  * @author Beta16
  */
