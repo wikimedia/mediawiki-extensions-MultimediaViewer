@@ -78,6 +78,11 @@
 			urls[index].filePageLink = filePageLink;
 
 			$links.click( function ( e ) {
+				// Do not interfere with non-left clicks or if modifier keys are pressed.
+				if ( e.which !== 1 || e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) {
+					return;
+				}
+
 				var $this = $( this );
 
 				if ( $this.is( 'a.image' ) ) {
