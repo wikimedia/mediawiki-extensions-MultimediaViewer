@@ -314,9 +314,9 @@ $messages['fr'] = array(
  * @author Toliño
  */
 $messages['gl'] = array(
-	'multimediaviewer-desc' => 'Engade un agradable visor de ficheiros multimedia para as imaxes', # Fuzzy
-	'multimediaviewer-pref' => 'Activar unha visualización das imaxes máis agradable', # Fuzzy
-	'multimediaviewer-pref-desc' => 'Activa un agradable visor de ficheiros multimedia para as imaxes nas páxinas que teñen miniaturas. Utiliza unha biblioteca lightbox de terceiros e JavaScript.', # Fuzzy
+	'multimediaviewer-desc' => 'Expande as miniaturas ata un tamaño maior dentro dun visor.',
+	'multimediaviewer-pref' => 'Visor de ficheiros multimedia',
+	'multimediaviewer-pref-desc' => 'Mellore a súa experiencia de visualización de ficheiros multimedia con esta nova ferramenta. Mostra as imaxes nun tamaño maior nas páxinas que teñen miniaturas. As imaxes móstranse nun visor agradable e as imaxes tamén se poden ver a tamaño completo.',
 	'multimediaviewer-file-page' => 'Ir á páxina de ficheiro correspondente',
 	'multimediaviewer-license-cc-pd' => 'Dominio público',
 	'multimediaviewer-discuss-mmv' => 'Deixe un comentario',
@@ -598,6 +598,29 @@ $messages['uk'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Використовувати цей файл на іншому веб-сайті',
 	'multimediaviewer-about-mmv' => 'Про медіапереглядач',
 	'multimediaviewer-discuss-mmv' => 'Залишити відгук',
+);
+
+/** Vietnamese (Tiếng Việt)
+ * @author Minh Nguyen
+ */
+$messages['vi'] = array(
+	'multimediaviewer-desc' => 'Mở các hình nhỏ lớn hơn trong cửa sổ Lightbox.',
+	'multimediaviewer-pref' => 'Cửa sổ phương tiện',
+	'multimediaviewer-pref-desc' => 'Cải thiện trải nghiệm xem phương tiện của bạn với công cụ mới này. Nó mở rộng các hình nhỏ để phủ lên toàn cửa sổ. Các hình ảnh được hiển thị trong panel Lightbox đẹp đẽ và cũng có thể xem kích thước gốc.',
+	'multimediaviewer-file-page' => 'Mở trang ứng với tập tin',
+	'multimediaviewer-repository' => 'Tìm hiểu thêm về $1',
+	'multimediaviewer-datetime-created' => 'Được tạo vào $1',
+	'multimediaviewer-datetime-uploaded' => 'Được tải lên vào $1',
+	'multimediaviewer-userpage-link' => 'Do $1 {{GENDER:$2}}tải lên',
+	'multimediaviewer-credit' => '$1 – $2',
+	'multimediaviewer-license-cc-pd' => 'Phạm vi công cộng',
+	'multimediaviewer-license-default' => 'Xem giấy phép',
+	'multimediaviewer-use-file' => 'Sử dụng tập tin này',
+	'multimediaviewer-use-file-owt' => 'Sử dụng hình nhỏ của tập tin này trên một trang wiki',
+	'multimediaviewer-use-file-own' => 'Sử dụng tập tin này trong dòng trên một trang wiki',
+	'multimediaviewer-use-file-offwiki' => 'Sử dụng tập tin này trên một trang Web khác',
+	'multimediaviewer-about-mmv' => 'Giới thiệu về Cửa sổ phương tiện',
+	'multimediaviewer-discuss-mmv' => 'Gửi phản hồi',
 );
 
 /** Volapük (Volapük)
