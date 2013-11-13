@@ -1,3 +1,9 @@
+.mlb-staging-area {
+	position: absolute;
+	top: -999999px;
+	left: -999999px;
+}
+
 .mlb-overlay {
 	position: fixed;
 	top: 0px;
@@ -18,15 +24,30 @@
 }
 
 .mlb-main {
-	margin-top: 20px;
-	width: 80%;
-	margin-right: auto;
-	margin-left: auto;
+	width: 100%;
+	height: 100%;
 	position: relative;
 }
 
-.mlb-image {
+.mlb-image-wrapper {
+	position: absolute;
+	top: 50px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+}
+
+.mlb-image-inner-wrapper {
+	display: table;
 	width: 100%;
+	height: 100%;
+}
+
+.mlb-image {
+	display: table-cell;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
 }
 
 .mlb-image img {
@@ -35,52 +56,49 @@
 	margin-left: auto;
 }
 
+.mlb-pre-image {
+	position: absolute;
+	top: 0px;
+	height: 32px;
+	width: 100%;
+}
+
+.mlb-post-image {
+	position: absolute;
+	bottom: 0px;
+	height: 32px;
+	width: 100%;
+}
+
 .mlb-controls {
-	margin-right: auto;
-	margin-left: auto;
-	width: 80%;
-	min-height: 32px;
+	height: 32px;
+	width: 100%;
 	border-bottom: 1px solid #7d7c81;
-	margin-bottom: 40px;
-	position: relative;
+}
+
+.mlb-close,
+.mlb-fullscreen {
+	position: absolute;
+	top: 0px;
+	cursor: pointer;
+	width: 32px;
+	height: 32px;
 }
 
 .mlb-close {
-	cursor: pointer;
+	left: 0px;
 	background-image: url("../img/close.svg");
-	width: 32px;
-	height: 32px;
 	border-right: 1px solid #7d7c81;
-	border-bottom: 1px solid #7d7c81;
-	position: absolute;
-	bottom: -1px;
-	left: -32px;
 }
 
 .mlb-fullscreen {
-	cursor: pointer;
-	background-image: url("../img/fullscreen.svg");
-	width: 32px;
-	height: 32px;
-	border-left: 1px solid #7d7c81;
-	border-bottom: 1px solid #7d7c81;
-	position: absolute;
-	bottom: -1px;
-	right: -32px;
-}
-
-.mlb-fullscreen-div {
-	position: absolute;
-	top: 0px;
-	left: 0px;
 	right: 0px;
-	bottom: 0px;
-	z-index: 1002;
+	background-image: url("../img/fullscreen.svg");
+	border-left: 1px solid #7d7c81;
 }
 
-.mlb-fullscreen-div .mlb-main {
-	margin-top: 10px;
-	width: 100%;
+.mlb-main.mlb-fullscreened {
+	background-color: black;
 }
 
 .mlb-fullscreen-div .mlb-fullscreen {

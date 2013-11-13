@@ -82,3 +82,8 @@ imageResize
 	Arguments: None
 	ThisArg: LightboxInterface
 	Called: From LightboxInterface resize listener. Return false to override default behaviour.
+
+closeInterface
+	Arguments: None
+	ThisArg: LightboxInterface
+	Called: From LightboxInterface unattach method when the interface is being unattached.

@@ -26,62 +26,61 @@
 		return ele;
 	};
 
-	LIP.autoResize = function ( ele, ratio ) {
+	// Assumes that the parent element's size is the maximum size.
+	LIP.autoResize = function ( ele, $parent ) {
 		function updateRatios() {
 			if ( imgHeight ) {
-				imgHeightRatio = imgMaxHeight / imgHeight;
+				imgHeightRatio = parentHeight / imgHeight;
 			}
 
 			if ( imgWidth ) {
-				imgWidthRatio = imgMaxWidth / imgWidth;
+				imgWidthRatio = parentWidth / imgWidth;
 			}
 		}
 
-		var imgWidthRatio, imgHeightRatio,
-			multRatio = ratio || 0.5,
-			$window = $( window ),
-			winWidth = $window.width(),
-			winHeight = $window.height(),
+		var imgWidthRatio, imgHeightRatio, parentWidth, parentHeight,
 			$img = $( ele ),
-			imgMaxWidth = winWidth * multRatio,
-			imgMaxHeight = winHeight * multRatio,
 			imgWidth = $img.width(),
 			imgHeight = $img.height();
 
-		if ( this.globalMaxWidth && imgMaxWidth > this.globalMaxWidth ) {
-			imgMaxWidth = this.globalMaxWidth;
+		$parent = $parent || $img.parent();
+		parentWidth = $parent.width();
+		parentHeight = $parent.height();
+
+		if ( this.globalMaxWidth && parentWidth > this.globalMaxWidth ) {
+			parentWidth = this.globalMaxWidth;
 		}
 
-		if ( this.globalMaxHeight && imgMaxHeight > this.globalMaxHeight ) {
-			imgMaxHeight = this.globalMaxHeight;
+		if ( this.globalMaxHeight && parentHeight > this.globalMaxHeight ) {
+			parentHeight = this.globalMaxHeight;
 		}
 
 		updateRatios();
 
-		if ( imgWidth > imgMaxWidth ) {
+		if ( imgWidth > parentWidth ) {
 			imgHeight *= imgWidthRatio || 1;
-			imgWidth = imgMaxWidth;
+			imgWidth = parentWidth;
 			updateRatios();
 		}
 
-		if ( imgHeight > imgMaxHeight ) {
+		if ( imgHeight > parentHeight ) {
 			imgWidth *= imgHeightRatio || 1;
-			imgHeight = imgMaxHeight;
+			imgHeight = parentHeight;
 			updateRatios();
 		}
 
-		if ( imgWidth < imgMaxWidth && imgHeight < imgMaxHeight ) {
+		if ( imgWidth < parentWidth && imgHeight < parentHeight ) {
 			if ( imgWidth === 0 && imgHeight === 0 ) {
 				// Only set one
-				imgWidth = imgMaxWidth;
+				imgWidth = parentWidth;
 				imgHeight = null;
 			} else {
 				if ( imgHeightRatio > imgWidthRatio ) {
 					imgWidth *= imgHeightRatio;
-					imgHeight = imgMaxHeight;
+					imgHeight = parentHeight;
 				} else {
 					imgHeight *= imgWidthRatio;
-					imgWidth = imgMaxWidth;
+					imgWidth = parentWidth;
 				}
 				updateRatios();
 			}

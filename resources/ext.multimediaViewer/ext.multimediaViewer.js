@@ -109,6 +109,7 @@
 				// some src attribute to work. Will fix.
 				viewer.lightbox.images[index].src = $thumbContain.find( 'img' ).prop( 'src' );
 				viewer.lightbox.open();
+				$( document.body ).addClass( 'mw-mlb-lightbox-open' );
 				viewer.lightbox.iface.$imageDiv.append( $.createSpinner( {
 					id: 'mw-mlb-loading-spinner',
 					size: 'large'
@@ -120,6 +121,7 @@
 					imageEle.onload = function () {
 						viewer.lightbox.iface.replaceImageWith( imageEle );
 						viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
+						viewer.updateControls();
 						$.removeSpinner( 'mw-mlb-loading-spinner' );
 						viewer.setImageInfo( fileTitle, imageInfo );
 					};
@@ -135,9 +137,13 @@
 			this.lightbox = new MultiLightbox( urls );
 		}
 
+		lightboxHooks.register( 'closeInterface', function () {
+			this.$mwControls.css( { top: '-999px', left: '-999px' } );
+			$( document.body ).removeClass( 'mw-mlb-lightbox-open' );
+		} );
+
 		lightboxHooks.register( 'imageResize', function () {
 			var api = new mw.Api(),
-				ratio = this.isFullScreen ? 0.9 : 0.5,
 				density = $.devicePixelRatio(),
 				filename = viewer.currentImageFilename,
 				ui = this;
@@ -148,8 +154,8 @@
 				titles: filename,
 				prop: 'imageinfo',
 				iiprop: 'url',
-				iiurlwidth: Math.floor( density * ratio * $( window ).width() * 1.1 ),
-				iiurlheight: Math.floor( density * ratio * $( window ).height() * 1.1 )
+				iiurlwidth: Math.floor( density * this.$imageWrapper.width() ),
+				iiurlheight: Math.floor( density * this.$imageWrapper.height() )
 			} ).done( function ( data ) {
 				var imageInfo, innerInfo,
 					image = new Image();
@@ -163,6 +169,7 @@
 
 				image.onload = function () {
 					ui.replaceImageWith( image );
+					viewer.updateControls();
 				};
 
 				image.src = innerInfo.thumburl || innerInfo.url;
@@ -222,7 +229,10 @@
 	MMVP.initializeInterface = function ( ui ) {
 		this.ui = ui;
 
+		this.ui.$postDiv.css( 'top', ( $( window ).height() - 64 ) + 'px' );
+
 		this.initializeHeader();
+		this.initializeButtons();
 		this.initializeImage();
 		this.initializeImageMetadata();
 		this.initializeAboutLinks();
@@ -461,9 +471,13 @@
 	};
 
 	MMVP.initializeHeader = function () {
+		this.ui.$closeButton.detach();
+		this.ui.$fullscreenButton.detach();
+
 		this.ui.$titleDiv = $( '<div>' )
 			.addClass( 'mw-mlb-title-contain' );
 
+		this.ui.$postDiv.append( this.ui.$controlBar.detach() );
 		this.ui.$controlBar.append( this.ui.$titleDiv );
 
 		this.initializeTitleAndCredit();
@@ -481,10 +495,14 @@
 	};
 
 	MMVP.initializeTitle = function () {
-		this.ui.$title = $( '<p>' )
+		this.ui.$title = $( '<span>' )
 			.addClass( 'mw-mlb-title' );
 
-		this.ui.$titleAndCredit.append( this.ui.$title );
+		this.ui.$titlePara = $( '<p>' )
+			.addClass( 'mw-mlb-title-para' )
+			.append( this.ui.$title );
+
+		this.ui.$titleAndCredit.append( this.ui.$titlePara );
 	};
 
 	MMVP.initializeCredit = function () {
@@ -514,13 +532,90 @@
 			.addClass( 'empty' )
 			.prop( 'href', '#' );
 
-		this.ui.$licensePara = $( '<p>' )
-			.addClass( 'mw-mlb-license-contain' )
-			.append( this.ui.$license );
-
-		this.ui.$titleDiv.append( this.ui.$licensePara );
+		this.ui.$titlePara.append( this.ui.$license );
 	};
 
+	MMVP.initializeButtons = function () {
+		this.ui.$mwControls = $( '<div>' )
+			.addClass( 'mw-mlb-controls' )
+			// Note we aren't adding the fullscreen button here.
+			// Fullscreen causes some funky issues with UI redraws,
+			// and we aren't sure why, but it's not really necessary
+			// with the new interface anyway - it's basically fullscreen
+			// already!
+			.append(
+				this.ui.$closeButton
+			)
+			.appendTo( this.ui.$main );
+	};
+
+	MMVP.updateControls = function () {
+		var isOnButton = false,
+			isOnImage = false,
+			ui = this.ui,
+			pos = ui.$image.offset();
+
+		function fadeIn() {
+			isOnImage = true;
+			ui.$mwControls.fadeIn( 100 );
+			ui.$image.one( 'click', fadeOut );
+		}
+
+		function fadeOut() {
+			ui.$mwControls.fadeOut( 100 );
+			ui.$image.one( 'click', fadeIn );
+		}
+
+		function fadeOutDelayed() {
+			isOnImage = false;
+			setTimeout( function () {
+				if ( !isOnImage && !isOnButton ) {
+					fadeOut();
+				}
+			}, 500 );
+		}
+
+		function detectButton() {
+			isOnButton = true;
+		}
+
+		function detectLeaveButton() {
+			isOnButton = false;
+			setTimeout( function () {
+				if ( !isOnImage && !isOnButton ) {
+					fadeOut();
+				}
+			}, 500 );
+		}
+
+		pos.top = ( ui.$imageWrapper.height() - ui.$image.height() ) / 2;
+		pos.left += ui.$image.width() - ui.$closeButton.width();
+
+		pos.top += 'px';
+		pos.left += 'px';
+
+		ui.$mwControls
+			.css( pos )
+			.appendTo( ui.$main )
+			.fadeIn( 100 )
+			.delay( 500 )
+			.fadeOut( 100 );
+
+		ui.$postDiv.css( 'top', ui.$imageWrapper.height() );
+
+		ui.$image
+			.off( 'mouseenter', fadeIn )
+			.off( 'mouseleave', fadeOutDelayed )
+			.one( 'click', fadeIn )
+			.on( 'mouseenter', fadeIn )
+			.on( 'mouseleave', fadeOutDelayed );
+
+		ui.$closeButton.add( ui.$fullscreenButton )
+			.off( 'mouseenter', detectButton )
+			.off( 'mouseleave', detectLeaveButton )
+			.on( 'mouseenter', detectButton )
+			.on( 'mouseleave', detectLeaveButton );
+	};
 
 	MMVP.registerLogging = function () {
 		var viewer = this;
@@ -845,7 +940,6 @@
 
 		var imageInfo,
 			filename = fileTitle.getPrefixedText(),
-			ratio = this.lightbox.iface.isFullScreen ? 0.9 : 0.5,
 			density = $.devicePixelRatio(),
 			apiArgs = {
 				action: 'query',
@@ -853,8 +947,8 @@
 				titles: filename,
 				prop: 'imageinfo',
 				iiprop: iiprops.join( '|' ),
-				iiurlwidth: Math.floor( density * ratio * $( window ).width() * 1.1 ),
-				iiurlheight: Math.floor( density * ratio * $( window ).height() * 1.1 ),
+				iiurlwidth: Math.floor( density * this.lightbox.iface.$imageWrapper.width() ),
+				iiurlheight: Math.floor( density * this.lightbox.iface.$imageWrapper.height() ),
 				// Short-circuit, don't fallback, to save some tiny amount of time
 				iiextmetadatalanguage: mw.config.get( 'wgUserLanguage', false ) || mw.config.get( 'wgContentLanguage', 'en' )
 			},

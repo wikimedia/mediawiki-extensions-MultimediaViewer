@@ -15,7 +15,8 @@
 					!document.mozFullScreenElement &&
 					!document.webkitFullScreenElement &&
 					!document.msFullScreenElement) {
-				lbinterface.fullscreen();
+				lightboxHooks.callAll( 'defullscreen' );
+				lbinterface.$main.removeClass( 'mlb-fullscreened' );
 			} else if ( lbinterface.fullscreenButtonJustPressed ) {
 				lbinterface.fullscreenButtonJustPressed = false;
 			}
@@ -25,6 +26,11 @@
 			addToPre = [],
 			addToPost = [],
 			lbinterface = this;
+
+		// Staging area for image resizes
+		this.$staging = $( '<div>' )
+			.addClass( 'mlb-staging-area' );
+		$( document.body ).append( this.$staging );
 
 		this.$overlay = $( '<div>' )
 			.addClass( 'mlb-overlay' );
@@ -38,6 +44,15 @@
 		this.$imageDiv = $( '<div>' )
 			.addClass( 'mlb-image' );
 
+		// I blame CSS for this
+		this.$innerWrapper = $( '<div>' )
+			.addClass( 'mlb-image-inner-wrapper' )
+			.append( this.$imageDiv );
+
+		this.$imageWrapper = $( '<div>' )
+			.addClass( 'mlb-image-wrapper' )
+			.append( this.$innerWrapper );
+
 		this.$preDiv = $( '<div>' )
 			.addClass( 'mlb-pre-image' );
 		result = lightboxHooks.callAll( 'addToPreDiv', this, addToPre );
@@ -50,7 +65,7 @@
 
 		this.$main.append(
 			this.$preDiv,
-			this.$imageDiv,
+			this.$imageWrapper,
 			this.$postDiv
 		);
 
@@ -64,9 +79,6 @@
 			if ( e.keyCode === 27 ) {
 				// Escape button pressed
 				lbinterface.unattach();
-				if ( lbinterface.isFullScreen ) {
-					lbinterface.fullscreen();
-				}
 			}
 		} );
 
@@ -93,6 +105,8 @@
 	};
 
 	LIP.unattach = function () {
+		lightboxHooks.callAll( 'closeInterface', this );
+
 		this.$wrapper.detach();
 		this.$overlay.detach();
 	};
@@ -100,35 +114,24 @@
 	LIP.fullscreen = function () {
 		var fullscreen;
 
-		if ( this.isFullScreen ) {
-			if ( !document.fullscreenElement &&
-					!document.mozFullScreenElement &&
-					!document.webkitFullScreenElement &&
-					!document.msFullScreenElement ) {
-				if ( document.cancelFullScreen ) {
-					document.cancelFullScreen();
-				} else if ( document.mozCancelFullScreen ) {
-					document.mozCancelFullScreen();
-				} else if ( document.webkitCancelFullScreen ) {
-					document.webkitCancelFullScreen();
-				} else if ( document.msCancelFullScreen ) {
-					document.msCancelFullScreen();
-				}
+		if ( document.fullscreenElement ||
+				document.mozFullScreenElement ||
+				document.webkitFullScreenElement ||
+				document.msFullScreenElement ) {
+			if ( document.cancelFullScreen ) {
+				document.cancelFullScreen();
+			} else if ( document.mozCancelFullScreen ) {
+				document.mozCancelFullScreen();
+			} else if ( document.webkitCancelFullScreen ) {
+				document.webkitCancelFullScreen();
+			} else if ( document.msCancelFullScreen ) {
+				document.msCancelFullScreen();
 			}
 
-			this.$wrapper.html( this.$main.detach() );
-			this.$fullscreen = this.$fullscreen.detach();
-
+			this.$main.removeClass( 'mlb-fullscreened' );
 			lightboxHooks.callAll( 'defullscreen', this );
 		} else {
-			this.$fullscreen = this.$fullscreen || $( '<div>' )
-				.addClass( 'mlb-fullscreen-div' );
-
-			this.$fullscreen.html( this.$main.detach() );
-
-			this.$wrapper.append( this.$fullscreen );
-
-			fullscreen = this.$fullscreen[0];
+			fullscreen = this.$main.get( 0 );
 			if ( fullscreen.requestFullScreen ) {
 				fullscreen.requestFullScreen();
 			} else if ( fullscreen.mozRequestFullScreen ) {
@@ -139,25 +142,30 @@
 				fullscreen.msRequestFullscreen();
 			}
 
+			this.$main.addClass( 'mlb-fullscreened' );
 			lightboxHooks.callAll( 'fullscreen', this );
 		}
-
-		this.isFullScreen = !this.isFullScreen;
 	};
 
 	LIP.load = function ( image ) {
 		var ele = image.getImageElement( function () {
+				image.globalMaxWidth = ele.width;
+				image.globalMaxHeight = ele.height;
 				iface.$image = $( ele );
-				iface.$imageDiv.append( iface.$image );
-				image.globalMaxWidth = iface.$image.width();
-				image.globalMaxHeight = iface.$image.height();
-				image.autoResize( ele, iface.isFullScreen ? 0.9 : 0.5 );
+
+				iface.autoResizeImage();
 
 				window.addEventListener( 'resize', function () {
-					var result = lightboxHooks.callAll( 'imageResize', iface );
+					var result = lightboxHooks.callAll( 'imageResize', iface ),
+						isFullScreen = (
+							document.fullscreenElement ||
+							document.mozFullScreenElement ||
+							document.webkitFullScreenElement ||
+							document.msFullScreenElement ),
+						$measurement = isFullScreen ? $( window ) : iface.$image;
 
 					if ( result !== false ) {
-						image.autoResize( iface.$image.get( 0 ), iface.isFullScreen ? 0.9 : 0.5 );
+						iface.autoResizeImage();
 					}
 				} );
 
@@ -166,6 +174,12 @@
 			iface = this;
 
 		this.currentImage = image;
+	};
+
+	LIP.autoResizeImage = function () {
+		this.$staging.append( this.$image );
+		this.currentImage.autoResize( this.$image.get( 0 ), this.$imageDiv );
+		this.$imageDiv.append( this.$image );
 	};
 
 	LIP.replaceImageWith = function ( imageEle ) {
@@ -178,7 +192,7 @@
 
 		this.currentImage.globalMaxWidth = this.$image.width();
 		this.currentImage.globalMaxHeight = this.$image.height();
-		this.currentImage.autoResize( imageEle, this.isFullScreen ? 0.9 : 0.5 );
+		this.currentImage.autoResize( imageEle );
 	};
 
 	LIP.setupPreDiv = function ( buildDefaults, toAdd ) {
