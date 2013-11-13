@@ -16,7 +16,7 @@
  */
 
 ( function ( mw, $, moment ) {
-	var MultiLightbox, LightboxImage, lightboxHooks, MMVP,
+	var MultiLightbox, lightboxHooks, MMVP,
 		validExtensions = {
 			'jpg': true,
 			'jpeg': true,
@@ -74,7 +74,7 @@
 			}
 
 			$links.data( 'filePageLink', filePageLink );
-			urls.push( new LightboxImage( fileLink ) );
+			urls.push( new mw.LightboxImage( fileLink ) );
 			urls[index].filePageLink = filePageLink;
 
 			$links.click( function ( e ) {
@@ -879,7 +879,6 @@
 
 	$( function () {
 		MultiLightbox = window.MultiLightbox;
-		LightboxImage = window.LightboxImage;
 		lightboxHooks = window.lightboxHooks;
 
 		var viewer = new MultimediaViewer();

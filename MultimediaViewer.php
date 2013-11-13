@@ -36,8 +36,19 @@ $moduleInfoMoment = array(
 	'remoteExtPath' => 'MultimediaViewer/resources/momentjs',
 );
 
+$moduleInfoOOJS = array(
+	'localBasePath' => __DIR__ . '/resources/ext.multimediaViewer.oojs',
+	'remoteExtPath' => 'MultimediaViewer/resources/ext.multimediaViewer.oojs',
+);
 
 $wgExtensionMessagesFiles['MultimediaViewer'] = __DIR__ . '/MultimediaViewer.i18n.php';
+
+// Hack while Roan and Krinkle get their shit together
+$wgResourceModules['ext.multimediaViewer.oojs'] = array_merge( array(
+	'scripts' => array(
+		'oojs.js',
+	),
+), $moduleInfoOOJS);
 
 $wgResourceModules['multilightbox.interface'] = array_merge( array(
 	'scripts' => array(
@@ -61,9 +72,31 @@ $wgResourceModules['multilightbox'] = array_merge( array(
 	),
 
 	'dependencies' => array(
-		'multilightbox.interface',
+		'ext.multimediaViewer.lightboxinterface',
 	),
 ), $moduleInfoML );
+
+$wgResourceModules['ext.multimediaViewer.lightboximage'] = array_merge( array(
+	'scripts' => array(
+		'ext.multimediaViewer.lightboximage.js',
+	),
+
+	'dependencies' => array(
+		'ext.multimediaViewer.oojs',
+		'multilightbox.image',
+	),
+), $moduleInfoMMV );
+
+$wgResourceModules['ext.multimediaViewer.lightboxinterface'] = array_merge( array(
+	'scripts' => array(
+		'ext.multimediaViewer.lightboxinterface.js',
+	),
+
+	'dependencies' => array(
+		'ext.multimediaViewer.oojs',
+		'multilightbox.interface',
+	),
+), $moduleInfoMMV );
 
 $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 	'scripts' => array(
@@ -76,8 +109,8 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 
 	'dependencies' => array(
 		'multilightbox',
-		'multilightbox.image',
 		'momentjs',
+		'ext.multimediaViewer.lightboximage',
 		'mediawiki.Title',
 		'jquery.ui.dialog',
 		'jquery.spinner',
