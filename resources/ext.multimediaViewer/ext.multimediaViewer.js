@@ -86,6 +86,22 @@
 			viewer = this;
 
 		/**
+		 * @property {number[]}
+		 * @private
+		 * List of acceptable image sizes...used to bucket
+		 */
+		this.imageWidthBuckets = [
+			320,
+			640,
+			800,
+			1024,
+			1280,
+			1920,
+			2560,
+			2880
+		];
+
+		/**
 		 * @property {mw.Api}
 		 * @private
 		 */
@@ -125,7 +141,8 @@
 			$links.data( 'filePageLink', filePageLink );
 
 			// Create a LightboxImage object for each legit image
-			thisImage = viewer.createNewImage( $thumb.prop( 'src' ), filePageLink, fileTitle, index );
+			thisImage = viewer.createNewImage( $thumb.prop( 'src' ), filePageLink, fileTitle, index, thumb );
+
 			urls.push( thisImage );
 
 			// Register callback that launches modal image viewer if valid click
@@ -183,15 +200,67 @@
 	 * @param {string} filePageLink Link to the File: page
 	 * @param {mw.Title} fileTitle Represents the File: page
 	 * @param {number} index Which number file this is
+	 * @param {HTMLImageElement} thumb The thumbnail that represents this image on the page
 	 * @returns {mw.LightboxImage}
 	 */
-	MMVP.createNewImage = function ( fileLink, filePageLink, fileTitle, index ) {
+	MMVP.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb ) {
 		var thisImage = new mw.LightboxImage( fileLink );
 		thisImage.filePageLink = filePageLink;
 		thisImage.filePageTitle = fileTitle;
 		thisImage.index = index;
+		thisImage.thumbnail = thumb;
 
 		return thisImage;
+	};
+
+	/**
+	 * Finds the next highest image size given a target size.
+	 * Searches the bucketed sizes configured in the class.
+	 * @param {number} target
+	 * @return {number}
+	 */
+	MMVP.findNextHighestImageSize = function ( target ) {
+		var i, bucket,
+			buckets = this.imageWidthBuckets,
+			len = buckets.length;
+
+		for ( i = 0; i < len; i++ ) {
+			bucket = buckets[i];
+
+			if ( bucket >= target ) {
+				return bucket;
+			}
+		}
+
+		// If we failed to find a high enough size...good luck
+		return bucket;
+	};
+
+	/**
+	 * Gets the API arguments for various calls to the API to find sized thumbnails.
+	 * @param {mw.LightboxInterface} ui
+	 * @returns {number}
+	 */
+	MMVP.getImageSizeApiArgs = function ( ui ) {
+		var requestedWidth, calculatedMaxWidth,
+			thumb = ui.currentImage.thumbnail,
+			density = $.devicePixelRatio(),
+			targetWidth = density * ui.$imageWrapper.width(),
+			targetHeight = density * ui.$imageWrapper.height();
+
+		if ( ( targetWidth / targetHeight ) > ( thumb.width / thumb.height ) ) {
+			// Need to find width corresponding to highest height we can have.
+			calculatedMaxWidth = ( thumb.width / thumb.height ) * targetHeight;
+			requestedWidth = this.findNextHighestImageSize( calculatedMaxWidth );
+		} else {
+			// Simple case, ratio tells us we're limited by width
+			requestedWidth = this.findNextHighestImageSize( targetWidth );
+		}
+
+		return {
+			requested: requestedWidth,
+			target: calculatedMaxWidth || targetWidth
+		};
 	};
 
 	/**
@@ -236,19 +305,19 @@
 	 */
 	MMVP.resize = function ( ui ) {
 		var viewer = this,
-			density = $.devicePixelRatio(),
-			filename = ui.currentImageFilename;
+			filename = ui.currentImageFilename,
+			apiArgs = {
+				action: 'query',
+				format: 'json',
+				titles: filename,
+				prop: 'imageinfo',
+				iiprop: 'url'
+			},
 
-		this.api.get( {
-			action: 'query',
-			format: 'json',
-			titles: filename,
-			prop: 'imageinfo',
-			iiprop: 'url',
-			iiurlwidth: Math.floor( density * ui.$imageWrapper.width() ),
-			iiurlheight: Math.floor( density * ui.$imageWrapper.height() )
-		} ).done( function ( data ) {
-			viewer.loadResizedImage( ui, data );
+			targetWidth = this.getImageSizeApiArgs( ui, apiArgs );
+
+		this.api.get( apiArgs ).done( function ( data ) {
+			viewer.loadResizedImage( ui, data, targetWidth );
 		} );
 	};
 
@@ -259,8 +328,9 @@
 	 *
 	 * @param {mw.LightboxInterface} ui lightbox that got resized
 	 * @param {Object} data information regarding the new resized image
+	 * @param {number} targetWidth
 	 */
-	MMVP.loadResizedImage = function ( ui, data ) {
+	MMVP.loadResizedImage = function ( ui, data, targetWidth ) {
 		var imageInfo, innerInfo, rpid, viewer, image;
 
 		// Replace image only if data was returned.
@@ -276,6 +346,7 @@
 			innerInfo = imageInfo.imageinfo[0];
 
 			image.onload = function () {
+				image.width = targetWidth;
 				viewer.profileEnd( rpid );
 				ui.replaceImageWith( image );
 				this.updateControls();
@@ -669,15 +740,18 @@
 
 		mdpid = this.profileStart( 'metadata-fetch' );
 
-		this.fetchImageInfo( image.filePageTitle, function ( imageInfo ) {
+		this.fetchImageInfo( image.filePageTitle, function ( imageInfo, res, size ) {
 			var pid,
 				innerInfo = imageInfo.imageinfo[0],
-				imageEle = new Image();
+				imageEle = new Image(),
+				targetWidth = size;
 
 			viewer.profileEnd( mdpid );
 
 			imageEle.onload = function () {
+				imageEle.width = targetWidth;
 				viewer.profileEnd( pid );
+
 				viewer.lightbox.iface.replaceImageWith( imageEle );
 				viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
 				viewer.updateControls();
@@ -733,7 +807,7 @@
 
 				if ( viewer.imageInfo[filename] ) {
 					// Give back the information we have
-					cb( viewer.imageInfo[filename], viewer.repoInfo );
+					cb( viewer.imageInfo[filename], viewer.repoInfo, targetWidth );
 				}
 			};
 		}
@@ -754,26 +828,29 @@
 
 		var imageInfo,
 			filename = fileTitle.getPrefixedText(),
-			density = $.devicePixelRatio(),
 			apiArgs = {
 				action: 'query',
 				format: 'json',
 				titles: filename,
 				prop: 'imageinfo',
 				iiprop: iiprops.join( '|' ),
-				iiurlwidth: Math.floor( density * this.lightbox.iface.$imageWrapper.width() ),
-				iiurlheight: Math.floor( density * this.lightbox.iface.$imageWrapper.height() ),
 				// Short-circuit, don't fallback, to save some tiny amount of time
 				iiextmetadatalanguage: mw.config.get( 'wgUserLanguage', false ) || mw.config.get( 'wgContentLanguage', 'en' )
 			},
-			viewer = this;
+			viewer = this,
+
+			widths = this.getImageSizeApiArgs( this.ui ),
+			targetWidth = widths.target,
+			requestedWidth = widths.requested;
+
+		apiArgs.iiurlwidth = requestedWidth;
 
 		if ( this.imageInfo[filename] === undefined ) {
 			// Fetch it in the same API query as the image info
 			fetchImageInfoCallback();
 		} else {
 			this.fetchRepoInfo( function ( res ) {
-				cb( viewer.imageInfo[filename], res );
+				cb( viewer.imageInfo[filename], res, targetWidth );
 			} );
 		}
 	};

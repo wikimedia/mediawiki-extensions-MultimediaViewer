@@ -228,7 +228,7 @@
 		link.trigger( 'click' );
 	} );
 
-	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 4, function ( assert ) {
+	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 5, function ( assert ) {
 		var viewer,
 			fname = 'valid',
 			imgSrc = '/' + fname + '.jpg/300px-' + fname + '.jpg',
@@ -236,13 +236,25 @@
 
 		createGallery( imgSrc );
 
-		mw.MultimediaViewer.prototype.createNewImage = function ( fileLink, filePageLink, fileTitle, index ) {
+		mw.MultimediaViewer.prototype.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb ) {
 			assert.ok( fileLink.match( imgRegex ), 'Thumbnail URL used in creating new image object' );
 			assert.strictEqual( filePageLink, '', 'File page link is sane when creating new image object' );
 			assert.strictEqual( fileTitle.title, fname, 'Filename is correct when passed into new image constructor' );
 			assert.strictEqual( index, 0, 'The only image we created in the gallery is set at index 0 in the images array' );
+			assert.strictEqual( thumb.outerHTML, '<img src="' + imgSrc + '">', 'The image element passed in is the thumbnail we want.' );
 		};
 
 		viewer = new mw.MultimediaViewer();
 	} );
+
+	QUnit.test( 'We get sane image sizes when we ask for them', 5, function ( assert ) {
+		var viewer = new mw.MultimediaViewer();
+
+		assert.strictEqual( viewer.findNextHighestImageSize( 200 ), 320, 'Low target size gives us lowest possible size bucket' );
+		assert.strictEqual( viewer.findNextHighestImageSize( 320 ), 320, 'Asking for a bucket size gives us exactly that bucket size' );
+		assert.strictEqual( viewer.findNextHighestImageSize( 320.00001 ), 640, 'Asking for greater than an image bucket definitely gives us the next size up' );
+		assert.strictEqual( viewer.findNextHighestImageSize( 2000 ), 2560, 'The image bucketing also works on big screens' );
+		assert.strictEqual( viewer.findNextHighestImageSize( 3000 ), 2880, 'The image bucketing also works on REALLY big screens' );
+	} );
+
 }( mediaWiki, jQuery ) );
