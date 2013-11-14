@@ -188,6 +188,7 @@ $messages['ce'] = array(
 
 /** Czech (čeština)
  * @author Mormegil
+ * @author Rosnicka.kacka
  */
 $messages['cs'] = array(
 	'multimediaviewer-desc' => 'Roztáhne náhledy obrázků do lightboxu.',
@@ -199,7 +200,7 @@ $messages['cs'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Načteno $1',
 	'multimediaviewer-userpage-link' => 'Načteno {{GENDER:$2|uživatelem|uživatelkou}} $1',
 	'multimediaviewer-license-cc-pd' => 'Volné dílo',
-	'multimediaviewer-license-default' => 'Informace o licenci', # Fuzzy
+	'multimediaviewer-license-default' => 'Zobrazit povolení',
 	'multimediaviewer-use-file' => 'Použít tento soubor',
 	'multimediaviewer-use-file-owt' => 'Použít tento soubor na wiki, jako náhled',
 	'multimediaviewer-use-file-own' => 'Použít tento soubor na wiki, uvnitř textu',
