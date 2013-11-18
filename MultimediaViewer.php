@@ -31,6 +31,12 @@ $moduleInfoMMV = array(
 	'remoteExtPath' => 'MultimediaViewer/resources/ext.multimediaViewer',
 );
 
+$moduleInfoMoment = array(
+	'localBasePath' => __DIR__ . '/resources/momentjs',
+	'remoteExtPath' => 'MultimediaViewer/resources/momentjs',
+);
+
+
 $wgExtensionMessagesFiles['MultimediaViewer'] = __DIR__ . '/MultimediaViewer.i18n.php';
 
 $wgResourceModules['multilightbox.interface'] = array_merge( array(
@@ -71,6 +77,7 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 	'dependencies' => array(
 		'multilightbox',
 		'multilightbox.image',
+		'momentjs',
 		'mediawiki.Title',
 		'jquery.ui.dialog',
 		'jquery.spinner',
@@ -92,6 +99,77 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 		'multimediaviewer-discuss-mmv',
 	),
 ), $moduleInfoMMV );
+
+$wgResourceModules['momentjs'] = array_merge( array(
+	'scripts' => array(
+		'moment.js',
+	),
+	'languageScripts' => array(
+		'ar' => 'lang/ar.js',
+		'ar-ma' => 'lang/ar-ma.js',
+		'bg' => 'lang/bg.js',
+		'br' => 'lang/br.js',
+		'bs' => 'lang/bs.js',
+		'ca' => 'lang/ca.js',
+		'cv' => 'lang/cv.js',
+		'cy' => 'lang/cy.js',
+		'cs' => 'lang/cs.js',
+		'da' => 'lang/da.js',
+		'de' => 'lang/de.js',
+		'el' => 'lang/el.js',
+		'en-au' => 'lang/en-au.js',
+		'en-ca' => 'lang/en-ca.js',
+		'en-gb' => 'lang/en-gb.js',
+		'eo' => 'lang/eo.js',
+		'es' => 'lang/es.js',
+		'et' => 'lang/et.js',
+		'eu' => 'lang/eu.js',
+		'fa' => 'lang/fa.js',
+		'fi' => 'lang/fi.js',
+		'fo' => 'lang/fo.js',
+		'fr' => 'lang/fr.js',
+		'fr-ca' => 'lang/fr-ca.js',
+		'gl' => 'lang/gl.js',
+		'he' => 'lang/he.js',
+		'hi' => 'lang/hi.js',
+		'hr' => 'lang/hr.js',
+		'hu' => 'lang/hu.js',
+		'id' => 'lang/id.js',
+		'is' => 'lang/is.js',
+		'it' => 'lang/it.js',
+		'ja' => 'lang/ja.js',
+		'ka' => 'lang/ka.js',
+		'ko' => 'lang/ko.js',
+		'lt' => 'lang/lt.js',
+		'lv' => 'lang/lv.js',
+		'ml' => 'lang/ml.js',
+		'mr' => 'lang/mr.js',
+		'ms-my' => 'lang/ms-my.js',
+		'nb' => 'lang/nb.js',
+		'ne' => 'lang/ne.js',
+		'nl' => 'lang/nl.js',
+		'nn' => 'lang/nn.js',
+		'pl' => 'lang/pl.js',
+		'pt' => 'lang/pt.js',
+		'pt-br' => 'lang/pt-br.js',
+		'ro' => 'lang/ro.js',
+		'ru' => 'lang/ru.js',
+		'sk' => 'lang/sk.js',
+		'sl' => 'lang/sl.js',
+		'sq' => 'lang/sq.js',
+		'sv' => 'lang/sv.js',
+		'th' => 'lang/th.js',
+		'tl-ph' => 'lang/tl-ph.js',
+		'tr' => 'lang/tr.js',
+		'tzm' => 'lang/tzm.js',
+		'tzm-la' => 'lang/tzm-la.js',
+		'uk' => 'lang/uk.js',
+		'uz' => 'lang/uz.js',
+		'vn' => 'lang/vn.js',
+		'zh-cn' => 'lang/zh-cn.js',
+		'zh-tw' => 'lang/zh-tw.js',
+	),
+), $moduleInfoMoment );
 
 $wgExtensionFunctions[] = function () {
 	global $wgResourceModules;
