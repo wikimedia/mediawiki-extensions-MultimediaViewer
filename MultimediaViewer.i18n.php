@@ -157,6 +157,14 @@ $messages['ast'] = array(
 	'multimediaviewer-datetime-created' => 'Creáu el $1',
 	'multimediaviewer-datetime-uploaded' => 'Xubíu el $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Xubíu}} por $1',
+	'multimediaviewer-license-cc-pd' => 'Dominiu públicu',
+	'multimediaviewer-license-default' => 'Ver la llicencia',
+	'multimediaviewer-use-file' => 'Usar esti ficheru',
+	'multimediaviewer-use-file-owt' => 'Usar esti ficheru nuna páxina wiki, como miniatura',
+	'multimediaviewer-use-file-own' => 'Usar esti ficheru nuna páxina wiki, en llinia',
+	'multimediaviewer-use-file-offwiki' => "Usar esti ficheru n'otru sitiu web",
+	'multimediaviewer-about-mmv' => 'Tocante a Media Viewer',
+	'multimediaviewer-discuss-mmv' => 'Dexar un comentariu',
 );
 
 /** Bengali (বাংলা)
@@ -380,7 +388,7 @@ $messages['it'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Caricato il $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Caricato}} da $1',
 	'multimediaviewer-license-cc-pd' => 'Pubblico dominio',
-	'multimediaviewer-license-default' => 'Informazioni sulla licenza', # Fuzzy
+	'multimediaviewer-license-default' => 'Vedi la licenza',
 	'multimediaviewer-use-file' => 'Usa questo file',
 	'multimediaviewer-use-file-owt' => 'Usa questo file in una pagina wiki, come miniatura',
 	'multimediaviewer-use-file-own' => 'Usa questo file in una pagina wiki, in linea',
