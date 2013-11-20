@@ -251,7 +251,7 @@ $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'MultimediaViewer',
 	'descriptionmsg' => 'multimediaviewer-desc',
-	'version' => '0.1',
+	'version' => '0.2.0',
 	'author' => array(
 		'MarkTraceur (Mark Holmquist)',
 	),
