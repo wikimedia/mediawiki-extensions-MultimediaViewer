@@ -94,6 +94,10 @@
 		this.$imageDiv.empty();
 
 		lightboxHooks.callAll( 'clearInterface', this );
+
+		if ( this.resizeListener ) {
+			window.removeEventListener( 'resize', this.resizeListener );
+		}
 	};
 
 	LIP.attach = function () {
@@ -147,23 +151,42 @@
 		}
 	};
 
+	/**
+	 * @protected
+	 */
+	LIP.resizeCallback = function() {
+		// TODO: This is called even when the Lightbox is not attached !
+		var result = lightboxHooks.callAll( 'imageResize', this );
+
+		if ( result !== false ) {
+			this.autoResizeImage();
+		}
+	};
+
+	/**
+	 * @protected
+	 */
+	LIP.loadCallback = function ( image, ele ) {
+		var iface = this;
+
+		image.globalMaxWidth = ele.width;
+		image.globalMaxHeight = ele.height;
+		this.$image = $( ele );
+
+		this.autoResizeImage();
+
+		// Capture listener so we can remove it later, otherwise
+		// we are going to leak listeners !
+		this.resizeListener = function () { iface.resizeCallback(); };
+
+		window.addEventListener( 'resize', this.resizeListener );
+
+		lightboxHooks.callAll( 'imageLoaded', this );
+	};
+
 	LIP.load = function ( image ) {
 		var ele = image.getImageElement( function () {
-				image.globalMaxWidth = ele.width;
-				image.globalMaxHeight = ele.height;
-				iface.$image = $( ele );
-
-				iface.autoResizeImage();
-
-				window.addEventListener( 'resize', function () {
-					var result = lightboxHooks.callAll( 'imageResize', iface );
-
-					if ( result !== false ) {
-						iface.autoResizeImage();
-					}
-				} );
-
-				lightboxHooks.callAll( 'imageLoaded', iface );
+				iface.loadCallback( image, ele );
 			} ),
 			iface = this;
 

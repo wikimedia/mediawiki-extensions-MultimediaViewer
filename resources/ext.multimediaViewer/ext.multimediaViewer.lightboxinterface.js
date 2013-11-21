@@ -26,6 +26,12 @@
 
 	oo.inheritClass( LightboxInterface, MLBInterface );
 
+	/**
+	 * Expose base class for testing? There must be a better way !!!
+	 * @private
+	 */
+	LightboxInterface.BaseClass = MLBInterface;
+
 	LIP = LightboxInterface.prototype;
 
 	LIP.load = function ( image ) {
@@ -390,5 +396,6 @@
 		$( document ).off( 'keydown', handleKeyDown ).on( 'keydown', handleKeyDown );
 	};
 
+	// We are overwriting what is already set in window.LightboxInterface, shouldn't it be 'mw.LightboxInterface' ???
 	window.LightboxInterface = LightboxInterface;
 }( mediaWiki, jQuery, OO, window.LightboxInterface ) );

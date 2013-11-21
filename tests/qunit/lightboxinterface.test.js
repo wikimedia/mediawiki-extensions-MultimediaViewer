@@ -26,4 +26,28 @@
 		// UI areas not attached to the document anymore.
 		checkIfUIAreasAttachedToDocument(0);
 	} );
+
+	QUnit.asyncTest( 'Check we are saving the resize listener', 2, function ( assert ) {
+		var img = new window.LightboxImage('http://en.wikipedia.org/w/skins/vector/images/search-ltr.png'),
+			lightbox = new window.LightboxInterface.BaseClass();
+
+		// resizeListener not saved yet
+		assert.strictEqual( this.resizeListener, undefined, 'Listener is not saved yet' );
+
+		// Save original loadCallback
+		lightbox.originalLoadCallback = lightbox.loadCallback;
+
+		// Mock loadCallback
+		lightbox.loadCallback = function ( image, ele ) {
+			// Call original loadCallback
+			this.originalLoadCallback( image, ele );
+
+			// resizeListener should have been saved
+			assert.notStrictEqual( this.resizeListener, undefined, 'Saved listener !' );
+			QUnit.start();
+		};
+
+		lightbox.load(img);
+	} );
+
 }( mediaWiki, jQuery ) );
