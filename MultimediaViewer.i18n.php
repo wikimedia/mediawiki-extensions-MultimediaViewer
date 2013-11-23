@@ -141,8 +141,18 @@ $messages['ar'] = array(
 	'multimediaviewer-pref' => 'عارض الوسائط',
 	'multimediaviewer-pref-desc' => 'حسن تجربة مشاهدة الوسائط المتعددة مع هذه الأداة الجديدة، حيث تعمل على عرض الصور بحجم أكبر على الصفحات التي تحتوي صورًا مصغرة. وتظهر الصور في صندوق منبثق أجمل، ويمكن أيضًا عرضها بالحجم الكامل.',
 	'multimediaviewer-file-page' => 'الذهاب إلى الصفحة التابعة للملف',
+	'multimediaviewer-repository' => 'تفاصيل أكثر على $1',
 	'multimediaviewer-datetime-created' => 'أنشئت في $1',
+	'multimediaviewer-datetime-uploaded' => 'رفعت في $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|رفع}} بواسطة $1',
+	'multimediaviewer-license-cc-pd' => 'ملكية عامة',
+	'multimediaviewer-license-default' => 'عرض الترخيص',
+	'multimediaviewer-use-file' => 'استخدام هذا الملف',
+	'multimediaviewer-use-file-owt' => 'استخدام هذا الملف في صفحة ويكي، على هيئة صورة مصغرة',
+	'multimediaviewer-use-file-own' => 'استخدام هذا الملف في صفحة ويكي، على السطر',
+	'multimediaviewer-use-file-offwiki' => 'استخدام هذا الملف في موقع آخر',
+	'multimediaviewer-about-mmv' => 'حول عارض الوسائط',
+	'multimediaviewer-discuss-mmv' => 'إعطاء رأيك',
 );
 
 /** Asturian (asturianu)
@@ -172,10 +182,11 @@ $messages['ast'] = array(
  */
 $messages['bn'] = array(
 	'multimediaviewer-pref' => 'মিডিয়া ভিউয়ার',
+	'multimediaviewer-pref-desc' => 'এই নতুন সরঞ্জামটি দিয়ে মাল্টিমিডিয়া দেখার নতুন অভিজ্ঞতা নিন। এটা থাম্বনেল আছে এমন পাতায় বড় মাপের চিত্র প্রদর্শন করে। চিত্র একটি সুন্দর উজ্জ্বল আচ্ছাদনকৃত বাক্সে প্রদর্শিত হয়, এছাড়াও পূর্ণ মাপ দেখা যাবে।',
 	'multimediaviewer-file-page' => 'সংশ্লিষ্ট ফাইল পৃষ্ঠাতে যান',
 	'multimediaviewer-repository' => '$1-এ আরও জানুন',
-	'multimediaviewer-datetime-created' => '$1-এ তৈরী হয়েছে',
-	'multimediaviewer-datetime-uploaded' => '$1-এ আপলোডকৃত',
+	'multimediaviewer-datetime-created' => '$1 তারিখে তৈরী হয়েছে',
+	'multimediaviewer-datetime-uploaded' => '$1 তারিখে আপলোডকৃত',
 	'multimediaviewer-userpage-link' => '$1 দ্বারা {{GENDER:$2|আপলোডকৃত}}',
 	'multimediaviewer-license-cc-pd' => 'পাবলিক ডোমেইন',
 	'multimediaviewer-license-default' => 'লাইসেন্স দেখুন',
@@ -251,10 +262,11 @@ $messages['el'] = array(
 /** Spanish (español)
  * @author Benfutbol10
  * @author Fitoschido
+ * @author PoLuX124
  */
 $messages['es'] = array(
 	'multimediaviewer-pref' => 'Visor multimedia',
-	'multimediaviewer-pref-desc' => 'Mejore su experiencia de visualización multimedia con esta herramienta. Muestra imágenes en mayor tamaño en páginas que tienen miniaturas. Las imágenes se muestran en una ventana superpuesta agradable que también le permite verlas en tamaño completo.',
+	'multimediaviewer-pref-desc' => 'Mejora tu experiencia de visualización multimedia con esta herramienta. Muestra imágenes en mayor tamaño en páginas que tienen miniaturas. Las imágenes se muestran en una ventana superpuesta agradable que también te permite verlas en tamaño completo.',
 	'multimediaviewer-file-page' => 'Ir a la página del archivo correspondiente',
 	'multimediaviewer-repository' => 'Más información en $1',
 	'multimediaviewer-datetime-created' => 'Creado el $1',
@@ -333,11 +345,12 @@ $messages['gl'] = array(
 
 /** Hebrew (עברית)
  * @author Amire80
+ * @author Neukoln
  */
 $messages['he'] = array(
 	'multimediaviewer-desc' => 'הגדלת תמונות ממוזערות בשיטת לייטבוקס.',
 	'multimediaviewer-pref' => 'מציג מדיה',
-	'multimediaviewer-pref-desc' => 'הכלי החדש הזה משפר את חוויית המולטימדיה שלך. הוא מציג תמונות מוגדלות בדפים עם תמונות ממוזעזרות. התמונות מוצגות בשכבה בסגנון "לייטבוקס" וניתן להציג אותן גם בגודל מלא.',
+	'multimediaviewer-pref-desc' => 'הכלי החדש הזה משפר את חוויית המולטימדיה שלך. הוא מציג תמונות מוגדלות בדפים עם תמונות ממוזערות. התמונות מוצגות בשכבה בסגנון "לייטבוקס" וניתן להציג אותן גם בגודל מלא.',
 	'multimediaviewer-file-page' => 'מעבר אל דף הקובץ המתאים',
 	'multimediaviewer-repository' => 'מידע נוסף על $1',
 	'multimediaviewer-datetime-created' => 'נוצר ב־$1',
@@ -351,6 +364,21 @@ $messages['he'] = array(
 	'multimediaviewer-use-file-offwiki' => 'שימוש בקובץ הזה באתר אחר',
 	'multimediaviewer-about-mmv' => 'אודות מציג מדיה',
 	'multimediaviewer-discuss-mmv' => 'השארת תגובה',
+);
+
+/** Croatian (hrvatski)
+ * @author MaGa
+ */
+$messages['hr'] = array(
+	'multimediaviewer-pref' => 'Preglednik medijskih datoteka',
+	'multimediaviewer-pref-desc' => 'Poboljšajte svoje iskustvo pregledavajući multimedijske sadržaje uz pomoć ovog alata. Alat prikazuje slike u većoj veličini i u ljepšem Lightbox okviru. Slike se mogu vidjeti i u pravoj veličini.',
+	'multimediaviewer-repository' => 'Više na projektu $1',
+	'multimediaviewer-use-file' => 'Uporaba datoteke',
+	'multimediaviewer-use-file-owt' => 'Uporaba datoteke kao sličice na wiki stranici',
+	'multimediaviewer-use-file-own' => 'Uporaba datoteke wiki stranici u pravoj veličini',
+	'multimediaviewer-use-file-offwiki' => 'Uporaba datoteke na nekoj drugoj internetskoj stranici',
+	'multimediaviewer-about-mmv' => 'O pregledniku multimedijskih datoteka',
+	'multimediaviewer-discuss-mmv' => 'Napišite povratnu informaciju',
 );
 
 /** Iloko (Ilokano)
@@ -431,6 +459,26 @@ $messages['ja'] = array(
 	'multimediaviewer-discuss-mmv' => 'フィードバックを送信',
 );
 
+/** Kazakh (Cyrillic script) (қазақша (кирил)‎)
+ * @author Arystanbek
+ */
+$messages['kk-cyrl'] = array(
+	'multimediaviewer-pref' => 'Медиа қарап шығу құралы',
+	'multimediaviewer-file-page' => 'Тиісті файл бетіне өту',
+	'multimediaviewer-repository' => '$1 туралы көбірек білу',
+	'multimediaviewer-datetime-created' => '$1 кезінде құрылған',
+	'multimediaviewer-datetime-uploaded' => '$1 кезінде жүктелген',
+	'multimediaviewer-userpage-link' => '$1 {{GENDER:$2|жүктеген}}',
+	'multimediaviewer-license-cc-pd' => 'Қоғамдық қазына',
+	'multimediaviewer-license-default' => 'Лицензиясын қарау',
+	'multimediaviewer-use-file' => 'Бұл файлды қолдану',
+	'multimediaviewer-use-file-owt' => 'Бұл файлды уики бетінде нобай түрінде қолдану',
+	'multimediaviewer-use-file-own' => 'Бұл файлды уики бетінде қолдану, кірістіру',
+	'multimediaviewer-use-file-offwiki' => 'Бұл файлды басқа уебсайтта қолдану',
+	'multimediaviewer-about-mmv' => 'Медиа қарап шығу құралы туралы',
+	'multimediaviewer-discuss-mmv' => 'Пікір қалдыру',
+);
+
 /** Korean (한국어)
  * @author Hym411
  */
@@ -478,6 +526,28 @@ $messages['mk'] = array(
 	'multimediaviewer-discuss-mmv' => 'Дајте мислење',
 );
 
+/** Malayalam (മലയാളം)
+ * @author Praveenp
+ */
+$messages['ml'] = array(
+	'multimediaviewer-desc' => 'ലഘുചിത്രങ്ങൾ വികസിപ്പിക്കുക',
+	'multimediaviewer-pref' => 'മീഡിയ ദർശനോപാധി',
+	'multimediaviewer-pref-desc' => 'ഈ പുതിയ ഉപകരണമുപയോഗിച്ച് താങ്കളുടെ മീഡിയ ദർശനാനുഭവം മെച്ചപ്പെടുത്തൂ. ലഘുചിത്രങ്ങൾ ഉപയോഗിച്ചിരിക്കുന്ന താളുകളിലെ ചിത്രങ്ങൾ ഇതുപയോഗിച്ച് വലുതായി കാണാം. ചിത്രങ്ങൾ സുന്ദരമായ ലൈറ്റ്ബോക്സ് രൂപത്തിലോ, പൂർണ്ണവലിപ്പത്തിലോ കാണാനാവുന്നതാണ്.',
+	'multimediaviewer-file-page' => 'ബന്ധപ്പെട്ട പ്രമാണതാളിലേയ്ക്ക് പോവുക',
+	'multimediaviewer-repository' => '$1 സംരംഭത്തിൽ കൂടുതൽ അറിയുക',
+	'multimediaviewer-datetime-created' => 'സൃഷ്ടിച്ചത്: $1',
+	'multimediaviewer-datetime-uploaded' => 'അപ്‌ലോഡ് ചെയ്തത്: $1',
+	'multimediaviewer-userpage-link' => 'അപ്‌ലോഡ് {{GENDER:$2|ചെയ്ത}} ഉപയോക്താവ്: $1',
+	'multimediaviewer-license-cc-pd' => 'പൊതുസഞ്ചയം',
+	'multimediaviewer-license-default' => 'ഉപയോഗാനുമതി കാണുക',
+	'multimediaviewer-use-file' => 'ഈ പ്രമാണം ഉപയോഗിക്കുക',
+	'multimediaviewer-use-file-owt' => 'ഈ പ്രമാണം ഒരു വിക്കി താളിൽ, ലഘുചിത്രമായി ഉപയോഗിക്കുക',
+	'multimediaviewer-use-file-own' => 'ഈ പ്രമാണം ഒരു വിക്കിതാളിൽ, വരികൾക്കിടയിൽ ഉപയോഗിക്കുക',
+	'multimediaviewer-use-file-offwiki' => 'ഈ പ്രമാണം മറ്റൊരു വെബ്സൈറ്റിൽ ഉപയോഗിക്കുക',
+	'multimediaviewer-about-mmv' => 'മീഡിയ ദർശനോപാധിയുടെ വിവരണം',
+	'multimediaviewer-discuss-mmv' => 'പ്രതികരണം ചേർക്കുക',
+);
+
 /** Occitan (occitan)
  * @author Cedric31
  */
@@ -519,6 +589,50 @@ $messages['ps'] = array(
 	'multimediaviewer-license-default' => 'د منښتليک مالومات', # Fuzzy
 	'multimediaviewer-use-file' => 'دا دوتنه کارول',
 	'multimediaviewer-use-file-owt' => 'دا دوتنه د ويکي په يو مخ، د بټنوک په توگه کارول',
+);
+
+/** Portuguese (português)
+ * @author Vitorvicentevalente
+ */
+$messages['pt'] = array(
+	'multimediaviewer-desc' => 'Expandir miniaturas num tamanho maior numa caixa agradável',
+	'multimediaviewer-pref' => 'Media Viewer',
+	'multimediaviewer-pref-desc' => 'Melhore a sua experiência de visualização multimédia com esta nova ferramenta. A ferramenta exibe imagens em tamanho maior nas páginas que têm miniaturas. As imagens são mostradas em sobreposição numa caixa mais agradável e também podem ser visualizadas em tamanho real.',
+	'multimediaviewer-file-page' => 'Ir para a página correspondente ao arquivo',
+	'multimediaviewer-repository' => 'Saiba mais em $1',
+	'multimediaviewer-datetime-created' => 'Criado em $1',
+	'multimediaviewer-datetime-uploaded' => 'Carregado em $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Carregado}} por $1',
+	'multimediaviewer-license-cc-pd' => 'Domínio Público',
+	'multimediaviewer-license-default' => 'Ver licença',
+	'multimediaviewer-use-file' => 'Usar este ficheiro',
+	'multimediaviewer-use-file-owt' => 'Usar este ficheiro numa página wiki em forma de miniatura',
+	'multimediaviewer-use-file-own' => 'Usar este ficheiro numa página wiki',
+	'multimediaviewer-use-file-offwiki' => 'Usar este ficheiro noutro sítio da Internet',
+	'multimediaviewer-about-mmv' => 'Sobre o Media Viewer',
+	'multimediaviewer-discuss-mmv' => 'Deixe o seu comentário',
+);
+
+/** Romanian (română)
+ * @author Minisarm
+ */
+$messages['ro'] = array(
+	'multimediaviewer-desc' => 'Extinde miniaturile la o dimensiune mai mare într-un cadru Lightbox.',
+	'multimediaviewer-pref' => 'Vizualizator multimedia',
+	'multimediaviewer-pref-desc' => 'Îmbunătățiți-vă experiența de vizualizare a conținutului multimedia cu această nouă unealtă. Afișează imaginile la dimensiune mare în cadrul paginilor care conțin miniaturi. Imaginile sunt afișate într-un cadru Lightbox mai simpatic, acestea putând fi, de asemenea, vizualizate la dimensiunea reală.',
+	'multimediaviewer-file-page' => 'Du-te la pagina asociată fișierului',
+	'multimediaviewer-repository' => 'Mai multe la $1',
+	'multimediaviewer-datetime-created' => 'Creată la $1',
+	'multimediaviewer-datetime-uploaded' => 'Încărcată la $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Încărcată}} de $1',
+	'multimediaviewer-license-cc-pd' => 'Domeniu public',
+	'multimediaviewer-license-default' => 'Vezi licența',
+	'multimediaviewer-use-file' => 'Utilizează acest fișier',
+	'multimediaviewer-use-file-owt' => 'Utilizați acest fișier în cadrul unei pagini wiki, ca miniatură',
+	'multimediaviewer-use-file-own' => 'Utilizați acest fișier în cadrul unei pagini wiki, în linie cu textul',
+	'multimediaviewer-use-file-offwiki' => 'Utilizați acest fișier pe un alt site web',
+	'multimediaviewer-about-mmv' => 'Despre Vizualizatorul multimedia',
+	'multimediaviewer-discuss-mmv' => 'Lăsați o părere',
 );
 
 /** Russian (русский)
@@ -568,11 +682,12 @@ $messages['sl'] = array(
 
 /** Swedish (svenska)
  * @author Ainali
+ * @author NH
  * @author WikiPhoenix
  */
 $messages['sv'] = array(
 	'multimediaviewer-pref' => 'Mediavisare',
-	'multimediaviewer-pref-desc' => 'Förbättra din multimediatittarupplevelse med detta nya verktyg. Den visar bilder i större storlek på sidor som har miniatyrer. Bilder visas i ett trevligare Ljuslådeöverlägg, och kan också ses i full storlek.',
+	'multimediaviewer-pref-desc' => 'Förbättrad visning av bilder. Istället för bildbeskrivningssidan visas bilden på ett ljusbord när du klickar på den. Miniatyrer visas i större storlek.',
 	'multimediaviewer-file-page' => 'Gå till motsvarande filsida',
 	'multimediaviewer-repository' => 'Läs mer på $1',
 	'multimediaviewer-datetime-created' => 'Skapades $1',
@@ -585,6 +700,14 @@ $messages['sv'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Använd denna fil på en annan webbplats',
 	'multimediaviewer-about-mmv' => 'Om Mediavisaren',
 	'multimediaviewer-discuss-mmv' => 'Ge återkoppling',
+);
+
+/** Turkish (Türkçe)
+ * @author Rapsar
+ */
+$messages['tr'] = array(
+	'multimediaviewer-pref' => 'Ortam Görüntüleyici',
+	'multimediaviewer-about-mmv' => 'Ortam Görüntüleyici hakkında',
 );
 
 /** Ukrainian (українська)
@@ -643,11 +766,23 @@ $messages['vo'] = array(
 /** Simplified Chinese (中文（简体）‎)
  * @author Liuxinyu970226
  * @author Qiyue2001
+ * @author Shizhao
  */
 $messages['zh-hans'] = array(
-	'multimediaviewer-desc' => '添加一个更美观的图像多媒体查看器', # Fuzzy
+	'multimediaviewer-desc' => '用一个较大的灯箱效果来放大缩略图。',
 	'multimediaviewer-pref' => '媒体查看器',
-	'multimediaviewer-pref-desc' => '启用更美观的多媒体查看器查看有缩略图的页面上的图像。使用第三方库Lightbox和JavaScript。', # Fuzzy
+	'multimediaviewer-pref-desc' => '用这个新工具来改善您对多媒体浏览的体验。它会把页面中的缩略图用更大的尺寸进行显示。图像会在一个更好的灯箱层中显示，而且还可以全尺寸浏览。',
 	'multimediaviewer-file-page' => '转到相应的文件页',
-	'multimediaviewer-repository' => '了解更多关于$1',
+	'multimediaviewer-repository' => '在$1了解详情',
+	'multimediaviewer-datetime-created' => '创建日期：$1',
+	'multimediaviewer-datetime-uploaded' => '上传日期：$1',
+	'multimediaviewer-userpage-link' => '由$1{{GENDER:$2|上传}}',
+	'multimediaviewer-license-cc-pd' => '公有领域',
+	'multimediaviewer-license-default' => '查看版权许可',
+	'multimediaviewer-use-file' => '使用本文件',
+	'multimediaviewer-use-file-owt' => '在一个wiki页面上作为缩略图使用本文件',
+	'multimediaviewer-use-file-own' => '在一个wiki页面上内联使用本文件',
+	'multimediaviewer-use-file-offwiki' => '在其他网站上使用本文件',
+	'multimediaviewer-about-mmv' => '关于媒体查看器',
+	'multimediaviewer-discuss-mmv' => '留下反馈意见',
 );
