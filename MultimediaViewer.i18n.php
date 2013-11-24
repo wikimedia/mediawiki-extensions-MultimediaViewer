@@ -276,6 +276,28 @@ $messages['es'] = array(
 	'multimediaviewer-discuss-mmv' => 'Dejar comentarios',
 );
 
+/** Estonian (eesti)
+ * @author Pikne
+ */
+$messages['et'] = array(
+	'multimediaviewer-desc' => 'Võimaldab suurendada pisipilte Lightbox-vaates.',
+	'multimediaviewer-pref' => 'Failivaatur',
+	'multimediaviewer-pref-desc' => 'Täienda meediafailide vaatamise võimalusi selle uue tööriistaga. See võimaldab kuvada pisipiltidega lehekülgedel pildid suuremana. Pilte saab näidata kenamas Lightbox-vaates ja ka täissuuruses.',
+	'multimediaviewer-file-page' => 'Mine failileheküljele',
+	'multimediaviewer-repository' => 'Lisateave asukohas $1',
+	'multimediaviewer-datetime-created' => 'Valmistamisaeg: $1',
+	'multimediaviewer-datetime-uploaded' => 'Üleslaadimisaeg: $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Üleslaadija}}: $1',
+	'multimediaviewer-license-cc-pd' => 'Avalik omand',
+	'multimediaviewer-license-default' => 'Vaata litsentsi',
+	'multimediaviewer-use-file' => 'Kasuta seda faili',
+	'multimediaviewer-use-file-owt' => 'Kas seda faili vikileheküljel pisipildina',
+	'multimediaviewer-use-file-own' => 'Viita sellele failile vikilehekülje tekstis',
+	'multimediaviewer-use-file-offwiki' => 'Kasuta seda faili teises võrgukohas',
+	'multimediaviewer-about-mmv' => 'Failivaaturist',
+	'multimediaviewer-discuss-mmv' => 'Anna tagasisidet',
+);
+
 /** Persian (فارسی)
  * @author Ebraminio
  */
@@ -373,12 +395,37 @@ $messages['hr'] = array(
 	'multimediaviewer-pref' => 'Preglednik medijskih datoteka',
 	'multimediaviewer-pref-desc' => 'Poboljšajte svoje iskustvo pregledavajući multimedijske sadržaje uz pomoć ovog alata. Alat prikazuje slike u većoj veličini i u ljepšem Lightbox okviru. Slike se mogu vidjeti i u pravoj veličini.',
 	'multimediaviewer-repository' => 'Više na projektu $1',
+	'multimediaviewer-datetime-created' => 'Napravljeno $1',
+	'multimediaviewer-userpage-link' => 'Sliku {{GENDER:$2|postavio|postavila}} $1',
+	'multimediaviewer-license-default' => 'Prikaži licenciju',
 	'multimediaviewer-use-file' => 'Uporaba datoteke',
 	'multimediaviewer-use-file-owt' => 'Uporaba datoteke kao sličice na wiki stranici',
-	'multimediaviewer-use-file-own' => 'Uporaba datoteke wiki stranici u pravoj veličini',
+	'multimediaviewer-use-file-own' => 'Uporaba datoteke na wiki stranici u pravoj veličini',
 	'multimediaviewer-use-file-offwiki' => 'Uporaba datoteke na nekoj drugoj internetskoj stranici',
 	'multimediaviewer-about-mmv' => 'O pregledniku multimedijskih datoteka',
 	'multimediaviewer-discuss-mmv' => 'Napišite povratnu informaciju',
+);
+
+/** Indonesian (Bahasa Indonesia)
+ * @author William Surya Permana
+ */
+$messages['id'] = array(
+	'multimediaviewer-desc' => "Membentangkan gambar mini dalam ukuran yang lebih desar di dalam 'kotak tipis'",
+	'multimediaviewer-pref' => 'Penampil Media',
+	'multimediaviewer-pref-desc' => "Tingkatkan pengalaman penampilan multimedia Anda dengan alat baru ini. Penampil Media menampilkan gambar dalam ukuran yang lebih besar pada halaman yang memiliki gambar mini. Gambar ditampilkan dalam 'kotak tipis' melayang yang lebih indah, dan juga dapat ditampilkan dalam ukuran penuh.",
+	'multimediaviewer-file-page' => 'Pergi ke halaman berkas terkait',
+	'multimediaviewer-repository' => 'Pelajari selengkapnya di $1',
+	'multimediaviewer-datetime-created' => 'Dibuat pada $1',
+	'multimediaviewer-datetime-uploaded' => 'Diunggah pada $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Diunggah}} oleh $1',
+	'multimediaviewer-license-cc-pd' => 'Domain Umum',
+	'multimediaviewer-license-default' => 'Lihat lisensi',
+	'multimediaviewer-use-file' => 'Gunakan berkas ini',
+	'multimediaviewer-use-file-owt' => 'Gunakan berkas ini pada halaman wiki, sebagai gambar mini',
+	'multimediaviewer-use-file-own' => 'Gunakan berkas ini pada halaman wiki, dalam baris',
+	'multimediaviewer-use-file-offwiki' => 'Gunakan berkas ini pada situs web lain',
+	'multimediaviewer-about-mmv' => 'Tentang Penampil Media',
+	'multimediaviewer-discuss-mmv' => 'Tinggalkan umpan balik',
 );
 
 /** Iloko (Ilokano)
@@ -480,11 +527,26 @@ $messages['kk-cyrl'] = array(
 );
 
 /** Korean (한국어)
+ * @author Freebiekr
  * @author Hym411
  */
 $messages['ko'] = array(
-	'multimediaviewer-desc' => '사진을 위한 더 편리한 멀티미디어 뷰어를 추가',
-	'multimediaviewer-pref' => '더 나은 사진 보기 활성화',
+	'multimediaviewer-desc' => '섬네일 이미지를 라이트 박스에서 더 큰 크기로 확장합니다.',
+	'multimediaviewer-pref' => '미디어 뷰어',
+	'multimediaviewer-pref-desc' => '이 새 도구로 멀티미디어를 더 쉽게 감상하십시오. 이 도구는 섬네일 이미지가 있는 문서에서 그 섬네일을 더 크게 나타냅니다. 큰 이미지는 보기 편리한 라이트박스에 나타나며 원본 크기로 표시될 수도 있습니다.',
+	'multimediaviewer-file-page' => '해당 파일 문서로 이동',
+	'multimediaviewer-repository' => '$1에서 더 자세히 보기',
+	'multimediaviewer-datetime-created' => '$1에 만듦',
+	'multimediaviewer-datetime-uploaded' => '$1에 업로드',
+	'multimediaviewer-userpage-link' => '$1가 {{GENDER:$2|업로드}}',
+	'multimediaviewer-license-cc-pd' => '퍼블릭 도메인',
+	'multimediaviewer-license-default' => '라이선스 보기',
+	'multimediaviewer-use-file' => '이 파일을 사용',
+	'multimediaviewer-use-file-owt' => '이 파일을 위키 문서에서 섬네일로 사용',
+	'multimediaviewer-use-file-own' => '이 파일을 위키 문서의 텍스트 사이에 사용',
+	'multimediaviewer-use-file-offwiki' => '이 파일을 다른 웹사이트에서 사용',
+	'multimediaviewer-about-mmv' => '미디어 뷰어 정보',
+	'multimediaviewer-discuss-mmv' => '의견 남기기',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -527,13 +589,14 @@ $messages['mk'] = array(
 );
 
 /** Malayalam (മലയാളം)
+ * @author Clockery
  * @author Praveenp
  */
 $messages['ml'] = array(
 	'multimediaviewer-desc' => 'ലഘുചിത്രങ്ങൾ വികസിപ്പിക്കുക',
 	'multimediaviewer-pref' => 'മീഡിയ ദർശനോപാധി',
 	'multimediaviewer-pref-desc' => 'ഈ പുതിയ ഉപകരണമുപയോഗിച്ച് താങ്കളുടെ മീഡിയ ദർശനാനുഭവം മെച്ചപ്പെടുത്തൂ. ലഘുചിത്രങ്ങൾ ഉപയോഗിച്ചിരിക്കുന്ന താളുകളിലെ ചിത്രങ്ങൾ ഇതുപയോഗിച്ച് വലുതായി കാണാം. ചിത്രങ്ങൾ സുന്ദരമായ ലൈറ്റ്ബോക്സ് രൂപത്തിലോ, പൂർണ്ണവലിപ്പത്തിലോ കാണാനാവുന്നതാണ്.',
-	'multimediaviewer-file-page' => 'ബന്ധപ്പെട്ട പ്രമാണതാളിലേയ്ക്ക് പോവുക',
+	'multimediaviewer-file-page' => 'ബന്ധപ്പെട്ട പ്രമാണത്താളിലേയ്ക്ക് പോവുക',
 	'multimediaviewer-repository' => '$1 സംരംഭത്തിൽ കൂടുതൽ അറിയുക',
 	'multimediaviewer-datetime-created' => 'സൃഷ്ടിച്ചത്: $1',
 	'multimediaviewer-datetime-uploaded' => 'അപ്‌ലോഡ് ചെയ്തത്: $1',
@@ -596,7 +659,7 @@ $messages['ps'] = array(
  */
 $messages['pt'] = array(
 	'multimediaviewer-desc' => 'Expandir miniaturas num tamanho maior numa caixa agradável',
-	'multimediaviewer-pref' => 'Media Viewer',
+	'multimediaviewer-pref' => 'Visualizador multimédia',
 	'multimediaviewer-pref-desc' => 'Melhore a sua experiência de visualização multimédia com esta nova ferramenta. A ferramenta exibe imagens em tamanho maior nas páginas que têm miniaturas. As imagens são mostradas em sobreposição numa caixa mais agradável e também podem ser visualizadas em tamanho real.',
 	'multimediaviewer-file-page' => 'Ir para a página correspondente ao arquivo',
 	'multimediaviewer-repository' => 'Saiba mais em $1',
@@ -609,7 +672,7 @@ $messages['pt'] = array(
 	'multimediaviewer-use-file-owt' => 'Usar este ficheiro numa página wiki em forma de miniatura',
 	'multimediaviewer-use-file-own' => 'Usar este ficheiro numa página wiki',
 	'multimediaviewer-use-file-offwiki' => 'Usar este ficheiro noutro sítio da Internet',
-	'multimediaviewer-about-mmv' => 'Sobre o Media Viewer',
+	'multimediaviewer-about-mmv' => 'Sobre o Visualizador multimédia',
 	'multimediaviewer-discuss-mmv' => 'Deixe o seu comentário',
 );
 
@@ -767,11 +830,12 @@ $messages['vo'] = array(
  * @author Liuxinyu970226
  * @author Qiyue2001
  * @author Shizhao
+ * @author Xiaomingyan
  */
 $messages['zh-hans'] = array(
 	'multimediaviewer-desc' => '用一个较大的灯箱效果来放大缩略图。',
-	'multimediaviewer-pref' => '媒体查看器',
-	'multimediaviewer-pref-desc' => '用这个新工具来改善您对多媒体浏览的体验。它会把页面中的缩略图用更大的尺寸进行显示。图像会在一个更好的灯箱层中显示，而且还可以全尺寸浏览。',
+	'multimediaviewer-pref' => '媒体文件查看器',
+	'multimediaviewer-pref-desc' => '使用该新工具改善你的多媒体查看体验。它会把页面中的缩略图用更大的尺寸进行显示。图像会在一个更好的灯箱层中显示，而且还可以全尺寸浏览。',
 	'multimediaviewer-file-page' => '转到相应的文件页',
 	'multimediaviewer-repository' => '在$1了解详情',
 	'multimediaviewer-datetime-created' => '创建日期：$1',
@@ -783,6 +847,6 @@ $messages['zh-hans'] = array(
 	'multimediaviewer-use-file-owt' => '在一个wiki页面上作为缩略图使用本文件',
 	'multimediaviewer-use-file-own' => '在一个wiki页面上内联使用本文件',
 	'multimediaviewer-use-file-offwiki' => '在其他网站上使用本文件',
-	'multimediaviewer-about-mmv' => '关于媒体查看器',
+	'multimediaviewer-about-mmv' => '关于媒体文件查看器',
 	'multimediaviewer-discuss-mmv' => '留下反馈意见',
 );
