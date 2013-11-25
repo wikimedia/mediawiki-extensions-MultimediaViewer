@@ -1,4 +1,4 @@
-( function ( $ ) {
+( function () {
 	var lightboxHooks, MLBP, HRP;
 
 	/**
@@ -14,10 +14,8 @@
 		this.currentIndex = start || 0;
 		this.onInterfaceReady = [];
 
-		$( function () {
-			lightbox.iface = new LightboxInterface();
-			lightbox.interfaceReady();
-		} );
+		lightbox.iface = new LightboxInterface();
+		lightbox.interfaceReady();
 	}
 
 	MLBP = MultiLightbox.prototype;
@@ -133,4 +131,4 @@
 
 	window.lightboxHooks = lightboxHooks;
 	window.MultiLightbox = MultiLightbox;
-}( jQuery ) );
+}() );
