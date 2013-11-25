@@ -198,6 +198,28 @@ $messages['bn'] = array(
 	'multimediaviewer-discuss-mmv' => 'আপনার প্রতিক্রিয়া জানান',
 );
 
+/** Catalan (català)
+ * @author Vriullop
+ */
+$messages['ca'] = array(
+	'multimediaviewer-desc' => 'Expansió de miniatures a una mida més gran en un Lightbox',
+	'multimediaviewer-pref' => 'Visor Multimèdia',
+	'multimediaviewer-pref-desc' => 'Milloreu la vostra experiència de visualització multimèdia amb aquesta nova eina. Mostra imatges a mida més gran en les pàgines que tenen miniatures. Les imatges es mostren en una caixa Lightbox superposada més agradable i també es poden veure a mida completa.',
+	'multimediaviewer-file-page' => 'Vés a la pàgina corresponent del fitxer',
+	'multimediaviewer-repository' => 'Més informació a $1',
+	'multimediaviewer-datetime-created' => 'Creat el $1',
+	'multimediaviewer-datetime-uploaded' => 'Carregat el $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Carregat}} per $1',
+	'multimediaviewer-license-cc-pd' => 'Domini públic',
+	'multimediaviewer-license-default' => 'Mostra la llicència',
+	'multimediaviewer-use-file' => 'Utilitza aquest fitxer',
+	'multimediaviewer-use-file-owt' => 'Utilitza aquest fitxer en una pàgina wiki, com una miniatura',
+	'multimediaviewer-use-file-own' => 'Utilitza aquest fitxer en una pàgina wiki, directament',
+	'multimediaviewer-use-file-offwiki' => 'Utilitza aquest fitxer en un altre lloc web',
+	'multimediaviewer-about-mmv' => 'Sobre el Visor Multimèdia',
+	'multimediaviewer-discuss-mmv' => 'Comentaris',
+);
+
 /** Chechen (нохчийн)
  * @author Умар
  */
@@ -287,7 +309,7 @@ $messages['et'] = array(
 	'multimediaviewer-repository' => 'Lisateave asukohas $1',
 	'multimediaviewer-datetime-created' => 'Valmistamisaeg: $1',
 	'multimediaviewer-datetime-uploaded' => 'Üleslaadimisaeg: $1',
-	'multimediaviewer-userpage-link' => '{{GENDER:$2|Üleslaadija}}: $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Üleslaadija:}} $1',
 	'multimediaviewer-license-cc-pd' => 'Avalik omand',
 	'multimediaviewer-license-default' => 'Vaata litsentsi',
 	'multimediaviewer-use-file' => 'Kasuta seda faili',
@@ -412,7 +434,7 @@ $messages['hr'] = array(
 $messages['id'] = array(
 	'multimediaviewer-desc' => "Membentangkan gambar mini dalam ukuran yang lebih desar di dalam 'kotak tipis'",
 	'multimediaviewer-pref' => 'Penampil Media',
-	'multimediaviewer-pref-desc' => "Tingkatkan pengalaman penampilan multimedia Anda dengan alat baru ini. Penampil Media menampilkan gambar dalam ukuran yang lebih besar pada halaman yang memiliki gambar mini. Gambar ditampilkan dalam 'kotak tipis' melayang yang lebih indah, dan juga dapat ditampilkan dalam ukuran penuh.",
+	'multimediaviewer-pref-desc' => "Tingkatkan pengalaman penampilan multimedia Anda dengan alat baru ini. Penampil Media menampilkan gambar dalam ukuran yang lebih besar pada halaman yang memiliki gambar mini. Gambar ditampilkan dalam 'kotak tipis' melayang yang lebih indah, dan dapat juga ditampilkan dalam ukuran penuh.",
 	'multimediaviewer-file-page' => 'Pergi ke halaman berkas terkait',
 	'multimediaviewer-repository' => 'Pelajari selengkapnya di $1',
 	'multimediaviewer-datetime-created' => 'Dibuat pada $1',
@@ -609,6 +631,14 @@ $messages['ml'] = array(
 	'multimediaviewer-use-file-offwiki' => 'ഈ പ്രമാണം മറ്റൊരു വെബ്സൈറ്റിൽ ഉപയോഗിക്കുക',
 	'multimediaviewer-about-mmv' => 'മീഡിയ ദർശനോപാധിയുടെ വിവരണം',
 	'multimediaviewer-discuss-mmv' => 'പ്രതികരണം ചേർക്കുക',
+);
+
+/** Dutch (Nederlands)
+ * @author SPQRobin
+ */
+$messages['nl'] = array(
+	'multimediaviewer-license-default' => 'Licentie weergeven',
+	'multimediaviewer-use-file' => 'Dit bestand gebruiken',
 );
 
 /** Occitan (occitan)
