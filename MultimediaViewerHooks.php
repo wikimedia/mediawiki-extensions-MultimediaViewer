@@ -82,12 +82,14 @@ class MultimediaViewerHooks {
 	public static function getBetaPreferences( $user, &$prefs ) {
 		global $wgExtensionAssetsPath;
 
+		$dir = RequestContext::getMain()->getLanguage()->getDir();
+
 		$prefs['multimedia-viewer'] = array(
 			'label-message' => 'multimediaviewer-pref',
 			'desc-message' => 'multimediaviewer-pref-desc',
 			'info-link' => self::$infoLink,
 			'discussion-link' => self::$discussionLink,
-			'screenshot' => $wgExtensionAssetsPath . '/MultimediaViewer/viewer.svg',
+			'screenshot' => "$wgExtensionAssetsPath/MultimediaViewer/viewer-$dir.svg",
 		);
 
 		return true;

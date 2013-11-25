@@ -94,12 +94,12 @@ body.mobile .mw-mlb-controls,
 
 .mlb-fullscreen-div .mlb-fullscreen {
 	/* @embed */
-	background-image: url(img/mw-defullscreen.svg);
+	background-image: url(img/mw-defullscreen-ltr.svg);
 }
 
 .mlb-fullscreen {
 	/* @embed */
-	background-image: url(img/mw-fullscreen.svg);
+	background-image: url(img/mw-fullscreen-ltr.svg);
 }
 
 .mw-mlb-license,
@@ -166,7 +166,7 @@ body.mobile .mw-mlb-controls,
 
 .mw-mlb-image-links li.mw-mlb-username-li:before {
 	/* @embed */
-	background-image: url(img/user.svg);
+	background-image: url(img/user-ltr.svg);
 }
 
 .mw-mlb-image-links li.mw-mlb-datetime-li:before {
@@ -176,7 +176,7 @@ body.mobile .mw-mlb-controls,
 
 .mw-mlb-image-links li.mw-mlb-usefile-li:before {
 	/* @embed */
-	background-image: url(img/use.svg);
+	background-image: url(img/use-ltr.svg);
 }
 
 .mw-mlb-image-links li.empty:before {
