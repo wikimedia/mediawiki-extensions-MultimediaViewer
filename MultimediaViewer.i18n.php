@@ -600,6 +600,7 @@ $messages['mk'] = array(
 	'multimediaviewer-datetime-created' => 'Создадено на $1',
 	'multimediaviewer-datetime-uploaded' => 'Подигнато на $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Подигнато}} од $1',
+	'multimediaviewer-credit' => '$1 — $2',
 	'multimediaviewer-license-cc-pd' => 'Јавна сопственост',
 	'multimediaviewer-license-default' => 'Погл. лиценцата',
 	'multimediaviewer-use-file' => 'Употребете ја податотекава',
