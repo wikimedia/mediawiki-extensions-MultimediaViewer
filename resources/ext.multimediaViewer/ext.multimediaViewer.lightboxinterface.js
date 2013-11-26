@@ -51,6 +51,7 @@
 		this.initializeImage();
 		this.initializeImageMetadata();
 		this.initializeAboutLinks();
+		this.initializeNavigation();
 	};
 
 	LIP.initializeHeader = function () {
@@ -342,6 +343,49 @@
 				this.$mmvDiscussLink
 			)
 			.appendTo( this.$imageMetadata );
+	};
+
+	LIP.initializeNavigation = function () {
+		function handleKeyDown( e ) {
+			var isRtl = $( document.body ).hasClass( 'rtl' );
+
+			switch ( e.keyCode ) {
+				case 37:
+					// Left arrow
+					if ( isRtl ) {
+						mw.mediaViewer.nextImage();
+					} else {
+						mw.mediaViewer.prevImage();
+					}
+					break;
+				case 39:
+					// Right arrow
+					if ( isRtl ) {
+						mw.mediaViewer.prevImage();
+					} else {
+						mw.mediaViewer.nextImage();
+					}
+					break;
+			}
+		}
+
+		this.$nextButton = $( '<div>' )
+			.addClass( 'mw-mlb-next-image disabled' )
+			.html( '&nbsp;' )
+			.click( function () {
+				mw.mediaViewer.nextImage();
+			} )
+			.appendTo( this.$main );
+
+		this.$prevButton = $( '<div>' )
+			.addClass( 'mw-mlb-prev-image disabled' )
+			.html( '&nbsp;' )
+			.click( function () {
+				mw.mediaViewer.prevImage();
+			} )
+			.appendTo( this.$main );
+
+		$( document ).off( 'keydown', handleKeyDown ).on( 'keydown', handleKeyDown );
 	};
 
 	window.LightboxInterface = LightboxInterface;

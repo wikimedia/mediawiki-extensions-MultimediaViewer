@@ -84,7 +84,7 @@ body.mobile .mw-mlb-controls,
 }
 
 .mlb-overlay {
-	background-color: rgba( 255, 255, 255, 0.9 );
+	background-color: rgb(0,0,0);
 }
 
 .mlb-close {
@@ -264,4 +264,31 @@ body.mw-mlb-lightbox-open {
 
 body.mw-mlb-lightbox-open .mlb-main {
 	overflow-y: auto;
+}
+
+.mw-mlb-next-image,
+.mw-mlb-prev-image {
+	position: absolute;
+	top: -999px;
+	width: 64px;
+	height: 64px;
+	cursor: pointer;
+}
+
+.mw-mlb-next-image {
+	/* @embed */
+	background-image: url(img/next-ltr.svg);
+	right: 0;
+}
+
+.mw-mlb-prev-image {
+	/* @embed */
+	background-image: url(img/prev-ltr.svg);
+	left: 0;
+}
+
+.mw-mlb-next-image.disabled,
+.mw-mlb-prev-image.disabled {
+	display: none;
+	cursor: none;
 }

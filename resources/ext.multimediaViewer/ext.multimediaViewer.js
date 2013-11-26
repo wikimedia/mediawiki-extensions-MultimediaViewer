@@ -124,6 +124,7 @@
 
 		lightboxHooks.register( 'closeInterface', function () {
 			this.$mwControls.css( { top: '-999px', left: '-999px' } );
+			this.$nextButton.add( this.$prevButton ).css( 'top', '-999px' );
 			$( document.body ).removeClass( 'mw-mlb-lightbox-open' );
 			if ( comingFromPopstate === false ) {
 				history.pushState( {}, '', '#' );
@@ -133,38 +134,8 @@
 		} );
 
 		lightboxHooks.register( 'imageResize', function () {
-			var api = new mw.Api(),
-				density = $.devicePixelRatio(),
-				filename = viewer.currentImageFilename,
-				ui = this;
-
-			api.get( {
-				action: 'query',
-				format: 'json',
-				titles: filename,
-				prop: 'imageinfo',
-				iiprop: 'url',
-				iiurlwidth: Math.floor( density * this.$imageWrapper.width() ),
-				iiurlheight: Math.floor( density * this.$imageWrapper.height() )
-			} ).done( function ( data ) {
-				var imageInfo, innerInfo,
-					image = new Image();
-
-				$.each( data.query.pages, function ( i, page ) {
-					imageInfo = page;
-					return false;
-				} );
-
-				innerInfo = imageInfo.imageinfo[0];
-
-				image.onload = function () {
-					ui.replaceImageWith( image );
-					viewer.updateControls();
-				};
-
-				image.src = innerInfo.thumburl || innerInfo.url;
-			} );
-
+			var ui = this;
+			viewer.resize( ui );
 			return false;
 		} );
 
@@ -209,11 +180,46 @@
 
 	MMVP = MultimediaViewer.prototype;
 
+	MMVP.resize = function ( ui ) {
+		var api = new mw.Api(),
+			viewer = this,
+			density = $.devicePixelRatio(),
+			filename = ui.currentImageFilename;
+
+		api.get( {
+			action: 'query',
+			format: 'json',
+			titles: filename,
+			prop: 'imageinfo',
+			iiprop: 'url',
+			iiurlwidth: Math.floor( density * ui.$imageWrapper.width() ),
+			iiurlheight: Math.floor( density * ui.$imageWrapper.height() )
+		} ).done( function ( data ) {
+			var imageInfo, innerInfo,
+				image = new Image();
+
+			$.each( data.query.pages, function ( i, page ) {
+				imageInfo = page;
+				return false;
+			} );
+
+			innerInfo = imageInfo.imageinfo[0];
+
+			image.onload = function () {
+				ui.replaceImageWith( image );
+				viewer.updateControls();
+			};
+
+			image.src = innerInfo.thumburl || innerInfo.url;
+		} );
+	};
+
 	MMVP.updateControls = function () {
 		var isOnButton = false,
 			isOnImage = false,
 			ui = this.ui,
-			pos = ui.$image.offset();
+			pos = ui.$image.offset(),
+			prevNextTop = ( ( ui.$imageWrapper.height() / 2 ) - 32 ) + 'px';
 
 		function fadeIn() {
 			isOnImage = true;
@@ -275,6 +281,13 @@
 			.off( 'mouseleave', detectLeaveButton )
 			.on( 'mouseenter', detectButton )
 			.on( 'mouseleave', detectLeaveButton );
+
+		ui.$nextButton.add( ui.$prevButton ).css( {
+			top: prevNextTop
+		} );
+
+		ui.$nextButton.toggleClass( 'disabled', this.lightbox.currentIndex >= ( this.lightbox.images.length - 1 ) );
+		ui.$prevButton.toggleClass( 'disabled', this.lightbox.currentIndex <= 0 );
 	};
 
 	MMVP.registerLogging = function () {
@@ -656,6 +669,21 @@
 				cb( viewer.imageInfo[filename], res );
 			} );
 		}
+	};
+
+	MMVP.loadIndex = function ( index ) {
+		if ( index < this.lightbox.images.length && index >= 0 ) {
+			this.loadImage( this.lightbox.images[index], $( imgsSelector ).eq( index ).prop( 'src' ) );
+			this.resize( this.lightbox.iface );
+		}
+	};
+
+	MMVP.nextImage = function () {
+		this.loadIndex( this.lightbox.currentIndex + 1 );
+	};
+
+	MMVP.prevImage = function () {
+		this.loadIndex( this.lightbox.currentIndex - 1 );
 	};
 
 	MMVP.log = function ( action ) {
