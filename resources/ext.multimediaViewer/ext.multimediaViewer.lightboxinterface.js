@@ -245,8 +245,11 @@
 			filename = fileTitle.getPrefixedText(),
 			desc = fileTitle.getNameText(),
 
+			linkPrefix = this.$useFile.data( 'isLocal' ) ? mw.config.get( 'wgServer' ) : '',
 			src = this.$useFile.data( 'src' ),
 			link = this.$useFile.data( 'link' ) || src,
+			pattern = /^\/[^\/]/,
+			finalLink = pattern.test(link) ? linkPrefix +link: link,
 
 			owtId = 'mw-mlb-use-file-onwiki-thumb',
 			ownId = 'mw-mlb-use-file-onwiki-normal',
@@ -294,7 +297,8 @@
 				.prop( 'id', owId )
 				.prop( 'readonly', true )
 				.focus( selectAllOnEvent )
-				.val( '<a href="' + link + '"><img src="' + src + '" /></a>' ),
+				.val( '<a href="' + finalLink + '"><img src="' + src + '" /></a>' ),
+
 
 			$offWiki = $( '<div>' )
 				.append(

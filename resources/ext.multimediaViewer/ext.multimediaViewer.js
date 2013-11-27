@@ -187,7 +187,7 @@
 			this.$useFile.data( 'title', null );
 			this.$useFile.data( 'link', null );
 			this.$useFile.data( 'src', null );
-
+			this.$useFile.data( 'isLocal', null );
 			this.$useFileLi.addClass( 'empty' );
 
 			this.$imageDiv.addClass( 'empty' );
@@ -503,6 +503,7 @@
 
 			if ( repoInfo.local ) {
 				linkToRepo = mw.config.get( 'wgServer' ) + linkToRepo;
+				ui.$useFile.data( 'isLocal' ,repoInfo.local );
 			}
 
 			ui.$repo.prop( 'href', linkToRepo );
