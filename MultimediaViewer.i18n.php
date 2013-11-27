@@ -224,6 +224,8 @@ $messages['ca'] = array(
  * @author Умар
  */
 $messages['ce'] = array(
+	'multimediaviewer-pref' => 'Медиа-хьожург',
+	'multimediaviewer-pref-desc' => 'Мультимедиа-файлашка хьажар хаза кечдина гойту.',
 	'multimediaviewer-discuss-mmv' => 'Язде хьайна хетарг',
 );
 
@@ -657,10 +659,12 @@ $messages['oc'] = array(
 );
 
 /** Polish (polski)
+ * @author Nux
  * @author WTM
  */
 $messages['pl'] = array(
-	'multimediaviewer-repository' => 'Dowiedz się więcej o {{GRAMMAR:D.lp|$1}}',
+	'multimediaviewer-pref-desc' => 'To narzędzie, to przyjazna użytkownikowi przeglądarka multimediów. Umożliwia powiększanie miniaturek obrazków bez opuszczania strony z artykułem. Narzędzie to domyślnie wyświetla obrazki na półprzeźroczystej nakładce w stylu „Lightbox”, ale można także powiększyć je na pełny ekran.',
+	'multimediaviewer-repository' => 'Dowiedz się więcej na {{GRAMMAR:D.lp|$1}}',
 	'multimediaviewer-datetime-created' => 'Utworzony $1',
 	'multimediaviewer-datetime-uploaded' => 'Przesłany $1',
 	'multimediaviewer-userpage-link' => 'Przesłany przez {{GENDER:$2|użytkownika|użytkowniczkę}} $1',
@@ -670,6 +674,7 @@ $messages['pl'] = array(
 	'multimediaviewer-use-file-owt' => 'Użyj tego pliku na stronie wiki, jako miniatura',
 	'multimediaviewer-use-file-own' => 'Użyj tego pliku na stronie wiki, wewnątrz tekstu',
 	'multimediaviewer-use-file-offwiki' => 'Użyj tego pliku na innej stronie internetowej',
+	'multimediaviewer-about-mmv' => 'O przeglądarce Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Prześlij opinię',
 );
 
@@ -774,6 +779,13 @@ $messages['sl'] = array(
 	'multimediaviewer-discuss-mmv' => 'Pustite povratno informacijo',
 );
 
+/** Serbian (Cyrillic script) (српски (ћирилица)‎)
+ * @author Milicevic01
+ */
+$messages['sr-ec'] = array(
+	'multimediaviewer-datetime-created' => 'Направљено $', # Fuzzy
+);
+
 /** Swedish (svenska)
  * @author Ainali
  * @author NH
@@ -797,10 +809,12 @@ $messages['sv'] = array(
 );
 
 /** Turkish (Türkçe)
+ * @author Incelemeelemani
  * @author Rapsar
  */
 $messages['tr'] = array(
 	'multimediaviewer-pref' => 'Ortam Görüntüleyici',
+	'multimediaviewer-pref-desc' => 'Bu yeni araçla multimedya görüntüleme deneyiminizi geliştirin. Bu sayede küçük sayfaları daha büyük boyutlarda görüntüleyebilirsiniz. Ayrıca görüntüler Lightbox (açılır pencere) olarak ve tam boyutlu gösterilir.',
 	'multimediaviewer-about-mmv' => 'Ortam Görüntüleyici hakkında',
 );
 
