@@ -260,7 +260,7 @@
 				.prop( 'type', 'text' )
 				.prop( 'id', owtId )
 				.prop( 'readonly', true )
-				.click( selectAllOnEvent )
+				.focus( selectAllOnEvent )
 				.val( '[[' + filename + '|thumb|' + desc + ']]' ),
 
 			$onWikiThumb = $( '<div>' )
@@ -276,7 +276,7 @@
 				.prop( 'type', 'text' )
 				.prop( 'id', ownId )
 				.prop( 'readonly', true )
-				.click( selectAllOnEvent )
+				.focus( selectAllOnEvent )
 				.val( '[[' + filename + '|' + desc + ']]' ),
 
 			$onWikiNormal = $( '<div>' )
@@ -293,7 +293,7 @@
 				.prop( 'type', 'text' )
 				.prop( 'id', owId )
 				.prop( 'readonly', true )
-				.click( selectAllOnEvent )
+				.focus( selectAllOnEvent )
 				.val( '<a href="' + link + '"><img src="' + src + '" /></a>' ),
 
 			$offWiki = $( '<div>' )
@@ -317,7 +317,7 @@
 				}
 			} );
 
-		$owtField.click();
+		$owtField.focus();
 
 		return false;
 	};
