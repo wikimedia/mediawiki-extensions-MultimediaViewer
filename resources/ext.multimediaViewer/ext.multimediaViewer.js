@@ -391,7 +391,7 @@
 					.prop( 'href', articlePath.replace( '$1', userTitle.getPrefixedText() ) );
 			}
 
-			ui.$usernameLi.toggleClass( 'empty', !Boolean( username ) );
+			ui.$usernameLi.toggleClass( 'empty', !username );
 		}
 
 		var extmeta,
@@ -441,7 +441,7 @@
 			ui.$useFile.data( 'link', linkToRepo );
 		}
 
-		ui.$repoLi.toggleClass( 'empty', !Boolean( repoInfo ) );
+		ui.$repoLi.toggleClass( 'empty', !repoInfo );
 
 		username = innerInfo.user;
 
@@ -494,7 +494,7 @@
 				);
 			}
 
-			ui.$datetimeLi.toggleClass( 'empty', !Boolean( datetime ) );
+			ui.$datetimeLi.toggleClass( 'empty', !datetime );
 
 			source = extmeta.Credit;
 			author = extmeta.Artist;
@@ -526,7 +526,7 @@
 				}
 			}
 
-			ui.$credit.toggleClass( 'empty', !Boolean( source ) && !Boolean( author ) );
+			ui.$credit.toggleClass( 'empty', !source && !author );
 
 			license = extmeta.License;
 		}
