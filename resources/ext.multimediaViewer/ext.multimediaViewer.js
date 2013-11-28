@@ -739,23 +739,4 @@
 	} );
 
 	mw.MultimediaViewer = MultimediaViewer;
-
-	// Quick hack to select all text in a text box
-	$.fn.selectAll = function () {
-		return this.each( function () {
-			var range,
-				start = 0,
-				end = this.value.length;
-
-			if ( this.setSelectionRange ) {
-				this.setSelectionRange( start, end );
-			} else if ( this.createTextRange ) {
-				range = this.createTextRange();
-				range.collapse( true );
-				range.moveEnd( 'character', end );
-				range.moveStart( 'character', start );
-				range.select();
-			}
-		} );
-	};
 }( mediaWiki, jQuery, moment ) );

@@ -233,15 +233,7 @@
 
 	LIP.openFileUsageDialog = function () {
 		function selectAllOnEvent() {
-			var $this = $( this );
-
-			if ( $this.is( 'label' ) ) {
-				$this = $this.parent().find( '#' + $this.prop( 'for' ) );
-			}
-
-			$this.selectAll();
-
-			return false;
+			this.select();
 		}
 
 		var fileTitle = this.$useFile.data( 'title' ),
