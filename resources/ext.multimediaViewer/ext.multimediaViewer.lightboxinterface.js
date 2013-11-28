@@ -244,15 +244,13 @@
 			return false;
 		}
 
-		var $this = $( this ),
-
-			fileTitle = $this.data( 'title' ),
+		var fileTitle = this.$useFile.data( 'title' ),
 
 			filename = fileTitle.getPrefixedText(),
 			desc = fileTitle.getNameText(),
 
-			src = $this.data( 'src' ),
-			link = $this.data( 'link' ) || src,
+			src = this.$useFile.data( 'src' ),
+			link = this.$useFile.data( 'link' ) || src,
 
 			owtId = 'mw-mlb-use-file-onwiki-thumb',
 			ownId = 'mw-mlb-use-file-onwiki-normal',
