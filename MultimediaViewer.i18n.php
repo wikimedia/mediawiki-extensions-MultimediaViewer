@@ -324,10 +324,25 @@ $messages['et'] = array(
 
 /** Persian (فارسی)
  * @author Ebraminio
+ * @author Reza1615
  */
 $messages['fa'] = array(
+	'multimediaviewer-desc' => 'نمایش تصویر بندانگشتی در اندازه بزرگتر در یک حعبه روشن',
 	'multimediaviewer-pref' => 'نمایش‌دهندهٔ رسانه',
 	'multimediaviewer-pref-desc' => 'تجربهٔ بازدید چندرسانه‌ای شما با این ابزار جدید بهبود می‌یابد و تصاویر را در اندازهٔ بزرگتر در صفحه‌هایی که بندانگشتی دارند نمایش می‌دهد. تصاویر در پوشش سبک زیباتری نمایش داده می‌شوند و همچنین می‌توانند در اندازهٔ اصلی نمایش داده شوند.',
+	'multimediaviewer-file-page' => 'رفتن به صفحهٔ مرتبط با پرونده',
+	'multimediaviewer-repository' => 'بیشتر بدانید در $1',
+	'multimediaviewer-datetime-created' => 'ایجادشده توسط $1',
+	'multimediaviewer-datetime-uploaded' => 'ارسال شده در$1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|ارسال شده توسط}} $1',
+	'multimediaviewer-license-cc-pd' => 'مالکیت عمومی',
+	'multimediaviewer-license-default' => 'مشاهده مجوز',
+	'multimediaviewer-use-file' => 'استفاده از این پرونده',
+	'multimediaviewer-use-file-owt' => 'استفاده از این پرونده به صورت بندانگشتی در صفحه ویکی',
+	'multimediaviewer-use-file-own' => 'استفاده از این پرونده به صورت درون متن، در صفحه ویکی',
+	'multimediaviewer-use-file-offwiki' => 'ساتفاده از این پرونده در وب‌گاه دیگر',
+	'multimediaviewer-about-mmv' => 'دربارهٔ نمایش‌دهندهٔ رسانه',
+	'multimediaviewer-discuss-mmv' => 'گذاشتن بازخورد',
 );
 
 /** Finnish (suomi)
