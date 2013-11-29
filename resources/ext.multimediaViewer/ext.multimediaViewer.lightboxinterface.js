@@ -232,6 +232,11 @@
 	};
 
 	LIP.openFileUsageDialog = function () {
+		// Only open dialog once
+		if ( this.$dialog ) {
+			return false;
+		}
+
 		function selectAllOnEvent() {
 			this.select();
 		}
@@ -306,7 +311,11 @@
 				$offWiki
 			)
 			.dialog( {
-				width: 750
+				width: 750,
+				close: function () {
+					// Delete the dialog object
+					mw.mediaViewer.ui.$dialog = undefined;
+				}
 			} );
 
 		$owtField.click();
