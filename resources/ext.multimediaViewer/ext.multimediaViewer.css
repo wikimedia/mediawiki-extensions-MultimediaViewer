@@ -115,6 +115,9 @@ body.mobile .mw-mlb-controls,
 
 .mw-mlb-title {
 	font-size: 1.2em;
+	max-width: 60%;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .mw-mlb-image-metadata {
