@@ -199,11 +199,12 @@ $messages['bn'] = array(
 );
 
 /** Catalan (català)
+ * @author Fitoschido
  * @author Vriullop
  */
 $messages['ca'] = array(
 	'multimediaviewer-desc' => 'Expansió de miniatures a una mida més gran en un Lightbox',
-	'multimediaviewer-pref' => 'Visor Multimèdia',
+	'multimediaviewer-pref' => 'Visor multimèdia',
 	'multimediaviewer-pref-desc' => 'Milloreu la vostra experiència de visualització multimèdia amb aquesta nova eina. Mostra imatges a mida més gran en les pàgines que tenen miniatures. Les imatges es mostren en una caixa Lightbox superposada més agradable i també es poden veure a mida completa.',
 	'multimediaviewer-file-page' => 'Vés a la pàgina corresponent del fitxer',
 	'multimediaviewer-repository' => 'Més informació a $1',
@@ -216,7 +217,7 @@ $messages['ca'] = array(
 	'multimediaviewer-use-file-owt' => 'Utilitza aquest fitxer en una pàgina wiki, com una miniatura',
 	'multimediaviewer-use-file-own' => 'Utilitza aquest fitxer en una pàgina wiki, directament',
 	'multimediaviewer-use-file-offwiki' => 'Utilitza aquest fitxer en un altre lloc web',
-	'multimediaviewer-about-mmv' => 'Sobre el Visor Multimèdia',
+	'multimediaviewer-about-mmv' => 'Quant al visor multimèdia',
 	'multimediaviewer-discuss-mmv' => 'Comentaris',
 );
 
@@ -678,7 +679,9 @@ $messages['oc'] = array(
  * @author WTM
  */
 $messages['pl'] = array(
+	'multimediaviewer-pref' => 'Przeglądarka multimedów',
 	'multimediaviewer-pref-desc' => 'To narzędzie, to przyjazna użytkownikowi przeglądarka multimediów. Umożliwia powiększanie miniaturek obrazków bez opuszczania strony z artykułem. Narzędzie to domyślnie wyświetla obrazki na półprzeźroczystej nakładce w stylu „Lightbox”, ale można także powiększyć je na pełny ekran.',
+	'multimediaviewer-file-page' => 'Przejdź na stronę z opisem pliku',
 	'multimediaviewer-repository' => 'Dowiedz się więcej na {{GRAMMAR:D.lp|$1}}',
 	'multimediaviewer-datetime-created' => 'Utworzony $1',
 	'multimediaviewer-datetime-uploaded' => 'Przesłany $1',
@@ -689,7 +692,7 @@ $messages['pl'] = array(
 	'multimediaviewer-use-file-owt' => 'Użyj tego pliku na stronie wiki, jako miniatura',
 	'multimediaviewer-use-file-own' => 'Użyj tego pliku na stronie wiki, wewnątrz tekstu',
 	'multimediaviewer-use-file-offwiki' => 'Użyj tego pliku na innej stronie internetowej',
-	'multimediaviewer-about-mmv' => 'O przeglądarce Media Viewer',
+	'multimediaviewer-about-mmv' => 'O przeglądarce multimedów',
 	'multimediaviewer-discuss-mmv' => 'Prześlij opinię',
 );
 
