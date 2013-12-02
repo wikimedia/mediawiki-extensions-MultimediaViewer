@@ -284,6 +284,13 @@ $messages['el'] = array(
 	'multimediaviewer-about-mmv' => 'Περί το Media Viewer',
 );
 
+/** British English (British English)
+ * @author Shirayuki
+ */
+$messages['en-gb'] = array(
+	'multimediaviewer-license-default' => 'View licence',
+);
+
 /** Spanish (español)
  * @author Benfutbol10
  * @author Fitoschido
@@ -492,11 +499,12 @@ $messages['ilo'] = array(
 
 /** Italian (italiano)
  * @author Beta16
+ * @author OrbiliusMagister
  */
 $messages['it'] = array(
 	'multimediaviewer-desc' => 'Espandere le miniature in un dimensioni maggiori in un Lightbox.',
 	'multimediaviewer-pref' => 'Media Viewer',
-	'multimediaviewer-pref-desc' => 'Migliora la vostra esperienza di visione multimediale con questo nuovo strumento. Visualizza le immagini in dimensioni maggiori su pagine che hanno le miniature. Le immagini sono mostrate in un gradevole Lightbox e possono anche essere visualizzate a dimensione originale.',
+	'multimediaviewer-pref-desc' => 'Sperimenta una miglior visualizzazione del multimedia con questo nuovo strumento che visualizza le immagini in dimensioni maggiori su pagine che ne riportano le miniature. Le immagini sono mostrate in un riquadro piccolo più gradevole, ma possono anche essere visualizzate a dimensione originale.',
 	'multimediaviewer-file-page' => 'Vai alla corrispondente pagina del file',
 	'multimediaviewer-repository' => 'Ulteriori informazioni su $1',
 	'multimediaviewer-datetime-created' => 'Creato il $1',
@@ -654,10 +662,25 @@ $messages['ml'] = array(
 
 /** Dutch (Nederlands)
  * @author SPQRobin
+ * @author Siebrand
  */
 $messages['nl'] = array(
+	'multimediaviewer-desc' => 'Miniatuurafbeeldingen groter weergeven in een Lightbox.',
+	'multimediaviewer-pref' => 'Mediaviewer',
+	'multimediaviewer-pref-desc' => "Verbeteren uw multimediaervaring met dit nieuwe instrument. Afbeeldingen worden groter weergegeven op pagina's met miniaturen. Afbeeldingen worden weergegeven in een Lightbox en kunnen ook worden bekeken op ware grootte.",
+	'multimediaviewer-file-page' => 'Naar de bestandspagina gaan',
+	'multimediaviewer-repository' => 'Meer informatie over $1',
+	'multimediaviewer-datetime-created' => 'Aangemaakt op $1',
+	'multimediaviewer-datetime-uploaded' => 'Geupload op $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Geüpload}} door $1',
+	'multimediaviewer-license-cc-pd' => 'Publiek domein',
 	'multimediaviewer-license-default' => 'Licentie weergeven',
 	'multimediaviewer-use-file' => 'Dit bestand gebruiken',
+	'multimediaviewer-use-file-owt' => 'Gebruik dit bestand op een wikipagina, als een miniatuur',
+	'multimediaviewer-use-file-own' => 'Gebruik dit bestand op een wikipagina, in lopende tekst',
+	'multimediaviewer-use-file-offwiki' => 'Gebruik dit bestand op een andere website',
+	'multimediaviewer-about-mmv' => 'Over Mediaviewer',
+	'multimediaviewer-discuss-mmv' => 'Terugkoppeling achterlaten',
 );
 
 /** Occitan (occitan)
