@@ -227,6 +227,7 @@
 			.text( mw.message( 'multimediaviewer-use-file' ).text() )
 			.click( function () {
 				ui.openFileUsageDialog();
+				return false;
 			} )
 			.appendTo( this.$useFileLi );
 	};
