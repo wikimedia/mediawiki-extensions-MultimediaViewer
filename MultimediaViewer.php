@@ -246,6 +246,7 @@ $wgHooks['GetBetaFeaturePreferences'][] = 'MultimediaViewerHooks::getBetaPrefere
 $wgHooks['BeforePageDisplay'][] = 'MultimediaViewerHooks::getModulesForArticle';
 $wgHooks['CategoryPageView'][] = 'MultimediaViewerHooks::getModulesForCategory';
 $wgHooks['ResourceLoaderGetConfigVars'][] = 'MultimediaViewerHooks::resourceLoaderGetConfigVars';
+$wgHooks['ResourceLoaderTestModules'][] = 'MultimediaViewerHooks::getTestModules';
 
 $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,

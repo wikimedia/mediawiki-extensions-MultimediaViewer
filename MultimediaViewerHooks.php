@@ -107,4 +107,25 @@ class MultimediaViewerHooks {
 		);
 		return true;
 	}
+
+	/**
+	 * Get modules for testing our JavaScript
+	 * @param array $testModules
+	 * @param ResourceLoader resourceLoader
+	 * @return bool
+	 */
+	public static function getTestModules( array &$testModules, ResourceLoader &$resourceLoader ) {
+		$testModules['qunit']['ext.multimediaViewer.tests'] = array(
+			'scripts' => array(
+				'tests/qunit/ext.multimediaViewer.test.js',
+			),
+			'dependencies' => array(
+				'ext.multimediaViewer',
+			),
+			'localBasePath' => __DIR__,
+			'remoteExtPath' => 'MultimediaViewer',
+		);
+
+		return true;
+       }
 }

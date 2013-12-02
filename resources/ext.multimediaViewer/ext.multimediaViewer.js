@@ -55,14 +55,38 @@
 			'site-link-click': 'User clicked on the link to the file description page.'
 		};
 
+	/**
+	 * Class that analyses the page, looks for image content and sets up the hooks
+	 * to manage the viewing experience of such content.
+	 *
+	 * @constructor
+	 */
 	function MultimediaViewer() {
-		var $thumbs = $( '.gallery .image img, a.image img' ),
+		/**
+		 * MultiLightbox object used to display the pictures in the page.
+		 * @property {mw.MultiLightbox}
+		 * @private
+		 */
+		this.lightbox = null;
+
+		var $thumbs = $( imgsSelector ),
 			urls = [],
 			viewer = this;
 
+		/**
+		 * @property {mw.Api}
+		 * @private
+		 */
 		this.api = new mw.Api();
+
+		/**
+		 * imageInfo object. TODO: Describe structure and valid states.
+		 * @property {Object}
+		 * @private
+		 */
 		this.imageInfo = {};
 
+		// Traverse DOM, looking for potential thumbnails
 		$thumbs.each( function ( i, thumb ) {
 			var fileLink, thisImage,
 				$thumb = $( thumb ),
@@ -88,6 +112,7 @@
 
 			$links.data( 'filePageLink', filePageLink );
 
+			// Create a LightboxImage object for each legit image
 			thisImage = new mw.LightboxImage( fileLink );
 			thisImage.filePageLink = filePageLink;
 			thisImage.filePageTitle = fileTitle;
@@ -95,32 +120,23 @@
 
 			urls.push( thisImage );
 
+			// Register callback that launches modal image viewer if valid click
 			$links.click( function ( e ) {
-				// Do not interfere with non-left clicks or if modifier keys are pressed.
-				if ( e.which !== 1 || e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) {
-					return;
-				}
-
-				var $this = $( this ),
-					initial = $thumbContain.find( 'img' ).prop( 'src' );
-
-				if ( $this.is( 'a.image' ) ) {
-					viewer.log( 'thumbnail-link-click' );
-				} else if ( $this.is( '.magnify a' ) ) {
-					viewer.log( 'enlarge-link-click' );
-				}
-
-				e.preventDefault();
-
-				viewer.loadImage( thisImage, initial );
+				viewer.clickLinkCallback( e, this, $thumbContain, thisImage );
 
 				return false;
 			} );
 		} );
 
-		if ( $thumbs.length > 0 ) {
-			this.lightbox = new MultiLightbox( urls );
+		if ( urls.length === 0 ) {
+			// No legit images found, no need to continue
+			return;
 		}
+
+		// Only if we find legit images, create a MultiLightbox object
+		this.lightbox = new MultiLightbox( urls );
+
+		// Register various event hooks. TODO: Make this a function that's only called once.
 
 		lightboxHooks.register( 'closeInterface', function () {
 			this.$mwControls.css( { top: '-999px', left: '-999px' } );
@@ -180,7 +196,39 @@
 
 	MMVP = MultimediaViewer.prototype;
 
+	/**
+	 * Handles clicks on legit image links.
+	 *
+	 * @protected
+	 * @VisibleForTesting
+	 *
+	 * @param {jQuery.Event} e click event
+	 * @param {HTMLElement|jQuery} clickedEle clicked element
+	 * @param {jQuery} $thumbContain thumbnail container element
+	 * @param {mw.LightboxImage} thisImage lightboximage object
+	 */
+	MMVP.clickLinkCallback = function ( e, clickedEle, $thumbContain, thisImage ) {
+		// Do not interfere with non-left clicks or if modifier keys are pressed.
+		if ( e.which !== 1 || e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) {
+			return;
+		}
+
+		var $clickedEle = $( clickedEle ),
+				initial = $thumbContain.find( 'img' ).prop( 'src' );
+
+		if ( $clickedEle.is( 'a.image' ) ) {
+			this.log( 'thumbnail-link-click' );
+		} else if ( $clickedEle.is( '.magnify a' ) ) {
+			this.log( 'enlarge-link-click' );
+		}
+
+		e.preventDefault();
+
+		this.loadImage( thisImage, initial );
+	};
+
 	MMVP.resize = function ( ui ) {
+		// TODO: Reuse the api member, fix everywhere.
 		var api = new mw.Api(),
 			viewer = this,
 			density = $.devicePixelRatio(),
@@ -705,7 +753,7 @@
 	 * @param {string} dateString
 	 * @return {string}
 	 */
-	MultimediaViewer.prototype.formatDate = function ( dateString ) {
+	MMVP.formatDate = function ( dateString ) {
 		var date = moment( dateString );
 		if ( !date.isValid() ) {
 			return dateString;
@@ -722,7 +770,9 @@
 				mw.mediaViewer.loadImage( statedIndex, $( imgsSelector ).eq( linkState[2] ).prop( 'src' ) );
 			}
 		} else {
-			mw.mediaViewer.lightbox.iface.unattach();
+			if ( mw.mediaViewer.lightbox ) {
+				mw.mediaViewer.lightbox.iface.unattach();
+			}
 		}
 	}
 
