@@ -295,3 +295,16 @@ body.mw-mlb-lightbox-open .mlb-main {
 	display: none;
 	cursor: none;
 }
+
+.mw-mlb-drag-affordance {
+	width: 100%;
+	height: 32px;
+}
+
+.mw-mlb-drag-icon {
+	width: 64px;
+	height: 32px;
+	/* @embed */
+	background-image: url(img/drag.svg);
+	margin: 0 auto;
+}

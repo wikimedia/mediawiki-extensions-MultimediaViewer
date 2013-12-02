@@ -93,8 +93,21 @@
 	};
 
 	LIP.initializeHeader = function () {
+		var ui = this;
+
 		this.$closeButton.detach();
 		this.$fullscreenButton.detach();
+
+		this.$dragBar = $( '<div>' )
+			.addClass( 'mw-mlb-drag-affordance' )
+			.appendTo( this.$controlBar )
+			.click( function () {
+				ui.toggleMetadata();
+			} );
+
+		this.$dragIcon = $( '<div>' )
+			.addClass( 'mw-mlb-drag-icon' )
+			.appendTo( this.$dragBar );
 
 		this.$titleDiv = $( '<div>' )
 			.addClass( 'mw-mlb-title-contain' )
@@ -428,6 +441,13 @@
 			.appendTo( this.$main );
 
 		$( document ).off( 'keydown', this.handleKeyDown ).on( 'keydown', this.handleKeyDown );
+	};
+
+	LIP.toggleMetadata = function () {
+		var off = this.$controlBar.offset();
+		$( 'html, body' ).animate( {
+			scrollTop: off.top - 72
+		} );
 	};
 
 	// We are overwriting what is already set in window.LightboxInterface, shouldn't it be 'mw.LightboxInterface' ???

@@ -27,7 +27,6 @@
 		return div;
 	}
 
-
 	QUnit.test( 'Check viewer invoked when clicking on an legit image links', 4, function ( assert ) {
 		// TODO: Is <div class="gallery"><span class="image"><img/></span></div> valid ???
 		var div, link, link2, link3, viewer;
@@ -216,4 +215,34 @@
 		mw.eventLog = backupEventLog;
 	} );
 
+	QUnit.test( 'Ensure that the click callback is getting the appropriate initial value for image loading', 1, function ( assert ) {
+		var imgSrc = '300px-valid.jpg',
+			div = createGallery( imgSrc ),
+			link = div.find( 'a.image' ),
+			viewer = new mw.MultimediaViewer();
+
+		viewer.clickLinkCallback = function ( e, clickedEle, $thumbContain ) {
+			assert.strictEqual( $thumbContain.find( 'img' ).prop( 'src' ).split( '/' ).pop(), imgSrc, 'The URL being used for the initial image load is correct' );
+		};
+
+		link.trigger( 'click' );
+	} );
+
+	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 4, function ( assert ) {
+		var viewer,
+			fname = 'valid',
+			imgSrc = '/' + fname + '.jpg/300px-' + fname + '.jpg',
+			imgRegex = new RegExp( imgSrc + '$' );
+
+		createGallery( imgSrc );
+
+		mw.MultimediaViewer.prototype.createNewImage = function ( fileLink, filePageLink, fileTitle, index ) {
+			assert.ok( fileLink.match( imgRegex ), 'Thumbnail URL used in creating new image object' );
+			assert.strictEqual( filePageLink, '', 'File page link is sane when creating new image object' );
+			assert.strictEqual( fileTitle.title, fname, 'Filename is correct when passed into new image constructor' );
+			assert.strictEqual( index, 0, 'The only image we created in the gallery is set at index 0 in the images array' );
+		};
+
+		viewer = new mw.MultimediaViewer();
+	} );
 }( mediaWiki, jQuery ) );

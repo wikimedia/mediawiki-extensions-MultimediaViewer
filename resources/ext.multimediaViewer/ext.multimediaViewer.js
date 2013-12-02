@@ -100,7 +100,7 @@
 
 		// Traverse DOM, looking for potential thumbnails
 		$thumbs.each( function ( i, thumb ) {
-			var fileLink, thisImage,
+			var thisImage,
 				$thumb = $( thumb ),
 				$link = $thumb.closest( 'a.image' ),
 				$thumbContain = $link.closest( '.thumb' ),
@@ -125,11 +125,7 @@
 			$links.data( 'filePageLink', filePageLink );
 
 			// Create a LightboxImage object for each legit image
-			thisImage = new mw.LightboxImage( fileLink );
-			thisImage.filePageLink = filePageLink;
-			thisImage.filePageTitle = fileTitle;
-			thisImage.index = index;
-
+			thisImage = viewer.createNewImage( $thumb.prop( 'src' ), filePageLink, fileTitle, index );
 			urls.push( thisImage );
 
 			// Register callback that launches modal image viewer if valid click
@@ -181,6 +177,24 @@
 	}
 
 	MMVP = MultimediaViewer.prototype;
+
+	/**
+	 * Create an image object for the lightbox to use.
+	 * @protected
+	 * @param {string} fileLink Link to the file - generally a thumb URL
+	 * @param {string} filePageLink Link to the File: page
+	 * @param {mw.Title} fileTitle Represents the File: page
+	 * @param {number} index Which number file this is
+	 * @returns {mw.LightboxImage}
+	 */
+	MMVP.createNewImage = function ( fileLink, filePageLink, fileTitle, index ) {
+		var thisImage = new mw.LightboxImage( fileLink );
+		thisImage.filePageLink = filePageLink;
+		thisImage.filePageTitle = fileTitle;
+		thisImage.index = index;
+
+		return thisImage;
+	};
 
 	/**
 	 * Handles clicks on legit image links.
