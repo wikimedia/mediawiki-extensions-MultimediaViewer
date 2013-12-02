@@ -15,8 +15,6 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global OO, LightboxInterface */
-
 ( function ( mw, $, oo, MLBInterface ) {
 	var LIP;
 
@@ -389,4 +387,4 @@
 	};
 
 	window.LightboxInterface = LightboxInterface;
-}( mediaWiki, jQuery, OO, LightboxInterface ) );
+}( mediaWiki, jQuery, OO, window.LightboxInterface ) );

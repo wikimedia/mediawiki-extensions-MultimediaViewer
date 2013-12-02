@@ -15,8 +15,6 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global OO, LightboxImage */
-
 ( function ( mw, $, oo, MLBImage ) {
 	function LightboxImage() {
 		MLBImage.call( this );
@@ -25,4 +23,4 @@
 	oo.inheritClass( LightboxImage, MLBImage );
 
 	mw.LightboxImage = LightboxImage;
-}( mediaWiki, jQuery, OO, LightboxImage ) );
+}( mediaWiki, jQuery, OO, window.LightboxImage ) );

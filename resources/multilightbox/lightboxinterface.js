@@ -156,13 +156,7 @@
 				iface.autoResizeImage();
 
 				window.addEventListener( 'resize', function () {
-					var result = lightboxHooks.callAll( 'imageResize', iface ),
-						isFullScreen = (
-							document.fullscreenElement ||
-							document.mozFullScreenElement ||
-							document.webkitFullScreenElement ||
-							document.msFullScreenElement ),
-						$measurement = isFullScreen ? $( window ) : iface.$image;
+					var result = lightboxHooks.callAll( 'imageResize', iface );
 
 					if ( result !== false ) {
 						iface.autoResizeImage();
