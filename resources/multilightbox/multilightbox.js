@@ -14,7 +14,7 @@
 		this.currentIndex = start || 0;
 		this.onInterfaceReady = [];
 
-		lightbox.iface = new LightboxInterface();
+		lightbox.iface = new window.LightboxInterface();
 		lightbox.interfaceReady();
 	}
 
