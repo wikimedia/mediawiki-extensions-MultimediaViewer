@@ -499,12 +499,13 @@ $messages['ilo'] = array(
 
 /** Italian (italiano)
  * @author Beta16
+ * @author CristianCantoro
  * @author OrbiliusMagister
  */
 $messages['it'] = array(
 	'multimediaviewer-desc' => 'Espandere le miniature in un dimensioni maggiori in un Lightbox.',
 	'multimediaviewer-pref' => 'Media Viewer',
-	'multimediaviewer-pref-desc' => 'Sperimenta una miglior visualizzazione del multimedia con questo nuovo strumento che visualizza le immagini in dimensioni maggiori su pagine che ne riportano le miniature. Le immagini sono mostrate in un riquadro piccolo più gradevole, ma possono anche essere visualizzate a dimensione originale.',
+	'multimediaviewer-pref-desc' => 'Sperimenta una miglior visualizzazione dei file multimediali con questo nuovo strumento che visualizza le immagini più grandi su pagine che ne riportano le miniature. Le immagini sono mostrate in un riquadro piccolo più gradevole, ma possono essere visualizzate anche alla dimensione originale.',
 	'multimediaviewer-file-page' => 'Vai alla corrispondente pagina del file',
 	'multimediaviewer-repository' => 'Ulteriori informazioni su $1',
 	'multimediaviewer-datetime-created' => 'Creato il $1',
