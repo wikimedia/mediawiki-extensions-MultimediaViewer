@@ -227,14 +227,19 @@
 		this.loadImage( thisImage, initial );
 	};
 
+	/**
+	 * Handles resize events in viewer.
+	 *
+	 * @protected
+	 *
+	 * @param {mw.LightboxInterface} ui lightbox that got resized
+	 */
 	MMVP.resize = function ( ui ) {
-		// TODO: Reuse the api member, fix everywhere.
-		var api = new mw.Api(),
-			viewer = this,
+		var viewer = this,
 			density = $.devicePixelRatio(),
 			filename = ui.currentImageFilename;
 
-		api.get( {
+		this.api.get( {
 			action: 'query',
 			format: 'json',
 			titles: filename,
@@ -243,6 +248,21 @@
 			iiurlwidth: Math.floor( density * ui.$imageWrapper.width() ),
 			iiurlheight: Math.floor( density * ui.$imageWrapper.height() )
 		} ).done( function ( data ) {
+			viewer.loadResizedImage( ui, data );
+		} );
+	};
+
+	/**
+	 * Replaces the resized image in the viewer providing we actually got some data.
+	 *
+	 * @protected
+	 *
+	 * @param {mw.LightboxInterface} ui lightbox that got resized
+	 * @param {Object} data information regarding the new resized image
+	 */
+	MMVP.loadResizedImage = function ( ui, data ) {
+		// Replace image only if data was returned.
+		if ( data && data.query && data.query.pages ) {
 			var imageInfo, innerInfo,
 				image = new Image();
 
@@ -255,11 +275,11 @@
 
 			image.onload = function () {
 				ui.replaceImageWith( image );
-				viewer.updateControls();
+				this.updateControls();
 			};
 
 			image.src = innerInfo.thumburl || innerInfo.url;
-		} );
+		}
 	};
 
 	MMVP.updateControls = function () {
@@ -494,6 +514,7 @@
 		username = innerInfo.user;
 
 		if ( username ) {
+			// TODO: Reuse the api member, fix everywhere.
 			// Fetch the gender from the uploader's home wiki
 			// TODO this is ugly as hell, let's fix this in core.
 			new mw.Api( {

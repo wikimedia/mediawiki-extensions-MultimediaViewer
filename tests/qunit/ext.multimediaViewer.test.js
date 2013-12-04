@@ -107,4 +107,17 @@
 		link.trigger( rightClick );
 	} );
 
+	QUnit.test( 'Do not load the resized image if no data returning from the api', 1, function ( assert ) {
+		var ui,
+			data,
+			viewer = new mw.MultimediaViewer();
+
+		// Calling loadResizedImage() with empty/undefined data should not fail.
+		viewer.loadResizedImage( ui, data );
+		viewer.loadResizedImage( ui, {} );
+		viewer.loadResizedImage( ui, { query: {} } );
+
+		assert.ok( true, 'Resized image is not replaced since we have not data.' );
+	} );
+
 }( mediaWiki, jQuery ) );
