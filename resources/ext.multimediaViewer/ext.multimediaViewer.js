@@ -166,32 +166,6 @@
 				this.$imageMetadata.show();
 			}
 		} );
-
-		lightboxHooks.register( 'clearInterface', function () {
-			this.$license.empty().addClass( 'empty' );
-
-			this.$imageDesc.empty();
-			this.$imageDescDiv.addClass( 'empty' );
-			this.$title.empty();
-			this.$credit.empty().addClass( 'empty' );
-
-			this.$username.empty();
-			this.$usernameLi.addClass( 'empty' );
-
-			this.$repo.empty();
-			this.$repoLi.addClass( 'empty' );
-
-			this.$datetime.empty();
-			this.$datetimeLi.addClass( 'empty' );
-
-			this.$useFile.data( 'title', null );
-			this.$useFile.data( 'link', null );
-			this.$useFile.data( 'src', null );
-			this.$useFile.data( 'isLocal', null );
-			this.$useFileLi.addClass( 'empty' );
-
-			this.$imageDiv.addClass( 'empty' );
-		} );
 	}
 
 	MMVP = MultimediaViewer.prototype;
