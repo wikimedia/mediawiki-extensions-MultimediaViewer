@@ -1,4 +1,22 @@
 ( function ( mw, $ ) {
+	var logTests = [
+			[ 'thumbnail-link-click', 'User clicked on thumbnail to open lightbox.' ],
+			[ 'enlarge-link-click', 'User clicked on enlarge link to open lightbox.' ],
+			[ 'fullscreen-link-click', 'User clicked on fullscreen button in lightbox.' ],
+			[ 'defullscreen-link-click', 'User clicked on button to return to normal lightbox view.' ],
+			[ 'close-link-click', 'User clicked on the lightbox close button.' ],
+			[ 'site-link-click', 'User clicked on the link to the file description page.' ],
+			[ 'Something happened', 'Something happened' ]
+		],
+
+		profileTests = [
+			[ 'image-load', 'Profiling image load with ID $1', 'Finished image load with ID $1 in $2 milliseconds', 200, 200, 120348, 'jpg' ],
+			[ 'image-resize', 'Profiling image resize with ID $1', 'Finished image resize with ID $1 in $2 milliseconds', 400, 400, 500000, 'png' ],
+			[ 'metadata-fetch', 'Profiling image metadata fetch with ID $1', 'Finished image metadata fetch with ID $1 in $2 milliseconds' ],
+			[ 'gender-fetch', 'Profiling uploader gender fetch with ID $1', 'Finished uploader gender fetch with ID $1 in $2 milliseconds' ]
+		];
+
+
 	QUnit.module( 'ext.multimediaViewer', QUnit.newMwEnvironment() );
 
 	function createGallery( imageSrc ) {
@@ -118,6 +136,84 @@
 		viewer.loadResizedImage( ui, { query: {} } );
 
 		assert.ok( true, 'Resized image is not replaced since we have not data.' );
+	} );
+
+	QUnit.test( 'Logging works as expected', 4 * logTests.length, function ( assert ) {
+		var i, test, msgName, expectedMsg,
+			viewer = new mw.MultimediaViewer(),
+			backupLog = mw.log,
+			backupEventLog = mw.eventLog;
+
+		function checkLogging( msg ) {
+			assert.strictEqual( msg, expectedMsg, 'Message ' + msgName + ' is logged correctly.' );
+		}
+
+		function checkLoggingEventLog( type, event ) {
+			assert.strictEqual( type, 'MediaViewer', 'Eventlogging gets the right event type for message ' + msgName + '.' );
+			assert.strictEqual( event.version, '1.1', 'Eventlogging gets the right version number for message ' + msgName + '.' );
+			assert.strictEqual( event.action, msgName, 'Eventlogging gets the right action name for message ' + msgName + '.' );
+		}
+
+		mw.log = checkLogging;
+		mw.eventLog = mw.eventLog || {};
+		mw.eventLog.logEvent = checkLoggingEventLog;
+
+		for ( i = 0; i < logTests.length; i++ ) {
+			test = logTests[i];
+			msgName = test[0];
+			expectedMsg = test[1];
+			viewer.log( msgName );
+		}
+
+		mw.log = backupLog;
+		mw.eventLog = backupEventLog;
+	} );
+
+	QUnit.test( 'Profiling works as expected', ( 12 * profileTests.length ), function ( assert ) {
+		var i, pid, test, msgName, expectedMsg, expectedImageWidth,
+			expectedFileSize, expectedFileType, expectedImageHeight,
+			viewer = new mw.MultimediaViewer(),
+			backupLog = mw.log,
+			backupEventLog = mw.eventLog;
+
+		function checkLogging( msg ) {
+			assert.strictEqual( msg, expectedMsg, 'Message ' + msgName + ' is logged correctly.' );
+		}
+
+		function checkProfileEventLog( type, msg ) {
+			assert.strictEqual( type, 'MediaViewerPerf', 'EventLogging gets the right event type for profile message ' + msgName + '.' );
+			assert.strictEqual( msg.version, '1.0', 'EventLogging gets the right version number for profile message ' + msgName + '.' );
+			assert.strictEqual( msg.action, msgName, 'EventLogging gets the right action name for message ' + msgName + '.' );
+			assert.strictEqual( msg.start, undefined, 'MultimediaViewer#profileEnd deletes the event start time from ' + msgName + ' profiles sent to EventLogging.' );
+			assert.strictEqual( msg.fileSize, expectedFileSize, 'EventLogging sees the correct file size for ' + msgName + ' profiles.' );
+			assert.strictEqual( msg.fileType, expectedFileType, 'EventLogging sees the correct filetype for ' + msgName + ' profiles.' );
+			assert.strictEqual( msg.imageHeight, expectedImageHeight, 'EventLogging sees the correct image height for ' + msgName + ' profiles.' );
+			assert.strictEqual( msg.imageWidth, expectedImageWidth, 'EventLogging sees the correct image width for ' + msgName + ' profiles.' );
+			assert.strictEqual( msg.userAgent, navigator.userAgent, 'EventLogging logs the browser user-agent string for ' + msgName + ' profiles.' );
+		}
+
+		mw.log = checkLogging;
+		mw.eventLog = mw.eventLog || {};
+		mw.eventLog.logEvent = checkProfileEventLog;
+
+		for ( i = 0; i < profileTests.length; i++ ) {
+			test = profileTests[i];
+			msgName = test[0];
+
+			expectedMsg = test[1].replace( /\$1/g, i );
+			expectedImageWidth = test[3];
+			expectedImageHeight = test[4];
+			expectedFileSize = test[5];
+			expectedFileType = test[6];
+			pid = viewer.profileStart( msgName, { width: expectedImageWidth, height: expectedImageHeight, filesize: expectedFileSize }, expectedFileType );
+			assert.strictEqual( pid, i, 'nonce-style profile IDs come in order.' );
+
+			expectedMsg = test[2].replace( /\$1/g, i ).replace( /\$2/g, 0 );
+			viewer.profileEnd( pid, false );
+		}
+
+		mw.log = backupLog;
+		mw.eventLog = backupEventLog;
 	} );
 
 }( mediaWiki, jQuery ) );
