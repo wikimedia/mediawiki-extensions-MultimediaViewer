@@ -243,6 +243,7 @@ $messages['cs'] = array(
 	'multimediaviewer-datetime-created' => 'Vytvořeno $1',
 	'multimediaviewer-datetime-uploaded' => 'Načteno $1',
 	'multimediaviewer-userpage-link' => 'Načteno {{GENDER:$2|uživatelem|uživatelkou}} $1',
+	'multimediaviewer-credit' => '$1 – $2',
 	'multimediaviewer-license-cc-pd' => 'Volné dílo',
 	'multimediaviewer-license-default' => 'Zobrazit licenci',
 	'multimediaviewer-use-file' => 'Použít tento soubor',
