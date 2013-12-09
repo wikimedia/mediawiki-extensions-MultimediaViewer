@@ -118,6 +118,7 @@ class MultimediaViewerHooks {
 		$testModules['qunit']['ext.multimediaViewer.tests'] = array(
 			'scripts' => array(
 				'tests/qunit/ext.multimediaViewer.test.js',
+				'tests/qunit/lightboximage.test.js',
 				'tests/qunit/lightboxinterface.test.js',
 			),
 			'dependencies' => array(
