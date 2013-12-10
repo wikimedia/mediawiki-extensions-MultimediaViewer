@@ -52,7 +52,19 @@
 			'fullscreen-link-click': 'User clicked on fullscreen button in lightbox.',
 			'defullscreen-link-click': 'User clicked on button to return to normal lightbox view.',
 			'close-link-click': 'User clicked on the lightbox close button.',
-			'site-link-click': 'User clicked on the link to the file description page.'
+			'site-link-click': 'User clicked on the link to the file description page.',
+
+			// Profiling events start messages, $1 replaced with profile ID
+			'profile-image-load-start': 'Profiling image load with ID $1',
+			'profile-image-resize-start': 'Profiling image resize with ID $1',
+			'profile-metadata-fetch-start': 'Profiling image metadata fetch with ID $1',
+			'profile-gender-fetch-start': 'Profiling uploader gender fetch with ID $1',
+
+			// Profiling events end messages, $1 replaced with profile ID, $2 replaced with time it took in ms
+			'profile-image-load-end': 'Finished image load with ID $1 in $2 milliseconds',
+			'profile-image-resize-end': 'Finished image resize with ID $1 in $2 milliseconds',
+			'profile-metadata-fetch-end': 'Finished image metadata fetch with ID $1 in $2 milliseconds',
+			'profile-gender-fetch-end': 'Finished uploader gender fetch with ID $1 in $2 milliseconds'
 		};
 
 	/**
@@ -261,10 +273,12 @@
 	 * @param {Object} data information regarding the new resized image
 	 */
 	MMVP.loadResizedImage = function ( ui, data ) {
+		var imageInfo, innerInfo, rpid, viewer, image;
+
 		// Replace image only if data was returned.
 		if ( data && data.query && data.query.pages ) {
-			var imageInfo, innerInfo,
-				image = new Image();
+			viewer = this;
+			image = new Image();
 
 			$.each( data.query.pages, function ( i, page ) {
 				imageInfo = page;
@@ -274,9 +288,16 @@
 			innerInfo = imageInfo.imageinfo[0];
 
 			image.onload = function () {
+				viewer.profileEnd( rpid );
 				ui.replaceImageWith( image );
 				this.updateControls();
 			};
+
+			rpid = this.profileStart( 'image-resize', {
+				width: innerInfo.width,
+				height: innerInfo.height,
+				fileSize: innerInfo.size
+			}, innerInfo.mime );
 
 			image.src = innerInfo.thumburl || innerInfo.url;
 		}
@@ -462,13 +483,14 @@
 			ui.$usernameLi.toggleClass( 'empty', !username );
 		}
 
-		var extmeta,
+		var extmeta, gfpid,
 			repoInfo, articlePath, linkToRepo,
 			desc,
 			datetime, dtmsg,
 			license, msgname,
 			username,
 			source, author,
+			viewer = this,
 			ui = this.lightbox.iface,
 			innerInfo = imageInfo.imageinfo[0] || {};
 
@@ -515,6 +537,8 @@
 		username = innerInfo.user;
 
 		if ( username ) {
+			gfpid = this.profileStart( 'gender-fetch' );
+
 			// TODO: Reuse the api member, fix everywhere.
 			// Fetch the gender from the uploader's home wiki
 			// TODO this is ugly as hell, let's fix this in core.
@@ -529,8 +553,12 @@
 				usprop: 'gender'
 			} ).done( function ( data ) {
 				var gender = data.query.users[0].gender;
+
+				viewer.profileEnd( gfpid );
+
 				setUserpageLink( username, gender );
 			} ).fail( function () {
+				mw.log( 'Gender fetch with ID ' + gfpid + ' failed, probably due to cross-domain API request.' );
 				setUserpageLink( username, 'unknown' );
 			} );
 		}
@@ -625,7 +653,8 @@
 	};
 
 	MMVP.loadImage = function ( image, initialSrc ) {
-		var viewer = this;
+		var mdpid,
+			viewer = this;
 
 		this.lightbox.currentIndex = image.index;
 
@@ -643,10 +672,17 @@
 			size: 'large'
 		} ) );
 
+		mdpid = this.profileStart( 'metadata-fetch' );
+
 		this.fetchImageInfo( image.filePageTitle, function ( imageInfo ) {
-			var imageEle = new Image();
+			var pid,
+				innerInfo = imageInfo.imageinfo[0],
+				imageEle = new Image();
+
+			viewer.profileEnd( mdpid );
 
 			imageEle.onload = function () {
+				viewer.profileEnd( pid );
 				viewer.lightbox.iface.replaceImageWith( imageEle );
 				viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
 				viewer.updateControls();
@@ -655,6 +691,12 @@
 			};
 
 			imageEle.src = imageInfo.imageinfo[0].thumburl || imageInfo.imageinfo[0].url;
+
+			pid = viewer.profileStart( 'image-load', {
+				width: innerInfo.width,
+				height: innerInfo.height,
+				fileSize: innerInfo.size
+			}, innerInfo.mime );
 		} );
 
 		comingFromPopstate = false;
@@ -761,13 +803,80 @@
 
 		if ( mw.eventLog ) {
 			mw.eventLog.logEvent( 'MediaViewer', {
-				version: '1.0',
-				action: action,
-				userId: mw.user.getId(),
-				editCount: mw.config.get( 'wgUserEditCount', 0 )
+				version: '1.1',
+				action: action
 			} );
 		}
 	};
+
+	( function () {
+		var profiling = {},
+			nonce = 0;
+
+		/**
+		 * Start profiling an event
+		 * @param {string} type Can be image-load, image-resize, metadata-fetch, gender-fetch
+		 * @param {object} [imgSize] Size of image (for image related events)
+		 * @param {number} [imgSize.width] In pixels
+		 * @param {number} [imgSize.height] In pixels
+		 * @param {number} [imgSize.filesize] In bytes
+		 * @param {string} [fileType] File type (for image related events)
+		 * @param {number} [timeout] Optional timeout for the event.
+		 * @returns {number} The id used to finish the profiling
+		 */
+		MMVP.profileStart = function ( type, imgSize, fileType, timeout ) {
+			var thisid = nonce++;
+
+			imgSize = imgSize || {};
+
+			profiling[thisid] = {
+				version: '1.0',
+				action: type,
+				imageWidth: imgSize.width,
+				imageHeight: imgSize.height,
+				fileSize: imgSize.filesize,
+				fileType: fileType,
+				userAgent: navigator.userAgent,
+				start: Date.now()
+			};
+
+			mw.log( mmvLogActions['profile-' + type + '-start'].replace( /\$1/g, thisid ) );
+
+			if ( timeout ) {
+				window.setTimeout( function () {
+					profiling[thisid] = undefined;
+				}, timeout );
+			}
+
+			return thisid;
+		};
+
+		/**
+		 * Signal the end of an event being profiled and send the
+		 * eventlogging message.
+		 * @param {number} id Should be the value returned from profileStart
+		 * @param {boolean} [includeTime] For testing, whether to include the time in the message. Time is zero otherwise.
+		 */
+		MMVP.profileEnd = function ( id, includeTime ) {
+			var msg;
+
+			if ( profiling[id] ) {
+				msg = profiling[id];
+				msg.milliseconds = includeTime ? Date.now() - msg.start : 0;
+				delete msg.start;
+
+				mw.log(
+					mmvLogActions['profile-' + msg.action + '-end']
+						.replace( /\$1/g, id )
+						.replace( /\$2/g, msg.milliseconds )
+				);
+
+				if ( mw.eventLog ) {
+					mw.eventLog.logEvent( 'MediaViewerPerf', msg );
+				}
+			}
+		};
+	}() );
 
 	/**
 	 * Transforms a date string into localized, human-readable format.
