@@ -278,15 +278,6 @@ body.mobile .mw-mlb-controls,
 	width: 50%;
 }
 
-.mlb-image .mw-spinner {
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.mlb-image.empty .mw-spinner {
-	display: block;
-}
-
 .mlb-image.empty img {
 	display: none;
 }

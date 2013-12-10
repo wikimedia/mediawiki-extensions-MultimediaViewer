@@ -131,8 +131,6 @@
 
 		// Calling loadResizedImage() with empty/undefined data should not fail.
 		viewer.loadResizedImage( ui, data );
-		viewer.loadResizedImage( ui, {} );
-		viewer.loadResizedImage( ui, { query: {} } );
 
 		assert.ok( true, 'Resized image is not replaced since we have not data.' );
 	} );

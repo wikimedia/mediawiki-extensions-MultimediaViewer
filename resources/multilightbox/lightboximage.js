@@ -12,6 +12,21 @@
 
 	var LIP = LightboxImage.prototype;
 
+	/**
+	 * The URL of the image (in the size we intend use to display the it in the lightbox)
+	 * @type {String}
+	 * @protected
+	 */
+	LIP.src = null;
+
+	/**
+	 * The URL of a placeholder while the image loads. Typically a smaller version of the image, which is already
+	 * loaded in the browser.
+	 * @type {String}
+	 * @protected
+	 */
+	LIP.initialSrc = null;
+
 	LIP.getImageElement = function ( loadcb ) {
 		var ele;
 
@@ -19,7 +34,7 @@
 
 		ele = new Image();
 		ele.addEventListener( 'load', loadcb );
-		ele.src = this.src;
+		ele.src = this.src || this.initialSrc;
 
 		lightboxHooks.callAll( 'modifyImageElement', ele );
 

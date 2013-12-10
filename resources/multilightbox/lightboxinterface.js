@@ -90,6 +90,12 @@
 
 	LIP = LightboxInterface.prototype;
 
+	/**
+	 * @type {LightboxImage}
+	 * @protected
+	 */
+	LIP.currentImage = null;
+
 	LIP.empty = function () {
 		this.$imageDiv.empty();
 
@@ -195,11 +201,14 @@
 		lightboxHooks.callAll( 'imageLoaded', this );
 	};
 
+	/**
+	 * @param {LightboxImage} image
+	 */
 	LIP.load = function ( image ) {
-		var ele = image.getImageElement( function () {
+		var iface = this,
+			ele = image.getImageElement( function () {
 				iface.loadCallback( image, ele );
-			} ),
-			iface = this;
+			} );
 
 		this.currentImage = image;
 	};
@@ -210,6 +219,10 @@
 		this.$imageDiv.append( this.$image );
 	};
 
+	/**
+	 * Changes what image is being displayed.
+	 * @param {HTMLImageElement} imageEle
+	 */
 	LIP.replaceImageWith = function ( imageEle ) {
 		var $image = $( imageEle );
 

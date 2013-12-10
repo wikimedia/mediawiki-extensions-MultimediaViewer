@@ -101,7 +101,6 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 		'ext.multimediaViewer.lightboximage',
 		'mediawiki.Title',
 		'jquery.ui.dialog',
-		'jquery.spinner',
 		'jquery.hidpi',
 	),
 
