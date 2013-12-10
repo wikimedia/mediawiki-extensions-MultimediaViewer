@@ -444,10 +444,17 @@
 	};
 
 	LIP.toggleMetadata = function () {
-		var off = this.$controlBar.offset();
-		$( 'html, body' ).animate( {
-			scrollTop: off.top - 72
-		} );
+		var off = this.$controlBar.offset(),
+			scroll = this.$main.scrollTop();
+		if ( scroll > 0 ) {
+			this.$main.animate( {
+				scrollTop: 0
+			}, 400 );
+		} else {
+			this.$main.animate( {
+				scrollTop: off.top - 96
+			}, 400 );
+		}
 	};
 
 	// We are overwriting what is already set in window.LightboxInterface, shouldn't it be 'mw.LightboxInterface' ???
