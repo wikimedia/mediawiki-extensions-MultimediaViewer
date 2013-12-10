@@ -34,6 +34,40 @@
 
 	LIP = LightboxInterface.prototype;
 
+	LIP.empty = function () {
+		if ( this.handleKeyDown ) {
+			// Clear events on document
+			$( document ).off( 'keydown', this.handleKeyDown );
+			this.handleKeyDown = undefined;
+		}
+
+		this.$license.empty().addClass( 'empty' );
+
+		this.$imageDesc.empty();
+		this.$imageDescDiv.addClass( 'empty' );
+		this.$title.empty();
+		this.$credit.empty().addClass( 'empty' );
+
+		this.$username.empty();
+		this.$usernameLi.addClass( 'empty' );
+
+		this.$repo.empty();
+		this.$repoLi.addClass( 'empty' );
+
+		this.$datetime.empty();
+		this.$datetimeLi.addClass( 'empty' );
+
+		this.$useFile.data( 'title', null );
+		this.$useFile.data( 'link', null );
+		this.$useFile.data( 'src', null );
+		this.$useFile.data( 'isLocal', null );
+		this.$useFileLi.addClass( 'empty' );
+
+		this.$imageDiv.addClass( 'empty' );
+
+		MLBInterface.prototype.empty.call( this );
+	};
+
 	LIP.load = function ( image ) {
 		var hashFragment = '#mediaviewer/' + mw.mediaViewer.currentImageFilename + '/' + mw.mediaViewer.lightbox.currentIndex;
 
@@ -354,7 +388,7 @@
 	};
 
 	LIP.initializeNavigation = function () {
-		function handleKeyDown( e ) {
+		this.handleKeyDown = this.handleKeyDown || function ( e ) {
 			var isRtl = $( document.body ).hasClass( 'rtl' );
 
 			switch ( e.keyCode ) {
@@ -375,7 +409,7 @@
 					}
 					break;
 			}
-		}
+		};
 
 		this.$nextButton = $( '<div>' )
 			.addClass( 'mw-mlb-next-image disabled' )
@@ -393,7 +427,7 @@
 			} )
 			.appendTo( this.$main );
 
-		$( document ).off( 'keydown', handleKeyDown ).on( 'keydown', handleKeyDown );
+		$( document ).off( 'keydown', this.handleKeyDown ).on( 'keydown', this.handleKeyDown );
 	};
 
 	// We are overwriting what is already set in window.LightboxInterface, shouldn't it be 'mw.LightboxInterface' ???
