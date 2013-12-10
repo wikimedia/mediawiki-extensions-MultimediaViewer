@@ -277,6 +277,28 @@ $messages['de'] = array(
 	'multimediaviewer-discuss-mmv' => 'Eine Rückmeldung hinterlassen',
 );
 
+/** Lower Sorbian (dolnoserbski)
+ * @author Michawiki
+ */
+$messages['dsb'] = array(
+	'multimediaviewer-desc' => 'Miniaturki w swěśecem kašćiku powětsyś.',
+	'multimediaviewer-pref' => 'Medijowy wobglědowak',
+	'multimediaviewer-pref-desc' => 'Polěpš swójo dožywjenje multimedijowego woglědowanja z toś tym rědom. Zwobraznja wobraze we wětšej wjelikosći na bokach, kótarež maju miniaturki. Wobraze pokazuju se w rědnjejšej swěśecej warsće a daju se w połnej wjelikosći pśedstajiś.',
+	'multimediaviewer-file-page' => 'K pśisłušnemu datajowemu bokoju',
+	'multimediaviewer-repository' => 'Dalšne informacije wó $1',
+	'multimediaviewer-datetime-created' => 'Napórany $1',
+	'multimediaviewer-datetime-uploaded' => 'Nagraty $1',
+	'multimediaviewer-userpage-link' => 'Wót $1 {{GENDER:$2|nagraty|nagrata}}',
+	'multimediaviewer-license-cc-pd' => 'Zjawnosći pśistupny',
+	'multimediaviewer-license-default' => 'Licencu se woglědaś',
+	'multimediaviewer-use-file' => 'Toś tu dataju wužywaś',
+	'multimediaviewer-use-file-owt' => 'Toś tu dataju na wikiboku ako miniaturku wužywaś',
+	'multimediaviewer-use-file-own' => 'Toś tu dataju na wikiboku zasajźonu wužywaś',
+	'multimediaviewer-use-file-offwiki' => 'Toś tu dataju na drugem websydle wužywaś',
+	'multimediaviewer-about-mmv' => 'Wó medijowem wobglědowaku',
+	'multimediaviewer-discuss-mmv' => 'Komentar zawóstajiś',
+);
+
 /** Greek (Ελληνικά)
  * @author Astralnet
  */
@@ -452,6 +474,28 @@ $messages['hr'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Uporaba datoteke na nekoj drugoj internetskoj stranici',
 	'multimediaviewer-about-mmv' => 'O pregledniku multimedijskih datoteka',
 	'multimediaviewer-discuss-mmv' => 'Napišite povratnu informaciju',
+);
+
+/** Upper Sorbian (hornjoserbsce)
+ * @author Michawiki
+ */
+$messages['hsb'] = array(
+	'multimediaviewer-desc' => 'Miniaturki w swětłokašćiku powjetšić.',
+	'multimediaviewer-pref' => 'Medijowy wobhladowak',
+	'multimediaviewer-pref-desc' => 'Polěpš swoje dožiwjenje multimedijoweho wobhladowanja z tutym nastrojom. Zwobraznja wobrazy we wjetšej wulkosći na stronach, kotrež maja miniaturki. Wobrazy pokazuja so w rjeńšej swětłokašćikowej woršće a hodźa so w połnej wulkosći předstajić.',
+	'multimediaviewer-file-page' => 'K přisłušnej datajowej stronje',
+	'multimediaviewer-repository' => 'Dalše informacije wo $1',
+	'multimediaviewer-datetime-created' => 'Wutworjeny $1',
+	'multimediaviewer-datetime-uploaded' => 'Nahraty $1',
+	'multimediaviewer-userpage-link' => 'Wot $1 {{GENDER:$2|nahraty|nahrata}}',
+	'multimediaviewer-license-cc-pd' => 'Powšitkownosći přistupny',
+	'multimediaviewer-license-default' => 'Licencu sej wobhladać',
+	'multimediaviewer-use-file' => 'Tutu dataju wužiwać',
+	'multimediaviewer-use-file-owt' => 'Wužij tutu dataju na wikistronje jako miniaturku',
+	'multimediaviewer-use-file-own' => 'Wužij tutu dataju na wikistronje zasadźenu',
+	'multimediaviewer-use-file-offwiki' => 'Wužij tutu dataju na druhim websydle',
+	'multimediaviewer-about-mmv' => 'Wo medijowym wobhladowaku',
+	'multimediaviewer-discuss-mmv' => 'Komentar zawostajić',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -932,7 +976,7 @@ $messages['zh-hans'] = array(
 	'multimediaviewer-license-cc-pd' => '公共领域',
 	'multimediaviewer-license-default' => '查看许可协议',
 	'multimediaviewer-use-file' => '使用本文件',
-	'multimediaviewer-use-file-owt' => '在wiki页面上显示本文件的缩略图',
+	'multimediaviewer-use-file-owt' => '在wiki页面上插入本文件的缩略图',
 	'multimediaviewer-use-file-own' => '在wiki页面上直接插入本文件',
 	'multimediaviewer-use-file-offwiki' => '在其他网站使用本文件',
 	'multimediaviewer-about-mmv' => '关于媒体文件查看器',
