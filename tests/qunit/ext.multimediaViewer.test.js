@@ -27,6 +27,16 @@
 		return div;
 	}
 
+	function createThumb( imageSrc, caption ) {
+		var div = $( '<div>' ).addClass( 'thumb' ).appendTo( '#qunit-fixture' ),
+			link = $( '<a>' ).addClass( 'image' ).appendTo( div );
+
+		$( '<div>' ).addClass( 'thumbcaption' ).appendTo( div ).text( caption );
+		$( '<img>' ).attr( 'src', ( imageSrc || 'thumb.jpg' ) ).appendTo( link );
+
+		return div;
+	}
+
 	QUnit.test( 'Check viewer invoked when clicking on an legit image links', 4, function ( assert ) {
 		// TODO: Is <div class="gallery"><span class="image"><img/></span></div> valid ???
 		var div, link, link2, link3, viewer;
@@ -251,23 +261,48 @@
 		link.trigger( 'click' );
 	} );
 
-	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 5, function ( assert ) {
+	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 6, function ( assert ) {
 		var viewer,
+			backup = mw.MultimediaViewer.prototype.createNewImage,
 			fname = 'valid',
 			imgSrc = '/' + fname + '.jpg/300px-' + fname + '.jpg',
 			imgRegex = new RegExp( imgSrc + '$' );
 
 		createGallery( imgSrc );
 
-		mw.MultimediaViewer.prototype.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb ) {
+		mw.MultimediaViewer.prototype.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption ) {
 			assert.ok( fileLink.match( imgRegex ), 'Thumbnail URL used in creating new image object' );
 			assert.strictEqual( filePageLink, '', 'File page link is sane when creating new image object' );
 			assert.strictEqual( fileTitle.title, fname, 'Filename is correct when passed into new image constructor' );
 			assert.strictEqual( index, 0, 'The only image we created in the gallery is set at index 0 in the images array' );
 			assert.strictEqual( thumb.outerHTML, '<img src="' + imgSrc + '">', 'The image element passed in is the thumbnail we want.' );
+			assert.strictEqual( caption, undefined, 'The caption does not get passed in for a gallery' );
 		};
 
 		viewer = new mw.MultimediaViewer();
+		mw.MultimediaViewer.prototype.createNewImage = backup;
+	} );
+
+	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 6, function ( assert ) {
+		var viewer,
+			backup = mw.MultimediaViewer.prototype.createNewImage,
+			fname = 'valid',
+			imgSrc = '/' + fname + '.jpg/300px-' + fname + '.jpg',
+			imgRegex = new RegExp( imgSrc + '$' );
+
+		createThumb( imgSrc, 'Blah blah' );
+
+		mw.MultimediaViewer.prototype.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption ) {
+			assert.ok( fileLink.match( imgRegex ), 'Thumbnail URL used in creating new image object' );
+			assert.strictEqual( filePageLink, '', 'File page link is sane when creating new image object' );
+			assert.strictEqual( fileTitle.title, fname, 'Filename is correct when passed into new image constructor' );
+			assert.strictEqual( index, 0, 'The only image we created in the gallery is set at index 0 in the images array' );
+			assert.strictEqual( thumb.outerHTML, '<img src="' + imgSrc + '">', 'The image element passed in is the thumbnail we want.' );
+			assert.strictEqual( caption, 'Blah blah', 'The caption passed in is correct' );
+		};
+
+		viewer = new mw.MultimediaViewer();
+		mw.MultimediaViewer.prototype.createNewImage = backup;
 	} );
 
 	QUnit.test( 'We get sane image sizes when we ask for them', 5, function ( assert ) {
@@ -302,4 +337,19 @@
 		$.fn.animate = backupAnimation;
 	} );
 
+	QUnit.test( 'HTML whitelisting works', 2, function ( assert ) {
+		var viewer = new mw.MultimediaViewer(),
+			okhtml = '<a href="/wiki/Blah">Blah</a> blah blah',
+			needswhitelisting = '<div>Blah<br />blah</div>',
+			whitelisted = 'Blahblah',
+			okjq = $.parseHTML( okhtml ),
+			nwljq = $.parseHTML( needswhitelisting ),
+			$sandbox = $( '<div>' );
+
+		viewer.whitelistHtml( $sandbox.empty().append( okjq ) );
+		assert.strictEqual( $sandbox.html(), okhtml, 'Whitelisted elements are let through.' );
+
+		viewer.whitelistHtml( $sandbox.empty().append( nwljq ) );
+		assert.strictEqual( $sandbox.html(), whitelisted, 'Not-whitelisted elements are removed.' );
+	} );
 }( mediaWiki, jQuery ) );

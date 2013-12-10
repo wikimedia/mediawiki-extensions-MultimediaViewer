@@ -155,12 +155,12 @@ body.mobile .mw-mlb-controls,
 }
 
 .mw-mlb-image-desc-div {
-	width: 60%;
+	width: 50%;
 	overflow-y: auto;
 }
 
 .mw-mlb-image-links-div {
-	width: 40%;
+	width: 50%;
 }
 
 .mw-mlb-image-desc-div,
@@ -170,6 +170,7 @@ body.mobile .mw-mlb-controls,
 	vertical-align: top;
 }
 
+.mw-mlb-description-backup,
 .mw-mlb-image-desc {
 	font-size: 0.8em;
 	color: #555555;

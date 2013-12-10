@@ -6,7 +6,8 @@
 			'$credit',
 			'$username',
 			'$repo',
-			'$datetime'
+			'$datetime',
+			'$imageBackupDesc'
 		],
 
 		thingsShouldHaveEmptyClass = [

@@ -16,8 +16,35 @@
  */
 
 ( function ( mw, $, oo, MLBImage ) {
-	function LightboxImage() {
-		MLBImage.call( this );
+	/**
+	 * @class {mw.LightboxImage}
+	 * @extends {mlb.LightboxImage}
+	 * Represents an image on the page.
+	 * @constructor
+	 * @param {string} fileLink Link to the file - generally a thumb URL
+	 * @param {string} filePageLink Link to the File: page
+	 * @param {mw.Title} fileTitle Represents the File: page
+	 * @param {number} index Which number file this is
+	 * @param {HTMLImageElement} thumb The thumbnail that represents this image on the page
+	 * @param {string} [caption] The caption, if any.
+	 */
+	function LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption ) {
+		MLBImage.call( this, fileLink );
+
+		/** @property {string} filePageLink */
+		this.filePageLink = filePageLink;
+
+		/** @property {mw.Title} filePageTitle */
+		this.filePageTitle = fileTitle;
+
+		/** @property {number} index */
+		this.index = index;
+
+		/** @property {HTMLImageElement} thumbnail */
+		this.thumbnail = thumb;
+
+		/** @property {string} caption */
+		this.caption = caption;
 	}
 
 	oo.inheritClass( LightboxImage, MLBImage );

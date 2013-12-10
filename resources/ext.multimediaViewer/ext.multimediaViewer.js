@@ -126,7 +126,7 @@
 
 		// Traverse DOM, looking for potential thumbnails
 		$thumbs.each( function ( i, thumb ) {
-			var thisImage,
+			var thisImage, $thumbCaption, caption,
 				$thumb = $( thumb ),
 				$link = $thumb.closest( 'a.image' ),
 				$thumbContain = $link.closest( '.thumb' ),
@@ -145,13 +145,17 @@
 				// This isn't a thumbnail! Just use the link.
 				$thumbContain = $link;
 			} else if ( $thumbContain.is( '.thumb' ) ) {
+				$thumbCaption = $thumbContain.find( '.thumbcaption' ).clone();
+				$thumbCaption.find( '.magnify' ).remove();
+				viewer.whitelistHtml( $thumbCaption );
+				caption = $thumbCaption.html();
 				$thumbContain = $thumbContain.find( '.image' );
 			}
 
 			$links.data( 'filePageLink', filePageLink );
 
 			// Create a LightboxImage object for each legit image
-			thisImage = viewer.createNewImage( $thumb.prop( 'src' ), filePageLink, fileTitle, index, thumb );
+			thisImage = viewer.createNewImage( $thumb.prop( 'src' ), filePageLink, fileTitle, index, thumb, caption );
 
 			urls.push( thisImage );
 
@@ -205,6 +209,37 @@
 	MMVP = MultimediaViewer.prototype;
 
 	/**
+	 * Helper function for whitelisting HTML to only keep links and text. Works in-place.
+	 * @param {jQuery} $el
+	 */
+	MMVP.whitelistHtml = function ( $el ) {
+		var child, $prev, $child = $el.children().first();
+
+		while ( $child && $child.length ) {
+			child = $child.get( 0 );
+
+			if ( child.nodeType !== child.ELEMENT_NODE ) {
+				return;
+			}
+
+			this.whitelistHtml( $child );
+
+			if ( !$child.is( 'a' ) ) {
+				$prev = $child.prev();
+				$child.replaceWith( $child.contents() );
+			} else {
+				$prev = $child;
+			}
+
+			if ( $prev && $prev.length === 1 ) {
+				$child = $prev.next();
+			} else {
+				$child = $el.children().first();
+			}
+		}
+	};
+
+	/**
 	 * Create an image object for the lightbox to use.
 	 * @protected
 	 * @param {string} fileLink Link to the file - generally a thumb URL
@@ -212,10 +247,11 @@
 	 * @param {mw.Title} fileTitle Represents the File: page
 	 * @param {number} index Which number file this is
 	 * @param {HTMLImageElement} thumb The thumbnail that represents this image on the page
+	 * @param {string} [caption] The caption, if any.
 	 * @returns {mw.LightboxImage}
 	 */
-	MMVP.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb ) {
-		var thisImage = new mw.LightboxImage( fileLink );
+	MMVP.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption ) {
+		var thisImage = new mw.LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption );
 		thisImage.filePageLink = filePageLink;
 		thisImage.filePageTitle = fileTitle;
 		thisImage.index = index;
@@ -434,40 +470,15 @@
 	/**
 	 * @method
 	 * Set the image information in the UI.
-	 * @param {mw.Title} fileTitle
+	 * @param {mw.LightboxImage} image
 	 * @param {mw.mmv.model.Image} imageData
 	 * @param {mw.mmv.model.Repo} repoData
 	 */
-	MMVP.setImageInfo = function ( fileTitle, imageData, repoData ) {
-		function whitelistHtml( $el ) {
-			var child, $prev, $child = $el.children().first();
-
-			while ( $child && $child.length ) {
-				child = $child.get( 0 );
-
-				if ( child.nodeType !== child.ELEMENT_NODE ) {
-					return;
-				}
-
-				whitelistHtml( $child );
-
-				if ( !$child.is( 'a' ) ) {
-					$prev = $child.prev();
-					$child.replaceWith( $child.contents() );
-				} else {
-					$prev = $child;
-				}
-
-				if ( $prev && $prev.length === 1 ) {
-					$child = $prev.next();
-				} else {
-					$child = $el.children().first();
-				}
-			}
-		}
-
+	MMVP.setImageInfo = function ( image, imageData, repoData ) {
 		var gfpid,
 			msgname,
+			fileTitle = image.filePageTitle,
+			caption = image.caption,
 			viewer = this,
 			ui = this.lightbox.iface;
 
@@ -533,7 +544,7 @@
 		ui.$datetimeLi.toggleClass( 'empty', !imageData.uploadDateTime && !imageData.creationDateTime );
 
 		if ( imageData.description ) {
-			whitelistHtml( ui.$imageDesc.empty().append( $.parseHTML( imageData.description ) ) );
+			this.whitelistHtml( ui.$imageDesc.empty().append( $.parseHTML( imageData.description ) ) );
 		} else {
 			ui.$imageDesc.append( mw.message( 'multimediaviewer-desc-nil' ).text() );
 		}
@@ -541,11 +552,11 @@
 		ui.$imageDescDiv.toggleClass( 'empty', !imageData.description );
 
 		if ( imageData.source ) {
-			whitelistHtml( ui.$source.empty().append( $.parseHTML( imageData.source ) ) );
+			this.whitelistHtml( ui.$source.empty().append( $.parseHTML( imageData.source ) ) );
 		}
 
 		if ( imageData.author ) {
-			whitelistHtml( ui.$author.empty().append( $.parseHTML( imageData.author ) ) );
+			this.whitelistHtml( ui.$author.empty().append( $.parseHTML( imageData.author ) ) );
 		}
 
 		if ( imageData.source && imageData.author ) {
@@ -567,6 +578,18 @@
 
 		ui.$credit.toggleClass( 'empty', !imageData.source && !imageData.author );
 
+		ui.$imageDescDiv.toggleClass( 'empty', !imageData.description && !caption );
+
+		if ( caption ) {
+			this.whitelistHtml( ui.$imageDesc.append( $.parseHTML( caption ) ) );
+
+			if ( imageData.description ) {
+				this.whitelistHtml( ui.$imageBackupDesc.append( $.parseHTML( imageData.description ) ) );
+			}
+		} else if ( imageData.description ) {
+			this.whitelistHtml( ui.$imageDesc.append( $.parseHTML( imageData.description ) ) );
+		}
+
 		msgname = 'multimediaviewer-license-' + ( imageData.license || '' );
 
 		if ( !imageData.license || !mw.messages.exists( msgname ) ) {
@@ -584,6 +607,12 @@
 		ui.$license.toggleClass( 'empty', !imageData.license );
 	};
 
+	/**
+	 * @method
+	 * Loads a specified image.
+	 * @param {mw.LightboxImage} image
+	 * @param {string} initialSrc The string to set the src attribute to at first.
+	 */
 	MMVP.loadImage = function ( image, initialSrc ) {
 		var mdpid,
 			viewer = this;
@@ -632,7 +661,7 @@
 
 			viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
 			viewer.lightbox.iface.replaceImageWith( imageEle );
-			viewer.setImageInfo( image.filePageTitle, imageData, repoData );
+			viewer.setImageInfo( image, imageData, repoData );
 		} );
 
 		comingFromPopstate = false;
@@ -748,8 +777,9 @@
 	};
 
 	MMVP.loadIndex = function ( index ) {
+		var $clicked = $( imgsSelector ).eq( index );
 		if ( index < this.lightbox.images.length && index >= 0 ) {
-			this.loadImage( this.lightbox.images[index], $( imgsSelector ).eq( index ).prop( 'src' ) );
+			this.loadImage( this.lightbox.images[index], $clicked.prop( 'src' ) );
 			this.resize( this.lightbox.iface );
 		}
 	};
@@ -861,12 +891,13 @@
 	};
 
 	function handleHash( hash ) {
-		var statedIndex, linkState = hash.split( '/' );
+		var statedIndex, $foundElement, linkState = hash.split( '/' );
 		comingFromPopstate = true;
 		if ( linkState[0] === '#mediaviewer' ) {
 			statedIndex = mw.mediaViewer.lightbox.images[linkState[2]];
 			if ( statedIndex.filePageTitle.getPrefixedText() === linkState[1] ) {
-				mw.mediaViewer.loadImage( statedIndex, $( imgsSelector ).eq( linkState[2] ).prop( 'src' ) );
+				$foundElement = $( imgsSelector ).eq( linkState[2] );
+				mw.mediaViewer.loadImage( statedIndex, $foundElement.prop( 'src' ) );
 			}
 		} else {
 			if ( mw.mediaViewer.lightbox ) {

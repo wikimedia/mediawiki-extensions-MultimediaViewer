@@ -37,6 +37,7 @@
 
 		this.$imageDesc.empty();
 		this.$imageDescDiv.addClass( 'empty' );
+		this.$imageBackupDesc.empty();
 		this.$title.empty();
 		this.$credit.empty().addClass( 'empty' );
 
@@ -254,6 +255,10 @@
 
 		this.$imageLinks = $( '<ul>' )
 			.addClass( 'mw-mlb-image-links' )
+			.appendTo( this.$imageLinkDiv );
+
+		this.$imageBackupDesc = $( '<p>' )
+			.addClass( 'mw-mlb-description-backup' )
 			.appendTo( this.$imageLinkDiv );
 
 		this.initializeRepoLink();
