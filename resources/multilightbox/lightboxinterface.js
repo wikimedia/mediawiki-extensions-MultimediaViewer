@@ -100,15 +100,26 @@
 		}
 	};
 
-	LIP.attach = function () {
-		$( document.body )
+	/**
+	 * Attaches interface to document or given parent id.
+	 *
+	 * @param {string} [parentId] parent id where we want to attach the UI. Mainly for testing.
+	 */
+	LIP.attach = function ( parentId ) {
+		var parent = $( parentId || document.body );
+
+		parent
 			.append(
 				this.$wrapper,
 				this.$overlay
 			);
 	};
 
+	/**
+	 * Unattaches interface from parent element. Calls global lightboxHooks.
+	 */
 	LIP.unattach = function () {
+		// TODO(aarcos): This is global and it breaks tests.
 		lightboxHooks.callAll( 'closeInterface', this );
 
 		this.$wrapper.detach();

@@ -6,15 +6,17 @@
 	 * @constructor
 	 * @param {LightboxImage[]} images
 	 * @param {number} [start=0]
+	 * @param {Function} [InterfaceClass] type of interface to use
 	 */
-	function MultiLightbox( images, start ) {
+	function MultiLightbox( images, start, InterfaceClass ) {
 		var lightbox = this;
 
 		this.images = images;
 		this.currentIndex = start || 0;
 		this.onInterfaceReady = [];
 
-		lightbox.iface = new window.LightboxInterface();
+		InterfaceClass = InterfaceClass || window.LightboxInterface;
+		lightbox.iface = new InterfaceClass();
 		lightbox.interfaceReady();
 	}
 

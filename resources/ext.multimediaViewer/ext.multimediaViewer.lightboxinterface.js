@@ -28,12 +28,6 @@
 
 	oo.inheritClass( LightboxInterface, MLBInterface );
 
-	/**
-	 * Expose base class for testing? There must be a better way !!!
-	 * @private
-	 */
-	LightboxInterface.BaseClass = MLBInterface;
-
 	LIP = LightboxInterface.prototype;
 
 	LIP.empty = function () {
@@ -477,6 +471,5 @@
 		} );
 	};
 
-	// We are overwriting what is already set in window.LightboxInterface, shouldn't it be 'mw.LightboxInterface' ???
-	window.LightboxInterface = LightboxInterface;
+	mw.LightboxInterface = LightboxInterface;
 }( mediaWiki, jQuery, OO, window.LightboxInterface ) );

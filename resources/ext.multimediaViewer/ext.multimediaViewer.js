@@ -142,7 +142,7 @@
 		}
 
 		// Only if we find legit images, create a MultiLightbox object
-		this.lightbox = new MultiLightbox( urls );
+		this.lightbox = new MultiLightbox( urls, 0, mw.LightboxInterface );
 
 		// Register various event hooks. TODO: Make this a function that's only called once.
 

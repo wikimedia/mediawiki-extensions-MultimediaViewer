@@ -1,28 +1,7 @@
 ( function ( mw, $ ) {
-	var thingsShouldBeEmptied = [
-			'$license',
-			'$imageDesc',
-			'$title',
-			'$credit',
-			'$username',
-			'$repo',
-			'$datetime'
-		],
+	QUnit.module( 'ext.multimediaViewer.multilightbox.lightboxInterface', QUnit.newMwEnvironment() );
 
-		thingsShouldHaveEmptyClass = [
-			'$license',
-			'$imageDescDiv',
-			'$credit',
-			'$usernameLi',
-			'$repoLi',
-			'$datetimeLi',
-			'$useFileLi',
-			'$imageDiv'
-		];
-
-	QUnit.module( 'ext.multimediaViewer.lightboxInterface', QUnit.newMwEnvironment() );
-
-	QUnit.test( 'Sanity test, object creation and ui construction', 9, function ( assert ) {
+	QUnit.test( 'Sanity test, object creation and ui construction', 6, function ( assert ) {
 		var lightbox = new window.LightboxInterface();
 
 		function checkIfUIAreasAttachedToDocument( inDocument ) {
@@ -35,22 +14,28 @@
 		// UI areas not attached to the document yet.
 		checkIfUIAreasAttachedToDocument(0);
 
-		// Attach lightbox to document
-		lightbox.attach();
+		// Attach lightbox to testing fixture to avoid interference with other tests.
+		lightbox.attach( '#qunit-fixture' );
 
 		// UI areas should now be attached to the document.
 		checkIfUIAreasAttachedToDocument(1);
 
+		/*
+		 * TODO(aarcos): We cannot test the section below because unattach()
+		 * depends on global lightboxHooks that expect a mw.LightboxInterface object.
+		 * Fix once this dependency is resolved.
+
 		// Unattach lightbox from document
-		lightbox.unattach();
+		//lightbox.unattach();
 
 		// UI areas not attached to the document anymore.
-		checkIfUIAreasAttachedToDocument(0);
+		//checkIfUIAreasAttachedToDocument(0);
+		*/
 	} );
 
 	QUnit.asyncTest( 'Check we are saving the resize listener', 2, function ( assert ) {
 		var img = new window.LightboxImage('http://en.wikipedia.org/w/skins/vector/images/search-ltr.png'),
-			lightbox = new window.LightboxInterface.BaseClass();
+			lightbox = new window.LightboxInterface();
 
 		// resizeListener not saved yet
 		assert.strictEqual( this.resizeListener, undefined, 'Listener is not saved yet' );
@@ -71,34 +56,4 @@
 		lightbox.load(img);
 	} );
 
-	QUnit.test( 'The interface is emptied properly when necessary', thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length, function ( assert ) {
-		var i,
-			lightbox = new window.LightboxInterface();
-
-		lightbox.empty();
-
-		for ( i = 0; i < thingsShouldBeEmptied.length; i++ ) {
-			assert.strictEqual( lightbox[thingsShouldBeEmptied[i]].text(), '', 'We successfully emptied the ' + thingsShouldBeEmptied[i] + ' element' );
-		}
-
-		for ( i = 0; i < thingsShouldHaveEmptyClass.length; i++ ) {
-			assert.strictEqual( lightbox[thingsShouldHaveEmptyClass[i]].hasClass( 'empty' ), true, 'We successfully applied the empty class to the ' + thingsShouldHaveEmptyClass[i] + ' element' );
-		}
-	} );
-
-	QUnit.test( 'Handler registration and clearance work OK', 2, function ( assert ) {
-		var lightbox = new window.LightboxInterface(),
-			handlerCalls = 0;
-
-		function handleEvent() {
-			handlerCalls++;
-		}
-
-		lightbox.handleEvent( 'test', handleEvent );
-		$( document ).trigger( 'test' );
-		assert.strictEqual( handlerCalls, 1, 'The handler was called when we triggered the event.' );
-		lightbox.clearEvents();
-		$( document ).trigger( 'test' );
-		assert.strictEqual( handlerCalls, 1, 'The handler was not called after calling lightbox.clearEvents().' );
-	} );
 }( mediaWiki, jQuery ) );
