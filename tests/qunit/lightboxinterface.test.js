@@ -71,11 +71,9 @@
 		lightbox.load(img);
 	} );
 
-	QUnit.test( 'The interface is emptied properly when necessary', thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length + 2, function ( assert ) {
+	QUnit.test( 'The interface is emptied properly when necessary', thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length, function ( assert ) {
 		var i,
 			lightbox = new window.LightboxInterface();
-
-		assert.notStrictEqual( lightbox.handleKeyDown, undefined, 'The keydown handler is present before empty() gets called' );
 
 		lightbox.empty();
 
@@ -86,7 +84,21 @@
 		for ( i = 0; i < thingsShouldHaveEmptyClass.length; i++ ) {
 			assert.strictEqual( lightbox[thingsShouldHaveEmptyClass[i]].hasClass( 'empty' ), true, 'We successfully applied the empty class to the ' + thingsShouldHaveEmptyClass[i] + ' element' );
 		}
+	} );
 
-		assert.strictEqual( lightbox.handleKeyDown, undefined, 'The keydown handler got removed' );
+	QUnit.test( 'Handler registration and clearance work OK', 2, function ( assert ) {
+		var lightbox = new window.LightboxInterface(),
+			handlerCalls = 0;
+
+		function handleEvent() {
+			handlerCalls++;
+		}
+
+		lightbox.handleEvent( 'test', handleEvent );
+		$( document ).trigger( 'test' );
+		assert.strictEqual( handlerCalls, 1, 'The handler was called when we triggered the event.' );
+		lightbox.clearEvents();
+		$( document ).trigger( 'test' );
+		assert.strictEqual( handlerCalls, 1, 'The handler was not called after calling lightbox.clearEvents().' );
 	} );
 }( mediaWiki, jQuery ) );

@@ -21,6 +21,8 @@
 	function LightboxInterface() {
 		MLBInterface.call( this );
 
+		this.eventsRegistered = {};
+
 		this.initializeInterface();
 	}
 
@@ -35,11 +37,7 @@
 	LIP = LightboxInterface.prototype;
 
 	LIP.empty = function () {
-		if ( this.handleKeyDown ) {
-			// Clear events on document
-			$( document ).off( 'keydown', this.handleKeyDown );
-			this.handleKeyDown = undefined;
-		}
+		this.clearEvents();
 
 		this.$license.empty().addClass( 'empty' );
 
@@ -68,6 +66,35 @@
 		MLBInterface.prototype.empty.call( this );
 	};
 
+	/**
+	 * Add event handler in a way that will be auto-cleared on lightbox close
+	 * @param {string} name Name of event, like 'keydown'
+	 * @param {Function} handler Callback for the event
+	 */
+	LIP.handleEvent = function ( name, handler ) {
+		if ( this.eventsRegistered[name] === undefined ) {
+			this.eventsRegistered[name] = [];
+		}
+		this.eventsRegistered[name].push( handler );
+		$( document ).on( name, handler );
+	};
+
+	/**
+	 * Remove all events that have been registered.
+	 */
+	LIP.clearEvents = function () {
+		var i, handlers, thisevent,
+			events = Object.keys( this.eventsRegistered );
+
+		for ( i = 0; i < events.length; i++ ) {
+			thisevent = events[i];
+			handlers = this.eventsRegistered[thisevent];
+			while ( handlers.length > 0 ) {
+				$( document ).off( thisevent, handlers.pop() );
+			}
+		}
+	};
+
 	LIP.load = function ( image ) {
 		var hashFragment = '#mediaviewer/' + mw.mediaViewer.currentImageFilename + '/' + mw.mediaViewer.lightbox.currentIndex;
 
@@ -77,6 +104,8 @@
 		if ( !this.comingFromPopstate ) {
 			history.pushState( {}, '', hashFragment );
 		}
+
+		this.handleEvent( 'keydown', this.handleKeyDown );
 
 		MLBInterface.prototype.load.call( this, image );
 	};
@@ -439,8 +468,6 @@
 				mw.mediaViewer.prevImage();
 			} )
 			.appendTo( this.$main );
-
-		$( document ).off( 'keydown', this.handleKeyDown ).on( 'keydown', this.handleKeyDown );
 	};
 
 	LIP.toggleMetadata = function () {
