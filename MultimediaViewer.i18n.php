@@ -255,11 +255,12 @@ $messages['cs'] = array(
 );
 
 /** German (Deutsch)
+ * @author Kghbln
  * @author Metalhead64
  * @author Snatcher
  */
 $messages['de'] = array(
-	'multimediaviewer-desc' => 'Vorschaubilder in einem Leuchtkasten vergrößern.',
+	'multimediaviewer-desc' => 'Ermöglicht die Darstellungen von Vorschaubildern im „Lightbox“-Stil',
 	'multimediaviewer-pref' => 'Medienbetrachter',
 	'multimediaviewer-pref-desc' => 'Dieses neue Werkzeug steigert dein Multimedia-Betrachtungserlebnis. Es zeigt Bilder auf Seiten größer an, die Vorschaubilder haben. Bilder werden in einem schöneren Leuchtkastenoverlay angezeigt und können auch als Vollbild dargestellt werden.',
 	'multimediaviewer-file-page' => 'Gehe zur dazugehörigen Dateiseite',
@@ -970,11 +971,11 @@ $messages['zh-hans'] = array(
 	'multimediaviewer-pref-desc' => '使用这个新工具可以改善你的多媒体浏览体验。它能以更大的尺寸显示页面中的缩略图。图像将显示于一个漂亮的Lightbox视图中，并能以完整尺寸查看。',
 	'multimediaviewer-file-page' => '转到相应的文件页',
 	'multimediaviewer-repository' => '在$1了解详情',
-	'multimediaviewer-datetime-created' => '创建时间：$1',
+	'multimediaviewer-datetime-created' => '创作时间：$1',
 	'multimediaviewer-datetime-uploaded' => '上传时间：$1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|上传者}}：$1',
-	'multimediaviewer-license-cc-pd' => '公有领域',
-	'multimediaviewer-license-default' => '查看许可证',
+	'multimediaviewer-license-cc-pd' => '公共领域',
+	'multimediaviewer-license-default' => '查看许可协议',
 	'multimediaviewer-use-file' => '使用此文件',
 	'multimediaviewer-use-file-owt' => '在wiki页面上插入本文件的缩略图',
 	'multimediaviewer-use-file-own' => '在wiki页面上直接插入本文件',
