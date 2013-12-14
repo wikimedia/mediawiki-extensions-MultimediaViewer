@@ -746,11 +746,12 @@ $messages['oc'] = array(
 
 /** Polish (polski)
  * @author Nux
+ * @author Tar Lócesilion
  * @author WTM
  */
 $messages['pl'] = array(
 	'multimediaviewer-pref' => 'Przeglądarka multimedów',
-	'multimediaviewer-pref-desc' => 'To narzędzie, to przyjazna użytkownikowi przeglądarka multimediów. Umożliwia powiększanie miniaturek obrazków bez opuszczania strony z artykułem. Narzędzie to domyślnie wyświetla obrazki na półprzeźroczystej nakładce w stylu „Lightbox”, ale można także powiększyć je na pełny ekran.',
+	'multimediaviewer-pref-desc' => 'To narzędzie to przyjazna użytkownikowi przeglądarka multimediów. Umożliwia powiększanie miniaturek obrazków bez opuszczania strony z artykułem. Narzędzie to domyślnie wyświetla obrazki na półprzezroczystej nakładce w stylu „Lightbox”, ale można także powiększyć je na pełny ekran.',
 	'multimediaviewer-file-page' => 'Przejdź na stronę z opisem pliku',
 	'multimediaviewer-repository' => 'Dowiedz się więcej na {{GRAMMAR:D.lp|$1}}',
 	'multimediaviewer-datetime-created' => 'Utworzony $1',
