@@ -130,9 +130,7 @@
 
 			// Register callback that launches modal image viewer if valid click
 			$links.click( function ( e ) {
-				viewer.clickLinkCallback( e, this, $thumbContain, thisImage );
-
-				return false;
+				return viewer.clickLinkCallback( e, this, $thumbContain, thisImage );
 			} );
 		} );
 
@@ -225,6 +223,8 @@
 		e.preventDefault();
 
 		this.loadImage( thisImage, initial );
+
+		return false;
 	};
 
 	/**
