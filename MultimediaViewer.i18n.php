@@ -278,6 +278,13 @@ $messages['de'] = array(
 	'multimediaviewer-discuss-mmv' => 'Eine Rückmeldung hinterlassen',
 );
 
+/** Swiss High German (Schweizer Hochdeutsch)
+ * @author Filzstift
+ */
+$messages['de-ch'] = array(
+	'multimediaviewer-desc' => 'Ermöglicht die Darstellung von Vorschaubildern im «Lightbox»-Stil',
+);
+
 /** Lower Sorbian (dolnoserbski)
  * @author Michawiki
  */
