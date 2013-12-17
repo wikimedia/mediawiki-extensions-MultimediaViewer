@@ -485,6 +485,7 @@ $messages['hr'] = array(
 );
 
 /** Upper Sorbian (hornjoserbsce)
+ * @author J budissin
  * @author Michawiki
  */
 $messages['hsb'] = array(
@@ -492,7 +493,7 @@ $messages['hsb'] = array(
 	'multimediaviewer-pref' => 'Medijowy wobhladowak',
 	'multimediaviewer-pref-desc' => 'Polěpš swoje dožiwjenje multimedijoweho wobhladowanja z tutym nastrojom. Zwobraznja wobrazy we wjetšej wulkosći na stronach, kotrež maja miniaturki. Wobrazy pokazuja so w rjeńšej swětłokašćikowej woršće a hodźa so w połnej wulkosći předstajić.',
 	'multimediaviewer-file-page' => 'K přisłušnej datajowej stronje',
-	'multimediaviewer-repository' => 'Dalše informacije wo $1',
+	'multimediaviewer-repository' => 'Dalše informacije na $1',
 	'multimediaviewer-datetime-created' => 'Wutworjeny $1',
 	'multimediaviewer-datetime-uploaded' => 'Nahraty $1',
 	'multimediaviewer-userpage-link' => 'Wot $1 {{GENDER:$2|nahraty|nahrata}}',
