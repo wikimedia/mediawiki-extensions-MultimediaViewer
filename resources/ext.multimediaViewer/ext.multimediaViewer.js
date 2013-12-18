@@ -509,7 +509,11 @@
 				articlePath = mw.config.get( 'wgArticlePath' );
 			}
 
-			linkToRepo = articlePath.replace( '$1', fileTitle.getPrefixedText() );
+			if ( repoInfo.descBaseUrl ) {
+				linkToRepo = repoInfo.descBaseUrl + fileTitle.getPrefixedText();
+			} else {
+				linkToRepo = articlePath.replace( '$1', fileTitle.getPrefixedText() );
+			}
 
 			if ( repoInfo.local ) {
 				linkToRepo = mw.config.get( 'wgServer' ) + linkToRepo;
@@ -633,7 +637,7 @@
 			articlePath = articlePath || mw.config.get( 'wgArticlePath', '' );
 			ui.$license
 				.text( mw.message( msgname ).text() )
-				.prop( 'href', articlePath.replace( '$1', fileTitle.getPrefixedText() ) )
+				.prop( 'href', linkToRepo || articlePath.replace( '$1', fileTitle.getPrefixedText() ) )
 				.toggleClass( 'cc-license', license.substr( 0, 2 ) === 'cc' );
 		}
 
