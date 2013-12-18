@@ -627,6 +627,9 @@
 			// Cannot display, fallback or fail
 			license = 'default';
 			msgname = 'multimediaviewer-license-default';
+		} else {
+			// License found, store the license data
+			ui.$license.data( 'license', mw.message( msgname ).text() );
 		}
 
 		if ( license ) {
