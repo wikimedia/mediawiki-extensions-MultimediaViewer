@@ -210,6 +210,7 @@ $wgExtensionFunctions[] = function () {
 
 		$wgResourceModules['ext.multimediaViewer']['dependencies'][] = 'ext.eventLogging';
 		$wgResourceModules['ext.multimediaViewer']['dependencies'][] = 'schema.MediaViewer';
+		$wgResourceModules['ext.multimediaViewer']['dependencies'][] = 'schema.MediaViewerPerf';
 	}
 };
 
