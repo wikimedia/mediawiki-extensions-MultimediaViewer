@@ -779,6 +779,7 @@ $messages['pl'] = array(
  * @author Ahmed-Najib-Biabani-Ibrahimkhel
  */
 $messages['ps'] = array(
+	'multimediaviewer-pref' => 'رسنۍ ښکاره کوونکی',
 	'multimediaviewer-datetime-created' => 'په $1 جوړ شو',
 	'multimediaviewer-datetime-uploaded' => 'په $1 پورته شو',
 	'multimediaviewer-license-cc-pd' => 'ټولگړی شپول',
