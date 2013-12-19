@@ -493,16 +493,6 @@
 		}
 
 		if ( repoInfo ) {
-			if ( repoInfo.displayname ) {
-				ui.$repo.text(
-					mw.message( 'multimediaviewer-repository', repoInfo.displayname ).text()
-				);
-			} else {
-				ui.$repo.text(
-					mw.message( 'multimediaviewer-repository', mw.config.get( 'wgSiteName' ) ).text()
-				);
-			}
-
 			if ( repoInfo.server && repoInfo.articlepath ) {
 				articlePath = repoInfo.server + repoInfo.articlepath;
 			} else {
@@ -515,9 +505,16 @@
 				linkToRepo = articlePath.replace( '$1', fileTitle.getPrefixedText() );
 			}
 
-			if ( repoInfo.local ) {
+			if( repoInfo.local ) {
+				ui.$repo.text(
+					mw.message( 'multimediaviewer-repository-local' ).text()
+				);
 				linkToRepo = mw.config.get( 'wgServer' ) + linkToRepo;
 				ui.$useFile.data( 'isLocal' ,repoInfo.local );
+			} else {
+				ui.$repo.text(
+					mw.message( 'multimediaviewer-repository', repoInfo.displayname ).text()
+				);
 			}
 
 			ui.$repo.prop( 'href', linkToRepo );
