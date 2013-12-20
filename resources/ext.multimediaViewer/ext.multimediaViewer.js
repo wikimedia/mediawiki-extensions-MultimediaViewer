@@ -524,26 +524,8 @@
 			}
 		}
 
-		function setUserpageLink( username, gender ) {
-			var userpage = 'User:' + username,
-				userTitle = mw.Title.newFromText( userpage );
-
-			ui.$username
-				.text(
-					mw.message( 'multimediaviewer-userpage-link', username, gender ).text()
-				)
-				.prop( 'href', userTitle.getUrl() );
-
-			if ( articlePath ) {
-				ui.$username
-					.prop( 'href', articlePath.replace( '$1', userTitle.getPrefixedText() ) );
-			}
-
-			ui.$usernameLi.toggleClass( 'empty', !username );
-		}
-
 		var extmeta, gfpid,
-			repoInfo, articlePath, linkToRepo,
+			repoInfo,
 			desc,
 			datetime, dtmsg,
 			license, msgname,
@@ -564,32 +546,8 @@
 		}
 
 		if ( repoInfo ) {
-			if ( repoInfo.server && repoInfo.articlepath ) {
-				articlePath = repoInfo.server + repoInfo.articlepath;
-			} else {
-				articlePath = mw.config.get( 'wgArticlePath' );
-			}
-
-			if ( repoInfo.descBaseUrl ) {
-				linkToRepo = repoInfo.descBaseUrl + fileTitle.getPrefixedText();
-			} else {
-				linkToRepo = articlePath.replace( '$1', fileTitle.getPrefixedText() );
-			}
-
-			if( repoInfo.local ) {
-				ui.$repo.text(
-					mw.message( 'multimediaviewer-repository-local' ).text()
-				);
-				linkToRepo = mw.config.get( 'wgServer' ) + linkToRepo;
-				ui.$useFile.data( 'isLocal' ,repoInfo.local );
-			} else {
-				ui.$repo.text(
-					mw.message( 'multimediaviewer-repository', repoInfo.displayname ).text()
-				);
-			}
-
-			ui.$repo.prop( 'href', linkToRepo );
-			ui.$useFile.data( 'link', linkToRepo );
+			ui.setRepoDisplayName( repoInfo.displayname, repoInfo.local );
+			ui.setFilePageLink( repoInfo, fileTitle );
 		}
 
 		ui.$repoLi.toggleClass( 'empty', !repoInfo );
@@ -616,10 +574,10 @@
 
 				viewer.profileEnd( gfpid );
 
-				setUserpageLink( username, gender );
+				ui.setUserPageLink( repoInfo, username, gender );
 			} ).fail( function () {
 				mw.log( 'Gender fetch with ID ' + gfpid + ' failed, probably due to cross-domain API request.' );
-				setUserpageLink( username, 'unknown' );
+				ui.setUserPageLink( repoInfo, username, 'unknown' );
 			} );
 		}
 
@@ -705,10 +663,8 @@
 		}
 
 		if ( license ) {
-			articlePath = articlePath || mw.config.get( 'wgArticlePath', '' );
 			ui.$license
 				.text( mw.message( msgname ).text() )
-				.prop( 'href', linkToRepo || articlePath.replace( '$1', fileTitle.getPrefixedText() ) )
 				.toggleClass( 'cc-license', license.substr( 0, 2 ) === 'cc' );
 		}
 

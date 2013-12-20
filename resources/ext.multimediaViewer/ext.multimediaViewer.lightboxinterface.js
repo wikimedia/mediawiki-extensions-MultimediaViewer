@@ -482,5 +482,90 @@
 		}
 	};
 
+	/**
+	 * @method
+	 * Sets the display name of the repository
+	 * @param {string} displayname
+	 * @param {boolean} isLocal true if this is the local repo ( the file has been uploaded locally)
+	 */
+	LIP.setRepoDisplayName = function ( displayname, isLocal ) {
+		if( isLocal ) {
+			this.$repo.text(
+				mw.message( 'multimediaviewer-repository-local' ).text()
+			);
+		} else {
+			displayname = displayname || mw.config.get( 'wgSiteName' );
+			this.$repo.text(
+				mw.message( 'multimediaviewer-repository', displayname ).text()
+			);
+		}
+	};
+
+	/**
+	 * @method
+	 * Sets the URL for the File: page of the image
+	 * @param {Object} repoInfo
+	 * @param {mw.Title} fileTitle
+	 */
+	LIP.setFilePageLink = function ( repoInfo, fileTitle ) {
+		var linkpath;
+
+		if ( repoInfo.descBaseUrl ) {
+			linkpath = repoInfo.descBaseUrl + fileTitle.getMainText();
+		} else {
+			if ( repoInfo.server && repoInfo.articlepath ) {
+				linkpath = repoInfo.server + repoInfo.articlepath;
+			} else {
+				linkpath = mw.config.get( 'wgArticlePath' );
+			}
+			linkpath = linkpath.replace( '$1', fileTitle.getPrefixedText() );
+		}
+
+		if ( repoInfo.local ) {
+			this.$useFile.data( 'isLocal', repoInfo.local );
+		}
+
+		if ( !/^(https?:)?\/\//.test( linkpath ) ) {
+			this.$useFile.data( 'link', mw.config.get( 'wgServer' ) + linkpath );
+		} else {
+			this.$useFile.data( 'link', linkpath );
+		}
+
+		this.$repo.prop( 'href', linkpath );
+		this.$license.prop( 'href', linkpath );
+	};
+
+	/**
+	 * @method
+	 * Sets the link to the user page where possible
+	 * @param {Object} repoInfo
+	 * @param {string} username
+	 * @param {string} gender
+	 */
+	LIP.setUserPageLink = function ( repoInfo, username, gender ) {
+		var userlink,
+			userpage = 'User:' + username;
+
+		if ( repoInfo.descBaseUrl ) {
+			// We basically can't do anything about this; fail
+			this.$username.addClass( 'empty' );
+		} else {
+			if ( repoInfo.server && repoInfo.articlepath ) {
+				userlink = repoInfo.server + repoInfo.articlepath;
+			} else {
+				userlink = mw.config.get( 'wgArticlePath' );
+			}
+			userlink = userlink.replace( '$1', userpage );
+
+			this.$username
+				.text(
+					mw.message( 'multimediaviewer-userpage-link', username, gender ).text()
+				)
+				.prop( 'href', userlink );
+
+			this.$usernameLi.toggleClass( 'empty', !username );
+		}
+	};
+
 	mw.LightboxInterface = LightboxInterface;
 }( mediaWiki, jQuery, OO, window.LightboxInterface ) );

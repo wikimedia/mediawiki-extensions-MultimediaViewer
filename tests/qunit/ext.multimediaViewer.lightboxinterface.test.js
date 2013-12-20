@@ -80,4 +80,35 @@
 		assert.strictEqual( handlerCalls, 1, 'The handler was not called after calling lightbox.clearEvents().' );
 	} );
 
+	QUnit.test( 'Setting repository information in the UI works as expected', 5, function ( assert ) {
+		var lightbox = new mw.LightboxInterface(),
+
+			localRepoInfo = {
+				local: true
+			},
+
+			remoteDBRepoInfo = {
+				descBaseUrl: 'http://example.com/wiki/File:'
+			},
+
+			remoteAPIRepoInfo = {
+				server: 'http://commons.example.org',
+				articlepath: '/wiki/$1'
+			};
+
+		lightbox.setRepoDisplayName( 'Example Wiki' );
+		assert.strictEqual( lightbox.$repo.text(), 'Learn more on Example Wiki', 'Text set to something useful for remote wiki - if this fails it might be because of localisation' );
+
+		lightbox.setRepoDisplayName();
+		assert.strictEqual( lightbox.$repo.text(), 'Learn more on ' + mw.config.get( 'wgSiteName' ), 'Text set to something useful for local wiki - if this fails it might be because of localisation' );
+
+		lightbox.setFilePageLink( localRepoInfo, mw.Title.newFromText( 'File:Foobar.jpg' ) );
+		assert.strictEqual( lightbox.$repo.prop( 'href' ), mw.config.get( 'wgServer' ) + mw.config.get( 'wgArticlePath' ).replace( '$1', 'File:Foobar.jpg' ), 'The file link was set to a local page successfully.' );
+
+		lightbox.setFilePageLink( remoteDBRepoInfo, mw.Title.newFromText( 'File:Foobar.jpg' ) );
+		assert.strictEqual( lightbox.$repo.prop( 'href' ), 'http://example.com/wiki/File:Foobar.jpg', 'The file link was set to a remote shared DB page successfully.' );
+
+		lightbox.setFilePageLink( remoteAPIRepoInfo, mw.Title.newFromText( 'File:Foobar.jpg' ) );
+		assert.strictEqual( lightbox.$repo.prop( 'href' ), 'http://commons.example.org/wiki/File:Foobar.jpg', 'The file link was set to a remote API page successfully.' );
+	} );
 }( mediaWiki, jQuery ) );
