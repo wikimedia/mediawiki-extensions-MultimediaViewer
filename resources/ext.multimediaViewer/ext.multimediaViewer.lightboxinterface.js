@@ -327,6 +327,10 @@
 			pattern = /^\/[^\/]/,
 			finalLink = pattern.test(link) ? linkPrefix +link: link,
 
+			license = this.$license.data( 'license' ) || '',
+			author = this.$author.text(),
+			linkTitle = ( license + ( author ? ' (' + author + ')' : '' ) ).trim(),
+
 			owtId = 'mw-mlb-use-file-onwiki-thumb',
 			ownId = 'mw-mlb-use-file-onwiki-normal',
 			owId = 'mw-mlb-use-file-offwiki',
@@ -373,7 +377,7 @@
 				.prop( 'id', owId )
 				.prop( 'readonly', true )
 				.focus( selectAllOnEvent )
-				.val( '<a href="' + finalLink + '"><img src="' + src + '" /></a>' ),
+				.val( '<a href="' + finalLink + ( linkTitle ? '" title="' + linkTitle : '' ) + '" ><img src="' + src + '" /></a>' ),
 
 
 			$offWiki = $( '<div>' )
