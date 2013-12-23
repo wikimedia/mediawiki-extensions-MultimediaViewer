@@ -254,6 +254,28 @@ $messages['cs'] = array(
 	'multimediaviewer-discuss-mmv' => 'Sdělte svůj názor',
 );
 
+/** Danish (dansk)
+ * @author Christian List
+ */
+$messages['da'] = array(
+	'multimediaviewer-desc' => 'Udvid miniaturebilleder i en større størrelse på et lysbord.',
+	'multimediaviewer-pref' => 'Medieviser',
+	'multimediaviewer-pref-desc' => 'Med dette nye værktøj kan du forbedre din multimedieoplevelse. Det viser billeder i større størrelse på sider, der har miniaturer. Billederne er vist på et pænere lysbord, og kan også ses i fuld størrelse.',
+	'multimediaviewer-file-page' => 'Gå til tilsvarende filside',
+	'multimediaviewer-repository' => 'Læs mere på $1',
+	'multimediaviewer-datetime-created' => 'Oprettet den $1',
+	'multimediaviewer-datetime-uploaded' => 'Uploadet den $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Uploadet}} af $1',
+	'multimediaviewer-license-cc-pd' => 'Offentlig ejendom',
+	'multimediaviewer-license-default' => 'Se licens',
+	'multimediaviewer-use-file' => 'Brug denne fil',
+	'multimediaviewer-use-file-owt' => 'Brug denne fil på en wikiside, som en miniature',
+	'multimediaviewer-use-file-own' => 'Brug denne fil på en wikiside, inline',
+	'multimediaviewer-use-file-offwiki' => 'Brug denne fil på en anden hjemmeside',
+	'multimediaviewer-about-mmv' => 'Om Medieviser',
+	'multimediaviewer-discuss-mmv' => 'Giv feedback',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  * @author Metalhead64
