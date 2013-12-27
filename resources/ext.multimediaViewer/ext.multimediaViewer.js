@@ -145,7 +145,6 @@
 		// Register various event hooks. TODO: Make this a function that's only called once.
 
 		lightboxHooks.register( 'closeInterface', function () {
-			this.$mwControls.css( { top: '-999px', left: '-999px' } );
 			this.$nextButton.add( this.$prevButton ).css( 'top', '-999px' );
 			$( document.body ).removeClass( 'mw-mlb-lightbox-open' );
 			if ( comingFromPopstate === false ) {
@@ -295,7 +294,6 @@
 		var isOnButton = false,
 			isOnImage = false,
 			ui = this.ui,
-			pos = ui.$image.offset(),
 			prevNextTop = ( ( ui.$imageWrapper.height() / 2 ) - 32 ) + 'px';
 
 		function fadeIn() {
@@ -331,22 +329,14 @@
 			}, 500 );
 		}
 
-		pos.top = ( ui.$imageWrapper.height() - ui.$image.height() ) / 2;
-		pos.left += ui.$image.width() - ui.$closeButton.width();
-
-		pos.top += 'px';
-		pos.left += 'px';
-
 		ui.$mwControls
-			.css( pos )
-			.appendTo( ui.$main )
 			.fadeIn( 100 )
 			.delay( 500 )
 			.fadeOut( 100 );
 
 		ui.$postDiv.css( 'top', ui.$imageWrapper.height() );
 
-		ui.$image
+		ui.$imageDiv
 			.off( 'mouseenter', fadeIn )
 			.off( 'mouseleave', fadeOutDelayed )
 			.one( 'click', fadeIn )
