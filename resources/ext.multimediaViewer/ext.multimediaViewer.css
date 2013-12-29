@@ -299,6 +299,7 @@ body.mw-mlb-lightbox-open .mlb-main {
 .mw-mlb-drag-affordance {
 	width: 100%;
 	height: 32px;
+	cursor: move;
 }
 
 .mw-mlb-drag-icon {
