@@ -31,6 +31,7 @@ $messages['en'] = array(
 	'multimediaviewer-pref-desc' => 'Improve your multimedia viewing experience with this new tool. It displays images in larger size on pages that have thumbnails. Images are shown in a nicer Lightbox overlay, and can also be viewed in full-size.',
 	'multimediaviewer-file-page' => 'Go to corresponding file page',
 	'multimediaviewer-repository' => 'Learn more on $1',
+	'multimediaviewer-repository-local' => 'Learn more',
 	'multimediaviewer-datetime-created' => 'Created on $1',
 	'multimediaviewer-datetime-uploaded' => 'Uploaded on $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Uploaded}} by $1',
@@ -71,7 +72,13 @@ $messages['qqq'] = array(
 	'multimediaviewer-pref-desc' => 'Description of preference',
 	'multimediaviewer-file-page' => 'Text for a link to the file page for an image.',
 	'multimediaviewer-repository' => 'Link to the repository where the image is hosted. Parameters:
-* $1 - the display name of that site',
+* $1 - the display name of that site
+See also:
+* {{msg-mw|multimediaviewer-repository-local}}',
+	'multimediaviewer-repository-local' => 'Link to repository where the image is locally hosted.
+{{Identical|Learn more}}
+See also:
+* {{msg-mw|multimediaviewer-repository}}',
 	'multimediaviewer-datetime-created' => 'Used in JavaScript code. Parameters:
 * $1 - time and date (formatted)
 See also:
