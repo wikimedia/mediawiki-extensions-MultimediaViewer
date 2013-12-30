@@ -364,13 +364,13 @@
 
 		function fadeIn() {
 			isOnImage = true;
-			ui.$mwControls.fadeIn( 100 );
-			ui.$image.one( 'click', fadeOut );
+			ui.$closeButton.fadeIn( 100 );
+			ui.$imageDiv.one( 'click', fadeOut );
 		}
 
 		function fadeOut() {
-			ui.$mwControls.fadeOut( 100 );
-			ui.$image.one( 'click', fadeIn );
+			ui.$closeButton.fadeOut( 100 );
+			ui.$imageDiv.one( 'click', fadeIn );
 		}
 
 		function fadeOutDelayed() {
@@ -395,7 +395,7 @@
 			}, 500 );
 		}
 
-		ui.$mwControls
+		ui.$closeButton
 			.fadeIn( 100 )
 			.delay( 500 )
 			.fadeOut( 100 );

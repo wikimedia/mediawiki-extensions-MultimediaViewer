@@ -105,14 +105,14 @@
 	};
 
 	LIP.initializeInterface = function () {
-		this.$postDiv.css( 'top', ( $( window ).height() - 64 ) + 'px' );
+		this.$postDiv.css( 'top', ( $( window ).height() - 96 ) + 'px' );
 
 		this.initializeHeader();
+		this.initializeNavigation();
 		this.initializeButtons();
 		this.initializeImage();
 		this.initializeImageMetadata();
 		this.initializeAboutLinks();
-		this.initializeNavigation();
 	};
 
 	LIP.initializeHeader = function () {
@@ -187,17 +187,15 @@
 	};
 
 	LIP.initializeButtons = function () {
-		this.$mwControls = $( '<div>' )
-			.addClass( 'mw-mlb-controls' )
-			// Note we aren't adding the fullscreen button here.
-			// Fullscreen causes some funky issues with UI redraws,
-			// and we aren't sure why, but it's not really necessary
-			// with the new interface anyway - it's basically fullscreen
-			// already!
-			.append(
-				this.$closeButton
-			)
-			.appendTo( this.$main );
+		// Note we aren't adding the fullscreen button here.
+		// Fullscreen causes some funky issues with UI redraws,
+		// and we aren't sure why, but it's not really necessary
+		// with the new interface anyway - it's basically fullscreen
+		// already!
+		this.$closeButton.add(
+			this.$nextButton,
+			this.$prevButton
+		).appendTo( this.$imageWrapper );
 	};
 
 	LIP.initializeImage = function () {
@@ -455,16 +453,14 @@
 			.html( '&nbsp;' )
 			.click( function () {
 				mw.mediaViewer.nextImage();
-			} )
-			.appendTo( this.$main );
+			} );
 
 		this.$prevButton = $( '<div>' )
 			.addClass( 'mw-mlb-prev-image disabled' )
 			.html( '&nbsp;' )
 			.click( function () {
 				mw.mediaViewer.prevImage();
-			} )
-			.appendTo( this.$main );
+			} );
 	};
 
 	LIP.toggleMetadata = function () {
