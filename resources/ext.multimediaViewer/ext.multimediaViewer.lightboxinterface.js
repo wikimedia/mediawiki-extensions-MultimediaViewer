@@ -118,7 +118,6 @@
 	LIP.initializeHeader = function () {
 		var ui = this;
 
-		this.$closeButton.detach();
 		this.$fullscreenButton.detach();
 
 		this.$dragBar = $( '<div>' )
