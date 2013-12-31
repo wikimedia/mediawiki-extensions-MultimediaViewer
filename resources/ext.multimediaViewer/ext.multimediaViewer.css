@@ -32,7 +32,12 @@
 
 .mlb-controls {
 	height: auto;
+}
+
+.mlb-post-image {
 	background-color: #e4e2e1;
+	position: absolute;
+	min-height: 83px;
 }
 
 .mw-mlb-controls {

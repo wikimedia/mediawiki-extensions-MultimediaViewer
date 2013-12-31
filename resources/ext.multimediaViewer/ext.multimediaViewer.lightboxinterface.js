@@ -105,7 +105,7 @@
 	};
 
 	LIP.initializeInterface = function () {
-		this.$postDiv.css( 'top', ( $( window ).height() - 96 ) + 'px' );
+		this.$postDiv.css( 'top', ( $( window ).height() - 83 ) + 'px' );
 
 		this.initializeHeader();
 		this.initializeNavigation();
