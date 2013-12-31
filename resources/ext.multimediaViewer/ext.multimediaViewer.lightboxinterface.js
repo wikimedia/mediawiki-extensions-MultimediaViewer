@@ -476,7 +476,7 @@
 			}, 400 );
 		} else {
 			this.$main.animate( {
-				scrollTop: off.top - 96
+				scrollTop: off.top - 82
 			}, 400 );
 		}
 	};
