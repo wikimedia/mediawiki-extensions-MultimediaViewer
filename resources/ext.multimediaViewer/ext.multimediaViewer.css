@@ -86,12 +86,12 @@ body.mobile .mw-mlb-controls,
 	/* @embed */
 	background-image: url(img/mw-close.svg);
 	transition: opacity 0.25s;
+	background-position: center;
 }
 
 .mlb-close,
 .mw-mlb-next-image,
 .mw-mlb-prev-image {
-	background-position: center;
 	background-repeat: no-repeat;
 	opacity: 0.8;
 }
@@ -283,8 +283,8 @@ body.mw-mlb-lightbox-open .mlb-main {
 .mw-mlb-prev-image {
 	position: absolute;
 	top: -999px;
-	width: 26px;
-	height: 40px;
+	width: 80px;
+	height: 120px;
 	cursor: pointer;
 	transition: opacity 0.25s, margin 0.25s;
 }
@@ -301,12 +301,14 @@ body.mw-mlb-lightbox-open .mlb-main {
 	/* @embed */
 	background-image: url(img/next-ltr.svg);
 	right: 5px;
+	background-position: right;
 }
 
 .mw-mlb-prev-image {
 	/* @embed */
 	background-image: url(img/prev-ltr.svg);
 	left: 5px;
+	background-position: left;
 }
 
 .mw-mlb-next-image.disabled,
