@@ -81,6 +81,13 @@
 		 */
 		this.lightbox = null;
 
+		/**
+		 * Whether we've fired an animation for the metadata div.
+		 * @property {boolean}
+		 * @private
+		 */
+		this.hasAnimatedMetadata = false;
+
 		var $thumbs = $( imgsSelector ),
 			urls = [],
 			viewer = this;
@@ -169,6 +176,8 @@
 			} else {
 				comingFromPopstate = false;
 			}
+
+			viewer.hasAnimatedMetadata = false;
 		} );
 
 		lightboxHooks.register( 'imageResize', function () {
@@ -686,6 +695,11 @@
 				targetWidth = size;
 
 			viewer.profileEnd( mdpid );
+			viewer.setImageInfo( image.filePageTitle, imageInfo );
+
+			if ( !viewer.hasAnimatedMetadata ) {
+				viewer.animateMetadataDiv();
+			}
 
 			imageEle.onload = function () {
 				if ( imageEle.width > targetWidth ) {
@@ -698,7 +712,6 @@
 				viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
 				viewer.updateControls();
 				$.removeSpinner( 'mw-mlb-loading-spinner' );
-				viewer.setImageInfo( image.filePageTitle, imageInfo );
 			};
 
 			imageEle.src = imageInfo.imageinfo[0].thumburl || imageInfo.imageinfo[0].url;
@@ -711,6 +724,18 @@
 		} );
 
 		comingFromPopstate = false;
+	};
+
+	MMVP.animateMetadataDiv = function () {
+		$( document.body )
+			.animate( {
+				scrollTop: 40
+			}, 400 )
+			.animate( {
+				scrollTop: 0
+			}, 400 );
+
+		this.hasAnimatedMetadata = true;
 	};
 
 	/**

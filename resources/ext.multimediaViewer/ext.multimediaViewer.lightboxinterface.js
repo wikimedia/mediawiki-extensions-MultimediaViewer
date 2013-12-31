@@ -192,10 +192,8 @@
 		// and we aren't sure why, but it's not really necessary
 		// with the new interface anyway - it's basically fullscreen
 		// already!
-		this.$closeButton.add(
-			this.$nextButton,
-			this.$prevButton
-		).appendTo( this.$imageWrapper );
+		this.$closeButton.add( this.$nextButton ).add( this.$prevButton )
+			.appendTo( this.$imageWrapper );
 	};
 
 	LIP.initializeImage = function () {
