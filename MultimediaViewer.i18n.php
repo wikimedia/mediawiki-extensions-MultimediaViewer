@@ -205,6 +205,13 @@ $messages['bn'] = array(
 	'multimediaviewer-discuss-mmv' => 'আপনার প্রতিক্রিয়া জানান',
 );
 
+/** Breton (brezhoneg)
+ * @author Fulup
+ */
+$messages['br'] = array(
+	'multimediaviewer-repository-local' => "Gouzout hiroc'h",
+);
+
 /** Catalan (català)
  * @author Fitoschido
  * @author Vriullop
@@ -234,6 +241,7 @@ $messages['ca'] = array(
 $messages['ce'] = array(
 	'multimediaviewer-pref' => 'Медиа-хьожург',
 	'multimediaviewer-pref-desc' => 'Мультимедиа-файлашка хьажар хаза кечдина гойту.',
+	'multimediaviewer-repository-local' => 'Ма-дарра',
 	'multimediaviewer-discuss-mmv' => 'Язде хьайна хетарг',
 );
 
@@ -247,6 +255,7 @@ $messages['cs'] = array(
 	'multimediaviewer-pref-desc' => 'Pomocí tohoto nástroje si můžete zpříjemnit prohlížení multimédií. Na stránkách, na kterých se používají náhledy obrázků, umožňuje prohlížení těchto obrázků ve větší velikosti. Obrázky se zobrazí v hezčím lightboxu přes stránku a lze si je prohlédnout také v plné velikosti.',
 	'multimediaviewer-file-page' => 'Přejít na stránku s popisem souboru',
 	'multimediaviewer-repository' => 'Více informací na {{grammar:6sg|$1}}',
+	'multimediaviewer-repository-local' => 'Více informací',
 	'multimediaviewer-datetime-created' => 'Vytvořeno $1',
 	'multimediaviewer-datetime-uploaded' => 'Načteno $1',
 	'multimediaviewer-userpage-link' => 'Načteno {{GENDER:$2|uživatelem|uživatelkou}} $1',
@@ -294,6 +303,7 @@ $messages['de'] = array(
 	'multimediaviewer-pref-desc' => 'Dieses neue Werkzeug steigert dein Multimedia-Betrachtungserlebnis. Es zeigt Bilder auf Seiten größer an, die Vorschaubilder haben. Bilder werden in einem schöneren Leuchtkastenoverlay angezeigt und können auch als Vollbild dargestellt werden.',
 	'multimediaviewer-file-page' => 'Gehe zur dazugehörigen Dateiseite',
 	'multimediaviewer-repository' => 'Mehr erfahren auf $1',
+	'multimediaviewer-repository-local' => 'Mehr erfahren',
 	'multimediaviewer-datetime-created' => 'Erstellt am $1',
 	'multimediaviewer-datetime-uploaded' => 'Hochgeladen am $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Hochgeladen}} von $1',
@@ -453,6 +463,7 @@ $messages['fr'] = array(
 	'multimediaviewer-pref-desc' => 'Améliorer votre expérience de visualisation multimédia avec ce nouvel outil. Il affiche les images en grande taille sur les pages qui ont des vignettes. Les images sont affichées dans un joli cadre Lightbox, et peuvent aussi être affichées en taille réelle.',
 	'multimediaviewer-file-page' => 'Aller à la page du fichier correspondant',
 	'multimediaviewer-repository' => 'En savoir plus sur $1',
+	'multimediaviewer-repository-local' => 'En savoir plus',
 	'multimediaviewer-datetime-created' => 'Créé le $1',
 	'multimediaviewer-datetime-uploaded' => 'Téléversé le $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Téléversé}} par $1',
@@ -488,6 +499,7 @@ $messages['he'] = array(
 	'multimediaviewer-pref-desc' => 'הכלי החדש הזה משפר את חוויית המולטימדיה שלך. הוא מציג תמונות מוגדלות בדפים עם תמונות ממוזערות. התמונות מוצגות בשכבה בסגנון "לייטבוקס" וניתן להציג אותן גם בגודל מלא.',
 	'multimediaviewer-file-page' => 'מעבר אל דף הקובץ המתאים',
 	'multimediaviewer-repository' => 'מידע נוסף על $1',
+	'multimediaviewer-repository-local' => 'מידע נוסף',
 	'multimediaviewer-datetime-created' => 'נוצר ב־$1',
 	'multimediaviewer-datetime-uploaded' => 'הועלה ב־$1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|הועלה}} על־ידי $1',
@@ -619,6 +631,7 @@ $messages['ja'] = array(
 	'multimediaviewer-pref-desc' => 'この新しいツールは、マルチメディアの表示体験を改善します。縮小画像があるページで、その画像をより大きなサイズで表示します。画像は Lightbox オーバーレイ内に表示され、完全なサイズで表示させることもできます。',
 	'multimediaviewer-file-page' => '対応するファイル ページに移動',
 	'multimediaviewer-repository' => '$1の詳細情報',
+	'multimediaviewer-repository-local' => '詳細',
 	'multimediaviewer-datetime-created' => '作成日時: $1',
 	'multimediaviewer-datetime-uploaded' => 'アップロード日時: $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|アップロード}}者: $1',
@@ -651,6 +664,7 @@ $messages['kk-cyrl'] = array(
 	'multimediaviewer-pref' => 'Медиа қарап шығу құралы',
 	'multimediaviewer-file-page' => 'Тиісті файл бетіне өту',
 	'multimediaviewer-repository' => '$1 туралы көбірек білу',
+	'multimediaviewer-repository-local' => 'Көбірек білу',
 	'multimediaviewer-datetime-created' => '$1 кезінде құрылған',
 	'multimediaviewer-datetime-uploaded' => '$1 кезінде жүктелген',
 	'multimediaviewer-userpage-link' => '$1 {{GENDER:$2|жүктеген}}',
@@ -662,6 +676,13 @@ $messages['kk-cyrl'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Бұл файлды басқа уебсайтта қолдану',
 	'multimediaviewer-about-mmv' => 'Медиа қарап шығу құралы туралы',
 	'multimediaviewer-discuss-mmv' => 'Пікір қалдыру',
+);
+
+/** Khmer (ភាសាខ្មែរ)
+ * @author វ័ណថារិទ្ធ
+ */
+$messages['km'] = array(
+	'multimediaviewer-repository-local' => 'ស្វែងយល់បន្ថែម',
 );
 
 /** Korean (한국어)
@@ -693,6 +714,7 @@ $messages['ko'] = array(
 $messages['lb'] = array(
 	'multimediaviewer-pref' => 'Media Viewer',
 	'multimediaviewer-repository' => 'Méi gewuer ginn op $1',
+	'multimediaviewer-repository-local' => 'Fir méi ze wëssen',
 	'multimediaviewer-datetime-uploaded' => 'Eropgelueden den $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Eropgeluede}} vum $1',
 	'multimediaviewer-license-default' => 'Lizenz weisen',
@@ -713,6 +735,7 @@ $messages['mk'] = array(
 	'multimediaviewer-pref-desc' => 'Дава поубаво прегледување на слики на страници. Ги прикажува поголеми на страниците со минијатури. Можат да се прегледуваат и во полна големина.',
 	'multimediaviewer-file-page' => 'Оди на соодветната податотечна страница',
 	'multimediaviewer-repository' => 'Дознајте повеќе на $1',
+	'multimediaviewer-repository-local' => 'Дознајте повеќе',
 	'multimediaviewer-datetime-created' => 'Создадено на $1',
 	'multimediaviewer-datetime-uploaded' => 'Подигнато на $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Подигнато}} од $1',
@@ -929,6 +952,7 @@ $messages['sv'] = array(
 	'multimediaviewer-pref-desc' => 'Förbättrad visning av bilder. Istället för bildbeskrivningssidan visas bilden på ett ljusbord när du klickar på den. Miniatyrer visas i större storlek.',
 	'multimediaviewer-file-page' => 'Gå till motsvarande filsida',
 	'multimediaviewer-repository' => 'Läs mer på $1',
+	'multimediaviewer-repository-local' => 'Läs mer',
 	'multimediaviewer-datetime-created' => 'Skapades $1',
 	'multimediaviewer-datetime-uploaded' => 'Laddades upp $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Uppladdad}} av $1',
@@ -960,6 +984,7 @@ $messages['uk'] = array(
 	'multimediaviewer-pref-desc' => 'Поліпшити ваші враження від перегляду мультимедіа з цим новим інструментом. Він відображає зображення у більшому розмірі на сторінках, які мають ескізи. Зображення показані у кращому накладенні і також відображаються в натуральну величину.',
 	'multimediaviewer-file-page' => 'Перейти на сторінку відповідного файлу',
 	'multimediaviewer-repository' => 'Дізнайтеся більше на $1',
+	'multimediaviewer-repository-local' => 'Дізнатися більше',
 	'multimediaviewer-datetime-created' => 'Створено $1',
 	'multimediaviewer-datetime-uploaded' => 'Завантажено $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Завантажив|Завантажила}} $1',
@@ -1009,6 +1034,7 @@ $messages['vo'] = array(
  * @author Qiyue2001
  * @author Shizhao
  * @author Xiaomingyan
+ * @author Yfdyh000
  */
 $messages['zh-hans'] = array(
 	'multimediaviewer-desc' => '在Lightbox视图中以较大的尺寸显示缩略图。',
@@ -1016,6 +1042,7 @@ $messages['zh-hans'] = array(
 	'multimediaviewer-pref-desc' => '使用这个新工具可以改善你的多媒体浏览体验。它能以更大的尺寸显示页面中的缩略图。图像将显示于一个漂亮的Lightbox视图中，并能以完整尺寸查看。',
 	'multimediaviewer-file-page' => '前往对应的文件页面',
 	'multimediaviewer-repository' => '在$1了解详情',
+	'multimediaviewer-repository-local' => '了解更多',
 	'multimediaviewer-datetime-created' => '创作时间：$1',
 	'multimediaviewer-datetime-uploaded' => '上传时间：$1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|上传者}}：$1',
