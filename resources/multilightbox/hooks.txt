@@ -64,14 +64,10 @@ noPrevImage
 	Called: From MultiLightbox prev method when user tries to reach negative index
 
 fullscreen
-	Arguments: None
+	Arguments:
+		* fullscreen - Boolean - Represents the current fullscreen state
 	ThisArg: LightboxInterface
-	Called: From LightboxInterface fullscreen method when user is going to fullscreen interface.
-
-defullscreen
-	Arguments: None
-	ThisArg: LightboxInterface
-	Called: From LightboxInterface fullscreen method when user is leaving fullscreen interface.
+	Called: From LightboxInterface fullscreen method when user is going to fullscreen interface or leaving it.
 
 clearInterface
 	Arguments: None

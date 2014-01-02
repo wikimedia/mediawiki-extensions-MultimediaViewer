@@ -1,8 +1,8 @@
 /**
  * Override multilightbox styles that don't apply to us
  */
-.mlb-main.mlb-fullscreened {
-	background-color: white;
+.mlb-main .jq-fullscreened {
+	background-color: black;
 }
 
 .mlb-wrapper {
@@ -88,18 +88,33 @@ body.mobile .mw-mlb-controls,
 	background-color: rgb(0,0,0);
 }
 
-.mlb-close {
-	position: absolute;
-	top: 5px;
+.mlb-close,
+.mlb-fullscreen {
 	right: 5px;
 	left: auto;
-	/* @embed */
-	background-image: url(img/mw-close.svg);
 	transition: opacity 0.25s;
 	background-position: center;
 }
 
+.mlb-close {
+	top: 5px;
+	/* @embed */
+	background-image: url(img/mw-close.svg);
+}
+
+.mlb-fullscreen {
+	top: 42px;
+	/* @embed */
+	background-image: url(img/mw-fullscreen-ltr.svg);
+}
+
+.jq-fullscreened .mlb-fullscreen {
+	/* @embed */
+	background-image: url(img/mw-defullscreen-ltr.svg);
+}
+
 .mlb-close,
+.mlb-fullscreen,
 .mw-mlb-next-image,
 .mw-mlb-prev-image {
 	position: fixed;
@@ -114,20 +129,11 @@ body.mobile .mw-mlb-controls,
 }
 
 .mlb-close,
+.mlb-fullscreen,
 .mw-mlb-next-image,
 .mw-mlb-prev-image {
 	border: none;
 	z-index: 1003;
-}
-
-.mlb-fullscreen-div .mlb-fullscreen {
-	/* @embed */
-	background-image: url(img/mw-defullscreen-ltr.svg);
-}
-
-.mlb-fullscreen {
-	/* @embed */
-	background-image: url(img/mw-fullscreen-ltr.svg);
 }
 
 .mw-mlb-license,

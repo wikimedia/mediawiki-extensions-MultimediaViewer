@@ -193,15 +193,15 @@
 			return false;
 		} );
 
-		lightboxHooks.register( 'fullscreen', function () {
-			if ( this.$imageMetadata ) {
-				this.$imageMetadata.hide();
-			}
-		} );
+		lightboxHooks.register( 'fullscreen', function ( fullscreen ) {
+			viewer.ui.isFullscreen = fullscreen;
 
-		lightboxHooks.register( 'defullscreen', function () {
 			if ( this.$imageMetadata ) {
-				this.$imageMetadata.show();
+				if ( fullscreen ) {
+					this.$imageMetadata.hide();
+				} else {
+					this.$imageMetadata.show();
+				}
 			}
 		} );
 	}
@@ -395,7 +395,7 @@
 		} );
 
 		this.ui.$fullscreenButton.click( function () {
-			if ( viewer.ui.isFullScreen ) {
+			if ( viewer.ui.isFullscreen ) {
 				viewer.log( 'fullscreen-link-click' );
 			} else {
 				viewer.log( 'defullscreen-link-click' );

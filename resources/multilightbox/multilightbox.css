@@ -103,10 +103,10 @@
 	height: 29px;
 }
 
-.mlb-main.mlb-fullscreened {
+.mlb-main.fullscreened {
 	background-color: black;
 }
 
-.mlb-fullscreen-div .mlb-fullscreen {
+.fullscreened .mlb-fullscreen {
 	background-image: url("../img/defullscreen.svg");
 }

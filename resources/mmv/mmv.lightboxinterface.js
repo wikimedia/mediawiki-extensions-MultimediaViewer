@@ -154,8 +154,6 @@
 	LIP.initializeHeader = function () {
 		var ui = this;
 
-		this.$fullscreenButton.detach();
-
 		this.$dragBar = $( '<div>' )
 			.addClass( 'mw-mlb-drag-affordance' )
 			.appendTo( this.$controlBar )
@@ -228,7 +226,10 @@
 		// and we aren't sure why, but it's not really necessary
 		// with the new interface anyway - it's basically fullscreen
 		// already!
-		this.$closeButton.add( this.$nextButton ).add( this.$prevButton )
+		this.$closeButton
+			.add( this.$fullscreenButton )
+			.add( this.$nextButton )
+			.add( this.$prevButton )
 			.appendTo( this.$imageWrapper );
 	};
 

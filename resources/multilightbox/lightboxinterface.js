@@ -8,20 +8,6 @@
 	function LightboxInterface() {
 		lightboxHooks = window.lightboxHooks;
 
-		function handleFullscreenChange() {
-			// If we're no longer in fullscreen mode, make sure
-			if ( !lbinterface.fullscreenButtonJustPressed &&
-					!document.fullscreenElement &&
-					!document.mozFullScreenElement &&
-					!document.webkitFullScreenElement &&
-					!document.msFullScreenElement) {
-				lightboxHooks.callAll( 'defullscreen' );
-				lbinterface.$main.removeClass( 'mlb-fullscreened' );
-			} else if ( lbinterface.fullscreenButtonJustPressed ) {
-				lbinterface.fullscreenButtonJustPressed = false;
-			}
-		}
-
 		var result,
 			addToPre = [],
 			addToPost = [],
@@ -82,10 +68,16 @@
 			}
 		} );
 
-		window.addEventListener( 'fullscreenchange', handleFullscreenChange );
-		window.addEventListener( 'mozfullscreenchange', handleFullscreenChange );
-		window.addEventListener( 'webkitfullscreenchange', handleFullscreenChange );
-		window.addEventListener( 'msfullscreenchange', handleFullscreenChange );
+		$( document ).on( 'jq-fullscreen-change', function ( e ) {
+			lightboxHooks.callAll( 'fullscreen', this, e.fullscreen );
+
+			if ( !lbinterface.fullscreenButtonJustPressed && !e.fullscreen ) {
+				// Close the interface all the way if the user pressed 'esc'
+				lbinterface.unattach();
+			} else if ( lbinterface.fullscreenButtonJustPressed ) {
+				lbinterface.fullscreenButtonJustPressed = false;
+			}
+		} );
 	}
 
 	LIP = LightboxInterface.prototype;
@@ -133,42 +125,6 @@
 		this.$overlay.detach();
 
 		this.currentlyAttached = false;
-	};
-
-	LIP.fullscreen = function () {
-		var fullscreen;
-
-		if ( document.fullscreenElement ||
-				document.mozFullScreenElement ||
-				document.webkitFullScreenElement ||
-				document.msFullScreenElement ) {
-			if ( document.cancelFullScreen ) {
-				document.cancelFullScreen();
-			} else if ( document.mozCancelFullScreen ) {
-				document.mozCancelFullScreen();
-			} else if ( document.webkitCancelFullScreen ) {
-				document.webkitCancelFullScreen();
-			} else if ( document.msCancelFullScreen ) {
-				document.msCancelFullScreen();
-			}
-
-			this.$main.removeClass( 'mlb-fullscreened' );
-			lightboxHooks.callAll( 'defullscreen', this );
-		} else {
-			fullscreen = this.$main.get( 0 );
-			if ( fullscreen.requestFullScreen ) {
-				fullscreen.requestFullScreen();
-			} else if ( fullscreen.mozRequestFullScreen ) {
-				fullscreen.mozRequestFullScreen();
-			} else if ( fullscreen.webkitRequestFullScreen ) {
-				fullscreen.webkitRequestFullScreen();
-			} else if ( fullscreen.msRequestFullscreen ) {
-				fullscreen.msRequestFullscreen();
-			}
-
-			this.$main.addClass( 'mlb-fullscreened' );
-			lightboxHooks.callAll( 'fullscreen', this );
-		}
 	};
 
 	/**
@@ -258,8 +214,12 @@
 				.text( ' ' )
 				.addClass( 'mlb-fullscreen' )
 				.click( function () {
-					lbinterface.fullscreenButtonJustPressed = true;
-					lbinterface.fullscreen();
+					if ( lbinterface.isFullscreen ) {
+						lbinterface.fullscreenButtonJustPressed = true;
+						lbinterface.$main.exitFullscreen();
+					} else {
+						lbinterface.$main.enterFullscreen();
+					}
 				} );
 
 			this.$controlBar.append(

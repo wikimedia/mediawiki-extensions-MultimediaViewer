@@ -191,6 +191,7 @@ $wgResourceModules['mmv'] = array_merge( array(
 		'momentjs',
 		'jquery.scrollTo',
 		'mmv.lightboximage',
+		'jquery.fullscreen',
 		'mediawiki.Title',
 		'jquery.ui.dialog',
 		'jquery.hidpi',
