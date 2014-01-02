@@ -581,6 +581,8 @@
 			if ( desc ) {
 				desc = desc.value;
 				whitelistHtml( ui.$imageDesc.append( $.parseHTML( desc ) ) );
+			} else {
+				ui.$imageDesc.append( mw.message( 'multimediaviewer-desc-nil' ).text() );
 			}
 
 			datetime = extmeta.DateTimeOriginal || extmeta.DateTime;

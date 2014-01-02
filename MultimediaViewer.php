@@ -119,6 +119,7 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 		'multimediaviewer-use-file-offwiki',
 		'multimediaviewer-about-mmv',
 		'multimediaviewer-discuss-mmv',
+		'multimediaviewer-desc-nil'
 	),
 ), $moduleInfoMMV );
 
