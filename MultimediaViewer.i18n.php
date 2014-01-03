@@ -609,6 +609,7 @@ $messages['it'] = array(
 	'multimediaviewer-pref-desc' => 'Sperimenta una miglior visualizzazione dei file multimediali con questo nuovo strumento che visualizza le immagini più grandi su pagine che ne riportano le miniature. Le immagini sono mostrate in un riquadro piccolo più gradevole, ma possono essere visualizzate anche alla dimensione originale.',
 	'multimediaviewer-file-page' => 'Vai alla corrispondente pagina del file',
 	'multimediaviewer-repository' => 'Ulteriori informazioni su $1',
+	'multimediaviewer-repository-local' => 'Ulteriori informazioni',
 	'multimediaviewer-datetime-created' => 'Creato il $1',
 	'multimediaviewer-datetime-uploaded' => 'Caricato il $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Caricato}} da $1',
@@ -771,6 +772,13 @@ $messages['ml'] = array(
 	'multimediaviewer-use-file-offwiki' => 'ഈ പ്രമാണം മറ്റൊരു വെബ്സൈറ്റിൽ ഉപയോഗിക്കുക',
 	'multimediaviewer-about-mmv' => 'മീഡിയ ദർശനോപാധിയുടെ വിവരണം',
 	'multimediaviewer-discuss-mmv' => 'പ്രതികരണം ചേർക്കുക',
+);
+
+/** Neapolitan (Napulitano)
+ * @author Chelin
+ */
+$messages['nap'] = array(
+	'multimediaviewer-repository-local' => "Ppe saperne 'e cchiù",
 );
 
 /** Dutch (Nederlands)
@@ -1007,6 +1015,7 @@ $messages['vi'] = array(
 	'multimediaviewer-pref-desc' => 'Cải thiện trải nghiệm xem phương tiện của bạn với công cụ mới này. Nó mở rộng các hình nhỏ để phủ lên toàn cửa sổ. Các hình ảnh được hiển thị trong panel Lightbox đẹp đẽ và cũng có thể xem kích thước gốc.',
 	'multimediaviewer-file-page' => 'Mở trang ứng với tập tin',
 	'multimediaviewer-repository' => 'Tìm hiểu thêm về $1',
+	'multimediaviewer-repository-local' => 'Tìm hiểu thêm',
 	'multimediaviewer-datetime-created' => 'Được tạo vào $1',
 	'multimediaviewer-datetime-uploaded' => 'Được tải lên vào $1',
 	'multimediaviewer-userpage-link' => 'Do $1 {{GENDER:$2}}tải lên',
