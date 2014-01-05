@@ -402,6 +402,7 @@ $messages['et'] = array(
 
 /** Persian (فارسی)
  * @author Ebraminio
+ * @author Omidh
  * @author Reza1615
  */
 $messages['fa'] = array(
@@ -410,6 +411,7 @@ $messages['fa'] = array(
 	'multimediaviewer-pref-desc' => 'تجربهٔ بازدید چندرسانه‌ای شما با این ابزار جدید بهبود می‌یابد و تصاویر را در اندازهٔ بزرگتر در صفحه‌هایی که بندانگشتی دارند نمایش می‌دهد. تصاویر در پوشش سبک زیباتری نمایش داده می‌شوند و همچنین می‌توانند در اندازهٔ اصلی نمایش داده شوند.',
 	'multimediaviewer-file-page' => 'رفتن به صفحهٔ مرتبط با پرونده',
 	'multimediaviewer-repository' => 'بیشتر بدانید در $1',
+	'multimediaviewer-repository-local' => 'اطلاعات بیشتر',
 	'multimediaviewer-datetime-created' => 'ایجادشده توسط $1',
 	'multimediaviewer-datetime-uploaded' => 'ارسال شده در$1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|ارسال شده توسط}} $1',
@@ -761,6 +763,7 @@ $messages['ml'] = array(
 	'multimediaviewer-pref-desc' => 'ഈ പുതിയ ഉപകരണമുപയോഗിച്ച് താങ്കളുടെ മീഡിയ ദർശനാനുഭവം മെച്ചപ്പെടുത്തൂ. ലഘുചിത്രങ്ങൾ ഉപയോഗിച്ചിരിക്കുന്ന താളുകളിലെ ചിത്രങ്ങൾ ഇതുപയോഗിച്ച് വലുതായി കാണാം. ചിത്രങ്ങൾ സുന്ദരമായ ലൈറ്റ്ബോക്സ് രൂപത്തിലോ, പൂർണ്ണവലിപ്പത്തിലോ കാണാനാവുന്നതാണ്.',
 	'multimediaviewer-file-page' => 'ബന്ധപ്പെട്ട പ്രമാണത്താളിലേയ്ക്ക് പോവുക',
 	'multimediaviewer-repository' => '$1 സംരംഭത്തിൽ കൂടുതൽ അറിയുക',
+	'multimediaviewer-repository-local' => 'കൂടുതൽ അറിയുക',
 	'multimediaviewer-datetime-created' => 'സൃഷ്ടിച്ചത്: $1',
 	'multimediaviewer-datetime-uploaded' => 'അപ്‌ലോഡ് ചെയ്തത്: $1',
 	'multimediaviewer-userpage-link' => 'അപ്‌ലോഡ് {{GENDER:$2|ചെയ്ത}} ഉപയോക്താവ്: $1',
@@ -919,6 +922,13 @@ $messages['ru'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Использовать этот файл на другом сайте',
 	'multimediaviewer-about-mmv' => 'О Медиа-просмотрщике',
 	'multimediaviewer-discuss-mmv' => 'Оставить отзыв',
+);
+
+/** Sassaresu (Sassaresu)
+ * @author Jun Misugi
+ */
+$messages['sdc'] = array(
+	'multimediaviewer-repository-local' => 'Imparà più',
 );
 
 /** Slovenian (slovenščina)
