@@ -26,9 +26,9 @@ $messages = array();
  * @author Mark Holmquist <mtraceur@member.fsf.org>
  */
 $messages['en'] = array(
-	'multimediaviewer-desc' => 'Expand thumbnails in a larger size in a Lightbox.',
+	'multimediaviewer-desc' => 'Expand thumbnails in a larger size in a fullscreen interface.',
 	'multimediaviewer-pref' => 'Media Viewer',
-	'multimediaviewer-pref-desc' => 'Improve your multimedia viewing experience with this new tool. It displays images in larger size on pages that have thumbnails. Images are shown in a nicer Lightbox overlay, and can also be viewed in full-size.',
+	'multimediaviewer-pref-desc' => 'Improve your multimedia viewing experience with this new tool. It displays images in larger size on pages that have thumbnails. Images are shown in a nicer fullscreen interface overlay, and can also be viewed in full-size.',
 	'multimediaviewer-file-page' => 'Go to corresponding file page',
 	'multimediaviewer-repository' => 'Learn more on $1',
 	'multimediaviewer-repository-local' => 'Learn more',
