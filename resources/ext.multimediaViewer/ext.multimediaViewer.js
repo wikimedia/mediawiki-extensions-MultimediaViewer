@@ -360,7 +360,7 @@
 		var isOnButton = false,
 			isOnImage = false,
 			ui = this.ui,
-			prevNextTop = ( ( ui.$imageWrapper.height() / 2 ) - 32 ) + 'px';
+			prevNextTop = ( ( ui.$imageWrapper.height() / 2 ) - 60 ) + 'px';
 
 		function fadeIn() {
 			isOnImage = true;
