@@ -345,7 +345,9 @@
 			innerInfo = imageInfo.imageinfo[0];
 
 			image.onload = function () {
-				image.width = targetWidth;
+				if ( image.width > targetWidth ) {
+					image.width = targetWidth;
+				}
 				viewer.profileEnd( rpid );
 				ui.replaceImageWith( image );
 				this.updateControls();
@@ -692,7 +694,10 @@
 			viewer.profileEnd( mdpid );
 
 			imageEle.onload = function () {
-				imageEle.width = targetWidth;
+				if ( imageEle.width > targetWidth ) {
+					imageEle.width = targetWidth;
+				}
+
 				viewer.profileEnd( pid );
 
 				viewer.lightbox.iface.replaceImageWith( imageEle );
