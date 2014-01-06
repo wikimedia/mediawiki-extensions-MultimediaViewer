@@ -306,24 +306,11 @@
 	 */
 	MMVP.resize = function ( ui ) {
 		var viewer = this,
-			filename = this.currentImageFilename,
-			apiArgs = {
-				action: 'query',
-				format: 'json',
-				titles: filename,
-				prop: 'imageinfo',
-				iiprop: 'url'
-			},
+			fileTitle = this.currentImageFileTitle;
 
-			widths = this.getImageSizeApiArgs( ui ),
-			targetWidth = widths.target,
-			requestedWidth = widths.requested;
-
-		apiArgs.iiurlwidth = requestedWidth;
-
-		this.api.get( apiArgs ).done( function ( data ) {
-			viewer.loadResizedImage( ui, data, targetWidth );
-		} );
+		this.fetchImageInfo( fileTitle, function ( imageInfo, repoInfo, targetWidth ) {
+			viewer.loadResizedImage( ui, imageInfo, targetWidth );
+		}, [ 'url' ] );
 	};
 
 	/**
@@ -679,6 +666,7 @@
 		// some src attribute to work. Will fix.
 		image.src = initialSrc;
 		this.currentImageFilename = image.filePageTitle.getPrefixedText();
+		this.currentImageFileTitle = image.filePageTitle;
 		this.lightbox.iface.comingFromPopstate = comingFromPopstate;
 		this.lightbox.open();
 		$( document.body ).addClass( 'mw-mlb-lightbox-open' );
@@ -720,7 +708,17 @@
 		comingFromPopstate = false;
 	};
 
-	MMVP.fetchImageInfo = function ( fileTitle, cb ) {
+	/**
+	 * @method
+	 * Fetches image information from the API.
+	 * @param {mw.Title} fileTitle Title of the file page for the image.
+	 * @param {Function} cb
+	 * @param {Object} cb.imageInfo
+	 * @param {Object} cb.repoInfo
+	 * @param {number} cb.targetWidth Basically the screen size - what the image size should be
+	 * @param {string[]} [props] List of properties to get from imageinfo
+	 */
+	MMVP.fetchImageInfo = function ( fileTitle, cb, props ) {
 		function apiCallback( sitename ) {
 			return function ( data ) {
 				if ( !data || !data.query ) {
@@ -782,7 +780,6 @@
 				format: 'json',
 				titles: filename,
 				prop: 'imageinfo',
-				iiprop: iiprops.join( '|' ),
 				// Short-circuit, don't fallback, to save some tiny amount of time
 				iiextmetadatalanguage: mw.config.get( 'wgUserLanguage', false ) || mw.config.get( 'wgContentLanguage', 'en' )
 			},
@@ -792,6 +789,8 @@
 			targetWidth = widths.target,
 			requestedWidth = widths.requested;
 
+		props = props || iiprops;
+		apiArgs.iiprop = props.join( '|' );
 		apiArgs.iiurlwidth = requestedWidth;
 
 		if ( this.imageInfo[filename] === undefined ) {
