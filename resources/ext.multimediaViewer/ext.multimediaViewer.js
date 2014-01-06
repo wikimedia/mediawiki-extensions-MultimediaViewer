@@ -238,7 +238,9 @@
 	/**
 	 * Gets the API arguments for various calls to the API to find sized thumbnails.
 	 * @param {mw.LightboxInterface} ui
-	 * @returns {number}
+	 * @returns {Object}
+	 * @returns {number} return.requested The width that should be requested from the API
+	 * @returns {number} return.target The ideal width we would like to have - should be the width of the image element later.
 	 */
 	MMVP.getImageSizeApiArgs = function ( ui ) {
 		var requestedWidth, calculatedMaxWidth,
@@ -304,7 +306,7 @@
 	 */
 	MMVP.resize = function ( ui ) {
 		var viewer = this,
-			filename = ui.currentImageFilename,
+			filename = this.currentImageFilename,
 			apiArgs = {
 				action: 'query',
 				format: 'json',
@@ -313,7 +315,11 @@
 				iiprop: 'url'
 			},
 
-			targetWidth = this.getImageSizeApiArgs( ui, apiArgs );
+			widths = this.getImageSizeApiArgs( ui ),
+			targetWidth = widths.target,
+			requestedWidth = widths.requested;
+
+		apiArgs.iiurlwidth = requestedWidth;
 
 		this.api.get( apiArgs ).done( function ( data ) {
 			viewer.loadResizedImage( ui, data, targetWidth );
