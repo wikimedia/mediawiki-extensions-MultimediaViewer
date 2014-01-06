@@ -205,6 +205,15 @@
 		this.currentImage.autoResize( imageEle );
 	};
 
+	LIP.exitFullscreen = function () {
+		this.fullscreenButtonJustPressed = true;
+		this.$main.exitFullscreen();
+	};
+
+	LIP.enterFullscreen = function () {
+		this.$main.enterFullscreen();
+	};
+
 	LIP.setupPreDiv = function ( buildDefaults, toAdd ) {
 		var lbinterface = this;
 
@@ -224,10 +233,9 @@
 				.addClass( 'mlb-fullscreen' )
 				.click( function () {
 					if ( lbinterface.isFullscreen ) {
-						lbinterface.fullscreenButtonJustPressed = true;
-						lbinterface.$main.exitFullscreen();
+						lbinterface.exitFullscreen();
 					} else {
-						lbinterface.$main.enterFullscreen();
+						lbinterface.enterFullscreen();
 					}
 				} );
 

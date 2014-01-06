@@ -108,6 +108,17 @@ $wgResourceModules['mmv.model'] = array_merge( array(
 	),
 ), $moduleInfoMMVM );
 
+$wgResourceModules['mmv.multilightbox'] = array_merge( array(
+	'scripts' => array(
+		'mmv.multilightbox.js',
+	),
+
+	'dependencies' => array(
+		'oojs',
+		'multilightbox',
+	),
+), $moduleInfoMMV );
+
 $wgResourceModules['mmv.model.FileUsage'] = array_merge( array(
 	'scripts' => array(
 		'mmv.model.FileUsage.js',
@@ -201,6 +212,7 @@ $wgResourceModules['mmv'] = array_merge( array(
 		'mmv.model.Repo',
 		'mmv.provider',
 		'mediawiki.language',
+		'mmv.multilightbox',
 	),
 
 	'messages' => array(

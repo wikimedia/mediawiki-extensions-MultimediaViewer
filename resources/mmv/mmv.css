@@ -20,6 +20,11 @@
 	bottom: 82px;
 }
 
+.jq-fullscreened .mlb-image-wrapper,
+.jq-fullscreened .mw-mlb-controls {
+	bottom: 0px;
+}
+
 .mlb-image-wrapper {
 	position: fixed;
 }

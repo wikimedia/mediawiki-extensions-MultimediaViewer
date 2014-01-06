@@ -9,18 +9,23 @@
 	 * @param {Function} [InterfaceClass] type of interface to use
 	 */
 	function MultiLightbox( images, start, InterfaceClass ) {
-		var lightbox = this;
-
 		this.images = images;
 		this.currentIndex = start || 0;
 		this.onInterfaceReady = [];
-
-		InterfaceClass = InterfaceClass || window.LightboxInterface;
-		lightbox.iface = new InterfaceClass();
-		lightbox.interfaceReady();
+		this.initializeInterface( InterfaceClass );
+		this.interfaceReady();
 	}
 
 	MLBP = MultiLightbox.prototype;
+
+	/**
+	 * Instantiates and initializes the interface object
+	 * @param {Function} [InterfaceClass] type of interface to use
+	 */
+	MLBP.initializeInterface = function ( InterfaceClass ) {
+		InterfaceClass = InterfaceClass || window.LightboxInterface;
+		this.iface = new InterfaceClass();
+	};
 
 	MLBP.onInterface = function ( func ) {
 		if ( this.onInterfaceReady !== undefined ) {

@@ -171,7 +171,7 @@
 		}
 
 		// Only if we find legit images, create a MultiLightbox object
-		this.lightbox = new MultiLightbox( urls, 0, mw.LightboxInterface );
+		this.lightbox = new mw.MultiLightbox( urls, 0, mw.LightboxInterface, this );
 
 		// Register various event hooks. TODO: Make this a function that's only called once.
 
@@ -188,6 +188,7 @@
 			}
 
 			viewer.hasAnimatedMetadata = false;
+			viewer.isOpen = false;
 		} );
 
 		lightboxHooks.register( 'imageResize', function () {
@@ -331,6 +332,8 @@
 		this.fetchImageInfo( fileTitle, [ 'url' ] ).done( function ( imageData, repoInfo, targetWidth, requestedWidth ) {
 			viewer.loadResizedImage( ui, imageData, targetWidth, requestedWidth );
 		} );
+
+		this.updateControls();
 	};
 
 	/**
@@ -367,7 +370,6 @@
 				image.width = targetWidth;
 			}
 			ui.replaceImageWith( image );
-			this.updateControls();
 		}
 	};
 
@@ -623,7 +625,15 @@
 		this.currentImageFilename = image.filePageTitle.getPrefixedText();
 		this.currentImageFileTitle = image.filePageTitle;
 		this.lightbox.iface.comingFromPopstate = comingFromPopstate;
-		this.lightbox.open();
+
+		if ( !this.isOpen ) {
+			this.lightbox.open();
+			this.isOpen = true;
+		} else {
+			this.lightbox.iface.empty();
+			this.lightbox.iface.load( image );
+		}
+
 		$( document.body ).addClass( 'mw-mlb-lightbox-open' );
 
 		mdpid = this.profileStart( 'metadata-fetch' );

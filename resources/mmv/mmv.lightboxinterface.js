@@ -24,8 +24,10 @@
          * Represents the main interface of the lightbox
 	 * @constructor
 	 */
-	function LightboxInterface() {
+	function LightboxInterface( viewer ) {
 		MLBInterface.call( this );
+
+		this.viewer = viewer;
 
 		this.eventsRegistered = {};
 
@@ -126,10 +128,10 @@
 	};
 
 	LIP.load = function ( image ) {
-		var hashFragment = '#mediaviewer/' + mw.mediaViewer.currentImageFilename + '/' + mw.mediaViewer.lightbox.currentIndex;
+		var hashFragment = '#mediaviewer/' + this.viewer.currentImageFilename + '/' + this.viewer.lightbox.currentIndex;
 
-		mw.mediaViewer.ui = this;
-		mw.mediaViewer.registerLogging();
+		this.viewer.ui = this;
+		this.viewer.registerLogging();
 
 		if ( !this.comingFromPopstate ) {
 			history.pushState( {}, '', hashFragment );
@@ -268,6 +270,8 @@
 	};
 
 	LIP.initializeRepoLink = function () {
+		var viewer = this.viewer;
+
 		this.$repoLi = $( '<li>' )
 			.addClass( 'mw-mlb-repo-li empty' )
 			.appendTo( this.$imageLinks );
@@ -277,7 +281,7 @@
 			.prop( 'href', '#' )
 			.click( function ( e ) {
 				var $link = $( this );
-				mw.mediaViewer.log( 'site-link-click' );
+				viewer.log( 'site-link-click' );
 				// If the user is navigating away, we have to add a timeout to fix that.
 				if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey ) {
 					// Just ignore this case - either they're opening in a new
@@ -372,6 +376,8 @@
 			ownId = 'mw-mlb-use-file-onwiki-normal',
 			owId = 'mw-mlb-use-file-offwiki',
 
+			viewer = this.viewer,
+
 			$owtLabel = $( '<label>' )
 				.prop( 'for', owtId )
 				.text( mw.message( 'multimediaviewer-use-file-owt' ).text() ),
@@ -434,7 +440,7 @@
 				width: 750,
 				close: function () {
 					// Delete the dialog object
-					mw.mediaViewer.ui.$dialog = undefined;
+					viewer.ui.$dialog = undefined;
 				}
 			} );
 
@@ -465,6 +471,8 @@
 	};
 
 	LIP.initializeNavigation = function () {
+		var viewer = this.viewer;
+
 		this.handleKeyDown = this.handleKeyDown || function ( e ) {
 			var isRtl = $( document.body ).hasClass( 'rtl' );
 
@@ -472,17 +480,17 @@
 				case 37:
 					// Left arrow
 					if ( isRtl ) {
-						mw.mediaViewer.nextImage();
+						viewer.nextImage();
 					} else {
-						mw.mediaViewer.prevImage();
+						viewer.prevImage();
 					}
 					break;
 				case 39:
 					// Right arrow
 					if ( isRtl ) {
-						mw.mediaViewer.prevImage();
+						viewer.prevImage();
 					} else {
-						mw.mediaViewer.nextImage();
+						viewer.nextImage();
 					}
 					break;
 			}
@@ -492,14 +500,14 @@
 			.addClass( 'mw-mlb-next-image disabled' )
 			.html( '&nbsp;' )
 			.click( function () {
-				mw.mediaViewer.nextImage();
+				viewer.nextImage();
 			} );
 
 		this.$prevButton = $( '<div>' )
 			.addClass( 'mw-mlb-prev-image disabled' )
 			.html( '&nbsp;' )
 			.click( function () {
-				mw.mediaViewer.prevImage();
+				viewer.prevImage();
 			} );
 	};
 
@@ -668,6 +676,16 @@
 			maxHeight: $image.parent().height(),
 			maxWidth: $image.parent().width()
 		} );
+	};
+
+	LIP.enterFullscreen = function () {
+		MLBInterface.prototype.enterFullscreen.call( this );
+		this.viewer.resize( this );
+	};
+
+	LIP.exitFullscreen = function () {
+		MLBInterface.prototype.exitFullscreen.call( this );
+		this.viewer.resize( this );
 	};
 
 	mw.LightboxInterface = LightboxInterface;
