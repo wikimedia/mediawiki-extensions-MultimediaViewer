@@ -317,9 +317,9 @@
 		var viewer = this,
 			fileTitle = this.currentImageFileTitle;
 
-		this.fetchImageInfo( fileTitle, function ( imageInfo, repoInfo, targetWidth ) {
+		this.fetchImageInfo( fileTitle, [ 'url' ] ).done( function ( imageInfo, repoInfo, targetWidth ) {
 			viewer.loadResizedImage( ui, imageInfo, targetWidth );
-		}, [ 'url' ] );
+		} );
 	};
 
 	/**
@@ -447,30 +447,7 @@
 		} );
 	};
 
-	MMVP.fetchRepoInfo = function ( cb ) {
-		var viewer = this;
-
-		if ( this.repoInfo !== undefined ) {
-			cb( this.repoInfo );
-		} else {
-			this.api.get( {
-				action: 'query',
-				format: 'json',
-				meta: 'filerepoinfo'
-			}, function ( data ) {
-				if ( !data || !data.query ) {
-					// Damn, failure. Do it gracefully-ish.
-					cb( {} );
-					return;
-				}
-
-				viewer.setRepoInfo( data.query.repos );
-				cb( viewer.repoInfo );
-			} );
-		}
-	};
-
-	MMVP.setRepoInfo = function ( repos ) {
+	MMVP.cacheRepoInfo = function ( repos ) {
 		var i, repo;
 
 		repos = repos || [];
@@ -483,6 +460,24 @@
 			repo = repos[i];
 			this.repoInfo[repo.name] = repo;
 		}
+	};
+
+	/**
+	 * Get image information out of an API response.
+	 * @param {Object[]} images The query.pages member of the API response.
+	 * @returns {Object} Representing image information.
+	 */
+	MMVP.getImageInfo = function ( images ) {
+		var imageInfo;
+
+		if ( images ) {
+			$.each( images, function ( i, page ) {
+				imageInfo = page;
+				return false;
+			} );
+		}
+
+		return imageInfo;
 	};
 
 	MMVP.setImageInfo = function ( fileTitle, imageInfo ) {
@@ -681,7 +676,7 @@
 
 		mdpid = this.profileStart( 'metadata-fetch' );
 
-		this.fetchImageInfo( image.filePageTitle, function ( imageInfo, res, size ) {
+		this.fetchImageInfo( image.filePageTitle ).done( function ( imageInfo, res, size ) {
 			var pid,
 				innerInfo = imageInfo.imageinfo[0],
 				imageEle = new Image(),
@@ -733,70 +728,16 @@
 	/**
 	 * @method
 	 * Fetches image information from the API.
+	 *
+	 * Will resolve the promise with two objects (imageInfo and repoInfo) and the
+	 * target width - basically the screen size - that the caller should resize
+	 * the image to eventually.
 	 * @param {mw.Title} fileTitle Title of the file page for the image.
-	 * @param {Function} cb
-	 * @param {Object} cb.imageInfo
-	 * @param {Object} cb.repoInfo
-	 * @param {number} cb.targetWidth Basically the screen size - what the image size should be
 	 * @param {string[]} [props] List of properties to get from imageinfo
+	 * @returns {jQuery.Promise}
 	 */
-	MMVP.fetchImageInfo = function ( fileTitle, cb, props ) {
-		function apiCallback( sitename ) {
-			return function ( data ) {
-				if ( !data || !data.query ) {
-					// No information, oh well
-					return;
-				}
-
-				viewer.setRepoInfo( data.query.repos );
-
-				if ( data.query.pages ) {
-					$.each( data.query.pages, function ( i, page ) {
-						imageInfo = page;
-						return false;
-					} );
-
-					if ( viewer.imageInfo[filename] === undefined ) {
-						if ( sitename === null ) {
-							viewer.imageInfo[filename] = imageInfo;
-						} else {
-							viewer.imageInfo[filename] = {};
-						}
-
-						viewer.imageInfo[filename].sites = {};
-
-						if ( !viewer.imageInfo[filename].imageinfo ||
-								viewer.imageInfo[filename].imageinfo.length === 0 ) {
-							viewer.imageInfo[filename].imageinfo = [{}];
-						}
-					}
-
-					viewer.imageInfo[filename].sites[sitename] = imageInfo;
-				}
-
-				if ( viewer.imageInfo[filename] ) {
-					// Give back the information we have
-					cb( viewer.imageInfo[filename], viewer.repoInfo, targetWidth );
-				}
-			};
-		}
-
-		function fetchImageInfoCallback() {
-			var repoInfo;
-
-			if ( viewer.repoInfo !== undefined ) {
-				repoInfo = viewer.repoInfo;
-			}
-
-			if ( repoInfo === undefined ) {
-				apiArgs.meta = 'filerepoinfo';
-			}
-
-			viewer.api.get( apiArgs ).done( apiCallback( null ) );
-		}
-
-		var imageInfo,
-			filename = fileTitle.getPrefixedText(),
+	MMVP.fetchImageInfo = function ( fileTitle, props ) {
+		var filename = fileTitle.getPrefixedText(),
 			apiArgs = {
 				action: 'query',
 				format: 'json',
@@ -811,16 +752,71 @@
 			targetWidth = widths.target,
 			requestedWidth = widths.requested;
 
-		props = $.merge( props || [], iiprops ); // FIXME bug 59817
+		function handleApiData( data ) {
+			var imageInfo;
+
+			if ( !data || !data.query ) {
+				// No information, oh well
+				return $.Deferred().reject();
+			}
+
+			viewer.cacheRepoInfo( data.query.repos );
+			imageInfo = viewer.getImageInfo( data.query.pages );
+
+			if ( imageInfo ) {
+				if ( !imageInfo.imageinfo ||
+						imageInfo.imageinfo.length === 0 ) {
+					// No data, fail.
+					$.Deferred().reject();
+				}
+
+				// Give back the information we have
+				return $.Deferred().resolve( imageInfo, viewer.repoInfo, targetWidth );
+			} else {
+				return $.Deferred().reject();
+			}
+		}
+
+		function makeImageInfoRequest( args ) {
+			if ( viewer.repoInfo === undefined ) {
+				args.meta = 'filerepoinfo';
+			}
+
+			return viewer.api.get( args ).then( handleApiData );
+		}
+
+		props = props || iiprops;
 		apiArgs.iiprop = props.join( '|' );
 		apiArgs.iiurlwidth = requestedWidth;
 
 		if ( this.imageInfo[filename] === undefined ) {
-			// Fetch it in the same API query as the image info
-			fetchImageInfoCallback();
+			// Fetch all image info in the same API query, save a request later
+			apiArgs.iiprop = iiprops.join( '|' );
+			this.imageInfo[filename] = makeImageInfoRequest( apiArgs );
+			return this.imageInfo[filename];
+		} else if ( props.indexOf( 'url' ) === -1 ) {
+			// Just return the cached promise, because we don't need to
+			// fetch this information again.
+			return this.imageInfo[filename];
 		} else {
-			this.fetchRepoInfo( function ( res ) {
-				cb( viewer.imageInfo[filename], res, targetWidth );
+			// Fetch the new thumb url but nothing else, because it's
+			// the only non-cacheable thing
+			apiArgs.iiprop = 'url';
+			return this.imageInfo[filename].then( function ( cachedInfo ) {
+				return makeImageInfoRequest( apiArgs ).then( function ( imageInfo, repoInfo, targetWidth ) {
+					var innerInfo,
+						newInfo = $.extend( true, {}, cachedInfo );
+					$.each( imageInfo.imageinfo, function ( i, item ) {
+						innerInfo = item;
+						return false;
+					} );
+					$.each( newInfo.imageinfo, function ( i, item ) {
+						item.thumburl = innerInfo.thumburl;
+						item.thumbwidth = innerInfo.thumbwidth;
+						item.thumbheight = innerInfo.thumbheight;
+					} );
+					return $.Deferred().resolve( newInfo, repoInfo, targetWidth );
+				} );
 			} );
 		}
 	};
