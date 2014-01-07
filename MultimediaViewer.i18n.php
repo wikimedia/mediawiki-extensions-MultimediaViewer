@@ -331,11 +331,12 @@ $messages['de-ch'] = array(
  * @author Michawiki
  */
 $messages['dsb'] = array(
-	'multimediaviewer-desc' => 'Miniaturki w swěśecem kašćiku powětsyś.',
+	'multimediaviewer-desc' => 'Miniaturki w pówjerchu połneje wobrazowki powětsyś.',
 	'multimediaviewer-pref' => 'Medijowy wobglědowak',
-	'multimediaviewer-pref-desc' => 'Polěpš swójo dožywjenje multimedijowego woglědowanja z toś tym rědom. Zwobraznja wobraze we wětšej wjelikosći na bokach, kótarež maju miniaturki. Wobraze pokazuju se w rědnjejšej swěśecej warsće a daju se w połnej wjelikosći pśedstajiś.',
+	'multimediaviewer-pref-desc' => 'Polěpš swójo dožywjenje multimedijowego woglědowanja z toś tym rědom. Zwobraznja wobraze we wětšej wjelikosći na bokach, kótarež maju miniaturki. Wobraze pokazuju se w rědnjejšem pówjerchu połneje wobrazowki a daju se w połnej wjelikosći pśedstajiś.',
 	'multimediaviewer-file-page' => 'K pśisłušnemu datajowemu bokoju',
 	'multimediaviewer-repository' => 'Dalšne informacije wó $1',
+	'multimediaviewer-repository-local' => 'Dalšne informacije',
 	'multimediaviewer-datetime-created' => 'Napórany $1',
 	'multimediaviewer-datetime-uploaded' => 'Nagraty $1',
 	'multimediaviewer-userpage-link' => 'Wót $1 {{GENDER:$2|nagraty|nagrata}}',
@@ -405,13 +406,14 @@ $messages['et'] = array(
 
 /** Persian (فارسی)
  * @author Ebraminio
+ * @author Mcuteangel
  * @author Omidh
  * @author Reza1615
  */
 $messages['fa'] = array(
-	'multimediaviewer-desc' => 'نمایش تصویر بندانگشتی در اندازه بزرگتر در یک حعبه روشن', # Fuzzy
+	'multimediaviewer-desc' => 'تصاویر بندانگشتی در حجم بزرگتر داخل یک رابط کاربری تمام صفحه گسترش یابند.',
 	'multimediaviewer-pref' => 'نمایش‌دهندهٔ رسانه',
-	'multimediaviewer-pref-desc' => 'تجربهٔ بازدید چندرسانه‌ای شما با این ابزار جدید بهبود می‌یابد و تصاویر را در اندازهٔ بزرگتر در صفحه‌هایی که بندانگشتی دارند نمایش می‌دهد. تصاویر در پوشش سبک زیباتری نمایش داده می‌شوند و همچنین می‌توانند در اندازهٔ اصلی نمایش داده شوند.', # Fuzzy
+	'multimediaviewer-pref-desc' => 'تجربهٔ بازدید چندرسانه‌ای شما با این ابزار جدید بهبود می‌یابد و تصاویر را در اندازهٔ بزرگتر در صفحه‌هایی که  تصاویر بندانگشتی دارند نمایش می‌دهد. تصاویر در پوشش سبک زیباتری نمایش داده می‌شوند و همچنین می‌توانند در اندازهٔ اصلی نمایش داده شوند.',
 	'multimediaviewer-file-page' => 'رفتن به صفحهٔ مرتبط با پرونده',
 	'multimediaviewer-repository' => 'بیشتر بدانید در $1',
 	'multimediaviewer-repository-local' => 'اطلاعات بیشتر',
@@ -542,11 +544,12 @@ $messages['hr'] = array(
  * @author Michawiki
  */
 $messages['hsb'] = array(
-	'multimediaviewer-desc' => 'Miniaturki w swětłokašćiku powjetšić.',
+	'multimediaviewer-desc' => 'Miniaturki w powjerchu połneje wobrazowki powjetšić.',
 	'multimediaviewer-pref' => 'Medijowy wobhladowak',
-	'multimediaviewer-pref-desc' => 'Polěpš swoje dožiwjenje multimedijoweho wobhladowanja z tutym nastrojom. Zwobraznja wobrazy we wjetšej wulkosći na stronach, kotrež maja miniaturki. Wobrazy pokazuja so w rjeńšej swětłokašćikowej woršće a hodźa so w połnej wulkosći předstajić.',
+	'multimediaviewer-pref-desc' => 'Polěpš swoje dožiwjenje multimedijoweho wobhladowanja z tutym nastrojom. Zwobraznja wobrazy we wjetšej wulkosći na stronach, kotrež maja miniaturki. Wobrazy pokazuja so w rjeńšim powjerchu połneje wobrazowki a hodźa so w połnej wulkosći předstajić.',
 	'multimediaviewer-file-page' => 'K přisłušnej datajowej stronje',
 	'multimediaviewer-repository' => 'Dalše informacije na $1',
+	'multimediaviewer-repository-local' => 'Dalše informacije',
 	'multimediaviewer-datetime-created' => 'Wutworjeny $1',
 	'multimediaviewer-datetime-uploaded' => 'Nahraty $1',
 	'multimediaviewer-userpage-link' => 'Wot $1 {{GENDER:$2|nahraty|nahrata}}',
@@ -695,11 +698,12 @@ $messages['km'] = array(
 /** Korean (한국어)
  * @author Freebiekr
  * @author Hym411
+ * @author Jskang
  */
 $messages['ko'] = array(
-	'multimediaviewer-desc' => '섬네일 이미지를 라이트 박스에서 더 큰 크기로 확장합니다.',
+	'multimediaviewer-desc' => '섬네일 이미지를 풀스크린 인터페이스에서 더 큰 크기로 확장합니다.',
 	'multimediaviewer-pref' => '미디어 뷰어',
-	'multimediaviewer-pref-desc' => '이 새 도구로 멀티미디어를 더 쉽게 감상하십시오. 이 도구는 섬네일 이미지가 있는 문서에서 그 섬네일을 더 크게 나타냅니다. 큰 이미지는 보기 편리한 라이트박스에 나타나며 원본 크기로 표시될 수도 있습니다.',
+	'multimediaviewer-pref-desc' => '이 새 도구로 멀티미디어를 더 쉽게 감상하십시오. 이 도구는 섬네일 이미지가 있는 문서에서 그 섬네일을 더 크게 나타냅니다. 큰 이미지는 보기 편리한 풀스크린 인터페이스로 표시되며 원본 크기로 표시될 수도 있습니다.',
 	'multimediaviewer-file-page' => '해당 파일 문서로 이동',
 	'multimediaviewer-repository' => '$1에서 더 자세히 보기',
 	'multimediaviewer-datetime-created' => '$1에 만듦',
@@ -762,9 +766,9 @@ $messages['mk'] = array(
  * @author Praveenp
  */
 $messages['ml'] = array(
-	'multimediaviewer-desc' => 'ലഘുചിത്രങ്ങൾ വികസിപ്പിക്കുക', # Fuzzy
+	'multimediaviewer-desc' => 'ലഘുചിത്രങ്ങൾ ഫുൾസ്ക്രീനായി വികസിപ്പിക്കുക',
 	'multimediaviewer-pref' => 'മീഡിയ ദർശനോപാധി',
-	'multimediaviewer-pref-desc' => 'ഈ പുതിയ ഉപകരണമുപയോഗിച്ച് താങ്കളുടെ മീഡിയ ദർശനാനുഭവം മെച്ചപ്പെടുത്തൂ. ലഘുചിത്രങ്ങൾ ഉപയോഗിച്ചിരിക്കുന്ന താളുകളിലെ ചിത്രങ്ങൾ ഇതുപയോഗിച്ച് വലുതായി കാണാം. ചിത്രങ്ങൾ സുന്ദരമായ ലൈറ്റ്ബോക്സ് രൂപത്തിലോ, പൂർണ്ണവലിപ്പത്തിലോ കാണാനാവുന്നതാണ്.', # Fuzzy
+	'multimediaviewer-pref-desc' => 'ഈ പുതിയ ഉപകരണമുപയോഗിച്ച് താങ്കളുടെ മീഡിയ ദർശനാനുഭവം മെച്ചപ്പെടുത്തൂ. ലഘുചിത്രങ്ങൾ ഉപയോഗിച്ചിരിക്കുന്ന താളുകളിലെ ചിത്രങ്ങൾ ഇതുപയോഗിച്ച് വലുതായി കാണാം. ചിത്രങ്ങൾ സുന്ദരമായ ഫുൾസ്ക്രീൻ സമ്പർക്കമുഖ രൂപത്തിലോ, പൂർണ്ണവലിപ്പത്തിലോ കാണാനാവുന്നതാണ്.',
 	'multimediaviewer-file-page' => 'ബന്ധപ്പെട്ട പ്രമാണത്താളിലേയ്ക്ക് പോവുക',
 	'multimediaviewer-repository' => '$1 സംരംഭത്തിൽ കൂടുതൽ അറിയുക',
 	'multimediaviewer-repository-local' => 'കൂടുതൽ അറിയുക',
