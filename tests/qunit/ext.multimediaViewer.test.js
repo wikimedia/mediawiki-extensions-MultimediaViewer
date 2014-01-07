@@ -255,4 +255,26 @@
 		assert.strictEqual( viewer.findNextHighestImageSize( 3000 ), 2880, 'The image bucketing also works on REALLY big screens' );
 	} );
 
+	QUnit.test( 'Metadata div is only animated once', 4, function ( assert ) {
+		var viewer = new mw.MultimediaViewer(),
+			backupAnimation = $.fn.animate,
+			animationRan = false;
+
+		$.fn.animate = function () {
+			animationRan = true;
+			return this;
+		};
+
+		viewer.animateMetadataDivOnce();
+		assert.strictEqual( viewer.hasAnimatedMetadata, true, 'The first call to animateMetadataDivOnce set hasAnimatedMetadata to true' );
+		assert.strictEqual( animationRan, true, 'The first call to animateMetadataDivOnce led to an animation' );
+
+		animationRan = false;
+		viewer.animateMetadataDivOnce();
+		assert.strictEqual( viewer.hasAnimatedMetadata, true, 'The second call to animateMetadataDivOnce did not change the value of hasAnimatedMetadata' );
+		assert.strictEqual( animationRan, false, 'The second call to animateMetadataDivOnce did not lead to an animation' );
+
+		$.fn.animate = backupAnimation;
+	} );
+
 }( mediaWiki, jQuery ) );
