@@ -28,16 +28,13 @@
 	bottom: auto;
 	height: auto;
 	background-color: #fbfbfb;
+	position: absolute;
+	min-height: 83px;
 }
 
 .mlb-controls {
 	height: auto;
-}
-
-.mlb-post-image {
-	background-color: #e4e2e1;
-	position: absolute;
-	min-height: 83px;
+	border-bottom: 1px solid #cccccc;
 }
 
 .mw-mlb-controls {
@@ -174,7 +171,7 @@ body.mobile .mw-mlb-controls,
 }
 
 .mw-mlb-image-desc {
-	color: #6f7073;
+	color: #555555;
 }
 
 .mw-mlb-image-links li {
@@ -228,7 +225,10 @@ body.mobile .mw-mlb-controls,
 }
 
 .mw-mlb-license {
+	color: #888888;
+	font-size: 0.9em;
 	padding-left: 10px;
+	vertical-align: baseline;
 }
 
 .mw-mlb-license.empty {
@@ -240,7 +240,7 @@ body.mobile .mw-mlb-controls,
 	/* @embed */
 	background-image: url(img/cc.svg);
 	display: inline-block;
-	vertical-align: middle;
+	vertical-align: text-bottom;
 	height: 20px;
 	width: 20px;
 	content: ' ';
