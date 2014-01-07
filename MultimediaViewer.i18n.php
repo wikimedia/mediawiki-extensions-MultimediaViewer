@@ -27,6 +27,7 @@ $messages = array();
  */
 $messages['en'] = array(
 	'multimediaviewer-desc' => 'Expand thumbnails in a larger size in a fullscreen interface.',
+	'multimediaviewer-desc-nil' => 'No description available.',
 	'multimediaviewer-pref' => 'Media Viewer',
 	'multimediaviewer-pref-desc' => 'Improve your multimedia viewing experience with this new tool. It displays images in larger size on pages that have thumbnails. Images are shown in a nicer fullscreen interface overlay, and can also be viewed in full-size.',
 	'multimediaviewer-file-page' => 'Go to corresponding file page',
@@ -68,6 +69,7 @@ $messages['en'] = array(
  */
 $messages['qqq'] = array(
 	'multimediaviewer-desc' => '{{desc|name=Multimedia Viewer|url=https://www.mediawiki.org/wiki/Extension:MultimediaViewer}}',
+	'multimediaviewer-desc-nil' => 'Text to be used when no description is available.',
 	'multimediaviewer-pref' => 'Preference title',
 	'multimediaviewer-pref-desc' => 'Description of preference',
 	'multimediaviewer-file-page' => 'Text for a link to the file page for an image.',
