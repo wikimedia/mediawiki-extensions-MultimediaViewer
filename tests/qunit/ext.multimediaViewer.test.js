@@ -213,6 +213,31 @@
 		mw.eventLog = backupEventLog;
 	} );
 
+	QUnit.asyncTest( 'Make sure we get sane values for the eventlogging timing', 2, function ( assert ) {
+		var pid,
+			continuing = true,
+			viewer = new mw.MultimediaViewer(),
+			backupEventLog = mw.eventLog;
+
+		mw.eventLog = {
+			logEvent: function ( schema, msg ) {
+				// msg.filesize has whatever value we set the timeout for.
+				assert.ok( msg.milliseconds >= msg.fileSize, 'Right amount of time elapsed for the ' + ( continuing ? 'first' : 'second' ) + ' profile.' );
+				if ( continuing ) {
+					continuing = false;
+					pid = viewer.profileStart( 'image-resize', { width: 20, height: 20, filesize: 80 }, 'png' );
+					window.setTimeout( function () { viewer.profileEnd( pid ); }, 80 );
+				} else {
+					mw.eventLog = backupEventLog;
+					QUnit.start();
+				}
+			}
+		};
+
+		pid = viewer.profileStart( 'image-load', { width: 10, height: 10, filesize: 40 }, 'jpg' );
+		window.setTimeout( function () { viewer.profileEnd( pid ); }, 40 );
+	} );
+
 	QUnit.test( 'Ensure that the click callback is getting the appropriate initial value for image loading', 1, function ( assert ) {
 		var imgSrc = '300px-valid.jpg',
 			div = createGallery( imgSrc ),
