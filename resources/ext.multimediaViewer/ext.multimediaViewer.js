@@ -907,20 +907,20 @@
 		 * Signal the end of an event being profiled and send the
 		 * eventlogging message.
 		 * @param {number} id Should be the value returned from profileStart
-		 * @param {boolean} [includeTime] For testing, whether to include the time in the message. Time is zero otherwise.
+		 * @param {boolean} [fakeTime] For testing, whether to fake the time in the message. Time is zero if so.
 		 */
-		MMVP.profileEnd = function ( id, includeTime ) {
+		MMVP.profileEnd = function ( id, fakeTime ) {
 			var msg;
 
 			if ( profiling[id] ) {
 				msg = profiling[id];
-				msg.milliseconds = includeTime ? Date.now() - msg.start : 0;
+				msg.milliseconds = Date.now() - msg.start;
 				delete msg.start;
 
 				mw.log(
 					mmvLogActions['profile-' + msg.action + '-end']
 						.replace( /\$1/g, id )
-						.replace( /\$2/g, msg.milliseconds )
+						.replace( /\$2/g, fakeTime ? 0 : msg.milliseconds )
 				);
 
 				if ( mw.eventLog ) {
