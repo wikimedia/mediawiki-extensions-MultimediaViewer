@@ -208,7 +208,7 @@
 			assert.strictEqual( pid, i, 'nonce-style profile IDs come in order.' );
 
 			expectedMsg = test[2].replace( /\$1/g, i ).replace( /\$2/g, 0 );
-			viewer.profileEnd( pid, false );
+			viewer.profileEnd( pid, true );
 		}
 
 		mw.log = backupLog;
