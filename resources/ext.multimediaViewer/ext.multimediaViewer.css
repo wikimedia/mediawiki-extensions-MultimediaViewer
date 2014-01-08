@@ -355,4 +355,10 @@ body.mw-mlb-lightbox-open #content {
 	background-repeat: no-repeat;
 	background-position: center bottom;
 	margin: 0 auto;
+	opacity: 0.6;
+	transition: opacity 0.25s;
+}
+
+.mlb-post-image:hover .mw-mlb-drag-icon {
+	opacity: 1;
 }
