@@ -277,11 +277,13 @@ $messages['cs'] = array(
  * @author Christian List
  */
 $messages['da'] = array(
-	'multimediaviewer-desc' => 'Udvid miniaturebilleder i en større størrelse på et lysbord.', # Fuzzy
+	'multimediaviewer-desc' => 'Udvid miniaturebilleder i en større størrelse på en fuld skærm.',
+	'multimediaviewer-desc-nil' => 'Ingen beskrivelse tilgængelig.',
 	'multimediaviewer-pref' => 'Medieviser',
-	'multimediaviewer-pref-desc' => 'Med dette nye værktøj kan du forbedre din multimedieoplevelse. Det viser billeder i større størrelse på sider, der har miniaturer. Billederne er vist på et pænere lysbord, og kan også ses i fuld størrelse.', # Fuzzy
+	'multimediaviewer-pref-desc' => 'Med dette nye værktøj kan du forbedre din multimedieoplevelse. Det viser billeder i større størrelse på sider, der har miniaturer. Billederne er vist i et pænere fuldskærmsformat, og kan også ses i fuld størrelse.',
 	'multimediaviewer-file-page' => 'Gå til tilsvarende filside',
 	'multimediaviewer-repository' => 'Læs mere på $1',
+	'multimediaviewer-repository-local' => 'Lær mere',
 	'multimediaviewer-datetime-created' => 'Oprettet den $1',
 	'multimediaviewer-datetime-uploaded' => 'Uploadet den $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Uploadet}} af $1',
@@ -302,6 +304,7 @@ $messages['da'] = array(
  */
 $messages['de'] = array(
 	'multimediaviewer-desc' => 'Ermöglicht die Darstellung von Vorschaubildern in einer Vollbildschnittstelle',
+	'multimediaviewer-desc-nil' => 'Keine Beschreibung verfügbar.',
 	'multimediaviewer-pref' => 'Medienbetrachter',
 	'multimediaviewer-pref-desc' => 'Dieses neue Werkzeug steigert dein Multimedia-Betrachtungserlebnis. Es zeigt Bilder auf Seiten größer an, die Vorschaubilder haben. Bilder werden in einem schöneren Vollbildschnittstellenoverlay angezeigt und können auch als Vollbild dargestellt werden.',
 	'multimediaviewer-file-page' => 'Gehe zur dazugehörigen Dateiseite',
@@ -412,6 +415,7 @@ $messages['et'] = array(
  */
 $messages['fa'] = array(
 	'multimediaviewer-desc' => 'تصاویر بندانگشتی در حجم بزرگتر داخل یک رابط کاربری تمام صفحه گسترش یابند.',
+	'multimediaviewer-desc-nil' => 'هیچ توضیحی در دسترس نمی باشد.',
 	'multimediaviewer-pref' => 'نمایش‌دهندهٔ رسانه',
 	'multimediaviewer-pref-desc' => 'تجربهٔ بازدید چندرسانه‌ای شما با این ابزار جدید بهبود می‌یابد و تصاویر را در اندازهٔ بزرگتر در صفحه‌هایی که  تصاویر بندانگشتی دارند نمایش می‌دهد. تصاویر در پوشش سبک زیباتری نمایش داده می‌شوند و همچنین می‌توانند در اندازهٔ اصلی نمایش داده شوند.',
 	'multimediaviewer-file-page' => 'رفتن به صفحهٔ مرتبط با پرونده',
@@ -467,6 +471,7 @@ $messages['fi'] = array(
  */
 $messages['fr'] = array(
 	'multimediaviewer-desc' => 'Agrandit les vignettes dans une interface en plein écran.',
+	'multimediaviewer-desc-nil' => 'Aucune description disponible.',
 	'multimediaviewer-pref' => 'Visionneuse de Médias',
 	'multimediaviewer-pref-desc' => 'Améliorer votre expérience de visualisation multimédia avec ce nouvel outil. Il affiche les images en grande taille sur les pages qui ont des vignettes. Les images sont affichées dans un joli cadre d’interface en plein écran, et peuvent aussi être affichées en taille réelle.',
 	'multimediaviewer-file-page' => 'Aller à la page du fichier correspondant',
@@ -502,9 +507,10 @@ $messages['gl'] = array(
  * @author Neukoln
  */
 $messages['he'] = array(
-	'multimediaviewer-desc' => 'הגדלת תמונות ממוזערות בשיטת לייטבוקס.', # Fuzzy
+	'multimediaviewer-desc' => 'הגדלת תמונות ממוזערות למסך מלא.',
+	'multimediaviewer-desc-nil' => 'התיאור אינו זמין.',
 	'multimediaviewer-pref' => 'מציג מדיה',
-	'multimediaviewer-pref-desc' => 'הכלי החדש הזה משפר את חוויית המולטימדיה שלך. הוא מציג תמונות מוגדלות בדפים עם תמונות ממוזערות. התמונות מוצגות בשכבה בסגנון "לייטבוקס" וניתן להציג אותן גם בגודל מלא.', # Fuzzy
+	'multimediaviewer-pref-desc' => 'הכלי החדש הזה משפר את חוויית המולטימדיה שלך. הוא מציג תמונות מוגדלות בדפים עם תמונות ממוזערות. התמונות מוצגות בשכבה במסך מלא וניתן להציג אותן גם בגודל מלא.',
 	'multimediaviewer-file-page' => 'מעבר אל דף הקובץ המתאים',
 	'multimediaviewer-repository' => 'מידע נוסף על $1',
 	'multimediaviewer-repository-local' => 'מידע נוסף',
@@ -613,9 +619,10 @@ $messages['ilo'] = array(
  * @author OrbiliusMagister
  */
 $messages['it'] = array(
-	'multimediaviewer-desc' => 'Espandere le miniature in un dimensioni maggiori in un Lightbox.', # Fuzzy
+	'multimediaviewer-desc' => "Espande le miniature in dimensioni maggiori in un'interfaccia a schermo intero.",
+	'multimediaviewer-desc-nil' => 'Nessuna descrizione disponibile.',
 	'multimediaviewer-pref' => 'Media Viewer',
-	'multimediaviewer-pref-desc' => 'Sperimenta una miglior visualizzazione dei file multimediali con questo nuovo strumento che visualizza le immagini più grandi su pagine che ne riportano le miniature. Le immagini sono mostrate in un riquadro piccolo più gradevole, ma possono essere visualizzate anche alla dimensione originale.', # Fuzzy
+	'multimediaviewer-pref-desc' => "Sperimenta una miglior visualizzazione dei file multimediali con questo nuovo strumento che visualizza le immagini più grandi su pagine che ne riportano le miniature. Le immagini sono mostrate in un'interfaccia a schermo intero più gradevole, ma possono essere visualizzate anche alla dimensione originale.",
 	'multimediaviewer-file-page' => 'Vai alla corrispondente pagina del file',
 	'multimediaviewer-repository' => 'Ulteriori informazioni su $1',
 	'multimediaviewer-repository-local' => 'Ulteriori informazioni',
@@ -637,6 +644,7 @@ $messages['it'] = array(
  */
 $messages['ja'] = array(
 	'multimediaviewer-desc' => '縮小画像を全画面表示インターフェイス内に拡大表示する',
+	'multimediaviewer-desc-nil' => '解説はありません。',
 	'multimediaviewer-pref' => 'メディア ビューアー',
 	'multimediaviewer-pref-desc' => 'この新しいツールは、マルチメディアの表示体験を改善します。縮小画像があるページで、その画像をより大きなサイズで表示します。画像は全画面表示インターフェイスのオーバーレイ内に表示され、完全なサイズで表示させることもできます。',
 	'multimediaviewer-file-page' => '対応するファイル ページに移動',
@@ -723,6 +731,7 @@ $messages['ko'] = array(
  * @author Robby
  */
 $messages['lb'] = array(
+	'multimediaviewer-desc-nil' => 'Keng Beschreiwung disponibel.',
 	'multimediaviewer-pref' => 'Media Viewer',
 	'multimediaviewer-repository' => 'Méi gewuer ginn op $1',
 	'multimediaviewer-repository-local' => 'Fir méi ze wëssen',
@@ -735,6 +744,13 @@ $messages['lb'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Dëse Fichier op engem aneren Internetsite benotzen',
 	'multimediaviewer-about-mmv' => 'Iwwer Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Feedback verloossen',
+);
+
+/** Lithuanian (lietuvių)
+ * @author Robotukas11
+ */
+$messages['lt'] = array(
+	'multimediaviewer-desc-nil' => 'Aprašymas neprieinamas.',
 );
 
 /** Macedonian (македонски)
@@ -914,9 +930,9 @@ $messages['ro'] = array(
  * @author Okras
  */
 $messages['ru'] = array(
-	'multimediaviewer-desc' => 'Раскрывает эскизы в большие изображения внутри лайтбокса.',
+	'multimediaviewer-desc' => 'Раскрывает эскизы в большие изображения на весь экран.',
 	'multimediaviewer-pref' => 'Медиа-просмотрщик',
-	'multimediaviewer-pref-desc' => 'Улучшает просмотр мультимедиа-файлов новым инструментом. Он раскрывает эскизы в большие изображения внутри лайтбокса. Изображения показываются в более красивом лайтбоксе, а также могут быть открыты в оригинальном разрешении.',
+	'multimediaviewer-pref-desc' => 'Улучшает просмотр мультимедиа-файлов новым инструментом. На странице с эскизами изображений он раскрывает эскизы в большие изображения. Изображения показываются в более красивом полноэкранном интерфейсе, а также могут быть открыты в оригинальном разрешении.',
 	'multimediaviewer-file-page' => 'Перейти на страницу соответствующего файла',
 	'multimediaviewer-repository' => 'Подробнее на $1',
 	'multimediaviewer-datetime-created' => 'Создано в $1',
@@ -1006,6 +1022,7 @@ $messages['tr'] = array(
  */
 $messages['uk'] = array(
 	'multimediaviewer-desc' => 'Розгорнути мініатюри в більшому розмірі у лайтбоксі.',
+	'multimediaviewer-desc-nil' => 'Немає доступного опису.',
 	'multimediaviewer-pref' => 'Медіа переглядач',
 	'multimediaviewer-pref-desc' => 'Поліпшити ваші враження від перегляду мультимедіа з цим новим інструментом. Він відображає зображення у більшому розмірі на сторінках, які мають ескізи. Зображення показані у кращому накладенні і також відображаються в натуральну величину.',
 	'multimediaviewer-file-page' => 'Перейти на сторінку відповідного файлу',
@@ -1026,9 +1043,11 @@ $messages['uk'] = array(
 
 /** Vietnamese (Tiếng Việt)
  * @author Minh Nguyen
+ * @author Withoutaname
  */
 $messages['vi'] = array(
 	'multimediaviewer-desc' => 'Mở các hình nhỏ lớn hơn trong cửa sổ Lightbox.', # Fuzzy
+	'multimediaviewer-desc-nil' => 'Không có mô tả.',
 	'multimediaviewer-pref' => 'Cửa sổ phương tiện',
 	'multimediaviewer-pref-desc' => 'Cải thiện trải nghiệm xem phương tiện của bạn với công cụ mới này. Nó mở rộng các hình nhỏ để phủ lên toàn cửa sổ. Các hình ảnh được hiển thị trong panel Lightbox đẹp đẽ và cũng có thể xem kích thước gốc.', # Fuzzy
 	'multimediaviewer-file-page' => 'Mở trang ứng với tập tin',
