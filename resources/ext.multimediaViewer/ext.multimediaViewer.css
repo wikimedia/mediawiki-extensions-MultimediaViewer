@@ -324,15 +324,15 @@ body.mw-mlb-lightbox-open #content {
 .mw-mlb-next-image {
 	/* @embed */
 	background-image: url(img/next-ltr.svg);
-	right: 5px;
 	background-position: right;
+	right: 18px;
 }
 
 .mw-mlb-prev-image {
 	/* @embed */
 	background-image: url(img/prev-ltr.svg);
-	left: 5px;
 	background-position: left;
+	left: 18px;
 }
 
 .mw-mlb-next-image.disabled,
