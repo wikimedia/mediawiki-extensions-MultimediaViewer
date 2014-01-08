@@ -181,7 +181,7 @@
 
 		function checkProfileEventLog( type, msg ) {
 			assert.strictEqual( type, 'MediaViewerPerf', 'EventLogging gets the right event type for profile message ' + msgName + '.' );
-			assert.strictEqual( msg.version, '1.0', 'EventLogging gets the right version number for profile message ' + msgName + '.' );
+			assert.strictEqual( msg.version, '1.1', 'EventLogging gets the right version number for profile message ' + msgName + '.' );
 			assert.strictEqual( msg.action, msgName, 'EventLogging gets the right action name for message ' + msgName + '.' );
 			assert.strictEqual( msg.start, undefined, 'MultimediaViewer#profileEnd deletes the event start time from ' + msgName + ' profiles sent to EventLogging.' );
 			assert.strictEqual( msg.fileSize, expectedFileSize, 'EventLogging sees the correct file size for ' + msgName + ' profiles.' );

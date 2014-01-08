@@ -882,7 +882,11 @@
 			imgSize = imgSize || {};
 
 			profiling[thisid] = {
-				version: '1.0',
+				/* Changelog:
+				 * 1.1 fixed the issue with zeros in every message
+				 * 1.0 first release
+				 */
+				version: '1.1',
 				action: type,
 				imageWidth: imgSize.width,
 				imageHeight: imgSize.height,
