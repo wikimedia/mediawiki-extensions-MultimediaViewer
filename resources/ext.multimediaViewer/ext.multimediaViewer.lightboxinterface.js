@@ -89,6 +89,28 @@
 		}
 	};
 
+	LIP.attach = function ( parentId ) {
+		// Advanced description needs to be below the fold when the lightbox opens
+		// regardless of what the scroll value was prior to opening the lightbox
+		var $document = $( document );
+
+		// Save the scrollTop value because we want below to be back to where they were
+		// before opening the lightbox
+		this.scrollTopBeforeAttach = $document.scrollTop();
+		$document.scrollTop( 0 );
+
+		MLBInterface.prototype.attach.call( this, parentId );
+	};
+
+	LIP.unattach = function () {
+		MLBInterface.prototype.unattach.call( this );
+
+		// Restore the scrollTop as it was before opening the lightbox
+		if ( this.scrollTopBeforeAttach !== undefined ) {
+			$( document ).scrollTop( this.scrollTopBeforeAttach );
+		}
+	};
+
 	LIP.load = function ( image ) {
 		var hashFragment = '#mediaviewer/' + mw.mediaViewer.currentImageFilename + '/' + mw.mediaViewer.lightbox.currentIndex;
 
