@@ -22,8 +22,10 @@
 
 	QUnit.module( 'ext.multimediaViewer.lightboxInterface', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sanity test, object creation and ui construction', 12, function ( assert ) {
-		var lightbox = new mw.LightboxInterface();
+	QUnit.test( 'Sanity test, object creation and ui construction', 14, function ( assert ) {
+		var lightbox = new mw.LightboxInterface(),
+			$document = $( document ),
+			scrollTopBeforeOpeningLightbox;
 
 		function checkIfUIAreasAttachedToDocument( inDocument ) {
 			var msg = inDocument === 1 ? ' ' : ' not ';
@@ -33,17 +35,28 @@
 			assert.strictEqual( $( '.mw-mlb-image-links' ).length, inDocument, 'Links area' + msg + 'attached.' );
 		}
 
+		// Scroll down a little bit to check that the scroll memory works
+		$document.scrollTop( 10 );
+
+		scrollTopBeforeOpeningLightbox = $document.scrollTop();
+
 		// UI areas not attached to the document yet.
 		checkIfUIAreasAttachedToDocument(0);
 
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
 
+		// To make sure that the details are out of view, the lightbox is supposed to scroll to the top when open
+		assert.strictEqual( $document.scrollTop(), 0, 'Document scrollTop should be set to 0' );
+
 		// UI areas should now be attached to the document.
 		checkIfUIAreasAttachedToDocument(1);
 
 		// Unattach lightbox from document
 		lightbox.unattach();
+
+		// Lightbox is supposed to restore the document scrollTop value that was set prior to opening it
+		assert.strictEqual( $document.scrollTop(), scrollTopBeforeOpeningLightbox, 'document scrollTop value has been restored correctly' );
 
 		// UI areas not attached to the document anymore.
 		checkIfUIAreasAttachedToDocument(0);

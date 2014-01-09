@@ -94,10 +94,14 @@
 		// regardless of what the scroll value was prior to opening the lightbox
 		var $document = $( document );
 
-		// Save the scrollTop value because we want below to be back to where they were
-		// before opening the lightbox
-		this.scrollTopBeforeAttach = $document.scrollTop();
-		$document.scrollTop( 0 );
+		// Only scroll and save the position if it's the first attach
+		// Otherwise it could be an attach event happening because of prev/next
+		if ( this.scrollTopBeforeAttach === undefined ) {
+			// Save the scrollTop value because we want below to be back to where they were
+			// before opening the lightbox
+			this.scrollTopBeforeAttach = $document.scrollTop();
+			$document.scrollTop( 0 );
+		}
 
 		MLBInterface.prototype.attach.call( this, parentId );
 	};
@@ -108,6 +112,7 @@
 		// Restore the scrollTop as it was before opening the lightbox
 		if ( this.scrollTopBeforeAttach !== undefined ) {
 			$( document ).scrollTop( this.scrollTopBeforeAttach );
+			this.scrollTopBeforeAttach = undefined;
 		}
 	};
 
