@@ -821,7 +821,7 @@
 			targetWidth = widths.target,
 			requestedWidth = widths.requested;
 
-		props = props || iiprops;
+		props = $.merge( props || [], iiprops ); // FIXME bug 59817
 		apiArgs.iiprop = props.join( '|' );
 		apiArgs.iiurlwidth = requestedWidth;
 
