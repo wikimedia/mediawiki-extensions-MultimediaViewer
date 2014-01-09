@@ -327,32 +327,22 @@
 	 *
 	 * @protected
 	 *
-	 * @param {mw.LightboxInterface} ui lightbox that got resized
-	 * @param {Object} data information regarding the new resized image
+	 * @param {LightboxInterface} ui lightbox that got resized
+	 * @param {Object} imageInfo information regarding the new resized image
 	 * @param {number} targetWidth
 	 */
-	MMVP.loadResizedImage = function ( ui, data, targetWidth ) {
-		var imageInfo, innerInfo, rpid, viewer, image;
+	MMVP.loadResizedImage = function ( ui, imageInfo, targetWidth ) {
+		var innerInfo, rpid, viewer, image;
 
 		// Replace image only if data was returned.
-		if ( data && data.query && data.query.pages ) {
+		if ( imageInfo ) {
 			viewer = this;
 			image = new Image();
-
-			$.each( data.query.pages, function ( i, page ) {
-				imageInfo = page;
-				return false;
-			} );
 
 			innerInfo = imageInfo.imageinfo[0];
 
 			image.onload = function () {
-				if ( image.width > targetWidth ) {
-					image.width = targetWidth;
-				}
 				viewer.profileEnd( rpid );
-				ui.replaceImageWith( image );
-				this.updateControls();
 			};
 
 			rpid = this.profileStart( 'image-resize', {
@@ -362,6 +352,11 @@
 			}, innerInfo.mime );
 
 			image.src = innerInfo.thumburl || innerInfo.url;
+			if ( innerInfo.thumbwidth > targetWidth ) {
+				image.width = targetWidth;
+			}
+			ui.replaceImageWith( image );
+			this.updateControls();
 		}
 	};
 
@@ -677,16 +672,12 @@
 		// Avoids trying to load /wiki/Undefined and doesn't
 		// cost any network time - the library currently needs
 		// some src attribute to work. Will fix.
-		image.src = initialSrc;
+		image.initialSrc = initialSrc;
 		this.currentImageFilename = image.filePageTitle.getPrefixedText();
 		this.currentImageFileTitle = image.filePageTitle;
 		this.lightbox.iface.comingFromPopstate = comingFromPopstate;
 		this.lightbox.open();
 		$( document.body ).addClass( 'mw-mlb-lightbox-open' );
-		this.lightbox.iface.$imageDiv.append( $.createSpinner( {
-			id: 'mw-mlb-loading-spinner',
-			size: 'large'
-		} ) );
 
 		mdpid = this.profileStart( 'metadata-fetch' );
 
@@ -695,9 +686,6 @@
 				innerInfo = imageInfo.imageinfo[0],
 				imageEle = new Image(),
 				targetWidth = size;
-
-			viewer.profileEnd( mdpid );
-			viewer.setImageInfo( image.filePageTitle, imageInfo );
 
 			if ( !viewer.hasAnimatedMetadata ) {
 				viewer.animateMetadataDiv();
@@ -709,20 +697,22 @@
 				}
 
 				viewer.profileEnd( pid );
-
-				viewer.lightbox.iface.replaceImageWith( imageEle );
-				viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
 				viewer.updateControls();
-				$.removeSpinner( 'mw-mlb-loading-spinner' );
 			};
 
-			imageEle.src = imageInfo.imageinfo[0].thumburl || imageInfo.imageinfo[0].url;
+			viewer.profileEnd( mdpid );
 
 			pid = viewer.profileStart( 'image-load', {
 				width: innerInfo.width,
 				height: innerInfo.height,
 				fileSize: innerInfo.size
 			}, innerInfo.mime );
+
+			imageEle.src = imageInfo.imageinfo[0].thumburl || imageInfo.imageinfo[0].url;
+
+			viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
+			viewer.lightbox.iface.replaceImageWith( imageEle );
+			viewer.setImageInfo( image.filePageTitle, imageInfo );
 		} );
 
 		comingFromPopstate = false;

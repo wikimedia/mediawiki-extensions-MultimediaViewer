@@ -582,5 +582,19 @@
 		}
 	};
 
+	LIP.replaceImageWith = function ( imageEle ) {
+		var $image = $( imageEle );
+
+		this.currentImage.src = imageEle.src;
+
+		this.$image.replaceWith( $image );
+		this.$image = $image;
+
+		this.$image.css( {
+			maxHeight: $image.parent().height(),
+			maxWidth: $image.parent().width()
+		} );
+	};
+
 	mw.LightboxInterface = LightboxInterface;
 }( mediaWiki, jQuery, OO, window.LightboxInterface ) );
