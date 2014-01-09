@@ -753,11 +753,19 @@ $messages['lt'] = array(
 	'multimediaviewer-desc-nil' => 'Aprašymas neprieinamas.',
 );
 
+/** Latvian (latviešu)
+ * @author Papuass
+ */
+$messages['lv'] = array(
+	'multimediaviewer-desc-nil' => 'Apraksts nav pieejams.',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */
 $messages['mk'] = array(
 	'multimediaviewer-desc' => 'Зголемување на минијатурите на цел екран.',
+	'multimediaviewer-desc-nil' => 'Нема опис.',
 	'multimediaviewer-pref' => 'Прегледувач на слики и снимки',
 	'multimediaviewer-pref-desc' => 'Дава поубаво прегледување на слики на страници. Ги прикажува поголеми на страниците со минијатури. Можат да се прегледуваат и на цел екран.',
 	'multimediaviewer-file-page' => 'Оди на соодветната податотечна страница',
@@ -846,13 +854,15 @@ $messages['oc'] = array(
 );
 
 /** Polish (polski)
+ * @author Chrumps
  * @author Nux
  * @author Tar Lócesilion
  * @author WTM
  */
 $messages['pl'] = array(
+	'multimediaviewer-desc-nil' => 'Brak dostępnego opisu.',
 	'multimediaviewer-pref' => 'Przeglądarka multimedów',
-	'multimediaviewer-pref-desc' => 'To narzędzie to przyjazna użytkownikowi przeglądarka multimediów. Umożliwia powiększanie miniaturek obrazków bez opuszczania strony z artykułem. Narzędzie to domyślnie wyświetla obrazki na półprzezroczystej nakładce w stylu „Lightbox”, ale można także powiększyć je na pełny ekran.',
+	'multimediaviewer-pref-desc' => 'To narzędzie to przyjazna użytkownikowi przeglądarka multimediów. Umożliwia powiększanie miniaturek obrazków bez opuszczania strony z artykułem. Narzędzie to domyślnie wyświetla obrazki na półprzezroczystej nakładce w stylu „Lightbox”, ale można także powiększyć je na pełny ekran.', # Fuzzy
 	'multimediaviewer-file-page' => 'Przejdź na stronę z opisem pliku',
 	'multimediaviewer-repository' => 'Dowiedz się więcej na {{GRAMMAR:D.lp|$1}}',
 	'multimediaviewer-datetime-created' => 'Utworzony $1',
@@ -990,6 +1000,7 @@ $messages['sr-ec'] = array(
  * @author WikiPhoenix
  */
 $messages['sv'] = array(
+	'multimediaviewer-desc-nil' => 'Ingen beskrivning tillgänglig.',
 	'multimediaviewer-pref' => 'Mediavisare',
 	'multimediaviewer-pref-desc' => 'Förbättrad visning av bilder. Istället för bildbeskrivningssidan visas bilden på ett ljusbord när du klickar på den. Miniatyrer visas i större storlek.', # Fuzzy
 	'multimediaviewer-file-page' => 'Gå till motsvarande filsida',
@@ -1046,10 +1057,10 @@ $messages['uk'] = array(
  * @author Withoutaname
  */
 $messages['vi'] = array(
-	'multimediaviewer-desc' => 'Mở các hình nhỏ lớn hơn trong cửa sổ Lightbox.', # Fuzzy
-	'multimediaviewer-desc-nil' => 'Không có mô tả.',
+	'multimediaviewer-desc' => 'Mở các hình nhỏ lớn hơn trong giao diện toàn màn hình.',
+	'multimediaviewer-desc-nil' => 'Không có miêu tả.',
 	'multimediaviewer-pref' => 'Cửa sổ phương tiện',
-	'multimediaviewer-pref-desc' => 'Cải thiện trải nghiệm xem phương tiện của bạn với công cụ mới này. Nó mở rộng các hình nhỏ để phủ lên toàn cửa sổ. Các hình ảnh được hiển thị trong panel Lightbox đẹp đẽ và cũng có thể xem kích thước gốc.', # Fuzzy
+	'multimediaviewer-pref-desc' => 'Cải thiện trải nghiệm xem phương tiện của bạn với công cụ mới này. Nó mở rộng các hình nhỏ để phủ lên toàn cửa sổ. Các hình ảnh được hiển thị trong giao diện toàn màn hình đẹp đẽ và cũng có thể xem kích thước gốc.',
 	'multimediaviewer-file-page' => 'Mở trang ứng với tập tin',
 	'multimediaviewer-repository' => 'Tìm hiểu thêm về $1',
 	'multimediaviewer-repository-local' => 'Tìm hiểu thêm',
@@ -1083,9 +1094,9 @@ $messages['vo'] = array(
  * @author Yfdyh000
  */
 $messages['zh-hans'] = array(
-	'multimediaviewer-desc' => '在Lightbox视图中以较大的尺寸显示缩略图。', # Fuzzy
+	'multimediaviewer-desc' => '在全屏界面中以较大尺寸显示缩略图。',
 	'multimediaviewer-pref' => '媒体文件查看器',
-	'multimediaviewer-pref-desc' => '使用这个新工具可以改善你的多媒体浏览体验。它能以更大的尺寸显示页面中的缩略图。图像将显示于一个漂亮的Lightbox视图中，并能以完整尺寸查看。', # Fuzzy
+	'multimediaviewer-pref-desc' => '使用这个新工具改善你的多媒体浏览体验。它能以更大的尺寸显示页面中的缩略图。图像将显示于一个漂亮的全屏界面浮层中，并能以完整尺寸查看。',
 	'multimediaviewer-file-page' => '前往对应的文件页面',
 	'multimediaviewer-repository' => '在$1了解详情',
 	'multimediaviewer-repository-local' => '了解更多',
