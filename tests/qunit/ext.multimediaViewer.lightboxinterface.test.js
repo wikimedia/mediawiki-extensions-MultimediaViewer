@@ -22,10 +22,12 @@
 
 	QUnit.module( 'ext.multimediaViewer.lightboxInterface', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sanity test, object creation and ui construction', 14, function ( assert ) {
+	QUnit.test( 'Sanity test, object creation and ui construction', 15, function ( assert ) {
 		var lightbox = new mw.LightboxInterface(),
 			$document = $( document ),
-			scrollTopBeforeOpeningLightbox;
+			scrollTopBeforeOpeningLightbox,
+			originalJQueryScrollTop = $.fn.scrollTop,
+			memorizedDocumentScroll;
 
 		function checkIfUIAreasAttachedToDocument( inDocument ) {
 			var msg = inDocument === 1 ? ' ' : ' not ';
@@ -34,6 +36,22 @@
 			assert.strictEqual( $( '.mw-mlb-image-desc' ).length, inDocument, 'Description area' + msg + 'attached.' );
 			assert.strictEqual( $( '.mw-mlb-image-links' ).length, inDocument, 'Links area' + msg + 'attached.' );
 		}
+
+		// We need to set up a proxy on the jQuery scrollTop function
+		// that will let us pretend that the document really scrolled
+		// and that will return values as if the scroll happened
+		$.fn.scrollTop = function ( scrollTop ) {
+			if ( $document.is( this ) ) {
+				if ( scrollTop !== undefined ) {
+					memorizedDocumentScroll = scrollTop;
+					return this;
+				} else {
+					return memorizedDocumentScroll;
+				}
+			}
+
+			return originalJQueryScrollTop.call( this, scrollTop );
+		};
 
 		// Scroll down a little bit to check that the scroll memory works
 		$document.scrollTop( 10 );
@@ -49,6 +67,15 @@
 		// To make sure that the details are out of view, the lightbox is supposed to scroll to the top when open
 		assert.strictEqual( $document.scrollTop(), 0, 'Document scrollTop should be set to 0' );
 
+		// Scroll down to check that the scrollTop memory doesn't affect prev/next (bug 59861)
+		$document.scrollTop( 20 );
+
+		// This extra attach() call simulates the effect of prev/next seen in bug 59861
+		lightbox.attach( '#qunit-fixture' );
+
+		// The lightbox was already open at this point, the scrollTop should be left untouched
+		assert.strictEqual( $document.scrollTop(), 20, 'Document scrollTop should be set to 20' );
+
 		// UI areas should now be attached to the document.
 		checkIfUIAreasAttachedToDocument(1);
 
@@ -60,6 +87,9 @@
 
 		// UI areas not attached to the document anymore.
 		checkIfUIAreasAttachedToDocument(0);
+
+		// Let's remove our scrollTop proxy, to make sure this test is free of side-effect
+		$.fn.scrollTop = originalJQueryScrollTop;
 	} );
 
 	QUnit.test( 'The interface is emptied properly when necessary', thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length, function ( assert ) {
