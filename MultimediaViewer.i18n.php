@@ -169,6 +169,7 @@ $messages['ar'] = array(
  */
 $messages['ast'] = array(
 	'multimediaviewer-desc' => 'Espande les miniatures a mayor tamañu nuna interfaz a pantalla completa.',
+	'multimediaviewer-desc-nil' => 'Nun hai una descripción disponible.',
 	'multimediaviewer-pref' => 'Visor de medios',
 	'multimediaviewer-pref-desc' => 'Ameyore la esperiencia al ver multimedia con esta nueva ferramienta. Amuesa les imaxes a mayor tamañu nes páxines que tienen miniatures. Les imaxes vense nuna guapa capa a pantalla completa, y puen vese tamién a tamañu completu.',
 	'multimediaviewer-file-page' => 'Dir a la páxina del ficheru correspondiente',
@@ -335,6 +336,7 @@ $messages['de-ch'] = array(
  */
 $messages['dsb'] = array(
 	'multimediaviewer-desc' => 'Miniaturki w pówjerchu połneje wobrazowki powětsyś.',
+	'multimediaviewer-desc-nil' => 'Žedno wopisanje k dispoziciji',
 	'multimediaviewer-pref' => 'Medijowy wobglědowak',
 	'multimediaviewer-pref-desc' => 'Polěpš swójo dožywjenje multimedijowego woglědowanja z toś tym rědom. Zwobraznja wobraze we wětšej wjelikosći na bokach, kótarež maju miniaturki. Wobraze pokazuju se w rědnjejšem pówjerchu połneje wobrazowki a daju se w połnej wjelikosći pśedstajiś.',
 	'multimediaviewer-file-page' => 'K pśisłušnemu datajowemu bokoju',
@@ -551,6 +553,7 @@ $messages['hr'] = array(
  */
 $messages['hsb'] = array(
 	'multimediaviewer-desc' => 'Miniaturki w powjerchu połneje wobrazowki powjetšić.',
+	'multimediaviewer-desc-nil' => 'Žane wopisanje k dispoziciji',
 	'multimediaviewer-pref' => 'Medijowy wobhladowak',
 	'multimediaviewer-pref-desc' => 'Polěpš swoje dožiwjenje multimedijoweho wobhladowanja z tutym nastrojom. Zwobraznja wobrazy we wjetšej wulkosći na stronach, kotrež maja miniaturki. Wobrazy pokazuja so w rjeńšim powjerchu połneje wobrazowki a hodźa so w połnej wulkosći předstajić.',
 	'multimediaviewer-file-page' => 'K přisłušnej datajowej stronje',
@@ -744,6 +747,13 @@ $messages['lb'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Dëse Fichier op engem aneren Internetsite benotzen',
 	'multimediaviewer-about-mmv' => 'Iwwer Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Feedback verloossen',
+);
+
+/** لوری (لوری)
+ * @author Mogoeilor
+ */
+$messages['lrc'] = array(
+	'multimediaviewer-repository-local' => 'بيشتر يا بيئريت',
 );
 
 /** Lithuanian (lietuvių)
