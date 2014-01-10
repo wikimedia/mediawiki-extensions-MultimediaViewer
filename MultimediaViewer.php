@@ -86,6 +86,23 @@ $wgResourceModules['ext.multimediaViewer.lightboxinterface'] = array_merge( arra
 	),
 ), $moduleInfoMMV );
 
+$wgResourceModules['ext.multimediaViewer.dataModel'] = array_merge( array(
+	'scripts' => array(
+		'ext.multimediaViewer.dataModel.js',
+	),
+
+	'dependencies' => array(
+		'ext.multimediaViewer.base',
+		'oojs',
+	),
+), $moduleInfoMMV );
+
+$wgResourceModules['ext.multimediaViewer.base'] = array_merge( array(
+	'scripts' => array(
+		'mmv.js',
+	),
+), $moduleInfoMMV );
+
 $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 	'scripts' => array(
 		'ext.multimediaViewer.js',
@@ -102,6 +119,7 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 		'mediawiki.Title',
 		'jquery.ui.dialog',
 		'jquery.hidpi',
+		'ext.multimediaViewer.dataModel',
 	),
 
 	'messages' => array(
