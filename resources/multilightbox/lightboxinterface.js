@@ -119,6 +119,7 @@
 				this.$wrapper,
 				this.$overlay
 			);
+		this.currentlyAttached = true;
 	};
 
 	/**
@@ -130,6 +131,8 @@
 
 		this.$wrapper.detach();
 		this.$overlay.detach();
+
+		this.currentlyAttached = false;
 	};
 
 	LIP.fullscreen = function () {
@@ -172,11 +175,12 @@
 	 * @protected
 	 */
 	LIP.resizeCallback = function() {
-		// TODO: This is called even when the Lightbox is not attached !
-		var result = lightboxHooks.callAll( 'imageResize', this );
+		if ( this.currentlyAttached ) {
+			var result = lightboxHooks.callAll( 'imageResize', this );
 
-		if ( result !== false ) {
-			this.autoResizeImage();
+			if ( result !== false ) {
+				this.autoResizeImage();
+			}
 		}
 	};
 
