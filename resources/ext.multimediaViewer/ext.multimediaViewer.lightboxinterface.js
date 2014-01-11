@@ -18,6 +18,11 @@
 ( function ( mw, $, oo, MLBInterface ) {
 	var LIP;
 
+	/**
+	 * @class mw.LightboxInterface
+	 * @extends mlb.LightboxInterface
+	 * @constructor
+	 */
 	function LightboxInterface() {
 		MLBInterface.call( this );
 

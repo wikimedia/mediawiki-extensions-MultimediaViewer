@@ -109,7 +109,7 @@
 		this.longitude = longitude;
 
 		/**
-		 * @property {object} thumbUrls
+		 * @property {Object} thumbUrls
 		 * An object indexed by image widths
 		 * with URLs to appropriately sized thumbnails
 		 */
@@ -122,7 +122,7 @@
 	 * Constructs a new Image object out of an object containing
 	 * imageinfo data from an API response.
 	 * @param {mw.Title} title
-	 * @param {object} imageInfo
+	 * @param {Object} imageInfo
 	 * @returns {mw.mmv.model.Image}
 	 */
 	Image.newFromImageInfo = function ( title, imageInfo ) {
@@ -250,7 +250,7 @@
 	 * @method
 	 * @static
 	 * Creates a new object from repoInfo we found in an API response.
-	 * @param {object} repoInfo
+	 * @param {Object} repoInfo
 	 * @returns {mw.mmv.model.Repo}
 	 */
 	Repo.newFromRepoInfo = function ( repoInfo ) {
@@ -278,7 +278,7 @@
 	/**
 	 * @class mw.mmv.model.ForeignApiRepo
 	 * Represents information about a foreign API repository
-	 * @extends Repo
+	 * @extends mw.mmv.model.Repo
 	 * @constructor
 	 * @inheritdoc
 	 * @param {string} apiUrl URL to the wiki's api.php
@@ -313,7 +313,7 @@
 	/**
 	 * @class mw.mmv.model.ForeignDbRepo
 	 * Represents information about a foreign, shared DB repository
-	 * @extends Repo
+	 * @extends mw.mmv.model.Repo
 	 * @constructor
 	 * @inheritdoc
 	 */

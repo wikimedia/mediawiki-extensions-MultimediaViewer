@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+jsduck \
+--config=$(pwd)/docs/jsduck-config.json \
+&& echo 'JSDuck execution finished.'

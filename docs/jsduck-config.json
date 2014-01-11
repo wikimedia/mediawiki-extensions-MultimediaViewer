@@ -1,0 +1,12 @@
+{
+	"--title": "MultimediaViewer extension documentation",
+	"--footer": "Documentation for MultimediaViewer, an extension to MediaWiki. Generated on {DATE} by {JSDUCK} {VERSION}.",
+	"--builtin-classes": true,
+	"--output": "./js",
+	"--": [
+		"./external.js",
+		"../resources/ext.multimediaViewer/ext.multimediaViewer.lightboxinterface.js",
+		"../resources/ext.multimediaViewer/ext.multimediaViewer.lightboximage.js",
+		"../resources/ext.multimediaViewer/ext.multimediaViewer.dataModel.js"
+	]
+}
