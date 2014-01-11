@@ -17,8 +17,8 @@
 
 ( function ( mw, $, oo, MLBImage ) {
 	/**
-	 * @class {mw.LightboxImage}
-	 * @extends {mlb.LightboxImage}
+	 * @class mw.LightboxImage
+	 * @extends mlb.LightboxImage
 	 * Represents an image on the page.
 	 * @constructor
 	 * @param {string} fileLink Link to the file - generally a thumb URL

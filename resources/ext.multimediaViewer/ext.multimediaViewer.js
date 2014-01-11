@@ -68,15 +68,15 @@
 		};
 
 	/**
-	 * Class that analyses the page, looks for image content and sets up the hooks
+	 * @class mw.MultimediaViewer
+	 * Analyses the page, looks for image content and sets up the hooks
 	 * to manage the viewing experience of such content.
-	 *
 	 * @constructor
 	 */
 	function MultimediaViewer() {
 		/**
 		 * MultiLightbox object used to display the pictures in the page.
-		 * @property {mw.MultiLightbox}
+		 * @property {mlb.MultiLightbox}
 		 * @private
 		 */
 		this.lightbox = null;
@@ -316,7 +316,6 @@
 	 * Handles clicks on legit image links.
 	 *
 	 * @protected
-	 * @VisibleForTesting
 	 *
 	 * @param {jQuery.Event} e click event
 	 * @param {HTMLElement|jQuery} clickedEle clicked element
@@ -366,7 +365,7 @@
 	 *
 	 * @protected
 	 *
-	 * @param {LightboxInterface} ui lightbox that got resized
+	 * @param {mw.LightboxInterface} ui lightbox that got resized
 	 * @param {mw.mmv.model.Image} imageData information regarding the new resized image
 	 * @param {number} targetWidth
 	 * @param {number} requestedWidth
@@ -852,7 +851,7 @@
 		/**
 		 * Start profiling an event
 		 * @param {string} type Can be image-load, image-resize, metadata-fetch, gender-fetch
-		 * @param {object} [imgSize] Size of image (for image related events)
+		 * @param {Object} [imgSize] Size of image (for image related events)
 		 * @param {number} [imgSize.width] In pixels
 		 * @param {number} [imgSize.height] In pixels
 		 * @param {number} [imgSize.filesize] In bytes
