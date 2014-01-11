@@ -372,18 +372,19 @@ $messages['en-gb'] = array(
 
 /** Spanish (español)
  * @author Benfutbol10
+ * @author Ciencia Al Poder
  * @author Fitoschido
  * @author PoLuX124
  */
 $messages['es'] = array(
 	'multimediaviewer-pref' => 'Visor multimedia',
-	'multimediaviewer-pref-desc' => 'Mejora tu experiencia de visualización multimedia con esta herramienta. Muestra imágenes en mayor tamaño en páginas que tienen miniaturas. Las imágenes se muestran en una ventana superpuesta agradable que también te permite verlas en tamaño completo.',
+	'multimediaviewer-pref-desc' => 'Mejora tu experiencia de visualización multimedia con esta herramienta. Muestra imágenes en mayor tamaño en páginas que tienen miniaturas. Las imágenes se muestran en una ventana superpuesta agradable que también te permite verlas en tamaño completo.', # Fuzzy
 	'multimediaviewer-file-page' => 'Ir a la página del archivo correspondiente',
 	'multimediaviewer-repository' => 'Más información en $1',
 	'multimediaviewer-datetime-created' => 'Creado el $1',
 	'multimediaviewer-datetime-uploaded' => 'Subido el $1',
 	'multimediaviewer-license-cc-pd' => 'Dominio público',
-	'multimediaviewer-license-default' => 'Información de licencia', # Fuzzy
+	'multimediaviewer-license-default' => 'Ver licencia',
 	'multimediaviewer-discuss-mmv' => 'Dejar comentarios',
 );
 
