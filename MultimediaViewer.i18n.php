@@ -952,10 +952,12 @@ $messages['ro'] = array(
  */
 $messages['ru'] = array(
 	'multimediaviewer-desc' => 'Раскрывает эскизы в большие изображения на весь экран.',
+	'multimediaviewer-desc-nil' => 'Описание отсутствует.',
 	'multimediaviewer-pref' => 'Медиа-просмотрщик',
 	'multimediaviewer-pref-desc' => 'Улучшает просмотр мультимедиа-файлов новым инструментом. На странице с эскизами изображений он раскрывает эскизы в большие изображения. Изображения показываются в более красивом полноэкранном интерфейсе, а также могут быть открыты в оригинальном разрешении.',
 	'multimediaviewer-file-page' => 'Перейти на страницу соответствующего файла',
 	'multimediaviewer-repository' => 'Подробнее на $1',
+	'multimediaviewer-repository-local' => 'Узнать больше',
 	'multimediaviewer-datetime-created' => 'Создано в $1',
 	'multimediaviewer-datetime-uploaded' => 'Загружено в $1',
 	'multimediaviewer-userpage-link' => 'Загружено {{GENDER:$2|участником|участницей}} $1',
@@ -1011,9 +1013,10 @@ $messages['sr-ec'] = array(
  * @author WikiPhoenix
  */
 $messages['sv'] = array(
+	'multimediaviewer-desc' => 'Expandera miniatyrer i en större storlek i fulkskärmsgränssnitt.',
 	'multimediaviewer-desc-nil' => 'Ingen beskrivning tillgänglig.',
 	'multimediaviewer-pref' => 'Mediavisare',
-	'multimediaviewer-pref-desc' => 'Förbättrad visning av bilder. Istället för bildbeskrivningssidan visas bilden på ett ljusbord när du klickar på den. Miniatyrer visas i större storlek.', # Fuzzy
+	'multimediaviewer-pref-desc' => 'Förbättra din multimediaupplevelse med detta nya verktyg. Det visar bilder i större storlek på sidor som har miniatyrer. Bilder visas i en trevligare fullskärmsöverlägg, och kan också ses i full storlek.',
 	'multimediaviewer-file-page' => 'Gå till motsvarande filsida',
 	'multimediaviewer-repository' => 'Läs mer på $1',
 	'multimediaviewer-repository-local' => 'Läs mer',
@@ -1024,6 +1027,7 @@ $messages['sv'] = array(
 	'multimediaviewer-license-default' => 'Visa licens',
 	'multimediaviewer-use-file' => 'Använd denna fil',
 	'multimediaviewer-use-file-owt' => 'Använd denna fil på en wikisida, som en miniatyr',
+	'multimediaviewer-use-file-own' => 'Använd den här filen på en wiki-sida, på en rad',
 	'multimediaviewer-use-file-offwiki' => 'Använd denna fil på en annan webbplats',
 	'multimediaviewer-about-mmv' => 'Om Mediavisaren',
 	'multimediaviewer-discuss-mmv' => 'Ge återkoppling',
