@@ -541,7 +541,8 @@
 			// TODO this is ugly as hell, let's fix this in core.
 			new mw.Api( {
 				ajax: {
-					url: repoData.apiUrl || mw.util.wikiScript( 'api' )
+					url: repoData.apiUrl || mw.util.wikiScript( 'api' ),
+					dataType: 'jsonp'
 				}
 			} ).get( {
 				action: 'query',
