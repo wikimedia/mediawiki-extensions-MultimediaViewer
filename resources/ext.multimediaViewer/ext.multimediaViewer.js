@@ -115,8 +115,11 @@
 		this.api = new mw.Api();
 
 		/**
-		 * imageInfo object. TODO: Describe structure and valid states.
-		 * @property {Object}
+		 * imageInfo object, used for caching - promises will resolve with
+		 * an mw.mmv.model.Image object, a repoInfo object, the best width for
+		 * the current screen configuration, and the width requested from
+		 * the server (if any).
+		 * @property {jQuery.Promise[]}
 		 * @private
 		 */
 		this.imageInfo = {};
@@ -317,8 +320,8 @@
 		var viewer = this,
 			fileTitle = this.currentImageFileTitle;
 
-		this.fetchImageInfo( fileTitle, [ 'url' ] ).done( function ( imageInfo, repoInfo, targetWidth ) {
-			viewer.loadResizedImage( ui, imageInfo, targetWidth );
+		this.fetchImageInfo( fileTitle, [ 'url' ] ).done( function ( imageData, repoInfo, targetWidth ) {
+			viewer.loadResizedImage( ui, imageData, targetWidth );
 		} );
 	};
 
@@ -328,31 +331,30 @@
 	 * @protected
 	 *
 	 * @param {LightboxInterface} ui lightbox that got resized
-	 * @param {Object} imageInfo information regarding the new resized image
+	 * @param {mw.mmv.model.Image} imageData information regarding the new resized image
 	 * @param {number} targetWidth
 	 */
-	MMVP.loadResizedImage = function ( ui, imageInfo, targetWidth ) {
-		var innerInfo, rpid, viewer, image;
+	MMVP.loadResizedImage = function ( ui, imageData, targetWidth, requestedWidth ) {
+		var rpid, viewer, image, maybeThumb;
 
 		// Replace image only if data was returned.
-		if ( imageInfo ) {
+		if ( imageData ) {
 			viewer = this;
 			image = new Image();
-
-			innerInfo = imageInfo.imageinfo[0];
 
 			image.onload = function () {
 				viewer.profileEnd( rpid );
 			};
 
 			rpid = this.profileStart( 'image-resize', {
-				width: innerInfo.width,
-				height: innerInfo.height,
-				fileSize: innerInfo.size
-			}, innerInfo.mime );
+				width: imageData.width,
+				height: imageData.height,
+				fileSize: imageData.size
+			}, imageData.mimeType );
 
-			image.src = innerInfo.thumburl || innerInfo.url;
-			if ( innerInfo.thumbwidth > targetWidth ) {
+			maybeThumb = imageData.getThumbUrl( requestedWidth );
+			image.src = maybeThumb || imageData.url;
+			if ( maybeThumb && requestedWidth > targetWidth || !maybeThumb && imageData.width > targetWidth ) {
 				image.width = targetWidth;
 			}
 			ui.replaceImageWith( image );
@@ -463,24 +465,32 @@
 	};
 
 	/**
-	 * Get image information out of an API response.
-	 * @param {Object[]} images The query.pages member of the API response.
-	 * @returns {Object} Representing image information.
+	 * @method
+	 * Get first (hopefully only) member of an object.
+	 * @param {Array|Object} things
+	 * @returns {Mixed}
 	 */
-	MMVP.getImageInfo = function ( images ) {
-		var imageInfo;
+	MMVP.getFirst = function ( things ) {
+		var thing;
 
-		if ( images ) {
-			$.each( images, function ( i, page ) {
-				imageInfo = page;
+		if ( things ) {
+			$.each( things, function ( i, thisone ) {
+				thing = thisone;
 				return false;
 			} );
 		}
 
-		return imageInfo;
+		return thing;
 	};
 
-	MMVP.setImageInfo = function ( fileTitle, imageInfo ) {
+	/**
+	 * @method
+	 * Set the image information in the UI.
+	 * @param {mw.Title} fileTitle
+	 * @param {mw.mmv.model.Image} imageData
+	 * @param {mw.mmv.model.Repo} repoData
+	 */
+	MMVP.setImageInfo = function ( fileTitle, imageData, repoData ) {
 		function whitelistHtml( $el ) {
 			var child, $prev, $child = $el.children().first();
 
@@ -508,37 +518,22 @@
 			}
 		}
 
-		var extmeta, gfpid,
-			repoInfo,
-			desc,
-			datetime, dtmsg,
-			license, msgname,
-			username,
-			source, author,
+		var gfpid,
+			msgname,
 			viewer = this,
-			ui = this.lightbox.iface,
-			innerInfo = imageInfo.imageinfo[0] || {};
+			ui = this.lightbox.iface;
 
 		ui.$title.text( fileTitle.getNameText() );
 
-		ui.$useFile.data( 'title', fileTitle );
-		ui.$useFile.data( 'src', innerInfo.url );
+		ui.initUseFileData( fileTitle, imageData.url, repoData.isLocal );
 		ui.$useFileLi.removeClass( 'empty' );
 
-		if ( this.repoInfo ) {
-			repoInfo = this.repoInfo[imageInfo.imagerepository];
-		}
+		ui.setRepoDisplayName( repoData.displayname, repoData.isLocal );
+		ui.setFilePageLink( imageData.descriptionUrl );
 
-		if ( repoInfo ) {
-			ui.setRepoDisplayName( repoInfo.displayname, repoInfo.local );
-			ui.setFilePageLink( repoInfo, fileTitle );
-		}
+		ui.$repoLi.removeClass( 'empty' );
 
-		ui.$repoLi.toggleClass( 'empty', !repoInfo );
-
-		username = innerInfo.user;
-
-		if ( username ) {
+		if ( imageData.lastUploader ) {
 			gfpid = this.profileStart( 'gender-fetch' );
 
 			// TODO: Reuse the api member, fix everywhere.
@@ -546,115 +541,98 @@
 			// TODO this is ugly as hell, let's fix this in core.
 			new mw.Api( {
 				ajax: {
-					url: repoInfo.apiurl || mw.util.wikiScript( 'api' )
+					url: repoData.apiUrl || mw.util.wikiScript( 'api' )
 				}
 			} ).get( {
 				action: 'query',
 				list: 'users',
-				ususers: username,
+				ususers: imageData.lastUploader,
 				usprop: 'gender'
 			} ).done( function ( data ) {
-				var gender = data.query.users[0].gender;
+				var gender = 'unknown';
 
 				viewer.profileEnd( gfpid );
 
-				ui.setUserPageLink( repoInfo, username, gender );
+				if ( data && data.query && data.query.users &&
+						data.query.users[0] && data.query.users[0].gender ) {
+					gender = data.query.users[0].gender;
+				}
+
+				ui.setUserPageLink( repoData, imageData.lastUploader, gender );
 			} ).fail( function () {
 				mw.log( 'Gender fetch with ID ' + gfpid + ' failed, probably due to cross-domain API request.' );
-				ui.setUserPageLink( repoInfo, username, 'unknown' );
+				ui.setUserPageLink( repoData, imageData.lastUploader, 'unknown' );
 			} );
 		}
 
-		extmeta = innerInfo.extmetadata;
-
-		if ( extmeta ) {
-			desc = extmeta.ImageDescription;
-
-			ui.$imageDescDiv.toggleClass( 'empty', !desc );
-
-			if ( desc ) {
-				desc = desc.value;
-				whitelistHtml( ui.$imageDesc.append( $.parseHTML( desc ) ) );
-			} else {
-				ui.$imageDesc.append( mw.message( 'multimediaviewer-desc-nil' ).text() );
-			}
-
-			datetime = extmeta.DateTimeOriginal || extmeta.DateTime;
-
-			if ( datetime ) {
-				// get rid of HTML tags
-				datetime = datetime.value.replace( /<.*?>/g, '' );
-				datetime = this.formatDate( datetime );
-
-				dtmsg = (
-					'multimediaviewer-datetime-' +
-					( extmeta.DateTimeOriginal ? 'created' : 'uploaded' )
-				);
-
-				ui.$datetime.text(
-					mw.message( dtmsg, datetime ).text()
-				);
-			}
-
-			ui.$datetimeLi.toggleClass( 'empty', !datetime );
-
-			source = extmeta.Credit;
-			author = extmeta.Artist;
-
-			if ( source ) {
-				source = source.value;
-				whitelistHtml( ui.$source.empty().append( $.parseHTML( source ) ) );
-			}
-
-			if ( author ) {
-				author = author.value;
-				whitelistHtml( ui.$author.empty().append( $.parseHTML( author ) ) );
-			}
-
-			if ( source && author ) {
-				ui.$credit.html(
-					mw.message(
-						'multimediaviewer-credit',
-						ui.$author.get( 0 ).outerHTML,
-						ui.$source.get( 0 ).outerHTML
-					).plain()
-				);
-			} else {
-				// Clobber the contents and only have one of the fields
-				if ( source ) {
-					ui.$credit.html( ui.$source );
-				} else if ( author ) {
-					ui.$credit.html( ui.$author );
-				}
-			}
-
-			ui.$credit.toggleClass( 'empty', !source && !author );
-
-			license = extmeta.License;
+		if ( imageData.creationDateTime ) {
+			ui.$datetime.text(
+				mw.message(
+					'multimediaviewer-datetime-created',
+					this.formatDate( imageData.creationDateTime )
+				).text()
+			);
+		} else if ( imageData.uploadDateTime ) {
+			ui.$datetime.text(
+				mw.message(
+					'multimediaviewer-datetime-uploaded',
+					this.formatDate( imageData.uploadDateTime )
+				).text()
+			);
 		}
 
-		if ( license ) {
-			license = license.value;
+		ui.$datetimeLi.toggleClass( 'empty', !imageData.uploadDateTime && !imageData.creationDateTime );
+
+		if ( imageData.description ) {
+			whitelistHtml( ui.$imageDesc.empty().append( $.parseHTML( imageData.description ) ) );
+		} else {
+			ui.$imageDesc.append( mw.message( 'multimediaviewer-desc-nil' ).text() );
 		}
 
-		msgname = 'multimediaviewer-license-' + ( license || '' );
+		ui.$imageDescDiv.toggleClass( 'empty', !imageData.description );
 
-		if ( !license || !mw.messages.exists( msgname ) ) {
+		if ( imageData.source ) {
+			whitelistHtml( ui.$source.empty().append( $.parseHTML( imageData.source ) ) );
+		}
+
+		if ( imageData.author ) {
+			whitelistHtml( ui.$author.empty().append( $.parseHTML( imageData.author ) ) );
+		}
+
+		if ( imageData.source && imageData.author ) {
+			ui.$credit.html(
+				mw.message(
+					'multimediaviewer-credit',
+					ui.$author.get( 0 ).outerHTML,
+					ui.$source.get( 0 ).outerHTML
+				).plain()
+			);
+		} else {
+			// Clobber the contents and only have one of the fields
+			if ( imageData.source ) {
+				ui.$credit.empty().append( ui.$source );
+			} else if ( imageData.author ) {
+				ui.$credit.empty().append( ui.$author );
+			}
+		}
+
+		ui.$credit.toggleClass( 'empty', !imageData.source && !imageData.author );
+
+		msgname = 'multimediaviewer-license-' + ( imageData.license || '' );
+
+		if ( !imageData.license || !mw.messages.exists( msgname ) ) {
 			// Cannot display, fallback or fail
-			license = 'default';
 			msgname = 'multimediaviewer-license-default';
 		} else {
 			// License found, store the license data
 			ui.$license.data( 'license', mw.message( msgname ).text() );
 		}
 
-		if ( license ) {
-			ui.$license
-				.text( mw.message( msgname ).text() )
-				.toggleClass( 'cc-license', license.substr( 0, 2 ) === 'cc' );
-		}
+		ui.$license
+			.text( mw.message( msgname ).text() )
+			.toggleClass( 'cc-license', imageData.isCcLicensed() );
 
-		ui.$license.toggleClass( 'empty', !license );
+		ui.$license.toggleClass( 'empty', !imageData.license );
 	};
 
 	MMVP.loadImage = function ( image, initialSrc ) {
@@ -676,9 +654,9 @@
 
 		mdpid = this.profileStart( 'metadata-fetch' );
 
-		this.fetchImageInfo( image.filePageTitle ).done( function ( imageInfo, res, size ) {
+		this.fetchImageInfo( image.filePageTitle ).done( function ( imageData, repoInfo, size, requestedWidth ) {
 			var pid,
-				innerInfo = imageInfo.imageinfo[0],
+				repoData = mw.mmv.model.Repo.newFromRepoInfo( repoInfo[imageData.repo] ),
 				imageEle = new Image(),
 				targetWidth = size;
 
@@ -698,16 +676,16 @@
 			viewer.profileEnd( mdpid );
 
 			pid = viewer.profileStart( 'image-load', {
-				width: innerInfo.width,
-				height: innerInfo.height,
-				fileSize: innerInfo.size
-			}, innerInfo.mime );
+				width: imageData.width,
+				height: imageData.height,
+				fileSize: imageData.size
+			}, imageData.mimeType );
 
-			imageEle.src = imageInfo.imageinfo[0].thumburl || imageInfo.imageinfo[0].url;
+			imageEle.src = imageData.getThumbUrl( requestedWidth ) || imageData.url;
 
 			viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
 			viewer.lightbox.iface.replaceImageWith( imageEle );
-			viewer.setImageInfo( image.filePageTitle, imageInfo );
+			viewer.setImageInfo( image.filePageTitle, imageData, repoData );
 		} );
 
 		comingFromPopstate = false;
@@ -729,9 +707,13 @@
 	 * @method
 	 * Fetches image information from the API.
 	 *
-	 * Will resolve the promise with two objects (imageInfo and repoInfo) and the
+	 * Will resolve the promise with two objects (imageData and repoData), the
 	 * target width - basically the screen size - that the caller should resize
-	 * the image to eventually.
+	 * the image to eventually, and the requested width - that is, what we asked
+	 * for from the API - that should be used to fetch the thumbnail URL from
+	 * the imageData object.
+	 *
+	 * The target
 	 * @param {mw.Title} fileTitle Title of the file page for the image.
 	 * @param {string[]} [props] List of properties to get from imageinfo
 	 * @returns {jQuery.Promise}
@@ -753,7 +735,7 @@
 			requestedWidth = widths.requested;
 
 		function handleApiData( data ) {
-			var imageInfo;
+			var imageInfo, imageData;
 
 			if ( !data || !data.query ) {
 				// No information, oh well
@@ -761,17 +743,13 @@
 			}
 
 			viewer.cacheRepoInfo( data.query.repos );
-			imageInfo = viewer.getImageInfo( data.query.pages );
+			imageInfo = viewer.getFirst( data.query.pages );
 
 			if ( imageInfo ) {
-				if ( !imageInfo.imageinfo ||
-						imageInfo.imageinfo.length === 0 ) {
-					// No data, fail.
-					$.Deferred().reject();
-				}
+				imageData = mw.mmv.model.Image.newFromImageInfo( fileTitle, imageInfo );
 
 				// Give back the information we have
-				return $.Deferred().resolve( imageInfo, viewer.repoInfo, targetWidth );
+				return $.Deferred().resolve( imageData, viewer.repoInfo, targetWidth, requestedWidth );
 			} else {
 				return $.Deferred().reject();
 			}
@@ -802,20 +780,25 @@
 			// Fetch the new thumb url but nothing else, because it's
 			// the only non-cacheable thing
 			apiArgs.iiprop = 'url';
-			return this.imageInfo[filename].then( function ( cachedInfo ) {
-				return makeImageInfoRequest( apiArgs ).then( function ( imageInfo, repoInfo, targetWidth ) {
-					var innerInfo,
-						newInfo = $.extend( true, {}, cachedInfo );
-					$.each( imageInfo.imageinfo, function ( i, item ) {
-						innerInfo = item;
-						return false;
-					} );
-					$.each( newInfo.imageinfo, function ( i, item ) {
-						item.thumburl = innerInfo.thumburl;
-						item.thumbwidth = innerInfo.thumbwidth;
-						item.thumbheight = innerInfo.thumbheight;
-					} );
-					return $.Deferred().resolve( newInfo, repoInfo, targetWidth );
+			return this.imageInfo[filename].then( function ( imageData, repoInfo ) {
+				var maybeThumb = imageData.getThumbUrl( requestedWidth );
+
+				// Thumbnail caching! Woo!
+				if ( maybeThumb ) {
+					return $.Deferred().resolve( imageData, repoInfo, targetWidth, requestedWidth );
+				}
+
+				return viewer.api.get( apiArgs ).then( function ( data ) {
+					var imageInfo, innerInfo;
+
+					imageInfo = viewer.getFirst( data.query.pages );
+					innerInfo = viewer.getFirst( imageInfo.imageinfo );
+
+					if ( innerInfo.thumburl ) {
+						imageData.addThumbUrl( innerInfo.thumbwidth, innerInfo.thumburl );
+					}
+
+					return $.Deferred().resolve( imageData, repoInfo, targetWidth, requestedWidth );
 				} );
 			} );
 		}

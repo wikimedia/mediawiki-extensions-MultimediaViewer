@@ -524,54 +524,43 @@
 	/**
 	 * @method
 	 * Sets the URL for the File: page of the image
-	 * @param {Object} repoInfo
-	 * @param {mw.Title} fileTitle
+	 * @param {string} url
 	 */
-	LIP.setFilePageLink = function ( repoInfo, fileTitle ) {
-		var linkpath;
+	LIP.setFilePageLink = function ( url ) {
+		this.$repo.prop( 'href', url );
+		this.$license.prop( 'href', url );
+	};
 
-		if ( repoInfo.descBaseUrl ) {
-			linkpath = repoInfo.descBaseUrl + fileTitle.getMainText();
-		} else {
-			if ( repoInfo.server && repoInfo.articlepath ) {
-				linkpath = repoInfo.server + repoInfo.articlepath;
-			} else {
-				linkpath = mw.config.get( 'wgArticlePath' );
-			}
-			linkpath = linkpath.replace( '$1', fileTitle.getPrefixedText() );
-		}
-
-		if ( repoInfo.local ) {
-			this.$useFile.data( 'isLocal', repoInfo.local );
-		}
-
-		if ( !/^(https?:)?\/\//.test( linkpath ) ) {
-			this.$useFile.data( 'link', mw.config.get( 'wgServer' ) + linkpath );
-		} else {
-			this.$useFile.data( 'link', linkpath );
-		}
-
-		this.$repo.prop( 'href', linkpath );
-		this.$license.prop( 'href', linkpath );
+	/**
+	 * @method
+	 * Saves some data about the image on the $useFile element for later setup.
+	 * @param {mw.Title} title
+	 * @param {string} src The URL for the full-size image
+	 * @param {boolean} isLocal Whether the file is on this wiki or not
+	 */
+	LIP.initUseFileData = function ( title, src, isLocal ) {
+		this.$useFile.data( 'title', title );
+		this.$useFile.data( 'src', src );
+		this.$useFile.data( 'isLocal', isLocal );
 	};
 
 	/**
 	 * @method
 	 * Sets the link to the user page where possible
-	 * @param {Object} repoInfo
+	 * @param {mw.mmv.model.Repo} repoData
 	 * @param {string} username
 	 * @param {string} gender
 	 */
-	LIP.setUserPageLink = function ( repoInfo, username, gender ) {
+	LIP.setUserPageLink = function ( repoData, username, gender ) {
 		var userlink,
 			userpage = 'User:' + username;
 
-		if ( repoInfo.descBaseUrl ) {
+		if ( repoData instanceof mw.mmv.model.ForeignDbRepo ) {
 			// We basically can't do anything about this; fail
 			this.$username.addClass( 'empty' );
 		} else {
-			if ( repoInfo.server && repoInfo.articlepath ) {
-				userlink = repoInfo.server + repoInfo.articlepath;
+			if ( repoData.absoluteArticlePath ) {
+				userlink = repoData.absoluteArticlePath;
 			} else {
 				userlink = mw.config.get( 'wgArticlePath' );
 			}
