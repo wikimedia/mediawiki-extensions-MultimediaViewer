@@ -126,6 +126,7 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 		'jquery.ui.dialog',
 		'jquery.hidpi',
 		'ext.multimediaViewer.dataModel',
+		'mediawiki.language',
 	),
 
 	'messages' => array(
@@ -142,7 +143,14 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 		'multimediaviewer-use-file-offwiki',
 		'multimediaviewer-about-mmv',
 		'multimediaviewer-discuss-mmv',
-		'multimediaviewer-desc-nil'
+		'multimediaviewer-desc-nil',
+
+		'multimediaviewer-geoloc-north',
+		'multimediaviewer-geoloc-east',
+		'multimediaviewer-geoloc-south',
+		'multimediaviewer-geoloc-west',
+		'multimediaviewer-geoloc-coord',
+		'multimediaviewer-geoloc-coords',
 	),
 ), $moduleInfoMMV );
 

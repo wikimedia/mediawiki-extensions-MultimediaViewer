@@ -605,6 +605,48 @@
 			.toggleClass( 'cc-license', imageData.isCcLicensed() );
 
 		ui.$license.toggleClass( 'empty', !imageData.license );
+
+		this.setLocationData( imageData );
+		ui.$locationLi.toggleClass( 'empty', !imageData.hasCoords() );
+	};
+
+	/**
+	 * @method
+	 * Sets location data in the interface.
+	 * @param {mw.mmv.model.Image} imageData
+	 */
+	MMVP.setLocationData = function ( imageData ) {
+		var latsec, latitude, latmsg, latdeg, latremain, latmin,
+			longsec, longitude, longmsg, longdeg, longremain, longmin;
+
+		if ( !imageData.hasCoords() ) {
+			return;
+		}
+
+		latitude = imageData.latitude >= 0 ? imageData.latitude : imageData.latitude * -1;
+		latmsg = 'multimediaviewer-geoloc-' + ( imageData.latitude >= 0 ? 'north' : 'south' );
+		latdeg = Math.floor( latitude );
+		latremain = latitude - latdeg;
+		latmin = Math.floor( ( latremain ) * 60 );
+
+		longitude = imageData.longitude >= 0 ? imageData.longitude : imageData.longitude * -1;
+		longmsg = 'multimediaviewer-geoloc-' + ( imageData.longitude >= 0 ? 'east' : 'west' );
+		longdeg = Math.floor( longitude );
+		longremain = longitude - longdeg;
+		longmin = Math.floor( ( longremain ) * 60 );
+
+		longremain -= longmin / 60;
+		latremain -= latmin / 60;
+		latsec = Math.round( latremain * 100 * 60 * 60 ) / 100;
+		longsec = Math.round( longremain * 100 * 60 * 60 ) / 100;
+
+		this.lightbox.iface.setLocationData(
+			latdeg, latmin, latsec, latmsg,
+			longdeg, longmin, longsec, longmsg,
+			imageData.latitude, imageData.longitude,
+			this.getFirst( Object.keys( mw.language.data ) ),
+			imageData.title.getMain()
+		);
 	};
 
 	/**

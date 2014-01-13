@@ -50,6 +50,9 @@
 		this.$datetime.empty();
 		this.$datetimeLi.addClass( 'empty' );
 
+		this.$location.empty();
+		this.$locationLi.addClass( 'empty' );
+
 		this.$useFile.data( 'title', null );
 		this.$useFile.data( 'link', null );
 		this.$useFile.data( 'src', null );
@@ -264,6 +267,7 @@
 		this.initializeRepoLink();
 		this.initializeDatetime();
 		this.initializeUploader();
+		this.initializeLocation();
 		this.initializeFileUsage();
 	};
 
@@ -313,6 +317,16 @@
 			.addClass( 'mw-mlb-username' )
 			.prop( 'href', '#' )
 			.appendTo( this.$usernameLi );
+	};
+
+	LIP.initializeLocation = function () {
+		this.$locationLi = $( '<li>' )
+			.addClass( 'mw-mlb-location-li empty' )
+			.appendTo( this.$imageLinks );
+
+		this.$location = $( '<a>' )
+			.addClass( 'mw-mlb-location' )
+			.appendTo( this.$locationLi );
 	};
 
 	LIP.initializeFileUsage = function () {
@@ -544,6 +558,59 @@
 	LIP.setFilePageLink = function ( url ) {
 		this.$repo.prop( 'href', url );
 		this.$license.prop( 'href', url );
+	};
+
+	/**
+	 * @method
+	 * Sets the image location data in the interface.
+	 * @param {number} latdeg Number of degrees in latitude
+	 * @param {number} latmin Number of minutes in latitude
+	 * @param {number} latsec Number of seconds, rounded to two places, in latitude
+	 * @param {number} latmsg The message representing the cardinal direction of the latitude
+	 * @param {number} longdeg Number of degrees in longitude
+	 * @param {number} longmin Number of minutes in longitude
+	 * @param {number} longsec Number of seconds, rounded to two places, in longitude
+	 * @param {number} longmsg The message representing the cardinal direction of the longitude
+	 * @param {number} latitude The initial, decimal latitude
+	 * @param {number} longitude The initial, decimal longitude
+	 * @param {string} langcode Code for the language being used - like 'en', 'zh', or 'en-gb'
+	 * @param {string} titleText Title of the file
+	 */
+	LIP.setLocationData = function (
+		latdeg, latmin, latsec, latmsg,
+		longdeg, longmin, longsec, longmsg,
+		latitude, longitude, langcode, titleText
+	) {
+		this.$location.text(
+			mw.message(
+				'multimediaviewer-geoloc-coords',
+
+				mw.message(
+					'multimediaviewer-geoloc-coord',
+					mw.language.convertNumber( latdeg ),
+					mw.language.convertNumber( latmin ),
+					mw.language.convertNumber( latsec ),
+					mw.message( latmsg ).text()
+				).text(),
+
+				mw.message(
+					'multimediaviewer-geoloc-coord',
+					mw.language.convertNumber( longdeg ),
+					mw.language.convertNumber( longmin ),
+					mw.language.convertNumber( longsec ),
+					mw.message( longmsg ).text()
+				).text()
+			).text()
+		);
+
+		this.$location.prop( 'href', (
+			'//tools.wmflabs.org/geohack/geohack.php?pagename=' +
+			'File:' + titleText +
+			'&params=' +
+			latitude + '_N_' +
+			longitude + '_E_' +
+			'&language=' + langcode
+		) );
 	};
 
 	/**

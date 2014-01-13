@@ -61,6 +61,14 @@ $messages['en'] = array(
 
 	'multimediaviewer-about-mmv' => 'About Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Leave feedback',
+
+	// Things for geolocation data
+	'multimediaviewer-geoloc-north' => 'N',
+	'multimediaviewer-geoloc-east' => 'E',
+	'multimediaviewer-geoloc-south' => 'S',
+	'multimediaviewer-geoloc-west' => 'W',
+	'multimediaviewer-geoloc-coord' => '$1° $2′ $3″ $4',
+	'multimediaviewer-geoloc-coords' => '$1, $2',
 );
 
 /** Message documentation (Message documentation)
@@ -139,6 +147,14 @@ See also:
 	'multimediaviewer-about-mmv' => 'Text for a link to a page with more information about Media Viewer software.',
 	'multimediaviewer-discuss-mmv' => 'Text for a link to a page where the user can discuss the Media Viewer software.
 {{Identical|Leave feedback}}',
+
+	// Things for geolocation data
+	'multimediaviewer-geoloc-north' => 'Symbol for representing "north" in geolocation coordinates.',
+	'multimediaviewer-geoloc-east' => 'Symbol for representing "east" in geolocation coordinates.',
+	'multimediaviewer-geoloc-south' => 'Symbol for representing "south" in geolocation coordinates.',
+	'multimediaviewer-geoloc-west' => 'Symbol for representing "west" in geolocation coordinates.',
+	'multimediaviewer-geoloc-coord' => 'Format for geolocation coordinates. $1 is the number of degrees, $2 is the number of minutes, $3 is the number of seconds (rounded to the nearest hundredths place), and $4 is the direction symbol, defined by multimediaviewer-geoloc-(north|east|south|west).',
+	'multimediaviewer-geoloc-coords' => 'Format for sets of geolocation coordinates. $1 is the latitude, $2 is the longitude. Both are formatted according to multimedia-viewer-geoloc-coord.',
 );
 
 /** Arabic (العربية)

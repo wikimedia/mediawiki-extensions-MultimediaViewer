@@ -199,14 +199,19 @@ body.mobile .mw-mlb-controls,
 	background-image: url(img/repo.svg);
 }
 
+.mw-mlb-image-links li.mw-mlb-datetime-li:before {
+	/* @embed */
+	background-image: url(img/time.svg);
+}
+
 .mw-mlb-image-links li.mw-mlb-username-li:before {
 	/* @embed */
 	background-image: url(img/user-ltr.svg);
 }
 
-.mw-mlb-image-links li.mw-mlb-datetime-li:before {
+.mw-mlb-image-links li.mw-mlb-location-li:before {
 	/* @embed */
-	background-image: url(img/time.svg);
+	background-image: url(img/location.svg);
 }
 
 .mw-mlb-image-links li.mw-mlb-usefile-li:before {

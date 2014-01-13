@@ -5,6 +5,7 @@
 			'$title',
 			'$credit',
 			'$username',
+			'$location',
 			'$repo',
 			'$datetime',
 			'$imageBackupDesc'
@@ -15,6 +16,7 @@
 			'$imageDescDiv',
 			'$credit',
 			'$usernameLi',
+			'$locationLi',
 			'$repoLi',
 			'$datetimeLi',
 			'$useFileLi',
@@ -139,5 +141,27 @@
 
 		lightbox.setFilePageLink( 'https://commons.wikimedia.org/wiki/File:Foobar.jpg' );
 		assert.strictEqual( lightbox.$repo.prop( 'href' ), 'https://commons.wikimedia.org/wiki/File:Foobar.jpg', 'The file link was set successfully.' );
+	} );
+
+	QUnit.test( 'Setting location information works as expected', 2, function ( assert ) {
+		var lightbox = new mw.LightboxInterface();
+
+		lightbox.setLocationData(
+			50, 10, 20, 'multimediaviewer-geoloc-north',
+			70, 30, 40, 'multimediaviewer-geoloc-east',
+			12.3456789, 98.7654321, 'en', 'Foobar.jpg'
+		);
+
+		assert.strictEqual(
+			lightbox.$location.text(),
+			'50° 10′ 20″ N, 70° 30′ 40″ E',
+			'Location text is set as expected - if this fails it may be due to i18n issues.'
+		);
+
+		assert.strictEqual(
+			lightbox.$location.prop( 'href' ),
+			'http://tools.wmflabs.org/geohack/geohack.php?pagename=File:Foobar.jpg&params=12.3456789_N_98.7654321_E_&language=en',
+			'Location URL is set as expected'
+		);
 	} );
 }( mediaWiki, jQuery ) );

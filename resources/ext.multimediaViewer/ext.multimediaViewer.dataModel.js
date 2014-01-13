@@ -35,6 +35,8 @@
 	 * @param {string} source
 	 * @param {string} author
 	 * @param {string} license
+	 * @param {number} latitude
+	 * @param {number} longitude
 	 */
 	function Image(
 			title,
@@ -51,7 +53,9 @@
 			description,
 			source,
 			author,
-			license
+			license,
+			latitude,
+			longitude
 	) {
 		/** @property {mw.Title} title */
 		this.title = title;
@@ -98,6 +102,12 @@
 		/** @property {string} license */
 		this.license = license;
 
+		/** @property {number} latitude */
+		this.latitude = latitude;
+
+		/** @property {number} longitude */
+		this.longitude = longitude;
+
 		/**
 		 * @property {object} thumbUrls
 		 * An object indexed by image widths
@@ -118,6 +128,7 @@
 	Image.newFromImageInfo = function ( title, imageInfo ) {
 		var uploadDateTime, creationDateTime, imageData,
 			description, source, author, license,
+			latitude, longitude,
 			innerInfo = imageInfo.imageinfo[0],
 			extmeta = innerInfo.extmetadata;
 
@@ -137,6 +148,9 @@
 			source = extmeta.Credit && extmeta.Credit.value;
 			author = extmeta.Artist && extmeta.Artist.value;
 			license = extmeta.License && extmeta.License.value;
+
+			latitude = extmeta.GPSLatitude && parseFloat( extmeta.GPSLatitude.value );
+			longitude = extmeta.GPSLongitude && parseFloat( extmeta.GPSLongitude.value );
 		}
 
 		imageData = new Image(
@@ -154,7 +168,9 @@
 			description,
 			source,
 			author,
-			license
+			license,
+			latitude,
+			longitude
 		);
 
 		if ( innerInfo.thumburl ) {
@@ -194,6 +210,17 @@
 	 */
 	Image.prototype.isCcLicensed = function () {
 		return this.license && this.license.substr( 0, 2 ) === 'cc';
+	};
+
+	/**
+	 * @method
+	 * Check whether the image has geolocation data.
+	 * @returns {boolean}
+	 */
+	Image.prototype.hasCoords = function () {
+		return this.hasOwnProperty( 'latitude' ) && this.hasOwnProperty( 'longitude' ) &&
+			this.latitude !== undefined && this.latitude !== null &&
+			this.longitude !== undefined && this.longitude !== null;
 	};
 
 	/**
