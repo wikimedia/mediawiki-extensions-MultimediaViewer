@@ -36,6 +36,11 @@ $moduleInfoMoment = array(
 	'remoteExtPath' => 'MultimediaViewer/resources/momentjs',
 );
 
+$moduleInfoJQScrollTo = array(
+	'localBasePath' => __DIR__ . '/resources/jquery.scrollTo',
+	'remoteExtPath' => 'MultimediaViewer/resources/jquery.scrollTo',
+);
+
 $wgExtensionMessagesFiles['MultimediaViewer'] = __DIR__ . '/MultimediaViewer.i18n.php';
 
 $wgResourceModules['multilightbox.interface'] = array_merge( array(
@@ -115,6 +120,7 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 	'dependencies' => array(
 		'multilightbox',
 		'momentjs',
+		'jquery.scrollTo',
 		'ext.multimediaViewer.lightboximage',
 		'mediawiki.Title',
 		'jquery.ui.dialog',
@@ -210,6 +216,12 @@ $wgResourceModules['momentjs'] = array_merge( array(
 		'zh-tw' => 'lang/zh-tw.js',
 	),
 ), $moduleInfoMoment );
+
+$wgResourceModules['jquery.scrollTo'] = array_merge( array(
+	'scripts' => array(
+		'jquery.scrollTo.js',
+	),
+), $moduleInfoJQScrollTo );
 
 $wgExtensionFunctions[] = function () {
 	global $wgResourceModules;
