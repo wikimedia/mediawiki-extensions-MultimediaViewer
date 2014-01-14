@@ -22,7 +22,7 @@
 
 	QUnit.module( 'ext.multimediaViewer.lightboxInterface', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sanity test, object creation and ui construction', 15, function ( assert ) {
+	QUnit.test( 'Sanity test, object creation and ui construction', 17, function ( assert ) {
 		var lightbox = new mw.LightboxInterface(),
 			$document = $( document ),
 			scrollTopBeforeOpeningLightbox,
@@ -78,6 +78,10 @@
 
 		// UI areas should now be attached to the document.
 		checkIfUIAreasAttachedToDocument(1);
+
+		// Check that the close button on the lightbox still follow the spec (being visible right away)
+		assert.strictEqual( $( '#qunit-fixture .mlb-close' ).length, 1, 'There should be a close button' );
+		assert.strictEqual( $( '#qunit-fixture .mlb-close' ).is(':visible'), true, 'The close button should be visible' );
 
 		// Unattach lightbox from document
 		lightbox.unattach();

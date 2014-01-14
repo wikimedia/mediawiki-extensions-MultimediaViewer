@@ -363,63 +363,10 @@
 	};
 
 	MMVP.updateControls = function () {
-		var isOnButton = false,
-			isOnImage = false,
-			ui = this.ui,
+		var ui = this.ui,
 			prevNextTop = ( ( ui.$imageWrapper.height() / 2 ) - 60 ) + 'px';
 
-		function fadeIn() {
-			isOnImage = true;
-			ui.$closeButton.fadeIn( 100 );
-			ui.$imageDiv.one( 'click', fadeOut );
-		}
-
-		function fadeOut() {
-			ui.$closeButton.fadeOut( 100 );
-			ui.$imageDiv.one( 'click', fadeIn );
-		}
-
-		function fadeOutDelayed() {
-			isOnImage = false;
-			setTimeout( function () {
-				if ( !isOnImage && !isOnButton ) {
-					fadeOut();
-				}
-			}, 500 );
-		}
-
-		function detectButton() {
-			isOnButton = true;
-		}
-
-		function detectLeaveButton() {
-			isOnButton = false;
-			setTimeout( function () {
-				if ( !isOnImage && !isOnButton ) {
-					fadeOut();
-				}
-			}, 500 );
-		}
-
-		ui.$closeButton
-			.fadeIn( 100 )
-			.delay( 500 )
-			.fadeOut( 100 );
-
 		ui.$postDiv.css( 'top', ui.$imageWrapper.height() );
-
-		ui.$imageDiv
-			.off( 'mouseenter', fadeIn )
-			.off( 'mouseleave', fadeOutDelayed )
-			.one( 'click', fadeIn )
-			.on( 'mouseenter', fadeIn )
-			.on( 'mouseleave', fadeOutDelayed );
-
-		ui.$closeButton.add( ui.$fullscreenButton )
-			.off( 'mouseenter', detectButton )
-			.off( 'mouseleave', detectLeaveButton )
-			.on( 'mouseenter', detectButton )
-			.on( 'mouseleave', detectLeaveButton );
 
 		ui.$nextButton.add( ui.$prevButton ).css( {
 			top: prevNextTop
