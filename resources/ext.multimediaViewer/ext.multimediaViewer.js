@@ -320,8 +320,8 @@
 		var viewer = this,
 			fileTitle = this.currentImageFileTitle;
 
-		this.fetchImageInfo( fileTitle, [ 'url' ] ).done( function ( imageData, repoInfo, targetWidth ) {
-			viewer.loadResizedImage( ui, imageData, targetWidth );
+		this.fetchImageInfo( fileTitle, [ 'url' ] ).done( function ( imageData, repoInfo, targetWidth, requestedWidth ) {
+			viewer.loadResizedImage( ui, imageData, targetWidth, requestedWidth );
 		} );
 	};
 
@@ -333,6 +333,7 @@
 	 * @param {LightboxInterface} ui lightbox that got resized
 	 * @param {mw.mmv.model.Image} imageData information regarding the new resized image
 	 * @param {number} targetWidth
+	 * @param {number} requestedWidth
 	 */
 	MMVP.loadResizedImage = function ( ui, imageData, targetWidth, requestedWidth ) {
 		var rpid, viewer, image, maybeThumb;
