@@ -119,6 +119,7 @@ class MultimediaViewerHooks {
 			'scripts' => array(
 				'tests/qunit/ext.multimediaViewer.test.js',
 				'tests/qunit/ext.multimediaViewer.dataModel.test.js',
+				'tests/qunit/ext.multimediaViewer.dataProvider.test.js',
 				'tests/qunit/ext.multimediaViewer.lightboxinterface.test.js',
 				'tests/qunit/lightboximage.test.js',
 				'tests/qunit/lightboxinterface.test.js',

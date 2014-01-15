@@ -331,9 +331,75 @@
 
 	oo.inheritClass( ForeignDbRepo, Repo );
 
+	/**
+	 * @class mw.mmv.model.FileUsage
+	 * Represents information about the wiki pages using a given file
+	 * @constructor
+	 * @param {mw.Title} file
+	 * @param {mw.mmv.model.FileUsage.Scope} scope
+	 * @param {{wiki: String|null, page: mw.Title}[]} pages
+	 *     A list of pages which use this file. Each page is an object with a 'page' field
+	 *     containing the wiki page (a Title object) and a 'wiki' field which is a domain name,
+	 *     or null for local files.
+	 * @param {Number} [totalCount] total number of pages where the file is used (the list passed
+	 *     in pages parameter might be cut off at some limit)
+	 * @param {boolean} [totalCountIsLowerBound = false] False means totalCount is accurate,
+	 *     true means it is a lower bound (the real count can be way greater).
+	 *
+	 */
+	function FileUsage(
+		file,
+		scope,
+		pages,
+		totalCount,
+		totalCountIsLowerBound
+	) {
+		/** @property {mw.Title} mw.mmv.model.FileUsage.file */
+		this.file = file;
+
+		/** @property {mw.mmv.model.FileUsage.Scope} mw.mmv.model.FileUsage.scope */
+		this.scope = scope;
+
+		/** @property {{wiki: String|null, page: mw.Title}[]} mw.mmv.model.FileUsage.pages */
+		this.pages = pages;
+
+		/** @property {Number} mw.mmv.model.FileUsage.totalCount
+		 */
+		this.totalCount = totalCount || pages.length;
+
+		/**
+		 * For files which are used on a huge amount of pages, getting an exact count might be
+		 * impossible. In such a case this field tells us that the count is "fake". For example
+		 * if totalCount is 100 and totalCountIsLowerBound is true, a message about usage count
+		 * should be something like "this file is used on more than 100 pages". (This would happen
+		 * when we query the api with a limit of 100; the real usage count could be in the millions
+		 * for all we know.)
+		 * @property {boolean} mw.mmv.model.FileUsage.totalCountIsLowerBound
+		 */
+		this.totalCountIsLowerBound = !!totalCountIsLowerBound;
+	}
+
+	/**
+	 * @typedef {mw.mmv.model.FileUsage.Scope}
+	 * @enum
+	 * @type {String}
+	 */
+	FileUsage.Scope = {
+		/**
+		 * Only pages from the local wiki (the one where the user is now)
+		 */
+		LOCAL: 'local',
+
+		/**
+		 * All pages, including other wikis
+		 */
+		GLOBAL: 'global'
+	};
+
 	mw.mmv.model = {};
 	mw.mmv.model.Image = Image;
 	mw.mmv.model.Repo = Repo;
 	mw.mmv.model.ForeignApiRepo = ForeignApiRepo;
 	mw.mmv.model.ForeignDbRepo = ForeignDbRepo;
+	mw.mmv.model.FileUsage = FileUsage;
 }( mediaWiki, OO ) );

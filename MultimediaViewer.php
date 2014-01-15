@@ -102,6 +102,17 @@ $wgResourceModules['ext.multimediaViewer.dataModel'] = array_merge( array(
 	),
 ), $moduleInfoMMV );
 
+$wgResourceModules['ext.multimediaViewer.dataProvider'] = array_merge( array(
+	'scripts' => array(
+		'ext.multimediaViewer.dataProvider.js',
+	),
+
+	'dependencies' => array(
+		'ext.multimediaViewer.dataModel',
+		'oojs',
+	),
+), $moduleInfoMMV );
+
 $wgResourceModules['ext.multimediaViewer.base'] = array_merge( array(
 	'scripts' => array(
 		'mmv.js',
@@ -126,6 +137,7 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 		'jquery.ui.dialog',
 		'jquery.hidpi',
 		'ext.multimediaViewer.dataModel',
+		'ext.multimediaViewer.dataProvider',
 		'mediawiki.language',
 	),
 
