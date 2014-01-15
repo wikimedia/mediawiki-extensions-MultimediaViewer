@@ -392,11 +392,13 @@ $messages['es'] = array(
  * @author Pikne
  */
 $messages['et'] = array(
-	'multimediaviewer-desc' => 'Võimaldab suurendada pisipilte Lightbox-vaates.',
+	'multimediaviewer-desc' => 'Võimaldab vaadata pisipilte täisekraaniliideses.',
+	'multimediaviewer-desc-nil' => 'Kirjeldus pole saadaval.',
 	'multimediaviewer-pref' => 'Failivaatur',
-	'multimediaviewer-pref-desc' => 'Täienda meediafailide vaatamise võimalusi selle uue tööriistaga. See võimaldab kuvada pisipiltidega lehekülgedel pildid suuremana. Pilte saab näidata kenamas Lightbox-vaates ja ka täissuuruses.',
+	'multimediaviewer-pref-desc' => 'Täienda meediafailide vaatamise võimalusi selle uue tööriistaga. See võimaldab kuvada pisipiltidega lehekülgedel pildid suuremana. Pilte saab näidata kenamas täisekraaniliideses ja ka täissuuruses.',
 	'multimediaviewer-file-page' => 'Mine failileheküljele',
 	'multimediaviewer-repository' => 'Lisateave asukohas $1',
+	'multimediaviewer-repository-local' => 'Lisateave',
 	'multimediaviewer-datetime-created' => 'Valmistamisaeg: $1',
 	'multimediaviewer-datetime-uploaded' => 'Üleslaadimisaeg: $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Üleslaadija:}} $1',
