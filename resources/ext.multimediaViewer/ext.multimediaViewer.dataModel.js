@@ -201,14 +201,19 @@
 	 * Represents information about a single image repository
 	 * @constructor
 	 * @param {string} displayName
+	 * @param {string} favIcon URL to the repo's favicon
 	 * @param {boolean} isLocal
 	 */
 	function Repo(
 		displayName,
+		favIcon,
 		isLocal
 	) {
 		/** @property {string} displayName */
 		this.displayName = displayName;
+
+		/** @property {string} favIcon */
+		this.favIcon = favIcon;
 
 		/** @property {boolean} isLocal */
 		this.isLocal = isLocal;
@@ -225,6 +230,7 @@
 		if ( repoInfo.apiurl ) {
 			return new ForeignApiRepo(
 				repoInfo.displayname,
+				repoInfo.favicon,
 				false,
 				repoInfo.apiurl,
 				repoInfo.server,
@@ -233,11 +239,12 @@
 		} else if ( repoInfo.descBaseUrl ) {
 			return new ForeignDbRepo(
 				repoInfo.displayname,
+				repoInfo.favicon,
 				false,
 				repoInfo.descBaseUrl
 			);
 		} else {
-			return new Repo( repoInfo.displayname, repoInfo.local );
+			return new Repo( repoInfo.displayname, repoInfo.favicon, repoInfo.local );
 		}
 	};
 
@@ -253,12 +260,13 @@
 	 */
 	function ForeignApiRepo(
 		displayName,
+		favIcon,
 		isLocal,
 		apiUrl,
 		server,
 		articlePath
 	) {
-		Repo.call( this, displayName, isLocal );
+		Repo.call( this, displayName, favIcon, isLocal );
 
 		/** @property {string} apiUrl */
 		this.apiUrl = apiUrl;
@@ -284,10 +292,11 @@
 	 */
 	function ForeignDbRepo(
 		displayName,
+		favIcon,
 		isLocal,
 		descBaseUrl
 	) {
-		Repo.call( this, displayName, isLocal );
+		Repo.call( this, displayName, favIcon, isLocal );
 
 		/** @property {string} descBaseUrl */
 		this.descBaseUrl = descBaseUrl;
