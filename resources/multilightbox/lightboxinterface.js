@@ -209,12 +209,13 @@
 	 * @param {LightboxImage} image
 	 */
 	LIP.load = function ( image ) {
-		var iface = this,
-			ele = image.getImageElement( function () {
-				iface.loadCallback( image, ele );
-			} );
+		var iface = this;
 
 		this.currentImage = image;
+
+		image.getImageElement().done( function( image, ele ) {
+			iface.loadCallback.call( iface, image, ele );
+		} );
 	};
 
 	LIP.autoResizeImage = function () {
