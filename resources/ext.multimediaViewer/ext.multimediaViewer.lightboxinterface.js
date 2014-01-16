@@ -489,17 +489,10 @@
 	};
 
 	LIP.toggleMetadata = function () {
-		var off = this.$controlBar.offset(),
-			scroll = this.$main.scrollTop();
-		if ( scroll > 0 ) {
-			this.$main.animate( {
-				scrollTop: 0
-			}, 400 );
-		} else {
-			this.$main.animate( {
-				scrollTop: off.top - 82
-			}, 400 );
-		}
+		var scrollTopWhenOpen = $( '.mlb-post-image' ).height() - $( '.mlb-controls' ).height(),
+			scrollTopTarget = $.scrollTo().scrollTop() > 0 ? 0 : scrollTopWhenOpen;
+
+		$.scrollTo( scrollTopTarget, 400 );
 	};
 
 	/**

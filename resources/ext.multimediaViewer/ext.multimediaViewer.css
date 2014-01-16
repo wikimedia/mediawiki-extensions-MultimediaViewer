@@ -335,7 +335,7 @@ body.mw-mlb-lightbox-open #content {
 .mw-mlb-drag-affordance {
 	width: 100%;
 	height: 18px;
-	cursor: move;
+	cursor: pointer;
 }
 
 .mw-mlb-drag-icon {

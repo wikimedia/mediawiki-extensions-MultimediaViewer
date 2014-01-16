@@ -640,13 +640,7 @@
 	};
 
 	MMVP.animateMetadataDiv = function () {
-		$( document.body )
-			.animate( {
-				scrollTop: 40
-			}, 400 )
-			.animate( {
-				scrollTop: 0
-			}, 400 );
+		$.scrollTo( 40, 400, { onAfter: function() { $.scrollTo( 0, 400 ); } } );
 
 		this.hasAnimatedMetadata = true;
 	};
