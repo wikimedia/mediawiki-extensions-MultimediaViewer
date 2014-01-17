@@ -609,9 +609,7 @@
 				imageEle = new Image(),
 				targetWidth = size;
 
-			if ( !viewer.hasAnimatedMetadata ) {
-				viewer.animateMetadataDiv();
-			}
+			viewer.animateMetadataDivOnce();
 
 			imageEle.onload = function () {
 				if ( imageEle.width > targetWidth ) {
@@ -640,10 +638,12 @@
 		comingFromPopstate = false;
 	};
 
-	MMVP.animateMetadataDiv = function () {
-		$.scrollTo( 40, 400, { onAfter: function() { $.scrollTo( 0, 400 ); } } );
+	MMVP.animateMetadataDivOnce = function () {
+		if ( !this.hasAnimatedMetadata ) {
+			$.scrollTo( 40, 400, { onAfter: function() { $.scrollTo( 0, 400 ); } } );
 
-		this.hasAnimatedMetadata = true;
+			this.hasAnimatedMetadata = true;
+		}
 	};
 
 	/**
