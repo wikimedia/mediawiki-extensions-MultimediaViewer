@@ -130,10 +130,10 @@
 	QUnit.test( 'Setting repository information in the UI works as expected', 3, function ( assert ) {
 		var lightbox = new mw.LightboxInterface();
 
-		lightbox.setRepoDisplayName( 'Example Wiki' );
+		lightbox.setRepoDisplay( 'Example Wiki' );
 		assert.strictEqual( lightbox.$repo.text(), 'Learn more on Example Wiki', 'Text set to something useful for remote wiki - if this fails it might be because of localisation' );
 
-		lightbox.setRepoDisplayName();
+		lightbox.setRepoDisplay();
 		assert.strictEqual( lightbox.$repo.text(), 'Learn more on ' + mw.config.get( 'wgSiteName' ), 'Text set to something useful for local wiki - if this fails it might be because of localisation' );
 
 		lightbox.setFilePageLink( 'https://commons.wikimedia.org/wiki/File:Foobar.jpg' );

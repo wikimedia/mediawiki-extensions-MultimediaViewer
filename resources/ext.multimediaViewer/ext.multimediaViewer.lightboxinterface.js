@@ -499,10 +499,11 @@
 	 * @method
 	 * Sets the display name of the repository
 	 * @param {string} displayname
+	 * @param {string} favIcon
 	 * @param {boolean} isLocal true if this is the local repo ( the file has been uploaded locally)
 	 */
-	LIP.setRepoDisplayName = function ( displayname, isLocal ) {
-		if( isLocal ) {
+	LIP.setRepoDisplay = function ( displayname, favIcon, isLocal ) {
+		if ( isLocal ) {
 			this.$repo.text(
 				mw.message( 'multimediaviewer-repository-local' ).text()
 			);
@@ -511,6 +512,22 @@
 			this.$repo.text(
 				mw.message( 'multimediaviewer-repository', displayname ).text()
 			);
+		}
+
+		// This horror exists because the CSS uses a :before pseudo-class to
+		// define the repo icon. This is the only way to override it.
+		if ( favIcon ) {
+			if ( !this.$repoLiInlineStyle ) {
+				this.$repoLiInlineStyle = $( '<style type="text/css" />' ).appendTo( 'head' );
+			}
+
+			this.$repoLiInlineStyle.html( '.mw-mlb-image-links li.mw-mlb-repo-li:before '
+				+ '{ background-image: url("'
+				+ favIcon
+				+ '"); }'
+			);
+		} else if ( this.$repoLiInlineStyle ) {
+			this.$repoLiInlineStyle.html( '' );
 		}
 	};
 

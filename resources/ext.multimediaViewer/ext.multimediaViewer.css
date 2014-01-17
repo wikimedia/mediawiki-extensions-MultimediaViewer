@@ -189,6 +189,8 @@ body.mobile .mw-mlb-controls,
 	content: ' ';
 	margin-right: 10px;
 	background-size: contain;
+	background-position: right center;
+	background-repeat: no-repeat;
 }
 
 .mw-mlb-image-links li.mw-mlb-repo-li:before {

@@ -476,7 +476,7 @@
 		ui.initUseFileData( fileTitle, imageData.url, repoData.isLocal );
 		ui.$useFileLi.removeClass( 'empty' );
 
-		ui.setRepoDisplayName( repoData.displayname, repoData.isLocal );
+		ui.setRepoDisplay( repoData.displayName, repoData.favIcon, repoData.isLocal );
 		ui.setFilePageLink( imageData.descriptionUrl );
 
 		ui.$repoLi.removeClass( 'empty' );
