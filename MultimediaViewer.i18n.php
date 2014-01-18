@@ -147,8 +147,6 @@ See also:
 	'multimediaviewer-about-mmv' => 'Text for a link to a page with more information about Media Viewer software.',
 	'multimediaviewer-discuss-mmv' => 'Text for a link to a page where the user can discuss the Media Viewer software.
 {{Identical|Leave feedback}}',
-
-	// Things for geolocation data
 	'multimediaviewer-geoloc-north' => 'Symbol for representing "north" in geolocation coordinates.',
 	'multimediaviewer-geoloc-east' => 'Symbol for representing "east" in geolocation coordinates.',
 	'multimediaviewer-geoloc-south' => 'Symbol for representing "south" in geolocation coordinates.',
@@ -701,7 +699,10 @@ $messages['ja'] = array(
  * @author Arystanbek
  */
 $messages['kk-cyrl'] = array(
+	'multimediaviewer-desc' => 'Толық экранды интерфейсте шақын суреттерді өлшемін үлкен етіп кеңейту',
+	'multimediaviewer-desc-nil' => 'Сипаттамасы қолжетімді емес',
 	'multimediaviewer-pref' => 'Медиа қарап шығу құралы',
+	'multimediaviewer-pref-desc' => 'Өзіңіздің мультимедиа көру мүмкіндігіңізді мына жаңа құралмен жетілдіріп көріңіз. Ол шағын суреті (thumbnail) бар беттердегі суреттерді үлкенірек өлшемде көрсетеді.',
 	'multimediaviewer-file-page' => 'Тиісті файл бетіне өту',
 	'multimediaviewer-repository' => '$1 туралы көбірек білу',
 	'multimediaviewer-repository-local' => 'Көбірек білу',
@@ -997,14 +998,17 @@ $messages['sdc'] = array(
 );
 
 /** Slovenian (slovenščina)
+ * @author Dbc334
  * @author Eleassar
  */
 $messages['sl'] = array(
-	'multimediaviewer-desc' => 'Razširitev sličic v prikazovalniku.',
+	'multimediaviewer-desc' => 'Razširitev sličic v večji velikosti v celozaslonskem vmesniku.',
+	'multimediaviewer-desc-nil' => 'Opis ni na voljo.',
 	'multimediaviewer-pref' => 'Predstavnostni pregledovalnik',
-	'multimediaviewer-pref-desc' => 'S tem orodjem lahko izboljšate svojo izkušnjo pri ogledovanju predstavnostnih vsebin. Orodje prikazuje slike na straneh s sličicami v večji velikosti in v lepšem okvirčku Lightbox, mogoč pa je tudi celozaslonski prikaz.',
+	'multimediaviewer-pref-desc' => 'S tem orodjem lahko izboljšate svojo izkušnjo pri ogledovanju večpredstavnostnih vsebin. Orodje prikazuje slike na straneh s sličicami v večji velikosti in v lepšem okvirčku celozaslonskega vmesnika, mogoč pa je tudi celozaslonski prikaz.',
 	'multimediaviewer-file-page' => 'Pojdi na pripadajočo opisno stran datoteke.',
 	'multimediaviewer-repository' => 'Več o $1',
+	'multimediaviewer-repository-local' => 'Preberite več',
 	'multimediaviewer-datetime-created' => 'Ustvarjeno: $1',
 	'multimediaviewer-datetime-uploaded' => 'Naloženo: $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Naložil|Naložila}}: $1',
