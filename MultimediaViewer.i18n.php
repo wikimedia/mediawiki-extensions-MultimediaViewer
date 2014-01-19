@@ -147,12 +147,31 @@ See also:
 	'multimediaviewer-about-mmv' => 'Text for a link to a page with more information about Media Viewer software.',
 	'multimediaviewer-discuss-mmv' => 'Text for a link to a page where the user can discuss the Media Viewer software.
 {{Identical|Leave feedback}}',
-	'multimediaviewer-geoloc-north' => 'Symbol for representing "north" in geolocation coordinates.',
-	'multimediaviewer-geoloc-east' => 'Symbol for representing "east" in geolocation coordinates.',
-	'multimediaviewer-geoloc-south' => 'Symbol for representing "south" in geolocation coordinates.',
-	'multimediaviewer-geoloc-west' => 'Symbol for representing "west" in geolocation coordinates.',
-	'multimediaviewer-geoloc-coord' => 'Format for geolocation coordinates. $1 is the number of degrees, $2 is the number of minutes, $3 is the number of seconds (rounded to the nearest hundredths place), and $4 is the direction symbol, defined by multimediaviewer-geoloc-(north|east|south|west).',
-	'multimediaviewer-geoloc-coords' => 'Format for sets of geolocation coordinates. $1 is the latitude, $2 is the longitude. Both are formatted according to multimedia-viewer-geoloc-coord.',
+	'multimediaviewer-geoloc-north' => 'Symbol for representing "north" in geolocation coordinates.
+
+Used as <code>$4</code> in {{msg-mw|Multimediaviewer-geoloc-coord}}.',
+	'multimediaviewer-geoloc-east' => 'Symbol for representing "east" in geolocation coordinates.
+
+Used as <code>$4</code> in {{msg-mw|Multimediaviewer-geoloc-coord}}.',
+	'multimediaviewer-geoloc-south' => 'Symbol for representing "south" in geolocation coordinates.
+
+Used as <code>$4</code> in {{msg-mw|Multimediaviewer-geoloc-coord}}.',
+	'multimediaviewer-geoloc-west' => 'Symbol for representing "west" in geolocation coordinates.
+
+Used as <code>$4</code> in {{msg-mw|Multimediaviewer-geoloc-coord}}.',
+	'multimediaviewer-geoloc-coord' => 'Format for geolocation coordinates. Parameters:
+* $1 - the number of degrees
+* $2 - the number of minutes
+* $3 - the number of seconds (rounded to the nearest hundredths place)
+* $4 - the direction symbol, defined by the following messages:
+** {{msg-mw|Multimediaviewer-geoloc-north}}
+** {{msg-mw|Multimediaviewer-geoloc-east}}
+** {{msg-mw|Multimediaviewer-geoloc-south}}
+** {{msg-mw|Multimediaviewer-geoloc-west}}',
+	'multimediaviewer-geoloc-coords' => 'Format for sets of geolocation coordinates. Parameters:
+* $1 - the latitude
+* $2 - the longitude
+Both are formatted according to {{msg-mw|Multimediaviewer-geoloc-coord}}.',
 );
 
 /** Arabic (العربية)
@@ -693,6 +712,12 @@ $messages['ja'] = array(
 	'multimediaviewer-use-file-offwiki' => 'このファイルを別のウェブサイトで使用',
 	'multimediaviewer-about-mmv' => 'メディア ビューアーについて',
 	'multimediaviewer-discuss-mmv' => 'フィードバックを送信',
+	'multimediaviewer-geoloc-north' => '北緯',
+	'multimediaviewer-geoloc-east' => '東経',
+	'multimediaviewer-geoloc-south' => '南緯',
+	'multimediaviewer-geoloc-west' => '西経',
+	'multimediaviewer-geoloc-coord' => '$4$1度$2分$3秒',
+	'multimediaviewer-geoloc-coords' => '$1 $2',
 );
 
 /** Kazakh (Cyrillic script) (қазақша (кирил)‎)
@@ -730,13 +755,16 @@ $messages['km'] = array(
  * @author Freebiekr
  * @author Hym411
  * @author Jskang
+ * @author Priviet
  */
 $messages['ko'] = array(
 	'multimediaviewer-desc' => '섬네일 이미지를 풀스크린 인터페이스에서 더 큰 크기로 확장합니다.',
+	'multimediaviewer-desc-nil' => '설명이 없습니다.',
 	'multimediaviewer-pref' => '미디어 뷰어',
 	'multimediaviewer-pref-desc' => '이 새 도구로 멀티미디어를 더 쉽게 감상하십시오. 이 도구는 섬네일 이미지가 있는 문서에서 그 섬네일을 더 크게 나타냅니다. 큰 이미지는 보기 편리한 풀스크린 인터페이스로 표시되며 원본 크기로 표시될 수도 있습니다.',
 	'multimediaviewer-file-page' => '해당 파일 문서로 이동',
 	'multimediaviewer-repository' => '$1에서 더 자세히 보기',
+	'multimediaviewer-repository-local' => '더 알아보기',
 	'multimediaviewer-datetime-created' => '$1에 만듦',
 	'multimediaviewer-datetime-uploaded' => '$1에 업로드',
 	'multimediaviewer-userpage-link' => '$1가 {{GENDER:$2|업로드}}',
@@ -813,6 +841,10 @@ $messages['mk'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Употребете ја податотекава на друго место на интернет',
 	'multimediaviewer-about-mmv' => 'За Медиумскиот прегледувач',
 	'multimediaviewer-discuss-mmv' => 'Дајте мислење',
+	'multimediaviewer-geoloc-north' => 'СГШ',
+	'multimediaviewer-geoloc-east' => 'ИГД',
+	'multimediaviewer-geoloc-south' => 'ЈГШ',
+	'multimediaviewer-geoloc-west' => 'ЗГД',
 );
 
 /** Malayalam (മലയാളം)
