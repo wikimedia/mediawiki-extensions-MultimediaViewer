@@ -152,12 +152,18 @@
 	};
 
 	LIP.initializeInterface = function () {
+		var ui = this;
 		this.initializeHeader();
 		this.initializeNavigation();
 		this.initializeButtons();
 		this.initializeImage();
 		this.initializeImageMetadata();
 		this.initializeAboutLinks();
+		this.$imageDiv.click( function ( e ) {
+			if ( e.target.nodeName !== 'IMG' ) {
+				ui.unattach();
+			}
+		} );
 	};
 
 	LIP.initializeHeader = function () {
