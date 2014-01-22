@@ -69,6 +69,7 @@ $messages['en'] = array(
 	'multimediaviewer-geoloc-west' => 'W',
 	'multimediaviewer-geoloc-coord' => '$1° $2′ $3″ $4',
 	'multimediaviewer-geoloc-coords' => '$1, $2',
+	'multimediaviewer-geolocation' => 'Location: $1',
 );
 
 /** Message documentation (Message documentation)
@@ -172,6 +173,7 @@ Used as <code>$4</code> in {{msg-mw|Multimediaviewer-geoloc-coord}}.',
 * $1 - the latitude
 * $2 - the longitude
 Both are formatted according to {{msg-mw|Multimediaviewer-geoloc-coord}}.',
+	'multimediaviewer-geolocation' => 'Message for displaying a location, formatted by {{msg-mw|Multimediaviewer-geoloc-coords}}, which is passed in as $1.',
 );
 
 /** Arabic (العربية)
