@@ -279,6 +279,8 @@ $licenses = array(
 	'cc-by-3.0',
 	'cc-by-sa-3.0',
 	'cc-by-sa-3.0-migrated',
+	'cc-by-4.0',
+	'cc-by-sa-4.0',
 	'cc-pd',
 	'cc-zero',
 	'default',

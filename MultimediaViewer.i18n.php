@@ -50,6 +50,8 @@ $messages['en'] = array(
 	'multimediaviewer-license-cc-by-sa-2.5' => 'CC BY-SA 2.5',
 	'multimediaviewer-license-cc-by-3.0' => 'CC BY 3.0',
 	'multimediaviewer-license-cc-by-sa-3.0' => 'CC BY-SA 3.0',
+	'multimediaviewer-license-cc-by-4.0' => 'CC BY 4.0',
+	'multimediaviewer-license-cc-by-sa-4.0' => 'CC BY-SA 4.0',
 	'multimediaviewer-license-cc-pd' => 'Public Domain',
 	'multimediaviewer-license-cc-zero' => 'CC 0',
 	'multimediaviewer-license-default' => 'View license',
@@ -123,6 +125,8 @@ They will usually be derived from the HTML output from wikitext on a file descri
 	'multimediaviewer-license-cc-by-sa-2.5' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.5, used in a link to the file information page that has more licensing information.',
 	'multimediaviewer-license-cc-by-3.0' => 'Very short label for the Creative Commons Attribution license, version 3.0, used in a link to the file information page that has more licensing information.',
 	'multimediaviewer-license-cc-by-sa-3.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 3.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-4.0' => 'Very short label for the Creative Commons Attribution license, version 4.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-sa-4.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 4.0, used in a link to the file information page that has more licensing information.',
 	'multimediaviewer-license-cc-pd' => 'Very short label for the Creative Commons Public Domain license, used in a link to the file information page that has more licensing information.
 {{Identical|Public domain}}',
 	'multimediaviewer-license-cc-zero' => 'Very short label for the Creative Commons Zero license, used in a link to the file information page that has more licensing information.',
