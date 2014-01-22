@@ -1,19 +1,16 @@
 ( function ( mw, $ ) {
 	var thingsShouldBeEmptied = [
 			'$license',
-			'$imageDesc',
 			'$title',
 			'$credit',
 			'$username',
 			'$location',
 			'$repo',
-			'$datetime',
-			'$imageBackupDesc'
+			'$datetime'
 		],
 
 		thingsShouldHaveEmptyClass = [
 			'$license',
-			'$imageDescDiv',
 			'$credit',
 			'$usernameLi',
 			'$locationLi',

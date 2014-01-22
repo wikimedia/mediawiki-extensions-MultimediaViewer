@@ -88,6 +88,7 @@ $wgResourceModules['ext.multimediaViewer.lightboxinterface'] = array_merge( arra
 	'dependencies' => array(
 		'oojs',
 		'multilightbox.interface',
+		'ext.multimediaViewer.ui.description',
 	),
 ), $moduleInfoMMV );
 
@@ -116,6 +117,27 @@ $wgResourceModules['ext.multimediaViewer.dataProvider'] = array_merge( array(
 $wgResourceModules['ext.multimediaViewer.base'] = array_merge( array(
 	'scripts' => array(
 		'mmv.js',
+	),
+), $moduleInfoMMV );
+
+$wgResourceModules['ext.multimediaViewer.ui'] = array_merge( array(
+	'scripts' => array(
+		'ext.multimediaViewer.ui.js',
+	),
+
+	'dependencies' => array(
+		'ext.multimediaViewer.base',
+	),
+), $moduleInfoMMV );
+
+$wgResourceModules['ext.multimediaViewer.ui.description'] = array_merge( array(
+	'scripts' => array(
+		'ext.multimediaViewer.ui.description.js',
+	),
+
+	'dependencies' => array(
+		'ext.multimediaViewer.ui',
+		'oojs',
 	),
 ), $moduleInfoMMV );
 

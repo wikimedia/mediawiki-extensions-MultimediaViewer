@@ -277,8 +277,18 @@ body.mobile .mw-mlb-controls,
 .mw-mlb-title-para,
 .mw-mlb-credit,
 .mw-mlb-image-desc,
+.mw-mlb-description-backup,
 .mw-mlb-mmv-about-links {
 	padding-left: 20px;
+}
+
+.mw-mlb-image-desc-div.empty .mw-mlb-image-desc {
+	color: rgb(136, 136, 136);
+	font-style: italic;
+}
+
+.mw-mlb-description-backup.empty {
+	display: none;
 }
 
 .mw-mlb-mmv-about-links {
