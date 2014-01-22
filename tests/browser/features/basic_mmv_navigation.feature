@@ -1,4 +1,4 @@
-@en.wikipedia.beta.wmflabs.org
+@en.wikipedia.beta.wmflabs.org @login
 Feature: Basic Multimedia Viewer navigation
 
   NOTE: This test should be run against '/Lightbox_demo' to work correctly
