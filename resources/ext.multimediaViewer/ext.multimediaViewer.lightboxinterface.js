@@ -41,9 +41,8 @@
 
 		this.$license.empty().addClass( 'empty' );
 
-		this.$imageDesc.empty();
-		this.$imageDescDiv.addClass( 'empty' );
-		this.$imageBackupDesc.empty();
+		this.description.empty();
+
 		this.$title.empty();
 		this.$credit.empty().addClass( 'empty' );
 
@@ -248,13 +247,7 @@
 	};
 
 	LIP.initializeImageDesc = function () {
-		this.$imageDescDiv = $( '<div>' )
-			.addClass( 'mw-mlb-image-desc-div empty' )
-			.appendTo( this.$imageMetadata );
-
-		this.$imageDesc = $( '<p>' )
-			.addClass( 'mw-mlb-image-desc' )
-			.appendTo( this.$imageDescDiv );
+		this.description = new mw.mmv.ui.Description( this.$imageMetadata );
 	};
 
 	LIP.initializeImageLinks = function () {
@@ -264,10 +257,6 @@
 
 		this.$imageLinks = $( '<ul>' )
 			.addClass( 'mw-mlb-image-links' )
-			.appendTo( this.$imageLinkDiv );
-
-		this.$imageBackupDesc = $( '<p>' )
-			.addClass( 'mw-mlb-description-backup' )
 			.appendTo( this.$imageLinkDiv );
 
 		this.initializeRepoLink();

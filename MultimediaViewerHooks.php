@@ -120,6 +120,7 @@ class MultimediaViewerHooks {
 				'tests/qunit/ext.multimediaViewer.test.js',
 				'tests/qunit/ext.multimediaViewer.dataModel.test.js',
 				'tests/qunit/ext.multimediaViewer.lightboxinterface.test.js',
+				'tests/qunit/ext.multimediaViewer.ui.description.test.js',
 				'tests/qunit/lightboximage.test.js',
 				'tests/qunit/lightboxinterface.test.js',
 				'tests/qunit/multilightbox.test.js',

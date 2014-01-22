@@ -208,36 +208,8 @@
 
 	MMVP = MultimediaViewer.prototype;
 
-	/**
-	 * Helper function for whitelisting HTML to only keep links and text. Works in-place.
-	 * @param {jQuery} $el
-	 */
-	MMVP.whitelistHtml = function ( $el ) {
-		var child, $prev, $child = $el.children().first();
-
-		while ( $child && $child.length ) {
-			child = $child.get( 0 );
-
-			if ( child.nodeType !== child.ELEMENT_NODE ) {
-				return;
-			}
-
-			this.whitelistHtml( $child );
-
-			if ( !$child.is( 'a' ) ) {
-				$prev = $child.prev();
-				$child.replaceWith( $child.contents() );
-			} else {
-				$prev = $child;
-			}
-
-			if ( $prev && $prev.length === 1 ) {
-				$child = $prev.next();
-			} else {
-				$child = $el.children().first();
-			}
-		}
-	};
+	// TODO FIXME HACK delete this when other UI elements have been shifted away.
+	MMVP.whitelistHtml = mw.mmv.ui.Element.prototype.whitelistHtml;
 
 	/**
 	 * Create an image object for the lightbox to use.
@@ -542,14 +514,6 @@
 
 		ui.$datetimeLi.toggleClass( 'empty', !imageData.uploadDateTime && !imageData.creationDateTime );
 
-		if ( imageData.description ) {
-			this.whitelistHtml( ui.$imageDesc.empty().append( $.parseHTML( imageData.description ) ) );
-		} else {
-			ui.$imageDesc.append( mw.message( 'multimediaviewer-desc-nil' ).text() );
-		}
-
-		ui.$imageDescDiv.toggleClass( 'empty', !imageData.description );
-
 		if ( imageData.source ) {
 			this.whitelistHtml( ui.$source.empty().append( $.parseHTML( imageData.source ) ) );
 		}
@@ -577,17 +541,7 @@
 
 		ui.$credit.toggleClass( 'empty', !imageData.source && !imageData.author );
 
-		ui.$imageDescDiv.toggleClass( 'empty', !imageData.description && !caption );
-
-		if ( caption ) {
-			this.whitelistHtml( ui.$imageDesc.append( $.parseHTML( caption ) ) );
-
-			if ( imageData.description ) {
-				this.whitelistHtml( ui.$imageBackupDesc.append( $.parseHTML( imageData.description ) ) );
-			}
-		} else if ( imageData.description ) {
-			this.whitelistHtml( ui.$imageDesc.append( $.parseHTML( imageData.description ) ) );
-		}
+		ui.description.set( imageData.description, caption );
 
 		msgname = 'multimediaviewer-license-' + ( imageData.license || '' );
 

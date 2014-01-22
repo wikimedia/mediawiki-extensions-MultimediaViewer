@@ -8,6 +8,8 @@
 		"../resources/ext.multimediaViewer/ext.multimediaViewer.js",
 		"../resources/ext.multimediaViewer/ext.multimediaViewer.lightboxinterface.js",
 		"../resources/ext.multimediaViewer/ext.multimediaViewer.lightboximage.js",
-		"../resources/ext.multimediaViewer/ext.multimediaViewer.dataModel.js"
+		"../resources/ext.multimediaViewer/ext.multimediaViewer.dataModel.js",
+		"../resources/ext.multimediaViewer/ext.multimediaViewer.ui.description.js",
+		"../resources/ext.multimediaViewer/ext.multimediaViewer.ui.js"
 	]
 }
