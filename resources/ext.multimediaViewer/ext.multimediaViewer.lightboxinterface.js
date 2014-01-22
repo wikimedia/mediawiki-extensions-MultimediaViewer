@@ -588,23 +588,25 @@
 		latitude, longitude, langcode, titleText
 	) {
 		this.$location.text(
-			mw.message(
-				'multimediaviewer-geoloc-coords',
-
+			mw.message( 'multimediaviewer-geolocation',
 				mw.message(
-					'multimediaviewer-geoloc-coord',
-					mw.language.convertNumber( latdeg ),
-					mw.language.convertNumber( latmin ),
-					mw.language.convertNumber( latsec ),
-					mw.message( latmsg ).text()
-				).text(),
+					'multimediaviewer-geoloc-coords',
 
-				mw.message(
-					'multimediaviewer-geoloc-coord',
-					mw.language.convertNumber( longdeg ),
-					mw.language.convertNumber( longmin ),
-					mw.language.convertNumber( longsec ),
-					mw.message( longmsg ).text()
+					mw.message(
+						'multimediaviewer-geoloc-coord',
+						mw.language.convertNumber( latdeg ),
+						mw.language.convertNumber( latmin ),
+						mw.language.convertNumber( latsec ),
+						mw.message( latmsg ).text()
+					).text(),
+
+					mw.message(
+						'multimediaviewer-geoloc-coord',
+						mw.language.convertNumber( longdeg ),
+						mw.language.convertNumber( longmin ),
+						mw.language.convertNumber( longsec ),
+						mw.message( longmsg ).text()
+					).text()
 				).text()
 			).text()
 		);

@@ -163,6 +163,7 @@ $wgResourceModules['ext.multimediaViewer'] = array_merge( array(
 		'multimediaviewer-geoloc-west',
 		'multimediaviewer-geoloc-coord',
 		'multimediaviewer-geoloc-coords',
+		'multimediaviewer-geolocation',
 	),
 ), $moduleInfoMMV );
 

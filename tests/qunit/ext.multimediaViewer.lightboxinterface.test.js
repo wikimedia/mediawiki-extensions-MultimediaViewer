@@ -154,7 +154,7 @@
 
 		assert.strictEqual(
 			lightbox.$location.text(),
-			'50° 10′ 20″ N, 70° 30′ 40″ E',
+			'Location: 50° 10′ 20″ N, 70° 30′ 40″ E',
 			'Location text is set as expected - if this fails it may be due to i18n issues.'
 		);
 
