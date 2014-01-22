@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+pushd $SCRIPT_DIR > /dev/null
 jsduck \
---config=$(pwd)/docs/jsduck-config.json \
+--config=./jsduck-config.json \
 --color --warnings-exit-nonzero \
 && echo 'JSDuck execution finished.'
+popd > /dev/null
