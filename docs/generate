@@ -2,4 +2,5 @@
 
 jsduck \
 --config=$(pwd)/docs/jsduck-config.json \
+--color --warnings-exit-nonzero \
 && echo 'JSDuck execution finished.'

@@ -21,6 +21,7 @@
 	/**
 	 * @class mw.LightboxInterface
 	 * @extends mlb.LightboxInterface
+         * Represents the main interface of the lightbox
 	 * @constructor
 	 */
 	function LightboxInterface() {

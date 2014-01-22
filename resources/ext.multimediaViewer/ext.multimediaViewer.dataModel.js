@@ -57,55 +57,55 @@
 			latitude,
 			longitude
 	) {
-		/** @property {mw.Title} title */
+		/** @property {mw.Title} title The title of the image file */
 		this.title = title;
 
-		/** @property {number} size */
+		/** @property {number} size The filesize, in bytes, of the original image */
 		this.size = size;
 
-		/** @property {number} width */
+		/** @property {number} width The width, in pixels, of the original image */
 		this.width = width;
 
-		/** @property {number} height */
+		/** @property {number} height The height, in pixels, of the original image */
 		this.height = height;
 
-		/** @property {string} mimeType */
+		/** @property {string} mimeType The MIME type of the original image */
 		this.mimeType = mimeType;
 
-		/** @property {string} url */
+		/** @property {string} url The URL to the original image */
 		this.url = url;
 
-		/** @property {string} descriptionUrl */
+		/** @property {string} descriptionUrl The URL to the description page for the image */
 		this.descriptionUrl = descriptionUrl;
 
-		/** @property {string} repo */
+		/** @property {string} repo The name of the repository where this image is stored */
 		this.repo = repo;
 
-		/** @property {string} lastUploader */
+		/** @property {string} lastUploader The person who uploaded the last version of the file */
 		this.lastUploader = lastUploader;
 
-		/** @property {string} uploadDateTime */
+		/** @property {string} uploadDateTime The date and time of the last upload */
 		this.uploadDateTime = uploadDateTime;
 
-		/** @property {string} creationDateTime */
+		/** @property {string} creationDateTime The date and time that the image was created */
 		this.creationDateTime = creationDateTime;
 
-		/** @property {string} description */
+		/** @property {string} description The description from the file page - unsafe HTML sometimes goes here */
 		this.description = description;
 
-		/** @property {string} source */
+		/** @property {string} source The source for the image (could be an organization, e.g.) - unsafe HTML sometimes goes here */
 		this.source = source;
 
-		/** @property {string} author */
+		/** @property {string} author The author of the image - unsafe HTML sometimes goes here */
 		this.author = author;
 
-		/** @property {string} license */
+		/** @property {string} license The license under which the image is distributed */
 		this.license = license;
 
-		/** @property {number} latitude */
+		/** @property {number} latitude The latitude of the place where the image was created */
 		this.latitude = latitude;
 
-		/** @property {number} longitude */
+		/** @property {number} longitude The longitude of the place where the image was created */
 		this.longitude = longitude;
 
 		/**
@@ -236,13 +236,13 @@
 		favIcon,
 		isLocal
 	) {
-		/** @property {string} displayName */
+		/** @property {string} displayName Human-readable name of the repository */
 		this.displayName = displayName;
 
-		/** @property {string} favIcon */
+		/** @property {string} favIcon An icon that represents the repository */
 		this.favIcon = favIcon;
 
-		/** @property {boolean} isLocal */
+		/** @property {boolean} isLocal Whether the repository is the local wiki */
 		this.isLocal = isLocal;
 	}
 
@@ -295,16 +295,16 @@
 	) {
 		Repo.call( this, displayName, favIcon, isLocal );
 
-		/** @property {string} apiUrl */
+		/** @property {string} apiUrl URL to the wiki's api.php */
 		this.apiUrl = apiUrl;
 
-		/** @property {string} server */
+		/** @property {string} server Hostname for the wiki */
 		this.server = server;
 
-		/** @property {string} articlePath */
+		/** @property {string} articlePath Path to articles on the wiki, relative to the hostname */
 		this.articlePath = articlePath;
 
-		/** @property {string} absoluteArticlePath */
+		/** @property {string} absoluteArticlePath Path to articles on the wiki, relative to nothing */
 		this.absoluteArticlePath = server + articlePath;
 	}
 
@@ -325,7 +325,7 @@
 	) {
 		Repo.call( this, displayName, favIcon, isLocal );
 
-		/** @property {string} descBaseUrl */
+		/** @property {string} descBaseUrl Base URL for descriptions on the wiki - append a file's title to this to get the description page */
 		this.descBaseUrl = descBaseUrl;
 	}
 

@@ -31,19 +31,19 @@
 	function LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption ) {
 		MLBImage.call( this, fileLink );
 
-		/** @property {string} filePageLink */
+		/** @property {string} filePageLink URL to the image's file page */
 		this.filePageLink = filePageLink;
 
-		/** @property {mw.Title} filePageTitle */
+		/** @property {mw.Title} filePageTitle Title of the image's file page */
 		this.filePageTitle = fileTitle;
 
-		/** @property {number} index */
+		/** @property {number} index What number this image is in the array of indexed images */
 		this.index = index;
 
-		/** @property {HTMLImageElement} thumbnail */
+		/** @property {HTMLImageElement} thumbnail The <img> element that holds the already-loaded thumbnail of the image*/
 		this.thumbnail = thumb;
 
-		/** @property {string} caption */
+		/** @property {string} caption The caption of the image, if any */
 		this.caption = caption;
 	}
 
