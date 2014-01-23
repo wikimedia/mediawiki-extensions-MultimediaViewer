@@ -353,6 +353,8 @@ $messages['de'] = array(
 	'multimediaviewer-datetime-created' => 'Erstellt am $1',
 	'multimediaviewer-datetime-uploaded' => 'Hochgeladen am $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Hochgeladen}} von $1',
+	'multimediaviewer-license-cc-by-4.0' => 'CC-BY 4.0',
+	'multimediaviewer-license-cc-by-sa-4.0' => 'CC-BY-SA 4.0',
 	'multimediaviewer-license-cc-pd' => 'Gemeinfrei',
 	'multimediaviewer-license-default' => 'Lizenz ansehen',
 	'multimediaviewer-use-file' => 'Diese Datei weiterverwenden',
@@ -361,6 +363,7 @@ $messages['de'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Diese Datei auf einer anderen Website verwenden',
 	'multimediaviewer-about-mmv' => 'Über Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Eine Rückmeldung hinterlassen',
+	'multimediaviewer-geolocation' => 'Standort: $1',
 );
 
 /** Swiss High German (Schweizer Hochdeutsch)
@@ -396,10 +399,30 @@ $messages['dsb'] = array(
 
 /** Greek (Ελληνικά)
  * @author Astralnet
+ * @author Geraki
  */
 $messages['el'] = array(
+	'multimediaviewer-desc' => 'Επεκτείνετε τις μικρογραφίες σε μεγαλύτερο μέγεθος σε ένα περιβάλλον εργασίας πλήρους οθόνης.',
+	'multimediaviewer-desc-nil' => 'Χωρίς διαθέσιμη περιγραφή.',
+	'multimediaviewer-pref' => 'Media Viewer',
+	'multimediaviewer-pref-desc' => 'Βελτιώστε την εμπειρία σας στην εμφάνιση πολυμέσων με αυτό το νέο εργαλείο. Εμφανίζει εικόνες σε μεγαλύτερο μέγεθος σε σελίδες που έχουν μικρογραφίες. Οι εικόνες εμφανίζονται σε μια καλύτερη πλήρους οθόνης διεπαφή επικάλυψης, και μπορούν επίσης να εμφανιστούν σε πλήρες μέγεθος.',
+	'multimediaviewer-file-page' => 'Μεταβείτε στην αντίστοιχη σελίδα του αρχείου',
+	'multimediaviewer-repository' => 'Μάθετε περισσότερα σχετικά με το $1',
+	'multimediaviewer-repository-local' => 'Μάθετε περισσότερα',
+	'multimediaviewer-datetime-created' => 'Δημιουργήθηκε στις $1',
+	'multimediaviewer-datetime-uploaded' => 'Ανέβηκε στις $1',
+	'multimediaviewer-userpage-link' => 'Ανέβηκε από {{GENDER:$2|τον|την}} $1',
+	'multimediaviewer-license-cc-by-4.0' => 'CC BY 4.0',
+	'multimediaviewer-license-cc-by-sa-4.0' => 'CC BY-SA 4.0',
+	'multimediaviewer-license-cc-pd' => 'Κοινό κτήμα',
+	'multimediaviewer-license-default' => 'Δείτε την άδεια',
 	'multimediaviewer-use-file' => 'Χρησιμοποιήστε αυτό το αρχείο',
+	'multimediaviewer-use-file-owt' => 'Χρησιμοποιήστε αυτό το αρχείο σε μια σελίδα wiki, ως μια μικρογραφία',
+	'multimediaviewer-use-file-own' => 'Χρησιμοποιήστε αυτό το αρχείο σε μια σελίδα wiki, εντός κειμένου',
+	'multimediaviewer-use-file-offwiki' => 'Χρησιμοποιήστε αυτό το αρχείο σε μια άλλη ιστοσελίδα',
 	'multimediaviewer-about-mmv' => 'Περί το Media Viewer',
+	'multimediaviewer-discuss-mmv' => 'Αφήστε σχόλια',
+	'multimediaviewer-geolocation' => 'Τοποθεσία: $1',
 );
 
 /** British English (British English)
@@ -1083,6 +1106,8 @@ $messages['sv'] = array(
 	'multimediaviewer-datetime-created' => 'Skapades $1',
 	'multimediaviewer-datetime-uploaded' => 'Laddades upp $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Uppladdad}} av $1',
+	'multimediaviewer-license-cc-by-4.0' => 'CC BY 4.0',
+	'multimediaviewer-license-cc-by-sa-4.0' => 'CC BY-SA 4.0',
 	'multimediaviewer-license-cc-pd' => 'Allmän egendom',
 	'multimediaviewer-license-default' => 'Visa licens',
 	'multimediaviewer-use-file' => 'Använd denna fil',
@@ -1091,6 +1116,7 @@ $messages['sv'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Använd denna fil på en annan webbplats',
 	'multimediaviewer-about-mmv' => 'Om Mediavisaren',
 	'multimediaviewer-discuss-mmv' => 'Ge återkoppling',
+	'multimediaviewer-geolocation' => 'Plats: $1',
 );
 
 /** Turkish (Türkçe)
