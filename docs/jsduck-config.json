@@ -5,11 +5,11 @@
 	"--output": "./js",
 	"--": [
 		"./external.js",
-		"../resources/ext.multimediaViewer/ext.multimediaViewer.js",
-		"../resources/ext.multimediaViewer/ext.multimediaViewer.lightboxinterface.js",
-		"../resources/ext.multimediaViewer/ext.multimediaViewer.lightboximage.js",
-		"../resources/ext.multimediaViewer/ext.multimediaViewer.dataModel.js",
-		"../resources/ext.multimediaViewer/ext.multimediaViewer.ui.description.js",
-		"../resources/ext.multimediaViewer/ext.multimediaViewer.ui.js"
+		"../resources/mmv/mmv.js",
+		"../resources/mmv/mmv.lightboxinterface.js",
+		"../resources/mmv/mmv.lightboximage.js",
+		"../resources/mmv/mmv.model.js",
+		"../resources/mmv/mmv.ui.description.js",
+		"../resources/mmv/mmv.ui.js"
 	]
 }

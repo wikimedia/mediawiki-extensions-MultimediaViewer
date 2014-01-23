@@ -1,5 +1,5 @@
 ( function () {
-	QUnit.module( 'ext.multimediaViewer.multilightbox.multiLightbox', QUnit.newMwEnvironment() );
+	QUnit.module( 'multilightbox', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Smoke test', 3, function ( assert ) {
 		function DummyClass() {}

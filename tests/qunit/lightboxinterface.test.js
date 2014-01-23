@@ -1,5 +1,5 @@
 ( function ( mw, $ ) {
-	QUnit.module( 'ext.multimediaViewer.multilightbox.lightboxInterface', QUnit.newMwEnvironment() );
+	QUnit.module( 'multilightbox.interface', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Sanity test, object creation and ui construction', 6, function ( assert ) {
 		var lightbox = new window.LightboxInterface();

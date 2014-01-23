@@ -20,7 +20,7 @@
 			'$imageDiv'
 		];
 
-	QUnit.module( 'ext.multimediaViewer.lightboxInterface', QUnit.newMwEnvironment() );
+	QUnit.module( 'mmv.lightboxInterface', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Sanity test, object creation and ui construction', 17, function ( assert ) {
 		var lightbox = new mw.LightboxInterface(),

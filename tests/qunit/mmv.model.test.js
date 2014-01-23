@@ -16,7 +16,7 @@
  */
 
 ( function ( mw ) {
-	QUnit.module( 'ext.multimediaViewer.dataModel', QUnit.newMwEnvironment() );
+	QUnit.module( 'mmv.model', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Image model constructor sanity check', 18, function ( assert ) {
 		var

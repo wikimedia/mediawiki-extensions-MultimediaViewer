@@ -27,8 +27,8 @@ $moduleInfoML = array(
 );
 
 $moduleInfoMMV = array(
-	'localBasePath' => __DIR__ . '/resources/ext.multimediaViewer',
-	'remoteExtPath' => 'MultimediaViewer/resources/ext.multimediaViewer',
+	'localBasePath' => __DIR__ . '/resources/mmv',
+	'remoteExtPath' => 'MultimediaViewer/resources/mmv',
 );
 
 $moduleInfoMoment = array(
@@ -65,13 +65,13 @@ $wgResourceModules['multilightbox'] = array_merge( array(
 	),
 
 	'dependencies' => array(
-		'ext.multimediaViewer.lightboxinterface',
+		'mmv.lightboxinterface',
 	),
 ), $moduleInfoML );
 
-$wgResourceModules['ext.multimediaViewer.lightboximage'] = array_merge( array(
+$wgResourceModules['mmv.lightboximage'] = array_merge( array(
 	'scripts' => array(
-		'ext.multimediaViewer.lightboximage.js',
+		'mmv.lightboximage.js',
 	),
 
 	'dependencies' => array(
@@ -80,86 +80,86 @@ $wgResourceModules['ext.multimediaViewer.lightboximage'] = array_merge( array(
 	),
 ), $moduleInfoMMV );
 
-$wgResourceModules['ext.multimediaViewer.lightboxinterface'] = array_merge( array(
+$wgResourceModules['mmv.lightboxinterface'] = array_merge( array(
 	'scripts' => array(
-		'ext.multimediaViewer.lightboxinterface.js',
+		'mmv.lightboxinterface.js',
 	),
 
 	'dependencies' => array(
 		'oojs',
 		'multilightbox.interface',
-		'ext.multimediaViewer.ui.description',
+		'mmv.ui.description',
 	),
 ), $moduleInfoMMV );
 
-$wgResourceModules['ext.multimediaViewer.dataModel'] = array_merge( array(
+$wgResourceModules['mmv.model'] = array_merge( array(
 	'scripts' => array(
-		'ext.multimediaViewer.dataModel.js',
+		'mmv.model.js',
 	),
 
 	'dependencies' => array(
-		'ext.multimediaViewer.base',
+		'mmv.base',
 		'oojs',
 	),
 ), $moduleInfoMMV );
 
-$wgResourceModules['ext.multimediaViewer.dataProvider'] = array_merge( array(
+$wgResourceModules['mmv.provider'] = array_merge( array(
 	'scripts' => array(
-		'ext.multimediaViewer.dataProvider.js',
+		'mmv.provider.js',
 	),
 
 	'dependencies' => array(
-		'ext.multimediaViewer.dataModel',
+		'mmv.model',
 		'oojs',
 	),
 ), $moduleInfoMMV );
 
-$wgResourceModules['ext.multimediaViewer.base'] = array_merge( array(
+$wgResourceModules['mmv.base'] = array_merge( array(
+	'scripts' => array(
+		'mmv.base.js',
+	),
+), $moduleInfoMMV );
+
+$wgResourceModules['mmv.ui'] = array_merge( array(
+	'scripts' => array(
+		'mmv.ui.js',
+	),
+
+	'dependencies' => array(
+		'mmv.base',
+	),
+), $moduleInfoMMV );
+
+$wgResourceModules['mmv.ui.description'] = array_merge( array(
+	'scripts' => array(
+		'mmv.ui.description.js',
+	),
+
+	'dependencies' => array(
+		'mmv.ui',
+		'oojs',
+	),
+), $moduleInfoMMV );
+
+$wgResourceModules['mmv'] = array_merge( array(
 	'scripts' => array(
 		'mmv.js',
 	),
-), $moduleInfoMMV );
-
-$wgResourceModules['ext.multimediaViewer.ui'] = array_merge( array(
-	'scripts' => array(
-		'ext.multimediaViewer.ui.js',
-	),
-
-	'dependencies' => array(
-		'ext.multimediaViewer.base',
-	),
-), $moduleInfoMMV );
-
-$wgResourceModules['ext.multimediaViewer.ui.description'] = array_merge( array(
-	'scripts' => array(
-		'ext.multimediaViewer.ui.description.js',
-	),
-
-	'dependencies' => array(
-		'ext.multimediaViewer.ui',
-		'oojs',
-	),
-), $moduleInfoMMV );
-
-$wgResourceModules['ext.multimediaViewer'] = array_merge( array(
-	'scripts' => array(
-		'ext.multimediaViewer.js',
-	),
 
 	'styles' => array(
-		'ext.multimediaViewer.css',
+		'mmv.css',
 	),
 
 	'dependencies' => array(
 		'multilightbox',
 		'momentjs',
 		'jquery.scrollTo',
-		'ext.multimediaViewer.lightboximage',
+		'mmv.lightboximage',
 		'mediawiki.Title',
 		'jquery.ui.dialog',
 		'jquery.hidpi',
-		'ext.multimediaViewer.dataModel',
-		'ext.multimediaViewer.dataProvider',
+		'mmv.model',
+		'mmv.provider',
 		'mediawiki.language',
 	),
 
@@ -282,9 +282,9 @@ $wgExtensionFunctions[] = function () {
 			'revision' => 6636500,
 		);
 
-		$wgResourceModules['ext.multimediaViewer']['dependencies'][] = 'ext.eventLogging';
-		$wgResourceModules['ext.multimediaViewer']['dependencies'][] = 'schema.MediaViewer';
-		$wgResourceModules['ext.multimediaViewer']['dependencies'][] = 'schema.MediaViewerPerf';
+		$wgResourceModules['mmv']['dependencies'][] = 'ext.eventLogging';
+		$wgResourceModules['mmv']['dependencies'][] = 'schema.MediaViewer';
+		$wgResourceModules['mmv']['dependencies'][] = 'schema.MediaViewerPerf';
 	}
 };
 
@@ -309,7 +309,7 @@ $licenses = array(
 );
 
 foreach ( $licenses as $license ) {
-	$wgResourceModules['ext.multimediaViewer']['messages'][] = 'multimediaviewer-license-' . $license;
+	$wgResourceModules['mmv']['messages'][] = 'multimediaviewer-license-' . $license;
 }
 
 $wgAutoloadClasses['MultimediaViewerHooks'] = __DIR__ . '/MultimediaViewerHooks.php';

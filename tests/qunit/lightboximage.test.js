@@ -1,5 +1,5 @@
 ( function ( /** mw, $ ** Commentted to keep lint happy, uncomment when needed */) {
-	QUnit.module( 'ext.multimediaViewer.multilightbox.lightboxImage', QUnit.newMwEnvironment() );
+	QUnit.module( 'multilightbox.image', QUnit.newMwEnvironment() );
 
 	QUnit.asyncTest( 'Sanity test, object creation and image loading', 1, function ( assert ) {
 		var lightboxImage = new window.LightboxImage( 'http://en.wikipedia.org/w/skins/vector/images/search-ltr.png' );

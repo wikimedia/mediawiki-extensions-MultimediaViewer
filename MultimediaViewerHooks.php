@@ -40,7 +40,7 @@ class MultimediaViewerHooks {
 			return true;
 		}
 
-		$out->addModules( array( 'ext.multimediaViewer' ) );
+		$out->addModules( array( 'mmv' ) );
 
 		return true;
 	}
@@ -115,19 +115,19 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	public static function getTestModules( array &$testModules, ResourceLoader &$resourceLoader ) {
-		$testModules['qunit']['ext.multimediaViewer.tests'] = array(
+		$testModules['qunit']['mmv.tests'] = array(
 			'scripts' => array(
-				'tests/qunit/ext.multimediaViewer.test.js',
-				'tests/qunit/ext.multimediaViewer.dataModel.test.js',
-				'tests/qunit/ext.multimediaViewer.dataProvider.test.js',
-				'tests/qunit/ext.multimediaViewer.lightboxinterface.test.js',
-				'tests/qunit/ext.multimediaViewer.ui.description.test.js',
+				'tests/qunit/mmv.test.js',
+				'tests/qunit/mmv.model.test.js',
+				'tests/qunit/mmv.provider.test.js',
+				'tests/qunit/mmv.lightboxinterface.test.js',
+				'tests/qunit/mmv.ui.description.test.js',
 				'tests/qunit/lightboximage.test.js',
 				'tests/qunit/lightboxinterface.test.js',
 				'tests/qunit/multilightbox.test.js',
 			),
 			'dependencies' => array(
-				'ext.multimediaViewer',
+				'mmv',
 			),
 			'localBasePath' => __DIR__,
 			'remoteExtPath' => 'MultimediaViewer',

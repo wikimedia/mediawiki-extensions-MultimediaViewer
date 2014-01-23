@@ -17,7 +17,7 @@
 		];
 
 
-	QUnit.module( 'ext.multimediaViewer', QUnit.newMwEnvironment() );
+	QUnit.module( 'mmv', QUnit.newMwEnvironment() );
 
 	function createGallery( imageSrc ) {
 		var div = $( '<div>' ).addClass( 'gallery' ).appendTo( '#qunit-fixture' ),

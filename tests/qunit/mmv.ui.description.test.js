@@ -1,5 +1,5 @@
 ( function ( mw, $ ) {
-	QUnit.module( 'ext.multimediaViewer.ui.description', QUnit.newMwEnvironment() );
+	QUnit.module( 'mmv.ui.description', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Sanity test, object creation and UI construction', 4, function ( assert ) {
 		var description = new mw.mmv.ui.Description( $( '#qunit-fixture' ) );

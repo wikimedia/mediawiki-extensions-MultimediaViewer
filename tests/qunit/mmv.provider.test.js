@@ -16,7 +16,7 @@
  */
 
 ( function ( mw, $ ) {
-	QUnit.module( 'ext.multimediaViewer.dataProvider', QUnit.newMwEnvironment() );
+	QUnit.module( 'mmv.provider', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'ImageUsage constructor sanity check', 2, function ( assert ) {
 		var api = { get: function() {} },
