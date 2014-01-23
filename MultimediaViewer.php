@@ -31,6 +31,11 @@ $moduleInfoMMV = array(
 	'remoteExtPath' => 'MultimediaViewer/resources/mmv',
 );
 
+$moduleInfoMMVM = array(
+	'localBasePath' => __DIR__ . '/resources/mmv/model',
+	'remoteExtPath' => 'MultimediaViewer/resources/mmv/model',
+);
+
 $moduleInfoMoment = array(
 	'localBasePath' => __DIR__ . '/resources/momentjs',
 	'remoteExtPath' => 'MultimediaViewer/resources/momentjs',
@@ -101,7 +106,38 @@ $wgResourceModules['mmv.model'] = array_merge( array(
 		'mmv.base',
 		'oojs',
 	),
-), $moduleInfoMMV );
+), $moduleInfoMMVM );
+
+$wgResourceModules['mmv.model.FileUsage'] = array_merge( array(
+	'scripts' => array(
+		'mmv.model.FileUsage.js',
+	),
+
+	'dependencies' => array(
+		'mmv.model',
+	),
+), $moduleInfoMMVM );
+
+$wgResourceModules['mmv.model.Image'] = array_merge( array(
+	'scripts' => array(
+		'mmv.model.Image.js',
+	),
+
+	'dependencies' => array(
+		'mmv.model',
+	),
+), $moduleInfoMMVM );
+
+$wgResourceModules['mmv.model.Repo'] = array_merge( array(
+	'scripts' => array(
+		'mmv.model.Repo.js',
+	),
+
+	'dependencies' => array(
+		'mmv.model',
+		'oojs',
+	),
+), $moduleInfoMMVM );
 
 $wgResourceModules['mmv.provider'] = array_merge( array(
 	'scripts' => array(
@@ -159,6 +195,9 @@ $wgResourceModules['mmv'] = array_merge( array(
 		'jquery.ui.dialog',
 		'jquery.hidpi',
 		'mmv.model',
+		'mmv.model.FileUsage',
+		'mmv.model.Image',
+		'mmv.model.Repo',
 		'mmv.provider',
 		'mediawiki.language',
 	),
