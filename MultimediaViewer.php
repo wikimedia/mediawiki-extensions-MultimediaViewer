@@ -46,6 +46,11 @@ $moduleInfoJQScrollTo = array(
 	'remoteExtPath' => 'MultimediaViewer/resources/jquery.scrollTo',
 );
 
+$moduleInfoJQThrottleDebounce = array(
+	'localBasePath' => __DIR__ . '/resources/jquery.throttle.debounce',
+	'remoteExtPath' => 'MultimediaViewer/resources/jquery.throttle.debounce',
+);
+
 $wgExtensionMessagesFiles['MultimediaViewer'] = __DIR__ . '/MultimediaViewer.i18n.php';
 
 $wgResourceModules['multilightbox.interface'] = array_merge( array(
@@ -203,6 +208,7 @@ $wgResourceModules['mmv'] = array_merge( array(
 		'jquery.scrollTo',
 		'mmv.lightboximage',
 		'jquery.fullscreen',
+		'jquery.throttle.debounce',
 		'mediawiki.Title',
 		'jquery.ui.dialog',
 		'jquery.hidpi',
@@ -317,6 +323,12 @@ $wgResourceModules['jquery.scrollTo'] = array_merge( array(
 		'jquery.scrollTo.js',
 	),
 ), $moduleInfoJQScrollTo );
+
+$wgResourceModules['jquery.throttle.debounce'] = array_merge( array(
+	'scripts' => array(
+		'jquery.ba-throttle-debounce.js',
+	),
+), $moduleInfoJQThrottleDebounce );
 
 $wgExtensionFunctions[] = function () {
 	global $wgResourceModules;

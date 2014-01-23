@@ -644,7 +644,10 @@
 				imageEle = new Image(),
 				targetWidth = size;
 
-			viewer.animateMetadataDivOnce();
+			viewer.stopListeningToScroll();
+			viewer.animateMetadataDivOnce()
+				// We need to wait until the animation is finished before we listen to scroll
+				.then( function() { viewer.startListeningToScroll(); } );
 
 			imageEle.onload = function () {
 				if ( imageEle.width > targetWidth ) {
@@ -673,12 +676,48 @@
 		comingFromPopstate = false;
 	};
 
+	/**
+	 * @method
+	 * Animates the metadata area when the viewer is first opened.
+	 * @return {jQuery.Promise} an empty promise which resolves when the animation is finished
+	 */
 	MMVP.animateMetadataDivOnce = function () {
 		if ( !this.hasAnimatedMetadata ) {
-			$.scrollTo( 40, 400, { onAfter: function() { $.scrollTo( 0, 400 ); } } );
-
 			this.hasAnimatedMetadata = true;
+			$.scrollTo( 40, 400 )
+				.scrollTo( 0, 400 );
 		}
+		return $.scrollTo.window().promise();
+	};
+
+	/**
+	 * @method
+	 * Stop listening to the page's scroll events
+	 */
+	MMVP.stopListeningToScroll = function () {
+		$.scrollTo().off( 'scroll.mmvp' );
+	};
+
+	/**
+	 * @method
+	 * Start listening to the page's scroll events
+	 * Will call MMVP.scroll(), throttled so it is not triggered on every pixel.
+	 */
+	MMVP.startListeningToScroll = function () {
+		var viewer = this;
+
+		$.scrollTo().on( 'scroll.mmvp', $.throttle( 250, function() { viewer.scroll(); } ) );
+
+		// Trigger a check in case the user scrolled manually during the animation
+		viewer.scroll();
+	};
+
+	/**
+	 * @method
+	 * Receives the window's scroll events and flips the chevron if necessary.
+	 */
+	MMVP.scroll = function () {
+		this.ui.$dragIcon.toggleClass( 'pointing-down', !!$.scrollTo().scrollTop() );
 	};
 
 	/**

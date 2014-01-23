@@ -68,6 +68,8 @@
 
 		this.$imageDiv.addClass( 'empty' );
 
+		this.$dragIcon.removeClass( 'pointing-down' );
+
 		MLBInterface.prototype.empty.call( this );
 	};
 
@@ -103,15 +105,14 @@
 	LIP.attach = function ( parentId ) {
 		// Advanced description needs to be below the fold when the lightbox opens
 		// regardless of what the scroll value was prior to opening the lightbox
-		var $document = $( document );
 
 		// Only scroll and save the position if it's the first attach
 		// Otherwise it could be an attach event happening because of prev/next
 		if ( this.scrollTopBeforeAttach === undefined ) {
 			// Save the scrollTop value because we want below to be back to where they were
 			// before opening the lightbox
-			this.scrollTopBeforeAttach = $document.scrollTop();
-			$document.scrollTop( 0 );
+			this.scrollTopBeforeAttach = $.scrollTo().scrollTop();
+			$.scrollTo( 0, 0 );
 		}
 
 		MLBInterface.prototype.attach.call( this, parentId );
@@ -122,13 +123,14 @@
 
 		// Restore the scrollTop as it was before opening the lightbox
 		if ( this.scrollTopBeforeAttach !== undefined ) {
-			$( document ).scrollTop( this.scrollTopBeforeAttach );
+			$.scrollTo( this.scrollTopBeforeAttach, 0 );
 			this.scrollTopBeforeAttach = undefined;
 		}
 	};
 
 	LIP.load = function ( image ) {
-		var hashFragment = '#mediaviewer/' + this.viewer.currentImageFilename + '/' + this.viewer.lightbox.currentIndex;
+		var hashFragment = '#mediaviewer/' + this.viewer.currentImageFilename + '/' + this.viewer.lightbox.currentIndex,
+			ui = this;
 
 		this.viewer.ui = this;
 		this.viewer.registerLogging();
@@ -137,7 +139,7 @@
 			history.pushState( {}, '', hashFragment );
 		}
 
-		this.handleEvent( 'keydown', this.handleKeyDown );
+		this.handleEvent( 'keydown', function( e ) { ui.keydown( e ); } );
 
 		MLBInterface.prototype.load.call( this, image );
 	};
@@ -473,29 +475,6 @@
 	LIP.initializeNavigation = function () {
 		var viewer = this.viewer;
 
-		this.handleKeyDown = this.handleKeyDown || function ( e ) {
-			var isRtl = $( document.body ).hasClass( 'rtl' );
-
-			switch ( e.keyCode ) {
-				case 37:
-					// Left arrow
-					if ( isRtl ) {
-						viewer.nextImage();
-					} else {
-						viewer.prevImage();
-					}
-					break;
-				case 39:
-					// Right arrow
-					if ( isRtl ) {
-						viewer.prevImage();
-					} else {
-						viewer.nextImage();
-					}
-					break;
-			}
-		};
-
 		this.$nextButton = $( '<div>' )
 			.addClass( 'mw-mlb-next-image disabled' )
 			.html( '&nbsp;' )
@@ -511,9 +490,13 @@
 			} );
 	};
 
-	LIP.toggleMetadata = function () {
+	LIP.toggleMetadata = function ( forceDirection ) {
 		var scrollTopWhenOpen = $( '.mlb-post-image' ).height() - $( '.mlb-controls' ).height(),
 			scrollTopTarget = $.scrollTo().scrollTop() > 0 ? 0 : scrollTopWhenOpen;
+
+		if ( forceDirection ) {
+			scrollTopTarget = forceDirection === 'down' ? 0 : scrollTopWhenOpen;
+		}
 
 		$.scrollTo( scrollTopTarget, 400 );
 	};
@@ -686,6 +669,44 @@
 	LIP.exitFullscreen = function () {
 		MLBInterface.prototype.exitFullscreen.call( this );
 		this.viewer.resize( this );
+	};
+
+	/**
+	 * @method
+	 * Handles keydown events on the document
+	 * @param {jQuery.Event} e The jQuery keypress event object
+	 */
+	LIP.keydown = function ( e ) {
+		var isRtl = $( document.body ).hasClass( 'rtl' );
+
+		switch ( e.which ) {
+			case 37:
+				// Left arrow
+				if ( isRtl ) {
+					this.viewer.nextImage();
+				} else {
+					this.viewer.prevImage();
+				}
+				break;
+			case 39:
+				// Right arrow
+				if ( isRtl ) {
+					this.viewer.prevImage();
+				} else {
+					this.viewer.nextImage();
+				}
+				break;
+			case 40:
+				// Down arrow
+				this.toggleMetadata( 'down' );
+				e.preventDefault();
+				break;
+			case 38:
+				// Up arrow
+				this.toggleMetadata( 'up' );
+				e.preventDefault();
+				break;
+		}
 	};
 
 	mw.LightboxInterface = LightboxInterface;

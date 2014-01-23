@@ -380,6 +380,16 @@ body.mw-mlb-lightbox-open #content {
 	transition: opacity 0.25s;
 }
 
+.mw-mlb-drag-icon.pointing-down {
+	background-position: center top;
+	transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=2.0);
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2.0)";
+}
+
 .mlb-post-image:hover .mw-mlb-drag-icon {
 	opacity: 1;
 }
