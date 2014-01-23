@@ -19,6 +19,7 @@
 	/**
 	 * @class mw.mmv.ui.Description
 	 * @extends mw.mmv.ui.Element
+	 * @inheritdoc
 	 * @constructor
 	 * @inheritdoc
 	 */
