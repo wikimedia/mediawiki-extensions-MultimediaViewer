@@ -555,6 +555,7 @@ $messages['fr'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Utiliser ce fichier sur un autre site web',
 	'multimediaviewer-about-mmv' => 'À propos de la visionneuse de médias',
 	'multimediaviewer-discuss-mmv' => 'Laisser un avis à propos de la visionneuse de médias',
+	'multimediaviewer-geolocation' => 'Emplacement : $1',
 );
 
 /** Galician (galego)
@@ -705,6 +706,7 @@ $messages['it'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Usa questo file su un altro sito',
 	'multimediaviewer-about-mmv' => 'Su Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Lascia un commento',
+	'multimediaviewer-geolocation' => 'Posizione: $1',
 );
 
 /** Japanese (日本語)
@@ -805,6 +807,7 @@ $messages['ko'] = array(
 	'multimediaviewer-use-file-offwiki' => '이 파일을 다른 웹사이트에서 사용',
 	'multimediaviewer-about-mmv' => '미디어 뷰어 정보',
 	'multimediaviewer-discuss-mmv' => '의견 남기기',
+	'multimediaviewer-geolocation' => '위치: $1',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -817,6 +820,8 @@ $messages['lb'] = array(
 	'multimediaviewer-repository-local' => 'Fir méi ze wëssen',
 	'multimediaviewer-datetime-uploaded' => 'Eropgelueden den $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Eropgeluede}} vum $1',
+	'multimediaviewer-license-cc-by-4.0' => 'CC BY 4.0',
+	'multimediaviewer-license-cc-by-sa-4.0' => 'CC BY-SA 4.0',
 	'multimediaviewer-license-default' => 'Lizenz weisen',
 	'multimediaviewer-use-file' => 'Benotzt dëse Fichier',
 	'multimediaviewer-use-file-owt' => 'Dëse Fichier op enger Wikisäit als Miniaturbild benotzen',
@@ -862,6 +867,8 @@ $messages['mk'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Подигнато на $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Подигнато}} од $1',
 	'multimediaviewer-credit' => '$1 — $2',
+	'multimediaviewer-license-cc-by-4.0' => 'CC BY 4.0',
+	'multimediaviewer-license-cc-by-sa-4.0' => 'CC BY-SA 4.0',
 	'multimediaviewer-license-cc-pd' => 'Јавна сопственост',
 	'multimediaviewer-license-default' => 'Погл. лиценцата',
 	'multimediaviewer-use-file' => 'Употребете ја податотекава',
@@ -874,6 +881,8 @@ $messages['mk'] = array(
 	'multimediaviewer-geoloc-east' => 'ИГД',
 	'multimediaviewer-geoloc-south' => 'ЈГШ',
 	'multimediaviewer-geoloc-west' => 'ЗГД',
+	'multimediaviewer-geoloc-coords' => '$1, $2',
+	'multimediaviewer-geolocation' => 'Местоположба: $1',
 );
 
 /** Malayalam (മലയാളം)
@@ -1151,6 +1160,7 @@ $messages['uk'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Використовувати цей файл на іншому веб-сайті',
 	'multimediaviewer-about-mmv' => 'Про медіапереглядач',
 	'multimediaviewer-discuss-mmv' => 'Залишити відгук',
+	'multimediaviewer-geolocation' => 'Розташування:$1',
 );
 
 /** Vietnamese (Tiếng Việt)
@@ -1169,6 +1179,8 @@ $messages['vi'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Được tải lên vào $1',
 	'multimediaviewer-userpage-link' => 'Do $1 {{GENDER:$2}}tải lên',
 	'multimediaviewer-credit' => '$1 – $2',
+	'multimediaviewer-license-cc-by-4.0' => 'CC-BY 4.0',
+	'multimediaviewer-license-cc-by-sa-4.0' => 'CC-BY-SA 4.0',
 	'multimediaviewer-license-cc-pd' => 'Phạm vi công cộng',
 	'multimediaviewer-license-default' => 'Xem giấy phép',
 	'multimediaviewer-use-file' => 'Sử dụng tập tin này',
