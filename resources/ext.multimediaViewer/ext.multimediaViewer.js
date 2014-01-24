@@ -265,9 +265,8 @@
 	MMVP.getImageSizeApiArgs = function ( ui ) {
 		var requestedWidth, calculatedMaxWidth,
 			thumb = ui.currentImage.thumbnail,
-			density = $.devicePixelRatio(),
-			targetWidth = density * ui.$imageWrapper.width(),
-			targetHeight = density * ui.$imageWrapper.height();
+			targetWidth = ui.$imageWrapper.width(),
+			targetHeight = ui.$imageWrapper.height();
 
 		if ( ( targetWidth / targetHeight ) > ( thumb.width / thumb.height ) ) {
 			// Need to find width corresponding to highest height we can have.
@@ -775,7 +774,6 @@
 		var $clicked = $( imgsSelector ).eq( index );
 		if ( index < this.lightbox.images.length && index >= 0 ) {
 			this.loadImage( this.lightbox.images[index], $clicked.prop( 'src' ) );
-			this.resize( this.lightbox.iface );
 		}
 	};
 

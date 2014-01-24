@@ -444,4 +444,42 @@
 
 		assert.strictEqual( called, false, 'The interface data-setter method is not called if there are no coordinates available for the image.' );
 	} );
+
+	QUnit.test( 'getImageSizeApiArgs(): Limited by height and limited by width', 4, function ( assert ) {
+		var widths,
+			viewer = new mw.MultimediaViewer(),
+			ui = new mw.LightboxInterface();
+
+		// Fake thumbnail, width/height == 1.5
+		ui.currentImage = {
+			thumbnail: {
+				height: 100,
+				width: 150
+			}
+		};
+
+		ui.attach( '#qunit-fixture' );
+
+		// Fake viewport dimensions, width/height == 2.0, we are limited by height
+		ui.$imageWrapper.height(200);
+		ui.$imageWrapper.width(400);
+
+		widths = viewer.getImageSizeApiArgs(ui);
+
+		assert.strictEqual(widths.target, 150/100*200, 'Correct target width was computed.');
+		assert.strictEqual(widths.requested, 320, 'Correct requested width was computed.');
+
+		// Fake viewport dimensions, width/height == 1.0, we are limited by width
+		ui.$imageWrapper.height(600);
+		ui.$imageWrapper.width(600);
+
+		widths = viewer.getImageSizeApiArgs(ui);
+
+		assert.strictEqual(widths.target, 600, 'Correct target width was computed.');
+		assert.strictEqual(widths.requested, 640, 'Correct requested width was computed.');
+
+		ui.unattach();
+	} );
+
+
 }( mediaWiki, jQuery ) );
