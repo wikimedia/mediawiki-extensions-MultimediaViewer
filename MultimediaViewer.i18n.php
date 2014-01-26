@@ -114,19 +114,31 @@ Parameters:
 Neither parameters are usernames, so GENDER is useless. Both come directly from the API, the extended metadata imageinfo prop in particular.
 
 They will usually be derived from the HTML output from wikitext on a file description page - however, no complicated HTML, only links, will be allowed.',
-	'multimediaviewer-license-cc-by-1.0' => 'Very short label for the Creative Commons Attribution license, version 1.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-1.0' => 'Very short label for the Creative Commons Attribution license, version 1.0, used in a link to the file information page that has more licensing information.
+{{Identical|CC BY}}',
 	'multimediaviewer-license-cc-sa-1.0' => 'Very short label for the Creative Commons ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-sa-1.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-2.0' => 'Very short label for the Creative Commons Attribution license, version 2.0, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-sa-2.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.0, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-2.1' => 'Very short label for the Creative Commons Attribution license, version 2.1, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-sa-2.1' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.1, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-2.5' => 'Very short label for the Creative Commons Attribution license, version 2.5, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-sa-2.5' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.5, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-3.0' => 'Very short label for the Creative Commons Attribution license, version 3.0, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-sa-3.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 3.0, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-4.0' => 'Very short label for the Creative Commons Attribution license, version 4.0, used in a link to the file information page that has more licensing information.',
-	'multimediaviewer-license-cc-by-sa-4.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 4.0, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-cc-by-sa-1.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.
+{{Identical|CC BY-SA}}',
+	'multimediaviewer-license-cc-by-2.0' => 'Very short label for the Creative Commons Attribution license, version 2.0, used in a link to the file information page that has more licensing information.
+{{Identical|CC BY}}',
+	'multimediaviewer-license-cc-by-sa-2.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.0, used in a link to the file information page that has more licensing information.
+{{Identical|CC BY-SA}}',
+	'multimediaviewer-license-cc-by-2.1' => 'Very short label for the Creative Commons Attribution license, version 2.1, used in a link to the file information page that has more licensing information.
+{{Identical|CC BY}}',
+	'multimediaviewer-license-cc-by-sa-2.1' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.1, used in a link to the file information page that has more licensing information.
+{{Identical|CC BY-SA}}',
+	'multimediaviewer-license-cc-by-2.5' => 'Very short label for the Creative Commons Attribution license, version 2.5, used in a link to the file information page that has more licensing information.
+{{Identical|CC BY}}',
+	'multimediaviewer-license-cc-by-sa-2.5' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 2.5, used in a link to the file information page that has more licensing information.
+{{Identical|CC BY-SA}}',
+	'multimediaviewer-license-cc-by-3.0' => 'Very short label for the Creative Commons Attribution license, version 3.0, used in a link to the file information page that has more licensing information.
+{{Identical|CC BY}}',
+	'multimediaviewer-license-cc-by-sa-3.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 3.0, used in a link to the file information page that has more licensing information.
+{{Identical|CC BY-SA}}',
+	'multimediaviewer-license-cc-by-4.0' => 'Very short label for the Creative Commons Attribution license, version 4.0, used in a link to the file information page that has more licensing information.
+{{Identical|CC BY}}',
+	'multimediaviewer-license-cc-by-sa-4.0' => 'Very short label for the Creative Commons Attribution ShareAlike license, version 4.0, used in a link to the file information page that has more licensing information.
+{{Identical|CC BY-SA}}',
 	'multimediaviewer-license-cc-pd' => 'Very short label for the Creative Commons Public Domain license, used in a link to the file information page that has more licensing information.
 {{Identical|Public domain}}',
 	'multimediaviewer-license-cc-zero' => 'Very short label for the Creative Commons Zero license, used in a link to the file information page that has more licensing information.',
@@ -177,7 +189,8 @@ Used as <code>$4</code> in {{msg-mw|Multimediaviewer-geoloc-coord}}.',
 * $1 - the latitude
 * $2 - the longitude
 Both are formatted according to {{msg-mw|Multimediaviewer-geoloc-coord}}.',
-	'multimediaviewer-geolocation' => 'Message for displaying a location, formatted by {{msg-mw|Multimediaviewer-geoloc-coords}}, which is passed in as $1.',
+	'multimediaviewer-geolocation' => 'Message for displaying a location. Parameters:
+* $1 - a location which is formatted by {{msg-mw|Multimediaviewer-geoloc-coords}}',
 );
 
 /** Arabic (العربية)
@@ -225,6 +238,7 @@ $messages['ast'] = array(
 	'multimediaviewer-use-file-offwiki' => "Usar esti ficheru n'otru sitiu web",
 	'multimediaviewer-about-mmv' => 'Tocante a Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Dexar un comentariu',
+	'multimediaviewer-geolocation' => 'Allugamientu: $1',
 );
 
 /** Bengali (বাংলা)
@@ -286,6 +300,7 @@ $messages['ce'] = array(
 	'multimediaviewer-pref-desc' => 'Мультимедиа-файлашка хьажар хаза кечдина гойту.', # Fuzzy
 	'multimediaviewer-repository-local' => 'Ма-дарра',
 	'multimediaviewer-discuss-mmv' => 'Язде хьайна хетарг',
+	'multimediaviewer-geolocation' => 'Географин йолу меттиг: $1',
 );
 
 /** Czech (čeština)
@@ -395,6 +410,7 @@ $messages['dsb'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Toś tu dataju na drugem websydle wužywaś',
 	'multimediaviewer-about-mmv' => 'Wó medijowem wobglědowaku',
 	'multimediaviewer-discuss-mmv' => 'Komentar zawóstajiś',
+	'multimediaviewer-geolocation' => 'Městno: $1',
 );
 
 /** Greek (Ελληνικά)
@@ -434,6 +450,7 @@ $messages['en-gb'] = array(
 
 /** Spanish (español)
  * @author Benfutbol10
+ * @author Carlitosag
  * @author Ciencia Al Poder
  * @author Fitoschido
  * @author PoLuX124
@@ -448,6 +465,7 @@ $messages['es'] = array(
 	'multimediaviewer-license-cc-pd' => 'Dominio público',
 	'multimediaviewer-license-default' => 'Ver licencia',
 	'multimediaviewer-discuss-mmv' => 'Dejar comentarios',
+	'multimediaviewer-geolocation' => 'Ubicación: $1',
 );
 
 /** Estonian (eesti)
@@ -472,6 +490,7 @@ $messages['et'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Kasuta seda faili teises võrgukohas',
 	'multimediaviewer-about-mmv' => 'Failivaaturist',
 	'multimediaviewer-discuss-mmv' => 'Anna tagasisidet',
+	'multimediaviewer-geolocation' => 'Asukoht: $1',
 );
 
 /** Persian (فارسی)
@@ -636,6 +655,7 @@ $messages['hsb'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Wužij tutu dataju na druhim websydle',
 	'multimediaviewer-about-mmv' => 'Wo medijowym wobhladowaku',
 	'multimediaviewer-discuss-mmv' => 'Komentar zawostajić',
+	'multimediaviewer-geolocation' => 'Městno: $1',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -734,6 +754,8 @@ $messages['ja'] = array(
 	'multimediaviewer-license-cc-by-sa-2.5' => 'CC 表示-継承 2.5',
 	'multimediaviewer-license-cc-by-3.0' => 'CC 表示 3.0',
 	'multimediaviewer-license-cc-by-sa-3.0' => 'CC 表示-継承 3.0',
+	'multimediaviewer-license-cc-by-4.0' => 'CC 表示 4.0',
+	'multimediaviewer-license-cc-by-sa-4.0' => 'CC 表示-継承 4.0',
 	'multimediaviewer-license-cc-pd' => 'パブリック・ドメイン',
 	'multimediaviewer-license-cc-zero' => 'CC 0',
 	'multimediaviewer-license-default' => 'ライセンスを閲覧',
@@ -749,6 +771,7 @@ $messages['ja'] = array(
 	'multimediaviewer-geoloc-west' => '西経',
 	'multimediaviewer-geoloc-coord' => '$4$1度$2分$3秒',
 	'multimediaviewer-geoloc-coords' => '$1 $2',
+	'multimediaviewer-geolocation' => '場所: $1',
 );
 
 /** Kazakh (Cyrillic script) (қазақша (кирил)‎)
@@ -829,6 +852,7 @@ $messages['lb'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Dëse Fichier op engem aneren Internetsite benotzen',
 	'multimediaviewer-about-mmv' => 'Iwwer Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Feedback verloossen',
+	'multimediaviewer-geolocation' => 'Plaz: $1',
 );
 
 /** لوری (لوری)
@@ -907,6 +931,13 @@ $messages['ml'] = array(
 	'multimediaviewer-use-file-offwiki' => 'ഈ പ്രമാണം മറ്റൊരു വെബ്സൈറ്റിൽ ഉപയോഗിക്കുക',
 	'multimediaviewer-about-mmv' => 'മീഡിയ ദർശനോപാധിയുടെ വിവരണം',
 	'multimediaviewer-discuss-mmv' => 'പ്രതികരണം ചേർക്കുക',
+);
+
+/** Marathi (मराठी)
+ * @author V.narsikar
+ */
+$messages['mr'] = array(
+	'multimediaviewer-desc-nil' => 'वर्णन उपलब्ध नाही',
 );
 
 /** Neapolitan (Napulitano)
@@ -1058,6 +1089,7 @@ $messages['ru'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Использовать этот файл на другом сайте',
 	'multimediaviewer-about-mmv' => 'О Медиа-просмотрщике',
 	'multimediaviewer-discuss-mmv' => 'Оставить отзыв',
+	'multimediaviewer-geolocation' => 'Географическое положение: $1',
 );
 
 /** Sassaresu (Sassaresu)
