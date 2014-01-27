@@ -27,18 +27,21 @@
 	 */
 	LIP.initialSrc = null;
 
-	LIP.getImageElement = function ( loadcb ) {
-		var ele;
+	LIP.getImageElement = function () {
+		var ele,
+			$deferred = $.Deferred(),
+			image = this;
 
 		lightboxHooks.callAll( 'beforeFetchImage', this );
 
 		ele = new Image();
-		ele.addEventListener( 'load', loadcb );
+		ele.addEventListener( 'error', $deferred.reject );
+		ele.addEventListener( 'load', function() { $deferred.resolve( image, ele ); } );
 		ele.src = this.src || this.initialSrc;
 
 		lightboxHooks.callAll( 'modifyImageElement', ele );
 
-		return ele;
+		return $deferred;
 	};
 
 	// Assumes that the parent element's size is the maximum size.

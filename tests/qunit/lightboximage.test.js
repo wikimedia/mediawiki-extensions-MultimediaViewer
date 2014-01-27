@@ -10,7 +10,20 @@
 			QUnit.start();
 		}
 
-		lightboxImage.getImageElement( loadCallback );
+		lightboxImage.getImageElement()
+			.done( loadCallback );
+	} );
+
+	QUnit.asyncTest( 'Image failing', 1, function ( assert ) {
+		var lightboxImage = new window.LightboxImage( 'http://thisdoesntexist/fail.jpg' );
+
+		function errorCallback() {
+			assert.ok( true, 'Image failed !' );
+			QUnit.start();
+		}
+
+		lightboxImage.getImageElement()
+			.fail( errorCallback );
 	} );
 
 }( mediaWiki, jQuery ) );
