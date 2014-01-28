@@ -56,4 +56,45 @@
 		lightbox.load(img);
 	} );
 
+	QUnit.test( 'Fullscreen mode', 4, function ( assert ) {
+		var lightbox = new window.LightboxInterface(),
+			oldFnEnterFullscreen = $.fn.enterFullscreen,
+			oldFnExitFullscreen = $.fn.exitFullscreen;
+
+		// Since we don't want these tests to really open fullscreen
+		// which is subject to user security confirmation,
+		// we create a proxy and make it pretend that regular jquery.fullscreen behavior happened
+		$.fn.enterFullscreen = function() {
+			this.first().addClass( 'jq-fullscreened' ).data( 'isFullscreened', true );
+
+			$( document ).trigger( $.Event( 'jq-fullscreen-change', { element: this, fullscreen: true } ) );
+		};
+
+		$.fn.exitFullscreen = function() {
+			this.first().removeClass( 'jq-fullscreened' ).data( 'isFullscreened', false );
+
+			$( document ).trigger( $.Event( 'jq-fullscreen-change', { element: this, fullscreen: false } ) );
+		};
+
+		// Attach lightbox to testing fixture to avoid interference with other tests.
+		lightbox.attach( '#qunit-fixture' );
+
+		// Entering fullscreen
+		lightbox.$fullscreenButton.click();
+
+		assert.strictEqual( lightbox.$main.hasClass( 'jq-fullscreened' ) , true,
+			'Fullscreened area has the fullscreen class');
+		assert.strictEqual( lightbox.isFullscreen , true, 'Lightbox knows it\'s in fullscreen mode');
+
+		// Exiting fullscreen
+		lightbox.$fullscreenButton.click();
+
+		assert.strictEqual( lightbox.$main.hasClass( 'jq-fullscreened' ) , false,
+			'Fullscreened area doesn\'t have the fullscreen class anymore');
+		assert.strictEqual( lightbox.isFullscreen , false, 'Lightbox knows it\'s not in fullscreen mode');
+
+		$.fn.enterFullscreen = oldFnEnterFullscreen;
+		$.fn.exitFullscreen = oldFnExitFullscreen;
+	} );
+
 }( mediaWiki, jQuery ) );

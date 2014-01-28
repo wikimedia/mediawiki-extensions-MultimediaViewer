@@ -69,6 +69,8 @@
 		} );
 
 		$( document ).on( 'jq-fullscreen-change', function ( e ) {
+			lbinterface.isFullscreen = e.fullscreen;
+
 			lightboxHooks.callAll( 'fullscreen', this, e.fullscreen );
 
 			if ( !lbinterface.fullscreenButtonJustPressed && !e.fullscreen ) {

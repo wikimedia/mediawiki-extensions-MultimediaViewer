@@ -176,7 +176,10 @@
 		// Register various event hooks. TODO: Make this a function that's only called once.
 
 		lightboxHooks.register( 'closeInterface', function () {
-			this.$nextButton.add( this.$prevButton ).css( 'top', '-999px' );
+			if ( this.$nextButton ) {
+				this.$nextButton.add( this.$prevButton ).css( 'top', '-999px' );
+			}
+			
 			$( document.body ).removeClass( 'mw-mlb-lightbox-open' );
 			if ( comingFromPopstate === false ) {
 				history.pushState( {}, '', '#' );
@@ -194,8 +197,6 @@
 		} );
 
 		lightboxHooks.register( 'fullscreen', function ( fullscreen ) {
-			viewer.ui.isFullscreen = fullscreen;
-
 			if ( this.$imageMetadata ) {
 				if ( fullscreen ) {
 					this.$imageMetadata.hide();
