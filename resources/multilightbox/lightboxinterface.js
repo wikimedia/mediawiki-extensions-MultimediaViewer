@@ -106,6 +106,12 @@
 	 * @param {string} [parentId] parent id where we want to attach the UI. Mainly for testing.
 	 */
 	LIP.attach = function ( parentId ) {
+		// Re-appending the same content can have nasty side-effects
+		// Such as the browser leaving fullscreen mode if the fullscreened element is part of it
+		if ( this.currentlyAttached ) {
+			return;
+		}
+
 		var parent = $( parentId || document.body );
 
 		parent
