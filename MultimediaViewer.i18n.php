@@ -350,6 +350,7 @@ $messages['da'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Brug denne fil på en anden hjemmeside',
 	'multimediaviewer-about-mmv' => 'Om Medieviser',
 	'multimediaviewer-discuss-mmv' => 'Giv feedback',
+	'multimediaviewer-geolocation' => 'Sted: $1',
 );
 
 /** German (Deutsch)
@@ -494,6 +495,7 @@ $messages['et'] = array(
 );
 
 /** Persian (فارسی)
+ * @author Armin1392
  * @author Ebraminio
  * @author Mcuteangel
  * @author Omidh
@@ -524,6 +526,7 @@ $messages['fa'] = array(
 	'multimediaviewer-use-file-offwiki' => 'ساتفاده از این پرونده در وب‌گاه دیگر',
 	'multimediaviewer-about-mmv' => 'دربارهٔ نمایش‌دهندهٔ رسانه',
 	'multimediaviewer-discuss-mmv' => 'گذاشتن بازخورد',
+	'multimediaviewer-geolocation' => 'مکان: $1',
 );
 
 /** Finnish (suomi)
@@ -581,12 +584,25 @@ $messages['fr'] = array(
  * @author Toliño
  */
 $messages['gl'] = array(
-	'multimediaviewer-desc' => 'Expande as miniaturas ata un tamaño maior dentro dun visor.',
+	'multimediaviewer-desc' => 'Expande as miniaturas ata un tamaño maior dentro dunha interface a pantalla completa.',
+	'multimediaviewer-desc-nil' => 'Non hai ningunha descrición dispoñible.',
 	'multimediaviewer-pref' => 'Visor de ficheiros multimedia',
-	'multimediaviewer-pref-desc' => 'Mellore a súa experiencia de visualización de ficheiros multimedia con esta nova ferramenta. Mostra as imaxes nun tamaño maior nas páxinas que teñen miniaturas. As imaxes móstranse nun visor agradable e as imaxes tamén se poden ver a tamaño completo.',
+	'multimediaviewer-pref-desc' => 'Mellore a súa experiencia de visualización de ficheiros multimedia con esta nova ferramenta. Mostra as imaxes nun tamaño maior nas páxinas que teñen miniaturas. As imaxes móstranse nun visor a pantalla completa agradable e as imaxes tamén se poden ver a tamaño completo.',
 	'multimediaviewer-file-page' => 'Ir á páxina de ficheiro correspondente',
+	'multimediaviewer-repository' => 'Máis información sobre $1',
+	'multimediaviewer-repository-local' => 'Máis información',
+	'multimediaviewer-datetime-created' => 'Creado o $1',
+	'multimediaviewer-datetime-uploaded' => 'Cargado o $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Cargado}} por $1',
 	'multimediaviewer-license-cc-pd' => 'Dominio público',
+	'multimediaviewer-license-default' => 'Ver a licenza',
+	'multimediaviewer-use-file' => 'Utilizar este ficheiro',
+	'multimediaviewer-use-file-owt' => 'Utilizar este ficheiro nunha páxina do wiki, como unha miniatura',
+	'multimediaviewer-use-file-own' => 'Utilizar este ficheiro nunha páxina do wiki, en liña co texto',
+	'multimediaviewer-use-file-offwiki' => 'Utilizar este ficheiro noutro sitio web',
+	'multimediaviewer-about-mmv' => 'Acerca do visor de ficheiros multimedia',
 	'multimediaviewer-discuss-mmv' => 'Deixe un comentario',
+	'multimediaviewer-geolocation' => 'Localización: $1',
 );
 
 /** Hebrew (עברית)
@@ -915,6 +931,7 @@ $messages['mk'] = array(
  */
 $messages['ml'] = array(
 	'multimediaviewer-desc' => 'ലഘുചിത്രങ്ങൾ ഫുൾസ്ക്രീനായി വികസിപ്പിക്കുക',
+	'multimediaviewer-desc-nil' => 'വിവരണം ലഭ്യമല്ല.',
 	'multimediaviewer-pref' => 'മീഡിയ ദർശനോപാധി',
 	'multimediaviewer-pref-desc' => 'ഈ പുതിയ ഉപകരണമുപയോഗിച്ച് താങ്കളുടെ മീഡിയ ദർശനാനുഭവം മെച്ചപ്പെടുത്തൂ. ലഘുചിത്രങ്ങൾ ഉപയോഗിച്ചിരിക്കുന്ന താളുകളിലെ ചിത്രങ്ങൾ ഇതുപയോഗിച്ച് വലുതായി കാണാം. ചിത്രങ്ങൾ സുന്ദരമായ ഫുൾസ്ക്രീൻ സമ്പർക്കമുഖ രൂപത്തിലോ, പൂർണ്ണവലിപ്പത്തിലോ കാണാനാവുന്നതാണ്.',
 	'multimediaviewer-file-page' => 'ബന്ധപ്പെട്ട പ്രമാണത്താളിലേയ്ക്ക് പോവുക',
@@ -931,6 +948,7 @@ $messages['ml'] = array(
 	'multimediaviewer-use-file-offwiki' => 'ഈ പ്രമാണം മറ്റൊരു വെബ്സൈറ്റിൽ ഉപയോഗിക്കുക',
 	'multimediaviewer-about-mmv' => 'മീഡിയ ദർശനോപാധിയുടെ വിവരണം',
 	'multimediaviewer-discuss-mmv' => 'പ്രതികരണം ചേർക്കുക',
+	'multimediaviewer-geolocation' => 'സ്ഥാനം: $1',
 );
 
 /** Marathi (मराठी)
@@ -1066,6 +1084,13 @@ $messages['ro'] = array(
 	'multimediaviewer-discuss-mmv' => 'Lăsați o părere',
 );
 
+/** tarandíne (tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'multimediaviewer-geolocation' => 'Posizione: $1',
+);
+
 /** Russian (русский)
  * @author Kaganer
  * @author Okras
@@ -1161,13 +1186,15 @@ $messages['sv'] = array(
 );
 
 /** Turkish (Türkçe)
+ * @author Ceas08
  * @author Incelemeelemani
  * @author Rapsar
  */
 $messages['tr'] = array(
 	'multimediaviewer-pref' => 'Ortam Görüntüleyici',
-	'multimediaviewer-pref-desc' => 'Bu yeni araçla multimedya görüntüleme deneyiminizi geliştirin. Bu sayede küçük sayfaları daha büyük boyutlarda görüntüleyebilirsiniz. Ayrıca görüntüler Lightbox (açılır pencere) olarak ve tam boyutlu gösterilir.',
+	'multimediaviewer-pref-desc' => 'Bu yeni araçla multimedya görüntüleme deneyiminizi geliştirin. Bu sayede küçük sayfaları daha büyük boyutlarda görüntüleyebilirsiniz. Ayrıca görüntüler Lightbox (açılır pencere) olarak ve tam boyutlu gösterilir.', # Fuzzy
 	'multimediaviewer-about-mmv' => 'Ortam Görüntüleyici hakkında',
+	'multimediaviewer-geolocation' => 'Konum: $1',
 );
 
 /** Ukrainian (українська)
