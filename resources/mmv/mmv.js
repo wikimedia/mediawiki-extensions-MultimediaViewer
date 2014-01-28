@@ -278,7 +278,8 @@
 		}
 
 		return {
-			requested: requestedWidth,
+			// Factor in pixel ratio so we get as many pixels as the device supports, see b/60388
+			requested: requestedWidth * $.devicePixelRatio(),
 			target: calculatedMaxWidth || targetWidth
 		};
 	};
