@@ -339,29 +339,9 @@
 	 * @param {number} requestedWidth
 	 */
 	MMVP.loadResizedImage = function ( ui, imageData, targetWidth, requestedWidth ) {
-		var rpid, viewer, image, maybeThumb;
-
 		// Replace image only if data was returned.
 		if ( imageData ) {
-			viewer = this;
-			image = new Image();
-
-			image.onload = function () {
-				viewer.profileEnd( rpid );
-			};
-
-			rpid = this.profileStart( 'image-resize', {
-				width: imageData.width,
-				height: imageData.height,
-				fileSize: imageData.size
-			}, imageData.mimeType );
-
-			maybeThumb = imageData.getThumbUrl( requestedWidth );
-			image.src = maybeThumb || imageData.url;
-			if ( maybeThumb && requestedWidth > targetWidth || !maybeThumb && imageData.width > targetWidth ) {
-				image.width = targetWidth;
-			}
-			ui.replaceImageWith( image );
+			this.loadAndSetImage( ui, imageData, targetWidth, requestedWidth, 'image-resize' );
 		}
 	};
 
@@ -599,6 +579,47 @@
 
 	/**
 	 * @method
+	 * Loads and sets the image specified in the imageData. It also updates the controls
+	 * and collects profiling information.
+	 *
+	 * @param {mw.LightboxInterface} ui image container
+	 * @param {mw.mmv.model.Image} imageData image information
+	 * @param {number} targetWidth
+	 * @param {number} requestedWidth
+	 * @param {string} profileEvent profile event key
+	 */
+	MMVP.loadAndSetImage = function ( ui, imageData, targetWidth, requestedWidth, profileEvent ) {
+		var rpid,
+			maybeThumb,
+			viewer = this,
+			image = new Image();
+
+		image.onload = function () {
+			viewer.profileEnd( rpid );
+		};
+
+		rpid = this.profileStart( profileEvent, {
+			width: imageData.width,
+			height: imageData.height,
+			fileSize: imageData.size
+		}, imageData.mimeType );
+
+		// Use cached image if we have it.
+		maybeThumb = imageData.getThumbUrl( requestedWidth );
+		image.src = maybeThumb || imageData.url;
+
+		if ( maybeThumb && requestedWidth > targetWidth ||
+			!maybeThumb && imageData.width > targetWidth ) {
+			// Image bigger than the current area, resize before loading
+			image.width = targetWidth;
+		}
+
+		ui.replaceImageWith( image );
+		this.updateControls();
+	};
+
+	/**
+	 * @method
 	 * Loads a specified image.
 	 * @param {mw.LightboxImage} image
 	 * @param {string} initialSrc The string to set the src attribute to at first.
@@ -630,38 +651,19 @@
 
 		mdpid = this.profileStart( 'metadata-fetch' );
 
-		this.fetchImageInfo( image.filePageTitle ).done( function ( imageData, repoInfo, size, requestedWidth ) {
-			var pid,
-				repoData = mw.mmv.model.Repo.newFromRepoInfo( repoInfo[imageData.repo] ),
-				imageEle = new Image(),
-				targetWidth = size;
+		this.fetchImageInfo( image.filePageTitle ).done( function ( imageData, repoInfo, targetWidth, requestedWidth ) {
+			var repoData = mw.mmv.model.Repo.newFromRepoInfo( repoInfo[imageData.repo] );
+
+			viewer.profileEnd( mdpid );
 
 			viewer.stopListeningToScroll();
 			viewer.animateMetadataDivOnce()
 				// We need to wait until the animation is finished before we listen to scroll
 				.then( function() { viewer.startListeningToScroll(); } );
 
-			imageEle.onload = function () {
-				if ( imageEle.width > targetWidth ) {
-					imageEle.width = targetWidth;
-				}
-
-				viewer.profileEnd( pid );
-				viewer.updateControls();
-			};
-
-			viewer.profileEnd( mdpid );
-
-			pid = viewer.profileStart( 'image-load', {
-				width: imageData.width,
-				height: imageData.height,
-				fileSize: imageData.size
-			}, imageData.mimeType );
-
-			imageEle.src = imageData.getThumbUrl( requestedWidth ) || imageData.url;
+			viewer.loadAndSetImage( viewer.lightbox.iface, imageData, targetWidth, requestedWidth, 'image-load' );
 
 			viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
-			viewer.lightbox.iface.replaceImageWith( imageEle );
 			viewer.setImageInfo( image, imageData, repoData );
 		} );
 

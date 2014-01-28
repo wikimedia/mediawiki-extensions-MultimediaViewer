@@ -461,25 +461,72 @@
 		ui.attach( '#qunit-fixture' );
 
 		// Fake viewport dimensions, width/height == 2.0, we are limited by height
-		ui.$imageWrapper.height(200);
-		ui.$imageWrapper.width(400);
+		ui.$imageWrapper.height( 200 );
+		ui.$imageWrapper.width( 400 );
 
-		widths = viewer.getImageSizeApiArgs(ui);
+		widths = viewer.getImageSizeApiArgs( ui );
 
-		assert.strictEqual(widths.target, 150/100*200, 'Correct target width was computed.');
-		assert.strictEqual(widths.requested, 320 * $.devicePixelRatio(), 'Correct requested width was computed.');
+		assert.strictEqual( widths.target, 150/100*200, 'Correct target width was computed.' );
+		assert.strictEqual( widths.requested, 320 * $.devicePixelRatio(), 'Correct requested width was computed.' );
 
 		// Fake viewport dimensions, width/height == 1.0, we are limited by width
-		ui.$imageWrapper.height(600);
-		ui.$imageWrapper.width(600);
+		ui.$imageWrapper.height( 600 );
+		ui.$imageWrapper.width( 600 );
 
-		widths = viewer.getImageSizeApiArgs(ui);
+		widths = viewer.getImageSizeApiArgs( ui );
 
-		assert.strictEqual(widths.target, 600, 'Correct target width was computed.');
-		assert.strictEqual(widths.requested, 640 * $.devicePixelRatio(), 'Correct requested width was computed.');
+		assert.strictEqual( widths.target, 600, 'Correct target width was computed.' );
+		assert.strictEqual( widths.requested, 640 * $.devicePixelRatio(), 'Correct requested width was computed.' );
 
 		ui.unattach();
 	} );
 
+	QUnit.asyncTest( 'loadAndSetImage(): Basic load', 9, function ( assert ) {
+		var targetWidth,
+			requestedWidth,
+			profileEvent,
+			pid = 4321,
+			viewer = new mw.MultimediaViewer(),
+			ui = new mw.LightboxInterface(),
+			size = 120,
+			width = 10,
+			height = 11,
+			imageUrl = 'http://en.wikipedia.org/w/skins/vector/images/search-ltr.png',
+			imageData = new mw.mmv.model.Image(
+				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ),
+				size, width, height, 'image/jpeg',
+				imageUrl,
+				'http://example.com',
+				'example', 'tester', '2013-11-10', '2013-11-09', 'Blah blah blah',
+				'A person', 'Another person', 'CC-BY-SA-3.0', 0, 0
+			);
 
+		// Assert funtions are called with correct data
+		viewer.profileStart = function ( type, imgSize, fileType ) {
+			assert.strictEqual( type, profileEvent, 'Correct event type for profile start.' );
+			assert.strictEqual( imgSize.width, width, 'Correct width for profile start.' );
+			assert.strictEqual( imgSize.height, height, 'Correct height for profile start.' );
+			assert.strictEqual( imgSize.fileSize, size, 'Correct fileSize for profile start.' );
+			assert.strictEqual( fileType, 'image/jpeg', 'Correct fileType for profile start.' );
+
+			return pid;
+		};
+		viewer.profileEnd = function ( id ) {
+			assert.strictEqual( id, pid, 'Correct pid to end profiling. Image loaded correctly.' );
+			QUnit.start();
+		};
+		ui.replaceImageWith = function ( image ) {
+			assert.strictEqual( image.src, imageUrl, 'Image to replace has correct "src" attribute.' );
+			assert.strictEqual( image.width, targetWidth, 'Image to replace has correct "width" attribute.' );
+		};
+		viewer.updateControls = function () {
+			assert.ok( true, 'Controls updated.' );
+		};
+
+		// Test case when image loaded is bigger than current area
+		targetWidth = 8; // Current area < imageData.width
+		requestedWidth = 640;
+		profileEvent = 'image-load';
+		viewer.loadAndSetImage( ui, imageData, targetWidth, requestedWidth, profileEvent );
+	} );
 }( mediaWiki, jQuery ) );
