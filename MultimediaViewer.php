@@ -395,6 +395,7 @@ $licenses = array(
 	'cc-by-sa-4.0',
 	'cc-pd',
 	'cc-zero',
+	'pd',
 	'default',
 );
 

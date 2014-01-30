@@ -54,6 +54,7 @@ $messages['en'] = array(
 	'multimediaviewer-license-cc-by-sa-4.0' => 'CC BY-SA 4.0',
 	'multimediaviewer-license-cc-pd' => 'Public Domain',
 	'multimediaviewer-license-cc-zero' => 'CC 0',
+	'multimediaviewer-license-pd' => 'Public Domain',
 	'multimediaviewer-license-default' => 'View license',
 
 	'multimediaviewer-use-file' => 'Use this file',
@@ -148,6 +149,8 @@ They will usually be derived from the HTML output from wikitext on a file descri
 	'multimediaviewer-license-cc-pd' => 'Very short label for the Creative Commons Public Domain license, used in a link to the file information page that has more licensing information.
 {{Identical|Public domain}}',
 	'multimediaviewer-license-cc-zero' => 'Very short label for the Creative Commons Zero license, used in a link to the file information page that has more licensing information.',
+	'multimediaviewer-license-pd' => 'Very short label for Public Domain images, used in a link to the file information page that has more licensing information.
+{{Identical|Public domain}}',
 	'multimediaviewer-license-default' => 'Short label for a link to generic license information.',
 	'multimediaviewer-use-file' => 'Link that opens a dialog with options for sharing the file, e.g. onwiki or on another site. Similar to the Commons gadget stockPhoto.',
 	'multimediaviewer-use-file-owt' => 'Label for input box which has wikitext used to show an image with the thumb option and a helpful caption.
