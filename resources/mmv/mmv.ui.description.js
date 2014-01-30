@@ -30,12 +30,12 @@
 			.addClass( 'mw-mlb-image-desc-div empty' )
 			.appendTo( this.$container );
 
-		this.$imageDesc = $( '<p>' )
-			.addClass( 'mw-mlb-image-desc' )
+		this.$imageCaption = $( '<p>' )
+			.addClass( 'mw-mlb-caption empty' )
 			.appendTo( this.$imageDescDiv );
 
-		this.$imageCaption = $( '<p>' )
-			.addClass( 'mw-mlb-description-backup empty' )
+		this.$imageDesc = $( '<p>' )
+			.addClass( 'mw-mlb-image-desc' )
 			.appendTo( this.$imageDescDiv );
 	}
 

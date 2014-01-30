@@ -188,7 +188,7 @@ body.mobile .mw-mlb-controls,
     height: 150px;
 }
 
-.mw-mlb-description-backup,
+.mw-mlb-caption,
 .mw-mlb-image-desc {
 	font-size: 0.8em;
 	color: #555555;
@@ -295,7 +295,7 @@ body.mobile .mw-mlb-controls,
 .mw-mlb-title-para,
 .mw-mlb-credit,
 .mw-mlb-image-desc,
-.mw-mlb-description-backup,
+.mw-mlb-caption,
 .mw-mlb-mmv-about-links {
 	padding-left: 20px;
 }
@@ -305,7 +305,7 @@ body.mobile .mw-mlb-controls,
 	font-style: italic;
 }
 
-.mw-mlb-description-backup.empty {
+.mw-mlb-caption.empty {
 	display: none;
 }
 
