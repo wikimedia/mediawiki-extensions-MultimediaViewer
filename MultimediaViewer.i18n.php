@@ -72,6 +72,12 @@ $messages['en'] = array(
 	'multimediaviewer-geoloc-coord' => '$1° $2′ $3″ $4',
 	'multimediaviewer-geoloc-coords' => '$1, $2',
 	'multimediaviewer-geolocation' => 'Location: $1',
+
+	'multimediaviewer-fileusage-count' => 'Used in $1 {{PLURAL:$1|page|pages}}',
+	'multimediaviewer-fileusage-count-more' => 'Used in more than $1 {{PLURAL:$1|pages}}',
+	'multimediaviewer-fileusage-link' => 'View all uses',
+	'multimediaviewer-fileusage-local-section' => 'On this site',
+	'multimediaviewer-fileusage-global-section' => 'On other sites',
 );
 
 /** Message documentation (Message documentation)
@@ -191,6 +197,20 @@ Used as <code>$4</code> in {{msg-mw|Multimediaviewer-geoloc-coord}}.',
 Both are formatted according to {{msg-mw|Multimediaviewer-geoloc-coord}}.',
 	'multimediaviewer-geolocation' => 'Message for displaying a location. Parameters:
 * $1 - a location which is formatted by {{msg-mw|Multimediaviewer-geoloc-coords}}',
+
+	'multimediaviewer-fileusage-count' => 'Title for the list of pages which use this image. $1 is the number of such pages.
+
+See also:
+* {{msg-mw|Multimediaviewer-fileusage-count-more}}',
+	'multimediaviewer-fileusage-count-more' => 'Title for the list of pages which use this image. $1 is the number of such pages.
+This is used when the number is too large to accurately determine; it can be much larger than the value given in $1.
+
+See also:
+* {{msg-mw|Multimediaviewer-fileusage-count}}',
+	'multimediaviewer-fileusage-link' => 'Text of link pointing to Special:WhatLinksHere or Special:GlobalUsage
+when there are too many pages to fit into the metadata box',
+	'multimediaviewer-fileusage-local-section' => 'Section title for the local usages',
+	'multimediaviewer-fileusage-global-section' => 'Section title for the global usages',
 );
 
 /** Arabic (العربية)

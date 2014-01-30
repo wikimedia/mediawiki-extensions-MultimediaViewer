@@ -24,7 +24,7 @@
 	 * @param {mw.mmv.model.FileUsage.Scope} scope see {@link mw.mmv.model.FileUsage#scope}
 	 * @param {{wiki: (string|null), page: mw.Title}[]} pages see {@link mw.mmv.model.FileUsage#pages}
 	 * @param {number} [totalCount] see {@link mw.mmv.model.FileUsage#totalCount}
-	 * @param {boolean} [totalCountIsLowerBound = false] see {@link mw.mmv.model.FileUsage#totalCountIsLowerBound}	 *
+	 * @param {boolean} [totalCountIsLowerBound = false] see {@link mw.mmv.model.FileUsage#totalCountIsLowerBound}
 	 */
 	function FileUsage(
 		file,

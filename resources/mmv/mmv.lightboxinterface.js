@@ -60,6 +60,8 @@
 		this.$location.empty();
 		this.$locationLi.addClass( 'empty' );
 
+		this.fileUsage.empty();
+
 		this.$useFile.data( 'title', null );
 		this.$useFile.data( 'link', null );
 		this.$useFile.data( 'src', null );
@@ -268,7 +270,12 @@
 		this.initializeDatetime();
 		this.initializeUploader();
 		this.initializeLocation();
-		this.initializeFileUsage();
+		this.initializeReuse();
+
+		this.fileUsage = new mw.mmv.ui.FileUsage(
+			$( '<div>' ).appendTo( this.$imageMetadata )
+		);
+		this.fileUsage.init();
 	};
 
 	LIP.initializeRepoLink = function () {
@@ -331,7 +338,7 @@
 			.appendTo( this.$locationLi );
 	};
 
-	LIP.initializeFileUsage = function () {
+	LIP.initializeReuse = function () {
 		var ui = this;
 
 		this.$useFileLi = $( '<li>' )
@@ -343,13 +350,13 @@
 			.prop( 'href', '#' )
 			.text( mw.message( 'multimediaviewer-use-file' ).text() )
 			.click( function () {
-				ui.openFileUsageDialog();
+				ui.openReuseDialog();
 				return false;
 			} )
 			.appendTo( this.$useFileLi );
 	};
 
-	LIP.openFileUsageDialog = function () {
+	LIP.openReuseDialog = function () {
 		// Only open dialog once
 		if ( this.$dialog ) {
 			return false;

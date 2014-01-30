@@ -1,0 +1,59 @@
+@import "mmv.mixins";
+
+.mw-mlb-fileusage-container {
+	@box-color: #FFFFFF;
+	@heading-color: #F8F8F8;
+	@inner-border-color: #DDDDDD;
+	@outer-border-color: #C9C9C9;
+	@box-shadow-color: #D0D0D0;
+	@info-color: #565656;
+
+	display: inline-block;
+	overflow: hidden;
+	width: 50%;
+	margin-left: 50%; /* placeholder for More panel that will go to the left side */
+
+	h3 {
+		color: @info-color;
+		font-weight: normal;
+		font-size: 1.1em;
+	}
+
+	ul {
+		margin: 0 30px 10px 0;
+		border: 1px solid @outer-border-color;
+		border-bottom: 2px solid @box-shadow-color;
+		.box-round(3px);
+	}
+
+	li {
+		list-style: none;
+		overflow: hidden;
+		border-bottom: 1px solid @inner-border-color;
+		padding: 3px 5px 3px 15px;
+		margin: 0;
+		font-size: 0.8em;
+		background-color: @box-color;
+
+		&:last-child {
+			border-bottom: none;
+		}
+
+		&.mw-mlb-fileusage-local-section, &.mw-mlb-fileusage-global-section, &.mw-mlb-fileusage-view-all {
+			color: @info-color;
+			background-color: @heading-color;
+		}
+		aside {
+			display: inline-block;
+			float: right;
+			max-width: 25%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			font-size: 0.9em;
+			color: @info-color;
+		}
+		.mw-mlb-fileusage-view-all {
+			float: right;
+		}
+	}
+}

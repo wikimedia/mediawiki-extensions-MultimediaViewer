@@ -181,8 +181,11 @@ body.mobile .mw-mlb-controls,
 .mw-mlb-image-desc-div,
 .mw-mlb-image-links-div {
 	display: inline-block;
-	height: 150px;
 	vertical-align: top;
+}
+
+.mw-mlb-image-desc-div {
+    height: 150px;
 }
 
 .mw-mlb-description-backup,

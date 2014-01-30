@@ -99,6 +99,7 @@ $wgResourceModules['mmv.lightboxinterface'] = array_merge( array(
 		'oojs',
 		'multilightbox.interface',
 		'mmv.ui.description',
+		'mmv.ui.fileUsage',
 	),
 ), $moduleInfoMMV );
 
@@ -161,6 +162,7 @@ $wgResourceModules['mmv.provider'] = array_merge( array(
 	),
 
 	'dependencies' => array(
+		'mediawiki.Title',
 		'mmv.model',
 		'oojs',
 	),
@@ -193,6 +195,23 @@ $wgResourceModules['mmv.ui.description'] = array_merge( array(
 	),
 ), $moduleInfoMMV );
 
+$wgResourceModules['mmv.ui.fileUsage'] = array_merge( array(
+	'scripts' => array(
+		'mmv.ui.fileUsage.js',
+	),
+
+	'styles' => array(
+		'mmv.ui.fileUsage.less',
+	),
+
+	'dependencies' => array(
+		'mediawiki.Uri',
+		'mediawiki.jqueryMsg',
+		'mmv.ui',
+		'oojs',
+	),
+), $moduleInfoMMV );
+
 $wgResourceModules['mmv'] = array_merge( array(
 	'scripts' => array(
 		'mmv.js',
@@ -209,6 +228,7 @@ $wgResourceModules['mmv'] = array_merge( array(
 		'mmv.lightboximage',
 		'jquery.fullscreen',
 		'jquery.throttle.debounce',
+		'mediawiki.Uri',
 		'mediawiki.Title',
 		'jquery.ui.dialog',
 		'jquery.hidpi',
@@ -244,6 +264,12 @@ $wgResourceModules['mmv'] = array_merge( array(
 		'multimediaviewer-geoloc-coord',
 		'multimediaviewer-geoloc-coords',
 		'multimediaviewer-geolocation',
+
+		'multimediaviewer-fileusage-count',
+		'multimediaviewer-fileusage-count-more',
+		'multimediaviewer-fileusage-link',
+		'multimediaviewer-fileusage-local-section',
+		'multimediaviewer-fileusage-global-section',
 	),
 ), $moduleInfoMMV );
 

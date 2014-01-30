@@ -19,6 +19,7 @@
 
 	/**
 	 * @class mw.mmv.dataProvider.Api
+	 * Base class for API-based data providers.
 	 * @abstract
 	 * @constructor
 	 * @param {mw.Api} api
@@ -26,18 +27,21 @@
 	 */
 	function Api( api, options ) {
 		/**
-		 * @property {mediaWiki.Api} api
+		 * API object for dependency injection.
+		 * @property {mw.Api}
 		 */
 		this.api = api;
 
 		/**
-		 * @property {Object} options
+		 * Options object; the exact format and meaning is unspecified and could be different
+		 * from subclass to subclass.
+		 * @property {Object}
 		 */
 		this.options = options || {};
 
 		/**
-		 * @property {Object<String, jQuery.Promise>} cache
 		 * API call cache.
+		 * @property {Object.<string, jQuery.Promise>} cache
 		 * @protected
 		 */
 		this.cache = {};
@@ -60,17 +64,17 @@
 
 
 	/**
-	 * @class mw,mmv.dataProvider.ImageUsage
+	 * @class mw.mmv.dataProvider.ImageUsage
 	 * Gets file usage information on the local wiki.
 	 * @extends mw.mmv.dataProvider.Api
 	 * @inheritdoc
 	 * @param {mw.Api} api
 	 * @param {Object} [options]
-	 * @param {Number[]} [options.namespaces] list of namespace ids
-	 * @param {Number} [options.apiLimit] number of entries to get from the API. If there are
+	 * @param {number[]} [options.namespaces] list of namespace ids
+	 * @param {number} [options.apiLimit] number of entries to get from the API. If there are
 	 *         more pages than this, we won't have an accurate count.
 	 *         (Also, influences query performance.)
-	 * @param {Number} [options.dataLimit] number of entries to actually put into the model.
+	 * @param {number} [options.dataLimit] number of entries to actually put into the model.
 	 */
 	function ImageUsage( api, options ) {
 		options = $.extend( {
@@ -128,22 +132,26 @@
 
 
 	/**
-	 * @class mw,mmv.dataProvider.GlobalUsage
+	 * @class mw.mmv.dataProvider.GlobalUsage
 	 * Gets file usage information on all wikis but the local one.
-	 * This needs the GlobalUsage extension to be installed.
-	 * @see <https://www.mediawiki.org/wiki/Extension:GlobalUsage>
+	 * This needs the [GlobalUsage extension](https://www.mediawiki.org/wiki/Extension:GlobalUsage)
+	 * to be installed.
 	 * @extends mw.mmv.dataProvider.Api
 	 * @inheritdoc
 	 * @param {mw.Api} api
 	 * @param {Object} [options]
-	 * @param {Number[]} [options.namespaces] list of namespace ids
-	 * @param {Number} [options.apiLimit] number of entries to get from the API. If there are
+	 * @param {number[]} [options.namespaces] list of namespace ids
+	 * @param {number} [options.apiLimit] number of entries to get from the API. If there are
 	 *         more pages than this, we won't have an accurate count.
 	 *         (Also, influences query performance.)
-	 * @param {Number} [options.dataLimit] number of entries to actually put into the model.
+	 * @param {boolean} [options.doNotUseApi] If true, always returns an empty result immediately,
+	 *         without doing an actual API call. Used when the GlobalUsage extension (and thus the
+	 *         API) is not available.
+	 * @param {number} [options.dataLimit] number of entries to actually put into the model.
 	 */
 	function GlobalUsage( api, options ) {
 		options = $.extend( {
+			doNotUseApi: false,
 			apiLimit: 100,
 			dataLimit: 10
 		}, options );
@@ -160,7 +168,15 @@
 	 */
 	GlobalUsage.prototype.get = function( file ) {
 		var dataProvider = this,
-			cacheKey = file.getPrefixedDb();
+			cacheKey = file.getPrefixedDb(),
+			fileUsage;
+
+		if ( this.options.doNotUseApi ) {
+			fileUsage = new mw.mmv.model.FileUsage( file, mw.mmv.model.FileUsage.Scope.GLOBAL,
+				[], 0, false );
+			fileUsage.fake = true;
+			return $.Deferred().resolve( fileUsage );
+		}
 
 		if ( !this.cache[cacheKey] ) {
 			this.cache[cacheKey] = this.api.get( {
@@ -177,7 +193,7 @@
 					// pages is an associative array indexed by pageid, turn it into proper array
 					pages = $.map( data.query.pages, function ( v ) { return v; } );
 					// the API returns a result for non-existent files as well so pages[0] will always exist
-					pages = $.map( pages[0].globalusage, function( item ) {
+					pages = $.map( pages[0].globalusage || {}, function( item ) {
 						return {
 							wiki: item.wiki,
 							page: new mw.Title( item.title, item.ns )

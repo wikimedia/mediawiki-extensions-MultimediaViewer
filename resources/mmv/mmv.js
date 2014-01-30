@@ -115,6 +115,25 @@
 		this.api = new mw.Api();
 
 		/**
+		 * @property {mw.mmv.dataProvider.ImageUsage}
+		 * @private
+		 */
+		this.imageUsageDataProvider = new mw.mmv.dataProvider.ImageUsage( this.api );
+
+		/**
+		 * @property {mw.mmv.dataProvider.GlobalUsage}
+		 * @private
+		 */
+		this.globalUsageDataProvider = new mw.mmv.dataProvider.GlobalUsage( this.api, {
+			doNotUseApi: !mw.config.get( 'wgMultimediaViewer' ).globalUsageAvailable
+		} );
+		// replace with this one to test global usage on a local wiki without going through all the
+		// hassle required for installing the extension:
+		//this.globalUsageDataProvider = new mw.mmv.dataProvider.GlobalUsage(
+		//	new mw.Api( {ajax: { url: 'http://commons.wikimedia.org/w/api.php', dataType: 'jsonp' } } )
+		//);
+
+		/**
 		 * imageInfo object, used for caching - promises will resolve with
 		 * an mw.mmv.model.Image object, a repoInfo object, the best width for
 		 * the current screen configuration, and the width requested from
@@ -419,8 +438,10 @@
 	 * @param {mw.LightboxImage} image
 	 * @param {mw.mmv.model.Image} imageData
 	 * @param {mw.mmv.model.Repo} repoData
+	 * @param {mw.mmv.model.FileUsage} localUsage
+	 * @param {mw.mmv.model.FileUsage} globalUsage
 	 */
-	MMVP.setImageInfo = function ( image, imageData, repoData ) {
+	MMVP.setImageInfo = function ( image, imageData, repoData, localUsage, globalUsage ) {
 		var gfpid,
 			msgname,
 			fileTitle = image.filePageTitle,
@@ -536,6 +557,8 @@
 
 		this.setLocationData( imageData );
 		ui.$locationLi.toggleClass( 'empty', !imageData.hasCoords() );
+
+		ui.fileUsage.set( localUsage, globalUsage );
 	};
 
 	/**
@@ -651,7 +674,7 @@
 
 		mdpid = this.profileStart( 'metadata-fetch' );
 
-		this.fetchImageInfo( image.filePageTitle ).done( function ( imageData, repoInfo, targetWidth, requestedWidth ) {
+		this.fetchImageInfoAndFileUsageInfo( image.filePageTitle ).then( function ( imageData, repoInfo, targetWidth, requestedWidth, localUsage, globalUsage ) {
 			var repoData = mw.mmv.model.Repo.newFromRepoInfo( repoInfo[imageData.repo] );
 
 			viewer.profileEnd( mdpid );
@@ -664,7 +687,7 @@
 			viewer.loadAndSetImage( viewer.lightbox.iface, imageData, targetWidth, requestedWidth, 'image-load' );
 
 			viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
-			viewer.setImageInfo( image, imageData, repoData );
+			viewer.setImageInfo( image, imageData, repoData, localUsage, globalUsage );
 		} );
 
 		comingFromPopstate = false;
@@ -813,6 +836,37 @@
 				} );
 			} );
 		}
+	};
+
+	/**
+	 * Gets file usage info.
+	 * @param {mw.Title} fileTitle Title of the file page for the image.
+	 * @returns {jQuery.Promise.<mw.mmv.model.FileUsage, mw.mmv.model.FileUsage>} a promise
+	 *     resolving to a local and a global file usage object
+	 * FIXME should be parallel with the other fetches, or even better if it can be integrated
+	 *     into the same API calls. Lets get it out first though.
+	 */
+	MMVP.fetchFileUsageInfo = function ( fileTitle ) {
+		return $.when(
+			this.imageUsageDataProvider.get( fileTitle ),
+			this.globalUsageDataProvider.get( fileTitle )
+		);
+	};
+
+	/**
+	 * Gets all file-related info.
+	 * @param {mw.Title} fileTitle Title of the file page for the image.
+	 * @returns {jQuery.Promise.<mw.mmv.model.Image, mw.mmv.model.Repo, Number, Number,
+	 *     mw.mmv.model.FileUsage, mw.mmv.model.FileUsage>}
+	 */
+	MMVP.fetchImageInfoAndFileUsageInfo = function ( fileTitle ) {
+		return $.when(
+			this.fetchImageInfo( fileTitle ),
+			this.fetchFileUsageInfo( fileTitle )
+		).then( function( first, second ) {
+			var d = $.Deferred();
+			return d.resolve.apply( d, first.concat( second ) );
+		} );
 	};
 
 	MMVP.loadIndex = function ( index ) {

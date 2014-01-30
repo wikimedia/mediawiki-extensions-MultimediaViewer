@@ -204,6 +204,31 @@
 		} );
 	} );
 
+	// no globalusage field - this happens when the extension is not installed
+	QUnit.asyncTest( 'GlobalUsage missing data test', 1, function ( assert ) {
+		var api = { get: function() {
+				return $.Deferred().resolve( {
+					query: {
+						pages: {
+							'-1': {
+								ns: 6,
+								title: 'File:Stuff.jpg',
+								missing: ''
+							}
+						}
+					}
+				} );
+			} },
+			options = {},
+			file = new mw.Title( 'File:Stuff.jpg' ),
+			globalUsageDataProvider = new mw.mmv.dataProvider.GlobalUsage( api, options );
+
+		globalUsageDataProvider.get( file ).then( function( fileUsage ) {
+			assert.strictEqual( fileUsage.totalCount, 0, 'Count flag is set correctly' );
+			QUnit.start();
+		} );
+	} );
+
 	QUnit.asyncTest( 'GlobalUsage fail test', 1, function ( assert ) {
 		var api = { get: function() {
 				return $.Deferred().resolve( {
@@ -223,6 +248,19 @@
 				'unknown_action: Unrecognized value for parameter \'action\': querry',
 				'Error message is set correctly'
 			);
+			QUnit.start();
+		} );
+	} );
+
+	QUnit.asyncTest( 'GlobalUsage doNotUseApi test', 2, function ( assert ) {
+		var api = {},
+			options = { doNotUseApi: true },
+			file = new mw.Title( 'File:Stuff.jpg' ),
+			globalUsageDataProvider = new mw.mmv.dataProvider.GlobalUsage( api, options );
+
+		globalUsageDataProvider.get( file ).done( function( fileUsage ) {
+			assert.strictEqual( fileUsage.pages.length, 0, 'Does not return any pages' );
+			assert.ok( fileUsage.fake );
 			QUnit.start();
 		} );
 	} );

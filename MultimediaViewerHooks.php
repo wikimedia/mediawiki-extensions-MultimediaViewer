@@ -101,9 +101,11 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	public static function resourceLoaderGetConfigVars( &$vars ) {
+		global $wgAPIPropModules;
 		$vars['wgMultimediaViewer'] = array(
 			'infoLink' => self::$infoLink,
 			'discussionLink' => self::$discussionLink,
+			'globalUsageAvailable' => isset( $wgAPIPropModules['globalusage'] ),
 		);
 		return true;
 	}
@@ -123,6 +125,7 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv.provider.test.js',
 				'tests/qunit/mmv.lightboxinterface.test.js',
 				'tests/qunit/mmv.ui.description.test.js',
+				'tests/qunit/mmv.ui.fileUsage.test.js',
 				'tests/qunit/lightboximage.test.js',
 				'tests/qunit/lightboxinterface.test.js',
 				'tests/qunit/multilightbox.test.js',
