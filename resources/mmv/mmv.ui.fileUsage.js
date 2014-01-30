@@ -83,7 +83,7 @@
 				usageCount = Math.max( localUsage.totalCount, globalUsage.totalCount );
 				countMessage = 'multimediaviewer-fileusage-count-more';
 			}
-			this.$title.text( mw.message( countMessage, mw.language.convertNumber( usageCount ) ) );
+			this.$title.msg( countMessage, mw.language.convertNumber( usageCount ) );
 
 			this.$usageList.empty();
 			this.addSection( localUsage, mw.mmv.model.FileUsage.Scope.LOCAL, this.MAX_LOCAL,
@@ -108,7 +108,7 @@
 		if ( fileUsage.totalCount ) {
 			this.$usageList.append(
 				$( '<li>' ).addClass( 'mw-mlb-fileusage-' + sectionType + '-section' )
-					.text( mw.message( 'multimediaviewer-fileusage-' + sectionType + '-section' ) )
+					.msg( 'multimediaviewer-fileusage-' + sectionType + '-section' )
 			);
 			this.addPageLinks( fileUsage.pages.slice( 0, limit ) );
 			if ( fileUsage.pages.length > limit ) {
@@ -148,7 +148,7 @@
 	FileUsage.prototype.addViewAllLink = function( url ) {
 		this.$usageList.find( 'li:first' ).append(
 			$( '<span>' ).addClass( 'mw-mlb-fileusage-view-all' ).append(
-				$( '<a>' ).text( mw.message( 'multimediaviewer-fileusage-link' ) )
+				$( '<a>' ).msg( 'multimediaviewer-fileusage-link' )
 					.attr( 'href', url )
 			)
 		);
