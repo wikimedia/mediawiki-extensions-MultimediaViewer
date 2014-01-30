@@ -196,16 +196,6 @@
 			viewer.resize( ui );
 			return false;
 		} );
-
-		lightboxHooks.register( 'fullscreen', function ( fullscreen ) {
-			if ( this.$imageMetadata ) {
-				if ( fullscreen ) {
-					this.$imageMetadata.hide();
-				} else {
-					this.$imageMetadata.show();
-				}
-			}
-		} );
 	}
 
 	MMVP = MultimediaViewer.prototype;
@@ -329,9 +319,11 @@
 		var viewer = this,
 			fileTitle = this.currentImageFileTitle;
 
-		this.fetchImageInfo( fileTitle, [ 'url' ] ).done( function ( imageData, repoInfo, targetWidth, requestedWidth ) {
-			viewer.loadResizedImage( ui, imageData, targetWidth, requestedWidth );
-		} );
+		if ( fileTitle ) {
+			this.fetchImageInfo( fileTitle, [ 'url' ] ).done( function ( imageData, repoInfo, targetWidth, requestedWidth ) {
+				viewer.loadResizedImage( ui, imageData, targetWidth, requestedWidth );
+			} );
+		}
 
 		this.updateControls();
 	};
@@ -383,7 +375,7 @@
 			top: prevNextTop
 		} );
 
-		ui.$nextButton.toggleClass( 'disabled', this.lightbox.currentIndex >= ( this.lightbox.images.length - 1 ) );
+		ui.$nextButton.toggleClass( 'disabled', this.lightbox.currentIndex >= ( ( this.lightbox.images ? this.lightbox.images.length : 0 ) - 1 ) );
 		ui.$prevButton.toggleClass( 'disabled', this.lightbox.currentIndex <= 0 );
 	};
 

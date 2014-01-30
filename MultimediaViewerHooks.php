@@ -117,6 +117,7 @@ class MultimediaViewerHooks {
 	public static function getTestModules( array &$testModules, ResourceLoader &$resourceLoader ) {
 		$testModules['qunit']['mmv.tests'] = array(
 			'scripts' => array(
+				'tests/qunit/mmv.testhelpers.js',
 				'tests/qunit/mmv.test.js',
 				'tests/qunit/mmv.model.test.js',
 				'tests/qunit/mmv.provider.test.js',

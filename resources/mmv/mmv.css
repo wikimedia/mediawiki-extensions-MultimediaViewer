@@ -165,6 +165,10 @@ body.mobile .mw-mlb-controls,
 	position: relative;
 }
 
+.jq-fullscreened .mw-mlb-image-metadata {
+	display: none;
+}
+
 .mw-mlb-image-desc-div {
 	width: 50%;
 	overflow-y: auto;

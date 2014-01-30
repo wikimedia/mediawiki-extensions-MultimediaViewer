@@ -63,18 +63,9 @@
 
 		// Since we don't want these tests to really open fullscreen
 		// which is subject to user security confirmation,
-		// we create a proxy and make it pretend that regular jquery.fullscreen behavior happened
-		$.fn.enterFullscreen = function() {
-			this.first().addClass( 'jq-fullscreened' ).data( 'isFullscreened', true );
-
-			$( document ).trigger( $.Event( 'jq-fullscreen-change', { element: this, fullscreen: true } ) );
-		};
-
-		$.fn.exitFullscreen = function() {
-			this.first().removeClass( 'jq-fullscreened' ).data( 'isFullscreened', false );
-
-			$( document ).trigger( $.Event( 'jq-fullscreen-change', { element: this, fullscreen: false } ) );
-		};
+		// we use a mock that pretends regular jquery.fullscreen behavior happened
+		$.fn.enterFullscreen = mw.mmvTestHelpers.enterFullscreenMock;
+		$.fn.exitFullscreen = mw.mmvTestHelpers.exitFullscreenMock;
 
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );

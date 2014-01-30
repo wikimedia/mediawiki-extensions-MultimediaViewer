@@ -23,7 +23,7 @@
 	QUnit.module( 'mmv.lightboxInterface', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Sanity test, object creation and ui construction', 14, function ( assert ) {
-		var lightbox = new mw.LightboxInterface();
+		var lightbox = new mw.LightboxInterface( mw.mediaViewer );
 
 		function checkIfUIAreasAttachedToDocument( inDocument ) {
 			var msg = inDocument === 1 ? ' ' : ' not ';
@@ -55,7 +55,7 @@
 
 	QUnit.test( 'The interface is emptied properly when necessary', thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length + 1, function ( assert ) {
 		var i,
-			lightbox = new mw.LightboxInterface();
+			lightbox = new mw.LightboxInterface( mw.mediaViewer );
 
 		lightbox.empty();
 
@@ -71,7 +71,7 @@
 	} );
 
 	QUnit.test( 'Handler registration and clearance work OK', 2, function ( assert ) {
-		var lightbox = new mw.LightboxInterface(),
+		var lightbox = new mw.LightboxInterface( mw.mediaViewer ),
 			handlerCalls = 0;
 
 		function handleEvent() {
@@ -87,7 +87,7 @@
 	} );
 
 	QUnit.test( 'Setting repository information in the UI works as expected', 3, function ( assert ) {
-		var lightbox = new mw.LightboxInterface();
+		var lightbox = new mw.LightboxInterface( mw.mediaViewer );
 
 		lightbox.setRepoDisplay( 'Example Wiki' );
 		assert.strictEqual( lightbox.$repo.text(), 'Learn more on Example Wiki', 'Text set to something useful for remote wiki - if this fails it might be because of localisation' );
@@ -100,7 +100,7 @@
 	} );
 
 	QUnit.test( 'Setting location information works as expected', 2, function ( assert ) {
-		var lightbox = new mw.LightboxInterface();
+		var lightbox = new mw.LightboxInterface( mw.mediaViewer );
 
 		lightbox.setLocationData(
 			50, 10, 20, 'multimediaviewer-geoloc-north',
@@ -119,6 +119,41 @@
 			'http://tools.wmflabs.org/geohack/geohack.php?pagename=File:Foobar.jpg&params=12.3456789_N_98.7654321_E_&language=en',
 			'Location URL is set as expected'
 		);
+	} );
+
+	QUnit.test( 'Fullscreen mode', 3, function ( assert ) {
+		var lightbox = new mw.LightboxInterface( mw.mediaViewer ),
+			oldFnEnterFullscreen = $.fn.enterFullscreen,
+			oldFnExitFullscreen = $.fn.exitFullscreen;
+
+		// Since we don't want these tests to really open fullscreen
+		// which is subject to user security confirmation,
+		// we use a mock that pretends regular jquery.fullscreen behavior happened
+		$.fn.enterFullscreen = mw.mmvTestHelpers.enterFullscreenMock;
+		$.fn.exitFullscreen = mw.mmvTestHelpers.exitFullscreenMock;
+
+		// Attach lightbox to testing fixture to avoid interference with other tests.
+		lightbox.attach( '#qunit-fixture' );
+		lightbox.viewer.ui = lightbox;
+		lightbox.viewer.lightbox = lightbox;
+
+		assert.strictEqual( lightbox.$imageMetadata.is( ':visible' ) , true, 'Image metadata is visible' );
+
+		// Entering fullscreen
+		lightbox.$fullscreenButton.click();
+
+		assert.strictEqual( lightbox.$imageMetadata.is( ':visible' ) , false, 'Image metadata is hidden' );
+
+		// Exiting fullscreen
+		lightbox.$fullscreenButton.click();
+
+		assert.strictEqual( lightbox.$imageMetadata.is( ':visible' ) , true, 'Image metadata is visible' );
+
+		// Unattach lightbox from document
+		lightbox.unattach();
+
+		$.fn.enterFullscreen = oldFnEnterFullscreen;
+		$.fn.exitFullscreen = oldFnExitFullscreen;
 	} );
 
 	QUnit.test( 'Metadata scrolling', 13, function ( assert ) {
@@ -219,7 +254,6 @@
 
 		// Unattach lightbox from document
 		lightbox.unattach();
-
 
 
 		// Second phase of the test: scroll memory

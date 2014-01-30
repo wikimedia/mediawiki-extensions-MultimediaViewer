@@ -448,7 +448,7 @@
 	QUnit.test( 'getImageSizeApiArgs(): Limited by height and limited by width', 4, function ( assert ) {
 		var widths,
 			viewer = new mw.MultimediaViewer(),
-			ui = new mw.LightboxInterface();
+			ui = new mw.LightboxInterface( viewer );
 
 		// Fake thumbnail, width/height == 1.5
 		ui.currentImage = {
