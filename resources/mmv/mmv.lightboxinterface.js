@@ -117,6 +117,11 @@
 			$.scrollTo( 0, 0 );
 		}
 
+		// Make sure that the metadata is going to be at the bottom when it appears
+		// 83 is the height of the top metadata area. Which can't be measured by
+		// reading the DOM at this point of the execution, unfortunately
+		this.$postDiv.css( 'top', ( $( window ).height() - 83 ) + 'px' );
+
 		MLBInterface.prototype.attach.call( this, parentId );
 	};
 
@@ -147,8 +152,6 @@
 	};
 
 	LIP.initializeInterface = function () {
-		this.$postDiv.css( 'top', ( $( window ).height() - 83 ) + 'px' );
-
 		this.initializeHeader();
 		this.initializeNavigation();
 		this.initializeButtons();
