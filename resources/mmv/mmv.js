@@ -115,21 +115,21 @@
 		this.api = new mw.Api();
 
 		/**
-		 * @property {mw.mmv.dataProvider.ImageUsage}
+		 * @property {mw.mmv.provider.ImageUsage}
 		 * @private
 		 */
-		this.imageUsageDataProvider = new mw.mmv.dataProvider.ImageUsage( this.api );
+		this.imageUsageDataProvider = new mw.mmv.provider.ImageUsage( this.api );
 
 		/**
-		 * @property {mw.mmv.dataProvider.GlobalUsage}
+		 * @property {mw.mmv.provider.GlobalUsage}
 		 * @private
 		 */
-		this.globalUsageDataProvider = new mw.mmv.dataProvider.GlobalUsage( this.api, {
+		this.globalUsageDataProvider = new mw.mmv.provider.GlobalUsage( this.api, {
 			doNotUseApi: !mw.config.get( 'wgMultimediaViewer' ).globalUsageAvailable
 		} );
 		// replace with this one to test global usage on a local wiki without going through all the
 		// hassle required for installing the extension:
-		//this.globalUsageDataProvider = new mw.mmv.dataProvider.GlobalUsage(
+		//this.globalUsageDataProvider = new mw.mmv.provider.GlobalUsage(
 		//	new mw.Api( {ajax: { url: 'http://commons.wikimedia.org/w/api.php', dataType: 'jsonp' } } )
 		//);
 

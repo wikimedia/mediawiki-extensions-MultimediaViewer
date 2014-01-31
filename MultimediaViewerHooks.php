@@ -122,7 +122,8 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv.testhelpers.js',
 				'tests/qunit/mmv.test.js',
 				'tests/qunit/mmv.model.test.js',
-				'tests/qunit/mmv.provider.test.js',
+				'tests/qunit/provider/mmv.provider.ImageUsage.test.js',
+				'tests/qunit/provider/mmv.provider.GlobalUsage.test.js',
 				'tests/qunit/mmv.lightboxinterface.test.js',
 				'tests/qunit/mmv.ui.description.test.js',
 				'tests/qunit/mmv.ui.fileUsage.test.js',
@@ -138,5 +139,5 @@ class MultimediaViewerHooks {
 		);
 
 		return true;
-       }
+	}
 }

@@ -16,110 +16,13 @@
  */
 
 ( function ( mw, $ ) {
-	QUnit.module( 'mmv.provider', QUnit.newMwEnvironment() );
-
-	QUnit.test( 'ImageUsage constructor sanity check', 2, function ( assert ) {
-		var api = { get: function() {} },
-			options = {},
-			imageUsageDataProvider = new mw.mmv.dataProvider.ImageUsage( api, options ),
-			imageUsageDataProviderWithNoOptions = new mw.mmv.dataProvider.ImageUsage( api );
-
-		assert.ok( imageUsageDataProvider );
-		assert.ok( imageUsageDataProviderWithNoOptions );
-	} );
-
-	QUnit.asyncTest( 'ImageUsage get test', 7, function ( assert ) {
-		var apiCallCount = 0,
-			api = { get: function() {
-				apiCallCount++;
-				return $.Deferred().resolve( {
-					query: {
-						imageusage: [
-							{
-								ns: 0,
-								title: 'Albert Einstein'
-							}
-						]
-					}
-				} );
-			} },
-			options = {},
-			file = new mw.Title( 'File:Albert Einsteing Head.jpg' ),
-			imageUsageDataProvider = new mw.mmv.dataProvider.ImageUsage( api, options );
-
-		imageUsageDataProvider.get( file ).then( function( fileUsage ) {
-			assert.strictEqual( fileUsage.file, file, 'File is set correctly' );
-			assert.strictEqual( fileUsage.scope, mw.mmv.model.FileUsage.Scope.LOCAL, 'Scope is set correctly' );
-			assert.strictEqual( fileUsage.pages[0].wiki, null, 'Wiki is not set' );
-			assert.strictEqual( fileUsage.pages[0].page.getPrefixedDb(), 'Albert_Einstein', 'Page name is set correctly' );
-			assert.strictEqual( fileUsage.totalCount, 1, 'Count is set correctly' );
-			assert.strictEqual( fileUsage.totalCountIsLowerBound, false, 'Count flag is set correctly' );
-		} ).then( function() {
-			// call the data provider a second time to check caching
-			return imageUsageDataProvider.get( file );
-		} ).then( function() {
-			assert.strictEqual( apiCallCount, 1 );
-			QUnit.start();
-		} );
-	} );
-
-	QUnit.asyncTest( 'ImageUsage get test with continuation', 1, function ( assert ) {
-		var api = { get: function() {
-				return $.Deferred().resolve( {
-					'query-continue': {
-						imageusage: {
-							iucontinue: '6|Albert_Einstein_Head.jpg|198622'
-						}
-					},
-					query: {
-						imageusage: [
-							{
-								ns: 0,
-								title: 'Albert Einstein'
-							}
-						]
-					}
-				} );
-			} },
-			options = {},
-			file = new mw.Title( 'File:Albert Einsteing Head.jpg' ),
-			imageUsageDataProvider = new mw.mmv.dataProvider.ImageUsage( api, options );
-
-		imageUsageDataProvider.get( file ).then( function( fileUsage ) {
-			assert.strictEqual( fileUsage.totalCountIsLowerBound, true, 'Count flag is set correctly' );
-			QUnit.start();
-		} );
-	} );
-
-	QUnit.asyncTest( 'ImageUsage fail test', 1, function ( assert ) {
-		var api = { get: function() {
-				return $.Deferred().resolve( {
-					'error': {
-						'code': 'iumissingparam',
-						'info': 'One of the parameters iutitle, iupageid is required'
-					}
-				} );
-			} },
-			options = {},
-			file = new mw.Title( 'File:Albert Einsteing Head.jpg' ),
-			imageUsageDataProvider = new mw.mmv.dataProvider.ImageUsage( api, options );
-
-		imageUsageDataProvider.get( file ).fail( function( errorMessage ) {
-			assert.strictEqual(
-				errorMessage,
-				'iumissingparam: One of the parameters iutitle, iupageid is required',
-				'Error message is set correctly'
-			);
-			QUnit.start();
-		} );
-	} );
-
+	QUnit.module( 'mmv.provider.GlobalUsage', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'GlobalUsage constructor sanity check', 2, function ( assert ) {
 		var api = { get: function() {} },
 			options = {},
-			globalUsageDataProvider = new mw.mmv.dataProvider.GlobalUsage( api, options ),
-			globalUsageDataProviderWithNoOptions = new mw.mmv.dataProvider.GlobalUsage( api );
+			globalUsageDataProvider = new mw.mmv.provider.GlobalUsage( api, options ),
+			globalUsageDataProviderWithNoOptions = new mw.mmv.provider.GlobalUsage( api );
 
 		assert.ok( globalUsageDataProvider );
 		assert.ok( globalUsageDataProviderWithNoOptions );
@@ -150,7 +53,7 @@
 			} },
 			options = {},
 			file = new mw.Title( 'File:Stuff.jpg' ),
-			globalUsageDataProvider = new mw.mmv.dataProvider.GlobalUsage ( api, options );
+			globalUsageDataProvider = new mw.mmv.provider.GlobalUsage ( api, options );
 
 		globalUsageDataProvider.get( file ).then( function( fileUsage ) {
 			assert.strictEqual( fileUsage.file, file, 'File is set correctly' );
@@ -196,7 +99,7 @@
 		} },
 		options = {},
 		file = new mw.Title( 'File:Stuff.jpg' ),
-		globalUsageDataProvider = new mw.mmv.dataProvider.GlobalUsage( api, options );
+		globalUsageDataProvider = new mw.mmv.provider.GlobalUsage( api, options );
 
 		globalUsageDataProvider.get( file ).then( function( fileUsage ) {
 			assert.strictEqual( fileUsage.totalCountIsLowerBound, true, 'Count flag is set correctly' );
@@ -221,7 +124,7 @@
 			} },
 			options = {},
 			file = new mw.Title( 'File:Stuff.jpg' ),
-			globalUsageDataProvider = new mw.mmv.dataProvider.GlobalUsage( api, options );
+			globalUsageDataProvider = new mw.mmv.provider.GlobalUsage( api, options );
 
 		globalUsageDataProvider.get( file ).then( function( fileUsage ) {
 			assert.strictEqual( fileUsage.totalCount, 0, 'Count flag is set correctly' );
@@ -240,7 +143,7 @@
 			} },
 			options = {},
 			file = new mw.Title( 'File:Stuff.jpg' ),
-			globalUsageDataProvider = new mw.mmv.dataProvider.GlobalUsage( api, options );
+			globalUsageDataProvider = new mw.mmv.provider.GlobalUsage( api, options );
 
 		globalUsageDataProvider.get( file ).fail( function( errorMessage ) {
 			assert.strictEqual(
@@ -256,7 +159,7 @@
 		var api = {},
 			options = { doNotUseApi: true },
 			file = new mw.Title( 'File:Stuff.jpg' ),
-			globalUsageDataProvider = new mw.mmv.dataProvider.GlobalUsage( api, options );
+			globalUsageDataProvider = new mw.mmv.provider.GlobalUsage( api, options );
 
 		globalUsageDataProvider.get( file ).done( function( fileUsage ) {
 			assert.strictEqual( fileUsage.pages.length, 0, 'Does not return any pages' );
