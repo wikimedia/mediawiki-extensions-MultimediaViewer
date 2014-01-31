@@ -105,14 +105,17 @@
 	 * @protected
 	 */
 	FileUsage.prototype.addSection = function( fileUsage, sectionType, limit, viewAllLink ) {
+		var $section;
+
 		if ( fileUsage.totalCount ) {
-			this.$usageList.append(
-				$( '<li>' ).addClass( 'mw-mlb-fileusage-' + sectionType + '-section' )
-					.msg( 'multimediaviewer-fileusage-' + sectionType + '-section' )
-			);
+			$section = $( '<li>' ).addClass( 'mw-mlb-fileusage-' + sectionType + '-section' )
+					.msg( 'multimediaviewer-fileusage-' + sectionType + '-section' );
+
+			this.$usageList.append( $section );
 			this.addPageLinks( fileUsage.pages.slice( 0, limit ) );
+
 			if ( fileUsage.pages.length > limit ) {
-				this.addViewAllLink( viewAllLink );
+				this.addViewAllLink( $section, viewAllLink );
 			}
 		}
 	};
@@ -142,11 +145,12 @@
 
 	/**
 	 * Adds a 'View all' link (with the given URL) to the end of the usage list.
+	 * @param {jQuery} $section file usage section element
 	 * @param {string} url
 	 * @protected
 	 */
-	FileUsage.prototype.addViewAllLink = function( url ) {
-		this.$usageList.find( 'li:first' ).append(
+	FileUsage.prototype.addViewAllLink = function( $section, url ) {
+		$section.append(
 			$( '<span>' ).addClass( 'mw-mlb-fileusage-view-all' ).append(
 				$( '<a>' ).msg( 'multimediaviewer-fileusage-link' )
 					.attr( 'href', url )
