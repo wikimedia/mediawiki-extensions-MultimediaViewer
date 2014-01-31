@@ -197,7 +197,7 @@
 		// TODO special page name should be localized
 		return new mw.Uri( mw.config.get( 'wgScript' ) ).extend( {
 			title: 'Special:GlobalUsage',
-			target: file.getPrefixedDb(),
+			target: file.getMain(),
 			filterlocal: 1
 		} ).toString();
 	};
