@@ -147,6 +147,9 @@ call_user_func( function() {
 			'mmv.provider.Api.js',
 			'mmv.provider.ImageUsage.js',
 			'mmv.provider.GlobalUsage.js',
+			'mmv.provider.ImageInfo.js',
+			'mmv.provider.FileRepoInfo.js',
+			'mmv.provider.ThumbnailInfo.js',
 		),
 
 		'dependencies' => array(

@@ -74,27 +74,22 @@
 				gulimit: this.options.apiLimit,
 				format: 'json'
 			} ).then( function( data ) {
+				return provider.getQueryPage( file, data );
+			} ).then( function( pageData, data ) {
 				var pages;
-				if ( data && data.query && data.query.pages ) {
-					// pages is an associative array indexed by pageid, turn it into proper array
-					pages = $.map( data.query.pages, function ( v ) { return v; } );
-					// the API returns a result for non-existent files as well so pages[0] will always exist
-					pages = $.map( pages[0].globalusage || {}, function( item ) {
-						return {
-							wiki: item.wiki,
-							page: new mw.Title( item.title, item.ns )
-						};
-					} );
-					return new mw.mmv.model.FileUsage(
-						file,
-						mw.mmv.model.FileUsage.Scope.GLOBAL,
-						pages.slice( 0, provider.options.dataLimit ),
-						pages.length,
-						!!( data['query-continue'] && data['query-continue'].globalusage )
-					);
-				} else {
-					return $.Deferred().reject( provider.getErrorMessage( data ) );
-				}
+				pages = $.map( pageData.globalusage || {}, function( item ) {
+					return {
+						wiki: item.wiki,
+						page: new mw.Title( item.title, item.ns )
+					};
+				} );
+				return new mw.mmv.model.FileUsage(
+					file,
+					mw.mmv.model.FileUsage.Scope.GLOBAL,
+					pages.slice( 0, provider.options.dataLimit ),
+					pages.length,
+					!!( data['query-continue'] && data['query-continue'].globalusage )
+				);
 			} );
 		}
 
