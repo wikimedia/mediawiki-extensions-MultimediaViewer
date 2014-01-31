@@ -49,10 +49,11 @@
 		lightbox.load(img);
 	} );
 
-	QUnit.test( 'Fullscreen mode', 6, function ( assert ) {
+	QUnit.test( 'Fullscreen mode', 8, function ( assert ) {
 		var lightbox = new window.LightboxInterface(),
 			oldFnEnterFullscreen = $.fn.enterFullscreen,
-			oldFnExitFullscreen = $.fn.exitFullscreen;
+			oldFnExitFullscreen = $.fn.exitFullscreen,
+			oldSupportFullscreen = $.support.fullscreen;
 
 		// Since we don't want these tests to really open fullscreen
 		// which is subject to user security confirmation,
@@ -62,6 +63,18 @@
 
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
+
+		$.support.fullscreen = false;
+		lightbox.setupFullscreenButton();
+
+		assert.ok( !lightbox.$fullscreenButton.is(':visible'),
+			'Fullscreen button is hidden when fullscreen mode is unavailable' );
+
+		$.support.fullscreen = true;
+		lightbox.setupFullscreenButton();
+
+		assert.ok( lightbox.$fullscreenButton.is(':visible'),
+			'Fullscreen button is visible when fullscreen mode is available' );
 
 		// Entering fullscreen
 		lightbox.$fullscreenButton.click();
@@ -97,6 +110,7 @@
 
 		$.fn.enterFullscreen = oldFnEnterFullscreen;
 		$.fn.exitFullscreen = oldFnExitFullscreen;
+		$.support.fullscreen = oldSupportFullscreen;
 	} );
 
 }( mediaWiki, jQuery ) );

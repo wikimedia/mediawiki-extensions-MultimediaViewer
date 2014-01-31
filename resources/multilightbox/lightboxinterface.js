@@ -241,6 +241,8 @@
 					}
 				} );
 
+			this.setupFullscreenButton();
+
 			this.$controlBar.append(
 				this.$closeButton,
 				this.$fullscreenButton
@@ -252,6 +254,15 @@
 		}
 
 		this.addElementsToDiv( this.$preDiv, toAdd );
+	};
+
+	LIP.setupFullscreenButton = function () {
+		// If the browser doesn't support fullscreen mode, hide the fullscreen button
+		if ( $.support.fullscreen ) {
+			this.$fullscreenButton.show();
+		} else {
+			this.$fullscreenButton.hide();
+		}
 	};
 
 	LIP.setupPostDiv = function ( buildDefaults, toAdd ) {

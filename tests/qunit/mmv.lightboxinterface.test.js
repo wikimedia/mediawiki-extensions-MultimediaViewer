@@ -192,7 +192,7 @@
 
 		$.each ( lightbox.$buttons, function ( idx, e ) {
 			var $e = $( e ),
-				offset = $e.offset(),
+				offset = $e.show().offset(),
 				width = $e.width(),
 				height = $e.height(),
 				disabled = $e.hasClass( 'disabled' );
