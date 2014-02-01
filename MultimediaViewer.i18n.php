@@ -200,20 +200,33 @@ Used as <code>$4</code> in {{msg-mw|Multimediaviewer-geoloc-coord}}.',
 Both are formatted according to {{msg-mw|Multimediaviewer-geoloc-coord}}.',
 	'multimediaviewer-geolocation' => 'Message for displaying a location. Parameters:
 * $1 - a location which is formatted by {{msg-mw|Multimediaviewer-geoloc-coords}}',
+	'multimediaviewer-fileusage-count' => 'Used as <code><nowiki><h3></nowiki></code> heading for the list of pages which use this image.
 
-	'multimediaviewer-fileusage-count' => 'Title for the list of pages which use this image. $1 is the number of such pages.
-
+Parameters:
+* $1 - the number of pages using the image
 See also:
 * {{msg-mw|Multimediaviewer-fileusage-count-more}}',
-	'multimediaviewer-fileusage-count-more' => 'Title for the list of pages which use this image. $1 is the number of such pages.
+	'multimediaviewer-fileusage-count-more' => 'Used as <code><nowiki><h3></nowiki></code> heading for the list of pages which use this image.
+
 This is used when the number is too large to accurately determine; it can be much larger than the value given in $1.
 
+Parameters:
+* $1 - the number of pages
 See also:
 * {{msg-mw|Multimediaviewer-fileusage-count}}',
-	'multimediaviewer-fileusage-link' => 'Text of link pointing to Special:WhatLinksHere or Special:GlobalUsage
-when there are too many pages to fit into the metadata box',
-	'multimediaviewer-fileusage-local-section' => 'Section title for the local usages',
-	'multimediaviewer-fileusage-global-section' => 'Section title for the global usages',
+	'multimediaviewer-fileusage-link' => 'Text of link pointing to [[Special:WhatLinksHere]] or [[Special:GlobalUsage]] when there are too many pages to fit into the metadata box.',
+	'multimediaviewer-fileusage-local-section' => 'Section title for the local usages.
+
+Followed by {{msg-mw|Multimediaviewer-fileusage-link}} and the list of pages.
+
+See also:
+* {{msg-mw|Multimediaviewer-fileusage-global-section}}',
+	'multimediaviewer-fileusage-global-section' => 'Section title for the global usages.
+
+Followed by {{msg-mw|Multimediaviewer-fileusage-link}} and the list of pages.
+
+See also:
+* {{msg-mw|Multimediaviewer-fileusage-local-section}}',
 );
 
 /** Arabic (العربية)
@@ -319,6 +332,7 @@ $messages['ca'] = array(
  * @author Умар
  */
 $messages['ce'] = array(
+	'multimediaviewer-desc' => 'Схьадосту суьрташ юьззина экран.',
 	'multimediaviewer-pref' => 'Медиа-хьожург',
 	'multimediaviewer-pref-desc' => 'Мультимедиа-файлашка хьажар хаза кечдина гойту.', # Fuzzy
 	'multimediaviewer-repository-local' => 'Ма-дарра',
@@ -328,6 +342,7 @@ $messages['ce'] = array(
 
 /** Czech (čeština)
  * @author Mormegil
+ * @author Paxt
  * @author Rosnicka.kacka
  */
 $messages['cs'] = array(
@@ -342,6 +357,7 @@ $messages['cs'] = array(
 	'multimediaviewer-userpage-link' => 'Načteno {{GENDER:$2|uživatelem|uživatelkou}} $1',
 	'multimediaviewer-credit' => '$1 – $2',
 	'multimediaviewer-license-cc-pd' => 'Volné dílo',
+	'multimediaviewer-license-pd' => 'Volné dílo',
 	'multimediaviewer-license-default' => 'Zobrazit licenci',
 	'multimediaviewer-use-file' => 'Použít tento soubor',
 	'multimediaviewer-use-file-owt' => 'Použít tento soubor na wiki, jako náhled',
@@ -349,6 +365,11 @@ $messages['cs'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Použít tento soubor na jiné webové stránce',
 	'multimediaviewer-about-mmv' => 'O prohlížeči médií',
 	'multimediaviewer-discuss-mmv' => 'Sdělte svůj názor',
+	'multimediaviewer-fileusage-count' => 'Použito na $1 {{PLURAL:$1|stránce|stránkách}}',
+	'multimediaviewer-fileusage-count-more' => 'Užito na více než $1 {{PLURAL:$1|stránkách}}',
+	'multimediaviewer-fileusage-link' => 'Zobrazit všechna využití',
+	'multimediaviewer-fileusage-local-section' => 'Na tomto projektu',
+	'multimediaviewer-fileusage-global-section' => 'Na ostatních projektech',
 );
 
 /** Danish (dansk)
@@ -395,6 +416,7 @@ $messages['de'] = array(
 	'multimediaviewer-license-cc-by-4.0' => 'CC-BY 4.0',
 	'multimediaviewer-license-cc-by-sa-4.0' => 'CC-BY-SA 4.0',
 	'multimediaviewer-license-cc-pd' => 'Gemeinfrei',
+	'multimediaviewer-license-pd' => 'Gemeinfrei',
 	'multimediaviewer-license-default' => 'Lizenz ansehen',
 	'multimediaviewer-use-file' => 'Diese Datei weiterverwenden',
 	'multimediaviewer-use-file-owt' => 'Diese Datei als Vorschaubild auf einer Wikiseite verwenden',
@@ -403,6 +425,11 @@ $messages['de'] = array(
 	'multimediaviewer-about-mmv' => 'Über Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Eine Rückmeldung hinterlassen',
 	'multimediaviewer-geolocation' => 'Standort: $1',
+	'multimediaviewer-fileusage-count' => 'Auf {{PLURAL:$1|einer Seite|$1 Seiten}} verwendet',
+	'multimediaviewer-fileusage-count-more' => 'Auf mehr als $1 {{PLURAL:$1|Seiten}} verwendet',
+	'multimediaviewer-fileusage-link' => 'Alle Verwendungen ansehen',
+	'multimediaviewer-fileusage-local-section' => 'Auf dieser Website',
+	'multimediaviewer-fileusage-global-section' => 'Auf anderen Websites',
 );
 
 /** Swiss High German (Schweizer Hochdeutsch)
@@ -476,6 +503,7 @@ $messages['en-gb'] = array(
  * @author Benfutbol10
  * @author Carlitosag
  * @author Ciencia Al Poder
+ * @author Csbotero
  * @author Fitoschido
  * @author PoLuX124
  */
@@ -490,6 +518,11 @@ $messages['es'] = array(
 	'multimediaviewer-license-default' => 'Ver licencia',
 	'multimediaviewer-discuss-mmv' => 'Dejar comentarios',
 	'multimediaviewer-geolocation' => 'Ubicación: $1',
+	'multimediaviewer-fileusage-count' => 'Utilizado en $1 {{PLURAL:$1| page|pages}}',
+	'multimediaviewer-fileusage-count-more' => 'Utilizado en más de $1 {{PLURAL:$1|pages}}',
+	'multimediaviewer-fileusage-link' => 'Ver todos los usos',
+	'multimediaviewer-fileusage-local-section' => 'En este sitio',
+	'multimediaviewer-fileusage-global-section' => 'En otros sitios',
 );
 
 /** Estonian (eesti)
@@ -542,6 +575,7 @@ $messages['fa'] = array(
 	'multimediaviewer-license-cc-by-3.0' => 'CC BY 3.0',
 	'multimediaviewer-license-cc-by-sa-3.0' => 'CC BY-SA 3.0',
 	'multimediaviewer-license-cc-pd' => 'مالکیت عمومی',
+	'multimediaviewer-license-pd' => 'دامنهٔ عمومی',
 	'multimediaviewer-license-default' => 'مشاهده مجوز',
 	'multimediaviewer-use-file' => 'استفاده از این پرونده',
 	'multimediaviewer-use-file-owt' => 'استفاده از این پرونده به صورت بندانگشتی در صفحه ویکی',
@@ -550,6 +584,11 @@ $messages['fa'] = array(
 	'multimediaviewer-about-mmv' => 'دربارهٔ نمایش‌دهندهٔ رسانه',
 	'multimediaviewer-discuss-mmv' => 'گذاشتن بازخورد',
 	'multimediaviewer-geolocation' => 'مکان: $1',
+	'multimediaviewer-fileusage-count' => 'استفاده شده در {{PLURAL:$1|صفحه|صفحه‌ها}}',
+	'multimediaviewer-fileusage-count-more' => 'استفاده شده در بیش از $1  {{PLURAL:$1|صفحات}}',
+	'multimediaviewer-fileusage-link' => 'مشاهدهٔ همهٔ استفاده‌ها',
+	'multimediaviewer-fileusage-local-section' => 'در این سایت',
+	'multimediaviewer-fileusage-global-section' => 'در سایت‌های دیگر',
 );
 
 /** Finnish (suomi)
@@ -578,6 +617,7 @@ $messages['fi'] = array(
 
 /** French (français)
  * @author Gomoko
+ * @author Jean-Frédéric
  * @author Ltrlg
  * @author NemesisIII
  */
@@ -593,6 +633,7 @@ $messages['fr'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Téléversé le $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Téléversé}} par $1',
 	'multimediaviewer-license-cc-pd' => 'Domaine public',
+	'multimediaviewer-license-pd' => 'Domain public',
 	'multimediaviewer-license-default' => 'Afficher la licence',
 	'multimediaviewer-use-file' => 'Utiliser ce fichier',
 	'multimediaviewer-use-file-owt' => 'Utiliser ce fichier comme vignette sur une page de wiki',
@@ -601,6 +642,10 @@ $messages['fr'] = array(
 	'multimediaviewer-about-mmv' => 'À propos de la visionneuse de médias',
 	'multimediaviewer-discuss-mmv' => 'Laisser un avis à propos de la visionneuse de médias',
 	'multimediaviewer-geolocation' => 'Emplacement : $1',
+	'multimediaviewer-fileusage-count-more' => 'Utilisé sur plus de $1 {{PLURAL:$1|pages}}',
+	'multimediaviewer-fileusage-link' => 'Voir toutes les utilisations',
+	'multimediaviewer-fileusage-local-section' => 'Sur ce site',
+	'multimediaviewer-fileusage-global-section' => 'Sur d’autres sites',
 );
 
 /** Galician (galego)
@@ -618,6 +663,7 @@ $messages['gl'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Cargado o $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Cargado}} por $1',
 	'multimediaviewer-license-cc-pd' => 'Dominio público',
+	'multimediaviewer-license-pd' => 'Dominio público',
 	'multimediaviewer-license-default' => 'Ver a licenza',
 	'multimediaviewer-use-file' => 'Utilizar este ficheiro',
 	'multimediaviewer-use-file-owt' => 'Utilizar este ficheiro nunha páxina do wiki, como unha miniatura',
@@ -626,6 +672,11 @@ $messages['gl'] = array(
 	'multimediaviewer-about-mmv' => 'Acerca do visor de ficheiros multimedia',
 	'multimediaviewer-discuss-mmv' => 'Deixe un comentario',
 	'multimediaviewer-geolocation' => 'Localización: $1',
+	'multimediaviewer-fileusage-count' => 'Empregada {{PLURAL:$1|nunha páxina|en $1 páxinas}}',
+	'multimediaviewer-fileusage-count-more' => 'Empregada en máis de $1 {{PLURAL:$1|páxinas}}',
+	'multimediaviewer-fileusage-link' => 'Ver todos os usuarios',
+	'multimediaviewer-fileusage-local-section' => 'Neste sitio',
+	'multimediaviewer-fileusage-global-section' => 'Noutros sitios',
 );
 
 /** Hebrew (עברית)
@@ -644,6 +695,7 @@ $messages['he'] = array(
 	'multimediaviewer-datetime-uploaded' => 'הועלה ב־$1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|הועלה}} על־ידי $1',
 	'multimediaviewer-license-cc-pd' => 'נחלת הכלל',
+	'multimediaviewer-license-pd' => 'נחלת הכלל',
 	'multimediaviewer-license-default' => 'הצגת הרישיון',
 	'multimediaviewer-use-file' => 'שימוש בקובץ הזה',
 	'multimediaviewer-use-file-owt' => 'שימוש בקובץ בזה בדף ויקי כתמונה ממוזערת',
@@ -651,6 +703,12 @@ $messages['he'] = array(
 	'multimediaviewer-use-file-offwiki' => 'שימוש בקובץ הזה באתר אחר',
 	'multimediaviewer-about-mmv' => 'אודות מציג מדיה',
 	'multimediaviewer-discuss-mmv' => 'השארת תגובה',
+	'multimediaviewer-geolocation' => 'מיקום: $1',
+	'multimediaviewer-fileusage-count' => 'משמש {{PLURAL:$1|בדף אחד|ב־$1 דפים}}',
+	'multimediaviewer-fileusage-count-more' => 'משמש ביותר {{PLURAL:$1|מדף אחד|מ־$1 דפים}}',
+	'multimediaviewer-fileusage-link' => 'הצגת כל השימושים',
+	'multimediaviewer-fileusage-local-section' => 'באתר הזה',
+	'multimediaviewer-fileusage-global-section' => 'באתרים אחרים',
 );
 
 /** Croatian (hrvatski)
@@ -745,6 +803,7 @@ $messages['ilo'] = array(
  * @author Beta16
  * @author CristianCantoro
  * @author OrbiliusMagister
+ * @author Rosh
  */
 $messages['it'] = array(
 	'multimediaviewer-desc' => "Espande le miniature in dimensioni maggiori in un'interfaccia a schermo intero.",
@@ -758,6 +817,7 @@ $messages['it'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Caricato il $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Caricato}} da $1',
 	'multimediaviewer-license-cc-pd' => 'Pubblico dominio',
+	'multimediaviewer-license-pd' => 'Pubblico dominio',
 	'multimediaviewer-license-default' => 'Vedi la licenza',
 	'multimediaviewer-use-file' => 'Usa questo file',
 	'multimediaviewer-use-file-owt' => 'Usa questo file in una pagina wiki, come miniatura',
@@ -766,6 +826,11 @@ $messages['it'] = array(
 	'multimediaviewer-about-mmv' => 'Su Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Lascia un commento',
 	'multimediaviewer-geolocation' => 'Posizione: $1',
+	'multimediaviewer-fileusage-count' => 'Usato in $1 {{PLURAL:$1|pagina|pagine}}',
+	'multimediaviewer-fileusage-count-more' => 'Usato in più di $1 {{PLURAL:$1|pagine}}',
+	'multimediaviewer-fileusage-link' => 'Mostra tutti gli usi',
+	'multimediaviewer-fileusage-local-section' => 'Su questo sito',
+	'multimediaviewer-fileusage-global-section' => 'Su altri siti',
 );
 
 /** Japanese (日本語)
@@ -797,6 +862,7 @@ $messages['ja'] = array(
 	'multimediaviewer-license-cc-by-sa-4.0' => 'CC 表示-継承 4.0',
 	'multimediaviewer-license-cc-pd' => 'パブリック・ドメイン',
 	'multimediaviewer-license-cc-zero' => 'CC 0',
+	'multimediaviewer-license-pd' => 'パブリック・ドメイン',
 	'multimediaviewer-license-default' => 'ライセンスを閲覧',
 	'multimediaviewer-use-file' => 'このファイルを使用',
 	'multimediaviewer-use-file-owt' => 'このファイルをウィキページ内 (サムネイル) で使用',
@@ -811,6 +877,9 @@ $messages['ja'] = array(
 	'multimediaviewer-geoloc-coord' => '$4$1度$2分$3秒',
 	'multimediaviewer-geoloc-coords' => '$1 $2',
 	'multimediaviewer-geolocation' => '場所: $1',
+	'multimediaviewer-fileusage-link' => 'すべての使用状況を閲覧',
+	'multimediaviewer-fileusage-local-section' => 'このサイト上',
+	'multimediaviewer-fileusage-global-section' => '他のサイト上',
 );
 
 /** Kazakh (Cyrillic script) (қазақша (кирил)‎)
@@ -884,6 +953,7 @@ $messages['lb'] = array(
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Eropgeluede}} vum $1',
 	'multimediaviewer-license-cc-by-4.0' => 'CC BY 4.0',
 	'multimediaviewer-license-cc-by-sa-4.0' => 'CC BY-SA 4.0',
+	'multimediaviewer-license-pd' => 'Ëffentlechen Domaine',
 	'multimediaviewer-license-default' => 'Lizenz weisen',
 	'multimediaviewer-use-file' => 'Benotzt dëse Fichier',
 	'multimediaviewer-use-file-owt' => 'Dëse Fichier op enger Wikisäit als Miniaturbild benotzen',
@@ -892,6 +962,10 @@ $messages['lb'] = array(
 	'multimediaviewer-about-mmv' => 'Iwwer Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Feedback verloossen',
 	'multimediaviewer-geolocation' => 'Plaz: $1',
+	'multimediaviewer-fileusage-count' => 'op {{PLURAL:$1|enger Säit|$1 Säite}} benotzt',
+	'multimediaviewer-fileusage-count-more' => 'Op méi wéi {{PLURAL:$1|enger Säit|$1 Säite}} benotzt',
+	'multimediaviewer-fileusage-local-section' => 'Op dësem Site',
+	'multimediaviewer-fileusage-global-section' => 'Op anere Siten',
 );
 
 /** لوری (لوری)
@@ -933,6 +1007,7 @@ $messages['mk'] = array(
 	'multimediaviewer-license-cc-by-4.0' => 'CC BY 4.0',
 	'multimediaviewer-license-cc-by-sa-4.0' => 'CC BY-SA 4.0',
 	'multimediaviewer-license-cc-pd' => 'Јавна сопственост',
+	'multimediaviewer-license-pd' => 'Јавна сопственост',
 	'multimediaviewer-license-default' => 'Погл. лиценцата',
 	'multimediaviewer-use-file' => 'Употребете ја податотекава',
 	'multimediaviewer-use-file-owt' => 'Употребете ја податотекава на викистраница, како минијатура',
@@ -946,6 +1021,11 @@ $messages['mk'] = array(
 	'multimediaviewer-geoloc-west' => 'ЗГД',
 	'multimediaviewer-geoloc-coords' => '$1, $2',
 	'multimediaviewer-geolocation' => 'Местоположба: $1',
+	'multimediaviewer-fileusage-count' => 'Се користи на {{PLURAL:$1|една страница|$1 страници}}',
+	'multimediaviewer-fileusage-count-more' => 'Се користи на повеќе од $1 {{PLURAL:$1|страници}}',
+	'multimediaviewer-fileusage-link' => 'Погл. сите употреби',
+	'multimediaviewer-fileusage-local-section' => 'На ова мрежно место',
+	'multimediaviewer-fileusage-global-section' => 'На други мрежни места',
 );
 
 /** Malayalam (മലയാളം)
@@ -1111,6 +1191,7 @@ $messages['ro'] = array(
  * @author Joetaras
  */
 $messages['roa-tara'] = array(
+	'multimediaviewer-license-pd' => 'Dominie pubbleche',
 	'multimediaviewer-geolocation' => 'Posizione: $1',
 );
 
@@ -1130,6 +1211,7 @@ $messages['ru'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Загружено в $1',
 	'multimediaviewer-userpage-link' => 'Загружено {{GENDER:$2|участником|участницей}} $1',
 	'multimediaviewer-license-cc-pd' => 'Общественное достояние',
+	'multimediaviewer-license-pd' => 'Общественное достояние',
 	'multimediaviewer-license-default' => 'Посмотр лицензии',
 	'multimediaviewer-use-file' => 'Использовать этот файл',
 	'multimediaviewer-use-file-owt' => 'Использовать этот файл на вики-странице, с уменьшенной копией',
@@ -1138,6 +1220,11 @@ $messages['ru'] = array(
 	'multimediaviewer-about-mmv' => 'О Медиа-просмотрщике',
 	'multimediaviewer-discuss-mmv' => 'Оставить отзыв',
 	'multimediaviewer-geolocation' => 'Географическое положение: $1',
+	'multimediaviewer-fileusage-count' => 'Используется на $1 {{PLURAL:$1|странице|страницах}}',
+	'multimediaviewer-fileusage-count-more' => 'Используются более чем на $1   {{PLURAL:$1|страницах}}',
+	'multimediaviewer-fileusage-link' => 'Посмотреть все использования',
+	'multimediaviewer-fileusage-local-section' => 'На этом сайте',
+	'multimediaviewer-fileusage-global-section' => 'На других сайтах',
 );
 
 /** Sassaresu (Sassaresu)
@@ -1170,6 +1257,12 @@ $messages['sl'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Uporaba datoteke na drugi spletni strani',
 	'multimediaviewer-about-mmv' => 'O Predstavnostnem pregledovalniku',
 	'multimediaviewer-discuss-mmv' => 'Pustite povratno informacijo',
+	'multimediaviewer-geolocation' => 'Lokacija: $1',
+	'multimediaviewer-fileusage-count' => 'Uporabljeno na $1 {{PLURAL:$1|strani|straneh}}',
+	'multimediaviewer-fileusage-count-more' => 'Uporabljeno na več kot $1 {{PLURAL:$1|strani|straneh}}',
+	'multimediaviewer-fileusage-link' => 'Ogled vseh uporab',
+	'multimediaviewer-fileusage-local-section' => 'Na tej strani',
+	'multimediaviewer-fileusage-global-section' => 'Na drugih straneh',
 );
 
 /** Serbian (Cyrillic script) (српски (ћирилица)‎)
@@ -1208,6 +1301,15 @@ $messages['sv'] = array(
 	'multimediaviewer-geolocation' => 'Plats: $1',
 );
 
+/** Tagalog (Tagalog)
+ * @author Jewel457
+ */
+$messages['tl'] = array(
+	'multimediaviewer-fileusage-count' => 'Gamit sa', # Fuzzy
+	'multimediaviewer-fileusage-link' => 'Tingnan ang mga iba pang gamit',
+	'multimediaviewer-fileusage-global-section' => 'Sa ibang mga sites',
+);
+
 /** Turkish (Türkçe)
  * @author Ceas08
  * @author Incelemeelemani
@@ -1235,6 +1337,7 @@ $messages['uk'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Завантажено $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Завантажив|Завантажила}} $1',
 	'multimediaviewer-license-cc-pd' => 'Суспільне надбання',
+	'multimediaviewer-license-pd' => 'Суспільне надбання (Public Domain)',
 	'multimediaviewer-license-default' => 'Перегляд ліцензії',
 	'multimediaviewer-use-file' => 'Використовувати цей файл',
 	'multimediaviewer-use-file-owt' => 'Використовувати цей файл на вікі-сторінці у вигляді мініатюри',
@@ -1243,6 +1346,11 @@ $messages['uk'] = array(
 	'multimediaviewer-about-mmv' => 'Про медіапереглядач',
 	'multimediaviewer-discuss-mmv' => 'Залишити відгук',
 	'multimediaviewer-geolocation' => 'Розташування:$1',
+	'multimediaviewer-fileusage-count' => 'Використано на $1 {{PLURAL:$1|сторінці|сторінках}}',
+	'multimediaviewer-fileusage-count-more' => 'Використано на понад $1 {{PLURAL:$1|сторінках}}',
+	'multimediaviewer-fileusage-link' => 'Переглянути усі використання',
+	'multimediaviewer-fileusage-local-section' => 'На цьому сайті',
+	'multimediaviewer-fileusage-global-section' => 'На інших сайтах',
 );
 
 /** Vietnamese (Tiếng Việt)
@@ -1264,6 +1372,7 @@ $messages['vi'] = array(
 	'multimediaviewer-license-cc-by-4.0' => 'CC-BY 4.0',
 	'multimediaviewer-license-cc-by-sa-4.0' => 'CC-BY-SA 4.0',
 	'multimediaviewer-license-cc-pd' => 'Phạm vi công cộng',
+	'multimediaviewer-license-pd' => 'Phạm vi công cộng',
 	'multimediaviewer-license-default' => 'Xem giấy phép',
 	'multimediaviewer-use-file' => 'Sử dụng tập tin này',
 	'multimediaviewer-use-file-owt' => 'Sử dụng hình nhỏ của tập tin này trên một trang wiki',
@@ -1271,6 +1380,16 @@ $messages['vi'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Sử dụng tập tin này trên một trang Web khác',
 	'multimediaviewer-about-mmv' => 'Giới thiệu về Cửa sổ phương tiện',
 	'multimediaviewer-discuss-mmv' => 'Gửi phản hồi',
+	'multimediaviewer-geoloc-north' => 'B',
+	'multimediaviewer-geoloc-east' => 'Đ',
+	'multimediaviewer-geoloc-south' => 'N',
+	'multimediaviewer-geoloc-west' => 'T',
+	'multimediaviewer-geolocation' => 'Vị trí: $1',
+	'multimediaviewer-fileusage-count' => 'Đang dùng trên $1 trang',
+	'multimediaviewer-fileusage-count-more' => 'Đang dùng trên hơn $1 trang',
+	'multimediaviewer-fileusage-link' => 'Xem tất cả các trang sử dụng',
+	'multimediaviewer-fileusage-local-section' => 'Trên website này',
+	'multimediaviewer-fileusage-global-section' => 'Trên website khác',
 );
 
 /** Volapük (Volapük)
