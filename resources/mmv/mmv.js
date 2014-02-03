@@ -362,17 +362,11 @@
 	};
 
 	MMVP.updateControls = function () {
-		var ui = this.ui,
-			prevNextTop = ( ( ui.$imageWrapper.height() / 2 ) - 60 ) + 'px';
+		var numImages = this.lightbox.images ? this.lightbox.images.length : 0,
+			showNextButton = this.lightbox.currentIndex < (numImages - 1),
+			showPreviousButton = this.lightbox.currentIndex > 0;
 
-		ui.$postDiv.css( 'top', ui.$imageWrapper.height() );
-
-		ui.$nextButton.add( ui.$prevButton ).css( {
-			top: prevNextTop
-		} );
-
-		ui.$nextButton.toggleClass( 'disabled', this.lightbox.currentIndex >= ( ( this.lightbox.images ? this.lightbox.images.length : 0 ) - 1 ) );
-		ui.$prevButton.toggleClass( 'disabled', this.lightbox.currentIndex <= 0 );
+		this.ui.updateControls( showNextButton, showPreviousButton );
 	};
 
 	MMVP.registerLogging = function () {
@@ -921,9 +915,7 @@
 		MultiLightbox = window.MultiLightbox;
 		lightboxHooks = window.lightboxHooks;
 
-		var viewer = new MultimediaViewer();
-
-		mw.mediaViewer = viewer;
+		mw.mediaViewer = new MultimediaViewer();
 
 		handleHash();
 		window.addEventListener( 'popstate', handleHash );

@@ -124,6 +124,11 @@
 		this.$postDiv.css( 'top', ( $( window ).height() - 83 ) + 'px' );
 
 		MLBInterface.prototype.attach.call( this, parentId );
+
+		// Buttons fading might not had been reset properly after a hard fullscreen exit
+		// This needs to happen after the parent attach() because the buttons need to be attached
+		// to the DOM for $.fn.stop() to work
+		this.stopButtonsFade();
 	};
 
 	LIP.unattach = function () {
@@ -148,6 +153,11 @@
 		}
 
 		this.handleEvent( 'keydown', function( e ) { ui.keydown( e ); } );
+
+		// mousemove generates a ton of events, which is why we throttle it
+		this.handleEvent( 'mousemove.lip', $.throttle( 250, function( e ) {
+			ui.mousemove( e );
+		} ) );
 
 		MLBInterface.prototype.load.call( this, image );
 	};
@@ -242,7 +252,7 @@
 		// and we aren't sure why, but it's not really necessary
 		// with the new interface anyway - it's basically fullscreen
 		// already!
-		this.$closeButton
+		this.$buttons = this.$closeButton
 			.add( this.$fullscreenButton )
 			.add( this.$nextButton )
 			.add( this.$prevButton )
@@ -683,14 +693,27 @@
 		} );
 	};
 
-	LIP.enterFullscreen = function () {
-		MLBInterface.prototype.enterFullscreen.call( this );
-		this.viewer.resize( this );
-	};
+	LIP.fullscreenChange = function( e ) {
+		MLBInterface.prototype.fullscreenChange.call( this, e );
 
-	LIP.exitFullscreen = function () {
-		MLBInterface.prototype.exitFullscreen.call( this );
+		// Fullscreen change events can happen after unattach(), in which
+		// case we shouldn't do anything UI-related
+		if ( !this.currentlyAttached ) {
+			return;
+		}
+
 		this.viewer.resize( this );
+
+		if ( this.isFullscreen ) {
+			// When entering fullscreen without a mousemove, the browser
+			// still thinks that the cursor is where it was prior to entering
+			// fullscreen. I.e. on top of the fullscreen button
+			// Thus, we purposefully reset the saved position, so that
+			// the fade out really takes place (otherwise it's cancelled
+			// by updateControls which is called a few times when fullscreen opens)
+			this.mousePosition = { x: 0, y: 0 };
+			this.fadeOutButtons();
+		}
 	};
 
 	/**
@@ -729,6 +752,118 @@
 				e.preventDefault();
 				break;
 		}
+	};
+
+	/**
+	 * @method
+	 * Handles mousemove events on the document
+	 */
+	LIP.mousemove = function ( e ) {
+		if ( e ) {
+			// Saving the mouse position is useful whenever we need to
+			// run LIP.mousemove manually, such as when going to the next/prev
+			// element
+			this.mousePosition = { x: e.pageX, y: e.pageY};
+		}
+
+		this.revealButtonsAndFadeIfNeeded();
+	};
+
+	/**
+	 * @method
+	 * Reveals all active buttons and schedule a fade out if needed
+	 */
+	LIP.revealButtonsAndFadeIfNeeded = function () {
+		// Only fullscreen mode sees its buttons fade out when not used
+		if ( !this.isFullscreen ) {
+			return;
+		}
+
+		if ( this.buttonsFadeTimeout ) {
+			clearTimeout( this.buttonsFadeTimeout );
+		}
+
+		// Stop ongoing animations and make sure the buttons that need to be displayed are displayed
+		this.stopButtonsFade();
+
+		// this.mousePosition can be empty, for instance when we enter fullscreen and haven't
+		// recorded a real mousemove event yet
+		if ( !this.mousePosition
+			|| !this.isAnyActiveButtonHovered( this.mousePosition.x, this.mousePosition.y ) ) {
+			this.fadeOutButtons();
+		}
+	};
+
+	/**
+	 * @method
+	 * Fades out the active buttons
+	 */
+	LIP.fadeOutButtons = function () {
+		var ui = this;
+
+		// We don't use animation chaining because delay() can't be stop()ed
+		this.buttonsFadeTimeout = setTimeout( function() {
+			ui.$buttons.not( '.disabled' ).animate( { opacity: 0 }, 1000 );
+		}, 1500 );
+	};
+
+	/**
+	 * @method
+	 * Stops the fading animation of the buttons and cancel any opacity value
+	 */
+	LIP.stopButtonsFade = function () {
+		this.$buttons
+			.stop( true )
+			.css( 'opacity', '' );
+	};
+
+	/**
+	 * @method
+	 * Checks if any active buttons are currently hovered, given a position
+	 * @param {number} x The horizontal coordinate of the position
+	 * @param {number} y The vertical coordinate of the position
+	 * @return bool
+	 */
+	LIP.isAnyActiveButtonHovered = function ( x, y ) {
+		// We don't use mouseenter/mouseleave events because content is subject
+		// to change underneath the cursor, eg. when entering fullscreen or
+		// when going prev/next (the button can disappear when reaching ends)
+		var hovered = false;
+
+		this.$buttons.not( '.disabled' ).each( function( idx, e ) {
+			var $e = $( e ),
+				offset = $e.offset();
+
+			if ( y >= offset.top
+				&& y <= offset.top + $e.height()
+				&& x >= offset.left
+				&& x <= offset.left + $e.width() ) {
+				hovered = true;
+			}
+		} );
+
+		return hovered;
+	};
+
+	/**
+	 * @method
+	 * Updates the next and prev buttons
+	 * @param bool showPrevButton Whether the prev button should be revealed or not
+	 * @param bool showNextButton Whether the next button should be revealed or not
+	 */
+	LIP.updateControls = function ( showPrevButton, showNextButton ) {
+		var prevNextTop = ( ( this.$imageWrapper.height() / 2 ) - 60 ) + 'px';
+
+		this.$postDiv.css( 'top', this.$imageWrapper.height() );
+
+		this.$nextButton.add( this.$prevButton ).css( {
+			top: prevNextTop
+		} );
+
+		this.$nextButton.toggleClass( 'disabled', !showPrevButton );
+		this.$prevButton.toggleClass( 'disabled', !showNextButton );
+
+		this.revealButtonsAndFadeIfNeeded();
 	};
 
 	mw.LightboxInterface = LightboxInterface;
