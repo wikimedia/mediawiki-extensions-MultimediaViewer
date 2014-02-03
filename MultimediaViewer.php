@@ -36,6 +36,7 @@ call_user_func( function() {
 		return array(
 			'localBasePath' => __DIR__ . "/resources/$path",
 			'remoteExtPath' => "MultimediaViewer/resources/$path",
+
 		);
 	};
 
@@ -222,7 +223,7 @@ call_user_func( function() {
 		),
 
 		'styles' => array(
-			'mmv.css',
+			'mmv.less',
 		),
 
 		'dependencies' => array(
