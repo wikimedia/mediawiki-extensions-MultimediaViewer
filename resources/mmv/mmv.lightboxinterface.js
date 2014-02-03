@@ -44,6 +44,7 @@
 		this.$license.empty().addClass( 'empty' );
 
 		this.description.empty();
+		this.categories.empty();
 
 		this.$title.empty();
 		this.$credit.empty().addClass( 'empty' );
@@ -280,6 +281,7 @@
 		this.initializeUploader();
 		this.initializeLocation();
 		this.initializeReuse();
+		this.initializeCategories();
 
 		this.fileUsage = new mw.mmv.ui.FileUsage(
 			$( '<div>' ).appendTo( this.$imageMetadata )
@@ -363,6 +365,10 @@
 				return false;
 			} )
 			.appendTo( this.$useFileLi );
+	};
+
+	LIP.initializeCategories = function () {
+		this.categories = new mw.mmv.ui.Categories( this.$imageLinks );
 	};
 
 	LIP.openReuseDialog = function () {

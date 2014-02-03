@@ -37,6 +37,7 @@
 	 * @param {string} license
 	 * @param {number} latitude
 	 * @param {number} longitude
+	 * @param {string[]} categories
 	 */
 	function Image(
 			title,
@@ -55,7 +56,8 @@
 			author,
 			license,
 			latitude,
-			longitude
+			longitude,
+			categories
 	) {
 		/** @property {mw.Title} title The title of the image file */
 		this.title = title;
@@ -114,6 +116,12 @@
 		 * with URLs to appropriately sized thumbnails
 		 */
 		this.thumbUrls = {};
+
+		/**
+		* @property {string[]} categories
+		* The categories this image is a member of.
+		*/
+		this.categories = categories;
 	}
 
 	/**
@@ -128,7 +136,7 @@
 	Image.newFromImageInfo = function ( title, imageInfo ) {
 		var uploadDateTime, creationDateTime, imageData,
 			description, source, author, license,
-			latitude, longitude,
+			latitude, longitude, categories,
 			innerInfo = imageInfo.imageinfo[0],
 			extmeta = innerInfo.extmetadata;
 
@@ -151,6 +159,8 @@
 
 			latitude = extmeta.GPSLatitude && parseFloat( extmeta.GPSLatitude.value );
 			longitude = extmeta.GPSLongitude && parseFloat( extmeta.GPSLongitude.value );
+
+			categories = extmeta.Categories && extmeta.Categories.value.split( '|' );
 		}
 
 		imageData = new Image(
@@ -170,7 +180,8 @@
 			author,
 			license,
 			latitude,
-			longitude
+			longitude,
+			categories
 		);
 
 		if ( innerInfo.thumburl ) {

@@ -15,7 +15,7 @@
 	} );
 
 	QUnit.asyncTest( 'Image failing', 1, function ( assert ) {
-		var lightboxImage = new window.LightboxImage( 'http://thisdoesntexist/fail.jpg' );
+		var lightboxImage = new window.LightboxImage( 'fail' );
 
 		function errorCallback() {
 			assert.ok( true, 'Image failed !' );

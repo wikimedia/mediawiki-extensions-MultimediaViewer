@@ -538,6 +538,7 @@
 		ui.$credit.toggleClass( 'empty', !imageData.source && !imageData.author );
 
 		ui.description.set( imageData.description, caption );
+		ui.categories.set( repoData.getArticlePath(), imageData.categories );
 
 		msgname = 'multimediaviewer-license-' + ( imageData.license || '' );
 

@@ -10,6 +10,7 @@
 		"../resources/mmv/mmv.lightboximage.js",
 		"../resources/mmv/mmv.model.js",
 		"../resources/mmv/mmv.provider.js",
+		"../resources/mmv/mmv.ui.categories.js",
 		"../resources/mmv/mmv.ui.description.js",
 		"../resources/mmv/mmv.ui.fileUsage.js",
 		"../resources/mmv/mmv.ui.js"

@@ -84,6 +84,7 @@ call_user_func( function() {
 		'dependencies' => array(
 			'oojs',
 			'multilightbox.interface',
+			'mmv.ui.categories',
 			'mmv.ui.description',
 			'mmv.ui.fileUsage',
 		),
@@ -172,6 +173,21 @@ call_user_func( function() {
 		),
 	), $moduleInfo( 'mmv' ) );
 
+	$wgResourceModules['mmv.ui.categories'] = array_merge( array(
+		'scripts' => array(
+			'mmv.ui.categories.js',
+		),
+
+		'styles' => array(
+			'mmv.ui.categories.less',
+		),
+
+		'dependencies' => array(
+			'mmv.ui',
+			'oojs',
+		),
+	), $moduleInfo( 'mmv' ) );
+
 	$wgResourceModules['mmv.ui.description'] = array_merge( array(
 		'scripts' => array(
 			'mmv.ui.description.js',
@@ -230,6 +246,8 @@ call_user_func( function() {
 		),
 
 		'messages' => array(
+			'comma-separator',
+
 			'multimediaviewer-file-page',
 			'multimediaviewer-repository',
 			'multimediaviewer-repository-local',

@@ -18,7 +18,7 @@
 ( function ( mw ) {
 	QUnit.module( 'mmv.model', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Image model constructor sanity check', 18, function ( assert ) {
+	QUnit.test( 'Image model constructor sanity check', 20, function ( assert ) {
 		var
 			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 			size = 100,
@@ -37,11 +37,12 @@
 			license = 'cc0',
 			latitude = 39.12381283,
 			longitude = 100.983829,
+			categories = [ 'Foo', 'Bar', 'Baz' ],
 			imageData = new mw.mmv.model.Image(
 				title, size, width, height, mime, url,
 				descurl, repo, user, datetime, origdatetime,
 				description, source, author, license,
-				latitude, longitude );
+				latitude, longitude, categories );
 
 		assert.strictEqual( imageData.title, title, 'Title is set correctly' );
 		assert.strictEqual( imageData.size, size, 'Size is set correctly' );
@@ -60,6 +61,8 @@
 		assert.strictEqual( imageData.license, license, 'License is set correctly' );
 		assert.strictEqual( imageData.latitude, latitude, 'Latitude is set correctly' );
 		assert.strictEqual( imageData.longitude, longitude, 'Longitude is set correctly' );
+		assert.strictEqual( imageData.categories[0], 'Foo', 'Categories are set to the right values' );
+		assert.strictEqual( imageData.categories.length, 3, 'Categories are all set in the model' );
 		assert.ok( imageData.thumbUrls, 'Thumb URL cache is set up properly' );
 	} );
 
@@ -98,5 +101,15 @@
 		assert.strictEqual( fileUsage.pages, pages, 'Pages are set correctly' );
 		assert.strictEqual( fileUsage.totalCount, totalCount, 'Total count is set correctly' );
 		assert.strictEqual( fileUsage.totalCountIsLowerBound, totalCountIsLowerBound, 'Count flag is set correctly' );
+	} );
+
+	QUnit.test( 'Getting the article path works', 3, function ( assert ) {
+		var repo = new mw.mmv.model.Repo( 'Foo', 'http://example.com/favicon.ico', true),
+			dbRepo = new mw.mmv.model.ForeignDbRepo( 'Bar', 'http://example.org/favicon.ico', false, 'http://example.org/wiki/File:' ),
+			apiRepo = new mw.mmv.model.ForeignApiRepo( 'Baz', 'http://example.net/favicon.ico', false, 'http://example.net/w/api.php', 'http://example.net', '/wiki/$1' );
+
+		assert.strictEqual( repo.getArticlePath(), mw.config.get( 'wgArticlePath' ), 'Local article path is set correctly to corresponding global variable value');
+		assert.strictEqual( dbRepo.getArticlePath(), 'http://example.org/wiki/$1', 'DB article path is set correctly' );
+		assert.strictEqual( apiRepo.getArticlePath(), 'http://example.net/wiki/$1', 'API article path is set correctly' );
 	} );
 }( mediaWiki ) );

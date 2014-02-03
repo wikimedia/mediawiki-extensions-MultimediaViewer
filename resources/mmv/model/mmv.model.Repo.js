@@ -69,6 +69,13 @@
 	};
 
 	/**
+	* @method
+	* Gets the article path for the repository.
+	* @return {string} Replace $1 with the page name you want to link to.
+	*/
+	Repo.prototype.getArticlePath = function () { return mw.config.get( 'wgArticlePath' ); };
+
+	/**
 	 * @class mw.mmv.model.ForeignApiRepo
 	 * Represents information about a foreign API repository
 	 * @extends mw.mmv.model.Repo
@@ -104,11 +111,21 @@
 	oo.inheritClass( ForeignApiRepo, Repo );
 
 	/**
+	* @method
+	* @override
+	* @inheritdoc
+	*/
+	ForeignApiRepo.prototype.getArticlePath = function () {
+	    return this.absoluteArticlePath;
+	};
+
+	/**
 	 * @class mw.mmv.model.ForeignDbRepo
 	 * Represents information about a foreign, shared DB repository
 	 * @extends mw.mmv.model.Repo
 	 * @constructor
 	 * @inheritdoc
+	 * @param {string} descBaseUrl Base URL for description pages - should include the "File:" prefix or similar.
 	 */
 	function ForeignDbRepo(
 		displayName,
@@ -123,6 +140,15 @@
 	}
 
 	oo.inheritClass( ForeignDbRepo, Repo );
+
+	/**
+	* @method
+	* @override
+	* @inheritdoc
+	*/
+	ForeignDbRepo.prototype.getArticlePath = function () {
+		return this.descBaseUrl.replace( /[^\/:]*:$/, '$1' );
+	};
 
 	mw.mmv.model.Repo = Repo;
 	mw.mmv.model.ForeignApiRepo = ForeignApiRepo;
