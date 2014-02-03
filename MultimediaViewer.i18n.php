@@ -267,6 +267,7 @@ $messages['ast'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Xubíu el $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Xubíu}} por $1',
 	'multimediaviewer-license-cc-pd' => 'Dominiu públicu',
+	'multimediaviewer-license-pd' => 'Dominiu públicu',
 	'multimediaviewer-license-default' => 'Ver la llicencia',
 	'multimediaviewer-use-file' => 'Usar esti ficheru',
 	'multimediaviewer-use-file-owt' => 'Usar esti ficheru nuna páxina wiki, como miniatura',
@@ -275,20 +276,27 @@ $messages['ast'] = array(
 	'multimediaviewer-about-mmv' => 'Tocante a Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Dexar un comentariu',
 	'multimediaviewer-geolocation' => 'Allugamientu: $1',
+	'multimediaviewer-fileusage-count' => 'Usada en $1 {{PLURAL:$1|páxina|páxines}}',
+	'multimediaviewer-fileusage-count-more' => 'Usada en más de $1 {{PLURAL:$1|páxines}}',
+	'multimediaviewer-fileusage-link' => 'Ver tolos usos',
+	'multimediaviewer-fileusage-local-section' => 'Nesti sitiu',
+	'multimediaviewer-fileusage-global-section' => "N'otros sitios",
 );
 
 /** Bengali (বাংলা)
  * @author Aftab1995
+ * @author Tauhid16
  */
 $messages['bn'] = array(
 	'multimediaviewer-pref' => 'মিডিয়া ভিউয়ার',
-	'multimediaviewer-pref-desc' => 'এই নতুন সরঞ্জামটি দিয়ে মাল্টিমিডিয়া দেখার নতুন অভিজ্ঞতা নিন। এটা থাম্বনেল আছে এমন পাতায় বড় মাপের চিত্র প্রদর্শন করে। চিত্র একটি সুন্দর উজ্জ্বল আচ্ছাদনকৃত বাক্সে প্রদর্শিত হয়, এছাড়াও পূর্ণ মাপ দেখা যাবে।',
+	'multimediaviewer-pref-desc' => 'এই নতুন সরঞ্জামটি দিয়ে মাল্টিমিডিয়া দেখার নতুন অভিজ্ঞতা নিন। এটা থাম্বনেল আছে এমন পাতায় বড় মাপের চিত্র প্রদর্শন করে। চিত্র একটি সুন্দর উজ্জ্বল আচ্ছাদনকৃত বাক্সে প্রদর্শিত হয়, এছাড়াও পূর্ণ মাপ দেখা যাবে।', # Fuzzy
 	'multimediaviewer-file-page' => 'সংশ্লিষ্ট ফাইল পৃষ্ঠাতে যান',
 	'multimediaviewer-repository' => '$1-এ আরও জানুন',
 	'multimediaviewer-datetime-created' => '$1 তারিখে তৈরী হয়েছে',
 	'multimediaviewer-datetime-uploaded' => '$1 তারিখে আপলোডকৃত',
 	'multimediaviewer-userpage-link' => '$1 দ্বারা {{GENDER:$2|আপলোডকৃত}}',
 	'multimediaviewer-license-cc-pd' => 'পাবলিক ডোমেইন',
+	'multimediaviewer-license-pd' => 'পাবলিক ডোমেইন',
 	'multimediaviewer-license-default' => 'লাইসেন্স দেখুন',
 	'multimediaviewer-use-file' => 'এই ফাইলটি ব্যবহার করুন',
 	'multimediaviewer-use-file-owt' => 'থাম্বনেইল হিসাবে, উইকি পাতায় এই ফাইলটি ব্যবহার করুন',
@@ -344,6 +352,7 @@ $messages['ce'] = array(
  * @author Mormegil
  * @author Paxt
  * @author Rosnicka.kacka
+ * @author Utar
  */
 $messages['cs'] = array(
 	'multimediaviewer-desc' => 'Roztáhne náhledy obrázků do lightboxu.', # Fuzzy
@@ -366,7 +375,7 @@ $messages['cs'] = array(
 	'multimediaviewer-about-mmv' => 'O prohlížeči médií',
 	'multimediaviewer-discuss-mmv' => 'Sdělte svůj názor',
 	'multimediaviewer-fileusage-count' => 'Použito na $1 {{PLURAL:$1|stránce|stránkách}}',
-	'multimediaviewer-fileusage-count-more' => 'Užito na více než $1 {{PLURAL:$1|stránkách}}',
+	'multimediaviewer-fileusage-count-more' => 'Užito na více než $1 {{PLURAL:$1|stránce|stránkách}}',
 	'multimediaviewer-fileusage-link' => 'Zobrazit všechna využití',
 	'multimediaviewer-fileusage-local-section' => 'Na tomto projektu',
 	'multimediaviewer-fileusage-global-section' => 'Na ostatních projektech',
@@ -467,6 +476,7 @@ $messages['dsb'] = array(
 /** Greek (Ελληνικά)
  * @author Astralnet
  * @author Geraki
+ * @author Nikosguard
  */
 $messages['el'] = array(
 	'multimediaviewer-desc' => 'Επεκτείνετε τις μικρογραφίες σε μεγαλύτερο μέγεθος σε ένα περιβάλλον εργασίας πλήρους οθόνης.',
@@ -490,6 +500,7 @@ $messages['el'] = array(
 	'multimediaviewer-about-mmv' => 'Περί το Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Αφήστε σχόλια',
 	'multimediaviewer-geolocation' => 'Τοποθεσία: $1',
+	'multimediaviewer-fileusage-count' => 'Χρησιμοποιείται στο $1 {{PLURAL:$1|σελίδα|σελίδες}}',
 );
 
 /** British English (British English)
@@ -642,6 +653,7 @@ $messages['fr'] = array(
 	'multimediaviewer-about-mmv' => 'À propos de la visionneuse de médias',
 	'multimediaviewer-discuss-mmv' => 'Laisser un avis à propos de la visionneuse de médias',
 	'multimediaviewer-geolocation' => 'Emplacement : $1',
+	'multimediaviewer-fileusage-count' => 'Utilisé dans $1 {{PLURAL:$1|page|pages}}',
 	'multimediaviewer-fileusage-count-more' => 'Utilisé sur plus de $1 {{PLURAL:$1|pages}}',
 	'multimediaviewer-fileusage-link' => 'Voir toutes les utilisations',
 	'multimediaviewer-fileusage-local-section' => 'Sur ce site',
@@ -827,7 +839,7 @@ $messages['it'] = array(
 	'multimediaviewer-discuss-mmv' => 'Lascia un commento',
 	'multimediaviewer-geolocation' => 'Posizione: $1',
 	'multimediaviewer-fileusage-count' => 'Usato in $1 {{PLURAL:$1|pagina|pagine}}',
-	'multimediaviewer-fileusage-count-more' => 'Usato in più di $1 {{PLURAL:$1|pagine}}',
+	'multimediaviewer-fileusage-count-more' => 'Usato in più di $1 {{PLURAL:$1|pagina|pagine}}',
 	'multimediaviewer-fileusage-link' => 'Mostra tutti gli usi',
 	'multimediaviewer-fileusage-local-section' => 'Su questo sito',
 	'multimediaviewer-fileusage-global-section' => 'Su altri siti',
@@ -931,6 +943,7 @@ $messages['ko'] = array(
 	'multimediaviewer-datetime-uploaded' => '$1에 업로드',
 	'multimediaviewer-userpage-link' => '$1가 {{GENDER:$2|업로드}}',
 	'multimediaviewer-license-cc-pd' => '퍼블릭 도메인',
+	'multimediaviewer-license-pd' => '퍼블릭 도메인',
 	'multimediaviewer-license-default' => '라이선스 보기',
 	'multimediaviewer-use-file' => '이 파일을 사용',
 	'multimediaviewer-use-file-owt' => '이 파일을 위키 문서에서 섬네일로 사용',
@@ -939,6 +952,11 @@ $messages['ko'] = array(
 	'multimediaviewer-about-mmv' => '미디어 뷰어 정보',
 	'multimediaviewer-discuss-mmv' => '의견 남기기',
 	'multimediaviewer-geolocation' => '위치: $1',
+	'multimediaviewer-fileusage-count' => '{{PLURAL:$1|문서}}에서 사용됨',
+	'multimediaviewer-fileusage-count-more' => '$1개의 이상의 {{PLURAL:$1|문서}}에서 사용됨',
+	'multimediaviewer-fileusage-link' => '모든 사용 현황 보기',
+	'multimediaviewer-fileusage-local-section' => '이 사이트에서',
+	'multimediaviewer-fileusage-global-section' => '다른 사이트에서',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -1274,6 +1292,7 @@ $messages['sr-ec'] = array(
 
 /** Swedish (svenska)
  * @author Ainali
+ * @author Lokal Profil
  * @author NH
  * @author WikiPhoenix
  */
@@ -1281,24 +1300,30 @@ $messages['sv'] = array(
 	'multimediaviewer-desc' => 'Expandera miniatyrer i en större storlek i fulkskärmsgränssnitt.',
 	'multimediaviewer-desc-nil' => 'Ingen beskrivning tillgänglig.',
 	'multimediaviewer-pref' => 'Mediavisare',
-	'multimediaviewer-pref-desc' => 'Förbättra din multimediaupplevelse med detta nya verktyg. Det visar bilder i större storlek på sidor som har miniatyrer. Bilder visas i en trevligare fullskärmsöverlägg, och kan också ses i full storlek.',
+	'multimediaviewer-pref-desc' => 'Förbättra din multimediaupplevelse med detta nya verktyg. Det visar bilder i större storlek på sidor som har miniatyrer. Bilder visas i ett trevligare fullskärmsöverlägg, och kan också ses i full storlek.',
 	'multimediaviewer-file-page' => 'Gå till motsvarande filsida',
 	'multimediaviewer-repository' => 'Läs mer på $1',
 	'multimediaviewer-repository-local' => 'Läs mer',
-	'multimediaviewer-datetime-created' => 'Skapades $1',
-	'multimediaviewer-datetime-uploaded' => 'Laddades upp $1',
+	'multimediaviewer-datetime-created' => 'Skapades den $1',
+	'multimediaviewer-datetime-uploaded' => 'Laddades upp den $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Uppladdad}} av $1',
 	'multimediaviewer-license-cc-by-4.0' => 'CC BY 4.0',
 	'multimediaviewer-license-cc-by-sa-4.0' => 'CC BY-SA 4.0',
 	'multimediaviewer-license-cc-pd' => 'Allmän egendom',
+	'multimediaviewer-license-pd' => 'Allmän egendom',
 	'multimediaviewer-license-default' => 'Visa licens',
 	'multimediaviewer-use-file' => 'Använd denna fil',
 	'multimediaviewer-use-file-owt' => 'Använd denna fil på en wikisida, som en miniatyr',
-	'multimediaviewer-use-file-own' => 'Använd den här filen på en wiki-sida, på en rad',
+	'multimediaviewer-use-file-own' => 'Använd den här filen på en wiki-sida, i texten',
 	'multimediaviewer-use-file-offwiki' => 'Använd denna fil på en annan webbplats',
 	'multimediaviewer-about-mmv' => 'Om Mediavisaren',
 	'multimediaviewer-discuss-mmv' => 'Ge återkoppling',
 	'multimediaviewer-geolocation' => 'Plats: $1',
+	'multimediaviewer-fileusage-count' => 'Används på $1 {{PLURAL:$1|sida|sidor}}',
+	'multimediaviewer-fileusage-count-more' => 'Används på fler än $1 {{PLURAL:$1|sidor}}',
+	'multimediaviewer-fileusage-link' => 'Visa all användning',
+	'multimediaviewer-fileusage-local-section' => 'På denna webbplats',
+	'multimediaviewer-fileusage-global-section' => 'På andra webbplatser',
 );
 
 /** Tagalog (Tagalog)
