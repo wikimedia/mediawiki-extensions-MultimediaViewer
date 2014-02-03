@@ -21,11 +21,11 @@
 	QUnit.test( 'GlobalUsage constructor sanity check', 2, function ( assert ) {
 		var api = { get: function() {} },
 			options = {},
-			globalUsageDataProvider = new mw.mmv.provider.GlobalUsage( api, options ),
-			globalUsageDataProviderWithNoOptions = new mw.mmv.provider.GlobalUsage( api );
+			globalUsageProvider = new mw.mmv.provider.GlobalUsage( api, options ),
+			globalUsageProviderWithNoOptions = new mw.mmv.provider.GlobalUsage( api );
 
-		assert.ok( globalUsageDataProvider );
-		assert.ok( globalUsageDataProviderWithNoOptions );
+		assert.ok( globalUsageProvider );
+		assert.ok( globalUsageProviderWithNoOptions );
 	} );
 
 	QUnit.asyncTest( 'GlobalUsage get test', 7, function ( assert ) {
@@ -53,9 +53,9 @@
 			} },
 			options = {},
 			file = new mw.Title( 'File:Stuff.jpg' ),
-			globalUsageDataProvider = new mw.mmv.provider.GlobalUsage ( api, options );
+			globalUsageProvider = new mw.mmv.provider.GlobalUsage ( api, options );
 
-		globalUsageDataProvider.get( file ).then( function( fileUsage ) {
+		globalUsageProvider.get( file ).then( function( fileUsage ) {
 			assert.strictEqual( fileUsage.file, file, 'File is set correctly' );
 			assert.strictEqual( fileUsage.scope, mw.mmv.model.FileUsage.Scope.GLOBAL, 'Scope is set correctly' );
 			assert.strictEqual( fileUsage.pages[0].wiki, 'en.wikipedia.org', 'Wiki is set correctly' );
@@ -64,7 +64,7 @@
 			assert.strictEqual( fileUsage.totalCountIsLowerBound, false, 'Count flag is set correctly' );
 		} ).then( function() {
 			// call the data provider a second time to check caching
-			return globalUsageDataProvider.get( file );
+			return globalUsageProvider.get( file );
 		} ).then( function() {
 			assert.strictEqual( apiCallCount, 1 );
 			QUnit.start();
@@ -99,9 +99,9 @@
 		} },
 		options = {},
 		file = new mw.Title( 'File:Stuff.jpg' ),
-		globalUsageDataProvider = new mw.mmv.provider.GlobalUsage( api, options );
+		globalUsageProvider = new mw.mmv.provider.GlobalUsage( api, options );
 
-		globalUsageDataProvider.get( file ).then( function( fileUsage ) {
+		globalUsageProvider.get( file ).then( function( fileUsage ) {
 			assert.strictEqual( fileUsage.totalCountIsLowerBound, true, 'Count flag is set correctly' );
 			QUnit.start();
 		} );
@@ -124,9 +124,9 @@
 			} },
 			options = {},
 			file = new mw.Title( 'File:Stuff.jpg' ),
-			globalUsageDataProvider = new mw.mmv.provider.GlobalUsage( api, options );
+			globalUsageProvider = new mw.mmv.provider.GlobalUsage( api, options );
 
-		globalUsageDataProvider.get( file ).then( function( fileUsage ) {
+		globalUsageProvider.get( file ).then( function( fileUsage ) {
 			assert.strictEqual( fileUsage.totalCount, 0, 'Count flag is set correctly' );
 			QUnit.start();
 		} );
@@ -143,9 +143,9 @@
 			} },
 			options = {},
 			file = new mw.Title( 'File:Stuff.jpg' ),
-			globalUsageDataProvider = new mw.mmv.provider.GlobalUsage( api, options );
+			globalUsageProvider = new mw.mmv.provider.GlobalUsage( api, options );
 
-		globalUsageDataProvider.get( file ).fail( function( errorMessage ) {
+		globalUsageProvider.get( file ).fail( function( errorMessage ) {
 			assert.strictEqual(
 				errorMessage,
 				'unknown_action: Unrecognized value for parameter \'action\': querry',
@@ -159,9 +159,9 @@
 		var api = {},
 			options = { doNotUseApi: true },
 			file = new mw.Title( 'File:Stuff.jpg' ),
-			globalUsageDataProvider = new mw.mmv.provider.GlobalUsage( api, options );
+			globalUsageProvider = new mw.mmv.provider.GlobalUsage( api, options );
 
-		globalUsageDataProvider.get( file ).done( function( fileUsage ) {
+		globalUsageProvider.get( file ).done( function( fileUsage ) {
 			assert.strictEqual( fileUsage.pages.length, 0, 'Does not return any pages' );
 			assert.ok( fileUsage.fake );
 			QUnit.start();

@@ -21,11 +21,11 @@
 	QUnit.test( 'ImageUsage constructor sanity check', 2, function ( assert ) {
 		var api = { get: function() {} },
 			options = {},
-			imageUsageDataProvider = new mw.mmv.provider.ImageUsage( api, options ),
-			imageUsageDataProviderWithNoOptions = new mw.mmv.provider.ImageUsage( api );
+			imageUsageProvider = new mw.mmv.provider.ImageUsage( api, options ),
+			imageUsageProviderWithNoOptions = new mw.mmv.provider.ImageUsage( api );
 
-		assert.ok( imageUsageDataProvider );
-		assert.ok( imageUsageDataProviderWithNoOptions );
+		assert.ok( imageUsageProvider );
+		assert.ok( imageUsageProviderWithNoOptions );
 	} );
 
 	QUnit.asyncTest( 'ImageUsage get test', 7, function ( assert ) {
@@ -45,9 +45,9 @@
 			} },
 			options = {},
 			file = new mw.Title( 'File:Albert Einsteing Head.jpg' ),
-			imageUsageDataProvider = new mw.mmv.provider.ImageUsage( api, options );
+			imageUsageProvider = new mw.mmv.provider.ImageUsage( api, options );
 
-		imageUsageDataProvider.get( file ).then( function( fileUsage ) {
+		imageUsageProvider.get( file ).then( function( fileUsage ) {
 			assert.strictEqual( fileUsage.file, file, 'File is set correctly' );
 			assert.strictEqual( fileUsage.scope, mw.mmv.model.FileUsage.Scope.LOCAL, 'Scope is set correctly' );
 			assert.strictEqual( fileUsage.pages[0].wiki, null, 'Wiki is not set' );
@@ -56,7 +56,7 @@
 			assert.strictEqual( fileUsage.totalCountIsLowerBound, false, 'Count flag is set correctly' );
 		} ).then( function() {
 			// call the data provider a second time to check caching
-			return imageUsageDataProvider.get( file );
+			return imageUsageProvider.get( file );
 		} ).then( function() {
 			assert.strictEqual( apiCallCount, 1 );
 			QUnit.start();
@@ -83,9 +83,9 @@
 			} },
 			options = {},
 			file = new mw.Title( 'File:Albert Einsteing Head.jpg' ),
-			imageUsageDataProvider = new mw.mmv.provider.ImageUsage( api, options );
+			imageUsageProvider = new mw.mmv.provider.ImageUsage( api, options );
 
-		imageUsageDataProvider.get( file ).then( function( fileUsage ) {
+		imageUsageProvider.get( file ).then( function( fileUsage ) {
 			assert.strictEqual( fileUsage.totalCountIsLowerBound, true, 'Count flag is set correctly' );
 			QUnit.start();
 		} );
@@ -102,9 +102,9 @@
 			} },
 			options = {},
 			file = new mw.Title( 'File:Albert Einsteing Head.jpg' ),
-			imageUsageDataProvider = new mw.mmv.provider.ImageUsage( api, options );
+			imageUsageProvider = new mw.mmv.provider.ImageUsage( api, options );
 
-		imageUsageDataProvider.get( file ).fail( function( errorMessage ) {
+		imageUsageProvider.get( file ).fail( function( errorMessage ) {
 			assert.strictEqual(
 				errorMessage,
 				'iumissingparam: One of the parameters iutitle, iupageid is required',
