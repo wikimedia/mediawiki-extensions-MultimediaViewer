@@ -19,8 +19,11 @@
 	/**
 	 * @class mw.MultiLightbox
 	 * @extends mlb.MultiLightbox
-	 * @constructor
 	 * @inheritdoc
+	 * @constructor
+	 * @param {mlb.LightboxImage[]} urls
+	 * @param {number} initial
+	 * @param {Function} InterfaceClass type of interface to use
 	 * @param {mw.MultimediaViewer} viewer
 	 */
 	function MultiLightbox( urls, initial, InterfaceClass, viewer ) {

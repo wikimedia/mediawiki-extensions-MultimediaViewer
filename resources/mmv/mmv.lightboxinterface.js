@@ -842,8 +842,8 @@
 	/**
 	 * @method
 	 * Updates the next and prev buttons
-	 * @param bool showPrevButton Whether the prev button should be revealed or not
-	 * @param bool showNextButton Whether the next button should be revealed or not
+	 * @param {boolean} showPrevButton Whether the prev button should be revealed or not
+	 * @param {boolean} showNextButton Whether the next button should be revealed or not
 	 */
 	LIP.updateControls = function ( showPrevButton, showNextButton ) {
 		var prevNextTop = ( ( this.$imageWrapper.height() / 2 ) - 60 ) + 'px';

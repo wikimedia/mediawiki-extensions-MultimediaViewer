@@ -35,7 +35,7 @@
 	 * Runs an API GET request to get the user info.
 	 * @param {string} username
 	 * @param {mw.mmv.model.Repo} repoInfo
-	 * @return {jQuery.Promise<mw.mmv.provider.UserInfo.Gender>} gender
+	 * @return {jQuery.Promise.<mw.mmv.provider.UserInfo.Gender>} gender
 	 */
 	UserInfo.prototype.get = function( username, repoInfo ) {
 		var provider = this,
@@ -76,14 +76,17 @@
 	/**
 	 * Gender of the user (can be set at preferences, UNKNOWN means they did not set it).
 	 * This is mainly used for translations, so in wikis where there are no grammatic genders
-	 * it is not used much.
+	 * it is not used much (or misused for weird things like showing online status).
 	 * (This should really belong to a model, but there is no point in having a user model if we
 	 * only need a single property.)
 	 * @enum {string} mw.mmv.provider.UserInfo.Gender
 	 */
 	UserInfo.Gender = {
+		/** User choose 'male' in preferences */
 		MALE: 'male',
+		/** User choose 'female' in preferences */
 		FEMALE: 'female',
+		/** User did not choose any gender in preferences */
 		UNKNOWN: 'unknown'
 	};
 

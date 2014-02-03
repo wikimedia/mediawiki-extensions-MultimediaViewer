@@ -1,6 +1,6 @@
 ( function ( $ ) {
 	/**
-	 * @class
+	 * @class mlb.LightboxImage
 	 * @constructor
 	 * @param {string} src The URL (possibly relative) to the image
 	 */
@@ -23,6 +23,7 @@
 	 * The URL of a placeholder while the image loads. Typically a smaller version of the image, which is already
 	 * loaded in the browser.
 	 * @type {String}
+	 * @return {jQuery.Promise.<mlb.LightboxImage, HTMLImageElement>}
 	 * @protected
 	 */
 	LIP.initialSrc = null;

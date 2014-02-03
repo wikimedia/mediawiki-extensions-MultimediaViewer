@@ -2,9 +2,9 @@
 	var lightboxHooks, MLBP, HRP;
 
 	/**
-	 * @class
+	 * @class mlb.MultiLightbox
 	 * @constructor
-	 * @param {LightboxImage[]} images
+	 * @param {mlb.LightboxImage[]} images
 	 * @param {number} [start=0]
 	 * @param {Function} [InterfaceClass] type of interface to use
 	 */

@@ -21,7 +21,6 @@
 	 * @extends mw.mmv.ui.Element
 	 * @inheritdoc
 	 * @constructor
-	 * @inheritdoc
 	 */
 	function Description( $container ) {
 		mw.mmv.ui.Element.call( this, $container );

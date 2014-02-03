@@ -17,6 +17,7 @@
 
 ( function ( mw, $, oo ) {
 	/**
+	 * Category metadata UI.
 	 * @class mw.mmv.ui.Categories
 	 * @extends mw.mmv.ui.Element
 	 * @constructor

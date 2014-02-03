@@ -3,7 +3,13 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 pushd $SCRIPT_DIR > /dev/null
 jsduck \
---config=./jsduck-config.json \
---color --warnings-exit-nonzero \
-&& echo 'JSDuck execution finished.'
+    --config=./jsduck-config.json \
+    --color --warnings-exit-nonzero \
+    -- \
+        `find ../resources/{multilightbox,mmv} -name '*.js'` \
+    && echo 'JSDuck execution finished.'
+RESULT=$?
+
 popd > /dev/null
+
+exit $RESULT

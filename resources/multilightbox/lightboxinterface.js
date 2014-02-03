@@ -2,7 +2,7 @@
 	var LIP, lightboxHooks;
 
 	/**
-	 * @class
+	 * @class mlb.LightboxInterface
 	 * @constructor
 	 */
 	function LightboxInterface() {
@@ -72,7 +72,8 @@
 	LIP = LightboxInterface.prototype;
 
 	/**
-	 * @type {LightboxImage}
+	 * The currently selected LightboxImage.
+	 * @type {mlb.LightboxImage}
 	 * @protected
 	 */
 	LIP.currentImage = null;
@@ -138,6 +139,7 @@
 	};
 
 	/**
+	 * Resize callback
 	 * @protected
 	 */
 	LIP.resizeCallback = function() {
@@ -151,6 +153,7 @@
 	};
 
 	/**
+	 * Load callback
 	 * @protected
 	 */
 	LIP.loadCallback = function ( image, ele ) {
@@ -172,7 +175,8 @@
 	};
 
 	/**
-	 * @param {LightboxImage} image
+	 * Loads the image, then calls the load callback of the interface.
+	 * @param {mlb.LightboxImage} image
 	 */
 	LIP.load = function ( image ) {
 		var iface = this;

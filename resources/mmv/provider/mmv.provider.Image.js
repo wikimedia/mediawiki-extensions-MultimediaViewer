@@ -28,7 +28,7 @@
 	 * @method
 	 * Loads an image and returns it.
 	 * @param {string} url
-	 * @return {jQuery.Promise<HTMLImageElement>} a promise which resolves to the image object
+	 * @return {jQuery.Promise.<HTMLImageElement>} a promise which resolves to the image object
 	 */
 	Image.prototype.get = function( url ) {
 		var img = new window.Image(),

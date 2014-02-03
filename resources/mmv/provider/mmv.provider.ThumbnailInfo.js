@@ -35,7 +35,7 @@
 	 * Runs an API GET request to get the thumbnail info.
 	 * @param {mw.Title} file
 	 * @param {number} width thumbnail width
-	 * @return {jQuery.Promise<string, number>} a promise which resolves to the thumbnail URL and
+	 * @return {jQuery.Promise.<string, number>} a promise which resolves to the thumbnail URL and
 	 *     the actual width of the thumbnail (which might be smaller than the requested width,
 	 *     in case the size we requested was larger than the full image size).
 	 */
