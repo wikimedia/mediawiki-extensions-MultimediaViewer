@@ -982,17 +982,23 @@
 		return date.format( 'LL' );
 	};
 
-	function handleHash( hash ) {
-		var statedIndex, $foundElement, linkState = hash.split( '/' );
+	function handleHash() {
+		var statedIndex,
+			$foundElement,
+			hash = decodeURIComponent( document.location.hash ),
+			linkState = hash.split( '/' );
+
 		comingFromPopstate = true;
 		if ( linkState[0] === '#mediaviewer' ) {
 			statedIndex = mw.mediaViewer.lightbox.images[linkState[2]];
+
 			if ( statedIndex.filePageTitle.getPrefixedText() === linkState[1] ) {
 				$foundElement = $( imgsSelector ).eq( linkState[2] );
 				mw.mediaViewer.loadImage( statedIndex, $foundElement.prop( 'src' ) );
 			}
 		} else {
-			if ( mw.mediaViewer.lightbox ) {
+			// If the hash is invalid (not a mmv hash) we check if there's any mmv lightbox open and we close it
+			if ( mw.mediaViewer && mw.mediaViewer.lightbox && mw.mediaViewer.lightbox.iface ) {
 				mw.mediaViewer.lightbox.iface.unattach();
 			}
 		}
@@ -1006,8 +1012,8 @@
 
 		mw.mediaViewer = viewer;
 
-		handleHash( document.location.hash );
-		window.addEventListener( 'popstate', function () { handleHash( document.location.hash ); } );
+		handleHash();
+		window.addEventListener( 'popstate', handleHash );
 	} );
 
 	mw.MultimediaViewer = MultimediaViewer;

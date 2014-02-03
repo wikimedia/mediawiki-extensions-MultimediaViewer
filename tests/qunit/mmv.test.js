@@ -529,4 +529,45 @@
 		profileEvent = 'image-load';
 		viewer.loadAndSetImage( ui, imageData, targetWidth, requestedWidth, profileEvent );
 	} );
+
+	QUnit.test( 'Hash handling', 5, function ( assert ) {
+		var oldLoadImage = mw.mediaViewer.loadImage,
+			oldLightbox = mw.mediaViewer.lightbox,
+			imageSrc = 'Foo bar.jpg',
+			image = { filePageTitle: new mw.Title( 'File:' + imageSrc ) };
+
+		document.location.hash = '';
+
+		mw.mediaViewer.lightbox = { iface: { unattach: function() {
+			assert.ok( true, 'Interface unattached' );
+		} } };
+
+		// Verify that passing an invalid mmv hash triggers unattach()
+		document.location.hash = 'Foo';
+
+		mw.mediaViewer.lightbox = { images: [ image ] };
+
+		$( '#qunit-fixture' ).append( '<a class="image"><img src="' + imageSrc + '"></a>' );
+
+		mw.mediaViewer.loadImage = function( img, src ) {
+			assert.strictEqual( img, image, 'The image object matches' );
+			assert.ok( src.match( encodeURIComponent( imageSrc ) ), 'The image url matches' );
+		};
+
+		// Open a valid mmv hash link and check that the right image is requested.
+		// imageSrc contains a space without any encoding on purpose
+		document.location.hash = 'mediaviewer/File:' + imageSrc + '/0';
+
+		// Reset the hash, because for some browsers switching from the non-URI-encoded to
+		// the non-URI-encoded version of the same text with a space will not trigger a hash change
+		document.location.hash = '';
+
+		// Try again with an URI-encoded imageSrc containing a space
+		document.location.hash = 'mediaviewer/File:' + encodeURIComponent( imageSrc ) + '/0';
+
+		mw.mediaViewer.lightbox = oldLightbox;
+		mw.mediaViewer.loadImage = oldLoadImage;
+
+		document.location.hash = '';
+	} );
 }( mediaWiki, jQuery ) );
