@@ -171,7 +171,7 @@ call_user_func( function() {
 		'dependencies' => array(
 			'mmv.base',
 		),
-	), $moduleInfo( 'mmv' ) );
+	), $moduleInfo( 'mmv/ui' ) );
 
 	$wgResourceModules['mmv.ui.categories'] = array_merge( array(
 		'scripts' => array(
@@ -186,7 +186,7 @@ call_user_func( function() {
 			'mmv.ui',
 			'oojs',
 		),
-	), $moduleInfo( 'mmv' ) );
+	), $moduleInfo( 'mmv/ui' ) );
 
 	$wgResourceModules['mmv.ui.description'] = array_merge( array(
 		'scripts' => array(
@@ -197,7 +197,7 @@ call_user_func( function() {
 			'mmv.ui',
 			'oojs',
 		),
-	), $moduleInfo( 'mmv' ) );
+	), $moduleInfo( 'mmv/ui' ) );
 
 	$wgResourceModules['mmv.ui.fileUsage'] = array_merge( array(
 		'scripts' => array(
@@ -214,7 +214,7 @@ call_user_func( function() {
 			'mmv.ui',
 			'oojs',
 		),
-	), $moduleInfo( 'mmv' ) );
+	), $moduleInfo( 'mmv/ui' ) );
 
 	$wgResourceModules['mmv'] = array_merge( array(
 		'scripts' => array(
