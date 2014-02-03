@@ -35,7 +35,9 @@
 	 * Runs an API GET request to get the thumbnail info.
 	 * @param {mw.Title} file
 	 * @param {number} width thumbnail width
-	 * @return {jQuery.Promise} a promise which resolves to the thumbnail URL
+	 * @return {jQuery.Promise<string, number>} a promise which resolves to the thumbnail URL and
+	 *     the actual width of the thumbnail (which might be smaller than the requested width,
+	 *     in case the size we requested was larger than the full image size).
 	 */
 	ThumbnailInfo.prototype.get = function( file, width ) {
 		var provider = this,
@@ -46,14 +48,14 @@
 				action: 'query',
 				prop: 'imageinfo',
 				titles: file.getPrefixedDb(),
-				iiprop: ['url'],
+				iiprop: 'url',
 				iiurlwidth: width,
 				format: 'json'
 			} ).then( function( data ) {
 				return provider.getQueryPage( file, data );
 			} ).then( function( page ) {
 				if ( page.imageinfo && page.imageinfo[0] ) {
-					return  page.imageinfo[0].thumburl;
+					return $.Deferred().resolve( page.imageinfo[0].thumburl, page.imageinfo[0].thumbwidth );
 				} else if ( page.missing === '' && page.imagerepository === '' ) {
 					return $.Deferred().reject( 'file does not exist: ' + file.getPrefixedDb() );
 				} else {
