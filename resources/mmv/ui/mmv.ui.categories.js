@@ -82,6 +82,7 @@
 	Categories.prototype.empty = function () {
 		if ( this.$categories ) {
 			this.$categories.remove();
+			this.$categories = undefined;
 		}
 	};
 
