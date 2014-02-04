@@ -150,6 +150,7 @@ call_user_func( function() {
 			'mmv.provider.ImageInfo.js',
 			'mmv.provider.FileRepoInfo.js',
 			'mmv.provider.ThumbnailInfo.js',
+			'mmv.provider.Image.js',
 		),
 
 		'dependencies' => array(
