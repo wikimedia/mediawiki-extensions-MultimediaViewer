@@ -346,6 +346,10 @@ $messages['ce'] = array(
 	'multimediaviewer-repository-local' => 'Ма-дарра',
 	'multimediaviewer-discuss-mmv' => 'Язде хьайна хетарг',
 	'multimediaviewer-geolocation' => 'Географин йолу меттиг: $1',
+	'multimediaviewer-fileusage-count' => 'Лело $1 {{PLURAL:$1|агӀонехь|агӀонашкахь}}',
+	'multimediaviewer-fileusage-link' => 'Хьажа массо лелор',
+	'multimediaviewer-fileusage-local-section' => 'ХӀокху сайтехь',
+	'multimediaviewer-fileusage-global-section' => 'Кхечу сайташкахь',
 );
 
 /** Czech (čeština)
@@ -1062,6 +1066,7 @@ $messages['ml'] = array(
 	'multimediaviewer-datetime-uploaded' => 'അപ്‌ലോഡ് ചെയ്തത്: $1',
 	'multimediaviewer-userpage-link' => 'അപ്‌ലോഡ് {{GENDER:$2|ചെയ്ത}} ഉപയോക്താവ്: $1',
 	'multimediaviewer-license-cc-pd' => 'പൊതുസഞ്ചയം',
+	'multimediaviewer-license-pd' => 'പൊതുസഞ്ചയം',
 	'multimediaviewer-license-default' => 'ഉപയോഗാനുമതി കാണുക',
 	'multimediaviewer-use-file' => 'ഈ പ്രമാണം ഉപയോഗിക്കുക',
 	'multimediaviewer-use-file-owt' => 'ഈ പ്രമാണം ഒരു വിക്കി താളിൽ, ലഘുചിത്രമായി ഉപയോഗിക്കുക',
@@ -1070,6 +1075,11 @@ $messages['ml'] = array(
 	'multimediaviewer-about-mmv' => 'മീഡിയ ദർശനോപാധിയുടെ വിവരണം',
 	'multimediaviewer-discuss-mmv' => 'പ്രതികരണം ചേർക്കുക',
 	'multimediaviewer-geolocation' => 'സ്ഥാനം: $1',
+	'multimediaviewer-fileusage-count' => '{{PLURAL:$1|ഒരു താളിൽ|$1 താളുകളിൽ}} ഉപയോഗിച്ചിരിക്കുന്നു',
+	'multimediaviewer-fileusage-count-more' => '{{PLURAL:$1|ഒന്നിൽ|$1 എണ്ണത്തിൽ}} അധികം താളുകളിൽ ഉപയോഗിച്ചിരിക്കുന്നു',
+	'multimediaviewer-fileusage-link' => 'എല്ലാ ഉപയോഗവും കാണുക',
+	'multimediaviewer-fileusage-local-section' => 'ഈ സൈറ്റിൽ',
+	'multimediaviewer-fileusage-global-section' => 'മറ്റ് സൈറ്റുകളിൽ',
 );
 
 /** Marathi (मराठी)
