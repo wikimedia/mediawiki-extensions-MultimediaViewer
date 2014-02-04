@@ -184,5 +184,14 @@
 		return false;
 	};
 
+	/**
+	 * Closes the dialog forcefully
+	 */
+	FRP.closeDialog = function () {
+		if ( this.$dialog ) {
+			this.$dialog.dialog( 'close' );
+		}
+	};
+
 	mw.mmv.ui.FileReuse = FileReuse;
 }( mediaWiki, jQuery, OO ) );

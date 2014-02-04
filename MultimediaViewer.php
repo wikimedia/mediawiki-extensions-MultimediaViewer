@@ -88,6 +88,7 @@ call_user_func( function() {
 		'dependencies' => array(
 			'oojs',
 			'multilightbox.interface',
+			'mmv.ui.buttons',
 			'mmv.ui.categories',
 			'mmv.ui.description',
 			'mmv.ui.fileUsage',
@@ -308,6 +309,21 @@ call_user_func( function() {
 
 		'styles' => array(
 			'mmv.ui.fileReuse.less',
+		),
+
+		'dependencies' => array(
+			'mmv.ui',
+			'oojs',
+		),
+	), $moduleInfo( 'mmv/ui' ) );
+
+	$wgResourceModules['mmv.ui.buttons'] = array_merge( array(
+		'scripts' => array(
+			'mmv.ui.buttons.js',
+		),
+
+		'styles' => array(
+			'mmv.ui.buttons.less',
 		),
 
 		'dependencies' => array(

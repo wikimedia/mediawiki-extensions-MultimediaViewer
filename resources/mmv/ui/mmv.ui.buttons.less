@@ -1,0 +1,73 @@
+@navbutton-width: 18px;
+@buttons-offset: 5px;
+
+.mlb-close,
+.mlb-fullscreen,
+.mw-mlb-next-image,
+.mw-mlb-prev-image {
+	position: fixed;
+	background-repeat: no-repeat;
+	opacity: 0.8;
+	border: none;
+	z-index: 1003;
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
+.mlb-close,
+.mlb-fullscreen {
+	right: @buttons-offset;
+	left: auto;
+	transition: opacity 0.25s;
+	background-position: center;
+}
+
+.mw-mlb-next-image,
+.mw-mlb-prev-image {
+	top: -999px;
+	width: 80px;
+	height: 120px;
+	cursor: pointer;
+	transition: opacity 0.25s, margin 0.25s;
+
+	&.disabled {
+		display: none;
+		cursor: none;
+	}
+}
+
+.mlb-close {
+	top: @buttons-offset;
+	/* @embed */
+	background-image: url(img/mw-close.svg);
+}
+
+.mlb-fullscreen {
+	top: (@buttons-offset + 37px);
+	/* @embed */
+	background-image: url(img/mw-fullscreen-ltr.svg);
+}
+
+.mw-mlb-next-image {
+	/* @embed */
+	background-image: url(img/next-ltr.svg);
+	background-position: right;
+	right: @navbutton-width;
+
+	&:hover {
+		margin-right: -4px;
+	}
+}
+
+.mw-mlb-prev-image {
+	/* @embed */
+	background-image: url(img/prev-ltr.svg);
+	background-position: left;
+	left: @navbutton-width;
+
+	&:hover {
+		margin-left: -4px;
+	}
+}

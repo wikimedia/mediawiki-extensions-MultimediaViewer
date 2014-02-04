@@ -173,10 +173,6 @@
 		// Register various event hooks. TODO: Make this a function that's only called once.
 
 		lightboxHooks.register( 'closeInterface', function () {
-			if ( this.$nextButton ) {
-				this.$nextButton.add( this.$prevButton ).css( 'top', '-999px' );
-			}
-			
 			$( document.body ).removeClass( 'mw-mlb-lightbox-open' );
 			if ( comingFromPopstate === false ) {
 				history.pushState( {}, '', '#' );
@@ -283,26 +279,6 @@
 		this.ui.updateControls( showNextButton, showPreviousButton );
 	};
 
-	MMVP.registerLogging = function () {
-		var viewer = this;
-
-		this.ui.$closeButton.click( function () {
-			if ( viewer.ui.$dialog ) {
-				viewer.ui.$dialog.dialog( 'close' );
-			}
-
-			mw.mmv.logger.log( 'close-link-click' );
-		} );
-
-		this.ui.$fullscreenButton.click( function () {
-			if ( viewer.ui.isFullscreen ) {
-				mw.mmv.logger.log( 'fullscreen-link-click' );
-			} else {
-				mw.mmv.logger.log( 'defullscreen-link-click' );
-			}
-		} );
-	};
-
 	/**
 	 * @method
 	 * Loads and sets the image specified in the imageData. It also updates the controls
@@ -370,6 +346,14 @@
 			this.lightbox.iface.empty();
 			this.lightbox.iface.load( image );
 		}
+
+		this.lightbox.iface.$imageWrapper.on( 'mmv-next', function () {
+			viewer.nextImage();
+		} );
+
+		this.lightbox.iface.$imageWrapper.on( 'mmv-prev', function () {
+			viewer.prevImage();
+		} );
 
 		$( document.body ).addClass( 'mw-mlb-lightbox-open' );
 

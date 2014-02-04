@@ -69,37 +69,37 @@
 		assert.ok( !lightbox.isFullscreen, 'Lightbox knows that it\'s not in fullscreen mode' );
 		assert.ok( lightbox.panel.$imageMetadata.is( ':visible' ), 'Image metadata is visible' );
 
-		lightbox.fadeOutButtons = function() {
+		lightbox.buttons.fadeOut = function() {
 			assert.ok( true, 'Opening fullscreen triggers a fadeout' );
 		};
 
 		// Pretend that the mouse cursor is on top of the button
-		buttonOffset = lightbox.$fullscreenButton.offset();
+		buttonOffset = lightbox.buttons.$fullscreen.offset();
 		lightbox.mousePosition = { x: buttonOffset.left, y: buttonOffset.top };
 
 		// Enter fullscreen
-		lightbox.$fullscreenButton.click();
+		lightbox.buttons.$fullscreen.click();
 
-		lightbox.fadeOutButtons = $.noop;
+		lightbox.buttons.fadeOut = $.noop;
 		assert.ok( lightbox.isFullscreen, 'Lightbox knows that it\'s in fullscreen mode' );
 
-		oldRevealButtonsAndFadeIfNeeded = lightbox.revealButtonsAndFadeIfNeeded;
+		oldRevealButtonsAndFadeIfNeeded = lightbox.buttons.revealAndFade;
 
-		lightbox.revealButtonsAndFadeIfNeeded = function() {
+		lightbox.buttons.revealAndFade = function( position ) {
 			assert.ok( true, 'Moving the cursor triggers a reveal + fade' );
 
-			oldRevealButtonsAndFadeIfNeeded.call( this );
+			oldRevealButtonsAndFadeIfNeeded.call( this, position );
 		};
 
 		// Pretend that the mouse cursor moved to the top-left corner
 		lightbox.mousemove( { pageX: 0, pageY: 0 } );
 
-		lightbox.revealButtonsAndFadeIfNeeded = $.noop;
+		lightbox.buttons.revealAndFadeIfNeeded = $.noop;
 
 		assert.ok( !lightbox.panel.$imageMetadata.is( ':visible' ), 'Image metadata is hidden' );
 
-		// Exit fullscreen
-		lightbox.$fullscreenButton.click();
+		// Exiting fullscreen
+		lightbox.buttons.$fullscreen.click();
 
 		assert.ok( lightbox.panel.$imageMetadata.is( ':visible' ), 'Image metadata is visible' );
 		assert.ok( !lightbox.isFullscreen, 'Lightbox knows that it\'s not in fullscreen mode' );
@@ -117,26 +117,26 @@
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
 
-		$.each ( lightbox.$buttons, function ( idx, e ) {
+		$.each ( lightbox.buttons.$buttons, function ( idx, e ) {
 			var $e = $( e ),
 				offset = $e.show().offset(),
 				width = $e.width(),
 				height = $e.height(),
 				disabled = $e.hasClass( 'disabled' );
 
-			assert.strictEqual( lightbox.isAnyActiveButtonHovered( offset.left, offset.top ),
+			assert.strictEqual( lightbox.buttons.isAnyActiveButtonHovered( offset.left, offset.top ),
 				!disabled,
 				'Hover detection works for top-left corner of element' );
-			assert.strictEqual( lightbox.isAnyActiveButtonHovered( offset.left + width, offset.top ),
+			assert.strictEqual( lightbox.buttons.isAnyActiveButtonHovered( offset.left + width, offset.top ),
 				!disabled,
 				'Hover detection works for top-right corner of element' );
-			assert.strictEqual( lightbox.isAnyActiveButtonHovered( offset.left, offset.top + height ),
+			assert.strictEqual( lightbox.buttons.isAnyActiveButtonHovered( offset.left, offset.top + height ),
 				!disabled,
 				'Hover detection works for bottom-left corner of element' );
-			assert.strictEqual( lightbox.isAnyActiveButtonHovered( offset.left + width, offset.top + height ),
+			assert.strictEqual( lightbox.buttons.isAnyActiveButtonHovered( offset.left + width, offset.top + height ),
 				!disabled,
 				'Hover detection works for bottom-right corner of element' );
-			assert.strictEqual( lightbox.isAnyActiveButtonHovered(
+			assert.strictEqual( lightbox.buttons.isAnyActiveButtonHovered(
 				offset.left + ( width / 2 ), offset.top + ( height / 2 ) ),
 				!disabled,
 				'Hover detection works for center of element' );
