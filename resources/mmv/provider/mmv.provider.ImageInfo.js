@@ -62,7 +62,8 @@
 		'Credit',
 		'Artist',
 		'GPSLatitude',
-		'GPSLongitude'
+		'GPSLongitude',
+		'Categories'
 	].join('|');
 
 	/**

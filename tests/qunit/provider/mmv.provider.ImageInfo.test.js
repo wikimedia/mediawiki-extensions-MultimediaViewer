@@ -25,7 +25,7 @@
 		assert.ok( imageInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'ImageInfo get test', 18, function ( assert ) {
+	QUnit.asyncTest( 'ImageInfo get test', 19, function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function() {
 				apiCallCount++;
@@ -84,6 +84,10 @@
 											Artist: {
 												value: 'Wikimeda',
 												source: 'commons-desc-page'
+											},
+											Categories: {
+												value: 'a|b|cd',
+												source: 'commons-categories'
 											}
 										},
 										mime: 'image/jpeg',
@@ -116,6 +120,7 @@
 			assert.strictEqual( image.license, 'cc0', 'license is set correctly' );
 			assert.strictEqual( image.latitude, 90, 'latitude is set correctly' );
 			assert.strictEqual( image.longitude, 180, 'longitude is set correctly' );
+			assert.strictEqual( image.categories.length, 3, 'categories are set correctly' );
 		} ).then( function() {
 			// call the data provider a second time to check caching
 			return imageInfoProvider.get( file );
