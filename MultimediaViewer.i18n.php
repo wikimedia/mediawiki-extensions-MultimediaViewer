@@ -635,6 +635,7 @@ $messages['fi'] = array(
  * @author Jean-Frédéric
  * @author Ltrlg
  * @author NemesisIII
+ * @author Verdy p
  */
 $messages['fr'] = array(
 	'multimediaviewer-desc' => 'Agrandit les vignettes dans une interface en plein écran.',
@@ -647,6 +648,7 @@ $messages['fr'] = array(
 	'multimediaviewer-datetime-created' => 'Créé le $1',
 	'multimediaviewer-datetime-uploaded' => 'Téléversé le $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Téléversé}} par $1',
+	'multimediaviewer-credit' => '$1 — $2',
 	'multimediaviewer-license-cc-pd' => 'Domaine public',
 	'multimediaviewer-license-pd' => 'Domain public',
 	'multimediaviewer-license-default' => 'Afficher la licence',
@@ -1172,18 +1174,22 @@ $messages['ps'] = array(
 );
 
 /** Portuguese (português)
+ * @author Fúlvio
  * @author Vitorvicentevalente
  */
 $messages['pt'] = array(
-	'multimediaviewer-desc' => 'Expandir miniaturas num tamanho maior numa caixa agradável',
+	'multimediaviewer-desc' => 'Expandir miniaturas num tamanho maior numa interface em ecrã cheio.',
+	'multimediaviewer-desc-nil' => 'Nenhuma descrição disponível.',
 	'multimediaviewer-pref' => 'Visualizador multimédia',
-	'multimediaviewer-pref-desc' => 'Melhore a sua experiência de visualização multimédia com esta nova ferramenta. A ferramenta exibe imagens em tamanho maior nas páginas que têm miniaturas. As imagens são mostradas em sobreposição numa caixa mais agradável e também podem ser visualizadas em tamanho real.',
+	'multimediaviewer-pref-desc' => 'Melhore a sua experiência de visualização multimédia com esta nova ferramenta. Ela exibe imagens em tamanho maior nas páginas que possuam miniaturas. As imagens são mostradas em uma agradável sobreposição em ecrã cheio, e também podem ser visualizadas em tamanho real.',
 	'multimediaviewer-file-page' => 'Ir para a página correspondente ao arquivo',
 	'multimediaviewer-repository' => 'Saiba mais em $1',
+	'multimediaviewer-repository-local' => 'Saiba mais',
 	'multimediaviewer-datetime-created' => 'Criado em $1',
 	'multimediaviewer-datetime-uploaded' => 'Carregado em $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Carregado}} por $1',
 	'multimediaviewer-license-cc-pd' => 'Domínio Público',
+	'multimediaviewer-license-pd' => 'Domínio público',
 	'multimediaviewer-license-default' => 'Ver licença',
 	'multimediaviewer-use-file' => 'Usar este ficheiro',
 	'multimediaviewer-use-file-owt' => 'Usar este ficheiro numa página wiki em forma de miniatura',
@@ -1191,6 +1197,12 @@ $messages['pt'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Usar este ficheiro noutro sítio da Internet',
 	'multimediaviewer-about-mmv' => 'Sobre o Visualizador multimédia',
 	'multimediaviewer-discuss-mmv' => 'Deixe o seu comentário',
+	'multimediaviewer-geolocation' => 'Localização: $1',
+	'multimediaviewer-fileusage-count' => 'Utilizada em $1 {{PLURAL:$1|página|páginas}}',
+	'multimediaviewer-fileusage-count-more' => 'Utilizada em mais de $1 {{PLURAL:$1|páginas}}',
+	'multimediaviewer-fileusage-link' => 'Ver todas as utilizações',
+	'multimediaviewer-fileusage-local-section' => 'Neste site',
+	'multimediaviewer-fileusage-global-section' => 'Em outros sites',
 );
 
 /** Romanian (română)
