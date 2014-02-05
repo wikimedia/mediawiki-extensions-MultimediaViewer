@@ -29,8 +29,8 @@
 	 * @param {string} descriptionUrl URL to the image description page
 	 * @param {string} repo The repository this image belongs to
 	 * @param {string} lastUploader The last person to upload a version of this image.
-	 * @param {string} lastUploadDateTime The time and date the last upload occurred
-	 * @param {string} originalUploadDateTime The time and date the original upload occurred
+	 * @param {string} uploadDateTime The time and date the last upload occurred
+	 * @param {string} creationDateTime The time and date the original upload occurred
 	 * @param {string} description
 	 * @param {string} source
 	 * @param {string} author

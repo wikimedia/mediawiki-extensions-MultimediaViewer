@@ -60,24 +60,22 @@
 				iulimit: this.options.apiLimit,
 				format: 'json'
 			} ).then( function( data ) {
+				return provider.getQueryField( 'imageusage', data );
+			} ).then( function( imageusage, data ) {
 				var pages;
-				if ( data && data.query && data.query.imageusage ) {
-					pages = $.map( data.query.imageusage, function( item ) {
-						return {
-							wiki: null,
-							page: new mw.Title( item.title, item.ns )
-						};
-					} );
-					return new mw.mmv.model.FileUsage(
-						file,
-						mw.mmv.model.FileUsage.Scope.LOCAL,
-						pages.slice( 0, provider.options.dataLimit ),
-						pages.length,
-						!!( data['query-continue'] && data['query-continue'].imageusage )
-					);
-				} else {
-					return $.Deferred().reject( provider.getErrorMessage( data ) );
-				}
+				pages = $.map( imageusage, function( item ) {
+					return {
+						wiki: null,
+						page: new mw.Title( item.title, item.ns )
+					};
+				} );
+				return new mw.mmv.model.FileUsage(
+					file,
+					mw.mmv.model.FileUsage.Scope.LOCAL,
+					pages.slice( 0, provider.options.dataLimit ),
+					pages.length,
+					!!( data['query-continue'] && data['query-continue'].imageusage )
+				);
 			} );
 		}
 
