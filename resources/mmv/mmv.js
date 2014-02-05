@@ -635,6 +635,7 @@
 	 */
 	MMVP.loadImage = function ( image, initialSrc ) {
 		var mdpid,
+			imageWidth,
 			viewer = this;
 
 		this.lightbox.currentIndex = image.index;
@@ -660,8 +661,11 @@
 
 		mdpid = this.profileStart( 'metadata-fetch' );
 
-		this.fetchImageInfoAndFileUsageInfo( image.filePageTitle ).then( function ( imageData, repoInfo, targetWidth, requestedWidth, localUsage, globalUsage ) {
-			var repoData = repoInfo[imageData.repo];
+		imageWidth = this.getImageSizeApiArgs( this.ui );
+		this.fetchImageInfoRepoInfoAndFileUsageInfo(
+			image.filePageTitle, imageWidth.real
+		).then( function ( imageInfo, repoInfoHash, thumbnail, localUsage, globalUsage ) {
+			var repoInfo = repoInfoHash[imageInfo.repo];
 
 			viewer.profileEnd( mdpid );
 
@@ -670,10 +674,10 @@
 				// We need to wait until the animation is finished before we listen to scroll
 				.then( function() { viewer.startListeningToScroll(); } );
 
-			viewer.loadAndSetImage( viewer.lightbox.iface, imageData, targetWidth, requestedWidth, 'image-load' );
+			viewer.loadAndSetImage( viewer.lightbox.iface, imageInfo, imageWidth.css, imageWidth.real, 'image-load' );
 
 			viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
-			viewer.setImageInfo( image, imageData, repoData, localUsage, globalUsage );
+			viewer.setImageInfo( image, imageInfo, repoInfo, localUsage, globalUsage );
 		} );
 
 		comingFromPopstate = false;
@@ -725,61 +729,39 @@
 
 	/**
 	 * @method
-	 * Fetches image information from the API.
+	 * Fetches image and thumbnail information from the API.
 	 *
-	 * Will resolve the promise with two objects (imageData and repoData), the
-	 * target width - basically the screen size - that the caller should resize
-	 * the image to eventually, and the requested width - that is, what we asked
-	 * for from the API - that should be used to fetch the thumbnail URL from
-	 * the imageData object.
-	 *
-	 * The target
-	 * @param {mw.Title} fileTitle Title of the file page for the image.
-	 * @returns {jQuery.Promise}
+	 * @param {mw.Title} fileTitle
+	 * @param {number} width width of the thumbnail in pixels
+	 * @return {jQuery.Promise<mw.mmv.model.Image, mw.mmv.model.Thumbnail>}
 	 */
-	MMVP.fetchImageInfo = function ( fileTitle ) {
-		var widths = this.getImageSizeApiArgs( this.ui ),
-			targetWidth = widths.css,
-			requestedWidth = widths.real;
-
+	MMVP.fetchImageInfoWithThumbnail = function ( fileTitle, width ) {
 		return $.when(
-			this.fileRepoInfoProvider.get(),
 			this.imageInfoProvider.get( fileTitle ),
-			this.thumbnailInfoProvider.get( fileTitle, requestedWidth )
-		).then( function( fileRepoInfoHash, imageInfo, thumbnail ) {
+			this.thumbnailInfoProvider.get( fileTitle, width )
+		).then( function( imageInfo, thumbnail ) {
 			imageInfo.addThumbUrl( thumbnail.width, thumbnail.url );
-			return $.Deferred().resolve( imageInfo, fileRepoInfoHash, targetWidth, requestedWidth );
+			return $.Deferred().resolve( imageInfo, thumbnail );
 		} );
-	};
-
-	/**
-	 * Gets file usage info.
-	 * @param {mw.Title} fileTitle Title of the file page for the image.
-	 * @returns {jQuery.Promise.<mw.mmv.model.FileUsage, mw.mmv.model.FileUsage>} a promise
-	 *     resolving to a local and a global file usage object
-	 * FIXME should be parallel with the other fetches, or even better if it can be integrated
-	 *     into the same API calls. Lets get it out first though.
-	 */
-	MMVP.fetchFileUsageInfo = function ( fileTitle ) {
-		return $.when(
-			this.imageUsageProvider.get( fileTitle ),
-			this.globalUsageProvider.get( fileTitle )
-		);
 	};
 
 	/**
 	 * Gets all file-related info.
 	 * @param {mw.Title} fileTitle Title of the file page for the image.
-	 * @returns {jQuery.Promise.<mw.mmv.model.Image, mw.mmv.model.Repo, Number, Number,
+	 * @param {number} width width of the thumbnail in pixels
+	 * @returns {jQuery.Promise.<mw.mmv.model.Image, mw.mmv.model.Repo, mw.mmv.model.Thumbnail,
 	 *     mw.mmv.model.FileUsage, mw.mmv.model.FileUsage>}
 	 */
-	MMVP.fetchImageInfoAndFileUsageInfo = function ( fileTitle ) {
+	MMVP.fetchImageInfoRepoInfoAndFileUsageInfo = function ( fileTitle, width ) {
 		return $.when(
-			this.fetchImageInfo( fileTitle ),
-			this.fetchFileUsageInfo( fileTitle )
-		).then( function( first, second ) {
-			var d = $.Deferred();
-			return d.resolve.apply( d, first.concat( second ) );
+			this.imageInfoProvider.get( fileTitle ),
+			this.fileRepoInfoProvider.get( fileTitle ),
+			this.thumbnailInfoProvider.get( fileTitle, width ),
+			this.imageUsageProvider.get( fileTitle ),
+			this.globalUsageProvider.get( fileTitle )
+		).then( function( imageInfo, repoInfoHash, thumbnail, imageUsage, globalUsage ) {
+			imageInfo.addThumbUrl( thumbnail.width, thumbnail.url );
+			return $.Deferred().resolve( imageInfo, repoInfoHash, thumbnail, imageUsage, globalUsage );
 		} );
 	};
 
