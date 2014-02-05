@@ -44,7 +44,7 @@
 
 		// Check that the close button on the lightbox still follow the spec (being visible right away)
 		assert.strictEqual( $( '#qunit-fixture .mlb-close' ).length, 1, 'There should be a close button' );
-		assert.strictEqual( $( '#qunit-fixture .mlb-close' ).is(':visible'), true, 'The close button should be visible' );
+		assert.ok( $( '#qunit-fixture .mlb-close' ).is(':visible'), 'The close button should be visible' );
 
 		// Unattach lightbox from document
 		lightbox.unattach();
@@ -64,10 +64,10 @@
 		}
 
 		for ( i = 0; i < thingsShouldHaveEmptyClass.length; i++ ) {
-			assert.strictEqual( lightbox[thingsShouldHaveEmptyClass[i]].hasClass( 'empty' ), true, 'We successfully applied the empty class to the ' + thingsShouldHaveEmptyClass[i] + ' element' );
+			assert.ok( lightbox[thingsShouldHaveEmptyClass[i]].hasClass( 'empty' ), 'We successfully applied the empty class to the ' + thingsShouldHaveEmptyClass[i] + ' element' );
 		}
 
-		assert.strictEqual( lightbox.$dragIcon.hasClass( 'pointing-down' ), false, 'We successfully reset the chevron' );
+		assert.ok( !lightbox.$dragIcon.hasClass( 'pointing-down' ), 'We successfully reset the chevron' );
 	} );
 
 	QUnit.test( 'Handler registration and clearance work OK', 2, function ( assert ) {
@@ -121,10 +121,12 @@
 		);
 	} );
 
-	QUnit.test( 'Fullscreen mode', 3, function ( assert ) {
+	QUnit.test( 'Fullscreen mode', 8, function ( assert ) {
 		var lightbox = new mw.LightboxInterface( mw.mediaViewer ),
 			oldFnEnterFullscreen = $.fn.enterFullscreen,
-			oldFnExitFullscreen = $.fn.exitFullscreen;
+			oldFnExitFullscreen = $.fn.exitFullscreen,
+			oldRevealButtonsAndFadeIfNeeded,
+			buttonOffset;
 
 		// Since we don't want these tests to really open fullscreen
 		// which is subject to user security confirmation,
@@ -137,23 +139,84 @@
 		lightbox.viewer.ui = lightbox;
 		lightbox.viewer.lightbox = lightbox;
 
-		assert.strictEqual( lightbox.$imageMetadata.is( ':visible' ) , true, 'Image metadata is visible' );
+		assert.ok( !lightbox.isFullscreen, 'Lightbox knows that it\'s not in fullscreen mode' );
+		assert.ok( lightbox.$imageMetadata.is( ':visible' ), 'Image metadata is visible' );
 
-		// Entering fullscreen
+		lightbox.fadeOutButtons = function() {
+			assert.ok( true, 'Opening fullscreen triggers a fadeout' );
+		};
+
+		// Pretend that the mouse cursor is on top of the button
+		buttonOffset = lightbox.$fullscreenButton.offset();
+		lightbox.mousePosition = { x: buttonOffset.left, y: buttonOffset.top };
+
+		// Enter fullscreen
 		lightbox.$fullscreenButton.click();
 
-		assert.strictEqual( lightbox.$imageMetadata.is( ':visible' ) , false, 'Image metadata is hidden' );
+		lightbox.fadeOutButtons = $.noop;
+		assert.ok( lightbox.isFullscreen, 'Lightbox knows that it\'s in fullscreen mode' );
 
-		// Exiting fullscreen
+		oldRevealButtonsAndFadeIfNeeded = lightbox.revealButtonsAndFadeIfNeeded;
+
+		lightbox.revealButtonsAndFadeIfNeeded = function() {
+			assert.ok( true, 'Moving the cursor triggers a reveal + fade' );
+
+			oldRevealButtonsAndFadeIfNeeded.call( this );
+		};
+
+		// Pretend that the mouse cursor moved to the top-left corner
+		lightbox.mousemove( { pageX: 0, pageY: 0 } );
+
+		lightbox.revealButtonsAndFadeIfNeeded = $.noop;
+
+		assert.ok( !lightbox.$imageMetadata.is( ':visible' ), 'Image metadata is hidden' );
+
+		// Exit fullscreen
 		lightbox.$fullscreenButton.click();
 
-		assert.strictEqual( lightbox.$imageMetadata.is( ':visible' ) , true, 'Image metadata is visible' );
+		assert.ok( lightbox.$imageMetadata.is( ':visible' ), 'Image metadata is visible' );
+		assert.ok( !lightbox.isFullscreen, 'Lightbox knows that it\'s not in fullscreen mode' );
 
 		// Unattach lightbox from document
 		lightbox.unattach();
 
 		$.fn.enterFullscreen = oldFnEnterFullscreen;
 		$.fn.exitFullscreen = oldFnExitFullscreen;
+	} );
+
+	QUnit.test( 'isAnyActiveButtonHovered', 20, function ( assert ) {
+		var lightbox = new mw.LightboxInterface( mw.mediaViewer );
+
+		// Attach lightbox to testing fixture to avoid interference with other tests.
+		lightbox.attach( '#qunit-fixture' );
+
+		$.each ( lightbox.$buttons, function ( idx, e ) {
+			var $e = $( e ),
+				offset = $e.offset(),
+				width = $e.width(),
+				height = $e.height(),
+				disabled = $e.hasClass( 'disabled' );
+
+			assert.strictEqual( lightbox.isAnyActiveButtonHovered( offset.left, offset.top ),
+				!disabled,
+				'Hover detection works for top-left corner of element' );
+			assert.strictEqual( lightbox.isAnyActiveButtonHovered( offset.left + width, offset.top ),
+				!disabled,
+				'Hover detection works for top-right corner of element' );
+			assert.strictEqual( lightbox.isAnyActiveButtonHovered( offset.left, offset.top + height ),
+				!disabled,
+				'Hover detection works for bottom-left corner of element' );
+			assert.strictEqual( lightbox.isAnyActiveButtonHovered( offset.left + width, offset.top + height ),
+				!disabled,
+				'Hover detection works for bottom-right corner of element' );
+			assert.strictEqual( lightbox.isAnyActiveButtonHovered(
+				offset.left + ( width / 2 ), offset.top + ( height / 2 ) ),
+				!disabled,
+				'Hover detection works for center of element' );
+		} );
+
+		// Unattach lightbox from document
+		lightbox.unattach();
 	} );
 
 	QUnit.test( 'Metadata scrolling', 13, function ( assert ) {
@@ -219,15 +282,15 @@
 		lightbox.load( { getImageElement: function() { return $.Deferred().reject(); } } );
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0, 'scrollTo scrollTop should be set to 0' );
-		assert.strictEqual( lightbox.$dragIcon.hasClass( 'pointing-down' ), false,
+		assert.ok( !lightbox.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing up' );
 
 		keydown.which = 38; // Up arrow
 		$document.trigger( keydown );
 
-		assert.strictEqual( $.scrollTo().scrollTop(), lightbox.$imageMetadata.height() + 1,
+		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ), lightbox.$imageMetadata.height() + 1,
 			'scrollTo scrollTop should be set to the metadata height + 1 after pressing up arrow' );
-		assert.strictEqual( lightbox.$dragIcon.hasClass( 'pointing-down' ), true,
+		assert.ok( lightbox.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing down after pressing up arrow' );
 
 		keydown.which = 40; // Down arrow
@@ -235,21 +298,21 @@
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0,
 			'scrollTo scrollTop should be set to 0 after pressing down arrow' );
-		assert.strictEqual( lightbox.$dragIcon.hasClass( 'pointing-down' ), false,
+		assert.ok( !lightbox.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing up after pressing down arrow' );
 
 		lightbox.$dragIcon.click();
 
-		assert.strictEqual( $.scrollTo().scrollTop(), lightbox.$imageMetadata.height() + 1,
+		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ), lightbox.$imageMetadata.height() + 1,
 			'scrollTo scrollTop should be set to the metadata height + 1 after clicking the chevron once' );
-		assert.strictEqual( lightbox.$dragIcon.hasClass( 'pointing-down' ), true,
+		assert.ok( lightbox.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing down after clicking the chevron once' );
 
 		lightbox.$dragIcon.click();
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0,
 			'scrollTo scrollTop should be set to 0 after clicking the chevron twice' );
-		assert.strictEqual( lightbox.$dragIcon.hasClass( 'pointing-down' ), false,
+		assert.ok( !lightbox.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing up after clicking the chevron twice' );
 
 		// Unattach lightbox from document

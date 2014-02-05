@@ -67,19 +67,6 @@
 				lbinterface.unattach();
 			}
 		} );
-
-		$( document ).on( 'jq-fullscreen-change', function ( e ) {
-			lbinterface.isFullscreen = e.fullscreen;
-
-			lightboxHooks.callAll( 'fullscreen', this, e.fullscreen );
-
-			if ( !lbinterface.fullscreenButtonJustPressed && !e.fullscreen ) {
-				// Close the interface all the way if the user pressed 'esc'
-				lbinterface.unattach();
-			} else if ( lbinterface.fullscreenButtonJustPressed ) {
-				lbinterface.fullscreenButtonJustPressed = false;
-			}
-		} );
 	}
 
 	LIP = LightboxInterface.prototype;
@@ -106,15 +93,28 @@
 	 * @param {string} [parentId] parent id where we want to attach the UI. Mainly for testing.
 	 */
 	LIP.attach = function ( parentId ) {
+		var lbinterface = this,
+			$parent;
+
 		// Re-appending the same content can have nasty side-effects
 		// Such as the browser leaving fullscreen mode if the fullscreened element is part of it
 		if ( this.currentlyAttached ) {
 			return;
 		}
 
-		var parent = $( parentId || document.body );
+		$( document ).on( 'jq-fullscreen-change.lip', function( e ) {
+			lbinterface.fullscreenChange( e );
+		} );
 
-		parent
+		$parent = $( parentId || document.body );
+
+		// Clean up fullscreen data because hard-existing fullscreen might have left
+		// jquery.fullscreen unable to remove the class and attribute, since $main wasn't
+		// attached to the DOM anymore at the time the jq-fullscreen-change event triggered
+		this.$main.data( 'isFullscreened', false ).removeClass( 'jq-fullscreened' );
+		this.isFullscreen = false;
+
+		$parent
 			.append(
 				this.$wrapper,
 				this.$overlay
@@ -128,6 +128,8 @@
 	LIP.unattach = function () {
 		// TODO(aarcos): This is global and it breaks tests.
 		lightboxHooks.callAll( 'closeInterface', this );
+
+		$( document ).off( 'jq-fullscreen-change.lip' );
 
 		this.$wrapper.detach();
 		this.$overlay.detach();
@@ -265,6 +267,19 @@
 
 		for ( i = 0; i < toAdd.length; i++ ) {
 			$div.append( toAdd[i] );
+		}
+	};
+
+	LIP.fullscreenChange = function ( e ) {
+		this.isFullscreen = e.fullscreen;
+
+		lightboxHooks.callAll( 'fullscreen', e.element, e.fullscreen );
+
+		if ( !this.fullscreenButtonJustPressed && !e.fullscreen ) {
+			// Close the interface all the way if the user pressed 'esc'
+			this.unattach();
+		} else if ( this.fullscreenButtonJustPressed ) {
+			this.fullscreenButtonJustPressed = false;
 		}
 	};
 

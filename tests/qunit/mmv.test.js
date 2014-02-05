@@ -76,6 +76,9 @@
 		link3.trigger( 'click' );
 
 		assert.notStrictEqual( viewer.lightbox, null, 'There are legit links, a lightbox should be created.' );
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.test( 'Skip images with invalid extensions', 1, function ( assert ) {
@@ -97,6 +100,9 @@
 		link.trigger( 'click' );
 
 		assert.strictEqual( viewer.lightbox, null, 'There are not legit links, a lightbox should not be created.' );
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.test( 'Accept only left clicks without modifier keys, skip the rest', 1, function ( assert ) {
@@ -132,6 +138,9 @@
 
 		// Skip invalid right click, no image is loaded
 		link.trigger( rightClick );
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.test( 'Do not load the resized image if no data returning from the api', 1, function ( assert ) {
@@ -143,6 +152,9 @@
 		viewer.loadResizedImage( ui, data );
 
 		assert.ok( true, 'Resized image is not replaced since we have not data.' );
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.test( 'Logging works as expected', 4 * logTests.length, function ( assert ) {
@@ -174,6 +186,9 @@
 
 		mw.log = backupLog;
 		mw.eventLog = backupEventLog;
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.test( 'Profiling works as expected', ( 12 * profileTests.length ), function ( assert ) {
@@ -221,6 +236,9 @@
 
 		mw.log = backupLog;
 		mw.eventLog = backupEventLog;
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.asyncTest( 'Make sure we get sane values for the eventlogging timing', 2, function ( assert ) {
@@ -240,6 +258,9 @@
 				} else {
 					mw.eventLog = backupEventLog;
 					QUnit.start();
+
+					// Clean up the viewer, to avoid seeing it catch events when running other tests
+					mw.mmvTestHelpers.resetViewer();
 				}
 			}
 		};
@@ -259,6 +280,9 @@
 		};
 
 		link.trigger( 'click' );
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 6, function ( assert ) {
@@ -281,6 +305,9 @@
 
 		viewer = new mw.MultimediaViewer();
 		mw.MultimediaViewer.prototype.createNewImage = backup;
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 6, function ( assert ) {
@@ -303,6 +330,9 @@
 
 		viewer = new mw.MultimediaViewer();
 		mw.MultimediaViewer.prototype.createNewImage = backup;
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.test( 'We get sane image sizes when we ask for them', 5, function ( assert ) {
@@ -313,6 +343,9 @@
 		assert.strictEqual( viewer.findNextHighestImageSize( 320.00001 ), 640, 'Asking for greater than an image bucket definitely gives us the next size up' );
 		assert.strictEqual( viewer.findNextHighestImageSize( 2000 ), 2560, 'The image bucketing also works on big screens' );
 		assert.strictEqual( viewer.findNextHighestImageSize( 3000 ), 2880, 'The image bucketing also works on REALLY big screens' );
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.test( 'Metadata div is only animated once', 4, function ( assert ) {
@@ -335,6 +368,9 @@
 		assert.strictEqual( animationRan, false, 'The second call to animateMetadataDivOnce did not lead to an animation' );
 
 		$.fn.animate = backupAnimation;
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.test( 'HTML whitelisting works', 2, function ( assert ) {
@@ -351,6 +387,9 @@
 
 		viewer.whitelistHtml( $sandbox.empty().append( nwljq ) );
 		assert.strictEqual( $sandbox.html(), whitelisted, 'Not-whitelisted elements are removed.' );
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.test( 'The location data is set correctly', 11, function ( assert ) {
@@ -386,6 +425,9 @@
 		};
 
 		viewer.setLocationData( imageData );
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.test( 'The location data is set correctly with weird values', 11, function ( assert ) {
@@ -421,6 +463,9 @@
 		};
 
 		viewer.setLocationData( imageData );
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.test( 'The location data is not set if no value is passed in', 1, function ( assert ) {
@@ -443,6 +488,9 @@
 		viewer.setLocationData( imageData );
 
 		assert.strictEqual( called, false, 'The interface data-setter method is not called if there are no coordinates available for the image.' );
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.test( 'getImageSizeApiArgs(): Limited by height and limited by width', 4, function ( assert ) {
@@ -479,6 +527,9 @@
 		assert.strictEqual( widths.requested, 640 * $.devicePixelRatio(), 'Correct requested width was computed.' );
 
 		ui.unattach();
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.asyncTest( 'loadAndSetImage(): Basic load', 9, function ( assert ) {
@@ -528,6 +579,9 @@
 		requestedWidth = 640;
 		profileEvent = 'image-load';
 		viewer.loadAndSetImage( ui, imageData, targetWidth, requestedWidth, profileEvent );
+
+		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		mw.mmvTestHelpers.resetViewer();
 	} );
 
 	QUnit.test( 'Hash handling', 5, function ( assert ) {
