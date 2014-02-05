@@ -514,8 +514,8 @@
 
 		widths = viewer.getImageSizeApiArgs( ui );
 
-		assert.strictEqual( widths.target, 150/100*200, 'Correct target width was computed.' );
-		assert.strictEqual( widths.requested, 320 * $.devicePixelRatio(), 'Correct requested width was computed.' );
+		assert.strictEqual( widths.css, 150/100*200, 'Correct CSS width was computed.' );
+		assert.strictEqual( widths.real, 320 * $.devicePixelRatio(), 'Correct real width was computed.' );
 
 		// Fake viewport dimensions, width/height == 1.0, we are limited by width
 		ui.$imageWrapper.height( 600 );
@@ -523,8 +523,8 @@
 
 		widths = viewer.getImageSizeApiArgs( ui );
 
-		assert.strictEqual( widths.target, 600, 'Correct target width was computed.' );
-		assert.strictEqual( widths.requested, 640 * $.devicePixelRatio(), 'Correct requested width was computed.' );
+		assert.strictEqual( widths.css, 600, 'Correct CSS width was computed.' );
+		assert.strictEqual( widths.real, 640 * $.devicePixelRatio(), 'Correct real width was computed.' );
 
 		ui.unattach();
 

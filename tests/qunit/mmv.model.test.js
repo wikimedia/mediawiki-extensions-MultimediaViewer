@@ -112,4 +112,21 @@
 		assert.strictEqual( dbRepo.getArticlePath(), 'http://example.org/wiki/$1', 'DB article path is set correctly' );
 		assert.strictEqual( apiRepo.getArticlePath(), 'http://example.net/wiki/$1', 'API article path is set correctly' );
 	} );
+
+	QUnit.test( 'Thumbnail constructor sanity check', 4, function ( assert ) {
+		var width = 23,
+			height = 42,
+			url = 'http://example.com/foo.jpg',
+			thumbnail = new mw.mmv.model.Thumbnail( url, width, height );
+
+		assert.strictEqual( thumbnail.url, url, 'Url is set correctly' );
+		assert.strictEqual( thumbnail.width, width, 'Width is set correctly' );
+		assert.strictEqual( thumbnail.height, height, 'Height is set correctly' );
+
+		try {
+			thumbnail = new mw.mmv.model.Thumbnail( url, width );
+		} catch (e) {
+			assert.ok( e, 'Exception is thrown when parameters are missing');
+		}
+	} );
 }( mediaWiki ) );

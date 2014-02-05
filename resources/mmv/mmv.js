@@ -273,28 +273,50 @@
 	 * Gets the API arguments for various calls to the API to find sized thumbnails.
 	 * @param {mw.LightboxInterface} ui
 	 * @returns {Object}
-	 * @returns {number} return.requested The width that should be requested from the API
-	 * @returns {number} return.target The ideal width we would like to have - should be the width of the image element later.
+	 * @returns {number} return.real The width that should be requested from the API
+	 * @returns {number} return.css The ideal width we would like to have - should be the width of the image element later.
 	 */
 	MMVP.getImageSizeApiArgs = function ( ui ) {
-		var requestedWidth, calculatedMaxWidth,
-			thumb = ui.currentImage.thumbnail,
-			targetWidth = ui.$imageWrapper.width(),
-			targetHeight = ui.$imageWrapper.height();
+		var thumb = ui.currentImage.thumbnail;
 
-		if ( ( targetWidth / targetHeight ) > ( thumb.width / thumb.height ) ) {
-			// Need to find width corresponding to highest height we can have.
-			calculatedMaxWidth = ( thumb.width / thumb.height ) * targetHeight;
-			requestedWidth = this.findNextHighestImageSize( calculatedMaxWidth );
+		return this.getThumbnailWidth( ui.$imageWrapper.width(), ui.$imageWrapper.height(),
+			thumb.width, thumb.height );
+	};
+
+	/**
+	 * Finds the largest width for an image so that it will still fit into a given bounding box,
+	 * based on the size of a sample (some smaller version of the same image, like the thumbnail
+	 * shown in the article) which is used to calculate the ratio.
+	 *
+	 * Returns two values, a CSS width which is the size in pixels that should be used so the image
+	 * fits exactly into the bounding box, and a real width which should be the size of the
+	 * downloaded image in pixels. The two will be different for two reasons:
+	 * - images are bucketed for more efficient caching, so the real width will always be one of
+	 *   the numbers in this.imageWidthBuckets
+	 * - for devices with high pixel density (multiple actual pixels per CSS pixel) we want to use a
+	 *   larger image so that there will be roughly one image pixel per physical display pixel
+	 *
+	 * @param {number} boundingWidth width of the bounding box
+	 * @param {number} boundingHeight height of the bounding box
+	 * @param {number} sampleWidth width of the sample image
+	 * @param {number} sampleHeight height of the sample image
+	 * @return {{css: number, real: number}} 'css' field will contain the width of the
+	 *     thumbnail in CSS pixels, 'real' the actual image size that should be requested.
+	 */
+	MMVP.getThumbnailWidth = function( boundingWidth, boundingHeight, sampleWidth, sampleHeight ) {
+		var cssWidth, bucketedWidth;
+		if ( ( boundingWidth / boundingHeight ) > ( sampleWidth / sampleHeight ) ) {
+			// we are limited by height; we need to calculate the max width that fits
+			cssWidth = ( sampleWidth / sampleHeight ) * boundingHeight;
 		} else {
-			// Simple case, ratio tells us we're limited by width
-			requestedWidth = this.findNextHighestImageSize( targetWidth );
+			// simple case, ratio tells us we're limited by width
+			cssWidth = boundingWidth;
 		}
+		bucketedWidth = this.findNextHighestImageSize( cssWidth );
 
 		return {
-			// Factor in pixel ratio so we get as many pixels as the device supports, see b/60388
-			requested: requestedWidth * $.devicePixelRatio(),
-			target: calculatedMaxWidth || targetWidth
+			css: cssWidth,
+			real: bucketedWidth * $.devicePixelRatio()
 		};
 	};
 
@@ -339,11 +361,13 @@
 	 */
 	MMVP.resize = function ( ui ) {
 		var viewer = this,
-			fileTitle = this.currentImageFileTitle;
+			fileTitle = this.currentImageFileTitle,
+			imageWidths;
 
 		if ( fileTitle ) {
-			this.fetchImageInfo( fileTitle ).done( function ( imageData, repoInfo, targetWidth, requestedWidth ) {
-				viewer.loadResizedImage( ui, imageData, targetWidth, requestedWidth );
+			imageWidths = this.getImageSizeApiArgs( ui );
+			this.fetchImageInfoWithThumbnail( fileTitle, imageWidths.real ).then( function( imageInfo ) {
+					viewer.loadResizedImage( ui, imageInfo, imageWidths.css, imageWidths.real );
 			} );
 		}
 
@@ -715,17 +739,15 @@
 	 */
 	MMVP.fetchImageInfo = function ( fileTitle ) {
 		var widths = this.getImageSizeApiArgs( this.ui ),
-			targetWidth = widths.target,
-			requestedWidth = widths.requested;
+			targetWidth = widths.css,
+			requestedWidth = widths.real;
 
 		return $.when(
 			this.fileRepoInfoProvider.get(),
 			this.imageInfoProvider.get( fileTitle ),
 			this.thumbnailInfoProvider.get( fileTitle, requestedWidth )
-		).then( function( fileRepoInfoHash, imageInfo, thumbnailData ) {
-			var thumbnailUrl = thumbnailData[0],
-				thumbnailWidth = thumbnailData[1];
-			imageInfo.addThumbUrl( thumbnailWidth, thumbnailUrl );
+		).then( function( fileRepoInfoHash, imageInfo, thumbnail ) {
+			imageInfo.addThumbUrl( thumbnail.width, thumbnail.url );
 			return $.Deferred().resolve( imageInfo, fileRepoInfoHash, targetWidth, requestedWidth );
 		} );
 	};
