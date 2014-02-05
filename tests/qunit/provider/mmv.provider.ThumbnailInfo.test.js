@@ -25,7 +25,7 @@
 		assert.ok( thumbnailInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'ThumbnailInfo get test', 4, function ( assert ) {
+	QUnit.asyncTest( 'ThumbnailInfo get test', 5, function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function() {
 				apiCallCount++;
@@ -40,7 +40,7 @@
 								imageinfo: [
 									{
 										thumburl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Stuff.jpg/51px-Stuff.jpg',
-										thumbwidth: 100,
+										thumbwidth: 95,
 										thumbheight: 200,
 										url: 'https://upload.wikimedia.org/wikipedia/commons/1/19/Stuff.jpg',
 										descriptionurl: 'https://commons.wikimedia.org/wiki/File:Stuff.jpg'
@@ -54,10 +54,11 @@
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
 
-		thumbnailInfoProvider.get( file, 100 ).then( function( thumnailUrl ) {
+		thumbnailInfoProvider.get( file, 100 ).then( function( thumnailUrl, thumbnailWidth ) {
 			assert.strictEqual( thumnailUrl,
 				'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Stuff.jpg/51px-Stuff.jpg',
 				'URL is set correctly' );
+			assert.strictEqual( thumbnailWidth, 95, 'actual width is set correctly' );
 		} ).then( function() {
 			assert.strictEqual( apiCallCount, 1 );
 			// call the data provider a second time to check caching

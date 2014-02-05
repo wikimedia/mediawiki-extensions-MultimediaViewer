@@ -24,15 +24,21 @@
 	 * @extends mw.mmv.provider.Api
 	 * @inheritdoc
 	 * @param {mw.Api} api
+	 * @param {Object} [options]
+	 * @param {string} [options.language] image metadata language
 	 */
-	function ImageInfo( api ) {
-		mw.mmv.provider.Api.call( this, api );
+	function ImageInfo( api, options ) {
+		options = $.extend( {
+			language: null
+		}, options );
+
+		mw.mmv.provider.Api.call( this, api, options );
 	}
 	oo.inheritClass( ImageInfo, mw.mmv.provider.Api );
 
 	/**
 	 * List of imageinfo API properties which are needed to construct an Image model.
-	 * @type {string[]}
+	 * @type {string}
 	 */
 	ImageInfo.prototype.iiprop = [
 		'timestamp',
@@ -42,11 +48,11 @@
 		'mime',
 		'mediatype',
 		'extmetadata'
-	];
+	].join('|');
 
 	/**
 	 * List of imageinfo extmetadata fields which are needed to construct an Image model.
-	 * @type {string[]}
+	 * @type {string}
 	 */
 	ImageInfo.prototype.iiextmetadatafilter = [
 		'DateTime',
@@ -57,7 +63,7 @@
 		'Artist',
 		'GPSLatitude',
 		'GPSLongitude'
-	];
+	].join('|');
 
 	/**
 	 * @method
@@ -76,6 +82,7 @@
 				titles: file.getPrefixedDb(),
 				iiprop: this.iiprop,
 				iiextmetadatafilter: this.iiextmetadatafilter,
+				iiextmetadatalanguage: this.options.language,
 				format: 'json'
 			} ).then( function( data ) {
 				return provider.getQueryPage( file, data );

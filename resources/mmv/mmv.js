@@ -32,20 +32,6 @@
 			'tif': true
 		},
 
-		iiprops = [
-			'timestamp',
-			'user',
-			'userid',
-			'comment',
-			'url',
-			'size',
-			'sha1',
-			'mime',
-			'mediatype',
-			'metadata',
-			'extmetadata'
-		],
-
 		mmvLogActions = {
 			'thumbnail-link-click': 'User clicked on thumbnail to open lightbox.',
 			'enlarge-link-click': 'User clicked on enlarge link to open lightbox.',
@@ -115,33 +101,44 @@
 		this.api = new mw.Api();
 
 		/**
+		 * @property {mw.mmv.provider.ImageInfo}
+		 * @private
+		 */
+		this.imageInfoProvider = new mw.mmv.provider.ImageInfo( this.api, {
+			// Short-circuit, don't fallback, to save some tiny amount of time
+			language: mw.config.get( 'wgUserLanguage', false ) || mw.config.get( 'wgContentLanguage', 'en' )
+		} );
+
+		/**
+		 * @property {mw.mmv.provider.FileRepoInfo}
+		 * @private
+		 */
+		this.fileRepoInfoProvider = new mw.mmv.provider.FileRepoInfo( this.api );
+
+		/**
+		 * @property {mw.mmv.provider.ThumbnailInfo}
+		 * @private
+		 */
+		this.thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( this.api );
+
+		/**
 		 * @property {mw.mmv.provider.ImageUsage}
 		 * @private
 		 */
-		this.imageUsageDataProvider = new mw.mmv.provider.ImageUsage( this.api );
+		this.imageUsageProvider = new mw.mmv.provider.ImageUsage( this.api );
 
 		/**
 		 * @property {mw.mmv.provider.GlobalUsage}
 		 * @private
 		 */
-		this.globalUsageDataProvider = new mw.mmv.provider.GlobalUsage( this.api, {
+		this.globalUsageProvider = new mw.mmv.provider.GlobalUsage( this.api, {
 			doNotUseApi: !mw.config.get( 'wgMultimediaViewer' ).globalUsageAvailable
 		} );
 		// replace with this one to test global usage on a local wiki without going through all the
 		// hassle required for installing the extension:
-		//this.globalUsageDataProvider = new mw.mmv.provider.GlobalUsage(
+		//this.globalUsageProvider = new mw.mmv.provider.GlobalUsage(
 		//	new mw.Api( {ajax: { url: 'http://commons.wikimedia.org/w/api.php', dataType: 'jsonp' } } )
 		//);
-
-		/**
-		 * imageInfo object, used for caching - promises will resolve with
-		 * an mw.mmv.model.Image object, a repoInfo object, the best width for
-		 * the current screen configuration, and the width requested from
-		 * the server (if any).
-		 * @property {jQuery.Promise[]}
-		 * @private
-		 */
-		this.imageInfo = {};
 
 		// Traverse DOM, looking for potential thumbnails
 		$thumbs.each( function ( i, thumb ) {
@@ -339,7 +336,7 @@
 			fileTitle = this.currentImageFileTitle;
 
 		if ( fileTitle ) {
-			this.fetchImageInfo( fileTitle, [ 'url' ] ).done( function ( imageData, repoInfo, targetWidth, requestedWidth ) {
+			this.fetchImageInfo( fileTitle ).done( function ( imageData, repoInfo, targetWidth, requestedWidth ) {
 				viewer.loadResizedImage( ui, imageData, targetWidth, requestedWidth );
 			} );
 		}
@@ -396,21 +393,6 @@
 				viewer.log( 'defullscreen-link-click' );
 			}
 		} );
-	};
-
-	MMVP.cacheRepoInfo = function ( repos ) {
-		var i, repo;
-
-		repos = repos || [];
-
-		if ( this.repoInfo === undefined ) {
-			this.repoInfo = {};
-		}
-
-		for ( i = 0; i < repos.length; i++ ) {
-			repo = repos[i];
-			this.repoInfo[repo.name] = repo;
-		}
 	};
 
 	/**
@@ -750,93 +732,23 @@
 	 *
 	 * The target
 	 * @param {mw.Title} fileTitle Title of the file page for the image.
-	 * @param {string[]} [props] List of properties to get from imageinfo
 	 * @returns {jQuery.Promise}
 	 */
-	MMVP.fetchImageInfo = function ( fileTitle, props ) {
-		var filename = fileTitle.getPrefixedText(),
-			apiArgs = {
-				action: 'query',
-				format: 'json',
-				titles: filename,
-				prop: 'imageinfo',
-				// Short-circuit, don't fallback, to save some tiny amount of time
-				iiextmetadatalanguage: mw.config.get( 'wgUserLanguage', false ) || mw.config.get( 'wgContentLanguage', 'en' )
-			},
-			viewer = this,
-
-			widths = this.getImageSizeApiArgs( this.ui ),
+	MMVP.fetchImageInfo = function ( fileTitle ) {
+		var widths = this.getImageSizeApiArgs( this.ui ),
 			targetWidth = widths.target,
 			requestedWidth = widths.requested;
 
-		function handleApiData( data ) {
-			var imageInfo, imageData;
-
-			if ( !data || !data.query ) {
-				// No information, oh well
-				return $.Deferred().reject();
-			}
-
-			viewer.cacheRepoInfo( data.query.repos );
-			imageInfo = viewer.getFirst( data.query.pages );
-
-			if ( imageInfo ) {
-				imageData = mw.mmv.model.Image.newFromImageInfo( fileTitle, imageInfo );
-
-				// Give back the information we have
-				return $.Deferred().resolve( imageData, viewer.repoInfo, targetWidth, requestedWidth );
-			} else {
-				return $.Deferred().reject();
-			}
-		}
-
-		function makeImageInfoRequest( args ) {
-			if ( viewer.repoInfo === undefined ) {
-				args.meta = 'filerepoinfo';
-			}
-
-			return viewer.api.get( args ).then( handleApiData );
-		}
-
-		props = props || iiprops;
-		apiArgs.iiprop = props.join( '|' );
-		apiArgs.iiurlwidth = requestedWidth;
-
-		if ( this.imageInfo[filename] === undefined ) {
-			// Fetch all image info in the same API query, save a request later
-			apiArgs.iiprop = iiprops.join( '|' );
-			this.imageInfo[filename] = makeImageInfoRequest( apiArgs );
-			return this.imageInfo[filename];
-		} else if ( props.indexOf( 'url' ) === -1 ) {
-			// Just return the cached promise, because we don't need to
-			// fetch this information again.
-			return this.imageInfo[filename];
-		} else {
-			// Fetch the new thumb url but nothing else, because it's
-			// the only non-cacheable thing
-			apiArgs.iiprop = 'url';
-			return this.imageInfo[filename].then( function ( imageData, repoInfo ) {
-				var maybeThumb = imageData.getThumbUrl( requestedWidth );
-
-				// Thumbnail caching! Woo!
-				if ( maybeThumb ) {
-					return $.Deferred().resolve( imageData, repoInfo, targetWidth, requestedWidth );
-				}
-
-				return viewer.api.get( apiArgs ).then( function ( data ) {
-					var imageInfo, innerInfo;
-
-					imageInfo = viewer.getFirst( data.query.pages );
-					innerInfo = viewer.getFirst( imageInfo.imageinfo );
-
-					if ( innerInfo.thumburl ) {
-						imageData.addThumbUrl( innerInfo.thumbwidth, innerInfo.thumburl );
-					}
-
-					return $.Deferred().resolve( imageData, repoInfo, targetWidth, requestedWidth );
-				} );
-			} );
-		}
+		return $.when(
+			this.fileRepoInfoProvider.get(),
+			this.imageInfoProvider.get( fileTitle ),
+			this.thumbnailInfoProvider.get( fileTitle, requestedWidth )
+		).then( function( fileRepoInfoHash, imageInfo, thumbnailData ) {
+			var thumbnailUrl = thumbnailData[0],
+				thumbnailWidth = thumbnailData[1];
+			imageInfo.addThumbUrl( thumbnailWidth, thumbnailUrl );
+			return $.Deferred().resolve( imageInfo, fileRepoInfoHash, targetWidth, requestedWidth );
+		} );
 	};
 
 	/**
@@ -849,8 +761,8 @@
 	 */
 	MMVP.fetchFileUsageInfo = function ( fileTitle ) {
 		return $.when(
-			this.imageUsageDataProvider.get( fileTitle ),
-			this.globalUsageDataProvider.get( fileTitle )
+			this.imageUsageProvider.get( fileTitle ),
+			this.globalUsageProvider.get( fileTitle )
 		);
 	};
 
