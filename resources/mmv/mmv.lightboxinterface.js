@@ -848,7 +848,11 @@
 	LIP.updateControls = function ( showPrevButton, showNextButton ) {
 		var prevNextTop = ( ( this.$imageWrapper.height() / 2 ) - 60 ) + 'px';
 
-		this.$postDiv.css( 'top', this.$imageWrapper.height() );
+		if ( this.$main.data( 'isFullscreened' ) ) {
+			this.$postDiv.css( 'top', '' );
+		} else {
+			this.$postDiv.css( 'top', this.$imageWrapper.height() );
+		}
 
 		this.$nextButton.add( this.$prevButton ).css( {
 			top: prevNextTop

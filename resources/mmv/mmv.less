@@ -20,6 +20,7 @@
 @title-height: 64px;
 @drag-height: 18px;
 @bottom-height: (@title-height + @drag-height);
+@metadata-background: rgb(251, 251, 251);
 
 .mlb-image-wrapper,
 .mw-mlb-controls {
@@ -27,16 +28,48 @@
 	bottom: @bottom-height;
 }
 
-.jq-fullscreened .mlb-image-wrapper,
-.jq-fullscreened .mw-mlb-controls {
-	bottom: 0px;
+.jq-fullscreened {
+	.mlb-image-wrapper,
+	.mlb-post-image,
+	.mw-mlb-controls {
+		bottom: 0px;
+	}
+
+	.mw-mlb-drag-affordance {
+		display: none;
+	}
+
+	.mlb-post-image,
+	.mlb-controls {
+		@fullscreen-padding: 10px;
+		padding: (@fullscreen-padding / 2) 0;
+		height: (@title-height + @fullscreen-padding);
+		background-color: rgba(251, 251, 251, 0);
+		transition: background-color 0.25s;
+		min-height: 0;
+
+		&:hover {
+			background-color: @metadata-background;
+		}
+	}
+
+	.mlb-post-image {
+		position: fixed;
+	}
+
+	.mlb-controls {
+		opacity: 0;
+		transition: opacity 0.25s;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
 }
 
 .mlb-image-wrapper {
 	position: fixed;
 }
-
-@metadata-background: #fbfbfb;
 
 .mlb-post-image {
 	bottom: auto;
