@@ -24,7 +24,10 @@
 // do not pollute global namespace
 call_user_func( function() {
 	global $wgExtensionMessagesFiles, $wgResourceModules, $wgExtensionFunctions,
-		$wgAutoloadClasses, $wgHooks, $wgExtensionCredits;
+		$wgAutoloadClasses, $wgHooks, $wgExtensionCredits, $wgNetworkPerformanceSamplingFactor;
+
+	/** @var int|bool: If set, records image load network performance once per this many requests. False if unset. **/
+	$wgNetworkPerformanceSamplingFactor = false;
 
 	$wgExtensionMessagesFiles['MultimediaViewer'] = __DIR__ . '/MultimediaViewer.i18n.php';
 
@@ -298,6 +301,17 @@ call_user_func( function() {
 		),
 	), $moduleInfo( 'mmv' ) );
 
+	$wgResourceModules['mmv.performance'] = array_merge( array(
+		'scripts' => array(
+			'mmv.performance.js',
+		),
+
+		'dependencies' => array(
+			'jquery',
+			'mediawiki',
+		),
+	), $moduleInfo( 'mmv' ) );
+
 	$wgResourceModules['mmv'] = array_merge( array(
 		'scripts' => array(
 			'mmv.js',
@@ -327,6 +341,7 @@ call_user_func( function() {
 			'mmv.provider',
 			'mediawiki.language',
 			'mmv.multilightbox',
+			'mmv.performance',
 		),
 
 		'messages' => array(
@@ -440,15 +455,15 @@ call_user_func( function() {
 				'revision' => 6636420,
 			);
 
-			$wgResourceModules['schema.MediaViewerPerf'] = array(
+			$wgResourceModules['schema.MultimediaViewerNetworkPerformance'] = array(
 				'class' => 'ResourceLoaderSchemaModule',
-				'schema' => 'MediaViewerPerf',
-				'revision' => 6636500,
+				'schema' => 'MultimediaViewerNetworkPerformance',
+				'revision' => 7393226,
 			);
 
 			$wgResourceModules['mmv']['dependencies'][] = 'ext.eventLogging';
 			$wgResourceModules['mmv']['dependencies'][] = 'schema.MediaViewer';
-			$wgResourceModules['mmv']['dependencies'][] = 'schema.MediaViewerPerf';
+			$wgResourceModules['mmv']['dependencies'][] = 'schema.MultimediaViewerNetworkPerformance';
 		}
 	};
 

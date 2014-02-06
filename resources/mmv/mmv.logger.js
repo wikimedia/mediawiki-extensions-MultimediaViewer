@@ -32,19 +32,7 @@
 		'fullscreen-link-click': 'User clicked on fullscreen button in lightbox.',
 		'defullscreen-link-click': 'User clicked on button to return to normal lightbox view.',
 		'close-link-click': 'User clicked on the lightbox close button.',
-		'site-link-click': 'User clicked on the link to the file description page.',
-
-		// Profiling events start messages, $1 replaced with profile ID
-		'profile-image-load-start': 'Profiling image load with ID $1',
-		'profile-image-resize-start': 'Profiling image resize with ID $1',
-		'profile-metadata-fetch-start': 'Profiling image metadata fetch with ID $1',
-		'profile-gender-fetch-start': 'Profiling uploader gender fetch with ID $1',
-
-		// Profiling events end messages, $1 replaced with profile ID, $2 replaced with time it took in ms
-		'profile-image-load-end': 'Finished image load with ID $1 in $2 milliseconds',
-		'profile-image-resize-end': 'Finished image resize with ID $1 in $2 milliseconds',
-		'profile-metadata-fetch-end': 'Finished image metadata fetch with ID $1 in $2 milliseconds',
-		'profile-gender-fetch-end': 'Finished uploader gender fetch with ID $1 in $2 milliseconds'
+		'site-link-click': 'User clicked on the link to the file description page.'
 	};
 
 	/**

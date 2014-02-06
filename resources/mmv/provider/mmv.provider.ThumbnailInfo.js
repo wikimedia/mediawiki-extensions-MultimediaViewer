@@ -44,9 +44,11 @@
 	 */
 	ThumbnailInfo.prototype.get = function( file, width, height ) {
 		var provider = this,
-			cacheKey = file.getPrefixedDb() + '|' + ( width || '' ) + '|' + ( height || '' );
+			cacheKey = file.getPrefixedDb() + '|' + ( width || '' ) + '|' + ( height || '' ),
+			start;
 
 		if ( !this.cache[cacheKey] ) {
+			start = $.now();
 			this.cache[cacheKey] = this.api.get( {
 				action: 'query',
 				prop: 'imageinfo',
@@ -56,6 +58,7 @@
 				iiurlheight: height,
 				format: 'json'
 			} ).then( function( data ) {
+				provider.performance.recordEntry( 'thumbnailinfo', $.now() - start );
 				return provider.getQueryPage( file, data );
 			} ).then( function( page ) {
 				if ( page.imageinfo && page.imageinfo[0] ) {

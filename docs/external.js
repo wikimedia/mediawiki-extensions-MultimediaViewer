@@ -47,6 +47,11 @@
  */
 
 /**
+ * @class XMLHttpRequest
+ * An AJAX request
+ */
+
+/**
  * @class jQuery
  * A jQuery object.
  */

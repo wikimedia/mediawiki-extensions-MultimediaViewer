@@ -40,7 +40,8 @@
 	UserInfo.prototype.get = function( username, repoInfo ) {
 		var provider = this,
 			ajaxOptions = {},
-			cacheKey = username;
+			cacheKey = username,
+			start;
 
 		// For local/shared db images the user should be visible via a local API request,
 		// maybe. (In practice we have Wikimedia users who haven't completed the SUL
@@ -54,12 +55,14 @@
 		}
 
 		if ( !this.cache[cacheKey] ) {
+			start = $.now();
 			this.cache[cacheKey] = this.api.get( {
 				action: 'query',
 				list: 'users',
 				ususers: username,
 				usprop: 'gender'
 			}, ajaxOptions ).then( function( data ) {
+				provider.performance.recordEntry( 'filerepoinfo', $.now() - start );
 				return provider.getQueryField( 'users', data );
 			} ).then( function( users ) {
 				if ( users[0] && users[0].gender ) {

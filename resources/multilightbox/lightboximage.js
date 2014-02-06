@@ -38,7 +38,14 @@
 		ele = new Image();
 		ele.addEventListener( 'error', $deferred.reject );
 		ele.addEventListener( 'load', function() { $deferred.resolve( image, ele ); } );
-		ele.src = this.src || this.initialSrc;
+
+		if ( this.src !== this.initialSrc ) {
+			ele.src = this.src;
+		} else {
+			// Don't display the thumb, pretend that we did load the image
+			// This is a workaround until we decide whether we want to display a nicer version of the thumb or not
+			$deferred.resolve( image, ele );
+		}
 
 		lightboxHooks.callAll( 'modifyImageElement', ele );
 

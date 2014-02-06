@@ -74,9 +74,11 @@
 	 */
 	ImageInfo.prototype.get = function( file ) {
 		var provider = this,
-			cacheKey = file.getPrefixedDb();
+			cacheKey = file.getPrefixedDb(),
+			start;
 
 		if ( !this.cache[cacheKey] ) {
+			start = $.now();
 			this.cache[cacheKey] = this.api.get( {
 				action: 'query',
 				prop: 'imageinfo',
@@ -86,6 +88,7 @@
 				iiextmetadatalanguage: this.options.language,
 				format: 'json'
 			} ).then( function( data ) {
+				provider.performance.recordEntry( 'imageinfo', $.now() - start );
 				return provider.getQueryPage( file, data );
 			} ).then( function( page ) {
 				if ( page.imageinfo && page.imageinfo.length ) {

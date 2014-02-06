@@ -101,12 +101,13 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	public static function resourceLoaderGetConfigVars( &$vars ) {
-		global $wgAPIPropModules;
+		global $wgAPIPropModules, $wgNetworkPerformanceSamplingFactor;
 		$vars['wgMultimediaViewer'] = array(
 			'infoLink' => self::$infoLink,
 			'discussionLink' => self::$discussionLink,
 			'globalUsageAvailable' => isset( $wgAPIPropModules['globalusage'] ),
 		);
+		$vars['wgNetworkPerformanceSamplingFactor'] = $wgNetworkPerformanceSamplingFactor;
 		return true;
 	}
 
@@ -123,6 +124,7 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv.test.js',
 				'tests/qunit/mmv.model.test.js',
 				'tests/qunit/provider/mmv.provider.Api.test.js',
+				'tests/qunit/mmv.performance.test.js',
 				'tests/qunit/provider/mmv.provider.ImageUsage.test.js',
 				'tests/qunit/provider/mmv.provider.GlobalUsage.test.js',
 				'tests/qunit/provider/mmv.provider.ImageInfo.test.js',

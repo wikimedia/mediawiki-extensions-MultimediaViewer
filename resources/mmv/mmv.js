@@ -125,6 +125,12 @@
 		//	new mw.Api( {ajax: { url: 'http://commons.wikimedia.org/w/api.php', dataType: 'jsonp' } } )
 		//);
 
+		/**
+		 * @property {mw.mmv.performance}
+		 * @private
+		 */
+		this.performance = new mw.mmv.performance();
+
 		// Traverse DOM, looking for potential thumbnails
 		$thumbs.each( function ( i, thumb ) {
 			var thisImage, $thumbCaption, caption,
@@ -366,7 +372,7 @@
 	MMVP.loadResizedImage = function ( ui, imageData, targetWidth, requestedWidth ) {
 		// Replace image only if data was returned.
 		if ( imageData ) {
-			this.loadAndSetImage( ui, imageData, targetWidth, requestedWidth, 'image-resize' );
+			this.loadAndSetImage( ui, imageData, targetWidth, requestedWidth );
 		}
 	};
 
@@ -407,36 +413,30 @@
 	 * @param {mw.mmv.model.Image} imageData image information
 	 * @param {number} targetWidth
 	 * @param {number} requestedWidth
-	 * @param {string} profileEvent profile event key
 	 */
-	MMVP.loadAndSetImage = function ( ui, imageData, targetWidth, requestedWidth, profileEvent ) {
-		var rpid,
-			maybeThumb,
+	MMVP.loadAndSetImage = function ( ui, imageData, targetWidth, requestedWidth ) {
+		var maybeThumb,
 			viewer = this,
-			image = new Image();
-
-		image.onload = function () {
-			viewer.profileEnd( rpid );
-		};
-
-		rpid = this.profileStart( profileEvent, {
-			width: imageData.width,
-			height: imageData.height,
-			fileSize: imageData.size
-		}, imageData.mimeType );
+			image = new Image(),
+			src;
 
 		// Use cached image if we have it.
 		maybeThumb = imageData.getThumbUrl( requestedWidth );
-		image.src = maybeThumb || imageData.url;
 
-		if ( maybeThumb && requestedWidth > targetWidth ||
-			!maybeThumb && imageData.width > targetWidth ) {
-			// Image bigger than the current area, resize before loading
-			image.width = targetWidth;
-		}
+		src = maybeThumb || imageData.url;
 
-		ui.replaceImageWith( image );
-		this.updateControls();
+		this.performance.record( 'image', src ).then( function() {
+			image.src = src;
+
+			if ( maybeThumb && requestedWidth > targetWidth ||
+				!maybeThumb && imageData.width > targetWidth ) {
+				// Image bigger than the current area, resize before loading
+				image.width = targetWidth;
+			}
+
+			ui.replaceImageWith( image );
+			viewer.updateControls();
+		} );
 	};
 
 	/**
@@ -446,9 +446,7 @@
 	 * @param {string} initialSrc The string to set the src attribute to at first.
 	 */
 	MMVP.loadImage = function ( image, initialSrc ) {
-		var mdpid,
-			imageWidth,
-			gfpid,
+		var imageWidth,
 			viewer = this;
 
 		this.lightbox.currentIndex = image.index;
@@ -472,30 +470,23 @@
 
 		$( document.body ).addClass( 'mw-mlb-lightbox-open' );
 
-		mdpid = this.profileStart( 'metadata-fetch' );
-
 		imageWidth = this.getImageSizeApiArgs( this.ui );
 		this.fetchImageInfoRepoInfoAndFileUsageInfo(
 			image.filePageTitle, imageWidth.real
 		).then( function ( imageInfo, repoInfoHash, thumbnail, localUsage, globalUsage ) {
 			var repoInfo = repoInfoHash[imageInfo.repo];
 
-			viewer.profileEnd( mdpid );
-
 			viewer.stopListeningToScroll();
 			viewer.animateMetadataDivOnce()
 				// We need to wait until the animation is finished before we listen to scroll
 				.then( function() { viewer.startListeningToScroll(); } );
 
-			viewer.loadAndSetImage( viewer.lightbox.iface, imageInfo, imageWidth.css, imageWidth.real, 'image-load' );
+			viewer.loadAndSetImage( viewer.lightbox.iface, imageInfo, imageWidth.css, imageWidth.real );
 
 			viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
 
 			if ( imageInfo.lastUploader ) {
-				gfpid = viewer.profileStart( 'gender-fetch' );
-
 				viewer.userInfoProvider.get( imageInfo.lastUploader, repoInfo ).done( function ( gender ) {
-					viewer.profileEnd( gfpid );
 					viewer.lightbox.iface.panel.setImageInfo(
 						image, imageInfo, repoInfo, localUsage, globalUsage, gender );
 				} ).fail( function () {
@@ -607,78 +598,6 @@
 	MMVP.prevImage = function () {
 		this.loadIndex( this.lightbox.currentIndex - 1 );
 	};
-
-	( function () {
-		var profiling = {},
-			nonce = 0;
-
-		/**
-		 * Start profiling an event
-		 * @param {string} type Can be image-load, image-resize, metadata-fetch, gender-fetch
-		 * @param {Object} [imgSize] Size of image (for image related events)
-		 * @param {number} [imgSize.width] In pixels
-		 * @param {number} [imgSize.height] In pixels
-		 * @param {number} [imgSize.filesize] In bytes
-		 * @param {string} [fileType] File type (for image related events)
-		 * @param {number} [timeout] Optional timeout for the event.
-		 * @returns {number} The id used to finish the profiling
-		 */
-		MMVP.profileStart = function ( type, imgSize, fileType, timeout ) {
-			var thisid = nonce++;
-
-			imgSize = imgSize || {};
-
-			profiling[thisid] = {
-				/* Changelog:
-				 * 1.1 fixed the issue with zeros in every message
-				 * 1.0 first release
-				 */
-				version: '1.1',
-				action: type,
-				imageWidth: imgSize.width,
-				imageHeight: imgSize.height,
-				fileSize: imgSize.filesize,
-				fileType: fileType,
-				userAgent: navigator.userAgent,
-				start: Date.now()
-			};
-
-			mw.mmv.logger.log( 'profile-' + type + '-start', true, { '$1' : thisid } );
-
-			if ( timeout ) {
-				window.setTimeout( function () {
-					profiling[thisid] = undefined;
-				}, timeout );
-			}
-
-			return thisid;
-		};
-
-		/**
-		 * Signal the end of an event being profiled and send the
-		 * eventlogging message.
-		 * @param {number} id Should be the value returned from profileStart
-		 * @param {boolean} [fakeTime] For testing, whether to fake the time in the message. Time is zero if so.
-		 */
-		MMVP.profileEnd = function ( id, fakeTime ) {
-			var msg;
-
-			if ( profiling[id] ) {
-				msg = profiling[id];
-				msg.milliseconds = Date.now() - msg.start;
-				delete msg.start;
-
-				mw.mmv.logger.log( 'profile-' + msg.action + '-end',
-					true,
-					{ '$1' : id, '$2' : fakeTime ? 0 : msg.milliseconds } );
-
-				// EventLogging is a soft dependency.
-				if ( mw.eventLog ) {
-					mw.eventLog.logEvent( 'MediaViewerPerf', msg );
-				}
-			}
-		};
-	}() );
 
 	function handleHash() {
 		var statedIndex,

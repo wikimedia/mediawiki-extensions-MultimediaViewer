@@ -1,12 +1,4 @@
 ( function ( mw, $ ) {
-	var profileTests = [
-			[ 'image-load', 'Profiling image load with ID $1', 'Finished image load with ID $1 in $2 milliseconds', 200, 200, 120348, 'jpg' ],
-			[ 'image-resize', 'Profiling image resize with ID $1', 'Finished image resize with ID $1 in $2 milliseconds', 400, 400, 500000, 'png' ],
-			[ 'metadata-fetch', 'Profiling image metadata fetch with ID $1', 'Finished image metadata fetch with ID $1 in $2 milliseconds' ],
-			[ 'gender-fetch', 'Profiling uploader gender fetch with ID $1', 'Finished uploader gender fetch with ID $1 in $2 milliseconds' ]
-		];
-
-
 	QUnit.module( 'mmv', QUnit.newMwEnvironment() );
 
 	function createGallery( imageSrc ) {
@@ -145,84 +137,6 @@
 
 		// Clean up the viewer, to avoid seeing it catch events when running other tests
 		mw.mmvTestHelpers.resetViewer();
-	} );
-
-	QUnit.test( 'Profiling works as expected', ( 12 * profileTests.length ), function ( assert ) {
-		var i, pid, test, msgName, expectedMsg, expectedImageWidth,
-			expectedFileSize, expectedFileType, expectedImageHeight,
-			viewer = new mw.MultimediaViewer(),
-			backupLog = mw.log,
-			backupEventLog = mw.eventLog;
-
-		function checkLogging( msg ) {
-			assert.strictEqual( msg, expectedMsg, 'Message ' + msgName + ' is logged correctly.' );
-		}
-
-		function checkProfileEventLog( type, msg ) {
-			assert.strictEqual( type, 'MediaViewerPerf', 'EventLogging gets the right event type for profile message ' + msgName + '.' );
-			assert.strictEqual( msg.version, '1.1', 'EventLogging gets the right version number for profile message ' + msgName + '.' );
-			assert.strictEqual( msg.action, msgName, 'EventLogging gets the right action name for message ' + msgName + '.' );
-			assert.strictEqual( msg.start, undefined, 'MultimediaViewer#profileEnd deletes the event start time from ' + msgName + ' profiles sent to EventLogging.' );
-			assert.strictEqual( msg.fileSize, expectedFileSize, 'EventLogging sees the correct file size for ' + msgName + ' profiles.' );
-			assert.strictEqual( msg.fileType, expectedFileType, 'EventLogging sees the correct filetype for ' + msgName + ' profiles.' );
-			assert.strictEqual( msg.imageHeight, expectedImageHeight, 'EventLogging sees the correct image height for ' + msgName + ' profiles.' );
-			assert.strictEqual( msg.imageWidth, expectedImageWidth, 'EventLogging sees the correct image width for ' + msgName + ' profiles.' );
-			assert.strictEqual( msg.userAgent, navigator.userAgent, 'EventLogging logs the browser user-agent string for ' + msgName + ' profiles.' );
-		}
-
-		mw.log = checkLogging;
-		mw.eventLog = mw.eventLog || {};
-		mw.eventLog.logEvent = checkProfileEventLog;
-
-		for ( i = 0; i < profileTests.length; i++ ) {
-			test = profileTests[i];
-			msgName = test[0];
-
-			expectedMsg = test[1].replace( /\$1/g, i );
-			expectedImageWidth = test[3];
-			expectedImageHeight = test[4];
-			expectedFileSize = test[5];
-			expectedFileType = test[6];
-			pid = viewer.profileStart( msgName, { width: expectedImageWidth, height: expectedImageHeight, filesize: expectedFileSize }, expectedFileType );
-			assert.strictEqual( pid, i, 'nonce-style profile IDs come in order.' );
-
-			expectedMsg = test[2].replace( /\$1/g, i ).replace( /\$2/g, 0 );
-			viewer.profileEnd( pid, true );
-		}
-
-		mw.log = backupLog;
-		mw.eventLog = backupEventLog;
-
-		// Clean up the viewer, to avoid seeing it catch events when running other tests
-		mw.mmvTestHelpers.resetViewer();
-	} );
-
-	QUnit.asyncTest( 'Make sure we get sane values for the eventlogging timing', 2, function ( assert ) {
-		var pid,
-			continuing = true,
-			viewer = new mw.MultimediaViewer(),
-			backupEventLog = mw.eventLog;
-
-		mw.eventLog = {
-			logEvent: function ( schema, msg ) {
-				// msg.filesize has whatever value we set the timeout for.
-				assert.ok( msg.milliseconds >= msg.fileSize, 'Right amount of time elapsed for the ' + ( continuing ? 'first' : 'second' ) + ' profile.' );
-				if ( continuing ) {
-					continuing = false;
-					pid = viewer.profileStart( 'image-resize', { width: 20, height: 20, filesize: 80 }, 'png' );
-					window.setTimeout( function () { viewer.profileEnd( pid ); }, 80 );
-				} else {
-					mw.eventLog = backupEventLog;
-					QUnit.start();
-
-					// Clean up the viewer, to avoid seeing it catch events when running other tests
-					mw.mmvTestHelpers.resetViewer();
-				}
-			}
-		};
-
-		pid = viewer.profileStart( 'image-load', { width: 10, height: 10, filesize: 40 }, 'jpg' );
-		window.setTimeout( function () { viewer.profileEnd( pid ); }, 40 );
 	} );
 
 	QUnit.test( 'Ensure that the click callback is getting the appropriate initial value for image loading', 1, function ( assert ) {
@@ -387,11 +301,9 @@
 		mw.mmvTestHelpers.resetViewer();
 	} );
 
-	QUnit.asyncTest( 'loadAndSetImage(): Basic load', 9, function ( assert ) {
+	QUnit.asyncTest( 'loadAndSetImage(): Basic load', 3, function ( assert ) {
 		var targetWidth,
 			requestedWidth,
-			profileEvent,
-			pid = 4321,
 			viewer = new mw.MultimediaViewer(),
 			ui = new mw.LightboxInterface(),
 			size = 120,
@@ -407,35 +319,19 @@
 				'A person', 'Another person', 'CC-BY-SA-3.0', 0, 0
 			);
 
-		// Assert funtions are called with correct data
-		viewer.profileStart = function ( type, imgSize, fileType ) {
-			assert.strictEqual( type, profileEvent, 'Correct event type for profile start.' );
-			assert.strictEqual( imgSize.width, width, 'Correct width for profile start.' );
-			assert.strictEqual( imgSize.height, height, 'Correct height for profile start.' );
-			assert.strictEqual( imgSize.fileSize, size, 'Correct fileSize for profile start.' );
-			assert.strictEqual( fileType, 'image/jpeg', 'Correct fileType for profile start.' );
-
-			return pid;
-		};
-		viewer.profileEnd = function ( id ) {
-			assert.strictEqual( id, pid, 'Correct pid to end profiling. Image loaded correctly.' );
-			QUnit.start();
-		};
 		ui.replaceImageWith = function ( image ) {
 			assert.strictEqual( image.src, imageUrl, 'Image to replace has correct "src" attribute.' );
 			assert.strictEqual( image.width, targetWidth, 'Image to replace has correct "width" attribute.' );
 		};
 		viewer.updateControls = function () {
 			assert.ok( true, 'Controls updated.' );
+			QUnit.start();
 		};
 
 		// Test case when image loaded is bigger than current area
 		targetWidth = 8; // Current area < imageData.width
 		requestedWidth = 640;
-		profileEvent = 'image-load';
-		viewer.loadAndSetImage( ui, imageData, targetWidth, requestedWidth, profileEvent );
-
-		// Clean up the viewer, to avoid seeing it catch events when running other tests
+		viewer.loadAndSetImage( ui, imageData, targetWidth, requestedWidth );
 		mw.mmvTestHelpers.resetViewer();
 	} );
 
