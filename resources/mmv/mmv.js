@@ -652,7 +652,7 @@
 		mdpid = this.profileStart( 'metadata-fetch' );
 
 		this.fetchImageInfoAndFileUsageInfo( image.filePageTitle ).then( function ( imageData, repoInfo, targetWidth, requestedWidth, localUsage, globalUsage ) {
-			var repoData = mw.mmv.model.Repo.newFromRepoInfo( repoInfo[imageData.repo] );
+			var repoData = repoInfo[imageData.repo];
 
 			viewer.profileEnd( mdpid );
 
