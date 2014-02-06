@@ -122,6 +122,12 @@
 		this.thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( this.api );
 
 		/**
+		 * @property {mw.mmv.provider.UserInfo}
+		 * @private
+		 */
+		this.userInfoProvider = new mw.mmv.provider.UserInfo( this.api );
+
+		/**
 		 * @property {mw.mmv.provider.ImageUsage}
 		 * @private
 		 */
@@ -438,32 +444,11 @@
 		if ( imageData.lastUploader ) {
 			gfpid = this.profileStart( 'gender-fetch' );
 
-			// TODO: Reuse the api member, fix everywhere.
-			// Fetch the gender from the uploader's home wiki
-			// TODO this is ugly as hell, let's fix this in core.
-			new mw.Api( {
-				ajax: {
-					url: repoData.apiUrl || mw.util.wikiScript( 'api' ),
-					dataType: 'jsonp'
-				}
-			} ).get( {
-				action: 'query',
-				list: 'users',
-				ususers: imageData.lastUploader,
-				usprop: 'gender'
-			} ).done( function ( data ) {
-				var gender = 'unknown';
-
+			this.userInfoProvider.get( imageData.lastUploader, repoData ).done( function ( gender ) {
 				viewer.profileEnd( gfpid );
-
-				if ( data && data.query && data.query.users &&
-						data.query.users[0] && data.query.users[0].gender ) {
-					gender = data.query.users[0].gender;
-				}
-
 				ui.setUserPageLink( repoData, imageData.lastUploader, gender );
 			} ).fail( function () {
-				mw.log( 'Gender fetch with ID ' + gfpid + ' failed, probably due to cross-domain API request.' );
+				mw.log( 'Gender fetch with ID ' + gfpid + ' failed' );
 				ui.setUserPageLink( repoData, imageData.lastUploader, 'unknown' );
 			} );
 		}

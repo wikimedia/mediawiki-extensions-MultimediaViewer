@@ -152,6 +152,7 @@ call_user_func( function() {
 			'mmv.provider.ImageInfo.js',
 			'mmv.provider.FileRepoInfo.js',
 			'mmv.provider.ThumbnailInfo.js',
+			'mmv.provider.UserInfo.js',
 			'mmv.provider.Image.js',
 		),
 
@@ -237,6 +238,7 @@ call_user_func( function() {
 			'mmv.lightboximage',
 			'jquery.fullscreen',
 			'jquery.throttle.debounce',
+			'mediawiki.api',
 			'mediawiki.Uri',
 			'mediawiki.Title',
 			'jquery.ui.dialog',

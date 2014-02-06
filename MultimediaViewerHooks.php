@@ -128,6 +128,7 @@ class MultimediaViewerHooks {
 				'tests/qunit/provider/mmv.provider.ImageInfo.test.js',
 				'tests/qunit/provider/mmv.provider.FileRepoInfo.test.js',
 				'tests/qunit/provider/mmv.provider.ThumbnailInfo.test.js',
+				'tests/qunit/provider/mmv.provider.UserInfo.test.js',
 				'tests/qunit/provider/mmv.provider.Image.test.js',
 				'tests/qunit/mmv.lightboxinterface.test.js',
 				'tests/qunit/mmv.ui.categories.test.js',
