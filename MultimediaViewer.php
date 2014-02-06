@@ -237,6 +237,7 @@ call_user_func( function() {
 			'mmv.lightboximage',
 			'jquery.fullscreen',
 			'jquery.throttle.debounce',
+			'mediawiki.api',
 			'mediawiki.Uri',
 			'mediawiki.Title',
 			'jquery.ui.dialog',
