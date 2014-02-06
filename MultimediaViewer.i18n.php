@@ -1091,6 +1091,18 @@ $messages['mr'] = array(
 	'multimediaviewer-desc-nil' => 'वर्णन उपलब्ध नाही',
 );
 
+/** Malay (Bahasa Melayu)
+ * @author Anakmalaysia
+ */
+$messages['ms'] = array(
+	'multimediaviewer-license-pd' => 'Domain Awam',
+	'multimediaviewer-fileusage-count' => 'Digunakan di $1 halaman',
+	'multimediaviewer-fileusage-count-more' => 'Digunakan di lebih daripada $1 halaman',
+	'multimediaviewer-fileusage-link' => 'Lihat semua kegunaan',
+	'multimediaviewer-fileusage-local-section' => 'Di laman ini',
+	'multimediaviewer-fileusage-global-section' => 'Di laman-laman lain',
+);
+
 /** Neapolitan (Napulitano)
  * @author Chelin
  */
