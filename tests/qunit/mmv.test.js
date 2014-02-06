@@ -125,20 +125,6 @@
 		mw.mmvTestHelpers.resetViewer();
 	} );
 
-	QUnit.test( 'Do not load the resized image if no data returning from the api', 1, function ( assert ) {
-		var ui,
-			data,
-			viewer = new mw.MultimediaViewer();
-
-		// Calling loadResizedImage() with empty/undefined data should not fail.
-		viewer.loadResizedImage( ui, data );
-
-		assert.ok( true, 'Resized image is not replaced since we have not data.' );
-
-		// Clean up the viewer, to avoid seeing it catch events when running other tests
-		mw.mmvTestHelpers.resetViewer();
-	} );
-
 	QUnit.test( 'Ensure that the click callback is getting the appropriate initial value for image loading', 1, function ( assert ) {
 		var imgSrc = '300px-valid.jpg',
 			div = createGallery( imgSrc ),
@@ -205,19 +191,6 @@
 		mw.mmvTestHelpers.resetViewer();
 	} );
 
-	QUnit.test( 'We get sane image sizes when we ask for them', 5, function ( assert ) {
-		var viewer = new mw.MultimediaViewer();
-
-		assert.strictEqual( viewer.findNextHighestImageSize( 200 ), 320, 'Low target size gives us lowest possible size bucket' );
-		assert.strictEqual( viewer.findNextHighestImageSize( 320 ), 320, 'Asking for a bucket size gives us exactly that bucket size' );
-		assert.strictEqual( viewer.findNextHighestImageSize( 320.00001 ), 640, 'Asking for greater than an image bucket definitely gives us the next size up' );
-		assert.strictEqual( viewer.findNextHighestImageSize( 2000 ), 2560, 'The image bucketing also works on big screens' );
-		assert.strictEqual( viewer.findNextHighestImageSize( 3000 ), 2880, 'The image bucketing also works on REALLY big screens' );
-
-		// Clean up the viewer, to avoid seeing it catch events when running other tests
-		mw.mmvTestHelpers.resetViewer();
-	} );
-
 	QUnit.test( 'Metadata div is only animated once', 4, function ( assert ) {
 		var viewer = new mw.MultimediaViewer(),
 			backupAnimation = $.fn.animate,
@@ -262,50 +235,10 @@
 		mw.mmvTestHelpers.resetViewer();
 	} );
 
-	QUnit.test( 'getImageSizeApiArgs(): Limited by height and limited by width', 4, function ( assert ) {
-		var widths,
-			viewer = new mw.MultimediaViewer(),
-			ui = new mw.LightboxInterface( viewer );
-
-		// Fake thumbnail, width/height == 1.5
-		ui.currentImage = {
-			thumbnail: {
-				height: 100,
-				width: 150
-			}
-		};
-
-		ui.attach( '#qunit-fixture' );
-
-		// Fake viewport dimensions, width/height == 2.0, we are limited by height
-		ui.$imageWrapper.height( 200 );
-		ui.$imageWrapper.width( 400 );
-
-		widths = viewer.getImageSizeApiArgs( ui );
-
-		assert.strictEqual( widths.css, 150/100*200, 'Correct CSS width was computed.' );
-		assert.strictEqual( widths.real, 320 * $.devicePixelRatio(), 'Correct real width was computed.' );
-
-		// Fake viewport dimensions, width/height == 1.0, we are limited by width
-		ui.$imageWrapper.height( 600 );
-		ui.$imageWrapper.width( 600 );
-
-		widths = viewer.getImageSizeApiArgs( ui );
-
-		assert.strictEqual( widths.css, 600, 'Correct CSS width was computed.' );
-		assert.strictEqual( widths.real, 640 * $.devicePixelRatio(), 'Correct real width was computed.' );
-
-		ui.unattach();
-
-		// Clean up the viewer, to avoid seeing it catch events when running other tests
-		mw.mmvTestHelpers.resetViewer();
-	} );
-
 	QUnit.asyncTest( 'loadAndSetImage(): Basic load', 3, function ( assert ) {
-		var targetWidth,
-			requestedWidth,
+		var widths = new mw.mmv.model.ThumbnailWidth( 8, 8, 640 ), // Current area < imageData.width
 			viewer = new mw.MultimediaViewer(),
-			ui = new mw.LightboxInterface(),
+			ui = new mw.LightboxInterface( viewer ),
 			size = 120,
 			width = 10,
 			height = 11,
@@ -321,7 +254,7 @@
 
 		ui.replaceImageWith = function ( image ) {
 			assert.strictEqual( image.src, imageUrl, 'Image to replace has correct "src" attribute.' );
-			assert.strictEqual( image.width, targetWidth, 'Image to replace has correct "width" attribute.' );
+			assert.strictEqual( image.width, widths.css, 'Image to replace has correct "width" attribute.' );
 		};
 		viewer.updateControls = function () {
 			assert.ok( true, 'Controls updated.' );
@@ -329,9 +262,7 @@
 		};
 
 		// Test case when image loaded is bigger than current area
-		targetWidth = 8; // Current area < imageData.width
-		requestedWidth = 640;
-		viewer.loadAndSetImage( ui, imageData, targetWidth, requestedWidth );
+		viewer.loadAndSetImage( ui, imageData, widths );
 		mw.mmvTestHelpers.resetViewer();
 	} );
 

@@ -31,6 +31,12 @@
 
 		this.eventsRegistered = {};
 
+		/**
+		 * Copy of {@link mw.MultimediaViewer#thumbnailWidthCalculator}
+		 * @property {mw.mmv.ThumbnailWidthCalculator}
+		 */
+		this.thumbnailWidthCalculator = viewer.thumbnailWidthCalculator;
+
 		this.initializeInterface();
 	}
 
@@ -361,6 +367,20 @@
 
 		this.revealButtonsAndFadeIfNeeded();
 	};
+
+	/**
+	 * Gets the API arguments for various calls to the API to find sized thumbnails.
+	 * @returns {Object}
+	 * @returns {number} return.real The width that should be requested from the API
+	 * @returns {number} return.css The ideal width we would like to have - should be the width of the image element later.
+	 */
+	LIP.getImageSizeApiArgs = function () {
+		var thumb = this.currentImage.thumbnail;
+
+		return this.thumbnailWidthCalculator.calculateWidths(
+			this.$imageWrapper.width(), this.$imageWrapper.height(), thumb.width, thumb.height );
+	};
+
 
 	mw.LightboxInterface = LightboxInterface;
 }( mediaWiki, jQuery, OO, window.LightboxInterface ) );
