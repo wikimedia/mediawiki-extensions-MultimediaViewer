@@ -1115,9 +1115,9 @@ $messages['nap'] = array(
  * @author Siebrand
  */
 $messages['nl'] = array(
-	'multimediaviewer-desc' => 'Miniatuurafbeeldingen groter weergeven in een Lightbox.',
+	'multimediaviewer-desc' => 'Miniatuurafbeeldingen groter weergeven in een Lightbox.', # Fuzzy
 	'multimediaviewer-pref' => 'Mediaviewer',
-	'multimediaviewer-pref-desc' => "Verbeteren uw multimediaervaring met dit nieuwe instrument. Afbeeldingen worden groter weergegeven op pagina's met miniaturen. Afbeeldingen worden weergegeven in een Lightbox en kunnen ook worden bekeken op ware grootte.",
+	'multimediaviewer-pref-desc' => "Verbeteren uw multimediaervaring met dit nieuwe instrument. Afbeeldingen worden groter weergegeven op pagina's met miniaturen. Afbeeldingen worden weergegeven in een Lightbox en kunnen ook worden bekeken op ware grootte.", # Fuzzy
 	'multimediaviewer-file-page' => 'Naar de bestandspagina gaan',
 	'multimediaviewer-repository' => 'Meer informatie over $1',
 	'multimediaviewer-datetime-created' => 'Aangemaakt op $1',
@@ -1131,6 +1131,9 @@ $messages['nl'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Gebruik dit bestand op een andere website',
 	'multimediaviewer-about-mmv' => 'Over Mediaviewer',
 	'multimediaviewer-discuss-mmv' => 'Terugkoppeling achterlaten',
+	'multimediaviewer-geolocation' => 'Locatie: $1',
+	'multimediaviewer-fileusage-count' => "Gebruikt op $1 {{PLURAL:$1|pagina|pagina's}}",
+	'multimediaviewer-fileusage-count-more' => "Gebruikt in meer dan $1 {{PLURAL:$1|pagina's}}",
 );
 
 /** Occitan (occitan)
@@ -1326,6 +1329,7 @@ $messages['sr-ec'] = array(
 
 /** Swedish (svenska)
  * @author Ainali
+ * @author Jopparn
  * @author Lokal Profil
  * @author NH
  * @author WikiPhoenix
@@ -1343,8 +1347,8 @@ $messages['sv'] = array(
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Uppladdad}} av $1',
 	'multimediaviewer-license-cc-by-4.0' => 'CC BY 4.0',
 	'multimediaviewer-license-cc-by-sa-4.0' => 'CC BY-SA 4.0',
-	'multimediaviewer-license-cc-pd' => 'Allmän egendom',
-	'multimediaviewer-license-pd' => 'Allmän egendom',
+	'multimediaviewer-license-cc-pd' => 'Public Domain',
+	'multimediaviewer-license-pd' => 'Public Domain',
 	'multimediaviewer-license-default' => 'Visa licens',
 	'multimediaviewer-use-file' => 'Använd denna fil',
 	'multimediaviewer-use-file-owt' => 'Använd denna fil på en wikisida, som en miniatyr',
