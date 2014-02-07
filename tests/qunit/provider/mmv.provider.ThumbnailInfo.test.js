@@ -25,7 +25,7 @@
 		assert.ok( thumbnailInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'ThumbnailInfo get test', 5, function ( assert ) {
+	QUnit.asyncTest( 'ThumbnailInfo get test', 7, function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function() {
 				apiCallCount++;
@@ -54,11 +54,12 @@
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
 
-		thumbnailInfoProvider.get( file, 100 ).then( function( thumnailUrl, thumbnailWidth ) {
-			assert.strictEqual( thumnailUrl,
+		thumbnailInfoProvider.get( file, 100 ).then( function( thumbnail ) {
+			assert.strictEqual( thumbnail.url,
 				'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Stuff.jpg/51px-Stuff.jpg',
 				'URL is set correctly' );
-			assert.strictEqual( thumbnailWidth, 95, 'actual width is set correctly' );
+			assert.strictEqual( thumbnail.width, 95, 'actual width is set correctly' );
+			assert.strictEqual( thumbnail.height, 200, 'actual height is set correctly' );
 		} ).then( function() {
 			assert.strictEqual( apiCallCount, 1 );
 			// call the data provider a second time to check caching
@@ -69,6 +70,10 @@
 			return thumbnailInfoProvider.get( file, 110 );
 		} ).then( function() {
 			assert.strictEqual( apiCallCount, 2 );
+			// call it again, with a height specified, to check caching
+			return thumbnailInfoProvider.get( file, 110, 100 );
+		} ).then( function() {
+			assert.strictEqual( apiCallCount, 3 );
 			QUnit.start();
 		} );
 	} );
@@ -127,6 +132,30 @@
 		thumbnailInfoProvider.get( file ).fail( function( errorMessage ) {
 			assert.strictEqual(errorMessage, 'file does not exist: File:Stuff.jpg',
 				'error message is set correctly for missing file');
+			QUnit.start();
+		} );
+	} );
+
+	QUnit.asyncTest( 'ThumbnailInfo fail test 3', 1, function ( assert ) {
+		var api = { get: function() {
+				return $.Deferred().resolve( {
+					query: {
+						pages: {
+							'-1': {
+								title: 'File:Stuff.jpg',
+								imageinfo: [
+									{}
+								]
+							}
+						}
+					}
+				} );
+			} },
+			file = new mw.Title( 'File:Stuff.jpg' ),
+			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
+
+		thumbnailInfoProvider.get( file, 100 ).fail( function() {
+			assert.ok( true, 'promise rejected when thumbnail info is missing' );
 			QUnit.start();
 		} );
 	} );
