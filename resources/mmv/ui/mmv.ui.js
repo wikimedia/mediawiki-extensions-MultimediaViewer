@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw ) {
+( function ( mw, $ ) {
 	/**
 	 * @class mw.mmv.ui.Element
 	 * @abstract
@@ -26,6 +26,9 @@
 	function Element( $container ) {
 		/** @property {jQuery} $container The element that contains the UI element. */
 		this.$container = $container;
+
+		/** @property {Object<string, string[]>} eventsRegistered Events that this element has registered with the DOM. */
+		this.eventsRegistered = {};
 	}
 
 	/**
@@ -74,6 +77,37 @@
 	 */
 	Element.prototype.empty = function () {};
 
+	/**
+	 * @method
+	 * Add event handler in a way that will be auto-cleared on lightbox close
+	 * @param {string} name Name of event, like 'keydown'
+	 * @param {Function} handler Callback for the event
+	 */
+	Element.prototype.handleEvent = function ( name, handler ) {
+		if ( this.eventsRegistered[name] === undefined ) {
+			this.eventsRegistered[name] = [];
+		}
+		this.eventsRegistered[name].push( handler );
+		$( document ).on( name, handler );
+	};
+
+	/**
+	 * @method
+	 * Remove all events that have been registered on this element.
+	 */
+	Element.prototype.clearEvents = function () {
+		var i, handlers, thisevent,
+			events = Object.keys( this.eventsRegistered );
+
+		for ( i = 0; i < events.length; i++ ) {
+			thisevent = events[i];
+			handlers = this.eventsRegistered[thisevent];
+			while ( handlers.length > 0 ) {
+				$( document ).off( thisevent, handlers.pop() );
+			}
+		}
+	};
+
 	mw.mmv.ui = {};
 	mw.mmv.ui.Element = Element;
-}( mediaWiki ) );
+}( mediaWiki, jQuery ) );

@@ -1,25 +1,4 @@
 ( function ( mw, $ ) {
-	var thingsShouldBeEmptied = [
-			'$license',
-			'$title',
-			'$credit',
-			'$username',
-			'$location',
-			'$repo',
-			'$datetime'
-		],
-
-		thingsShouldHaveEmptyClass = [
-			'$license',
-			'$credit',
-			'$usernameLi',
-			'$locationLi',
-			'$repoLi',
-			'$datetimeLi',
-			'$useFileLi',
-			'$imageDiv'
-		];
-
 	QUnit.module( 'mmv.lightboxInterface', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Sanity test, object creation and ui construction', 14, function ( assert ) {
@@ -53,23 +32,6 @@
 		checkIfUIAreasAttachedToDocument(0);
 	} );
 
-	QUnit.test( 'The interface is emptied properly when necessary', thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length + 1, function ( assert ) {
-		var i,
-			lightbox = new mw.LightboxInterface( mw.mediaViewer );
-
-		lightbox.empty();
-
-		for ( i = 0; i < thingsShouldBeEmptied.length; i++ ) {
-			assert.strictEqual( lightbox[thingsShouldBeEmptied[i]].text(), '', 'We successfully emptied the ' + thingsShouldBeEmptied[i] + ' element' );
-		}
-
-		for ( i = 0; i < thingsShouldHaveEmptyClass.length; i++ ) {
-			assert.ok( lightbox[thingsShouldHaveEmptyClass[i]].hasClass( 'empty' ), 'We successfully applied the empty class to the ' + thingsShouldHaveEmptyClass[i] + ' element' );
-		}
-
-		assert.ok( !lightbox.$dragIcon.hasClass( 'pointing-down' ), 'We successfully reset the chevron' );
-	} );
-
 	QUnit.test( 'Handler registration and clearance work OK', 2, function ( assert ) {
 		var lightbox = new mw.LightboxInterface( mw.mediaViewer ),
 			handlerCalls = 0;
@@ -84,41 +46,6 @@
 		lightbox.clearEvents();
 		$( document ).trigger( 'test' );
 		assert.strictEqual( handlerCalls, 1, 'The handler was not called after calling lightbox.clearEvents().' );
-	} );
-
-	QUnit.test( 'Setting repository information in the UI works as expected', 3, function ( assert ) {
-		var lightbox = new mw.LightboxInterface( mw.mediaViewer );
-
-		lightbox.setRepoDisplay( 'Example Wiki' );
-		assert.strictEqual( lightbox.$repo.text(), 'Learn more on Example Wiki', 'Text set to something useful for remote wiki - if this fails it might be because of localisation' );
-
-		lightbox.setRepoDisplay();
-		assert.strictEqual( lightbox.$repo.text(), 'Learn more on ' + mw.config.get( 'wgSiteName' ), 'Text set to something useful for local wiki - if this fails it might be because of localisation' );
-
-		lightbox.setFilePageLink( 'https://commons.wikimedia.org/wiki/File:Foobar.jpg' );
-		assert.strictEqual( lightbox.$repo.prop( 'href' ), 'https://commons.wikimedia.org/wiki/File:Foobar.jpg', 'The file link was set successfully.' );
-	} );
-
-	QUnit.test( 'Setting location information works as expected', 2, function ( assert ) {
-		var lightbox = new mw.LightboxInterface( mw.mediaViewer );
-
-		lightbox.setLocationData(
-			50, 10, 20, 'multimediaviewer-geoloc-north',
-			70, 30, 40, 'multimediaviewer-geoloc-east',
-			12.3456789, 98.7654321, 'en', 'Foobar.jpg'
-		);
-
-		assert.strictEqual(
-			lightbox.$location.text(),
-			'Location: 50° 10′ 20″ N, 70° 30′ 40″ E',
-			'Location text is set as expected - if this fails it may be due to i18n issues.'
-		);
-
-		assert.strictEqual(
-			lightbox.$location.prop( 'href' ),
-			'http://tools.wmflabs.org/geohack/geohack.php?pagename=File:Foobar.jpg&params=12.3456789_N_98.7654321_E_&language=en',
-			'Location URL is set as expected'
-		);
 	} );
 
 	QUnit.test( 'Fullscreen mode', 8, function ( assert ) {
@@ -140,7 +67,7 @@
 		lightbox.viewer.lightbox = lightbox;
 
 		assert.ok( !lightbox.isFullscreen, 'Lightbox knows that it\'s not in fullscreen mode' );
-		assert.ok( lightbox.$imageMetadata.is( ':visible' ), 'Image metadata is visible' );
+		assert.ok( lightbox.panel.$imageMetadata.is( ':visible' ), 'Image metadata is visible' );
 
 		lightbox.fadeOutButtons = function() {
 			assert.ok( true, 'Opening fullscreen triggers a fadeout' );
@@ -169,12 +96,12 @@
 
 		lightbox.revealButtonsAndFadeIfNeeded = $.noop;
 
-		assert.ok( !lightbox.$imageMetadata.is( ':visible' ), 'Image metadata is hidden' );
+		assert.ok( !lightbox.panel.$imageMetadata.is( ':visible' ), 'Image metadata is hidden' );
 
 		// Exit fullscreen
 		lightbox.$fullscreenButton.click();
 
-		assert.ok( lightbox.$imageMetadata.is( ':visible' ), 'Image metadata is visible' );
+		assert.ok( lightbox.panel.$imageMetadata.is( ':visible' ), 'Image metadata is visible' );
 		assert.ok( !lightbox.isFullscreen, 'Lightbox knows that it\'s not in fullscreen mode' );
 
 		// Unattach lightbox from document
@@ -282,15 +209,15 @@
 		lightbox.load( { getImageElement: function() { return $.Deferred().reject(); } } );
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0, 'scrollTo scrollTop should be set to 0' );
-		assert.ok( !lightbox.$dragIcon.hasClass( 'pointing-down' ),
+		assert.ok( !lightbox.panel.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing up' );
 
 		keydown.which = 38; // Up arrow
 		$document.trigger( keydown );
 
-		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ), lightbox.$imageMetadata.height() + 1,
+		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ), lightbox.panel.$imageMetadata.height() + 1,
 			'scrollTo scrollTop should be set to the metadata height + 1 after pressing up arrow' );
-		assert.ok( lightbox.$dragIcon.hasClass( 'pointing-down' ),
+		assert.ok( lightbox.panel.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing down after pressing up arrow' );
 
 		keydown.which = 40; // Down arrow
@@ -298,21 +225,21 @@
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0,
 			'scrollTo scrollTop should be set to 0 after pressing down arrow' );
-		assert.ok( !lightbox.$dragIcon.hasClass( 'pointing-down' ),
+		assert.ok( !lightbox.panel.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing up after pressing down arrow' );
 
-		lightbox.$dragIcon.click();
+		lightbox.panel.$dragIcon.click();
 
-		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ), lightbox.$imageMetadata.height() + 1,
+		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ), lightbox.panel.$imageMetadata.height() + 1,
 			'scrollTo scrollTop should be set to the metadata height + 1 after clicking the chevron once' );
-		assert.ok( lightbox.$dragIcon.hasClass( 'pointing-down' ),
+		assert.ok( lightbox.panel.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing down after clicking the chevron once' );
 
-		lightbox.$dragIcon.click();
+		lightbox.panel.$dragIcon.click();
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0,
 			'scrollTo scrollTop should be set to 0 after clicking the chevron twice' );
-		assert.ok( !lightbox.$dragIcon.hasClass( 'pointing-down' ),
+		assert.ok( !lightbox.panel.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing up after clicking the chevron twice' );
 
 		// Unattach lightbox from document

@@ -45,6 +45,10 @@
 
 		this.empty();
 
+		if ( !categories || !categories.length ) {
+			return;
+		}
+
 		// We filter the categories first, because we need to know which category is the last
 		// in order to insert the commas properly
 		categories = $.grep( categories, function( cat ) {

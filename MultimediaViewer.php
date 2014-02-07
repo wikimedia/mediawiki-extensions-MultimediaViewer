@@ -88,6 +88,7 @@ call_user_func( function() {
 			'mmv.ui.categories',
 			'mmv.ui.description',
 			'mmv.ui.fileUsage',
+			'mmv.ui.metadataPanel',
 		),
 	), $moduleInfo( 'mmv' ) );
 
@@ -232,6 +233,71 @@ call_user_func( function() {
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 
+	$wgResourceModules['mmv.ui.metadataPanel'] = array_merge( array(
+		'scripts' => array(
+			'mmv.ui.metadataPanel.js',
+		),
+		// Note: We should pull these styles out, but the LESS patch should get merged first.
+//		'styles' => array(
+//			'mmv.ui.metadataPanel.less',
+//		),
+
+		'dependencies' => array(
+			'mmv.ui',
+			'mmv.ui.fileReuse',
+			'oojs',
+			'momentjs',
+		),
+
+		'messages' => array(
+			'multimediaviewer-repository',
+			'multimediaviewer-repository-local',
+
+			'multimediaviewer-credit',
+
+			'multimediaviewer-userpage-link',
+
+			'multimediaviewer-datetime-created',
+			'multimediaviewer-datetime-uploaded',
+
+			'multimediaviewer-geoloc-north',
+			'multimediaviewer-geoloc-east',
+			'multimediaviewer-geoloc-south',
+			'multimediaviewer-geoloc-west',
+			'multimediaviewer-geoloc-coord',
+			'multimediaviewer-geoloc-coords',
+			'multimediaviewer-geolocation',
+
+			'multimediaviewer-about-mmv',
+			'multimediaviewer-discuss-mmv',
+		),
+	), $moduleInfo( 'mmv/ui' ) );
+
+	$wgResourceModules['mmv.ui.fileReuse'] = array_merge( array(
+		'scripts' => array(
+			'mmv.ui.fileReuse.js',
+		),
+
+		'styles' => array(
+			'mmv.ui.fileReuse.less',
+		),
+
+		'dependencies' => array(
+			'mmv.ui',
+			'oojs',
+		),
+	), $moduleInfo( 'mmv/ui' ) );
+
+	$wgResourceModules['mmv.logger'] = array_merge( array(
+		'scripts' => array(
+			'mmv.logger.js',
+		),
+
+		'dependencies' => array(
+			'oojs',
+		),
+	), $moduleInfo( 'mmv' ) );
+
 	$wgResourceModules['mmv'] = array_merge( array(
 		'scripts' => array(
 			'mmv.js',
@@ -242,8 +308,8 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
+			'mmv.logger',
 			'multilightbox',
-			'momentjs',
 			'jquery.scrollTo',
 			'mmv.lightboximage',
 			'jquery.fullscreen',
@@ -267,27 +333,11 @@ call_user_func( function() {
 			'comma-separator',
 
 			'multimediaviewer-file-page',
-			'multimediaviewer-repository',
-			'multimediaviewer-repository-local',
-			'multimediaviewer-datetime-created',
-			'multimediaviewer-datetime-uploaded',
-			'multimediaviewer-userpage-link',
-			'multimediaviewer-credit',
 			'multimediaviewer-use-file',
 			'multimediaviewer-use-file-owt',
 			'multimediaviewer-use-file-own',
 			'multimediaviewer-use-file-offwiki',
-			'multimediaviewer-about-mmv',
-			'multimediaviewer-discuss-mmv',
 			'multimediaviewer-desc-nil',
-
-			'multimediaviewer-geoloc-north',
-			'multimediaviewer-geoloc-east',
-			'multimediaviewer-geoloc-south',
-			'multimediaviewer-geoloc-west',
-			'multimediaviewer-geoloc-coord',
-			'multimediaviewer-geoloc-coords',
-			'multimediaviewer-geolocation',
 
 			'multimediaviewer-fileusage-count',
 			'multimediaviewer-fileusage-count-more',
