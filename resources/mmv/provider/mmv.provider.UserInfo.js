@@ -62,7 +62,7 @@
 				ususers: username,
 				usprop: 'gender'
 			}, ajaxOptions ).then( function( data ) {
-				provider.performance.recordEntry( 'filerepoinfo', $.now() - start );
+				provider.performance.recordEntry( 'userinfo', $.now() - start );
 				return provider.getQueryField( 'users', data );
 			} ).then( function( users ) {
 				if ( users[0] && users[0].gender ) {
