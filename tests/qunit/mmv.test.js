@@ -1,15 +1,5 @@
 ( function ( mw, $ ) {
-	var logTests = [
-			[ 'thumbnail-link-click', 'User clicked on thumbnail to open lightbox.' ],
-			[ 'enlarge-link-click', 'User clicked on enlarge link to open lightbox.' ],
-			[ 'fullscreen-link-click', 'User clicked on fullscreen button in lightbox.' ],
-			[ 'defullscreen-link-click', 'User clicked on button to return to normal lightbox view.' ],
-			[ 'close-link-click', 'User clicked on the lightbox close button.' ],
-			[ 'site-link-click', 'User clicked on the link to the file description page.' ],
-			[ 'Something happened', 'Something happened' ]
-		],
-
-		profileTests = [
+	var profileTests = [
 			[ 'image-load', 'Profiling image load with ID $1', 'Finished image load with ID $1 in $2 milliseconds', 200, 200, 120348, 'jpg' ],
 			[ 'image-resize', 'Profiling image resize with ID $1', 'Finished image resize with ID $1 in $2 milliseconds', 400, 400, 500000, 'png' ],
 			[ 'metadata-fetch', 'Profiling image metadata fetch with ID $1', 'Finished image metadata fetch with ID $1 in $2 milliseconds' ],
@@ -152,40 +142,6 @@
 		viewer.loadResizedImage( ui, data );
 
 		assert.ok( true, 'Resized image is not replaced since we have not data.' );
-
-		// Clean up the viewer, to avoid seeing it catch events when running other tests
-		mw.mmvTestHelpers.resetViewer();
-	} );
-
-	QUnit.test( 'Logging works as expected', 4 * logTests.length, function ( assert ) {
-		var i, test, msgName, expectedMsg,
-			viewer = new mw.MultimediaViewer(),
-			backupLog = mw.log,
-			backupEventLog = mw.eventLog;
-
-		function checkLogging( msg ) {
-			assert.strictEqual( msg, expectedMsg, 'Message ' + msgName + ' is logged correctly.' );
-		}
-
-		function checkLoggingEventLog( type, event ) {
-			assert.strictEqual( type, 'MediaViewer', 'Eventlogging gets the right event type for message ' + msgName + '.' );
-			assert.strictEqual( event.version, '1.1', 'Eventlogging gets the right version number for message ' + msgName + '.' );
-			assert.strictEqual( event.action, msgName, 'Eventlogging gets the right action name for message ' + msgName + '.' );
-		}
-
-		mw.log = checkLogging;
-		mw.eventLog = mw.eventLog || {};
-		mw.eventLog.logEvent = checkLoggingEventLog;
-
-		for ( i = 0; i < logTests.length; i++ ) {
-			test = logTests[i];
-			msgName = test[0];
-			expectedMsg = test[1];
-			viewer.log( msgName );
-		}
-
-		mw.log = backupLog;
-		mw.eventLog = backupEventLog;
 
 		// Clean up the viewer, to avoid seeing it catch events when running other tests
 		mw.mmvTestHelpers.resetViewer();
@@ -387,107 +343,6 @@
 
 		viewer.whitelistHtml( $sandbox.empty().append( nwljq ) );
 		assert.strictEqual( $sandbox.html(), whitelisted, 'Not-whitelisted elements are removed.' );
-
-		// Clean up the viewer, to avoid seeing it catch events when running other tests
-		mw.mmvTestHelpers.resetViewer();
-	} );
-
-	QUnit.test( 'The location data is set correctly', 11, function ( assert ) {
-		var viewer,
-			origlatitude = '39.40192938201',
-			origlongitude = '-117.908329012',
-			imageData = new mw.mmv.model.Image(
-				mw.Title.newFromText( 'File:Foobar.jpg' ),
-				10, 10, 10, 'image/jpeg', 'http://example.org', 'http://example.com',
-				'example', 'tester', '2013-11-10', '2013-11-09', 'Blah blah blah',
-				'A person', 'Another person', 'CC-BY-SA-3.0', origlatitude, origlongitude
-			);
-
-		createGallery();
-		viewer = new mw.MultimediaViewer();
-
-		viewer.lightbox.iface.setLocationData = function (
-			latdeg, latmin, latsec, latmsg,
-			longdeg, longmin, longsec, longmsg,
-			latitude, longitude, langcode, titleText
-		) {
-			assert.strictEqual( latdeg, 39, 'Degree count is correct (latitude)' );
-			assert.strictEqual( latmin, 24, 'Minute count is correct (latitude)' );
-			assert.strictEqual( latsec, 6.95, 'Second count is correct (latitude)' );
-			assert.strictEqual( latmsg, 'multimediaviewer-geoloc-north', 'Cardinal direction is correct (latitude)' );
-			assert.strictEqual( longdeg, 117, 'Degree count is correct (longitude)' );
-			assert.strictEqual( longmin, 54, 'Minute count is correct (longitude)' );
-			assert.strictEqual( longsec, 29.98, 'Second count is correct (longitude)' );
-			assert.strictEqual( longmsg, 'multimediaviewer-geoloc-west', 'Cardinal direction is correct (longitude)' );
-			assert.strictEqual( latitude, origlatitude, 'Original latitude is passed in' );
-			assert.strictEqual( longitude, origlongitude, 'Original longitude is passed in' );
-			assert.strictEqual( titleText, 'Foobar.jpg', 'Filename is passed in correctly' );
-		};
-
-		viewer.setLocationData( imageData );
-
-		// Clean up the viewer, to avoid seeing it catch events when running other tests
-		mw.mmvTestHelpers.resetViewer();
-	} );
-
-	QUnit.test( 'The location data is set correctly with weird values', 11, function ( assert ) {
-		var viewer,
-			origlatitude = '0',
-			origlongitude = '0',
-			imageData = new mw.mmv.model.Image(
-				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ),
-				10, 10, 10, 'image/jpeg', 'http://example.org', 'http://example.com',
-				'example', 'tester', '2013-11-10', '2013-11-09', 'Blah blah blah',
-				'A person', 'Another person', 'CC-BY-SA-3.0', origlatitude, origlongitude
-			);
-
-		createGallery();
-		viewer = new mw.MultimediaViewer();
-
-		viewer.lightbox.iface.setLocationData = function (
-			latdeg, latmin, latsec, latmsg,
-			longdeg, longmin, longsec, longmsg,
-			latitude, longitude, langcode, titleText
-		) {
-			assert.strictEqual( latdeg, 0, 'Degree count is correct (latitude)' );
-			assert.strictEqual( latmin, 0, 'Minute count is correct (latitude)' );
-			assert.strictEqual( latsec, 0, 'Second count is correct (latitude)' );
-			assert.strictEqual( latmsg, 'multimediaviewer-geoloc-north', 'Cardinal direction is correct (latitude)' );
-			assert.strictEqual( longdeg, 0, 'Degree count is correct (longitude)' );
-			assert.strictEqual( longmin, 0, 'Minute count is correct (longitude)' );
-			assert.strictEqual( longsec, 0, 'Second count is correct (longitude)' );
-			assert.strictEqual( longmsg, 'multimediaviewer-geoloc-east', 'Cardinal direction is correct (longitude)' );
-			assert.strictEqual( latitude, origlatitude, 'Original latitude is passed in' );
-			assert.strictEqual( longitude, origlongitude, 'Original longitude is passed in' );
-			assert.strictEqual( titleText, 'Foobar.pdf.jpg', 'Filename is passed in correctly' );
-		};
-
-		viewer.setLocationData( imageData );
-
-		// Clean up the viewer, to avoid seeing it catch events when running other tests
-		mw.mmvTestHelpers.resetViewer();
-	} );
-
-	QUnit.test( 'The location data is not set if no value is passed in', 1, function ( assert ) {
-		var viewer,
-			called = false,
-			imageData = new mw.mmv.model.Image(
-				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ),
-				10, 10, 10, 'image/jpeg', 'http://example.org', 'http://example.com',
-				'example', 'tester', '2013-11-10', '2013-11-09', 'Blah blah blah',
-				'A person', 'Another person', 'CC-BY-SA-3.0'
-			);
-
-		createGallery();
-		viewer = new mw.MultimediaViewer();
-
-		viewer.lightbox.iface.setLocationData = function () {
-			called = true;
-		};
-
-		viewer.setLocationData( imageData );
-
-		assert.strictEqual( called, false, 'The interface data-setter method is not called if there are no coordinates available for the image.' );
 
 		// Clean up the viewer, to avoid seeing it catch events when running other tests
 		mw.mmvTestHelpers.resetViewer();

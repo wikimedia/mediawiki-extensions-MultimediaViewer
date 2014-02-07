@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, moment ) {
+( function ( mw, $ ) {
 	var MultiLightbox, lightboxHooks, MMVP,
 
 		comingFromPopstate = false,
@@ -30,27 +30,6 @@
 			'png': true,
 			'tiff': true,
 			'tif': true
-		},
-
-		mmvLogActions = {
-			'thumbnail-link-click': 'User clicked on thumbnail to open lightbox.',
-			'enlarge-link-click': 'User clicked on enlarge link to open lightbox.',
-			'fullscreen-link-click': 'User clicked on fullscreen button in lightbox.',
-			'defullscreen-link-click': 'User clicked on button to return to normal lightbox view.',
-			'close-link-click': 'User clicked on the lightbox close button.',
-			'site-link-click': 'User clicked on the link to the file description page.',
-
-			// Profiling events start messages, $1 replaced with profile ID
-			'profile-image-load-start': 'Profiling image load with ID $1',
-			'profile-image-resize-start': 'Profiling image resize with ID $1',
-			'profile-metadata-fetch-start': 'Profiling image metadata fetch with ID $1',
-			'profile-gender-fetch-start': 'Profiling uploader gender fetch with ID $1',
-
-			// Profiling events end messages, $1 replaced with profile ID, $2 replaced with time it took in ms
-			'profile-image-load-end': 'Finished image load with ID $1 in $2 milliseconds',
-			'profile-image-resize-end': 'Finished image resize with ID $1 in $2 milliseconds',
-			'profile-metadata-fetch-end': 'Finished image metadata fetch with ID $1 in $2 milliseconds',
-			'profile-gender-fetch-end': 'Finished uploader gender fetch with ID $1 in $2 milliseconds'
 		};
 
 	/**
@@ -340,9 +319,9 @@
 				initial = $thumbContain.find( 'img' ).prop( 'src' );
 
 		if ( $clickedEle.is( 'a.image' ) ) {
-			this.log( 'thumbnail-link-click' );
+			mw.mmv.logger.log( 'thumbnail-link-click' );
 		} else if ( $clickedEle.is( '.magnify a' ) ) {
-			this.log( 'enlarge-link-click' );
+			mw.mmv.logger.log( 'enlarge-link-click' );
 		}
 
 		e.preventDefault();
@@ -407,183 +386,16 @@
 				viewer.ui.$dialog.dialog( 'close' );
 			}
 
-			viewer.log( 'close-link-click' );
+			mw.mmv.logger.log( 'close-link-click' );
 		} );
 
 		this.ui.$fullscreenButton.click( function () {
 			if ( viewer.ui.isFullscreen ) {
-				viewer.log( 'fullscreen-link-click' );
+				mw.mmv.logger.log( 'fullscreen-link-click' );
 			} else {
-				viewer.log( 'defullscreen-link-click' );
+				mw.mmv.logger.log( 'defullscreen-link-click' );
 			}
 		} );
-	};
-
-	/**
-	 * @method
-	 * Get first (hopefully only) member of an object.
-	 * @param {Array|Object} things
-	 * @returns {Mixed}
-	 */
-	MMVP.getFirst = function ( things ) {
-		var thing;
-
-		if ( things ) {
-			$.each( things, function ( i, thisone ) {
-				thing = thisone;
-				return false;
-			} );
-		}
-
-		return thing;
-	};
-
-	/**
-	 * @method
-	 * Set the image information in the UI.
-	 * @param {mw.LightboxImage} image
-	 * @param {mw.mmv.model.Image} imageData
-	 * @param {mw.mmv.model.Repo} repoData
-	 * @param {mw.mmv.model.FileUsage} localUsage
-	 * @param {mw.mmv.model.FileUsage} globalUsage
-	 */
-	MMVP.setImageInfo = function ( image, imageData, repoData, localUsage, globalUsage ) {
-		var gfpid,
-			msgname,
-			fileTitle = image.filePageTitle,
-			caption = image.caption,
-			viewer = this,
-			ui = this.lightbox.iface;
-
-		ui.$title.text( fileTitle.getNameText() );
-
-		ui.initUseFileData( fileTitle, imageData.url, repoData.isLocal );
-		ui.$useFileLi.removeClass( 'empty' );
-
-		ui.setRepoDisplay( repoData.displayName, repoData.favIcon, repoData.isLocal );
-		ui.setFilePageLink( imageData.descriptionUrl );
-
-		ui.$repoLi.removeClass( 'empty' );
-
-		if ( imageData.lastUploader ) {
-			gfpid = this.profileStart( 'gender-fetch' );
-
-			this.userInfoProvider.get( imageData.lastUploader, repoData ).done( function ( gender ) {
-				viewer.profileEnd( gfpid );
-				ui.setUserPageLink( repoData, imageData.lastUploader, gender );
-			} ).fail( function () {
-				mw.log( 'Gender fetch with ID ' + gfpid + ' failed' );
-				ui.setUserPageLink( repoData, imageData.lastUploader, 'unknown' );
-			} );
-		}
-
-		if ( imageData.creationDateTime ) {
-			ui.$datetime.text(
-				mw.message(
-					'multimediaviewer-datetime-created',
-					this.formatDate( imageData.creationDateTime )
-				).text()
-			);
-		} else if ( imageData.uploadDateTime ) {
-			ui.$datetime.text(
-				mw.message(
-					'multimediaviewer-datetime-uploaded',
-					this.formatDate( imageData.uploadDateTime )
-				).text()
-			);
-		}
-
-		ui.$datetimeLi.toggleClass( 'empty', !imageData.uploadDateTime && !imageData.creationDateTime );
-
-		if ( imageData.source ) {
-			this.whitelistHtml( ui.$source.empty().append( $.parseHTML( imageData.source ) ) );
-		}
-
-		if ( imageData.author ) {
-			this.whitelistHtml( ui.$author.empty().append( $.parseHTML( imageData.author ) ) );
-		}
-
-		if ( imageData.source && imageData.author ) {
-			ui.$credit.html(
-				mw.message(
-					'multimediaviewer-credit',
-					ui.$author.get( 0 ).outerHTML,
-					ui.$source.get( 0 ).outerHTML
-				).plain()
-			);
-		} else {
-			// Clobber the contents and only have one of the fields
-			if ( imageData.source ) {
-				ui.$credit.empty().append( ui.$source );
-			} else if ( imageData.author ) {
-				ui.$credit.empty().append( ui.$author );
-			}
-		}
-
-		ui.$credit.toggleClass( 'empty', !imageData.source && !imageData.author );
-
-		ui.description.set( imageData.description, caption );
-		ui.categories.set( repoData.getArticlePath(), imageData.categories );
-
-		msgname = 'multimediaviewer-license-' + ( imageData.license || '' );
-
-		if ( !imageData.license || !mw.messages.exists( msgname ) ) {
-			// Cannot display, fallback or fail
-			msgname = 'multimediaviewer-license-default';
-		} else {
-			// License found, store the license data
-			ui.$license.data( 'license', mw.message( msgname ).text() );
-		}
-
-		ui.$license
-			.text( mw.message( msgname ).text() )
-			.toggleClass( 'cc-license', imageData.isCcLicensed() );
-
-		ui.$license.toggleClass( 'empty', !imageData.license );
-
-		this.setLocationData( imageData );
-		ui.$locationLi.toggleClass( 'empty', !imageData.hasCoords() );
-
-		ui.fileUsage.set( localUsage, globalUsage );
-	};
-
-	/**
-	 * @method
-	 * Sets location data in the interface.
-	 * @param {mw.mmv.model.Image} imageData
-	 */
-	MMVP.setLocationData = function ( imageData ) {
-		var latsec, latitude, latmsg, latdeg, latremain, latmin,
-			longsec, longitude, longmsg, longdeg, longremain, longmin;
-
-		if ( !imageData.hasCoords() ) {
-			return;
-		}
-
-		latitude = imageData.latitude >= 0 ? imageData.latitude : imageData.latitude * -1;
-		latmsg = 'multimediaviewer-geoloc-' + ( imageData.latitude >= 0 ? 'north' : 'south' );
-		latdeg = Math.floor( latitude );
-		latremain = latitude - latdeg;
-		latmin = Math.floor( ( latremain ) * 60 );
-
-		longitude = imageData.longitude >= 0 ? imageData.longitude : imageData.longitude * -1;
-		longmsg = 'multimediaviewer-geoloc-' + ( imageData.longitude >= 0 ? 'east' : 'west' );
-		longdeg = Math.floor( longitude );
-		longremain = longitude - longdeg;
-		longmin = Math.floor( ( longremain ) * 60 );
-
-		longremain -= longmin / 60;
-		latremain -= latmin / 60;
-		latsec = Math.round( latremain * 100 * 60 * 60 ) / 100;
-		longsec = Math.round( longremain * 100 * 60 * 60 ) / 100;
-
-		this.lightbox.iface.setLocationData(
-			latdeg, latmin, latsec, latmsg,
-			longdeg, longmin, longsec, longmsg,
-			imageData.latitude, imageData.longitude,
-			this.getFirst( Object.keys( mw.language.data ) ),
-			imageData.title.getMain()
-		);
 	};
 
 	/**
@@ -636,6 +448,7 @@
 	MMVP.loadImage = function ( image, initialSrc ) {
 		var mdpid,
 			imageWidth,
+			gfpid,
 			viewer = this;
 
 		this.lightbox.currentIndex = image.index;
@@ -677,7 +490,22 @@
 			viewer.loadAndSetImage( viewer.lightbox.iface, imageInfo, imageWidth.css, imageWidth.real, 'image-load' );
 
 			viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
-			viewer.setImageInfo( image, imageInfo, repoInfo, localUsage, globalUsage );
+
+			if ( imageInfo.lastUploader ) {
+				gfpid = viewer.profileStart( 'gender-fetch' );
+
+				viewer.userInfoProvider.get( imageInfo.lastUploader, repoInfo ).done( function ( gender ) {
+					viewer.profileEnd( gfpid );
+					viewer.lightbox.iface.panel.setImageInfo(
+						image, imageInfo, repoInfo, localUsage, globalUsage, gender );
+				} ).fail( function () {
+					viewer.lightbox.iface.panel.setImageInfo(
+						image, imageInfo, repoInfo, localUsage, globalUsage, 'unknown' );
+				} );
+			} else {
+				viewer.lightbox.iface.panel.setImageInfo(
+					image, imageInfo, repoInfo, localUsage, globalUsage );
+			}
 		} );
 
 		comingFromPopstate = false;
@@ -724,7 +552,7 @@
 	 * Receives the window's scroll events and flips the chevron if necessary.
 	 */
 	MMVP.scroll = function () {
-		this.ui.$dragIcon.toggleClass( 'pointing-down', !!$.scrollTo().scrollTop() );
+		this.ui.panel.$dragIcon.toggleClass( 'pointing-down', !!$.scrollTo().scrollTop() );
 	};
 
 	/**
@@ -780,17 +608,6 @@
 		this.loadIndex( this.lightbox.currentIndex - 1 );
 	};
 
-	MMVP.log = function ( action ) {
-		mw.log( mmvLogActions[action] || action );
-
-		if ( mw.eventLog ) {
-			mw.eventLog.logEvent( 'MediaViewer', {
-				version: '1.1',
-				action: action
-			} );
-		}
-	};
-
 	( function () {
 		var profiling = {},
 			nonce = 0;
@@ -826,7 +643,7 @@
 				start: Date.now()
 			};
 
-			mw.log( mmvLogActions['profile-' + type + '-start'].replace( /\$1/g, thisid ) );
+			mw.mmv.logger.log( 'profile-' + type + '-start', true, { '$1' : thisid } );
 
 			if ( timeout ) {
 				window.setTimeout( function () {
@@ -851,32 +668,17 @@
 				msg.milliseconds = Date.now() - msg.start;
 				delete msg.start;
 
-				mw.log(
-					mmvLogActions['profile-' + msg.action + '-end']
-						.replace( /\$1/g, id )
-						.replace( /\$2/g, fakeTime ? 0 : msg.milliseconds )
-				);
+				mw.mmv.logger.log( 'profile-' + msg.action + '-end',
+					true,
+					{ '$1' : id, '$2' : fakeTime ? 0 : msg.milliseconds } );
 
+				// EventLogging is a soft dependency.
 				if ( mw.eventLog ) {
 					mw.eventLog.logEvent( 'MediaViewerPerf', msg );
 				}
 			}
 		};
 	}() );
-
-	/**
-	 * Transforms a date string into localized, human-readable format.
-	 * Unrecognized strings are returned unchanged.
-	 * @param {string} dateString
-	 * @return {string}
-	 */
-	MMVP.formatDate = function ( dateString ) {
-		var date = moment( dateString );
-		if ( !date.isValid() ) {
-			return dateString;
-		}
-		return date.format( 'LL' );
-	};
 
 	function handleHash() {
 		var statedIndex,
@@ -911,4 +713,4 @@
 	} );
 
 	mw.MultimediaViewer = MultimediaViewer;
-}( mediaWiki, jQuery, moment ) );
+}( mediaWiki, jQuery ) );
