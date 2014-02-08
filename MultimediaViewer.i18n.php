@@ -988,6 +988,7 @@ $messages['lb'] = array(
 	'multimediaviewer-geolocation' => 'Plaz: $1',
 	'multimediaviewer-fileusage-count' => 'op {{PLURAL:$1|enger Säit|$1 Säite}} benotzt',
 	'multimediaviewer-fileusage-count-more' => 'Op méi wéi {{PLURAL:$1|enger Säit|$1 Säite}} benotzt',
+	'multimediaviewer-fileusage-link' => 'All Benotzunge weisen',
 	'multimediaviewer-fileusage-local-section' => 'Op dësem Site',
 	'multimediaviewer-fileusage-global-section' => 'Op anere Siten',
 );
