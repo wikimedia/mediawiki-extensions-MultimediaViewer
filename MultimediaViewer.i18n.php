@@ -555,14 +555,20 @@ $messages['et'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Üleslaadimisaeg: $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Üleslaadija:}} $1',
 	'multimediaviewer-license-cc-pd' => 'Avalik omand',
+	'multimediaviewer-license-pd' => 'Avalik omand',
 	'multimediaviewer-license-default' => 'Vaata litsentsi',
 	'multimediaviewer-use-file' => 'Kasuta seda faili',
-	'multimediaviewer-use-file-owt' => 'Kas seda faili vikileheküljel pisipildina',
+	'multimediaviewer-use-file-owt' => 'Kasuta seda faili vikileheküljel pisipildina',
 	'multimediaviewer-use-file-own' => 'Viita sellele failile vikilehekülje tekstis',
 	'multimediaviewer-use-file-offwiki' => 'Kasuta seda faili teises võrgukohas',
 	'multimediaviewer-about-mmv' => 'Failivaaturist',
 	'multimediaviewer-discuss-mmv' => 'Anna tagasisidet',
 	'multimediaviewer-geolocation' => 'Asukoht: $1',
+	'multimediaviewer-fileusage-count' => 'Kasutuses {{PLURAL:$1|ühel|$1}} leheküljel',
+	'multimediaviewer-fileusage-count-more' => 'Kasutuses rohkem kui {{PLURAL:$1|ühel|$1}} leheküljel',
+	'multimediaviewer-fileusage-link' => 'Vaata kõiki kasutusi',
+	'multimediaviewer-fileusage-local-section' => 'Selles võrgukohas',
+	'multimediaviewer-fileusage-global-section' => 'Teistes võrgukohtades',
 );
 
 /** Persian (فارسی)
@@ -675,7 +681,7 @@ $messages['gl'] = array(
 	'multimediaviewer-pref' => 'Visor de ficheiros multimedia',
 	'multimediaviewer-pref-desc' => 'Mellore a súa experiencia de visualización de ficheiros multimedia con esta nova ferramenta. Mostra as imaxes nun tamaño maior nas páxinas que teñen miniaturas. As imaxes móstranse nun visor a pantalla completa agradable e as imaxes tamén se poden ver a tamaño completo.',
 	'multimediaviewer-file-page' => 'Ir á páxina de ficheiro correspondente',
-	'multimediaviewer-repository' => 'Máis información sobre $1',
+	'multimediaviewer-repository' => 'Máis información en $1',
 	'multimediaviewer-repository-local' => 'Máis información',
 	'multimediaviewer-datetime-created' => 'Creado o $1',
 	'multimediaviewer-datetime-uploaded' => 'Cargado o $1',
@@ -692,7 +698,7 @@ $messages['gl'] = array(
 	'multimediaviewer-geolocation' => 'Localización: $1',
 	'multimediaviewer-fileusage-count' => 'Empregada {{PLURAL:$1|nunha páxina|en $1 páxinas}}',
 	'multimediaviewer-fileusage-count-more' => 'Empregada en máis de $1 {{PLURAL:$1|páxinas}}',
-	'multimediaviewer-fileusage-link' => 'Ver todos os usuarios',
+	'multimediaviewer-fileusage-link' => 'Ver todos os usos',
 	'multimediaviewer-fileusage-local-section' => 'Neste sitio',
 	'multimediaviewer-fileusage-global-section' => 'Noutros sitios',
 );
@@ -1109,6 +1115,8 @@ $messages['ms'] = array(
  */
 $messages['nap'] = array(
 	'multimediaviewer-repository-local' => "Ppe saperne 'e cchiù",
+	'multimediaviewer-license-pd' => 'Pubbreco duminio',
+	'multimediaviewer-fileusage-local-section' => "Ncopp'â chisto sito",
 );
 
 /** Dutch (Nederlands)
