@@ -79,7 +79,3 @@
 .mlb-main.jq-fullscreened {
 	background-color: black;
 }
-
-.jq-fullscreened .mlb-fullscreen {
-	background-image: url("../img/defullscreen.svg");
-}
