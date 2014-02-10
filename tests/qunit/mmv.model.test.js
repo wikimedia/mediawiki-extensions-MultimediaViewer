@@ -129,4 +129,21 @@
 			assert.ok( e, 'Exception is thrown when parameters are missing');
 		}
 	} );
+
+	QUnit.test( 'ThumbnailWidth constructor sanity check', 4, function ( assert ) {
+		var cssWidth = 23,
+			screenWidth = 42,
+			realWidth = 123,
+			thumbnailWidth = new mw.mmv.model.ThumbnailWidth( cssWidth, screenWidth, realWidth );
+
+		assert.strictEqual( thumbnailWidth.css, cssWidth, 'Url is set correctly' );
+		assert.strictEqual( thumbnailWidth.screen, screenWidth, 'Width is set correctly' );
+		assert.strictEqual( thumbnailWidth.real, realWidth, 'Height is set correctly' );
+
+		try {
+			thumbnailWidth = new mw.mmv.model.ThumbnailWidth( cssWidth, screenWidth );
+		} catch (e) {
+			assert.ok( e, 'Exception is thrown when parameters are missing');
+		}
+	} );
 }( mediaWiki ) );

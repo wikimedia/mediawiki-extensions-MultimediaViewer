@@ -58,26 +58,16 @@
 			viewer = this;
 
 		/**
-		 * @property {number[]}
-		 * @private
-		 * List of acceptable image sizes...used to bucket
-		 */
-		this.imageWidthBuckets = [
-			320,
-			640,
-			800,
-			1024,
-			1280,
-			1920,
-			2560,
-			2880
-		];
-
-		/**
 		 * @property {mw.Api}
 		 * @private
 		 */
 		this.api = new mw.Api();
+
+		/**
+		 * @type {mw.mmv.ThumbnailWidthCalculator}
+		 * @private
+		 */
+		this.thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator();
 
 		/**
 		 * @property {mw.mmv.provider.ImageInfo}
@@ -232,80 +222,6 @@
 	};
 
 	/**
-	 * Finds the next highest image size given a target size.
-	 * Searches the bucketed sizes configured in the class.
-	 * @param {number} target
-	 * @return {number}
-	 */
-	MMVP.findNextHighestImageSize = function ( target ) {
-		var i, bucket,
-			buckets = this.imageWidthBuckets,
-			len = buckets.length;
-
-		for ( i = 0; i < len; i++ ) {
-			bucket = buckets[i];
-
-			if ( bucket >= target ) {
-				return bucket;
-			}
-		}
-
-		// If we failed to find a high enough size...good luck
-		return bucket;
-	};
-
-	/**
-	 * Gets the API arguments for various calls to the API to find sized thumbnails.
-	 * @param {mw.LightboxInterface} ui
-	 * @returns {Object}
-	 * @returns {number} return.real The width that should be requested from the API
-	 * @returns {number} return.css The ideal width we would like to have - should be the width of the image element later.
-	 */
-	MMVP.getImageSizeApiArgs = function ( ui ) {
-		var thumb = ui.currentImage.thumbnail;
-
-		return this.getThumbnailWidth( ui.$imageWrapper.width(), ui.$imageWrapper.height(),
-			thumb.width, thumb.height );
-	};
-
-	/**
-	 * Finds the largest width for an image so that it will still fit into a given bounding box,
-	 * based on the size of a sample (some smaller version of the same image, like the thumbnail
-	 * shown in the article) which is used to calculate the ratio.
-	 *
-	 * Returns two values, a CSS width which is the size in pixels that should be used so the image
-	 * fits exactly into the bounding box, and a real width which should be the size of the
-	 * downloaded image in pixels. The two will be different for two reasons:
-	 * - images are bucketed for more efficient caching, so the real width will always be one of
-	 *   the numbers in this.imageWidthBuckets
-	 * - for devices with high pixel density (multiple actual pixels per CSS pixel) we want to use a
-	 *   larger image so that there will be roughly one image pixel per physical display pixel
-	 *
-	 * @param {number} boundingWidth width of the bounding box
-	 * @param {number} boundingHeight height of the bounding box
-	 * @param {number} sampleWidth width of the sample image
-	 * @param {number} sampleHeight height of the sample image
-	 * @return {{css: number, real: number}} 'css' field will contain the width of the
-	 *     thumbnail in CSS pixels, 'real' the actual image size that should be requested.
-	 */
-	MMVP.getThumbnailWidth = function( boundingWidth, boundingHeight, sampleWidth, sampleHeight ) {
-		var cssWidth, bucketedWidth;
-		if ( ( boundingWidth / boundingHeight ) > ( sampleWidth / sampleHeight ) ) {
-			// we are limited by height; we need to calculate the max width that fits
-			cssWidth = ( sampleWidth / sampleHeight ) * boundingHeight;
-		} else {
-			// simple case, ratio tells us we're limited by width
-			cssWidth = boundingWidth;
-		}
-		bucketedWidth = this.findNextHighestImageSize( cssWidth );
-
-		return {
-			css: cssWidth,
-			real: bucketedWidth * $.devicePixelRatio()
-		};
-	};
-
-	/**
 	 * Handles clicks on legit image links.
 	 *
 	 * @protected
@@ -350,30 +266,13 @@
 			imageWidths;
 
 		if ( fileTitle ) {
-			imageWidths = this.getImageSizeApiArgs( ui );
+			imageWidths = ui.getImageSizeApiArgs();
 			this.fetchImageInfoWithThumbnail( fileTitle, imageWidths.real ).then( function( imageInfo ) {
-					viewer.loadResizedImage( ui, imageInfo, imageWidths.css, imageWidths.real );
+				viewer.loadAndSetImage( ui, imageInfo, imageWidths );
 			} );
 		}
 
 		this.updateControls();
-	};
-
-	/**
-	 * Replaces the resized image in the viewer providing we actually got some data.
-	 *
-	 * @protected
-	 *
-	 * @param {mw.LightboxInterface} ui lightbox that got resized
-	 * @param {mw.mmv.model.Image} imageData information regarding the new resized image
-	 * @param {number} targetWidth
-	 * @param {number} requestedWidth
-	 */
-	MMVP.loadResizedImage = function ( ui, imageData, targetWidth, requestedWidth ) {
-		// Replace image only if data was returned.
-		if ( imageData ) {
-			this.loadAndSetImage( ui, imageData, targetWidth, requestedWidth );
-		}
 	};
 
 	MMVP.updateControls = function () {
@@ -410,28 +309,32 @@
 	 * and collects profiling information.
 	 *
 	 * @param {mw.LightboxInterface} ui image container
-	 * @param {mw.mmv.model.Image} imageData image information
-	 * @param {number} targetWidth
-	 * @param {number} requestedWidth
+	 * @param {mw.mmv.model.Image} imageInfo image information
+	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
 	 */
-	MMVP.loadAndSetImage = function ( ui, imageData, targetWidth, requestedWidth ) {
+	MMVP.loadAndSetImage = function ( ui, imageInfo, imageWidths ) {
 		var maybeThumb,
 			viewer = this,
 			image = new Image(),
+			imageWidth,
 			src;
 
 		// Use cached image if we have it.
-		maybeThumb = imageData.getThumbUrl( requestedWidth );
-
-		src = maybeThumb || imageData.url;
+		maybeThumb = imageInfo.getThumbUrl( imageWidths.real );
+		if ( maybeThumb ) {
+			src = maybeThumb;
+			imageWidth = imageWidths.real;
+		} else {
+			src = imageInfo.url;
+			imageWidth = imageInfo.width;
+		}
 
 		this.performance.record( 'image', src ).then( function() {
 			image.src = src;
 
-			if ( maybeThumb && requestedWidth > targetWidth ||
-				!maybeThumb && imageData.width > targetWidth ) {
-				// Image bigger than the current area, resize before loading
-				image.width = targetWidth;
+			// we downscale larger images but do not scale up smaller ones, that would look ugly
+			if ( imageWidth > imageWidths.screen ) {
+				image.width = imageWidths.css;
 			}
 
 			ui.replaceImageWith( image );
@@ -446,7 +349,7 @@
 	 * @param {string} initialSrc The string to set the src attribute to at first.
 	 */
 	MMVP.loadImage = function ( image, initialSrc ) {
-		var imageWidth,
+		var imageWidths,
 			viewer = this;
 
 		this.lightbox.currentIndex = image.index;
@@ -470,9 +373,9 @@
 
 		$( document.body ).addClass( 'mw-mlb-lightbox-open' );
 
-		imageWidth = this.getImageSizeApiArgs( this.ui );
+		imageWidths = this.ui.getImageSizeApiArgs();
 		this.fetchImageInfoRepoInfoAndFileUsageInfo(
-			image.filePageTitle, imageWidth.real
+			image.filePageTitle, imageWidths.real
 		).then( function ( imageInfo, repoInfoHash, thumbnail, localUsage, globalUsage ) {
 			var repoInfo = repoInfoHash[imageInfo.repo];
 
@@ -481,7 +384,7 @@
 				// We need to wait until the animation is finished before we listen to scroll
 				.then( function() { viewer.startListeningToScroll(); } );
 
-			viewer.loadAndSetImage( viewer.lightbox.iface, imageInfo, imageWidth.css, imageWidth.real );
+			viewer.loadAndSetImage( viewer.lightbox.iface, imageInfo, imageWidths );
 
 			viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
 
