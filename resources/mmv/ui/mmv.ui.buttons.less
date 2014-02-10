@@ -5,6 +5,7 @@
 .mlb-fullscreen,
 .mw-mlb-next-image,
 .mw-mlb-prev-image {
+	cursor: pointer;
 	position: fixed;
 	background-repeat: no-repeat;
 	opacity: 0.8;
@@ -22,6 +23,8 @@
 	left: auto;
 	transition: opacity 0.25s;
 	background-position: center;
+	margin-top: 14px;
+	margin-right: 14px;
 }
 
 .mw-mlb-next-image,
@@ -29,7 +32,6 @@
 	top: -999px;
 	width: 80px;
 	height: 120px;
-	cursor: pointer;
 	transition: opacity 0.25s, margin 0.25s;
 
 	&.disabled {
@@ -42,12 +44,21 @@
 	top: @buttons-offset;
 	/* @embed */
 	background-image: url(img/mw-close.svg);
+	height: 23px;
+	width: 23px;
 }
 
 .mlb-fullscreen {
 	top: (@buttons-offset + 37px);
 	/* @embed */
 	background-image: url(img/mw-fullscreen-ltr.svg);
+	width: 21px;
+	height: 22px;
+}
+
+.jq-fullscreened .mlb-fullscreen {
+	/* @embed */
+	background-image: url(img/mw-defullscreen-ltr.svg);
 }
 
 .mw-mlb-next-image {

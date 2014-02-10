@@ -76,33 +76,6 @@
 	border-bottom: 1px solid #7d7c81;
 }
 
-.mlb-close,
-.mlb-fullscreen {
-	position: absolute;
-	margin-top: 14px;
-	margin-right: 14px;
-	cursor: pointer;
-}
-
-.mlb-close {
-	background-image: url("../img/close.svg");
-	border-right: 1px solid #7d7c81;
-	height: 23px;
-	width: 23px;
-}
-
-.mlb-fullscreen {
-	background-image: url("../img/fullscreen.svg");
-	border-left: 1px solid #7d7c81;
-	width: 21px;
-	height: 22px;
-}
-
-.mlb-fullscreen-div .mlb-fullscreen {
-	width: 28px;
-	height: 29px;
-}
-
 .mlb-main.jq-fullscreened {
 	background-color: black;
 }
