@@ -189,6 +189,8 @@
 			viewer.resize( ui );
 			return false;
 		} );
+
+		this.setupEventHandlers();
 	}
 
 	MMVP = MultimediaViewer.prototype;
@@ -347,14 +349,6 @@
 			this.lightbox.iface.load( image );
 		}
 
-		this.lightbox.iface.$imageWrapper.on( 'mmv-next', function () {
-			viewer.nextImage();
-		} );
-
-		this.lightbox.iface.$imageWrapper.on( 'mmv-prev', function () {
-			viewer.prevImage();
-		} );
-
 		$( document.body ).addClass( 'mw-mlb-lightbox-open' );
 
 		imageWidths = this.ui.getImageSizeApiArgs();
@@ -484,6 +478,18 @@
 
 	MMVP.prevImage = function () {
 		this.loadIndex( this.lightbox.currentIndex - 1 );
+	};
+
+	MMVP.setupEventHandlers = function() {
+		var viewer = this;
+
+		this.lightbox.iface.$imageWrapper.on( 'mmv-next', function () {
+			viewer.nextImage();
+		} );
+
+		this.lightbox.iface.$imageWrapper.on( 'mmv-prev', function () {
+			viewer.prevImage();
+		} );
 	};
 
 	function handleHash() {
