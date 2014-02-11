@@ -1,15 +1,12 @@
 ( function ( $ ) {
-	var LIP, lightboxHooks;
+	var LIP;
 
 	/**
 	 * @class mlb.LightboxInterface
 	 * @constructor
 	 */
 	function LightboxInterface() {
-		lightboxHooks = window.lightboxHooks;
-
-		var result,
-			addToPre = [],
+		var addToPre = [],
 			addToPost = [],
 			lbinterface = this;
 
@@ -41,13 +38,11 @@
 
 		this.$preDiv = $( '<div>' )
 			.addClass( 'mlb-pre-image' );
-		result = lightboxHooks.callAll( 'addToPreDiv', this, addToPre );
-		this.setupPreDiv( result, addToPre );
+		this.setupPreDiv( addToPre );
 
 		this.$postDiv = $( '<div>' )
 			.addClass( 'mlb-post-image' );
-		result = lightboxHooks.callAll( 'addToPostDiv', this, addToPost );
-		this.setupPostDiv( result, addToPost );
+		this.setupPostDiv( addToPost );
 
 		this.$main.append(
 			this.$preDiv,
@@ -58,8 +53,6 @@
 		this.$wrapper.append(
 			this.$main
 		);
-
-		lightboxHooks.callAll( 'modifyInterface', this );
 
 		window.addEventListener( 'keyup', function ( e ) {
 			if ( e.keyCode === 27 ) {
@@ -80,8 +73,6 @@
 
 	LIP.empty = function () {
 		this.$imageDiv.empty();
-
-		lightboxHooks.callAll( 'clearInterface', this );
 
 		if ( this.resizeListener ) {
 			window.removeEventListener( 'resize', this.resizeListener );
@@ -125,13 +116,13 @@
 	};
 
 	/**
-	 * Unattaches interface from parent element. Calls global lightboxHooks.
+	 * Unattaches interface from parent element.
 	 */
 	LIP.unattach = function () {
-		// TODO(aarcos): This is global and it breaks tests.
-		lightboxHooks.callAll( 'closeInterface', this );
-
-		$( document ).off( 'jq-fullscreen-change.lip' );
+		// We trigger this event on the document because unattach() can run
+		// when the interface is unattached
+		$( document ).trigger( $.Event( 'mmv-close' ) )
+			.off( 'jq-fullscreen-change.lip' );
 
 		this.$wrapper.detach();
 		this.$overlay.detach();
@@ -145,11 +136,9 @@
 	 */
 	LIP.resizeCallback = function() {
 		if ( this.currentlyAttached ) {
-			var result = lightboxHooks.callAll( 'imageResize', this );
+			this.$wrapper.trigger( $.Event( 'mmv-resize') );
 
-			if ( result !== false ) {
-				this.autoResizeImage();
-			}
+			this.autoResizeImage();
 		}
 	};
 	/**
@@ -222,42 +211,38 @@
 		this.$main.enterFullscreen();
 	};
 
-	LIP.setupPreDiv = function ( buildDefaults, toAdd ) {
+	LIP.setupPreDiv = function ( toAdd ) {
 		var lbinterface = this;
 
-		if ( buildDefaults ) {
-			this.$controlBar = $( '<div>' )
-				.addClass( 'mlb-controls' );
+		this.$controlBar = $( '<div>' )
+			.addClass( 'mlb-controls' );
 
-			this.$closeButton = $( '<div>' )
-				.text( ' ' )
-				.addClass( 'mlb-close' )
-				.click( function () {
-					lbinterface.unattach();
-				} );
+		this.$closeButton = $( '<div>' )
+			.text( ' ' )
+			.addClass( 'mlb-close' )
+			.click( function () {
+				lbinterface.unattach();
+			} );
 
-			this.$fullscreenButton = $( '<div>' )
-				.text( ' ' )
-				.addClass( 'mlb-fullscreen' )
-				.click( function () {
-					if ( lbinterface.isFullscreen ) {
-						lbinterface.exitFullscreen();
-					} else {
-						lbinterface.enterFullscreen();
-					}
-				} );
+		this.$fullscreenButton = $( '<div>' )
+			.text( ' ' )
+			.addClass( 'mlb-fullscreen' )
+			.click( function () {
+				if ( lbinterface.isFullscreen ) {
+					lbinterface.exitFullscreen();
+				} else {
+					lbinterface.enterFullscreen();
+				}
+			} );
 
-			this.setupFullscreenButton();
+		this.setupFullscreenButton();
 
-			this.$controlBar.append(
-				this.$closeButton,
-				this.$fullscreenButton
-			);
+		this.$controlBar.append(
+			this.$closeButton,
+			this.$fullscreenButton
+		);
 
-			this.$preDiv.append( this.$controlBar );
-
-			lightboxHooks.callAll( 'modifyDefaultPreDiv', this );
-		}
+		this.$preDiv.append( this.$controlBar );
 
 		this.addElementsToDiv( this.$preDiv, toAdd );
 	};
@@ -271,11 +256,7 @@
 		}
 	};
 
-	LIP.setupPostDiv = function ( buildDefaults, toAdd ) {
-		if ( buildDefaults ) {
-			lightboxHooks.callAll( 'modifyDefaultPostDiv', this );
-		}
-
+	LIP.setupPostDiv = function ( toAdd ) {
 		this.addElementsToDiv( this.$postDiv, toAdd );
 	};
 
@@ -289,8 +270,6 @@
 
 	LIP.fullscreenChange = function ( e ) {
 		this.isFullscreen = e.fullscreen;
-
-		lightboxHooks.callAll( 'fullscreen', e.element, e.fullscreen );
 
 		if ( !this.fullscreenButtonJustPressed && !e.fullscreen ) {
 			// Close the interface all the way if the user pressed 'esc'

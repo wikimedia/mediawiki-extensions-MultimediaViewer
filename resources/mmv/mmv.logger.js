@@ -42,15 +42,15 @@
 	 * @param {Object} substitutions A list of variable subtitutions for parametrized action texts
 	 */
 	L.log = function ( action, skipEventLog, substitutions ) {
-		action = this.logActions[action] || action;
+		var translatedAction = this.logActions[action] || action;
 
 		if ( $.isPlainObject( substitutions ) ) {
 			$.each( substitutions, function( key, value ) {
-				action = action.replace( key, value );
+				translatedAction = translatedAction.replace( key, value );
 			} );
 		}
 
-		mw.log( action );
+		mw.log( translatedAction );
 
 		if ( mw.eventLog && !skipEventLog ) {
 			mw.eventLog.logEvent( 'MediaViewer', {

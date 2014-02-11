@@ -371,6 +371,7 @@ call_user_func( function() {
 		'dependencies' => array(
 			'jquery',
 			'mediawiki',
+			'mmv.base',
 		),
 	), $moduleInfo( 'mmv' ) );
 

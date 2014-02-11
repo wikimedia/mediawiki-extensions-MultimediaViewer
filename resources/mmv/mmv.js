@@ -16,7 +16,7 @@
  */
 
 ( function ( mw, $ ) {
-	var MultiLightbox, lightboxHooks, MMVP,
+	var MultiLightbox, MMVP,
 
 		comingFromPopstate = false,
 
@@ -169,26 +169,6 @@
 
 		// Only if we find legit images, create a MultiLightbox object
 		this.lightbox = new mw.MultiLightbox( urls, 0, mw.LightboxInterface, this );
-
-		// Register various event hooks. TODO: Make this a function that's only called once.
-
-		lightboxHooks.register( 'closeInterface', function () {
-			$( document.body ).removeClass( 'mw-mlb-lightbox-open' );
-			if ( comingFromPopstate === false ) {
-				history.pushState( {}, '', '#' );
-			} else {
-				comingFromPopstate = false;
-			}
-
-			viewer.hasAnimatedMetadata = false;
-			viewer.isOpen = false;
-		} );
-
-		lightboxHooks.register( 'imageResize', function () {
-			var ui = this;
-			viewer.resize( ui );
-			return false;
-		} );
 
 		this.setupEventHandlers();
 	}
@@ -587,27 +567,50 @@
 		}
 	};
 
+	/**
+	 * Opens the next image
+	 */
 	MMVP.nextImage = function () {
 		this.loadIndex( this.lightbox.currentIndex + 1 );
 	};
 
+	/**
+	 * Opens the previous image
+	 */
 	MMVP.prevImage = function () {
 		this.loadIndex( this.lightbox.currentIndex - 1 );
 	};
 
-	MMVP.setupEventHandlers = function() {
-		var viewer = this;
+	/**
+	 * Handles close event coming from the lightbox
+	 */
+	MMVP.close = function () {
+		$( document.body ).removeClass( 'mw-mlb-lightbox-open' );
+		if ( comingFromPopstate === false ) {
+			history.pushState( {}, '', '#' );
+		} else {
+			comingFromPopstate = false;
+		}
 
-		this.lightbox.iface.$imageWrapper.on( 'mmv-next', function () {
-			viewer.nextImage();
-		} );
-
-		this.lightbox.iface.$imageWrapper.on( 'mmv-prev', function () {
-			viewer.prevImage();
-		} );
+		this.hasAnimatedMetadata = false;
+		this.isOpen = false;
 	};
 
-	function handleHash() {
+	MMVP.setupEventHandlers = function () {
+		var viewer = this;
+
+		$( document ).on( 'mmv-close', function () {
+			viewer.close();
+		} ).on( 'mmv-next', function () {
+			viewer.nextImage();
+		} ).on( 'mmv-prev', function () {
+			viewer.prevImage();
+		} ).on( 'mmv-resize', function () {
+			viewer.resize( viewer.lightbox.iface );
+		});
+	};
+
+	function handleHash () {
 		var statedIndex,
 			$foundElement,
 			hash = decodeURIComponent( document.location.hash ),
@@ -631,7 +634,6 @@
 
 	$( function () {
 		MultiLightbox = window.MultiLightbox;
-		lightboxHooks = window.lightboxHooks;
 
 		mw.mediaViewer = new MultimediaViewer();
 

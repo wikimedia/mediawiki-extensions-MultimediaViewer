@@ -16,7 +16,6 @@
 	// TODO: remove once viewer isn't being referenced by interfaces anymore
 	// and event listening code has been cleaned up
 	MTH.resetViewer = function() {
-		lightboxHooks.constructor();
 		mw.mediaViewer.constructor();
 	};
 

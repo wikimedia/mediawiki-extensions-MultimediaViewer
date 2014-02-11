@@ -36,7 +36,6 @@
 		"jQuery",
 		"QUnit",
 		"OO",
-		"moment",
-		"lightboxHooks"
+		"moment"
 	]
 }

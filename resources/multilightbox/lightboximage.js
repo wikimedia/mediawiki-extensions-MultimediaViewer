@@ -6,8 +6,6 @@
 	 */
 	function LightboxImage( src ) {
 		this.src = src;
-
-		lightboxHooks.callAll( 'modifyImageObject', this );
 	}
 
 	var LIP = LightboxImage.prototype;
@@ -33,8 +31,6 @@
 			$deferred = $.Deferred(),
 			image = this;
 
-		lightboxHooks.callAll( 'beforeFetchImage', this );
-
 		ele = new Image();
 		ele.addEventListener( 'error', $deferred.reject );
 		ele.addEventListener( 'load', function() { $deferred.resolve( image, ele ); } );
@@ -46,8 +42,6 @@
 			// This is a workaround until we decide whether we want to display a nicer version of the thumb or not
 			$deferred.resolve( image, ele );
 		}
-
-		lightboxHooks.callAll( 'modifyImageElement', ele );
 
 		return $deferred;
 	};

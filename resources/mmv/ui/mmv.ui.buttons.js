@@ -48,11 +48,9 @@
 
 		this.$buttons.appendTo( this.$container );
 
-		lightboxHooks.register( 'closeInterface', function () {
+		$( document ).on( 'mmv-close', function () {
 			buttons.$nav.addClass( 'disabled' );
-		} );
-
-		$( document ).on( 'jq-fullscreen-change.lip', function ( e ) {
+		} ).on( 'jq-fullscreen-change.lip', function ( e ) {
 			if ( e.fullscreen ) {
 				mw.mmv.logger.log( 'fullscreen-link-click' );
 			} else {
