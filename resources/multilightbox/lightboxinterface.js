@@ -85,6 +85,7 @@
 
 		if ( this.resizeListener ) {
 			window.removeEventListener( 'resize', this.resizeListener );
+			this.resizeListener = null;
 		}
 	};
 
@@ -167,9 +168,10 @@
 
 		// Capture listener so we can remove it later, otherwise
 		// we are going to leak listeners !
-		this.resizeListener = function () { iface.resizeCallback(); };
-
-		window.addEventListener( 'resize', this.resizeListener );
+		if ( !this.resizeListener ) {
+			this.resizeListener = function () { iface.resizeCallback(); };
+			window.addEventListener( 'resize', this.resizeListener );
+		}
 
 		lightboxHooks.callAll( 'imageLoaded', this );
 	};
