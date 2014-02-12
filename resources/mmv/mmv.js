@@ -433,7 +433,7 @@
 	 *
 	 * @param {mw.Title} fileTitle
 	 * @param {number} width width of the thumbnail in pixels
-	 * @return {jQuery.Promise<mw.mmv.model.Image, mw.mmv.model.Thumbnail>}
+	 * @return {jQuery.Promise.<mw.mmv.model.Image, mw.mmv.model.Thumbnail>}
 	 */
 	MMVP.fetchImageInfoWithThumbnail = function ( fileTitle, width ) {
 		return $.when(

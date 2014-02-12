@@ -27,7 +27,7 @@
 		/** @property {jQuery} $container The element that contains the UI element. */
 		this.$container = $container;
 
-		/** @property {Object<string, string[]>} eventsRegistered Events that this element has registered with the DOM. */
+		/** @property {Object.<string, string[]>} eventsRegistered Events that this element has registered with the DOM. */
 		this.eventsRegistered = {};
 	}
 
