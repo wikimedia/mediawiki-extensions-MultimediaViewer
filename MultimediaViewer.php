@@ -389,7 +389,7 @@ call_user_func( function() {
 			'jquery.scrollTo',
 			'mmv.lightboximage',
 			'jquery.fullscreen',
-			'jquery.throttle.debounce',
+			'jquery.throttle-debounce',
 			'mediawiki.api',
 			'mediawiki.Uri',
 			'mediawiki.Title',
@@ -503,12 +503,6 @@ call_user_func( function() {
 			'jquery.scrollTo.js',
 		),
 	), $moduleInfo( 'jquery.scrollTo' ) );
-
-	$wgResourceModules['jquery.throttle.debounce'] = array_merge( array(
-		'scripts' => array(
-			'jquery.ba-throttle-debounce.js',
-		),
-	), $moduleInfo( 'jquery.throttle.debounce' ) );
 
 	$wgExtensionFunctions[] = function () {
 		global $wgResourceModules;
