@@ -16,6 +16,22 @@
  */
 
 ( function ( mw, $ ) {
+	var i,
+		binary,
+		dataURI = 'data:image;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0'
+			+ 'iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH'
+			+ '8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC',
+		hex = '89504e470d0a1a0a0000000d4948445200000010000000100103000000253d6d'
+			+ '2200000006504c5445000000ffffffa5d99fdd0000003349444154789c63f8ff'
+			+ '9fe1ff5f86ff9f190eb033dc3fcc707f32c3cdcd0c378d19ee1483d0bdcf0cf7'
+			+ '8152cc0c0fc0e8ff7f0051861728ce5d9b500000000049454e44ae426082';
+
+	binary = new Uint8Array( hex.length / 2 );
+
+	for ( i = 0; i < hex.length; i += 2 ) {
+		binary[ i / 2 ] = parseInt( hex.substr( i, 2 ), 16 );
+	}
+
 	QUnit.module( 'mmv.provider.Image', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Image constructor sanity check', 1, function ( assert ) {
@@ -24,18 +40,37 @@
 		assert.ok( imageProvider );
 	} );
 
-	QUnit.asyncTest( 'Image load success test', 1, function ( assert ) {
-		var imageProvider = new mw.mmv.provider.Image();
-		imageProvider.performance.record = function() { return $.Deferred().resolve(); };
+	QUnit.asyncTest( 'Image load success test', 5, function ( assert ) {
+		var imageProvider = new mw.mmv.provider.Image(),
+			oldPerformance = imageProvider.performance,
+			fakeURL = 'fakeURL';
 
-		imageProvider.get(
-			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0'
-			+ 'iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH'
-			+ '8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC'
-		).then( function( image ) {
-				assert.ok( image instanceof HTMLImageElement,
-					'success handler was called with the image element');
-				QUnit.start();
+		imageProvider.performance.delay = 0;
+
+		imageProvider.performance.newXHR = function () {
+			return { readyState: 4,
+				response: binary,
+				send: function () { this.onreadystatechange(); },
+				open: $.noop };
+		};
+
+		imageProvider.performance.recordEntry = function ( type, total, url ) {
+			assert.strictEqual( type, 'image', 'Type matches' );
+			assert.ok( total < 10, 'Total is less than 10ms' );
+			assert.strictEqual( url, fakeURL, 'URL matches' );
+
+			QUnit.start();
+
+			imageProvider.performance = oldPerformance;
+
+			return $.Deferred().resolve();
+		};
+
+		imageProvider.get( fakeURL ).then( function( image ) {
+			assert.ok( image instanceof HTMLImageElement,
+				'success handler was called with the image element');
+
+			assert.strictEqual( image.src, dataURI );
 		} );
 	} );
 
@@ -46,5 +81,11 @@
 				assert.ok( true, 'fail handler was called' );
 				QUnit.start();
 			} );
+	} );
+
+	QUnit.test( 'binaryToDataURI', 1, function ( assert ) {
+		var imageProvider = new mw.mmv.provider.Image();
+
+		assert.strictEqual( imageProvider.binaryToDataURI( binary ), dataURI, 'Binary is correctly converted to data URI' );
 	} );
 }( mediaWiki, jQuery ) );

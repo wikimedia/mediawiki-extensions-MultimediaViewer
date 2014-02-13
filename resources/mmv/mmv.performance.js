@@ -28,6 +28,8 @@
 
 	P = Performance.prototype;
 
+	P.delay = 1000;
+
 	/**
 	 * Global setup that should be done while the page loads
 	 */
@@ -47,27 +49,41 @@
 	 * cached by the browser, as it will consume unnecessary bandwidth for the user.
 	 * @param {string} type the type of request to be measured
 	 * @param {string} url URL to be measured
+	 * @param {string} responseType responseType for the XHR options
 	 * @returns {jQuery.Promise} A promise that resolves when the contents of the URL have been fetched
 	 */
-	P.record = function ( type, url ) {
+	P.record = function ( type, url, responseType ) {
 		var deferred = $.Deferred(),
 			request,
 			perf = this,
 			start;
 
-		request = new XMLHttpRequest();
+		request = this.newXHR();
+
 		request.onreadystatechange = function () {
 			var total = $.now() - start;
 
 			if ( request.readyState === 4 ) {
 				deferred.resolve( request.response );
+
 				perf.recordEntryDelayed( type, total, url, request );
 			}
 		};
 
 		start = $.now();
-		request.open( 'GET', url, true );
-		request.send();
+
+		try {
+			request.open( 'GET', url, true );
+
+			if ( responseType !== undefined ) {
+				request.responseType = responseType;
+			}
+
+			request.send();
+		} catch ( e ) {
+			// This happens on old browsers that don't support CORS
+			return deferred.reject();
+		}
 
 		return deferred;
 	};
@@ -100,6 +116,11 @@
 
 		// Don't record if we're not in the sample
 		if ( !this.isInSample() ) {
+			return;
+		}
+
+		// Don't record entries that hit the browser cache on undetailed requests
+		if ( total !== undefined && total < 1 ) {
 			return;
 		}
 
@@ -297,7 +318,7 @@
 		// it hasn't been added yet at this point
 		setTimeout( function() {
 			perf.recordEntry( type, total, url, request );
-		}, 0 );
+		}, this.delay );
 	};
 
 	/**
@@ -390,8 +411,16 @@
 		return navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 	};
 
+	/**
+	 * Returns a new XMLHttpRequest object
+	 * Allows us to override for unit tests
+	 * @returns {XMLHttpRequest} New XMLHttpRequest
+	 */
+	P.newXHR = function () {
+		return new XMLHttpRequest();
+	};
+
 	new Performance().init();
 
 	mw.mmv.Performance = Performance;
-
 }( mediaWiki, jQuery ) );
