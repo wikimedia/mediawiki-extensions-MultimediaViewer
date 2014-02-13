@@ -156,6 +156,10 @@
 	};
 
 	LIP.replaceImageWith = function ( imageEle ) {
+		if ( this.$image.is( imageEle ) ) { // http://bugs.jquery.com/ticket/4087
+			return;
+		}
+
 		var $image = $( imageEle );
 
 		this.currentImage.src = imageEle.src;
@@ -177,8 +181,6 @@
 		if ( !this.currentlyAttached ) {
 			return;
 		}
-
-		this.viewer.resize( this );
 
 		if ( this.isFullscreen ) {
 			// When entering fullscreen without a mousemove, the browser
