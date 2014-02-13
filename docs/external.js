@@ -62,6 +62,11 @@
  */
 
 /**
+ * @class jQuery.Deferred
+ * A jQuery deferred object.
+ */
+
+/**
  * @class jQuery.Event
  * An event object with extra jQuery data.
  */
