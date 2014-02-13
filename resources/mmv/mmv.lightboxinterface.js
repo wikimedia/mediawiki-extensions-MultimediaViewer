@@ -107,6 +107,8 @@
 
 		MLBInterface.prototype.attach.call( this, parentId );
 
+		this.panel.attach();
+
 		// Buttons fading might not had been reset properly after a hard fullscreen exit
 		// This needs to happen after the parent attach() because the buttons need to be attached
 		// to the DOM for $.fn.stop() to work
@@ -115,6 +117,8 @@
 
 	LIP.unattach = function () {
 		MLBInterface.prototype.unattach.call( this );
+
+		this.panel.unattach();
 
 		// Restore the scrollTop as it was before opening the lightbox
 		if ( this.scrollTopBeforeAttach !== undefined ) {

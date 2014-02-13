@@ -29,23 +29,28 @@
 	 * @param {jQuery} $controlBar The control bar element.
 	 */
 	function MetadataPanel( $container, $controlBar ) {
-		var panel = this;
-
 		mw.mmv.ui.Element.call( this, $container );
 		this.$controlBar = $controlBar;
 
 		this.initializeHeader();
 		this.initializeImageMetadata();
 		this.initializeAboutLinks();
-
-		this.handleEvent( 'keydown', function ( e ) {
-			panel.keydown( e );
-		} );
 	}
 
 	oo.inheritClass( MetadataPanel, mw.mmv.ui.Element );
 
 	MPP = MetadataPanel.prototype;
+
+	MPP.attach = function() {
+		var panel = this;
+		this.handleEvent( 'keydown', function ( e ) {
+			panel.keydown( e );
+		} );
+	};
+
+	MPP.unattach = function() {
+		this.clearEvents();
+	};
 
 	MPP.empty = function () {
 		this.$license.empty().addClass( 'empty' );
@@ -72,8 +77,6 @@
 		this.$dragIcon.removeClass( 'pointing-down' );
 
 		this.fileReuse.empty();
-
-		this.clearEvents();
 	};
 
 	// **********************************************
