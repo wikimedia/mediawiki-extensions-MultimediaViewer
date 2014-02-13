@@ -146,4 +146,34 @@
 			assert.ok( e, 'Exception is thrown when parameters are missing');
 		}
 	} );
+
+	QUnit.test( 'User constructor sanity check', 3, function ( assert ) {
+		var username = 'John Doe',
+			gender = 'male',
+			user = new mw.mmv.model.User( username, gender );
+
+		assert.strictEqual( user.username, username, 'Username is set correctly' );
+		assert.strictEqual( user.gender , gender , 'Gender is set correctly' );
+
+		try {
+			user = new mw.mmv.model.User();
+		} catch (e) {
+			assert.ok( e, 'Exception is thrown when parameters are missing');
+		}
+	} );
+
+	QUnit.test( 'User constructor gender validation', 4, function ( assert ) {
+		var user,
+			username = 'John Doe';
+
+		assert.ok( new mw.mmv.model.User( username, mw.mmv.model.User.Gender.MALE ), 'Male gender is valid' );
+		assert.ok( new mw.mmv.model.User( username, mw.mmv.model.User.Gender.FEMALE ), 'Female gender is valid' );
+		assert.ok( new mw.mmv.model.User( username, mw.mmv.model.User.Gender.UNKNOWN ), 'Unknown gender is valid' );
+
+		try {
+			user = new mw.mmv.model.User( username, '???' );
+		} catch (e) {
+			assert.ok( e, 'Exception is thrown when gender parameter is not understood');
+		}
+	} );
 }( mediaWiki ) );

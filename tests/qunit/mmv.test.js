@@ -235,37 +235,6 @@
 		mw.mmvTestHelpers.resetViewer();
 	} );
 
-	QUnit.asyncTest( 'loadAndSetImage(): Basic load', 3, function ( assert ) {
-		var widths = new mw.mmv.model.ThumbnailWidth( 8, 8, 640 ), // Current area < imageData.width
-			viewer = new mw.MultimediaViewer(),
-			ui = new mw.LightboxInterface( viewer ),
-			size = 120,
-			width = 10,
-			height = 11,
-			imageUrl = 'http://en.wikipedia.org/w/skins/vector/images/search-ltr.png',
-			imageData = new mw.mmv.model.Image(
-				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ),
-				size, width, height, 'image/jpeg',
-				imageUrl,
-				'http://example.com',
-				'example', 'tester', '2013-11-10', '2013-11-09', 'Blah blah blah',
-				'A person', 'Another person', 'CC-BY-SA-3.0', 0, 0
-			);
-
-		ui.replaceImageWith = function ( image ) {
-			assert.strictEqual( image.src, imageUrl, 'Image to replace has correct "src" attribute.' );
-			assert.strictEqual( image.width, widths.css, 'Image to replace has correct "width" attribute.' );
-		};
-		viewer.updateControls = function () {
-			assert.ok( true, 'Controls updated.' );
-			QUnit.start();
-		};
-
-		// Test case when image loaded is bigger than current area
-		viewer.loadAndSetImage( ui, imageData, widths );
-		mw.mmvTestHelpers.resetViewer();
-	} );
-
 	QUnit.test( 'Hash handling', 5, function ( assert ) {
 		var oldLoadImage = mw.mediaViewer.loadImage,
 			oldLightbox = mw.mediaViewer.lightbox,
@@ -285,9 +254,9 @@
 
 		$( '#qunit-fixture' ).append( '<a class="image"><img src="' + imageSrc + '"></a>' );
 
-		mw.mediaViewer.loadImage = function( img, src ) {
+		mw.mediaViewer.loadImage = function( img, el ) {
 			assert.strictEqual( img, image, 'The image object matches' );
-			assert.ok( src.match( encodeURIComponent( imageSrc ) ), 'The image url matches' );
+			assert.ok( el.src.match( encodeURIComponent( imageSrc ) ), 'The image url matches' );
 		};
 
 		// Open a valid mmv hash link and check that the right image is requested.
@@ -305,5 +274,45 @@
 		mw.mediaViewer.loadImage = oldLoadImage;
 
 		document.location.hash = '';
+	} );
+
+	QUnit.test( 'eachPrealoadableLightboxIndex()', 11, function ( assert ) {
+		var viewer = mw.mediaViewer,
+			oldLightbox,
+			oldPreloadDistance,
+			oldPosition,
+			oldLightboxImages,
+			expectedIndices,
+			i;
+
+		oldLightbox = viewer.lightbox;
+		viewer.lightbox = viewer.lightbox || {}; // might not be set up at this point
+		oldPreloadDistance = viewer.preloadDistance;
+		oldPosition = viewer.lightbox.currentIndex;
+		oldLightboxImages = viewer.lightbox.images;
+
+		viewer.preloadDistance = 3;
+		viewer.lightbox.images = new Array(11); // 0..10
+
+		viewer.lightbox.currentIndex = 2;
+		i = 0;
+		expectedIndices = [2, 3, 1, 4, 0, 5];
+		viewer.eachPrealoadableLightboxIndex( function( index ) {
+			assert.strictEqual( index, expectedIndices[i++], 'preload on left edge');
+		} );
+
+		viewer.lightbox.currentIndex = 9;
+		i = 0;
+		expectedIndices = [9, 10, 8, 7, 6];
+		viewer.eachPrealoadableLightboxIndex( function( index ) {
+			assert.strictEqual( index, expectedIndices[i++], 'preload on right edge');
+		} );
+
+		viewer.lightbox = oldLightbox;
+		viewer.preloadDistance = oldPreloadDistance;
+		if ( viewer.lightbox ) {
+			viewer.lightbox.currentIndex = oldPosition;
+			viewer.lightbox.images = oldLightboxImages;
+		}
 	} );
 }( mediaWiki, jQuery ) );

@@ -84,7 +84,6 @@
 	MLBP.open = function () {
 		this.iface.empty();
 		this.iface.attach();
-		this.iface.load( this.images[this.currentIndex] );
 	};
 
 	/**

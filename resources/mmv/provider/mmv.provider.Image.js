@@ -22,6 +22,18 @@
 	 * Loads an image.
 	 */
 	function Image() {
+		/**
+		 * @property {mw.mmv.performance}
+		 * @private
+		 */
+		this.performance = new mw.mmv.performance();
+
+		/**
+		 * AJAX call cache.
+		 * @property {Object.<string, jQuery.Promise>} cache
+		 * @protected
+		 */
+		this.cache = {};
 	}
 
 	/**
@@ -32,17 +44,24 @@
 	 */
 	Image.prototype.get = function( url ) {
 		var img = new window.Image(),
+			cacheKey = url,
+			deferred;
+
+		if ( !this.cache[cacheKey] ) {
 			deferred = $.Deferred();
+			this.cache[cacheKey] = deferred.promise();
+			this.performance.record( 'image', url ).then( function() {
+				img.src = url;
+				img.onload = function() {
+					deferred.resolve( img );
+				};
+				img.onerror = function() {
+					deferred.reject( 'could not load image from ' + url );
+				};
+			} );
+		}
 
-		img.src = url;
-		img.onload = function() {
-			deferred.resolve( img );
-		};
-		img.onerror = function() {
-			deferred.reject( 'could not load image from ' + url );
-		};
-
-		return deferred.promise();
+		return this.cache[cacheKey];
 	};
 
 	mw.mmv.provider.Image = Image;

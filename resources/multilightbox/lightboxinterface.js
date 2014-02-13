@@ -152,17 +152,19 @@
 			}
 		}
 	};
-
 	/**
-	 * Load callback
-	 * @protected
+	 * Displays an already loaded image.
+	 * This is an alternative to load() when we have an image element with the image already loaded.
+	 * @param {mlb.LightboxImage} image
+	 * @param {HTMLImageElement } imageElement
 	 */
-	LIP.loadCallback = function ( image, ele ) {
+	LIP.showImage = function( image, imageElement ) {
 		var iface = this;
 
-		image.globalMaxWidth = ele.width;
-		image.globalMaxHeight = ele.height;
-		this.$image = $( ele );
+		this.currentImage = image;
+		image.globalMaxWidth = imageElement.width;
+		image.globalMaxHeight = imageElement.height;
+		this.$image = $( imageElement );
 
 		this.autoResizeImage();
 
@@ -172,8 +174,6 @@
 			this.resizeListener = function () { iface.resizeCallback(); };
 			window.addEventListener( 'resize', this.resizeListener );
 		}
-
-		lightboxHooks.callAll( 'imageLoaded', this );
 	};
 
 	/**
@@ -186,7 +186,7 @@
 		this.currentImage = image;
 
 		image.getImageElement().done( function( image, ele ) {
-			iface.loadCallback.call( iface, image, ele );
+			iface.showImage( image, ele );
 		} );
 	};
 

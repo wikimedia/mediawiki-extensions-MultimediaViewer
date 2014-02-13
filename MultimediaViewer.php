@@ -184,6 +184,16 @@ call_user_func( function() {
 		),
 	), $moduleInfo( 'mmv/model' ) );
 
+	$wgResourceModules['mmv.model.User'] = array_merge( array(
+		'scripts' => array(
+			'mmv.model.User.js',
+		),
+
+		'dependencies' => array(
+			'mmv.model',
+		),
+	), $moduleInfo( 'mmv/model' ) );
+
 	$wgResourceModules['mmv.model.TaskQueue'] = array_merge( array(
 		'scripts' => array(
 			'mmv.model.TaskQueue.js',
@@ -390,6 +400,7 @@ call_user_func( function() {
 			'mmv.model.Image',
 			'mmv.model.Repo',
 			'mmv.model.Thumbnail',
+			'mmv.model.User',
 			'mmv.model.TaskQueue',
 			'mmv.provider',
 			'mediawiki.language',

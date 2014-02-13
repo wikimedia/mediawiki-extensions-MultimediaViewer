@@ -64,10 +64,10 @@
 		this.api = new mw.Api();
 
 		/**
-		 * @type {mw.mmv.ThumbnailWidthCalculator}
+		 * @property {mw.mmv.provider.Image}
 		 * @private
 		 */
-		this.thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator();
+		this.imageProvider = new mw.mmv.provider.Image();
 
 		/**
 		 * @property {mw.mmv.provider.ImageInfo}
@@ -236,7 +236,7 @@
 		}
 
 		var $clickedEle = $( clickedEle ),
-				initial = $thumbContain.find( 'img' ).prop( 'src' );
+				initial = $thumbContain.find( 'img' ).clone()[0];
 
 		if ( $clickedEle.is( 'a.image' ) ) {
 			mw.mmv.logger.log( 'thumbnail-link-click' );
@@ -263,10 +263,14 @@
 			fileTitle = this.currentImageFileTitle,
 			imageWidths;
 
+		this.preloadThumbnails();
+
 		if ( fileTitle ) {
-			imageWidths = ui.getImageSizeApiArgs();
-			this.fetchImageInfoWithThumbnail( fileTitle, imageWidths.real ).then( function( imageInfo ) {
-				viewer.loadAndSetImage( ui, imageInfo, imageWidths );
+			imageWidths = ui.getCurrentImageWidths();
+			this.fetchThumbnail(
+				fileTitle, imageWidths.real
+			).then( function( thumbnail, image ) {
+				viewer.setImage( ui, thumbnail, image, imageWidths );
 			} );
 		}
 
@@ -283,60 +287,40 @@
 
 	/**
 	 * @method
-	 * Loads and sets the image specified in the imageData. It also updates the controls
-	 * and collects profiling information.
+	 * Loads and sets the specified image. It also updates the controls.
 	 *
 	 * @param {mw.LightboxInterface} ui image container
-	 * @param {mw.mmv.model.Image} imageInfo image information
+	 * @param {mw.mmv.model.Thumbnail} thumbnail thumbnail information
+	 * @param {HTMLImageElement} image
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
 	 */
-	MMVP.loadAndSetImage = function ( ui, imageInfo, imageWidths ) {
-		var maybeThumb,
-			viewer = this,
-			image = new Image(),
-			imageWidth,
-			src;
-
-		// Use cached image if we have it.
-		maybeThumb = imageInfo.getThumbUrl( imageWidths.real );
-		if ( maybeThumb ) {
-			src = maybeThumb;
-			imageWidth = imageWidths.real;
-		} else {
-			src = imageInfo.url;
-			imageWidth = imageInfo.width;
+	MMVP.setImage = function ( ui, thumbnail, image, imageWidths ) {
+		// we downscale larger images but do not scale up smaller ones, that would look ugly
+		if ( thumbnail.width > imageWidths.screen ) {
+			image.width = imageWidths.css;
 		}
 
-		this.performance.record( 'image', src ).then( function() {
-			image.src = src;
-
-			// we downscale larger images but do not scale up smaller ones, that would look ugly
-			if ( imageWidth > imageWidths.screen ) {
-				image.width = imageWidths.css;
-			}
-
-			ui.replaceImageWith( image );
-			viewer.updateControls();
-		} );
+		ui.replaceImageWith( image );
+		this.updateControls();
 	};
 
 	/**
 	 * @method
 	 * Loads a specified image.
 	 * @param {mw.LightboxImage} image
-	 * @param {string} initialSrc The string to set the src attribute to at first.
+	 * @param {HTMLImageElement} initialImage A thumbnail to use as placeholder while the image loads
 	 */
-	MMVP.loadImage = function ( image, initialSrc ) {
+	MMVP.loadImage = function ( image, initialImage ) {
 		var imageWidths,
-			viewer = this;
+			viewer = this,
+			imagePromise,
+			metadataPromise;
+
+		// FIXME dependency injection happens in completely random order and location, needs cleanup
+		this.ui = this.lightbox.iface;
 
 		this.lightbox.currentIndex = image.index;
 
-		// Open with the already-loaded thumbnail
-		// Avoids trying to load /wiki/Undefined and doesn't
-		// cost any network time - the library currently needs
-		// some src attribute to work. Will fix.
-		image.initialSrc = initialSrc;
 		this.currentImageFilename = image.filePageTitle.getPrefixedText();
 		this.currentImageFileTitle = image.filePageTitle;
 		this.lightbox.iface.comingFromPopstate = comingFromPopstate;
@@ -346,41 +330,159 @@
 			this.isOpen = true;
 		} else {
 			this.lightbox.iface.empty();
-			this.lightbox.iface.load( image );
 		}
+		this.lightbox.iface.setupForLoad();
+		this.lightbox.iface.showImage( image, initialImage );
+
+		this.preloadImagesMetadata();
+		this.preloadThumbnails();
 
 		$( document.body ).addClass( 'mw-mlb-lightbox-open' );
 
-		imageWidths = this.ui.getImageSizeApiArgs();
-		this.fetchImageInfoRepoInfoAndFileUsageInfo(
+		imageWidths = this.ui.getCurrentImageWidths();
+		imagePromise = this.fetchThumbnail(
 			image.filePageTitle, imageWidths.real
-		).then( function ( imageInfo, repoInfoHash, thumbnail, localUsage, globalUsage ) {
-			var repoInfo = repoInfoHash[imageInfo.repo];
+		).done( function( thumbnail, image ) {
+			viewer.setImage( viewer.lightbox.iface, thumbnail, image, imageWidths );
+			viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
+		} );
 
+		metadataPromise = this.fetchSizeIndependentLightboxInfo(
+			image.filePageTitle
+		).done( function ( imageInfo, repoInfo, localUsage, globalUsage, userInfo ) {
+			viewer.lightbox.iface.panel.setImageInfo(image, imageInfo, repoInfo,
+				localUsage, globalUsage, userInfo );
+		} );
+
+		$.when( imagePromise, metadataPromise ).then( function() {
 			viewer.stopListeningToScroll();
 			viewer.animateMetadataDivOnce()
 				// We need to wait until the animation is finished before we listen to scroll
 				.then( function() { viewer.startListeningToScroll(); } );
-
-			viewer.loadAndSetImage( viewer.lightbox.iface, imageInfo, imageWidths );
-
-			viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
-
-			if ( imageInfo.lastUploader ) {
-				viewer.userInfoProvider.get( imageInfo.lastUploader, repoInfo ).done( function ( gender ) {
-					viewer.lightbox.iface.panel.setImageInfo(
-						image, imageInfo, repoInfo, localUsage, globalUsage, gender );
-				} ).fail( function () {
-					viewer.lightbox.iface.panel.setImageInfo(
-						image, imageInfo, repoInfo, localUsage, globalUsage, 'unknown' );
-				} );
-			} else {
-				viewer.lightbox.iface.panel.setImageInfo(
-					image, imageInfo, repoInfo, localUsage, globalUsage );
-			}
 		} );
 
 		comingFromPopstate = false;
+	};
+
+	/**
+	 * Preload this many prev/next images to speed up navigation.
+	 * (E.g. preloadDistance = 3 means that the previous 3 and the next 3 images will be loaded.)
+	 * Preloading only happens when the viewer is open.
+	 * @property {number}
+	 */
+	MMVP.preloadDistance = 1;
+
+	/**
+	 * Stores image metadata preloads, so they can be cancelled.
+	 * @type {mw.mmv.model.TaskQueue}
+	 */
+	MMVP.metadataPreloadQueue = null;
+
+	/**
+	 * Stores image thumbnail preloads, so they can be cancelled.
+	 * @type {mw.mmv.model.TaskQueue}
+	 */
+	MMVP.thumbnailPreloadQueue = null;
+
+	/**
+	 * Orders lightboximage indexes for preloading. Works similar to $.each, except it only takes
+	 * the callback argument. Calls the callback with each lightboximage index in some sequence
+	 * that is ideal for preloading.
+	 * @private
+	 * @param {function(number, mw.LightboxImage)} callback
+	 */
+	MMVP.eachPrealoadableLightboxIndex = function( callback ) {
+		for ( var i = 0; i <= this.preloadDistance; i++ ) {
+			if ( this.lightbox.currentIndex + i < this.lightbox.images.length ) {
+				callback(
+					this.lightbox.currentIndex + i,
+					this.lightbox.images[this.lightbox.currentIndex + i]
+				);
+			}
+			if ( i && this.lightbox.currentIndex - i >= 0 ) { // skip duplicate for i==0
+				callback(
+					this.lightbox.currentIndex - i,
+					this.lightbox.images[this.lightbox.currentIndex - i]
+				);
+			}
+		}
+	};
+
+	/**
+	 * A helper function to fill up the preload queues.
+	 * taskFactory(lightboxImage) should return a preload task for the given lightboximage.
+	 * @private
+	 * @param {function(mw.LightboxImage): function()} taskFactory
+	 * @return {mw.mmv.model.TaskQueue}
+	 */
+	MMVP.pushLightboxImagesIntoQueue = function( taskFactory ) {
+		var queue = new mw.mmv.model.TaskQueue();
+
+		this.eachPrealoadableLightboxIndex( function( i, lightboxImage ) {
+			queue.push( taskFactory( lightboxImage ) );
+		} );
+
+		return queue;
+	};
+
+	/**
+	 * Cancels in-progress image metadata preloading.
+	 */
+	MMVP.cancelImageMetadataPreloading = function() {
+		if ( this.metadataPreloadQueue ) {
+			this.metadataPreloadQueue.cancel();
+		}
+	};
+
+	/**
+	 * Cancels in-progress image thumbnail preloading.
+	 */
+	MMVP.cancelThumbnailsPreloading = function() {
+		if ( this.thumbnailPreloadQueue ) {
+			this.thumbnailPreloadQueue.cancel();
+		}
+	};
+
+	/**
+	 * Preload metadata for next and prev N image (N = MMVP.preloadDistance).
+	 * Two images will be loaded at a time (one forward, one backward), with closer images
+	 * being loaded sooner.
+	 */
+	MMVP.preloadImagesMetadata = function() {
+		var viewer = this;
+
+		this.cancelImageMetadataPreloading();
+
+		this.metadataPreloadQueue = this.pushLightboxImagesIntoQueue( function( lightboxImage ) {
+			return function() {
+				return viewer.fetchSizeIndependentLightboxInfo( lightboxImage.filePageTitle );
+			};
+		} );
+
+		this.metadataPreloadQueue.execute();
+	};
+
+	/**
+	 * Preload thumbnails for next and prev N image (N = MMVP.preloadDistance).
+	 * Two images will be loaded at a time (one forward, one backward), with closer images
+	 * being loaded sooner.
+	 */
+	MMVP.preloadThumbnails = function() {
+		var viewer = this,
+			ui = this.lightbox.iface;
+
+		this.cancelThumbnailsPreloading();
+
+		this.thumbnailPreloadQueue = this.pushLightboxImagesIntoQueue( function( lightboxImage ) {
+			return function() {
+				return viewer.fetchThumbnail(
+					lightboxImage.filePageTitle,
+					ui.getLightboxImageWidths( lightboxImage ).real
+				);
+			};
+		} );
+
+		this.thumbnailPreloadQueue.execute();
 	};
 
 	/**
@@ -428,47 +530,60 @@
 	};
 
 	/**
-	 * @method
-	 * Fetches image and thumbnail information from the API.
-	 *
-	 * @param {mw.Title} fileTitle
-	 * @param {number} width width of the thumbnail in pixels
-	 * @return {jQuery.Promise.<mw.mmv.model.Image, mw.mmv.model.Thumbnail>}
+	 * Loads all the size-independent information needed by the lightbox (image metadata, repo
+	 * information, file usage, uploader data).
+	 * @param {mw.Title} fileTitle Title of the file page for the image.
+	 * @returns {jQuery.Promise.<mw.mmv.model.Image, mw.mmv.model.Repo, mw.mmv.model.FileUsage,
+	 *     mw.mmv.model.FileUsage, mw.mmv.model.User>}
 	 */
-	MMVP.fetchImageInfoWithThumbnail = function ( fileTitle, width ) {
+	MMVP.fetchSizeIndependentLightboxInfo = function ( fileTitle ) {
+		var viewer = this,
+			imageInfoPromise = this.imageInfoProvider.get( fileTitle ),
+			repoInfoPromise = this.fileRepoInfoProvider.get( fileTitle ),
+			imageUsagePromise = this.imageUsageProvider.get( fileTitle ),
+			globalUsagePromise = this.globalUsageProvider.get( fileTitle ),
+			userInfoPromise;
+
+		userInfoPromise = $.when(
+			imageInfoPromise, repoInfoPromise
+		).then( function( imageInfo, repoInfoHash ) {
+			if ( imageInfo.lastUploader ) {
+				return viewer.userInfoProvider.get( imageInfo.lastUploader, repoInfoHash[imageInfo.repo] );
+			} else {
+				return null;
+			}
+		} );
+
 		return $.when(
-			this.imageInfoProvider.get( fileTitle ),
-			this.thumbnailInfoProvider.get( fileTitle, width )
-		).then( function( imageInfo, thumbnail ) {
-			imageInfo.addThumbUrl( thumbnail.width, thumbnail.url );
-			return $.Deferred().resolve( imageInfo, thumbnail );
+			imageInfoPromise, repoInfoPromise, imageUsagePromise, globalUsagePromise, userInfoPromise
+		).then( function( imageInfo, repoInfoHash, imageUsage, globalUsage, userInfo ) {
+			return $.Deferred().resolve( imageInfo, repoInfoHash[imageInfo.repo], imageUsage, globalUsage, userInfo );
 		} );
 	};
 
 	/**
-	 * Gets all file-related info.
-	 * @param {mw.Title} fileTitle Title of the file page for the image.
-	 * @param {number} width width of the thumbnail in pixels
-	 * @returns {jQuery.Promise.<mw.mmv.model.Image, mw.mmv.model.Repo, mw.mmv.model.Thumbnail,
-	 *     mw.mmv.model.FileUsage, mw.mmv.model.FileUsage>}
+	 * Loads size-dependent components of a lightbox - the thumbnail model and the image itself.
+	 * @param {mw.Title} fileTitle
+	 * @param {number} width
+	 * @returns {jQuery.Promise.<mw.mmv.model.Thumbnail, HTMLImageElement>}
 	 */
-	MMVP.fetchImageInfoRepoInfoAndFileUsageInfo = function ( fileTitle, width ) {
-		return $.when(
-			this.imageInfoProvider.get( fileTitle ),
-			this.fileRepoInfoProvider.get( fileTitle ),
-			this.thumbnailInfoProvider.get( fileTitle, width ),
-			this.imageUsageProvider.get( fileTitle ),
-			this.globalUsageProvider.get( fileTitle )
-		).then( function( imageInfo, repoInfoHash, thumbnail, imageUsage, globalUsage ) {
-			imageInfo.addThumbUrl( thumbnail.width, thumbnail.url );
-			return $.Deferred().resolve( imageInfo, repoInfoHash, thumbnail, imageUsage, globalUsage );
+	MMVP.fetchThumbnail = function ( fileTitle, width ) {
+		var viewer = this,
+			thumbnailPromise,
+			imagePromise;
+
+		thumbnailPromise = this.thumbnailInfoProvider.get( fileTitle, width );
+		imagePromise = thumbnailPromise.then( function( thumbnail ) {
+			return viewer.imageProvider.get( thumbnail.url );
 		} );
+
+		return $.when( thumbnailPromise, imagePromise );
 	};
 
 	MMVP.loadIndex = function ( index ) {
-		var $clicked = $( imgsSelector ).eq( index );
+		var $thumbnails = $( imgsSelector ).eq( index );
 		if ( index < this.lightbox.images.length && index >= 0 ) {
-			this.loadImage( this.lightbox.images[index], $clicked.prop( 'src' ) );
+			this.loadImage( this.lightbox.images[index], $thumbnails.clone()[0] );
 		}
 	};
 
@@ -504,7 +619,7 @@
 
 			if ( statedIndex.filePageTitle.getPrefixedText() === linkState[1] ) {
 				$foundElement = $( imgsSelector ).eq( linkState[2] );
-				mw.mediaViewer.loadImage( statedIndex, $foundElement.prop( 'src' ) );
+				mw.mediaViewer.loadImage( statedIndex, $foundElement.clone()[0] );
 			}
 		} else {
 			// If the hash is invalid (not a mmv hash) we check if there's any mmv lightbox open and we close it

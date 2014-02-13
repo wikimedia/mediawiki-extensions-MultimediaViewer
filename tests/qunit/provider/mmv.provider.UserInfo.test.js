@@ -25,7 +25,7 @@
 		assert.ok( userInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'UserInfo get test', 5, function ( assert ) {
+	QUnit.asyncTest( 'UserInfo get test', 6, function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function() {
 				apiCallCount++;
@@ -46,8 +46,9 @@
 			foreignRepoInfo = { apiUrl: 'http://example.com/api.php' },
 			userInfoProvider = new mw.mmv.provider.UserInfo( api );
 
-		userInfoProvider.get( username, repoInfo ).then( function( gender ) {
-			assert.strictEqual( gender, mw.mmv.provider.UserInfo.Gender.MALE, 'gender is set correctly' );
+		userInfoProvider.get( username, repoInfo ).then( function( user ) {
+			assert.strictEqual( user.username, 'Catrope', 'username is set correctly' );
+			assert.strictEqual( user.gender, mw.mmv.model.User.Gender.MALE, 'gender is set correctly' );
 		} ).then( function() {
 			assert.strictEqual( apiCallCount, 1 );
 			// call the data provider a second time to check caching

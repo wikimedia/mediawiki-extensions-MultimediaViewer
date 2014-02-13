@@ -32,10 +32,11 @@
 		this.eventsRegistered = {};
 
 		/**
-		 * Copy of {@link mw.MultimediaViewer#thumbnailWidthCalculator}
-		 * @property {mw.mmv.ThumbnailWidthCalculator}
+		 * @type {mw.mmv.ThumbnailWidthCalculator}
+		 * @private
 		 */
-		this.thumbnailWidthCalculator = viewer.thumbnailWidthCalculator;
+		this.thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator();
+
 
 		this.initializeInterface();
 	}
@@ -124,7 +125,11 @@
 		this.panel.fileReuse.closeDialog();
 	};
 
-	LIP.load = function ( image ) {
+	/**
+	 * FIXME A bunch of stuff ripped out of load, because load tries to actually load the image
+	 * and causes the small-thumbnail-for-a-moment bug in the process. Needs severe refactoring.
+	 */
+	LIP.setupForLoad = function() {
 		var hashFragment = '#mediaviewer/' + this.viewer.currentImageFilename + '/' + this.viewer.lightbox.currentIndex,
 			ui = this;
 
@@ -140,7 +145,10 @@
 		this.handleEvent( 'mousemove.lip', $.throttle( 250, function( e ) {
 			ui.mousemove( e );
 		} ) );
+	};
 
+	LIP.load = function ( image ) {
+		this.setupForLoad();
 		MLBInterface.prototype.load.call( this, image );
 	};
 
@@ -263,18 +271,24 @@
 	};
 
 	/**
-	 * Gets the API arguments for various calls to the API to find sized thumbnails.
-	 * @returns {Object}
-	 * @returns {number} return.real The width that should be requested from the API
-	 * @returns {number} return.css The ideal width we would like to have - should be the width of the image element later.
+	 * Gets the widths for a given lightbox image.
+	 * @param {mlb.LightboxImage} image
+	 * @returns {mw.mmv.model.ThumbnailWidth}
 	 */
-	LIP.getImageSizeApiArgs = function () {
-		var thumb = this.currentImage.thumbnail;
+	LIP.getLightboxImageWidths = function ( image ) {
+		var thumb = image.thumbnail;
 
 		return this.thumbnailWidthCalculator.calculateWidths(
 			this.$imageWrapper.width(), this.$imageWrapper.height(), thumb.width, thumb.height );
 	};
 
+	/**
+	 * Gets the widths for the current lightbox image.
+	 * @returns {mw.mmv.model.ThumbnailWidth}
+	 */
+	LIP.getCurrentImageWidths = function () {
+		return this.getLightboxImageWidths( this.currentImage );
+	};
 
 	mw.LightboxInterface = LightboxInterface;
 }( mediaWiki, jQuery, OO, window.LightboxInterface ) );

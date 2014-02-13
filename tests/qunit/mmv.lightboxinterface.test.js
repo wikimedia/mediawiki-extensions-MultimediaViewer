@@ -53,7 +53,11 @@
 			oldFnEnterFullscreen = $.fn.enterFullscreen,
 			oldFnExitFullscreen = $.fn.exitFullscreen,
 			oldRevealButtonsAndFadeIfNeeded,
+			oldPreloadDistance = mw.mediaViewer.preloadDistance,
 			buttonOffset;
+
+		// ugly hack to avoid preloading which would require lightbox list being set up
+		mw.mediaViewer.preloadDistance = -1;
 
 		// Since we don't want these tests to really open fullscreen
 		// which is subject to user security confirmation,
@@ -109,6 +113,7 @@
 
 		$.fn.enterFullscreen = oldFnEnterFullscreen;
 		$.fn.exitFullscreen = oldFnExitFullscreen;
+		mw.mediaViewer.preloadDistance = oldPreloadDistance;
 	} );
 
 	QUnit.test( 'isAnyActiveButtonHovered', 20, function ( assert ) {

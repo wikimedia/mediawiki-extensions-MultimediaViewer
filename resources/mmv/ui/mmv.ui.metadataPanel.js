@@ -577,8 +577,9 @@
 	 * @param {mw.mmv.model.Repo} repoData
 	 * @param {mw.mmv.model.FileUsage} localUsage
 	 * @param {mw.mmv.model.FileUsage} globalUsage
+	 * @param {mw.mmv.model.User} user
 	 */
-	MPP.setImageInfo = function ( image, imageData, repoData, localUsage, globalUsage, gender ) {
+	MPP.setImageInfo = function ( image, imageData, repoData, localUsage, globalUsage, user ) {
 		var msgname,
 			fileTitle = image.filePageTitle;
 
@@ -624,8 +625,8 @@
 
 		this.setLocationData( imageData );
 
-		if ( gender ) {
-			this.setUserPageLink( repoData, imageData.lastUploader, gender );
+		if ( user ) {
+			this.setUserPageLink( repoData, imageData.lastUploader, user.gender );
 		}
 	};
 

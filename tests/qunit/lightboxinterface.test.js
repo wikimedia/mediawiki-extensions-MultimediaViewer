@@ -33,13 +33,13 @@
 		// resizeListener not saved yet
 		assert.strictEqual( this.resizeListener, undefined, 'Listener is not saved yet' );
 
-		// Save original loadCallback
-		lightbox.originalLoadCallback = lightbox.loadCallback;
+		// Save original showImage
+		lightbox.originalShowImage = lightbox.showImage;
 
-		// Mock loadCallback
-		lightbox.loadCallback = function ( image, ele ) {
-			// Call original loadCallback
-			this.originalLoadCallback( image, ele );
+		// Mock showImage
+		lightbox.showImage = function ( image, ele ) {
+			// Call original showImage
+			this.originalShowImage( image, ele );
 
 			// resizeListener should have been saved
 			assert.notStrictEqual( this.resizeListener, undefined, 'Saved listener !' );
