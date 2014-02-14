@@ -559,13 +559,33 @@ call_user_func( function() {
 	$wgHooks['ResourceLoaderGetConfigVars'][] = 'MultimediaViewerHooks::resourceLoaderGetConfigVars';
 	$wgHooks['ResourceLoaderTestModules'][] = 'MultimediaViewerHooks::getTestModules';
 
-	$wgExtensionCredits['other'][] = array(
+	$wgExtensionCredits['betafeatures'][] = array(
 		'path' => __FILE__,
 		'name' => 'MultimediaViewer',
 		'descriptionmsg' => 'multimediaviewer-desc',
 		'version' => '0.2.0',
 		'author' => array(
 			'MarkTraceur (Mark Holmquist)',
+			'Gilles Dubuc',
+			'Gergő Tisza',
+			'Aaron Arcos',
+			'Zeljko Filipin',
+			'Pau Giner',
+			'theopolisme',
+			'MatmaRex',
+			'apsdehal',
+			'vldandrew',
+			'Ebrahim Byagowi',
+			'Dereckson',
+			'Brion VIBBER',
+			'Yuki Shira',
+			'Yaroslav Melnychuk',
+			'tonythomas01',
+			'Raimond Spekking',
+			'Kunal Mehta',
+			'Jeff Hall',
+			'Christian Aistleitner',
+			'Amir E. Aharoni',
 		),
 		'url' => 'https://mediawiki.org/wiki/Extension:MultimediaViewer',
 	);
