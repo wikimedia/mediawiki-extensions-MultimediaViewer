@@ -2,22 +2,18 @@
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 pushd $SCRIPT_DIR > /dev/null
-jsduck \
+
+! jsduck \
+    --color \
     --config=./jsduck-config.json \
     -- \
         `find ../resources/{multilightbox,mmv} -name '*.js'` \
-    2>&1 | tee jsduck.log \
-    && echo "JSDuck execution finished."
-RESULT=$?
+|& grep -v "^Warning:" \
+&& echo "JSDuck execution finished without errors."
 
-if [ $RESULT -eq 0 ]; then
-	grep "^Warning:" jsduck.log > /dev/null
-	GREPPED=$?
-	if [ $GREPPED -eq 0 ]; then
-		RESULT=1
-	fi
-fi
+STATUS=$?
 
 popd > /dev/null
 
-exit $RESULT
+exit $STATUS
+
