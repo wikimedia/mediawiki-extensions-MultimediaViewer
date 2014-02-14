@@ -3,10 +3,6 @@ Given(/^I am at a wiki article with at least two embedded pictures$/) do
   on(LightboxDemoPage).image1_in_article_element.should be_visible
 end
 
-Given(/^I am logged in$/) do
-  visit(LoginPage).login_with(ENV["MEDIAWIKI_USER"], ENV["MEDIAWIKI_PASSWORD"])
-end
-
 When(/^I click on the first image in the article$/) do
   on(LightboxDemoPage) do |page|
     page.image1_in_article
