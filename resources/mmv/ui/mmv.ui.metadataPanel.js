@@ -53,10 +53,12 @@
 
 	MPP.empty = function () {
 		this.$license.empty().addClass( 'empty' );
+		this.$permissionLink.hide();
 
 		this.description.empty();
 		this.categories.empty();
 		this.fileUsage.empty();
+		this.permission.empty();
 
 		this.$title.empty();
 		this.$credit.empty().addClass( 'empty' );
@@ -160,10 +162,22 @@
 	 * Initializes the license elements.
 	 */
 	MPP.initializeLicense = function () {
+		var panel = this;
+
 		this.$license = $( '<a>' )
 			.addClass( 'mw-mlb-license empty' )
 			.prop( 'href', '#' )
 			.appendTo( this.$titlePara );
+
+		this.$permissionLink = $( '<span>' )
+			.addClass( 'mw-mlb-permission-link mw-mlb-label' )
+			.text( mw.message( 'multimediaviewer-permission-link' ).text() )
+			.hide()
+			.appendTo( this.$titlePara )
+			.on( 'click', function() {
+				panel.permission.grow();
+				panel.scrollIntoView( panel.permission.$box, 500 );
+			} );
 	};
 
 	/**
@@ -174,7 +188,16 @@
 			.addClass( 'mw-mlb-image-metadata' )
 			.appendTo( this.$container );
 
-		this.description = new mw.mmv.ui.Description( this.$imageMetadata );
+		this.$imageMetadataLeft = $( '<div>' )
+			.addClass( 'mw-mlb-image-metadata-column' )
+			.appendTo( this.$imageMetadata );
+
+		this.$imageMetadataRight = $( '<div>' )
+			.addClass( 'mw-mlb-image-metadata-column' )
+			.appendTo( this.$imageMetadata );
+
+		this.description = new mw.mmv.ui.Description( this.$imageMetadataLeft );
+		this.permission = new mw.mmv.ui.Permission( this.$imageMetadataLeft );
 		this.initializeImageLinks();
 	};
 
@@ -184,7 +207,7 @@
 	MPP.initializeImageLinks = function () {
 		this.$imageLinkDiv = $( '<div>' )
 			.addClass( 'mw-mlb-image-links-div' )
-			.appendTo( this.$imageMetadata );
+			.appendTo( this.$imageMetadataRight );
 
 		this.$imageLinks = $( '<ul>' )
 			.addClass( 'mw-mlb-image-links' )
@@ -199,7 +222,7 @@
 		this.categories = new mw.mmv.ui.Categories( this.$imageLinks );
 
 		this.fileUsage = new mw.mmv.ui.FileUsage(
-			$( '<div>' ).appendTo( this.$imageMetadata )
+			$( '<div>' ).appendTo( this.$imageMetadataRight )
 		);
 		this.fileUsage.init();
 	};
@@ -473,6 +496,15 @@
 	};
 
 	/**
+	 * Set an extra permission text which should be displayed.
+	 * @param {string} permission
+	 */
+	MPP.setPermission = function ( permission ) {
+		this.$permissionLink.show();
+		this.permission.set( permission );
+	};
+
+	/**
 	 * Sets location data in the interface.
 	 * @param {mw.mmv.model.Image} imageData
 	 */
@@ -595,6 +627,10 @@
 			this.setLicense( mw.message( msgname ).text(), imageData.isCcLicensed() );
 		}
 
+		if ( imageData.permission ) {
+			this.setPermission( imageData.permission );
+		}
+
 		this.fileUsage.set( localUsage, globalUsage );
 
 		this.setLocationData( imageData );
@@ -651,6 +687,32 @@
 				this.toggle( 'up' );
 				e.preventDefault();
 				break;
+		}
+	};
+
+	/**
+	 * @method
+	 * Makes sure that the given element (which must be a descendant of the metadata panel) is
+	 * in view. If it isn't, scrolls the panel smoothly to reveal it.
+	 * @param {HTMLElement|jQuery|string} target
+	 * @param {number} [duration] animation length
+	 * @param {Object} [settings] see jQuery.scrollTo
+	 */
+	MPP.scrollIntoView = function( target, duration, settings ) {
+		var $target = $( target ),
+			targetHeight = $target.height(),
+			targetTop = $target.offset().top,
+			targetBottom = targetTop + targetHeight,
+			viewportHeight = $(window).height(),
+			viewportTop = $.scrollTo().scrollTop(),
+			viewportBottom = viewportTop + viewportHeight;
+
+		// we omit here a bunch of cases which are logically possible but unlikely given the size
+		// of the panel, and only care about the one which will actually happen
+		if ( targetHeight <= viewportHeight ) { // target fits into screen
+			if (targetBottom > viewportBottom ) {
+				$.scrollTo( viewportTop + ( targetBottom - viewportBottom ), duration, settings );
+			}
 		}
 	};
 

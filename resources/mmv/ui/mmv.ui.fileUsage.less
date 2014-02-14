@@ -10,8 +10,11 @@
 
 	display: inline-block;
 	overflow: hidden;
-	width: 50%;
-	margin-left: 50%; /* placeholder for More panel that will go to the left side */
+	width: 100%;
+
+	&.empty {
+		display: none;
+	}
 
 	h3 {
 		color: @info-color;

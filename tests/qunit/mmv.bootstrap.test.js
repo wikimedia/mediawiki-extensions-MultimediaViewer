@@ -20,6 +20,27 @@
 		return div;
 	}
 
+	QUnit.asyncTest( 'Promise does not hang on ResourceLoader errors', 1, function ( assert ) {
+		var oldUsing = mw.loader.using,
+			bootstrap,
+			errorMessage = 'loading failed';
+
+		mw.loader.using = function ( module, success, error ) {
+			if ( $.isFunction( error ) ) {
+				error( new Error( errorMessage, ['mmv'] ) );
+			}
+		};
+		bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+
+		bootstrap.loadViewer().fail( function ( message ) {
+			assert.strictEqual( message, errorMessage, 'promise is rejected with the error message when loading fails' );
+			QUnit.start();
+		} );
+
+		bootstrap.hash = $.noop;
+		mw.loader.using = oldUsing;
+	} );
+
 	QUnit.test( 'Check viewer invoked when clicking on legit image links', 2, function ( assert ) {
 		// TODO: Is <div class="gallery"><span class="image"><img/></span></div> valid ???
 		var div, link, link2, link3, bootstrap,

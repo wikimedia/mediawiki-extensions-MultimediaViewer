@@ -63,7 +63,12 @@
 		var deferred = $.Deferred(),
 			bs = this;
 
-		mw.loader.using( 'mmv', function() { bs.isCSSReady( deferred ); } );
+		mw.loader.using( 'mmv', function() {
+			bs.isCSSReady( deferred );
+		}, function ( error ) {
+			mw.log( error.message );
+			deferred.reject( error.message );
+		} );
 
 		return $.when( deferred ).then( function () {
 			if ( !bs.viewerInitialized ) {

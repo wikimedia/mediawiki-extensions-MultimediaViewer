@@ -141,6 +141,7 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv.ui.description.test.js',
 				'tests/qunit/mmv.ui.fileUsage.test.js',
 				'tests/qunit/mmv.ui.metadataPanel.test.js',
+				'tests/qunit/mmv.ui.permission.test.js',
 				'tests/qunit/lightboximage.test.js',
 				'tests/qunit/lightboxinterface.test.js',
 				'tests/qunit/multilightbox.test.js',

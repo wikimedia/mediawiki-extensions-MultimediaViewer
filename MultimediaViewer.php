@@ -236,6 +236,10 @@ call_user_func( function() {
 			'mmv.ui.js',
 		),
 
+		'styles' => array(
+			'mmv.ui.less',
+		),
+
 		'dependencies' => array(
 			'mmv.base',
 		),
@@ -284,18 +288,43 @@ call_user_func( function() {
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 
+	$wgResourceModules['mmv.ui.permission'] = array_merge( array(
+		'scripts' => array(
+			'mmv.ui.permission.js',
+		),
+
+		'styles' => array(
+			'mmv.ui.permission.less',
+		),
+
+		'messages' => array(
+			'multimediaviewer-permission-title',
+		),
+
+		'dependencies' => array(
+			'jquery.color',
+			'mediawiki.jqueryMsg',
+			'mmv.ui',
+			'oojs',
+		),
+	), $moduleInfo( 'mmv/ui' ) );
+
 	$wgResourceModules['mmv.ui.metadataPanel'] = array_merge( array(
 		'scripts' => array(
 			'mmv.ui.metadataPanel.js',
 		),
-		// Note: We should pull these styles out, but the LESS patch should get merged first.
-//		'styles' => array(
-//			'mmv.ui.metadataPanel.less',
-//		),
+
+		'styles' => array(
+			'mmv.ui.metadataPanel.less',
+		),
 
 		'dependencies' => array(
 			'mmv.ui',
 			'mmv.ui.fileReuse',
+			'mmv.ui.fileUsage',
+			'mmv.ui.permission',
+			'mmv.ui.description',
+			'mmv.ui.categories',
 			'oojs',
 			'moment',
 		),
@@ -310,6 +339,9 @@ call_user_func( function() {
 
 			'multimediaviewer-datetime-created',
 			'multimediaviewer-datetime-uploaded',
+
+			// for license messages see end of file
+			'multimediaviewer-permission-link',
 
 			'multimediaviewer-geoloc-north',
 			'multimediaviewer-geoloc-east',

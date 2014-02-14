@@ -35,6 +35,7 @@
 	 * @param {string} source
 	 * @param {string} author
 	 * @param {string} license
+	 * @param {string} permission
 	 * @param {number} latitude
 	 * @param {number} longitude
 	 * @param {string[]} categories
@@ -55,6 +56,7 @@
 			source,
 			author,
 			license,
+			permission,
 			latitude,
 			longitude,
 			categories
@@ -104,6 +106,9 @@
 		/** @property {string} license The license under which the image is distributed */
 		this.license = license;
 
+		/** @property {string} additional license conditions by the author (note that this is usually a big ugly HTML blob) */
+		this.permission = permission;
+
 		/** @property {number} latitude The latitude of the place where the image was created */
 		this.latitude = latitude;
 
@@ -134,7 +139,7 @@
 	 */
 	Image.newFromImageInfo = function ( title, imageInfo ) {
 		var uploadDateTime, creationDateTime, imageData,
-			description, source, author, license,
+			description, source, author, license, permission,
 			latitude, longitude, categories,
 			innerInfo = imageInfo.imageinfo[0],
 			extmeta = innerInfo.extmetadata;
@@ -155,6 +160,7 @@
 			source = extmeta.Credit && extmeta.Credit.value;
 			author = extmeta.Artist && extmeta.Artist.value;
 			license = extmeta.License && extmeta.License.value;
+			permission = extmeta.Permission && extmeta.Permission.value;
 
 			latitude = extmeta.GPSLatitude && parseFloat( extmeta.GPSLatitude.value );
 			longitude = extmeta.GPSLongitude && parseFloat( extmeta.GPSLongitude.value );
@@ -178,6 +184,7 @@
 			source,
 			author,
 			license,
+			permission,
 			latitude,
 			longitude,
 			categories

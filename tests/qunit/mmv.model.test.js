@@ -18,7 +18,7 @@
 ( function ( mw ) {
 	QUnit.module( 'mmv.model', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Image model constructor sanity check', 20, function ( assert ) {
+	QUnit.test( 'Image model constructor sanity check', 21, function ( assert ) {
 		var
 			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 			size = 100,
@@ -34,6 +34,7 @@
 			description = 'This is a test file.',
 			source = 'WMF',
 			author = 'Ryan Kaldari',
+			permission = 'only use for good, not evil',
 			license = 'cc0',
 			latitude = 39.12381283,
 			longitude = 100.983829,
@@ -41,7 +42,7 @@
 			imageData = new mw.mmv.model.Image(
 				title, size, width, height, mime, url,
 				descurl, repo, user, datetime, origdatetime,
-				description, source, author, license,
+				description, source, author, license, permission,
 				latitude, longitude, categories );
 
 		assert.strictEqual( imageData.title, title, 'Title is set correctly' );
@@ -59,6 +60,7 @@
 		assert.strictEqual( imageData.source, source, 'Source is set correctly' );
 		assert.strictEqual( imageData.author, author, 'Author is set correctly' );
 		assert.strictEqual( imageData.license, license, 'License is set correctly' );
+		assert.strictEqual( imageData.permission, permission, 'Permission is set correctly' );
 		assert.strictEqual( imageData.latitude, latitude, 'Latitude is set correctly' );
 		assert.strictEqual( imageData.longitude, longitude, 'Longitude is set correctly' );
 		assert.strictEqual( imageData.categories[0], 'Foo', 'Categories are set to the right values' );
@@ -72,13 +74,14 @@
 				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ),
 				10, 10, 10, 'image/jpeg', 'http://example.org', 'http://example.com',
 				'example', 'tester', '2013-11-10', '2013-11-09', 'Blah blah blah',
-				'A person', 'Another person', 'CC-BY-SA-3.0'
+				'A person', 'Another person', 'CC-BY-SA-3.0', 'Permitted'
 			),
 			secondImageData = new mw.mmv.model.Image(
 				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ),
 				10, 10, 10, 'image/jpeg', 'http://example.org', 'http://example.com',
 				'example', 'tester', '2013-11-10', '2013-11-09', 'Blah blah blah',
-				'A person', 'Another person', 'CC-BY-SA-3.0', '39.91820938', '78.09812938'
+				'A person', 'Another person', 'CC-BY-SA-3.0', 'Permitted',
+				'39.91820938', '78.09812938'
 			);
 
 		assert.strictEqual( firstImageData.hasCoords(), false, 'No coordinates present means hasCoords returns false.' );

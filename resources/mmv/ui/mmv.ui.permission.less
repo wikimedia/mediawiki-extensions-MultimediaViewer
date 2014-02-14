@@ -1,0 +1,58 @@
+@import "mediawiki.mixins";
+
+.mw-mlb-permission-box {
+	position: relative;
+
+	width: 90%;
+	margin: 10px 5% 0;
+
+	max-height: 100px;
+
+	&.empty {
+		display: none;
+	}
+
+	h3 {
+		margin: 10px 10px;
+		padding: 0;
+		color: #565656;
+	}
+
+	.mw-mlb-permission-close {
+		display: none;
+
+		position: absolute;
+		top: 5px;
+		right: 5px;
+
+		width: 16px;
+		height: 16px;
+		.background-image('img/x_gray.svg');
+
+		cursor: pointer;
+	}
+
+	.mw-mlb-permission-text {
+		padding: 10px;
+	}
+
+	.mw-mlb-permission-html {
+		display: none;
+	}
+
+	&.full-size {
+		max-height: none;
+
+		.mw-mlb-permission-close {
+			display: block;
+		}
+
+		.mw-mlb-permission-text {
+			display: none;
+		}
+
+		.mw-mlb-permission-html {
+			display: block;
+		}
+	}
+}

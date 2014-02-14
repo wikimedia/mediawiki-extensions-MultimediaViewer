@@ -1,0 +1,17 @@
+@import "mmv.mixins";
+
+.mw-mlb-info-box {
+	@box-color: #FFFFFF;
+	@border-color: #C9C9C9;
+	@border-shadow-color: #D0D0D0;
+
+	display: inline-block;
+	overflow: hidden;
+	width: 100%;
+
+	border: 1px solid @border-color;
+	border-bottom: 2px solid @border-shadow-color;
+	.box-round(3px);
+
+	background-color: @box-color;
+}

@@ -25,7 +25,7 @@
 		assert.ok( imageInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'ImageInfo get test', 19, function ( assert ) {
+	QUnit.asyncTest( 'ImageInfo get test', 20, function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function() {
 				apiCallCount++;
@@ -88,6 +88,10 @@
 											Categories: {
 												value: 'a|b|cd',
 												source: 'commons-categories'
+											},
+											Permission: {
+												value: 'Do not use. Ever.',
+												source: 'commons-desc-page',
 											}
 										},
 										mime: 'image/jpeg',
@@ -118,6 +122,7 @@
 			assert.strictEqual( image.source, 'Wikipedia', 'source is set correctly' );
 			assert.strictEqual( image.author, 'Wikimeda', 'author is set correctly' );
 			assert.strictEqual( image.license, 'cc0', 'license is set correctly' );
+			assert.strictEqual( image.permission, 'Do not use. Ever.', 'permission is set correctly' );
 			assert.strictEqual( image.latitude, 90, 'latitude is set correctly' );
 			assert.strictEqual( image.longitude, 180, 'longitude is set correctly' );
 			assert.strictEqual( image.categories.length, 3, 'categories are set correctly' );

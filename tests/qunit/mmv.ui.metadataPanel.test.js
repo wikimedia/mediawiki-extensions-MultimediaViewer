@@ -177,6 +177,14 @@
 		window.moment = oldMoment;
 	} );
 
+	QUnit.test( 'Setting permission information works as expected', 1, function ( assert ) {
+		var $qf = $( '#qunit-fixture' ),
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) );
+
+		panel.setPermission( 'Look at me, I am a permission!' );
+		assert.ok( panel.$permissionLink.is( ':visible' ) );
+	} );
+
 	QUnit.test( 'Date formatting', 1, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
