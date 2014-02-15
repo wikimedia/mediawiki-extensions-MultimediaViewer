@@ -942,6 +942,7 @@ $messages['km'] = array(
  * @author Hym411
  * @author Jskang
  * @author Priviet
+ * @author 아라
  */
 $messages['ko'] = array(
 	'multimediaviewer-desc' => '섬네일 이미지를 풀스크린 인터페이스에서 더 큰 크기로 확장합니다.',
@@ -964,9 +965,9 @@ $messages['ko'] = array(
 	'multimediaviewer-about-mmv' => '미디어 뷰어 정보',
 	'multimediaviewer-discuss-mmv' => '의견 남기기',
 	'multimediaviewer-geolocation' => '위치: $1',
-	'multimediaviewer-fileusage-count' => '{{PLURAL:$1|문서}}에서 사용됨',
-	'multimediaviewer-fileusage-count-more' => '$1개의 이상의 {{PLURAL:$1|문서}}에서 사용됨',
-	'multimediaviewer-fileusage-link' => '모든 사용 현황 보기',
+	'multimediaviewer-fileusage-count' => '{{PLURAL:$1|문서}} $1개에서 사용됨',
+	'multimediaviewer-fileusage-count-more' => '$1개 보다 많은 {{PLURAL:$1|문서}}에서 사용됨',
+	'multimediaviewer-fileusage-link' => '모든 사용 보기',
 	'multimediaviewer-fileusage-local-section' => '이 사이트에서',
 	'multimediaviewer-fileusage-global-section' => '다른 사이트에서',
 );
@@ -1122,17 +1123,21 @@ $messages['nap'] = array(
 /** Dutch (Nederlands)
  * @author SPQRobin
  * @author Siebrand
+ * @author Sjoerddebruin
  */
 $messages['nl'] = array(
 	'multimediaviewer-desc' => 'Miniatuurafbeeldingen groter weergeven in een Lightbox.', # Fuzzy
+	'multimediaviewer-desc-nil' => 'Geen omschrijving beschikbaar.',
 	'multimediaviewer-pref' => 'Mediaviewer',
 	'multimediaviewer-pref-desc' => "Verbeteren uw multimediaervaring met dit nieuwe instrument. Afbeeldingen worden groter weergegeven op pagina's met miniaturen. Afbeeldingen worden weergegeven in een Lightbox en kunnen ook worden bekeken op ware grootte.", # Fuzzy
 	'multimediaviewer-file-page' => 'Naar de bestandspagina gaan',
 	'multimediaviewer-repository' => 'Meer informatie over $1',
+	'multimediaviewer-repository-local' => 'Lees meer',
 	'multimediaviewer-datetime-created' => 'Aangemaakt op $1',
 	'multimediaviewer-datetime-uploaded' => 'Geupload op $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Geüpload}} door $1',
 	'multimediaviewer-license-cc-pd' => 'Publiek domein',
+	'multimediaviewer-license-pd' => 'Publiek domein',
 	'multimediaviewer-license-default' => 'Licentie weergeven',
 	'multimediaviewer-use-file' => 'Dit bestand gebruiken',
 	'multimediaviewer-use-file-owt' => 'Gebruik dit bestand op een wikipagina, als een miniatuur',
@@ -1143,6 +1148,9 @@ $messages['nl'] = array(
 	'multimediaviewer-geolocation' => 'Locatie: $1',
 	'multimediaviewer-fileusage-count' => "Gebruikt op $1 {{PLURAL:$1|pagina|pagina's}}",
 	'multimediaviewer-fileusage-count-more' => "Gebruikt in meer dan $1 {{PLURAL:$1|pagina's}}",
+	'multimediaviewer-fileusage-link' => 'Alle toepassingen weergeven',
+	'multimediaviewer-fileusage-local-section' => 'Op deze site',
+	'multimediaviewer-fileusage-global-section' => "Op andere site's",
 );
 
 /** Occitan (occitan)
@@ -1182,6 +1190,7 @@ $messages['pl'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Użyj tego pliku na innej stronie internetowej',
 	'multimediaviewer-about-mmv' => 'O przeglądarce multimedów',
 	'multimediaviewer-discuss-mmv' => 'Prześlij opinię',
+	'multimediaviewer-geolocation' => 'Położenie: $1',
 );
 
 /** Pashto (پښتو)
@@ -1225,8 +1234,8 @@ $messages['pt'] = array(
 	'multimediaviewer-fileusage-count' => 'Utilizada em $1 {{PLURAL:$1|página|páginas}}',
 	'multimediaviewer-fileusage-count-more' => 'Utilizada em mais de $1 {{PLURAL:$1|páginas}}',
 	'multimediaviewer-fileusage-link' => 'Ver todas as utilizações',
-	'multimediaviewer-fileusage-local-section' => 'Neste site',
-	'multimediaviewer-fileusage-global-section' => 'Em outros sites',
+	'multimediaviewer-fileusage-local-section' => 'Neste sítio',
+	'multimediaviewer-fileusage-global-section' => 'Em outros sítios',
 );
 
 /** Romanian (română)
