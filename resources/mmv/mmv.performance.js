@@ -19,7 +19,7 @@
 	var P;
 
 	/**
-	 * @class mw.mmv.performance
+	 * @class mw.mmv.Performance
 	 * Measures the network performance
 	 * See https://meta.wikimedia.org/wiki/Schema:MultimediaViewerNetworkPerformance
 	 * @constructor
@@ -27,6 +27,19 @@
 	function Performance() {}
 
 	P = Performance.prototype;
+
+	/**
+	 * Global setup that should be done while the page loads
+	 */
+	P.init = function () {
+		var performance = this.getWindowPerformance();
+
+		// by default logging is cut off after 150 resources, which is not enough in debug mode
+		// only supported by IE
+		if ( mw.config.get( 'debug' ) && performance.setResourceTimingBufferSize ) {
+			performance.setResourceTimingBufferSize( 500 );
+		}
+	};
 
 	/**
 	 * Gather network performance for a given URL
@@ -48,12 +61,7 @@
 
 			if ( request.readyState === 4 ) {
 				deferred.resolve( request.response );
-
-				// The timeout is necessary because if there's an entry in window.performance,
-				// it hasn't been added yet at this point
-				setTimeout( function() {
-					perf.recordEntry( type, total, url, request );
-				}, 1000 );
+				perf.recordEntryDelayed( type, total, url, request );
 			}
 		};
 
@@ -73,15 +81,12 @@
 	 * @param {XMLHttpRequest} request HTTP request that just completed
 	 */
 	P.recordEntry = function ( type, total, url, request ) {
-		var timingList, timingEntry, i,
-			matches,
+		var matches,
 			stats = { type: type,
 				contentHost: window.location.host,
 				userAgent: navigator.userAgent,
 				isHttps: window.location.protocol === 'https:',
 				total: total },
-			varnishXCache,
-			performance = this.getWindowPerformance(),
 			connection = this.getNavigatorConnection();
 
 		// If eventLog isn't present there is nowhere to record to
@@ -116,52 +121,22 @@
 			stats.urlHost = matches[ 1 ];
 		}
 
-		if ( request ) {
-			stats.XCache = request.getResponseHeader( 'X-Cache' );
-			stats.XVarnish = request.getResponseHeader( 'X-Varnish' );
+		this.populateStatsFromXhr( stats, request );
 
-			if ( stats.XCache && stats.XCache.length ) {
-				varnishXCache = this.parseVarnishXCacheHeader( stats.XCache );
-
-				$.each( varnishXCache, function( key, value ) {
-					stats[ key ] = value;
-				} );
-			}
-
-			stats.contentLength = parseInt( request.getResponseHeader( 'Content-Length' ), 10 );
-			stats.age = parseInt( request.getResponseHeader( 'Age' ), 10 );
-			stats.timestamp = new Date( request.getResponseHeader( 'Date' ) ).getTime() / 1000;
-			stats.status = request.status;
-		}
-
-		// If we're given an xhr and we have access to the Navigation Timing API, use it
-		if ( performance && performance.getEntriesByType && request ) {
-			timingList = performance.getEntriesByType( 'resource' );
-
-			for ( i = 0; i < timingList.length; i++ ) {
-				timingEntry = timingList[ i ];
-				if ( timingEntry.initiatorType === 'xmlhttprequest'
-					&& timingEntry.name === url ) {
-					stats.total = Math.round( timingEntry.duration );
-					stats.redirect = Math.round( timingEntry.redirectEnd - timingEntry.redirectStart );
-					stats.dns = Math.round( timingEntry.domainLookupEnd - timingEntry.domainLookupStart );
-					stats.tcp = Math.round( timingEntry.connectEnd - timingEntry.connectStart );
-					stats.request = Math.round( timingEntry.responseStart - timingEntry.requestStart );
-					stats.response = Math.round( timingEntry.responseEnd - timingEntry.responseStart );
-					stats.cache = Math.round( timingEntry.domainLookupStart - timingEntry.fetchStart );
-				}
-			}
-
-			// Don't record entries that hit the browser cache
-			if ( stats.request < 1 ) {
-				return;
-			}
+		this.populateStatsFromPerformance( stats, url );
+		// Don't record entries that hit the browser cache
+		if ( stats.request === 0 ) {
+			return;
 		}
 
 		// Add connection information if there's any
 		if ( connection ) {
 			if ( connection.bandwidth ) {
-				stats.bandwidth = Math.round( connection.bandwidth );
+				if ( connection.bandwidth === Infinity ) {
+					stats.bandwidth = -1;
+				} else {
+					stats.bandwidth = Math.round( connection.bandwidth );
+				}
 			}
 
 			if ( connection.metered ) {
@@ -175,6 +150,170 @@
 		}
 
 		mw.eventLog.logEvent( 'MultimediaViewerNetworkPerformance', stats );
+	};
+
+	/**
+	 * Processes an XMLHttpRequest (or jqXHR) object
+	 * @param {Object} stats stats object to extend with additional statistics fields
+	 * @param {XMLHttpRequest} request
+	 */
+	P.populateStatsFromXhr = function ( stats, request ) {
+		var age,
+			contentLength,
+			xcache,
+			xvarnish,
+			varnishXCache;
+
+		if ( !request ) {
+			return;
+		}
+
+		stats.status = request.status;
+
+		// Chrome disallows header access for CORS image requests, even if the responose has the
+		// proper header :-/
+		contentLength = request.getResponseHeader( 'Content-Length' );
+		if ( contentLength === null ) {
+			return;
+		}
+
+		xcache = request.getResponseHeader( 'X-Cache' );
+		if ( xcache ) {
+			stats.XCache = xcache;
+			varnishXCache = this.parseVarnishXCacheHeader( xcache );
+
+			$.each( varnishXCache, function( key, value ) {
+				stats[ key ] = value;
+			} );
+		}
+
+		xvarnish = request.getResponseHeader( 'X-Varnish' );
+		if ( xvarnish ) {
+			stats.XVarnish = xvarnish;
+		}
+
+		stats.contentLength = parseInt( contentLength, 10 );
+
+		age = parseInt( request.getResponseHeader( 'Age' ), 10 );
+		if ( !isNaN( age ) ) {
+			stats.age = age;
+		}
+
+		stats.timestamp = new Date( request.getResponseHeader( 'Date' ) ).getTime() / 1000;
+	};
+
+	/**
+	 * Populates statistics based on the Request Timing API
+	 * @param {Object} stats
+	 * @param {string} url
+	 */
+	P.populateStatsFromPerformance = function( stats, url ) {
+		var performance = this.getWindowPerformance(),
+			timingEntries, timingEntry;
+
+		// If we're given an xhr and we have access to the Navigation Timing API, use it
+		if ( performance && performance.getEntriesByName ) {
+			// This could be tricky as we need to match encoding (the Request Timing API uses
+			// percent-encoded UTF-8). The main use case we are interested in is thumbnails and
+			// jQuery AJAX. jQuery uses encodeURIComponent to construct URL parameters, and
+			// thumbnail URLs come from MediaWiki API which also encodes them, so both should be
+			// all right.
+			timingEntries = performance.getEntriesByName( url );
+
+			if ( timingEntries.length ) {
+				// Let's hope it's the first request for the given URL we are interested in.
+				// This could fail in exotic cases (e.g. we send an AJAX request for a thumbnail,
+				// but it exists on the page as a normal thumbnail with the exact same size),
+				// but it's unlikely.
+				timingEntry = timingEntries[0];
+
+				stats.total = Math.round( timingEntry.duration );
+				stats.redirect = Math.round( timingEntry.redirectEnd - timingEntry.redirectStart );
+				stats.dns = Math.round( timingEntry.domainLookupEnd - timingEntry.domainLookupStart );
+				stats.tcp = Math.round( timingEntry.connectEnd - timingEntry.connectStart );
+				stats.request = Math.round( timingEntry.responseStart - timingEntry.requestStart );
+				stats.response = Math.round( timingEntry.responseEnd - timingEntry.responseStart );
+				stats.cache = Math.round( timingEntry.domainLookupStart - timingEntry.fetchStart );
+			} else if ( performance.getEntriesByType( 'resource' ).length === 150 ) {
+				// browser stops logging after 150 entries
+				mw.log( 'performance buffer full, results are probably incorrect' );
+			}
+		}
+	};
+
+	/**
+	 * Like recordEntry, but takes a jqXHR argument instead of a normal XHR one.
+	 * Due to the way some parameters are retrieved, this will work best if the context option
+	 * for the ajax request was not used.
+	 * @param {string} type the type of request to be measured
+	 * @param {number} total the total load time tracked with a basic technique
+	 * @param {jqXHR} jqxhr
+	 */
+	P.recordJQueryEntry = function ( type, total, jqxhr ) {
+		var perf = this;
+
+		// We take advantage of the fact that the context of the jqXHR deferred is the AJAX
+		// settings object. The deferred has already resolved so chaining to it does not influence
+		// the timing.
+		jqxhr.done( function () {
+			var url;
+
+			if ( !this.url ) {
+				mw.log.warn( 'Cannot find URL - did you use context option?' );
+			} else {
+				url = this.url;
+				// The performance API returns absolute URLs, but the one in the settings object is
+				// usually relative.
+				if ( !url.match( /^(\w+:)?\/\// ) ) {
+					url = location.protocol + '//' + location.host + url;
+				}
+			}
+
+			if ( this.crossDomain && this.dataType === 'jsonp' ) {
+				// Cross-domain jQuery requests return a fake jqXHR object which is useless and
+				// would only cause logging errors.
+				jqxhr = undefined;
+			}
+
+			// jQuery does not expose the original XHR object, but the jqXHR wrapper is similar
+			// enogh that we will probably get away by passing it instead.
+			perf.recordEntry( type, total, url, jqxhr );
+		} );
+	};
+
+	/**
+	 * Records network performance results for a given url
+	 * Will record if enough data is present and it's not a local cache hit
+	 * Will run after a delay to make sure the window.performance entry is present
+	 * @param {string} type the type of request to be measured
+	 * @param {number} total the total load time tracked with a basic technique
+	 * @param {string} url URL of that was measured
+	 * @param {XMLHttpRequest} request HTTP request that just completed
+	 */
+	P.recordEntryDelayed = function ( type, total, url, request ) {
+		var perf = this;
+
+		// The timeout is necessary because if there's an entry in window.performance,
+		// it hasn't been added yet at this point
+		setTimeout( function() {
+			perf.recordEntry( type, total, url, request );
+		}, 0 );
+	};
+
+	/**
+	 * Like recordEntryDelayed, but for jQuery AJAX requests.
+	 * @param {string} type the type of request to be measured
+	 * @param {number} total the total load time tracked with a basic technique
+	 * @param {jqXHR} jqxhr
+	 */
+	P.recordJQueryEntryDelayed = function ( type, total, jqxhr ) {
+		var perf = this;
+
+		// The timeout is necessary because if there's an entry in window.performance,
+		// it hasn't been added yet at this point
+		setTimeout( function() {
+			perf.recordJQueryEntry( type, total, jqxhr );
+		}, 0 );
 	};
 
 	/**
@@ -251,5 +390,8 @@
 		return navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 	};
 
-	mw.mmv.performance = Performance;
+	new Performance().init();
+
+	mw.mmv.Performance = Performance;
+
 }( mediaWiki, jQuery ) );

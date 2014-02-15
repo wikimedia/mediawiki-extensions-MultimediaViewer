@@ -28,7 +28,7 @@
 		assert.ok( ApiProviderWithNoOptions );
 	} );
 
-	QUnit.test( 'getErrorMessage test', 2, function ( assert ) {
+	QUnit.test( 'getErrorMessage', 2, function ( assert ) {
 		var api = { get: function() {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			errorMessage;
@@ -47,7 +47,7 @@
 		assert.strictEqual( apiProvider.getErrorMessage( {} ), 'unknown error', 'missing error message is handled');
 	} );
 
-	QUnit.test( 'getNormalizedTitle test', 3, function ( assert ) {
+	QUnit.test( 'getNormalizedTitle', 3, function ( assert ) {
 		var api = { get: function() {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			title = new mw.Title( 'Image:Stuff.jpg' ),
@@ -81,7 +81,7 @@
 		assert.strictEqual( normalizedTitle.getPrefixedDb(), 'File:Stuff.jpg', 'normalization happens' );
 	} );
 
-	QUnit.test( 'getQueryField test', 3, function ( assert ) {
+	QUnit.test( 'getQueryField', 3, function ( assert ) {
 		var api = { get: function() {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			data;
@@ -116,7 +116,7 @@
 		} );
 	} );
 
-	QUnit.test( 'getQueryPage test', 6, function ( assert ) {
+	QUnit.test( 'getQueryPage', 6, function ( assert ) {
 		var api = { get: function() {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			title = new mw.Title( 'File:Stuff.jpg' ),

@@ -55,8 +55,7 @@
 	GlobalUsage.prototype.get = function( file ) {
 		var provider = this,
 			cacheKey = file.getPrefixedDb(),
-			fileUsage,
-			start;
+			fileUsage;
 
 		if ( this.options.doNotUseApi ) {
 			fileUsage = new mw.mmv.model.FileUsage( file, mw.mmv.model.FileUsage.Scope.GLOBAL,
@@ -66,7 +65,6 @@
 		}
 
 		if ( !this.cache[cacheKey] ) {
-			start = $.now();
 			this.cache[cacheKey] = this.api.get( {
 				action: 'query',
 				prop: 'globalusage',
@@ -76,7 +74,6 @@
 				gulimit: this.options.apiLimit,
 				format: 'json'
 			} ).then( function( data ) {
-				provider.performance.recordEntry( 'globalusage', $.now() - start );
 				return provider.getQueryPage( file, data );
 			} ).then( function( pageData, data ) {
 				var pages;

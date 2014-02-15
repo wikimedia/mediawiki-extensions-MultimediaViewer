@@ -49,11 +49,9 @@
 	 */
 	ImageUsage.prototype.get = function( file ) {
 		var provider = this,
-			cacheKey = file.getPrefixedDb(),
-			start;
+			cacheKey = file.getPrefixedDb();
 
 		if ( !this.cache[cacheKey] ) {
-			start = $.now();
 			this.cache[cacheKey] = this.api.get( {
 				action: 'query',
 				list: 'imageusage',
@@ -62,7 +60,6 @@
 				iulimit: this.options.apiLimit,
 				format: 'json'
 			} ).then( function( data ) {
-				provider.performance.recordEntry( 'imageusage', $.now() - start );
 				return provider.getQueryField( 'imageusage', data );
 			} ).then( function( imageusage, data ) {
 				var pages;

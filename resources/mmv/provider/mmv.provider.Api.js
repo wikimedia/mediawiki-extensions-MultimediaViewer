@@ -44,12 +44,6 @@
 		 * @protected
 		 */
 		this.cache = {};
-
-		/**
-		 * @property {mw.mmv.performance}
-		 * @private
-		 */
-		this.performance = new mw.mmv.performance();
 	}
 
 	/**

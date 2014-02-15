@@ -70,3 +70,8 @@
  * @class jQuery.Event
  * An event object with extra jQuery data.
  */
+
+/**
+ * @class jqXHR
+ * An XMLHttpRequest object wrapped by jQuery
+ */

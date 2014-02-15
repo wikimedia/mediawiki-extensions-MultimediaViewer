@@ -221,6 +221,7 @@ call_user_func( function() {
 			'mmv.model',
 			'mmv.model.TaskQueue',
 			'oojs',
+			'mmv.performance',
 		),
 	), $moduleInfo( 'mmv/provider' ) );
 
@@ -376,6 +377,19 @@ call_user_func( function() {
 		),
 	), $moduleInfo( 'mmv' ) );
 
+	$wgResourceModules['mmv.api'] = array_merge( array(
+		'scripts' => array(
+			'mmv.api.js',
+		),
+
+		'dependencies' => array(
+			'jquery',
+			'mediawiki',
+			'mediawiki.api',
+			'mmv.base',
+		),
+	), $moduleInfo( 'mmv' ) );
+
 	$wgResourceModules['mmv'] = array_merge( array(
 		'scripts' => array(
 			'mmv.js',
@@ -391,7 +405,6 @@ call_user_func( function() {
 			'mmv.lightboximage',
 			'jquery.fullscreen',
 			'jquery.throttle-debounce',
-			'mediawiki.api',
 			'mediawiki.Uri',
 			'jquery.ui.dialog',
 			'jquery.hidpi',
@@ -405,8 +418,8 @@ call_user_func( function() {
 			'mmv.provider',
 			'mediawiki.language',
 			'mmv.multilightbox',
-			'mmv.performance',
 			'mmv.ThumbnailWidthCalculator',
+			'mmv.api',
 		),
 
 		'messages' => array(
@@ -460,7 +473,7 @@ call_user_func( function() {
 			$wgResourceModules['schema.MultimediaViewerNetworkPerformance'] = array(
 				'class' => 'ResourceLoaderSchemaModule',
 				'schema' => 'MultimediaViewerNetworkPerformance',
-				'revision' => 7393226,
+				'revision' => 7488625,
 			);
 
 			$wgResourceModules['mmv']['dependencies'][] = 'ext.eventLogging';

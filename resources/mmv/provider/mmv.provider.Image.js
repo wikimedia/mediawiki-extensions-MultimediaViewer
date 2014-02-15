@@ -23,10 +23,10 @@
 	 */
 	function Image() {
 		/**
-		 * @property {mw.mmv.performance}
+		 * @property {mw.mmv.Performance}
 		 * @private
 		 */
-		this.performance = new mw.mmv.performance();
+		this.performance = new mw.mmv.Performance();
 
 		/**
 		 * AJAX call cache.

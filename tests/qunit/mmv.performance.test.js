@@ -31,7 +31,7 @@
 	}
 
 	QUnit.test( 'recordEntry: basic', 5, function ( assert ) {
-		var performance = new mw.mmv.performance(),
+		var performance = new mw.mmv.Performance(),
 			oldEventLog = mw.eventLog,
 			type = 'gender',
 			total = 10;
@@ -113,7 +113,7 @@
 			oldGeo = window.Geo,
 			oldEventLog = mw.eventLog,
 			type = 'image',
-			performance = new mw.mmv.performance(),
+			performance = new mw.mmv.Performance(),
 			status = 200,
 			metered = true,
 			bandwidth = 45.67;
@@ -122,12 +122,12 @@
 
 		performance.getWindowPerformance = function() {
 			return {
-				getEntriesByType: function () {
-					return [ {
+				getEntriesByName: function () {
+					return [perfData, {
 						initiatorType: 'bogus',
 						duration: 1234,
 						name: url
-					}, perfData];
+					}];
 				}
 			};
 		};
@@ -209,7 +209,7 @@
 			varnish2 = 'cp3006',
 			varnish3 = 'cp3005',
 			testString = varnish1 + ' miss (0), ' + varnish2  + ' miss (0), ' + varnish3 + ' frontend hit (1)',
-			performance = new mw.mmv.performance(),
+			performance = new mw.mmv.Performance(),
 			varnishXCache = performance.parseVarnishXCacheHeader( testString );
 
 		assert.strictEqual( varnishXCache.varnish1, varnish1, 'First varnish server name extracted' );
@@ -233,5 +233,32 @@
 
 		varnishXCache = performance.parseVarnishXCacheHeader( 'garbage' );
 		assert.ok( $.isEmptyObject( varnishXCache ), 'Varnish cache results are empty' );
+	} );
+
+	QUnit.test( 'mw.mmv.Api', 3, function ( assert ) {
+		var api,
+			oldRecord = mw.mmv.Performance.prototype.recordJQueryEntryDelayed,
+			oldAjax = mw.Api.prototype.ajax,
+			ajaxCalled = false,
+			fakeJqxhr = {};
+
+		mw.Api.prototype.ajax = function() {
+			ajaxCalled = true;
+			return $.Deferred().resolve( {}, fakeJqxhr );
+		};
+
+		mw.mmv.Performance.prototype.recordJQueryEntryDelayed = function ( type, total, jqxhr ) {
+			assert.strictEqual( type, 'foo', 'type was passed correctly' );
+			assert.strictEqual( jqxhr, fakeJqxhr, 'jqXHR was passed correctly' );
+		};
+
+		api = new mw.mmv.Api( 'foo' );
+
+		api.ajax();
+
+		assert.ok( ajaxCalled, 'parent ajax() function was called' );
+
+		mw.mmv.Performance.prototype.recordJQueryEntryDelayed = oldRecord;
+		mw.Api.prototype.ajax = oldAjax;
 	} );
 }( mediaWiki, jQuery ) );

@@ -42,12 +42,6 @@
 			localStorage.getItem( 'mmv.hasOpenedMetadata' );
 
 		/**
-		 * @property {mw.Api}
-		 * @private
-		 */
-		this.api = new mw.Api();
-
-		/**
 		 * @property {mw.mmv.provider.Image}
 		 * @private
 		 */
@@ -57,53 +51,47 @@
 		 * @property {mw.mmv.provider.ImageInfo}
 		 * @private
 		 */
-		this.imageInfoProvider = new mw.mmv.provider.ImageInfo( this.api, {
+		this.imageInfoProvider = new mw.mmv.provider.ImageInfo( new mw.mmv.Api( 'imageinfo' ),
 			// Short-circuit, don't fallback, to save some tiny amount of time
-			language: mw.config.get( 'wgUserLanguage', false ) || mw.config.get( 'wgContentLanguage', 'en' )
-		} );
+			{ language: mw.config.get( 'wgUserLanguage', false ) || mw.config.get( 'wgContentLanguage', 'en' ) }
+		);
 
 		/**
 		 * @property {mw.mmv.provider.FileRepoInfo}
 		 * @private
 		 */
-		this.fileRepoInfoProvider = new mw.mmv.provider.FileRepoInfo( this.api );
+		this.fileRepoInfoProvider = new mw.mmv.provider.FileRepoInfo( new mw.mmv.Api( 'filerepoinfo' ) );
 
 		/**
 		 * @property {mw.mmv.provider.ThumbnailInfo}
 		 * @private
 		 */
-		this.thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( this.api );
+		this.thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( new mw.mmv.Api( 'thumbnailinfo' ) );
 
 		/**
 		 * @property {mw.mmv.provider.UserInfo}
 		 * @private
 		 */
-		this.userInfoProvider = new mw.mmv.provider.UserInfo( this.api );
+		this.userInfoProvider = new mw.mmv.provider.UserInfo( new mw.mmv.Api( 'userinfo' ) );
 
 		/**
 		 * @property {mw.mmv.provider.ImageUsage}
 		 * @private
 		 */
-		this.imageUsageProvider = new mw.mmv.provider.ImageUsage( this.api );
+		this.imageUsageProvider = new mw.mmv.provider.ImageUsage( new mw.mmv.Api( 'imageusage' ) );
 
 		/**
 		 * @property {mw.mmv.provider.GlobalUsage}
 		 * @private
 		 */
-		this.globalUsageProvider = new mw.mmv.provider.GlobalUsage( this.api, {
-			doNotUseApi: !mw.config.get( 'wgMultimediaViewer' ).globalUsageAvailable
-		} );
+		this.globalUsageProvider = new mw.mmv.provider.GlobalUsage( new mw.Api( 'globalusage' ),
+			{ doNotUseApi: !mw.config.get( 'wgMultimediaViewer' ).globalUsageAvailable }
+		);
 		// replace with this one to test global usage on a local wiki without going through all the
 		// hassle required for installing the extension:
 		//this.globalUsageProvider = new mw.mmv.provider.GlobalUsage(
 		//	new mw.Api( {ajax: { url: 'http://commons.wikimedia.org/w/api.php', dataType: 'jsonp' } } )
 		//);
-
-		/**
-		 * @property {mw.mmv.performance}
-		 * @private
-		 */
-		this.performance = new mw.mmv.performance();
 
 		this.setupEventHandlers();
 	}

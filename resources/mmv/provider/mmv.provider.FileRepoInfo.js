@@ -36,17 +36,14 @@
 	 *     a hash of mw.mmv.model.Repo objects, indexed by repo names.
 	 */
 	FileRepoInfo.prototype.get = function() {
-		var provider = this,
-			start;
+		var provider = this;
 
 		if ( !this.cache['*'] ) {
-			start = $.now();
 			this.cache['*'] = this.api.get( {
 				action: 'query',
 				meta: 'filerepoinfo',
 				format: 'json'
 			} ).then( function( data ) {
-				provider.performance.recordEntry( 'filerepoinfo', $.now() - start );
 				return provider.getQueryField( 'repos', data );
 			} ).then( function( reposArray ) {
 				var reposHash = {};
