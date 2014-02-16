@@ -617,9 +617,10 @@ $messages['fa'] = array(
  * @author Stryn
  */
 $messages['fi'] = array(
-	'multimediaviewer-desc' => 'Näytä pienoiskuvat suuremmassa koossa Lightbox-näkymässä.', # Fuzzy
+	'multimediaviewer-desc' => 'Näytä pienoiskuvat suuremmassa koossa kokoruututilassa.',
+	'multimediaviewer-desc-nil' => 'Ei kuvausta saatavilla.',
 	'multimediaviewer-pref' => 'Media Viewer',
-	'multimediaviewer-pref-desc' => 'Paranna multimedian näyttämiskokemustasi tällä uudella työkalulla. Se näyttää sivuilla olevat pienoiskuvat suuremmassa koossa. Kuvat aukeavat Lightbox-näkymässä, ja ne voidaan näyttää myös täysikokoisina.', # Fuzzy
+	'multimediaviewer-pref-desc' => 'Paranna multimedian näyttämiskokemustasi tällä uudella työkalulla. Se näyttää sivuilla olevat pienoiskuvat suuremmassa koossa. Kuvat aukeavat suuremmassa koossa kokoruututilassa, ja ne voidaan näyttää myös täysikokoisina.',
 	'multimediaviewer-file-page' => 'Siirry tiedostosivulle',
 	'multimediaviewer-repository' => 'Lisätietoa sivustolla $1',
 	'multimediaviewer-repository-local' => 'Lue lisää',
@@ -627,13 +628,20 @@ $messages['fi'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Tallennettu $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Tallentanut}} $1',
 	'multimediaviewer-license-cc-pd' => 'Vapaasti käytettävä',
-	'multimediaviewer-license-default' => 'Lisenssitiedot', # Fuzzy
+	'multimediaviewer-license-pd' => 'Vapaasti käytettävä',
+	'multimediaviewer-license-default' => 'Näytä lisenssi',
 	'multimediaviewer-use-file' => 'Käytä tätä tiedostoa',
 	'multimediaviewer-use-file-owt' => 'Käytä tätä tiedostoa wikisivulla pienoiskuvana',
 	'multimediaviewer-use-file-own' => 'Käytä tätä tiedostoa wikisivulla täysikokoisena',
 	'multimediaviewer-use-file-offwiki' => 'Käytä tätä tiedostoa toisella sivustolla',
 	'multimediaviewer-about-mmv' => 'Tietoa Media Vieweristä',
 	'multimediaviewer-discuss-mmv' => 'Jätä palautetta',
+	'multimediaviewer-geolocation' => 'Sijainti: $1',
+	'multimediaviewer-fileusage-count' => 'Käytössä {{PLURAL:$1|yhdellä|$1}} sivulla',
+	'multimediaviewer-fileusage-count-more' => 'Käytössä useammalla kuin {{PLURAL:$1|yhdellä|$1}} sivulla',
+	'multimediaviewer-fileusage-link' => 'Näytä kaikki, joissa käytössä',
+	'multimediaviewer-fileusage-local-section' => 'Tällä sivustolla',
+	'multimediaviewer-fileusage-global-section' => 'Muilla sivustoilla',
 );
 
 /** French (français)
@@ -1242,15 +1250,18 @@ $messages['pt'] = array(
  * @author Minisarm
  */
 $messages['ro'] = array(
-	'multimediaviewer-desc' => 'Extinde miniaturile la o dimensiune mai mare într-un cadru Lightbox.',
+	'multimediaviewer-desc' => 'Extinde miniaturile la o dimensiune mai mare într-o interfață pe tot ecranul.',
+	'multimediaviewer-desc-nil' => 'Nicio descriere disponibilă.',
 	'multimediaviewer-pref' => 'Vizualizator multimedia',
-	'multimediaviewer-pref-desc' => 'Îmbunătățiți-vă experiența de vizualizare a conținutului multimedia cu această nouă unealtă. Afișează imaginile la dimensiune mare în cadrul paginilor care conțin miniaturi. Imaginile sunt afișate într-un cadru Lightbox mai simpatic, acestea putând fi, de asemenea, vizualizate la dimensiunea reală.',
+	'multimediaviewer-pref-desc' => 'Îmbunătățiți-vă experiența de vizualizare a conținutului multimedia cu această nouă unealtă. Afișează imaginile la dimensiune mare în cadrul paginilor care conțin miniaturi. Imaginile sunt afișate într-o interfață pe tot ecranul mai simpatică, acestea putând fi, de asemenea, vizualizate la dimensiunea reală.',
 	'multimediaviewer-file-page' => 'Du-te la pagina asociată fișierului',
 	'multimediaviewer-repository' => 'Mai multe la $1',
+	'multimediaviewer-repository-local' => 'Mai multe',
 	'multimediaviewer-datetime-created' => 'Creată la $1',
 	'multimediaviewer-datetime-uploaded' => 'Încărcată la $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Încărcată}} de $1',
 	'multimediaviewer-license-cc-pd' => 'Domeniu public',
+	'multimediaviewer-license-pd' => 'Domeniu public',
 	'multimediaviewer-license-default' => 'Vezi licența',
 	'multimediaviewer-use-file' => 'Utilizează acest fișier',
 	'multimediaviewer-use-file-owt' => 'Utilizați acest fișier în cadrul unei pagini wiki, ca miniatură',
@@ -1258,6 +1269,12 @@ $messages['ro'] = array(
 	'multimediaviewer-use-file-offwiki' => 'Utilizați acest fișier pe un alt site web',
 	'multimediaviewer-about-mmv' => 'Despre Vizualizatorul multimedia',
 	'multimediaviewer-discuss-mmv' => 'Lăsați o părere',
+	'multimediaviewer-geolocation' => 'Poziție: $1',
+	'multimediaviewer-fileusage-count' => 'Folosită {{PLURAL:$1|într-o pagină|în $1 pagini|în $1 de pagini}}',
+	'multimediaviewer-fileusage-count-more' => 'Folosită în mai mult de $1 {{PLURAL:$1|pagini|de pagini}}',
+	'multimediaviewer-fileusage-link' => 'Vezi toate utilizările',
+	'multimediaviewer-fileusage-local-section' => 'Pe acest site',
+	'multimediaviewer-fileusage-global-section' => 'Pe alte site-uri',
 );
 
 /** tarandíne (tarandíne)
