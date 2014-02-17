@@ -359,7 +359,8 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
-			'oojs',
+			'jquery',
+			'mmv.base',
 		),
 	), $moduleInfo( 'mmv' ) );
 
@@ -385,7 +386,6 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
-			'mmv.logger',
 			'multilightbox',
 			'jquery.scrollTo',
 			'mmv.lightboximage',
@@ -393,7 +393,6 @@ call_user_func( function() {
 			'jquery.throttle-debounce',
 			'mediawiki.api',
 			'mediawiki.Uri',
-			'mediawiki.Title',
 			'jquery.ui.dialog',
 			'jquery.hidpi',
 			'mmv.model',
@@ -425,6 +424,20 @@ call_user_func( function() {
 			'multimediaviewer-fileusage-link',
 			'multimediaviewer-fileusage-local-section',
 			'multimediaviewer-fileusage-global-section',
+		),
+	), $moduleInfo( 'mmv' ) );
+
+	$wgResourceModules['mmv.bootstrap'] = array_merge( array(
+		'scripts' => array(
+			'mmv.bootstrap.js',
+		),
+
+		'dependencies' => array(
+			'jquery',
+			'mediawiki',
+			'mediawiki.Title',
+			'mmv.logger',
+			'mmv.ui',
 		),
 	), $moduleInfo( 'mmv' ) );
 

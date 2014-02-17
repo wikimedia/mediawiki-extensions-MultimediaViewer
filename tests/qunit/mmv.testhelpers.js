@@ -13,11 +13,5 @@
 		$( document ).trigger( $.Event( 'jq-fullscreen-change', { element: this, fullscreen: false } ) );
 	};
 
-	// TODO: remove once viewer isn't being referenced by interfaces anymore
-	// and event listening code has been cleaned up
-	MTH.resetViewer = function() {
-		mw.mediaViewer.constructor();
-	};
-
 	mw.mmvTestHelpers = MTH;
 } )( mediaWiki, jQuery );

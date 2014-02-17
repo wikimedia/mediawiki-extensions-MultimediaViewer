@@ -4,12 +4,10 @@
 	/**
 	 * @class mlb.MultiLightbox
 	 * @constructor
-	 * @param {mlb.LightboxImage[]} images
 	 * @param {number} [start=0]
 	 * @param {Function} [InterfaceClass] type of interface to use
 	 */
-	function MultiLightbox( images, start, InterfaceClass ) {
-		this.images = images;
+	function MultiLightbox( start, InterfaceClass ) {
 		this.currentIndex = start || 0;
 		this.onInterfaceReady = [];
 		this.initializeInterface( InterfaceClass );

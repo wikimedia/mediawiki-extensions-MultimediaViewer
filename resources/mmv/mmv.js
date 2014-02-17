@@ -16,21 +16,8 @@
  */
 
 ( function ( mw, $ ) {
-	var MultiLightbox, MMVP,
-
-		comingFromPopstate = false,
-
-		imgsSelector = '.gallery .image img, a.image img',
-
-		validExtensions = {
-			'jpg': true,
-			'jpeg': true,
-			'gif': true,
-			'svg': true,
-			'png': true,
-			'tiff': true,
-			'tif': true
-		};
+	var MMVP,
+		comingFromPopstate = false;
 
 	/**
 	 * @class mw.MultimediaViewer
@@ -52,10 +39,6 @@
 		 * @private
 		 */
 		this.hasAnimatedMetadata = false;
-
-		var $thumbs = $( imgsSelector ),
-			urls = [],
-			viewer = this;
 
 		/**
 		 * @property {mw.Api}
@@ -121,62 +104,30 @@
 		 */
 		this.performance = new mw.mmv.performance();
 
-		// Traverse DOM, looking for potential thumbnails
-		$thumbs.each( function ( i, thumb ) {
-			var thisImage, $thumbCaption, caption,
-				$thumb = $( thumb ),
-				$link = $thumb.closest( 'a.image' ),
-				$thumbContain = $link.closest( '.thumb' ),
-				$enlarge = $thumbContain.find( '.magnify a' ),
-				$links = $link.add( $enlarge ),
-				filePageLink = $link.prop( 'href' ),
-				fileTitle = mw.Title.newFromImg( $thumb ),
-				index = urls.length;
-
-			if ( !validExtensions[fileTitle.getExtension().toLowerCase()] ) {
-				// Not a valid extension, skip this one
-				return;
-			}
-
-			if ( $thumbContain.length === 0 ) {
-				// This isn't a thumbnail! Just use the link.
-				$thumbContain = $link;
-			} else if ( $thumbContain.is( '.thumb' ) ) {
-				$thumbCaption = $thumbContain.find( '.thumbcaption' ).clone();
-				$thumbCaption.find( '.magnify' ).remove();
-				viewer.whitelistHtml( $thumbCaption );
-				caption = $thumbCaption.html();
-				$thumbContain = $thumbContain.find( '.image' );
-			}
-
-			$links.data( 'filePageLink', filePageLink );
-
-			// Create a LightboxImage object for each legit image
-			thisImage = viewer.createNewImage( $thumb.prop( 'src' ), filePageLink, fileTitle, index, thumb, caption );
-
-			urls.push( thisImage );
-
-			// Register callback that launches modal image viewer if valid click
-			$links.click( function ( e ) {
-				return viewer.clickLinkCallback( e, this, $thumbContain, thisImage );
-			} );
-		} );
-
-		if ( urls.length === 0 ) {
-			// No legit images found, no need to continue
-			return;
-		}
-
-		// Only if we find legit images, create a MultiLightbox object
-		this.lightbox = new mw.MultiLightbox( urls, 0, mw.LightboxInterface, this );
-
 		this.setupEventHandlers();
 	}
 
 	MMVP = MultimediaViewer.prototype;
 
-	// TODO FIXME HACK delete this when other UI elements have been shifted away.
-	MMVP.whitelistHtml = mw.mmv.ui.Element.prototype.whitelistHtml;
+	MMVP.initWithThumbs = function ( thumbs ) {
+		var i, thumb;
+
+		// Only if we find legit images, create a MultiLightbox object
+		this.lightbox = new mw.MultiLightbox( 0, mw.LightboxInterface, this );
+
+		this.thumbs = thumbs;
+
+		for ( i = 0; i < this.thumbs.length; i++ ) {
+			thumb = this.thumbs[ i ];
+			// Create a LightboxImage object for each legit image
+			thumb.image = mw.mediaViewer.createNewImage( thumb.$thumb.prop( 'src' ),
+				thumb.link,
+				thumb.title,
+				i,
+				thumb.thumb,
+				thumb.caption );
+		}
+	};
 
 	/**
 	 * Create an image object for the lightbox to use.
@@ -197,38 +148,6 @@
 		thisImage.thumbnail = thumb;
 
 		return thisImage;
-	};
-
-	/**
-	 * Handles clicks on legit image links.
-	 *
-	 * @protected
-	 *
-	 * @param {jQuery.Event} e click event
-	 * @param {HTMLElement|jQuery} clickedEle clicked element
-	 * @param {jQuery} $thumbContain thumbnail container element
-	 * @param {mw.LightboxImage} thisImage lightboximage object
-	 */
-	MMVP.clickLinkCallback = function ( e, clickedEle, $thumbContain, thisImage ) {
-		// Do not interfere with non-left clicks or if modifier keys are pressed.
-		if ( e.which !== 1 || e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) {
-			return;
-		}
-
-		var $clickedEle = $( clickedEle ),
-				initial = $thumbContain.find( 'img' ).clone()[0];
-
-		if ( $clickedEle.is( 'a.image' ) ) {
-			mw.mmv.logger.log( 'thumbnail-link-click' );
-		} else if ( $clickedEle.is( '.magnify a' ) ) {
-			mw.mmv.logger.log( 'enlarge-link-click' );
-		}
-
-		e.preventDefault();
-
-		this.loadImage( thisImage, initial );
-
-		return false;
 	};
 
 	/**
@@ -258,7 +177,7 @@
 	};
 
 	MMVP.updateControls = function () {
-		var numImages = this.lightbox.images ? this.lightbox.images.length : 0,
+		var numImages = this.thumbs ? this.thumbs.length : 0,
 			showNextButton = this.lightbox.currentIndex < (numImages - 1),
 			showPreviousButton = this.lightbox.currentIndex > 0;
 
@@ -303,7 +222,7 @@
 
 		this.currentImageFilename = image.filePageTitle.getPrefixedText();
 		this.currentImageFileTitle = image.filePageTitle;
-		this.lightbox.iface.comingFromPopstate = comingFromPopstate;
+		this.lightbox.iface.comingFromPopstate = this.comingFromPopstate;
 
 		if ( !this.isOpen ) {
 			this.lightbox.open();
@@ -341,7 +260,30 @@
 				.then( function() { viewer.startListeningToScroll(); } );
 		} );
 
-		comingFromPopstate = false;
+		this.comingFromPopstate = false;
+	};
+
+	/**
+	 * @method
+	 * Loads an image by its title
+	 * @param {string} title
+	 * @param {boolean} updateHash Viewer should update the location hash when true
+	 */
+	MMVP.loadImageByTitle = function ( title, updateHash ) {
+		var viewer = this;
+
+		if ( !this.thumbs || !this.thumbs.length ) {
+			return;
+		}
+
+		this.comingFromPopstate = !updateHash;
+
+		$.each( this.thumbs, function ( idx, thumb ) {
+			if ( thumb.title.getPrefixedText() === title ) {
+				viewer.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ], true );
+				return false;
+			}
+		} );
 	};
 
 	/**
@@ -373,16 +315,16 @@
 	 */
 	MMVP.eachPrealoadableLightboxIndex = function( callback ) {
 		for ( var i = 0; i <= this.preloadDistance; i++ ) {
-			if ( this.lightbox.currentIndex + i < this.lightbox.images.length ) {
+			if ( this.lightbox.currentIndex + i < this.thumbs.length ) {
 				callback(
 					this.lightbox.currentIndex + i,
-					this.lightbox.images[this.lightbox.currentIndex + i]
+					this.thumbs[ this.lightbox.currentIndex + i ].image
 				);
 			}
 			if ( i && this.lightbox.currentIndex - i >= 0 ) { // skip duplicate for i==0
 				callback(
 					this.lightbox.currentIndex - i,
-					this.lightbox.images[this.lightbox.currentIndex - i]
+					this.thumbs[ this.lightbox.currentIndex - i ].image
 				);
 			}
 		}
@@ -561,9 +503,11 @@
 	};
 
 	MMVP.loadIndex = function ( index ) {
-		var $thumbnails = $( imgsSelector ).eq( index );
-		if ( index < this.lightbox.images.length && index >= 0 ) {
-			this.loadImage( this.lightbox.images[index], $thumbnails.clone()[0] );
+		var thumb;
+
+		if ( index < this.thumbs.length && index >= 0 ) {
+			thumb = this.thumbs[ index ];
+			this.loadImage( thumb.image, thumb.$thumb.clone()[0] );
 		}
 	};
 
@@ -596,6 +540,15 @@
 		this.isOpen = false;
 	};
 
+	/**
+	 * Shuts down the viewer
+	 */
+	MMVP.shutdown = function () {
+		if ( this.lightbox && this.lightbox.iface ) {
+			this.lightbox.iface.unattach();
+		}
+	};
+
 	MMVP.setupEventHandlers = function () {
 		var viewer = this;
 
@@ -610,36 +563,6 @@
 		});
 	};
 
-	function handleHash () {
-		var statedIndex,
-			$foundElement,
-			hash = decodeURIComponent( document.location.hash ),
-			linkState = hash.split( '/' );
-
-		comingFromPopstate = true;
-		if ( linkState[0] === '#mediaviewer' ) {
-			statedIndex = mw.mediaViewer.lightbox.images[linkState[2]];
-
-			if ( statedIndex.filePageTitle.getPrefixedText() === linkState[1] ) {
-				$foundElement = $( imgsSelector ).eq( linkState[2] );
-				mw.mediaViewer.loadImage( statedIndex, $foundElement.clone()[0] );
-			}
-		} else {
-			// If the hash is invalid (not a mmv hash) we check if there's any mmv lightbox open and we close it
-			if ( mw.mediaViewer && mw.mediaViewer.lightbox && mw.mediaViewer.lightbox.iface ) {
-				mw.mediaViewer.lightbox.iface.unattach();
-			}
-		}
-	}
-
-	$( function () {
-		MultiLightbox = window.MultiLightbox;
-
-		mw.mediaViewer = new MultimediaViewer();
-
-		handleHash();
-		window.addEventListener( 'popstate', handleHash );
-	} );
-
 	mw.MultimediaViewer = MultimediaViewer;
+	mw.mediaViewer = new mw.MultimediaViewer();
 }( mediaWiki, jQuery ) );

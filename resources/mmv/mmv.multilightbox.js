@@ -21,18 +21,17 @@
 	 * @extends mlb.MultiLightbox
 	 * @inheritdoc
 	 * @constructor
-	 * @param {mlb.LightboxImage[]} urls
 	 * @param {number} initial
 	 * @param {Function} InterfaceClass type of interface to use
 	 * @param {mw.MultimediaViewer} viewer
 	 */
-	function MultiLightbox( urls, initial, InterfaceClass, viewer ) {
+	function MultiLightbox( initial, InterfaceClass, viewer ) {
 		this.initializeInterface = function ( InterfaceClass ) {
 			InterfaceClass = InterfaceClass || window.LightboxInterface;
 			this.iface = new InterfaceClass( viewer );
 		};
 
-		MLBLightbox.call( this, urls, initial, InterfaceClass );
+		MLBLightbox.call( this, initial, InterfaceClass );
 	}
 
 	oo.inheritClass( MultiLightbox, MLBLightbox );

@@ -40,7 +40,7 @@ class MultimediaViewerHooks {
 			return true;
 		}
 
-		$out->addModules( array( 'mmv' ) );
+		$out->addModules( array( 'mmv.bootstrap' ) );
 
 		return true;
 	}
@@ -121,6 +121,7 @@ class MultimediaViewerHooks {
 		$testModules['qunit']['mmv.tests'] = array(
 			'scripts' => array(
 				'tests/qunit/mmv.testhelpers.js',
+				'tests/qunit/mmv.bootstrap.test.js',
 				'tests/qunit/mmv.test.js',
 				'tests/qunit/mmv.model.test.js',
 				'tests/qunit/mmv/model/mmv.model.TaskQueue.test.js',
@@ -135,6 +136,7 @@ class MultimediaViewerHooks {
 				'tests/qunit/provider/mmv.provider.UserInfo.test.js',
 				'tests/qunit/provider/mmv.provider.Image.test.js',
 				'tests/qunit/mmv.lightboxinterface.test.js',
+				'tests/qunit/mmv.ui.test.js',
 				'tests/qunit/mmv.ui.categories.test.js',
 				'tests/qunit/mmv.ui.description.test.js',
 				'tests/qunit/mmv.ui.fileUsage.test.js',
@@ -146,6 +148,7 @@ class MultimediaViewerHooks {
 			),
 			'dependencies' => array(
 				'mmv',
+				'mmv.bootstrap',
 			),
 			'localBasePath' => __DIR__,
 			'remoteExtPath' => 'MultimediaViewer',

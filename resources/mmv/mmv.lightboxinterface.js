@@ -134,7 +134,7 @@
 	 * and causes the small-thumbnail-for-a-moment bug in the process. Needs severe refactoring.
 	 */
 	LIP.setupForLoad = function() {
-		var hashFragment = '#mediaviewer/' + this.viewer.currentImageFilename + '/' + this.viewer.lightbox.currentIndex,
+		var hashFragment = '#mediaviewer/' + this.viewer.currentImageFilename,
 			ui = this;
 
 		this.viewer.ui = this;
