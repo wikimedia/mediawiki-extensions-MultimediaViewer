@@ -1216,6 +1216,7 @@ $messages['ps'] = array(
 
 /** Portuguese (português)
  * @author Fúlvio
+ * @author Imperadeiro98
  * @author Vitorvicentevalente
  */
 $messages['pt'] = array(
@@ -1242,8 +1243,8 @@ $messages['pt'] = array(
 	'multimediaviewer-fileusage-count' => 'Utilizada em $1 {{PLURAL:$1|página|páginas}}',
 	'multimediaviewer-fileusage-count-more' => 'Utilizada em mais de $1 {{PLURAL:$1|páginas}}',
 	'multimediaviewer-fileusage-link' => 'Ver todas as utilizações',
-	'multimediaviewer-fileusage-local-section' => 'Neste sítio',
-	'multimediaviewer-fileusage-global-section' => 'Em outros sítios',
+	'multimediaviewer-fileusage-local-section' => 'Neste site',
+	'multimediaviewer-fileusage-global-section' => 'Noutros sites',
 );
 
 /** Romanian (română)
@@ -1530,4 +1531,11 @@ $messages['zh-hans'] = array(
 	'multimediaviewer-fileusage-link' => '查看所有使用',
 	'multimediaviewer-fileusage-local-section' => '在本站',
 	'multimediaviewer-fileusage-global-section' => '在其他站点',
+);
+
+/** Traditional Chinese (中文（繁體）‎)
+ * @author Liuxinyu970226
+ */
+$messages['zh-hant'] = array(
+	'multimediaviewer-discuss-mmv' => '遞交反饋',
 );
