@@ -49,7 +49,7 @@ call_user_func( function() {
 		),
 
 		'styles' => array(
-			'multilightbox.css',
+			'multilightbox.less',
 		),
 	), $moduleInfo( 'multilightbox' ) );
 
