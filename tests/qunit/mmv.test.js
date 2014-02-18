@@ -2,6 +2,8 @@
 	QUnit.module( 'mmv', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Metadata div is only animated once', 4, function ( assert ) {
+		localStorage.removeItem( 'mmv.hasOpenedMetadata' );
+
 		var viewer = new mw.MultimediaViewer(),
 			backupAnimation = $.fn.animate,
 			animationRan = false;

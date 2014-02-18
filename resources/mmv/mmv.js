@@ -38,7 +38,8 @@
 		 * @property {boolean}
 		 * @private
 		 */
-		this.hasAnimatedMetadata = false;
+		this.hasAnimatedMetadata = window.localStorage !== undefined &&
+			localStorage.getItem( 'mmv.hasOpenedMetadata' );
 
 		/**
 		 * @property {mw.Api}
@@ -415,8 +416,8 @@
 	MMVP.animateMetadataDivOnce = function () {
 		if ( !this.hasAnimatedMetadata ) {
 			this.hasAnimatedMetadata = true;
-			$.scrollTo( 40, 400 )
-				.scrollTo( 0, 400 );
+			$.scrollTo( 20, 300 )
+				.scrollTo( 0, 300 );
 		}
 		return $.scrollTo.window().promise();
 	};
@@ -448,7 +449,16 @@
 	 * Receives the window's scroll events and flips the chevron if necessary.
 	 */
 	MMVP.scroll = function () {
-		this.ui.panel.$dragIcon.toggleClass( 'pointing-down', !!$.scrollTo().scrollTop() );
+		var scrolled = !!$.scrollTo().scrollTop();
+
+		this.ui.panel.$dragIcon.toggleClass( 'pointing-down', scrolled );
+
+		if ( !this.savedHasOpenedMetadata &&
+			scrolled &&
+			window.localStorage !== undefined ) {
+			localStorage.setItem( 'mmv.hasOpenedMetadata', true );
+			this.savedHasOpenedMetadata = true;
+		}
 	};
 
 	/**
@@ -536,7 +546,6 @@
 			comingFromPopstate = false;
 		}
 
-		this.hasAnimatedMetadata = false;
 		this.isOpen = false;
 	};
 

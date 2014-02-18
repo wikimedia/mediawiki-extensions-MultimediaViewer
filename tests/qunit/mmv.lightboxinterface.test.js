@@ -151,7 +151,7 @@
 		lightbox.unattach();
 	} );
 
-	QUnit.test( 'Metadata scrolling', 13, function ( assert ) {
+	QUnit.test( 'Metadata scrolling', 15, function ( assert ) {
 		var lightbox = new mw.LightboxInterface( mw.mediaViewer ),
 			keydown = $.Event( 'keydown' ),
 			$document = $( document ),
@@ -202,6 +202,9 @@
 
 		// First phase of the test: up and down arrows
 
+		mw.mediaViewer.hasAnimatedMetadata = false;
+		localStorage.removeItem( 'mmv.hasOpenedMetadata' );
+
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
 
@@ -217,6 +220,9 @@
 		assert.ok( !lightbox.panel.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing up' );
 
+		assert.ok( !localStorage.getItem( 'mmv.hasOpenedMetadata' ),
+			'The metadata hasn\'t been open yet, no entry in localStorage' );
+
 		keydown.which = 38; // Up arrow
 		$document.trigger( keydown );
 
@@ -224,6 +230,8 @@
 			'scrollTo scrollTop should be set to the metadata height + 1 after pressing up arrow' );
 		assert.ok( lightbox.panel.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing down after pressing up arrow' );
+		assert.ok( localStorage.getItem( 'mmv.hasOpenedMetadata' ),
+			'localStorage knows that the metadata has been open' );
 
 		keydown.which = 40; // Down arrow
 		$document.trigger( keydown );
