@@ -17,6 +17,19 @@
 	}
 }
 
+.mlb-close.hidden,
+.mlb-fullscreen.hidden,
+.mw-mlb-next-image.hidden,
+.mw-mlb-prev-image.hidden {
+	display: none;
+}
+
+.cursor-hidden {
+	.mlb-close, .mlb-fullscreen, .mw-mlb-next-image, .mw-mlb-prev-image {
+		cursor: none;
+	}
+}
+
 .mlb-close,
 .mlb-fullscreen {
 	right: @buttons-offset;

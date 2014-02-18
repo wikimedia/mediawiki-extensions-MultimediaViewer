@@ -95,7 +95,10 @@
 	Buttons.prototype.stopFade = function () {
 		this.$buttons
 			.stop( true )
+			.removeClass( 'hidden' )
 			.css( 'opacity', '' );
+
+		this.$container.trigger( $.Event( 'mmv-fade-stopped' ) );
 	};
 
 	/**
@@ -116,7 +119,11 @@
 
 		// We don't use animation chaining because delay() can't be stop()ed
 		this.buttonsFadeTimeout = setTimeout( function() {
-			buttons.$buttons.not( '.disabled' ).animate( { opacity: 0 }, 1000 );
+			buttons.$buttons.not( '.disabled' ).animate( { opacity: 0 }, 1000, 'swing',
+				function () {
+					buttons.$buttons.addClass( 'hidden' );
+					buttons.$container.trigger( $.Event( 'mmv-faded-out' ) );
+				} );
 		}, 1500 );
 	};
 
