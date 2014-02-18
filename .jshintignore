@@ -1,4 +1,3 @@
-resources/momentjs
 resources/jquery.scrollTo
 resources/jquery.throttle.debounce
 docs/js/*
