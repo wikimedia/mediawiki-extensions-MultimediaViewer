@@ -95,7 +95,8 @@
 		var boundingWidth = 100,
 			boundingHeight = 200,
 			thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator( {
-				widthBuckets: [ 8, 16, 32, 64, 128, 256, 512 ]
+				widthBuckets: [ 8, 16, 32, 64, 128, 256, 512 ],
+				devicePixelRatio: 1
 			} ),
 			widths;
 
