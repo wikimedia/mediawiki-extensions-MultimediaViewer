@@ -40,7 +40,7 @@
 		assert.ok( imageProvider );
 	} );
 
-	QUnit.asyncTest( 'Image load success test', 5, function ( assert ) {
+	QUnit.test( 'Image load success test', 5, function ( assert ) {
 		var imageProvider = new mw.mmv.provider.Image(),
 			oldPerformance = imageProvider.performance,
 			fakeURL = 'fakeURL';
@@ -54,6 +54,7 @@
 				open: $.noop };
 		};
 
+		QUnit.stop();
 		imageProvider.performance.recordEntry = function ( type, total, url ) {
 			assert.strictEqual( type, 'image', 'Type matches' );
 			assert.ok( total < 10, 'Total is less than 10ms' );
@@ -66,11 +67,12 @@
 			return $.Deferred().resolve();
 		};
 
+		QUnit.stop();
 		imageProvider.get( fakeURL ).then( function( image ) {
 			assert.ok( image instanceof HTMLImageElement,
 				'success handler was called with the image element');
-
 			assert.strictEqual( image.src, dataURI );
+			QUnit.start();
 		} );
 	} );
 
