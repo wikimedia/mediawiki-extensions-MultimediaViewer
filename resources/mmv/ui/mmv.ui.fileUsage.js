@@ -15,19 +15,23 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function ( mw, $, oo ) {
 	/**
 	 * File usage interface (what wiki pages is this file used on?)
 	 * @class mw.mmv.ui.FileUsage
+	 * @extends mw.mmv.ui.Element
 	 * @constructor
 	 * @param {jQuery} $container
 	 */
 	function FileUsage( $container ) {
+		mw.mmv.ui.Element.call( this, $container );
+
 		/**
 		 * The HTML element in which the file usage shall be shown.
 		 * @property {jQuery}
 		 */
-		this.$container = $container;
+		this.$box = $( '<div>' )
+			.appendTo( this.$container );
 
 		/**
 		 * The title of the file usage block.
@@ -42,6 +46,7 @@
 		 */
 		this.$usageList = null;
 	}
+	oo.inheritClass( FileUsage, mw.mmv.ui.Element );
 
 	/** @property {number} MAX_LOCAL Never show more than this many local usages */
 	FileUsage.prototype.MAX_LOCAL = 3;
@@ -52,9 +57,9 @@
 	 * Sets up the interface. Must be called before any other methods.
 	 */
 	FileUsage.prototype.init = function() {
-		this.$title = $( '<h3>' ).appendTo( this.$container );
-		this.$usageList = $( '<ul>' ).appendTo( this.$container );
-		this.$container.addClass( 'mw-mlb-fileusage-container' );
+		this.$title = $( '<h3>' ).appendTo( this.$box );
+		this.$usageList = $( '<ul>' ).appendTo( this.$box );
+		this.$box.addClass( 'mw-mlb-fileusage-container' );
 	};
 
 	/**
@@ -63,7 +68,7 @@
 	FileUsage.prototype.empty = function() {
 		this.$title.text( '' );
 		this.$usageList.empty();
-		this.$container.addClass( 'empty' );
+		this.$box.addClass( 'empty' );
 	};
 
 	/**
@@ -76,7 +81,7 @@
 			countMessage = 'multimediaviewer-fileusage-count';
 
 		if ( localUsage.totalCount || globalUsage.totalCount ) {
-			this.$container.removeClass( 'empty' );
+			this.$box.removeClass( 'empty' );
 
 			if ( localUsage.totalCountIsLowerBound || globalUsage.totalCountIsLowerBound ) {
 				// "more than 100 uses" sounds nicer than "more than 103 uses"
@@ -204,4 +209,4 @@
 
 	mw.mmv.ui = mw.mmv.ui || {};
 	mw.mmv.ui.FileUsage = FileUsage;
-} ) ( mediaWiki, jQuery );
+} ) ( mediaWiki, jQuery, OO );

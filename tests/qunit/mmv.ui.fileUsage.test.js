@@ -10,7 +10,7 @@
 		fileUsage.init();
 		fileUsage.set( localUsage, globalUsage );
 
-		assert.ok( $( '#qunit-fixture' ).hasClass( 'empty' ) );
+		assert.ok( fileUsage.$box.hasClass( 'empty' ) );
 	} );
 
 	QUnit.test( 'File usage panel with local usage', 8, function( assert ) {
@@ -26,7 +26,7 @@
 		fileUsage.init();
 		fileUsage.set( localUsage, globalUsage );
 
-		assert.ok( ! $( '#qunit-fixture' ).hasClass( 'empty' ), 'The container is not empty' );
+		assert.ok( ! fileUsage.$box.hasClass( 'empty' ), 'The container is not empty' );
 
 		$list = $( '#qunit-fixture li:not([class])' );
 		assert.strictEqual( $list.length, 2 );
@@ -54,7 +54,7 @@
 		fileUsage.init();
 		fileUsage.set( localUsage, globalUsage );
 
-		assert.ok( ! $( '#qunit-fixture' ).hasClass( 'empty' ), 'The container is not empty' );
+		assert.ok( ! fileUsage.$box.hasClass( 'empty' ), 'The container is not empty' );
 
 		$list = $( '#qunit-fixture li:not([class])' );
 		assert.strictEqual( $list.length, fileUsage.MAX_LOCAL );
@@ -77,7 +77,7 @@
 		fileUsage.init();
 		fileUsage.set( localUsage, globalUsage );
 
-		assert.ok( ! $( '#qunit-fixture' ).hasClass( 'empty' ), 'The container is not empty' );
+		assert.ok( ! fileUsage.$box.hasClass( 'empty' ), 'The container is not empty' );
 
 		$list = $( '#qunit-fixture li:not([class])' );
 		assert.strictEqual( $list.length, 2 );
@@ -113,7 +113,7 @@
 		fileUsage.init();
 		fileUsage.set( localUsage, globalUsage );
 
-		assert.ok( ! $( '#qunit-fixture' ).hasClass( 'empty' ), 'The container is not empty' );
+		assert.ok( ! fileUsage.$box.hasClass( 'empty' ), 'The container is not empty' );
 
 		$list = $( '#qunit-fixture li:not([class])' );
 		assert.strictEqual( $list.length, fileUsage.MAX_LOCAL + fileUsage.MAX_GLOBAL, 'Total amount of results is correctly capped' );
@@ -137,11 +137,11 @@
 		fileUsage.init();
 		fileUsage.set( localUsage, globalUsage );
 
-		assert.ok( ! $( '#qunit-fixture' ).hasClass( 'empty' ), 'The container is not empty' );
+		assert.ok( ! fileUsage.$box.hasClass( 'empty' ), 'The container is not empty' );
 
 		fileUsage.empty();
 
-		assert.ok( $( '#qunit-fixture' ).hasClass( 'empty' ), 'The container is empty' );
+		assert.ok( fileUsage.$box.hasClass( 'empty' ), 'The container is empty' );
 
 		$list = $( '#qunit-fixture li:not([class])' );
 		assert.strictEqual( $list.length, 0, 'The list is empty' );
