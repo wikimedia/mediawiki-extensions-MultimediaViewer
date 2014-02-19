@@ -44,7 +44,7 @@ Then(/^the image and metadata of the next image should appear$/) do
     page.mmv_image_div_element.should be_visible
 
     # Check image content
-    page.mmv_image_div_element.image_element.attribute('src').should match /Offsite/
+    page.mmv_image_div_element.image_element.attribute('src').should match /Offsite|^data:image;base64,.+gB4Rmls/
 
     # Check metadata is present
     page.mmv_metadata_title_element.should exist
@@ -63,7 +63,7 @@ Then(/^the image metadata and the image itself should be there$/) do
     page.mmv_image_div_element.should be_visible
 
     # Check image content
-    page.mmv_image_div_element.image_element.attribute('src').should match /Kerala/
+    page.mmv_image_div_element.image_element.attribute('src').should match /Kerala|^data:image;base64,.+gBeRmlsZSB/
 
     # Check metadata is present
     page.mmv_metadata_title_element.should exist
@@ -82,7 +82,7 @@ Then(/^the image and metadata of the previous image should appear$/) do
     page.mmv_image_div_element.should be_visible
 
     # Check image content
-    page.mmv_image_div_element.image_element.attribute('src').should match /Kerala/
+    page.mmv_image_div_element.image_element.attribute('src').should match /Kerala|^data:image;base64,.+gBeRmlsZSB/
 
     # Check metadata is present
     page.mmv_metadata_title_element.should exist
