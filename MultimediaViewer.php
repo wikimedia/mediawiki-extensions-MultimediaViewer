@@ -387,6 +387,7 @@ call_user_func( function() {
 			'mediawiki',
 			'mediawiki.api',
 			'mmv.base',
+			'oojs',
 		),
 	), $moduleInfo( 'mmv' ) );
 
