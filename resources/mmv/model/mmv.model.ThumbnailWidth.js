@@ -16,14 +16,13 @@
  */
 
 /**
- * @class mw.mmv.model.ThumbnailWidth
  * Represents image width information.
  *
  * To utilize caching as much as possible, we use images which are displayed at a slightly
  * different size than their screen size. The ThumbnailWidth model stores the various types of
  * sizes and helps avoiding accidental incompatible assignments. (Think of it as a slightly
  * overcomplicated Hungarian notation :)
- *
+ * @class mw.mmv.model.ThumbnailWidth
  * @constructor
  * @param {number} css width in CSS pixels
  * @param {number} screen width in screen pixels

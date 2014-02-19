@@ -35,8 +35,7 @@
 	oo.inheritClass( Categories, mw.mmv.ui.Element );
 
 	/**
-	 * @method
-	 * @inheritdoc
+	 * Sets the data for the element.
 	 * @param {string} articlePath Path to articles on the repo this image comes from
 	 * @param {string[]} categories
 	 */
@@ -81,7 +80,6 @@
 	};
 
 	/**
-	 * @method
 	 * @inheritdoc
 	 */
 	Categories.prototype.empty = function () {

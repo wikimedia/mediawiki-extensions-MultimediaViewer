@@ -18,8 +18,8 @@
 ( function ( mw, $ ) {
 
 	/**
-	 * @class mw.mmv.provider.Image
 	 * Loads an image.
+	 * @class mw.mmv.provider.Image
 	 */
 	function Image() {
 		/**
@@ -37,7 +37,6 @@
 	}
 
 	/**
-	 * @method
 	 * Loads an image and returns it.
 	 * @param {string} url
 	 * @return {jQuery.Promise.<HTMLImageElement>} a promise which resolves to the image object
@@ -83,7 +82,6 @@
 	};
 
 	/**
-	 * @method
 	 * Converts a binary image into a data URI
 	 * @param {string} binary Binary image
 	 * @returns {string} base64-encoded data URI representing the image
@@ -105,7 +103,6 @@
 	};
 
 	/**
-	 * @method
 	 * Checks if the browser is capable of converting binary content to a data URI
 	 * @returns {boolean}
 	 */

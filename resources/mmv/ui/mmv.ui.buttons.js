@@ -21,6 +21,9 @@
 	 * @class mw.mmv.ui.Buttons
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
+	 * @param {jQuery} $container The parent element we should put the buttons into.
+	 * @param {jQuery} $closeButton The close button element from the parent class.
+	 * @param {jQuery} $fullscreenButton The fullscreen button from the parent class.
 	 */
 	function Buttons( $container, $closeButton, $fullscreenButton ) {
 		var buttons = this;

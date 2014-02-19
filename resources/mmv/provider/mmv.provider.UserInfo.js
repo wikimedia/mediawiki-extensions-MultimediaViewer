@@ -18,11 +18,11 @@
 ( function ( mw, oo, $ ) {
 
 	/**
-	 * @class mw.mmv.provider.UserInfo
 	 * Gets user information (currently just the gender).
 	 * See https://www.mediawiki.org/wiki/API:Users
+	 * @class mw.mmv.provider.UserInfo
 	 * @extends mw.mmv.provider.Api
-	 * @inheritdoc
+	 * @constructor
 	 * @param {mw.Api} api
 	 */
 	function UserInfo( api ) {

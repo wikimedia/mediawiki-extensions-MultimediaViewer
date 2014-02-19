@@ -17,11 +17,11 @@
 
 ( function ( mw ) {
 	/**
+	 * Represents information about a MediaWiki user.
 	 * @class mw.mmv.model.User
-	 * Represents information about an image thumbnail
 	 * @constructor
 	 * @param {string} username
-	 * @param {mw.mmv.model.User.Gender} [gender] defaults to unknown
+	 * @param {mw.mmv.model.User.Gender} [gender='unknown']
 	 */
 	function User(
 		username,
@@ -44,7 +44,7 @@
 		}
 
 		/**
-		 *  username The user's name, without namespace prefix, in human-readable format
+		 *  The user's name, without namespace prefix, in human-readable format
 		 *  ("John Doe", not "John_Doe")
 		 *  @property {string}
 		 */

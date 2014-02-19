@@ -18,11 +18,11 @@
 ( function ( mw, oo, $ ) {
 
 	/**
-	 * @class mw.mmv.provider.ThumbnailInfo
 	 * Gets thumbnail information.
 	 * See https://www.mediawiki.org/wiki/API:Properties#imageinfo_.2F_ii
+	 * @class mw.mmv.provider.ThumbnailInfo
 	 * @extends mw.mmv.provider.Api
-	 * @inheritdoc
+	 * @constructor
 	 * @param {mw.Api} api
 	 */
 	function ThumbnailInfo( api ) {
@@ -31,7 +31,6 @@
 	oo.inheritClass( ThumbnailInfo, mw.mmv.provider.Api );
 
 	/**
-	 * @method
 	 * Runs an API GET request to get the thumbnail info for the specified size.
 	 * The thumbnail always has the same aspect ratio as the full image.
 	 * One of width or height can be null; if both are set, the API will return the largest

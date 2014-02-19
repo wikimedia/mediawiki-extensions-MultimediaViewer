@@ -17,8 +17,8 @@
 
 ( function ( mw, $ ) {
 	/**
-	 * @class mw.mmv.provider.Api
 	 * Base class for API-based data providers.
+	 * @class mw.mmv.provider.Api
 	 * @abstract
 	 * @constructor
 	 * @param {mw.Api} api
@@ -47,9 +47,12 @@
 	}
 
 	/**
-	 * @method
 	 * Pulls an error message out of an API response.
 	 * @param {Object} data
+	 * @param {Object} data.error
+	 * @param {string} data.error.code
+	 * @param {string} data.error.info
+	 * @returns {string} From data.error.code + ': ' + data.error.info, or 'unknown error'
 	 */
 	Api.prototype.getErrorMessage = function( data ) {
 		var errorCode, errorMessage;
@@ -62,7 +65,6 @@
 	};
 
 	/**
-	 * @method
 	 * Returns a fixed a title based on the API response.
 	 * The title of the returned file might be different from the requested title, e.g.
 	 * if we used a namespace alias. If that happens the old and new title will be set in
@@ -84,7 +86,6 @@
 	};
 
 	/**
-	 * @method
 	 * Returns a promise with the specified field from the API result.
 	 * This is intended to be used as a .then() callback for action=query APIs.
 	 * @param {string} field
@@ -102,7 +103,6 @@
 	};
 
 	/**
-	 * @method
 	 * Returns a promise with the specified page from the API result.
 	 * This is intended to be used as a .then() callback for action=query&prop=(...) APIs.
 	 * @param {mw.Title} title

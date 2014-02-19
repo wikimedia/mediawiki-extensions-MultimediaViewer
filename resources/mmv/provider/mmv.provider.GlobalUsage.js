@@ -18,22 +18,22 @@
 ( function ( mw, oo, $ ) {
 
 	/**
-	 * @class mw.mmv.provider.GlobalUsage
 	 * Gets file usage information on all wikis but the local one.
 	 * This needs the [GlobalUsage extension](https://www.mediawiki.org/wiki/Extension:GlobalUsage)
 	 * to be installed.
+	 * @class mw.mmv.provider.GlobalUsage
 	 * @extends mw.mmv.provider.Api
-	 * @inheritdoc
+	 * @constructor
 	 * @param {mw.Api} api
 	 * @param {Object} [options]
-	 * @param {number[]} [options.namespaces] list of namespace ids
-	 * @param {number} [options.apiLimit] number of entries to get from the API. If there are
+	 * @cfg {number[]} [namespaces] list of namespace ids
+	 * @cfg {number} [apiLimit=100] number of entries to get from the API. If there are
 	 *         more pages than this, we won't have an accurate count.
 	 *         (Also, influences query performance.)
-	 * @param {boolean} [options.doNotUseApi] If true, always returns an empty result immediately,
+	 * @cfg {boolean} [doNotUseApi=false] If true, always returns an empty result immediately,
 	 *         without doing an actual API call. Used when the GlobalUsage extension (and thus the
 	 *         API) is not available.
-	 * @param {number} [options.dataLimit] number of entries to actually put into the model.
+	 * @cfg {number} [dataLimit=10] number of entries to actually put into the model.
 	 */
 	function GlobalUsage( api, options ) {
 		options = $.extend( {
@@ -47,7 +47,6 @@
 	oo.inheritClass( GlobalUsage, mw.mmv.provider.Api );
 
 	/**
-	 * @method
 	 * Fetches the global usage data from the API.
 	 * @param {mw.Title} file
 	 * @return {jQuery.Promise}

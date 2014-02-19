@@ -17,10 +17,11 @@
 
 ( function ( mw, $, oo ) {
 	/**
+	 * Description element in the UI.
 	 * @class mw.mmv.ui.Description
 	 * @extends mw.mmv.ui.Element
-	 * @inheritdoc
 	 * @constructor
+	 * @inheritdoc
 	 */
 	function Description( $container ) {
 		mw.mmv.ui.Element.call( this, $container );
@@ -41,8 +42,7 @@
 	oo.inheritClass( Description, mw.mmv.ui.Element );
 
 	/**
-	 * @method
-	 * @inheritdoc
+	 * Sets data on the element.
 	 * @param {string} text The text of the description
 	 * @param {string} [caption] The text of the caption
 	 */
@@ -63,7 +63,6 @@
 	};
 
 	/**
-	 * @method
 	 * @inheritdoc
 	 */
 	Description.prototype.empty = function () {

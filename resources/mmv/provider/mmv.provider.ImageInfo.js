@@ -18,14 +18,14 @@
 ( function ( mw, oo, $ ) {
 
 	/**
-	 * @class mw.mmv.provider.ImageInfo
 	 * Gets file information.
 	 * See https://www.mediawiki.org/wiki/API:Properties#imageinfo_.2F_ii
+	 * @class mw.mmv.provider.ImageInfo
 	 * @extends mw.mmv.provider.Api
-	 * @inheritdoc
+	 * @constructor
 	 * @param {mw.Api} api
 	 * @param {Object} [options]
-	 * @param {string} [options.language] image metadata language
+	 * @cfg {string} [language=null] image metadata language
 	 */
 	function ImageInfo( api, options ) {
 		options = $.extend( {
@@ -38,7 +38,7 @@
 
 	/**
 	 * List of imageinfo API properties which are needed to construct an Image model.
-	 * @type {string}
+	 * @property {string}
 	 */
 	ImageInfo.prototype.iiprop = [
 		'timestamp',
@@ -52,7 +52,7 @@
 
 	/**
 	 * List of imageinfo extmetadata fields which are needed to construct an Image model.
-	 * @type {string}
+	 * @property {string}
 	 */
 	ImageInfo.prototype.iiextmetadatafilter = [
 		'DateTime',
@@ -67,7 +67,6 @@
 	].join('|');
 
 	/**
-	 * @method
 	 * Runs an API GET request to get the image info.
 	 * @param {mw.Title} file
 	 * @return {jQuery.Promise} a promise which resolves to an mw.mmv.model.Image object.

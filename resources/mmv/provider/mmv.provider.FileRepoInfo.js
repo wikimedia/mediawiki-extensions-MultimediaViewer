@@ -18,10 +18,10 @@
 ( function ( mw, oo, $ ) {
 
 	/**
-	 * @class mw.mmv.provider.FileRepoInfo
 	 * Gets file repo information.
+	 * @class mw.mmv.provider.FileRepoInfo
 	 * @extends mw.mmv.provider.Api
-	 * @inheritdoc
+	 * @constructor
 	 * @param {mw.Api} api
 	 */
 	function FileRepoInfo( api ) {
@@ -30,7 +30,6 @@
 	oo.inheritClass( FileRepoInfo, mw.mmv.provider.Api );
 
 	/**
-	 * @method
 	 * Runs an API GET request to get the repo info.
 	 * @return {jQuery.Promise.<Object.<string, mw.mmv.model.Repo>>} a promise which resolves to
 	 *     a hash of mw.mmv.model.Repo objects, indexed by repo names.

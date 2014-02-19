@@ -19,11 +19,9 @@
 	var tqp;
 
 	/**
-	 * @class mw.mmv.model.TaskQueue
-	 *
 	 * A queue which holds a list of tasks (functions). The tasks will be executed in order,
 	 * each starting when the previous one has finished (or failed).
-	 *
+	 * @class mw.mmv.model.TaskQueue
 	 * @constructor
 	 */
 	function TaskQueue() {
@@ -37,14 +35,14 @@
 		/**
 		 * State of the task queue (running, finished etc)
 		 * @protected
-		 * @type {mw.mmv.model.TaskQueue.State}
+		 * @property {mw.mmv.model.TaskQueue.State}
 		 */
 		this.state = TaskQueue.State.NOT_STARTED;
 
 		/**
 		 * A deferred which shows the state of the queue.
 		 * @protected
-		 * @type {jQuery.Deferred}
+		 * @property {jQuery.Deferred}
 		 */
 		this.deferred = $.Deferred();
 	}

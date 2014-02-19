@@ -18,17 +18,17 @@
 ( function ( mw, oo, $ ) {
 
 	/**
-	 * @class mw.mmv.provider.ImageUsage
 	 * Gets file usage information on the local wiki.
+	 * @class mw.mmv.provider.ImageUsage
 	 * @extends mw.mmv.provider.Api
-	 * @inheritdoc
+	 * @constructor
 	 * @param {mw.Api} api
 	 * @param {Object} [options]
-	 * @param {number[]} [options.namespaces] list of namespace ids
-	 * @param {number} [options.apiLimit] number of entries to get from the API. If there are
+	 * @cfg {number[]} [namespaces=[0, 100]] list of namespace ids
+	 * @cfg {number} [apiLimit=100] number of entries to get from the API. If there are
 	 *         more pages than this, we won't have an accurate count.
 	 *         (Also, influences query performance.)
-	 * @param {number} [options.dataLimit] number of entries to actually put into the model.
+	 * @cfg {number} [dataLimit=10] number of entries to actually put into the model.
 	 */
 	function ImageUsage( api, options ) {
 		options = $.extend( {
@@ -42,7 +42,6 @@
 	oo.inheritClass( ImageUsage, mw.mmv.provider.Api );
 
 	/**
-	 * @method
 	 * Runs an API GET request to get the image usage.
 	 * @param {mw.Title} file
 	 * @return {jQuery.Promise}

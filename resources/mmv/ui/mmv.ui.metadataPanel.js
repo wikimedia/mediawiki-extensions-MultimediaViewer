@@ -23,7 +23,6 @@
 	 * Represents the metadata panel in the viewer
 	 * @class mw.mmv.ui.MetadataPanel
 	 * @extends mw.mmv.ui.Element
-	 * @inheritdoc
 	 * @constructor
 	 * @param {jQuery} $container The container for the panel.
 	 * @param {jQuery} $controlBar The control bar element.
@@ -84,7 +83,6 @@
 	// **********************************************
 
 	/**
-	 * @method
 	 * Initializes the header, which contains the title, credit, and license elements.
 	 */
 	MPP.initializeHeader = function () {
@@ -112,7 +110,6 @@
 	};
 
 	/**
-	 * @method
 	 * Initializes the title and credit elements.
 	 */
 	MPP.initializeTitleAndCredit = function () {
@@ -125,7 +122,6 @@
 	};
 
 	/**
-	 * @method
 	 * Initializes the title elements.
 	 */
 	MPP.initializeTitle = function () {
@@ -139,7 +135,6 @@
 	};
 
 	/**
-	 * @method
 	 * Initializes the credit elements.
 	 */
 	MPP.initializeCredit = function () {
@@ -162,7 +157,6 @@
 	};
 
 	/**
-	 * @method
 	 * Initializes the license elements.
 	 */
 	MPP.initializeLicense = function () {
@@ -173,7 +167,6 @@
 	};
 
 	/**
-	 * @method
 	 * Initializes the main body of metadata elements.
 	 */
 	MPP.initializeImageMetadata = function () {
@@ -186,7 +179,6 @@
 	};
 
 	/**
-	 * @method
 	 * Initializes the list of image metadata on the right side of the panel.
 	 */
 	MPP.initializeImageLinks = function () {
@@ -213,7 +205,6 @@
 	};
 
 	/**
-	 * @method
 	 * Initializes the link to the file page on the (maybe remote) repository.
 	 */
 	MPP.initializeRepoLink = function () {
@@ -245,7 +236,6 @@
 	};
 
 	/**
-	 * @method
 	 * Initializes the upload date/time element.
 	 */
 	MPP.initializeDatetime = function () {
@@ -259,7 +249,6 @@
 	};
 
 	/**
-	 * @method
 	 * Initializes the link to the uploader's file page.
 	 */
 	MPP.initializeUploader = function () {
@@ -274,7 +263,6 @@
 	};
 
 	/**
-	 * @method
 	 * Initializes the geolocation element.
 	 */
 	MPP.initializeLocation = function () {
@@ -288,7 +276,6 @@
 	};
 
 	/**
-	 * @method
 	 * Initializes two about links at the bottom of the panel.
 	 */
 	MPP.initializeAboutLinks = function () {
@@ -317,7 +304,6 @@
 	// *********************************
 
 	/**
-	 * @method
 	 * Sets the URL for the File: page of the image
 	 * @param {string} url
 	 */
@@ -327,7 +313,6 @@
 	};
 
 	/**
-	 * @method
 	 * Sets the display name of the repository
 	 * @param {string} displayname
 	 * @param {string} favIcon
@@ -365,7 +350,6 @@
 	};
 
 	/**
-	 * @method
 	 * Sets the link to the user page where possible
 	 * @param {mw.mmv.model.Repo} repoData
 	 * @param {string} username
@@ -489,7 +473,6 @@
 	};
 
 	/**
-	 * @method
 	 * Sets location data in the interface.
 	 * @param {mw.mmv.model.Image} imageData
 	 */
@@ -562,7 +545,6 @@
 	};
 
 	/**
-	 * @method
 	 * Set all the image information in the panel
 	 * @param {mw.LightboxImage} image
 	 * @param {mw.mmv.model.Image} imageData
@@ -641,7 +623,6 @@
 	// ********************************
 
 	/**
-	 * @method
 	 * Toggles the metadata div being totally visible.
 	 */
 	MPP.toggle = function ( forceDirection ) {
@@ -656,7 +637,6 @@
 	};
 
 	/**
-	 * @method
 	 * Handles keydown events for this element.
 	 */
 	MPP.keydown = function ( e ) {

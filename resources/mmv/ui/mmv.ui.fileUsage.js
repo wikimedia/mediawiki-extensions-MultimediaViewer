@@ -21,7 +21,7 @@
 	 * @class mw.mmv.ui.FileUsage
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
-	 * @param {jQuery} $container
+	 * @inheritdoc
 	 */
 	function FileUsage( $container ) {
 		mw.mmv.ui.Element.call( this, $container );
