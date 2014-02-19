@@ -84,13 +84,13 @@
 		 * @property {mw.mmv.provider.GlobalUsage}
 		 * @private
 		 */
-		this.globalUsageProvider = new mw.mmv.provider.GlobalUsage( new mw.Api( 'globalusage' ),
+		this.globalUsageProvider = new mw.mmv.provider.GlobalUsage( new mw.mmv.Api( 'globalusage' ),
 			{ doNotUseApi: !mw.config.get( 'wgMultimediaViewer' ).globalUsageAvailable }
 		);
 		// replace with this one to test global usage on a local wiki without going through all the
 		// hassle required for installing the extension:
 		//this.globalUsageProvider = new mw.mmv.provider.GlobalUsage(
-		//	new mw.Api( {ajax: { url: 'http://commons.wikimedia.org/w/api.php', dataType: 'jsonp' } } )
+		//	new mw.mmv.Api( {ajax: { url: 'http://commons.wikimedia.org/w/api.php', dataType: 'jsonp' } } )
 		//);
 
 		this.setupEventHandlers();
