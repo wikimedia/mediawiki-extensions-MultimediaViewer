@@ -19,9 +19,9 @@
 	var LIP;
 
 	/**
+         * Represents the main interface of the lightbox
 	 * @class mw.LightboxInterface
 	 * @extends mlb.LightboxInterface
-         * Represents the main interface of the lightbox
 	 * @constructor
 	 */
 	function LightboxInterface( viewer ) {
@@ -32,7 +32,7 @@
 		this.eventsRegistered = {};
 
 		/**
-		 * @type {mw.mmv.ThumbnailWidthCalculator}
+		 * @property {mw.mmv.ThumbnailWidthCalculator}
 		 * @private
 		 */
 		this.thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator();
@@ -45,6 +45,10 @@
 
 	LIP = LightboxInterface.prototype;
 
+	/**
+	 * Empties the interface.
+	 * @override
+	 */
 	LIP.empty = function () {
 		this.clearEvents();
 
@@ -87,6 +91,11 @@
 		}
 	};
 
+	/**
+	 * Attaches the interface to the DOM.
+	 * @override
+	 * @param {string} parentId ID of the element that we should attach to.
+	 */
 	LIP.attach = function ( parentId ) {
 		// Advanced description needs to be below the fold when the lightbox opens
 		// regardless of what the scroll value was prior to opening the lightbox
@@ -115,6 +124,10 @@
 		this.buttons.stopFade();
 	};
 
+	/**
+	 * Detaches the interface from the DOM.
+	 * @override
+	 */
 	LIP.unattach = function () {
 		MLBInterface.prototype.unattach.call( this );
 
@@ -130,7 +143,7 @@
 	};
 
 	/**
-	 * FIXME A bunch of stuff ripped out of load, because load tries to actually load the image
+	 * FIXME A bunch of stuff ripped out of #load, because load tries to actually load the image
 	 * and causes the small-thumbnail-for-a-moment bug in the process. Needs severe refactoring.
 	 */
 	LIP.setupForLoad = function() {
@@ -151,22 +164,37 @@
 		} ) );
 	};
 
+	/**
+	 * Loads an image into the interface.
+	 * @override
+	 */
 	LIP.load = function ( image ) {
 		this.setupForLoad();
 		MLBInterface.prototype.load.call( this, image );
 	};
 
+	/**
+	 * Initialize the entire interface - helper method.
+	 */
 	LIP.initializeInterface = function () {
 		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$controlBar );
 		this.buttons = new mw.mmv.ui.Buttons( this.$imageWrapper, this.$closeButton, this.$fullscreenButton );
 		this.initializeImage();
 	};
 
+	/**
+	 * Initialize the image element.
+	 */
 	LIP.initializeImage = function () {
 		this.$imageDiv
 			.addClass( 'empty' );
 	};
 
+	/**
+	 * Load a new image element into the interface.
+	 * @override
+	 * @param {HTMLImageElement} imageEle
+	 */
 	LIP.replaceImageWith = function ( imageEle ) {
 		if ( this.$image.is( imageEle ) ) { // http://bugs.jquery.com/ticket/4087
 			return;
@@ -185,6 +213,11 @@
 		} );
 	};
 
+	/**
+	 * Handle a fullscreen change event.
+	 * @override
+	 * @param {jQuery.Event} e The fullscreen change event.
+	 */
 	LIP.fullscreenChange = function( e ) {
 		MLBInterface.prototype.fullscreenChange.call( this, e );
 
@@ -207,7 +240,6 @@
 	};
 
 	/**
-	 * @method
 	 * Handles keydown events on the document
 	 * @param {jQuery.Event} e The jQuery keypress event object
 	 */
@@ -235,8 +267,8 @@
 	};
 
 	/**
-	 * @method
 	 * Handles mousemove events on the document
+	 * @param {jQuery.Event} e The mousemove event object
 	 */
 	LIP.mousemove = function ( e ) {
 		if ( e ) {
@@ -252,7 +284,6 @@
 	};
 
 	/**
-	 * @method
 	 * Updates the next and prev buttons
 	 * @param {boolean} showPrevButton Whether the prev button should be revealed or not
 	 * @param {boolean} showNextButton Whether the next button should be revealed or not

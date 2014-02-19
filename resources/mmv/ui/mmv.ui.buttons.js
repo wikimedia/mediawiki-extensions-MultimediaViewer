@@ -17,9 +17,9 @@
 
 ( function ( mw, $, oo ) {
 	/**
+	 * Represents the buttons in the interface - next, previous, close, and fullscreen.
 	 * @class mw.mmv.ui.Buttons
 	 * @extends mw.mmv.ui.Element
-	 * Represents the buttons in the interface - next, previous, close, and fullscreen.
 	 * @constructor
 	 */
 	function Buttons( $container, $closeButton, $fullscreenButton ) {

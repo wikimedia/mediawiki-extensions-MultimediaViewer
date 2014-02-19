@@ -20,10 +20,10 @@
 	var MPP;
 
 	/**
-	 * @class
+	 * Represents the metadata panel in the viewer
+	 * @class mw.mmv.ui.MetadataPanel
 	 * @extends mw.mmv.ui.Element
 	 * @inheritdoc
-	 * Represents the metadata panel in the viewer
 	 * @constructor
 	 * @param {jQuery} $container The container for the panel.
 	 * @param {jQuery} $controlBar The control bar element.

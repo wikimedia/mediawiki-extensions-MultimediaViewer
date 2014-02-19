@@ -17,8 +17,8 @@
 
 ( function ( mw ) {
 	/**
-	 * @class mw.mmv.model.Image
 	 * Represents information about a single image
+	 * @class mw.mmv.model.Image
 	 * @constructor
 	 * @param {mw.Title} title
 	 * @param {number} size Filesize in bytes of the original image
@@ -125,10 +125,9 @@
 	}
 
 	/**
-	 * @method
-	 * @static
 	 * Constructs a new Image object out of an object containing
 	 * imageinfo data from an API response.
+	 * @static
 	 * @param {mw.Title} title
 	 * @param {Object} imageInfo
 	 * @returns {mw.mmv.model.Image}
@@ -195,7 +194,6 @@
 	};
 
 	/**
-	 * @method
 	 * Add a thumb URL
 	 * @param {number} width
 	 * @param {string} url
@@ -205,7 +203,6 @@
 	};
 
 	/**
-	 * @method
 	 * Get a thumb URL if we have it.
 	 * @param {number} width
 	 * @returns {string|undefined}
@@ -215,7 +212,6 @@
 	};
 
 	/**
-	 * @method
 	 * Check whether the image is CC-licensed.
 	 * @returns {boolean}
 	 */
@@ -224,7 +220,6 @@
 	};
 
 	/**
-	 * @method
 	 * Check whether the image has geolocation data.
 	 * @returns {boolean}
 	 */

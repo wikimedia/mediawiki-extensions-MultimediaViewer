@@ -17,9 +17,9 @@
 
 ( function ( mw, $ ) {
 	/**
+	 * Represents a UI element.
 	 * @class mw.mmv.ui.Element
 	 * @abstract
-	 * Represents a UI element.
 	 * @constructor
 	 * @param {jQuery} $container
 	 */

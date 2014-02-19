@@ -16,15 +16,33 @@
  */
 
 ( function ( mw, $, oo ) {
+	/**
+	 * Runs performance analysis on requests via mw.mmv.Performance
+	 * @class mw.mmv.Api
+	 * @extends mw.Api
+	 * @constructor
+	 * @param {string} type The type of the requests to be made through this API.
+	 * @param {Object} options See mw.Api#defaultOptions
+	 */
 	function Api( type, options ) {
 		mw.Api.call( this, options );
 
+		/** @property {mw.mmv.Performance} performance Used to record performance data. */
 		this.performance = new mw.mmv.Performance();
+
+		/** @property {string} type Type of requests being sent via this API. */
 		this.type = type;
 	}
 
 	oo.inheritClass( Api, mw.Api );
 
+	/**
+	 * Runs an AJAX call to the server.
+	 * @override
+	 * @param {Object} parameters
+	 * @param {Object} [ajaxOptions]
+	 * @returns {jQuery.Promise} Done: API response data. Fail: Error code.
+	 */
 	Api.prototype.ajax = function ( parameters, ajaxOptions ) {
 		var start = $.now(),
 			api = this;

@@ -19,15 +19,19 @@
 	var P;
 
 	/**
-	 * @class mw.mmv.Performance
 	 * Measures the network performance
-	 * See https://meta.wikimedia.org/wiki/Schema:MultimediaViewerNetworkPerformance
+	 * See <https://meta.wikimedia.org/wiki/Schema:MultimediaViewerNetworkPerformance>
+	 * @class mw.mmv.Performance
 	 * @constructor
 	 */
 	function Performance() {}
 
 	P = Performance.prototype;
 
+	/**
+	 * How long to wait to ensure window.performance is populated
+	 * @property {number}
+	 */
 	P.delay = 1000;
 
 	/**

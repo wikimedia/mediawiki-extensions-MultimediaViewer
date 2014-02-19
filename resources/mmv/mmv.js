@@ -20,9 +20,9 @@
 		comingFromPopstate = false;
 
 	/**
-	 * @class mw.MultimediaViewer
 	 * Analyses the page, looks for image content and sets up the hooks
 	 * to manage the viewing experience of such content.
+	 * @class mw.MultimediaViewer
 	 * @constructor
 	 */
 	function MultimediaViewer() {
@@ -98,6 +98,11 @@
 
 	MMVP = MultimediaViewer.prototype;
 
+	/**
+	 * Initialize the lightbox interface given an array of thumbnail
+	 * objects.
+	 * @param {Object[]} thumbs Complex structure...TODO, document this better.
+	 */
 	MMVP.initWithThumbs = function ( thumbs ) {
 		var i, thumb;
 
@@ -141,9 +146,7 @@
 
 	/**
 	 * Handles resize events in viewer.
-	 *
 	 * @protected
-	 *
 	 * @param {mw.LightboxInterface} ui lightbox that got resized
 	 */
 	MMVP.resize = function ( ui ) {
@@ -165,6 +168,9 @@
 		this.updateControls();
 	};
 
+	/**
+	 * Updates positioning of controls, usually after a resize event.
+	 */
 	MMVP.updateControls = function () {
 		var numImages = this.thumbs ? this.thumbs.length : 0,
 			showNextButton = this.lightbox.currentIndex < (numImages - 1),
@@ -174,9 +180,7 @@
 	};
 
 	/**
-	 * @method
 	 * Loads and sets the specified image. It also updates the controls.
-	 *
 	 * @param {mw.LightboxInterface} ui image container
 	 * @param {mw.mmv.model.Thumbnail} thumbnail thumbnail information
 	 * @param {HTMLImageElement} image
@@ -193,7 +197,6 @@
 	};
 
 	/**
-	 * @method
 	 * Loads a specified image.
 	 * @param {mw.LightboxImage} image
 	 * @param {HTMLImageElement} initialImage A thumbnail to use as placeholder while the image loads
@@ -253,7 +256,6 @@
 	};
 
 	/**
-	 * @method
 	 * Loads an image by its title
 	 * @param {string} title
 	 * @param {boolean} updateHash Viewer should update the location hash when true
@@ -285,13 +287,13 @@
 
 	/**
 	 * Stores image metadata preloads, so they can be cancelled.
-	 * @type {mw.mmv.model.TaskQueue}
+	 * @property {mw.mmv.model.TaskQueue}
 	 */
 	MMVP.metadataPreloadQueue = null;
 
 	/**
 	 * Stores image thumbnail preloads, so they can be cancelled.
-	 * @type {mw.mmv.model.TaskQueue}
+	 * @property {mw.mmv.model.TaskQueue}
 	 */
 	MMVP.thumbnailPreloadQueue = null;
 
@@ -397,7 +399,6 @@
 	};
 
 	/**
-	 * @method
 	 * Animates the metadata area when the viewer is first opened.
 	 * @return {jQuery.Promise} an empty promise which resolves when the animation is finished
 	 */
@@ -411,7 +412,6 @@
 	};
 
 	/**
-	 * @method
 	 * Stop listening to the page's scroll events
 	 */
 	MMVP.stopListeningToScroll = function () {
@@ -419,7 +419,6 @@
 	};
 
 	/**
-	 * @method
 	 * Start listening to the page's scroll events
 	 * Will call MMVP.scroll(), throttled so it is not triggered on every pixel.
 	 */
@@ -433,7 +432,6 @@
 	};
 
 	/**
-	 * @method
 	 * Receives the window's scroll events and flips the chevron if necessary.
 	 */
 	MMVP.scroll = function () {
@@ -500,6 +498,10 @@
 		return $.when( thumbnailPromise, imagePromise );
 	};
 
+	/**
+	 * Loads an image at a specified index in the viewer's thumbnail array.
+	 * @param {number} index
+	 */
 	MMVP.loadIndex = function ( index ) {
 		var thumb;
 
@@ -546,6 +548,10 @@
 		}
 	};
 
+	/**
+	 * Registers all event handlers, on the document, for various MMV-specific
+	 * events.
+	 */
 	MMVP.setupEventHandlers = function () {
 		var viewer = this;
 

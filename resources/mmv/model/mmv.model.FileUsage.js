@@ -17,8 +17,8 @@
 
 ( function ( mw ) {
 	/**
-	 * @class mw.mmv.model.FileUsage
 	 * Represents information about the wiki pages using a given file
+	 * @class mw.mmv.model.FileUsage
 	 * @constructor
 	 * @param {mw.Title} file see {@link mw.mmv.model.FileUsage#file}
 	 * @param {mw.mmv.model.FileUsage.Scope} scope see {@link mw.mmv.model.FileUsage#scope}

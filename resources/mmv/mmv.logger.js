@@ -19,13 +19,18 @@
 	var L;
 
 	/**
-	 * @class mw.mmv.Logger
 	 * Writes log entries
+	 * @class mw.mmv.Logger
 	 */
 	function Logger() {}
 
 	L = Logger.prototype;
 
+	/**
+	 * Possible log actions, and their associated English developer log strings.
+	 * @property
+	 * @static
+	 */
 	L.logActions = {
 		'thumbnail-link-click': 'User clicked on thumbnail to open lightbox.',
 		'enlarge-link-click': 'User clicked on enlarge link to open lightbox.',

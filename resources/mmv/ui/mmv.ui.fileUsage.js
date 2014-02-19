@@ -18,7 +18,7 @@
 ( function ( mw, $ ) {
 	/**
 	 * File usage interface (what wiki pages is this file used on?)
-	 * @class mw.mmv.interface.FileUsage
+	 * @class mw.mmv.ui.FileUsage
 	 * @constructor
 	 * @param {jQuery} $container
 	 */
@@ -43,9 +43,9 @@
 		this.$usageList = null;
 	}
 
-	/** Never show more than this many local usages */
+	/** @property {number} MAX_LOCAL Never show more than this many local usages */
 	FileUsage.prototype.MAX_LOCAL = 3;
-	/** Never show more than this many global usages */
+	/** @property {number} MAX_GLOBAL Never show more than this many global usages */
 	FileUsage.prototype.MAX_GLOBAL = 3;
 
 	/**

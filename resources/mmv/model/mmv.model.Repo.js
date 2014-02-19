@@ -17,8 +17,8 @@
 
 ( function ( mw, oo ) {
 	/**
-	 * @class mw.mmv.model.Repo
 	 * Represents information about a single image repository
+	 * @class mw.mmv.model.Repo
 	 * @constructor
 	 * @param {string} displayName
 	 * @param {string} favIcon URL to the repo's favicon
@@ -40,9 +40,8 @@
 	}
 
 	/**
-	 * @method
-	 * @static
 	 * Creates a new object from repoInfo we found in an API response.
+	 * @static
 	 * @param {Object} repoInfo
 	 * @returns {mw.mmv.model.Repo}
 	 */
@@ -69,15 +68,14 @@
 	};
 
 	/**
-	* @method
 	* Gets the article path for the repository.
 	* @return {string} Replace $1 with the page name you want to link to.
 	*/
 	Repo.prototype.getArticlePath = function () { return mw.config.get( 'wgArticlePath' ); };
 
 	/**
-	 * @class mw.mmv.model.ForeignApiRepo
 	 * Represents information about a foreign API repository
+	 * @class mw.mmv.model.ForeignApiRepo
 	 * @extends mw.mmv.model.Repo
 	 * @constructor
 	 * @inheritdoc
@@ -111,7 +109,6 @@
 	oo.inheritClass( ForeignApiRepo, Repo );
 
 	/**
-	* @method
 	* @override
 	* @inheritdoc
 	*/
@@ -120,8 +117,8 @@
 	};
 
 	/**
-	 * @class mw.mmv.model.ForeignDbRepo
 	 * Represents information about a foreign, shared DB repository
+	 * @class mw.mmv.model.ForeignDbRepo
 	 * @extends mw.mmv.model.Repo
 	 * @constructor
 	 * @inheritdoc
@@ -142,7 +139,6 @@
 	oo.inheritClass( ForeignDbRepo, Repo );
 
 	/**
-	* @method
 	* @override
 	* @inheritdoc
 	*/

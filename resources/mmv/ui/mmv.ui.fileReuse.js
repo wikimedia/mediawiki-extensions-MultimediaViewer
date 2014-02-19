@@ -20,9 +20,9 @@
 	var FRP;
 
 	/**
-	 * @class
-	 * @extends mw.mmv.ui.Element
 	 * Represents the file reuse dialog and link to open it.
+	 * @class mw.mmv.ui.FileReuse
+	 * @extends mw.mmv.ui.Element
 	 */
 	function FileReuse( $container ) {
 		var reuse = this;

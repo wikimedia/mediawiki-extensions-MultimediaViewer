@@ -21,7 +21,7 @@
 	/**
 	 * Bootstrap code listening to thumb clicks and location.hash
 	 * Loads the mmv and opens it if necessary
-	 * @class
+	 * @class mw.mmv.MultimediaViewerBootstrap
 	 */
 	function MultimediaViewerBootstrap () {
 		var bs = this;
@@ -49,7 +49,6 @@
 	MMVB = MultimediaViewerBootstrap.prototype;
 
 	/**
-	 * @method
 	 * Stops the boostrap
 	 */
 	MMVB.shutdown = function () {
@@ -57,7 +56,6 @@
 	};
 
 	/**
-	 * @method
 	 * Loads the mmv module asynchronously and passes the thumb data to it
 	 * @returns {jQuery.Promise}
 	 */
@@ -81,7 +79,6 @@
 	};
 
 	/**
-	 * @method
 	 * Processes all thumbs found on the page
 	 */
 	MMVB.processThumbs = function () {
@@ -93,7 +90,6 @@
 	};
 
 	/**
-	 * @method
 	 * Processes a thumb
 	 * @param {Object} thumb
 	 */
@@ -140,9 +136,8 @@
 	};
 
 	/**
-	 * @method
 	 * Handles a click event on a link
-	 * @param {Object} element Clicked elemed
+	 * @param {Object} element Clicked element
 	 * @param {jQuery.Event} e jQuery event object
 	 * @param {string} title File title
 	 * @returns {boolean}
@@ -171,7 +166,6 @@
 	};
 
 	/**
-	 * @method
 	 * Handles the browser's location.hash
 	 */
 	MMVB.hash = function () {

@@ -19,18 +19,17 @@
 	var TWCP;
 
 	/**
-	 * @class mw.mmv.ThumbnailWidthCalculator
-	 *
 	 * A helper class for bucketing image sizes.
 	 * Bucketing helps to avoid cache fragmentation and thus speed up image loading:
 	 * instead of generating potentially hundreds of different thumbnail sizes, we restrict
 	 * ourselves to a short list of acceptable thumbnail widths, and only ever load thumbnails
 	 * of that size. Final size adjustment is done in a thumbnail.
 	 *
-	 * See also the [Standardized thumbnail sizes RFC][1]
+	 * See also the [Standardized thumbnail sizes RFC][1].
 	 *
 	 * [1]: https://www.mediawiki.org/wiki/Talk:Requests_for_comment/Standardized_thumbnails_sizes
 	 *
+	 * @class mw.mmv.ThumbnailWidthCalculator
 	 * @constructor
 	 * @param {Object} [options]
 	 * @param {number[]} [options.widthBuckets] see {@link mw.mmv.ThumbnailWidthCalculator#widthBuckets}
