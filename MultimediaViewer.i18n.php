@@ -787,6 +787,37 @@ $messages['hsb'] = array(
 	'multimediaviewer-geolocation' => 'Městno: $1',
 );
 
+/** Hungarian (magyar)
+ * @author Tgr
+ */
+$messages['hu'] = array(
+	'multimediaviewer-desc' => 'A teljes képernyőre kinagyíthatóvá teszi a beágyazott képeket.',
+	'multimediaviewer-desc-nil' => 'Nincs leírás.',
+	'multimediaviewer-pref' => 'Képnézegető',
+	'multimediaviewer-pref-desc' => 'A multimédiás tartalmak megnézését könnyebbé tevő eszköz. Az oldalak szövegébe beágyazott bélyegképeket kattintásra nagyobb méretben jeleníti meg, és számos egyéb adatot is mutat róluk.',
+	'multimediaviewer-file-page' => 'Ugrás a fájl saját lapjára',
+	'multimediaviewer-repository' => 'Bővebben - $1',
+	'multimediaviewer-repository-local' => 'Bővebben',
+	'multimediaviewer-datetime-created' => 'Készítés ideje: $1',
+	'multimediaviewer-datetime-uploaded' => 'Feltöltés ideje: $1',
+	'multimediaviewer-userpage-link' => '{{GENDER:$2|Feltöltő}}: $1',
+	'multimediaviewer-license-cc-pd' => 'Közkincs',
+	'multimediaviewer-license-pd' => 'Közkincs',
+	'multimediaviewer-license-default' => 'Licenc megtekintése',
+	'multimediaviewer-use-file' => 'A fájl használata máshol',
+	'multimediaviewer-use-file-owt' => 'Egy wikiben, bélyegképként',
+	'multimediaviewer-use-file-own' => 'Egy wikiben, teljes méretben',
+	'multimediaviewer-use-file-offwiki' => 'Egy másik weboldalon',
+	'multimediaviewer-about-mmv' => 'A Képnézegetőről',
+	'multimediaviewer-discuss-mmv' => 'Üzenj a fejlesztőknek',
+	'multimediaviewer-geolocation' => 'Hely: $1',
+	'multimediaviewer-fileusage-count' => '$1 lapon szerepel',
+	'multimediaviewer-fileusage-count-more' => 'Több, mint $1 lapon szerepel',
+	'multimediaviewer-fileusage-link' => 'Mutasd az összeset',
+	'multimediaviewer-fileusage-local-section' => 'Ezen a wikin',
+	'multimediaviewer-fileusage-global-section' => 'Más wikiken',
+);
+
 /** Indonesian (Bahasa Indonesia)
  * @author William Surya Permana
  */
@@ -1243,8 +1274,8 @@ $messages['pt'] = array(
 	'multimediaviewer-fileusage-count' => 'Utilizada em $1 {{PLURAL:$1|página|páginas}}',
 	'multimediaviewer-fileusage-count-more' => 'Utilizada em mais de $1 {{PLURAL:$1|páginas}}',
 	'multimediaviewer-fileusage-link' => 'Ver todas as utilizações',
-	'multimediaviewer-fileusage-local-section' => 'Neste site',
-	'multimediaviewer-fileusage-global-section' => 'Noutros sites',
+	'multimediaviewer-fileusage-local-section' => 'Neste sítio',
+	'multimediaviewer-fileusage-global-section' => 'Noutros sítios',
 );
 
 /** Romanian (română)
