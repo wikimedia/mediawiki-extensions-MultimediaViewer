@@ -156,12 +156,15 @@
 			history.pushState( {}, '', hashFragment );
 		}
 
-		this.handleEvent( 'keydown', function( e ) { ui.keydown( e ); } );
+		this.handleEvent( 'keydown', function ( e ) { ui.keydown( e ); } );
 
 		// mousemove generates a ton of events, which is why we throttle it
 		this.handleEvent( 'mousemove.lip', $.throttle( 250, function( e ) {
 			ui.mousemove( e );
 		} ) );
+
+		this.handleEvent( 'mmv-faded-out', function ( e ) { ui.fadedOut( e ); } );
+		this.handleEvent( 'mmv-fade-stopped', function ( e ) { ui.fadeStopped( e ); } );
 	};
 
 	/**
@@ -299,13 +302,10 @@
 
 		this.buttons.setOffset( prevNextTop );
 		this.buttons.toggle( showPrevButton, showNextButton );
-
-		if ( this.isFullscreen ) {
-			this.buttons.revealAndFade( this.mousePosition );
-		}
 	};
 
 	/**
+	 * @method
 	 * Gets the widths for a given lightbox image.
 	 * @param {mlb.LightboxImage} image
 	 * @returns {mw.mmv.model.ThumbnailWidth}
@@ -318,11 +318,28 @@
 	};
 
 	/**
+	 * @method
 	 * Gets the widths for the current lightbox image.
 	 * @returns {mw.mmv.model.ThumbnailWidth}
 	 */
 	LIP.getCurrentImageWidths = function () {
 		return this.getLightboxImageWidths( this.currentImage );
+	};
+
+	/**
+	 * @method
+	 * Called when the buttons have completely faded out and disappeared
+	 */
+	LIP.fadedOut = function () {
+		this.$main.addClass( 'cursor-hidden' );
+	};
+
+	/**
+	 * @method
+	 * Called when the buttons have stopped fading and are back into view
+	 */
+	LIP.fadeStopped = function () {
+		this.$main.removeClass( 'cursor-hidden' );
 	};
 
 	mw.LightboxInterface = LightboxInterface;
