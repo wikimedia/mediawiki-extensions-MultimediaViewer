@@ -1136,6 +1136,12 @@ $messages['ml'] = array(
  */
 $messages['mr'] = array(
 	'multimediaviewer-desc-nil' => 'वर्णन उपलब्ध नाही',
+	'multimediaviewer-license-pd' => 'सार्वजनिक अधिक्षेत्र',
+	'multimediaviewer-fileusage-count' => 'Used in $1  {{PLURAL:$1|पाना|पानां}}मध्ये वापरल्या गेले',
+	'multimediaviewer-fileusage-count-more' => '$1 पेक्षा अधिक {{PLURAL:$1|पानांमध्ये}} वापरल्या गेले',
+	'multimediaviewer-fileusage-link' => 'सर्व वापर बघा',
+	'multimediaviewer-fileusage-local-section' => 'या संकेतस्थळावर',
+	'multimediaviewer-fileusage-global-section' => 'दुसऱ्या संकेतस्थळांवर',
 );
 
 /** Malay (Bahasa Melayu)
@@ -1349,6 +1355,18 @@ $messages['ru'] = array(
 	'multimediaviewer-fileusage-global-section' => 'На других сайтах',
 );
 
+/** Scots (Scots)
+ * @author John Reid
+ */
+$messages['sco'] = array(
+	'multimediaviewer-license-pd' => 'Public Domain',
+	'multimediaviewer-fileusage-count' => 'Uised in $1 {{PLURAL:$1|page|pages}}',
+	'multimediaviewer-fileusage-count-more' => 'Uised in mair than $1 {{PLURAL:$1|pages}}',
+	'multimediaviewer-fileusage-link' => 'View aw uisses',
+	'multimediaviewer-fileusage-local-section' => 'On this site',
+	'multimediaviewer-fileusage-global-section' => 'On ither sites',
+);
+
 /** Sassaresu (Sassaresu)
  * @author Jun Misugi
  */
@@ -1429,6 +1447,16 @@ $messages['sv'] = array(
 	'multimediaviewer-fileusage-link' => 'Visa all användning',
 	'multimediaviewer-fileusage-local-section' => 'På denna webbplats',
 	'multimediaviewer-fileusage-global-section' => 'På andra webbplatser',
+);
+
+/** Telugu (తెలుగు)
+ * @author Ravichandra
+ */
+$messages['te'] = array(
+	'multimediaviewer-license-pd' => 'పబ్లిక్ డొమైను',
+	'multimediaviewer-fileusage-link' => 'అన్ని వాడుకలు చూడు',
+	'multimediaviewer-fileusage-local-section' => 'ఈ సైటుపై',
+	'multimediaviewer-fileusage-global-section' => 'ఇతర సైట్లలో',
 );
 
 /** Tagalog (Tagalog)
