@@ -372,28 +372,17 @@
 	 * @param {string} gender
 	 */
 	MPP.setUserPageLink = function ( repoData, username, gender ) {
-		var userlink,
-			userpage = 'User:' + username;
+		var userpage = 'User:' + username,
+			articlePath = repoData.getArticlePath(),
+			userlink = articlePath.replace( '$1', userpage );
 
-		if ( repoData instanceof mw.mmv.model.ForeignDbRepo ) {
-			// We basically can't do anything about this; fail
-			this.$username.addClass( 'empty' );
-		} else {
-			if ( repoData.absoluteArticlePath ) {
-				userlink = repoData.absoluteArticlePath;
-			} else {
-				userlink = mw.config.get( 'wgArticlePath' );
-			}
-			userlink = userlink.replace( '$1', userpage );
+		this.$username
+			.text(
+				mw.message( 'multimediaviewer-userpage-link', username, gender ).text()
+			)
+			.prop( 'href', userlink );
 
-			this.$username
-				.text(
-					mw.message( 'multimediaviewer-userpage-link', username, gender ).text()
-				)
-				.prop( 'href', userlink );
-
-			this.$usernameLi.toggleClass( 'empty', !username );
-		}
+		this.$usernameLi.toggleClass( 'empty', !username );
 	};
 
 	/**
