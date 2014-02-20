@@ -11,19 +11,19 @@ end
 
 When(/^I click the next arrow$/) do
   on(LightboxDemoPage) do |page|
-    page.next_image()
+    page.mmv_next_button_element.when_present.click
   end
 end
 
 When(/^I click the previous arrow$/) do
   on(LightboxDemoPage) do |page|
-    page.previous_image()
+    page.mmv_previous_button_element.when_present.click
   end
 end
 
 When(/^I close MMV$/) do
   on(LightboxDemoPage) do |page|
-    page.exit_mmv()
+    page.mmv_close_button_element.when_present.click
   end
 end
 
