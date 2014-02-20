@@ -227,6 +227,7 @@
 
 		this.preloadImagesMetadata();
 		this.preloadThumbnails();
+		this.preloadFullscreenThumbnail();
 
 		$( document.body ).addClass( 'mw-mlb-lightbox-open' );
 
@@ -396,6 +397,19 @@
 		} );
 
 		this.thumbnailPreloadQueue.execute();
+	};
+
+	/**
+	 * Preload the fullscreen size of the current image.
+	 */
+	MMVP.preloadFullscreenThumbnail = function() {
+		var lightbox = this.lightbox.images[this.lightbox.currentIndex],
+			ui = this.lightbox.iface;
+
+		this.fetchThumbnail(
+			lightbox.filePageTitle,
+			ui.getLightboxImageWidthsForFullscreen( lightbox ).real
+		);
 	};
 
 	/**

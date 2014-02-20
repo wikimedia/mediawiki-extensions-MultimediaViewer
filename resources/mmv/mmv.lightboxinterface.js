@@ -318,7 +318,20 @@
 	};
 
 	/**
-	 * @method
+	 * Gets the fullscreen widths for a given lightbox image.
+	 * Intended for use before the viewer is in fullscreen mode
+	 * (in fullscreen mode getLightboxImageWidths() works fine).
+	 * @param {mlb.LightboxImage} image
+	 * @returns {mw.mmv.model.ThumbnailWidth}
+	 */
+	LIP.getLightboxImageWidthsForFullscreen = function ( image ) {
+		var thumb = image.thumbnail;
+
+		return this.thumbnailWidthCalculator.calculateWidths(
+			screen.width, screen.height, thumb.width, thumb.height );
+	};
+
+	/**
 	 * Gets the widths for the current lightbox image.
 	 * @returns {mw.mmv.model.ThumbnailWidth}
 	 */
