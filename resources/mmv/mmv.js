@@ -227,7 +227,7 @@
 
 		this.preloadImagesMetadata();
 		this.preloadThumbnails();
-		this.preloadFullscreenThumbnail();
+		this.preloadFullscreenThumbnail( image );
 
 		$( document.body ).addClass( 'mw-mlb-lightbox-open' );
 
@@ -402,13 +402,10 @@
 	/**
 	 * Preload the fullscreen size of the current image.
 	 */
-	MMVP.preloadFullscreenThumbnail = function() {
-		var lightbox = this.lightbox.images[this.lightbox.currentIndex],
-			ui = this.lightbox.iface;
-
+	MMVP.preloadFullscreenThumbnail = function( image ) {
 		this.fetchThumbnail(
-			lightbox.filePageTitle,
-			ui.getLightboxImageWidthsForFullscreen( lightbox ).real
+			image.filePageTitle,
+			this.lightbox.iface.getLightboxImageWidthsForFullscreen( image ).real
 		);
 	};
 
