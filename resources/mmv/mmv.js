@@ -551,28 +551,39 @@
 	};
 
 	/**
-	 * Shuts down the viewer
+	 * Handles a hash change coming from the browser
 	 */
-	MMVP.shutdown = function () {
-		if ( this.lightbox && this.lightbox.iface ) {
-			this.lightbox.iface.unattach();
+	MMVP.hash = function () {
+		var hash = decodeURIComponent( document.location.hash ),
+			linkState = hash.split( '/' );
+
+		if ( linkState[0] === '#mediaviewer' ) {
+			this.loadImageByTitle( linkState[ 1 ] );
+		} else if ( this.isOpen ) {
+			// This allows us to avoid the pushState that normally happens on close
+			comingFromPopstate = true;
+
+			if ( this.lightbox && this.lightbox.iface ) {
+				this.lightbox.iface.unattach();
+			} else {
+				this.close();
+			}
 		}
 	};
 
 	/**
-	 * Registers all event handlers, on the document, for various MMV-specific
-	 * events.
+	 * Registers all event handlers
 	 */
 	MMVP.setupEventHandlers = function () {
 		var viewer = this;
 
-		$( document ).on( 'mmv-close', function () {
+		$( document ).on( 'mmv-close.mmvp', function () {
 			viewer.close();
-		} ).on( 'mmv-next', function () {
+		} ).on( 'mmv-next.mmvp', function () {
 			viewer.nextImage();
-		} ).on( 'mmv-prev', function () {
+		} ).on( 'mmv-prev.mmvp', function () {
 			viewer.prevImage();
-		} ).on( 'mmv-resize', function () {
+		} ).on( 'mmv-resize.mmvp', function () {
 			viewer.resize( viewer.lightbox.iface );
 		});
 	};

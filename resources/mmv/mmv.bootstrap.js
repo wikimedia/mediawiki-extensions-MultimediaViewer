@@ -19,12 +19,12 @@
 	var bootstrap, MMVB;
 
 	/**
-	 * Bootstrap code listening to thumb clicks and location.hash
+	 * Bootstrap code listening to thumb clicks checking the initial location.hash
 	 * Loads the mmv and opens it if necessary
 	 * @class mw.mmv.MultimediaViewerBootstrap
 	 */
 	function MultimediaViewerBootstrap () {
-		var bs = this;
+		var self = this;
 
 		this.validExtensions = {
 			'jpg' : true,
@@ -41,19 +41,12 @@
 		this.processThumbs();
 		this.hash();
 
-		$( window ).on( 'popstate.mmv', function() {
-			bs.hash();
+		$( window ).on( 'popstate.mmvb', function () {
+			self.hash();
 		} );
 	}
 
 	MMVB = MultimediaViewerBootstrap.prototype;
-
-	/**
-	 * Stops the boostrap
-	 */
-	MMVB.shutdown = function () {
-		$( window ).off( 'popstate.mmv' );
-	};
 
 	/**
 	 * Loads the mmv module asynchronously and passes the thumb data to it
@@ -166,22 +159,18 @@
 	};
 
 	/**
-	 * Handles the browser's location.hash
+	 * Handles the browser location hash on pageload or popstate
 	 */
 	MMVB.hash = function () {
-		var hash = decodeURIComponent( document.location.hash ),
-			linkState = hash.split( '/' );
-
-		if ( linkState[0] === '#mediaviewer' ) {
-			this.loadViewer().then( function () {
-				mw.mediaViewer.loadImageByTitle( linkState[ 1 ] );
-			} );
-		} else {
-			// If the hash is invalid (not a mmv hash) we close any open mmv
-			if ( mw.mediaViewer ) {
-				mw.mediaViewer.shutdown();
-			}
+		// There is no point loading the mmv if it isn't loaded yet for hash changes unrelated to the mmv
+		// Such as anchor links on the page
+		if ( !this.viewerInitialized && window.location.hash.indexOf( '#mediaviewer/') !== 0 ) {
+			return;
 		}
+
+		this.loadViewer().then( function () {
+			mw.mediaViewer.hash();
+		} );
 	};
 
 	mw.mmv.MultimediaViewerBootstrap = MultimediaViewerBootstrap;
