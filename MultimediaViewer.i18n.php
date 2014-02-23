@@ -613,6 +613,7 @@ $messages['fa'] = array(
 );
 
 /** Finnish (suomi)
+ * @author Elseweyr
  * @author Nike
  * @author Stryn
  */
@@ -620,7 +621,7 @@ $messages['fi'] = array(
 	'multimediaviewer-desc' => 'Näytä pienoiskuvat suuremmassa koossa kokoruututilassa.',
 	'multimediaviewer-desc-nil' => 'Ei kuvausta saatavilla.',
 	'multimediaviewer-pref' => 'Media Viewer',
-	'multimediaviewer-pref-desc' => 'Paranna multimedian näyttämiskokemustasi tällä uudella työkalulla. Se näyttää sivuilla olevat pienoiskuvat suuremmassa koossa. Kuvat aukeavat suuremmassa koossa kokoruututilassa, ja ne voidaan näyttää myös täysikokoisina.',
+	'multimediaviewer-pref-desc' => 'Paranna multimedian katselukokemustasi tällä uudella työkalulla. Se näyttää kuvat suuremmassa koossa sivuilla, joissa on kuvakkeita. Kuvat aukeavat suuremmassa koossa kokoruututilassa, ja ne voidaan näyttää myös täysikokoisina.',
 	'multimediaviewer-file-page' => 'Siirry tiedostosivulle',
 	'multimediaviewer-repository' => 'Lisätietoa sivustolla $1',
 	'multimediaviewer-repository-local' => 'Lue lisää',
@@ -1166,6 +1167,7 @@ $messages['nap'] = array(
 );
 
 /** Dutch (Nederlands)
+ * @author Arent
  * @author SPQRobin
  * @author Siebrand
  * @author Sjoerddebruin
@@ -1192,7 +1194,7 @@ $messages['nl'] = array(
 	'multimediaviewer-discuss-mmv' => 'Terugkoppeling achterlaten',
 	'multimediaviewer-geolocation' => 'Locatie: $1',
 	'multimediaviewer-fileusage-count' => "Gebruikt op $1 {{PLURAL:$1|pagina|pagina's}}",
-	'multimediaviewer-fileusage-count-more' => "Gebruikt in meer dan $1 {{PLURAL:$1|pagina's}}",
+	'multimediaviewer-fileusage-count-more' => "Gebruikt in meer dan $1 pagina{{PLURAL:$1||'s}}",
 	'multimediaviewer-fileusage-link' => 'Alle toepassingen weergeven',
 	'multimediaviewer-fileusage-local-section' => 'Op deze site',
 	'multimediaviewer-fileusage-global-section' => "Op andere site's",
@@ -1236,6 +1238,7 @@ $messages['pl'] = array(
 	'multimediaviewer-about-mmv' => 'O przeglądarce multimedów',
 	'multimediaviewer-discuss-mmv' => 'Prześlij opinię',
 	'multimediaviewer-geolocation' => 'Położenie: $1',
+	'multimediaviewer-fileusage-link' => 'Zobacz wszystkich użytkowników',
 );
 
 /** Pashto (پښتو)
@@ -1326,6 +1329,7 @@ $messages['roa-tara'] = array(
 /** Russian (русский)
  * @author Kaganer
  * @author Okras
+ * @author Tucvbif
  */
 $messages['ru'] = array(
 	'multimediaviewer-desc' => 'Раскрывает эскизы в большие изображения на весь экран.',
@@ -1334,7 +1338,7 @@ $messages['ru'] = array(
 	'multimediaviewer-pref-desc' => 'Улучшает просмотр мультимедиа-файлов новым инструментом. На странице с эскизами изображений он раскрывает эскизы в большие изображения. Изображения показываются в более красивом полноэкранном интерфейсе, а также могут быть открыты в оригинальном разрешении.',
 	'multimediaviewer-file-page' => 'Перейти на страницу соответствующего файла',
 	'multimediaviewer-repository' => 'Подробнее на $1',
-	'multimediaviewer-repository-local' => 'Узнать больше',
+	'multimediaviewer-repository-local' => 'Подробнее',
 	'multimediaviewer-datetime-created' => 'Создано в $1',
 	'multimediaviewer-datetime-uploaded' => 'Загружено в $1',
 	'multimediaviewer-userpage-link' => 'Загружено {{GENDER:$2|участником|участницей}} $1',
@@ -1350,7 +1354,7 @@ $messages['ru'] = array(
 	'multimediaviewer-geolocation' => 'Географическое положение: $1',
 	'multimediaviewer-fileusage-count' => 'Используется на $1 {{PLURAL:$1|странице|страницах}}',
 	'multimediaviewer-fileusage-count-more' => 'Используются более чем на $1   {{PLURAL:$1|страницах}}',
-	'multimediaviewer-fileusage-link' => 'Посмотреть все использования',
+	'multimediaviewer-fileusage-link' => 'Все включения',
 	'multimediaviewer-fileusage-local-section' => 'На этом сайте',
 	'multimediaviewer-fileusage-global-section' => 'На других сайтах',
 );
