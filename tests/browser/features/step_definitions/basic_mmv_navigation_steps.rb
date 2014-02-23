@@ -69,7 +69,7 @@ def check_elements_in_viewer_for_image1(page)
     page.mmv_image_div_element.should be_visible
 
     # Check image content
-    page.mmv_image_div_element.image_element.attribute('src').should match /Kerala|^data:image;base64,.+gBeRmlsZSB/
+    page.mmv_image_div_element.image_element.attribute('src').should match /Kerala/
 
     # Check basic metadata is present
 
@@ -112,7 +112,7 @@ def check_elements_in_viewer_for_image2(page)
     page.mmv_image_div_element.should be_visible
 
     # Check image content
-    page.mmv_image_div_element.image_element.attribute('src').should match /Offsite|^data:image;base64,.+gB4Rmls/
+    page.mmv_image_div_element.image_element.attribute('src').should match /Offsite/
 
     # Check basic metadata is present
 
