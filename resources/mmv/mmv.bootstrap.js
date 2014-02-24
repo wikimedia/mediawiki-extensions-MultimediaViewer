@@ -39,10 +39,13 @@
 		this.thumbs = [];
 		this.$thumbs = $( '.gallery .image img, a.image img' );
 		this.processThumbs();
-		this.hash();
 
-		$( window ).on( 'popstate.mmvb', function () {
+		$( window ).hashchange( function () {
 			self.hash();
+		} ).hashchange();
+
+		$( document ).on( 'mmv.hash', function ( e ) {
+			self.internalHashChange( e );
 		} );
 	}
 
@@ -159,7 +162,7 @@
 	};
 
 	/**
-	 * Handles the browser location hash on pageload or popstate
+	 * Handles the browser location hash on pageload or hash change
 	 */
 	MMVB.hash = function () {
 		// There is no point loading the mmv if it isn't loaded yet for hash changes unrelated to the mmv
@@ -168,9 +171,25 @@
 			return;
 		}
 
+		if ( this.skipNextHashHandling ) {
+			this.skipNextHashHandling = false;
+			return;
+		}
+
 		this.loadViewer().then( function () {
 			mw.mediaViewer.hash();
 		} );
+	};
+
+	/**
+	 * Handles hash change requests coming from mmv
+	 * @param {jQuery.Event} e Custom mmv.hash event
+	 */
+	MMVB.internalHashChange = function ( e ) {
+		// Since we voluntarily changed the hash, we don't want MMVB.hash to treat it
+		this.skipNextHashHandling = true;
+
+		window.location.hash = e.hash;
 	};
 
 	mw.mmv.MultimediaViewerBootstrap = MultimediaViewerBootstrap;

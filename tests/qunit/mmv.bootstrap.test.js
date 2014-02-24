@@ -171,7 +171,7 @@
 		bootstrap.hash = $.noop;
 	} );
 
-	QUnit.test( 'Only load the viewer on a valid hash', 1, function ( assert ) {
+	QUnit.asyncTest( 'Only load the viewer on a valid hash', 1, function ( assert ) {
 		var bootstrap;
 
 		window.location.hash = '';
@@ -186,14 +186,38 @@
 		window.location.hash = 'Foo';
 
 		bootstrap.loadViewer = function () {
+			QUnit.start();
 			assert.ok( true, 'Viewer should be loaded' );
+			bootstrap.hash = $.noop;
+			window.location.hash = '';
 			return $.Deferred().reject();
 		};
 
 		window.location.hash = 'mediaviewer/foo';
+	} );
 
-		bootstrap.hash = $.noop;
-
+	QUnit.asyncTest( 'internalHashChange', 1, function ( assert ) {
 		window.location.hash = '';
+
+		var bootstrap = new mw.mmv.MultimediaViewerBootstrap(),
+			hash = '#mediaviewer/foo',
+			oldHash = bootstrap.hash;
+
+		bootstrap.hash = function () {
+			oldHash.call( this );
+
+			bootstrap.hash = $.noop;
+			window.location.hash = '';
+			QUnit.start();
+		};
+
+		bootstrap.loadViewer = function () {
+			assert.ok( false, 'Viewer should not be loaded' );
+			return $.Deferred().reject();
+		};
+
+		bootstrap.internalHashChange( { hash: hash } );
+
+		assert.strictEqual( window.location.hash, hash, 'Window\'s hash has been updated correctly' );
 	} );
 }( mediaWiki, jQuery ) );

@@ -452,6 +452,7 @@ call_user_func( function() {
 			'mediawiki.Title',
 			'mmv.logger',
 			'mmv.ui',
+			'jquery.hashchange',
 		),
 	), $moduleInfo( 'mmv' ) );
 
@@ -460,6 +461,12 @@ call_user_func( function() {
 			'jquery.scrollTo.js',
 		),
 	), $moduleInfo( 'jquery.scrollTo' ) );
+
+	$wgResourceModules['jquery.hashchange'] = array_merge( array(
+		'scripts' => array(
+			'jquery.hashchange.js',
+		),
+	), $moduleInfo( 'jquery.hashchange' ) );
 
 	$wgExtensionFunctions[] = function () {
 		global $wgResourceModules;

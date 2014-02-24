@@ -212,7 +212,7 @@
 		mw.mediaViewer.lightbox = { currentIndex: 0 };
 
 		// This lets us avoid pushing a state to the history, which might interfere with other tests
-		lightbox.comingFromPopstate = true;
+		lightbox.comingFromHashChange = true;
 		// Load is needed to start listening to metadata events
 		lightbox.load( { getImageElement: function() { return $.Deferred().reject(); } } );
 

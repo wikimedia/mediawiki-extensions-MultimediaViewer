@@ -17,7 +17,7 @@
 
 ( function ( mw, $ ) {
 	var MMVP,
-		comingFromPopstate = false;
+		comingFromHashChange = false;
 
 	/**
 	 * Analyses the page, looks for image content and sets up the hooks
@@ -214,7 +214,7 @@
 
 		this.currentImageFilename = image.filePageTitle.getPrefixedText();
 		this.currentImageFileTitle = image.filePageTitle;
-		this.lightbox.iface.comingFromPopstate = this.comingFromPopstate;
+		this.lightbox.iface.comingFromHashChange = this.comingFromHashChange;
 
 		if ( !this.isOpen ) {
 			this.lightbox.open();
@@ -253,7 +253,7 @@
 				.then( function() { viewer.startListeningToScroll(); } );
 		} );
 
-		this.comingFromPopstate = false;
+		this.comingFromHashChange = false;
 	};
 
 	/**
@@ -268,7 +268,7 @@
 			return;
 		}
 
-		this.comingFromPopstate = !updateHash;
+		this.comingFromHashChange = !updateHash;
 
 		$.each( this.thumbs, function ( idx, thumb ) {
 			if ( thumb.title.getPrefixedText() === title ) {
@@ -541,10 +541,10 @@
 	 */
 	MMVP.close = function () {
 		$( document.body ).removeClass( 'mw-mlb-lightbox-open' );
-		if ( comingFromPopstate === false ) {
-			history.pushState( {}, '', '#' );
+		if ( comingFromHashChange === false ) {
+			$( document ).trigger( $.Event( 'mmv.hash', { hash : '#' } ) );
 		} else {
-			comingFromPopstate = false;
+			comingFromHashChange = false;
 		}
 
 		this.isOpen = false;
@@ -554,14 +554,14 @@
 	 * Handles a hash change coming from the browser
 	 */
 	MMVP.hash = function () {
-		var hash = decodeURIComponent( document.location.hash ),
+		var hash = decodeURIComponent( window.location.hash ),
 			linkState = hash.split( '/' );
 
 		if ( linkState[0] === '#mediaviewer' ) {
 			this.loadImageByTitle( linkState[ 1 ] );
 		} else if ( this.isOpen ) {
-			// This allows us to avoid the pushState that normally happens on close
-			comingFromPopstate = true;
+			// This allows us to avoid the mmv.hash event that normally happens on close
+			comingFromHashChange = true;
 
 			if ( this.lightbox && this.lightbox.iface ) {
 				this.lightbox.iface.unattach();

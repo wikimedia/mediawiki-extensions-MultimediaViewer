@@ -152,8 +152,8 @@
 
 		this.viewer.ui = this;
 
-		if ( !this.comingFromPopstate ) {
-			history.pushState( {}, '', hashFragment );
+		if ( !this.comingFromHashChange ) {
+			$( document ).trigger( $.Event( 'mmv.hash', { hash : hashFragment } ) );
 		}
 
 		this.handleEvent( 'keydown', function ( e ) { ui.keydown( e ); } );
