@@ -30,6 +30,24 @@
 		};
 	}
 
+	function createFakeXHR( response )  {
+		return {
+			readyState: 0,
+			open: $.noop,
+			send: function () {
+				var xhr = this;
+
+				setTimeout( function () {
+					xhr.readyState = 4;
+					xhr.response = response;
+					if ( $.isFunction( xhr.onreadystatechange ) ) {
+						xhr.onreadystatechange();
+					}
+				}, 0 );
+			}
+		};
+	}
+
 	QUnit.test( 'recordEntry: basic', 5, function ( assert ) {
 		var performance = new mw.mmv.Performance(),
 			oldEventLog = mw.eventLog,
@@ -233,6 +251,42 @@
 
 		varnishXCache = performance.parseVarnishXCacheHeader( 'garbage' );
 		assert.ok( $.isEmptyObject( varnishXCache ), 'Varnish cache results are empty' );
+	} );
+
+	QUnit.test( 'record()', 4, function ( assert ) {
+		var type = 'foo',
+			url = 'http://example.com/',
+			response = {},
+			performance = new mw.mmv.Performance();
+
+		performance.newXHR = function () { return createFakeXHR( response ); };
+
+		QUnit.stop();
+		performance.recordEntryDelayed = function ( recordType, _, recordUrl, recordRequest ) {
+			assert.strictEqual( recordType, type, 'type is recorded correctly' );
+			assert.strictEqual( recordUrl, url, 'url is recorded correctly' );
+			assert.strictEqual( recordRequest.response, response, 'response is recorded correctly' );
+			QUnit.start();
+		};
+
+		QUnit.stop();
+		performance.record( type, url ).done( function ( recordResponse ) {
+			assert.strictEqual( recordResponse, response, 'response is passed to callback' );
+			QUnit.start();
+		} );
+	} );
+
+	QUnit.asyncTest( 'record() with old browser', 1, function ( assert ) {
+		var type = 'foo',
+			url = 'http://example.com/',
+			performance = new mw.mmv.Performance();
+
+		performance.newXHR = function () { throw 'XMLHttpRequest? What\'s that?'; };
+
+		performance.record( type, url ).fail( function () {
+			assert.ok( true, 'the promise is rejected when XMLHttpRequest is not supported' );
+			QUnit.start();
+		} );
 	} );
 
 	QUnit.test( 'mw.mmv.Api', 3, function ( assert ) {
