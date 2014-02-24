@@ -40,6 +40,10 @@
 		this.$thumbs = $( '.gallery .image img, a.image img' );
 		this.processThumbs();
 
+		// Exposed for tests
+		this.readinessCSSClass = 'mw-mmv-has-been-loaded';
+		this.readinessWaitDuration = 100;
+
 		$( window ).hashchange( function () {
 			self.hash();
 		} ).hashchange();
@@ -59,7 +63,9 @@
 		var deferred = $.Deferred(),
 			bs = this;
 
-		mw.loader.using( 'mmv', function () {
+		mw.loader.using( 'mmv', function() { bs.isCSSReady( deferred ); } );
+
+		return $.when( deferred ).then( function () {
 			if ( !bs.viewerInitialized ) {
 				if ( bs.thumbs.length ) {
 					mw.mediaViewer.initWithThumbs( bs.thumbs );
@@ -67,11 +73,27 @@
 
 				bs.viewerInitialized = true;
 			}
-
-			deferred.resolve();
 		} );
+	};
 
-		return deferred.promise();
+	/**
+	 * Checks if the mmv CSS has been correctly added to the page
+	 * This is a workaround for core bug 61852
+	 * @param {jQuery.Promise} deferred
+	 */
+	MMVB.isCSSReady = function ( deferred ) {
+		var $dummy = $( '<div class="' + this.readinessCSSClass + '">' )
+			.appendTo( $( document.body ) ),
+			bs = this;
+
+		if ( $dummy.css( 'display' ) === 'inline' ) {
+			// Let's be clean and remove the test item before resolving the deferred
+			$dummy.remove();
+			deferred.resolve();
+		} else {
+			$dummy.remove();
+			setTimeout( function () { bs.isCSSReady( deferred ); }, this.readinessWaitDuration );
+		}
 	};
 
 	/**

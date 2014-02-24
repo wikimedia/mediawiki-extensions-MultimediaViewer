@@ -220,4 +220,32 @@
 
 		assert.strictEqual( window.location.hash, hash, 'Window\'s hash has been updated correctly' );
 	} );
+
+	QUnit.test( 'isCSSReady', 3, function ( assert ) {
+		var bootstrap = new mw.mmv.MultimediaViewerBootstrap(),
+			deferred = $.Deferred(),
+			CSSclass = 'foo-' + $.now(),
+			$style = $( '<style type="text/css" />' )
+				.text( '.' + CSSclass + ' { display: inline; }' );
+
+		bootstrap.readinessCSSClass = CSSclass;
+		// This speeds up the test execution
+		// It's not zero because if the test fails, the browser would get hammered indefinitely
+		bootstrap.readinessWaitDuration = 30;
+
+		bootstrap.isCSSReady( deferred );
+
+		assert.strictEqual( deferred.state(), 'pending', 'The style isn\'t on the page yet' );
+
+		QUnit.stop();
+
+		deferred.then( function() {
+			QUnit.start();
+			assert.ok( true, 'The style is on the page' );
+			assert.strictEqual( $( '.' + CSSclass ).length, 0, 'There are no leftover test elements' );
+			$style.remove();
+		} );
+
+		$style.appendTo( 'head' );
+	} );
 }( mediaWiki, jQuery ) );

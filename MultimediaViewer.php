@@ -398,6 +398,8 @@ call_user_func( function() {
 
 		'styles' => array(
 			'mmv.less',
+			// Always make this one the last of the list (Bug 61852)
+			'mmv.loaded.css',
 		),
 
 		'dependencies' => array(
