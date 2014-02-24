@@ -100,11 +100,18 @@
 
 	/**
 	 * Checks whether the current browser supports AJAX preloading of images.
+	 * This means that:
+	 * - the browser supports CORS requests (large wiki farms usually host images on a
+	 *   separate domain) and
+	 * - either AJAX and normal image loading uses the same cache (when an image is used by a CORS
+	 *   request, and then normally by setting img.src, it is only loaded once)
+	 * - or (as is the case with Firefox) they are cached separately, but that can be changed by
+	 *   setting the crossOrigin attribute
 	 * @return {boolean}
 	 */
 	Image.prototype.imagePreloadingSupported = function () {
-		// FIXME this is a *very* rough guess, but it'll work as the first estimation.
-		return 'crossOrigin' in new Image();
+		// This checks if the browser supports CORS requests in XHRs
+		return 'withCredentials' in new XMLHttpRequest();
 	};
 
 	mw.mmv.provider.Image = Image;
