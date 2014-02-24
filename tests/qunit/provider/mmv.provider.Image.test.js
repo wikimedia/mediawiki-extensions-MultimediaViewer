@@ -30,10 +30,8 @@
 				+ '8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC',
 			imageProvider = new mw.mmv.provider.Image();
 
-		imageProvider.performance = {
-			imagePreloadingSupported: function () { return false; },
-			recordEntry: $.noop
-		};
+		imageProvider.imagePreloadingSupported = function () { return false; };
+		imageProvider.performance.recordEntry = $.noop;
 
 		QUnit.stop();
 		imageProvider.get( url ).then( function( image ) {
@@ -52,10 +50,8 @@
 			result,
 			imageProvider = new mw.mmv.provider.Image();
 
-		imageProvider.performance = {
-			imagePreloadingSupported: function () { return false; },
-			recordEntry: $.noop
-		};
+		imageProvider.imagePreloadingSupported = function () { return false; };
+		imageProvider.performance.recordEntry = $.noop;
 
 		QUnit.stop();
 		imageProvider.get( url ).then( function( image ) {
@@ -85,10 +81,8 @@
 	QUnit.asyncTest( 'Image load fail test', 1, function ( assert ) {
 		var imageProvider = new mw.mmv.provider.Image();
 
-		imageProvider.performance = {
-			imagePreloadingSupported: function () { return false; },
-			recordEntry: $.noop
-		};
+		imageProvider.imagePreloadingSupported = function () { return false; };
+		imageProvider.performance.recordEntry = $.noop;
 
 		imageProvider.get( 'doesntexist.png' ).fail( function() {
 			assert.ok( true, 'fail handler was called' );
