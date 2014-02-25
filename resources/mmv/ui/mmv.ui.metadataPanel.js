@@ -578,7 +578,7 @@
 
 	/**
 	 * Set all the image information in the panel
-	 * @param {mw.LightboxImage} image
+	 * @param {mw.mmv.LightboxImage} image
 	 * @param {mw.mmv.model.Image} imageData
 	 * @param {mw.mmv.model.Repo} repoData
 	 * @param {mw.mmv.model.FileUsage} localUsage

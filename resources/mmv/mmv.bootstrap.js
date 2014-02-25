@@ -70,10 +70,10 @@
 			deferred.reject( error.message );
 		} );
 
-		return $.when( deferred ).then( function () {
+		return deferred.done( function ( viewer ) {
 			if ( !bs.viewerInitialized ) {
 				if ( bs.thumbs.length ) {
-					mw.mediaViewer.initWithThumbs( bs.thumbs );
+					viewer.initWithThumbs( bs.thumbs );
 				}
 
 				bs.viewerInitialized = true;
@@ -84,7 +84,7 @@
 	/**
 	 * Checks if the mmv CSS has been correctly added to the page
 	 * This is a workaround for core bug 61852
-	 * @param {jQuery.Promise} deferred
+	 * @param {jQuery.Promise.<mw.mmv.MultimediaViewer>} deferred
 	 */
 	MMVB.isCSSReady = function ( deferred ) {
 		var $dummy = $( '<div class="' + this.readinessCSSClass + '">' )
@@ -94,7 +94,7 @@
 		if ( $dummy.css( 'display' ) === 'inline' ) {
 			// Let's be clean and remove the test item before resolving the deferred
 			$dummy.remove();
-			deferred.resolve();
+			deferred.resolve( mw.mmv.mediaViewer );
 		} else {
 			$dummy.remove();
 			setTimeout( function () { bs.isCSSReady( deferred ); }, this.readinessWaitDuration );
@@ -179,8 +179,8 @@
 			mw.mmv.logger.log( 'enlarge-link-click' );
 		}
 
-		this.loadViewer().then( function () {
-			mw.mediaViewer.loadImageByTitle( title.getPrefixedText(), true );
+		this.loadViewer().then( function ( viewer ) {
+			viewer.loadImageByTitle( title.getPrefixedText(), true );
 		} );
 
 		e.preventDefault();
@@ -203,8 +203,8 @@
 			return;
 		}
 
-		this.loadViewer().then( function () {
-			mw.mediaViewer.hash();
+		this.loadViewer().then( function ( viewer ) {
+			viewer.hash();
 		} );
 	};
 

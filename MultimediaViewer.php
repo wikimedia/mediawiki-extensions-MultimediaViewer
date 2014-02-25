@@ -39,13 +39,16 @@ call_user_func( function() {
 		return array(
 			'localBasePath' => __DIR__ . "/resources/$path",
 			'remoteExtPath' => "MultimediaViewer/resources/$path",
-
 		);
 	};
 
 	$wgResourceModules['mmv.lightboximage'] = array_merge( array(
 		'scripts' => array(
 			'mmv.lightboximage.js',
+		),
+
+		'dependencies' => array(
+			'mmv.base',
 		),
 	), $moduleInfo( 'mmv' ) );
 
@@ -55,6 +58,7 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
+			'mmv.base',
 			'mmv.ui.buttons',
 			'mmv.ui.categories',
 			'mmv.ui.description',
@@ -99,6 +103,7 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
+			'mmv.base',
 			'mmv.lightboxinterface',
 		),
 	), $moduleInfo( 'mmv' ) );
@@ -405,6 +410,7 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
+			'mmv.base',
 			'jquery.scrollTo',
 			'mmv.lightboximage',
 			'jquery.fullscreen',

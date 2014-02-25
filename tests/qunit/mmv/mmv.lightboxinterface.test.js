@@ -2,7 +2,7 @@
 	QUnit.module( 'mmv.lightboxInterface', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Sanity test, object creation and ui construction', 23, function ( assert ) {
-		var lightbox = new mw.LightboxInterface( mw.mediaViewer );
+		var lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer );
 
 		function checkIfUIAreasAttachedToDocument( inDocument ) {
 			var msg = inDocument === 1 ? ' ' : ' not ';
@@ -36,7 +36,7 @@
 	} );
 
 	QUnit.test( 'Handler registration and clearance work OK', 2, function ( assert ) {
-		var lightbox = new mw.LightboxInterface( mw.mediaViewer ),
+		var lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer ),
 			handlerCalls = 0;
 
 		function handleEvent() {
@@ -52,8 +52,8 @@
 	} );
 
 	QUnit.asyncTest( 'Check we are saving the resize listener', 2, function ( assert ) {
-		var img = new mw.LightboxImage('http://en.wikipedia.org/w/skins/vector/images/search-ltr.png'),
-			lightbox = new mw.LightboxInterface( mw.mediaViewer );
+		var img = new mw.mmv.LightboxImage('http://en.wikipedia.org/w/skins/vector/images/search-ltr.png'),
+			lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer );
 
 		// resizeListener not saved yet
 		assert.strictEqual( this.resizeListener, undefined, 'Listener is not saved yet' );
@@ -75,7 +75,7 @@
 	} );
 
 	QUnit.test( 'Fullscreen mode', 8, function ( assert ) {
-		var lightbox = new mw.LightboxInterface( mw.mediaViewer ),
+		var lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer ),
 			oldFnEnterFullscreen = $.fn.enterFullscreen,
 			oldFnExitFullscreen = $.fn.exitFullscreen,
 			oldSupportFullscreen = $.support.fullscreen;
@@ -83,8 +83,8 @@
 		// Since we don't want these tests to really open fullscreen
 		// which is subject to user security confirmation,
 		// we use a mock that pretends regular jquery.fullscreen behavior happened
-		$.fn.enterFullscreen = mw.mmvTestHelpers.enterFullscreenMock;
-		$.fn.exitFullscreen = mw.mmvTestHelpers.exitFullscreenMock;
+		$.fn.enterFullscreen = mw.mmv.testHelpers.enterFullscreenMock;
+		$.fn.exitFullscreen = mw.mmv.testHelpers.exitFullscreenMock;
 
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
@@ -139,21 +139,21 @@
 	} );
 
 	QUnit.test( 'Fullscreen mode', 8, function ( assert ) {
-		var lightbox = new mw.LightboxInterface( mw.mediaViewer ),
+		var lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer ),
 			oldFnEnterFullscreen = $.fn.enterFullscreen,
 			oldFnExitFullscreen = $.fn.exitFullscreen,
 			oldRevealButtonsAndFadeIfNeeded,
-			oldPreloadDistance = mw.mediaViewer.preloadDistance,
+			oldPreloadDistance = mw.mmv.mediaViewer.preloadDistance,
 			buttonOffset;
 
 		// ugly hack to avoid preloading which would require lightbox list being set up
-		mw.mediaViewer.preloadDistance = -1;
+		mw.mmv.mediaViewer.preloadDistance = -1;
 
 		// Since we don't want these tests to really open fullscreen
 		// which is subject to user security confirmation,
 		// we use a mock that pretends regular jquery.fullscreen behavior happened
-		$.fn.enterFullscreen = mw.mmvTestHelpers.enterFullscreenMock;
-		$.fn.exitFullscreen = mw.mmvTestHelpers.exitFullscreenMock;
+		$.fn.enterFullscreen = mw.mmv.testHelpers.enterFullscreenMock;
+		$.fn.exitFullscreen = mw.mmv.testHelpers.exitFullscreenMock;
 
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
@@ -203,11 +203,11 @@
 
 		$.fn.enterFullscreen = oldFnEnterFullscreen;
 		$.fn.exitFullscreen = oldFnExitFullscreen;
-		mw.mediaViewer.preloadDistance = oldPreloadDistance;
+		mw.mmv.mediaViewer.preloadDistance = oldPreloadDistance;
 	} );
 
 	QUnit.test( 'isAnyActiveButtonHovered', 20, function ( assert ) {
-		var lightbox = new mw.LightboxInterface( mw.mediaViewer );
+		var lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer );
 
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
@@ -242,18 +242,18 @@
 	} );
 
 	QUnit.test( 'Metadata scrolling', 15, function ( assert ) {
-		var lightbox = new mw.LightboxInterface( mw.mediaViewer ),
+		var lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer ),
 			keydown = $.Event( 'keydown' ),
 			$document = $( document ),
 			scrollTopBeforeOpeningLightbox,
 			originalJQueryScrollTop = $.fn.scrollTop,
 			memorizedScrollToScroll = 0,
 			originalJQueryScrollTo = $.scrollTo,
-			oldMWLightbox = mw.mediaViewer.lightbox,
-			oldMWUI = mw.mediaViewer.ui;
+			oldMWLightbox = mw.mmv.mediaViewer.lightbox,
+			oldMWUI = mw.mmv.mediaViewer.ui;
 
 		// Pretend that we have things hooked up
-		mw.mediaViewer.ui = lightbox;
+		mw.mmv.mediaViewer.ui = lightbox;
 
 		// We need to set up a proxy on the jQuery scrollTop function
 		// that will let us pretend that the document really scrolled
@@ -284,7 +284,7 @@
 
 			if ( scrollTo !== undefined ) {
 				// Trigger event manually
-				mw.mediaViewer.scroll();
+				mw.mmv.mediaViewer.scroll();
 			}
 
 			return $element;
@@ -292,14 +292,14 @@
 
 		// First phase of the test: up and down arrows
 
-		mw.mediaViewer.hasAnimatedMetadata = false;
+		mw.mmv.mediaViewer.hasAnimatedMetadata = false;
 		localStorage.removeItem( 'mmv.hasOpenedMetadata' );
 
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
 
 		// Pretend that we have things hooked up
-		mw.mediaViewer.lightbox = { currentIndex: 0 };
+		mw.mmv.mediaViewer.lightbox = { currentIndex: 0 };
 
 		// This lets us avoid pushing a state to the history, which might interfere with other tests
 		lightbox.comingFromHashChange = true;
@@ -382,7 +382,7 @@
 		// Let's restore all originals, to make sure this test is free of side-effect
 		$.fn.scrollTop = originalJQueryScrollTop;
 		$.scrollTo = originalJQueryScrollTo;
-		mw.mediaViewer.lightbox = oldMWLightbox;
-		mw.mediaViewer.ui = oldMWUI;
+		mw.mmv.mediaViewer.lightbox = oldMWLightbox;
+		mw.mmv.mediaViewer.ui = oldMWUI;
 	} );
 }( mediaWiki, jQuery ) );

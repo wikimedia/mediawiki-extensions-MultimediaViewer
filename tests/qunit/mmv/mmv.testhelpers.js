@@ -13,5 +13,5 @@
 		$( document ).trigger( $.Event( 'jq-fullscreen-change', { element: this, fullscreen: false } ) );
 	};
 
-	mw.mmvTestHelpers = MTH;
+	mw.mmv.testHelpers = MTH;
 } )( mediaWiki, jQuery );

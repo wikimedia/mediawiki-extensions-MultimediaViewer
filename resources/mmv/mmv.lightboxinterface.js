@@ -20,7 +20,7 @@
 
 	/**
 	 * Represents the main interface of the lightbox
-	 * @class mw.LightboxInterface
+	 * @class mw.mmv.LightboxInterface
 	 * @constructor
 	 */
 	function LightboxInterface( viewer ) {
@@ -41,7 +41,7 @@
 
 	/**
 	 * The currently selected LightboxImage.
-	 * @type {mw.LightboxImage}
+	 * @type {mw.mmv.LightboxImage}
 	 * @protected
 	 */
 	LIP.currentImage = null;
@@ -265,7 +265,7 @@
 	/**
 	 * Displays an already loaded image.
 	 * This is an alternative to load() when we have an image element with the image already loaded.
-	 * @param {mw.LightboxImage} image
+	 * @param {mw.mmv.LightboxImage} image
 	 * @param {HTMLImageElement } imageElement
 	 */
 	LIP.showImage = function( image, imageElement ) {
@@ -289,7 +289,7 @@
 
 	/**
 	 * Loads the image, then calls the load callback of the interface.
-	 * @param {mw.LightboxImage} image
+	 * @param {mw.mmv.LightboxImage} image
 	 */
 	LIP.load = function ( image ) {
 		var iface = this;
@@ -528,7 +528,7 @@
 	/**
 	 * @method
 	 * Gets the widths for a given lightbox image.
-	 * @param {mw.LightboxImage} image
+	 * @param {mw.mmv.LightboxImage} image
 	 * @returns {mw.mmv.model.ThumbnailWidth}
 	 */
 	LIP.getLightboxImageWidths = function ( image ) {
@@ -542,7 +542,7 @@
 	 * Gets the fullscreen widths for a given lightbox image.
 	 * Intended for use before the viewer is in fullscreen mode
 	 * (in fullscreen mode getLightboxImageWidths() works fine).
-	 * @param {mw.LightboxImage} image
+	 * @param {mw.mmv.LightboxImage} image
 	 * @returns {mw.mmv.model.ThumbnailWidth}
 	 */
 	LIP.getLightboxImageWidthsForFullscreen = function ( image ) {
@@ -592,5 +592,5 @@
 		this.buttons.toggle( showPrevButton, showNextButton );
 	};
 
-	mw.LightboxInterface = LightboxInterface;
+	mw.mmv.LightboxInterface = LightboxInterface;
 }( mediaWiki, jQuery ) );

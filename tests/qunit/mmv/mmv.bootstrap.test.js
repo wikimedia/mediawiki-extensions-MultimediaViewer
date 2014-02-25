@@ -44,7 +44,8 @@
 	QUnit.test( 'Check viewer invoked when clicking on legit image links', 2, function ( assert ) {
 		// TODO: Is <div class="gallery"><span class="image"><img/></span></div> valid ???
 		var div, link, link2, link3, bootstrap,
-			oldLoadImageByTitle = mw.mediaViewer.loadImageByTitle;
+			viewer = mw.mmv.mediaViewer,
+			oldLoadImageByTitle = viewer.loadImageByTitle;
 
 		// Create gallery with legit link image
 		div = createGallery();
@@ -61,7 +62,7 @@
 		// Create a new bootstrap object to trigger the DOM scan, etc.
 		bootstrap = new mw.mmv.MultimediaViewerBootstrap();
 
-		mw.mediaViewer.loadImageByTitle = function() {
+		viewer.loadImageByTitle = function() {
 			assert.ok( true, 'Image loaded' );
 		};
 
@@ -71,20 +72,21 @@
 		// Click on legit link
 		link2.trigger( { type : 'click', which : 1 } );
 
-		mw.mediaViewer.loadImageByTitle = function() {
+		viewer.loadImageByTitle = function() {
 			assert.ok( false, 'Image should not be loaded' );
 		};
 
 		// Click on non-legit link
 		link3.trigger( { type : 'click', which : 1 } );
 
-		mw.mediaViewer.loadImageByTitle = oldLoadImageByTitle;
+		viewer.loadImageByTitle = oldLoadImageByTitle;
 		bootstrap.hash = $.noop;
 	} );
 
 	QUnit.test( 'Skip images with invalid extensions', 0, function ( assert ) {
 		var div, link, bootstrap,
-			oldLoadImageByTitle = mw.mediaViewer.loadImageByTitle;
+			viewer = mw.mmv.mediaViewer,
+			oldLoadImageByTitle = viewer.loadImageByTitle;
 
 		// Create gallery with image that has invalid name extension
 		div = createGallery( 'thumb.badext' );
@@ -93,20 +95,21 @@
 		// Create a new bootstrap object to trigger the DOM scan, etc.
 		bootstrap = new mw.mmv.MultimediaViewerBootstrap();
 
-		mw.mediaViewer.loadImageByTitle = function() {
+		viewer.loadImageByTitle = function() {
 			assert.ok( false, 'Image should not be loaded' );
 		};
 
 		// Click on legit link with wrong image extension
 		link.trigger( { type : 'click', which : 1 } );
 
-		mw.mediaViewer.loadImageByTitle = oldLoadImageByTitle;
+		viewer.loadImageByTitle = oldLoadImageByTitle;
 		bootstrap.hash = $.noop;
 	} );
 
 	QUnit.test( 'Accept only left clicks without modifier keys, skip the rest', 1, function ( assert ) {
 		var $div, $link, bootstrap,
-			oldLoadImageByTitle = mw.mediaViewer.loadImageByTitle;
+			viewer = mw.mmv.mediaViewer,
+			oldLoadImageByTitle = viewer.loadImageByTitle;
 
 		// Create gallery with image that has invalid name extension
 		$div = createGallery();
@@ -116,14 +119,14 @@
 
 		$link = $div.find( 'a.image' );
 
-		mw.mediaViewer.loadImageByTitle = function() {
+		viewer.loadImageByTitle = function() {
 			assert.ok( true, 'Image loaded' );
 		};
 
 		// Handle valid left click, it should try to load the image
 		$link.trigger( { type : 'click', which : 1 } );
 
-		mw.mediaViewer.loadImageByTitle = function() {
+		viewer.loadImageByTitle = function() {
 			assert.ok( false, 'Image should not be loaded' );
 		};
 
@@ -133,19 +136,20 @@
 		// Skip invalid right click, no image is loaded
 		$link.trigger( { type : 'click', which : 2 } );
 
-		mw.mediaViewer.loadImageByTitle = oldLoadImageByTitle;
+		viewer.loadImageByTitle = oldLoadImageByTitle;
 		bootstrap.hash = $.noop;
 	} );
 
 	QUnit.test( 'Ensure that the correct title is loaded when clicking', 1, function ( assert ) {
 		var bootstrap,
 			oldByTitle,
+			viewer = mw.mmv.mediaViewer,
 			$div = createGallery( 'foo.jpg' ),
 			$link = $div.find( 'a.image' );
 
-		oldByTitle = mw.mediaViewer.loadImageByTitle;
+		oldByTitle = viewer.loadImageByTitle;
 
-		mw.mediaViewer.loadImageByTitle = function ( loadedTitle ) {
+		viewer.loadImageByTitle = function ( loadedTitle ) {
 			assert.strictEqual( loadedTitle, 'File:Foo.jpg', 'Titles are identical' );
 		};
 
@@ -154,7 +158,7 @@
 
 		$link.trigger( { type : 'click', which : 1 } );
 
-		mw.mediaViewer.loadImageByTitle = oldByTitle;
+		viewer.loadImageByTitle = oldByTitle;
 		bootstrap.hash = $.noop;
 	} );
 
@@ -162,8 +166,9 @@
 		var bootstrap,
 			$div,
 			$link,
-			oldNewImage = mw.mediaViewer.createNewImage,
-			oldLoadImage = mw.mediaViewer.loadImage,
+			viewer = mw.mmv.mediaViewer,
+			oldNewImage = viewer.createNewImage,
+			oldLoadImage = viewer.loadImage,
 			fname = 'valid',
 			imgSrc = '/' + fname + '.jpg/300px-' + fname + '.jpg',
 			imgRegex = new RegExp( imgSrc + '$' );
@@ -171,9 +176,9 @@
 		$div = createThumb( imgSrc, 'Blah blah' );
 		$link = $div.find( 'a.image' );
 
-		mw.mediaViewer.loadImage = $.noop;
+		viewer.loadImage = $.noop;
 
-		mw.mediaViewer.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption ) {
+		viewer.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption ) {
 			assert.ok( fileLink.match( imgRegex ), 'Thumbnail URL used in creating new image object' );
 			assert.strictEqual( filePageLink, '', 'File page link is sane when creating new image object' );
 			assert.strictEqual( fileTitle.title, fname, 'Filename is correct when passed into new image constructor' );
@@ -187,8 +192,8 @@
 
 		$link.trigger( { type : 'click', which : 1 } );
 
-		mw.mediaViewer.createNewImage = oldNewImage;
-		mw.mediaViewer.loadImage = oldLoadImage;
+		viewer.createNewImage = oldNewImage;
+		viewer.loadImage = oldLoadImage;
 		bootstrap.hash = $.noop;
 	} );
 

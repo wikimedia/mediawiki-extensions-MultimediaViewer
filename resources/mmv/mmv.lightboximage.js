@@ -19,7 +19,7 @@
 
 	/**
 	 * Represents an image on the page.
-	 * @class mw.LightboxImage
+	 * @class mw.mmv.LightboxImage
 	 * @constructor
 	 * @param {string} fileLink Link to the file - generally a thumb URL
 	 * @param {string} filePageLink Link to the File: page
@@ -61,7 +61,7 @@
 	 * The URL of a placeholder while the image loads. Typically a smaller version of the image, which is already
 	 * loaded in the browser.
 	 * @type {String}
-	 * @return {jQuery.Promise.<mw.LightboxImage, HTMLImageElement>}
+	 * @return {jQuery.Promise.<mw.mmv.LightboxImage, HTMLImageElement>}
 	 * @protected
 	 */
 	LIP.initialSrc = null;
@@ -158,5 +158,5 @@
 		$img.width( imgWidth ).height( imgHeight );
 	};
 
-	mw.LightboxImage = LightboxImage;
+	mw.mmv.LightboxImage = LightboxImage;
 }( mediaWiki, jQuery ) );

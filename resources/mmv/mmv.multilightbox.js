@@ -21,11 +21,11 @@
 	/**
 	 * Some interface functions for MMV.
 	 * FIXME merge with Lightboxinterface, figure out better separation of responsibilities
-	 * @class mw.MultiLightbox
+	 * @class mw.mmv.MultiLightbox
 	 * @constructor
 	 * @param {number} initial
 	 * @param {Function} InterfaceClass type of interface to use
-	 * @param {mw.MultimediaViewer} viewer
+	 * @param {mw.mmv.MultimediaViewer} viewer
 	 */
 	function MultiLightbox( initial, InterfaceClass, viewer ) {
 		this.currentIndex = initial || 0;
@@ -71,5 +71,5 @@
 		this.iface.attach();
 	};
 
-	mw.MultiLightbox = MultiLightbox;
+	mw.mmv.MultiLightbox = MultiLightbox;
 }( mediaWiki ) );

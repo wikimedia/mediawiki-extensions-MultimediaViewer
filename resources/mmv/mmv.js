@@ -22,13 +22,13 @@
 	/**
 	 * Analyses the page, looks for image content and sets up the hooks
 	 * to manage the viewing experience of such content.
-	 * @class mw.MultimediaViewer
+	 * @class mw.mmv.MultimediaViewer
 	 * @constructor
 	 */
 	function MultimediaViewer() {
 		/**
 		 * MultiLightbox object used to display the pictures in the page.
-		 * @property {mw.MultiLightbox}
+		 * @property {mw.mmv.MultiLightbox}
 		 * @private
 		 */
 		this.lightbox = null;
@@ -107,14 +107,14 @@
 		var i, thumb;
 
 		// Only if we find legit images, create a MultiLightbox object
-		this.lightbox = new mw.MultiLightbox( 0, mw.LightboxInterface, this );
+		this.lightbox = new mw.mmv.MultiLightbox( 0, mw.mmv.LightboxInterface, this );
 
 		this.thumbs = thumbs;
 
 		for ( i = 0; i < this.thumbs.length; i++ ) {
 			thumb = this.thumbs[ i ];
 			// Create a LightboxImage object for each legit image
-			thumb.image = mw.mediaViewer.createNewImage( thumb.$thumb.prop( 'src' ),
+			thumb.image = mw.mmv.mediaViewer.createNewImage( thumb.$thumb.prop( 'src' ),
 				thumb.link,
 				thumb.title,
 				i,
@@ -132,10 +132,10 @@
 	 * @param {number} index Which number file this is
 	 * @param {HTMLImageElement} thumb The thumbnail that represents this image on the page
 	 * @param {string} [caption] The caption, if any.
-	 * @returns {mw.LightboxImage}
+	 * @returns {mw.mmv.LightboxImage}
 	 */
 	MMVP.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption ) {
-		var thisImage = new mw.LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption );
+		var thisImage = new mw.mmv.LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption );
 		thisImage.filePageLink = filePageLink;
 		thisImage.filePageTitle = fileTitle;
 		thisImage.index = index;
@@ -147,7 +147,7 @@
 	/**
 	 * Handles resize events in viewer.
 	 * @protected
-	 * @param {mw.LightboxInterface} ui lightbox that got resized
+	 * @param {mw.mmv.LightboxInterface} ui lightbox that got resized
 	 */
 	MMVP.resize = function ( ui ) {
 		var viewer = this,
@@ -181,7 +181,7 @@
 
 	/**
 	 * Loads and sets the specified image. It also updates the controls.
-	 * @param {mw.LightboxInterface} ui image container
+	 * @param {mw.mmv.LightboxInterface} ui image container
 	 * @param {mw.mmv.model.Thumbnail} thumbnail thumbnail information
 	 * @param {HTMLImageElement} image
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
@@ -198,7 +198,7 @@
 
 	/**
 	 * Loads a specified image.
-	 * @param {mw.LightboxImage} image
+	 * @param {mw.mmv.LightboxImage} image
 	 * @param {HTMLImageElement} initialImage A thumbnail to use as placeholder while the image loads
 	 */
 	MMVP.loadImage = function ( image, initialImage ) {
@@ -303,7 +303,7 @@
 	 * the callback argument. Calls the callback with each lightboximage index in some sequence
 	 * that is ideal for preloading.
 	 * @private
-	 * @param {function(number, mw.LightboxImage)} callback
+	 * @param {function(number, mw.mmv.LightboxImage)} callback
 	 */
 	MMVP.eachPrealoadableLightboxIndex = function( callback ) {
 		for ( var i = 0; i <= this.preloadDistance; i++ ) {
@@ -326,7 +326,7 @@
 	 * A helper function to fill up the preload queues.
 	 * taskFactory(lightboxImage) should return a preload task for the given lightboximage.
 	 * @private
-	 * @param {function(mw.LightboxImage): function()} taskFactory
+	 * @param {function(mw.mmv.LightboxImage): function()} taskFactory
 	 * @return {mw.mmv.model.TaskQueue}
 	 */
 	MMVP.pushLightboxImagesIntoQueue = function( taskFactory ) {
@@ -588,6 +588,6 @@
 		});
 	};
 
-	mw.MultimediaViewer = MultimediaViewer;
-	mw.mediaViewer = new mw.MultimediaViewer();
+	mw.mmv.MultimediaViewer = MultimediaViewer;
+	mw.mmv.mediaViewer = new MultimediaViewer();
 }( mediaWiki, jQuery ) );
