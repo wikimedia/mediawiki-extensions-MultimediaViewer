@@ -15,11 +15,11 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo, MLBImage ) {
+( function ( mw, $ ) {
+
 	/**
 	 * Represents an image on the page.
 	 * @class mw.LightboxImage
-	 * @extends mlb.LightboxImage
 	 * @constructor
 	 * @param {string} fileLink Link to the file - generally a thumb URL
 	 * @param {string} filePageLink Link to the File: page
@@ -29,7 +29,8 @@
 	 * @param {string} [caption] The caption, if any.
 	 */
 	function LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption ) {
-		MLBImage.call( this, fileLink );
+		/** @property {string} Link to the file - generally a thumb URL */
+		this.src = fileLink;
 
 		/** @property {string} filePageLink URL to the image's file page */
 		this.filePageLink = filePageLink;
@@ -47,7 +48,115 @@
 		this.caption = caption;
 	}
 
-	oo.inheritClass( LightboxImage, MLBImage );
+	var LIP = LightboxImage.prototype;
+
+	/**
+	 * The URL of the image (in the size we intend use to display the it in the lightbox)
+	 * @type {String}
+	 * @protected
+	 */
+	LIP.src = null;
+
+	/**
+	 * The URL of a placeholder while the image loads. Typically a smaller version of the image, which is already
+	 * loaded in the browser.
+	 * @type {String}
+	 * @return {jQuery.Promise.<mw.LightboxImage, HTMLImageElement>}
+	 * @protected
+	 */
+	LIP.initialSrc = null;
+
+	/**
+	 * Loads the image.
+	 * FIXME we probably don't use this.
+	 * @return {jQuery.Promise.<HTMLImageElement>}
+	 */
+	LIP.getImageElement = function () {
+		var ele,
+			$deferred = $.Deferred(),
+			image = this;
+
+		ele = new Image();
+		ele.addEventListener( 'error', $deferred.reject );
+		ele.addEventListener( 'load', function() { $deferred.resolve( image, ele ); } );
+
+		if ( this.src !== this.initialSrc ) {
+			ele.src = this.src;
+		} else {
+			// Don't display the thumb, pretend that we did load the image
+			// This is a workaround until we decide whether we want to display a nicer version of the thumb or not
+			$deferred.resolve( image, ele );
+		}
+
+		return $deferred;
+	};
+
+	/**
+	 * Resizes the image.
+	 * Assumes that the parent element's size is the maximum size.
+	 * FIXME refactor and document better
+	 */
+	LIP.autoResize = function ( ele, $parent ) {
+		function updateRatios() {
+			if ( imgHeight ) {
+				imgHeightRatio = parentHeight / imgHeight;
+			}
+
+			if ( imgWidth ) {
+				imgWidthRatio = parentWidth / imgWidth;
+			}
+		}
+
+		var imgWidthRatio, imgHeightRatio, parentWidth, parentHeight,
+			$img = $( ele ),
+			imgWidth = $img.width(),
+			imgHeight = $img.height();
+
+		$parent = $parent || $img.parent();
+		parentWidth = $parent.width();
+		parentHeight = $parent.height();
+
+		if ( this.globalMaxWidth && parentWidth > this.globalMaxWidth ) {
+			parentWidth = this.globalMaxWidth;
+		}
+
+		if ( this.globalMaxHeight && parentHeight > this.globalMaxHeight ) {
+			parentHeight = this.globalMaxHeight;
+		}
+
+		updateRatios();
+
+		if ( imgWidth > parentWidth ) {
+			imgHeight *= imgWidthRatio || 1;
+			imgWidth = parentWidth;
+			updateRatios();
+		}
+
+		if ( imgHeight > parentHeight ) {
+			imgWidth *= imgHeightRatio || 1;
+			imgHeight = parentHeight;
+			updateRatios();
+		}
+
+		if ( imgWidth < parentWidth && imgHeight < parentHeight ) {
+			if ( imgWidth === 0 && imgHeight === 0 ) {
+				// Only set one
+				imgWidth = parentWidth;
+				imgHeight = null;
+			} else {
+				if ( imgHeightRatio > imgWidthRatio ) {
+					imgWidth *= imgHeightRatio;
+					imgHeight = parentHeight;
+				} else {
+					imgHeight *= imgWidthRatio;
+					imgWidth = parentWidth;
+				}
+				updateRatios();
+			}
+		}
+
+		$img.width( imgWidth ).height( imgHeight );
+	};
 
 	mw.LightboxImage = LightboxImage;
-}( mediaWiki, jQuery, OO, window.LightboxImage ) );
+}( mediaWiki, jQuery ) );

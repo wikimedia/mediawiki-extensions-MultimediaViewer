@@ -15,18 +15,15 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo, MLBInterface ) {
+( function ( mw, $ ) {
 	var LIP;
 
 	/**
-         * Represents the main interface of the lightbox
+	 * Represents the main interface of the lightbox
 	 * @class mw.LightboxInterface
-	 * @extends mlb.LightboxInterface
 	 * @constructor
 	 */
 	function LightboxInterface( viewer ) {
-		MLBInterface.call( this );
-
 		this.viewer = viewer;
 
 		this.eventsRegistered = {};
@@ -37,17 +34,92 @@
 		 */
 		this.thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator();
 
-
-		this.initializeInterface();
+		this.init();
 	}
-
-	oo.inheritClass( LightboxInterface, MLBInterface );
 
 	LIP = LightboxInterface.prototype;
 
 	/**
+	 * The currently selected LightboxImage.
+	 * @type {mw.LightboxImage}
+	 * @protected
+	 */
+	LIP.currentImage = null;
+
+	/**
+	 * Initialize the entire interface - helper method.
+	 */
+	LIP.init = function () {
+		var addToPre = [],
+			addToPost = [],
+			lbinterface = this;
+
+		// Staging area for image resizes
+		this.$staging = $( '<div>' )
+			.addClass( 'mlb-staging-area' );
+		$( document.body ).append( this.$staging );
+
+		this.$overlay = $( '<div>' )
+			.addClass( 'mlb-overlay' );
+
+		this.$wrapper = $( '<div>' )
+			.addClass( 'mlb-wrapper' );
+
+		this.$main = $( '<div>' )
+			.addClass( 'mlb-main' );
+
+		this.$imageDiv = $( '<div>' )
+			.addClass( 'mlb-image' );
+
+		// I blame CSS for this
+		this.$innerWrapper = $( '<div>' )
+			.addClass( 'mlb-image-inner-wrapper' )
+			.append( this.$imageDiv );
+
+		this.$imageWrapper = $( '<div>' )
+			.addClass( 'mlb-image-wrapper' )
+			.append( this.$innerWrapper );
+
+		this.$preDiv = $( '<div>' )
+			.addClass( 'mlb-pre-image' );
+		this.setupPreDiv( addToPre );
+
+		this.$postDiv = $( '<div>' )
+			.addClass( 'mlb-post-image' );
+		this.setupPostDiv( addToPost );
+
+		this.$main.append(
+			this.$preDiv,
+			this.$imageWrapper,
+			this.$postDiv
+		);
+
+		this.$wrapper.append(
+			this.$main
+		);
+
+		window.addEventListener( 'keyup', function ( e ) {
+			if ( e.keyCode === 27 ) {
+				// Escape button pressed
+				lbinterface.unattach();
+			}
+		} );
+
+		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$controlBar );
+		this.buttons = new mw.mmv.ui.Buttons( this.$imageWrapper, this.$closeButton, this.$fullscreenButton );
+		this.initializeImage();
+	};
+
+	/**
+	 * Initialize the image element.
+	 */
+	LIP.initializeImage = function () {
+		this.$imageDiv
+			.addClass( 'empty' );
+	};
+
+	/**
 	 * Empties the interface.
-	 * @override
 	 */
 	LIP.empty = function () {
 		this.clearEvents();
@@ -55,8 +127,12 @@
 		this.panel.empty();
 
 		this.$imageDiv.addClass( 'empty' );
+		this.$imageDiv.empty();
 
-		MLBInterface.prototype.empty.call( this );
+		if ( this.resizeListener ) {
+			window.removeEventListener( 'resize', this.resizeListener );
+			this.resizeListener = null;
+		}
 	};
 
 	/**
@@ -93,10 +169,13 @@
 
 	/**
 	 * Attaches the interface to the DOM.
-	 * @override
-	 * @param {string} parentId ID of the element that we should attach to.
+	 * @param {string} [parentId] parent id where we want to attach the UI. Defaults to document
+	 *  element, override is mainly used for testing.
 	 */
 	LIP.attach = function ( parentId ) {
+		var lbinterface = this,
+			$parent;
+
 		// Advanced description needs to be below the fold when the lightbox opens
 		// regardless of what the scroll value was prior to opening the lightbox
 
@@ -114,7 +193,30 @@
 		// reading the DOM at this point of the execution, unfortunately
 		this.$postDiv.css( 'top', ( $( window ).height() - 83 ) + 'px' );
 
-		MLBInterface.prototype.attach.call( this, parentId );
+		// Re-appending the same content can have nasty side-effects
+		// Such as the browser leaving fullscreen mode if the fullscreened element is part of it
+		if ( this.currentlyAttached ) {
+			return;
+		}
+
+		$( document ).on( 'jq-fullscreen-change.lip', function( e ) {
+			lbinterface.fullscreenChange( e );
+		} );
+
+		$parent = $( parentId || document.body );
+
+		// Clean up fullscreen data because hard-existing fullscreen might have left
+		// jquery.fullscreen unable to remove the class and attribute, since $main wasn't
+		// attached to the DOM anymore at the time the jq-fullscreen-change event triggered
+		this.$main.data( 'isFullscreened', false ).removeClass( 'jq-fullscreened' );
+		this.isFullscreen = false;
+
+		$parent
+			.append(
+				this.$wrapper,
+				this.$overlay
+			);
+		this.currentlyAttached = true;
 
 		this.panel.attach();
 
@@ -126,10 +228,17 @@
 
 	/**
 	 * Detaches the interface from the DOM.
-	 * @override
 	 */
 	LIP.unattach = function () {
-		MLBInterface.prototype.unattach.call( this );
+		// We trigger this event on the document because unattach() can run
+		// when the interface is unattached
+		$( document ).trigger( $.Event( 'mmv-close' ) )
+			.off( 'jq-fullscreen-change.lip' );
+
+		this.$wrapper.detach();
+		this.$overlay.detach();
+
+		this.currentlyAttached = false;
 
 		this.panel.unattach();
 
@@ -140,6 +249,58 @@
 		}
 
 		this.panel.fileReuse.closeDialog();
+	};
+
+	/**
+	 * Resize callback
+	 * @protected
+	 */
+	LIP.resizeCallback = function() {
+		if ( this.currentlyAttached ) {
+			this.$wrapper.trigger( $.Event( 'mmv-resize') );
+
+			this.autoResizeImage();
+		}
+	};
+	/**
+	 * Displays an already loaded image.
+	 * This is an alternative to load() when we have an image element with the image already loaded.
+	 * @param {mw.LightboxImage} image
+	 * @param {HTMLImageElement } imageElement
+	 */
+	LIP.showImage = function( image, imageElement ) {
+		var iface = this;
+
+		this.currentImage = image;
+		image.globalMaxWidth = imageElement.width;
+		image.globalMaxHeight = imageElement.height;
+		this.$image = $( imageElement );
+
+		this.autoResizeImage();
+
+		// Capture listener so we can remove it later, otherwise
+		// we are going to leak listeners !
+		// FIXME should use clearEvents, probably
+		if ( !this.resizeListener ) {
+			this.resizeListener = function () { iface.resizeCallback(); };
+			window.addEventListener( 'resize', this.resizeListener );
+		}
+	};
+
+	/**
+	 * Loads the image, then calls the load callback of the interface.
+	 * @param {mw.LightboxImage} image
+	 */
+	LIP.load = function ( image ) {
+		var iface = this;
+
+		this.setupForLoad();
+
+		this.currentImage = image;
+
+		image.getImageElement().done( function( image, ele ) {
+			iface.showImage( image, ele );
+		} );
 	};
 
 	/**
@@ -168,34 +329,16 @@
 	};
 
 	/**
-	 * Loads an image into the interface.
-	 * @override
+	 * FIXME refactor and document
 	 */
-	LIP.load = function ( image ) {
-		this.setupForLoad();
-		MLBInterface.prototype.load.call( this, image );
+	LIP.autoResizeImage = function () {
+		this.$staging.append( this.$image );
+		this.currentImage.autoResize( this.$image.get( 0 ), this.$imageDiv );
+		this.$imageDiv.append( this.$image );
 	};
 
 	/**
-	 * Initialize the entire interface - helper method.
-	 */
-	LIP.initializeInterface = function () {
-		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$controlBar );
-		this.buttons = new mw.mmv.ui.Buttons( this.$imageWrapper, this.$closeButton, this.$fullscreenButton );
-		this.initializeImage();
-	};
-
-	/**
-	 * Initialize the image element.
-	 */
-	LIP.initializeImage = function () {
-		this.$imageDiv
-			.addClass( 'empty' );
-	};
-
-	/**
-	 * Load a new image element into the interface.
-	 * @override
+	 * Changes what image is being displayed.
 	 * @param {HTMLImageElement} imageEle
 	 */
 	LIP.replaceImageWith = function ( imageEle ) {
@@ -214,15 +357,111 @@
 			maxHeight: $image.parent().height(),
 			maxWidth: $image.parent().width()
 		} );
+
+		/*
+		FIXME MLB has this code but it was overridden and never invoked; kept for reference until resize bugs are fixed
+		this.currentImage.globalMaxWidth = this.$image.width();
+		this.currentImage.globalMaxHeight = this.$image.height();
+		this.currentImage.autoResize( imageEle );
+		 */
+	};
+
+	/**
+	 * Exits fullscreen mode.
+	 */
+	LIP.exitFullscreen = function () {
+		this.fullscreenButtonJustPressed = true;
+		this.$main.exitFullscreen();
+	};
+
+	/**
+	 * Enters fullscreen mode.
+	 */
+	LIP.enterFullscreen = function () {
+		this.$main.enterFullscreen();
+	};
+
+	/**
+	 * Setup for DOM elements which come before the main image
+	 * @param {Array.<HTMLElement|jQuery>} toAdd
+	 */
+	LIP.setupPreDiv = function ( toAdd ) {
+		var lbinterface = this;
+
+		this.$controlBar = $( '<div>' )
+			.addClass( 'mlb-controls' );
+
+		this.$closeButton = $( '<div>' )
+			.text( ' ' )
+			.addClass( 'mlb-close' )
+			.click( function () {
+				lbinterface.unattach();
+			} );
+
+		this.$fullscreenButton = $( '<div>' )
+			.text( ' ' )
+			.addClass( 'mlb-fullscreen' )
+			.click( function () {
+				if ( lbinterface.isFullscreen ) {
+					lbinterface.exitFullscreen();
+				} else {
+					lbinterface.enterFullscreen();
+				}
+			} );
+
+		this.setupFullscreenButton();
+
+		this.$controlBar.append(
+			this.$closeButton,
+			this.$fullscreenButton
+		);
+
+		this.$preDiv.append( this.$controlBar );
+
+		this.addElementsToDiv( this.$preDiv, toAdd );
+	};
+
+	/**
+	 * Sets up the fullscreen button
+	 */
+	LIP.setupFullscreenButton = function () {
+		// If the browser doesn't support fullscreen mode, hide the fullscreen button
+		if ( $.support.fullscreen ) {
+			this.$fullscreenButton.show();
+		} else {
+			this.$fullscreenButton.hide();
+		}
+	};
+
+	/**
+	 * Setup for DOM elements which come before the main image
+	 * @param {Array.<HTMLElement|jQuery>} toAdd
+	 */
+	LIP.setupPostDiv = function ( toAdd ) {
+		this.addElementsToDiv( this.$postDiv, toAdd );
+	};
+
+	LIP.addElementsToDiv = function ( $div, toAdd ) {
+		var i;
+
+		for ( i = 0; i < toAdd.length; i++ ) {
+			$div.append( toAdd[i] );
+		}
 	};
 
 	/**
 	 * Handle a fullscreen change event.
-	 * @override
 	 * @param {jQuery.Event} e The fullscreen change event.
 	 */
-	LIP.fullscreenChange = function( e ) {
-		MLBInterface.prototype.fullscreenChange.call( this, e );
+	LIP.fullscreenChange = function ( e ) {
+		this.isFullscreen = e.fullscreen;
+
+		if ( !this.fullscreenButtonJustPressed && !e.fullscreen ) {
+			// Close the interface all the way if the user pressed 'esc'
+			this.unattach();
+		} else if ( this.fullscreenButtonJustPressed ) {
+			this.fullscreenButtonJustPressed = false;
+		}
 
 		// Fullscreen change events can happen after unattach(), in which
 		// case we shouldn't do anything UI-related
@@ -287,27 +526,9 @@
 	};
 
 	/**
-	 * Updates the next and prev buttons
-	 * @param {boolean} showPrevButton Whether the prev button should be revealed or not
-	 * @param {boolean} showNextButton Whether the next button should be revealed or not
-	 */
-	LIP.updateControls = function ( showPrevButton, showNextButton ) {
-		var prevNextTop = ( ( this.$imageWrapper.height() / 2 ) - 60 ) + 'px';
-
-		if ( this.$main.data( 'isFullscreened' ) ) {
-			this.$postDiv.css( 'top', '' );
-		} else {
-			this.$postDiv.css( 'top', this.$imageWrapper.height() );
-		}
-
-		this.buttons.setOffset( prevNextTop );
-		this.buttons.toggle( showPrevButton, showNextButton );
-	};
-
-	/**
 	 * @method
 	 * Gets the widths for a given lightbox image.
-	 * @param {mlb.LightboxImage} image
+	 * @param {mw.LightboxImage} image
 	 * @returns {mw.mmv.model.ThumbnailWidth}
 	 */
 	LIP.getLightboxImageWidths = function ( image ) {
@@ -321,7 +542,7 @@
 	 * Gets the fullscreen widths for a given lightbox image.
 	 * Intended for use before the viewer is in fullscreen mode
 	 * (in fullscreen mode getLightboxImageWidths() works fine).
-	 * @param {mlb.LightboxImage} image
+	 * @param {mw.LightboxImage} image
 	 * @returns {mw.mmv.model.ThumbnailWidth}
 	 */
 	LIP.getLightboxImageWidthsForFullscreen = function ( image ) {
@@ -340,7 +561,6 @@
 	};
 
 	/**
-	 * @method
 	 * Called when the buttons have completely faded out and disappeared
 	 */
 	LIP.fadedOut = function () {
@@ -348,12 +568,29 @@
 	};
 
 	/**
-	 * @method
 	 * Called when the buttons have stopped fading and are back into view
 	 */
 	LIP.fadeStopped = function () {
 		this.$main.removeClass( 'cursor-hidden' );
 	};
 
+	/**
+	 * Updates the next and prev buttons
+	 * @param {boolean} showPrevButton Whether the prev button should be revealed or not
+	 * @param {boolean} showNextButton Whether the next button should be revealed or not
+	 */
+	LIP.updateControls = function ( showPrevButton, showNextButton ) {
+		var prevNextTop = ( ( this.$imageWrapper.height() / 2 ) - 60 ) + 'px';
+
+		if ( this.$main.data( 'isFullscreened' ) ) {
+			this.$postDiv.css( 'top', '' );
+		} else {
+			this.$postDiv.css( 'top', this.$imageWrapper.height() );
+		}
+
+		this.buttons.setOffset( prevNextTop );
+		this.buttons.toggle( showPrevButton, showNextButton );
+	};
+
 	mw.LightboxInterface = LightboxInterface;
-}( mediaWiki, jQuery, OO, window.LightboxInterface ) );
+}( mediaWiki, jQuery ) );

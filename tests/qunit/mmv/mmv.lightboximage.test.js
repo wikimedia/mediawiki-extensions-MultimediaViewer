@@ -1,8 +1,8 @@
-( function ( /** mw, $ ** Commentted to keep lint happy, uncomment when needed */) {
-	QUnit.module( 'multilightbox.image', QUnit.newMwEnvironment() );
+( function ( mw ) {
+	QUnit.module( 'mmv.lightboximage', QUnit.newMwEnvironment() );
 
 	QUnit.asyncTest( 'Sanity test, object creation and image loading', 1, function ( assert ) {
-		var lightboxImage = new window.LightboxImage( 'http://en.wikipedia.org/w/skins/vector/images/search-ltr.png' );
+		var lightboxImage = new mw.LightboxImage( 'http://en.wikipedia.org/w/skins/vector/images/search-ltr.png' );
 
 		// Function to be called if loading is successful
 		function loadCallback() {
@@ -15,7 +15,7 @@
 	} );
 
 	QUnit.asyncTest( 'Image failing', 1, function ( assert ) {
-		var lightboxImage = new window.LightboxImage( 'fail' );
+		var lightboxImage = new mw.LightboxImage( 'fail' );
 
 		function errorCallback() {
 			assert.ok( true, 'Image failed !' );

@@ -80,7 +80,7 @@
 
 	QUnit.test( 'Hash handling', 7, function ( assert ) {
 		var oldUnattach,
-			multiLightbox = new window.MultiLightbox(),
+			multiLightbox = new mw.MultiLightbox( 0, mw.LightboxInterface ),
 			lightbox = new mw.LightboxInterface( mw.mediaViewer ),
 			oldLoadImage = mw.mediaViewer.loadImageByTitle,
 			oldLightbox = mw.mediaViewer.lightbox,

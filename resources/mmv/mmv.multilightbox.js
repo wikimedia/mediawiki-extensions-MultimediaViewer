@@ -15,26 +15,61 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo, MLBLightbox ) {
+( function ( mw ) {
+	var MLBP;
+
 	/**
+	 * Some interface functions for MMV.
+	 * FIXME merge with Lightboxinterface, figure out better separation of responsibilities
 	 * @class mw.MultiLightbox
-	 * @extends mlb.MultiLightbox
-	 * @inheritdoc
 	 * @constructor
 	 * @param {number} initial
 	 * @param {Function} InterfaceClass type of interface to use
 	 * @param {mw.MultimediaViewer} viewer
 	 */
 	function MultiLightbox( initial, InterfaceClass, viewer ) {
-		this.initializeInterface = function ( InterfaceClass ) {
-			InterfaceClass = InterfaceClass || window.LightboxInterface;
-			this.iface = new InterfaceClass( viewer );
-		};
-
-		MLBLightbox.call( this, initial, InterfaceClass );
+		this.currentIndex = initial || 0;
+		this.onInterfaceReady = [];
+		this.iface = new InterfaceClass( viewer );
+		this.interfaceReady();
 	}
 
-	oo.inheritClass( MultiLightbox, MLBLightbox );
+	MLBP = MultiLightbox.prototype;
+
+	/**
+	 * Schedules stuff to run when IF is ready (or fires it immediately if it is already).
+	 * TODO replace with event or promise
+	 * @param {function()} func
+	 */
+	MLBP.onInterface = function ( func ) {
+		if ( this.onInterfaceReady !== undefined ) {
+			this.onInterfaceReady.push( func );
+		} else {
+			func();
+		}
+	};
+
+	/**
+	 * Interface ready "event"
+	 * TODO replace with real event or promise
+	 */
+	MLBP.interfaceReady = function () {
+		var i;
+
+		for ( i = 0; i < this.onInterfaceReady.length; i++ ) {
+			this.onInterfaceReady[i]();
+		}
+
+		this.onInterfaceReady = undefined;
+	};
+
+	/**
+	 * Opens the lightbox.
+	 */
+	MLBP.open = function () {
+		this.iface.empty();
+		this.iface.attach();
+	};
 
 	mw.MultiLightbox = MultiLightbox;
-}( mediaWiki, jQuery, OO, window.MultiLightbox ) );
+}( mediaWiki ) );

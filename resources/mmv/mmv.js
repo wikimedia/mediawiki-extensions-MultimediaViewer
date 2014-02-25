@@ -28,7 +28,7 @@
 	function MultimediaViewer() {
 		/**
 		 * MultiLightbox object used to display the pictures in the page.
-		 * @property {mlb.MultiLightbox}
+		 * @property {mw.MultiLightbox}
 		 * @private
 		 */
 		this.lightbox = null;

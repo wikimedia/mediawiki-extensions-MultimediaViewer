@@ -43,40 +43,9 @@ call_user_func( function() {
 		);
 	};
 
-	$wgResourceModules['multilightbox.interface'] = array_merge( array(
-		'scripts' => array(
-			'lightboxinterface.js',
-		),
-
-		'styles' => array(
-			'multilightbox.less',
-		),
-	), $moduleInfo( 'multilightbox' ) );
-
-	$wgResourceModules['multilightbox.image'] = array_merge( array(
-		'scripts' => array(
-			'lightboximage.js',
-		),
-	), $moduleInfo( 'multilightbox' ) );
-
-	$wgResourceModules['multilightbox'] = array_merge( array(
-		'scripts' => array(
-			'multilightbox.js',
-		),
-
-		'dependencies' => array(
-			'mmv.lightboxinterface',
-		),
-	), $moduleInfo( 'multilightbox' ) );
-
 	$wgResourceModules['mmv.lightboximage'] = array_merge( array(
 		'scripts' => array(
 			'mmv.lightboximage.js',
-		),
-
-		'dependencies' => array(
-			'oojs',
-			'multilightbox.image',
 		),
 	), $moduleInfo( 'mmv' ) );
 
@@ -86,8 +55,6 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
-			'oojs',
-			'multilightbox.interface',
 			'mmv.ui.buttons',
 			'mmv.ui.categories',
 			'mmv.ui.description',
@@ -127,9 +94,12 @@ call_user_func( function() {
 			'mmv.multilightbox.js',
 		),
 
+		'styles' => array(
+			'mmv.multilightbox.less',
+		),
+
 		'dependencies' => array(
-			'oojs',
-			'multilightbox',
+			'mmv.lightboxinterface',
 		),
 	), $moduleInfo( 'mmv' ) );
 
@@ -435,7 +405,6 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
-			'multilightbox',
 			'jquery.scrollTo',
 			'mmv.lightboximage',
 			'jquery.fullscreen',

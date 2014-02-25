@@ -15,27 +15,6 @@
  */
 
 /**
- * @class mlb
- * @singleton
- * Upstream multilightbox object
- */
-
-/**
- * @class mlb.LightboxImage
- * Upstream object to represent an image
- */
-
-/**
- * @class mlb.LightboxInterface
- * Upstream object that represents the lightbox interface
- */
-
-/**
- * @class mlb.MultiLightbox
- * Upstream controller object
- */
-
-/**
  * @class HTMLElement
  * An HTML element.
  */
