@@ -62,9 +62,9 @@
 		lightbox.originalShowImage = lightbox.showImage;
 
 		// Mock showImage
-		lightbox.showImage = function ( image, ele ) {
+		lightbox.showImage = function ( image, $ele ) {
 			// Call original showImage
-			this.originalShowImage( image, ele );
+			this.originalShowImage( image, $ele );
 
 			// resizeListener should have been saved
 			assert.notStrictEqual( this.resizeListener, undefined, 'Saved listener !' );
@@ -316,7 +316,8 @@
 		keydown.which = 38; // Up arrow
 		$document.trigger( keydown );
 
-		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ), lightbox.panel.$imageMetadata.height() + 1,
+		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ),
+			lightbox.panel.$imageMetadata.height() + 1,
 			'scrollTo scrollTop should be set to the metadata height + 1 after pressing up arrow' );
 		assert.ok( lightbox.panel.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing down after pressing up arrow' );
@@ -333,7 +334,8 @@
 
 		lightbox.panel.$dragIcon.click();
 
-		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ), lightbox.panel.$imageMetadata.height() + 1,
+		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ),
+			lightbox.panel.$imageMetadata.height() + 1,
 			'scrollTo scrollTop should be set to the metadata height + 1 after clicking the chevron once' );
 		assert.ok( lightbox.panel.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing down after clicking the chevron once' );
@@ -384,5 +386,45 @@
 		$.scrollTo = originalJQueryScrollTo;
 		mw.mmv.mediaViewer.lightbox = oldMWLightbox;
 		mw.mmv.mediaViewer.ui = oldMWUI;
+	} );
+
+	QUnit.test( 'Unblur', 3, function ( assert ) {
+		var lightbox = new mw.mmv.LightboxInterface( mw.mediaViewer ),
+			oldAnimate = $.fn.animate;
+
+		$.fn.animate = function ( target, options ) {
+			var self = this,
+				lastValue;
+
+			$.each( target, function ( key, value ) {
+				lastValue = self.key = value;
+			} );
+
+			if ( options ) {
+				if ( options.step ) {
+					options.step.call( this, lastValue );
+				}
+
+				if ( options.complete ) {
+					options.complete.call( this );
+				}
+			}
+		};
+
+		// Attach lightbox to testing fixture to avoid interference with other tests.
+		lightbox.attach( '#qunit-fixture' );
+		lightbox.$image =  $( '<img>' );
+
+		lightbox.unblur();
+
+		assert.ok( !lightbox.$image.css( '-webkit-filter' ) || !lightbox.$image.css( '-webkit-filter' ).length,
+			'Image has no filter left' );
+		assert.strictEqual( parseInt( lightbox.$image.css( 'opacity' ), 10 ), 1,
+			'Image is fully opaque' );
+		assert.ok( !lightbox.$image.hasClass( 'blurred' ), 'Image has no "blurred" class' );
+
+		lightbox.unattach();
+
+		$.fn.animate = oldAnimate;
 	} );
 }( mediaWiki, jQuery ) );

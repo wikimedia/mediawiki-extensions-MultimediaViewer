@@ -77,6 +77,8 @@
 
 		this.$dragIcon.removeClass( 'pointing-down' );
 
+		this.$progress.addClass( 'empty' );
+
 		this.fileReuse.empty();
 	};
 
@@ -89,6 +91,8 @@
 	 */
 	MPP.initializeHeader = function () {
 		var panel = this;
+
+		this.initializeProgress();
 
 		this.$dragBar = $( '<div>' )
 			.addClass( 'mw-mlb-drag-affordance' )
@@ -320,6 +324,19 @@
 				this.$mmvDiscussLink
 			)
 			.appendTo( this.$imageMetadata );
+	};
+
+	/**
+	 * Initializes the progress display at the top of the panel.
+	 */
+	MPP.initializeProgress = function () {
+		this.$progress = $( '<div>' )
+			.addClass( 'mw-mlb-progress empty' )
+			.appendTo( this.$controlBar );
+
+		this.$percent = $( '<div>' )
+			.addClass( 'mw-mlb-progress-percent' )
+			.appendTo( this.$progress );
 	};
 
 	// *********************************
@@ -713,6 +730,20 @@
 			if (targetBottom > viewportBottom ) {
 				$.scrollTo( viewportTop + ( targetBottom - viewportBottom ), duration, settings );
 			}
+		}
+	};
+
+	/**
+	 * Handles the progress display when a percentage of progress is received
+	 * @param {number} percent
+	 */
+	MPP.percent = function ( percent ) {
+		if ( percent < 100 ) {
+			this.$percent.animate( { width : percent + '%' } );
+			this.$progress.removeClass( 'empty' );
+		} else {
+			this.$percent.css( { width : 0 } );
+			this.$progress.addClass( 'empty' );
 		}
 	};
 

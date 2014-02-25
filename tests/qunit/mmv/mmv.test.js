@@ -152,4 +152,228 @@
 
 		window.location.hash = '';
 	} );
+
+	QUnit.test( 'Progress', 1, function ( assert ) {
+		var imageDeferred = $.Deferred(),
+			viewer = new mw.mmv.MultimediaViewer(),
+			oldImageGet = mw.mmv.provider.Image.prototype.get,
+			oldImageInfoGet = mw.mmv.provider.ImageInfo.prototype.get,
+			oldThumbnailInfoGet = mw.mmv.provider.ThumbnailInfo.prototype.get;
+
+		viewer.thumbs = [];
+		viewer.displayPlaceholderThumbnail = $.noop;
+		viewer.setImage = $.noop;
+		viewer.scroll = $.noop;
+		viewer.preloadFullscreenThumbnail = $.noop;
+		viewer.fetchSizeIndependentLightboxInfo = function () { return $.Deferred().resolve(); };
+		viewer.lightbox = { iface : {
+			setupForLoad : $.noop,
+			showImage : $.noop,
+			getCurrentImageWidths : function () { return { real : 0 }; },
+			panel : { setImageInfo : $.noop,
+				percent : function ( percent ) {
+					assert.strictEqual( percent, 45,
+						'Percentage correctly funneled to panel UI' );
+				} }
+		},
+		open : $.noop };
+
+		mw.mmv.provider.Image.prototype.get = function() { return imageDeferred.promise(); };
+		mw.mmv.provider.ImageInfo.prototype.get = function() { return $.Deferred().resolve(); };
+		mw.mmv.provider.ThumbnailInfo.prototype.get = function() { return $.Deferred().resolve( {} ); };
+
+		viewer.loadImage( { filePageTitle : new mw.Title( 'File:Stuff.jpg' ) }, new Image() );
+
+		imageDeferred.notify( 'response', 45 );
+		imageDeferred.resolve();
+
+		viewer.close();
+
+		mw.mmv.provider.Image.prototype.get = oldImageGet;
+		mw.mmv.provider.ImageInfo.prototype.get = oldImageInfoGet;
+		mw.mmv.provider.ThumbnailInfo.prototype.get = oldThumbnailInfoGet;
+	} );
+
+	QUnit.test( 'resetBlurredThumbnailStates', 4, function ( assert ) {
+		var viewer = new mw.mmv.MultimediaViewer();
+
+		assert.ok( !viewer.realThumbnailShown, 'Real thumbnail state is correct' );
+		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
+
+		viewer.realThumbnailShown = true;
+		viewer.blurredThumbnailShown = true;
+
+		viewer.resetBlurredThumbnailStates();
+
+		assert.ok( !viewer.realThumbnailShown, 'Real thumbnail state is correct' );
+		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
+	} );
+
+	QUnit.test( 'Placeholder first, then real thumbnail', 4, function ( assert ) {
+		var viewer = new mw.mmv.MultimediaViewer();
+
+		viewer.setImage = $.noop;
+		viewer.lightbox = { iface : {
+			showImage : $.noop
+		} };
+
+		viewer.displayPlaceholderThumbnail(
+			{ width : 300 },
+			undefined,
+			$( '<img>' ).width( 100 ),
+			{ css : 300, real : 300 }
+		);
+
+		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
+		assert.ok( !viewer.realThumbnailShown, 'Real thumbnail state is correct' );
+
+		viewer.displayRealThumbnail();
+
+		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
+		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
+	} );
+
+	QUnit.test( 'Real thumbnail first, then placeholder', 4, function ( assert ) {
+		var viewer = new mw.mmv.MultimediaViewer();
+
+		viewer.setImage = $.noop;
+		viewer.lightbox = { iface : {
+			showImage : $.noop
+		} };
+
+		viewer.displayRealThumbnail();
+
+		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
+		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
+
+		viewer.displayPlaceholderThumbnail(
+			{ width : 300 },
+			undefined,
+			$( '<img>' ).width( 100 ),
+			{ css : 300, real : 300 }
+		);
+
+		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
+		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
+	} );
+
+	QUnit.test( 'displayRealThumbnail', 1, function ( assert ) {
+		var viewer = new mw.mmv.MultimediaViewer();
+
+		viewer.setImage = $.noop;
+		viewer.lightbox = { iface : {
+			unblur : function () { assert.ok( false, 'Image should not be unblurred yet' ); }
+		} };
+		viewer.blurredThumbnailShown = true;
+
+		// Should not result in an unblur (image cache from cache)
+		viewer.displayRealThumbnail( undefined, undefined, undefined, 5 );
+
+		viewer.lightbox.iface.unblur = function () {
+			assert.ok( true, 'Image needs to be unblurred' );
+		};
+
+		// Should result in an unblur (image didn't come from cache)
+		viewer.displayRealThumbnail( undefined, undefined, undefined, 1000 );
+	} );
+
+	QUnit.test( 'displayPlaceholderThumbnail: placeholder big enough that it doesn\'t need blurring, actual image bigger than the lightbox', 5, function ( assert ) {
+		var $image,
+			viewer = new mw.mmv.MultimediaViewer();
+
+		viewer.setImage = $.noop;
+		viewer.lightbox = { iface : {
+			showImage : function () { assert.ok ( true, 'Placeholder shown'); }
+		} };
+
+		$image = $( '<img>' ).width( 200 ).height( 100 );
+
+		viewer.displayPlaceholderThumbnail(
+			{ width : 1000, height : 500 },
+			undefined,
+			$image,
+			{ css : 300, real : 300 }
+		);
+
+		assert.strictEqual( $image.width(), 300, 'Placeholder has the right width' );
+		assert.strictEqual( $image.height(), 150, 'Placeholder has the right height' );
+		assert.ok( !$image.hasClass( 'blurred' ), 'Placeholder is not blurred' );
+		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
+	} );
+
+	QUnit.test( 'displayPlaceholderThumbnail: big-enough placeholder that needs blurring, actual image bigger than the lightbox', 5, function ( assert ) {
+		var $image,
+			viewer = new mw.mmv.MultimediaViewer();
+
+		viewer.setImage = $.noop;
+		viewer.lightbox = { iface : {
+			showImage : function () { assert.ok ( true, 'Placeholder shown'); }
+		} };
+
+		$image = $( '<img>' ).width( 100 ).height( 50 );
+
+		viewer.displayPlaceholderThumbnail(
+			{ width : 1000, height : 500 },
+			undefined,
+			$image,
+			{ css : 300, real : 300 }
+		);
+
+		assert.strictEqual( $image.width(), 300, 'Placeholder has the right width' );
+		assert.strictEqual( $image.height(), 150, 'Placeholder has the right height' );
+		assert.ok( $image.hasClass( 'blurred' ), 'Placeholder is blurred' );
+		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
+	} );
+
+	QUnit.test( 'displayPlaceholderThumbnail: big-enough placeholder that needs blurring, actual image smaller than the lightbox', 5, function ( assert ) {
+		var $image,
+			viewer = new mw.mmv.MultimediaViewer(),
+			oldDevicePixelRatio = $.devicePixelRatio;
+
+		$.devicePixelRatio = function () { return 2; };
+
+		viewer.setImage = $.noop;
+		viewer.lightbox = { iface : {
+			showImage : function () { assert.ok ( true, 'Placeholder shown'); }
+		} };
+
+		$image = $( '<img>' ).width( 100 ).height( 50 );
+
+		viewer.displayPlaceholderThumbnail(
+			{ width : 1000, height : 500 },
+			undefined,
+			$image,
+			{ css : 1200, real : 1200 }
+		);
+
+		assert.strictEqual( $image.width(), 1000, 'Placeholder has the right width' );
+		assert.strictEqual( $image.height(), 500, 'Placeholder has the right height' );
+		assert.ok( $image.hasClass( 'blurred' ), 'Placeholder is blurred' );
+		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
+
+		$.devicePixelRatio = oldDevicePixelRatio;
+	} );
+
+	QUnit.test( 'displayPlaceholderThumbnail: placeholder too small to be displayed, actual image bigger than the lightbox', 4, function ( assert ) {
+		var $image,
+			viewer = new mw.mmv.MultimediaViewer();
+
+		viewer.lightbox = { iface : {
+			showImage : function () { assert.ok ( false, 'Placeholder shown when it should not'); }
+		} };
+
+		$image = $( '<img>' ).width( 10 ).height( 5 );
+
+		viewer.displayPlaceholderThumbnail(
+			{ width : 1000, height : 500 },
+			undefined,
+			$image,
+			{ css : 300, real : 300 }
+		);
+
+		assert.strictEqual( $image.width(), 10, 'Placeholder has the right width' );
+		assert.strictEqual( $image.height(), 5, 'Placeholder has the right height' );
+		assert.ok( !$image.hasClass( 'blurred' ), 'Placeholder is not blurred' );
+		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
+	} );
 }( mediaWiki, jQuery ) );

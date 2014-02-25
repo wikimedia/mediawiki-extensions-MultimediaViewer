@@ -15,7 +15,8 @@
 			'$usernameLi',
 			'$locationLi',
 			'$repoLi',
-			'$datetimeLi'
+			'$datetimeLi',
+			'$progress'
 		];
 
 	QUnit.module( 'mmv.ui.metadataPanel', QUnit.newMwEnvironment() );
@@ -192,5 +193,35 @@
 			result = panel.formatDate( date1 );
 
 		assert.strictEqual( result, date1, 'Invalid date is correctly ignored' );
+	} );
+
+	QUnit.test( 'Progress bar', 8, function ( assert ) {
+		var $qf = $( '#qunit-fixture' ),
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
+			oldAnimate = $.fn.animate;
+
+		$.fn.animate = function ( target ) {
+			$( this ).css( target );
+		};
+
+		assert.ok( panel.$progress.hasClass( 'empty' ), 'Progress bar is hidden' );
+		assert.strictEqual( panel.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
+
+		panel.percent( 0 );
+
+		assert.ok( !panel.$progress.hasClass( 'empty' ), 'Progress bar is visible' );
+		assert.strictEqual( panel.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
+
+		panel.percent( 50 );
+
+		assert.ok( !panel.$progress.hasClass( 'empty' ), 'Progress bar is visible' );
+		assert.strictEqual( panel.$percent.width(), $qf.width() / 2, 'Progress bar\'s indicator is at half' );
+
+		panel.percent( 100 );
+
+		assert.ok( panel.$progress.hasClass( 'empty' ), 'Progress bar is hidden' );
+		assert.strictEqual( panel.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
+
+		$.fn.animate = oldAnimate;
 	} );
 }( mediaWiki, jQuery ) );

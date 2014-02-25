@@ -57,10 +57,22 @@
 
 		try {
 			request = this.newXHR();
+
+			request.onprogress = function ( e ) {
+				var percent;
+
+				if ( e.lengthComputable ) {
+					percent = ( e.loaded / e.total ) * 100;
+				}
+
+				deferred.notify( request.response, percent );
+			};
+
 			request.onreadystatechange = function () {
 				var total = $.now() - start;
 
 				if ( request.readyState === 4 ) {
+					deferred.notify( request.response, 100 );
 					deferred.resolve( request.response );
 					perf.recordEntryDelayed( type, total, url, request );
 				}
