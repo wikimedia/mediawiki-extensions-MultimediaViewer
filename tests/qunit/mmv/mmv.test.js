@@ -1,30 +1,6 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Metadata div is only animated once', 4, function ( assert ) {
-		localStorage.removeItem( 'mmv.hasOpenedMetadata' );
-
-		var viewer = new mw.mmv.MultimediaViewer(),
-			backupAnimation = $.fn.animate,
-			animationRan = false;
-
-		$.fn.animate = function () {
-			animationRan = true;
-			return this;
-		};
-
-		viewer.animateMetadataDivOnce();
-		assert.strictEqual( viewer.hasAnimatedMetadata, true, 'The first call to animateMetadataDivOnce set hasAnimatedMetadata to true' );
-		assert.strictEqual( animationRan, true, 'The first call to animateMetadataDivOnce led to an animation' );
-
-		animationRan = false;
-		viewer.animateMetadataDivOnce();
-		assert.strictEqual( viewer.hasAnimatedMetadata, true, 'The second call to animateMetadataDivOnce did not change the value of hasAnimatedMetadata' );
-		assert.strictEqual( animationRan, false, 'The second call to animateMetadataDivOnce did not lead to an animation' );
-
-		$.fn.animate = backupAnimation;
-	} );
-
 	QUnit.test( 'eachPrealoadableLightboxIndex()', 11, function ( assert ) {
 		var viewer = new mw.mmv.MultimediaViewer(),
 			expectedIndices,
@@ -139,7 +115,9 @@
 			setupForLoad : $.noop,
 			canvas : { set : $.noop,
 				getCurrentImageWidths : function () { return { real : 0 }; } },
-			panel : { setImageInfo : $.noop,
+			panel : {
+				setImageInfo : $.noop,
+				animateMetadataOnce : $.noop,
 				percent : function ( percent ) {
 					if ( i === 0 ) {
 						assert.strictEqual( percent, 0,
@@ -265,7 +243,8 @@
 						assert.ok( false, 'Progress of the first image should not be shown' );
 					}
 				},
-				empty: $.noop
+				empty: $.noop,
+				animateMetadataOnce: $.noop
 			},
 			open : $.noop,
 			empty: $.noop };

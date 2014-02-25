@@ -83,6 +83,50 @@
 	background-color: @metadata-background;
 	position: absolute;
 	min-height: (@bottom-height + 1);
+	opacity: 0;
+
+	&.invite {
+		-webkit-animation-name: invite-animation;
+		-webkit-animation-duration: 0.5s;
+		-webkit-animation-fill-mode: forwards;
+		animation-name: invite-animation;
+		animation-duration: 0.5s;
+		animation-fill-mode: forwards;
+	}
+}
+
+.mlb-post-image.invited {
+	opacity: 1;
+}
+
+@-webkit-keyframes invite-animation {
+	0% {
+		opacity: 0.6;
+		margin-top: 5px;
+	}
+	50% {
+		opacity: 0.9;
+		margin-top: -3px;
+	}
+	100% {
+		opacity: 1;
+		margin-top: 0;
+	}
+}
+
+@keyframes invite-animation {
+	0% {
+		opacity: 0.6;
+		margin-top: 5px;
+	}
+	50% {
+		opacity: 0.9;
+		margin-top: -3px;
+	}
+	100% {
+		opacity: 1;
+		margin-top: 0;
+	}
 }
 
 .mlb-controls {

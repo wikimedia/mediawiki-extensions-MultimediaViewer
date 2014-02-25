@@ -21,7 +21,7 @@
 
 	QUnit.module( 'mmv.ui.metadataPanel', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'The panel is emptied properly when necessary', thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length + 1, function ( assert ) {
+	QUnit.test( 'The panel is emptied properly when necessary', thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length + 2, function ( assert ) {
 		var i,
 			$qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) );
@@ -36,7 +36,8 @@
 			assert.strictEqual( panel[thingsShouldHaveEmptyClass[i]].hasClass( 'empty' ), true, 'We successfully applied the empty class to the ' + thingsShouldHaveEmptyClass[i] + ' element' );
 		}
 
-		assert.strictEqual( panel.$dragIcon.hasClass( 'pointing-down' ), false, 'We successfully reset the chevron' );
+		assert.ok( !panel.$dragIcon.hasClass( 'pointing-down' ), 'We successfully reset the chevron' );
+		assert.ok( !panel.$container.hasClass( 'invite' ), 'We successfully reset the invite' );
 	} );
 
 	QUnit.test( 'Setting repository information in the UI works as expected', 3, function ( assert ) {
@@ -239,5 +240,33 @@
 		assert.strictEqual( panel.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
 
 		$.fn.animate = oldAnimate;
+	} );
+
+	QUnit.test( 'Metadata div is only animated once', 6, function ( assert ) {
+		localStorage.removeItem( 'mmv.hasOpenedMetadata' );
+
+		var $qf = $( '#qunit-fixture' ),
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) );
+
+		panel.animateMetadataOnce();
+
+		assert.ok( panel.hasAnimatedMetadata,
+			'The first call to animateMetadataOnce set hasAnimatedMetadata to true' );
+		assert.ok( !$qf.hasClass( 'invited' ),
+			'After the first call to animateMetadataOnce led to an animation' );
+		assert.ok( $qf.hasClass( 'invite' ),
+			'The first call to animateMetadataOnce led to an animation' );
+
+		$qf.removeClass( 'invite' );
+
+		panel.animateMetadataOnce();
+
+		assert.strictEqual( panel.hasAnimatedMetadata, true, 'The second call to animateMetadataOnce did not change the value of hasAnimatedMetadata' );
+		assert.ok( $qf.hasClass( 'invited' ),
+			'After the second call to animateMetadataOnce the div is shown right away' );
+		assert.ok( !$qf.hasClass( 'invite' ),
+			'The second call to animateMetadataOnce did not lead to an animation' );
+
+		$qf.removeClass( 'invited' );
 	} );
 }( mediaWiki, jQuery ) );

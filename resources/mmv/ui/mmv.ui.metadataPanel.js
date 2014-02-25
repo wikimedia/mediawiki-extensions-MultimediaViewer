@@ -31,6 +31,14 @@
 		mw.mmv.ui.Element.call( this, $container );
 		this.$controlBar = $controlBar;
 
+		/**
+		 * Whether we've fired an animation for the metadata div.
+		 * @property {boolean}
+		 * @private
+		 */
+		this.hasAnimatedMetadata = window.localStorage !== undefined &&
+			localStorage.getItem( 'mmv.hasOpenedMetadata' );
+
 		this.initializeHeader();
 		this.initializeImageMetadata();
 		this.initializeAboutLinks();
@@ -45,10 +53,16 @@
 		this.handleEvent( 'keydown', function ( e ) {
 			panel.keydown( e );
 		} );
+
+		$.scrollTo().on( 'scroll.mmvp', $.throttle( 250, function() {
+			panel.scroll();
+		} ) );
 	};
 
 	MPP.unattach = function() {
 		this.clearEvents();
+
+		$.scrollTo().off( 'scroll.mmvp' );
 	};
 
 	MPP.empty = function () {
@@ -78,6 +92,9 @@
 		this.$dragIcon.removeClass( 'pointing-down' );
 
 		this.$progress.addClass( 'empty' );
+
+		// need to remove this to avoid animating again when reopening lightbox on same page
+		this.$container.removeClass( 'invite' );
 
 		this.fileReuse.empty();
 	};
@@ -675,6 +692,18 @@
 		return date.format( 'LL' );
 	};
 
+	/**
+	 * Animates the metadata area when the viewer is first opened.
+	 */
+	MPP.animateMetadataOnce = function () {
+		if ( !this.hasAnimatedMetadata ) {
+			this.hasAnimatedMetadata = true;
+			this.$container.addClass( 'invite' );
+		} else {
+			this.$container.addClass( 'invited' );
+		}
+	};
+
 	// ********************************
 	// ******** Action methods ********
 	// ********************************
@@ -763,6 +792,24 @@
 			// and we animate to the right position
 			this.$progress.removeClass( 'empty' );
 			this.$percent.stop().animate( { width : percent + '%' } );
+		}
+	};
+
+	/**
+	 * Receives the window's scroll events and flips the chevron if necessary.
+	 */
+	MPP.scroll = function () {
+		var scrolled = !!$.scrollTo().scrollTop();
+
+		this.$dragIcon.toggleClass( 'pointing-down', scrolled );
+
+		if (
+			!this.savedHasOpenedMetadata &&
+			scrolled &&
+			window.localStorage !== undefined
+		) {
+			localStorage.setItem( 'mmv.hasOpenedMetadata', true );
+			this.savedHasOpenedMetadata = true;
 		}
 	};
 

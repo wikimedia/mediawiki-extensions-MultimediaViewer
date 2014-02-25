@@ -27,14 +27,6 @@
 	 */
 	function MultimediaViewer() {
 		/**
-		 * Whether we've fired an animation for the metadata div.
-		 * @property {boolean}
-		 * @private
-		 */
-		this.hasAnimatedMetadata = window.localStorage !== undefined &&
-			localStorage.getItem( 'mmv.hasOpenedMetadata' );
-
-		/**
 		 * @property {mw.mmv.provider.Image}
 		 * @private
 		 */
@@ -295,10 +287,7 @@
 				return;
 			}
 
-			viewer.stopListeningToScroll();
-			viewer.animateMetadataDivOnce()
-				// We need to wait until the animation is finished before we listen to scroll
-				.then( function() { viewer.startListeningToScroll(); } );
+			viewer.ui.panel.animateMetadataOnce();
 		} );
 
 		this.comingFromHashChange = false;
@@ -503,55 +492,6 @@
 	};
 
 	/**
-	 * Animates the metadata area when the viewer is first opened.
-	 * @return {jQuery.Promise} an empty promise which resolves when the animation is finished
-	 */
-	MMVP.animateMetadataDivOnce = function () {
-		if ( !this.hasAnimatedMetadata ) {
-			this.hasAnimatedMetadata = true;
-			$.scrollTo( 20, 300 )
-				.scrollTo( 0, 300 );
-		}
-		return $.scrollTo.window().promise();
-	};
-
-	/**
-	 * Stop listening to the page's scroll events
-	 */
-	MMVP.stopListeningToScroll = function () {
-		$.scrollTo().off( 'scroll.mmvp' );
-	};
-
-	/**
-	 * Start listening to the page's scroll events
-	 * Will call MMVP.scroll(), throttled so it is not triggered on every pixel.
-	 */
-	MMVP.startListeningToScroll = function () {
-		var viewer = this;
-
-		$.scrollTo().on( 'scroll.mmvp', $.throttle( 250, function() { viewer.scroll(); } ) );
-
-		// Trigger a check in case the user scrolled manually during the animation
-		viewer.scroll();
-	};
-
-	/**
-	 * Receives the window's scroll events and flips the chevron if necessary.
-	 */
-	MMVP.scroll = function () {
-		var scrolled = !!$.scrollTo().scrollTop();
-
-		this.ui.panel.$dragIcon.toggleClass( 'pointing-down', scrolled );
-
-		if ( !this.savedHasOpenedMetadata &&
-			scrolled &&
-			window.localStorage !== undefined ) {
-			localStorage.setItem( 'mmv.hasOpenedMetadata', true );
-			this.savedHasOpenedMetadata = true;
-		}
-	};
-
-	/**
 	 * Loads all the size-independent information needed by the lightbox (image metadata, repo
 	 * information, file usage, uploader data).
 	 * @param {mw.Title} fileTitle Title of the file page for the image.
@@ -695,7 +635,6 @@
 	*/
 	 MMVP.cleanupEventHandlers = function () {
 		$( document ).off( 'mmv-close.mmvp mmv-next.mmvp mmv-prev.mmvp mmv-resize.mmvp' );
-		this.stopListeningToScroll();
 	};
 
 	mw.mmv.MultimediaViewer = MultimediaViewer;
