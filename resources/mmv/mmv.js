@@ -188,7 +188,7 @@
 	 */
 	MMVP.setImage = function ( ui, thumbnail, image, imageWidths ) {
 		// we downscale larger images but do not scale up smaller ones, that would look ugly
-		if ( thumbnail.width > imageWidths.screen ) {
+		if ( thumbnail.width > imageWidths.css ) {
 			image.width = imageWidths.css;
 		}
 
@@ -205,7 +205,9 @@
 		var imageWidths,
 			viewer = this,
 			imagePromise,
-			metadataPromise;
+			metadataPromise,
+			start,
+			$initialImage = $( initialImage );
 
 		// FIXME dependency injection happens in completely random order and location, needs cleanup
 		this.ui = this.lightbox.iface;
@@ -223,7 +225,13 @@
 			this.lightbox.iface.empty();
 		}
 		this.lightbox.iface.setupForLoad();
-		this.lightbox.iface.showImage( image, initialImage );
+
+		// At this point we can't show the thumbnail because we don't
+		// know what size it should be. We still assign it to allow for
+		// size calculations in getCurrentImageWidths, which needs to know
+		// the aspect ratio
+		$initialImage.hide();
+		this.lightbox.iface.showImage( image, $initialImage );
 
 		this.preloadImagesMetadata();
 		this.preloadThumbnails();
@@ -232,11 +240,23 @@
 		$( document.body ).addClass( 'mw-mlb-lightbox-open' );
 
 		imageWidths = this.ui.getCurrentImageWidths();
+
+		this.resetBlurredThumbnailStates();
+
+		start = $.now();
+
 		imagePromise = this.fetchThumbnail(
 			image.filePageTitle, imageWidths.real
-		).done( function( thumbnail, image ) {
-			viewer.setImage( viewer.lightbox.iface, thumbnail, image, imageWidths );
-			viewer.lightbox.iface.$imageDiv.removeClass( 'empty' );
+		).progress( function ( thumbnailInfoResponse, imageResponse ) {
+			if ( viewer.ui && viewer.ui.panel ) {
+				viewer.ui.panel.percent( imageResponse[ 1 ] );
+			}
+		} ).done( function ( thumbnail, image ) {
+			viewer.displayRealThumbnail( thumbnail, image, imageWidths, $.now() - start );
+		} );
+
+		this.imageInfoProvider.get( image.filePageTitle ).done( function ( imageInfo ) {
+			viewer.displayPlaceholderThumbnail( imageInfo, image, $initialImage, imageWidths );
 		} );
 
 		metadataPromise = this.fetchSizeIndependentLightboxInfo(
@@ -276,6 +296,81 @@
 				return false;
 			}
 		} );
+	};
+
+	/**
+	 * Resets the cross-request states needed to handle the blurred thumbnail logic
+	 */
+	MMVP.resetBlurredThumbnailStates = function () {
+		this.realThumbnailShown = false;
+		this.blurredThumbnailShown = false;
+	};
+
+	/**
+	 * Display the real, full-resolution, thumbnail that was fetched with fetchThumbnail
+	 * @param {mw.mmv.model.Thumbnail} thumbnail
+	 * @param {HTMLImageElement} image
+	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
+	 * @param {number} loadTime Time it took to load the thumbnail
+	 */
+	MMVP.displayRealThumbnail = function ( thumbnail, image, imageWidths, loadTime ) {
+		this.realThumbnailShown = true;
+
+		this.setImage( this.lightbox.iface, thumbnail, image, imageWidths );
+
+		// We only animate unblur if the image wasn't loaded from the cache
+		// A load in < 10ms is considered to be a browser cache hit
+		// And of course we only unblur if there was a blur to begin with
+		if ( this.blurredThumbnailShown && loadTime > 10 ) {
+			this.lightbox.iface.unblur();
+		}
+	};
+
+	/**
+	 * Display the blurred thumbnail from the page
+	 * @param {mw.mmv.model.Image} imageInfo
+	 * @param {HTMLImageElement} image
+	 * @param {jQuery} $initialImage The thumbnail from the page
+	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
+	 */
+	MMVP.displayPlaceholderThumbnail = function ( imageInfo, image, $initialImage, imageWidths ) {
+		var ratio,
+			targetWidth,
+			targetHeight,
+			blowupFactor;
+
+		// If the actual image has already been displayed, there's no point showing the blurry one
+		if ( this.realThumbnailShown ) {
+			return;
+		}
+
+		// If the image is smaller than the screen we need to adjust the placeholder's size
+		if ( imageInfo.width < imageWidths.css ) {
+			targetWidth = imageInfo.width;
+			targetHeight = imageInfo.height;
+		} else {
+			ratio = $initialImage.height() / $initialImage.width();
+			targetWidth = imageWidths.css;
+			targetHeight = Math.round( imageWidths.css * ratio );
+		}
+
+		blowupFactor = targetWidth / $initialImage.width();
+
+		// If the placeholder is too blown up, it's not worth showing it
+		if ( blowupFactor > 11 ) {
+			return;
+		}
+
+		$initialImage.width( targetWidth );
+		$initialImage.height( targetHeight );
+
+		// Only blur the placeholder if it's blown up significantly
+		if ( blowupFactor > 2 ) {
+			$initialImage.addClass( 'blurred' );
+			this.blurredThumbnailShown = true;
+		}
+
+		this.lightbox.iface.showImage( image, $initialImage.show() );
 	};
 
 	/**
@@ -502,6 +597,7 @@
 			imagePromise;
 
 		thumbnailPromise = this.thumbnailInfoProvider.get( fileTitle, width );
+
 		imagePromise = thumbnailPromise.then( function( thumbnail ) {
 			return viewer.imageProvider.get( thumbnail.url );
 		} );

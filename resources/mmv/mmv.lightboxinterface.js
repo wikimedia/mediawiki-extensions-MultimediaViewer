@@ -107,15 +107,6 @@
 
 		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$controlBar );
 		this.buttons = new mw.mmv.ui.Buttons( this.$imageWrapper, this.$closeButton, this.$fullscreenButton );
-		this.initializeImage();
-	};
-
-	/**
-	 * Initialize the image element.
-	 */
-	LIP.initializeImage = function () {
-		this.$imageDiv
-			.addClass( 'empty' );
 	};
 
 	/**
@@ -126,7 +117,6 @@
 
 		this.panel.empty();
 
-		this.$imageDiv.addClass( 'empty' );
 		this.$imageDiv.empty();
 
 		if ( this.resizeListener ) {
@@ -266,15 +256,17 @@
 	 * Displays an already loaded image.
 	 * This is an alternative to load() when we have an image element with the image already loaded.
 	 * @param {mw.mmv.LightboxImage} image
-	 * @param {HTMLImageElement } imageElement
+	 * @param {jQuery} $imageElement
 	 */
-	LIP.showImage = function( image, imageElement ) {
+	LIP.showImage = function( image, $imageElement ) {
 		var iface = this;
 
 		this.currentImage = image;
-		image.globalMaxWidth = imageElement.width;
-		image.globalMaxHeight = imageElement.height;
-		this.$image = $( imageElement );
+
+		image.globalMaxWidth = $imageElement.width();
+		image.globalMaxHeight = $imageElement.height();
+
+		this.$image = $imageElement;
 
 		this.autoResizeImage();
 
@@ -299,7 +291,7 @@
 		this.currentImage = image;
 
 		image.getImageElement().done( function( image, ele ) {
-			iface.showImage( image, ele );
+			iface.showImage( image, $( ele ) );
 		} );
 	};
 
@@ -348,9 +340,8 @@
 
 		var $image = $( imageEle );
 
-		this.currentImage.src = imageEle.src;
-
 		this.$image.replaceWith( $image );
+		this.currentImage.src = imageEle.src;
 		this.$image = $image;
 
 		this.$image.css( {
@@ -447,6 +438,36 @@
 		for ( i = 0; i < toAdd.length; i++ ) {
 			$div.append( toAdd[i] );
 		}
+	};
+
+	/**
+	 * Animates the image into focus
+	 */
+	LIP.unblur = function () {
+		var self = this,
+			animationLength = 300;
+
+		// The blurred class has an opacity < 1. This animated the image to become fully opaque
+		this.$image
+			.addClass( 'blurred' )
+			.animate( { opacity: 1.0 }, animationLength );
+
+		// During the same amount of time (animationLength) we animate a blur value from 3.0 to 0.0
+		// We pass that value to an inline CSS Gaussian blur effect
+		$( { blur: 3.0 } ).animate( { blur: 0.0 }, {
+			duration: animationLength,
+			step: function ( step ) {
+				self.$image.css( { '-webkit-filter' : 'blur(' + step + 'px)',
+					'filter' : 'blur(' + step + 'px)' } );
+			},
+			complete: function () {
+				// When the animation is complete, the blur value is 0
+				// We apply empty CSS values to remove the inline styles applied by jQuery
+				// so that they don't get in the way of styles defined in CSS
+				self.$image.css( { '-webkit-filter' : '', 'opacity' : '' } )
+					.removeClass( 'blurred' );
+			}
+		} );
 	};
 
 	/**

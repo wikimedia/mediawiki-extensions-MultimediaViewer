@@ -24,7 +24,7 @@
 		assert.ok( imageProvider );
 	} );
 
-	QUnit.test( 'Image load success test', 2, function ( assert ) {
+	QUnit.test( 'Image load success', 2, function ( assert ) {
 		var url = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0'
 				+ 'iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH'
 				+ '8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC',
@@ -42,7 +42,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Image caching test', 6, function ( assert ) {
+	QUnit.test( 'Image caching', 6, function ( assert ) {
 		var url = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0'
 				+ 'iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH'
 				+ '8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC',
@@ -75,10 +75,78 @@
 			assert.strictEqual( image.src, url2, 'image src is correct');
 			QUnit.start();
 		} );
-
 	} );
 
-	QUnit.asyncTest( 'Image load fail test', 1, function ( assert ) {
+	QUnit.test( 'Image load XHR progress funneling', 7, function ( assert ) {
+		var i = 0,
+			imageProvider = new mw.mmv.provider.Image(),
+			oldPerformance = imageProvider.performance,
+			fakeURL = 'fakeURL',
+			response = 'response';
+
+		imageProvider.performance.delay = 0;
+		imageProvider.imagePreloadingSupported = function () { return true; };
+		imageProvider.rawGet = function () { return $.Deferred().resolve(); };
+
+		imageProvider.performance.newXHR = function () {
+			return { readyState: 4,
+				response: response,
+				send: function () {
+					var self = this;
+
+					// The timeout is necessary because without it notify() happens before
+					// the imageProvider has time to chain its progress() to the returned deferred
+					setTimeout( function () {
+						self.onprogress( { lengthComputable: true, loaded : 10, total : 20 } );
+						self.onreadystatechange();
+					} );
+				},
+
+				open: $.noop };
+		};
+
+		QUnit.stop();
+
+		imageProvider.performance.recordEntry = function ( type, total, url ) {
+			QUnit.start();
+
+			assert.strictEqual( type, 'image', 'Type matches' );
+			assert.strictEqual( url, fakeURL, 'URL matches' );
+
+			imageProvider.performance = oldPerformance;
+
+			return $.Deferred().resolve();
+		};
+
+		QUnit.stop();
+
+		imageProvider.get( fakeURL )
+			.fail( function () {
+				QUnit.start();
+
+				assert.ok( false, 'Image failed to (pretend to) load' );
+			} )
+			.then( function () {
+				QUnit.start();
+
+				assert.ok( true, 'Image was pretend-loaded' );
+			} )
+			.progress( function ( response, percent ) {
+				if ( i === 0 ) {
+					assert.strictEqual( percent, 50, 'Correctly propagated a 50% progress event' );
+					assert.strictEqual( response, response, 'Partial response propagated' );
+				} else if ( i === 1 ) {
+					assert.strictEqual( percent, 100, 'Correctly propagated a 100% progress event' );
+					assert.strictEqual( response, response, 'Partial response propagated' );
+				} else {
+					assert.ok( false, 'Only 2 progress events should propagate' );
+				}
+
+				i++;
+			} );
+	} );
+
+	QUnit.asyncTest( 'Image load fail', 1, function ( assert ) {
 		var imageProvider = new mw.mmv.provider.Image();
 
 		imageProvider.imagePreloadingSupported = function () { return false; };
@@ -90,7 +158,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Image load test with preloading supported', 1, function ( assert ) {
+	QUnit.test( 'Image load with preloading supported', 1, function ( assert ) {
 		var url = mw.config.get( 'wgScriptPath' ) + '/skins/vector/images/search-ltr.png',
 			imageProvider = new mw.mmv.provider.Image(),
 			endsWith = function ( a, b ) { return a.indexOf( b ) === a.length - b.length; };
@@ -112,7 +180,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Failed image load test with preloading supported', 1, function ( assert ) {
+	QUnit.test( 'Failed image load with preloading supported', 1, function ( assert ) {
 		var url = 'nosuchimage.png',
 			imageProvider = new mw.mmv.provider.Image();
 

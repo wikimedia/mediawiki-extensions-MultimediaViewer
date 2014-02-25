@@ -21,6 +21,7 @@
 @drag-height: 18px;
 @bottom-height: (@title-height + @drag-height);
 @metadata-background: rgb(251, 251, 251);
+@progress-height: 3px;
 
 .mlb-image-wrapper,
 .mw-mlb-controls {
@@ -307,6 +308,17 @@ body.mobile .mw-mlb-controls,
 	display: none;
 }
 
+.mlb-image img.blurred {
+	/**
+	 * SVG is for Firefox
+	 * Cannot be embedded because of the hash needed to access the filter inside the SVG
+	 */
+	filter: url(img/blur.svg#gaussian-blur);
+	filter: blur(3px);
+	-webkit-filter: blur(3px);
+	opacity: 0.8;
+}
+
 body.mw-mlb-lightbox-open {
 	overflow-y: auto;
 }
@@ -350,4 +362,21 @@ body.mw-mlb-lightbox-open #content {
 
 .mlb-post-image:hover .mw-mlb-drag-icon {
 	opacity: 1;
+}
+
+.mw-mlb-progress {
+	width: 100%;
+	height: @progress-height;
+	background-color: rgb( 204, 204, 204 );
+	margin-top: -@progress-height;
+}
+
+.mw-mlb-progress.empty {
+	display: none;
+}
+
+.mw-mlb-progress-percent {
+	width: 0;
+	height: @progress-height;
+	background-color: rgb( 0, 113, 188 );
 }
