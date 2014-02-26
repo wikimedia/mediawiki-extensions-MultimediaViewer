@@ -218,8 +218,8 @@
 			.appendTo( this.$imageLinkDiv );
 
 		this.initializeRepoLink();
-		this.initializeDatetime();
 		this.initializeUploader();
+		this.initializeDatetime();
 		this.initializeLocation();
 
 		this.fileReuse = new mw.mmv.ui.FileReuse( this.$imageLinks );
