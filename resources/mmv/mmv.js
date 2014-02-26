@@ -157,7 +157,7 @@
 		this.preloadThumbnails();
 
 		if ( fileTitle ) {
-			imageWidths = ui.getCurrentImageWidths();
+			imageWidths = ui.canvas.getCurrentImageWidths();
 			this.fetchThumbnail(
 				fileTitle, imageWidths.real
 			).then( function( thumbnail, image ) {
@@ -192,7 +192,7 @@
 			image.width = imageWidths.css;
 		}
 
-		ui.replaceImageWith( image );
+		ui.canvas.setImageAndMaxDimensions( image );
 		this.updateControls();
 	};
 
@@ -231,7 +231,7 @@
 		// size calculations in getCurrentImageWidths, which needs to know
 		// the aspect ratio
 		$initialImage.hide();
-		this.lightbox.iface.showImage( image, $initialImage );
+		this.lightbox.iface.canvas.set( image, $initialImage );
 
 		this.preloadImagesMetadata();
 		this.preloadThumbnails();
@@ -239,7 +239,7 @@
 
 		$( document.body ).addClass( 'mw-mlb-lightbox-open' );
 
-		imageWidths = this.ui.getCurrentImageWidths();
+		imageWidths = this.ui.canvas.getCurrentImageWidths();
 
 		this.resetBlurredThumbnailStates();
 
@@ -356,58 +356,25 @@
 		// A load in < 10ms is considered to be a browser cache hit
 		// And of course we only unblur if there was a blur to begin with
 		if ( this.blurredThumbnailShown && loadTime > 10 ) {
-			this.lightbox.iface.unblur();
+			this.lightbox.iface.canvas.unblur();
 		}
 	};
 
 	/**
 	 * Display the blurred thumbnail from the page
 	 * @param {mw.mmv.model.Image} imageInfo
-	 * @param {HTMLImageElement} image
+	 * @param {mw.mmv.LightboxImage} imageRawMetadata Raw metadata of image
 	 * @param {jQuery} $initialImage The thumbnail from the page
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
 	 */
-	MMVP.displayPlaceholderThumbnail = function ( imageInfo, image, $initialImage, imageWidths ) {
-		var ratio,
-			targetWidth,
-			targetHeight,
-			blowupFactor;
-
+	MMVP.displayPlaceholderThumbnail = function ( imageInfo, imageRawMetadata, $initialImage, imageWidths ) {
 		// If the actual image has already been displayed, there's no point showing the blurry one
 		if ( this.realThumbnailShown ) {
 			return;
 		}
 
-		// If the image is smaller than the screen we need to adjust the placeholder's size
-		if ( imageInfo.width < imageWidths.css ) {
-			targetWidth = imageInfo.width;
-			targetHeight = imageInfo.height;
-		} else {
-			ratio = $initialImage.height() / $initialImage.width();
-			targetWidth = imageWidths.css;
-			targetHeight = Math.round( imageWidths.css * ratio );
-		}
-
-		blowupFactor = targetWidth / $initialImage.width();
-
-		// If the placeholder is too blown up, it's not worth showing it
-		if ( blowupFactor > 11 ) {
-			return;
-		}
-
-		$initialImage.width( targetWidth );
-		$initialImage.height( targetHeight );
-
-		// Only blur the placeholder if it's blown up significantly
-		if ( blowupFactor > 2 ) {
-			// We have to apply the SVG filter here, it doesn't work when defined in the .less file
-			// We can't use an external SVG file because filters can't be accessed cross-domain
-			// We can't embed the SVG file because accessing the filter inside of it doesn't work
-			$initialImage.addClass( 'blurred' ).css( 'filter', 'url("#gaussian-blur")' );
-			this.blurredThumbnailShown = true;
-		}
-
-		this.lightbox.iface.showImage( image, $initialImage.show() );
+		this.blurredThumbnailShown = this.lightbox.iface.canvas.setThumbnailForDisplay(
+			imageInfo, $initialImage, imageWidths );
 	};
 
 	/**
@@ -523,7 +490,7 @@
 			return function() {
 				return viewer.fetchThumbnail(
 					lightboxImage.filePageTitle,
-					ui.getLightboxImageWidths( lightboxImage ).real
+					ui.canvas.getLightboxImageWidths( lightboxImage ).real
 				);
 			};
 		} );
@@ -537,7 +504,7 @@
 	MMVP.preloadFullscreenThumbnail = function( image ) {
 		this.fetchThumbnail(
 			image.filePageTitle,
-			this.lightbox.iface.getLightboxImageWidthsForFullscreen( image ).real
+			this.lightbox.iface.canvas.getLightboxImageWidthsForFullscreen( image ).real
 		);
 	};
 

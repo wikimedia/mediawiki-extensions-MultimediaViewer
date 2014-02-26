@@ -66,13 +66,9 @@
 		this.$main = $( '<div>' )
 			.addClass( 'mlb-main' );
 
-		this.$imageDiv = $( '<div>' )
-			.addClass( 'mlb-image' );
-
 		// I blame CSS for this
 		this.$innerWrapper = $( '<div>' )
-			.addClass( 'mlb-image-inner-wrapper' )
-			.append( this.$imageDiv );
+			.addClass( 'mlb-image-inner-wrapper' );
 
 		this.$imageWrapper = $( '<div>' )
 			.addClass( 'mlb-image-wrapper' )
@@ -106,6 +102,7 @@
 
 		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$controlBar );
 		this.buttons = new mw.mmv.ui.Buttons( this.$imageWrapper, this.$closeButton, this.$fullscreenButton );
+		this.canvas = new mw.mmv.ui.Canvas( this.$innerWrapper, this.$imageWrapper, this.$wrapper );
 	};
 
 	/**
@@ -116,12 +113,7 @@
 
 		this.panel.empty();
 
-		this.$imageDiv.empty();
-
-		if ( this.resizeListener ) {
-			window.removeEventListener( 'resize', this.resizeListener );
-			this.resizeListener = null;
-		}
+		this.canvas.empty();
 	};
 
 	/**
@@ -209,6 +201,8 @@
 
 		this.panel.attach();
 
+		this.canvas.attach();
+
 		// Buttons fading might not had been reset properly after a hard fullscreen exit
 		// This needs to happen after the parent attach() because the buttons need to be attached
 		// to the DOM for $.fn.stop() to work
@@ -231,6 +225,8 @@
 
 		this.panel.unattach();
 
+		this.canvas.unattach();
+
 		// Restore the scrollTop as it was before opening the lightbox
 		if ( this.scrollTopBeforeAttach !== undefined ) {
 			$.scrollTo( this.scrollTopBeforeAttach, 0 );
@@ -240,55 +236,6 @@
 		this.panel.fileReuse.closeDialog();
 
 		this.clearEvents();
-	};
-
-	/**
-	 * Resize callback
-	 * @protected
-	 */
-	LIP.resizeCallback = function () {
-		if ( this.currentlyAttached ) {
-			this.$wrapper.trigger( $.Event( 'mmv-resize') );
-		}
-	};
-	/**
-	 * Displays an already loaded image.
-	 * This is an alternative to load() when we have an image element with the image already loaded.
-	 * @param {mw.mmv.LightboxImage} image
-	 * @param {jQuery} $imageElement
-	 */
-	LIP.showImage = function ( image, $imageElement ) {
-		var iface = this;
-
-		this.currentImage = image;
-
-		this.$image = $imageElement;
-
-		this.$imageDiv.html( this.$image );
-
-		// Capture listener so we can remove it later, otherwise
-		// we are going to leak listeners !
-		// FIXME should use clearEvents, probably
-		if ( !this.resizeListener ) {
-			this.resizeListener = function () { iface.resizeCallback(); };
-			window.addEventListener( 'resize', this.resizeListener );
-		}
-	};
-
-	/**
-	 * Loads the image, then calls the load callback of the interface.
-	 * @param {mw.mmv.LightboxImage} image
-	 */
-	LIP.load = function ( image ) {
-		var iface = this;
-
-		this.setupForLoad();
-
-		this.currentImage = image;
-
-		image.getImageElement().done( function( image, ele ) {
-			iface.showImage( image, $( ele ) );
-		} );
 	};
 
 	/**
@@ -315,33 +262,6 @@
 
 		this.handleEvent( 'mmv-faded-out', function ( e ) { ui.fadedOut( e ); } );
 		this.handleEvent( 'mmv-fade-stopped', function ( e ) { ui.fadeStopped( e ); } );
-	};
-
-	/**
-	 * Changes what image is being displayed.
-	 * @param {HTMLImageElement} imageEle
-	 */
-	LIP.replaceImageWith = function ( imageEle ) {
-		function makeMaxMatchParent ( $image ) {
-			$image.css( {
-				maxHeight : $image.parent().height(),
-				maxWidth : $image.parent().width()
-			} );
-		}
-
-		if ( this.$image.is( imageEle ) ) { // http://bugs.jquery.com/ticket/4087
-			// Update the max dimensions otherwise the image gets distorted
-			makeMaxMatchParent( this.$image );
-			return;
-		}
-
-		var $image = $( imageEle );
-
-		this.$image.replaceWith( $image );
-		this.currentImage.src = imageEle.src;
-		this.$image = $image;
-
-		makeMaxMatchParent( this.$image );
 	};
 
 	/**
@@ -428,40 +348,6 @@
 	};
 
 	/**
-	 * Animates the image into focus
-	 */
-	LIP.unblur = function () {
-		var self = this,
-			animationLength = 300;
-
-		// The blurred class has an opacity < 1. This animates the image to become fully opaque
-		this.$image
-			.addClass( 'blurred' )
-			// We have to apply the SVG filter here, it doesn't work when defined in the .less file
-			// We can't use an external SVG file because filters can't be accessed cross-domain
-			// We can't embed the SVG file because accessing the filter inside of it doesn't work
-			.css( 'filter', 'url("#gaussian-blur")' )
-			.animate( { opacity: 1.0 }, animationLength );
-
-		// During the same amount of time (animationLength) we animate a blur value from 3.0 to 0.0
-		// We pass that value to an inline CSS Gaussian blur effect
-		$( { blur: 3.0 } ).animate( { blur: 0.0 }, {
-			duration: animationLength,
-			step: function ( step ) {
-				self.$image.css( { '-webkit-filter' : 'blur(' + step + 'px)',
-					'filter' : 'blur(' + step + 'px)' } );
-			},
-			complete: function () {
-				// When the animation is complete, the blur value is 0
-				// We apply empty CSS values to remove the inline styles applied by jQuery
-				// so that they don't get in the way of styles defined in CSS
-				self.$image.css( { '-webkit-filter' : '', 'opacity' : '', 'filter' : '' } )
-					.removeClass( 'blurred' );
-			}
-		} );
-	};
-
-	/**
 	 * Handle a fullscreen change event.
 	 * @param {jQuery.Event} e The fullscreen change event.
 	 */
@@ -541,41 +427,6 @@
 		if ( this.isFullscreen ) {
 			this.buttons.revealAndFade( this.mousePosition );
 		}
-	};
-
-	/**
-	 * @method
-	 * Gets the widths for a given lightbox image.
-	 * @param {mw.mmv.LightboxImage} image
-	 * @returns {mw.mmv.model.ThumbnailWidth}
-	 */
-	LIP.getLightboxImageWidths = function ( image ) {
-		var thumb = image.thumbnail;
-
-		return this.thumbnailWidthCalculator.calculateWidths(
-			this.$imageWrapper.width(), this.$imageWrapper.height(), thumb.width, thumb.height );
-	};
-
-	/**
-	 * Gets the fullscreen widths for a given lightbox image.
-	 * Intended for use before the viewer is in fullscreen mode
-	 * (in fullscreen mode getLightboxImageWidths() works fine).
-	 * @param {mw.mmv.LightboxImage} image
-	 * @returns {mw.mmv.model.ThumbnailWidth}
-	 */
-	LIP.getLightboxImageWidthsForFullscreen = function ( image ) {
-		var thumb = image.thumbnail;
-
-		return this.thumbnailWidthCalculator.calculateWidths(
-			screen.width, screen.height, thumb.width, thumb.height );
-	};
-
-	/**
-	 * Gets the widths for the current lightbox image.
-	 * @returns {mw.mmv.model.ThumbnailWidth}
-	 */
-	LIP.getCurrentImageWidths = function () {
-		return this.getLightboxImageWidths( this.currentImage );
 	};
 
 	/**

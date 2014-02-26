@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function ( mw ) {
 
 	/**
 	 * Represents an image on the page.
@@ -65,31 +65,6 @@
 	 * @protected
 	 */
 	LIP.initialSrc = null;
-
-	/**
-	 * Loads the image.
-	 * FIXME we probably don't use this.
-	 * @return {jQuery.Promise.<HTMLImageElement>}
-	 */
-	LIP.getImageElement = function () {
-		var ele,
-			$deferred = $.Deferred(),
-			image = this;
-
-		ele = new Image();
-		ele.addEventListener( 'error', $deferred.reject );
-		ele.addEventListener( 'load', function() { $deferred.resolve( image, ele ); } );
-
-		if ( this.src !== this.initialSrc ) {
-			ele.src = this.src;
-		} else {
-			// Don't display the thumb, pretend that we did load the image
-			// This is a workaround until we decide whether we want to display a nicer version of the thumb or not
-			$deferred.resolve( image, ele );
-		}
-
-		return $deferred;
-	};
 
 	mw.mmv.LightboxImage = LightboxImage;
 }( mediaWiki, jQuery ) );

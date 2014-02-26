@@ -169,8 +169,8 @@
 		viewer.fetchSizeIndependentLightboxInfo = function () { return $.Deferred().resolve(); };
 		viewer.lightbox = { iface : {
 			setupForLoad : $.noop,
-			showImage : $.noop,
-			getCurrentImageWidths : function () { return { real : 0 }; },
+			canvas : { set : $.noop,
+				getCurrentImageWidths : function () { return { real : 0 }; } },
 			panel : { setImageInfo : $.noop,
 				percent : function ( percent ) {
 					if ( i === 0 ) {
@@ -224,16 +224,11 @@
 		var viewer = new mw.mmv.MultimediaViewer();
 
 		viewer.setImage = $.noop;
-		viewer.lightbox = { iface : {
-			showImage : $.noop
-		} };
+		viewer.lightbox = { iface : { canvas : {
+			setThumbnailForDisplay : function() { return true; }
+		} } };
 
-		viewer.displayPlaceholderThumbnail(
-			{ width : 300 },
-			undefined,
-			$( '<img>' ).width( 100 ),
-			{ css : 300, real : 300 }
-		);
+		viewer.displayPlaceholderThumbnail( undefined, undefined, undefined);
 
 		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 		assert.ok( !viewer.realThumbnailShown, 'Real thumbnail state is correct' );
@@ -257,12 +252,7 @@
 		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 
-		viewer.displayPlaceholderThumbnail(
-			{ width : 300 },
-			undefined,
-			$( '<img>' ).width( 100 ),
-			{ css : 300, real : 300 }
-		);
+		viewer.displayPlaceholderThumbnail( undefined, undefined, undefined);
 
 		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
@@ -272,120 +262,20 @@
 		var viewer = new mw.mmv.MultimediaViewer();
 
 		viewer.setImage = $.noop;
-		viewer.lightbox = { iface : {
+		viewer.lightbox = { iface : { canvas : {
 			unblur : function () { assert.ok( false, 'Image should not be unblurred yet' ); }
-		} };
+		} } };
 		viewer.blurredThumbnailShown = true;
 
 		// Should not result in an unblur (image cache from cache)
 		viewer.displayRealThumbnail( undefined, undefined, undefined, 5 );
 
-		viewer.lightbox.iface.unblur = function () {
+		viewer.lightbox.iface.canvas.unblur = function () {
 			assert.ok( true, 'Image needs to be unblurred' );
 		};
 
 		// Should result in an unblur (image didn't come from cache)
 		viewer.displayRealThumbnail( undefined, undefined, undefined, 1000 );
-	} );
-
-	QUnit.test( 'displayPlaceholderThumbnail: placeholder big enough that it doesn\'t need blurring, actual image bigger than the lightbox', 5, function ( assert ) {
-		var $image,
-			viewer = new mw.mmv.MultimediaViewer();
-
-		viewer.setImage = $.noop;
-		viewer.lightbox = { iface : {
-			showImage : function () { assert.ok ( true, 'Placeholder shown'); }
-		} };
-
-		$image = $( '<img>' ).width( 200 ).height( 100 );
-
-		viewer.displayPlaceholderThumbnail(
-			{ width : 1000, height : 500 },
-			undefined,
-			$image,
-			{ css : 300, real : 300 }
-		);
-
-		assert.strictEqual( $image.width(), 300, 'Placeholder has the right width' );
-		assert.strictEqual( $image.height(), 150, 'Placeholder has the right height' );
-		assert.ok( !$image.hasClass( 'blurred' ), 'Placeholder is not blurred' );
-		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
-	} );
-
-	QUnit.test( 'displayPlaceholderThumbnail: big-enough placeholder that needs blurring, actual image bigger than the lightbox', 5, function ( assert ) {
-		var $image,
-			viewer = new mw.mmv.MultimediaViewer();
-
-		viewer.setImage = $.noop;
-		viewer.lightbox = { iface : {
-			showImage : function () { assert.ok ( true, 'Placeholder shown'); }
-		} };
-
-		$image = $( '<img>' ).width( 100 ).height( 50 );
-
-		viewer.displayPlaceholderThumbnail(
-			{ width : 1000, height : 500 },
-			undefined,
-			$image,
-			{ css : 300, real : 300 }
-		);
-
-		assert.strictEqual( $image.width(), 300, 'Placeholder has the right width' );
-		assert.strictEqual( $image.height(), 150, 'Placeholder has the right height' );
-		assert.ok( $image.hasClass( 'blurred' ), 'Placeholder is blurred' );
-		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
-	} );
-
-	QUnit.test( 'displayPlaceholderThumbnail: big-enough placeholder that needs blurring, actual image smaller than the lightbox', 5, function ( assert ) {
-		var $image,
-			viewer = new mw.mmv.MultimediaViewer(),
-			oldDevicePixelRatio = $.devicePixelRatio;
-
-		$.devicePixelRatio = function () { return 2; };
-
-		viewer.setImage = $.noop;
-		viewer.lightbox = { iface : {
-			showImage : function () { assert.ok ( true, 'Placeholder shown'); }
-		} };
-
-		$image = $( '<img>' ).width( 100 ).height( 50 );
-
-		viewer.displayPlaceholderThumbnail(
-			{ width : 1000, height : 500 },
-			undefined,
-			$image,
-			{ css : 1200, real : 1200 }
-		);
-
-		assert.strictEqual( $image.width(), 1000, 'Placeholder has the right width' );
-		assert.strictEqual( $image.height(), 500, 'Placeholder has the right height' );
-		assert.ok( $image.hasClass( 'blurred' ), 'Placeholder is blurred' );
-		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
-
-		$.devicePixelRatio = oldDevicePixelRatio;
-	} );
-
-	QUnit.test( 'displayPlaceholderThumbnail: placeholder too small to be displayed, actual image bigger than the lightbox', 4, function ( assert ) {
-		var $image,
-			viewer = new mw.mmv.MultimediaViewer();
-
-		viewer.lightbox = { iface : {
-			showImage : function () { assert.ok ( false, 'Placeholder shown when it should not'); }
-		} };
-
-		$image = $( '<img>' ).width( 10 ).height( 5 );
-
-		viewer.displayPlaceholderThumbnail(
-			{ width : 1000, height : 500 },
-			undefined,
-			$image,
-			{ css : 300, real : 300 }
-		);
-
-		assert.strictEqual( $image.width(), 10, 'Placeholder has the right width' );
-		assert.strictEqual( $image.height(), 5, 'Placeholder has the right height' );
-		assert.ok( !$image.hasClass( 'blurred' ), 'Placeholder is not blurred' );
-		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
 	QUnit.test( 'New image loaded while another one is loading', 1, function ( assert ) {
@@ -404,8 +294,8 @@
 		viewer.fetchSizeIndependentLightboxInfo = function () { return ligthboxInfoDeferred.promise(); };
 		viewer.lightbox = { iface : {
 			setupForLoad : $.noop,
-			showImage : $.noop,
-			getCurrentImageWidths : function () { return { real : 0 }; },
+			canvas : { set : $.noop,
+				getCurrentImageWidths : function () { return { real : 0 }; } },
 			panel : { setImageInfo : function () {
 					assert.ok( false, 'Metadata of the first image should not be shown' );
 				},

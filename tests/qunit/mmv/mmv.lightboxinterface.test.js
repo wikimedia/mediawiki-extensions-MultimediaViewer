@@ -51,29 +51,6 @@
 		assert.strictEqual( handlerCalls, 1, 'The handler was not called after calling lightbox.clearEvents().' );
 	} );
 
-	QUnit.asyncTest( 'Check we are saving the resize listener', 2, function ( assert ) {
-		var img = new mw.mmv.LightboxImage('http://en.wikipedia.org/w/skins/vector/images/search-ltr.png'),
-			lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer );
-
-		// resizeListener not saved yet
-		assert.strictEqual( this.resizeListener, undefined, 'Listener is not saved yet' );
-
-		// Save original showImage
-		lightbox.originalShowImage = lightbox.showImage;
-
-		// Mock showImage
-		lightbox.showImage = function ( image, $ele ) {
-			// Call original showImage
-			this.originalShowImage( image, $ele );
-
-			// resizeListener should have been saved
-			assert.notStrictEqual( this.resizeListener, undefined, 'Saved listener !' );
-			QUnit.start();
-		};
-
-		lightbox.load(img);
-	} );
-
 	QUnit.test( 'Fullscreen mode', 8, function ( assert ) {
 		var lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer ),
 			oldFnEnterFullscreen = $.fn.enterFullscreen,
@@ -303,8 +280,8 @@
 
 		// This lets us avoid pushing a state to the history, which might interfere with other tests
 		lightbox.comingFromHashChange = true;
-		// Load is needed to start listening to metadata events
-		lightbox.load( { getImageElement: function() { return $.Deferred().reject(); } } );
+		// Start listening to metadata events
+		lightbox.setupForLoad();
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0, 'scrollTo scrollTop should be set to 0' );
 		assert.ok( !lightbox.panel.$dragIcon.hasClass( 'pointing-down' ),
@@ -386,46 +363,6 @@
 		$.scrollTo = originalJQueryScrollTo;
 		mw.mmv.mediaViewer.lightbox = oldMWLightbox;
 		mw.mmv.mediaViewer.ui = oldMWUI;
-	} );
-
-	QUnit.test( 'Unblur', 3, function ( assert ) {
-		var lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer ),
-			oldAnimate = $.fn.animate;
-
-		$.fn.animate = function ( target, options ) {
-			var self = this,
-				lastValue;
-
-			$.each( target, function ( key, value ) {
-				lastValue = self.key = value;
-			} );
-
-			if ( options ) {
-				if ( options.step ) {
-					options.step.call( this, lastValue );
-				}
-
-				if ( options.complete ) {
-					options.complete.call( this );
-				}
-			}
-		};
-
-		// Attach lightbox to testing fixture to avoid interference with other tests.
-		lightbox.attach( '#qunit-fixture' );
-		lightbox.$image =  $( '<img>' );
-
-		lightbox.unblur();
-
-		assert.ok( !lightbox.$image.css( '-webkit-filter' ) || !lightbox.$image.css( '-webkit-filter' ).length,
-			'Image has no filter left' );
-		assert.strictEqual( parseInt( lightbox.$image.css( 'opacity' ), 10 ), 1,
-			'Image is fully opaque' );
-		assert.ok( !lightbox.$image.hasClass( 'blurred' ), 'Image has no "blurred" class' );
-
-		lightbox.unattach();
-
-		$.fn.animate = oldAnimate;
 	} );
 
 	QUnit.test( 'Keyboard prev/next', 2, function ( assert ) {

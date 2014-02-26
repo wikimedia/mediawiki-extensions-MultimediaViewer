@@ -60,11 +60,11 @@ call_user_func( function() {
 		'dependencies' => array(
 			'mmv.base',
 			'mmv.ui.buttons',
+			'mmv.ui.canvas',
 			'mmv.ui.categories',
 			'mmv.ui.description',
 			'mmv.ui.fileUsage',
 			'mmv.ui.metadataPanel',
-			'mmv.ThumbnailWidthCalculator',
 		),
 	), $moduleInfo( 'mmv' ) );
 
@@ -217,6 +217,22 @@ call_user_func( function() {
 
 		'dependencies' => array(
 			'mmv.base',
+		),
+	), $moduleInfo( 'mmv/ui' ) );
+
+	$wgResourceModules['mmv.ui.canvas'] = array_merge( array(
+		'scripts' => array(
+			'mmv.ui.canvas.js',
+		),
+
+		'styles' => array(
+			'mmv.ui.canvas.less',
+		),
+
+		'dependencies' => array(
+			'mmv.ui',
+			'mmv.ThumbnailWidthCalculator',
+			'oojs',
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 
@@ -429,7 +445,6 @@ call_user_func( function() {
 			'mmv.provider',
 			'mediawiki.language',
 			'mmv.multilightbox',
-			'mmv.ThumbnailWidthCalculator',
 			'mmv.api',
 		),
 
