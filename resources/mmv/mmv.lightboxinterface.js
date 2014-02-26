@@ -245,11 +245,9 @@
 	 * Resize callback
 	 * @protected
 	 */
-	LIP.resizeCallback = function() {
+	LIP.resizeCallback = function () {
 		if ( this.currentlyAttached ) {
 			this.$wrapper.trigger( $.Event( 'mmv-resize') );
-
-			this.autoResizeImage();
 		}
 	};
 	/**
@@ -258,13 +256,10 @@
 	 * @param {mw.mmv.LightboxImage} image
 	 * @param {jQuery} $imageElement
 	 */
-	LIP.showImage = function( image, $imageElement ) {
+	LIP.showImage = function ( image, $imageElement ) {
 		var iface = this;
 
 		this.currentImage = image;
-
-		image.globalMaxWidth = $imageElement.width();
-		image.globalMaxHeight = $imageElement.height();
 
 		this.$image = $imageElement;
 
@@ -299,7 +294,7 @@
 	 * FIXME A bunch of stuff ripped out of #load, because load tries to actually load the image
 	 * and causes the small-thumbnail-for-a-moment bug in the process. Needs severe refactoring.
 	 */
-	LIP.setupForLoad = function() {
+	LIP.setupForLoad = function () {
 		var hashFragment = '#mediaviewer/' + this.viewer.currentImageFilename,
 			ui = this;
 
@@ -325,7 +320,6 @@
 	 */
 	LIP.autoResizeImage = function () {
 		this.$staging.append( this.$image );
-		this.currentImage.autoResize( this.$image.get( 0 ), this.$imageDiv );
 		this.$imageDiv.append( this.$image );
 	};
 
@@ -334,7 +328,16 @@
 	 * @param {HTMLImageElement} imageEle
 	 */
 	LIP.replaceImageWith = function ( imageEle ) {
+		function makeMaxMatchParent ( $image ) {
+			$image.css( {
+				maxHeight : $image.parent().height(),
+				maxWidth : $image.parent().width()
+			} );
+		}
+
 		if ( this.$image.is( imageEle ) ) { // http://bugs.jquery.com/ticket/4087
+			// Update the max dimensions otherwise the image gets distorted
+			makeMaxMatchParent( this.$image );
 			return;
 		}
 
@@ -344,17 +347,7 @@
 		this.currentImage.src = imageEle.src;
 		this.$image = $image;
 
-		this.$image.css( {
-			maxHeight: $image.parent().height(),
-			maxWidth: $image.parent().width()
-		} );
-
-		/*
-		FIXME MLB has this code but it was overridden and never invoked; kept for reference until resize bugs are fixed
-		this.currentImage.globalMaxWidth = this.$image.width();
-		this.currentImage.globalMaxHeight = this.$image.height();
-		this.currentImage.autoResize( imageEle );
-		 */
+		makeMaxMatchParent( this.$image );
 	};
 
 	/**
