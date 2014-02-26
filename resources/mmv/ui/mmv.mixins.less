@@ -7,7 +7,7 @@
 	background-clip: padding-box; // Android 2.2+, Chrome, Firefox 4+, IE 9+, iOS 4+, Opera 10.50+, Safari 4+
 }
 
-.unselectable {
+.unselectable() {
 	-moz-user-select: -moz-none;
 	-khtml-user-select: none;
 	-webkit-user-select: none;
@@ -15,3 +15,16 @@
 	user-select: none;
 }
 
+// from http://stackoverflow.com/a/12178019/323407
+.fade-out(@backgroundColor: white) {
+	@invisible: fadeout(@backgroundColor, 100%);
+	background-image: linear-gradient(to bottom, @invisible 0%, @backgroundColor 100%); // W3C
+	background-image: -moz-linear-gradient(top, @invisible 0%, @backgroundColor 100%); // FF3.6+
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @invisible),
+		color-stop(100%, @backgroundColor)); // Chrome,Safari4+
+	background-image: -webkit-linear-gradient(top, @invisible 0%, @backgroundColor 100%); // Chrome10+,Safari5.1+
+	background-image: -o-linear-gradient(top, @invisible 0%, @backgroundColor 100%); // Opera 11.10+
+	background-image: -ms-linear-gradient(top, @invisible 0%, @backgroundColor 100%); // IE10+
+	filter: e(%("progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 )",
+		rgbahex(@invisible), rgbahex(@backgroundColor))); // IE6-9
+}

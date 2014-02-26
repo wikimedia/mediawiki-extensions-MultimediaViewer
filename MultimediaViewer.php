@@ -274,6 +274,7 @@ call_user_func( function() {
 
 		'messages' => array(
 			'multimediaviewer-permission-title',
+			'multimediaviewer-permission-viewmore',
 		),
 
 		'dependencies' => array(

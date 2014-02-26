@@ -32,7 +32,9 @@
 
 		permission.set( text );
 
-		assert.strictEqual( permission.$text.text(), text, 'permission text is set' );
+		// FIXME get rid of "view more" - this is temporary
+		assert.strictEqual( permission.$text.children().remove().end().text(),
+			text, 'permission text is set' );
 		assert.strictEqual( permission.$html.text(), text, 'permission html is set' );
 		assert.ok( permission.$text.is( ':visible' ), 'permission text is visible' );
 		assert.ok( !permission.$html.is( ':visible' ), 'permission html is not visible' );
