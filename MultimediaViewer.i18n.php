@@ -277,6 +277,8 @@ $messages['ast'] = array(
 	'multimediaviewer-license-cc-pd' => 'Dominiu públicu',
 	'multimediaviewer-license-pd' => 'Dominiu públicu',
 	'multimediaviewer-license-default' => 'Ver la llicencia',
+	'multimediaviewer-permission-title' => 'Detalles de la llicencia',
+	'multimediaviewer-permission-link' => 'ver los términos',
 	'multimediaviewer-use-file' => 'Usar esti ficheru',
 	'multimediaviewer-use-file-owt' => 'Usar esti ficheru nuna páxina wiki, como miniatura',
 	'multimediaviewer-use-file-own' => 'Usar esti ficheru nuna páxina wiki, en llinia',
@@ -289,6 +291,14 @@ $messages['ast'] = array(
 	'multimediaviewer-fileusage-link' => 'Ver tolos usos',
 	'multimediaviewer-fileusage-local-section' => 'Nesti sitiu',
 	'multimediaviewer-fileusage-global-section' => "N'otros sitios",
+);
+
+/** Bikol Central (Bikol Central)
+ * @author Geopoet
+ */
+$messages['bcl'] = array(
+	'multimediaviewer-permission-title' => 'Mga detalye kan Lisensiya',
+	'multimediaviewer-permission-link' => 'Hilngon an mga termino',
 );
 
 /** Bengali (বাংলা)
@@ -353,6 +363,8 @@ $messages['ce'] = array(
 	'multimediaviewer-pref-desc' => 'Мультимедиа-файлашка хьажар хаза кечдина гойту.', # Fuzzy
 	'multimediaviewer-repository-local' => 'Ма-дарра',
 	'multimediaviewer-license-pd' => 'Юкъараллин рицӀкъ',
+	'multimediaviewer-permission-title' => 'Лецензех лаьцна',
+	'multimediaviewer-permission-link' => 'хьоле хьажар',
 	'multimediaviewer-discuss-mmv' => 'Язде хьайна хетарг',
 	'multimediaviewer-geolocation' => 'Географин йолу меттиг: $1',
 	'multimediaviewer-fileusage-count' => 'Лело $1 {{PLURAL:$1|агӀонехь|агӀонашкахь}}',
@@ -527,6 +539,7 @@ $messages['el'] = array(
  */
 $messages['en-gb'] = array(
 	'multimediaviewer-license-default' => 'View licence',
+	'multimediaviewer-permission-title' => 'Licence details',
 );
 
 /** Spanish (español)
@@ -765,6 +778,14 @@ $messages['he'] = array(
 	'multimediaviewer-fileusage-global-section' => 'באתרים אחרים',
 );
 
+/** Hindi (हिन्दी)
+ * @author Vivek Rai
+ */
+$messages['hi'] = array(
+	'multimediaviewer-permission-title' => 'लायसेंस विवरण',
+	'multimediaviewer-permission-link' => 'शर्ते देखें',
+);
+
 /** Croatian (hrvatski)
  * @author MaGa
  */
@@ -905,6 +926,7 @@ $messages['it'] = array(
 	'multimediaviewer-license-pd' => 'Pubblico dominio',
 	'multimediaviewer-license-default' => 'Vedi la licenza',
 	'multimediaviewer-permission-title' => 'Dettagli licenza',
+	'multimediaviewer-permission-link' => 'vedi termini',
 	'multimediaviewer-use-file' => 'Usa questo file',
 	'multimediaviewer-use-file-owt' => 'Usa questo file in una pagina wiki, come miniatura',
 	'multimediaviewer-use-file-own' => 'Usa questo file in una pagina wiki, in linea',
@@ -950,6 +972,8 @@ $messages['ja'] = array(
 	'multimediaviewer-license-cc-zero' => 'CC 0',
 	'multimediaviewer-license-pd' => 'パブリック・ドメイン',
 	'multimediaviewer-license-default' => 'ライセンスを閲覧',
+	'multimediaviewer-permission-title' => 'ライセンスの詳細',
+	'multimediaviewer-permission-link' => '規約を閲覧',
 	'multimediaviewer-use-file' => 'このファイルを使用',
 	'multimediaviewer-use-file-owt' => 'このファイルをウィキページ内 (サムネイル) で使用',
 	'multimediaviewer-use-file-own' => 'このファイルをウィキページ内 (インライン) で使用',
@@ -1020,6 +1044,8 @@ $messages['ko'] = array(
 	'multimediaviewer-license-cc-pd' => '퍼블릭 도메인',
 	'multimediaviewer-license-pd' => '퍼블릭 도메인',
 	'multimediaviewer-license-default' => '라이선스 보기',
+	'multimediaviewer-permission-title' => '라이선스 세부 사항',
+	'multimediaviewer-permission-link' => '이용 약관 보기',
 	'multimediaviewer-use-file' => '이 파일을 사용',
 	'multimediaviewer-use-file-owt' => '이 파일을 위키 문서에서 섬네일로 사용',
 	'multimediaviewer-use-file-own' => '이 파일을 위키 문서의 텍스트 사이에 사용',
@@ -1369,6 +1395,8 @@ $messages['ru'] = array(
 	'multimediaviewer-license-cc-pd' => 'Общественное достояние',
 	'multimediaviewer-license-pd' => 'Общественное достояние',
 	'multimediaviewer-license-default' => 'Посмотр лицензии',
+	'multimediaviewer-permission-title' => 'Сведения о лицензии',
+	'multimediaviewer-permission-link' => 'просмотр условий',
 	'multimediaviewer-use-file' => 'Использовать этот файл',
 	'multimediaviewer-use-file-owt' => 'Использовать этот файл на вики-странице, с уменьшенной копией',
 	'multimediaviewer-use-file-own' => 'Использовать этот файл на вики-странице, в полный размер',
@@ -1388,6 +1416,8 @@ $messages['ru'] = array(
  */
 $messages['sco'] = array(
 	'multimediaviewer-license-pd' => 'Public Domain',
+	'multimediaviewer-permission-title' => 'License details',
+	'multimediaviewer-permission-link' => 'view terms',
 	'multimediaviewer-fileusage-count' => 'Uised in $1 {{PLURAL:$1|page|pages}}',
 	'multimediaviewer-fileusage-count-more' => 'Uised in mair than $1 {{PLURAL:$1|pages}}',
 	'multimediaviewer-fileusage-link' => 'View aw uisses',
