@@ -176,8 +176,8 @@
 		this.$permissionLink = $( '<span>' )
 			.addClass( 'mw-mlb-permission-link mw-mlb-label' )
 			.text( mw.message( 'multimediaviewer-permission-link' ).text() )
-			.hide()
 			.appendTo( this.$titlePara )
+			.hide()
 			.on( 'click', function() {
 				panel.permission.grow();
 				panel.scrollIntoView( panel.permission.$box, 500 );
