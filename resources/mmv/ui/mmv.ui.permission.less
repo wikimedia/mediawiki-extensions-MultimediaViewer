@@ -6,14 +6,12 @@
 	width: 90%;
 	margin: 10px 5% 0;
 
-	max-height: 100px;
-
 	&.empty {
 		display: none;
 	}
 
 	h3 {
-		margin: 10px 10px;
+		margin: 10px;
 		padding: 0;
 		color: #565656;
 	}
@@ -33,7 +31,15 @@
 	}
 
 	.mw-mlb-permission-text {
-		padding: 10px;
+		@text-font-size: 1em;
+		@text-line-height: 1.2;
+		@lines-shown: 3;
+
+		max-height: @lines-shown * @text-line-height * @text-font-size;
+		overflow: hidden;
+		margin: 0 10px 10px;
+		font-size: @text-font-size;
+		line-height: @text-line-height;
 	}
 
 	.mw-mlb-permission-html {
@@ -41,8 +47,6 @@
 	}
 
 	&.full-size {
-		max-height: none;
-
 		.mw-mlb-permission-close {
 			display: block;
 		}
