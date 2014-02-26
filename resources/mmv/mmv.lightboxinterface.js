@@ -59,6 +59,9 @@
 			.addClass( 'mlb-staging-area' );
 		$( document.body ).append( this.$staging );
 
+		// SVG filter, needed to achieve blur in Firefox
+		this.$filter = $( '<svg><filter id="gaussian-blur"><fegaussianblur stdDeviation="3"></filter></svg>' );
+
 		this.$overlay = $( '<div>' )
 			.addClass( 'mlb-overlay' );
 
@@ -91,7 +94,8 @@
 		this.$main.append(
 			this.$preDiv,
 			this.$imageWrapper,
-			this.$postDiv
+			this.$postDiv,
+			this.$filter
 		);
 
 		this.$wrapper.append(
@@ -440,9 +444,13 @@
 		var self = this,
 			animationLength = 300;
 
-		// The blurred class has an opacity < 1. This animated the image to become fully opaque
+		// The blurred class has an opacity < 1. This animates the image to become fully opaque
 		this.$image
 			.addClass( 'blurred' )
+			// We have to apply the SVG filter here, it doesn't work when defined in the .less file
+			// We can't use an external SVG file because filters can't be accessed cross-domain
+			// We can't embed the SVG file because accessing the filter inside of it doesn't work
+			.css( 'filter', 'url("#gaussian-blur")' )
 			.animate( { opacity: 1.0 }, animationLength );
 
 		// During the same amount of time (animationLength) we animate a blur value from 3.0 to 0.0
@@ -457,7 +465,7 @@
 				// When the animation is complete, the blur value is 0
 				// We apply empty CSS values to remove the inline styles applied by jQuery
 				// so that they don't get in the way of styles defined in CSS
-				self.$image.css( { '-webkit-filter' : '', 'opacity' : '' } )
+				self.$image.css( { '-webkit-filter' : '', 'opacity' : '', 'filter' : '' } )
 					.removeClass( 'blurred' );
 			}
 		} );

@@ -366,7 +366,10 @@
 
 		// Only blur the placeholder if it's blown up significantly
 		if ( blowupFactor > 2 ) {
-			$initialImage.addClass( 'blurred' );
+			// We have to apply the SVG filter here, it doesn't work when defined in the .less file
+			// We can't use an external SVG file because filters can't be accessed cross-domain
+			// We can't embed the SVG file because accessing the filter inside of it doesn't work
+			$initialImage.addClass( 'blurred' ).css( 'filter', 'url("#gaussian-blur")' );
 			this.blurredThumbnailShown = true;
 		}
 

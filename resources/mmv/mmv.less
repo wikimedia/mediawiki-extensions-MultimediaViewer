@@ -309,11 +309,6 @@ body.mobile .mw-mlb-controls,
 }
 
 .mlb-image img.blurred {
-	/**
-	 * SVG is for Firefox
-	 * Cannot be embedded because of the hash needed to access the filter inside the SVG
-	 */
-	filter: url(img/blur.svg#gaussian-blur);
 	filter: blur(3px);
 	-webkit-filter: blur(3px);
 	opacity: 0.8;
