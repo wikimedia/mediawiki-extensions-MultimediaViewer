@@ -389,7 +389,7 @@
 	} );
 
 	QUnit.test( 'Unblur', 3, function ( assert ) {
-		var lightbox = new mw.mmv.LightboxInterface( mw.mediaViewer ),
+		var lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer ),
 			oldAnimate = $.fn.animate;
 
 		$.fn.animate = function ( target, options ) {
@@ -426,5 +426,45 @@
 		lightbox.unattach();
 
 		$.fn.animate = oldAnimate;
+	} );
+
+	QUnit.test( 'Keyboard prev/next', 2, function ( assert ) {
+		var viewer =  mw.mmv.mediaViewer,
+			lightbox = new mw.mmv.LightboxInterface( viewer ),
+			oldNextImage = viewer.nextImage,
+			oldPrevImage = viewer.prevImage;
+
+		// Since we define both, the test works regardless of RTL settings
+		viewer.nextImage = function () {
+			assert.ok( true, 'Next image was open' );
+		};
+
+		viewer.prevImage = function () {
+			assert.ok( true, 'Prev image was open' );
+		};
+
+		// 37 is left arrow, 39 is right arrow
+		lightbox.keydown( $.Event( 'keydown', { which : 37 } ) );
+		lightbox.keydown( $.Event( 'keydown', { which : 39 } ) );
+
+		viewer.nextImage = function () {
+			assert.ok( false, 'Next image should not have been open' );
+		};
+
+		viewer.prevImage = function () {
+			assert.ok( false, 'Prev image should not have been open' );
+		};
+
+		lightbox.keydown( $.Event( 'keydown', { which : 37, altKey : true } ) );
+		lightbox.keydown( $.Event( 'keydown', { which : 39, altKey : true } ) );
+		lightbox.keydown( $.Event( 'keydown', { which : 37, ctrlKey : true } ) );
+		lightbox.keydown( $.Event( 'keydown', { which : 39, ctrlKey : true } ) );
+		lightbox.keydown( $.Event( 'keydown', { which : 37, shiftKey : true } ) );
+		lightbox.keydown( $.Event( 'keydown', { which : 39, shiftKey : true } ) );
+		lightbox.keydown( $.Event( 'keydown', { which : 37, metaKey : true } ) );
+		lightbox.keydown( $.Event( 'keydown', { which : 39, metaKey : true } ) );
+
+		viewer.nextImage = oldNextImage;
+		viewer.prevImage = oldPrevImage;
 	} );
 }( mediaWiki, jQuery ) );

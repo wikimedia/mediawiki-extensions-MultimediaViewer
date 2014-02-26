@@ -510,6 +510,12 @@
 	LIP.keydown = function ( e ) {
 		var isRtl = $( document.body ).hasClass( 'rtl' );
 
+		if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey ) {
+			return;
+		}
+
+		e.preventDefault();
+
 		switch ( e.which ) {
 			case 37:
 				// Left arrow
