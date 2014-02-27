@@ -153,12 +153,13 @@
 		window.location.hash = '';
 	} );
 
-	QUnit.test( 'Progress', 1, function ( assert ) {
+	QUnit.test( 'Progress', 3, function ( assert ) {
 		var imageDeferred = $.Deferred(),
 			viewer = new mw.mmv.MultimediaViewer(),
 			oldImageGet = mw.mmv.provider.Image.prototype.get,
 			oldImageInfoGet = mw.mmv.provider.ImageInfo.prototype.get,
-			oldThumbnailInfoGet = mw.mmv.provider.ThumbnailInfo.prototype.get;
+			oldThumbnailInfoGet = mw.mmv.provider.ThumbnailInfo.prototype.get,
+			i = 0;
 
 		viewer.thumbs = [];
 		viewer.displayPlaceholderThumbnail = $.noop;
@@ -172,8 +173,18 @@
 			getCurrentImageWidths : function () { return { real : 0 }; },
 			panel : { setImageInfo : $.noop,
 				percent : function ( percent ) {
-					assert.strictEqual( percent, 45,
-						'Percentage correctly funneled to panel UI' );
+					if ( i === 0 ) {
+						assert.strictEqual( percent, 0,
+							'Percentage correctly reset by loadImage' );
+					} else if ( i === 1 ) {
+						assert.strictEqual( percent, 5,
+							'Percentage correctly animated to 5 by loadImage' );
+					} else {
+						assert.strictEqual( percent, 45,
+							'Percentage correctly funneled to panel UI' );
+					}
+
+					i++;
 				} }
 		},
 		open : $.noop };
@@ -375,5 +386,77 @@
 		assert.strictEqual( $image.height(), 5, 'Placeholder has the right height' );
 		assert.ok( !$image.hasClass( 'blurred' ), 'Placeholder is not blurred' );
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
+	} );
+
+	QUnit.test( 'New image loaded while another one is loading', 1, function ( assert ) {
+		var imageDeferred,
+			ligthboxInfoDeferred,
+			viewer = new mw.mmv.MultimediaViewer(),
+			oldImageGet = mw.mmv.provider.Image.prototype.get,
+			oldImageInfoGet = mw.mmv.provider.ImageInfo.prototype.get,
+			oldThumbnailInfoGet = mw.mmv.provider.ThumbnailInfo.prototype.get,
+			firstImageDeferred = $.Deferred(),
+			secondImageDeferred = $.Deferred(),
+			firstLigthboxInfoDeferred = $.Deferred(),
+			secondLigthboxInfoDeferred = $.Deferred();
+
+		viewer.preloadFullscreenThumbnail = $.noop;
+		viewer.fetchSizeIndependentLightboxInfo = function () { return ligthboxInfoDeferred.promise(); };
+		viewer.lightbox = { iface : {
+			setupForLoad : $.noop,
+			showImage : $.noop,
+			getCurrentImageWidths : function () { return { real : 0 }; },
+			panel : { setImageInfo : function () {
+					assert.ok( false, 'Metadata of the first image should not be shown' );
+				},
+				percent : function ( response, percent ) {
+					if ( percent === 45 ) {
+						assert.ok( false, 'Progress of the first image should not be shown' );
+					}
+				}  },
+			empty: $.noop
+		},
+		open : $.noop };
+		viewer.eachPrealoadableLightboxIndex = $.noop;
+		viewer.animateMetadataDivOnce = function () {
+			assert.ok( false, 'Metadata of the first image should not be animated' );
+			return $.Deferred().reject();
+		};
+
+		mw.mmv.provider.Image.prototype.get = function() { return imageDeferred.promise(); };
+		mw.mmv.provider.ImageInfo.prototype.get = function() { return $.Deferred().reject(); };
+		mw.mmv.provider.ThumbnailInfo.prototype.get = function() { return $.Deferred().resolve( {} ); };
+
+		imageDeferred = firstImageDeferred;
+		ligthboxInfoDeferred = firstLigthboxInfoDeferred;
+		viewer.loadImage( { filePageTitle : new mw.Title( 'File:Foo.jpg' ), index : 0 }, new Image() );
+
+		imageDeferred = secondImageDeferred;
+		ligthboxInfoDeferred = secondLigthboxInfoDeferred;
+		viewer.loadImage( { filePageTitle : new mw.Title( 'File:Bar.jpg' ), index : 1 }, new Image() );
+
+		viewer.displayRealThumbnail = function () {
+			assert.ok( false, 'The first image being done loading should have no effect');
+		};
+
+		firstImageDeferred.notify( undefined, 45 );
+		firstImageDeferred.resolve();
+		firstLigthboxInfoDeferred.resolve();
+
+		viewer.lightbox.iface.panel.setImageInfo = $.noop;
+		viewer.animateMetadataDivOnce = function() { return $.Deferred().reject(); };
+
+		viewer.displayRealThumbnail = function () {
+			assert.ok( true, 'The second image being done loading should result in the image being shown');
+		};
+
+		secondImageDeferred.resolve();
+		secondLigthboxInfoDeferred.resolve();
+
+		viewer.close();
+
+		mw.mmv.provider.Image.prototype.get = oldImageGet;
+		mw.mmv.provider.ImageInfo.prototype.get = oldImageInfoGet;
+		mw.mmv.provider.ThumbnailInfo.prototype.get = oldThumbnailInfoGet;
 	} );
 }( mediaWiki, jQuery ) );
