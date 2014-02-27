@@ -57,7 +57,25 @@
 		 */
 		this.$text = $( '<div>' )
 			.addClass( 'mw-mlb-permission-text' )
-			.appendTo( this.$box );
+			.appendTo( this.$box )
+			.on( 'click', '.mw-mlb-permission-text-viewmore', function( e ) {
+				e.preventDefault();
+				permission.grow();
+			} )
+		;
+
+		/**
+		 * A helper element to fade off text
+		 * @property {jQuery}
+		 */
+		this.$fader = $( '<div>' )
+			.addClass( 'mw-mlb-permission-text-fader' )
+			.append(
+				$( '<a>' )
+					.addClass( 'mw-mlb-permission-text-viewmore' )
+					.prop( 'href', '#' )
+					.text( mw.message( 'multimediaviewer-permission-viewmore' ).text() )
+			);
 
 		/**
 		 * Original (HTML) version of the author's message
@@ -97,8 +115,11 @@
 	 */
 	P.set = function( permission ) {
 		this.$box.removeClass( 'empty' );
+
 		this.$text.html( permission );
 		this.whitelistHtml( this.$text );
+		this.$text.append( this.$fader );
+
 		this.$html.html( permission );
 	};
 

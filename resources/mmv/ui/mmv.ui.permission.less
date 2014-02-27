@@ -1,4 +1,5 @@
 @import "mediawiki.mixins";
+@import "mmv.mixins";
 
 .mw-mlb-permission-box {
 	position: relative;
@@ -35,14 +36,34 @@
 		@text-line-height: 1.2;
 		@lines-shown: 3;
 
+		position: relative;
+
 		max-height: @lines-shown * @text-line-height * @text-font-size;
 		overflow: hidden;
 		margin: 0 10px 10px;
 		font-size: @text-font-size;
 		line-height: @text-line-height;
+
+		.mw-mlb-permission-text-fader {
+			position: absolute;
+			top: (@lines-shown - 1) * @text-line-height * @text-font-size;
+			width: 100%;
+			height: @text-line-height * @text-font-size;
+
+			.fade-out();
+
+			text-align: right;
+
+			a {
+				padding: 3px 0 0 1em;
+				background-color: white;
+				font-size: small;
+			}
+		}
 	}
 
 	.mw-mlb-permission-html {
+		margin: 0 10px 10px;
 		display: none;
 	}
 

@@ -59,6 +59,7 @@ $messages['en'] = array(
 
 	'multimediaviewer-permission-title' => 'License details',
 	'multimediaviewer-permission-link' => 'view terms',
+	'multimediaviewer-permission-viewmore' => 'View more',
 
 	'multimediaviewer-use-file' => 'Use this file',
 	'multimediaviewer-use-file-owt' => 'Use this file on a wiki page, as a thumbnail',
@@ -156,7 +157,8 @@ They will usually be derived from the HTML output from wikitext on a file descri
 {{Identical|Public domain}}',
 	'multimediaviewer-license-default' => 'Short label for a link to generic license information.',
 	'multimediaviewer-permission-title' => 'Title of the box containing additional license terms',
-	'multimediaviewer-permission-link' => 'Text of the link which shows additional license terms',
+	'multimediaviewer-permission-link' => 'Text of the link (on top of the metadata box) which shows additional license terms',
+	'multimediaviewer-permission-viewmore' => 'Text of the link (at the cutoff of the license term preview) which shows additional license terms',
 	'multimediaviewer-use-file' => 'Link that opens a dialog with options for sharing the file, e.g. onwiki or on another site. Similar to the Commons gadget stockPhoto.',
 	'multimediaviewer-use-file-owt' => 'Label for input box which has wikitext used to show an image with the thumb option and a helpful caption.
 
