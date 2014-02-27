@@ -738,12 +738,27 @@
 	 * @param {number} percent
 	 */
 	MPP.percent = function ( percent ) {
-		if ( percent < 100 ) {
-			this.$percent.animate( { width : percent + '%' } );
-			this.$progress.removeClass( 'empty' );
-		} else {
-			this.$percent.css( { width : 0 } );
+		var panel = this;
+
+		if ( percent === 0 ) {
+			// When a 0% update comes in, we jump without animation to 0 and we hide the bar
 			this.$progress.addClass( 'empty' );
+			this.$percent.stop().css( { width : 0 } );
+		} else if ( percent === 100 ) {
+			// When a 100% update comes in, we make sure that the bar is visible, we animate
+			// fast to 100 and we hide the bar when the animation is done
+			this.$progress.removeClass( 'empty' );
+			this.$percent.stop().animate( { width : percent + '%' }, 50, 'swing',
+				function () {
+					// Reset the position for good measure
+					panel.$percent.stop().css( { width : 0 } );
+					panel.$progress.addClass( 'empty' );
+				} );
+		} else {
+			// When any other % update comes in, we make sure the bar is visible
+			// and we animate to the right position
+			this.$progress.removeClass( 'empty' );
+			this.$percent.stop().animate( { width : percent + '%' } );
 		}
 	};
 

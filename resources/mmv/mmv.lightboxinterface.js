@@ -54,11 +54,6 @@
 			addToPost = [],
 			lbinterface = this;
 
-		// Staging area for image resizes
-		this.$staging = $( '<div>' )
-			.addClass( 'mlb-staging-area' );
-		$( document.body ).append( this.$staging );
-
 		// SVG filter, needed to achieve blur in Firefox
 		this.$filter = $( '<svg><filter id="gaussian-blur"><fegaussianblur stdDeviation="3"></filter></svg>' );
 
@@ -267,7 +262,7 @@
 
 		this.$image = $imageElement;
 
-		this.autoResizeImage();
+		this.$imageDiv.html( this.$image );
 
 		// Capture listener so we can remove it later, otherwise
 		// we are going to leak listeners !
@@ -317,14 +312,6 @@
 
 		this.handleEvent( 'mmv-faded-out', function ( e ) { ui.fadedOut( e ); } );
 		this.handleEvent( 'mmv-fade-stopped', function ( e ) { ui.fadeStopped( e ); } );
-	};
-
-	/**
-	 * FIXME refactor and document
-	 */
-	LIP.autoResizeImage = function () {
-		this.$staging.append( this.$image );
-		this.$imageDiv.append( this.$image );
 	};
 
 	/**

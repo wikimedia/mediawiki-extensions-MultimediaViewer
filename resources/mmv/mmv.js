@@ -245,28 +245,62 @@
 
 		start = $.now();
 
-		imagePromise = this.fetchThumbnail(
-			image.filePageTitle, imageWidths.real
-		).progress( function ( thumbnailInfoResponse, imageResponse ) {
-			if ( viewer.ui && viewer.ui.panel ) {
+		// Reset the progress bar, it could be at any state if we're calling loadImage
+		// while another image is already loading
+		viewer.ui.panel.percent( 0 );
+
+		imagePromise = this.fetchThumbnail( image.filePageTitle, imageWidths.real );
+
+		// Check that the image hasn't already been loaded
+		if ( imagePromise.state() === 'pending' ) {
+			// Animate it to 5 to give a sense to something is happening, even if we're stuck
+			// waiting for server-side processing, such as thumbnail (re)generation
+			viewer.ui.panel.percent( 5 );
+		}
+
+		imagePromise.progress( function ( thumbnailInfoResponse, imageResponse ) {
+			if ( viewer.lightbox.currentIndex !== image.index ) {
+				return;
+			}
+
+			if ( viewer.ui
+				&& viewer.ui.panel
+				&& imageResponse.length === 2
+				&& imageResponse[ 1 ] > 5 ) {
 				viewer.ui.panel.percent( imageResponse[ 1 ] );
 			}
-		} ).done( function ( thumbnail, image ) {
-			viewer.displayRealThumbnail( thumbnail, image, imageWidths, $.now() - start );
+		} ).done( function ( thumbnail, imageElement ) {
+			if ( viewer.lightbox.currentIndex !== image.index ) {
+				return;
+			}
+
+			viewer.displayRealThumbnail( thumbnail, imageElement, imageWidths, $.now() - start );
 		} );
 
 		this.imageInfoProvider.get( image.filePageTitle ).done( function ( imageInfo ) {
+			if ( viewer.lightbox.currentIndex !== image.index ) {
+				return;
+			}
+
 			viewer.displayPlaceholderThumbnail( imageInfo, image, $initialImage, imageWidths );
 		} );
 
 		metadataPromise = this.fetchSizeIndependentLightboxInfo(
 			image.filePageTitle
 		).done( function ( imageInfo, repoInfo, localUsage, globalUsage, userInfo ) {
+			if ( viewer.lightbox.currentIndex !== image.index ) {
+				return;
+			}
+
 			viewer.lightbox.iface.panel.setImageInfo(image, imageInfo, repoInfo,
 				localUsage, globalUsage, userInfo );
 		} );
 
 		$.when( imagePromise, metadataPromise ).then( function() {
+			if ( viewer.lightbox.currentIndex !== image.index ) {
+				return;
+			}
+
 			viewer.stopListeningToScroll();
 			viewer.animateMetadataDivOnce()
 				// We need to wait until the animation is finished before we listen to scroll
