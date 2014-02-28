@@ -111,7 +111,7 @@
 			ownId = 'mw-mlb-use-file-onwiki-normal',
 			owId = 'mw-mlb-use-file-offwiki',
 
-			viewer = this.viewer,
+			reuse = this,
 
 			$owtLabel = $( '<label>' )
 				.prop( 'for', owtId )
@@ -175,7 +175,7 @@
 				width: 750,
 				close: function () {
 					// Delete the dialog object
-					viewer.ui.$dialog = undefined;
+					reuse.$dialog = undefined;
 				}
 			} );
 
