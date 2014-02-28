@@ -81,7 +81,7 @@
 		} );
 	} );
 
-	QUnit.asyncTest( 'UserInfo missing user test', 1, function ( assert ) {
+	QUnit.asyncTest( 'UserInfo missing user test', 2, function ( assert ) {
 		var api = { get: function() {
 				return $.Deferred().resolve( {
 					query: {
@@ -93,13 +93,14 @@
 			repoInfo = {},
 			userInfoProvider = new mw.mmv.provider.UserInfo( api );
 
-		userInfoProvider.get( username, repoInfo ).fail( function() {
-			assert.ok( true, 'promise rejected when user is missing' );
+		userInfoProvider.get( username, repoInfo ).done( function( user ) {
+			assert.strictEqual( user.username, 'Catrope', 'username is set correctly' );
+			assert.strictEqual( user.gender, mw.mmv.model.User.Gender.UNKNOWN, 'gender is set to unknown' );
 			QUnit.start();
 		} );
 	} );
 
-	QUnit.asyncTest( 'UserInfo missing gender test', 1, function ( assert ) {
+	QUnit.asyncTest( 'UserInfo missing gender test', 2, function ( assert ) {
 		var api = { get: function() {
 				return $.Deferred().resolve( {
 					query: {
@@ -116,8 +117,34 @@
 			repoInfo = {},
 			userInfoProvider = new mw.mmv.provider.UserInfo( api );
 
-		userInfoProvider.get( username, repoInfo ).fail( function() {
-			assert.ok( true, 'promise rejected when gender is missing' );
+		userInfoProvider.get( username, repoInfo ).done( function( user ) {
+			assert.strictEqual( user.username, 'Catrope', 'username is set correctly' );
+			assert.strictEqual( user.gender, mw.mmv.model.User.Gender.UNKNOWN, 'gender is set to unknown' );
+			QUnit.start();
+		} );
+	} );
+
+	// this can happen when we get the image from a ForeignDBRepo
+	QUnit.asyncTest( 'UserInfo non-existant user test', 2, function ( assert ) {
+		var api = { get: function() {
+				return $.Deferred().resolve( {
+					query: {
+						users: [
+							{
+								missing: '',
+								name: 'Catrope'
+							}
+						]
+					}
+				} );
+			} },
+			username = 'Catrope',
+			repoInfo = {},
+			userInfoProvider = new mw.mmv.provider.UserInfo( api );
+
+		userInfoProvider.get( username, repoInfo ).done( function( user ) {
+			assert.strictEqual( user.username, 'Catrope', 'username is set correctly' );
+			assert.strictEqual( user.gender, mw.mmv.model.User.Gender.UNKNOWN, 'gender is set to unknown' );
 			QUnit.start();
 		} );
 	} );

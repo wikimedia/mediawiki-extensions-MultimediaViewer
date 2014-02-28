@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, oo, $ ) {
+( function ( mw, oo ) {
 
 	/**
 	 * Gets user information (currently just the gender).
@@ -65,7 +65,8 @@
 				if ( users[0] && users[0].name && users[0].gender ) {
 					return new mw.mmv.model.User( users[0].name, users[0].gender );
 				} else {
-					return $.Deferred().reject( 'error in provider, user info not found' );
+					mw.log( 'user info not found for ' + username + ' at ' + repoInfo.name);
+					return new mw.mmv.model.User( username, mw.mmv.model.User.Gender.UNKNOWN );
 				}
 			} );
 		}
@@ -74,4 +75,4 @@
 	};
 
 	mw.mmv.provider.UserInfo = UserInfo;
-}( mediaWiki, OO, jQuery ) );
+}( mediaWiki, OO ) );
