@@ -45,6 +45,7 @@
 	 * @param {string} action The key representing the action
 	 * @param {boolean} skipEventLog True if we don't want the action to be recorded in the event log
 	 * @param {Object} substitutions A list of variable subtitutions for parametrized action texts
+	 * @returns {jQuery.Promise}
 	 */
 	L.log = function ( action, skipEventLog, substitutions ) {
 		var translatedAction = this.logActions[action] || action;
@@ -58,11 +59,13 @@
 		mw.log( translatedAction );
 
 		if ( mw.eventLog && !skipEventLog ) {
-			mw.eventLog.logEvent( 'MediaViewer', {
+			return mw.eventLog.logEvent( 'MediaViewer', {
 				version: '1.1',
 				action: action
 			} );
 		}
+
+		return $.Deferred().resolve();
 	};
 
 	mw.mmv.logger = new Logger();
