@@ -494,6 +494,9 @@ call_user_func( function() {
 				'revision' => 7488625,
 			);
 
+			$wgResourceModules['mmv.bootstrap']['dependencies'][] = 'ext.eventLogging';
+			$wgResourceModules['mmv.bootstrap']['dependencies'][] = 'schema.MediaViewer';
+
 			$wgResourceModules['mmv']['dependencies'][] = 'ext.eventLogging';
 			$wgResourceModules['mmv']['dependencies'][] = 'schema.MediaViewer';
 			$wgResourceModules['mmv']['dependencies'][] = 'schema.MultimediaViewerNetworkPerformance';
