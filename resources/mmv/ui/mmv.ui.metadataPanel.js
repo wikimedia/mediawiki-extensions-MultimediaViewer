@@ -243,21 +243,25 @@
 			.addClass( 'mw-mlb-repo' )
 			.prop( 'href', '#' )
 			.click( function ( e ) {
-				var $link = $( this );
-				// If the user is navigating away, we have to add a timeout to fix that.
+				var $link = $( this ),
+					redirect;
+
 				if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey ) {
-					// Just ignore this case - either they're opening in a new
-					// window and the logging will work, or they're not trying to
-					// navigate away from the page and we should leave them alone.
+					// They are likely opening the link in a new window or tab
+					mw.mmv.logger.log( 'site-link-click' );
 					return;
 				}
 
-				mw.mmv.logger.log( 'site-link-click' );
-
+				// If it's a plain click, we need to wait for the logging to
+				// be done before navigating to the desired page
 				e.preventDefault();
-				setTimeout( function () {
+
+				redirect = function () {
 					window.location.href = $link.prop( 'href' );
-				}, 500 );
+				};
+
+				// We want to redirect anyway, whether logging worked or not
+				mw.mmv.logger.log( 'site-link-click' ).then( redirect, redirect );
 			} )
 			.appendTo( this.$repoLi );
 	};
