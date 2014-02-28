@@ -5,7 +5,7 @@
 	position: relative;
 
 	width: 90%;
-	margin: 10px 5% 0;
+	margin: 10px 20px 0;
 
 	&.empty {
 		display: none;
@@ -15,15 +15,15 @@
 		margin: 10px;
 		padding: 0;
 		color: #565656;
-		font-size: 1em;
+		font-size: 0.95em;
 	}
 
 	.mw-mlb-permission-close {
 		display: none;
 
 		position: absolute;
-		top: 5px;
-		right: 5px;
+		top: 12px;
+		right: 8px;
 
 		width: 16px;
 		height: 16px;
@@ -65,8 +65,10 @@
 	}
 
 	.mw-mlb-permission-html {
-		margin: 0 10px 10px;
+		padding: 0 15px 15px;
 		display: none;
+		max-height: 400px;
+		overflow: auto;
 	}
 
 	&.full-size {
@@ -80,6 +82,7 @@
 
 		.mw-mlb-permission-html {
 			display: block;
+			border-top: 1px solid #f0f0f0;
 		}
 	}
 }
