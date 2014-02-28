@@ -7,7 +7,7 @@ pushd $SCRIPT_DIR > /dev/null
     --color \
     --config=./jsduck-config.json \
     -- \
-        `find ../resources/{multilightbox,mmv} -name '*.js'` \
+        `find ../resources/mmv -name '*.js'` \
 |& grep -v "^Warning:" \
 && echo "JSDuck execution finished without errors."
 
