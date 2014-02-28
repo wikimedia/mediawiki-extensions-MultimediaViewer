@@ -500,7 +500,7 @@ call_user_func( function() {
 			$wgResourceModules['schema.MediaViewer'] = array(
 				'class' => 'ResourceLoaderSchemaModule',
 				'schema' => 'MediaViewer',
-				'revision' => 6636420,
+				'revision' => 7670440,
 			);
 
 			$wgResourceModules['schema.MultimediaViewerNetworkPerformance'] = array(

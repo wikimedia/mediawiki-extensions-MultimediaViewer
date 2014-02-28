@@ -38,6 +38,7 @@
 			.prop( 'href', '#' )
 			.text( mw.message( 'multimediaviewer-use-file' ).text() )
 			.click( function () {
+				mw.mmv.logger.log( 'use-this-file-link-click' );
 				reuse.openDialog();
 				return false;
 			} )
