@@ -238,6 +238,8 @@
 		}
 
 		this.panel.fileReuse.closeDialog();
+
+		this.clearEvents();
 	};
 
 	/**
@@ -303,6 +305,7 @@
 			$( document ).trigger( $.Event( 'mmv.hash', { hash : hashFragment } ) );
 		}
 
+		// FIXME makes no sense to do this on every image load
 		this.handleEvent( 'keydown', function ( e ) { ui.keydown( e ); } );
 
 		// mousemove generates a ton of events, which is why we throttle it
