@@ -37,6 +37,8 @@ $messages['en'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Uploaded on $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Uploaded}} by $1',
 	'multimediaviewer-credit' => '$1 - $2',
+	'multimediaviewer-metadata-error' => 'Error: Could not load image data. $1',
+	'multimediaviewer-thumbnail-error' => 'Error: Could not load thumbnail data. $1',
 
 	// Licenses
 	'multimediaviewer-license-cc-by-1.0' => 'CC BY 1.0',
@@ -150,6 +152,8 @@ Parameters:
 Neither parameters are usernames, so GENDER is useless. Both come directly from the API, the extended metadata imageinfo prop in particular.
 
 They will usually be derived from the HTML output from wikitext on a file description page - however, no complicated HTML, only links, will be allowed.',
+	'multimediaviewer-metadata-error' => 'Text shown when the information on the metadata panel could not be loaded. $1 is the error message (not localized).',
+	'multimediaviewer-thumbnail-error' => 'Text shown when the image could not be loaded. $1 is the error message (not localized).',
 	'multimediaviewer-license-cc-by-1.0' => 'Very short label for the Creative Commons Attribution license, version 1.0, used in a link to the file information page that has more licensing information.
 {{Identical|CC BY}}',
 	'multimediaviewer-license-cc-sa-1.0' => 'Very short label for the Creative Commons ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.',

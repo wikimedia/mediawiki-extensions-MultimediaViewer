@@ -6,8 +6,28 @@
 	height: 100%;
 	vertical-align: middle;
 	.unselectable;
+
 	&.empty {
 		display: none;
+	}
+	&.error {
+		/* @embed */
+		background-image: url(img/error.svg);
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+	}
+	.mlb-error-text {
+		position: absolute;
+		left: 10%;
+		right: 10%;
+		top: 20%;
+
+		padding: 6px 20px;
+		.box-round(15px);
+		background-color: #ff4f4d;
+		text-align: center;
+		font-size: normal;
+		color: #000;
 	}
 }
 

@@ -231,6 +231,10 @@ call_user_func( function() {
 			'mmv.ui.canvas.less',
 		),
 
+		'messages' => array(
+			'multimediaviewer-thumbnail-error',
+		),
+
 		'dependencies' => array(
 			'mmv.ui',
 			'mmv.ThumbnailWidthCalculator',
@@ -360,6 +364,8 @@ call_user_func( function() {
 
 			'multimediaviewer-about-mmv',
 			'multimediaviewer-discuss-mmv',
+
+			'multimediaviewer-metadata-error',
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 

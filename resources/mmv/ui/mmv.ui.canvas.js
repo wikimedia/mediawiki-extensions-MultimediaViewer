@@ -82,7 +82,7 @@
 	 * Clears everything.
 	 */
 	C.empty = function() {
-		this.$imageDiv.addClass( 'empty' );
+		this.$imageDiv.addClass( 'empty' ).removeClass( 'error' );
 
 		this.$imageDiv.empty();
 	};
@@ -263,6 +263,20 @@
 					.removeClass( 'blurred' );
 			}
 		} );
+	};
+
+	/**
+	 * Displays a message and error icon when loading the image fails.
+	 * @param {string} error error message
+	 */
+	C.showError = function ( error ) {
+		this.$imageDiv.empty()
+			.addClass( 'error' )
+			.append(
+				$( '<div>' ).addClass( 'mlb-error-text' ).text(
+					mw.message( 'multimediaviewer-thumbnail-error', error ).text()
+				)
+			);
 	};
 
 	/**

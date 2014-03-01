@@ -79,7 +79,7 @@
 		this.fileUsage.empty();
 		this.permission.empty();
 
-		this.$title.empty();
+		this.$title.empty().removeClass( 'error' );
 		this.$credit.empty().addClass( 'empty' );
 
 		this.$username.empty();
@@ -678,6 +678,15 @@
 
 		// File reuse steals a bunch of information from the DOM, so do it last
 		this.setFileReuseData( imageData, repoData.displayName, image.caption );
+	};
+
+	/**
+	 * Show an error message, in case the data could not be loaded
+	 * @param {string} error
+	 */
+	MPP.showError = function ( error ) {
+		this.$title.addClass( 'error' )
+			.text( mw.message( 'multimediaviewer-metadata-error', error ).text() );
 	};
 
 	/**

@@ -157,6 +157,8 @@
 				fileTitle, imageWidths.real
 			).then( function( thumbnail, image ) {
 				viewer.setImage( ui, thumbnail, image, imageWidths );
+			}, function ( error ) {
+				viewer.ui.canvas.showError( error );
 			} );
 		}
 
@@ -261,6 +263,8 @@
 			}
 
 			viewer.displayRealThumbnail( thumbnail, imageElement, imageWidths, $.now() - start );
+		} ).fail( function ( error ) {
+			viewer.ui.canvas.showError( error );
 		} );
 
 		this.imageInfoProvider.get( image.filePageTitle ).done( function ( imageInfo ) {
@@ -278,8 +282,13 @@
 				return;
 			}
 
-			viewer.ui.panel.setImageInfo(image, imageInfo, repoInfo,
-				localUsage, globalUsage, userInfo );
+			viewer.ui.panel.setImageInfo( image, imageInfo, repoInfo, localUsage, globalUsage, userInfo );
+		} ).fail( function ( error ) {
+			if ( viewer.currentIndex !== image.index ) {
+				return;
+			}
+
+			viewer.ui.panel.showError( error );
 		} );
 
 		$.when( imagePromise, metadataPromise ).then( function() {
