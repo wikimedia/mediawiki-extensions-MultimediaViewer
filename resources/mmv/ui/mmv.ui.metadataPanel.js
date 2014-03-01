@@ -246,7 +246,7 @@
 				var $link = $( this ),
 					redirect;
 
-				if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey ) {
+				if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey || e.button === 1 ) {
 					// They are likely opening the link in a new window or tab
 					mw.mmv.logger.log( 'site-link-click' );
 					return;
