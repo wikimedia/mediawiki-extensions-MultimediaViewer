@@ -158,7 +158,8 @@ They will usually be derived from the HTML output from wikitext on a file descri
 	'multimediaviewer-license-default' => 'Short label for a link to generic license information.',
 	'multimediaviewer-permission-title' => 'Title of the box containing additional license terms',
 	'multimediaviewer-permission-link' => 'Text of the link (on top of the metadata box) which shows additional license terms',
-	'multimediaviewer-permission-viewmore' => 'Text of the link (at the cutoff of the license term preview) which shows additional license terms',
+	'multimediaviewer-permission-viewmore' => 'Text of the link (at the cutoff of the license term preview) which shows additional license terms.
+{{Identical|View more}}',
 	'multimediaviewer-use-file' => 'Link that opens a dialog with options for sharing the file, e.g. onwiki or on another site. Similar to the Commons gadget stockPhoto.',
 	'multimediaviewer-use-file-owt' => 'Label for input box which has wikitext used to show an image with the thumb option and a helpful caption.
 
@@ -281,6 +282,7 @@ $messages['ast'] = array(
 	'multimediaviewer-license-default' => 'Ver la llicencia',
 	'multimediaviewer-permission-title' => 'Detalles de la llicencia',
 	'multimediaviewer-permission-link' => 'ver los términos',
+	'multimediaviewer-permission-viewmore' => 'Ver más',
 	'multimediaviewer-use-file' => 'Usar esti ficheru',
 	'multimediaviewer-use-file-owt' => 'Usar esti ficheru nuna páxina wiki, como miniatura',
 	'multimediaviewer-use-file-own' => 'Usar esti ficheru nuna páxina wiki, en llinia',
@@ -301,6 +303,15 @@ $messages['ast'] = array(
 $messages['bcl'] = array(
 	'multimediaviewer-permission-title' => 'Mga detalye kan Lisensiya',
 	'multimediaviewer-permission-link' => 'Hilngon an mga termino',
+);
+
+/** Bulgarian (български)
+ * @author Mitzev
+ */
+$messages['bg'] = array(
+	'multimediaviewer-permission-title' => 'Лицензна информация',
+	'multimediaviewer-permission-link' => 'Вижте условията',
+	'multimediaviewer-permission-viewmore' => 'Виж още',
 );
 
 /** Bengali (বাংলা)
@@ -335,25 +346,38 @@ $messages['br'] = array(
 
 /** Catalan (català)
  * @author Fitoschido
+ * @author QuimGil
  * @author Vriullop
  */
 $messages['ca'] = array(
-	'multimediaviewer-desc' => 'Expansió de miniatures a una mida més gran en un Lightbox',
+	'multimediaviewer-desc' => 'Amplia les miniatures en una interfície a pantalla complerta.',
+	'multimediaviewer-desc-nil' => 'Sense descripció disponible.',
 	'multimediaviewer-pref' => 'Visor multimèdia',
-	'multimediaviewer-pref-desc' => 'Milloreu la vostra experiència de visualització multimèdia amb aquesta nova eina. Mostra imatges a mida més gran en les pàgines que tenen miniatures. Les imatges es mostren en una caixa Lightbox superposada més agradable i també es poden veure a mida completa.',
+	'multimediaviewer-pref-desc' => 'Milloreu la vostra experiència de visualització multimèdia amb aquesta nova eina. Mostra imatges a mida més gran en les pàgines que tenen miniatures. Les imatges es mostren en una pantalla completa més agradable, i també es poden veure a mida completa.',
 	'multimediaviewer-file-page' => 'Vés a la pàgina corresponent del fitxer',
 	'multimediaviewer-repository' => 'Més informació a $1',
+	'multimediaviewer-repository-local' => 'Més informació',
 	'multimediaviewer-datetime-created' => 'Creat el $1',
 	'multimediaviewer-datetime-uploaded' => 'Carregat el $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Carregat}} per $1',
 	'multimediaviewer-license-cc-pd' => 'Domini públic',
+	'multimediaviewer-license-pd' => 'Domini públic',
 	'multimediaviewer-license-default' => 'Mostra la llicència',
+	'multimediaviewer-permission-title' => 'Detalls de la llicència',
+	'multimediaviewer-permission-link' => 'Vegeu les condicions',
+	'multimediaviewer-permission-viewmore' => "Mostra'n més",
 	'multimediaviewer-use-file' => 'Utilitza aquest fitxer',
 	'multimediaviewer-use-file-owt' => 'Utilitza aquest fitxer en una pàgina wiki, com una miniatura',
 	'multimediaviewer-use-file-own' => 'Utilitza aquest fitxer en una pàgina wiki, directament',
 	'multimediaviewer-use-file-offwiki' => 'Utilitza aquest fitxer en un altre lloc web',
 	'multimediaviewer-about-mmv' => 'Quant al visor multimèdia',
 	'multimediaviewer-discuss-mmv' => 'Comentaris',
+	'multimediaviewer-geolocation' => 'Emplaçament: $1',
+	'multimediaviewer-fileusage-count' => 'Utilitzat en $1 {{PLURAL:$1|pàgina|pàgines}}',
+	'multimediaviewer-fileusage-count-more' => 'Utilitzat en més de $1 {{PLURAL:$1|pàgines}}',
+	'multimediaviewer-fileusage-link' => 'Mostra tots els usos',
+	'multimediaviewer-fileusage-local-section' => 'En aquest web',
+	'multimediaviewer-fileusage-global-section' => 'En altres llocs',
 );
 
 /** Chechen (нохчийн)
@@ -460,6 +484,7 @@ $messages['de'] = array(
 	'multimediaviewer-license-default' => 'Lizenz ansehen',
 	'multimediaviewer-permission-title' => 'Lizenzeinzelheiten',
 	'multimediaviewer-permission-link' => 'Bedingungen ansehen',
+	'multimediaviewer-permission-viewmore' => 'Mehr',
 	'multimediaviewer-use-file' => 'Diese Datei weiterverwenden',
 	'multimediaviewer-use-file-owt' => 'Diese Datei als Vorschaubild auf einer Wikiseite verwenden',
 	'multimediaviewer-use-file-own' => 'Diese Datei auf einer Wikiseite verwenden, Inline',
@@ -544,6 +569,13 @@ $messages['en-gb'] = array(
 	'multimediaviewer-permission-title' => 'Licence details',
 );
 
+/** Esperanto (Esperanto)
+ * @author KuboF
+ */
+$messages['eo'] = array(
+	'multimediaviewer-permission-viewmore' => 'Montri pli',
+);
+
 /** Spanish (español)
  * @author Benfutbol10
  * @author Carlitosag
@@ -587,6 +619,7 @@ $messages['et'] = array(
 	'multimediaviewer-license-cc-pd' => 'Avalik omand',
 	'multimediaviewer-license-pd' => 'Avalik omand',
 	'multimediaviewer-license-default' => 'Vaata litsentsi',
+	'multimediaviewer-permission-viewmore' => 'Vaata rohkem',
 	'multimediaviewer-use-file' => 'Kasuta seda faili',
 	'multimediaviewer-use-file-owt' => 'Kasuta seda faili vikileheküljel pisipildina',
 	'multimediaviewer-use-file-own' => 'Viita sellele failile vikilehekülje tekstis',
@@ -630,6 +663,7 @@ $messages['fa'] = array(
 	'multimediaviewer-license-default' => 'مشاهده مجوز',
 	'multimediaviewer-permission-title' => 'جزئیات مجوز',
 	'multimediaviewer-permission-link' => 'مشاهدهٔ شرایط',
+	'multimediaviewer-permission-viewmore' => 'مشاهدهٔ بیشتر',
 	'multimediaviewer-use-file' => 'استفاده از این پرونده',
 	'multimediaviewer-use-file-owt' => 'استفاده از این پرونده به صورت بندانگشتی در صفحه ویکی',
 	'multimediaviewer-use-file-own' => 'استفاده از این پرونده به صورت درون متن، در صفحه ویکی',
@@ -701,6 +735,7 @@ $messages['fr'] = array(
 	'multimediaviewer-license-default' => 'Afficher la licence',
 	'multimediaviewer-permission-title' => 'Détails de la licence',
 	'multimediaviewer-permission-link' => 'afficher les conditions',
+	'multimediaviewer-permission-viewmore' => 'Voir plus',
 	'multimediaviewer-use-file' => 'Utiliser ce fichier',
 	'multimediaviewer-use-file-owt' => 'Utiliser ce fichier comme vignette sur une page de wiki',
 	'multimediaviewer-use-file-own' => 'Utiliser ce fichier dans une ligne sur une page de wiki',
@@ -781,11 +816,12 @@ $messages['he'] = array(
 );
 
 /** Hindi (हिन्दी)
+ * @author Siddhartha Ghai
  * @author Vivek Rai
  */
 $messages['hi'] = array(
-	'multimediaviewer-permission-title' => 'लायसेंस विवरण',
-	'multimediaviewer-permission-link' => 'शर्ते देखें',
+	'multimediaviewer-permission-title' => 'लाइसेंस विवरण',
+	'multimediaviewer-permission-link' => 'शर्तें देखें',
 );
 
 /** Croatian (hrvatski)
@@ -910,6 +946,7 @@ $messages['ilo'] = array(
 /** Italian (italiano)
  * @author Beta16
  * @author CristianCantoro
+ * @author Maria victoria
  * @author OrbiliusMagister
  * @author Rosh
  */
@@ -927,8 +964,9 @@ $messages['it'] = array(
 	'multimediaviewer-license-cc-pd' => 'Pubblico dominio',
 	'multimediaviewer-license-pd' => 'Pubblico dominio',
 	'multimediaviewer-license-default' => 'Vedi la licenza',
-	'multimediaviewer-permission-title' => 'Dettagli licenza',
+	'multimediaviewer-permission-title' => 'Dettagli della licenza',
 	'multimediaviewer-permission-link' => 'vedi termini',
+	'multimediaviewer-permission-viewmore' => 'Mostra altro',
 	'multimediaviewer-use-file' => 'Usa questo file',
 	'multimediaviewer-use-file-owt' => 'Usa questo file in una pagina wiki, come miniatura',
 	'multimediaviewer-use-file-own' => 'Usa questo file in una pagina wiki, in linea',
@@ -1076,6 +1114,8 @@ $messages['lb'] = array(
 	'multimediaviewer-license-cc-by-sa-4.0' => 'CC BY-SA 4.0',
 	'multimediaviewer-license-pd' => 'Ëffentlechen Domaine',
 	'multimediaviewer-license-default' => 'Lizenz weisen',
+	'multimediaviewer-permission-title' => 'Detailer vun der Lizenz',
+	'multimediaviewer-permission-viewmore' => 'Méi weisen',
 	'multimediaviewer-use-file' => 'Benotzt dëse Fichier',
 	'multimediaviewer-use-file-owt' => 'Dëse Fichier op enger Wikisäit als Miniaturbild benotzen',
 	'multimediaviewer-use-file-own' => 'Benotzt dëse Fichier op enger Wiki-Säit, inline',
@@ -1111,6 +1151,13 @@ $messages['lv'] = array(
 	'multimediaviewer-desc-nil' => 'Apraksts nav pieejams.',
 );
 
+/** Malagasy (Malagasy)
+ * @author Jagwar
+ */
+$messages['mg'] = array(
+	'multimediaviewer-permission-viewmore' => 'Hijery be kokoa',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */
@@ -1133,6 +1180,7 @@ $messages['mk'] = array(
 	'multimediaviewer-license-default' => 'Погл. лиценцата',
 	'multimediaviewer-permission-title' => 'Лиценцни податоци',
 	'multimediaviewer-permission-link' => 'погл. услови',
+	'multimediaviewer-permission-viewmore' => 'Погл. уште',
 	'multimediaviewer-use-file' => 'Употребете ја податотекава',
 	'multimediaviewer-use-file-owt' => 'Употребете ја податотекава на викистраница, како минијатура',
 	'multimediaviewer-use-file-own' => 'Употребете ја податотекава на викистраница, во ред',
@@ -1268,6 +1316,7 @@ $messages['oc'] = array(
 
 /** Polish (polski)
  * @author Chrumps
+ * @author Jacenty359
  * @author Nux
  * @author Tar Lócesilion
  * @author WTM
@@ -1283,6 +1332,9 @@ $messages['pl'] = array(
 	'multimediaviewer-userpage-link' => 'Przesłany przez {{GENDER:$2|użytkownika|użytkowniczkę}} $1',
 	'multimediaviewer-license-cc-pd' => 'Domena publiczna',
 	'multimediaviewer-license-default' => 'Zobacz licencję',
+	'multimediaviewer-permission-title' => 'Szczegóły licencji',
+	'multimediaviewer-permission-link' => 'zobacz zasady',
+	'multimediaviewer-permission-viewmore' => 'Zobacz więcej',
 	'multimediaviewer-use-file' => 'Użyj tego pliku',
 	'multimediaviewer-use-file-owt' => 'Użyj tego pliku na stronie wiki, jako miniatura',
 	'multimediaviewer-use-file-own' => 'Użyj tego pliku na stronie wiki, wewnątrz tekstu',
@@ -1399,6 +1451,7 @@ $messages['ru'] = array(
 	'multimediaviewer-license-default' => 'Посмотр лицензии',
 	'multimediaviewer-permission-title' => 'Сведения о лицензии',
 	'multimediaviewer-permission-link' => 'просмотр условий',
+	'multimediaviewer-permission-viewmore' => 'Посмотреть подробнее',
 	'multimediaviewer-use-file' => 'Использовать этот файл',
 	'multimediaviewer-use-file-owt' => 'Использовать этот файл на вики-странице, с уменьшенной копией',
 	'multimediaviewer-use-file-own' => 'Использовать этот файл на вики-странице, в полный размер',
@@ -1420,6 +1473,7 @@ $messages['sco'] = array(
 	'multimediaviewer-license-pd' => 'Public Domain',
 	'multimediaviewer-permission-title' => 'License details',
 	'multimediaviewer-permission-link' => 'view terms',
+	'multimediaviewer-permission-viewmore' => 'View mair',
 	'multimediaviewer-fileusage-count' => 'Uised in $1 {{PLURAL:$1|page|pages}}',
 	'multimediaviewer-fileusage-count-more' => 'Uised in mair than $1 {{PLURAL:$1|pages}}',
 	'multimediaviewer-fileusage-link' => 'View aw uisses',
@@ -1432,6 +1486,15 @@ $messages['sco'] = array(
  */
 $messages['sdc'] = array(
 	'multimediaviewer-repository-local' => 'Imparà più',
+);
+
+/** Sinhala (සිංහල)
+ * @author Sahan.ssw
+ */
+$messages['si'] = array(
+	'multimediaviewer-permission-title' => 'බලපත්‍ර විස්තර',
+	'multimediaviewer-permission-link' => 'කොන්දේසි පෙන්වන්න',
+	'multimediaviewer-permission-viewmore' => 'තවත් බලන්න',
 );
 
 /** Slovenian (slovenščina)
@@ -1510,10 +1573,12 @@ $messages['sv'] = array(
 );
 
 /** Telugu (తెలుగు)
+ * @author Chaduvari
  * @author Ravichandra
  */
 $messages['te'] = array(
-	'multimediaviewer-license-pd' => 'పబ్లిక్ డొమైను',
+	'multimediaviewer-license-pd' => 'పబ్లిక్ డోమెయిను',
+	'multimediaviewer-permission-viewmore' => 'మరింత చూడండి',
 	'multimediaviewer-fileusage-link' => 'అన్ని వాడుకలు చూడు',
 	'multimediaviewer-fileusage-local-section' => 'ఈ సైటుపై',
 	'multimediaviewer-fileusage-global-section' => 'ఇతర సైట్లలో',
@@ -1557,6 +1622,9 @@ $messages['uk'] = array(
 	'multimediaviewer-license-cc-pd' => 'Суспільне надбання',
 	'multimediaviewer-license-pd' => 'Суспільне надбання (Public Domain)',
 	'multimediaviewer-license-default' => 'Перегляд ліцензії',
+	'multimediaviewer-permission-title' => 'Відомості про ліцензію',
+	'multimediaviewer-permission-link' => 'перегляд умов',
+	'multimediaviewer-permission-viewmore' => 'Показати докладно',
 	'multimediaviewer-use-file' => 'Використовувати цей файл',
 	'multimediaviewer-use-file-owt' => 'Використовувати цей файл на вікі-сторінці у вигляді мініатюри',
 	'multimediaviewer-use-file-own' => 'Використовувати цей файл на вікі-сторінці у тексті',
@@ -1618,10 +1686,18 @@ $messages['vo'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Pelöpükon tü $1',
 );
 
+/** Yiddish (ייִדיש)
+ * @author פוילישער
+ */
+$messages['yi'] = array(
+	'multimediaviewer-permission-link' => 'באקוקן טערמינען',
+);
+
 /** Simplified Chinese (中文（简体）‎)
  * @author Liuxinyu970226
  * @author Qiyue2001
  * @author Shizhao
+ * @author Stieizc
  * @author Xiaomingyan
  * @author Yfdyh000
  */
@@ -1638,6 +1714,7 @@ $messages['zh-hans'] = array(
 	'multimediaviewer-license-cc-pd' => '公共领域',
 	'multimediaviewer-license-pd' => '公有领域',
 	'multimediaviewer-license-default' => '查看许可协议',
+	'multimediaviewer-permission-viewmore' => '查看更多',
 	'multimediaviewer-use-file' => '使用此文件',
 	'multimediaviewer-use-file-owt' => '在wiki页面上插入本文件的缩略图',
 	'multimediaviewer-use-file-own' => '在wiki页面上直接插入本文件',
