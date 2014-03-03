@@ -390,8 +390,6 @@
 			return;
 		}
 
-		e.preventDefault();
-
 		switch ( e.which ) {
 			case 37:
 				// Left arrow
@@ -400,6 +398,7 @@
 				} else {
 					this.viewer.prevImage();
 				}
+				e.preventDefault();
 				break;
 			case 39:
 				// Right arrow
@@ -408,6 +407,7 @@
 				} else {
 					this.viewer.nextImage();
 				}
+				e.preventDefault();
 				break;
 		}
 	};

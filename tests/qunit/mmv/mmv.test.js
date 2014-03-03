@@ -369,4 +369,72 @@
 
 		cleanNewViewer();
 	} );
+
+	QUnit.test( 'Events are not trapped after the viewer is closed', 0, function( assert ) {
+		var i, j, k, eventParameters,
+			viewer = new mw.mmv.MultimediaViewer(),
+			$document = $( document ),
+			$qf = $( '#qunit-fixture' ),
+			eventTypes = [ 'keydown', 'keyup', 'keypress', 'click', 'mousedown', 'mouseup' ],
+			modifiers = [ undefined, 'altKey', 'ctrlKey', 'shiftKey', 'metaKey' ];
+
+		viewer.imageProvider.get = function() { return $.Deferred().reject(); };
+		viewer.imageInfoProvider.get = function() { return $.Deferred().reject(); };
+		viewer.thumbnailInfoProvider.get = function() { return $.Deferred().reject(); };
+		viewer.imageUsageProvider.get = function() { return $.Deferred().reject(); };
+		viewer.fileRepoInfoProvider.get = function() { return $.Deferred().reject(); };
+
+		viewer.preloadFullscreenThumbnail = $.noop;
+		viewer.initWithThumbs( [] );
+
+		viewer.loadImage( { filePageTitle : new mw.Title( 'File:Stuff.jpg' ),
+			thumbnail : new mw.mmv.model.Thumbnail( 'foo', 10, 10 ) },
+			new Image() );
+
+		viewer.lightbox.iface.$closeButton.click();
+
+		function eventHandler ( e ) {
+			if ( e.isDefaultPrevented() ) {
+				assert.ok( false, 'Event was incorrectly trapped : ' + e.which );
+			}
+
+			e.preventDefault();
+
+			// Wait for the last event
+			if ( e.which === 32 && e.type === 'mouseup' ) {
+				$document.off( '.mmvtest' );
+				QUnit.start();
+			}
+		}
+
+		// Events are async, we need to wait for the last event to be caught before ending the test
+		QUnit.stop();
+
+		for ( j = 0; j < eventTypes.length; j++ ) {
+			$document.on( eventTypes[ j ] + '.mmvtest', eventHandler );
+
+		eventloop:
+			for ( i = 0; i < 256; i++ ) {
+				// Save some time by not testing unlikely values for mouse events
+				if ( i > 32 ) {
+					switch ( eventTypes[ j ] ) {
+						case 'click':
+						case 'mousedown':
+						case 'mouseup':
+							break eventloop;
+					}
+				}
+
+				for ( k = 0; k < modifiers.length; k++ ) {
+					eventParameters = { which : i };
+					if ( modifiers[ k ] !== undefined ) {
+						eventParameters[ modifiers[ k ] ] = true;
+					}
+					$qf.trigger( $.Event( eventTypes[ j ], eventParameters ) );
+				}
+
+
+			}
+		}
+	} );
 }( mediaWiki, jQuery ) );
