@@ -37,8 +37,8 @@
 	FileRepoInfo.prototype.get = function() {
 		var provider = this;
 
-		if ( !this.cache['*'] ) {
-			this.cache['*'] = this.api.get( {
+		return this.getCachedPromise( '*', function () {
+			return provider.api.get( {
 				action: 'query',
 				meta: 'filerepoinfo',
 				format: 'json'
@@ -51,9 +51,7 @@
 				} );
 				return reposHash;
 			} );
-		}
-
-		return this.cache['*'];
+		} );
 	};
 
 	mw.mmv.provider.FileRepoInfo = FileRepoInfo;

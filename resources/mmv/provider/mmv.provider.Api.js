@@ -47,6 +47,33 @@
 	}
 
 	/**
+	 * Wraps a caching layer around a function returning a promise; if getCachedPromise has been
+	 * called with the same key already, it will return the previous result.
+	 *
+	 * Since it is the promise and not the API response that gets cached, this method can ensure
+	 * that there are no race conditions and multiple calls to the same resource: even if the
+	 * request is still in progress, separate calls (with the same key) to getCachedPromise will
+	 * share on the same promise object.
+	 * The promise is cached even if it is rejected, so if the API request fails, all later calls
+	 * to getCachedPromise will fail immediately without retrying the request.
+	 *
+	 * @param {string} key cache key
+	 * @param {function(): jQuery.Promise} getPromise a function to get the promise on cache miss
+	 */
+	Api.prototype.getCachedPromise = function( key, getPromise ) {
+		var provider = this;
+
+		if ( !this.cache[key] ) {
+			this.cache[key] = getPromise();
+			this.cache[key].fail( function ( error ) {
+				// constructor.name is usually not reliable in inherited classes, but OOjs fixes that
+				mw.log( provider.constructor.name + ' provider failed to load: ', error );
+			} );
+		}
+		return this.cache[key];
+	};
+
+	/**
 	 * Pulls an error message out of an API response.
 	 * @param {Object} data
 	 * @param {Object} data.error

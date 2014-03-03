@@ -53,8 +53,8 @@
 			cacheKey = cacheKey + '|' + repoInfo.apiUrl; // local and remote user names could conflict
 		}
 
-		if ( !this.cache[cacheKey] ) {
-			this.cache[cacheKey] = this.api.get( {
+		return this.getCachedPromise( cacheKey, function () {
+			return provider.api.get( {
 				action: 'query',
 				list: 'users',
 				ususers: username,
@@ -69,9 +69,7 @@
 					return new mw.mmv.model.User( username, mw.mmv.model.User.Gender.UNKNOWN );
 				}
 			} );
-		}
-
-		return this.cache[cacheKey];
+		} );
 	};
 
 	mw.mmv.provider.UserInfo = UserInfo;

@@ -53,7 +53,6 @@
 	 */
 	GlobalUsage.prototype.get = function( file ) {
 		var provider = this,
-			cacheKey = file.getPrefixedDb(),
 			fileUsage;
 
 		if ( this.options.doNotUseApi ) {
@@ -63,14 +62,14 @@
 			return $.Deferred().resolve( fileUsage );
 		}
 
-		if ( !this.cache[cacheKey] ) {
-			this.cache[cacheKey] = this.api.get( {
+		return this.getCachedPromise( file.getPrefixedDb(), function () {
+			return provider.api.get( {
 				action: 'query',
 				prop: 'globalusage',
 				titles: file.getPrefixedDb(),
 				guprop: ['url', 'namespace'],
 				gufilterlocal: 1,
-				gulimit: this.options.apiLimit,
+				gulimit: provider.options.apiLimit,
 				format: 'json'
 			} ).then( function( data ) {
 				return provider.getQueryPage( file, data );
@@ -90,9 +89,7 @@
 					!!( data['query-continue'] && data['query-continue'].globalusage )
 				);
 			} );
-		}
-
-		return this.cache[cacheKey];
+		} );
 	};
 
 	mw.mmv.provider.GlobalUsage = GlobalUsage;
