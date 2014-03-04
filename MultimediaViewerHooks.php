@@ -40,7 +40,7 @@ class MultimediaViewerHooks {
 			return true;
 		}
 
-		$out->addModules( array( 'mmv.bootstrap' ) );
+		$out->addModules( array( 'mmv.bootstrap.autostart' ) );
 
 		return true;
 	}

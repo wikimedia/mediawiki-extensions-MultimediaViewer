@@ -15,8 +15,14 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// This will just set up the MultimediaViewer namespace.
-// Included on every page which has images so keep it lightweight.
-( function ( mw ) {
-	mw.mmv = {};
-}( mediaWiki ) );
+// This file is used to do the global initialization that we want on the real pages,
+// but do not want in the tests.
+( function ( mw, $ ) {
+	var bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+
+	$( document ).ready( function () {
+		bootstrap.setupEventHandlers();
+	} );
+
+	mw.mmv.bootstrap = bootstrap;
+}( mediaWiki, jQuery ) );

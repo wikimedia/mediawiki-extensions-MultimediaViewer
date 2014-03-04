@@ -16,7 +16,7 @@
  */
 
 ( function ( mw, $ ) {
-	var bootstrap, MMVB;
+	var MMVB;
 
 	/**
 	 * Bootstrap code listening to thumb clicks checking the initial location.hash
@@ -24,8 +24,6 @@
 	 * @class mw.mmv.MultimediaViewerBootstrap
 	 */
 	function MultimediaViewerBootstrap () {
-		var self = this;
-
 		this.validExtensions = {
 			'jpg' : true,
 			'jpeg' : true,
@@ -43,14 +41,6 @@
 		// Exposed for tests
 		this.readinessCSSClass = 'mw-mmv-has-been-loaded';
 		this.readinessWaitDuration = 100;
-
-		$( window ).hashchange( function () {
-			self.hash();
-		} ).hashchange();
-
-		$( document ).on( 'mmv.hash', function ( e ) {
-			self.internalHashChange( e );
-		} );
 	}
 
 	MMVB = MultimediaViewerBootstrap.prototype;
@@ -94,7 +84,7 @@
 		if ( $dummy.css( 'display' ) === 'inline' ) {
 			// Let's be clean and remove the test item before resolving the deferred
 			$dummy.remove();
-			deferred.resolve( mw.mmv.mediaViewer );
+			deferred.resolve( bs.getViewer() );
 		} else {
 			$dummy.remove();
 			setTimeout( function () { bs.isCSSReady( deferred ); }, this.readinessWaitDuration );
@@ -219,7 +209,41 @@
 		window.location.hash = e.hash;
 	};
 
-	mw.mmv.MultimediaViewerBootstrap = MultimediaViewerBootstrap;
+	/**
+	 * Instantiates a new viewer if necessary
+	 * @returns {mw.mmv.MultimediaViewer}
+	 */
+	MMVB.getViewer = function () {
+		if ( this.viewer === undefined ) {
+			this.viewer = new mw.mmv.MultimediaViewer();
+			this.viewer.setupEventHandlers();
+		}
 
-	bootstrap = new MultimediaViewerBootstrap();
+		return this.viewer;
+	};
+
+	/**
+	 * Listens to events on the window/document
+	 */
+	MMVB.setupEventHandlers = function () {
+		var self = this;
+
+		$( window ).hashchange( function () {
+			self.hash();
+		} ).hashchange();
+
+		$( document ).on( 'mmv.hash', function ( e ) {
+			self.internalHashChange( e );
+		} );
+	};
+
+	/**
+	 * Cleans up event handlers, used for tests
+	 */
+	MMVB.cleanupEventHandlers = function () {
+		$( window ).off( 'hashchange' );
+		$( document ).off( 'mmv.hash' );
+	};
+
+	mw.mmv.MultimediaViewerBootstrap = MultimediaViewerBootstrap;
 }( mediaWiki, jQuery ) );

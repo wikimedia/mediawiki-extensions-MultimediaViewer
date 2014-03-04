@@ -1,23 +1,10 @@
 ( function ( mw, $ ) {
-	var oldSetupEventHandlers;
-
 	QUnit.module( 'mmv', QUnit.newMwEnvironment() );
-
-	// Because we don't want that throwaway instance to listen to events, could interfere with other tests
-	function newViewer() {
-		oldSetupEventHandlers = mw.mmv.MultimediaViewer.prototype.setupEventHandlers;
-		mw.mmv.MultimediaViewer.prototype.setupEventHandlers = $.noop;
-		return new mw.mmv.MultimediaViewer();
-	}
-
-	function cleanNewViewer() {
-		mw.mmv.MultimediaViewer.prototype.setupEventHandlers = oldSetupEventHandlers;
-	}
 
 	QUnit.test( 'Metadata div is only animated once', 4, function ( assert ) {
 		localStorage.removeItem( 'mmv.hasOpenedMetadata' );
 
-		var viewer = newViewer(),
+		var viewer = new mw.mmv.MultimediaViewer(),
 			backupAnimation = $.fn.animate,
 			animationRan = false;
 
@@ -36,24 +23,12 @@
 		assert.strictEqual( animationRan, false, 'The second call to animateMetadataDivOnce did not lead to an animation' );
 
 		$.fn.animate = backupAnimation;
-
-		cleanNewViewer();
 	} );
 
 	QUnit.test( 'eachPrealoadableLightboxIndex()', 11, function ( assert ) {
-		var viewer = mw.mmv.mediaViewer,
-			oldLightbox,
-			oldPreloadDistance,
-			oldPosition,
-			oldThumbs,
+		var viewer = new mw.mmv.MultimediaViewer(),
 			expectedIndices,
 			i;
-
-		oldLightbox = viewer.lightbox;
-		viewer.lightbox = viewer.lightbox || {}; // might not be set up at this point
-		oldPreloadDistance = viewer.preloadDistance;
-		oldPosition = viewer.lightbox.currentIndex;
-		oldThumbs = viewer.thumbs;
 
 		viewer.preloadDistance = 3;
 		viewer.thumbs = [];
@@ -63,7 +38,7 @@
 			viewer.thumbs.push( { image : false } );
 		}
 
-		viewer.lightbox.currentIndex = 2;
+		viewer.lightbox = { currentIndex : 2 };
 		i = 0;
 		expectedIndices = [2, 3, 1, 4, 0, 5];
 		viewer.eachPrealoadableLightboxIndex( function( index ) {
@@ -76,28 +51,19 @@
 		viewer.eachPrealoadableLightboxIndex( function( index ) {
 			assert.strictEqual( index, expectedIndices[i++], 'preload on right edge');
 		} );
-
-		viewer.lightbox = oldLightbox;
-		viewer.preloadDistance = oldPreloadDistance;
-		viewer.thumbs = oldThumbs;
-
-		if ( viewer.lightbox ) {
-			viewer.lightbox.currentIndex = oldPosition;
-		}
 	} );
 
 	QUnit.test( 'Hash handling', 7, function ( assert ) {
 		var oldUnattach,
-			viewer = mw.mmv.mediaViewer,
+			viewer = new mw.mmv.MultimediaViewer(),
 			multiLightbox = new mw.mmv.MultiLightbox( 0, mw.mmv.LightboxInterface ),
 			lightbox = new mw.mmv.LightboxInterface( viewer ),
-			oldLoadImage = viewer.loadImageByTitle,
-			oldLightbox = viewer.lightbox,
 			imageSrc = 'Foo bar.jpg',
 			image = { filePageTitle: new mw.Title( 'File:' + imageSrc ) };
 
 		window.location.hash = '';
 
+		viewer.setupEventHandlers();
 		oldUnattach = lightbox.unattach;
 
 		lightbox.unattach = function () {
@@ -155,18 +121,14 @@
 		window.location.hash = 'mediaviewer/File:' + encodeURIComponent( imageSrc );
 		viewer.hash();
 
-		viewer.lightbox = oldLightbox;
-		viewer.loadImageByTitle = oldLoadImage;
+		viewer.cleanupEventHandlers();
 
 		window.location.hash = '';
 	} );
 
 	QUnit.test( 'Progress', 3, function ( assert ) {
 		var imageDeferred = $.Deferred(),
-			viewer = newViewer(),
-			oldImageGet = mw.mmv.provider.Image.prototype.get,
-			oldImageInfoGet = mw.mmv.provider.ImageInfo.prototype.get,
-			oldThumbnailInfoGet = mw.mmv.provider.ThumbnailInfo.prototype.get,
+			viewer = new mw.mmv.MultimediaViewer(),
 			i = 0;
 
 		viewer.thumbs = [];
@@ -197,9 +159,9 @@
 		},
 		open : $.noop };
 
-		mw.mmv.provider.Image.prototype.get = function() { return imageDeferred.promise(); };
-		mw.mmv.provider.ImageInfo.prototype.get = function() { return $.Deferred().resolve(); };
-		mw.mmv.provider.ThumbnailInfo.prototype.get = function() { return $.Deferred().resolve( {} ); };
+		viewer.imageProvider.get = function() { return imageDeferred.promise(); };
+		viewer.imageInfoProvider.get = function() { return $.Deferred().resolve(); };
+		viewer.thumbnailInfoProvider.get = function() { return $.Deferred().resolve( {} ); };
 
 		viewer.loadImage( { filePageTitle : new mw.Title( 'File:Stuff.jpg' ) }, new Image() );
 
@@ -207,16 +169,10 @@
 		imageDeferred.resolve();
 
 		viewer.close();
-
-		mw.mmv.provider.Image.prototype.get = oldImageGet;
-		mw.mmv.provider.ImageInfo.prototype.get = oldImageInfoGet;
-		mw.mmv.provider.ThumbnailInfo.prototype.get = oldThumbnailInfoGet;
-
-		cleanNewViewer();
 	} );
 
 	QUnit.test( 'resetBlurredThumbnailStates', 4, function ( assert ) {
-		var viewer = newViewer();
+		var viewer = new mw.mmv.MultimediaViewer();
 
 		assert.ok( !viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
@@ -228,12 +184,10 @@
 
 		assert.ok( !viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
-
-		cleanNewViewer();
 	} );
 
 	QUnit.test( 'Placeholder first, then real thumbnail', 4, function ( assert ) {
-		var viewer = newViewer();
+		var viewer = new mw.mmv.MultimediaViewer();
 
 		viewer.setImage = $.noop;
 		viewer.lightbox = { iface : { canvas : {
@@ -249,12 +203,10 @@
 
 		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
-
-		cleanNewViewer();
 	} );
 
 	QUnit.test( 'Real thumbnail first, then placeholder', 4, function ( assert ) {
-		var viewer = newViewer();
+		var viewer = new mw.mmv.MultimediaViewer();
 
 		viewer.setImage = $.noop;
 		viewer.lightbox = { iface : {
@@ -270,12 +222,10 @@
 
 		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
-
-		cleanNewViewer();
 	} );
 
 	QUnit.test( 'displayRealThumbnail', 1, function ( assert ) {
-		var viewer = newViewer();
+		var viewer = new mw.mmv.MultimediaViewer();
 
 		viewer.setImage = $.noop;
 		viewer.lightbox = { iface : { canvas : {
@@ -292,17 +242,12 @@
 
 		// Should result in an unblur (image didn't come from cache)
 		viewer.displayRealThumbnail( undefined, undefined, undefined, 1000 );
-
-		cleanNewViewer();
 	} );
 
 	QUnit.test( 'New image loaded while another one is loading', 1, function ( assert ) {
 		var imageDeferred,
 			ligthboxInfoDeferred,
-			viewer = newViewer(),
-			oldImageGet = mw.mmv.provider.Image.prototype.get,
-			oldImageInfoGet = mw.mmv.provider.ImageInfo.prototype.get,
-			oldThumbnailInfoGet = mw.mmv.provider.ThumbnailInfo.prototype.get,
+			viewer = new mw.mmv.MultimediaViewer(),
 			firstImageDeferred = $.Deferred(),
 			secondImageDeferred = $.Deferred(),
 			firstLigthboxInfoDeferred = $.Deferred(),
@@ -331,9 +276,9 @@
 			return $.Deferred().reject();
 		};
 
-		mw.mmv.provider.Image.prototype.get = function() { return imageDeferred.promise(); };
-		mw.mmv.provider.ImageInfo.prototype.get = function() { return $.Deferred().reject(); };
-		mw.mmv.provider.ThumbnailInfo.prototype.get = function() { return $.Deferred().resolve( {} ); };
+		viewer.imageProvider.get = function() { return imageDeferred.promise(); };
+		viewer.imageInfoProvider.get = function() { return $.Deferred().reject(); };
+		viewer.thumbnailInfoProvider.get = function() { return $.Deferred().resolve( {} ); };
 
 		imageDeferred = firstImageDeferred;
 		ligthboxInfoDeferred = firstLigthboxInfoDeferred;
@@ -356,18 +301,13 @@
 
 		viewer.displayRealThumbnail = function () {
 			assert.ok( true, 'The second image being done loading should result in the image being shown');
+			QUnit.start();
+			viewer.close();
 		};
 
+		QUnit.stop();
 		secondImageDeferred.resolve();
 		secondLigthboxInfoDeferred.resolve();
-
-		viewer.close();
-
-		mw.mmv.provider.Image.prototype.get = oldImageGet;
-		mw.mmv.provider.ImageInfo.prototype.get = oldImageInfoGet;
-		mw.mmv.provider.ThumbnailInfo.prototype.get = oldThumbnailInfoGet;
-
-		cleanNewViewer();
 	} );
 
 	QUnit.test( 'Events are not trapped after the viewer is closed', 0, function( assert ) {
@@ -377,6 +317,8 @@
 			$qf = $( '#qunit-fixture' ),
 			eventTypes = [ 'keydown', 'keyup', 'keypress', 'click', 'mousedown', 'mouseup' ],
 			modifiers = [ undefined, 'altKey', 'ctrlKey', 'shiftKey', 'metaKey' ];
+
+		viewer.setupEventHandlers();
 
 		viewer.imageProvider.get = function() { return $.Deferred().reject(); };
 		viewer.imageInfoProvider.get = function() { return $.Deferred().reject(); };
@@ -402,8 +344,9 @@
 
 			// Wait for the last event
 			if ( e.which === 32 && e.type === 'mouseup' ) {
-				$document.off( '.mmvtest' );
 				QUnit.start();
+				$document.off( '.mmvtest' );
+				viewer.cleanupEventHandlers();
 			}
 		}
 
@@ -432,8 +375,6 @@
 					}
 					$qf.trigger( $.Event( eventTypes[ j ], eventParameters ) );
 				}
-
-
 			}
 		}
 	} );
