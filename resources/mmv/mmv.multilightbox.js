@@ -27,10 +27,10 @@
 	 * @param {Function} InterfaceClass type of interface to use
 	 * @param {mw.mmv.MultimediaViewer} viewer
 	 */
-	function MultiLightbox( initial, InterfaceClass, viewer ) {
+	function MultiLightbox( initial, InterfaceClass ) {
 		this.currentIndex = initial || 0;
 		this.onInterfaceReady = [];
-		this.iface = new InterfaceClass( viewer );
+		this.iface = new InterfaceClass();
 		this.interfaceReady();
 	}
 

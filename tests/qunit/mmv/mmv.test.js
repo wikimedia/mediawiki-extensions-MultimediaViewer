@@ -57,7 +57,7 @@
 		var oldUnattach,
 			viewer = new mw.mmv.MultimediaViewer(),
 			multiLightbox = new mw.mmv.MultiLightbox( 0, mw.mmv.LightboxInterface ),
-			lightbox = new mw.mmv.LightboxInterface( viewer ),
+			lightbox = new mw.mmv.LightboxInterface(),
 			imageSrc = 'Foo bar.jpg',
 			image = { filePageTitle: new mw.Title( 'File:' + imageSrc ) };
 

@@ -2,8 +2,7 @@
 	QUnit.module( 'mmv.lightboxInterface', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Sanity test, object creation and ui construction', 23, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer(),
-			lightbox = new mw.mmv.LightboxInterface( viewer );
+		var lightbox = new mw.mmv.LightboxInterface();
 
 		function checkIfUIAreasAttachedToDocument( inDocument ) {
 			var msg = inDocument === 1 ? ' ' : ' not ';
@@ -37,8 +36,7 @@
 	} );
 
 	QUnit.test( 'Handler registration and clearance work OK', 2, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer(),
-			lightbox = new mw.mmv.LightboxInterface( viewer ),
+		var lightbox = new mw.mmv.LightboxInterface(),
 			handlerCalls = 0;
 
 		function handleEvent() {
@@ -54,8 +52,7 @@
 	} );
 
 	QUnit.test( 'Fullscreen mode', 8, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer(),
-			lightbox = new mw.mmv.LightboxInterface( viewer ),
+		var lightbox = new mw.mmv.LightboxInterface(),
 			oldFnEnterFullscreen = $.fn.enterFullscreen,
 			oldFnExitFullscreen = $.fn.exitFullscreen,
 			oldSupportFullscreen = $.support.fullscreen;
@@ -119,8 +116,8 @@
 	} );
 
 	QUnit.test( 'Fullscreen mode', 8, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer(),
-			lightbox = new mw.mmv.LightboxInterface( viewer ),
+		var lightbox = new mw.mmv.LightboxInterface(),
+			viewer = new mw.mmv.MultimediaViewer(),
 			oldFnEnterFullscreen = $.fn.enterFullscreen,
 			oldFnExitFullscreen = $.fn.exitFullscreen,
 			oldRevealButtonsAndFadeIfNeeded,
@@ -137,8 +134,8 @@
 
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
-		lightbox.viewer.ui = lightbox;
-		lightbox.viewer.lightbox = lightbox;
+		viewer.ui = lightbox;
+		viewer.lightbox = lightbox;
 
 		assert.ok( !lightbox.isFullscreen, 'Lightbox knows that it\'s not in fullscreen mode' );
 		assert.ok( lightbox.panel.$imageMetadata.is( ':visible' ), 'Image metadata is visible' );
@@ -186,8 +183,7 @@
 	} );
 
 	QUnit.test( 'isAnyActiveButtonHovered', 20, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer(),
-			lightbox = new mw.mmv.LightboxInterface( viewer );
+		var lightbox = new mw.mmv.LightboxInterface();
 
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
@@ -222,8 +218,8 @@
 	} );
 
 	QUnit.test( 'Metadata scrolling', 15, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer(),
-			lightbox = new mw.mmv.LightboxInterface( viewer ),
+		var lightbox = new mw.mmv.LightboxInterface(),
+			viewer = new mw.mmv.MultimediaViewer(),
 			keydown = $.Event( 'keydown' ),
 			$document = $( document ),
 			scrollTopBeforeOpeningLightbox,
@@ -279,11 +275,6 @@
 
 		// Pretend that we have things hooked up
 		viewer.lightbox = { currentIndex: 0 };
-
-		// This lets us avoid pushing a state to the history, which might interfere with other tests
-		lightbox.comingFromHashChange = true;
-		// Start listening to metadata events
-		lightbox.setupForLoad();
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0, 'scrollTo scrollTop should be set to 0' );
 		assert.ok( !lightbox.panel.$dragIcon.hasClass( 'pointing-down' ),
@@ -367,9 +358,9 @@
 
 	QUnit.test( 'Keyboard prev/next', 2, function ( assert ) {
 		var viewer = new mw.mmv.MultimediaViewer(),
-			lightbox = new mw.mmv.LightboxInterface( viewer ),
-			oldNextImage = viewer.nextImage,
-			oldPrevImage = viewer.prevImage;
+			lightbox = new mw.mmv.LightboxInterface();
+
+		viewer.setupEventHandlers();
 
 		// Since we define both, the test works regardless of RTL settings
 		viewer.nextImage = function () {
@@ -401,7 +392,6 @@
 		lightbox.keydown( $.Event( 'keydown', { which : 37, metaKey : true } ) );
 		lightbox.keydown( $.Event( 'keydown', { which : 39, metaKey : true } ) );
 
-		viewer.nextImage = oldNextImage;
-		viewer.prevImage = oldPrevImage;
+		viewer.cleanupEventHandlers();
 	} );
 }( mediaWiki, jQuery ) );

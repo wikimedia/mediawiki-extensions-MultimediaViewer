@@ -59,6 +59,7 @@ call_user_func( function() {
 
 		'dependencies' => array(
 			'mmv.base',
+			'mmv.ui',
 			'mmv.ui.buttons',
 			'mmv.ui.canvas',
 			'mmv.ui.categories',

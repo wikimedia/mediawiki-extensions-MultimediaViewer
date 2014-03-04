@@ -105,7 +105,7 @@
 		var i, thumb;
 
 		// Only if we find legit images, create a MultiLightbox object
-		this.lightbox = new mw.mmv.MultiLightbox( 0, mw.mmv.LightboxInterface, this );
+		this.lightbox = new mw.mmv.MultiLightbox( 0, mw.mmv.LightboxInterface );
 
 		this.thumbs = thumbs;
 
@@ -211,7 +211,6 @@
 
 		this.currentImageFilename = image.filePageTitle.getPrefixedText();
 		this.currentImageFileTitle = image.filePageTitle;
-		this.lightbox.iface.comingFromHashChange = this.comingFromHashChange;
 
 		if ( !this.isOpen ) {
 			this.lightbox.open();
@@ -219,7 +218,7 @@
 		} else {
 			this.lightbox.iface.empty();
 		}
-		this.lightbox.iface.setupForLoad();
+		this.setHash();
 
 		// At this point we can't show the thumbnail because we don't
 		// know what size it should be. We still assign it to allow for
@@ -664,6 +663,13 @@
 			} else {
 				this.close();
 			}
+		}
+	};
+
+	MMVP.setHash = function() {
+		if ( !this.comingFromHashChange ) {
+			var hashFragment = '#mediaviewer/' + this.currentImageFilename;
+			$( document ).trigger( $.Event( 'mmv.hash', { hash : hashFragment } ) );
 		}
 	};
 

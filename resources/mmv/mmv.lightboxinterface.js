@@ -15,18 +15,16 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function ( mw, $, oo ) {
 	var LIP;
 
 	/**
 	 * Represents the main interface of the lightbox
 	 * @class mw.mmv.LightboxInterface
+	 * @extends mw.mmv.ui.Element
 	 * @constructor
 	 */
-	function LightboxInterface( viewer ) {
-		this.viewer = viewer;
-
-		this.eventsRegistered = {};
+	function LightboxInterface() {
 
 		/**
 		 * @property {mw.mmv.ThumbnailWidthCalculator}
@@ -35,8 +33,9 @@
 		this.thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator();
 
 		this.init();
+		mw.mmv.ui.Element.call( this, this.$wrapper );
 	}
-
+	oo.inheritClass( LightboxInterface, mw.mmv.ui.Element );
 	LIP = LightboxInterface.prototype;
 
 	/**
@@ -51,8 +50,7 @@
 	 */
 	LIP.init = function () {
 		var addToPre = [],
-			addToPost = [],
-			lbinterface = this;
+			addToPost = [];
 
 		// SVG filter, needed to achieve blur in Firefox
 		this.$filter = $( '<svg><filter id="gaussian-blur"><fegaussianblur stdDeviation="3"></filter></svg>' );
@@ -93,13 +91,6 @@
 			this.$main
 		);
 
-		window.addEventListener( 'keyup', function ( e ) {
-			if ( e.keyCode === 27 ) {
-				// Escape button pressed
-				lbinterface.unattach();
-			}
-		} );
-
 		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$controlBar );
 		this.buttons = new mw.mmv.ui.Buttons( this.$imageWrapper, this.$closeButton, this.$fullscreenButton );
 		this.canvas = new mw.mmv.ui.Canvas( this.$innerWrapper, this.$imageWrapper, this.$wrapper );
@@ -109,43 +100,9 @@
 	 * Empties the interface.
 	 */
 	LIP.empty = function () {
-		this.clearEvents();
-
 		this.panel.empty();
 
 		this.canvas.empty();
-	};
-
-	/**
-	 * Add event handler in a way that will be auto-cleared on lightbox close
-	 * NOTE: If you're changing this method you should probably do it in the
-	 * mw.mmv.ui.Element version, which is where we'll be handling events
-	 * from now on.
-	 * @param {string} name Name of event, like 'keydown'
-	 * @param {Function} handler Callback for the event
-	 */
-	LIP.handleEvent = function ( name, handler ) {
-		if ( this.eventsRegistered[name] === undefined ) {
-			this.eventsRegistered[name] = [];
-		}
-		this.eventsRegistered[name].push( handler );
-		$( document ).on( name, handler );
-	};
-
-	/**
-	 * Remove all events that have been registered.
-	 */
-	LIP.clearEvents = function () {
-		var i, handlers, thisevent,
-			events = Object.keys( this.eventsRegistered );
-
-		for ( i = 0; i < events.length; i++ ) {
-			thisevent = events[i];
-			handlers = this.eventsRegistered[thisevent];
-			while ( handlers.length > 0 ) {
-				$( document ).off( thisevent, handlers.pop() );
-			}
-		}
 	};
 
 	/**
@@ -154,7 +111,7 @@
 	 *  element, override is mainly used for testing.
 	 */
 	LIP.attach = function ( parentId ) {
-		var lbinterface = this,
+		var ui = this,
 			$parent;
 
 		// Advanced description needs to be below the fold when the lightbox opens
@@ -180,9 +137,26 @@
 			return;
 		}
 
-		$( document ).on( 'jq-fullscreen-change.lip', function( e ) {
-			lbinterface.fullscreenChange( e );
+		this.handleEvent( 'keyup', function ( e ) {
+			if ( e.keyCode === 27 ) {
+				// Escape button pressed
+				ui.unattach();
+			}
 		} );
+
+		this.handleEvent( 'jq-fullscreen-change.lip', function( e ) {
+			ui.fullscreenChange( e );
+		} );
+
+		this.handleEvent( 'keydown', function ( e ) { ui.keydown( e ); } );
+
+		// mousemove generates a ton of events, which is why we throttle it
+		this.handleEvent( 'mousemove.lip', $.throttle( 250, function( e ) {
+			ui.mousemove( e );
+		} ) );
+
+		this.handleEvent( 'mmv-faded-out', function ( e ) { ui.fadedOut( e ); } );
+		this.handleEvent( 'mmv-fade-stopped', function ( e ) { ui.fadeStopped( e ); } );
 
 		$parent = $( parentId || document.body );
 
@@ -239,32 +213,6 @@
 	};
 
 	/**
-	 * FIXME A bunch of stuff ripped out of #load, because load tries to actually load the image
-	 * and causes the small-thumbnail-for-a-moment bug in the process. Needs severe refactoring.
-	 */
-	LIP.setupForLoad = function () {
-		var hashFragment = '#mediaviewer/' + this.viewer.currentImageFilename,
-			ui = this;
-
-		this.viewer.ui = this;
-
-		if ( !this.comingFromHashChange ) {
-			$( document ).trigger( $.Event( 'mmv.hash', { hash : hashFragment } ) );
-		}
-
-		// FIXME makes no sense to do this on every image load
-		this.handleEvent( 'keydown', function ( e ) { ui.keydown( e ); } );
-
-		// mousemove generates a ton of events, which is why we throttle it
-		this.handleEvent( 'mousemove.lip', $.throttle( 250, function( e ) {
-			ui.mousemove( e );
-		} ) );
-
-		this.handleEvent( 'mmv-faded-out', function ( e ) { ui.fadedOut( e ); } );
-		this.handleEvent( 'mmv-fade-stopped', function ( e ) { ui.fadeStopped( e ); } );
-	};
-
-	/**
 	 * Exits fullscreen mode.
 	 */
 	LIP.exitFullscreen = function () {
@@ -284,7 +232,7 @@
 	 * @param {Array.<HTMLElement|jQuery>} toAdd
 	 */
 	LIP.setupPreDiv = function ( toAdd ) {
-		var lbinterface = this;
+		var ui = this;
 
 		this.$controlBar = $( '<div>' )
 			.addClass( 'mlb-controls' );
@@ -293,17 +241,17 @@
 			.text( ' ' )
 			.addClass( 'mlb-close' )
 			.click( function () {
-				lbinterface.unattach();
+				ui.unattach();
 			} );
 
 		this.$fullscreenButton = $( '<div>' )
 			.text( ' ' )
 			.addClass( 'mlb-fullscreen' )
 			.click( function () {
-				if ( lbinterface.isFullscreen ) {
-					lbinterface.exitFullscreen();
+				if ( ui.isFullscreen ) {
+					ui.exitFullscreen();
 				} else {
-					lbinterface.enterFullscreen();
+					ui.enterFullscreen();
 				}
 			} );
 
@@ -384,28 +332,26 @@
 	 * @param {jQuery.Event} e The jQuery keypress event object
 	 */
 	LIP.keydown = function ( e ) {
-		var isRtl = $( document.body ).hasClass( 'rtl' );
+		var forward,
+			isRtl = $( document.body ).hasClass( 'rtl' );
 
 		if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey ) {
 			return;
 		}
 
 		switch ( e.which ) {
-			case 37:
-				// Left arrow
-				if ( isRtl ) {
-					this.viewer.nextImage();
-				} else {
-					this.viewer.prevImage();
-				}
+			case 37: // Left arrow
+			case 39: // Right arrow
 				e.preventDefault();
-				break;
-			case 39:
-				// Right arrow
+				forward = ( e.which === 39 );
 				if ( isRtl ) {
-					this.viewer.prevImage();
+					forward = !forward;
+				}
+
+				if ( forward ) {
+					$( document ).trigger( $.Event( 'mmv-next' ) );
 				} else {
-					this.viewer.nextImage();
+					$( document ).trigger( $.Event( 'mmv-prev' ) );
 				}
 				e.preventDefault();
 				break;
@@ -462,4 +408,4 @@
 	};
 
 	mw.mmv.LightboxInterface = LightboxInterface;
-}( mediaWiki, jQuery ) );
+}( mediaWiki, jQuery, OO ) );
