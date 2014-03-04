@@ -225,7 +225,7 @@
 
 		viewer.setImage = $.noop;
 		viewer.lightbox = { iface : { canvas : {
-			setThumbnailForDisplay : function() { return true; }
+			maybeDisplayPlaceholder : function() { return true; }
 		} } };
 
 		viewer.displayPlaceholderThumbnail( undefined, undefined, undefined);

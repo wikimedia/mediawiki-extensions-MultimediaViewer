@@ -187,12 +187,7 @@
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
 	 */
 	MMVP.setImage = function ( ui, thumbnail, image, imageWidths ) {
-		// we downscale larger images but do not scale up smaller ones, that would look ugly
-		if ( thumbnail.width > imageWidths.css ) {
-			image.width = imageWidths.css;
-		}
-
-		ui.canvas.setImageAndMaxDimensions( image );
+		ui.canvas.setImageAndMaxDimensions( thumbnail, image, imageWidths );
 		this.updateControls();
 	};
 
@@ -282,7 +277,7 @@
 				return;
 			}
 
-			viewer.displayPlaceholderThumbnail( imageInfo, image, $initialImage, imageWidths );
+			viewer.displayPlaceholderThumbnail( imageInfo, $initialImage, imageWidths );
 		} );
 
 		metadataPromise = this.fetchSizeIndependentLightboxInfo(
@@ -363,17 +358,16 @@
 	/**
 	 * Display the blurred thumbnail from the page
 	 * @param {mw.mmv.model.Image} imageInfo
-	 * @param {mw.mmv.LightboxImage} imageRawMetadata Raw metadata of image
 	 * @param {jQuery} $initialImage The thumbnail from the page
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
 	 */
-	MMVP.displayPlaceholderThumbnail = function ( imageInfo, imageRawMetadata, $initialImage, imageWidths ) {
+	MMVP.displayPlaceholderThumbnail = function ( imageInfo, $initialImage, imageWidths ) {
 		// If the actual image has already been displayed, there's no point showing the blurry one
 		if ( this.realThumbnailShown ) {
 			return;
 		}
 
-		this.blurredThumbnailShown = this.lightbox.iface.canvas.setThumbnailForDisplay(
+		this.blurredThumbnailShown = this.lightbox.iface.canvas.maybeDisplayPlaceholder(
 			imageInfo, $initialImage, imageWidths );
 	};
 

@@ -52,31 +52,46 @@
 		assert.ok( canvas.$imageDiv.hasClass( 'empty' ), 'Canvas is not visible.' );
 	} );
 
-	QUnit.test( 'setImageAndMaxDimensions()', 6, function( assert ) {
+	QUnit.test( 'setImageAndMaxDimensions()', 8, function( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			canvas = new mw.mmv.ui.Canvas( $qf ),
 			imageRawMetadata = new mw.mmv.LightboxImage( 'foo.png' ),
 			image = new Image(),
 			$imageElem = $( image ),
 			image2 = new Image(),
-			$currentImage;
+			thumbnailWidth = 10,
+			screenWidth = 100,
+			$currentImage,
+			originalWidth;
 
 		// Need to call set() before using setImageAndMaxDimensions()
 		canvas.set( imageRawMetadata, $imageElem );
+		originalWidth = image.width;
 
 		// Call with the same image
-		canvas.setImageAndMaxDimensions( image );
+		canvas.setImageAndMaxDimensions(
+			{ width: thumbnailWidth },
+			image,
+			{ cssWidth: screenWidth }
+		);
 
+		assert.strictEqual( image.width, originalWidth, 'Image width was not modified.' );
 		assert.strictEqual( canvas.$image, $imageElem, 'Image element still set correctly.' );
 		assert.strictEqual( canvas.$image.css( 'maxHeight' ), canvas.$imageDiv.height() + 'px', 'MaxHeight set correctly.' );
 		assert.strictEqual( canvas.$image.css( 'maxWidth' ), canvas.$imageDiv.width() + 'px', 'MaxHeight set correctly.' );
 
 		$currentImage = canvas.$image;
 
-		// Call with a new image
-		canvas.setImageAndMaxDimensions( image2 );
+		// Call with a new image bigger than screen size
+		thumbnailWidth = 150;
+		canvas.setImageAndMaxDimensions(
+			{ width: thumbnailWidth },
+			image2,
+			{ cssWidth: screenWidth }
+		);
 
-		assert.notStrictEqual( canvas.$image, $currentImage, 'Image element set correctly.' );
+		assert.strictEqual( image2.width, screenWidth, 'Image width was trimmed correctly.' );
+		assert.notStrictEqual( canvas.$image, $currentImage, 'Image element switched correctly.' );
 		assert.strictEqual( canvas.$image.css( 'maxHeight' ), canvas.$imageDiv.height() + 'px', 'MaxHeight set correctly.' );
 		assert.strictEqual( canvas.$image.css( 'maxWidth' ), canvas.$imageDiv.width() + 'px', 'MaxHeight set correctly.' );
 	} );
@@ -96,11 +111,47 @@
 		assert.ok( ! canvas.resizeListener, 'resize listener has been removed.' );
 	} );
 
-	QUnit.test( 'setThumbnailForDisplay: placeholder big enough that it doesn\'t need blurring, actual image bigger than the lightbox', 5, function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: Max area for SVG files', 5, function ( assert ) {
 		var $image,
 			blurredThumbnailShown,
 			$qf = $( '#qunit-fixture' ),
+			imageRawMetadata = new mw.mmv.LightboxImage( 'foo.svg' ),
 			canvas = new mw.mmv.ui.Canvas( $qf );
+
+		imageRawMetadata.filePageTitle = {
+			getExtension: function() { return 'svg'; },
+		};
+		canvas.imageRawMetadata = imageRawMetadata;
+
+		canvas.set = function () {
+			assert.ok ( true, 'Placeholder is shown');
+		};
+
+		$image = $( '<img>' ).width( 10 ).height( 5 );
+
+		blurredThumbnailShown = canvas.maybeDisplayPlaceholder(
+			{ width : 200, height : 100 },
+			$image,
+			{ cssWidth : 300, cssHeight: 150 }
+		);
+
+		assert.strictEqual( $image.width(), 300, 'Placeholder width was set to max' );
+		assert.strictEqual( $image.height(), 150, 'Placeholder height was set to max' );
+		assert.ok( ! $image.hasClass( 'blurred' ), 'Placeholder is not blurred' );
+		assert.ok( ! blurredThumbnailShown, 'Placeholder state is correct' );
+	} );
+
+	QUnit.test( 'maybeDisplayPlaceholder: placeholder big enough that it doesn\'t need blurring, actual image bigger than the lightbox', 5, function ( assert ) {
+		var $image,
+			blurredThumbnailShown,
+			$qf = $( '#qunit-fixture' ),
+			imageRawMetadata = new mw.mmv.LightboxImage( 'foo.png' ),
+			canvas = new mw.mmv.ui.Canvas( $qf );
+
+		imageRawMetadata.filePageTitle = {
+			getExtension: function() { return 'png'; },
+		};
+		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
 			assert.ok ( true, 'Placeholder shown');
@@ -108,10 +159,10 @@
 
 		$image = $( '<img>' ).width( 200 ).height( 100 );
 
-		blurredThumbnailShown = canvas.setThumbnailForDisplay(
+		blurredThumbnailShown = canvas.maybeDisplayPlaceholder(
 			{ width : 1000, height : 500 },
 			$image,
-			{ css : 300 }
+			{ cssWidth : 300, cssHeight: 150 }
 		);
 
 		assert.strictEqual( $image.width(), 300, 'Placeholder has the right width' );
@@ -120,11 +171,17 @@
 		assert.ok( ! blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'setThumbnailForDisplay: big-enough placeholder that needs blurring, actual image bigger than the lightbox', 5, function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: big-enough placeholder that needs blurring, actual image bigger than the lightbox', 5, function ( assert ) {
 		var $image,
 			blurredThumbnailShown,
 			$qf = $( '#qunit-fixture' ),
+			imageRawMetadata = new mw.mmv.LightboxImage( 'foo.png' ),
 			canvas = new mw.mmv.ui.Canvas( $qf );
+
+		imageRawMetadata.filePageTitle = {
+			getExtension: function() { return 'png'; },
+		};
+		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
 			assert.ok ( true, 'Placeholder shown');
@@ -132,10 +189,10 @@
 
 		$image = $( '<img>' ).width( 100 ).height( 50 );
 
-		blurredThumbnailShown = canvas.setThumbnailForDisplay(
+		blurredThumbnailShown = canvas.maybeDisplayPlaceholder(
 			{ width : 1000, height : 500 },
 			$image,
-			{ css : 300, real : 300 }
+			{ cssWidth : 300, cssHeight : 150 }
 		);
 
 		assert.strictEqual( $image.width(), 300, 'Placeholder has the right width' );
@@ -144,11 +201,17 @@
 		assert.ok( blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'setThumbnailForDisplay: big-enough placeholder that needs blurring, actual image smaller than the lightbox', 5, function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: big-enough placeholder that needs blurring, actual image smaller than the lightbox', 5, function ( assert ) {
 		var $image,
 			blurredThumbnailShown,
 			$qf = $( '#qunit-fixture' ),
+			imageRawMetadata = new mw.mmv.LightboxImage( 'foo.png' ),
 			canvas = new mw.mmv.ui.Canvas( $qf );
+
+		imageRawMetadata.filePageTitle = {
+			getExtension: function() { return 'png'; },
+		};
+		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
 			assert.ok ( true, 'Placeholder shown');
@@ -156,10 +219,10 @@
 
 		$image = $( '<img>' ).width( 100 ).height( 50 );
 
-		blurredThumbnailShown = canvas.setThumbnailForDisplay(
+		blurredThumbnailShown = canvas.maybeDisplayPlaceholder(
 			{ width : 1000, height : 500 },
 			$image,
-			{ css : 1200 }
+			{ cssWidth : 1200, cssHeight : 600 }
 		);
 
 		assert.strictEqual( $image.width(), 1000, 'Placeholder has the right width' );
@@ -168,11 +231,17 @@
 		assert.ok( blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'setThumbnailForDisplay: placeholder too small to be displayed, actual image bigger than the lightbox', 4, function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: placeholder too small to be displayed, actual image bigger than the lightbox', 4, function ( assert ) {
 		var $image,
 			blurredThumbnailShown,
 			$qf = $( '#qunit-fixture' ),
+			imageRawMetadata = new mw.mmv.LightboxImage( 'foo.png' ),
 			canvas = new mw.mmv.ui.Canvas( $qf );
+
+		imageRawMetadata.filePageTitle = {
+			getExtension: function() { return 'png'; },
+		};
+		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
 			assert.ok ( false, 'Placeholder shown when it should not');
@@ -180,10 +249,10 @@
 
 		$image = $( '<img>' ).width( 10 ).height( 5 );
 
-		blurredThumbnailShown = canvas.setThumbnailForDisplay(
+		blurredThumbnailShown = canvas.maybeDisplayPlaceholder(
 			{ width : 1000, height : 500 },
 			$image,
-			{ css : 300, real : 300 }
+			{ cssWidth : 300, cssHeight : 150 }
 		);
 
 		assert.strictEqual( $image.width(), 10, 'Placeholder has the right width' );

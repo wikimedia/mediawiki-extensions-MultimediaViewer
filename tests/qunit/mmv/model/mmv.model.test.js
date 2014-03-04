@@ -133,15 +133,18 @@
 		}
 	} );
 
-	QUnit.test( 'ThumbnailWidth constructor sanity check', 4, function ( assert ) {
+	QUnit.test( 'ThumbnailWidth constructor sanity check', 5, function ( assert ) {
 		var cssWidth = 23,
+			cssHeight = 29,
 			screenWidth = 42,
 			realWidth = 123,
-			thumbnailWidth = new mw.mmv.model.ThumbnailWidth( cssWidth, screenWidth, realWidth );
+			thumbnailWidth = new mw.mmv.model.ThumbnailWidth(
+				cssWidth, cssHeight, screenWidth, realWidth );
 
-		assert.strictEqual( thumbnailWidth.css, cssWidth, 'Url is set correctly' );
-		assert.strictEqual( thumbnailWidth.screen, screenWidth, 'Width is set correctly' );
-		assert.strictEqual( thumbnailWidth.real, realWidth, 'Height is set correctly' );
+		assert.strictEqual( thumbnailWidth.cssWidth, cssWidth, 'Width is set correctly' );
+		assert.strictEqual( thumbnailWidth.cssHeight, cssHeight, 'Height is set correctly' );
+		assert.strictEqual( thumbnailWidth.screen, screenWidth, 'Screen width is set correctly' );
+		assert.strictEqual( thumbnailWidth.real, realWidth, 'Real width is set correctly' );
 
 		try {
 			thumbnailWidth = new mw.mmv.model.ThumbnailWidth( cssWidth, screenWidth );

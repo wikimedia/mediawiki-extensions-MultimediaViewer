@@ -72,6 +72,12 @@
 	oo.inheritClass( Canvas, mw.mmv.ui.Element );
 	C = Canvas.prototype;
 
+	/** Maximum blownup factor tolerated */
+	Canvas.MAX_BLOWUP_FACTOR = 11;
+
+	/** Blowup factor threshold at which blurring kicks in */
+	Canvas.BLUR_BLOWUP_FACTOR_THRESHOLD = 2;
+
 	/**
 	 * Clears everything.
 	 */
@@ -98,9 +104,11 @@
 	/**
 	 * Sets contained image and also the max dimensions. Called while resizing the viewer.
 	 * Assumes set function called before.
+	 * @param {mw.mmv.model.Thumbnail} thumbnail thumbnail information
 	 * @param {HTMLImageElement} imageEle
+	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
 	 */
-	C.setImageAndMaxDimensions = function( imageEle ) {
+	C.setImageAndMaxDimensions = function( thumbnail, imageEle, imageWidths ) {
 		var $image = $( imageEle );
 
 		function makeMaxMatchParent ( $image ) {
@@ -108,6 +116,11 @@
 				maxHeight : $image.parent().height(),
 				maxWidth : $image.parent().width()
 			} );
+		}
+
+		// we downscale larger images but do not scale up smaller ones, that would look ugly
+		if ( thumbnail.width > imageWidths.cssWidth ) {
+			imageEle.width = imageWidths.cssWidth;
 		}
 
 		if ( this.$image.is( imageEle ) ) { // http://bugs.jquery.com/ticket/4087
@@ -129,8 +142,11 @@
 	C.attach = function() {
 		var canvas = this;
 
+		// TODO: Try to use Element.handleEvent() instead !
 		if ( !this.resizeListener ) {
-			this.resizeListener = function () { canvas.resizeCallback(); };
+			this.resizeListener = function () {
+				canvas.$mainWrapper.trigger( $.Event( 'mmv-resize') );
+			};
 			window.addEventListener( 'resize', this.resizeListener );
 		}
 	};
@@ -148,61 +164,76 @@
 	};
 
 	/**
-	 * Resize callback
-	 * @protected
-	 */
-	C.resizeCallback = function() {
-		this.$mainWrapper.trigger( $.Event( 'mmv-resize') );
-	};
-
-	/**
 	 * @method
-	 * Set page thumbnail for display, resizing and bluring if necessary.
+	 * Sets page thumbnail for display if blowupFactor <= MAX_BLOWUP_FACTOR. Otherwise thumb is not set.
+	 * The image gets also blured to avoid pixelation if blowupFactor > BLUR_BLOWUP_FACTOR_THRESHOLD.
+	 * We set SVG files to the maximum screen size available.
+	 * Assumes set function called before.
 	 *
 	 * @param {mw.mmv.model.Image} imageInfo
-	 * @param {jQuery} $initialImage The page thumbnail
+	 * @param {jQuery} $imagePlaceholder Image placeholder to be displayed while the real image loads.
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
 	 * @returns {boolean} Whether the image was blured or not
 	 */
-	 C.setThumbnailForDisplay = function ( imageInfo, $initialImage, imageWidths ) {
-		var ratio,
-			targetWidth,
+	 C.maybeDisplayPlaceholder = function ( imageInfo, $imagePlaceholder, imageWidths ) {
+		var targetWidth,
 			targetHeight,
 			blowupFactor,
-			blurredThumbnailShown = false;
+			blurredThumbnailShown = false,
+			maxSizeFileExtensions = {
+				'svg' : true,
+			};
 
-		// If the image is smaller than the screen we need to adjust the placeholder's size
-		if ( imageInfo.width < imageWidths.css ) { // This assumes imageInfo.width in CSS units
-			targetWidth = imageInfo.width;
-			targetHeight = imageInfo.height;
-		} else {
-			ratio = $initialImage.height() / $initialImage.width();
-			targetWidth = imageWidths.css;
-			targetHeight = Math.round( imageWidths.css * ratio );
-		}
+		// There are some file types (SVG for example) for which there is no concept
+		// of initial size. For these cases we force a max canvas resize and no bluring.
+		if ( maxSizeFileExtensions[ this.imageRawMetadata.filePageTitle.getExtension().toLowerCase() ] ) {
+			$imagePlaceholder.width( imageWidths.cssWidth );
+			$imagePlaceholder.height( imageWidths.cssHeight );
+			this.set( this.imageRawMetadata, $imagePlaceholder.show() );
 
-		blowupFactor = targetWidth / $initialImage.width();
-
-		// If the placeholder is too blown up, it's not worth showing it
-		if ( blowupFactor > 11 ) {
 			return blurredThumbnailShown;
 		}
 
-		$initialImage.width( targetWidth );
-		$initialImage.height( targetHeight );
+		// Assume natural thumbnail size¸
+		targetWidth = imageInfo.width;
+		targetHeight = imageInfo.height;
+
+		// If the image is bigger than the screen we need to resize it
+		if ( imageInfo.width > imageWidths.cssWidth ) { // This assumes imageInfo.width in CSS units
+			targetWidth = imageWidths.cssWidth;
+			targetHeight = imageWidths.cssHeight;
+		}
+
+		blowupFactor = targetWidth / $imagePlaceholder.width();
+
+		// If the placeholder is too blown up, it's not worth showing it
+		if ( blowupFactor > Canvas.MAX_BLOWUP_FACTOR ) {
+			return blurredThumbnailShown;
+		}
+
+		$imagePlaceholder.width( targetWidth );
+		$imagePlaceholder.height( targetHeight );
 
 		// Only blur the placeholder if it's blown up significantly
-		if ( blowupFactor > 2 ) {
-			// We have to apply the SVG filter here, it doesn't work when defined in the .less file
-			// We can't use an external SVG file because filters can't be accessed cross-domain
-			// We can't embed the SVG file because accessing the filter inside of it doesn't work
-			$initialImage.addClass( 'blurred' ).css( 'filter', 'url("#gaussian-blur")' );
+		if ( blowupFactor > Canvas.BLUR_BLOWUP_FACTOR_THRESHOLD ) {
+			this.blur( $imagePlaceholder );
 			blurredThumbnailShown = true;
 		}
 
-		this.set( this.imageRawMetadata, $initialImage.show() );
+		this.set( this.imageRawMetadata, $imagePlaceholder.show() );
 
 		return blurredThumbnailShown;
+	};
+
+	/**
+	 * Blur image
+	 * @param {jQuery} $image Image to be blurred.
+	 */
+	C.blur = function( $image ) {
+		// We have to apply the SVG filter here, it doesn't work when defined in the .less file
+		// We can't use an external SVG file because filters can't be accessed cross-domain
+		// We can't embed the SVG file because accessing the filter inside of it doesn't work
+		$image.addClass( 'blurred' ).css( 'filter', 'url("#gaussian-blur")' );
 	};
 
 	/**
