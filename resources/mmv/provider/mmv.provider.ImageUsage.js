@@ -47,16 +47,15 @@
 	 * @return {jQuery.Promise}
 	 */
 	ImageUsage.prototype.get = function( file ) {
-		var provider = this,
-			cacheKey = file.getPrefixedDb();
+		var provider = this;
 
-		if ( !this.cache[cacheKey] ) {
-			this.cache[cacheKey] = this.api.get( {
+		return this.getCachedPromise( file.getPrefixedDb(), function () {
+			return provider.api.get( {
 				action: 'query',
 				list: 'imageusage',
 				iutitle: file.getPrefixedDb(),
-				iunamespace: this.options.namespaces,
-				iulimit: this.options.apiLimit,
+				iunamespace: provider.options.namespaces,
+				iulimit: provider.options.apiLimit,
 				format: 'json'
 			} ).then( function( data ) {
 				return provider.getQueryField( 'imageusage', data );
@@ -76,9 +75,7 @@
 					!!( data['query-continue'] && data['query-continue'].imageusage )
 				);
 			} );
-		}
-
-		return this.cache[cacheKey];
+		} );
 	};
 
 	mw.mmv.provider.ImageUsage = ImageUsage;

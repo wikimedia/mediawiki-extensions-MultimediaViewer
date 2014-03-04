@@ -73,17 +73,16 @@
 	 * @return {jQuery.Promise} a promise which resolves to an mw.mmv.model.Image object.
 	 */
 	ImageInfo.prototype.get = function( file ) {
-		var provider = this,
-			cacheKey = file.getPrefixedDb();
+		var provider = this;
 
-		if ( !this.cache[cacheKey] ) {
-			this.cache[cacheKey] = this.api.get( {
+		return this.getCachedPromise( file.getPrefixedDb(), function () {
+			return provider.api.get( {
 				action: 'query',
 				prop: 'imageinfo',
 				titles: file.getPrefixedDb(),
-				iiprop: this.iiprop,
-				iiextmetadatafilter: this.iiextmetadatafilter,
-				iiextmetadatalanguage: this.options.language,
+				iiprop: provider.iiprop,
+				iiextmetadatafilter: provider.iiextmetadatafilter,
+				iiextmetadatalanguage: provider.options.language,
 				format: 'json'
 			} ).then( function( data ) {
 				return provider.getQueryPage( file, data );
@@ -96,9 +95,7 @@
 					return $.Deferred().reject( 'unknown error' );
 				}
 			} );
-		}
-
-		return this.cache[cacheKey];
+		} );
 	};
 
 	mw.mmv.provider.ImageInfo = ImageInfo;

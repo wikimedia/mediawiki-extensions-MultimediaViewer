@@ -45,8 +45,8 @@
 		var provider = this,
 			cacheKey = file.getPrefixedDb() + '|' + ( width || '' ) + '|' + ( height || '' );
 
-		if ( !this.cache[cacheKey] ) {
-			this.cache[cacheKey] = this.api.get( {
+		return this.getCachedPromise( cacheKey, function () {
+			return provider.api.get( {
 				action: 'query',
 				prop: 'imageinfo',
 				titles: file.getPrefixedDb(),
@@ -76,9 +76,7 @@
 					return $.Deferred().reject( 'unknown error' );
 				}
 			} );
-		}
-
-		return this.cache[cacheKey];
+		} );
 	};
 
 	mw.mmv.provider.ThumbnailInfo = ThumbnailInfo;
