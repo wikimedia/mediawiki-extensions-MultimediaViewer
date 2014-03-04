@@ -28,6 +28,11 @@
 
 	/**
 	 * Possible log actions, and their associated English developer log strings.
+	 *
+	 * These events are not de-duped. Eg. if the user opens the same site link
+	 * in 10 tabs, there will be 10 site-link-click events. If they view the
+	 * same image 10 times by hitting the prev/next buttons, there will be 10
+	 * image-view events, etc.
 	 * @property
 	 * @static
 	 */
@@ -37,7 +42,9 @@
 		'fullscreen-link-click': 'User clicked on fullscreen button in lightbox.',
 		'defullscreen-link-click': 'User clicked on button to return to normal lightbox view.',
 		'close-link-click': 'User clicked on the lightbox close button.',
-		'site-link-click': 'User clicked on the link to the file description page.'
+		'site-link-click': 'User clicked on the link to the file description page.',
+		'use-this-file-link-click': 'User clicked on the link to use this file.',
+		'image-view': 'User viewed an image'
 	};
 
 	/**

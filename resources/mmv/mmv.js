@@ -358,6 +358,8 @@
 		if ( this.blurredThumbnailShown && loadTime > 10 ) {
 			this.lightbox.iface.canvas.unblur();
 		}
+
+		mw.mmv.logger.log( 'image-view' );
 	};
 
 	/**
