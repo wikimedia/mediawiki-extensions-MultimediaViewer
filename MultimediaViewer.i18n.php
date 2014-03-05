@@ -1139,10 +1139,13 @@ $messages['lrc'] = array(
 );
 
 /** Lithuanian (lietuvių)
+ * @author Mantak111
  * @author Robotukas11
  */
 $messages['lt'] = array(
 	'multimediaviewer-desc-nil' => 'Aprašymas neprieinamas.',
+	'multimediaviewer-permission-title' => 'Licencijos informacija',
+	'multimediaviewer-permission-viewmore' => 'Rodyti daugiau',
 );
 
 /** Latvian (latviešu)
