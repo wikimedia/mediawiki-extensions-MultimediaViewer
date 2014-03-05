@@ -62,7 +62,7 @@
 		}
 
 		return this.cache[cacheKey].fail( function ( error ) {
-			mw.log( provider.constructor + ' provider failed to load: ', error );
+			mw.log( provider.constructor.name + ' provider failed to load: ', error );
 		} );
 	};
 

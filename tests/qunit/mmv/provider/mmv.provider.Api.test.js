@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw ) {
+( function ( mw, $ ) {
 	QUnit.module( 'mmv.provider.Api', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Api constructor sanity check', 2, function ( assert ) {
@@ -26,6 +26,74 @@
 
 		assert.ok( apiProvider );
 		assert.ok( ApiProviderWithNoOptions );
+	} );
+
+	QUnit.test( 'getCachedPromise success', 5, function ( assert ) {
+		var api = { get: function() {} },
+			apiProvider = new mw.mmv.provider.Api( api ),
+			oldMwLog = mw.log,
+			promiseSource,
+			promiseShouldBeCached = false;
+
+		mw.log = function () {
+			assert.ok( false, 'mw.log should not have been called' );
+		};
+
+		promiseSource = function ( result ) {
+			return function () {
+				assert.ok( !promiseShouldBeCached, 'promise was not cached' );
+				return $.Deferred().resolve( result );
+			};
+		};
+
+		apiProvider.getCachedPromise( 'foo', promiseSource( 1 ) ).done( function ( result ) {
+			assert.strictEqual( result, 1, 'result comes from the promise source' );
+		} );
+
+		apiProvider.getCachedPromise( 'bar', promiseSource( 2 ) ).done( function ( result ) {
+			assert.strictEqual( result, 2, 'result comes from the promise source' );
+		} );
+
+		promiseShouldBeCached = true;
+		apiProvider.getCachedPromise( 'foo', promiseSource( 3 ) ).done( function ( result ) {
+			assert.strictEqual( result, 1, 'result comes from cache' );
+		} );
+
+		mw.log = oldMwLog;
+	} );
+
+	QUnit.test( 'getCachedPromise failure', 7, function ( assert ) {
+		var api = { get: function() {} },
+			apiProvider = new mw.mmv.provider.Api( api ),
+			oldMwLog = mw.log,
+			promiseSource,
+			promiseShouldBeCached = false;
+
+		mw.log = function () {
+			assert.ok( true, 'mw.log was called' );
+		};
+
+		promiseSource = function ( result ) {
+			return function () {
+				assert.ok( !promiseShouldBeCached, 'promise was not cached' );
+				return $.Deferred().reject( result );
+			};
+		};
+
+		apiProvider.getCachedPromise( 'foo', promiseSource( 1 ) ).fail( function ( result ) {
+			assert.strictEqual( result, 1, 'result comes from the promise source' );
+		} );
+
+		apiProvider.getCachedPromise( 'bar', promiseSource( 2 ) ).fail( function ( result ) {
+			assert.strictEqual( result, 2, 'result comes from the promise source' );
+		} );
+
+		promiseShouldBeCached = true;
+		apiProvider.getCachedPromise( 'foo', promiseSource( 3 ) ).fail( function ( result ) {
+			assert.strictEqual( result, 1, 'result comes from cache' );
+		} );
+
+		mw.log = oldMwLog;
 	} );
 
 	QUnit.test( 'getErrorMessage', 2, function ( assert ) {
@@ -174,4 +242,4 @@
 			QUnit.start();
 		} );
 	} );
-}( mediaWiki ) );
+}( mediaWiki, jQuery ) );

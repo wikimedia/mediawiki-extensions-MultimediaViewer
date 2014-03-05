@@ -146,14 +146,19 @@
 			} );
 	} );
 
-	QUnit.asyncTest( 'Image load fail', 1, function ( assert ) {
-		var imageProvider = new mw.mmv.provider.Image();
+	QUnit.asyncTest( 'Image load fail', 2, function ( assert ) {
+		var imageProvider = new mw.mmv.provider.Image(),
+			oldMwLog = mw.log,
+			mwLogCalled = false;
 
 		imageProvider.imagePreloadingSupported = function () { return false; };
 		imageProvider.performance.recordEntry = $.noop;
+		mw.log = function () { mwLogCalled = true; };
 
 		imageProvider.get( 'doesntexist.png' ).fail( function() {
 			assert.ok( true, 'fail handler was called' );
+			assert.ok( mwLogCalled, 'mw.log was called' );
+			mw.log = oldMwLog;
 			QUnit.start();
 		} );
 	} );
