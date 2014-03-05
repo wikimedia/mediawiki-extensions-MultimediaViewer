@@ -106,6 +106,14 @@
 	};
 
 	/**
+	 * Opens the lightbox.
+	 */
+	LIP.open = function () {
+		this.empty();
+		this.attach();
+	};
+
+	/**
 	 * Attaches the interface to the DOM.
 	 * @param {string} [parentId] parent id where we want to attach the UI. Defaults to document
 	 *  element, override is mainly used for testing.

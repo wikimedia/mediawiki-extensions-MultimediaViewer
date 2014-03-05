@@ -38,14 +38,14 @@
 			viewer.thumbs.push( { image : false } );
 		}
 
-		viewer.lightbox = { currentIndex : 2 };
+		viewer.currentIndex = 2;
 		i = 0;
 		expectedIndices = [2, 3, 1, 4, 0, 5];
 		viewer.eachPrealoadableLightboxIndex( function( index ) {
 			assert.strictEqual( index, expectedIndices[i++], 'preload on left edge');
 		} );
 
-		viewer.lightbox.currentIndex = 9;
+		viewer.currentIndex = 9;
 		i = 0;
 		expectedIndices = [9, 10, 8, 7, 6];
 		viewer.eachPrealoadableLightboxIndex( function( index ) {
@@ -56,23 +56,21 @@
 	QUnit.test( 'Hash handling', 7, function ( assert ) {
 		var oldUnattach,
 			viewer = new mw.mmv.MultimediaViewer(),
-			multiLightbox = new mw.mmv.MultiLightbox( 0, mw.mmv.LightboxInterface ),
-			lightbox = new mw.mmv.LightboxInterface(),
+			ui = new mw.mmv.LightboxInterface(),
 			imageSrc = 'Foo bar.jpg',
 			image = { filePageTitle: new mw.Title( 'File:' + imageSrc ) };
 
 		window.location.hash = '';
 
 		viewer.setupEventHandlers();
-		oldUnattach = lightbox.unattach;
+		oldUnattach = ui.unattach;
 
-		lightbox.unattach = function () {
+		ui.unattach = function () {
 			assert.ok( true, 'Lightbox was unattached' );
 			oldUnattach.call( this );
 		};
 
-		viewer.lightbox = multiLightbox;
-		viewer.lightbox.iface = lightbox;
+		viewer.ui = ui;
 		viewer.close();
 
 		assert.ok( !viewer.isOpen, 'Viewer is closed' );
@@ -87,7 +85,7 @@
 		assert.strictEqual( window.location.hash, '#Foo', 'Foreign hash remains intact' );
 		assert.ok( !viewer.isOpen, 'Viewer is closed' );
 
-		lightbox.unattach = function () {
+		ui.unattach = function () {
 			assert.ok( false, 'Lightbox was not unattached' );
 			oldUnattach.call( this );
 		};
@@ -99,7 +97,7 @@
 		// Verify that mmv doesn't reset a foreign hash
 		assert.strictEqual( window.location.hash, '#Bar', 'Foreign hash remains intact' );
 
-		viewer.lightbox = { images: [ image ] };
+		viewer.ui = { images: [ image ] };
 
 		$( '#qunit-fixture' ).append( '<a class="image"><img src="' + imageSrc + '"></a>' );
 
@@ -137,7 +135,7 @@
 		viewer.scroll = $.noop;
 		viewer.preloadFullscreenThumbnail = $.noop;
 		viewer.fetchSizeIndependentLightboxInfo = function () { return $.Deferred().resolve(); };
-		viewer.lightbox = { iface : {
+		viewer.ui = {
 			setupForLoad : $.noop,
 			canvas : { set : $.noop,
 				getCurrentImageWidths : function () { return { real : 0 }; } },
@@ -155,9 +153,9 @@
 					}
 
 					i++;
-				} }
-		},
-		open : $.noop };
+				}
+			},
+			open : $.noop };
 
 		viewer.imageProvider.get = function() { return imageDeferred.promise(); };
 		viewer.imageInfoProvider.get = function() { return $.Deferred().resolve(); };
@@ -190,9 +188,9 @@
 		var viewer = new mw.mmv.MultimediaViewer();
 
 		viewer.setImage = $.noop;
-		viewer.lightbox = { iface : { canvas : {
+		viewer.ui = { canvas : {
 			maybeDisplayPlaceholder : function() { return true; }
-		} } };
+		} };
 
 		viewer.displayPlaceholderThumbnail( undefined, undefined, undefined);
 
@@ -209,9 +207,9 @@
 		var viewer = new mw.mmv.MultimediaViewer();
 
 		viewer.setImage = $.noop;
-		viewer.lightbox = { iface : {
+		viewer.ui = {
 			showImage : $.noop
-		} };
+		};
 
 		viewer.displayRealThumbnail();
 
@@ -228,15 +226,15 @@
 		var viewer = new mw.mmv.MultimediaViewer();
 
 		viewer.setImage = $.noop;
-		viewer.lightbox = { iface : { canvas : {
+		viewer.ui = { canvas : {
 			unblur : function () { assert.ok( false, 'Image should not be unblurred yet' ); }
-		} } };
+		} };
 		viewer.blurredThumbnailShown = true;
 
 		// Should not result in an unblur (image cache from cache)
 		viewer.displayRealThumbnail( undefined, undefined, undefined, 5 );
 
-		viewer.lightbox.iface.canvas.unblur = function () {
+		viewer.ui.canvas.unblur = function () {
 			assert.ok( true, 'Image needs to be unblurred' );
 		};
 
@@ -255,7 +253,7 @@
 
 		viewer.preloadFullscreenThumbnail = $.noop;
 		viewer.fetchSizeIndependentLightboxInfo = function () { return ligthboxInfoDeferred.promise(); };
-		viewer.lightbox = { iface : {
+		viewer.ui = {
 			setupForLoad : $.noop,
 			canvas : { set : $.noop,
 				getCurrentImageWidths : function () { return { real : 0 }; } },
@@ -266,10 +264,11 @@
 					if ( percent === 45 ) {
 						assert.ok( false, 'Progress of the first image should not be shown' );
 					}
-				}  },
-			empty: $.noop
-		},
-		open : $.noop };
+				},
+				empty: $.noop
+			},
+			open : $.noop,
+			empty: $.noop };
 		viewer.eachPrealoadableLightboxIndex = $.noop;
 		viewer.animateMetadataDivOnce = function () {
 			assert.ok( false, 'Metadata of the first image should not be animated' );
@@ -296,7 +295,7 @@
 		firstImageDeferred.resolve();
 		firstLigthboxInfoDeferred.resolve();
 
-		viewer.lightbox.iface.panel.setImageInfo = $.noop;
+		viewer.ui.panel.setImageInfo = $.noop;
 		viewer.animateMetadataDivOnce = function() { return $.Deferred().reject(); };
 
 		viewer.displayRealThumbnail = function () {
@@ -333,7 +332,7 @@
 			thumbnail : new mw.mmv.model.Thumbnail( 'foo', 10, 10 ) },
 			new Image() );
 
-		viewer.lightbox.iface.$closeButton.click();
+		viewer.ui.$closeButton.click();
 
 		function eventHandler ( e ) {
 			if ( e.isDefaultPrevented() ) {

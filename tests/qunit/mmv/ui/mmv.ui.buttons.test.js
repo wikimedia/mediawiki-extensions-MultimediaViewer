@@ -24,7 +24,7 @@
 			buttons = new mw.mmv.ui.Buttons( $qf, $( '<div>' ), $( '<div>' ) ),
 			viewer = new mw.mmv.MultimediaViewer();
 
-		viewer.lightbox = {};
+		viewer.ui = {};
 
 		viewer.loadIndex = function () {
 			assert.ok( true, 'Switched to next/prev image' );

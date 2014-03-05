@@ -57,6 +57,10 @@ call_user_func( function() {
 			'mmv.lightboxinterface.js',
 		),
 
+		'styles' => array(
+			'mmv.lightboxinterface.less',
+		),
+
 		'dependencies' => array(
 			'mmv.base',
 			'mmv.ui',
@@ -93,21 +97,6 @@ call_user_func( function() {
 			'oojs',
 		),
 	), $moduleInfo( 'mmv/model' ) );
-
-	$wgResourceModules['mmv.multilightbox'] = array_merge( array(
-		'scripts' => array(
-			'mmv.multilightbox.js',
-		),
-
-		'styles' => array(
-			'mmv.multilightbox.less',
-		),
-
-		'dependencies' => array(
-			'mmv.base',
-			'mmv.lightboxinterface',
-		),
-	), $moduleInfo( 'mmv' ) );
 
 	$wgResourceModules['mmv.model.FileUsage'] = array_merge( array(
 		'scripts' => array(
@@ -445,7 +434,7 @@ call_user_func( function() {
 			'mmv.model.TaskQueue',
 			'mmv.provider',
 			'mediawiki.language',
-			'mmv.multilightbox',
+			'mmv.lightboxinterface',
 			'mmv.api',
 		),
 

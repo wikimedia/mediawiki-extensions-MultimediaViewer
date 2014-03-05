@@ -135,7 +135,7 @@
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
 		viewer.ui = lightbox;
-		viewer.lightbox = lightbox;
+		viewer.ui = lightbox;
 
 		assert.ok( !lightbox.isFullscreen, 'Lightbox knows that it\'s not in fullscreen mode' );
 		assert.ok( lightbox.panel.$imageMetadata.is( ':visible' ), 'Image metadata is visible' );
@@ -274,7 +274,7 @@
 		lightbox.attach( '#qunit-fixture' );
 
 		// Pretend that we have things hooked up
-		viewer.lightbox = { currentIndex: 0 };
+		viewer.currentIndex = 0;
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0, 'scrollTo scrollTop should be set to 0' );
 		assert.ok( !lightbox.panel.$dragIcon.hasClass( 'pointing-down' ),

@@ -27,13 +27,6 @@
 	 */
 	function MultimediaViewer() {
 		/**
-		 * MultiLightbox object used to display the pictures in the page.
-		 * @property {mw.mmv.MultiLightbox}
-		 * @private
-		 */
-		this.lightbox = null;
-
-		/**
 		 * Whether we've fired an animation for the metadata div.
 		 * @property {boolean}
 		 * @private
@@ -92,6 +85,19 @@
 		//this.globalUsageProvider = new mw.mmv.provider.GlobalUsage(
 		//	new mw.mmv.Api( {ajax: { url: 'http://commons.wikimedia.org/w/api.php', dataType: 'jsonp' } } )
 		//);
+
+		/**
+		 * Image index on page.
+		 * @type {number}
+		 */
+		this.currentIndex = 0;
+
+		/**
+		 * UI object used to display the pictures in the page.
+		 * @property {mw.mmv.LightboxInterface}
+		 * @private
+		 */
+		this.ui = new mw.mmv.LightboxInterface();
 	}
 
 	MMVP = MultimediaViewer.prototype;
@@ -103,9 +109,6 @@
 	 */
 	MMVP.initWithThumbs = function ( thumbs ) {
 		var i, thumb;
-
-		// Only if we find legit images, create a MultiLightbox object
-		this.lightbox = new mw.mmv.MultiLightbox( 0, mw.mmv.LightboxInterface );
 
 		this.thumbs = thumbs;
 
@@ -173,8 +176,8 @@
 	 */
 	MMVP.updateControls = function () {
 		var numImages = this.thumbs ? this.thumbs.length : 0,
-			showNextButton = this.lightbox.currentIndex < (numImages - 1),
-			showPreviousButton = this.lightbox.currentIndex > 0;
+			showNextButton = this.currentIndex < (numImages - 1),
+			showPreviousButton = this.currentIndex > 0;
 
 		this.ui.updateControls( showNextButton, showPreviousButton );
 	};
@@ -204,19 +207,16 @@
 			start,
 			$initialImage = $( initialImage );
 
-		// FIXME dependency injection happens in completely random order and location, needs cleanup
-		this.ui = this.lightbox.iface;
-
-		this.lightbox.currentIndex = image.index;
+		this.currentIndex = image.index;
 
 		this.currentImageFilename = image.filePageTitle.getPrefixedText();
 		this.currentImageFileTitle = image.filePageTitle;
 
 		if ( !this.isOpen ) {
-			this.lightbox.open();
+			this.ui.open();
 			this.isOpen = true;
 		} else {
-			this.lightbox.iface.empty();
+			this.ui.empty();
 		}
 		this.setHash();
 
@@ -225,7 +225,7 @@
 		// size calculations in getCurrentImageWidths, which needs to know
 		// the aspect ratio
 		$initialImage.hide();
-		this.lightbox.iface.canvas.set( image, $initialImage );
+		this.ui.canvas.set( image, $initialImage );
 
 		this.preloadImagesMetadata();
 		this.preloadThumbnails();
@@ -253,7 +253,7 @@
 		}
 
 		imagePromise.progress( function ( thumbnailInfoResponse, imageResponse ) {
-			if ( viewer.lightbox.currentIndex !== image.index ) {
+			if ( viewer.currentIndex !== image.index ) {
 				return;
 			}
 
@@ -264,7 +264,7 @@
 				viewer.ui.panel.percent( imageResponse[ 1 ] );
 			}
 		} ).done( function ( thumbnail, imageElement ) {
-			if ( viewer.lightbox.currentIndex !== image.index ) {
+			if ( viewer.currentIndex !== image.index ) {
 				return;
 			}
 
@@ -272,7 +272,7 @@
 		} );
 
 		this.imageInfoProvider.get( image.filePageTitle ).done( function ( imageInfo ) {
-			if ( viewer.lightbox.currentIndex !== image.index ) {
+			if ( viewer.currentIndex !== image.index ) {
 				return;
 			}
 
@@ -282,16 +282,16 @@
 		metadataPromise = this.fetchSizeIndependentLightboxInfo(
 			image.filePageTitle
 		).done( function ( imageInfo, repoInfo, localUsage, globalUsage, userInfo ) {
-			if ( viewer.lightbox.currentIndex !== image.index ) {
+			if ( viewer.currentIndex !== image.index ) {
 				return;
 			}
 
-			viewer.lightbox.iface.panel.setImageInfo(image, imageInfo, repoInfo,
+			viewer.ui.panel.setImageInfo(image, imageInfo, repoInfo,
 				localUsage, globalUsage, userInfo );
 		} );
 
 		$.when( imagePromise, metadataPromise ).then( function() {
-			if ( viewer.lightbox.currentIndex !== image.index ) {
+			if ( viewer.currentIndex !== image.index ) {
 				return;
 			}
 
@@ -344,13 +344,13 @@
 	MMVP.displayRealThumbnail = function ( thumbnail, image, imageWidths, loadTime ) {
 		this.realThumbnailShown = true;
 
-		this.setImage( this.lightbox.iface, thumbnail, image, imageWidths );
+		this.setImage( this.ui, thumbnail, image, imageWidths );
 
 		// We only animate unblur if the image wasn't loaded from the cache
 		// A load in < 10ms is considered to be a browser cache hit
 		// And of course we only unblur if there was a blur to begin with
 		if ( this.blurredThumbnailShown && loadTime > 10 ) {
-			this.lightbox.iface.canvas.unblur();
+			this.ui.canvas.unblur();
 		}
 
 		mw.mmv.logger.log( 'image-view' );
@@ -368,7 +368,7 @@
 			return;
 		}
 
-		this.blurredThumbnailShown = this.lightbox.iface.canvas.maybeDisplayPlaceholder(
+		this.blurredThumbnailShown = this.ui.canvas.maybeDisplayPlaceholder(
 			imageInfo, $initialImage, imageWidths );
 	};
 
@@ -401,16 +401,16 @@
 	 */
 	MMVP.eachPrealoadableLightboxIndex = function( callback ) {
 		for ( var i = 0; i <= this.preloadDistance; i++ ) {
-			if ( this.lightbox.currentIndex + i < this.thumbs.length ) {
+			if ( this.currentIndex + i < this.thumbs.length ) {
 				callback(
-					this.lightbox.currentIndex + i,
-					this.thumbs[ this.lightbox.currentIndex + i ].image
+					this.currentIndex + i,
+					this.thumbs[ this.currentIndex + i ].image
 				);
 			}
-			if ( i && this.lightbox.currentIndex - i >= 0 ) { // skip duplicate for i==0
+			if ( i && this.currentIndex - i >= 0 ) { // skip duplicate for i==0
 				callback(
-					this.lightbox.currentIndex - i,
-					this.thumbs[ this.lightbox.currentIndex - i ].image
+					this.currentIndex - i,
+					this.thumbs[ this.currentIndex - i ].image
 				);
 			}
 		}
@@ -476,8 +476,7 @@
 	 * being loaded sooner.
 	 */
 	MMVP.preloadThumbnails = function() {
-		var viewer = this,
-			ui = this.lightbox.iface;
+		var viewer = this;
 
 		this.cancelThumbnailsPreloading();
 
@@ -485,7 +484,7 @@
 			return function() {
 				return viewer.fetchThumbnail(
 					lightboxImage.filePageTitle,
-					ui.canvas.getLightboxImageWidths( lightboxImage ).real
+					viewer.ui.canvas.getLightboxImageWidths( lightboxImage ).real
 				);
 			};
 		} );
@@ -499,7 +498,7 @@
 	MMVP.preloadFullscreenThumbnail = function( image ) {
 		this.fetchThumbnail(
 			image.filePageTitle,
-			this.lightbox.iface.canvas.getLightboxImageWidthsForFullscreen( image ).real
+			this.ui.canvas.getLightboxImageWidthsForFullscreen( image ).real
 		);
 	};
 
@@ -621,14 +620,14 @@
 	 * Opens the next image
 	 */
 	MMVP.nextImage = function () {
-		this.loadIndex( this.lightbox.currentIndex + 1 );
+		this.loadIndex( this.currentIndex + 1 );
 	};
 
 	/**
 	 * Opens the previous image
 	 */
 	MMVP.prevImage = function () {
-		this.loadIndex( this.lightbox.currentIndex - 1 );
+		this.loadIndex( this.currentIndex - 1 );
 	};
 
 	/**
@@ -658,8 +657,9 @@
 			// This allows us to avoid the mmv.hash event that normally happens on close
 			comingFromHashChange = true;
 
-			if ( this.lightbox && this.lightbox.iface ) {
-				this.lightbox.iface.unattach();
+			if ( this.ui ) {
+				// FIXME triggers mmv-close event, which calls viewer.close()
+				this.ui.unattach();
 			} else {
 				this.close();
 			}
@@ -686,7 +686,7 @@
 		} ).on( 'mmv-prev.mmvp', function () {
 			viewer.prevImage();
 		} ).on( 'mmv-resize.mmvp', function () {
-			viewer.resize( viewer.lightbox.iface );
+			viewer.resize( viewer.ui );
 		});
 	};
 
