@@ -2,7 +2,8 @@
 	QUnit.module( 'mmv.lightboxInterface', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Sanity test, object creation and ui construction', 23, function ( assert ) {
-		var lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer );
+		var viewer = new mw.mmv.MultimediaViewer(),
+			lightbox = new mw.mmv.LightboxInterface( viewer );
 
 		function checkIfUIAreasAttachedToDocument( inDocument ) {
 			var msg = inDocument === 1 ? ' ' : ' not ';
@@ -36,7 +37,8 @@
 	} );
 
 	QUnit.test( 'Handler registration and clearance work OK', 2, function ( assert ) {
-		var lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer ),
+		var viewer = new mw.mmv.MultimediaViewer(),
+			lightbox = new mw.mmv.LightboxInterface( viewer ),
 			handlerCalls = 0;
 
 		function handleEvent() {
@@ -52,7 +54,8 @@
 	} );
 
 	QUnit.test( 'Fullscreen mode', 8, function ( assert ) {
-		var lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer ),
+		var viewer = new mw.mmv.MultimediaViewer(),
+			lightbox = new mw.mmv.LightboxInterface( viewer ),
 			oldFnEnterFullscreen = $.fn.enterFullscreen,
 			oldFnExitFullscreen = $.fn.exitFullscreen,
 			oldSupportFullscreen = $.support.fullscreen;
@@ -116,15 +119,15 @@
 	} );
 
 	QUnit.test( 'Fullscreen mode', 8, function ( assert ) {
-		var lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer ),
+		var viewer = new mw.mmv.MultimediaViewer(),
+			lightbox = new mw.mmv.LightboxInterface( viewer ),
 			oldFnEnterFullscreen = $.fn.enterFullscreen,
 			oldFnExitFullscreen = $.fn.exitFullscreen,
 			oldRevealButtonsAndFadeIfNeeded,
-			oldPreloadDistance = mw.mmv.mediaViewer.preloadDistance,
 			buttonOffset;
 
 		// ugly hack to avoid preloading which would require lightbox list being set up
-		mw.mmv.mediaViewer.preloadDistance = -1;
+		viewer.preloadDistance = -1;
 
 		// Since we don't want these tests to really open fullscreen
 		// which is subject to user security confirmation,
@@ -180,11 +183,11 @@
 
 		$.fn.enterFullscreen = oldFnEnterFullscreen;
 		$.fn.exitFullscreen = oldFnExitFullscreen;
-		mw.mmv.mediaViewer.preloadDistance = oldPreloadDistance;
 	} );
 
 	QUnit.test( 'isAnyActiveButtonHovered', 20, function ( assert ) {
-		var lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer );
+		var viewer = new mw.mmv.MultimediaViewer(),
+			lightbox = new mw.mmv.LightboxInterface( viewer );
 
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
@@ -219,18 +222,17 @@
 	} );
 
 	QUnit.test( 'Metadata scrolling', 15, function ( assert ) {
-		var lightbox = new mw.mmv.LightboxInterface( mw.mmv.mediaViewer ),
+		var viewer = new mw.mmv.MultimediaViewer(),
+			lightbox = new mw.mmv.LightboxInterface( viewer ),
 			keydown = $.Event( 'keydown' ),
 			$document = $( document ),
 			scrollTopBeforeOpeningLightbox,
 			originalJQueryScrollTop = $.fn.scrollTop,
 			memorizedScrollToScroll = 0,
-			originalJQueryScrollTo = $.scrollTo,
-			oldMWLightbox = mw.mmv.mediaViewer.lightbox,
-			oldMWUI = mw.mmv.mediaViewer.ui;
+			originalJQueryScrollTo = $.scrollTo;
 
 		// Pretend that we have things hooked up
-		mw.mmv.mediaViewer.ui = lightbox;
+		viewer.ui = lightbox;
 
 		// We need to set up a proxy on the jQuery scrollTop function
 		// that will let us pretend that the document really scrolled
@@ -261,7 +263,7 @@
 
 			if ( scrollTo !== undefined ) {
 				// Trigger event manually
-				mw.mmv.mediaViewer.scroll();
+				viewer.scroll();
 			}
 
 			return $element;
@@ -269,14 +271,14 @@
 
 		// First phase of the test: up and down arrows
 
-		mw.mmv.mediaViewer.hasAnimatedMetadata = false;
+		viewer.hasAnimatedMetadata = false;
 		localStorage.removeItem( 'mmv.hasOpenedMetadata' );
 
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
 
 		// Pretend that we have things hooked up
-		mw.mmv.mediaViewer.lightbox = { currentIndex: 0 };
+		viewer.lightbox = { currentIndex: 0 };
 
 		// This lets us avoid pushing a state to the history, which might interfere with other tests
 		lightbox.comingFromHashChange = true;
@@ -361,12 +363,10 @@
 		// Let's restore all originals, to make sure this test is free of side-effect
 		$.fn.scrollTop = originalJQueryScrollTop;
 		$.scrollTo = originalJQueryScrollTo;
-		mw.mmv.mediaViewer.lightbox = oldMWLightbox;
-		mw.mmv.mediaViewer.ui = oldMWUI;
 	} );
 
 	QUnit.test( 'Keyboard prev/next', 2, function ( assert ) {
-		var viewer =  mw.mmv.mediaViewer,
+		var viewer = new mw.mmv.MultimediaViewer(),
 			lightbox = new mw.mmv.LightboxInterface( viewer ),
 			oldNextImage = viewer.nextImage,
 			oldPrevImage = viewer.prevImage;

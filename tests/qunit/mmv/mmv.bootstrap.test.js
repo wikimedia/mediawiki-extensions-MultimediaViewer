@@ -1,7 +1,7 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.bootstrap', QUnit.newMwEnvironment() );
 
-	function createGallery ( imageSrc ) {
+	function createGallery( imageSrc ) {
 		var div = $( '<div>' ).addClass( 'gallery' ).appendTo( '#qunit-fixture' ),
 			link = $( '<a>' ).addClass( 'image' ).appendTo( div );
 
@@ -20,7 +20,14 @@
 		return div;
 	}
 
-	QUnit.asyncTest( 'Promise does not hang on ResourceLoader errors', 1, function ( assert ) {
+	function createBootstrap( viewer ) {
+		var bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+		bootstrap.getViewer = function() { return viewer ? viewer : { initWithThumbs : $.noop }; };
+
+		return bootstrap;
+	}
+
+	QUnit.test( 'Promise does not hang on ResourceLoader errors', 1, function ( assert ) {
 		var oldUsing = mw.loader.using,
 			bootstrap,
 			errorMessage = 'loading failed';
@@ -30,22 +37,22 @@
 				error( new Error( errorMessage, ['mmv'] ) );
 			}
 		};
-		bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+
+		bootstrap = createBootstrap();
+
+		QUnit.stop();
 
 		bootstrap.loadViewer().fail( function ( message ) {
 			assert.strictEqual( message, errorMessage, 'promise is rejected with the error message when loading fails' );
 			QUnit.start();
+			mw.loader.using = oldUsing;
 		} );
-
-		bootstrap.hash = $.noop;
-		mw.loader.using = oldUsing;
 	} );
 
 	QUnit.test( 'Check viewer invoked when clicking on legit image links', 2, function ( assert ) {
 		// TODO: Is <div class="gallery"><span class="image"><img/></span></div> valid ???
 		var div, link, link2, link3, bootstrap,
-			viewer = mw.mmv.mediaViewer,
-			oldLoadImageByTitle = viewer.loadImageByTitle;
+			viewer = { initWithThumbs : $.noop };
 
 		// Create gallery with legit link image
 		div = createGallery();
@@ -60,7 +67,7 @@
 		$( '<img>' ).attr( 'src',  'thumb3.jpg' ).appendTo( link3 );
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
-		bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+		bootstrap = createBootstrap( viewer );
 
 		viewer.loadImageByTitle = function() {
 			assert.ok( true, 'Image loaded' );
@@ -78,22 +85,18 @@
 
 		// Click on non-legit link
 		link3.trigger( { type : 'click', which : 1 } );
-
-		viewer.loadImageByTitle = oldLoadImageByTitle;
-		bootstrap.hash = $.noop;
 	} );
 
 	QUnit.test( 'Skip images with invalid extensions', 0, function ( assert ) {
 		var div, link, bootstrap,
-			viewer = mw.mmv.mediaViewer,
-			oldLoadImageByTitle = viewer.loadImageByTitle;
+			viewer = { initWithThumbs : $.noop };
 
 		// Create gallery with image that has invalid name extension
 		div = createGallery( 'thumb.badext' );
 		link = div.find( 'a.image' );
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
-		bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+		bootstrap = createBootstrap( viewer );
 
 		viewer.loadImageByTitle = function() {
 			assert.ok( false, 'Image should not be loaded' );
@@ -101,21 +104,17 @@
 
 		// Click on legit link with wrong image extension
 		link.trigger( { type : 'click', which : 1 } );
-
-		viewer.loadImageByTitle = oldLoadImageByTitle;
-		bootstrap.hash = $.noop;
 	} );
 
 	QUnit.test( 'Accept only left clicks without modifier keys, skip the rest', 1, function ( assert ) {
 		var $div, $link, bootstrap,
-			viewer = mw.mmv.mediaViewer,
-			oldLoadImageByTitle = viewer.loadImageByTitle;
+			viewer = { initWithThumbs : $.noop };
 
 		// Create gallery with image that has invalid name extension
 		$div = createGallery();
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
-		bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+		bootstrap = createBootstrap( viewer );
 
 		$link = $div.find( 'a.image' );
 
@@ -135,40 +134,29 @@
 
 		// Skip invalid right click, no image is loaded
 		$link.trigger( { type : 'click', which : 2 } );
-
-		viewer.loadImageByTitle = oldLoadImageByTitle;
-		bootstrap.hash = $.noop;
 	} );
 
 	QUnit.test( 'Ensure that the correct title is loaded when clicking', 1, function ( assert ) {
 		var bootstrap,
-			oldByTitle,
-			viewer = mw.mmv.mediaViewer,
+			viewer = { initWithThumbs : $.noop },
 			$div = createGallery( 'foo.jpg' ),
 			$link = $div.find( 'a.image' );
-
-		oldByTitle = viewer.loadImageByTitle;
 
 		viewer.loadImageByTitle = function ( loadedTitle ) {
 			assert.strictEqual( loadedTitle, 'File:Foo.jpg', 'Titles are identical' );
 		};
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
-		bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+		bootstrap = createBootstrap( viewer );
 
 		$link.trigger( { type : 'click', which : 1 } );
-
-		viewer.loadImageByTitle = oldByTitle;
-		bootstrap.hash = $.noop;
 	} );
 
 	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 6, function ( assert ) {
 		var bootstrap,
 			$div,
 			$link,
-			viewer = mw.mmv.mediaViewer,
-			oldNewImage = viewer.createNewImage,
-			oldLoadImage = viewer.loadImage,
+			viewer = new mw.mmv.MultimediaViewer(),
 			fname = 'valid',
 			imgSrc = '/' + fname + '.jpg/300px-' + fname + '.jpg',
 			imgRegex = new RegExp( imgSrc + '$' );
@@ -188,13 +176,9 @@
 		};
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
-		bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+		bootstrap = createBootstrap( viewer );
 
 		$link.trigger( { type : 'click', which : 1 } );
-
-		viewer.createNewImage = oldNewImage;
-		viewer.loadImage = oldLoadImage;
-		bootstrap.hash = $.noop;
 	} );
 
 	QUnit.asyncTest( 'Only load the viewer on a valid hash', 1, function ( assert ) {
@@ -202,7 +186,8 @@
 
 		window.location.hash = '';
 
-		bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+		bootstrap = createBootstrap();
+		bootstrap.setupEventHandlers();
 
 		bootstrap.loadViewer = function () {
 			assert.ok( false, 'Viewer should not be loaded' );
@@ -214,7 +199,7 @@
 		bootstrap.loadViewer = function () {
 			QUnit.start();
 			assert.ok( true, 'Viewer should be loaded' );
-			bootstrap.hash = $.noop;
+			bootstrap.cleanupEventHandlers();
 			window.location.hash = '';
 			return $.Deferred().reject();
 		};
@@ -222,17 +207,19 @@
 		window.location.hash = 'mediaviewer/foo';
 	} );
 
-	QUnit.asyncTest( 'internalHashChange', 1, function ( assert ) {
+	QUnit.test( 'internalHashChange', 1, function ( assert ) {
 		window.location.hash = '';
 
-		var bootstrap = new mw.mmv.MultimediaViewerBootstrap(),
+		var bootstrap = createBootstrap(),
 			hash = '#mediaviewer/foo',
 			oldHash = bootstrap.hash;
+
+		bootstrap.setupEventHandlers();
 
 		bootstrap.hash = function () {
 			oldHash.call( this );
 
-			bootstrap.hash = $.noop;
+			bootstrap.cleanupEventHandlers();
 			window.location.hash = '';
 			QUnit.start();
 		};
@@ -242,13 +229,14 @@
 			return $.Deferred().reject();
 		};
 
+		QUnit.stop();
 		bootstrap.internalHashChange( { hash: hash } );
 
 		assert.strictEqual( window.location.hash, hash, 'Window\'s hash has been updated correctly' );
 	} );
 
 	QUnit.test( 'isCSSReady', 3, function ( assert ) {
-		var bootstrap = new mw.mmv.MultimediaViewerBootstrap(),
+		var bootstrap = createBootstrap(),
 			deferred = $.Deferred(),
 			CSSclass = 'foo-' + $.now(),
 			$style = $( '<style type="text/css" />' )

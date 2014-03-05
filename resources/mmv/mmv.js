@@ -92,8 +92,6 @@
 		//this.globalUsageProvider = new mw.mmv.provider.GlobalUsage(
 		//	new mw.mmv.Api( {ajax: { url: 'http://commons.wikimedia.org/w/api.php', dataType: 'jsonp' } } )
 		//);
-
-		this.setupEventHandlers();
 	}
 
 	MMVP = MultimediaViewer.prototype;
@@ -114,12 +112,14 @@
 		for ( i = 0; i < this.thumbs.length; i++ ) {
 			thumb = this.thumbs[ i ];
 			// Create a LightboxImage object for each legit image
-			thumb.image = mw.mmv.mediaViewer.createNewImage( thumb.$thumb.prop( 'src' ),
+			thumb.image = this.createNewImage(
+				thumb.$thumb.prop( 'src' ),
 				thumb.link,
 				thumb.title,
 				i,
 				thumb.thumb,
-				thumb.caption );
+				thumb.caption
+			);
 		}
 	};
 
@@ -684,6 +684,13 @@
 		});
 	};
 
+	/**
+	* Unregisters all event handlers. Currently only used in tests.
+	*/
+	 MMVP.cleanupEventHandlers = function () {
+		$( document ).off( 'mmv-close.mmvp mmv-next.mmvp mmv-prev.mmvp mmv-resize.mmvp' );
+		this.stopListeningToScroll();
+	};
+
 	mw.mmv.MultimediaViewer = MultimediaViewer;
-	mw.mmv.mediaViewer = new MultimediaViewer();
 }( mediaWiki, jQuery ) );

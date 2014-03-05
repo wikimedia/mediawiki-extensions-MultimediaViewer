@@ -481,6 +481,17 @@ call_user_func( function() {
 		),
 	), $moduleInfo( 'mmv' ) );
 
+	$wgResourceModules['mmv.bootstrap.autostart'] = array_merge( array(
+		'scripts' => array(
+			'mmv.bootstrap.autostart.js',
+		),
+
+		'dependencies' => array(
+			'mmv.base',
+			'mmv.bootstrap',
+		),
+	), $moduleInfo( 'mmv' ) );
+
 	$wgResourceModules['jquery.scrollTo'] = array_merge( array(
 		'scripts' => array(
 			'jquery.scrollTo.js',

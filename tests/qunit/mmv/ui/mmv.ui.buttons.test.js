@@ -19,22 +19,28 @@
 	QUnit.module( 'mmv.ui.Buttons', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Prev/Next', 2, function( assert ) {
-		var $qf = $( '#qunit-fixture' ),
+		var i = 0,
+			$qf = $( '#qunit-fixture' ),
 			buttons = new mw.mmv.ui.Buttons( $qf, $( '<div>' ), $( '<div>' ) ),
-			viewer = mw.mmv.mediaViewer,
-			oldLoadIndex = viewer.loadIndex,
-			oldLightbox = viewer.lightbox;
+			viewer = new mw.mmv.MultimediaViewer();
 
 		viewer.lightbox = {};
 
 		viewer.loadIndex = function () {
 			assert.ok( true, 'Switched to next/prev image' );
+			i++;
+
+			if ( i === 2 ) {
+				QUnit.start();
+				viewer.cleanupEventHandlers();
+			}
 		};
+
+		viewer.setupEventHandlers();
+
+		QUnit.stop();
 
 		buttons.$next.click();
 		buttons.$prev.click();
-
-		viewer.loadIndex = oldLoadIndex;
-		viewer.lightbox = oldLightbox;
 	} );
 }( mediaWiki, jQuery ) );
