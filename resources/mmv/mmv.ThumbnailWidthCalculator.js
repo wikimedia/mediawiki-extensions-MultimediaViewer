@@ -124,7 +124,7 @@
 	TWCP.calculateFittingWidth = function( boundingWidth, boundingHeight, sampleWidth, sampleHeight ) {
 		if ( ( boundingWidth / boundingHeight ) > ( sampleWidth / sampleHeight ) ) {
 			// we are limited by height; we need to calculate the max width that fits
-			return ( sampleWidth / sampleHeight ) * boundingHeight;
+			return Math.round( ( sampleWidth / sampleHeight ) * boundingHeight );
 		} else {
 			// simple case, ratio tells us we're limited by width
 			return boundingWidth;
@@ -156,16 +156,19 @@
 
 	TWCP.calculateWidths = function( boundingWidth, boundingHeight, sampleWidth, sampleHeight ) {
 		var cssWidth,
+			cssHeight,
 			screenPixelWidth,
-			bucketedWidth;
+			bucketedWidth,
+			ratio = sampleHeight / sampleWidth;
 
 		cssWidth = this.calculateFittingWidth( boundingWidth, boundingHeight, sampleWidth, sampleHeight );
+		cssHeight = Math.round( cssWidth * ratio );
 
 		screenPixelWidth = cssWidth * this.devicePixelRatio;
 
 		bucketedWidth = this.findNextBucket( screenPixelWidth );
 
-		return new mw.mmv.model.ThumbnailWidth( cssWidth, screenPixelWidth, bucketedWidth );
+		return new mw.mmv.model.ThumbnailWidth( cssWidth, cssHeight, screenPixelWidth, bucketedWidth );
 	};
 
 	mw.mmv.ThumbnailWidthCalculator = ThumbnailWidthCalculator;

@@ -91,7 +91,7 @@
 			100, 'fit calculation correct when same aspect ratio' );
 	} );
 
-	QUnit.test( 'calculateWidths() test', 6, function ( assert ) {
+	QUnit.test( 'calculateWidths() test', 9, function ( assert ) {
 		var boundingWidth = 100,
 			boundingHeight = 200,
 			thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator( {
@@ -102,21 +102,24 @@
 
 		// 50x10 image in 100x200 box - image size should be 100x20, thumbnail should be 128x25.6
 		widths = thumbnailWidthCalculator.calculateWidths( boundingWidth, boundingHeight, 50, 10 );
-		assert.strictEqual( widths.css, 100, 'css width is correct when limited by width' );
+		assert.strictEqual( widths.cssWidth, 100, 'css width is correct when limited by width' );
+		assert.strictEqual( widths.cssHeight, 20, 'css height is correct when limited by width' );
 		assert.strictEqual( widths.real, 128, 'real width is correct when limited by width' );
 
 		// 10x100 image in 100x200 box - image size should be 20x200, thumbnail should be 32x320
 		widths = thumbnailWidthCalculator.calculateWidths( boundingWidth, boundingHeight, 10, 100 );
-		assert.strictEqual( widths.css, 20, 'css width is correct when limited by height' );
+		assert.strictEqual( widths.cssWidth, 20, 'css width is correct when limited by height' );
+		assert.strictEqual( widths.cssHeight, 200, 'css height is correct when limited by width' );
 		assert.strictEqual( widths.real, 32, 'real width is correct when limited by height' );
 
 		// 10x20 image in 100x200 box - image size should be 100x200, thumbnail should be 128x256
 		widths = thumbnailWidthCalculator.calculateWidths( boundingWidth, boundingHeight, 10, 20 );
-		assert.strictEqual( widths.css, 100, 'css width is correct when same aspect ratio' );
+		assert.strictEqual( widths.cssWidth, 100, 'css width is correct when same aspect ratio' );
+		assert.strictEqual( widths.cssHeight, 200, 'css height is correct when limited by width' );
 		assert.strictEqual( widths.real, 128, 'real width is correct when same aspect ratio' );
 	} );
 
-	QUnit.test( 'calculateWidths() test with non-standard device pixel ratio', 6, function ( assert ) {
+	QUnit.test( 'calculateWidths() test with non-standard device pixel ratio', 9, function ( assert ) {
 		var boundingWidth = 100,
 			boundingHeight = 200,
 			thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator( {
@@ -127,17 +130,20 @@
 
 		// 50x10 image in 100x200 box - image size should be 100x20, thumbnail should be 256x51.2
 		widths = thumbnailWidthCalculator.calculateWidths( boundingWidth, boundingHeight, 50, 10 );
-		assert.strictEqual( widths.css, 100, 'css width is correct when limited by width' );
+		assert.strictEqual( widths.cssWidth, 100, 'css width is correct when limited by width' );
+		assert.strictEqual( widths.cssHeight, 20, 'css height is correct when limited by width' );
 		assert.strictEqual( widths.real, 256, 'real width is correct when limited by width' );
 
 		// 10x100 image in 100x200 box - image size should be 20x200, thumbnail should be 64x640
 		widths = thumbnailWidthCalculator.calculateWidths( boundingWidth, boundingHeight, 10, 100 );
-		assert.strictEqual( widths.css, 20, 'css width is correct when limited by height' );
+		assert.strictEqual( widths.cssWidth, 20, 'css width is correct when limited by height' );
+		assert.strictEqual( widths.cssHeight, 200, 'css height is correct when limited by width' );
 		assert.strictEqual( widths.real, 64, 'real width is correct when limited by height' );
 
 		// 10x20 image in 100x200 box - image size should be 100x200, thumbnail should be 256x512
 		widths = thumbnailWidthCalculator.calculateWidths( boundingWidth, boundingHeight, 10, 20 );
-		assert.strictEqual( widths.css, 100, 'css width is correct when same aspect ratio' );
+		assert.strictEqual( widths.cssWidth, 100, 'css width is correct when same aspect ratio' );
+		assert.strictEqual( widths.cssHeight, 200, 'css height is correct when limited by width' );
 		assert.strictEqual( widths.real, 256, 'real width is correct when same aspect ratio' );
 	} );
 }( mediaWiki ) );

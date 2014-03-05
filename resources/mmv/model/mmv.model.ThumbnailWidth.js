@@ -24,12 +24,13 @@
  * overcomplicated Hungarian notation :)
  * @class mw.mmv.model.ThumbnailWidth
  * @constructor
- * @param {number} css width in CSS pixels
+ * @param {number} cssWidth width in CSS pixels
+ * @param {number} cssHeight height in CSS pixels
  * @param {number} screen width in screen pixels
  * @param {number} real width in real pixels
  */
-function ThumbnailWidth( css, screen, real ) {
-	if ( !css || !screen || !real ) {
+function ThumbnailWidth( cssWidth, cssHeight, screen, real ) {
+	if ( !cssWidth || !cssHeight || !screen || !real ) {
 		throw 'All parameters are required and cannot be empty or zero';
 	}
 
@@ -38,7 +39,14 @@ function ThumbnailWidth( css, screen, real ) {
 	 * into UI code like $element.width(x).
 	 * @property {number}
 	 */
-	this.css = css;
+	this.cssWidth = cssWidth;
+
+	/**
+	 * Height of the thumbnail on the screen, in CSS pixels. This is the number which can be plugged
+	 * into UI code like $element.height(x).
+	 * @property {number}
+	 */
+	this.cssHeight = cssHeight;
 
 	/**
 	 * Width of the thumbnail on the screen, in device pixels. On most devices this is the same as
