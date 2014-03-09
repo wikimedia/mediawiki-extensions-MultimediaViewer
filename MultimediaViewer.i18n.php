@@ -781,6 +781,13 @@ $messages['gl'] = array(
 	'multimediaviewer-fileusage-global-section' => 'Noutros sitios',
 );
 
+/** Gujarati (ગુજરાતી)
+ * @author KartikMistry
+ */
+$messages['gu'] = array(
+	'multimediaviewer-permission-viewmore' => 'વધુ જુઓ',
+);
+
 /** Hebrew (עברית)
  * @author Amire80
  * @author Neukoln
@@ -926,22 +933,34 @@ $messages['id'] = array(
  * @author Lam-ang
  */
 $messages['ilo'] = array(
-	'multimediaviewer-desc' => 'Mangpadakkel kadagiti bassit a ladawan iti dakdakkel iti maysa a Lightbox.',
+	'multimediaviewer-desc' => 'Palawaen dagiti bassit a ladawan iti dakdakkel iti napno a pangbuyaan ti interface.',
+	'multimediaviewer-desc-nil' => 'Awan ti magun-od a deskripsion.',
 	'multimediaviewer-pref' => 'Media Viewer',
-	'multimediaviewer-pref-desc' => 'Pasayaatem ti panagsanay a panagbuya ti nadumaduma a midia iti daytoy a ramit. Daytoy ket agiparang kadagiti dakdakkel a ladawan kadagiti panid nga addaan kadagiti bassit a ladawan. Dagiti ladawan ket maiparang ti nasaysayaat a tuon ti Lightbox, ken mabalin pay a makita iti napno a kadakkel.',
+	'multimediaviewer-pref-desc' => 'Pasayaatem ti panagsanay a panagbuya ti nadumaduma a midia iti daytoy baro a ramit. Daytoy ket agiparang kadagiti dakdakkel a ladawan kadagiti panid nga addaan kadagiti bassit a ladawan. Dagiti ladawan ket maiparang iti nasaysayaat a tuon iti napno a pangbuyaan ti interface, ken mabalin pay a makita iti napno a kadakkel.',
 	'multimediaviewer-file-page' => 'Mapan iti maitutop a panid ti papeles',
 	'multimediaviewer-repository' => 'Agadal pay ti adu idiay $1',
+	'multimediaviewer-repository-local' => 'Agadal pay ti adu',
 	'multimediaviewer-datetime-created' => 'Pinartuat idi $1',
 	'multimediaviewer-datetime-uploaded' => 'Inkarga idi $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Inkarga}} babaen ni $1',
 	'multimediaviewer-license-cc-pd' => 'Dominio a Publiko',
+	'multimediaviewer-license-pd' => 'Dominio a Publiko',
 	'multimediaviewer-license-default' => 'Kitaen ti lisensia',
+	'multimediaviewer-permission-title' => 'Dagiti salaysay ti lisensia',
+	'multimediaviewer-permission-link' => 'kitaen dagiti termino',
+	'multimediaviewer-permission-viewmore' => 'Agkita pay ti adu',
 	'multimediaviewer-use-file' => 'Usaren daytoy a papeles',
 	'multimediaviewer-use-file-owt' => 'Usaren daytoy a papeles iti panid ti wiki, a kas bassit a ladawan',
 	'multimediaviewer-use-file-own' => 'Usaren daytoy a papeles iti panid ti wiki, a nailinia',
 	'multimediaviewer-use-file-offwiki' => 'Usaren daytoy a papeles iti sabali a website',
 	'multimediaviewer-about-mmv' => 'Maipanggep ti Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Mangibati ti feedback',
+	'multimediaviewer-geolocation' => 'Lokasion: $1',
+	'multimediaviewer-fileusage-count' => 'Naus-usar iti $1 a {{PLURAL:$1|panid|pampanid}}',
+	'multimediaviewer-fileusage-count-more' => 'Naus-usar iti ad-adu ngem $1 a {{PLURAL:$1|pampanid}}',
+	'multimediaviewer-fileusage-link' => 'Kitaen amin a panag-usar',
+	'multimediaviewer-fileusage-local-section' => 'Iti daytoy a sitio',
+	'multimediaviewer-fileusage-global-section' => 'Kadagiti sabali a sitio',
 );
 
 /** Italian (italiano)
@@ -1372,6 +1391,7 @@ $messages['ps'] = array(
 /** Portuguese (português)
  * @author Fúlvio
  * @author Imperadeiro98
+ * @author SandroHc
  * @author Vitorvicentevalente
  */
 $messages['pt'] = array(
@@ -1388,6 +1408,9 @@ $messages['pt'] = array(
 	'multimediaviewer-license-cc-pd' => 'Domínio Público',
 	'multimediaviewer-license-pd' => 'Domínio público',
 	'multimediaviewer-license-default' => 'Ver licença',
+	'multimediaviewer-permission-title' => 'Detalhes da licença',
+	'multimediaviewer-permission-link' => 'ver termos',
+	'multimediaviewer-permission-viewmore' => 'Ver mais',
 	'multimediaviewer-use-file' => 'Usar este ficheiro',
 	'multimediaviewer-use-file-owt' => 'Usar este ficheiro numa página wiki em forma de miniatura',
 	'multimediaviewer-use-file-own' => 'Usar este ficheiro numa página wiki',
