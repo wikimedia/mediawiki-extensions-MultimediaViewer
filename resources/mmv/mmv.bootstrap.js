@@ -121,6 +121,12 @@
 			return;
 		}
 
+		if ( $thumb.closest( '.metadata' ).length > 0 ) {
+			// This is almost certainly an icon for an informational template like
+			// {{refimprove}} on enwiki.
+			return;
+		}
+
 		if ( $thumbContain.length !== 0 && $thumbContain.is( '.thumb' ) ) {
 			$thumbCaption = $thumbContain.find( '.thumbcaption' ).clone();
 			$thumbCaption.find( '.magnify' ).remove();
