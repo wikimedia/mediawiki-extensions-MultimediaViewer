@@ -79,8 +79,6 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
-			'mediawiki',
-			'jquery',
 			'jquery.hidpi',
 			'mmv.base',
 			'mmv.model.ThumbnailWidth',
@@ -184,9 +182,13 @@ call_user_func( function() {
 		'dependencies' => array(
 			'mediawiki.Title',
 			'mmv.model',
-			'mmv.model.TaskQueue',
-			'oojs',
+			'mmv.model.FileUsage',
+			'mmv.model.Image',
+			'mmv.model.Repo',
+			'mmv.model.Thumbnail',
+			'mmv.model.User',
 			'mmv.performance',
+			'oojs',
 		),
 	), $moduleInfo( 'mmv/provider' ) );
 
@@ -239,6 +241,10 @@ call_user_func( function() {
 			'mmv.ui',
 			'oojs',
 		),
+
+		'messages' => array(
+			'comma-separator',
+		),
 	), $moduleInfo( 'mmv/ui' ) );
 
 	$wgResourceModules['mmv.ui.description'] = array_merge( array(
@@ -262,10 +268,19 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
+			'mediawiki.language',
 			'mediawiki.Uri',
 			'mediawiki.jqueryMsg',
 			'mmv.ui',
 			'oojs',
+		),
+
+		'messages' => array(
+			'multimediaviewer-fileusage-count',
+			'multimediaviewer-fileusage-count-more',
+			'multimediaviewer-fileusage-link',
+			'multimediaviewer-fileusage-local-section',
+			'multimediaviewer-fileusage-global-section',
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 
@@ -301,14 +316,15 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
+			'mediawiki.language',
 			'mmv.ui',
+			'mmv.ui.categories',
+			'mmv.ui.description',
 			'mmv.ui.fileReuse',
 			'mmv.ui.fileUsage',
 			'mmv.ui.permission',
-			'mmv.ui.description',
-			'mmv.ui.categories',
-			'oojs',
 			'moment',
+			'oojs',
 		),
 
 		'messages' => array(
@@ -374,7 +390,6 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
-			'jquery',
 			'mmv.base',
 		),
 	), $moduleInfo( 'mmv' ) );
@@ -385,8 +400,6 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
-			'jquery',
-			'mediawiki',
 			'mmv.base',
 		),
 	), $moduleInfo( 'mmv' ) );
@@ -397,8 +410,6 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
-			'jquery',
-			'mediawiki',
 			'mediawiki.api',
 			'mmv.base',
 			'oojs',
@@ -417,42 +428,26 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
-			'mmv.base',
-			'jquery.scrollTo',
-			'mmv.lightboximage',
-			'jquery.fullscreen',
-			'jquery.throttle-debounce',
-			'mediawiki.Uri',
-			'jquery.ui.dialog',
-			'jquery.hidpi',
-			'mmv.model',
-			'mmv.model.FileUsage',
-			'mmv.model.Image',
-			'mmv.model.Repo',
-			'mmv.model.Thumbnail',
-			'mmv.model.User',
-			'mmv.model.TaskQueue',
-			'mmv.provider',
-			'mediawiki.language',
-			'mmv.lightboxinterface',
 			'mmv.api',
+			'mmv.base',
+			'mmv.lightboximage',
+			'mmv.model.TaskQueue',
+			'mmv.lightboxinterface',
+			'mmv.provider',
+			'jquery.fullscreen',
+			'jquery.hidpi',
+			'jquery.scrollTo',
+			'jquery.throttle-debounce',
+			'jquery.ui.dialog',
 		),
 
 		'messages' => array(
-			'comma-separator',
-
 			'multimediaviewer-file-page',
 			'multimediaviewer-use-file',
 			'multimediaviewer-use-file-owt',
 			'multimediaviewer-use-file-own',
 			'multimediaviewer-use-file-offwiki',
 			'multimediaviewer-desc-nil',
-
-			'multimediaviewer-fileusage-count',
-			'multimediaviewer-fileusage-count-more',
-			'multimediaviewer-fileusage-link',
-			'multimediaviewer-fileusage-local-section',
-			'multimediaviewer-fileusage-global-section',
 		),
 	), $moduleInfo( 'mmv' ) );
 
@@ -462,12 +457,10 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
-			'jquery',
-			'mediawiki',
+			'jquery.hashchange',
 			'mediawiki.Title',
 			'mmv.logger',
 			'mmv.ui',
-			'jquery.hashchange',
 		),
 	), $moduleInfo( 'mmv' ) );
 
@@ -510,12 +503,11 @@ call_user_func( function() {
 				'revision' => 7488625,
 			);
 
-			$wgResourceModules['mmv.bootstrap']['dependencies'][] = 'ext.eventLogging';
-			$wgResourceModules['mmv.bootstrap']['dependencies'][] = 'schema.MediaViewer';
+			$wgResourceModules['mmv.logger']['dependencies'][] = 'ext.eventLogging';
+			$wgResourceModules['mmv.logger']['dependencies'][] = 'schema.MediaViewer';
 
-			$wgResourceModules['mmv']['dependencies'][] = 'ext.eventLogging';
-			$wgResourceModules['mmv']['dependencies'][] = 'schema.MediaViewer';
-			$wgResourceModules['mmv']['dependencies'][] = 'schema.MultimediaViewerNetworkPerformance';
+			$wgResourceModules['mmv.performance']['dependencies'][] = 'ext.eventLogging';
+			$wgResourceModules['mmv.performance']['dependencies'][] = 'schema.MultimediaViewerNetworkPerformance';
 		}
 	};
 
