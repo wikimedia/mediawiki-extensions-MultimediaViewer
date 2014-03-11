@@ -768,6 +768,9 @@ $messages['gl'] = array(
 	'multimediaviewer-license-cc-pd' => 'Dominio público',
 	'multimediaviewer-license-pd' => 'Dominio público',
 	'multimediaviewer-license-default' => 'Ver a licenza',
+	'multimediaviewer-permission-title' => 'Detalles da licenza',
+	'multimediaviewer-permission-link' => 'ver os termos',
+	'multimediaviewer-permission-viewmore' => 'Ollar máis',
 	'multimediaviewer-use-file' => 'Utilizar este ficheiro',
 	'multimediaviewer-use-file-owt' => 'Utilizar este ficheiro nunha páxina do wiki, como unha miniatura',
 	'multimediaviewer-use-file-own' => 'Utilizar este ficheiro nunha páxina do wiki, en liña co texto',
@@ -1054,6 +1057,13 @@ $messages['ja'] = array(
 	'multimediaviewer-fileusage-link' => 'すべての使用状況を閲覧',
 	'multimediaviewer-fileusage-local-section' => 'このサイト上',
 	'multimediaviewer-fileusage-global-section' => '他のサイト上',
+);
+
+/** Georgian (ქართული)
+ * @author Otogi
+ */
+$messages['ka'] = array(
+	'multimediaviewer-pref' => 'მედია დამთვალიერებელი',
 );
 
 /** Kazakh (Cyrillic script) (қазақша (кирил)‎)
