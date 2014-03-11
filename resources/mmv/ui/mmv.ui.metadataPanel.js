@@ -193,11 +193,11 @@
 			.appendTo( this.$container );
 
 		this.$imageMetadataLeft = $( '<div>' )
-			.addClass( 'mw-mlb-image-metadata-column' )
+			.addClass( 'mw-mlb-image-metadata-column mw-mlb-image-metadata-desc-column' )
 			.appendTo( this.$imageMetadata );
 
 		this.$imageMetadataRight = $( '<div>' )
-			.addClass( 'mw-mlb-image-metadata-column' )
+			.addClass( 'mw-mlb-image-metadata-column mw-mlb-image-metadata-links-column' )
 			.appendTo( this.$imageMetadata );
 
 		this.description = new mw.mmv.ui.Description( this.$imageMetadataLeft );
