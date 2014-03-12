@@ -683,7 +683,7 @@
 	 * Toggles the metadata div being totally visible.
 	 */
 	MPP.toggle = function ( forceDirection ) {
-		var scrollTopWhenOpen = this.$container.height() - this.$controlBar.height(),
+		var scrollTopWhenOpen = this.$container.outerHeight() - this.$controlBar.outerHeight(),
 			scrollTopTarget = $.scrollTo().scrollTop() > 0 ? 0 : scrollTopWhenOpen;
 
 		if ( forceDirection ) {

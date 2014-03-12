@@ -287,8 +287,8 @@
 		$document.trigger( keydown );
 
 		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ),
-			lightbox.panel.$imageMetadata.height() + 1,
-			'scrollTo scrollTop should be set to the metadata height + 1 after pressing up arrow' );
+			lightbox.panel.$imageMetadata.outerHeight(),
+			'scrollTo scrollTop should be set to the metadata height after pressing up arrow' );
 		assert.ok( lightbox.panel.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing down after pressing up arrow' );
 		assert.ok( localStorage.getItem( 'mmv.hasOpenedMetadata' ),
@@ -305,8 +305,8 @@
 		lightbox.panel.$dragIcon.click();
 
 		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ),
-			lightbox.panel.$imageMetadata.height() + 1,
-			'scrollTo scrollTop should be set to the metadata height + 1 after clicking the chevron once' );
+			lightbox.panel.$imageMetadata.outerHeight(),
+			'scrollTo scrollTop should be set to the metadata height after clicking the chevron once' );
 		assert.ok( lightbox.panel.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing down after clicking the chevron once' );
 

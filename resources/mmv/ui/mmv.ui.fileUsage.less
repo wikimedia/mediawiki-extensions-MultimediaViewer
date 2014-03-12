@@ -1,12 +1,9 @@
 @import "mmv.mixins";
 
 .mw-mlb-fileusage-container {
-	@box-color: #FFFFFF;
-	@heading-color: #F8F8F8;
-	@inner-border-color: #EEEEEE;
-	@outer-border-color: #DDDDDD;
-	@box-shadow-color: #C9C9C9;
+	@border-color: #DDDDDD;
 	@info-color: #565656;
+	@dark-text: #333333;
 
 	display: inline-block;
 	overflow: hidden;
@@ -18,34 +15,32 @@
 
 	h3 {
 		margin-left: 20px;
+		margin-top: 20px;
 		color: @info-color;
 		font-weight: normal;
-		font-size: 1.1em;
+		font-size: 1em;
 	}
 
 	ul {
 		margin: 0 20px;
-		border: 1px solid @outer-border-color;
-		border-bottom: 2px solid @box-shadow-color;
 		.box-round(3px);
+		font-size: 0.85em;
 	}
 
 	li {
 		list-style: none;
 		overflow: hidden;
-		border-bottom: 1px solid @inner-border-color;
-		padding: 3px 5px 3px 15px;
+		padding: 3px 5px 3px 0;
 		margin: 0;
-		font-size: 0.8em;
-		background-color: @box-color;
 
 		&:last-child {
 			border-bottom: none;
 		}
 
 		&.mw-mlb-fileusage-local-section, &.mw-mlb-fileusage-global-section, &.mw-mlb-fileusage-view-all {
-			color: @info-color;
-			background-color: @heading-color;
+			color: @dark-text;
+			border-bottom: 1px solid @border-color;
+			margin: 3px 0;
 		}
 		aside {
 			display: inline-block;
