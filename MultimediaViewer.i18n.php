@@ -1328,7 +1328,7 @@ $messages['nl'] = array(
 	'multimediaviewer-license-pd' => 'Publiek domein',
 	'multimediaviewer-license-default' => 'Licentie weergeven',
 	'multimediaviewer-permission-title' => 'Licentiegegevens',
-	'multimediaviewer-permission-link' => 'voorwaarden weergeven',
+	'multimediaviewer-permission-link' => 'voorwaarden bekijken',
 	'multimediaviewer-permission-viewmore' => 'Meer weergeven',
 	'multimediaviewer-use-file' => 'Dit bestand gebruiken',
 	'multimediaviewer-use-file-owt' => 'Gebruik dit bestand op een wikipagina, als een miniatuur',
@@ -1636,6 +1636,41 @@ $messages['te'] = array(
 	'multimediaviewer-fileusage-link' => 'అన్ని వాడుకలు చూడు',
 	'multimediaviewer-fileusage-local-section' => 'ఈ సైటుపై',
 	'multimediaviewer-fileusage-global-section' => 'ఇతర సైట్లలో',
+);
+
+/** Thai (ไทย)
+ * @author Horus
+ * @author Nullzero
+ */
+$messages['th'] = array(
+	'multimediaviewer-desc' => 'ขยายรูปขนาดย่อให้มีขนาดใหญ่ขึ้นในอินเตอร์เฟซเต็มหน้าจอ',
+	'multimediaviewer-desc-nil' => 'ไม่มีคำอธิบาย',
+	'multimediaviewer-pref' => 'Media Viewer',
+	'multimediaviewer-pref-desc' => 'ด้วยเครื่องมือใหม่นี้ คุณสามารถดูสื่อได้ดีไปกว่าเดิม เครื่องมือจะแสดงภาพขนาดใหญ่ขึ้นบนหน้าที่มีรูปขนาดย่อ คุณยังสามารถดูภาพแบบในอินเตอร์เฟซเต็มหน้าจอและดูภาพในขนาดเต็มได้ด้วย',
+	'multimediaviewer-file-page' => 'ไปยังหน้าไฟล์ที่ตรงกัน',
+	'multimediaviewer-repository' => 'เรียนรู้เพิ่มเติมใน$1',
+	'multimediaviewer-repository-local' => 'เรียนรู้เพิ่มเติม',
+	'multimediaviewer-datetime-created' => 'สร้างเมื่อ $1',
+	'multimediaviewer-datetime-uploaded' => 'อัปโหลดเมื่อ $1',
+	'multimediaviewer-userpage-link' => 'อัปโหลดโดย $1', # Fuzzy
+	'multimediaviewer-license-cc-pd' => 'โดเมนสาธารณะ',
+	'multimediaviewer-license-pd' => 'โดเมนสาธารณะ',
+	'multimediaviewer-license-default' => 'ดูสัญญาอนุญาต',
+	'multimediaviewer-permission-title' => 'รายละเอียดสัญญาอนุญาต',
+	'multimediaviewer-permission-link' => 'ดูเงื่อนไข',
+	'multimediaviewer-permission-viewmore' => 'ดูเพิ่มเติม',
+	'multimediaviewer-use-file' => 'ใช้ไฟล์นี้',
+	'multimediaviewer-use-file-owt' => 'ใช้ไฟล์นี้บนหน้าวิกิในรูปแบบรูปขนาดย่อ',
+	'multimediaviewer-use-file-own' => 'ใช้ไฟล์นี้บนหน้าวิกิในรูปแบบรูปในบรรทัด',
+	'multimediaviewer-use-file-offwiki' => 'ใช้ไฟล์นี้บนเว็บไซต์อื่น',
+	'multimediaviewer-about-mmv' => 'เกี่ยวกับ Media Viewer',
+	'multimediaviewer-discuss-mmv' => 'ฝากคำติชม',
+	'multimediaviewer-geolocation' => 'สถานที่: $1',
+	'multimediaviewer-fileusage-count' => 'มีการใช้ใน $1 หน้า',
+	'multimediaviewer-fileusage-count-more' => 'มีการใช้มากกว่า $1 หน้า',
+	'multimediaviewer-fileusage-link' => 'ดูการใช้ทั้งหมด',
+	'multimediaviewer-fileusage-local-section' => 'บนไซต์นี้',
+	'multimediaviewer-fileusage-global-section' => 'บนไซต์อื่น ๆ',
 );
 
 /** Tagalog (Tagalog)
