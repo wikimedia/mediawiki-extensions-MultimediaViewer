@@ -25,7 +25,7 @@
 call_user_func( function() {
 	global $wgExtensionMessagesFiles, $wgResourceModules, $wgExtensionFunctions, $wgMediaViewerIsInBeta,
 		$wgAutoloadClasses, $wgHooks, $wgExtensionCredits, $wgNetworkPerformanceSamplingFactor,
-		$wgEnableMediaViewerForLoggedInUsersOnly;
+		$wgEnableMediaViewerForLoggedInUsersOnly, $wgDefaultUserOptions;
 
 	/** @var int|bool: If set, records image load network performance once per this many requests. False if unset. **/
 	$wgNetworkPerformanceSamplingFactor = false;
@@ -665,6 +665,9 @@ call_user_func( function() {
 		$wgHooks['GetBetaFeaturePreferences'][] = 'MultimediaViewerHooks::getBetaPreferences';
 	}
 
+	$wgDefaultUserOptions['multimediaviewer-enable'] = true;
+
+	$wgHooks['GetPreferences'][] = 'MultimediaViewerHooks::getPreferences';
 	$wgHooks['BeforePageDisplay'][] = 'MultimediaViewerHooks::getModulesForArticle';
 	$wgHooks['CategoryPageView'][] = 'MultimediaViewerHooks::getModulesForCategory';
 	$wgHooks['ResourceLoaderGetConfigVars'][] = 'MultimediaViewerHooks::resourceLoaderGetConfigVars';

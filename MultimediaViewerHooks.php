@@ -38,12 +38,18 @@ class MultimediaViewerHooks {
 
 		if ( $wgMediaViewerIsInBeta && class_exists( 'BetaFeatures' ) ) {
 			return BetaFeatures::isFeatureEnabled( $user, 'multimedia-viewer' );
-		} else if ( $wgEnableMediaViewerForLoggedInUsersOnly ) {
-			return $user->isLoggedIn();
-		} else {
-			// Default to enabling for everyone.
-			return true;
 		}
+
+		if ( $user->getOption( 'multimediaviewer-enable' ) ) {
+			if ( $wgEnableMediaViewerForLoggedInUsersOnly ) {
+				return $user->isLoggedIn();
+			} else {
+				// Default to enabling for everyone.
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -107,6 +113,17 @@ class MultimediaViewerHooks {
 			'info-link' => self::$infoLink,
 			'discussion-link' => self::$discussionLink,
 			'screenshot' => "$wgExtensionAssetsPath/MultimediaViewer/viewer-$dir.svg",
+		);
+
+		return true;
+	}
+
+	// Adds a default-enabled preference to gate the feature on non-beta sites
+	public static function getPreferences( $user, &$prefs ) {
+		$prefs['multimediaviewer-enable'] = array(
+			'type' => 'toggle',
+			'label-message' => 'multimediaviewer-optin-pref',
+			'section' => 'rendering/files',
 		);
 
 		return true;
