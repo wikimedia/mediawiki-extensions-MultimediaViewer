@@ -1348,14 +1348,33 @@ $messages['nl'] = array(
  * @author Cedric31
  */
 $messages['oc'] = array(
-	'multimediaviewer-desc' => 'Agrandís las vinhetas dins una visionadoira.',
+	'multimediaviewer-desc' => 'Agrandís las vinhetas dins una interfàcia en ecran complet.',
+	'multimediaviewer-desc-nil' => 'Cap de descripcion pas disponibla.',
 	'multimediaviewer-pref' => 'Visionadoira de Mèdias',
 	'multimediaviewer-file-page' => 'Anar a la pagina del fichièr correspondent',
 	'multimediaviewer-repository' => 'Ne saber mai sus $1',
+	'multimediaviewer-repository-local' => 'Ne saber mai',
 	'multimediaviewer-datetime-created' => 'Creat lo $1',
 	'multimediaviewer-datetime-uploaded' => 'Mandat lo $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Mandat}} per $1',
 	'multimediaviewer-license-cc-pd' => 'Domeni public',
+	'multimediaviewer-license-pd' => 'Domeni public',
+	'multimediaviewer-license-default' => 'Afichar la licéncia',
+	'multimediaviewer-permission-title' => 'Detalhs de la licéncia',
+	'multimediaviewer-permission-link' => 'afichar las condicions',
+	'multimediaviewer-permission-viewmore' => 'Veire mai',
+	'multimediaviewer-use-file' => 'Utilizar aqueste fichièr',
+	'multimediaviewer-use-file-owt' => 'Utilizar aqueste fichièr coma vinheta sus una pagina de wiki',
+	'multimediaviewer-use-file-own' => 'Utilizar aqueste fichièr dins una linha sus una pagina de wiki',
+	'multimediaviewer-use-file-offwiki' => 'Utilizar aqueste fichièr sus un autre site web',
+	'multimediaviewer-about-mmv' => 'A prepaus de la visionadoira de mèdias',
+	'multimediaviewer-discuss-mmv' => 'Daissar un vejaire a prepaus de la visionadoira de mèdias',
+	'multimediaviewer-geolocation' => 'Emplaçament : $1',
+	'multimediaviewer-fileusage-count' => 'Utilizat sus $1 {{PLURAL:$1|pagina|paginas}}',
+	'multimediaviewer-fileusage-count-more' => 'Utilizat sus mai de $1 {{PLURAL:$1|paginas}}',
+	'multimediaviewer-fileusage-link' => 'Veire totas las utilizacions',
+	'multimediaviewer-fileusage-local-section' => 'Sus aqueste site',
+	'multimediaviewer-fileusage-global-section' => 'Sus d’autres sites',
 );
 
 /** Polish (polski)
@@ -1641,6 +1660,7 @@ $messages['te'] = array(
 /** Thai (ไทย)
  * @author Horus
  * @author Nullzero
+ * @author Taweetham
  */
 $messages['th'] = array(
 	'multimediaviewer-desc' => 'ขยายรูปขนาดย่อให้มีขนาดใหญ่ขึ้นในอินเตอร์เฟซเต็มหน้าจอ',
@@ -1652,7 +1672,7 @@ $messages['th'] = array(
 	'multimediaviewer-repository-local' => 'เรียนรู้เพิ่มเติม',
 	'multimediaviewer-datetime-created' => 'สร้างเมื่อ $1',
 	'multimediaviewer-datetime-uploaded' => 'อัปโหลดเมื่อ $1',
-	'multimediaviewer-userpage-link' => 'อัปโหลดโดย $1', # Fuzzy
+	'multimediaviewer-userpage-link' => '$2 อัปโหลดโดย $1',
 	'multimediaviewer-license-cc-pd' => 'โดเมนสาธารณะ',
 	'multimediaviewer-license-pd' => 'โดเมนสาธารณะ',
 	'multimediaviewer-license-default' => 'ดูสัญญาอนุญาต',
