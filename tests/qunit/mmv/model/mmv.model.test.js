@@ -182,4 +182,5 @@
 			assert.ok( e, 'Exception is thrown when gender parameter is not understood');
 		}
 	} );
+
 }( mediaWiki ) );

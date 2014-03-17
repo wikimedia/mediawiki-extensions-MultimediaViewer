@@ -26,6 +26,16 @@
  */
 
 /**
+ * @class OO.ui.MenuItemWidget
+ * <https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/OO.ui.MenuItemWidget>
+ */
+
+/**
+ * @class OO.ui.MenuWidget
+ * <https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/OO.ui.MenuWidget>
+ */
+
+/**
  * @class XMLHttpRequest
  * An AJAX request
  */

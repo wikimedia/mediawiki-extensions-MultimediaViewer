@@ -29,6 +29,7 @@
 	 */
 	function MetadataPanel( $container, $controlBar ) {
 		mw.mmv.ui.Element.call( this, $container );
+
 		this.$controlBar = $controlBar;
 
 		/**
@@ -57,9 +58,13 @@
 		$.scrollTo().on( 'scroll.mmvp', $.throttle( 250, function() {
 			panel.scroll();
 		} ) );
+
+		this.fileReuse.attach();
 	};
 
 	MPP.unattach = function() {
+		this.fileReuse.unattach();
+		this.fileReuse.closeDialog();
 		this.clearEvents();
 
 		$.scrollTo().off( 'scroll.mmvp' );
@@ -239,7 +244,7 @@
 		this.initializeDatetime();
 		this.initializeLocation();
 
-		this.fileReuse = new mw.mmv.ui.FileReuse( this.$imageLinks );
+		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$container, this.$titleDiv );
 		this.categories = new mw.mmv.ui.Categories( this.$imageLinks );
 
 		this.fileUsage = new mw.mmv.ui.FileUsage(
@@ -440,18 +445,10 @@
 
 	/**
 	 * Sets up the file reuse data in the DOM
-	 * @param {mw.Title} title
-	 * @param {string} imageUrl
-	 * @param {boolean} isLocal
+	 * @param {mw.mmv.model.Image} image
 	 */
-	MPP.setFileReuseData = function ( title, imageUrl, isLocal ) {
-		this.fileReuse.set(
-			title,
-			imageUrl,
-			isLocal,
-			this.$license.data( 'license' ),
-			this.$author.text()
-		);
+	MPP.setFileReuseData = function ( image ) {
+		this.fileReuse.set( image );
 	};
 
 	/**
@@ -628,7 +625,6 @@
 			fileTitle = image.filePageTitle;
 
 		this.setFileTitle( fileTitle.getNameText() );
-		this.setFileReuseData( fileTitle, imageData.url, repoData.isLocal );
 		this.setRepoDisplay( repoData.displayName, repoData.favIcon, repoData.isLocal );
 		this.setFilePageLink( imageData.descriptionUrl );
 
@@ -676,6 +672,9 @@
 		if ( user ) {
 			this.setUserPageLink( repoData, imageData.lastUploader, user.gender );
 		}
+
+		// File reuse steals a bunch of information from the DOM, so do it last
+		this.setFileReuseData( imageData, repoData.displayName, image.caption );
 	};
 
 	/**
@@ -741,7 +740,6 @@
 	};
 
 	/**
-	 * @method
 	 * Makes sure that the given element (which must be a descendant of the metadata panel) is
 	 * in view. If it isn't, scrolls the panel smoothly to reveal it.
 	 * @param {HTMLElement|jQuery|string} target

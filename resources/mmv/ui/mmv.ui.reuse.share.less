@@ -1,0 +1,30 @@
+.mw-mlb-share-page {
+	// override OOJS-UI fixed width
+	width: auto;
+	// make sure this is a new block formatting context so that the float shrinks it instead of
+	// running into it and pushing the input down (there is probably a better way of doing this)
+	overflow: hidden;
+}
+
+.mw-mlb-share-page-link {
+	float: left;
+	width: 1.5em;
+	height: 1.5em;
+
+	// position approximately to the middle - probably fragile but couldn't find a better way as the
+	// height of OOJS-UI input widget has both em and px parts and not possible to calculate exactly
+	margin: 8px 0;
+	padding: 0 10px;
+
+	/* @embed */
+	background-image: url(img/link.svg);
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	&:hover {
+		/* @embed */
+		background-image: url(img/link-hover.svg);
+		text-decoration: none;
+	}
+}

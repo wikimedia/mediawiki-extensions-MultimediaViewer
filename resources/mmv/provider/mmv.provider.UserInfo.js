@@ -31,7 +31,6 @@
 	oo.inheritClass( UserInfo, mw.mmv.provider.Api );
 
 	/**
-	 * @method
 	 * Runs an API GET request to get the user info.
 	 * @param {string} username
 	 * @param {mw.mmv.model.Repo} repoInfo

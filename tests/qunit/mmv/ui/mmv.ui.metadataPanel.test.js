@@ -127,7 +127,10 @@
 				filePageTitle : mw.Title.newFromText( 'File:' + title + '.jpg' )
 			},
 			imageData = {
-				hasCoords: function() { return false; },
+				title: image.filePageTitle,
+				url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
+				descriptionUrl: 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
+				hasCoords: function() { return false; }
 			},
 			repoData = {
 				getArticlePath : function() { return 'Foo'; }

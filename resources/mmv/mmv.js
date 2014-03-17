@@ -627,7 +627,7 @@
 			viewer.prevImage();
 		} ).on( 'mmv-resize.mmvp', function () {
 			viewer.resize( viewer.ui );
-		});
+		} );
 	};
 
 	/**
