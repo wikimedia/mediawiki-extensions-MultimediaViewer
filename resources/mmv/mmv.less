@@ -1,4 +1,9 @@
 /**
+ * Animation helper from core
+ */
+@import "mediawiki.mixins.animation";
+
+/**
  * Override multilightbox styles that don't apply to us
  */
 .mlb-wrapper {
@@ -86,12 +91,7 @@
 	opacity: 0;
 
 	&.invite {
-		-webkit-animation-name: invite-animation;
-		-webkit-animation-duration: 0.5s;
-		-webkit-animation-fill-mode: forwards;
-		animation-name: invite-animation;
-		animation-duration: 0.5s;
-		animation-fill-mode: forwards;
+		.animation( invite-animation 0.5s ease 0s 1 normal forwards )
 	}
 }
 
@@ -99,7 +99,7 @@
 	opacity: 1;
 }
 
-@-webkit-keyframes invite-animation {
+.invite-animation {
 	0% {
 		opacity: 0.6;
 		margin-top: 5px;
@@ -114,19 +114,20 @@
 	}
 }
 
+@-webkit-keyframes invite-animation {
+	.invite-animation;
+}
+
+@-moz-keyframes invite-animation {
+	.invite-animation;
+}
+
+@-o-keyframes invite-animation {
+	.invite-animation;
+}
+
 @keyframes invite-animation {
-	0% {
-		opacity: 0.6;
-		margin-top: 5px;
-	}
-	50% {
-		opacity: 0.9;
-		margin-top: -3px;
-	}
-	100% {
-		opacity: 1;
-		margin-top: 0;
-	}
+	.invite-animation;
 }
 
 .mlb-controls {
