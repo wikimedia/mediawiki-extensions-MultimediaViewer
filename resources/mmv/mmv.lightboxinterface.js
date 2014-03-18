@@ -146,7 +146,7 @@
 		}
 
 		this.handleEvent( 'keyup', function ( e ) {
-			if ( e.keyCode === 27 ) {
+			if ( e.keyCode === 27 && !( e.altKey || e.ctrlKey || e.shiftKey || e.metaKey) ) {
 				// Escape button pressed
 				ui.unattach();
 			}
