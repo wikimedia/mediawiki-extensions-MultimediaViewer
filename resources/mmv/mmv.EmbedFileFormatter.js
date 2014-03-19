@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw ) {
+( function( mw, $ ) {
 	var AFP;
 
 	/**
@@ -56,5 +56,98 @@
 			caption ? caption.plain : title.getNameText() );
 	};
 
+	/**
+	 * Byline construction
+	 * @param {{html: string, plain: string}} [author]
+	 * @param {{html: string, plain: string}} [source]
+	 * @return {{html: string, plain: string}} byline in plain text and html
+	 */
+	AFP.getBylines = function ( author, source ) {
+		var bylines = {};
+
+		if ( author && source) {
+			bylines.plain = mw.message(
+				'multimediaviewer-credit',
+				author.plain,
+				source.plain
+			).text();
+
+			bylines.html = mw.message(
+				'multimediaviewer-credit',
+				author.html,
+				source.html
+			).parse();
+		} else if ( author ) {
+			bylines.plain = author.plain;
+			bylines.html = author.html;
+		} else if ( source ) {
+			bylines.plain = source.plain;
+			bylines.html = source.html;
+		}
+
+		return bylines;
+	};
+
+	/**
+	 * Generates the HTML embed code for the image credit line.
+	 * @param {mw.mmv.model.EmbedFileInfo} info
+	 * @return {string}
+	 */
+	AFP.getCreditHtml = function ( info ) {
+		var creditText, creditFormat, creditParams,
+			title = info.title.getNameText(),
+			bylines = this.getBylines( info.author, info.source );
+
+		creditFormat = 't';
+		creditParams = [ title ];
+		if ( bylines.html ) {
+			creditFormat += 'b';
+			creditParams.push( bylines.html );
+		}
+		if ( info.license && info.license.plain.length ) {
+			creditFormat += 'l';
+			creditParams.push( info.license.plain );
+		}
+		if ( info.siteName ) {
+			creditFormat += 's';
+			creditParams.push( info.siteName );
+		}
+
+		if ( creditFormat === 't' || creditFormat === 'ts' ) {
+			creditText = '"' + title + '"';
+		} else {
+			creditParams.unshift( 'multimediaviewer-html-embed-credit-text-' + creditFormat );
+			creditText = mw.message.apply( mw, creditParams ).plain();
+		}
+
+		return creditText;
+	};
+
+	/**
+	 * Generates the HTML embed code for the image.
+	 *
+	 * @param {mw.mmv.model.EmbedFileInfo} info
+	 * @param {string} imgUrl URL to the file itself.
+	 * @param {number} [width] Width to put into the image element.
+	 * @param {number} [height] Height to put into the image element.
+	 * @return {string} Embed code.
+	 */
+	AFP.getThumbnailHtml = function ( info, imgUrl, width, height ) {
+		return $( '<div>' ).append(
+			$( '<p>' ).append(
+				$( '<a>' )
+					.attr( 'href', info.url )
+					.append(
+						$( '<img>' )
+							.attr( 'src', imgUrl )
+							.attr( 'height', height )
+							.attr( 'width', width )
+					),
+				$( '<br>' ),
+				this.getCreditHtml( info )
+			)
+		).html();
+	};
+
 	mw.mmv.EmbedFileFormatter = EmbedFileFormatter;
-}( mediaWiki ) );
+}( mediaWiki, jQuery ) );

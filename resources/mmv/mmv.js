@@ -627,6 +627,12 @@
 			viewer.prevImage();
 		} ).on( 'mmv-resize.mmvp', function () {
 			viewer.resize( viewer.ui );
+		} ).on( 'mmv-request-thumbnail.mmvp', function ( e, size ) {
+			if ( viewer.currentImageFileTitle ) {
+				return viewer.thumbnailInfoProvider.get( viewer.currentImageFileTitle, size );
+			} else {
+				return $.Deferred().reject();
+			}
 		} );
 	};
 
