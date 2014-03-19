@@ -57,6 +57,30 @@
 		reuseDialog.handleOpenCloseClick();
 	} );
 
+	QUnit.test( 'handleTabSelection():', 4, function ( assert ) {
+		var reuseDialog = makeReuseDialog();
+
+		reuseDialog.tabs.share.show = function () {
+			assert.ok( true, 'Share tab shown.' );
+		};
+		reuseDialog.tabs.embed.hide = function () {
+			assert.ok( true, 'Embed tab hidden.' );
+		};
+
+		// Share pane is selected
+		reuseDialog.handleTabSelection( { getData: function () { return 'share'; } } );
+
+		reuseDialog.tabs.share.hide = function () {
+			assert.ok( true, 'Share tab hidden.' );
+		};
+		reuseDialog.tabs.embed.show = function () {
+			assert.ok( true, 'Embed tab shown.' );
+		};
+
+		// Embed pane is selected
+		reuseDialog.handleTabSelection( { getData: function () { return 'embed'; } } );
+	} );
+
 	QUnit.test( 'attach()/unattach():', 2, function ( assert ) {
 		var reuseDialog = makeReuseDialog();
 
@@ -154,11 +178,12 @@
 			descriptionUrl: url,
 			width: 100,
 			height: 80
-		};
+		},
+		embedFileInfo = new mw.mmv.model.EmbedFileInfo( title, src, url );
 
 		assert.ok( reuseDialog.$reuseLink.hasClass( 'empty' ), 'Dialog launch link is empty by default.' );
 
-		reuseDialog.set( image );
+		reuseDialog.set( image, embedFileInfo );
 
 		assert.ok( ! reuseDialog.$reuseLink.hasClass( 'empty' ), 'Dialog launch link is not empty after set().' );
 
@@ -178,9 +203,10 @@
 			descriptionUrl: url,
 			width: 100,
 			height: 80
-		};
+		},
+		embedFileInfo = new mw.mmv.model.EmbedFileInfo( title, src, url );
 
-		reuseDialog.set( image );
+		reuseDialog.set( image, embedFileInfo );
 
 		assert.ok( ! reuseDialog.isOpen, 'Dialog closed by default.' );
 

@@ -96,6 +96,16 @@ call_user_func( function() {
 		),
 	), $moduleInfo( 'mmv/model' ) );
 
+	$wgResourceModules['mmv.model.EmbedFileInfo'] = array_merge( array(
+		'scripts' => array(
+			'mmv.model.EmbedFileInfo.js',
+		),
+
+		'dependencies' => array(
+			'mmv.model',
+		),
+	), $moduleInfo( 'mmv/model' ) );
+
 	$wgResourceModules['mmv.model.FileUsage'] = array_merge( array(
 		'scripts' => array(
 			'mmv.model.FileUsage.js',
@@ -353,6 +363,29 @@ call_user_func( function() {
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 
+	$wgResourceModules['mmv.embedFileFormatter'] = array_merge( array(
+		'scripts' => array(
+			'mmv.EmbedFileFormatter.js',
+		),
+
+		'dependencies' => array(
+			'mmv.base',
+			'oojs',
+		),
+
+		'messages' => array(
+			'multimediaviewer-credit',
+
+			'multimediaviewer-html-embed-credit-text-tbls',
+			'multimediaviewer-html-embed-credit-text-tls',
+			'multimediaviewer-html-embed-credit-text-tbs',
+			'multimediaviewer-html-embed-credit-text-tbl',
+			'multimediaviewer-html-embed-credit-text-tb',
+			'multimediaviewer-html-embed-credit-text-ts',
+			'multimediaviewer-html-embed-credit-text-tl',
+		),
+	), $moduleInfo( 'mmv' ) );
+
 	$wgResourceModules['mmv.ui.reuse.dialog'] = array_merge( array(
 		'scripts' => array(
 			'mmv.ui.reuse.dialog.js',
@@ -367,6 +400,7 @@ call_user_func( function() {
 			'oojs',
 			'oojs-ui',
 			'mmv.ui.reuse.share',
+			'mmv.ui.reuse.embed',
 		),
 
 		'messages' => array(
@@ -409,6 +443,40 @@ call_user_func( function() {
 
 			'multimediaviewer-link-to-file',
 			'multimediaviewer-link-to-page',
+		),
+	), $moduleInfo( 'mmv/ui' ) );
+
+	$wgResourceModules['mmv.ui.reuse.embed'] = array_merge( array(
+		'scripts' => array(
+			'mmv.ui.reuse.embed.js',
+		),
+
+		'styles' => array(
+			'mmv.ui.reuse.embed.less',
+		),
+
+		'dependencies' => array(
+			'mmv.ui.reuse.tab',
+			'oojs',
+			'oojs-ui',
+			'mmv.model.EmbedFileInfo',
+			'mmv.embedFileFormatter',
+		),
+
+		'messages' => array(
+			'multimediaviewer-embed-tab',
+			'multimediaviewer-embed-html',
+			'multimediaviewer-embed-wt',
+
+			'multimediaviewer-embed-byline',
+			'multimediaviewer-embed-license',
+			'multimediaviewer-embed-via',
+
+			'multimediaviewer-default-embed-size',
+			'multimediaviewer-original-embed-size',
+			'multimediaviewer-large-embed-size',
+			'multimediaviewer-medium-embed-size',
+			'multimediaviewer-small-embed-size',
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 

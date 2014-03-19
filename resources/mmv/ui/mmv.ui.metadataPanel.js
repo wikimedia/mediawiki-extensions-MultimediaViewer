@@ -446,9 +446,12 @@
 	/**
 	 * Sets up the file reuse data in the DOM
 	 * @param {mw.mmv.model.Image} image
+	 * @param {string} siteName
+	 * @param {string} caption
 	 */
-	MPP.setFileReuseData = function ( image ) {
-		this.fileReuse.set( image );
+	MPP.setFileReuseData = function ( image, siteName, caption ) {
+		this.fileReuse.set( image,
+			mw.mmv.model.EmbedFileInfo.fromImageInfo( image, siteName, caption ) );
 	};
 
 	/**
