@@ -189,6 +189,9 @@
 		// This needs to happen after the parent attach() because the buttons need to be attached
 		// to the DOM for $.fn.stop() to work
 		this.buttons.stopFade();
+
+		// Reset the cursor fading
+		this.fadeStopped();
 	};
 
 	/**
