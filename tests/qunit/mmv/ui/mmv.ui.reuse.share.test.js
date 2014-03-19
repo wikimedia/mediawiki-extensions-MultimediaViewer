@@ -31,7 +31,7 @@
 		assert.ok( share.$pageLink, 'Link created.' );
 	} );
 
-	QUnit.test( 'set()/empty():', 3, function ( assert ) {
+	QUnit.test( 'set()/empty():', 4, function ( assert ) {
 		var share = makeShare(),
 			image = { // fake mw.mmv.model.Image
 				title: new mw.Title( 'File:Foobar.jpg' ),
@@ -39,6 +39,10 @@
 			};
 
 		assert.notStrictEqual( ! share.pageInput.getValue(), '', 'pageInput is empty.' );
+
+		share.select = function () {
+			assert.ok( true, 'Text has been selected after data is set.' );
+		};
 
 		share.set( image );
 

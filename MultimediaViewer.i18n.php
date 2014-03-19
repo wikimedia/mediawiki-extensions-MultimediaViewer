@@ -82,6 +82,7 @@ $messages['en'] = array(
 	'multimediaviewer-fileusage-global-section' => 'On other sites',
 
 	'multimediaviewer-reuse-link' => 'Use this file',
+	'multimediaviewer-reuse-loading-placeholder' => 'Loading…',
 
 	'multimediaviewer-share-tab' => 'Share',
 	'multimediaviewer-embed-tab' => 'Embed',
@@ -247,6 +248,7 @@ Followed by {{msg-mw|Multimediaviewer-fileusage-link}} and the list of pages.
 See also:
 * {{msg-mw|Multimediaviewer-fileusage-local-section}}',
 	'multimediaviewer-reuse-link' => 'Text of the link on the metadata panel which opens the reuse panel',
+	'multimediaviewer-reuse-loading-placeholder' => 'Text that appears in all reuse text boxes as a placeholder while the data loads',
 	'multimediaviewer-share-tab' => 'Tab title text for the file reuse panel - used for the section with shareable URLs.',
 	'multimediaviewer-embed-tab' => 'Tab title text for the file reuse panel - used for the section with embeddable HTML and wikitext.',
 	'multimediaviewer-link-to-page' => 'Used as alt-text to describe a URL that goes to a File: page for an image.',
