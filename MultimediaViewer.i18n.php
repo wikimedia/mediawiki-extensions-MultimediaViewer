@@ -100,6 +100,7 @@ $messages['en'] = array(
 	'multimediaviewer-html-embed-credit-text-tb' => '"$1" by $2.',
 	'multimediaviewer-html-embed-credit-text-ts' => '"$1". Via $2.',
 	'multimediaviewer-html-embed-credit-text-tl' => '"$1". Licensed under $2.',
+	'multimediaviewer-html-embed-credit-text-t' => '"$1".',
 	'multimediaviewer-embed-byline' => 'By $1',
 	'multimediaviewer-embed-license' => 'Licensed under $1.',
 	'multimediaviewer-embed-via' => 'Via $1.',
@@ -293,6 +294,11 @@ Which one of the multimediaviewer-html-embed-credit-text-* messages is used will
 * $1 - name of the work (typically the filename without an extension)
 * $2 - name of the license
 Each of the parameters could be either plain text or a link.',
+	'multimediaviewer-html-embed-credit-text-t' => 'Credit text, used when generating HTML to reuse an image.
+Which one of the multimediaviewer-html-embed-credit-text-* messages is used will depend on what information about the image is available.
+* $1 - name of the work (typically the filename without an extension)
+Each of the parameters could be either plain text or a link.',
+
 	'multimediaviewer-embed-byline' => 'Byline (author credit) text, used when generating wikitext/HTML to reuse the image. $1 is author name.',
 	'multimediaviewer-embed-license' => 'License information, used when generating wikitext/HTML to reuse the image. $1 is the license name.',
 	'multimediaviewer-embed-via' => 'Source information (e. g. "via Flickr"), used when generating wikitext/HTML to reuse the image.

@@ -183,7 +183,7 @@
 		assert.ok( generatedHtml.match( title ), 'Title appears in generated HTML.');
 		assert.ok( generatedHtml.match( filePageUrl ), 'Page url appears in generated HTML.' );
 		assert.ok( generatedHtml.match( thumbUrl ), 'Thumbnail url appears in generated HTML' );
-		assert.ok( ! generatedHtml.match( siteName ), 'Site name should not appear in generated HTML' );
+		assert.ok( generatedHtml.match( siteName ), 'Site name should appear in generated HTML' );
 		assert.ok( ! generatedHtml.match( 'Public License' ), 'License should not appear in generated HTML' );
 		assert.ok( ! generatedHtml.match( 'Homer' ), 'Author should not appear in generated HTML' );
 		assert.ok( ! generatedHtml.match( 'Iliad' ), 'Source should not appear in generated HTML' );
