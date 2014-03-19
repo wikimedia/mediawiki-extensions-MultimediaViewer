@@ -189,7 +189,6 @@ They will usually be derived from the HTML output from wikitext on a file descri
 	'multimediaviewer-permission-link' => 'Text of the link (on top of the metadata box) which shows additional license terms',
 	'multimediaviewer-permission-viewmore' => 'Text of the link (at the cutoff of the license term preview) which shows additional license terms.
 {{Identical|View more}}',
-
 	'multimediaviewer-about-mmv' => 'Text for a link to a page with more information about Media Viewer software.',
 	'multimediaviewer-discuss-mmv' => 'Text for a link to a page where the user can discuss the Media Viewer software.
 {{Identical|Leave feedback}}',
@@ -247,17 +246,13 @@ Followed by {{msg-mw|Multimediaviewer-fileusage-link}} and the list of pages.
 
 See also:
 * {{msg-mw|Multimediaviewer-fileusage-local-section}}',
-
 	'multimediaviewer-reuse-link' => 'Text of the link on the metadata panel which opens the reuse panel',
 	'multimediaviewer-share-tab' => 'Tab title text for the file reuse panel - used for the section with shareable URLs.',
 	'multimediaviewer-embed-tab' => 'Tab title text for the file reuse panel - used for the section with embeddable HTML and wikitext.',
-
 	'multimediaviewer-link-to-page' => 'Used as alt-text to describe a URL that goes to a File: page for an image.',
 	'multimediaviewer-link-to-file' => 'Used as alt-text to describe a URL that goes to an image file.',
-
 	'multimediaviewer-embed-wt' => 'Used to represent a choice for embedding a file in a wiki page, as wikitext.',
 	'multimediaviewer-embed-html' => 'Used to represent a choice for embedding a file in an HTML document, as HTML.',
-
 	'multimediaviewer-html-embed-credit-text-tbls' => 'Credit text, used when generating HTML to reuse an image.
 Which one of the multimediaviewer-html-embed-credit-text-* messages is used will depend on what information about the image is available.
 * $1 - name of the work (typically the filename without an extension)
@@ -298,12 +293,10 @@ Which one of the multimediaviewer-html-embed-credit-text-* messages is used will
 * $1 - name of the work (typically the filename without an extension)
 * $2 - name of the license
 Each of the parameters could be either plain text or a link.',
-
 	'multimediaviewer-embed-byline' => 'Byline (author credit) text, used when generating wikitext/HTML to reuse the image. $1 is author name.',
 	'multimediaviewer-embed-license' => 'License information, used when generating wikitext/HTML to reuse the image. $1 is the license name.',
 	'multimediaviewer-embed-via' => 'Source information (e. g. "via Flickr"), used when generating wikitext/HTML to reuse the image.
 $1 is source (probably a website or institution name)',
-
 	'multimediaviewer-default-embed-size' => 'Text of size selector option which will generate wikitext for a thumbnail without explicit size.',
 	'multimediaviewer-original-embed-size' => 'Text of size selector option which will generate wikitext for a thumbnail with the original (full) size.
 * $1 - width in pixels
@@ -568,10 +561,6 @@ $messages['de'] = array(
 	'multimediaviewer-permission-title' => 'Lizenzeinzelheiten',
 	'multimediaviewer-permission-link' => 'Bedingungen ansehen',
 	'multimediaviewer-permission-viewmore' => 'Mehr',
-	'multimediaviewer-use-file' => 'Diese Datei weiterverwenden',
-	'multimediaviewer-use-file-owt' => 'Diese Datei als Vorschaubild auf einer Wikiseite verwenden',
-	'multimediaviewer-use-file-own' => 'Diese Datei auf einer Wikiseite verwenden, Inline',
-	'multimediaviewer-use-file-offwiki' => 'Diese Datei auf einer anderen Website verwenden',
 	'multimediaviewer-about-mmv' => 'Über Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Eine Rückmeldung hinterlassen',
 	'multimediaviewer-geolocation' => 'Standort: $1',
@@ -580,6 +569,28 @@ $messages['de'] = array(
 	'multimediaviewer-fileusage-link' => 'Alle Verwendungen ansehen',
 	'multimediaviewer-fileusage-local-section' => 'Auf dieser Website',
 	'multimediaviewer-fileusage-global-section' => 'Auf anderen Websites',
+	'multimediaviewer-reuse-link' => 'Diese Datei verwenden',
+	'multimediaviewer-share-tab' => 'Teilen',
+	'multimediaviewer-embed-tab' => 'Einbetten',
+	'multimediaviewer-link-to-page' => 'Link zur Dateibeschreibungsseite',
+	'multimediaviewer-link-to-file' => 'Link zur Originaldatei',
+	'multimediaviewer-embed-wt' => 'Wikitext',
+	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-html-embed-credit-text-tbls' => '„$1“ von $2. Lizenziert unter $3 über $4.',
+	'multimediaviewer-html-embed-credit-text-tls' => '„$1“. Lizenziert unter $2 über $3.',
+	'multimediaviewer-html-embed-credit-text-tbs' => '„$1“ von $2. Über $3.',
+	'multimediaviewer-html-embed-credit-text-tbl' => '„$1“ von $2. Lizenziert unter $3.',
+	'multimediaviewer-html-embed-credit-text-tb' => '„$1“ von $2.',
+	'multimediaviewer-html-embed-credit-text-ts' => '„$1“. Über $2.',
+	'multimediaviewer-html-embed-credit-text-tl' => '„$1“. Lizenziert unter $2.',
+	'multimediaviewer-embed-byline' => 'Von $1',
+	'multimediaviewer-embed-license' => 'Lizenziert unter $1.',
+	'multimediaviewer-embed-via' => 'Über $1.',
+	'multimediaviewer-default-embed-size' => 'Standardvorschaubildgröße',
+	'multimediaviewer-original-embed-size' => 'Originalgröße – $1 × $2 Pixel',
+	'multimediaviewer-large-embed-size' => 'Groß – $1 × $2 Pixel',
+	'multimediaviewer-medium-embed-size' => 'Mittel – $1 × $2 Pixel',
+	'multimediaviewer-small-embed-size' => 'Klein – $1 × $2 Pixel',
 );
 
 /** Swiss High German (Schweizer Hochdeutsch)
@@ -783,10 +794,6 @@ $messages['fi'] = array(
 	'multimediaviewer-permission-title' => 'Lisenssitiedot',
 	'multimediaviewer-permission-link' => 'näytä ehdot',
 	'multimediaviewer-permission-viewmore' => 'Näytä lisää',
-	'multimediaviewer-use-file' => 'Käytä tätä tiedostoa',
-	'multimediaviewer-use-file-owt' => 'Käytä tätä tiedostoa wikisivulla pienoiskuvana',
-	'multimediaviewer-use-file-own' => 'Käytä tätä tiedostoa wikisivulla täysikokoisena',
-	'multimediaviewer-use-file-offwiki' => 'Käytä tätä tiedostoa toisella sivustolla',
 	'multimediaviewer-about-mmv' => 'Tietoa Media Vieweristä',
 	'multimediaviewer-discuss-mmv' => 'Jätä palautetta',
 	'multimediaviewer-geolocation' => 'Sijainti: $1',
@@ -795,6 +802,7 @@ $messages['fi'] = array(
 	'multimediaviewer-fileusage-link' => 'Näytä kaikki, joissa käytössä',
 	'multimediaviewer-fileusage-local-section' => 'Tällä sivustolla',
 	'multimediaviewer-fileusage-global-section' => 'Muilla sivustoilla',
+	'multimediaviewer-reuse-link' => 'Käytä tätä tiedostoa', # Fuzzy
 );
 
 /** French (français)
@@ -822,10 +830,6 @@ $messages['fr'] = array(
 	'multimediaviewer-permission-title' => 'Détails de la licence',
 	'multimediaviewer-permission-link' => 'afficher les conditions',
 	'multimediaviewer-permission-viewmore' => 'Voir plus',
-	'multimediaviewer-use-file' => 'Utiliser ce fichier',
-	'multimediaviewer-use-file-owt' => 'Utiliser ce fichier comme vignette sur une page de wiki',
-	'multimediaviewer-use-file-own' => 'Utiliser ce fichier dans une ligne sur une page de wiki',
-	'multimediaviewer-use-file-offwiki' => 'Utiliser ce fichier sur un autre site web',
 	'multimediaviewer-about-mmv' => 'À propos de la visionneuse de médias',
 	'multimediaviewer-discuss-mmv' => 'Laisser un avis à propos de la visionneuse de médias',
 	'multimediaviewer-geolocation' => 'Emplacement : $1',
@@ -834,6 +838,28 @@ $messages['fr'] = array(
 	'multimediaviewer-fileusage-link' => 'Voir toutes les utilisations',
 	'multimediaviewer-fileusage-local-section' => 'Sur ce site',
 	'multimediaviewer-fileusage-global-section' => 'Sur d’autres sites',
+	'multimediaviewer-reuse-link' => 'Utiliser ce fichier',
+	'multimediaviewer-share-tab' => 'Partager',
+	'multimediaviewer-embed-tab' => 'Intégrer',
+	'multimediaviewer-link-to-page' => 'Lien vers la page de description du fichier',
+	'multimediaviewer-link-to-file' => 'Lien vers le fichier d’origine',
+	'multimediaviewer-embed-wt' => 'Wikitexte',
+	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-html-embed-credit-text-tbls' => '« $1 » par $2. Sous licence $3 via $4.',
+	'multimediaviewer-html-embed-credit-text-tls' => '« $1 ». Sous licence $2 via $3.',
+	'multimediaviewer-html-embed-credit-text-tbs' => '« $1 » par $2. Via $3.',
+	'multimediaviewer-html-embed-credit-text-tbl' => '« $1 » par $2. Sous licence $3.',
+	'multimediaviewer-html-embed-credit-text-tb' => '« $1 » par $2.',
+	'multimediaviewer-html-embed-credit-text-ts' => '« $1 ». Via $2.',
+	'multimediaviewer-html-embed-credit-text-tl' => '« $1 ». Sous licence $2.',
+	'multimediaviewer-embed-byline' => 'Par $1',
+	'multimediaviewer-embed-license' => 'Sous licence $1.',
+	'multimediaviewer-embed-via' => 'Via $1.',
+	'multimediaviewer-default-embed-size' => 'Taille de vignette par défaut',
+	'multimediaviewer-original-embed-size' => 'Taille originale - $1 × $2 px',
+	'multimediaviewer-large-embed-size' => 'Grande - $1 × $2 px',
+	'multimediaviewer-medium-embed-size' => 'Moyenne - $1 × $2 px',
+	'multimediaviewer-small-embed-size' => 'Petite - $1 × $2 px',
 );
 
 /** Galician (galego)
@@ -856,10 +882,6 @@ $messages['gl'] = array(
 	'multimediaviewer-permission-title' => 'Detalles da licenza',
 	'multimediaviewer-permission-link' => 'ver os termos',
 	'multimediaviewer-permission-viewmore' => 'Ollar máis',
-	'multimediaviewer-use-file' => 'Utilizar este ficheiro',
-	'multimediaviewer-use-file-owt' => 'Utilizar este ficheiro nunha páxina do wiki, como unha miniatura',
-	'multimediaviewer-use-file-own' => 'Utilizar este ficheiro nunha páxina do wiki, en liña co texto',
-	'multimediaviewer-use-file-offwiki' => 'Utilizar este ficheiro noutro sitio web',
 	'multimediaviewer-about-mmv' => 'Acerca do visor de ficheiros multimedia',
 	'multimediaviewer-discuss-mmv' => 'Deixe un comentario',
 	'multimediaviewer-geolocation' => 'Localización: $1',
@@ -868,6 +890,7 @@ $messages['gl'] = array(
 	'multimediaviewer-fileusage-link' => 'Ver todos os usos',
 	'multimediaviewer-fileusage-local-section' => 'Neste sitio',
 	'multimediaviewer-fileusage-global-section' => 'Noutros sitios',
+	'multimediaviewer-reuse-link' => 'Utilizar este ficheiro', # Fuzzy
 );
 
 /** Gujarati (ગુજરાતી)
@@ -898,10 +921,6 @@ $messages['he'] = array(
 	'multimediaviewer-permission-title' => 'פרטי הרישיון',
 	'multimediaviewer-permission-link' => 'הצגת התנאים',
 	'multimediaviewer-permission-viewmore' => 'להראות עוד',
-	'multimediaviewer-use-file' => 'שימוש בקובץ הזה',
-	'multimediaviewer-use-file-owt' => 'שימוש בקובץ בזה בדף ויקי כתמונה ממוזערת',
-	'multimediaviewer-use-file-own' => 'שימוש בקובץ הזה בדף ויקי ברצף הטקסט',
-	'multimediaviewer-use-file-offwiki' => 'שימוש בקובץ הזה באתר אחר',
 	'multimediaviewer-about-mmv' => 'אודות מציג מדיה',
 	'multimediaviewer-discuss-mmv' => 'השארת תגובה',
 	'multimediaviewer-geolocation' => 'מיקום: $1',
@@ -910,6 +929,28 @@ $messages['he'] = array(
 	'multimediaviewer-fileusage-link' => 'הצגת כל השימושים',
 	'multimediaviewer-fileusage-local-section' => 'באתר הזה',
 	'multimediaviewer-fileusage-global-section' => 'באתרים אחרים',
+	'multimediaviewer-reuse-link' => 'שימוש בקובץ הזה',
+	'multimediaviewer-share-tab' => 'שיתוף',
+	'multimediaviewer-embed-tab' => 'הטמעה',
+	'multimediaviewer-link-to-page' => 'קישור לדף תיאור הקובץ',
+	'multimediaviewer-link-to-file' => 'קישור לקובץ המקורי',
+	'multimediaviewer-embed-wt' => 'קוד ויקי',
+	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-html-embed-credit-text-tbls' => '"$1" מאת $2. ברישיון $3 דרך $4.',
+	'multimediaviewer-html-embed-credit-text-tls' => '"$1". ברישיון $2 דרך $3.',
+	'multimediaviewer-html-embed-credit-text-tbs' => '"$1" מאת $2. דרך $3.',
+	'multimediaviewer-html-embed-credit-text-tbl' => '"$1" מאת $2. ברישיון $3.',
+	'multimediaviewer-html-embed-credit-text-tb' => '"$1" מאת $2.',
+	'multimediaviewer-html-embed-credit-text-ts' => '"$1". דרך $2.',
+	'multimediaviewer-html-embed-credit-text-tl' => '"$1". ברישיון $2.',
+	'multimediaviewer-embed-byline' => 'מאת $1',
+	'multimediaviewer-embed-license' => 'ברישיון $1.',
+	'multimediaviewer-embed-via' => 'דרך $1.',
+	'multimediaviewer-default-embed-size' => 'גודל התחלתי לתמונה ממוזערת',
+	'multimediaviewer-original-embed-size' => 'גודל מקורי – $1 × $2 פיקסלים',
+	'multimediaviewer-large-embed-size' => 'גדול – $1 × $2 פיקסלים',
+	'multimediaviewer-medium-embed-size' => 'בינוני – $1 × $2 פיקסלים',
+	'multimediaviewer-small-embed-size' => 'קטן – $1 × $2 פיקסלים',
 );
 
 /** Hindi (हिन्दी)
@@ -1415,10 +1456,6 @@ $messages['nl'] = array(
 	'multimediaviewer-permission-title' => 'Licentiegegevens',
 	'multimediaviewer-permission-link' => 'voorwaarden bekijken',
 	'multimediaviewer-permission-viewmore' => 'Meer weergeven',
-	'multimediaviewer-use-file' => 'Dit bestand gebruiken',
-	'multimediaviewer-use-file-owt' => 'Gebruik dit bestand op een wikipagina, als een miniatuur',
-	'multimediaviewer-use-file-own' => 'Gebruik dit bestand op een wikipagina, in lopende tekst',
-	'multimediaviewer-use-file-offwiki' => 'Gebruik dit bestand op een andere website',
 	'multimediaviewer-about-mmv' => 'Over Mediaviewer',
 	'multimediaviewer-discuss-mmv' => 'Terugkoppeling achterlaten',
 	'multimediaviewer-geolocation' => 'Locatie: $1',
@@ -1427,6 +1464,7 @@ $messages['nl'] = array(
 	'multimediaviewer-fileusage-link' => 'Alle toepassingen weergeven',
 	'multimediaviewer-fileusage-local-section' => 'Op deze site',
 	'multimediaviewer-fileusage-global-section' => "Op andere site's",
+	'multimediaviewer-reuse-link' => 'Dit bestand gebruiken', # Fuzzy
 );
 
 /** Occitan (occitan)
@@ -1449,10 +1487,6 @@ $messages['oc'] = array(
 	'multimediaviewer-permission-title' => 'Detalhs de la licéncia',
 	'multimediaviewer-permission-link' => 'afichar las condicions',
 	'multimediaviewer-permission-viewmore' => 'Veire mai',
-	'multimediaviewer-use-file' => 'Utilizar aqueste fichièr',
-	'multimediaviewer-use-file-owt' => 'Utilizar aqueste fichièr coma vinheta sus una pagina de wiki',
-	'multimediaviewer-use-file-own' => 'Utilizar aqueste fichièr dins una linha sus una pagina de wiki',
-	'multimediaviewer-use-file-offwiki' => 'Utilizar aqueste fichièr sus un autre site web',
 	'multimediaviewer-about-mmv' => 'A prepaus de la visionadoira de mèdias',
 	'multimediaviewer-discuss-mmv' => 'Daissar un vejaire a prepaus de la visionadoira de mèdias',
 	'multimediaviewer-geolocation' => 'Emplaçament : $1',
@@ -1461,6 +1495,7 @@ $messages['oc'] = array(
 	'multimediaviewer-fileusage-link' => 'Veire totas las utilizacions',
 	'multimediaviewer-fileusage-local-section' => 'Sus aqueste site',
 	'multimediaviewer-fileusage-global-section' => 'Sus d’autres sites',
+	'multimediaviewer-reuse-link' => 'Utilizar aqueste fichièr', # Fuzzy
 );
 
 /** Polish (polski)
@@ -1608,10 +1643,6 @@ $messages['ru'] = array(
 	'multimediaviewer-permission-title' => 'Сведения о лицензии',
 	'multimediaviewer-permission-link' => 'просмотр условий',
 	'multimediaviewer-permission-viewmore' => 'Посмотреть подробнее',
-	'multimediaviewer-use-file' => 'Использовать этот файл',
-	'multimediaviewer-use-file-owt' => 'Использовать этот файл на вики-странице, с уменьшенной копией',
-	'multimediaviewer-use-file-own' => 'Использовать этот файл на вики-странице, в полный размер',
-	'multimediaviewer-use-file-offwiki' => 'Использовать этот файл на другом сайте',
 	'multimediaviewer-about-mmv' => 'О Медиа-просмотрщике',
 	'multimediaviewer-discuss-mmv' => 'Оставить отзыв',
 	'multimediaviewer-geolocation' => 'Географическое положение: $1',
@@ -1620,6 +1651,19 @@ $messages['ru'] = array(
 	'multimediaviewer-fileusage-link' => 'Все включения',
 	'multimediaviewer-fileusage-local-section' => 'На этом сайте',
 	'multimediaviewer-fileusage-global-section' => 'На других сайтах',
+	'multimediaviewer-reuse-link' => 'Использовать этот файл',
+	'multimediaviewer-share-tab' => 'Поделиться',
+	'multimediaviewer-link-to-page' => 'Ссылка на страницу описания файла',
+	'multimediaviewer-link-to-file' => 'Ссылка на исходный файл',
+	'multimediaviewer-embed-wt' => 'Викитекст',
+	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-embed-license' => 'Под лицензией $1.',
+	'multimediaviewer-embed-via' => 'Через $1.',
+	'multimediaviewer-default-embed-size' => 'Размер эскиза по умолчанию',
+	'multimediaviewer-original-embed-size' => 'Оригинальный размер — $1 × $2 px',
+	'multimediaviewer-large-embed-size' => 'Большое — $1 × $2 px',
+	'multimediaviewer-medium-embed-size' => 'Среднее — $1 × $2 px',
+	'multimediaviewer-small-embed-size' => 'Маленькое — $1 × $2 px',
 );
 
 /** Scots (Scots)
@@ -1689,6 +1733,14 @@ $messages['sl'] = array(
  */
 $messages['sr-ec'] = array(
 	'multimediaviewer-datetime-created' => 'Направљено $', # Fuzzy
+	'multimediaviewer-reuse-link' => 'Користи ову датотеку',
+);
+
+/** Serbian (Latin script) (srpski (latinica)‎)
+ * @author Milicevic01
+ */
+$messages['sr-el'] = array(
+	'multimediaviewer-reuse-link' => 'Koristi ovu datoteku',
 );
 
 /** Swedish (svenska)
@@ -1717,10 +1769,6 @@ $messages['sv'] = array(
 	'multimediaviewer-permission-title' => 'Licensdetaljer',
 	'multimediaviewer-permission-link' => 'se villkoren',
 	'multimediaviewer-permission-viewmore' => 'Visa mer',
-	'multimediaviewer-use-file' => 'Använd denna fil',
-	'multimediaviewer-use-file-owt' => 'Använd denna fil på en wikisida, som en miniatyr',
-	'multimediaviewer-use-file-own' => 'Använd den här filen på en wiki-sida, i texten',
-	'multimediaviewer-use-file-offwiki' => 'Använd denna fil på en annan webbplats',
 	'multimediaviewer-about-mmv' => 'Om Mediavisaren',
 	'multimediaviewer-discuss-mmv' => 'Ge återkoppling',
 	'multimediaviewer-geolocation' => 'Plats: $1',
@@ -1729,6 +1777,7 @@ $messages['sv'] = array(
 	'multimediaviewer-fileusage-link' => 'Visa all användning',
 	'multimediaviewer-fileusage-local-section' => 'På denna webbplats',
 	'multimediaviewer-fileusage-global-section' => 'På andra webbplatser',
+	'multimediaviewer-reuse-link' => 'Använd denna fil', # Fuzzy
 );
 
 /** Telugu (తెలుగు)
@@ -1765,10 +1814,6 @@ $messages['th'] = array(
 	'multimediaviewer-permission-title' => 'รายละเอียดสัญญาอนุญาต',
 	'multimediaviewer-permission-link' => 'ดูเงื่อนไข',
 	'multimediaviewer-permission-viewmore' => 'ดูเพิ่มเติม',
-	'multimediaviewer-use-file' => 'ใช้ไฟล์นี้',
-	'multimediaviewer-use-file-owt' => 'ใช้ไฟล์นี้บนหน้าวิกิในรูปแบบรูปขนาดย่อ',
-	'multimediaviewer-use-file-own' => 'ใช้ไฟล์นี้บนหน้าวิกิในรูปแบบรูปในบรรทัด',
-	'multimediaviewer-use-file-offwiki' => 'ใช้ไฟล์นี้บนเว็บไซต์อื่น',
 	'multimediaviewer-about-mmv' => 'เกี่ยวกับ Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'ฝากคำติชม',
 	'multimediaviewer-geolocation' => 'สถานที่: $1',
@@ -1777,6 +1822,7 @@ $messages['th'] = array(
 	'multimediaviewer-fileusage-link' => 'ดูการใช้ทั้งหมด',
 	'multimediaviewer-fileusage-local-section' => 'บนไซต์นี้',
 	'multimediaviewer-fileusage-global-section' => 'บนไซต์อื่น ๆ',
+	'multimediaviewer-reuse-link' => 'ใช้ไฟล์นี้', # Fuzzy
 );
 
 /** Tagalog (Tagalog)
@@ -1915,10 +1961,6 @@ $messages['zh-hans'] = array(
 	'multimediaviewer-permission-title' => '许可协议详细信息',
 	'multimediaviewer-permission-link' => '查看条款',
 	'multimediaviewer-permission-viewmore' => '查看更多',
-	'multimediaviewer-use-file' => '使用此文件',
-	'multimediaviewer-use-file-owt' => '在wiki页面上插入本文件的缩略图',
-	'multimediaviewer-use-file-own' => '在wiki页面上直接插入本文件',
-	'multimediaviewer-use-file-offwiki' => '在其他网站使用本文件',
 	'multimediaviewer-about-mmv' => '关于媒体文件查看器',
 	'multimediaviewer-discuss-mmv' => '留下反馈意见',
 	'multimediaviewer-geolocation' => '位置：$1',
@@ -1927,6 +1969,7 @@ $messages['zh-hans'] = array(
 	'multimediaviewer-fileusage-link' => '查看所有使用',
 	'multimediaviewer-fileusage-local-section' => '在本站',
 	'multimediaviewer-fileusage-global-section' => '在其他站点',
+	'multimediaviewer-reuse-link' => '使用此文件', # Fuzzy
 );
 
 /** Traditional Chinese (中文（繁體）‎)
