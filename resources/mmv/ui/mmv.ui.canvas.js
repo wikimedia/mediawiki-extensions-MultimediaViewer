@@ -164,7 +164,6 @@
 	};
 
 	/**
-	 * @method
 	 * Sets page thumbnail for display if blowupFactor <= MAX_BLOWUP_FACTOR. Otherwise thumb is not set.
 	 * The image gets also blured to avoid pixelation if blowupFactor > BLUR_BLOWUP_FACTOR_THRESHOLD.
 	 * We set SVG files to the maximum screen size available.
@@ -267,7 +266,6 @@
 	};
 
 	/**
-	 * @method
 	 * Gets the widths for a given lightbox image.
 	 * @param {mw.mmv.LightboxImage} image
 	 * @returns {mw.mmv.model.ThumbnailWidth}

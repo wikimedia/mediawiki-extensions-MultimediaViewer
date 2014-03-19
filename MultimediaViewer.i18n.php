@@ -61,11 +61,6 @@ $messages['en'] = array(
 	'multimediaviewer-permission-link' => 'view terms',
 	'multimediaviewer-permission-viewmore' => 'View more',
 
-	'multimediaviewer-use-file' => 'Use this file',
-	'multimediaviewer-use-file-owt' => 'Use this file on a wiki page, as a thumbnail',
-	'multimediaviewer-use-file-own' => 'Use this file on a wiki page, inline',
-	'multimediaviewer-use-file-offwiki' => 'Use this file on another website',
-
 	'multimediaviewer-about-mmv' => 'About Media Viewer',
 	'multimediaviewer-discuss-mmv' => 'Leave feedback',
 
@@ -83,6 +78,36 @@ $messages['en'] = array(
 	'multimediaviewer-fileusage-link' => 'View all uses',
 	'multimediaviewer-fileusage-local-section' => 'On this site',
 	'multimediaviewer-fileusage-global-section' => 'On other sites',
+
+	'multimediaviewer-reuse-link' => 'Use this file',
+
+	'multimediaviewer-share-tab' => 'Share',
+	'multimediaviewer-embed-tab' => 'Embed',
+
+	'multimediaviewer-link-to-page' => 'Link to file description page',
+	'multimediaviewer-link-to-file' => 'Link to original file',
+
+	'multimediaviewer-embed-wt' => 'Wikitext',
+	'multimediaviewer-embed-html' => 'HTML',
+
+	// Ridiculously complicated messages for embedding
+	'multimediaviewer-html-embed-credit-text-tbls' => '"$1" by $2. Licensed under $3 via $4.',
+	'multimediaviewer-html-embed-credit-text-tls' => '"$1". Licensed under $2 via $3.',
+	'multimediaviewer-html-embed-credit-text-tbs' => '"$1" by $2. Via $3.',
+	'multimediaviewer-html-embed-credit-text-tbl' => '"$1" by $2. Licensed under $3.',
+	'multimediaviewer-html-embed-credit-text-tb' => '"$1" by $2.',
+	'multimediaviewer-html-embed-credit-text-ts' => '"$1". Via $2.',
+	'multimediaviewer-html-embed-credit-text-tl' => '"$1". Licensed under $2.',
+	'multimediaviewer-embed-byline' => 'By $1',
+	'multimediaviewer-embed-license' => 'Licensed under $1.',
+	'multimediaviewer-embed-via' => 'Via $1.',
+
+	// Embed size choices
+	'multimediaviewer-default-embed-size' => 'Default thumbnail size',
+	'multimediaviewer-original-embed-size' => 'Original size - $1 × $2 px',
+	'multimediaviewer-large-embed-size' => 'Large - $1 × $2 px',
+	'multimediaviewer-medium-embed-size' => 'Medium - $1 × $2 px',
+	'multimediaviewer-small-embed-size' => 'Small - $1 × $2 px',
 );
 
 /** Message documentation (Message documentation)
@@ -160,24 +185,7 @@ They will usually be derived from the HTML output from wikitext on a file descri
 	'multimediaviewer-permission-link' => 'Text of the link (on top of the metadata box) which shows additional license terms',
 	'multimediaviewer-permission-viewmore' => 'Text of the link (at the cutoff of the license term preview) which shows additional license terms.
 {{Identical|View more}}',
-	'multimediaviewer-use-file' => 'Link that opens a dialog with options for sharing the file, e.g. onwiki or on another site. Similar to the Commons gadget stockPhoto.',
-	'multimediaviewer-use-file-owt' => 'Label for input box which has wikitext used to show an image with the thumb option and a helpful caption.
 
-The wikitext is like <code><nowiki>[[filename|thumb|desc]]</nowiki></code>.
-
-Similar to the Commons gadget stockPhoto.
-
-See also:
-* {{msg-mw|Multimediaviewer-use-file-own}}',
-	'multimediaviewer-use-file-own' => 'Label for input box which has wikitext used to show an image inline with a helpful title attribute.
-
-The wikitext is like <code><nowiki>[[filename|desc]]</nowiki></code>.
-
-Similar to the Commons gadget stockPhoto.
-
-See also:
-* {{msg-mw|Multimediaviewer-use-file-owt}}',
-	'multimediaviewer-use-file-offwiki' => 'Label for HTML used to show an image on an external site, with a link back to the wiki. Similar to the Commons gadget stockPhoto.',
 	'multimediaviewer-about-mmv' => 'Text for a link to a page with more information about Media Viewer software.',
 	'multimediaviewer-discuss-mmv' => 'Text for a link to a page where the user can discuss the Media Viewer software.
 {{Identical|Leave feedback}}',
@@ -235,6 +243,76 @@ Followed by {{msg-mw|Multimediaviewer-fileusage-link}} and the list of pages.
 
 See also:
 * {{msg-mw|Multimediaviewer-fileusage-local-section}}',
+
+	'multimediaviewer-reuse-link' => 'Text of the link on the metadata panel which opens the reuse panel',
+	'multimediaviewer-share-tab' => 'Tab title text for the file reuse panel - used for the section with shareable URLs.',
+	'multimediaviewer-embed-tab' => 'Tab title text for the file reuse panel - used for the section with embeddable HTML and wikitext.',
+
+	'multimediaviewer-link-to-page' => 'Used as alt-text to describe a URL that goes to a File: page for an image.',
+	'multimediaviewer-link-to-file' => 'Used as alt-text to describe a URL that goes to an image file.',
+
+	'multimediaviewer-embed-wt' => 'Used to represent a choice for embedding a file in a wiki page, as wikitext.',
+	'multimediaviewer-embed-html' => 'Used to represent a choice for embedding a file in an HTML document, as HTML.',
+
+	'multimediaviewer-html-embed-credit-text-tbls' => 'Credit text, used when generating HTML to reuse an image.
+Which one of the multimediaviewer-html-embed-credit-text-* messages is used will depend on what information about the image is available.
+* $1 - name of the work (typically the filename without an extension)
+* $2 - name of the author
+* $3 - name of the license
+* $4 - name of the website/institution which was the direct source for this image
+Each of the parameters could be either plain text or a link.',
+	'multimediaviewer-html-embed-credit-text-tls' => 'Credit text, used when generating HTML to reuse an image.
+Which one of the multimediaviewer-html-embed-credit-text-* messages is used will depend on what information about the image is available.
+* $1 - name of the work (typically the filename without an extension)
+* $2 - name of the license
+* $3 - name of the website/institution which was the direct source for this image
+Each of the parameters could be either plain text or a link.',
+	'multimediaviewer-html-embed-credit-text-tbs' => 'Credit text, used when generating HTML to reuse an image.
+Which one of the multimediaviewer-html-embed-credit-text-* messages is used will depend on what information about the image is available.
+* $1 - name of the work (typically the filename without an extension)
+* $2 - name of the author
+* $3 - name of the website/institution which was the direct source for this image
+Each of the parameters could be either plain text or a link.',
+	'multimediaviewer-html-embed-credit-text-tbl' => 'Credit text, used when generating HTML to reuse an image.
+Which one of the multimediaviewer-html-embed-credit-text-* messages is used will depend on what information about the image is available.
+* $1 - name of the work (typically the filename without an extension)
+* $2 - name of the author
+* $3 - name of the license
+Each of the parameters could be either plain text or a link.',
+	'multimediaviewer-html-embed-credit-text-tb' => 'Credit text, used when generating HTML to reuse an image.
+Which one of the multimediaviewer-html-embed-credit-text-* messages is used will depend on what information about the image is available.
+* $1 - name of the work (typically the filename without an extension)
+* $2 - name of the author
+Each of the parameters could be either plain text or a link.',
+	'multimediaviewer-html-embed-credit-text-ts' => 'Credit text, used when generating HTML to reuse an image.
+Which one of the multimediaviewer-html-embed-credit-text-* messages is used will depend on what information about the image is available.
+* $1 - name of the work (typically the filename without an extension)
+* $2 - name of the website/institution which was the direct source for this image
+Each of the parameters could be either plain text or a link.',
+	'multimediaviewer-html-embed-credit-text-tl' => 'Credit text, used when generating HTML to reuse an image.
+Which one of the multimediaviewer-html-embed-credit-text-* messages is used will depend on what information about the image is available.
+* $1 - name of the work (typically the filename without an extension)
+* $2 - name of the license
+Each of the parameters could be either plain text or a link.',
+
+	'multimediaviewer-embed-byline' => 'Byline (author credit) text, used when generating wikitext/HTML to reuse the image. $1 is author name.',
+	'multimediaviewer-embed-license' => 'License information, used when generating wikitext/HTML to reuse the image. $1 is the license name.',
+	'multimediaviewer-embed-via' => 'Source information (e. g. "via Flickr"), used when generating wikitext/HTML to reuse the image.
+$1 is source (probably a website or institution name)',
+
+	'multimediaviewer-default-embed-size' => 'Text of size selector option which will generate wikitext for a thumbnail without explicit size.',
+	'multimediaviewer-original-embed-size' => 'Text of size selector option which will generate wikitext for a thumbnail with the original (full) size.
+* $1 - width in pixels
+* $2 - height in pixels',
+	'multimediaviewer-large-embed-size' => 'Text of size selector option which will generate wikitext for a thumbnail with small size.
+* $1 - width in pixels
+* $2 - height in pixels',
+	'multimediaviewer-medium-embed-size' => 'Text of size selector option which will generate wikitext for a thumbnail with medium size.
+* $1 - width in pixels
+* $2 - height in pixels',
+	'multimediaviewer-small-embed-size' => 'Text of size selector option which will generate wikitext for a thumbnail with large size.
+* $1 - width in pixels
+* $2 - height in pixels',
 );
 
 /** Arabic (العربية)

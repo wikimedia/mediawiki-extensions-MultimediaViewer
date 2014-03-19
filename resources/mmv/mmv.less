@@ -1,3 +1,5 @@
+@import "ui/mmv.mixins";
+
 /**
  * Animation helper from core
  */
@@ -184,6 +186,10 @@ body.mobile .mw-mlb-controls,
 
 .mlb-overlay {
 	background-color: rgb(0,0,0);
+}
+
+.mw-mlb-title-contain {
+	position: relative;
 }
 
 .mw-mlb-license,
@@ -380,12 +386,7 @@ body.mw-mlb-lightbox-open #content {
 
 	&.pointing-down {
 		background-position: center top;
-		transform: rotate(180deg);
-		-moz-transform: rotate(180deg);
-		-o-transform: rotate(180deg);
-		-webkit-transform: rotate(180deg);
-		filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=2.0);
-		-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2.0)";
+		.rotate(180deg);
 	}
 }
 

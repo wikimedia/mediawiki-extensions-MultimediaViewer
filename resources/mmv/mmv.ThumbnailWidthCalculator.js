@@ -82,7 +82,6 @@
 	};
 
 	/**
-	 * @method
 	 * Finds the smallest bucket which is large enough to hold the target size
 	 * (i. e. the smallest bucket whose size is equal to or greater than the target).
 	 * If none of the buckets are large enough, returns the largest bucket.
@@ -106,7 +105,6 @@
 	};
 
 	/**
-	 * @method
 	 * @protected
 	 * Finds the largest width for an image so that it will still fit into a given bounding box,
 	 * based on the size of a sample (some smaller version of the same image, like the thumbnail
@@ -132,7 +130,6 @@
 	};
 
 	/**
-	 * @method
 	 * Finds the largest width for an image so that it will still fit into a given bounding box,
 	 * based on the size of a sample (some smaller version of the same image, like the thumbnail
 	 * shown in the article) which is used to calculate the ratio.

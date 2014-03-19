@@ -16,6 +16,8 @@
  */
 
 ( function ( mw, $ ) {
+	var EP;
+
 	/**
 	 * Represents a UI element.
 	 * @class mw.mmv.ui.Element
@@ -30,13 +32,13 @@
 		/** @property {Object.<string, string[]>} eventsRegistered Events that this element has registered with the DOM. */
 		this.eventsRegistered = {};
 	}
+	EP = Element.prototype;
 
 	/**
-	 * @method
 	 * Helper function for whitelisting HTML to only keep links and text. Works in-place.
 	 * @param {jQuery} $el
 	 */
-	Element.prototype.whitelistHtml = function ( $el ) {
+	EP.whitelistHtml = function ( $el ) {
 		var child, $prev, $child = $el.children().first();
 
 		while ( $child && $child.length ) {
@@ -64,26 +66,39 @@
 	};
 
 	/**
-	 * @method
 	 * @abstract
 	 * Sets the data for the element.
 	 */
-	Element.prototype.set = function () {};
+	EP.set = function () {};
 
 	/**
-	 * @method
 	 * @abstract
 	 * Empties the element.
 	 */
-	Element.prototype.empty = function () {};
+	EP.empty = function () {};
 
 	/**
-	 * @method
+	 * @abstract
+	 * Registers listeners.
+	 */
+	EP.attach = function() {};
+
+	/**
+	 * @abstract
+	 * Clears listeners.
+	 */
+	EP.unattach = function() {
+		this.clearEvents();
+	};
+
+	/**
 	 * Add event handler in a way that will be auto-cleared on lightbox close
 	 * @param {string} name Name of event, like 'keydown'
 	 * @param {Function} handler Callback for the event
+	 *
+	 * TODO: Unit tests
 	 */
-	Element.prototype.handleEvent = function ( name, handler ) {
+	EP.handleEvent = function ( name, handler ) {
 		if ( this.eventsRegistered[name] === undefined ) {
 			this.eventsRegistered[name] = [];
 		}
@@ -92,10 +107,11 @@
 	};
 
 	/**
-	 * @method
 	 * Remove all events that have been registered on this element.
+	 *
+	 * TODO: Unit tests
 	 */
-	Element.prototype.clearEvents = function () {
+	EP.clearEvents = function () {
 		var i, handlers, thisevent,
 			events = Object.keys( this.eventsRegistered );
 
@@ -109,5 +125,6 @@
 	};
 
 	mw.mmv.ui = {};
+	mw.mmv.ui.reuse = {};
 	mw.mmv.ui.Element = Element;
 }( mediaWiki, jQuery ) );

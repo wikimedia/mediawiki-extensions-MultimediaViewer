@@ -28,3 +28,14 @@
 	filter: e(%("progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 )",
 		rgbahex(@invisible), rgbahex(@backgroundColor))); // IE6-9
 }
+
+.rotate(@degrees: 45deg) {
+    -webkit-transform: rotate(@degrees);
+    -moz-transform: rotate(@degrees);
+    -ms-transform: rotate(@degrees);
+    -o-transform: rotate(@degrees);
+    transform: rotate(@degrees);
+
+    filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=(@degrees / 90.0));
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=(@degrees / 90.0))";
+}

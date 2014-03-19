@@ -316,13 +316,12 @@ call_user_func( function() {
 		),
 
 		'dependencies' => array(
-			'mediawiki.language',
 			'mmv.ui',
 			'mmv.ui.categories',
 			'mmv.ui.description',
-			'mmv.ui.fileReuse',
 			'mmv.ui.fileUsage',
 			'mmv.ui.permission',
+			'mmv.ui.reuse.dialog',
 			'moment',
 			'oojs',
 		),
@@ -354,18 +353,62 @@ call_user_func( function() {
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 
-	$wgResourceModules['mmv.ui.fileReuse'] = array_merge( array(
+	$wgResourceModules['mmv.ui.reuse.dialog'] = array_merge( array(
 		'scripts' => array(
-			'mmv.ui.fileReuse.js',
+			'mmv.ui.reuse.dialog.js',
 		),
 
 		'styles' => array(
-			'mmv.ui.fileReuse.less',
+			'mmv.ui.reuse.dialog.less',
 		),
 
 		'dependencies' => array(
 			'mmv.ui',
 			'oojs',
+			'oojs-ui',
+			'mmv.ui.reuse.share',
+		),
+
+		'messages' => array(
+			'multimediaviewer-reuse-link',
+		),
+	), $moduleInfo( 'mmv/ui' ) );
+
+	$wgResourceModules['mmv.ui.reuse.tab'] = array_merge( array(
+		'scripts' => array(
+			'mmv.ui.reuse.tab.js',
+		),
+
+		'dependencies' => array(
+			'mmv.ui',
+			'oojs',
+		),
+
+		'messages' => array(
+			'multimediaviewer-reuse-link',
+		),
+	), $moduleInfo( 'mmv/ui' ) );
+
+	$wgResourceModules['mmv.ui.reuse.share'] = array_merge( array(
+		'scripts' => array(
+			'mmv.ui.reuse.share.js',
+		),
+
+		'styles' => array(
+			'mmv.ui.reuse.share.less',
+		),
+
+		'dependencies' => array(
+			'mmv.ui.reuse.tab',
+			'oojs',
+			'oojs-ui',
+		),
+
+		'messages' => array(
+			'multimediaviewer-share-tab',
+
+			'multimediaviewer-link-to-file',
+			'multimediaviewer-link-to-page',
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 
@@ -438,15 +481,11 @@ call_user_func( function() {
 			'jquery.hidpi',
 			'jquery.scrollTo',
 			'jquery.throttle-debounce',
-			'jquery.ui.dialog',
+			'jquery.hidpi',
 		),
 
 		'messages' => array(
 			'multimediaviewer-file-page',
-			'multimediaviewer-use-file',
-			'multimediaviewer-use-file-owt',
-			'multimediaviewer-use-file-own',
-			'multimediaviewer-use-file-offwiki',
 			'multimediaviewer-desc-nil',
 		),
 	), $moduleInfo( 'mmv' ) );

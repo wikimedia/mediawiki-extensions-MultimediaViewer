@@ -1,0 +1,126 @@
+@import "mmv.mixins";
+
+.mw-mlb-reuse-link {
+	@reuse-link-color: rgb(136, 136, 136);
+
+	position: absolute;
+	right: 0;
+	bottom: 0;
+
+	border-left: 1px solid @reuse-link-color;
+	padding: 15px;
+
+	.unselectable;
+	font-size: 1.25em;
+	color: @reuse-link-color;
+	cursor: pointer;
+	opacity: 0.8;
+	transition: opacity 0.25s;
+
+	&:before {
+		display: inline-block;
+		width: 1em;
+		height: 1em;
+
+		// fix odd position caused by bottom of icon and bottom of SVG not being aligned
+		position: relative;
+		top: 0.1em;
+
+		/* @embed */
+		background-image: url(img/use-ltr.svg);
+		background-size: 1em 1em;
+		margin-right: 0.25em;
+		content: ' ';
+		vertical-align: baseline;
+	}
+
+	&.open {
+		opacity: 1;
+	}
+}
+
+// not-so-great but quick way of ensuring the reuse link does not get overflowed with text
+.mw-mlb-title-contain {
+	padding-right: 175px;
+}
+
+.mw-mlb-reuse-dialog {
+	@background-color: rgb(255, 255, 255);
+	@shadow-color: rgb(0, 0, 0);
+	@border-radius: 3px;
+	@divider-border-height: 1px;
+	@dialog-width: 450px;
+	@dialog-height: 350px;
+
+	// positioned relative to the metadata panel
+	position: absolute;
+	right: 5px;
+	top: -1 * (@dialog-height + 5px);
+	width: @dialog-width;
+	height: @dialog-height;
+	background-color: @background-color;
+	box-shadow: 2px 2px 2px @shadow-color;
+	.box-round(@border-radius);
+
+	.mw-mlb-reuse-tabs {
+		@divider-color: rgb(204, 204, 204);
+
+		position: static;
+		box-shadow: none;
+		border-bottom: @divider-border-height solid @divider-color;
+		.box-round(@border-radius @border-radius 0 0);
+
+		.oo-ui-iconedElement-icon.oo-ui-icon-check {
+			display: none;
+		}
+
+		li {
+			@tab-border-height: 3px;
+			@highlighted-tab-color: rgb(225, 243, 255);
+			@selected-tab-color: rgb(0, 113, 188);
+
+			display: inline-block;
+			padding: 10px 25px;
+
+			font-size: 1.2em;
+
+			&.oo-ui-optionWidget-highlighted {
+				border-bottom: (@tab-border-height - @divider-border-height) solid @highlighted-tab-color;
+			}
+
+			&.oo-ui-optionWidget-selected,
+			&.oo-ui-optionWidget-highlighted.oo-ui-optionWidget-selected {
+				border-bottom: @tab-border-height solid @selected-tab-color;
+			}
+
+			&:first-child {
+				.box-round(@border-radius 0 0 0);
+			}
+		}
+	}
+
+	.mw-mlb-reuse-pane {
+		display: none;
+		padding: 10px;
+
+		&.active {
+			display: block;
+		}
+	}
+
+	.mw-mlb-reuse-down-arrow {
+		@arrow-size: 20px;
+		@arrow-border-color: rgb(170, 170, 170);
+		@arrow-border-size: 1px;
+
+		background-color: @background-color;
+		width: @arrow-size;
+		height: @arrow-size;
+		border-right: @arrow-border-size solid @arrow-border-color;
+		border-bottom: @arrow-border-size solid @arrow-border-color;
+		.rotate(45deg);
+		position: absolute;
+		right: 60px;
+		bottom: -1 * ( @arrow-size / 2 );
+	}
+}
