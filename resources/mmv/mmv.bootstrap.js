@@ -121,9 +121,14 @@
 			return;
 		}
 
-		if ( $thumb.closest( '.metadata' ).length > 0 ) {
+		if (
 			// This is almost certainly an icon for an informational template like
 			// {{refimprove}} on enwiki.
+			$thumb.closest( '.metadata' ).length > 0 ||
+
+			// This is an article with no text.
+			$thumb.closest( '.noarticletext' ).length > 0
+		) {
 			return;
 		}
 
