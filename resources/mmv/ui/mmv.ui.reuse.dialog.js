@@ -68,17 +68,21 @@
 
 	// FIXME this should happen outside the dialog and the tabs, but we need to improve
 	DP.initTabs = function () {
-		var shareTab;
+		var shareTab, embedTab;
 
 		this.tabs = {
-			share: new mw.mmv.ui.reuse.Share( this.$reuseDialog )
+			share: new mw.mmv.ui.reuse.Share( this.$reuseDialog ),
+			embed: new mw.mmv.ui.reuse.Embed( this.$reuseDialog )
 		};
 
 		shareTab = new oo.ui.MenuItemWidget(
 			'share', { label: mw.message( 'multimediaviewer-share-tab' ).text() } );
+		embedTab = new oo.ui.MenuItemWidget(
+			'embed', { label: mw.message( 'multimediaviewer-embed-tab' ).text() } );
 
 		this.reuseTabs.addItems( [
-			shareTab
+			shareTab,
+			embedTab
 		] );
 
 		// Default to 'share' tab
@@ -154,9 +158,11 @@
 	/**
 	 * Sets data needed by contaned tabs and makes dialog launch link visible.
 	 * @param {mw.mmv.model.Image} image
+	 * @param {mw.mmv.model.EmbedFileInfo} info
 	 */
-	DP.set = function ( image ) {
+	DP.set = function ( image, info ) {
 		this.tabs.share.set( image );
+		this.tabs.embed.set( image, info );
 		this.$reuseLink.removeClass( 'empty' );
 	};
 

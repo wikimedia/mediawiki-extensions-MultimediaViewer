@@ -1,0 +1,39 @@
+@switch-color: #f2f2f2;
+@active-switch-color: #666666;
+
+.mw-mlb-embed-text-html,
+.mw-mlb-embed-text-wt {
+	display: none;
+	width: auto;
+
+	&.active {
+		display: block;
+	}
+}
+
+.mw-mlb-reuse-dialog .mw-mlb-embed-pane {
+	padding: 5px 27px;
+}
+
+.mw-mlb-embed-switch {
+	div {
+		padding: 1px 3px;
+		background-color: @switch-color;
+
+		&.active {
+			background-color: @active-switch-color;
+		}
+	}
+}
+
+.mw-mlb-embed-size {
+	display: none;
+
+	&.active {
+		display: block;
+	}
+
+	.oo-ui-widget-disabled {
+		display: none;
+	}
+}
