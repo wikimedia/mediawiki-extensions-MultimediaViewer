@@ -42,6 +42,7 @@
 		this.$pane.appendTo( this.$container );
 
 		this.createSnippetTextAreas( this.$pane );
+		this.createSnippetSelectionButtons( this.$pane );
 		this.createSizePulldownMenus( this.$pane );
 
 		/**
@@ -59,6 +60,12 @@
 	oo.inheritClass( Embed, mw.mmv.ui.reuse.Tab );
 	EP = Embed.prototype;
 
+	/** @property {number} Width threshold at which an image is to be considered "large" */
+	EP.LARGE_IMAGE_WIDTH_THRESHOLD = 1200;
+
+	/** @property {number} Height threshold at which an image is to be considered "large" */
+	EP.LARGE_IMAGE_HEIGHT_THRESHOLD = 900;
+
 
 	/**
 	 * Creates text areas for html and wikitext snippets.
@@ -66,6 +73,12 @@
 	 * @param {jQuery} $container
 	 */
 	EP.createSnippetTextAreas = function( $container ) {
+		this.embedTextHtml = new oo.ui.TextInputWidget( {
+			classes: [ 'mw-mlb-embed-text-html' ],
+			multiline: true,
+			readOnly: true
+		} );
+
 		this.embedTextWikitext = new oo.ui.TextInputWidget( {
 			classes: [ 'mw-mlb-embed-text-wt', 'active' ],
 			multiline: true,
@@ -74,9 +87,44 @@
 
 		$( '<p>' )
 			.append(
+				this.embedTextHtml.$element,
 				this.embedTextWikitext.$element
 			)
 			.appendTo( $container );
+	};
+
+	/**
+	 * Creates snippet selection buttons.
+	 *
+	 * @param {jQuery} $container
+	 */
+	EP.createSnippetSelectionButtons = function( $container ) {
+		var wikitextButtonOption,
+			htmlButtonOption;
+		this.embedSwitch = new oo.ui.ButtonSelectWidget( {
+			classes: [ 'mw-mlb-embed-select' ]
+		} );
+
+		wikitextButtonOption = new oo.ui.ButtonOptionWidget( 'wt', {
+				label: mw.message( 'multimediaviewer-embed-wt' ).text(),
+				selected: true
+			} );
+		htmlButtonOption = new oo.ui.ButtonOptionWidget( 'html', {
+				label: mw.message( 'multimediaviewer-embed-html' ).text()
+			} );
+
+		this.embedSwitch.addItems( [
+			wikitextButtonOption,
+			htmlButtonOption
+		] );
+
+		$( '<p>' )
+			.append( this.embedSwitch.$element )
+			.appendTo( $container );
+
+		// Default to 'wikitext'
+		this.embedSwitch.selectItem( wikitextButtonOption );
+
 	};
 
 	/**
@@ -128,8 +176,57 @@
 
 		this.embedWtSizeSwitch.getMenu().selectItem( this.embedWtSizeChoices.default );
 
+		// Html sizes pulldown menu
+		this.embedHtmlSizeSwitch = new oo.ui.InlineMenuWidget( {
+			classes: [ 'mw-mlb-embed-size' ]
+		} );
+
+		this.embedHtmlSizeChoices = {};
+
+		this.embedHtmlSizeSwitch.getMenu().addItems( [
+			this.embedHtmlSizeChoices.small = new oo.ui.MenuItemWidget( {
+				name: 'small',
+				height: null,
+				width: null
+			},
+			{
+				label: mw.message( 'multimediaviewer-small-embed-size', 0, 0 ).text(),
+				selected: true
+			} ),
+
+			this.embedHtmlSizeChoices.medium = new oo.ui.MenuItemWidget( {
+				name: 'medium',
+				height: null,
+				width: null
+			},
+			{
+				label: mw.message( 'multimediaviewer-medium-embed-size', 0, 0 ).text()
+			} ),
+
+			this.embedHtmlSizeChoices.large = new oo.ui.MenuItemWidget( {
+				name: 'large',
+				height: null,
+				width: null
+			},
+			{
+				label: mw.message( 'multimediaviewer-large-embed-size', 0, 0 ).text()
+			} ),
+
+			this.embedHtmlSizeChoices.original = new oo.ui.MenuItemWidget( {
+				name: 'original',
+				height: null,
+				width: null
+			},
+			{
+				label: mw.message( 'multimediaviewer-original-embed-size', 0, 0 ).text()
+			} )
+		] );
+
+		this.embedHtmlSizeSwitch.getMenu().selectItem( this.embedHtmlSizeChoices.small );
+
 		$( '<p>' )
 			.append(
+				this.embedHtmlSizeSwitch.$element,
 				this.embedWtSizeSwitch.$element
 			)
 			.appendTo( $container );
@@ -140,13 +237,20 @@
 	 */
 	EP.attach = function() {
 		var embed = this,
+			$htmlTextarea = this.embedTextHtml.$element.find( 'textarea' ),
 			$wikitextTextarea = this.embedTextWikitext.$element.find( 'textarea' );
 
 		// Select all text once element gets focus
+		this.embedTextHtml.onDOMEvent( 'focus', $.proxy( this.selectAllOnEvent, $htmlTextarea ) );
 		this.embedTextWikitext.onDOMEvent( 'focus', $.proxy( this.selectAllOnEvent, $wikitextTextarea ) );
+		this.embedTextHtml.onDOMEvent( 'mousedown click', $.proxy( this.onlyFocus, $htmlTextarea ) );
 		this.embedTextWikitext.onDOMEvent( 'mousedown click', $.proxy( this.onlyFocus, $wikitextTextarea ) );
 
+		// Register handler for switching between wikitext/html snippets
+		this.embedSwitch.on( 'select', $.proxy( embed.handleTypeSwitch, embed ) );
+
 		// Register handlers for switching between file sizes
+		this.embedHtmlSizeSwitch.getMenu().on( 'select', $.proxy( embed.handleSizeSwitch, embed ) );
 		this.embedWtSizeSwitch.getMenu().on( 'select', $.proxy( embed.handleSizeSwitch, embed ) );
 	};
 
@@ -156,7 +260,10 @@
 	EP.unattach = function() {
 		this.constructor.super.prototype.unattach.call( this );
 
+		this.embedTextHtml.offDOMEvent( 'focus mousedown click' );
 		this.embedTextWikitext.offDOMEvent( 'focus mousedown click' );
+		this.embedSwitch.off( 'select' );
+		this.embedHtmlSizeSwitch.getMenu().off( 'select' );
 		this.embedWtSizeSwitch.getMenu().off( 'select' );
 	};
 
@@ -170,14 +277,84 @@
 	};
 
 	/**
+	 * Handles snippet type switch.
+	 */
+	EP.handleTypeSwitch = function ( item ) {
+		var value = item.getData();
+
+		if ( value === 'html' ) {
+			this.$currentMainEmbedText = this.embedTextHtml.$element;
+			this.currentSizeMenu = this.embedHtmlSizeSwitch.getMenu();
+			this.embedWtSizeSwitch.getMenu().hide();
+		} else if ( value === 'wt' ) {
+			this.$currentMainEmbedText = this.embedTextWikitext.$element;
+			this.currentSizeMenu = this.embedWtSizeSwitch.getMenu();
+			this.embedHtmlSizeSwitch.getMenu().hide();
+		}
+
+		this.embedTextHtml.$element
+			.add( this.embedHtmlSizeSwitch.$element )
+			.toggleClass( 'active', value === 'html' );
+
+		this.embedTextWikitext.$element
+			.add( this.embedWtSizeSwitch.$element )
+			.toggleClass( 'active', value === 'wt' );
+
+		this.select();
+
+		this.currentSizeMenu.selectItem( this.currentSizeMenu.getSelectedItem() );
+	};
+
+	/**
 	 * Changes the size, takes different actions based on which sort of
 	 * embed is currently chosen.
 	 *
 	 * @param {number} width New width to set
+	 * @param {number} height New height to set
 	 */
-	EP.changeSize = function ( width ) {
-		this.updateWtEmbedText( width );
+	EP.changeSize = function ( width, height ) {
+		var currentItem = this.embedSwitch.getSelectedItem();
+
+		if ( currentItem === null ) {
+			return;
+		}
+
+		switch ( currentItem.getData() ) {
+			case 'html':
+				this.setThumbnailURL( {}, width, height );
+				break;
+			case 'wt':
+				this.updateWtEmbedText( width );
+				break;
+		}
+
 		this.select();
+	};
+
+	/**
+	 * Sets the value of the thumbnail URL to use for the HTML embed text.
+	 *
+	 * Assumes that the set method has already been called.
+	 * @param {mw.mmv.model.Thumbnail} thumbnail (can be just an empty object)
+	 * @param {number} width New width to set
+	 * @param {number} height New height to set
+	 */
+	EP.setThumbnailURL = function ( thumbnail, width, height ) {
+		var src;
+
+		if ( !this.embedFileInfo ) {
+			return;
+		}
+
+		src = thumbnail.url || this.embedFileInfo.src;
+
+		// If the image dimension requested are "large", use the current image url
+		if ( width > EP.LARGE_IMAGE_WIDTH_THRESHOLD  || height > EP.LARGE_IMAGE_HEIGHT_THRESHOLD ) {
+			src = this.embedFileInfo.src;
+		}
+
+		this.embedTextHtml.setValue(
+			this.formatter.getThumbnailHtml( this.embedFileInfo, src, width, height ) );
 	};
 
 	/**
@@ -204,6 +381,69 @@
 	EP.show = function () {
 		this.constructor.super.prototype.show.call( this );
 		this.select();
+	};
+
+	/**
+	 * Calculates possible image sizes for html snippets. It returns up to
+	 * three possible snippet frame sizes (small, medium, large) plus the
+	 * original image size.
+	 *
+	 * @param {number} width
+	 * @param {number} height
+	 * @returns {Object}
+	 * @returns { {width: number, height: number} } return.small
+	 * @returns { {width: number, height: number} } return.medium
+	 * @returns { {width: number, height: number} } return.large
+	 * @returns { {width: number, height: number} } return.original
+	 */
+	EP.getPossibleImageSizesForHtml = function ( width, height ) {
+		var i, bucketName,
+			currentGuess, dimensions,
+			bucketWidth, bucketHeight,
+			buckets = {
+				'small': { width: 220, height: 145 },
+				'medium': { width: 640, height: 480 },
+				'large': { width: 1200, height: 900 }
+			},
+			sizes = {},
+			bucketNames = Object.keys( buckets ),
+			widthToHeight = height / width,
+			heightToWidth = width / height;
+
+		for ( i = 0; i < bucketNames.length; i++ ) {
+			bucketName = bucketNames[i];
+			dimensions = buckets[bucketName];
+			bucketWidth = dimensions.width;
+			bucketHeight = dimensions.height;
+
+			if ( width > bucketWidth ) {
+				// Width fits in the current bucket
+				currentGuess = bucketWidth;
+
+				if ( currentGuess * widthToHeight > bucketHeight ) {
+					// Constrain in height, resize width accordingly
+					sizes[bucketName] = {
+						width: Math.round( bucketHeight * heightToWidth ),
+						height: bucketHeight
+					};
+				} else {
+					sizes[bucketName] = {
+						width: currentGuess,
+						height: Math.round( currentGuess * widthToHeight )
+					};
+				}
+			} else if ( height > bucketHeight ) {
+				// Height fits in the current bucket, resize width accordingly
+				sizes[bucketName] = {
+					width: Math.round( bucketHeight * heightToWidth ),
+					height: bucketHeight
+				};
+			}
+		}
+
+		sizes.original = { width: width, height: height };
+
+		return sizes;
 	};
 
 	/**
@@ -256,6 +496,7 @@
 	EP.getSizeOptions = function ( width, height ) {
 		var sizes = {};
 
+		sizes.html = this.getPossibleImageSizesForHtml( width, height );
 		sizes.wikitext = this.getPossibleImageSizesForWikitext( width, height );
 
 		return sizes;
@@ -268,15 +509,40 @@
 	 * @param {mw.mmv.model.EmbedFileInfo} embedFileInfo
 	 */
 	EP.set = function ( image, embedFileInfo ) {
-		var wtSizeSwitch = this.embedWtSizeSwitch.getMenu(),
+		var embed = this,
+			htmlSizeSwitch = this.embedHtmlSizeSwitch.getMenu(),
+			htmlSizeOptions = htmlSizeSwitch.getItems(),
+			wtSizeSwitch = this.embedWtSizeSwitch.getMenu(),
 			wtSizeOptions = wtSizeSwitch.getItems(),
 			sizes = this.getSizeOptions( image.width, image.height );
 
 		this.embedFileInfo = embedFileInfo;
 
+		this.updateMenuOptions( sizes.html, htmlSizeOptions );
 		this.updateMenuOptions( sizes.wikitext, wtSizeOptions );
 
 		this.currentSizeMenu.selectItem( this.currentSizeMenu.getSelectedItem() );
+		this.getThumbnailUrlPromise().done( function ( thumbnail ) {
+			embed.setThumbnailURL( thumbnail );
+		} );
+	};
+
+	/**
+	 * @private
+	 *
+	 * Gets a promise for the large thumbnail URL. This is needed because thumbnail URLs cannot
+	 * be reliably guessed, even if we know the full size of the image - most of the time replacing
+	 * the size in another thumbnail URL works (as long as the new size is not larger than the full
+	 * size), but if the file name is very long and with the larger size the URL length would
+	 * exceed a certain threshold, a different schema is used instead.
+	 *
+	 * FIXME document this better - why is this only needed for the large thumbnail?
+	 *
+	 * @return {jQuery.Promise.<string>}
+	 */
+	EP.getThumbnailUrlPromise = function () {
+		return $( document ).triggerHandler( 'mmv-request-thumbnail',
+			this.LARGE_IMAGE_WIDTH_THRESHOLD ) || $.Deferred().reject();
 	};
 
 	/**
@@ -324,8 +590,10 @@
 	 * @inheritdoc
 	 */
 	EP.empty = function () {
+		this.embedTextHtml.setValue( '' );
 		this.embedTextWikitext.setValue( '' );
 
+		this.embedHtmlSizeSwitch.getMenu().hide();
 		this.embedWtSizeSwitch.getMenu().hide();
 	};
 
