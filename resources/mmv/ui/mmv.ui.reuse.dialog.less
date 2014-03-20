@@ -7,8 +7,8 @@
 	right: 0;
 	bottom: 0;
 
-	border-left: 1px solid @reuse-link-color;
-	padding: 15px;
+	border-left: 1px solid #cccccc;
+	padding: 15px 20px;
 
 	.unselectable;
 	font-size: 1.25em;
@@ -34,7 +34,8 @@
 		vertical-align: baseline;
 	}
 
-	&.open {
+	&.open,
+	&:hover {
 		opacity: 1;
 	}
 }
@@ -46,7 +47,7 @@
 
 .mw-mlb-reuse-dialog {
 	@background-color: rgb(255, 255, 255);
-	@shadow-color: rgb(0, 0, 0);
+	@shadow-color: #aaaaaa;
 	@border-radius: 3px;
 	@divider-border-height: 1px;
 	@dialog-width: 450px;
@@ -59,7 +60,7 @@
 	width: @dialog-width;
 	height: @dialog-height;
 	background-color: @background-color;
-	box-shadow: 2px 2px 2px @shadow-color;
+	box-shadow: 0 2px 0 @shadow-color;
 	.box-round(@border-radius);
 
 	.mw-mlb-reuse-tabs {
@@ -101,7 +102,7 @@
 
 	.mw-mlb-reuse-pane {
 		display: none;
-		padding: 10px;
+		padding: 10px 20px;
 
 		&.active {
 			display: block;
@@ -110,8 +111,8 @@
 
 	.mw-mlb-reuse-down-arrow {
 		@arrow-size: 20px;
-		@arrow-border-color: rgb(170, 170, 170);
-		@arrow-border-size: 1px;
+		@arrow-border-color: #aaaaaa;
+		@arrow-border-size: 2px;
 
 		background-color: @background-color;
 		width: @arrow-size;
@@ -121,6 +122,6 @@
 		.rotate(45deg);
 		position: absolute;
 		right: 60px;
-		bottom: -1 * ( @arrow-size / 2 );
+		bottom: -1 * ( @arrow-size / 2 ) - @arrow-border-size;
 	}
 }
