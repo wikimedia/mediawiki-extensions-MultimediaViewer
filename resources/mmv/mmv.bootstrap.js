@@ -53,6 +53,11 @@
 		var deferred = $.Deferred(),
 			bs = this;
 
+		// Don't load if someone has specifically stopped us from doing so
+		if ( mw.config.get( 'wgMediaViewer' ) !== true ) {
+			return deferred.reject();
+		}
+
 		mw.loader.using( 'mmv', function() {
 			bs.isCSSReady( deferred );
 		}, function ( error ) {
@@ -171,6 +176,11 @@
 
 		// Do not interfere with non-left clicks or if modifier keys are pressed.
 		if ( e.which !== 1 || e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) {
+			return;
+		}
+
+		// Don't load if someone has specifically stopped us from doing so
+		if ( mw.config.get( 'wgMediaViewerOnClick' ) !== true ) {
 			return;
 		}
 
