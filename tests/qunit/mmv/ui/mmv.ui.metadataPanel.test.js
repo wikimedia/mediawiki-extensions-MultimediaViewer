@@ -159,7 +159,7 @@
 		imageData.source = '<b>Lost</b><a href="foo">Bar</a>';
 		imageData.author = 'Bob';
 		imageData.isCcLicensed = function() { return true; };
-		imageData.license = 'cc-by-2.0';
+		imageData.license = new mw.mmv.model.License( 'CC-BY-2.0', 'cc-by-2.0' );
 		gender = 'female';
 		imageData.lastUploader = 'Ursula';
 

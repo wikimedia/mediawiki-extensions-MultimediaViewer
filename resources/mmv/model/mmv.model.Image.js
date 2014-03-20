@@ -16,6 +16,8 @@
  */
 
 ( function ( mw ) {
+	var IP;
+
 	/**
 	 * Represents information about a single image
 	 * @class mw.mmv.model.Image
@@ -34,7 +36,7 @@
 	 * @param {string} description
 	 * @param {string} source
 	 * @param {string} author
-	 * @param {string} license
+	 * @param {mw.mmv.model.License} license
 	 * @param {string} permission
 	 * @param {number} latitude
 	 * @param {number} longitude
@@ -103,7 +105,7 @@
 		/** @property {string} author The author of the image - unsafe HTML sometimes goes here */
 		this.author = author;
 
-		/** @property {string} license The license under which the image is distributed */
+		/** @property {mw.mmv.model.License} license The license under which the image is distributed */
 		this.license = license;
 
 		/** @property {string} additional license conditions by the author (note that this is usually a big ugly HTML blob) */
@@ -128,6 +130,7 @@
 		*/
 		this.categories = categories;
 	}
+	IP = Image.prototype;
 
 	/**
 	 * Constructs a new Image object out of an object containing
@@ -156,16 +159,25 @@
 				creationDateTime = creationDateTime.value.replace( /<.*?>/g, '' );
 			}
 
-			description = extmeta.ImageDescription && extmeta.ImageDescription.value;
-			source = extmeta.Credit && extmeta.Credit.value;
-			author = extmeta.Artist && extmeta.Artist.value;
-			license = extmeta.License && extmeta.License.value;
-			permission = extmeta.Permission && extmeta.Permission.value;
+			description = this.parseExtmeta( extmeta.ImageDescription, 'string' );
+			source = this.parseExtmeta( extmeta.Credit, 'string' );
+			author = this.parseExtmeta( extmeta.Artist, 'string' );
 
-			latitude = extmeta.GPSLatitude && parseFloat( extmeta.GPSLatitude.value );
-			longitude = extmeta.GPSLongitude && parseFloat( extmeta.GPSLongitude.value );
+			if ( extmeta.LicenseShortName ) {
+				license = new mw.mmv.model.License(
+					this.parseExtmeta( extmeta.LicenseShortName, 'string' ),
+					this.parseExtmeta( extmeta.License, 'string' ),
+					this.parseExtmeta( extmeta.UsageTerms, 'string' ),
+					this.parseExtmeta( extmeta.LicenseUrl, 'string' )
+				);
+			}
 
-			categories = extmeta.Categories && extmeta.Categories.value.split( '|' );
+			permission = this.parseExtmeta( extmeta.Permission, 'string' );
+
+			latitude = this.parseExtmeta( extmeta.GPSLatitude, 'float' );
+			longitude = this.parseExtmeta( extmeta.GPSLongitude, 'float' );
+
+			categories = this.parseExtmeta( extmeta.Categories, 'list' );
 		}
 
 		imageData = new Image(
@@ -201,11 +213,32 @@
 	};
 
 	/**
+	 * Reads and parses a value from the imageinfo API extmetadata field.
+	 * @param {Array} data
+	 * @param {string} type one of 'string', 'float', 'list'
+	 * @return {string|number|Array} value or undefined if it is missing
+	 */
+	Image.parseExtmeta = function ( data, type ) {
+		var value = data && data.value;
+		if ( !value ) {
+			return undefined;
+		} else if ( type === 'string' ) {
+			return value.toString();
+		} else if ( type === 'float' ) {
+			return parseFloat( value );
+		} else if ( type === 'list' ) {
+			return value.split( '|' );
+		} else {
+			throw 'mw.mmv.model.Image.parseExtmeta: unknown type';
+		}
+	};
+
+	/**
 	 * Add a thumb URL
 	 * @param {number} width
 	 * @param {string} url
 	 */
-	Image.prototype.addThumbUrl = function ( width, url ) {
+	IP.addThumbUrl = function ( width, url ) {
 		this.thumbUrls[width] = url;
 	};
 
@@ -214,7 +247,7 @@
 	 * @param {number} width
 	 * @returns {string|undefined}
 	 */
-	Image.prototype.getThumbUrl = function ( width ) {
+	IP.getThumbUrl = function ( width ) {
 		return this.thumbUrls[width];
 	};
 
@@ -222,15 +255,16 @@
 	 * Check whether the image is CC-licensed.
 	 * @returns {boolean}
 	 */
-	Image.prototype.isCcLicensed = function () {
-		return this.license && this.license.substr( 0, 2 ) === 'cc';
+	IP.isCcLicensed = function () {
+		return this.license && this.license.internalName &&
+			this.license.internalName.substr( 0, 2 ) === 'cc';
 	};
 
 	/**
 	 * Check whether the image has geolocation data.
 	 * @returns {boolean}
 	 */
-	Image.prototype.hasCoords = function () {
+	IP.hasCoords = function () {
 		return this.hasOwnProperty( 'latitude' ) && this.hasOwnProperty( 'longitude' ) &&
 			this.latitude !== undefined && this.latitude !== null &&
 			this.longitude !== undefined && this.longitude !== null;

@@ -106,6 +106,16 @@ call_user_func( function() {
 		),
 	), $moduleInfo( 'mmv/model' ) );
 
+	$wgResourceModules['mmv.model.License'] = array_merge( array(
+		'scripts' => array(
+			'mmv.model.License.js',
+		),
+
+		'dependencies' => array(
+			'mmv.model',
+		),
+	), $moduleInfo( 'mmv/model' ) );
+
 	$wgResourceModules['mmv.model.FileUsage'] = array_merge( array(
 		'scripts' => array(
 			'mmv.model.FileUsage.js',
@@ -123,6 +133,7 @@ call_user_func( function() {
 
 		'dependencies' => array(
 			'mmv.model',
+			'mmv.model.License',
 		),
 	), $moduleInfo( 'mmv/model' ) );
 
