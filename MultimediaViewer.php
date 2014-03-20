@@ -23,11 +23,21 @@
 
 // do not pollute global namespace
 call_user_func( function() {
-	global $wgExtensionMessagesFiles, $wgResourceModules, $wgExtensionFunctions,
-		$wgAutoloadClasses, $wgHooks, $wgExtensionCredits, $wgNetworkPerformanceSamplingFactor;
+	global $wgExtensionMessagesFiles, $wgResourceModules, $wgExtensionFunctions, $wgMediaViewerIsInBeta,
+		$wgAutoloadClasses, $wgHooks, $wgExtensionCredits, $wgNetworkPerformanceSamplingFactor,
+		$wgEnableMediaViewerForLoggedInUsersOnly;
 
 	/** @var int|bool: If set, records image load network performance once per this many requests. False if unset. **/
 	$wgNetworkPerformanceSamplingFactor = false;
+
+	/** @var bool: If set, Media Viewer will try to use BetaFeatures. False if unset. **/
+	$wgMediaViewerIsInBeta = false;
+
+	/**
+	 * @var bool: If set, and $wgMediaViewerIsInBeta is unset, Media Viewer will be turned on for all
+	 * logged-in users. False if unset.
+	 */
+	$wgEnableMediaViewerForLoggedInUsersOnly = false;
 
 	$wgExtensionMessagesFiles['MultimediaViewer'] = __DIR__ . '/MultimediaViewer.i18n.php';
 
@@ -650,13 +660,23 @@ call_user_func( function() {
 	}
 
 	$wgAutoloadClasses['MultimediaViewerHooks'] = __DIR__ . '/MultimediaViewerHooks.php';
-	$wgHooks['GetBetaFeaturePreferences'][] = 'MultimediaViewerHooks::getBetaPreferences';
+
+	if ( $wgMediaViewerIsInBeta ) {
+		$wgHooks['GetBetaFeaturePreferences'][] = 'MultimediaViewerHooks::getBetaPreferences';
+	}
+
 	$wgHooks['BeforePageDisplay'][] = 'MultimediaViewerHooks::getModulesForArticle';
 	$wgHooks['CategoryPageView'][] = 'MultimediaViewerHooks::getModulesForCategory';
 	$wgHooks['ResourceLoaderGetConfigVars'][] = 'MultimediaViewerHooks::resourceLoaderGetConfigVars';
 	$wgHooks['ResourceLoaderTestModules'][] = 'MultimediaViewerHooks::getTestModules';
 
-	$wgExtensionCredits['betafeatures'][] = array(
+	$section = 'other';
+
+	if ( $wgMediaViewerIsInBeta ) {
+		$section = 'betafeatures';
+	}
+
+	$wgExtensionCredits[$section][] = array(
 		'path' => __FILE__,
 		'name' => 'MultimediaViewer',
 		'descriptionmsg' => 'multimediaviewer-desc',

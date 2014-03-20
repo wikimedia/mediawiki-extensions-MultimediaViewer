@@ -29,14 +29,31 @@ class MultimediaViewerHooks {
 	protected static $discussionLink = '//mediawiki.org/wiki/Special:MyLanguage/Talk:Multimedia/About_Media_Viewer';
 
 	/**
+	 * Checks the context for whether to load the viewer.
+	 * @param User $user
+	 * @return bool
+	 */
+	protected static function shouldLoad( $user ) {
+		global $wgMediaViewerIsInBeta;
+
+		if ( $wgMediaViewerIsInBeta && class_exists( 'BetaFeatures' ) ) {
+			return BetaFeatures::isFeatureEnabled( $user, 'multimedia-viewer' );
+		} else if ( $wgEnableMediaViewerForLoggedInUsersOnly ) {
+			return $user->isLoggedIn();
+		} else {
+			// Default to enabling for everyone.
+			return true;
+		}
+	}
+
+	/**
 	 * Handler for all places where we add the modules
 	 * Could be on article pages or on Category pages
 	 * @param OutputPage $out
 	 * @return bool
 	 */
 	protected static function getModules( &$out ) {
-		if ( class_exists( 'BetaFeatures')
-			&& !BetaFeatures::isFeatureEnabled( $out->getUser(), 'multimedia-viewer' ) ) {
+		if ( !self::shouldLoad( $out->getUser() ) ) {
 			return true;
 		}
 
