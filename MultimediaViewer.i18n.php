@@ -152,8 +152,16 @@ Parameters:
 Neither parameters are usernames, so GENDER is useless. Both come directly from the API, the extended metadata imageinfo prop in particular.
 
 They will usually be derived from the HTML output from wikitext on a file description page - however, no complicated HTML, only links, will be allowed.',
-	'multimediaviewer-metadata-error' => 'Text shown when the information on the metadata panel could not be loaded. $1 is the error message (not localized).',
-	'multimediaviewer-thumbnail-error' => 'Text shown when the image could not be loaded. $1 is the error message (not localized).',
+	'multimediaviewer-metadata-error' => 'Text shown when the information on the metadata panel could not be loaded.
+
+Parameters:
+* $1 - the error message (not localized)
+See also:
+* {{msg-mw|Multimediaviewer-thumbnail-error}}',
+	'multimediaviewer-thumbnail-error' => 'Text shown when the image could not be loaded. Parameters:
+* $1 - the error message (not localized)
+See also:
+* {{msg-mw|Multimediaviewer-metadata-error}}',
 	'multimediaviewer-license-cc-by-1.0' => 'Very short label for the Creative Commons Attribution license, version 1.0, used in a link to the file information page that has more licensing information.
 {{Identical|CC BY}}',
 	'multimediaviewer-license-cc-sa-1.0' => 'Very short label for the Creative Commons ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.',
@@ -336,6 +344,15 @@ $messages['ar'] = array(
 	'multimediaviewer-use-file-offwiki' => 'استخدام هذا الملف في موقع آخر',
 	'multimediaviewer-about-mmv' => 'حول عارض الوسائط',
 	'multimediaviewer-discuss-mmv' => 'إعطاء رأيك',
+);
+
+/** Assamese (অসমীয়া)
+ * @author Bishnu Saikia
+ */
+$messages['as'] = array(
+	'multimediaviewer-share-tab' => 'বিতৰণ',
+	'multimediaviewer-embed-wt' => 'ৱিকিপাঠ্য',
+	'multimediaviewer-embed-byline' => '$1 ৰ দ্বাৰা',
 );
 
 /** Asturian (asturianu)
@@ -681,14 +698,24 @@ $messages['eo'] = array(
  * @author PoLuX124
  */
 $messages['es'] = array(
+	'multimediaviewer-desc-nil' => 'Sin descripción disponible.',
 	'multimediaviewer-pref' => 'Visor multimedia',
-	'multimediaviewer-pref-desc' => 'Mejora tu experiencia de visualización multimedia con esta herramienta. Muestra imágenes en mayor tamaño en páginas que tienen miniaturas. Las imágenes se muestran en una ventana superpuesta agradable que también te permite verlas en tamaño completo.', # Fuzzy
+	'multimediaviewer-pref-desc' => 'Mejora tu experiencia de visualización multimedia con esta herramienta. Las imágenes se muestran en una vista a pantalla completa que incluye información relevante de las mismas.',
 	'multimediaviewer-file-page' => 'Ir a la página del archivo correspondiente',
 	'multimediaviewer-repository' => 'Más información en $1',
+	'multimediaviewer-repository-local' => 'Más información',
 	'multimediaviewer-datetime-created' => 'Creado el $1',
 	'multimediaviewer-datetime-uploaded' => 'Subido el $1',
+	'multimediaviewer-userpage-link' => 'Cargado por $1', # Fuzzy
+	'multimediaviewer-metadata-error' => 'Error: no se pueden cargar los datos de la imagen. $1',
+	'multimediaviewer-thumbnail-error' => 'Error: no se pueden cargar los datos de miniaturas. $1',
 	'multimediaviewer-license-cc-pd' => 'Dominio público',
+	'multimediaviewer-license-pd' => 'Dominio público',
 	'multimediaviewer-license-default' => 'Ver licencia',
+	'multimediaviewer-permission-title' => 'Detalles de la licencia',
+	'multimediaviewer-permission-link' => 'ver términos',
+	'multimediaviewer-permission-viewmore' => 'Ver más',
+	'multimediaviewer-about-mmv' => 'Acerca del visor multimedia',
 	'multimediaviewer-discuss-mmv' => 'Dejar comentarios',
 	'multimediaviewer-geolocation' => 'Ubicación: $1',
 	'multimediaviewer-fileusage-count' => 'Utilizado en $1 {{PLURAL:$1| page|pages}}',
@@ -696,6 +723,28 @@ $messages['es'] = array(
 	'multimediaviewer-fileusage-link' => 'Ver todos los usos',
 	'multimediaviewer-fileusage-local-section' => 'En este sitio',
 	'multimediaviewer-fileusage-global-section' => 'En otros sitios',
+	'multimediaviewer-reuse-link' => 'Usar este archivo',
+	'multimediaviewer-share-tab' => 'Compartir',
+	'multimediaviewer-embed-tab' => 'Incrustar',
+	'multimediaviewer-link-to-page' => 'Enlace a la página de descripción del archivo',
+	'multimediaviewer-link-to-file' => 'Enlace al archivo original',
+	'multimediaviewer-embed-wt' => 'Wikitexto',
+	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-html-embed-credit-text-tbls' => '«$1» por $2. Disponible bajo la licencia $3 vía $4.',
+	'multimediaviewer-html-embed-credit-text-tls' => '«$1». Disponible bajo la licencia $2 vía $3.',
+	'multimediaviewer-html-embed-credit-text-tbs' => '«$1» por $2. Vía $3.',
+	'multimediaviewer-html-embed-credit-text-tbl' => '«$1» por $2. Disponible bajo la licencia $3.',
+	'multimediaviewer-html-embed-credit-text-tb' => '«$1» por $2.',
+	'multimediaviewer-html-embed-credit-text-ts' => '«$1». Vía $2.',
+	'multimediaviewer-html-embed-credit-text-tl' => '«$1». Disponible bajo la licencia $2.',
+	'multimediaviewer-embed-byline' => 'Por $1',
+	'multimediaviewer-embed-license' => 'Disponible bajo la licencia $1.',
+	'multimediaviewer-embed-via' => 'Vía $1.',
+	'multimediaviewer-default-embed-size' => 'Tamaño de miniaturas predeterminado',
+	'multimediaviewer-original-embed-size' => 'Tamaño original: $1 × $2 px',
+	'multimediaviewer-large-embed-size' => 'Grande: $1 × $2 px',
+	'multimediaviewer-medium-embed-size' => 'Mediana: $1 × $2 px',
+	'multimediaviewer-small-embed-size' => 'Pequeña: $1 × $2 px',
 );
 
 /** Estonian (eesti)
@@ -1143,10 +1192,15 @@ $messages['it'] = array(
 	'multimediaviewer-link-to-file' => 'Collegamento al file originale.',
 	'multimediaviewer-embed-wt' => 'Wikitesto',
 	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-html-embed-credit-text-tbls' => '"$1" di $2. Con licenza $3 tramite $4.',
+	'multimediaviewer-html-embed-credit-text-tls' => '"$1". Con licenza $2 tramite $3.',
 	'multimediaviewer-html-embed-credit-text-tbs' => '"$1" di $2. Tramite $3.',
+	'multimediaviewer-html-embed-credit-text-tbl' => '"$1" di $2. Con licenza $3.',
 	'multimediaviewer-html-embed-credit-text-tb' => '"$1" di $2.',
 	'multimediaviewer-html-embed-credit-text-ts' => '"$1". Tramite $2.',
+	'multimediaviewer-html-embed-credit-text-tl' => '"$1". Con licenza $2.',
 	'multimediaviewer-embed-byline' => 'Di $1',
+	'multimediaviewer-embed-license' => 'Con licenza $1.',
 	'multimediaviewer-embed-via' => 'Tramite $1.',
 	'multimediaviewer-default-embed-size' => 'Dimensioni miniatura predefinite',
 	'multimediaviewer-original-embed-size' => 'Dimensioni originali - $1 × $2 px',
@@ -1169,6 +1223,8 @@ $messages['ja'] = array(
 	'multimediaviewer-datetime-created' => '作成日時: $1',
 	'multimediaviewer-datetime-uploaded' => 'アップロード日時: $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|アップロード}}者: $1',
+	'multimediaviewer-metadata-error' => 'エラー: 画像データを読み込めませんでした。$1',
+	'multimediaviewer-thumbnail-error' => 'エラー: サムネイルのデータを読み込めませんでした。$1',
 	'multimediaviewer-license-cc-by-1.0' => 'CC 表示 1.0',
 	'multimediaviewer-license-cc-sa-1.0' => 'CC 継承 1.0',
 	'multimediaviewer-license-cc-by-sa-1.0' => 'CC 表示-継承 1.0',
@@ -1188,10 +1244,6 @@ $messages['ja'] = array(
 	'multimediaviewer-license-default' => 'ライセンスを閲覧',
 	'multimediaviewer-permission-title' => 'ライセンスの詳細',
 	'multimediaviewer-permission-link' => '規約を閲覧',
-	'multimediaviewer-use-file' => 'このファイルを使用',
-	'multimediaviewer-use-file-owt' => 'このファイルをウィキページ内 (サムネイル) で使用',
-	'multimediaviewer-use-file-own' => 'このファイルをウィキページ内 (インライン) で使用',
-	'multimediaviewer-use-file-offwiki' => 'このファイルを別のウェブサイトで使用',
 	'multimediaviewer-about-mmv' => 'メディア ビューアーについて',
 	'multimediaviewer-discuss-mmv' => 'フィードバックを送信',
 	'multimediaviewer-geoloc-north' => '北緯',
@@ -1204,6 +1256,7 @@ $messages['ja'] = array(
 	'multimediaviewer-fileusage-link' => 'すべての使用状況を閲覧',
 	'multimediaviewer-fileusage-local-section' => 'このサイト上',
 	'multimediaviewer-fileusage-global-section' => '他のサイト上',
+	'multimediaviewer-reuse-link' => 'このファイルを使用',
 );
 
 /** Georgian (ქართული)
@@ -1364,6 +1417,8 @@ $messages['lt'] = array(
  */
 $messages['lv'] = array(
 	'multimediaviewer-desc-nil' => 'Apraksts nav pieejams.',
+	'multimediaviewer-share-tab' => 'Dalīties',
+	'multimediaviewer-embed-html' => 'HTML',
 );
 
 /** Malagasy (Malagasy)
@@ -1782,6 +1837,7 @@ $messages['sco'] = array(
 	'multimediaviewer-default-embed-size' => 'Defaut thummnail size',
 	'multimediaviewer-original-embed-size' => 'Oreeginal size - $1 × $2 px',
 	'multimediaviewer-large-embed-size' => 'Muckle - $1 × $2 px',
+	'multimediaviewer-medium-embed-size' => 'Medium - $1 × $2 px',
 	'multimediaviewer-small-embed-size' => 'Smaa - $1 × $2 px',
 );
 
@@ -1868,6 +1924,8 @@ $messages['sv'] = array(
 	'multimediaviewer-datetime-created' => 'Skapades den $1',
 	'multimediaviewer-datetime-uploaded' => 'Laddades upp den $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Uppladdad}} av $1',
+	'multimediaviewer-metadata-error' => 'Fel: Kunde inte läsa in bilddata. $1',
+	'multimediaviewer-thumbnail-error' => 'Fel: Kunde inte läsa in miniatyrdata. $1',
 	'multimediaviewer-license-cc-by-4.0' => 'CC BY 4.0',
 	'multimediaviewer-license-cc-by-sa-4.0' => 'CC BY-SA 4.0',
 	'multimediaviewer-license-cc-pd' => 'Public Domain',
@@ -1885,6 +1943,27 @@ $messages['sv'] = array(
 	'multimediaviewer-fileusage-local-section' => 'På denna webbplats',
 	'multimediaviewer-fileusage-global-section' => 'På andra webbplatser',
 	'multimediaviewer-reuse-link' => 'Använd denna fil', # Fuzzy
+	'multimediaviewer-share-tab' => 'Dela',
+	'multimediaviewer-embed-tab' => 'Bädda in',
+	'multimediaviewer-link-to-page' => 'Länk till filbeskrivningssidan',
+	'multimediaviewer-link-to-file' => 'Länk till originalfil',
+	'multimediaviewer-embed-wt' => 'Wikitext',
+	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-html-embed-credit-text-tbls' => '"$1" av $2. Licenserat under $3 via $4.',
+	'multimediaviewer-html-embed-credit-text-tls' => '"$1". Licenserat under $2 via $3.',
+	'multimediaviewer-html-embed-credit-text-tbs' => '"$1" av $2. Via $3.',
+	'multimediaviewer-html-embed-credit-text-tbl' => '"$1" av $2. Licenserat under $3.',
+	'multimediaviewer-html-embed-credit-text-tb' => '"$1" av $2.',
+	'multimediaviewer-html-embed-credit-text-ts' => '"$1". Via $2.',
+	'multimediaviewer-html-embed-credit-text-tl' => '"$1". Licenserat under $2.',
+	'multimediaviewer-embed-byline' => 'Av $1',
+	'multimediaviewer-embed-license' => 'Licenserat under $1.',
+	'multimediaviewer-embed-via' => 'Via $1.',
+	'multimediaviewer-default-embed-size' => 'Standardstorlek för miniatyrer',
+	'multimediaviewer-original-embed-size' => 'Originalstorlek - $1 × $2 px',
+	'multimediaviewer-large-embed-size' => 'Stor - $1 × $2 px',
+	'multimediaviewer-medium-embed-size' => 'Mellan - $1 × $2 px',
+	'multimediaviewer-small-embed-size' => 'Liten - $1 × $2 px',
 );
 
 /** Telugu (తెలుగు)
