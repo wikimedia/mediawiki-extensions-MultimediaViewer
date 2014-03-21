@@ -47,6 +47,36 @@
 		}
 	} );
 
+	QUnit.test( 'getShortName()', 3, function( assert ) {
+		var existingMessageKey = 'Internal name that does exist',
+			nonExistingMessageKey = 'Internal name that does not exist',
+			license1 = new mw.mmv.model.License( 'Shortname' ),
+			license2 = new mw.mmv.model.License( 'Shortname', nonExistingMessageKey ),
+			license3 = new mw.mmv.model.License( 'Shortname', existingMessageKey ),
+			oldMwMessage = mw.message,
+			oldMwMessagesExists = mw.messages.exists;
+
+		mw.message = function ( name ) {
+			return name === 'multimediaviewer-license-' + existingMessageKey
+				? { text: function () { return 'Translated name'; } }
+				: oldMwMessage.apply( mw, arguments );
+		};
+		mw.messages.exists = function ( name ) {
+			return name === 'multimediaviewer-license-' + existingMessageKey
+				? true : oldMwMessagesExists.apply( mw.messages, arguments );
+		};
+
+		assert.strictEqual( license1.getShortName(), 'Shortname',
+			'Short name is returned when there is no translated name' );
+		assert.strictEqual( license2.getShortName(), 'Shortname',
+			'Short name is returned when translated name is missing' );
+		assert.strictEqual( license3.getShortName(), 'Translated name',
+			'Translated name is returned when it exists' );
+
+		mw.message = oldMwMessage;
+		mw.messages.exists = oldMwMessagesExists;
+	} );
+
 	QUnit.test( 'getShortLink()', 6, function( assert ) {
 		var $html,
 			license1 = new mw.mmv.model.License( 'lorem ipsum' ),

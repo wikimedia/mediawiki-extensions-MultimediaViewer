@@ -61,7 +61,7 @@
 		 * Currently selected size menu.
 		 * @property {OO.ui.MenuWidget}
 		 */
-		this.currentSizeMenu = this.embedWtSizeSwitch.getMenu();
+		this.currentSizeMenu = this.embedSizeSwitchWikitext.getMenu();
 	}
 	oo.inheritClass( Embed, mw.mmv.ui.reuse.Tab );
 	EP = Embed.prototype;
@@ -89,7 +89,7 @@
 			.prop( 'placeholder', mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text() );
 
 		this.embedTextWikitext = new oo.ui.TextInputWidget( {
-			classes: [ 'mw-mlb-embed-text-wt', 'active' ],
+			classes: [ 'mw-mlb-embed-text-wikitext', 'active' ],
 			multiline: true,
 			readOnly: true
 		} );
@@ -117,8 +117,8 @@
 			classes: [ 'mw-mlb-embed-select' ]
 		} );
 
-		wikitextButtonOption = new oo.ui.ButtonOptionWidget( 'wt', {
-				label: mw.message( 'multimediaviewer-embed-wt' ).text(),
+		wikitextButtonOption = new oo.ui.ButtonOptionWidget( 'wikitext', {
+				label: mw.message( 'multimediaviewer-embed-wt' ).text()
 			} );
 		htmlButtonOption = new oo.ui.ButtonOptionWidget( 'html', {
 				label: mw.message( 'multimediaviewer-embed-html' ).text()
@@ -135,7 +135,6 @@
 
 		// Default to 'wikitext'
 		this.embedSwitch.selectItem( wikitextButtonOption );
-
 	};
 
 	/**
@@ -149,19 +148,19 @@
 			.text( mw.message( 'multimediaviewer-embed-dimensions', 0, 0 ).text() ).get( 0 ).outerHTML;
 
 		// Wikitext sizes pulldown menu
-		this.embedWtSizeSwitch = new oo.ui.InlineMenuWidget( {
+		this.embedSizeSwitchWikitext = new oo.ui.InlineMenuWidget( {
 			classes: [ 'mw-mlb-embed-size', 'active' ]
 		} );
 
-		this.embedWtSizeChoices = {};
+		this.embedSizeChoicesWikitext = {};
 
-		this.embedWtSizeSwitch.getMenu().addItems( [
-			this.embedWtSizeChoices.default = new oo.ui.MenuItemWidget( { name: 'default' }, {
+		this.embedSizeSwitchWikitext.getMenu().addItems( [
+			this.embedSizeChoicesWikitext.default = new oo.ui.MenuItemWidget( { name: 'default' }, {
 				label: mw.message( 'multimediaviewer-default-embed-dimensions' ).text(),
 				autoFitLabel: false
 			} ),
 
-			this.embedWtSizeChoices.small = new oo.ui.MenuItemWidget( {
+			this.embedSizeChoicesWikitext.small = new oo.ui.MenuItemWidget( {
 				name: 'small',
 				height: null,
 				width: null
@@ -171,7 +170,7 @@
 				autoFitLabel: false
 			} ),
 
-			this.embedWtSizeChoices.medium = new oo.ui.MenuItemWidget( {
+			this.embedSizeChoicesWikitext.medium = new oo.ui.MenuItemWidget( {
 				name: 'medium',
 				height: null,
 				width: null
@@ -181,7 +180,7 @@
 				autoFitLabel: false
 			} ),
 
-			this.embedWtSizeChoices.large = new oo.ui.MenuItemWidget( {
+			this.embedSizeChoicesWikitext.large = new oo.ui.MenuItemWidget( {
 				name: 'large',
 				height: null,
 				width: null
@@ -192,16 +191,16 @@
 			} )
 		] );
 
-		this.embedWtSizeSwitch.getMenu().selectItem( this.embedWtSizeChoices.default );
+		this.embedSizeSwitchWikitext.getMenu().selectItem( this.embedSizeChoicesWikitext.default );
 
 		// Html sizes pulldown menu
-		this.embedHtmlSizeSwitch = new oo.ui.InlineMenuWidget( {
+		this.embedSizeSwitchHtml = new oo.ui.InlineMenuWidget( {
 			classes: [ 'mw-mlb-embed-size' ]
 		} );
 
 		this.embedHtmlSizeChoices = {};
 
-		this.embedHtmlSizeSwitch.getMenu().addItems( [
+		this.embedSizeSwitchHtml.getMenu().addItems( [
 			this.embedHtmlSizeChoices.small = new oo.ui.MenuItemWidget( {
 				name: 'small',
 				height: null,
@@ -243,12 +242,12 @@
 			} )
 		] );
 
-		this.embedHtmlSizeSwitch.getMenu().selectItem( this.embedHtmlSizeChoices.small );
+		this.embedSizeSwitchHtml.getMenu().selectItem( this.embedHtmlSizeChoices.small );
 
 		$( '<p>' )
 			.append(
-				this.embedHtmlSizeSwitch.$element,
-				this.embedWtSizeSwitch.$element
+				this.embedSizeSwitchHtml.$element,
+				this.embedSizeSwitchWikitext.$element
 			)
 			.appendTo( $container );
 	};
@@ -275,8 +274,8 @@
 		this.proxiedHandleSizeSwitch = this.proxiedHandleSizeSwitch  || $.proxy( this.handleSizeSwitch, this );
 
 		// Register handlers for switching between file sizes
-		this.embedHtmlSizeSwitch.getMenu().on( 'select', this.proxiedHandleSizeSwitch );
-		this.embedWtSizeSwitch.getMenu().on( 'select', this.proxiedHandleSizeSwitch );
+		this.embedSizeSwitchHtml.getMenu().on( 'select', this.proxiedHandleSizeSwitch );
+		this.embedSizeSwitchWikitext.getMenu().on( 'select', this.proxiedHandleSizeSwitch );
 	};
 
 	/**
@@ -289,8 +288,8 @@
 		this.embedTextWikitext.offDOMEvent( 'focus mousedown click' );
 		this.embedSwitch.off( 'select' );
 		// the noop is needed for some tests which call unattach before calling attach.
-		this.embedHtmlSizeSwitch.getMenu().off( 'select', this.proxiedHandleSizeSwitch || $.noop );
-		this.embedWtSizeSwitch.getMenu().off( 'select', this.proxiedHandleSizeSwitch || $.noop );
+		this.embedSizeSwitchHtml.getMenu().off( 'select', this.proxiedHandleSizeSwitch || $.noop );
+		this.embedSizeSwitchWikitext.getMenu().off( 'select', this.proxiedHandleSizeSwitch || $.noop );
 	};
 
 	/**
@@ -310,21 +309,21 @@
 
 		if ( value === 'html' ) {
 			this.$currentMainEmbedText = this.embedTextHtml.$element;
-			this.currentSizeMenu = this.embedHtmlSizeSwitch.getMenu();
-			this.embedWtSizeSwitch.getMenu().hide();
-		} else if ( value === 'wt' ) {
+			this.currentSizeMenu = this.embedSizeSwitchHtml.getMenu();
+			this.embedSizeSwitchWikitext.getMenu().hide();
+		} else if ( value === 'wikitext' ) {
 			this.$currentMainEmbedText = this.embedTextWikitext.$element;
-			this.currentSizeMenu = this.embedWtSizeSwitch.getMenu();
-			this.embedHtmlSizeSwitch.getMenu().hide();
+			this.currentSizeMenu = this.embedSizeSwitchWikitext.getMenu();
+			this.embedSizeSwitchHtml.getMenu().hide();
 		}
 
 		this.embedTextHtml.$element
-			.add( this.embedHtmlSizeSwitch.$element )
+			.add( this.embedSizeSwitchHtml.$element )
 			.toggleClass( 'active', value === 'html' );
 
 		this.embedTextWikitext.$element
-			.add( this.embedWtSizeSwitch.$element )
-			.toggleClass( 'active', value === 'wt' );
+			.add( this.embedSizeSwitchWikitext.$element )
+			.toggleClass( 'active', value === 'wikitext' );
 
 		this.select();
 
@@ -347,10 +346,10 @@
 
 		switch ( currentItem.getData() ) {
 			case 'html':
-				this.setThumbnailURL( {}, width, height );
+				this.updateEmbedHtml( {}, width, height );
 				break;
-			case 'wt':
-				this.updateWtEmbedText( width );
+			case 'wikitext':
+				this.updateEmbedWikitext( width );
 				break;
 		}
 
@@ -358,25 +357,25 @@
 	};
 
 	/**
-	 * Sets the value of the thumbnail URL to use for the HTML embed text.
+	 * Sets the HTML embed text.
 	 *
-	 * Assumes that the set method has already been called.
+	 * Assumes that the set() method has already been called to update this.embedFileInfo
 	 * @param {mw.mmv.model.Thumbnail} thumbnail (can be just an empty object)
 	 * @param {number} width New width to set
 	 * @param {number} height New height to set
 	 */
-	EP.setThumbnailURL = function ( thumbnail, width, height ) {
+	EP.updateEmbedHtml = function ( thumbnail, width, height ) {
 		var src;
 
 		if ( !this.embedFileInfo ) {
 			return;
 		}
 
-		src = thumbnail.url || this.embedFileInfo.src;
+		src = thumbnail.url || this.embedFileInfo.imageInfo.url;
 
 		// If the image dimension requested are "large", use the current image url
-		if ( width > EP.LARGE_IMAGE_WIDTH_THRESHOLD  || height > EP.LARGE_IMAGE_HEIGHT_THRESHOLD ) {
-			src = this.embedFileInfo.src;
+		if ( width > EP.LARGE_IMAGE_WIDTH_THRESHOLD || height > EP.LARGE_IMAGE_HEIGHT_THRESHOLD ) {
+			src = this.embedFileInfo.imageInfo.url;
 		}
 
 		this.embedTextHtml.setValue(
@@ -389,16 +388,14 @@
 	 * Assumes that the set method has already been called.
 	 * @param {number} width
 	 */
-	EP.updateWtEmbedText = function ( width ) {
+	EP.updateEmbedWikitext = function ( width ) {
 		if ( !this.embedFileInfo ) {
 			return;
 		}
 
-		var title = this.embedFileInfo.title,
-			caption = this.embedFileInfo.caption;
-
-		this.embedTextWikitext.setValue( this.formatter.getThumbnailWikitext(
-			title, width, caption ? caption.plain : title.getNameText() ) );
+		this.embedTextWikitext.setValue(
+			this.formatter.getThumbnailWikitextFromEmbedFileInfo( this.embedFileInfo, width )
+		);
 	};
 
 	/**
@@ -532,24 +529,23 @@
 	 * Sets the data on the element.
 	 *
 	 * @param {mw.mmv.model.Image} image
-	 * @param {mw.mmv.model.EmbedFileInfo} embedFileInfo
+	 * @param {mw.mmv.model.Repo} repo
+	 * @param {string} caption
 	 */
-	EP.set = function ( image, embedFileInfo ) {
+	EP.set = function ( image, repo, caption ) {
 		var embed = this,
-			htmlSizeSwitch = this.embedHtmlSizeSwitch.getMenu(),
-			htmlSizeOptions = htmlSizeSwitch.getItems(),
-			wtSizeSwitch = this.embedWtSizeSwitch.getMenu(),
-			wtSizeOptions = wtSizeSwitch.getItems(),
 			sizes = this.getSizeOptions( image.width, image.height );
 
-		this.embedFileInfo = embedFileInfo;
+		this.embedFileInfo = new mw.mmv.model.EmbedFileInfo( image, repo, caption );
 
-		this.updateMenuOptions( sizes.html, htmlSizeOptions );
-		this.updateMenuOptions( sizes.wikitext, wtSizeOptions );
+		this.updateMenuOptions( sizes.html,
+			this.embedSizeSwitchHtml.getMenu().getItems() );
+		this.updateMenuOptions( sizes.wikitext,
+			this.embedSizeSwitchWikitext.getMenu().getItems() );
 
 		this.currentSizeMenu.selectItem( this.currentSizeMenu.getSelectedItem() );
 		this.getThumbnailUrlPromise().done( function ( thumbnail ) {
-			embed.setThumbnailURL( thumbnail );
+			embed.updateEmbedHtml( thumbnail );
 			embed.select();
 		} );
 	};
@@ -625,8 +621,8 @@
 		this.embedTextHtml.setValue( '' );
 		this.embedTextWikitext.setValue( '' );
 
-		this.embedHtmlSizeSwitch.getMenu().hide();
-		this.embedWtSizeSwitch.getMenu().hide();
+		this.embedSizeSwitchHtml.getMenu().hide();
+		this.embedSizeSwitchWikitext.getMenu().hide();
 	};
 
 	/**

@@ -16,15 +16,31 @@
  */
 
 ( function( mw, $ ) {
-	var AFP;
+	var EFFP;
 
 	/**
 	 * Converts data in various formats needed by the Embed sub-dialog
 	 * @class mw.mmv.EmbedFileFormatter
 	 * @constructor
 	 */
-	function EmbedFileFormatter() {}
-	AFP = EmbedFileFormatter.prototype;
+	function EmbedFileFormatter() {
+		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
+		this.htmlUtils = new mw.mmv.HtmlUtils();
+	}
+	EFFP = EmbedFileFormatter.prototype;
+
+	/**
+	 * Returns the caption of the image (possibly a fallback generated from image metadata).
+	 * @param {mw.mmv.model.EmbedFileInfo} info
+	 * @return {string}
+	 */
+	EFFP.getCaption = function ( info ) {
+		if ( info.caption ) {
+			return this.htmlUtils.htmlToText( info.caption );
+		} else {
+			return info.imageInfo.title.getNameText();
+		}
+	};
 
 	/**
 	 * Helper function to generate thumbnail wikicode
@@ -33,8 +49,9 @@
 	 * @param {string} [caption]
 	 * @return {string}
 	 */
-	AFP.getThumbnailWikitext = function ( title, width, caption ) {
+	EFFP.getThumbnailWikitext = function ( title, width, caption ) {
 		var widthSection, captionSection;
+
 
 		widthSection = width ? '|' + width + 'px' : '';
 		captionSection = caption ? '|' + caption : '';
@@ -48,44 +65,26 @@
 	 * @param {number} [width]
 	 * @return {string}
 	 */
-	AFP.getThumbnailWikitextFromEmbedFileInfo = function ( info, width ) {
-		var title = info.title,
-			caption = info.caption;
-
-		return this.getThumbnailWikitext( info.title, width,
-			caption ? caption.plain : title.getNameText() );
+	EFFP.getThumbnailWikitextFromEmbedFileInfo = function ( info, width ) {
+		return this.getThumbnailWikitext( info.imageInfo.title, width, this.getCaption( info ) );
 	};
 
 	/**
 	 * Byline construction
-	 * @param {{html: string, plain: string}} [author]
-	 * @param {{html: string, plain: string}} [source]
-	 * @return {{html: string, plain: string}} byline in plain text and html
+	 * @param {string} [author] author name (can contain HTML)
+	 * @param {string} [source] source name (can contain HTML)
+	 * @return {string} byline (can contain HTML)
 	 */
-	AFP.getBylines = function ( author, source ) {
-		var bylines = {};
-
+	EFFP.getByline = function ( author, source ) {
 		if ( author && source) {
-			bylines.plain = mw.message(
+			return mw.message(
 				'multimediaviewer-credit',
-				author.plain,
-				source.plain
-			).text();
-
-			bylines.html = mw.message(
-				'multimediaviewer-credit',
-				author.html,
-				source.html
+				author,
+				source
 			).parse();
-		} else if ( author ) {
-			bylines.plain = author.plain;
-			bylines.html = author.html;
-		} else if ( source ) {
-			bylines.plain = source.plain;
-			bylines.html = source.html;
+		} else {
+			return author || source;
 		}
-
-		return bylines;
 	};
 
 	/**
@@ -93,31 +92,48 @@
 	 * @param {mw.mmv.model.EmbedFileInfo} info
 	 * @return {string}
 	 */
-	AFP.getCreditHtml = function ( info ) {
+	EFFP.getCreditHtml = function ( info ) {
 		var creditText, creditFormat, creditParams,
-			titleText = info.title.getNameText(),
+			titleText = info.imageInfo.title.getNameText(),
 			titleUrl = this.getLinkUrl( info ),
 			$title = $( '<a>' ).text( titleText ).prop( 'href', titleUrl ),
-			bylines = this.getBylines( info.author, info.source );
+			byline = this.getByline( info.imageInfo.author, info.imageInfo.source );
 
 		creditFormat = 't';
-		creditParams = [ this.getOuterHtml( $title ) ];
-		if ( bylines.html ) {
+		creditParams = [ this.htmlUtils.jqueryToHtml( $title ) ];
+		if ( byline ) {
 			creditFormat += 'b';
-			creditParams.push( bylines.html );
+			creditParams.push( byline );
 		}
-		if ( info.license && info.license.plain.length ) {
+		if ( info.imageInfo.license ) {
 			creditFormat += 'l';
-			creditParams.push( info.license.plain );
+			creditParams.push( info.imageInfo.license.getShortLink() );
 		}
-		if ( info.siteName ) {
-			creditFormat += 's';
-			creditParams.push( info.siteName );
-		}
+		creditFormat += 's';
+		creditParams.push( this.getSiteLink( info ) );
+
 		creditParams.unshift( 'multimediaviewer-html-embed-credit-text-' + creditFormat );
 		creditText = mw.message.apply( mw, creditParams ).plain();
 
 		return creditText;
+	};
+
+	/**
+	 * Returns HTML code for a link to the site of the image.
+	 * @param {mw.mmv.model.EmbedFileInfo} info
+	 * @return {string}
+	 */
+	EFFP.getSiteLink = function ( info ) {
+		var siteName = info.repoInfo.displayName,
+			siteUrl = info.repoInfo.getSiteLink();
+
+		if ( siteUrl ) {
+			return this.htmlUtils.jqueryToHtml(
+				$( '<a>' ).prop( 'href', siteUrl ).text( siteName )
+			);
+		} else {
+			return siteName;
+		}
 	};
 
 	/**
@@ -129,22 +145,22 @@
 	 * @param {number} [height] Height to put into the image element.
 	 * @return {string} Embed code.
 	 */
-	AFP.getThumbnailHtml = function ( info, imgUrl, width, height ) {
-		return $( '<div>' ).append(
+	EFFP.getThumbnailHtml = function ( info, imgUrl, width, height ) {
+		return this.htmlUtils.jqueryToHtml(
 			$( '<p>' ).append(
 				$( '<a>' )
 					.attr( 'href', this.getLinkUrl( info ) )
 					.append(
 						$( '<img>' )
 							.attr( 'src', imgUrl )
-							.attr( 'alt', info.title.getMainText() )
+							.attr( 'alt', info.imageInfo.title.getMainText() )
 							.attr( 'height', height )
 							.attr( 'width', width )
 					),
 				$( '<br>' ),
 				this.getCreditHtml( info )
 			)
-		).html();
+		);
 	};
 
 	/**
@@ -153,18 +169,8 @@
 	 *
 	 * @param {mw.mmv.model.EmbedFileInfo} info
 	 */
-	AFP.getLinkUrl = function ( info ) {
-		return info.url + '#mediaviewer/' + info.title.getMainText();
-	};
-
-	/**
-	 * Returns the HTML code for a jQuery element.
-	 * Unlike .html(), this includes code for the element itself.
-	 * @param {jQuery} $jq
-	 * @return {string}
-	 */
-	AFP.getOuterHtml = function ( $jq ) {
-		return $jq.get( 0 ).outerHTML;
+	EFFP.getLinkUrl = function ( info ) {
+		return info.imageInfo.descriptionUrl + '#mediaviewer/' + info.imageInfo.title.getMainText();
 	};
 
 	mw.mmv.EmbedFileFormatter = EmbedFileFormatter;
