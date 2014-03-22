@@ -1011,10 +1011,14 @@ $messages['he'] = array(
 /** Hindi (हिन्दी)
  * @author Siddhartha Ghai
  * @author Vivek Rai
+ * @author Wikiuser13
  */
 $messages['hi'] = array(
 	'multimediaviewer-permission-title' => 'लाइसेंस विवरण',
 	'multimediaviewer-permission-link' => 'शर्तें देखें',
+	'multimediaviewer-embed-tab' => 'एम्बेड करें',
+	'multimediaviewer-link-to-file' => 'मूल फ़ाइल से लिंक करें',
+	'multimediaviewer-embed-byline' => '$1 द्वारा',
 );
 
 /** Croatian (hrvatski)
@@ -1390,9 +1394,16 @@ $messages['lb'] = array(
 	'multimediaviewer-fileusage-local-section' => 'Op dësem Site',
 	'multimediaviewer-fileusage-global-section' => 'Op anere Siten',
 	'multimediaviewer-reuse-link' => 'Benotzt dëse Fichier', # Fuzzy
+	'multimediaviewer-share-tab' => 'Deelen',
+	'multimediaviewer-link-to-file' => 'Link op den Originalfichier',
+	'multimediaviewer-embed-wt' => 'Wikitext',
 	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-html-embed-credit-text-tb' => '"$1" vum $2.',
 	'multimediaviewer-embed-byline' => 'Vum $1',
 	'multimediaviewer-embed-via' => 'Iwwer $1.',
+	'multimediaviewer-original-embed-size' => 'Originalgréisst – $1 × $2 Pixel',
+	'multimediaviewer-large-embed-size' => 'Grouss – $1 × $2 Pixel',
+	'multimediaviewer-small-embed-size' => 'Kleng – $1 × $2 Pixel',
 );
 
 /** لوری (لوری)
@@ -1591,6 +1602,11 @@ $messages['nl'] = array(
 	'multimediaviewer-fileusage-local-section' => 'Op deze site',
 	'multimediaviewer-fileusage-global-section' => "Op andere site's",
 	'multimediaviewer-reuse-link' => 'Dit bestand gebruiken', # Fuzzy
+	'multimediaviewer-share-tab' => 'Delen',
+	'multimediaviewer-embed-wt' => 'Wikitekst',
+	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-embed-via' => 'Via $1.',
+	'multimediaviewer-small-embed-size' => 'Klein - $1 × $2 px',
 );
 
 /** Occitan (occitan)
@@ -2189,5 +2205,7 @@ $messages['zh-hans'] = array(
  * @author Liuxinyu970226
  */
 $messages['zh-hant'] = array(
+	'multimediaviewer-license-cc-pd' => '公共領域',
+	'multimediaviewer-license-pd' => '公共領域',
 	'multimediaviewer-discuss-mmv' => '遞交反饋',
 );
