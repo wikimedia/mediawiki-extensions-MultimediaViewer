@@ -1395,14 +1395,19 @@ $messages['lb'] = array(
 	'multimediaviewer-fileusage-global-section' => 'Op anere Siten',
 	'multimediaviewer-reuse-link' => 'Benotzt dëse Fichier', # Fuzzy
 	'multimediaviewer-share-tab' => 'Deelen',
+	'multimediaviewer-embed-tab' => 'Abannen',
+	'multimediaviewer-link-to-page' => "Link op d'Beschreiwungssäit vum Fichier",
 	'multimediaviewer-link-to-file' => 'Link op den Originalfichier',
 	'multimediaviewer-embed-wt' => 'Wikitext',
 	'multimediaviewer-embed-html' => 'HTML',
 	'multimediaviewer-html-embed-credit-text-tb' => '"$1" vum $2.',
+	'multimediaviewer-html-embed-credit-text-ts' => '"$1". Iwwer $2.',
 	'multimediaviewer-embed-byline' => 'Vum $1',
+	'multimediaviewer-embed-license' => 'Lizenséiert ënner $1.',
 	'multimediaviewer-embed-via' => 'Iwwer $1.',
 	'multimediaviewer-original-embed-size' => 'Originalgréisst – $1 × $2 Pixel',
 	'multimediaviewer-large-embed-size' => 'Grouss – $1 × $2 Pixel',
+	'multimediaviewer-medium-embed-size' => 'Mëttel – $1 × $2 Pixel',
 	'multimediaviewer-small-embed-size' => 'Kleng – $1 × $2 Pixel',
 );
 
@@ -1603,9 +1608,25 @@ $messages['nl'] = array(
 	'multimediaviewer-fileusage-global-section' => "Op andere site's",
 	'multimediaviewer-reuse-link' => 'Dit bestand gebruiken', # Fuzzy
 	'multimediaviewer-share-tab' => 'Delen',
+	'multimediaviewer-embed-tab' => 'Invoegen',
+	'multimediaviewer-link-to-page' => 'Koppeling naar de pagina met de bestandsbeschrijving',
+	'multimediaviewer-link-to-file' => 'Koppeling naar het originele bestand',
 	'multimediaviewer-embed-wt' => 'Wikitekst',
 	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-html-embed-credit-text-tbls' => '"$1" door $2. Licentie $3 via $4.',
+	'multimediaviewer-html-embed-credit-text-tls' => '"$1". Licentie $2 via $3.',
+	'multimediaviewer-html-embed-credit-text-tbs' => '"$1" door $2. Via $3.',
+	'multimediaviewer-html-embed-credit-text-tbl' => '"$1" door $2. Licentie $3.',
+	'multimediaviewer-html-embed-credit-text-tb' => '"$1" door $2.',
+	'multimediaviewer-html-embed-credit-text-ts' => '"$1". Via $2.',
+	'multimediaviewer-html-embed-credit-text-tl' => '"$1". Licentie $2.',
+	'multimediaviewer-embed-byline' => 'Door $1',
+	'multimediaviewer-embed-license' => 'Licentie $1.',
 	'multimediaviewer-embed-via' => 'Via $1.',
+	'multimediaviewer-default-embed-size' => 'Standaard miniatuurgrootte',
+	'multimediaviewer-original-embed-size' => 'Oorspronkelijke grootte - $1 × $2 px',
+	'multimediaviewer-large-embed-size' => 'Groot - $1 × $2 px',
+	'multimediaviewer-medium-embed-size' => 'Gemiddeld - $1 × $2 px',
 	'multimediaviewer-small-embed-size' => 'Klein - $1 × $2 px',
 );
 
@@ -1637,7 +1658,7 @@ $messages['oc'] = array(
 	'multimediaviewer-fileusage-link' => 'Veire totas las utilizacions',
 	'multimediaviewer-fileusage-local-section' => 'Sus aqueste site',
 	'multimediaviewer-fileusage-global-section' => 'Sus d’autres sites',
-	'multimediaviewer-reuse-link' => 'Utilizar aqueste fichièr', # Fuzzy
+	'multimediaviewer-reuse-link' => 'Utilizar aqueste fichièr',
 );
 
 /** Polish (polski)
@@ -2040,12 +2061,14 @@ $messages['tl'] = array(
  * @author Ceas08
  * @author Incelemeelemani
  * @author Rapsar
+ * @author Sucsuzz
  */
 $messages['tr'] = array(
 	'multimediaviewer-pref' => 'Ortam Görüntüleyici',
 	'multimediaviewer-pref-desc' => 'Bu yeni araçla multimedya görüntüleme deneyiminizi geliştirin. Bu sayede küçük sayfaları daha büyük boyutlarda görüntüleyebilirsiniz. Ayrıca görüntüler Lightbox (açılır pencere) olarak ve tam boyutlu gösterilir.', # Fuzzy
 	'multimediaviewer-about-mmv' => 'Ortam Görüntüleyici hakkında',
 	'multimediaviewer-geolocation' => 'Konum: $1',
+	'multimediaviewer-embed-html' => 'HTML',
 );
 
 /** Ukrainian (українська)
