@@ -90,7 +90,7 @@
 		mw.eventLog = oldEventLog;
 	} );
 
-	QUnit.test( 'recordEntry: with Navigation Timing data', 29, function ( assert ) {
+	QUnit.test( 'recordEntry: with Navigation Timing data', 28, function ( assert ) {
 		var fakeRequest,
 			varnish1 = 'cp1061',
 			varnish2 = 'cp3006',
@@ -210,7 +210,6 @@
 		assert.strictEqual( stats.response, response, 'response is correct' );
 		assert.strictEqual( stats.cache, cache, 'cache is correct' );
 		assert.strictEqual( stats.country, country, 'country is correct' );
-		assert.strictEqual( stats.userAgent, navigator.userAgent, 'userAgent is correct' );
 		assert.strictEqual( stats.isHttps, true, 'isHttps is correct' );
 		assert.strictEqual( stats.status, status, 'status is correct' );
 		assert.strictEqual( stats.metered, metered, 'metered is correct' );

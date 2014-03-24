@@ -623,7 +623,7 @@ call_user_func( function() {
 			$wgResourceModules['schema.MultimediaViewerNetworkPerformance'] = array(
 				'class' => 'ResourceLoaderSchemaModule',
 				'schema' => 'MultimediaViewerNetworkPerformance',
-				'revision' => 7488625,
+				'revision' => 7917896,
 			);
 
 			$wgResourceModules['mmv.logger']['dependencies'][] = 'ext.eventLogging';

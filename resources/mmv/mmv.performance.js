@@ -101,7 +101,6 @@
 		var matches,
 			stats = { type: type,
 				contentHost: window.location.host,
-				userAgent: navigator.userAgent,
 				isHttps: window.location.protocol === 'https:',
 				total: total },
 			connection = this.getNavigatorConnection();
