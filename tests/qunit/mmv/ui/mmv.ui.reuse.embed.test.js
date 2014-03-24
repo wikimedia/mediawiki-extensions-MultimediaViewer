@@ -257,7 +257,7 @@
 		assert.ok( embed.embedFileInfo, 'embedFileInfo correctly set.' );
 	} );
 
-	QUnit.test( 'updateMenuOptions():', 3, function ( assert ) {
+	QUnit.test( 'updateMenuOptions():', 6, function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
 		options = embed.embedHtmlSizeSwitch.getMenu().getItems(),
 		width = 700,
@@ -266,7 +266,7 @@
 		oldMessage = mw.message;
 
 		mw.message = function( messageKey ) {
-			assert.ok( messageKey.match(/^multimediaviewer-(small|medium|original)/), 'messageKey passed correctly.' );
+			assert.ok( messageKey.match(/^multimediaviewer-(small|medium|original|embed-dimensions)/), 'messageKey passed correctly.' );
 
 			return { text: $.noop };
 		};

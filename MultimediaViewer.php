@@ -497,11 +497,12 @@ call_user_func( function() {
 			'multimediaviewer-embed-license',
 			'multimediaviewer-embed-via',
 
-			'multimediaviewer-default-embed-size',
-			'multimediaviewer-original-embed-size',
-			'multimediaviewer-large-embed-size',
-			'multimediaviewer-medium-embed-size',
-			'multimediaviewer-small-embed-size',
+			'multimediaviewer-default-embed-dimensions',
+			'multimediaviewer-original-embed-dimensions',
+			'multimediaviewer-large-embed-dimensions',
+			'multimediaviewer-medium-embed-dimensions',
+			'multimediaviewer-small-embed-dimensions',
+			'multimediaviewer-embed-dimensions',
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 

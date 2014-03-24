@@ -138,6 +138,10 @@
 	 * @param {jQuery} $container
 	 */
 	EP.createSizePulldownMenus = function( $container ) {
+		var placeholderDimensions = $( '<span>' )
+			.addClass( 'mw-mlb-embed-dimensions' )
+			.text( mw.message( 'multimediaviewer-embed-dimensions', 0, 0 ).text() ).get( 0 ).outerHTML;
+
 		// Wikitext sizes pulldown menu
 		this.embedWtSizeSwitch = new oo.ui.InlineMenuWidget( {
 			classes: [ 'mw-mlb-embed-size', 'active' ]
@@ -147,7 +151,8 @@
 
 		this.embedWtSizeSwitch.getMenu().addItems( [
 			this.embedWtSizeChoices.default = new oo.ui.MenuItemWidget( { name: 'default' }, {
-				label: mw.message( 'multimediaviewer-default-embed-size' ).text()
+				label: mw.message( 'multimediaviewer-default-embed-dimensions' ).text(),
+				autoFitLabel: false
 			} ),
 
 			this.embedWtSizeChoices.small = new oo.ui.MenuItemWidget( {
@@ -156,7 +161,8 @@
 				width: null
 			},
 			{
-				label: mw.message( 'multimediaviewer-small-embed-size', 0, 0 ).text(),
+				label: $( '<span>' ).html( mw.message( 'multimediaviewer-small-embed-dimensions', placeholderDimensions ).text() ),
+				autoFitLabel: false
 			} ),
 
 			this.embedWtSizeChoices.medium = new oo.ui.MenuItemWidget( {
@@ -165,7 +171,8 @@
 				width: null
 			},
 			{
-				label: mw.message( 'multimediaviewer-medium-embed-size', 0, 0 ).text()
+				label: $( '<span>' ).html( mw.message( 'multimediaviewer-medium-embed-dimensions', placeholderDimensions ).text() ),
+				autoFitLabel: false
 			} ),
 
 			this.embedWtSizeChoices.large = new oo.ui.MenuItemWidget( {
@@ -174,7 +181,8 @@
 				width: null
 			},
 			{
-				label: mw.message( 'multimediaviewer-large-embed-size', 0, 0 ).text()
+				label: $( '<span>' ).html( mw.message( 'multimediaviewer-large-embed-dimensions', placeholderDimensions ).text() ),
+				autoFitLabel: false
 			} )
 		] );
 
@@ -194,7 +202,8 @@
 				width: null
 			},
 			{
-				label: mw.message( 'multimediaviewer-small-embed-size', 0, 0 ).text(),
+				label: $( '<span>' ).html( mw.message( 'multimediaviewer-small-embed-dimensions', placeholderDimensions ).text() ),
+				autoFitLabel: false
 			} ),
 
 			this.embedHtmlSizeChoices.medium = new oo.ui.MenuItemWidget( {
@@ -203,7 +212,8 @@
 				width: null
 			},
 			{
-				label: mw.message( 'multimediaviewer-medium-embed-size', 0, 0 ).text()
+				label: $( '<span>' ).html( mw.message( 'multimediaviewer-medium-embed-dimensions', placeholderDimensions ).text() ),
+				autoFitLabel: false
 			} ),
 
 			this.embedHtmlSizeChoices.large = new oo.ui.MenuItemWidget( {
@@ -212,7 +222,8 @@
 				width: null
 			},
 			{
-				label: mw.message( 'multimediaviewer-large-embed-size', 0, 0 ).text()
+				label: $( '<span>' ).html( mw.message( 'multimediaviewer-large-embed-dimensions', placeholderDimensions ).text() ),
+				autoFitLabel: false
 			} ),
 
 			this.embedHtmlSizeChoices.original = new oo.ui.MenuItemWidget( {
@@ -221,7 +232,8 @@
 				width: null
 			},
 			{
-				label: mw.message( 'multimediaviewer-original-embed-size', 0, 0 ).text()
+				label: $( '<span>' ).html( mw.message( 'multimediaviewer-original-embed-dimensions', placeholderDimensions ).text() ),
+				autoFitLabel: false
 			} )
 		] );
 
@@ -559,7 +571,7 @@
 	 * @param {OO.ui.MenuItemWidget[]} options
 	 */
 	 EP.updateMenuOptions = function ( sizes, options ) {
-		var i, option, data;
+		var i, option, data, dimensions, $label;
 
 		for ( i = 0; i < options.length; i++ ) {
 			option = options[i];
@@ -575,13 +587,18 @@
 				data.width = sizes[data.name].width;
 				data.height = sizes[data.name].height;
 
-				option.setLabel(
+				dimensions = $( '<span>' )
+					.addClass( 'mw-mlb-embed-dimensions' )
+					.text( mw.message( 'multimediaviewer-embed-dimensions', data.width, data.height ).text() ).get( 0 ).outerHTML;
+
+				$label = $( '<span>' ).html(
 					mw.message(
-						'multimediaviewer-' + data.name + '-embed-size',
-						data.width,
-						data.height
+						'multimediaviewer-' + data.name + '-embed-dimensions',
+						dimensions
 					).text()
 				);
+
+				option.setLabel( $label );
 			} else if ( data.width && data.height ) {
 				option.setDisabled( true );
 

@@ -107,11 +107,12 @@ $messages['en'] = array(
 	'multimediaviewer-embed-via' => 'Via $1.',
 
 	// Embed size choices
-	'multimediaviewer-default-embed-size' => 'Default thumbnail size',
-	'multimediaviewer-original-embed-size' => 'Original size - $1 × $2 px',
-	'multimediaviewer-large-embed-size' => 'Large - $1 × $2 px',
-	'multimediaviewer-medium-embed-size' => 'Medium - $1 × $2 px',
-	'multimediaviewer-small-embed-size' => 'Small - $1 × $2 px',
+	'multimediaviewer-default-embed-dimensions' => 'Default thumbnail size',
+	'multimediaviewer-original-embed-dimensions' => 'Original size $1',
+	'multimediaviewer-large-embed-dimensions' => 'Large $1',
+	'multimediaviewer-medium-embed-dimensions' => 'Medium $1',
+	'multimediaviewer-small-embed-dimensions' => 'Small $1',
+	'multimediaviewer-embed-dimensions' => '- $1 × $2 px',
 );
 
 /** Message documentation (Message documentation)
@@ -314,16 +315,19 @@ Each of the parameters could be either plain text or a link.',
 	'multimediaviewer-embed-via' => 'Source information (e. g. "via Flickr"), used when generating wikitext/HTML to reuse the image.
 $1 is source (probably a website or institution name)',
 	'multimediaviewer-default-embed-size' => 'Text of size selector option which will generate wikitext for a thumbnail without explicit size.',
-	'multimediaviewer-original-embed-size' => 'Text of size selector option which will generate wikitext for a thumbnail with the original (full) size.
-* $1 - width in pixels
-* $2 - height in pixels',
-	'multimediaviewer-large-embed-size' => 'Text of size selector option which will generate wikitext for a thumbnail with small size.
-* $1 - width in pixels
-* $2 - height in pixels',
-	'multimediaviewer-medium-embed-size' => 'Text of size selector option which will generate wikitext for a thumbnail with medium size.
-* $1 - width in pixels
-* $2 - height in pixels',
-	'multimediaviewer-small-embed-size' => 'Text of size selector option which will generate wikitext for a thumbnail with large size.
+	'multimediaviewer-original-embed-dimensions' => 'Text of size selector option which will generate wikitext for a thumbnail with the original (full) size.
+* $1 - thumbnail dimensions, defined by the following message:
+** {{msg-mw|Multimediaviewer-embed-dimensions}}',
+	'multimediaviewer-large-embed-dimensions' => 'Text of size selector option which will generate wikitext for a thumbnail with small size.
+* $1 - thumbnail dimensions, defined by the following message:
+** {{msg-mw|Multimediaviewer-embed-dimensions}}',
+	'multimediaviewer-medium-embed-dimensions' => 'Text of size selector option which will generate wikitext for a thumbnail with medium size.
+* $1 - thumbnail dimensions, defined by the following message:
+** {{msg-mw|Multimediaviewer-embed-dimensions}}',
+	'multimediaviewer-small-embed-dimensions' => 'Text of size selector option which will generate wikitext for a thumbnail with large size.
+* $1 - thumbnail dimensions, defined by the following message:
+** {{msg-mw|Multimediaviewer-embed-dimensions}}',
+	'multimediaviewer-embed-dimensions' => 'Dimensions for a given size selector option which will generate wikitext for a thumbnail.
 * $1 - width in pixels
 * $2 - height in pixels',
 );
