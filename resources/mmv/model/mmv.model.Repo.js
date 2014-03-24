@@ -69,9 +69,26 @@
 
 	/**
 	* Gets the article path for the repository.
+	* @param {boolean} absolute if true, the URL will be absolute (if false, it still might be)
 	* @return {string} Replace $1 with the page name you want to link to.
 	*/
-	Repo.prototype.getArticlePath = function () { return mw.config.get( 'wgArticlePath' ); };
+	Repo.prototype.getArticlePath = function ( absolute ) {
+		var articlePath = mw.config.get( 'wgArticlePath' );
+		if ( absolute ) {
+			articlePath = mw.config.get( 'wgServer' ) + articlePath;
+		}
+		return articlePath;
+	};
+
+	/**
+	 * Gets the a link to the site where the image was uploaded to.
+	 * This is a hack and might break for wikis with exotic config; unfortunately no
+	 * better data is provided currently.
+	 * @return {string}
+	 */
+	Repo.prototype.getSiteLink = function () {
+		return this.getArticlePath( true ).replace( '$1', '' );
+	};
 
 	/**
 	 * Represents information about a foreign API repository

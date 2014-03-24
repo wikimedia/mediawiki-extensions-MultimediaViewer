@@ -36,16 +36,6 @@
 		assert.strictEqual( fileUsage.totalCountIsLowerBound, totalCountIsLowerBound, 'Count flag is set correctly' );
 	} );
 
-	QUnit.test( 'Getting the article path works', 3, function ( assert ) {
-		var repo = new mw.mmv.model.Repo( 'Foo', 'http://example.com/favicon.ico', true),
-			dbRepo = new mw.mmv.model.ForeignDbRepo( 'Bar', 'http://example.org/favicon.ico', false, 'http://example.org/wiki/File:' ),
-			apiRepo = new mw.mmv.model.ForeignApiRepo( 'Baz', 'http://example.net/favicon.ico', false, 'http://example.net/w/api.php', 'http://example.net', '/wiki/$1' );
-
-		assert.strictEqual( repo.getArticlePath(), mw.config.get( 'wgArticlePath' ), 'Local article path is set correctly to corresponding global variable value');
-		assert.strictEqual( dbRepo.getArticlePath(), 'http://example.org/wiki/$1', 'DB article path is set correctly' );
-		assert.strictEqual( apiRepo.getArticlePath(), 'http://example.net/wiki/$1', 'API article path is set correctly' );
-	} );
-
 	QUnit.test( 'Thumbnail constructor sanity check', 4, function ( assert ) {
 		var width = 23,
 			height = 42,
