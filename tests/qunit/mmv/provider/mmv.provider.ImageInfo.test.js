@@ -25,7 +25,7 @@
 		assert.ok( imageInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'ImageInfo get test', 20, function ( assert ) {
+	QUnit.asyncTest( 'ImageInfo get test', 23, function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function() {
 				apiCallCount++;
@@ -55,6 +55,18 @@
 												value: 'cc0',
 												source: 'commons-templates',
 												hidden: ''
+											},
+											LicenseShortName: {
+												value: 'CC0',
+												source: 'commons-templates'
+											},
+											UsageTerms: {
+												value: 'Creative Commons Public Domain Dedication',
+												source: 'commons-templates'
+											},
+											LicenseUrl: {
+												value: 'http://creativecommons.org/publicdomain/zero/1.0/',
+												source: 'commons-templates'
 											},
 											GPSLatitude: {
 												value: '90.000000',
@@ -91,7 +103,7 @@
 											},
 											Permission: {
 												value: 'Do not use. Ever.',
-												source: 'commons-desc-page',
+												source: 'commons-desc-page'
 											}
 										},
 										mime: 'image/jpeg',
@@ -121,7 +133,10 @@
 			assert.strictEqual( image.description, 'Wikis stuff', 'description is set correctly' );
 			assert.strictEqual( image.source, 'Wikipedia', 'source is set correctly' );
 			assert.strictEqual( image.author, 'Wikimeda', 'author is set correctly' );
-			assert.strictEqual( image.license, 'cc0', 'license is set correctly' );
+			assert.strictEqual( image.license.shortName, 'CC0', 'license short name is set correctly' );
+			assert.strictEqual( image.license.internalName, 'cc0', 'license internal name is set correctly' );
+			assert.strictEqual( image.license.longName, 'Creative Commons Public Domain Dedication', 'license long name is set correctly' );
+			assert.strictEqual( image.license.deedUrl, 'http://creativecommons.org/publicdomain/zero/1.0/', 'license URL is set correctly' );
 			assert.strictEqual( image.permission, 'Do not use. Ever.', 'permission is set correctly' );
 			assert.strictEqual( image.latitude, 90, 'latitude is set correctly' );
 			assert.strictEqual( image.longitude, 180, 'longitude is set correctly' );

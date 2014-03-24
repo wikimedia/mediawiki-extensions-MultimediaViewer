@@ -650,9 +650,9 @@
 		this.description.set( imageData.description, image.caption );
 		this.categories.set( repoData.getArticlePath(), imageData.categories );
 
-		msgname = 'multimediaviewer-license-' + ( imageData.license || '' );
+		msgname = 'multimediaviewer-license-' + ( imageData.license && imageData.license.internalName || '' );
 
-		if ( !imageData.license || !mw.messages.exists( msgname ) ) {
+		if ( !mw.messages.exists( msgname ) ) {
 			// Cannot display, fallback or fail
 			msgname = 'multimediaviewer-license-default';
 		} else {

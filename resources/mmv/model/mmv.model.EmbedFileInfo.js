@@ -138,7 +138,7 @@
 		var title = imageInfo.title,
 			src = imageInfo.url,
 			url = imageInfo.descriptionUrl,
-			license = imageInfo.license,
+			license = imageInfo.license && imageInfo.license.internalName,
 			author = imageInfo.author,
 			source = imageInfo.source;
 
