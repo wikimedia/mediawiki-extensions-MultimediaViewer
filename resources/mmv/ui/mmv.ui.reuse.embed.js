@@ -79,11 +79,17 @@
 			readOnly: true
 		} );
 
+		this.embedTextHtml.$element.find( 'textarea' )
+			.prop( 'placeholder', mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text() );
+
 		this.embedTextWikitext = new oo.ui.TextInputWidget( {
 			classes: [ 'mw-mlb-embed-text-wt', 'active' ],
 			multiline: true,
 			readOnly: true
 		} );
+
+		this.embedTextWikitext.$element.find( 'textarea' )
+			.prop( 'placeholder', mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text() );
 
 		$( '<p>' )
 			.append(
@@ -107,7 +113,6 @@
 
 		wikitextButtonOption = new oo.ui.ButtonOptionWidget( 'wt', {
 				label: mw.message( 'multimediaviewer-embed-wt' ).text(),
-				selected: true
 			} );
 		htmlButtonOption = new oo.ui.ButtonOptionWidget( 'html', {
 				label: mw.message( 'multimediaviewer-embed-html' ).text()
@@ -152,7 +157,6 @@
 			},
 			{
 				label: mw.message( 'multimediaviewer-small-embed-size', 0, 0 ).text(),
-				selected: true
 			} ),
 
 			this.embedWtSizeChoices.medium = new oo.ui.MenuItemWidget( {
@@ -191,7 +195,6 @@
 			},
 			{
 				label: mw.message( 'multimediaviewer-small-embed-size', 0, 0 ).text(),
-				selected: true
 			} ),
 
 			this.embedHtmlSizeChoices.medium = new oo.ui.MenuItemWidget( {
@@ -243,6 +246,7 @@
 		// Select all text once element gets focus
 		this.embedTextHtml.onDOMEvent( 'focus', $.proxy( this.selectAllOnEvent, $htmlTextarea ) );
 		this.embedTextWikitext.onDOMEvent( 'focus', $.proxy( this.selectAllOnEvent, $wikitextTextarea ) );
+		// Disable partial text selection inside the textboxes
 		this.embedTextHtml.onDOMEvent( 'mousedown click', $.proxy( this.onlyFocus, $htmlTextarea ) );
 		this.embedTextWikitext.onDOMEvent( 'mousedown click', $.proxy( this.onlyFocus, $wikitextTextarea ) );
 
@@ -524,6 +528,7 @@
 		this.currentSizeMenu.selectItem( this.currentSizeMenu.getSelectedItem() );
 		this.getThumbnailUrlPromise().done( function ( thumbnail ) {
 			embed.setThumbnailURL( thumbnail );
+			embed.select();
 		} );
 	};
 
@@ -598,7 +603,7 @@
 	};
 
 	/**
-	 * Selects the text in the current text box.
+	 * Selects the text in the current textbox by triggering a focus event.
 	 */
 	EP.select = function () {
 		this.$currentMainEmbedText.focus();

@@ -42,6 +42,9 @@
 			readOnly: true
 		} );
 
+		this.pageInput.$element.find( 'input' )
+			.prop( 'placeholder', mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text() );
+
 		this.$pageLink = $( '<a>' )
 			.addClass( 'mw-mlb-share-page-link' )
 			.prop( 'alt', mw.message( 'multimediaviewer-link-to-page' ).text() )
@@ -59,7 +62,7 @@
 	 */
 	SP.show = function () {
 		this.constructor.super.prototype.show.call( this );
-		this.pageInput.$element.focus();
+		this.select();
 	};
 
 	/**
@@ -70,6 +73,9 @@
 		// FIXME this should be handled by mmv.js to be DRY
 		var url = image.descriptionUrl + '#mediaviewer/' + image.title.getMainText();
 		this.pageInput.setValue( url );
+
+		this.select();
+
 		this.$pageLink.prop( 'href', url );
 	};
 
@@ -88,6 +94,7 @@
 		var $input = this.pageInput.$element.find( 'input' );
 
 		this.pageInput.onDOMEvent( 'focus', $.proxy( this.selectAllOnEvent, $input ) );
+		// Disable partial text selection inside the textbox
 		this.pageInput.onDOMEvent( 'mousedown click', $.proxy( this.onlyFocus, $input ) );
 	};
 
@@ -98,6 +105,13 @@
 		this.constructor.super.prototype.unattach.call( this );
 
 		this.pageInput.offDOMEvent( 'focus mousedown click' );
+	};
+
+	/**
+	 * Selects the text in the readonly textbox by triggering a focus event.
+	 */
+	SP.select = function () {
+		this.pageInput.$element.focus();
 	};
 
 

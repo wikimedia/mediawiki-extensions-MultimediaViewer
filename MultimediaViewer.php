@@ -433,10 +433,6 @@ call_user_func( function() {
 			'mmv.ui',
 			'oojs',
 		),
-
-		'messages' => array(
-			'multimediaviewer-reuse-link',
-		),
 	), $moduleInfo( 'mmv/ui' ) );
 
 	$wgResourceModules['mmv.ui.reuse.share'] = array_merge( array(
@@ -455,6 +451,7 @@ call_user_func( function() {
 		),
 
 		'messages' => array(
+			'multimediaviewer-reuse-loading-placeholder',
 			'multimediaviewer-share-tab',
 
 			'multimediaviewer-link-to-file',
@@ -480,6 +477,7 @@ call_user_func( function() {
 		),
 
 		'messages' => array(
+			'multimediaviewer-reuse-loading-placeholder',
 			'multimediaviewer-embed-tab',
 			'multimediaviewer-embed-html',
 			'multimediaviewer-embed-wt',

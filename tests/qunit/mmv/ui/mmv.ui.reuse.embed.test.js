@@ -225,7 +225,7 @@
 		}
 	} );
 
-	QUnit.test( 'set():', 4, function ( assert ) {
+	QUnit.test( 'set():', 6, function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
 		title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 		src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
@@ -234,8 +234,20 @@
 		width = 15,
 		height = 20;
 
+		QUnit.stop();
+
 		embed.updateMenuOptions = function( sizes, options ) {
 			assert.strictEqual( options.length, 4, 'Options passed correctly.' );
+		};
+		embed.getThumbnailUrlPromise = function () {
+			return $.Deferred().resolve().promise();
+		};
+		embed.setThumbnailURL = function () {
+			assert.ok( true, 'setThumbnailURL() is called after data is collected.' );
+		};
+		embed.select = function () {
+			assert.ok( true, 'select() is called after data is collected.' );
+			QUnit.start();
 		};
 
 		assert.ok( !embed.embedFileInfo, 'embedFileInfo not set yet.' );
