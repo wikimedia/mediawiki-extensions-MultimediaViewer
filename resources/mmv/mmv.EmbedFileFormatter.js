@@ -95,11 +95,13 @@
 	 */
 	AFP.getCreditHtml = function ( info ) {
 		var creditText, creditFormat, creditParams,
-			title = info.title.getNameText(),
+			titleText = info.title.getNameText(),
+			titleUrl = this.getLinkUrl( info ),
+			$title = $( '<a>' ).text( titleText ).prop( 'href', titleUrl ),
 			bylines = this.getBylines( info.author, info.source );
 
 		creditFormat = 't';
-		creditParams = [ title ];
+		creditParams = [ this.getOuterHtml( $title ) ];
 		if ( bylines.html ) {
 			creditFormat += 'b';
 			creditParams.push( bylines.html );
@@ -112,13 +114,8 @@
 			creditFormat += 's';
 			creditParams.push( info.siteName );
 		}
-
-		if ( creditFormat === 't' || creditFormat === 'ts' ) {
-			creditText = '"' + title + '"';
-		} else {
-			creditParams.unshift( 'multimediaviewer-html-embed-credit-text-' + creditFormat );
-			creditText = mw.message.apply( mw, creditParams ).plain();
-		}
+		creditParams.unshift( 'multimediaviewer-html-embed-credit-text-' + creditFormat );
+		creditText = mw.message.apply( mw, creditParams ).plain();
 
 		return creditText;
 	};
@@ -136,10 +133,11 @@
 		return $( '<div>' ).append(
 			$( '<p>' ).append(
 				$( '<a>' )
-					.attr( 'href', info.url )
+					.attr( 'href', this.getLinkUrl( info ) )
 					.append(
 						$( '<img>' )
 							.attr( 'src', imgUrl )
+							.attr( 'alt', info.title.getMainText() )
 							.attr( 'height', height )
 							.attr( 'width', width )
 					),
@@ -147,6 +145,26 @@
 				this.getCreditHtml( info )
 			)
 		).html();
+	};
+
+	/**
+	 * Generare a link which we will be using for sharing stuff.
+	 * FIXME this should be handled by mmv.js to be DRY
+	 *
+	 * @param {mw.mmv.model.EmbedFileInfo} info
+	 */
+	AFP.getLinkUrl = function ( info ) {
+		return info.url + '#mediaviewer/' + info.title.getMainText();
+	};
+
+	/**
+	 * Returns the HTML code for a jQuery element.
+	 * Unlike .html(), this includes code for the element itself.
+	 * @param {jQuery} $jq
+	 * @return {string}
+	 */
+	AFP.getOuterHtml = function ( $jq ) {
+		return $jq.get( 0 ).outerHTML;
 	};
 
 	mw.mmv.EmbedFileFormatter = EmbedFileFormatter;
