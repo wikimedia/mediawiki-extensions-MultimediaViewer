@@ -332,6 +332,8 @@
 	 * Initializes two about links at the bottom of the panel.
 	 */
 	MPP.initializeAboutLinks = function () {
+		var separator = ' | ';
+
 		this.$mmvAboutLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).infoLink )
 			.text( mw.message( 'multimediaviewer-about-mmv' ).text() )
@@ -342,12 +344,19 @@
 			.text( mw.message( 'multimediaviewer-discuss-mmv' ).text() )
 			.addClass( 'mw-mlb-mmv-discuss-link' );
 
+		this.$mmvHelpLink = $( '<a>' )
+			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).helpLink )
+			.text( mw.message( 'multimediaviewer-help-mmv' ).text() )
+			.addClass( 'mw-mlb-mmv-help-link' );
+
 		this.$mmvAboutLinks = $( '<div>' )
 			.addClass( 'mw-mlb-mmv-about-links' )
 			.append(
 				this.$mmvAboutLink,
-				' | ',
-				this.$mmvDiscussLink
+				separator,
+				this.$mmvDiscussLink,
+				separator,
+				this.$mmvHelpLink
 			)
 			.appendTo( this.$imageMetadata );
 	};

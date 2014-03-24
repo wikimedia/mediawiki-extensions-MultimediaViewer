@@ -385,6 +385,7 @@ call_user_func( function() {
 
 			'multimediaviewer-about-mmv',
 			'multimediaviewer-discuss-mmv',
+			'multimediaviewer-help-mmv',
 
 			'multimediaviewer-metadata-error',
 		),

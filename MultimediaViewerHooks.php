@@ -28,6 +28,9 @@ class MultimediaViewerHooks {
 	/** Link to a page where this module can be discussed */
 	protected static $discussionLink = '//mediawiki.org/wiki/Special:MyLanguage/Talk:Multimedia/About_Media_Viewer';
 
+	/** Link to help about this module */
+	protected static $helpLink = '//mediawiki.org/wiki/Special:MyLanguage/Multimedia/Media_Viewer/Help';
+
 	/**
 	 * Checks the context for whether to load the viewer.
 	 * @param User $user
@@ -106,6 +109,7 @@ class MultimediaViewerHooks {
 			'desc-message' => 'multimediaviewer-pref-desc',
 			'info-link' => self::$infoLink,
 			'discussion-link' => self::$discussionLink,
+			'help-link' => self::$helpLink,
 			'screenshot' => "$wgExtensionAssetsPath/MultimediaViewer/viewer-$dir.svg",
 		);
 
@@ -122,6 +126,7 @@ class MultimediaViewerHooks {
 		$vars['wgMultimediaViewer'] = array(
 			'infoLink' => self::$infoLink,
 			'discussionLink' => self::$discussionLink,
+			'helpLink' => self::$helpLink,
 			'globalUsageAvailable' => isset( $wgAPIPropModules['globalusage'] ),
 		);
 		$vars['wgNetworkPerformanceSamplingFactor'] = $wgNetworkPerformanceSamplingFactor;
