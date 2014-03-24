@@ -308,7 +308,6 @@ Each of the parameters could be either plain text or a link.',
 Which one of the multimediaviewer-html-embed-credit-text-* messages is used will depend on what information about the image is available.
 * $1 - name of the work (typically the filename without an extension)
 Each of the parameters could be either plain text or a link.',
-
 	'multimediaviewer-embed-byline' => 'Byline (author credit) text, used when generating wikitext/HTML to reuse the image. $1 is author name.',
 	'multimediaviewer-embed-license' => 'License information, used when generating wikitext/HTML to reuse the image. $1 is the license name.',
 	'multimediaviewer-embed-via' => 'Source information (e. g. "via Flickr"), used when generating wikitext/HTML to reuse the image.
@@ -498,6 +497,7 @@ $messages['ce'] = array(
 	'multimediaviewer-fileusage-link' => 'Хьажа массо лелор',
 	'multimediaviewer-fileusage-local-section' => 'ХӀокху сайтехь',
 	'multimediaviewer-fileusage-global-section' => 'Кхечу сайташкахь',
+	'multimediaviewer-reuse-loading-placeholder' => 'Чуйолуш...',
 );
 
 /** Czech (čeština)
@@ -597,6 +597,7 @@ $messages['de'] = array(
 	'multimediaviewer-fileusage-local-section' => 'Auf dieser Website',
 	'multimediaviewer-fileusage-global-section' => 'Auf anderen Websites',
 	'multimediaviewer-reuse-link' => 'Diese Datei verwenden',
+	'multimediaviewer-reuse-loading-placeholder' => 'Lade …',
 	'multimediaviewer-share-tab' => 'Teilen',
 	'multimediaviewer-embed-tab' => 'Einbetten',
 	'multimediaviewer-link-to-page' => 'Link zur Dateibeschreibungsseite',
@@ -900,6 +901,7 @@ $messages['fr'] = array(
 	'multimediaviewer-fileusage-local-section' => 'Sur ce site',
 	'multimediaviewer-fileusage-global-section' => 'Sur d’autres sites',
 	'multimediaviewer-reuse-link' => 'Utiliser ce fichier',
+	'multimediaviewer-reuse-loading-placeholder' => 'Chargement en cours…',
 	'multimediaviewer-share-tab' => 'Partager',
 	'multimediaviewer-embed-tab' => 'Intégrer',
 	'multimediaviewer-link-to-page' => 'Lien vers la page de description du fichier',
@@ -993,6 +995,7 @@ $messages['he'] = array(
 	'multimediaviewer-fileusage-local-section' => 'באתר הזה',
 	'multimediaviewer-fileusage-global-section' => 'באתרים אחרים',
 	'multimediaviewer-reuse-link' => 'שימוש בקובץ הזה',
+	'multimediaviewer-reuse-loading-placeholder' => 'טעינה...',
 	'multimediaviewer-share-tab' => 'שיתוף',
 	'multimediaviewer-embed-tab' => 'הטמעה',
 	'multimediaviewer-link-to-page' => 'קישור לדף תיאור הקובץ',
@@ -1401,7 +1404,7 @@ $messages['lb'] = array(
 	'multimediaviewer-fileusage-link' => 'All Benotzunge weisen',
 	'multimediaviewer-fileusage-local-section' => 'Op dësem Site',
 	'multimediaviewer-fileusage-global-section' => 'Op anere Siten',
-	'multimediaviewer-reuse-link' => 'Benotzt dëse Fichier', # Fuzzy
+	'multimediaviewer-reuse-link' => 'Benotzt dëse Fichier',
 	'multimediaviewer-share-tab' => 'Deelen',
 	'multimediaviewer-embed-tab' => 'Abannen',
 	'multimediaviewer-link-to-page' => "Link op d'Beschreiwungssäit vum Fichier",
@@ -1491,6 +1494,7 @@ $messages['mk'] = array(
 	'multimediaviewer-fileusage-local-section' => 'На ова мрежно место',
 	'multimediaviewer-fileusage-global-section' => 'На други мрежни места',
 	'multimediaviewer-reuse-link' => 'Употреби ја податотекава',
+	'multimediaviewer-reuse-loading-placeholder' => 'Вчитувам…',
 	'multimediaviewer-share-tab' => 'Сподели',
 	'multimediaviewer-embed-tab' => 'Вметни',
 	'multimediaviewer-link-to-page' => 'Врска до описната страница на податотеката',
@@ -1590,16 +1594,18 @@ $messages['nap'] = array(
  * @author Sjoerddebruin
  */
 $messages['nl'] = array(
-	'multimediaviewer-desc' => 'Miniatuurafbeeldingen groter weergeven in een Lightbox.', # Fuzzy
+	'multimediaviewer-desc' => 'Miniatuurafbeeldingen schermvullend weergeven.',
 	'multimediaviewer-desc-nil' => 'Geen omschrijving beschikbaar.',
 	'multimediaviewer-pref' => 'Mediaviewer',
-	'multimediaviewer-pref-desc' => "Verbeteren uw multimediaervaring met dit nieuwe instrument. Afbeeldingen worden groter weergegeven op pagina's met miniaturen. Afbeeldingen worden weergegeven in een Lightbox en kunnen ook worden bekeken op ware grootte.", # Fuzzy
+	'multimediaviewer-pref-desc' => "Verbeteren uw multimediaervaring met dit nieuwe instrument. Afbeeldingen worden groter weergegeven op pagina's met miniaturen. Afbeeldingen worden schermvullend weergegeven en kunnen ook worden bekeken op ware grootte.",
 	'multimediaviewer-file-page' => 'Naar de bestandspagina gaan',
 	'multimediaviewer-repository' => 'Meer informatie over $1',
 	'multimediaviewer-repository-local' => 'Lees meer',
 	'multimediaviewer-datetime-created' => 'Aangemaakt op $1',
 	'multimediaviewer-datetime-uploaded' => 'Geupload op $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Geüpload}} door $1',
+	'multimediaviewer-metadata-error' => 'Fout: de afbeeldingsgegevens konden niet geladen worden. $1',
+	'multimediaviewer-thumbnail-error' => 'Fout. De miniatuurgegevens konden niet geladen worden. $1',
 	'multimediaviewer-license-cc-pd' => 'Publiek domein',
 	'multimediaviewer-license-pd' => 'Publiek domein',
 	'multimediaviewer-license-default' => 'Licentie weergeven',
@@ -1614,7 +1620,7 @@ $messages['nl'] = array(
 	'multimediaviewer-fileusage-link' => 'Alle toepassingen weergeven',
 	'multimediaviewer-fileusage-local-section' => 'Op deze site',
 	'multimediaviewer-fileusage-global-section' => "Op andere site's",
-	'multimediaviewer-reuse-link' => 'Dit bestand gebruiken', # Fuzzy
+	'multimediaviewer-reuse-link' => 'Dit bestand gebruiken',
 	'multimediaviewer-share-tab' => 'Delen',
 	'multimediaviewer-embed-tab' => 'Invoegen',
 	'multimediaviewer-link-to-page' => 'Koppeling naar de pagina met de bestandsbeschrijving',
@@ -1667,6 +1673,7 @@ $messages['oc'] = array(
 	'multimediaviewer-fileusage-local-section' => 'Sus aqueste site',
 	'multimediaviewer-fileusage-global-section' => 'Sus d’autres sites',
 	'multimediaviewer-reuse-link' => 'Utilizar aqueste fichièr',
+	'multimediaviewer-reuse-loading-placeholder' => 'Cargament en cors…',
 );
 
 /** Polish (polski)
@@ -1825,6 +1832,7 @@ $messages['ru'] = array(
 	'multimediaviewer-fileusage-local-section' => 'На этом сайте',
 	'multimediaviewer-fileusage-global-section' => 'На других сайтах',
 	'multimediaviewer-reuse-link' => 'Использовать этот файл',
+	'multimediaviewer-reuse-loading-placeholder' => 'Загрузка…',
 	'multimediaviewer-share-tab' => 'Поделиться',
 	'multimediaviewer-embed-tab' => 'Внедрённый',
 	'multimediaviewer-link-to-page' => 'Ссылка на страницу описания файла',
@@ -1922,10 +1930,6 @@ $messages['sl'] = array(
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Naložil|Naložila}}: $1',
 	'multimediaviewer-license-cc-pd' => 'javna last',
 	'multimediaviewer-license-default' => 'Prikaz licence',
-	'multimediaviewer-use-file' => 'Uporaba datoteke',
-	'multimediaviewer-use-file-owt' => 'Uporaba datoteke kot sličice na wikistrani',
-	'multimediaviewer-use-file-own' => 'Uporaba datoteke znotrajvrstično na wikistrani',
-	'multimediaviewer-use-file-offwiki' => 'Uporaba datoteke na drugi spletni strani',
 	'multimediaviewer-about-mmv' => 'O Predstavnostnem pregledovalniku',
 	'multimediaviewer-discuss-mmv' => 'Pustite povratno informacijo',
 	'multimediaviewer-geolocation' => 'Lokacija: $1',
@@ -1934,6 +1938,7 @@ $messages['sl'] = array(
 	'multimediaviewer-fileusage-link' => 'Ogled vseh uporab',
 	'multimediaviewer-fileusage-local-section' => 'Na tej strani',
 	'multimediaviewer-fileusage-global-section' => 'Na drugih straneh',
+	'multimediaviewer-reuse-link' => 'Uporabi datoteko',
 );
 
 /** Serbian (Cyrillic script) (српски (ћирилица)‎)
@@ -2069,6 +2074,7 @@ $messages['tl'] = array(
  * @author Ceas08
  * @author Incelemeelemani
  * @author Rapsar
+ * @author SiLveRLeaD
  * @author Sucsuzz
  */
 $messages['tr'] = array(
@@ -2076,6 +2082,7 @@ $messages['tr'] = array(
 	'multimediaviewer-pref-desc' => 'Bu yeni araçla multimedya görüntüleme deneyiminizi geliştirin. Bu sayede küçük sayfaları daha büyük boyutlarda görüntüleyebilirsiniz. Ayrıca görüntüler Lightbox (açılır pencere) olarak ve tam boyutlu gösterilir.', # Fuzzy
 	'multimediaviewer-about-mmv' => 'Ortam Görüntüleyici hakkında',
 	'multimediaviewer-geolocation' => 'Konum: $1',
+	'multimediaviewer-reuse-loading-placeholder' => 'Yükleniyor...',
 	'multimediaviewer-embed-html' => 'HTML',
 );
 
@@ -2093,6 +2100,8 @@ $messages['uk'] = array(
 	'multimediaviewer-datetime-created' => 'Створено $1',
 	'multimediaviewer-datetime-uploaded' => 'Завантажено $1',
 	'multimediaviewer-userpage-link' => '{{GENDER:$2|Завантажив|Завантажила}} $1',
+	'multimediaviewer-metadata-error' => 'Помилка: не вдалося завантажити дані зображення. $1',
+	'multimediaviewer-thumbnail-error' => 'Помилка: не вдалося завантажити дані мініатюри. $1',
 	'multimediaviewer-license-cc-pd' => 'Суспільне надбання',
 	'multimediaviewer-license-pd' => 'Суспільне надбання (Public Domain)',
 	'multimediaviewer-license-default' => 'Перегляд ліцензії',
@@ -2107,13 +2116,29 @@ $messages['uk'] = array(
 	'multimediaviewer-fileusage-link' => 'Переглянути усі використання',
 	'multimediaviewer-fileusage-local-section' => 'На цьому сайті',
 	'multimediaviewer-fileusage-global-section' => 'На інших сайтах',
-	'multimediaviewer-reuse-link' => 'Використовувати цей файл', # Fuzzy
+	'multimediaviewer-reuse-link' => 'Використовувати цей файл',
+	'multimediaviewer-reuse-loading-placeholder' => 'Завантаження...',
 	'multimediaviewer-share-tab' => 'Поділитись',
 	'multimediaviewer-embed-tab' => 'Вбудований',
 	'multimediaviewer-link-to-page' => 'Посилання на сторінку опису файл',
 	'multimediaviewer-link-to-file' => 'Посилання на оригінал файлу',
 	'multimediaviewer-embed-wt' => 'Вікітекст',
 	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-html-embed-credit-text-tbls' => '"$1" від $2. Ліцензований під $3 через $4.',
+	'multimediaviewer-html-embed-credit-text-tls' => '"$1". Під ліцензією  $2  через  $3 .',
+	'multimediaviewer-html-embed-credit-text-tbs' => '"$1" від $2. За допомогою $3.',
+	'multimediaviewer-html-embed-credit-text-tbl' => '"$1" від $2. Ліцензований під $3.',
+	'multimediaviewer-html-embed-credit-text-tb' => '"$1" від $2.',
+	'multimediaviewer-html-embed-credit-text-ts' => '"$1". Через $2.',
+	'multimediaviewer-html-embed-credit-text-tl' => '"$1". Під ліцензією  $2 .',
+	'multimediaviewer-embed-byline' => 'Від $1',
+	'multimediaviewer-embed-license' => 'Під ліцензією $1.',
+	'multimediaviewer-embed-via' => 'Через $1.',
+	'multimediaviewer-default-embed-size' => 'Типовий розмір мініатюри',
+	'multimediaviewer-original-embed-size' => 'Оригінальний розмір -  $1  ×  $2  px',
+	'multimediaviewer-large-embed-size' => 'Великий -  $1 × $2 px',
+	'multimediaviewer-medium-embed-size' => 'Середній - $1 × $2 px',
+	'multimediaviewer-small-embed-size' => 'Малий - $1 × $2 px',
 );
 
 /** Vietnamese (Tiếng Việt)
@@ -2132,6 +2157,8 @@ $messages['vi'] = array(
 	'multimediaviewer-datetime-uploaded' => 'Được tải lên vào $1',
 	'multimediaviewer-userpage-link' => 'Do $1 {{GENDER:$2}}tải lên',
 	'multimediaviewer-credit' => '$1 – $2',
+	'multimediaviewer-metadata-error' => 'Lỗi: Không thể tải dữ liệu hình ảnh. $1',
+	'multimediaviewer-thumbnail-error' => 'Lỗi: Không thể tải dữ liệu hình nhỏ. $1',
 	'multimediaviewer-license-cc-by-4.0' => 'CC-BY 4.0',
 	'multimediaviewer-license-cc-by-sa-4.0' => 'CC-BY-SA 4.0',
 	'multimediaviewer-license-cc-pd' => 'Phạm vi công cộng',
@@ -2140,10 +2167,6 @@ $messages['vi'] = array(
 	'multimediaviewer-permission-title' => 'Chi tiết giấy phép',
 	'multimediaviewer-permission-link' => 'xem điều khoản',
 	'multimediaviewer-permission-viewmore' => 'Xem thêm',
-	'multimediaviewer-use-file' => 'Sử dụng tập tin này',
-	'multimediaviewer-use-file-owt' => 'Sử dụng hình nhỏ của tập tin này trên một trang wiki',
-	'multimediaviewer-use-file-own' => 'Sử dụng tập tin này trong dòng trên một trang wiki',
-	'multimediaviewer-use-file-offwiki' => 'Sử dụng tập tin này trên một trang Web khác',
 	'multimediaviewer-about-mmv' => 'Giới thiệu về Cửa sổ phương tiện',
 	'multimediaviewer-discuss-mmv' => 'Gửi phản hồi',
 	'multimediaviewer-geoloc-north' => 'B',
@@ -2156,6 +2179,28 @@ $messages['vi'] = array(
 	'multimediaviewer-fileusage-link' => 'Xem tất cả các trang sử dụng',
 	'multimediaviewer-fileusage-local-section' => 'Trên website này',
 	'multimediaviewer-fileusage-global-section' => 'Trên website khác',
+	'multimediaviewer-reuse-link' => 'Sử dụng tập tin này',
+	'multimediaviewer-share-tab' => 'Chia sẻ',
+	'multimediaviewer-embed-tab' => 'Nhúng',
+	'multimediaviewer-link-to-page' => 'Liên kết đến trang miêu tả',
+	'multimediaviewer-link-to-file' => 'Liên kết đến tập tin gốc',
+	'multimediaviewer-embed-wt' => 'Mã wiki',
+	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-html-embed-credit-text-tbls' => '“$1” của $2, phát hành theo giấy phép $3 do $4 cung cấp.',
+	'multimediaviewer-html-embed-credit-text-tls' => '“$1”, phát hành theo giấy phép $2 do $3 cung cấp.',
+	'multimediaviewer-html-embed-credit-text-tbs' => '“$1” của $2, do $3 cung cấp.',
+	'multimediaviewer-html-embed-credit-text-tbl' => '“$1” của $2, phát hành theo giấy phép $3.',
+	'multimediaviewer-html-embed-credit-text-tb' => '“$1” của $2.',
+	'multimediaviewer-html-embed-credit-text-ts' => '“$1” do $2 cung cấp.',
+	'multimediaviewer-html-embed-credit-text-tl' => '“$1”, phát hành theo giấy phép $2.',
+	'multimediaviewer-embed-byline' => 'Bởi $1',
+	'multimediaviewer-embed-license' => 'Phát hành theo giấy phép $1.',
+	'multimediaviewer-embed-via' => 'Do $1 cung cấp.',
+	'multimediaviewer-default-embed-size' => 'Kích thước hình nhỏ mặc định',
+	'multimediaviewer-original-embed-size' => 'Kích thước gốc – $1×$2 px',
+	'multimediaviewer-large-embed-size' => 'Lớn – $1×$2 px',
+	'multimediaviewer-medium-embed-size' => 'Vừa – $1×$2 px',
+	'multimediaviewer-small-embed-size' => 'Nhỏ – $1×$2 px',
 );
 
 /** Volapük (Volapük)
