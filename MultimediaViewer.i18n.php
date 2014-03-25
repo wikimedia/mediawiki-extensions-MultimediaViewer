@@ -257,7 +257,8 @@ Followed by {{msg-mw|Multimediaviewer-fileusage-link}} and the list of pages.
 See also:
 * {{msg-mw|Multimediaviewer-fileusage-local-section}}',
 	'multimediaviewer-reuse-link' => 'Text of the link on the metadata panel which opens the reuse panel',
-	'multimediaviewer-reuse-loading-placeholder' => 'Text that appears in all reuse text boxes as a placeholder while the data loads',
+	'multimediaviewer-reuse-loading-placeholder' => 'Text that appears in all reuse text boxes as a placeholder while the data loads.
+{{Identical|Loading}}',
 	'multimediaviewer-share-tab' => 'Tab title text for the file reuse panel - used for the section with shareable URLs.',
 	'multimediaviewer-embed-tab' => 'Tab title text for the file reuse panel - used for the section with embeddable HTML and wikitext.',
 	'multimediaviewer-link-to-page' => 'Used as alt-text to describe a URL that goes to a File: page for an image.',
@@ -1020,6 +1021,7 @@ $messages['he'] = array(
 );
 
 /** Hindi (हिन्दी)
+ * @author Kunalgrover05
  * @author Siddhartha Ghai
  * @author Vivek Rai
  * @author Wikiuser13
@@ -1027,6 +1029,7 @@ $messages['he'] = array(
 $messages['hi'] = array(
 	'multimediaviewer-permission-title' => 'लाइसेंस विवरण',
 	'multimediaviewer-permission-link' => 'शर्तें देखें',
+	'multimediaviewer-reuse-loading-placeholder' => 'लोड हो रहा है…',
 	'multimediaviewer-embed-tab' => 'एम्बेड करें',
 	'multimediaviewer-link-to-file' => 'मूल फ़ाइल से लिंक करें',
 	'multimediaviewer-embed-byline' => '$1 द्वारा',
@@ -1201,6 +1204,7 @@ $messages['it'] = array(
 	'multimediaviewer-fileusage-local-section' => 'Su questo sito',
 	'multimediaviewer-fileusage-global-section' => 'Su altri siti',
 	'multimediaviewer-reuse-link' => 'Usa questo file',
+	'multimediaviewer-reuse-loading-placeholder' => 'Caricamento in corso…',
 	'multimediaviewer-share-tab' => 'Condividi',
 	'multimediaviewer-embed-tab' => 'Incorpora',
 	'multimediaviewer-link-to-page' => 'Collegamento alla pagina di descrizione del file.',
@@ -1272,6 +1276,7 @@ $messages['ja'] = array(
 	'multimediaviewer-fileusage-local-section' => 'このサイト上',
 	'multimediaviewer-fileusage-global-section' => '他のサイト上',
 	'multimediaviewer-reuse-link' => 'このファイルを使用',
+	'multimediaviewer-reuse-loading-placeholder' => '読み込み中…',
 );
 
 /** Georgian (ქართული)
@@ -1342,6 +1347,13 @@ $messages['km'] = array(
 	'multimediaviewer-repository-local' => 'ស្វែងយល់បន្ថែម',
 );
 
+/** Kannada (ಕನ್ನಡ)
+ * @author Vikassy
+ */
+$messages['kn'] = array(
+	'multimediaviewer-reuse-loading-placeholder' => 'ಉತ್ಪೂರಿತವಾಗುತ್ತಿದೆ',
+);
+
 /** Korean (한국어)
  * @author Freebiekr
  * @author Hym411
@@ -1405,6 +1417,7 @@ $messages['lb'] = array(
 	'multimediaviewer-fileusage-local-section' => 'Op dësem Site',
 	'multimediaviewer-fileusage-global-section' => 'Op anere Siten',
 	'multimediaviewer-reuse-link' => 'Benotzt dëse Fichier',
+	'multimediaviewer-reuse-loading-placeholder' => 'Lueden...',
 	'multimediaviewer-share-tab' => 'Deelen',
 	'multimediaviewer-embed-tab' => 'Abannen',
 	'multimediaviewer-link-to-page' => "Link op d'Beschreiwungssäit vum Fichier",
@@ -1679,6 +1692,7 @@ $messages['oc'] = array(
 /** Polish (polski)
  * @author Chrumps
  * @author Jacenty359
+ * @author Matik7
  * @author Nux
  * @author Tar Lócesilion
  * @author WTM
@@ -1697,14 +1711,12 @@ $messages['pl'] = array(
 	'multimediaviewer-permission-title' => 'Szczegóły licencji',
 	'multimediaviewer-permission-link' => 'zobacz zasady',
 	'multimediaviewer-permission-viewmore' => 'Zobacz więcej',
-	'multimediaviewer-use-file' => 'Użyj tego pliku',
-	'multimediaviewer-use-file-owt' => 'Użyj tego pliku na stronie wiki, jako miniatura',
-	'multimediaviewer-use-file-own' => 'Użyj tego pliku na stronie wiki, wewnątrz tekstu',
-	'multimediaviewer-use-file-offwiki' => 'Użyj tego pliku na innej stronie internetowej',
 	'multimediaviewer-about-mmv' => 'O przeglądarce multimedów',
 	'multimediaviewer-discuss-mmv' => 'Prześlij opinię',
 	'multimediaviewer-geolocation' => 'Położenie: $1',
 	'multimediaviewer-fileusage-link' => 'Zobacz wszystkich użytkowników',
+	'multimediaviewer-reuse-link' => 'Użyj tego pliku', # Fuzzy
+	'multimediaviewer-reuse-loading-placeholder' => 'Wczytywanie...',
 );
 
 /** Pashto (پښتو)
@@ -1871,6 +1883,7 @@ $messages['sco'] = array(
 	'multimediaviewer-fileusage-link' => 'View aw uisses',
 	'multimediaviewer-fileusage-local-section' => 'Oan this site',
 	'multimediaviewer-fileusage-global-section' => 'Oan ither sites',
+	'multimediaviewer-reuse-loading-placeholder' => 'Laidin...',
 	'multimediaviewer-share-tab' => 'Shair',
 	'multimediaviewer-embed-tab' => 'Embed',
 	'multimediaviewer-link-to-page' => 'Link til file descreeption page',
@@ -1992,7 +2005,8 @@ $messages['sv'] = array(
 	'multimediaviewer-fileusage-link' => 'Visa all användning',
 	'multimediaviewer-fileusage-local-section' => 'På denna webbplats',
 	'multimediaviewer-fileusage-global-section' => 'På andra webbplatser',
-	'multimediaviewer-reuse-link' => 'Använd denna fil', # Fuzzy
+	'multimediaviewer-reuse-link' => 'Använd denna fil',
+	'multimediaviewer-reuse-loading-placeholder' => 'Läser in...',
 	'multimediaviewer-share-tab' => 'Dela',
 	'multimediaviewer-embed-tab' => 'Bädda in',
 	'multimediaviewer-link-to-page' => 'Länk till filbeskrivningssidan',
