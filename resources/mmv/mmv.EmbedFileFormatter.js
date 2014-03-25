@@ -76,6 +76,9 @@
 	 * @return {string} byline (can contain HTML)
 	 */
 	EFFP.getByline = function ( author, source ) {
+		author = author && this.htmlUtils.htmlToTextWithLinks( author );
+		source = source && this.htmlUtils.htmlToTextWithLinks( source );
+
 		if ( author && source) {
 			return mw.message(
 				'multimediaviewer-credit',
