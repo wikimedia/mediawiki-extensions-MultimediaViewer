@@ -575,6 +575,7 @@ $messages['de'] = array(
 	'multimediaviewer-desc-nil' => 'Keine Beschreibung verfügbar.',
 	'multimediaviewer-pref' => 'Medienbetrachter',
 	'multimediaviewer-pref-desc' => 'Dieses neue Werkzeug steigert dein Multimedia-Betrachtungserlebnis. Es zeigt Bilder auf Seiten größer an, die Vorschaubilder haben. Bilder werden in einem schöneren Vollbildschnittstellenoverlay angezeigt und können auch als Vollbild dargestellt werden.',
+	'multimediaviewer-optin-pref' => 'Neues Medienbetrachtungserlebnis aktivieren',
 	'multimediaviewer-file-page' => 'Gehe zur dazugehörigen Dateiseite',
 	'multimediaviewer-repository' => 'Mehr erfahren auf $1',
 	'multimediaviewer-repository-local' => 'Mehr erfahren',
@@ -628,7 +629,7 @@ $messages['de'] = array(
  * @author Filzstift
  */
 $messages['de-ch'] = array(
-	'multimediaviewer-desc' => 'Ermöglicht die Darstellung von Vorschaubildern im «Lightbox»-Stil',
+	'multimediaviewer-desc' => 'Ermöglicht die Darstellung von Vorschaubildern in einer Vollbildschnittstelle',
 );
 
 /** Lower Sorbian (dolnoserbski)
@@ -692,6 +693,11 @@ $messages['el'] = array(
 $messages['en-gb'] = array(
 	'multimediaviewer-license-default' => 'View licence',
 	'multimediaviewer-permission-title' => 'Licence details',
+	'multimediaviewer-html-embed-credit-text-tbls' => '"$1" by $2. Licenced under $3 via $4.',
+	'multimediaviewer-html-embed-credit-text-tls' => '"$1". Licenced under $2 via $3.',
+	'multimediaviewer-html-embed-credit-text-tbl' => '"$1" by $2. Licenced under $3.',
+	'multimediaviewer-html-embed-credit-text-tl' => '"$1". Licenced under $2.',
+	'multimediaviewer-embed-license' => 'Licenced under $1.',
 );
 
 /** Esperanto (Esperanto)
@@ -975,6 +981,7 @@ $messages['he'] = array(
 	'multimediaviewer-desc-nil' => 'התיאור אינו זמין.',
 	'multimediaviewer-pref' => 'מציג מדיה',
 	'multimediaviewer-pref-desc' => 'הכלי החדש הזה משפר את חוויית המולטימדיה שלך. הוא מציג תמונות מוגדלות בדפים עם תמונות ממוזערות. התמונות מוצגות בשכבה במסך מלא וניתן להציג אותן גם בגודל מלא.',
+	'multimediaviewer-optin-pref' => 'הפעלת חוויית הצגת מולטימדיה חדשה',
 	'multimediaviewer-file-page' => 'מעבר אל דף הקובץ המתאים',
 	'multimediaviewer-repository' => 'מידע נוסף על $1',
 	'multimediaviewer-repository-local' => 'מידע נוסף',
@@ -1889,7 +1896,7 @@ $messages['sco'] = array(
 	'multimediaviewer-share-tab' => 'Shair',
 	'multimediaviewer-embed-tab' => 'Embed',
 	'multimediaviewer-link-to-page' => 'Link til file descreeption page',
-	'multimediaviewer-link-to-file' => 'Link til oreeginal file',
+	'multimediaviewer-link-to-file' => 'Airt til oreeginal file',
 	'multimediaviewer-embed-wt' => 'Wikitex',
 	'multimediaviewer-embed-html' => 'HTML',
 	'multimediaviewer-html-embed-credit-text-tbls' => '"$1" bi $2. Licensed unner $3 bi wa o $4.',
@@ -2035,6 +2042,7 @@ $messages['sv'] = array(
 /** Telugu (తెలుగు)
  * @author Chaduvari
  * @author Ravichandra
+ * @author రహ్మానుద్దీన్
  */
 $messages['te'] = array(
 	'multimediaviewer-license-pd' => 'పబ్లిక్ డోమెయిను',
@@ -2042,6 +2050,7 @@ $messages['te'] = array(
 	'multimediaviewer-fileusage-link' => 'అన్ని వాడుకలు చూడు',
 	'multimediaviewer-fileusage-local-section' => 'ఈ సైటుపై',
 	'multimediaviewer-fileusage-global-section' => 'ఇతర సైట్లలో',
+	'multimediaviewer-reuse-loading-placeholder' => 'లోడవుతోంది...',
 );
 
 /** Thai (ไทย)
@@ -2232,6 +2241,7 @@ $messages['vo'] = array(
  */
 $messages['yi'] = array(
 	'multimediaviewer-permission-link' => 'באקוקן טערמינען',
+	'multimediaviewer-reuse-loading-placeholder' => 'לאָדנדיק…',
 );
 
 /** Simplified Chinese (中文（简体）‎)
@@ -2264,12 +2274,13 @@ $messages['zh-hans'] = array(
 	'multimediaviewer-about-mmv' => '关于媒体文件查看器',
 	'multimediaviewer-discuss-mmv' => '留下反馈意见',
 	'multimediaviewer-geolocation' => '位置：$1',
-	'multimediaviewer-fileusage-count' => '用于$1个{{PLURAL:$1|页面}}',
-	'multimediaviewer-fileusage-count-more' => '用于超过$1个页面',
+	'multimediaviewer-fileusage-count' => '在$1个{{PLURAL:$1|页面}}中使用',
+	'multimediaviewer-fileusage-count-more' => '在超过$1个{{PLURAL:$1|页面}}中使用',
 	'multimediaviewer-fileusage-link' => '查看所有用途',
-	'multimediaviewer-fileusage-local-section' => '在本网站',
-	'multimediaviewer-fileusage-global-section' => '在其他网站',
-	'multimediaviewer-reuse-link' => '使用此文件',
+	'multimediaviewer-fileusage-local-section' => '本网站',
+	'multimediaviewer-fileusage-global-section' => '其他网站',
+	'multimediaviewer-reuse-link' => '使用该文件',
+	'multimediaviewer-reuse-loading-placeholder' => '正在载入…',
 	'multimediaviewer-share-tab' => '分享',
 	'multimediaviewer-embed-tab' => '嵌入',
 	'multimediaviewer-link-to-page' => '至文件说明页面的链接',
@@ -2283,6 +2294,7 @@ $messages['zh-hans'] = array(
 	'multimediaviewer-html-embed-credit-text-tb' => '“$1”，作者$2。',
 	'multimediaviewer-html-embed-credit-text-ts' => '“$1”。来自$2。',
 	'multimediaviewer-html-embed-credit-text-tl' => '“$1”。采用$2授权。',
+	'multimediaviewer-html-embed-credit-text-t' => '“$1”。',
 	'multimediaviewer-embed-byline' => '作者$1',
 	'multimediaviewer-embed-license' => '采用$1授权。',
 	'multimediaviewer-embed-via' => '来自$1。',
