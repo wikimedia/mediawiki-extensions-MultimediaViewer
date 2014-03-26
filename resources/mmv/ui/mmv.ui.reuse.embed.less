@@ -1,14 +1,22 @@
 @switch-color: #f2f2f2;
 @active-switch-color: #666666;
 @embed-dimensions-color: #aaaaaa;
+@textarea-text-color: #333333;
 
-.mw-mlb-embed-text-html,
-.mw-mlb-embed-text-wt {
-	display: none;
-	width: auto;
+.mw-mlb-reuse-pane {
+	.mw-mlb-embed-text-html,
+	.mw-mlb-embed-text-wt {
+		display: none;
+		width: auto;
 
-	&.active {
-		display: block;
+		&.active {
+			display: block;
+		}
+
+		// The selector has to be that deep and include [readonly] to override OOJS UI's definition
+		textarea[readonly], textarea[readonly] {
+			color: @textarea-text-color;
+		}
 	}
 }
 

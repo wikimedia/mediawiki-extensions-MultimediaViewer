@@ -1,9 +1,18 @@
-.mw-mlb-share-page {
-	// override OOJS-UI fixed width
-	width: auto;
-	// make sure this is a new block formatting context so that the float shrinks it instead of
-	// running into it and pushing the input down (there is probably a better way of doing this)
-	overflow: hidden;
+@input-text-color: #333333;
+
+.mw-mlb-share-pane {
+	.mw-mlb-share-page {
+		// override OOJS-UI fixed width
+		width: auto;
+		// make sure this is a new block formatting context so that the float shrinks it instead of
+		// running into it and pushing the input down (there is probably a better way of doing this)
+		overflow: hidden;
+
+		// The selector has to be that deep and include [readonly] to override OOJS UI's definition
+		input[readonly], input[readonly] {
+			color: @input-text-color;
+		}
+	}
 }
 
 .mw-mlb-share-page-link {
