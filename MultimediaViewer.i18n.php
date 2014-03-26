@@ -90,8 +90,12 @@ $messages['en'] = array(
 	'multimediaviewer-link-to-page' => 'Link to file description page',
 	'multimediaviewer-link-to-file' => 'Link to original file',
 
+	'multimediaviewer-share-explanation' => 'Copy and freely share the link',
+
 	'multimediaviewer-embed-wt' => 'Wikitext',
 	'multimediaviewer-embed-html' => 'HTML',
+
+	'multimediaviewer-embed-explanation' => 'Use this code to embed the file',
 
 	// Ridiculously complicated messages for embedding
 	'multimediaviewer-html-embed-credit-text-tbls' => '"$1" by $2. Licensed under $3 via $4.',
@@ -263,8 +267,10 @@ See also:
 	'multimediaviewer-embed-tab' => 'Tab title text for the file reuse panel - used for the section with embeddable HTML and wikitext.',
 	'multimediaviewer-link-to-page' => 'Used as alt-text to describe a URL that goes to a File: page for an image.',
 	'multimediaviewer-link-to-file' => 'Used as alt-text to describe a URL that goes to an image file.',
+	'multimediaviewer-share-explanation' => 'Used below the URL share input to explain what we expect the user to do.',
 	'multimediaviewer-embed-wt' => 'Used to represent a choice for embedding a file in a wiki page, as wikitext.',
 	'multimediaviewer-embed-html' => 'Used to represent a choice for embedding a file in an HTML document, as HTML.',
+	'multimediaviewer-embed-explanation' => 'Used below the embed textarea to explain what we expect the user to do.',
 	'multimediaviewer-html-embed-credit-text-tbls' => 'Credit text, used when generating HTML to reuse an image.
 Which one of the multimediaviewer-html-embed-credit-text-* messages is used will depend on what information about the image is available.
 * $1 - name of the work (typically the filename without an extension)
