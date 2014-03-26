@@ -33,7 +33,7 @@ class MultimediaViewerHooks {
 	 * @param User $user
 	 * @return bool
 	 */
-	protected static function shouldLoad( $user ) {
+	protected static function shouldHandleClicks( $user ) {
 		global $wgMediaViewerIsInBeta, $wgEnableMediaViewerForLoggedInUsersOnly;
 
 		if ( $wgMediaViewerIsInBeta && class_exists( 'BetaFeatures' ) ) {
@@ -53,10 +53,6 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	protected static function getModules( &$out ) {
-		if ( !self::shouldLoad( $out->getUser() ) ) {
-			return true;
-		}
-
 		$out->addModules( array( 'mmv.bootstrap.autostart' ) );
 
 		return true;
@@ -125,7 +121,7 @@ class MultimediaViewerHooks {
 			'globalUsageAvailable' => isset( $wgAPIPropModules['globalusage'] ),
 		);
 		$vars['wgNetworkPerformanceSamplingFactor'] = $wgNetworkPerformanceSamplingFactor;
-		$vars['wgMediaViewerOnClick'] = self::shouldLoad( User::newFromSession() );
+		$vars['wgMediaViewerOnClick'] = self::shouldHandleClicks( User::newFromSession() );
 		$vars['wgMediaViewer'] = true;
 
 		return true;
