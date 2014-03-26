@@ -253,9 +253,12 @@
 		// Register handler for switching between wikitext/html snippets
 		this.embedSwitch.on( 'select', $.proxy( embed.handleTypeSwitch, embed ) );
 
+		// workaround for bug 63094
+		this.proxiedHandleSizeSwitch = this.proxiedHandleSizeSwitch  || $.proxy( this.handleSizeSwitch, this );
+
 		// Register handlers for switching between file sizes
-		this.embedHtmlSizeSwitch.getMenu().on( 'select', $.proxy( embed.handleSizeSwitch, embed ) );
-		this.embedWtSizeSwitch.getMenu().on( 'select', $.proxy( embed.handleSizeSwitch, embed ) );
+		this.embedHtmlSizeSwitch.getMenu().on( 'select', this.proxiedHandleSizeSwitch );
+		this.embedWtSizeSwitch.getMenu().on( 'select', this.proxiedHandleSizeSwitch );
 	};
 
 	/**
@@ -267,8 +270,9 @@
 		this.embedTextHtml.offDOMEvent( 'focus mousedown click' );
 		this.embedTextWikitext.offDOMEvent( 'focus mousedown click' );
 		this.embedSwitch.off( 'select' );
-		this.embedHtmlSizeSwitch.getMenu().off( 'select' );
-		this.embedWtSizeSwitch.getMenu().off( 'select' );
+		// the noop is needed for some tests which call unattach before calling attach.
+		this.embedHtmlSizeSwitch.getMenu().off( 'select', this.proxiedHandleSizeSwitch || $.noop );
+		this.embedWtSizeSwitch.getMenu().off( 'select', this.proxiedHandleSizeSwitch || $.noop );
 	};
 
 	/**
