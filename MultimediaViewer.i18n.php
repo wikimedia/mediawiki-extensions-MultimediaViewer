@@ -30,6 +30,7 @@ $messages['en'] = array(
 	'multimediaviewer-desc-nil' => 'No description available.',
 	'multimediaviewer-pref' => 'Media Viewer',
 	'multimediaviewer-pref-desc' => 'Improve your multimedia viewing experience with this new tool. It displays images in larger size on pages that have thumbnails. Images are shown in a nicer fullscreen interface overlay, and can also be viewed in full-size.',
+	'multimediaviewer-optin-pref' => 'Enable new media viewing experience',
 	'multimediaviewer-file-page' => 'Go to corresponding file page',
 	'multimediaviewer-repository' => 'Learn more on $1',
 	'multimediaviewer-repository-local' => 'Learn more',
@@ -123,6 +124,7 @@ $messages['qqq'] = array(
 	'multimediaviewer-desc-nil' => 'Text to be used when no description is available.',
 	'multimediaviewer-pref' => 'Preference title',
 	'multimediaviewer-pref-desc' => 'Description of preference',
+	'multimediaviewer-optin-pref' => 'Label for non-beta preference.',
 	'multimediaviewer-file-page' => 'Text for a link to the file page for an image.',
 	'multimediaviewer-repository' => 'Link to the repository where the image is hosted. Parameters:
 * $1 - the display name of that site
