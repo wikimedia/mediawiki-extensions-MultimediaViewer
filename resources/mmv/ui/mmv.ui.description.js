@@ -26,6 +26,9 @@
 	function Description( $container ) {
 		mw.mmv.ui.Element.call( this, $container );
 
+		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
+		this.htmlUtils = new mw.mmv.HtmlUtils();
+
 		this.$imageDescDiv = $( '<div>' )
 			.addClass( 'mw-mlb-image-desc-div empty' )
 			.appendTo( this.$container );
@@ -52,11 +55,11 @@
 		this.$imageDesc.toggleClass( 'empty', !text );
 
 		if ( caption ) {
-			this.whitelistHtml( this.$imageCaption.empty().append( $.parseHTML( caption ) ) );
+			this.$imageCaption.html( this.htmlUtils.htmlToTextWithLinks( caption ) );
 		}
 
 		if ( text ) {
-			this.whitelistHtml( this.$imageDesc.empty().append( $.parseHTML( text ) ) );
+			this.$imageDesc.html( this.htmlUtils.htmlToTextWithLinks( text ) );
 		} else {
 			this.$imageDesc.empty().append( mw.message( 'multimediaviewer-desc-nil' ).text() );
 		}

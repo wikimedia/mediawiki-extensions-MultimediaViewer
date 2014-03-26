@@ -40,6 +40,9 @@
 		this.hasAnimatedMetadata = window.localStorage !== undefined &&
 			localStorage.getItem( 'mmv.hasOpenedMetadata' );
 
+		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
+		this.htmlUtils = new mw.mmv.HtmlUtils();
+
 		this.initializeHeader();
 		this.initializeImageMetadata();
 		this.initializeAboutLinks();
@@ -484,7 +487,7 @@
 	 * @param {string} source Warning - unsafe HTML sometimes goes here
 	 */
 	MPP.setSource = function ( source ) {
-		this.whitelistHtml( this.$source.empty().append( $.parseHTML( source ) ) );
+		this.$source.html( this.htmlUtils.htmlToTextWithLinks( source ) );
 		this.$credit.removeClass( 'empty' );
 	};
 
@@ -493,7 +496,7 @@
 	 * @param {string} author Warning - unsafe HTML sometimes goes here
 	 */
 	MPP.setAuthor = function ( author ) {
-		this.whitelistHtml( this.$author.empty().append( $.parseHTML( author ) ) );
+		this.$author.html( this.htmlUtils.htmlToTextWithLinks( author ) );
 		this.$credit.removeClass( 'empty' );
 	};
 

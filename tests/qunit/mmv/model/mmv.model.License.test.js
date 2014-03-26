@@ -71,15 +71,4 @@
 			'Title for license with link is formatted correctly' );
 	} );
 
-	QUnit.test( 'jqueryToHtml()', 3, function( assert ) {
-		var license = new mw.mmv.model.License( 'foo' );
-
-		assert.strictEqual( license.jqueryToHtml( $( '<a>' ) ), '<a></a>',
-			'works for single element' );
-		assert.strictEqual( license.jqueryToHtml( $( '<b><a>foo</a></b>' ) ), '<b><a>foo</a></b>',
-			'works for complex element' );
-		assert.strictEqual( license.jqueryToHtml( $( '<a>foo</a>' ).contents() ), 'foo',
-			'works for text nodes' );
-	} );
-
 }( mediaWiki, jQuery ) );

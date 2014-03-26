@@ -35,37 +35,6 @@
 	EP = Element.prototype;
 
 	/**
-	 * Helper function for whitelisting HTML to only keep links and text. Works in-place.
-	 * @param {jQuery} $el
-	 */
-	EP.whitelistHtml = function ( $el ) {
-		var child, $prev, $child = $el.children().first();
-
-		while ( $child && $child.length ) {
-			child = $child.get( 0 );
-
-			if ( child.nodeType !== child.ELEMENT_NODE ) {
-				return;
-			}
-
-			this.whitelistHtml( $child );
-
-			if ( !$child.is( 'a' ) ) {
-				$prev = $child.prev();
-				$child.replaceWith( $child.contents() );
-			} else {
-				$prev = $child;
-			}
-
-			if ( $prev && $prev.length === 1 ) {
-				$child = $prev.next();
-			} else {
-				$child = $el.children().first();
-			}
-		}
-	};
-
-	/**
 	 * @abstract
 	 * Sets the data for the element.
 	 */

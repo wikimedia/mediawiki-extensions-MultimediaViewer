@@ -34,13 +34,16 @@
 			'tif' : true
 		};
 
-		this.thumbs = [];
-		this.$thumbs = $( '.gallery .image img, a.image img' );
-		this.processThumbs();
-
 		// Exposed for tests
 		this.readinessCSSClass = 'mw-mmv-has-been-loaded';
 		this.readinessWaitDuration = 100;
+
+		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
+		this.htmlUtils = new mw.mmv.HtmlUtils();
+
+		this.thumbs = [];
+		this.$thumbs = $( '.gallery .image img, a.image img' );
+		this.processThumbs();
 	}
 
 	MMVB = MultimediaViewerBootstrap.prototype;
@@ -140,8 +143,7 @@
 		if ( $thumbContain.length !== 0 && $thumbContain.is( '.thumb' ) ) {
 			$thumbCaption = $thumbContain.find( '.thumbcaption' ).clone();
 			$thumbCaption.find( '.magnify' ).remove();
-			mw.mmv.ui.Element.prototype.whitelistHtml( $thumbCaption );
-			caption = $thumbCaption.html();
+			caption = this.htmlUtils.htmlToTextWithLinks( $thumbCaption.html() || '' );
 		}
 
 		// This is the data that will be passed onto the mmv
