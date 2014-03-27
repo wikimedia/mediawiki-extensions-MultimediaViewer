@@ -42,6 +42,12 @@
 		this.$pane.appendTo( this.$container );
 
 		this.createSnippetTextAreas( this.$pane );
+
+		this.$explanation = $( '<div>' )
+			.addClass( 'mw-mlb-shareembed-explanation mw-mlb-embed-explanation' )
+			.text( mw.message( 'multimediaviewer-embed-explanation' ).text() )
+			.appendTo( this.$pane );
+
 		this.createSnippetSelectionButtons( this.$pane );
 		this.createSizePulldownMenus( this.$pane );
 

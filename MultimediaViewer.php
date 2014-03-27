@@ -454,6 +454,7 @@ call_user_func( function() {
 
 		'styles' => array(
 			'mmv.ui.reuse.share.less',
+			'mmv.ui.reuse.shareembed.less',
 		),
 
 		'dependencies' => array(
@@ -465,6 +466,7 @@ call_user_func( function() {
 		'messages' => array(
 			'multimediaviewer-reuse-loading-placeholder',
 			'multimediaviewer-share-tab',
+			'multimediaviewer-share-explanation',
 
 			'multimediaviewer-link-to-file',
 			'multimediaviewer-link-to-page',
@@ -478,6 +480,7 @@ call_user_func( function() {
 
 		'styles' => array(
 			'mmv.ui.reuse.embed.less',
+			'mmv.ui.reuse.shareembed.less',
 		),
 
 		'dependencies' => array(
@@ -493,6 +496,7 @@ call_user_func( function() {
 			'multimediaviewer-embed-tab',
 			'multimediaviewer-embed-html',
 			'multimediaviewer-embed-wt',
+			'multimediaviewer-embed-explanation',
 
 			'multimediaviewer-embed-byline',
 			'multimediaviewer-embed-license',

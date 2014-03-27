@@ -54,6 +54,11 @@
 
 		this.pageInput.$element.appendTo( this.$pane );
 
+		this.$explanation = $( '<div>' )
+			.addClass( 'mw-mlb-shareembed-explanation' )
+			.text( mw.message( 'multimediaviewer-share-explanation' ).text() )
+			.appendTo( this.$pane );
+
 		this.$pane.appendTo( this.$container );
 	};
 
