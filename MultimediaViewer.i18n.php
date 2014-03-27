@@ -123,6 +123,7 @@ $messages['en'] = array(
 
 /** Message documentation (Message documentation)
  * @author Mark Holmquist <mtraceur@member.fsf.org>
+ * @author Raymond
  * @author Shirayuki
  */
 $messages['qqq'] = array(
@@ -324,7 +325,7 @@ Each of the parameters could be either plain text or a link.',
 	'multimediaviewer-embed-license' => 'License information, used when generating wikitext/HTML to reuse the image. $1 is the license name.',
 	'multimediaviewer-embed-via' => 'Source information (e. g. "via Flickr"), used when generating wikitext/HTML to reuse the image.
 $1 is source (probably a website or institution name)',
-	'multimediaviewer-default-embed-size' => 'Text of size selector option which will generate wikitext for a thumbnail without explicit size.',
+	'multimediaviewer-default-embed-dimensions' => 'Text of size selector option which will generate wikitext for a thumbnail without explicit size.',
 	'multimediaviewer-original-embed-dimensions' => 'Text of size selector option which will generate wikitext for a thumbnail with the original (full) size.
 * $1 - thumbnail dimensions, defined by the following message:
 ** {{msg-mw|Multimediaviewer-embed-dimensions}}',
@@ -506,7 +507,7 @@ $messages['ce'] = array(
 	'multimediaviewer-permission-title' => 'Лецензех лаьцна',
 	'multimediaviewer-permission-link' => 'хьоле хьажар',
 	'multimediaviewer-permission-viewmore' => 'Хьажа мадарра',
-	'multimediaviewer-discuss-mmv' => 'Язде хьайна хетарг',
+	'multimediaviewer-discuss-mmv' => 'Язде хьайна хетарг', # Fuzzy
 	'multimediaviewer-geolocation' => 'Географин йолу меттиг: $1',
 	'multimediaviewer-fileusage-count' => 'Лело $1 {{PLURAL:$1|агӀонехь|агӀонашкахь}}',
 	'multimediaviewer-fileusage-link' => 'Хьажа массо лелор',
@@ -605,7 +606,8 @@ $messages['de'] = array(
 	'multimediaviewer-permission-link' => 'Bedingungen ansehen',
 	'multimediaviewer-permission-viewmore' => 'Mehr',
 	'multimediaviewer-about-mmv' => 'Über Media Viewer',
-	'multimediaviewer-discuss-mmv' => 'Eine Rückmeldung hinterlassen',
+	'multimediaviewer-discuss-mmv' => 'Diese Funktion diskutieren',
+	'multimediaviewer-help-mmv' => 'Hilfe',
 	'multimediaviewer-geolocation' => 'Standort: $1',
 	'multimediaviewer-fileusage-count' => 'Auf {{PLURAL:$1|einer Seite|$1 Seiten}} verwendet',
 	'multimediaviewer-fileusage-count-more' => 'Auf mehr als $1 {{PLURAL:$1|Seiten}} verwendet',
@@ -618,8 +620,10 @@ $messages['de'] = array(
 	'multimediaviewer-embed-tab' => 'Einbetten',
 	'multimediaviewer-link-to-page' => 'Link zur Dateibeschreibungsseite',
 	'multimediaviewer-link-to-file' => 'Link zur Originaldatei',
+	'multimediaviewer-share-explanation' => 'Kopieren und den Link frei teilen',
 	'multimediaviewer-embed-wt' => 'Wikitext',
 	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-embed-explanation' => 'Diesen Code zum Einbetten der Datei verwenden',
 	'multimediaviewer-html-embed-credit-text-tbls' => '„$1“ von $2. Lizenziert unter $3 über $4.',
 	'multimediaviewer-html-embed-credit-text-tls' => '„$1“. Lizenziert unter $2 über $3.',
 	'multimediaviewer-html-embed-credit-text-tbs' => '„$1“ von $2. Über $3.',
@@ -630,11 +634,11 @@ $messages['de'] = array(
 	'multimediaviewer-embed-byline' => 'Von $1',
 	'multimediaviewer-embed-license' => 'Lizenziert unter $1.',
 	'multimediaviewer-embed-via' => 'Über $1.',
-	'multimediaviewer-default-embed-size' => 'Standardvorschaubildgröße',
-	'multimediaviewer-original-embed-size' => 'Originalgröße – $1 × $2 Pixel',
-	'multimediaviewer-large-embed-size' => 'Groß – $1 × $2 Pixel',
-	'multimediaviewer-medium-embed-size' => 'Mittel – $1 × $2 Pixel',
-	'multimediaviewer-small-embed-size' => 'Klein – $1 × $2 Pixel',
+	'multimediaviewer-default-embed-dimensions' => 'Standardvorschaubildgröße',
+	'multimediaviewer-original-embed-dimensions' => 'Originalgröße $1',
+	'multimediaviewer-large-embed-dimensions' => 'Groß $1',
+	'multimediaviewer-medium-embed-dimensions' => 'Mittel $1',
+	'multimediaviewer-small-embed-dimensions' => 'Klein $1',
 );
 
 /** Swiss High German (Schweizer Hochdeutsch)
@@ -746,7 +750,7 @@ $messages['es'] = array(
 	'multimediaviewer-permission-link' => 'ver términos',
 	'multimediaviewer-permission-viewmore' => 'Ver más',
 	'multimediaviewer-about-mmv' => 'Acerca del visor multimedia',
-	'multimediaviewer-discuss-mmv' => 'Dejar comentarios',
+	'multimediaviewer-discuss-mmv' => 'Dejar comentarios', # Fuzzy
 	'multimediaviewer-geolocation' => 'Ubicación: $1',
 	'multimediaviewer-fileusage-count' => 'Utilizado en $1 {{PLURAL:$1| page|pages}}',
 	'multimediaviewer-fileusage-count-more' => 'Utilizado en más de $1 {{PLURAL:$1|pages}}',
@@ -770,11 +774,7 @@ $messages['es'] = array(
 	'multimediaviewer-embed-byline' => 'Por $1',
 	'multimediaviewer-embed-license' => 'Disponible bajo la licencia $1.',
 	'multimediaviewer-embed-via' => 'Vía $1.',
-	'multimediaviewer-default-embed-size' => 'Tamaño de miniaturas predeterminado',
-	'multimediaviewer-original-embed-size' => 'Tamaño original: $1 × $2 px',
-	'multimediaviewer-large-embed-size' => 'Grande: $1 × $2 px',
-	'multimediaviewer-medium-embed-size' => 'Mediana: $1 × $2 px',
-	'multimediaviewer-small-embed-size' => 'Pequeña: $1 × $2 px',
+	'multimediaviewer-default-embed-dimensions' => 'Tamaño de miniaturas predeterminado',
 );
 
 /** Estonian (eesti)
@@ -795,18 +795,15 @@ $messages['et'] = array(
 	'multimediaviewer-license-pd' => 'Avalik omand',
 	'multimediaviewer-license-default' => 'Vaata litsentsi',
 	'multimediaviewer-permission-viewmore' => 'Vaata rohkem',
-	'multimediaviewer-use-file' => 'Kasuta seda faili',
-	'multimediaviewer-use-file-owt' => 'Kasuta seda faili vikileheküljel pisipildina',
-	'multimediaviewer-use-file-own' => 'Viita sellele failile vikilehekülje tekstis',
-	'multimediaviewer-use-file-offwiki' => 'Kasuta seda faili teises võrgukohas',
 	'multimediaviewer-about-mmv' => 'Failivaaturist',
-	'multimediaviewer-discuss-mmv' => 'Anna tagasisidet',
+	'multimediaviewer-discuss-mmv' => 'Aruta selle funktsiooni üle',
 	'multimediaviewer-geolocation' => 'Asukoht: $1',
 	'multimediaviewer-fileusage-count' => 'Kasutuses {{PLURAL:$1|ühel|$1}} leheküljel',
 	'multimediaviewer-fileusage-count-more' => 'Kasutuses rohkem kui {{PLURAL:$1|ühel|$1}} leheküljel',
 	'multimediaviewer-fileusage-link' => 'Vaata kõiki kasutusi',
 	'multimediaviewer-fileusage-local-section' => 'Selles võrgukohas',
 	'multimediaviewer-fileusage-global-section' => 'Teistes võrgukohtades',
+	'multimediaviewer-reuse-link' => 'Kasuta seda faili',
 );
 
 /** Persian (فارسی)
@@ -898,6 +895,7 @@ $messages['fr'] = array(
 	'multimediaviewer-desc-nil' => 'Aucune description disponible.',
 	'multimediaviewer-pref' => 'Visionneuse de Médias',
 	'multimediaviewer-pref-desc' => 'Améliorez votre expérience de visualisation multimédia avec ce nouvel outil. Il affiche les images en grande taille sur les pages qui ont des vignettes. Les images sont affichées dans un joli cadre d’interface en plein écran, et peuvent aussi être affichées en taille maximale.',
+	'multimediaviewer-optin-pref' => 'Activer l’expérimentation d’affichage des nouveaux médias',
 	'multimediaviewer-file-page' => 'Aller à la page du fichier correspondant',
 	'multimediaviewer-repository' => 'En savoir plus sur $1',
 	'multimediaviewer-repository-local' => 'En savoir plus',
@@ -914,7 +912,8 @@ $messages['fr'] = array(
 	'multimediaviewer-permission-link' => 'afficher les conditions',
 	'multimediaviewer-permission-viewmore' => 'Voir plus',
 	'multimediaviewer-about-mmv' => 'À propos de la visionneuse de médias',
-	'multimediaviewer-discuss-mmv' => 'Laisser un avis à propos de la visionneuse de médias',
+	'multimediaviewer-discuss-mmv' => 'Discuter de cette fonctionnalité',
+	'multimediaviewer-help-mmv' => 'Aide',
 	'multimediaviewer-geolocation' => 'Emplacement : $1',
 	'multimediaviewer-fileusage-count' => 'Utilisé sur $1 {{PLURAL:$1|page|pages}}',
 	'multimediaviewer-fileusage-count-more' => 'Utilisé sur plus de $1 {{PLURAL:$1|pages}}',
@@ -927,8 +926,10 @@ $messages['fr'] = array(
 	'multimediaviewer-embed-tab' => 'Intégrer',
 	'multimediaviewer-link-to-page' => 'Lien vers la page de description du fichier',
 	'multimediaviewer-link-to-file' => 'Lien vers le fichier d’origine',
+	'multimediaviewer-share-explanation' => 'Copier et partager librement le lien',
 	'multimediaviewer-embed-wt' => 'Wikitexte',
 	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-embed-explanation' => 'Utiliser ce code pour intégrer le fichier',
 	'multimediaviewer-html-embed-credit-text-tbls' => '« $1 » par $2. Sous licence $3 via $4.',
 	'multimediaviewer-html-embed-credit-text-tls' => '« $1 ». Sous licence $2 via $3.',
 	'multimediaviewer-html-embed-credit-text-tbs' => '« $1 » par $2. Via $3.',
@@ -939,11 +940,12 @@ $messages['fr'] = array(
 	'multimediaviewer-embed-byline' => 'Par $1',
 	'multimediaviewer-embed-license' => 'Sous licence $1.',
 	'multimediaviewer-embed-via' => 'Via $1.',
-	'multimediaviewer-default-embed-size' => 'Taille de vignette par défaut',
-	'multimediaviewer-original-embed-size' => 'Taille originale - $1 × $2 px',
-	'multimediaviewer-large-embed-size' => 'Grande - $1 × $2 px',
-	'multimediaviewer-medium-embed-size' => 'Moyenne - $1 × $2 px',
-	'multimediaviewer-small-embed-size' => 'Petite - $1 × $2 px',
+	'multimediaviewer-default-embed-dimensions' => 'Taille de vignette par défaut',
+	'multimediaviewer-original-embed-dimensions' => 'Taille d’origine $1',
+	'multimediaviewer-large-embed-dimensions' => 'Grand $1',
+	'multimediaviewer-medium-embed-dimensions' => 'Moyen $1',
+	'multimediaviewer-small-embed-dimensions' => 'Petit $1',
+	'multimediaviewer-embed-dimensions' => '- $1 × $2 px',
 );
 
 /** Galician (galego)
@@ -1009,7 +1011,12 @@ $messages['he'] = array(
 	'multimediaviewer-permission-link' => 'הצגת התנאים',
 	'multimediaviewer-permission-viewmore' => 'להראות עוד',
 	'multimediaviewer-about-mmv' => 'אודות מציג מדיה',
-	'multimediaviewer-discuss-mmv' => 'השארת תגובה',
+	'multimediaviewer-discuss-mmv' => 'דיון על האפשרות הזאת',
+	'multimediaviewer-help-mmv' => 'עזרה',
+	'multimediaviewer-geoloc-north' => 'צפ',
+	'multimediaviewer-geoloc-east' => 'מז',
+	'multimediaviewer-geoloc-south' => 'דר',
+	'multimediaviewer-geoloc-west' => 'מע',
 	'multimediaviewer-geolocation' => 'מיקום: $1',
 	'multimediaviewer-fileusage-count' => 'משמש {{PLURAL:$1|בדף אחד|ב־$1 דפים}}',
 	'multimediaviewer-fileusage-count-more' => 'משמש ביותר {{PLURAL:$1|מדף אחד|מ־$1 דפים}}',
@@ -1022,8 +1029,10 @@ $messages['he'] = array(
 	'multimediaviewer-embed-tab' => 'הטמעה',
 	'multimediaviewer-link-to-page' => 'קישור לדף תיאור הקובץ',
 	'multimediaviewer-link-to-file' => 'קישור לקובץ המקורי',
+	'multimediaviewer-share-explanation' => 'קישור להעתקה ושיתוף חופשי',
 	'multimediaviewer-embed-wt' => 'קוד ויקי',
 	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-embed-explanation' => 'קוד להטמעת הקובץ',
 	'multimediaviewer-html-embed-credit-text-tbls' => '"$1" מאת $2. ברישיון $3 דרך $4.',
 	'multimediaviewer-html-embed-credit-text-tls' => '"$1". ברישיון $2 דרך $3.',
 	'multimediaviewer-html-embed-credit-text-tbs' => '"$1" מאת $2. דרך $3.',
@@ -1034,11 +1043,12 @@ $messages['he'] = array(
 	'multimediaviewer-embed-byline' => 'מאת $1',
 	'multimediaviewer-embed-license' => 'ברישיון $1.',
 	'multimediaviewer-embed-via' => 'דרך $1.',
-	'multimediaviewer-default-embed-size' => 'גודל התחלתי לתמונה ממוזערת',
-	'multimediaviewer-original-embed-size' => 'גודל מקורי – $1 × $2 פיקסלים',
-	'multimediaviewer-large-embed-size' => 'גדול – $1 × $2 פיקסלים',
-	'multimediaviewer-medium-embed-size' => 'בינוני – $1 × $2 פיקסלים',
-	'multimediaviewer-small-embed-size' => 'קטן – $1 × $2 פיקסלים',
+	'multimediaviewer-default-embed-dimensions' => 'גודל התחלתי לתמונה ממוזערת',
+	'multimediaviewer-original-embed-dimensions' => 'גודל מקורי $1',
+	'multimediaviewer-large-embed-dimensions' => 'גדול $1',
+	'multimediaviewer-medium-embed-dimensions' => 'בינוני $1',
+	'multimediaviewer-small-embed-dimensions' => 'קטן $1',
+	'multimediaviewer-embed-dimensions' => '– $1 × $2 פיקסלים',
 );
 
 /** Hindi (हिन्दी)
@@ -1217,7 +1227,8 @@ $messages['it'] = array(
 	'multimediaviewer-permission-link' => 'vedi termini',
 	'multimediaviewer-permission-viewmore' => 'Mostra altro',
 	'multimediaviewer-about-mmv' => 'Su Media Viewer',
-	'multimediaviewer-discuss-mmv' => 'Lascia un commento',
+	'multimediaviewer-discuss-mmv' => 'Lascia un commento', # Fuzzy
+	'multimediaviewer-help-mmv' => 'Aiuto',
 	'multimediaviewer-geolocation' => 'Posizione: $1',
 	'multimediaviewer-fileusage-count' => 'Usato in $1 {{PLURAL:$1|pagina|pagine}}',
 	'multimediaviewer-fileusage-count-more' => 'Usato in più di $1 {{PLURAL:$1|pagina|pagine}}',
@@ -1230,8 +1241,10 @@ $messages['it'] = array(
 	'multimediaviewer-embed-tab' => 'Incorpora',
 	'multimediaviewer-link-to-page' => 'Collegamento alla pagina di descrizione del file.',
 	'multimediaviewer-link-to-file' => 'Collegamento al file originale.',
+	'multimediaviewer-share-explanation' => 'Copia e condividi liberamente il collegamento',
 	'multimediaviewer-embed-wt' => 'Wikitesto',
 	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-embed-explanation' => 'Usa questo codice per incorporare il file',
 	'multimediaviewer-html-embed-credit-text-tbls' => '"$1" di $2. Con licenza $3 tramite $4.',
 	'multimediaviewer-html-embed-credit-text-tls' => '"$1". Con licenza $2 tramite $3.',
 	'multimediaviewer-html-embed-credit-text-tbs' => '"$1" di $2. Tramite $3.',
@@ -1242,11 +1255,11 @@ $messages['it'] = array(
 	'multimediaviewer-embed-byline' => 'Di $1',
 	'multimediaviewer-embed-license' => 'Con licenza $1.',
 	'multimediaviewer-embed-via' => 'Tramite $1.',
-	'multimediaviewer-default-embed-size' => 'Dimensioni miniatura predefinite',
-	'multimediaviewer-original-embed-size' => 'Dimensioni originali - $1 × $2 px',
-	'multimediaviewer-large-embed-size' => 'Grande - $1 × $2 px',
-	'multimediaviewer-medium-embed-size' => 'Media - $1 × $2 px',
-	'multimediaviewer-small-embed-size' => 'Piccola - $1 × $2 px',
+	'multimediaviewer-default-embed-dimensions' => 'Dimensioni miniatura predefinite',
+	'multimediaviewer-original-embed-dimensions' => 'Dimensioni originali $1',
+	'multimediaviewer-large-embed-dimensions' => 'Grande $1',
+	'multimediaviewer-medium-embed-dimensions' => 'Media $1',
+	'multimediaviewer-small-embed-dimensions' => 'Piccola $1',
 );
 
 /** Japanese (日本語)
@@ -1285,7 +1298,7 @@ $messages['ja'] = array(
 	'multimediaviewer-permission-title' => 'ライセンスの詳細',
 	'multimediaviewer-permission-link' => '規約を閲覧',
 	'multimediaviewer-about-mmv' => 'メディア ビューアーについて',
-	'multimediaviewer-discuss-mmv' => 'フィードバックを送信',
+	'multimediaviewer-discuss-mmv' => 'フィードバックを送信', # Fuzzy
 	'multimediaviewer-geoloc-north' => '北緯',
 	'multimediaviewer-geoloc-east' => '東経',
 	'multimediaviewer-geoloc-south' => '南緯',
@@ -1315,6 +1328,7 @@ $messages['kk-cyrl'] = array(
 	'multimediaviewer-desc-nil' => 'Сипаттамасы қолжетімді емес',
 	'multimediaviewer-pref' => 'Медиа қарап шығу құралы',
 	'multimediaviewer-pref-desc' => 'Өзіңіздің мультимедиа көру мүмкіндігіңізді мына жаңа құралмен жетілдіріп көріңіз. Ол шағын суреті (thumbnail) бар беттердегі суреттерді үлкенірек өлшемде көрсетеді.',
+	'multimediaviewer-optin-pref' => 'Жаңа тәжірибелік медиа қараушыны қосу',
 	'multimediaviewer-file-page' => 'Тиісті файл бетіне өту',
 	'multimediaviewer-repository' => '$1 туралы көбірек білу',
 	'multimediaviewer-repository-local' => 'Көбірек білу',
@@ -1330,7 +1344,8 @@ $messages['kk-cyrl'] = array(
 	'multimediaviewer-permission-link' => 'шарттарын қарау',
 	'multimediaviewer-permission-viewmore' => 'Көбірек қарау',
 	'multimediaviewer-about-mmv' => 'Медиа қарап шығу құралы туралы',
-	'multimediaviewer-discuss-mmv' => 'Пікір қалдыру',
+	'multimediaviewer-discuss-mmv' => 'Бұл мүмкіндікті талқылау',
+	'multimediaviewer-help-mmv' => 'Анықтама',
 	'multimediaviewer-geolocation' => 'Мекені: $1',
 	'multimediaviewer-fileusage-count' => '$1 {{PLURAL:$1|бетте|бетте}} қолданылады',
 	'multimediaviewer-fileusage-count-more' => '$1 {{PLURAL:$1|беттен|беттен}} көбірек бетте қолданылады',
@@ -1338,12 +1353,15 @@ $messages['kk-cyrl'] = array(
 	'multimediaviewer-fileusage-local-section' => 'Бұл сайтта',
 	'multimediaviewer-fileusage-global-section' => 'Басқа сайттарда',
 	'multimediaviewer-reuse-link' => 'Бұл файлды қолдану',
+	'multimediaviewer-reuse-loading-placeholder' => 'Жүктелуде...',
 	'multimediaviewer-share-tab' => 'Бөлісу',
 	'multimediaviewer-embed-tab' => 'Ендіру',
 	'multimediaviewer-link-to-page' => 'Файл сипаттама бетіне сілтеу',
 	'multimediaviewer-link-to-file' => 'Тұпнұсқа файлға сілтеу',
+	'multimediaviewer-share-explanation' => 'Сілтемені копиялау және бөлісу',
 	'multimediaviewer-embed-wt' => 'Уикимәтін',
 	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-embed-explanation' => 'Енгізілген файлға бұл кодты қолдану',
 	'multimediaviewer-html-embed-credit-text-tbls' => '"$1" $2 арқылы. $4 арқылы $3 лицензиясы аясында.',
 	'multimediaviewer-html-embed-credit-text-tls' => '"$1". $3 арқылы $2 лицензиясы аясында.',
 	'multimediaviewer-html-embed-credit-text-tbs' => '"$1" $2 арқылы. $3 арқылы',
@@ -1354,11 +1372,12 @@ $messages['kk-cyrl'] = array(
 	'multimediaviewer-embed-byline' => '$1 арқылы',
 	'multimediaviewer-embed-license' => '$1 лицензиясы аясында',
 	'multimediaviewer-embed-via' => '$1 арқылы',
-	'multimediaviewer-default-embed-size' => 'Әдепкі нобай өлшемі',
-	'multimediaviewer-original-embed-size' => 'Түпнұсқа өлшемі - $1 × $2 px',
-	'multimediaviewer-large-embed-size' => 'Үлкен - $1 × $2 px',
-	'multimediaviewer-medium-embed-size' => 'Орташа - $1 × $2 px',
-	'multimediaviewer-small-embed-size' => 'Кішкене - $1 × $2 px',
+	'multimediaviewer-default-embed-dimensions' => 'Әдепкі нобай өлшемі',
+	'multimediaviewer-original-embed-dimensions' => 'Бастапқы өлшемі $1',
+	'multimediaviewer-large-embed-dimensions' => 'Үлкен $1',
+	'multimediaviewer-medium-embed-dimensions' => 'Орташа $1',
+	'multimediaviewer-small-embed-dimensions' => 'Кіші $1',
+	'multimediaviewer-embed-dimensions' => '- $1 × $2 px',
 );
 
 /** Khmer (ភាសាខ្មែរ)
@@ -1430,7 +1449,7 @@ $messages['lb'] = array(
 	'multimediaviewer-permission-title' => 'Detailer vun der Lizenz',
 	'multimediaviewer-permission-viewmore' => 'Méi weisen',
 	'multimediaviewer-about-mmv' => 'Iwwer Media Viewer',
-	'multimediaviewer-discuss-mmv' => 'Feedback verloossen',
+	'multimediaviewer-discuss-mmv' => 'Feedback verloossen', # Fuzzy
 	'multimediaviewer-geolocation' => 'Plaz: $1',
 	'multimediaviewer-fileusage-count' => 'op {{PLURAL:$1|enger Säit|$1 Säite}} benotzt',
 	'multimediaviewer-fileusage-count-more' => 'Op méi wéi {{PLURAL:$1|enger Säit|$1 Säite}} benotzt',
@@ -1450,10 +1469,6 @@ $messages['lb'] = array(
 	'multimediaviewer-embed-byline' => 'Vum $1',
 	'multimediaviewer-embed-license' => 'Lizenséiert ënner $1.',
 	'multimediaviewer-embed-via' => 'Iwwer $1.',
-	'multimediaviewer-original-embed-size' => 'Originalgréisst – $1 × $2 Pixel',
-	'multimediaviewer-large-embed-size' => 'Grouss – $1 × $2 Pixel',
-	'multimediaviewer-medium-embed-size' => 'Mëttel – $1 × $2 Pixel',
-	'multimediaviewer-small-embed-size' => 'Kleng – $1 × $2 Pixel',
 );
 
 /** لوری (لوری)
@@ -1478,6 +1493,7 @@ $messages['lt'] = array(
  */
 $messages['lv'] = array(
 	'multimediaviewer-desc-nil' => 'Apraksts nav pieejams.',
+	'multimediaviewer-help-mmv' => 'Palīdzība',
 	'multimediaviewer-share-tab' => 'Dalīties',
 	'multimediaviewer-embed-html' => 'HTML',
 );
@@ -1497,6 +1513,7 @@ $messages['mk'] = array(
 	'multimediaviewer-desc-nil' => 'Нема опис.',
 	'multimediaviewer-pref' => 'Прегледувач на слики и снимки',
 	'multimediaviewer-pref-desc' => 'Дава поубаво прегледување на слики на страници. Ги прикажува поголеми на страниците со минијатури. Можат да се прегледуваат и на цел екран.',
+	'multimediaviewer-optin-pref' => 'Вклучи нов начин на гледање слики и снимки',
 	'multimediaviewer-file-page' => 'Оди на соодветната податотечна страница',
 	'multimediaviewer-repository' => 'Дознајте повеќе на $1',
 	'multimediaviewer-repository-local' => 'Дознајте повеќе',
@@ -1515,7 +1532,8 @@ $messages['mk'] = array(
 	'multimediaviewer-permission-link' => 'погл. услови',
 	'multimediaviewer-permission-viewmore' => 'Погл. уште',
 	'multimediaviewer-about-mmv' => 'За Медиумскиот прегледувач',
-	'multimediaviewer-discuss-mmv' => 'Дајте мислење',
+	'multimediaviewer-discuss-mmv' => 'Разговор за функцијава',
+	'multimediaviewer-help-mmv' => 'Ппомош',
 	'multimediaviewer-geoloc-north' => 'СГШ',
 	'multimediaviewer-geoloc-east' => 'ИГД',
 	'multimediaviewer-geoloc-south' => 'ЈГШ',
@@ -1533,8 +1551,10 @@ $messages['mk'] = array(
 	'multimediaviewer-embed-tab' => 'Вметни',
 	'multimediaviewer-link-to-page' => 'Врска до описната страница на податотеката',
 	'multimediaviewer-link-to-file' => 'Врска до изворната податотека',
+	'multimediaviewer-share-explanation' => 'Ископирајте ја врската и слободно споделувајте ја',
 	'multimediaviewer-embed-wt' => 'Викитекст',
 	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-embed-explanation' => 'Со овој код можете некаде да ја вметнете податотеката',
 	'multimediaviewer-html-embed-credit-text-tbls' => '„$1“ од $2. Под лиценцата $3 преку $4.',
 	'multimediaviewer-html-embed-credit-text-tls' => '„$1“. Под лиценцата $2 преку $3.',
 	'multimediaviewer-html-embed-credit-text-tbs' => '„$1“ од $2. Преку $3.',
@@ -1545,11 +1565,11 @@ $messages['mk'] = array(
 	'multimediaviewer-embed-byline' => 'Од $1',
 	'multimediaviewer-embed-license' => 'Под лиценцата $1.',
 	'multimediaviewer-embed-via' => 'Преку $1.',
-	'multimediaviewer-default-embed-size' => 'Стандардна големина на минијатурата',
-	'multimediaviewer-original-embed-size' => 'Изворна големина — $1 × $2 пиксели',
-	'multimediaviewer-large-embed-size' => 'Голема — $1 × $2 пиксели',
-	'multimediaviewer-medium-embed-size' => 'Средна големина — $1 × $2 пиксели',
-	'multimediaviewer-small-embed-size' => 'Мала — $1 × $2 пиксели',
+	'multimediaviewer-default-embed-dimensions' => 'Стандардна големина на минијатурата',
+	'multimediaviewer-original-embed-dimensions' => 'Изворна големина $1',
+	'multimediaviewer-large-embed-dimensions' => 'Голема $1',
+	'multimediaviewer-medium-embed-dimensions' => 'Средна $1',
+	'multimediaviewer-small-embed-dimensions' => 'Мала $1',
 );
 
 /** Malayalam (മലയാളം)
@@ -1647,7 +1667,7 @@ $messages['nl'] = array(
 	'multimediaviewer-permission-link' => 'voorwaarden bekijken',
 	'multimediaviewer-permission-viewmore' => 'Meer weergeven',
 	'multimediaviewer-about-mmv' => 'Over Mediaviewer',
-	'multimediaviewer-discuss-mmv' => 'Terugkoppeling achterlaten',
+	'multimediaviewer-discuss-mmv' => 'Terugkoppeling achterlaten', # Fuzzy
 	'multimediaviewer-geolocation' => 'Locatie: $1',
 	'multimediaviewer-fileusage-count' => "Gebruikt op $1 {{PLURAL:$1|pagina|pagina's}}",
 	'multimediaviewer-fileusage-count-more' => "Gebruikt in meer dan $1 pagina{{PLURAL:$1||'s}}",
@@ -1671,11 +1691,7 @@ $messages['nl'] = array(
 	'multimediaviewer-embed-byline' => 'Door $1',
 	'multimediaviewer-embed-license' => 'Licentie $1.',
 	'multimediaviewer-embed-via' => 'Via $1.',
-	'multimediaviewer-default-embed-size' => 'Standaard miniatuurgrootte',
-	'multimediaviewer-original-embed-size' => 'Oorspronkelijke grootte - $1 × $2 px',
-	'multimediaviewer-large-embed-size' => 'Groot - $1 × $2 px',
-	'multimediaviewer-medium-embed-size' => 'Gemiddeld - $1 × $2 px',
-	'multimediaviewer-small-embed-size' => 'Klein - $1 × $2 px',
+	'multimediaviewer-default-embed-dimensions' => 'Standaard miniatuurgrootte',
 );
 
 /** Occitan (occitan)
@@ -1699,7 +1715,7 @@ $messages['oc'] = array(
 	'multimediaviewer-permission-link' => 'afichar las condicions',
 	'multimediaviewer-permission-viewmore' => 'Veire mai',
 	'multimediaviewer-about-mmv' => 'A prepaus de la visionadoira de mèdias',
-	'multimediaviewer-discuss-mmv' => 'Daissar un vejaire a prepaus de la visionadoira de mèdias',
+	'multimediaviewer-discuss-mmv' => 'Daissar un vejaire a prepaus de la visionadoira de mèdias', # Fuzzy
 	'multimediaviewer-geolocation' => 'Emplaçament : $1',
 	'multimediaviewer-fileusage-count' => 'Utilizat sus $1 {{PLURAL:$1|pagina|paginas}}',
 	'multimediaviewer-fileusage-count-more' => 'Utilizat sus mai de $1 {{PLURAL:$1|paginas}}',
@@ -1715,12 +1731,13 @@ $messages['oc'] = array(
  * @author Jacenty359
  * @author Matik7
  * @author Nux
+ * @author Peter Bowman
  * @author Tar Lócesilion
  * @author WTM
  */
 $messages['pl'] = array(
 	'multimediaviewer-desc-nil' => 'Brak dostępnego opisu.',
-	'multimediaviewer-pref' => 'Przeglądarka multimedów',
+	'multimediaviewer-pref' => 'Przeglądarka multimediów',
 	'multimediaviewer-pref-desc' => 'To narzędzie to przyjazna użytkownikowi przeglądarka multimediów. Umożliwia powiększanie miniaturek obrazków bez opuszczania strony z artykułem. Narzędzie to domyślnie wyświetla obrazki na półprzezroczystej nakładce w stylu „Lightbox”, ale można także powiększyć je na pełny ekran.', # Fuzzy
 	'multimediaviewer-file-page' => 'Przejdź na stronę z opisem pliku',
 	'multimediaviewer-repository' => 'Dowiedz się więcej na {{GRAMMAR:D.lp|$1}}',
@@ -1733,7 +1750,7 @@ $messages['pl'] = array(
 	'multimediaviewer-permission-link' => 'zobacz zasady',
 	'multimediaviewer-permission-viewmore' => 'Zobacz więcej',
 	'multimediaviewer-about-mmv' => 'O przeglądarce multimedów',
-	'multimediaviewer-discuss-mmv' => 'Prześlij opinię',
+	'multimediaviewer-discuss-mmv' => 'Prześlij opinię', # Fuzzy
 	'multimediaviewer-geolocation' => 'Położenie: $1',
 	'multimediaviewer-fileusage-link' => 'Zobacz wszystkich użytkowników',
 	'multimediaviewer-reuse-link' => 'Użyj tego pliku', # Fuzzy
@@ -1842,6 +1859,7 @@ $messages['ru'] = array(
 	'multimediaviewer-desc-nil' => 'Описание отсутствует.',
 	'multimediaviewer-pref' => 'Медиа-просмотрщик',
 	'multimediaviewer-pref-desc' => 'Улучшает просмотр мультимедиа-файлов новым инструментом. На странице с эскизами изображений он раскрывает эскизы в большие изображения. Изображения показываются в более красивом полноэкранном интерфейсе, а также могут быть открыты в оригинальном разрешении.',
+	'multimediaviewer-optin-pref' => 'Включить новый способ просмотра медиа-содержимого',
 	'multimediaviewer-file-page' => 'Перейти на страницу соответствующего файла',
 	'multimediaviewer-repository' => 'Подробнее на $1',
 	'multimediaviewer-repository-local' => 'Подробнее',
@@ -1857,7 +1875,8 @@ $messages['ru'] = array(
 	'multimediaviewer-permission-link' => 'просмотр условий',
 	'multimediaviewer-permission-viewmore' => 'Посмотреть подробнее',
 	'multimediaviewer-about-mmv' => 'О Медиа-просмотрщике',
-	'multimediaviewer-discuss-mmv' => 'Оставить отзыв',
+	'multimediaviewer-discuss-mmv' => 'Обсудить эту функцию',
+	'multimediaviewer-help-mmv' => 'Справка',
 	'multimediaviewer-geolocation' => 'Географическое положение: $1',
 	'multimediaviewer-fileusage-count' => 'Используется на $1 {{PLURAL:$1|странице|страницах}}',
 	'multimediaviewer-fileusage-count-more' => 'Используются более чем на $1   {{PLURAL:$1|страницах}}',
@@ -1870,8 +1889,10 @@ $messages['ru'] = array(
 	'multimediaviewer-embed-tab' => 'Внедрённый',
 	'multimediaviewer-link-to-page' => 'Ссылка на страницу описания файла',
 	'multimediaviewer-link-to-file' => 'Ссылка на исходный файл',
+	'multimediaviewer-share-explanation' => 'Скопируйте и свободно делитесь ссылкой',
 	'multimediaviewer-embed-wt' => 'Викитекст',
 	'multimediaviewer-embed-html' => 'HTML',
+	'multimediaviewer-embed-explanation' => 'Используйте этот код для встраивания файла',
 	'multimediaviewer-html-embed-credit-text-tbls' => '«$1» участника $2. Под лицензией $3 с сайта $4.',
 	'multimediaviewer-html-embed-credit-text-tls' => '«$1». Под лицензией $2 с сайта $3.',
 	'multimediaviewer-html-embed-credit-text-tbs' => '«$1» участника $2. С сайта $3.',
@@ -1882,11 +1903,11 @@ $messages['ru'] = array(
 	'multimediaviewer-embed-byline' => 'Участника $1',
 	'multimediaviewer-embed-license' => 'Под лицензией $1.',
 	'multimediaviewer-embed-via' => 'Через $1.',
-	'multimediaviewer-default-embed-size' => 'Размер эскиза по умолчанию',
-	'multimediaviewer-original-embed-size' => 'Оригинальный размер — $1 × $2 px',
-	'multimediaviewer-large-embed-size' => 'Большое — $1 × $2 px',
-	'multimediaviewer-medium-embed-size' => 'Среднее — $1 × $2 px',
-	'multimediaviewer-small-embed-size' => 'Маленькое — $1 × $2 px',
+	'multimediaviewer-default-embed-dimensions' => 'Размер эскиза по умолчанию',
+	'multimediaviewer-original-embed-dimensions' => 'Оригинальный размер $1',
+	'multimediaviewer-large-embed-dimensions' => 'Большой $1',
+	'multimediaviewer-medium-embed-dimensions' => 'Средний $1',
+	'multimediaviewer-small-embed-dimensions' => 'Маленький $1',
 );
 
 /** Scots (Scots)
@@ -1921,11 +1942,7 @@ $messages['sco'] = array(
 	'multimediaviewer-embed-byline' => 'Bi $1',
 	'multimediaviewer-embed-license' => 'Licensed unner $1.',
 	'multimediaviewer-embed-via' => 'Bi waa o $1.',
-	'multimediaviewer-default-embed-size' => 'Defaut thummnail size',
-	'multimediaviewer-original-embed-size' => 'Oreeginal size - $1 × $2 px',
-	'multimediaviewer-large-embed-size' => 'Muckle - $1 × $2 px',
-	'multimediaviewer-medium-embed-size' => 'Medium - $1 × $2 px',
-	'multimediaviewer-small-embed-size' => 'Smaa - $1 × $2 px',
+	'multimediaviewer-default-embed-dimensions' => 'Defaut thummnail size',
 );
 
 /** Sassaresu (Sassaresu)
@@ -1965,7 +1982,7 @@ $messages['sl'] = array(
 	'multimediaviewer-license-cc-pd' => 'javna last',
 	'multimediaviewer-license-default' => 'Prikaz licence',
 	'multimediaviewer-about-mmv' => 'O Predstavnostnem pregledovalniku',
-	'multimediaviewer-discuss-mmv' => 'Pustite povratno informacijo',
+	'multimediaviewer-discuss-mmv' => 'Pustite povratno informacijo', # Fuzzy
 	'multimediaviewer-geolocation' => 'Lokacija: $1',
 	'multimediaviewer-fileusage-count' => 'Uporabljeno na $1 {{PLURAL:$1|strani|straneh}}',
 	'multimediaviewer-fileusage-count-more' => 'Uporabljeno na več kot $1 {{PLURAL:$1|strani|straneh}}',
@@ -2019,7 +2036,7 @@ $messages['sv'] = array(
 	'multimediaviewer-permission-link' => 'se villkoren',
 	'multimediaviewer-permission-viewmore' => 'Visa mer',
 	'multimediaviewer-about-mmv' => 'Om Mediavisaren',
-	'multimediaviewer-discuss-mmv' => 'Ge återkoppling',
+	'multimediaviewer-discuss-mmv' => 'Ge återkoppling', # Fuzzy
 	'multimediaviewer-geolocation' => 'Plats: $1',
 	'multimediaviewer-fileusage-count' => 'Används på $1 {{PLURAL:$1|sida|sidor}}',
 	'multimediaviewer-fileusage-count-more' => 'Används på fler än $1 {{PLURAL:$1|sidor}}',
@@ -2044,11 +2061,7 @@ $messages['sv'] = array(
 	'multimediaviewer-embed-byline' => 'Av $1',
 	'multimediaviewer-embed-license' => 'Licenserat under $1.',
 	'multimediaviewer-embed-via' => 'Via $1.',
-	'multimediaviewer-default-embed-size' => 'Standardstorlek för miniatyrer',
-	'multimediaviewer-original-embed-size' => 'Originalstorlek - $1 × $2 px',
-	'multimediaviewer-large-embed-size' => 'Stor - $1 × $2 px',
-	'multimediaviewer-medium-embed-size' => 'Mellan - $1 × $2 px',
-	'multimediaviewer-small-embed-size' => 'Liten - $1 × $2 px',
+	'multimediaviewer-default-embed-dimensions' => 'Standardstorlek för miniatyrer',
 );
 
 /** Telugu (తెలుగు)
@@ -2131,6 +2144,7 @@ $messages['uk'] = array(
 	'multimediaviewer-desc-nil' => 'Немає доступного опису.',
 	'multimediaviewer-pref' => 'Медіа переглядач',
 	'multimediaviewer-pref-desc' => 'Поліпшити ваші враження від перегляду мультимедіа з цим новим інструментом. Він відображає зображення у більшому розмірі на сторінках, які мають ескізи. Зображення показані у кращому накладенні і також відображаються в натуральну величину.',
+	'multimediaviewer-optin-pref' => 'Увімкнути новий спосіб перегляду медіа-вмісту',
 	'multimediaviewer-file-page' => 'Перейти на сторінку відповідного файлу',
 	'multimediaviewer-repository' => 'Дізнайтеся більше на $1',
 	'multimediaviewer-repository-local' => 'Дізнатися більше',
@@ -2146,7 +2160,7 @@ $messages['uk'] = array(
 	'multimediaviewer-permission-link' => 'перегляд умов',
 	'multimediaviewer-permission-viewmore' => 'Показати докладно',
 	'multimediaviewer-about-mmv' => 'Про медіапереглядач',
-	'multimediaviewer-discuss-mmv' => 'Залишити відгук',
+	'multimediaviewer-discuss-mmv' => 'Залишити відгук', # Fuzzy
 	'multimediaviewer-geolocation' => 'Розташування:$1',
 	'multimediaviewer-fileusage-count' => 'Використано на $1 {{PLURAL:$1|сторінці|сторінках}}',
 	'multimediaviewer-fileusage-count-more' => 'Використано на понад $1 {{PLURAL:$1|сторінках}}',
@@ -2171,11 +2185,7 @@ $messages['uk'] = array(
 	'multimediaviewer-embed-byline' => 'Від $1',
 	'multimediaviewer-embed-license' => 'Під ліцензією $1.',
 	'multimediaviewer-embed-via' => 'Через $1.',
-	'multimediaviewer-default-embed-size' => 'Типовий розмір мініатюри',
-	'multimediaviewer-original-embed-size' => 'Оригінальний розмір -  $1  ×  $2  px',
-	'multimediaviewer-large-embed-size' => 'Великий -  $1 × $2 px',
-	'multimediaviewer-medium-embed-size' => 'Середній - $1 × $2 px',
-	'multimediaviewer-small-embed-size' => 'Малий - $1 × $2 px',
+	'multimediaviewer-default-embed-dimensions' => 'Типовий розмір мініатюри',
 );
 
 /** Vietnamese (Tiếng Việt)
@@ -2187,6 +2197,7 @@ $messages['vi'] = array(
 	'multimediaviewer-desc-nil' => 'Không có miêu tả.',
 	'multimediaviewer-pref' => 'Cửa sổ phương tiện',
 	'multimediaviewer-pref-desc' => 'Cải thiện trải nghiệm xem phương tiện của bạn với công cụ mới này. Nó mở rộng các hình nhỏ để phủ lên toàn cửa sổ. Các hình ảnh được hiển thị trong giao diện toàn màn hình đẹp đẽ và cũng có thể xem kích thước gốc.',
+	'multimediaviewer-optin-pref' => 'Xem phương tiện trong giao diện mới',
 	'multimediaviewer-file-page' => 'Mở trang ứng với tập tin',
 	'multimediaviewer-repository' => 'Tìm hiểu thêm về $1',
 	'multimediaviewer-repository-local' => 'Tìm hiểu thêm',
@@ -2199,13 +2210,14 @@ $messages['vi'] = array(
 	'multimediaviewer-license-cc-by-4.0' => 'CC-BY 4.0',
 	'multimediaviewer-license-cc-by-sa-4.0' => 'CC-BY-SA 4.0',
 	'multimediaviewer-license-cc-pd' => 'Phạm vi công cộng',
+	'multimediaviewer-license-cc-zero' => 'CC0',
 	'multimediaviewer-license-pd' => 'Phạm vi công cộng',
 	'multimediaviewer-license-default' => 'Xem giấy phép',
 	'multimediaviewer-permission-title' => 'Chi tiết giấy phép',
 	'multimediaviewer-permission-link' => 'xem điều khoản',
 	'multimediaviewer-permission-viewmore' => 'Xem thêm',
 	'multimediaviewer-about-mmv' => 'Giới thiệu về Cửa sổ phương tiện',
-	'multimediaviewer-discuss-mmv' => 'Gửi phản hồi',
+	'multimediaviewer-discuss-mmv' => 'Gửi phản hồi', # Fuzzy
 	'multimediaviewer-geoloc-north' => 'B',
 	'multimediaviewer-geoloc-east' => 'Đ',
 	'multimediaviewer-geoloc-south' => 'N',
@@ -2217,6 +2229,7 @@ $messages['vi'] = array(
 	'multimediaviewer-fileusage-local-section' => 'Trên website này',
 	'multimediaviewer-fileusage-global-section' => 'Trên website khác',
 	'multimediaviewer-reuse-link' => 'Sử dụng tập tin này',
+	'multimediaviewer-reuse-loading-placeholder' => 'Đang tải…',
 	'multimediaviewer-share-tab' => 'Chia sẻ',
 	'multimediaviewer-embed-tab' => 'Nhúng',
 	'multimediaviewer-link-to-page' => 'Liên kết đến trang miêu tả',
@@ -2230,14 +2243,11 @@ $messages['vi'] = array(
 	'multimediaviewer-html-embed-credit-text-tb' => '“$1” của $2.',
 	'multimediaviewer-html-embed-credit-text-ts' => '“$1” do $2 cung cấp.',
 	'multimediaviewer-html-embed-credit-text-tl' => '“$1”, phát hành theo giấy phép $2.',
+	'multimediaviewer-html-embed-credit-text-t' => '“$1”.',
 	'multimediaviewer-embed-byline' => 'Bởi $1',
 	'multimediaviewer-embed-license' => 'Phát hành theo giấy phép $1.',
 	'multimediaviewer-embed-via' => 'Do $1 cung cấp.',
-	'multimediaviewer-default-embed-size' => 'Kích thước hình nhỏ mặc định',
-	'multimediaviewer-original-embed-size' => 'Kích thước gốc – $1×$2 px',
-	'multimediaviewer-large-embed-size' => 'Lớn – $1×$2 px',
-	'multimediaviewer-medium-embed-size' => 'Vừa – $1×$2 px',
-	'multimediaviewer-small-embed-size' => 'Nhỏ – $1×$2 px',
+	'multimediaviewer-default-embed-dimensions' => 'Kích thước hình nhỏ mặc định',
 );
 
 /** Volapük (Volapük)
@@ -2269,6 +2279,7 @@ $messages['zh-hans'] = array(
 	'multimediaviewer-desc-nil' => '没有说明。',
 	'multimediaviewer-pref' => '媒体文件查看器',
 	'multimediaviewer-pref-desc' => '使用这个新工具改善你的多媒体浏览体验。它能以更大的尺寸显示页面中的缩略图。图像将显示于一个漂亮的全屏界面浮层中，并能以完整尺寸查看。',
+	'multimediaviewer-optin-pref' => '启用新媒体查看体验',
 	'multimediaviewer-file-page' => '前往对应的文件页面',
 	'multimediaviewer-repository' => '在$1了解详情',
 	'multimediaviewer-repository-local' => '了解更多',
@@ -2284,7 +2295,7 @@ $messages['zh-hans'] = array(
 	'multimediaviewer-permission-link' => '查看条款',
 	'multimediaviewer-permission-viewmore' => '查看更多',
 	'multimediaviewer-about-mmv' => '关于媒体文件查看器',
-	'multimediaviewer-discuss-mmv' => '留下反馈意见',
+	'multimediaviewer-discuss-mmv' => '留下反馈意见', # Fuzzy
 	'multimediaviewer-geolocation' => '位置：$1',
 	'multimediaviewer-fileusage-count' => '在$1个{{PLURAL:$1|页面}}中使用',
 	'multimediaviewer-fileusage-count-more' => '在超过$1个{{PLURAL:$1|页面}}中使用',
@@ -2310,11 +2321,7 @@ $messages['zh-hans'] = array(
 	'multimediaviewer-embed-byline' => '作者$1',
 	'multimediaviewer-embed-license' => '采用$1授权。',
 	'multimediaviewer-embed-via' => '来自$1。',
-	'multimediaviewer-default-embed-size' => '默认缩略图尺寸',
-	'multimediaviewer-original-embed-size' => '原始尺寸 - $1 × $2 像素',
-	'multimediaviewer-large-embed-size' => '大 - $1 × $2 像素',
-	'multimediaviewer-medium-embed-size' => '中 - $1 × $2 像素',
-	'multimediaviewer-small-embed-size' => '小 - $1 × $2 像素',
+	'multimediaviewer-default-embed-dimensions' => '默认缩略图尺寸',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
@@ -2323,5 +2330,9 @@ $messages['zh-hans'] = array(
 $messages['zh-hant'] = array(
 	'multimediaviewer-license-cc-pd' => '公共領域',
 	'multimediaviewer-license-pd' => '公共領域',
-	'multimediaviewer-discuss-mmv' => '遞交反饋',
+	'multimediaviewer-discuss-mmv' => '遞交反饋', # Fuzzy
+	'multimediaviewer-fileusage-count-more' => '多於$1個頁面使用',
+	'multimediaviewer-fileusage-local-section' => '於此站點',
+	'multimediaviewer-fileusage-global-section' => '於其他站點',
+	'multimediaviewer-reuse-link' => '使用此檔案',
 );
