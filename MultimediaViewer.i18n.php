@@ -65,7 +65,8 @@ $messages['en'] = array(
 	'multimediaviewer-permission-viewmore' => 'View more',
 
 	'multimediaviewer-about-mmv' => 'About Media Viewer',
-	'multimediaviewer-discuss-mmv' => 'Leave feedback',
+	'multimediaviewer-discuss-mmv' => 'Discuss this feature',
+	'multimediaviewer-help-mmv' => 'Help',
 
 	// Things for geolocation data
 	'multimediaviewer-geoloc-north' => 'N',
@@ -204,6 +205,7 @@ See also:
 	'multimediaviewer-about-mmv' => 'Text for a link to a page with more information about Media Viewer software.',
 	'multimediaviewer-discuss-mmv' => 'Text for a link to a page where the user can discuss the Media Viewer software.
 {{Identical|Leave feedback}}',
+	'multimediaviewer-help-mmv' => 'Text for a link to a page with help about Media Viewer software.',
 	'multimediaviewer-geoloc-north' => 'Symbol for representing "north" in geolocation coordinates.
 
 Used as <code>$4</code> in {{msg-mw|Multimediaviewer-geoloc-coord}}.',
