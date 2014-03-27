@@ -18,13 +18,13 @@
 		stubScrollTo();
 
 		function checkIfUIAreasAttachedToDocument( inDocument ) {
-			var msg = inDocument === 1 ? ' ' : ' not ';
-			assert.strictEqual( $( '.mw-mmv-wrapper' ).length, inDocument, 'Wrapper area' + msg + 'attached.' );
-			assert.strictEqual( $( '.mw-mmv-main' ).length, inDocument, 'Main area' + msg + 'attached.' );
-			assert.strictEqual( $( '.mw-mmv-title' ).length, inDocument, 'Title area' + msg + 'attached.' );
-			assert.strictEqual( $( '.mw-mmv-author' ).length, inDocument, 'Author area' + msg + 'attached.' );
-			assert.strictEqual( $( '.mw-mmv-image-desc' ).length, inDocument, 'Description area' + msg + 'attached.' );
-			assert.strictEqual( $( '.mw-mmv-image-links' ).length, inDocument, 'Links area' + msg + 'attached.' );
+			var msg = ( inDocument === 1 ? ' ' : ' not ' ) + 'attached.';
+			assert.strictEqual( $( '.mw-mmv-wrapper' ).length, inDocument, 'Wrapper area' + msg );
+			assert.strictEqual( $( '.mw-mmv-main' ).length, inDocument, 'Main area' + msg );
+			assert.strictEqual( $( '.mw-mmv-title' ).length, inDocument, 'Title area' + msg );
+			assert.strictEqual( $( '.mw-mmv-credit' ).length, inDocument, 'Author/source area' + msg );
+			assert.strictEqual( $( '.mw-mmv-image-desc' ).length, inDocument, 'Description area' + msg );
+			assert.strictEqual( $( '.mw-mmv-image-links' ).length, inDocument, 'Links area' + msg );
 		}
 
 		// UI areas not attached to the document yet.

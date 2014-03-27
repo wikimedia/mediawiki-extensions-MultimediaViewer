@@ -216,6 +216,7 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv/ui/mmv.ui.reuse.share.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.reuse.tab.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.reuse.utils.test.js',
+				'tests/qunit/mmv/ui/mmv.ui.truncatableTextField.test.js',
 				'tests/qunit/mmv/mmv.testhelpers.js',
 			),
 			'dependencies' => array(

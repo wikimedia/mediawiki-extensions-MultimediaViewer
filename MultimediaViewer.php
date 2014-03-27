@@ -383,6 +383,22 @@ $wgResourceModules += array(
 		),
 	),
 
+	'mmv.ui.truncatableTextField' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/ui/mmv.ui.truncatableTextField.js',
+		),
+
+		'styles' => array(
+			'mmv/ui/mmv.ui.truncatableTextField.less',
+		),
+
+		'dependencies' => array(
+			'mmv.HtmlUtils',
+			'mmv.ui',
+			'oojs',
+		),
+	),
+
 	'mmv.ui.metadataPanel' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/ui/mmv.ui.metadataPanel.js',
@@ -393,6 +409,7 @@ $wgResourceModules += array(
 		),
 
 		'dependencies' => array(
+			'mmv.HtmlUtils',
 			'mmv.ui',
 			'mmv.ui.stripeButtons',
 			'mmv.ui.categories',
@@ -400,7 +417,7 @@ $wgResourceModules += array(
 			'mmv.ui.fileUsage',
 			'mmv.ui.permission',
 			'mmv.ui.reuse.dialog',
-			'mmv.HtmlUtils',
+			'mmv.ui.truncatableTextField',
 			'moment',
 			'oojs',
 		),

@@ -166,30 +166,23 @@
 			.appendTo( this.$titleAndCredit );
 
 		this.$title = $( '<span>' )
-			.addClass( 'mw-mmv-title' )
-			.appendTo( this.$titlePara );
+			.addClass( 'mw-mmv-title' );
+
+		this.title = new mw.mmv.ui.TruncatableTextField( this.$titlePara, this.$title );
 	};
 
 	/**
 	 * Initializes the credit elements.
 	 */
 	MPP.initializeCredit = function () {
-		this.$source = $( '<span>' )
-			.addClass( 'mw-mmv-source' );
-
-		this.$author = $( '<span>' )
-			.addClass( 'mw-mmv-author' );
-
 		this.$credit = $( '<p>' )
-			.addClass( 'mw-mmv-credit empty' )
-			.html(
-				mw.message(
-					'multimediaviewer-credit',
-					this.$author.get( 0 ).outerHTML,
-					this.$source.get( 0 ).outerHTML
-				).plain()
-			)
-			.appendTo( this.$titleAndCredit );
+			.addClass( 'mw-mmv-credit empty' );
+
+		this.creditField = new mw.mmv.ui.TruncatableTextField(
+			this.$titleAndCredit,
+			this.$credit,
+			{ max: 200, small: 160 }
+		);
 	};
 
 	/**
@@ -457,7 +450,7 @@
 	 * @param {string} title
 	 */
 	MPP.setFileTitle = function ( title ) {
-		this.$title.text( title );
+		this.title.set( title );
 	};
 
 	/**
@@ -487,12 +480,53 @@
 	};
 
 	/**
+	 * Bignasty function for setting source and author. Both #setAuthor and
+	 * #setSource use this with some shortcuts.
+	 * @param {string} source With unsafe HTML
+	 * @param {string} author With unsafe HTML
+	 */
+	MPP.setCredit = function ( source, author ) {
+		if ( source ) {
+			this.source = $( '<span>' )
+				.addClass( 'mw-mlb-source' )
+				.append( $.parseHTML( source ) )
+				.html();
+		} else {
+			this.source = null;
+		}
+
+		if ( author ) {
+			this.author = $( '<span>' )
+				.addClass( 'mw-mlb-author' )
+				.append( $.parseHTML( author ) )
+				.html();
+		} else {
+			this.author = null;
+		}
+
+		if ( author && source ) {
+			this.creditField.set(
+				mw.message(
+					'multimediaviewer-credit',
+					this.author,
+					this.source
+				).plain()
+			);
+		} else if ( author ) {
+			this.creditField.set( author );
+		} else if ( source ) {
+			this.creditField.set( source );
+		}
+
+		this.$credit.toggleClass( 'empty', !( author || source ) );
+	};
+
+	/**
 	 * Sets the source in the panel
 	 * @param {string} source Warning - unsafe HTML sometimes goes here
 	 */
 	MPP.setSource = function ( source ) {
-		this.$source.html( this.htmlUtils.htmlToTextWithLinks( source ) );
-		this.$credit.removeClass( 'empty' );
+		this.setCredit( source, this.author );
 	};
 
 	/**
@@ -500,32 +534,7 @@
 	 * @param {string} author Warning - unsafe HTML sometimes goes here
 	 */
 	MPP.setAuthor = function ( author ) {
-		this.$author.html( this.htmlUtils.htmlToTextWithLinks( author ) );
-		this.$credit.removeClass( 'empty' );
-	};
-
-	/**
-	 * Consolidate the source and author fields into a credit field
-	 * @param {boolean} source Do we have the source field?
-	 * @param {boolean} author Do we have the author field?
-	 */
-	MPP.consolidateCredit = function ( source, author ) {
-		if ( source && author ) {
-			this.$credit.html(
-				mw.message(
-					'multimediaviewer-credit',
-					this.$author.get( 0 ).outerHTML,
-					this.$source.get( 0 ).outerHTML
-				).plain()
-			);
-		} else {
-			// Clobber the contents and only have one of the fields
-			if ( source ) {
-				this.$credit.empty().append( this.$source );
-			} else if ( author ) {
-				this.$credit.empty().append( this.$author );
-			}
-		}
+		this.setCredit( this.source, author );
 	};
 
 	/**
@@ -661,10 +670,7 @@
 			this.setAuthor( imageData.author );
 		}
 
-		this.consolidateCredit( !!imageData.source, !!imageData.author );
-
 		this.buttons.set( imageData, repoData );
-
 		this.description.set( imageData.description, image.caption );
 		this.categories.set( repoData.getArticlePath(), imageData.categories );
 
