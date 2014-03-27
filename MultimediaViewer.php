@@ -676,13 +676,10 @@ call_user_func( function() {
 
 	$wgAutoloadClasses['MultimediaViewerHooks'] = __DIR__ . '/MultimediaViewerHooks.php';
 
-	if ( $wgMediaViewerIsInBeta ) {
-		$wgHooks['GetBetaFeaturePreferences'][] = 'MultimediaViewerHooks::getBetaPreferences';
-	}
-
 	$wgDefaultUserOptions['multimediaviewer-enable'] = true;
 
 	$wgHooks['GetPreferences'][] = 'MultimediaViewerHooks::getPreferences';
+	$wgHooks['GetBetaFeaturePreferences'][] = 'MultimediaViewerHooks::getBetaPreferences';
 	$wgHooks['BeforePageDisplay'][] = 'MultimediaViewerHooks::getModulesForArticle';
 	$wgHooks['CategoryPageView'][] = 'MultimediaViewerHooks::getModulesForCategory';
 	$wgHooks['ResourceLoaderGetConfigVars'][] = 'MultimediaViewerHooks::resourceLoaderGetConfigVars';

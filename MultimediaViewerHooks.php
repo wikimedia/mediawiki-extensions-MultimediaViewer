@@ -102,7 +102,11 @@ class MultimediaViewerHooks {
 
 	// Add a beta preference to gate the feature
 	public static function getBetaPreferences( $user, &$prefs ) {
-		global $wgExtensionAssetsPath;
+		global $wgExtensionAssetsPath, $wgMediaViewerIsInBeta;
+
+		if ( !$wgMediaViewerIsInBeta ) {
+			return true;
+		}
 
 		$prefs['multimedia-viewer'] = array(
 			'label-message' => 'multimediaviewer-pref',
