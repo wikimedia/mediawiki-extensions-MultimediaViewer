@@ -27,17 +27,23 @@ call_user_func( function() {
 		$wgAutoloadClasses, $wgHooks, $wgExtensionCredits, $wgNetworkPerformanceSamplingFactor,
 		$wgEnableMediaViewerForLoggedInUsersOnly, $wgDefaultUserOptions;
 
-	/** @var int|bool: If set, records image load network performance once per this many requests. False if unset. **/
-	$wgNetworkPerformanceSamplingFactor = false;
+	if ( !isset( $wgNetworkPerformanceSamplingFactor ) ) {
+		/** @var int|bool: If set, records image load network performance once per this many requests. False if unset. **/
+		$wgNetworkPerformanceSamplingFactor = false;
+	}
 
-	/** @var bool: If set, Media Viewer will try to use BetaFeatures. False if unset. **/
-	$wgMediaViewerIsInBeta = false;
+	if ( !isset( $wgMediaViewerIsInBeta ) ) {
+		/** @var bool: If set, Media Viewer will try to use BetaFeatures. False if unset. **/
+		$wgMediaViewerIsInBeta = false;
+	}
 
-	/**
-	 * @var bool: If set, and $wgMediaViewerIsInBeta is unset, Media Viewer will be turned on for all
-	 * logged-in users. False if unset.
-	 */
-	$wgEnableMediaViewerForLoggedInUsersOnly = false;
+	if ( !isset( $wgEnableMediaViewerForLoggedInUsersOnly ) ) {
+		/**
+		 * @var bool: If set, and $wgMediaViewerIsInBeta is unset, Media Viewer will be turned on for
+		 * all logged-in users. False if unset.
+		 */
+		$wgEnableMediaViewerForLoggedInUsersOnly = false;
+	}
 
 	$wgExtensionMessagesFiles['MultimediaViewer'] = __DIR__ . '/MultimediaViewer.i18n.php';
 

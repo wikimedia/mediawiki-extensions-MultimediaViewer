@@ -125,11 +125,15 @@ class MultimediaViewerHooks {
 
 	// Adds a default-enabled preference to gate the feature on non-beta sites
 	public static function getPreferences( $user, &$prefs ) {
-		$prefs['multimediaviewer-enable'] = array(
-			'type' => 'toggle',
-			'label-message' => 'multimediaviewer-optin-pref',
-			'section' => 'rendering/files',
-		);
+		global $wgMediaViewerIsInBeta;
+
+		if ( !$wgMediaViewerIsInBeta ) {
+			$prefs['multimediaviewer-enable'] = array(
+				'type' => 'toggle',
+				'label-message' => 'multimediaviewer-optin-pref',
+				'section' => 'rendering/files',
+			);
+		}
 
 		return true;
 	}
