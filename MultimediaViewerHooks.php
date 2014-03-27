@@ -152,10 +152,19 @@ class MultimediaViewerHooks {
 			'globalUsageAvailable' => isset( $wgAPIPropModules['globalusage'] ),
 		);
 		$vars['wgNetworkPerformanceSamplingFactor'] = $wgNetworkPerformanceSamplingFactor;
-		$vars['wgMediaViewerOnClick'] = self::shouldHandleClicks( User::newFromSession() );
 		$vars['wgMediaViewer'] = true;
 
 		return true;
+	}
+
+	/**
+	 * Export variables which depend on the current user
+	 * @param $vars
+	 * @param OutputPage $out
+	 */
+	public static function makeGlobalVariablesScript( &$vars, OutputPage $out ) {
+		$user = $out->getUser();
+		$vars['wgMediaViewerOnClick'] = self::shouldHandleClicks( $user );
 	}
 
 	/**

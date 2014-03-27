@@ -689,6 +689,7 @@ call_user_func( function() {
 	$wgHooks['BeforePageDisplay'][] = 'MultimediaViewerHooks::getModulesForArticle';
 	$wgHooks['CategoryPageView'][] = 'MultimediaViewerHooks::getModulesForCategory';
 	$wgHooks['ResourceLoaderGetConfigVars'][] = 'MultimediaViewerHooks::resourceLoaderGetConfigVars';
+	$wgHooks['MakeGlobalVariablesScript'][] = 'MultimediaViewerHooks::makeGlobalVariablesScript';
 	$wgHooks['ResourceLoaderTestModules'][] = 'MultimediaViewerHooks::getTestModules';
 
 	$section = 'other';
