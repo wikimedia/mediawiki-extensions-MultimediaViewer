@@ -27,7 +27,7 @@
 		return bootstrap;
 	}
 
-	QUnit.test( 'Promise does not hang on ResourceLoader errors', 1, function ( assert ) {
+	QUnit.test( 'Promise does not hang on ResourceLoader errors', 3, function ( assert ) {
 		var oldUsing = mw.loader.using,
 			bootstrap,
 			errorMessage = 'loading failed';
@@ -40,6 +40,14 @@
 
 		bootstrap = createBootstrap();
 
+		bootstrap.setupOverlay = function () {
+			assert.ok( true, 'Overlay was set up' );
+		};
+
+		bootstrap.cleanupOverlay = function () {
+			assert.ok( true, 'Overlay was cleaned up' );
+		};
+
 		QUnit.stop();
 
 		bootstrap.loadViewer().fail( function ( message ) {
@@ -49,7 +57,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Check viewer invoked when clicking on legit image links', 2, function ( assert ) {
+	QUnit.test( 'Check viewer invoked when clicking on legit image links', 4, function ( assert ) {
 		// TODO: Is <div class="gallery"><span class="image"><img/></span></div> valid ???
 		var div, link, link2, link3, bootstrap,
 			viewer = { initWithThumbs : $.noop };
@@ -69,6 +77,10 @@
 		// Create a new bootstrap object to trigger the DOM scan, etc.
 		bootstrap = createBootstrap( viewer );
 
+		bootstrap.setupOverlay = function () {
+			assert.ok( true, 'Overlay was set up' );
+		};
+
 		viewer.loadImageByTitle = function() {
 			assert.ok( true, 'Image loaded' );
 		};
@@ -78,6 +90,10 @@
 
 		// Click on legit link
 		link2.trigger( { type : 'click', which : 1 } );
+
+		bootstrap.setupOverlay = function () {
+			assert.ok( false, 'Overlay was not set up' );
+		};
 
 		viewer.loadImageByTitle = function() {
 			assert.ok( false, 'Image should not be loaded' );
@@ -106,7 +122,7 @@
 		link.trigger( { type : 'click', which : 1 } );
 	} );
 
-	QUnit.test( 'Accept only left clicks without modifier keys, skip the rest', 1, function ( assert ) {
+	QUnit.test( 'Accept only left clicks without modifier keys, skip the rest', 2, function ( assert ) {
 		var $div, $link, bootstrap,
 			viewer = { initWithThumbs : $.noop };
 
@@ -118,12 +134,20 @@
 
 		$link = $div.find( 'a.image' );
 
+		bootstrap.setupOverlay = function () {
+			assert.ok( true, 'Overlay was set up' );
+		};
+
 		viewer.loadImageByTitle = function() {
 			assert.ok( true, 'Image loaded' );
 		};
 
 		// Handle valid left click, it should try to load the image
 		$link.trigger( { type : 'click', which : 1 } );
+
+		bootstrap.setupOverlay = function () {
+			assert.ok( false, 'Overlay was not set up' );
+		};
 
 		viewer.loadImageByTitle = function() {
 			assert.ok( false, 'Image should not be loaded' );
@@ -136,7 +160,7 @@
 		$link.trigger( { type : 'click', which : 2 } );
 	} );
 
-	QUnit.test( 'Ensure that the correct title is loaded when clicking', 1, function ( assert ) {
+	QUnit.test( 'Ensure that the correct title is loaded when clicking', 2, function ( assert ) {
 		var bootstrap,
 			viewer = { initWithThumbs : $.noop },
 			$div = createGallery( 'foo.jpg' ),
@@ -149,10 +173,14 @@
 		// Create a new bootstrap object to trigger the DOM scan, etc.
 		bootstrap = createBootstrap( viewer );
 
+		bootstrap.setupOverlay = function () {
+			assert.ok( true, 'Overlay was set up' );
+		};
+
 		$link.trigger( { type : 'click', which : 1 } );
 	} );
 
-	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 6, function ( assert ) {
+	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 7, function ( assert ) {
 		var bootstrap,
 			$div,
 			$link,
@@ -177,6 +205,10 @@
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
 		bootstrap = createBootstrap( viewer );
+
+		bootstrap.setupOverlay = function () {
+			assert.ok( true, 'Overlay was set up' );
+		};
 
 		$link.trigger( { type : 'click', which : 1 } );
 	} );

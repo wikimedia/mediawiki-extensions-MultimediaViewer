@@ -55,9 +55,6 @@
 		// SVG filter, needed to achieve blur in Firefox
 		this.$filter = $( '<svg><filter id="gaussian-blur"><fegaussianblur stdDeviation="3"></filter></svg>' );
 
-		this.$overlay = $( '<div>' )
-			.addClass( 'mlb-overlay' );
-
 		this.$wrapper = $( '<div>' )
 			.addClass( 'mlb-wrapper' );
 
@@ -176,8 +173,7 @@
 
 		$parent
 			.append(
-				this.$wrapper,
-				this.$overlay
+				this.$wrapper
 			);
 		this.currentlyAttached = true;
 
@@ -204,7 +200,6 @@
 			.off( 'jq-fullscreen-change.lip' );
 
 		this.$wrapper.detach();
-		this.$overlay.detach();
 
 		this.currentlyAttached = false;
 

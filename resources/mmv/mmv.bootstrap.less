@@ -1,0 +1,27 @@
+.mlb-overlay {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 1000;
+	background-color: rgb(0,0,0);
+}
+
+body.mw-mlb-lightbox-open {
+	overflow-y: auto;
+}
+
+body.mw-mlb-lightbox-open #mw-page-base,
+body.mw-mlb-lightbox-open #mw-head-base,
+body.mw-mlb-lightbox-open #mw-navigation,
+body.mw-mlb-lightbox-open #mw-footer,
+body.mw-mlb-lightbox-open #content {
+	/** Stop the article from scrolling in the background */
+	display: none;
+}
+
+body.mw-mlb-lightbox-open > :not(.mlb-overlay, .mlb-wrapper) {
+	/** Stop the article from scrolling in the background */
+	display: none;
+}
