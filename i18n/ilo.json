@@ -1,0 +1,35 @@
+{
+    "@metadata": {
+        "authors": [
+            "Lam-ang"
+        ]
+    },
+    "multimediaviewer-desc": "Palawaen dagiti bassit a ladawan iti dakdakkel iti napno a pangbuyaan ti interface.",
+    "multimediaviewer-desc-nil": "Awan ti magun-od a deskripsion.",
+    "multimediaviewer-pref": "Media Viewer",
+    "multimediaviewer-pref-desc": "Pasayaatem ti panagsanay a panagbuya ti nadumaduma a midia iti daytoy baro a ramit. Daytoy ket agiparang kadagiti dakdakkel a ladawan kadagiti panid nga addaan kadagiti bassit a ladawan. Dagiti ladawan ket maiparang iti nasaysayaat a tuon iti napno a pangbuyaan ti interface, ken mabalin pay a makita iti napno a kadakkel.",
+    "multimediaviewer-file-page": "Mapan iti maitutop a panid ti papeles",
+    "multimediaviewer-repository": "Agadal pay ti adu idiay $1",
+    "multimediaviewer-repository-local": "Agadal pay ti adu",
+    "multimediaviewer-datetime-created": "Pinartuat idi $1",
+    "multimediaviewer-datetime-uploaded": "Inkarga idi $1",
+    "multimediaviewer-userpage-link": "{{GENDER:$2|Inkarga}} babaen ni $1",
+    "multimediaviewer-license-cc-pd": "Dominio a Publiko",
+    "multimediaviewer-license-pd": "Dominio a Publiko",
+    "multimediaviewer-license-default": "Kitaen ti lisensia",
+    "multimediaviewer-permission-title": "Dagiti salaysay ti lisensia",
+    "multimediaviewer-permission-link": "kitaen dagiti termino",
+    "multimediaviewer-permission-viewmore": "Agkita pay ti adu",
+    "multimediaviewer-use-file": "Usaren daytoy a papeles",
+    "multimediaviewer-use-file-owt": "Usaren daytoy a papeles iti panid ti wiki, a kas bassit a ladawan",
+    "multimediaviewer-use-file-own": "Usaren daytoy a papeles iti panid ti wiki, a nailinia",
+    "multimediaviewer-use-file-offwiki": "Usaren daytoy a papeles iti sabali a website",
+    "multimediaviewer-about-mmv": "Maipanggep ti Media Viewer",
+    "multimediaviewer-discuss-mmv": "Mangibati ti feedback",
+    "multimediaviewer-geolocation": "Lokasion: $1",
+    "multimediaviewer-fileusage-count": "Naus-usar iti $1 a {{PLURAL:$1|panid|pampanid}}",
+    "multimediaviewer-fileusage-count-more": "Naus-usar iti ad-adu ngem $1 a {{PLURAL:$1|pampanid}}",
+    "multimediaviewer-fileusage-link": "Kitaen amin a panag-usar",
+    "multimediaviewer-fileusage-local-section": "Iti daytoy a sitio",
+    "multimediaviewer-fileusage-global-section": "Kadagiti sabali a sitio"
+}

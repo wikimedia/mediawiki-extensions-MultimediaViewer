@@ -1,0 +1,36 @@
+{
+    "@metadata": {
+        "authors": [
+            "John Reid"
+        ]
+    },
+    "multimediaviewer-metadata-error": "Mistak: Coudna laid eemage data. $1",
+    "multimediaviewer-thumbnail-error": "Mistak: Coudna laid thummnail data. $1",
+    "multimediaviewer-license-pd": "Public Domain",
+    "multimediaviewer-permission-title": "License details",
+    "multimediaviewer-permission-link": "view terms",
+    "multimediaviewer-permission-viewmore": "View mair",
+    "multimediaviewer-fileusage-count": "Uised in $1 {{PLURAL:$1|page|pages}}",
+    "multimediaviewer-fileusage-count-more": "Uised in mair than $1 {{PLURAL:$1|pages}}",
+    "multimediaviewer-fileusage-link": "View aw uisses",
+    "multimediaviewer-fileusage-local-section": "Oan this site",
+    "multimediaviewer-fileusage-global-section": "Oan ither sites",
+    "multimediaviewer-reuse-loading-placeholder": "Laidin...",
+    "multimediaviewer-share-tab": "Shair",
+    "multimediaviewer-embed-tab": "Embed",
+    "multimediaviewer-link-to-page": "Link til file descreeption page",
+    "multimediaviewer-link-to-file": "Airt til oreeginal file",
+    "multimediaviewer-embed-wt": "Wikitex",
+    "multimediaviewer-embed-html": "HTML",
+    "multimediaviewer-html-embed-credit-text-tbls": "\"$1\" bi $2. Licensed unner $3 bi wa o $4.",
+    "multimediaviewer-html-embed-credit-text-tls": "\"$1\". Licensed unner $2 bi waa o $3.",
+    "multimediaviewer-html-embed-credit-text-tbs": "\"$1\" bi $2. Bi waa o $3.",
+    "multimediaviewer-html-embed-credit-text-tbl": "\"$1\" bi $2. Licensed unner $3.",
+    "multimediaviewer-html-embed-credit-text-tb": "\"$1\" bi $2.",
+    "multimediaviewer-html-embed-credit-text-ts": "\"$1\". Bi waa o $2.",
+    "multimediaviewer-html-embed-credit-text-tl": "\"$1\". Licensed unner $2.",
+    "multimediaviewer-embed-byline": "Bi $1",
+    "multimediaviewer-embed-license": "Licensed unner $1.",
+    "multimediaviewer-embed-via": "Bi waa o $1.",
+    "multimediaviewer-default-embed-dimensions": "Defaut thummnail size"
+}

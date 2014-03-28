@@ -1,0 +1,39 @@
+{
+    "@metadata": {
+        "authors": [
+            "Freebiekr",
+            "Hym411",
+            "Jskang",
+            "Priviet",
+            "아라"
+        ]
+    },
+    "multimediaviewer-desc": "섬네일 이미지를 풀스크린 인터페이스에서 더 큰 크기로 확장합니다.",
+    "multimediaviewer-desc-nil": "설명이 없습니다.",
+    "multimediaviewer-pref": "미디어 뷰어",
+    "multimediaviewer-pref-desc": "이 새 도구로 멀티미디어를 더 쉽게 감상하십시오. 이 도구는 섬네일 이미지가 있는 문서에서 그 섬네일을 더 크게 나타냅니다. 큰 이미지는 보기 편리한 풀스크린 인터페이스로 표시되며 원본 크기로 표시될 수도 있습니다.",
+    "multimediaviewer-file-page": "해당 파일 문서로 이동",
+    "multimediaviewer-repository": "$1에서 더 자세히 보기",
+    "multimediaviewer-repository-local": "더 알아보기",
+    "multimediaviewer-datetime-created": "$1에 만듦",
+    "multimediaviewer-datetime-uploaded": "$1에 업로드",
+    "multimediaviewer-userpage-link": "$1가 {{GENDER:$2|업로드}}",
+    "multimediaviewer-license-cc-pd": "퍼블릭 도메인",
+    "multimediaviewer-license-pd": "퍼블릭 도메인",
+    "multimediaviewer-license-default": "라이선스 보기",
+    "multimediaviewer-permission-title": "라이선스 세부 사항",
+    "multimediaviewer-permission-link": "이용 약관 보기",
+    "multimediaviewer-permission-viewmore": "더 보기",
+    "multimediaviewer-use-file": "이 파일을 사용",
+    "multimediaviewer-use-file-owt": "이 파일을 위키 문서에서 섬네일로 사용",
+    "multimediaviewer-use-file-own": "이 파일을 위키 문서의 텍스트 사이에 사용",
+    "multimediaviewer-use-file-offwiki": "이 파일을 다른 웹사이트에서 사용",
+    "multimediaviewer-about-mmv": "미디어 뷰어 정보",
+    "multimediaviewer-discuss-mmv": "의견 남기기",
+    "multimediaviewer-geolocation": "위치: $1",
+    "multimediaviewer-fileusage-count": "{{PLURAL:$1|문서}} $1개에서 사용됨",
+    "multimediaviewer-fileusage-count-more": "$1개 보다 많은 {{PLURAL:$1|문서}}에서 사용됨",
+    "multimediaviewer-fileusage-link": "모든 사용 보기",
+    "multimediaviewer-fileusage-local-section": "이 사이트에서",
+    "multimediaviewer-fileusage-global-section": "다른 사이트에서"
+}

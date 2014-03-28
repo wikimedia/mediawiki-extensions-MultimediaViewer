@@ -1,0 +1,40 @@
+{
+    "@metadata": {
+        "authors": [
+            "Robby"
+        ]
+    },
+    "multimediaviewer-desc-nil": "Keng Beschreiwung disponibel.",
+    "multimediaviewer-pref": "Media Viewer",
+    "multimediaviewer-repository": "Méi gewuer ginn op $1",
+    "multimediaviewer-repository-local": "Fir méi ze wëssen",
+    "multimediaviewer-datetime-uploaded": "Eropgelueden den $1",
+    "multimediaviewer-userpage-link": "{{GENDER:$2|Eropgeluede}} vum $1",
+    "multimediaviewer-license-cc-by-4.0": "CC BY 4.0",
+    "multimediaviewer-license-cc-by-sa-4.0": "CC BY-SA 4.0",
+    "multimediaviewer-license-pd": "Ëffentlechen Domaine",
+    "multimediaviewer-license-default": "Lizenz weisen",
+    "multimediaviewer-permission-title": "Detailer vun der Lizenz",
+    "multimediaviewer-permission-viewmore": "Méi weisen",
+    "multimediaviewer-about-mmv": "Iwwer Media Viewer",
+    "multimediaviewer-discuss-mmv": "Feedback verloossen",
+    "multimediaviewer-geolocation": "Plaz: $1",
+    "multimediaviewer-fileusage-count": "op {{PLURAL:$1|enger Säit|$1 Säite}} benotzt",
+    "multimediaviewer-fileusage-count-more": "Op méi wéi {{PLURAL:$1|enger Säit|$1 Säite}} benotzt",
+    "multimediaviewer-fileusage-link": "All Benotzunge weisen",
+    "multimediaviewer-fileusage-local-section": "Op dësem Site",
+    "multimediaviewer-fileusage-global-section": "Op anere Siten",
+    "multimediaviewer-reuse-link": "Benotzt dëse Fichier",
+    "multimediaviewer-reuse-loading-placeholder": "Lueden...",
+    "multimediaviewer-share-tab": "Deelen",
+    "multimediaviewer-embed-tab": "Abannen",
+    "multimediaviewer-link-to-page": "Link op d'Beschreiwungssäit vum Fichier",
+    "multimediaviewer-link-to-file": "Link op den Originalfichier",
+    "multimediaviewer-embed-wt": "Wikitext",
+    "multimediaviewer-embed-html": "HTML",
+    "multimediaviewer-html-embed-credit-text-tb": "\"$1\" vum $2.",
+    "multimediaviewer-html-embed-credit-text-ts": "\"$1\". Iwwer $2.",
+    "multimediaviewer-embed-byline": "Vum $1",
+    "multimediaviewer-embed-license": "Lizenséiert ënner $1.",
+    "multimediaviewer-embed-via": "Iwwer $1."
+}

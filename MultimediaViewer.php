@@ -45,6 +45,7 @@ call_user_func( function() {
 		$wgEnableMediaViewerForLoggedInUsersOnly = false;
 	}
 
+	$wgMessagesDirs['MultimediaViewer'] = __DIR__ . '/i18n';
 	$wgExtensionMessagesFiles['MultimediaViewer'] = __DIR__ . '/MultimediaViewer.i18n.php';
 
 	/**
@@ -702,7 +703,7 @@ call_user_func( function() {
 		'path' => __FILE__,
 		'name' => 'MultimediaViewer',
 		'descriptionmsg' => 'multimediaviewer-desc',
-		'version' => '0.2.0',
+		'version' => '0.3.0',
 		'author' => array(
 			'MarkTraceur (Mark Holmquist)',
 			'Gilles Dubuc',
@@ -728,5 +729,4 @@ call_user_func( function() {
 		),
 		'url' => 'https://mediawiki.org/wiki/Extension:MultimediaViewer',
 	);
-
 } );

@@ -1,0 +1,17 @@
+{
+    "@metadata": {
+        "authors": [
+            "Ceas08",
+            "Incelemeelemani",
+            "Rapsar",
+            "SiLveRLeaD",
+            "Sucsuzz"
+        ]
+    },
+    "multimediaviewer-pref": "Ortam Görüntüleyici",
+    "multimediaviewer-pref-desc": "Bu yeni araçla multimedya görüntüleme deneyiminizi geliştirin. Bu sayede küçük sayfaları daha büyük boyutlarda görüntüleyebilirsiniz. Ayrıca görüntüler Lightbox (açılır pencere) olarak ve tam boyutlu gösterilir.",
+    "multimediaviewer-about-mmv": "Ortam Görüntüleyici hakkında",
+    "multimediaviewer-geolocation": "Konum: $1",
+    "multimediaviewer-reuse-loading-placeholder": "Yükleniyor...",
+    "multimediaviewer-embed-html": "HTML"
+}

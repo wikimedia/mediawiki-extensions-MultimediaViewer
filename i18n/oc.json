@@ -1,0 +1,33 @@
+{
+    "@metadata": {
+        "authors": [
+            "Cedric31"
+        ]
+    },
+    "multimediaviewer-desc": "Agrandís las vinhetas dins una interfàcia en ecran complet.",
+    "multimediaviewer-desc-nil": "Cap de descripcion pas disponibla.",
+    "multimediaviewer-pref": "Visionadoira de Mèdias",
+    "multimediaviewer-pref-desc": "Melhoratz vòstra experiéncia de visualizacion multimèdia amb aquesta aisina novèla. Aficha los imatges en granda talha sus las paginas qu'an de vinhetas. Los imatges son afichats dins un polit quadre d’interfàcia en ecran complet, e tanben, se pòdon afichar en talha maximala.",
+    "multimediaviewer-file-page": "Anar a la pagina del fichièr correspondent",
+    "multimediaviewer-repository": "Ne saber mai sus $1",
+    "multimediaviewer-repository-local": "Ne saber mai",
+    "multimediaviewer-datetime-created": "Creat lo $1",
+    "multimediaviewer-datetime-uploaded": "Mandat lo $1",
+    "multimediaviewer-userpage-link": "{{GENDER:$2|Mandat}} per $1",
+    "multimediaviewer-license-cc-pd": "Domeni public",
+    "multimediaviewer-license-pd": "Domeni public",
+    "multimediaviewer-license-default": "Afichar la licéncia",
+    "multimediaviewer-permission-title": "Detalhs de la licéncia",
+    "multimediaviewer-permission-link": "afichar las condicions",
+    "multimediaviewer-permission-viewmore": "Veire mai",
+    "multimediaviewer-about-mmv": "A prepaus de la visionadoira de mèdias",
+    "multimediaviewer-discuss-mmv": "Daissar un vejaire a prepaus de la visionadoira de mèdias",
+    "multimediaviewer-geolocation": "Emplaçament : $1",
+    "multimediaviewer-fileusage-count": "Utilizat sus $1 {{PLURAL:$1|pagina|paginas}}",
+    "multimediaviewer-fileusage-count-more": "Utilizat sus mai de $1 {{PLURAL:$1|paginas}}",
+    "multimediaviewer-fileusage-link": "Veire totas las utilizacions",
+    "multimediaviewer-fileusage-local-section": "Sus aqueste site",
+    "multimediaviewer-fileusage-global-section": "Sus d’autres sites",
+    "multimediaviewer-reuse-link": "Utilizar aqueste fichièr",
+    "multimediaviewer-reuse-loading-placeholder": "Cargament en cors…"
+}

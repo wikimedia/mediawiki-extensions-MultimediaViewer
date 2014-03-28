@@ -1,0 +1,34 @@
+{
+    "@metadata": {
+        "authors": [
+            "Elseweyr",
+            "Nike",
+            "Stryn"
+        ]
+    },
+    "multimediaviewer-desc": "Näytä pienoiskuvat suuremmassa koossa kokoruututilassa.",
+    "multimediaviewer-desc-nil": "Ei kuvausta saatavilla.",
+    "multimediaviewer-pref": "Media Viewer",
+    "multimediaviewer-pref-desc": "Paranna multimedian katselukokemustasi tällä uudella työkalulla. Se näyttää kuvat suuremmassa koossa sivuilla, joissa on kuvakkeita. Kuvat aukeavat suuremmassa koossa kokoruututilassa, ja ne voidaan näyttää myös täysikokoisina.",
+    "multimediaviewer-file-page": "Siirry tiedostosivulle",
+    "multimediaviewer-repository": "Lisätietoa sivustolla $1",
+    "multimediaviewer-repository-local": "Lue lisää",
+    "multimediaviewer-datetime-created": "Luotu $1",
+    "multimediaviewer-datetime-uploaded": "Tallennettu $1",
+    "multimediaviewer-userpage-link": "{{GENDER:$2|Tallentanut}} $1",
+    "multimediaviewer-license-cc-pd": "Vapaasti käytettävä",
+    "multimediaviewer-license-pd": "Vapaasti käytettävä",
+    "multimediaviewer-license-default": "Näytä lisenssi",
+    "multimediaviewer-permission-title": "Lisenssitiedot",
+    "multimediaviewer-permission-link": "näytä ehdot",
+    "multimediaviewer-permission-viewmore": "Näytä lisää",
+    "multimediaviewer-about-mmv": "Tietoa Media Vieweristä",
+    "multimediaviewer-discuss-mmv": "Jätä palautetta",
+    "multimediaviewer-geolocation": "Sijainti: $1",
+    "multimediaviewer-fileusage-count": "Käytössä {{PLURAL:$1|yhdellä|$1}} sivulla",
+    "multimediaviewer-fileusage-count-more": "Käytössä useammalla kuin {{PLURAL:$1|yhdellä|$1}} sivulla",
+    "multimediaviewer-fileusage-link": "Näytä kaikki, joissa käytössä",
+    "multimediaviewer-fileusage-local-section": "Tällä sivustolla",
+    "multimediaviewer-fileusage-global-section": "Muilla sivustoilla",
+    "multimediaviewer-reuse-link": "Käytä tätä tiedostoa"
+}

@@ -1,0 +1,32 @@
+{
+    "@metadata": {
+        "authors": [
+            "Chrumps",
+            "Jacenty359",
+            "Matik7",
+            "Nux",
+            "Peter Bowman",
+            "Tar Lócesilion",
+            "WTM"
+        ]
+    },
+    "multimediaviewer-desc-nil": "Brak dostępnego opisu.",
+    "multimediaviewer-pref": "Przeglądarka multimediów",
+    "multimediaviewer-pref-desc": "To narzędzie to przyjazna użytkownikowi przeglądarka multimediów. Umożliwia powiększanie miniaturek obrazków bez opuszczania strony z artykułem. Narzędzie to domyślnie wyświetla obrazki na półprzezroczystej nakładce w stylu „Lightbox”, ale można także powiększyć je na pełny ekran.",
+    "multimediaviewer-file-page": "Przejdź na stronę z opisem pliku",
+    "multimediaviewer-repository": "Dowiedz się więcej na {{GRAMMAR:D.lp|$1}}",
+    "multimediaviewer-datetime-created": "Utworzony $1",
+    "multimediaviewer-datetime-uploaded": "Przesłany $1",
+    "multimediaviewer-userpage-link": "Przesłany przez {{GENDER:$2|użytkownika|użytkowniczkę}} $1",
+    "multimediaviewer-license-cc-pd": "Domena publiczna",
+    "multimediaviewer-license-default": "Zobacz licencję",
+    "multimediaviewer-permission-title": "Szczegóły licencji",
+    "multimediaviewer-permission-link": "zobacz zasady",
+    "multimediaviewer-permission-viewmore": "Zobacz więcej",
+    "multimediaviewer-about-mmv": "O przeglądarce multimedów",
+    "multimediaviewer-discuss-mmv": "Prześlij opinię",
+    "multimediaviewer-geolocation": "Położenie: $1",
+    "multimediaviewer-fileusage-link": "Zobacz wszystkich użytkowników",
+    "multimediaviewer-reuse-link": "Użyj tego pliku",
+    "multimediaviewer-reuse-loading-placeholder": "Wczytywanie..."
+}

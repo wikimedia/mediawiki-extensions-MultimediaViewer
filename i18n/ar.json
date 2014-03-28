@@ -1,0 +1,27 @@
+{
+    "@metadata": {
+        "authors": [
+            "Claw eg",
+            "Tarawneh",
+            "مشعل الحربي"
+        ]
+    },
+    "multimediaviewer-desc": "توسيع المصغرات إلى حجم أكبر في نافذة منبثقة.",
+    "multimediaviewer-pref": "عارض الوسائط",
+    "multimediaviewer-pref-desc": "حسن تجربة مشاهدة الوسائط المتعددة مع هذه الأداة الجديدة، حيث تعمل على عرض الصور بحجم أكبر على الصفحات التي تحتوي صورًا مصغرة. وتظهر الصور في صندوق منبثق أجمل، ويمكن أيضًا عرضها بالحجم الكامل.",
+    "multimediaviewer-file-page": "الذهاب إلى الصفحة التابعة للملف",
+    "multimediaviewer-repository": "تفاصيل أكثر على $1",
+    "multimediaviewer-datetime-created": "أنشئت في $1",
+    "multimediaviewer-datetime-uploaded": "رفعت في $1",
+    "multimediaviewer-userpage-link": "{{GENDER:$2|رفع}} بواسطة $1",
+    "multimediaviewer-license-cc-pd": "ملكية عامة",
+    "multimediaviewer-license-default": "عرض الترخيص",
+    "multimediaviewer-permission-title": "تفاصيل الترخيص",
+    "multimediaviewer-permission-link": "راجع الشروط",
+    "multimediaviewer-use-file": "استخدام هذا الملف",
+    "multimediaviewer-use-file-owt": "استخدام هذا الملف في صفحة ويكي، على هيئة صورة مصغرة",
+    "multimediaviewer-use-file-own": "استخدام هذا الملف في صفحة ويكي، على السطر",
+    "multimediaviewer-use-file-offwiki": "استخدام هذا الملف في موقع آخر",
+    "multimediaviewer-about-mmv": "حول عارض الوسائط",
+    "multimediaviewer-discuss-mmv": "إعطاء رأيك"
+}

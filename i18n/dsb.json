@@ -1,0 +1,26 @@
+{
+    "@metadata": {
+        "authors": [
+            "Michawiki"
+        ]
+    },
+    "multimediaviewer-desc": "Miniaturki w pówjerchu połneje wobrazowki powětsyś.",
+    "multimediaviewer-desc-nil": "Žedno wopisanje k dispoziciji",
+    "multimediaviewer-pref": "Medijowy wobglědowak",
+    "multimediaviewer-pref-desc": "Polěpš swójo dožywjenje multimedijowego woglědowanja z toś tym rědom. Zwobraznja wobraze we wětšej wjelikosći na bokach, kótarež maju miniaturki. Wobraze pokazuju se w rědnjejšem pówjerchu połneje wobrazowki a daju se w połnej wjelikosći pśedstajiś.",
+    "multimediaviewer-file-page": "K pśisłušnemu datajowemu bokoju",
+    "multimediaviewer-repository": "Dalšne informacije wó $1",
+    "multimediaviewer-repository-local": "Dalšne informacije",
+    "multimediaviewer-datetime-created": "Napórany $1",
+    "multimediaviewer-datetime-uploaded": "Nagraty $1",
+    "multimediaviewer-userpage-link": "Wót $1 {{GENDER:$2|nagraty|nagrata}}",
+    "multimediaviewer-license-cc-pd": "Zjawnosći pśistupny",
+    "multimediaviewer-license-default": "Licencu se woglědaś",
+    "multimediaviewer-use-file": "Toś tu dataju wužywaś",
+    "multimediaviewer-use-file-owt": "Toś tu dataju na wikiboku ako miniaturku wužywaś",
+    "multimediaviewer-use-file-own": "Toś tu dataju na wikiboku zasajźonu wužywaś",
+    "multimediaviewer-use-file-offwiki": "Toś tu dataju na drugem websydle wužywaś",
+    "multimediaviewer-about-mmv": "Wó medijowem wobglědowaku",
+    "multimediaviewer-discuss-mmv": "Komentar zawóstajiś",
+    "multimediaviewer-geolocation": "Městno: $1"
+}

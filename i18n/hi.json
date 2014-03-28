@@ -1,0 +1,16 @@
+{
+    "@metadata": {
+        "authors": [
+            "Kunalgrover05",
+            "Siddhartha Ghai",
+            "Vivek Rai",
+            "Wikiuser13"
+        ]
+    },
+    "multimediaviewer-permission-title": "लाइसेंस विवरण",
+    "multimediaviewer-permission-link": "शर्तें देखें",
+    "multimediaviewer-reuse-loading-placeholder": "लोड हो रहा है…",
+    "multimediaviewer-embed-tab": "एम्बेड करें",
+    "multimediaviewer-link-to-file": "मूल फ़ाइल से लिंक करें",
+    "multimediaviewer-embed-byline": "$1 द्वारा"
+}

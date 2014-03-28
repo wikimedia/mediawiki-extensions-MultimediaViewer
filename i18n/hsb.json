@@ -1,0 +1,27 @@
+{
+    "@metadata": {
+        "authors": [
+            "J budissin",
+            "Michawiki"
+        ]
+    },
+    "multimediaviewer-desc": "Miniaturki w powjerchu połneje wobrazowki powjetšić.",
+    "multimediaviewer-desc-nil": "Žane wopisanje k dispoziciji",
+    "multimediaviewer-pref": "Medijowy wobhladowak",
+    "multimediaviewer-pref-desc": "Polěpš swoje dožiwjenje multimedijoweho wobhladowanja z tutym nastrojom. Zwobraznja wobrazy we wjetšej wulkosći na stronach, kotrež maja miniaturki. Wobrazy pokazuja so w rjeńšim powjerchu połneje wobrazowki a hodźa so w połnej wulkosći předstajić.",
+    "multimediaviewer-file-page": "K přisłušnej datajowej stronje",
+    "multimediaviewer-repository": "Dalše informacije na $1",
+    "multimediaviewer-repository-local": "Dalše informacije",
+    "multimediaviewer-datetime-created": "Wutworjeny $1",
+    "multimediaviewer-datetime-uploaded": "Nahraty $1",
+    "multimediaviewer-userpage-link": "Wot $1 {{GENDER:$2|nahraty|nahrata}}",
+    "multimediaviewer-license-cc-pd": "Powšitkownosći přistupny",
+    "multimediaviewer-license-default": "Licencu sej wobhladać",
+    "multimediaviewer-use-file": "Tutu dataju wužiwać",
+    "multimediaviewer-use-file-owt": "Wužij tutu dataju na wikistronje jako miniaturku",
+    "multimediaviewer-use-file-own": "Wužij tutu dataju na wikistronje zasadźenu",
+    "multimediaviewer-use-file-offwiki": "Wužij tutu dataju na druhim websydle",
+    "multimediaviewer-about-mmv": "Wo medijowym wobhladowaku",
+    "multimediaviewer-discuss-mmv": "Komentar zawostajić",
+    "multimediaviewer-geolocation": "Městno: $1"
+}
