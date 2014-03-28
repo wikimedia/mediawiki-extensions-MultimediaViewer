@@ -33,6 +33,9 @@
 
 		mw.mmv.ui.Element.call( this, $container );
 
+		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
+		this.htmlUtils = new mw.mmv.HtmlUtils();
+
 		/**
 		 * Contains everything else.
 		 * @property {jQuery}
@@ -116,8 +119,7 @@
 	P.set = function( permission ) {
 		this.$box.removeClass( 'empty' );
 
-		this.$text.html( permission );
-		this.whitelistHtml( this.$text );
+		this.$text.html( this.htmlUtils.htmlToTextWithLinks( permission ) );
 		this.$text.append( this.$fader );
 
 		this.$html.html( permission );

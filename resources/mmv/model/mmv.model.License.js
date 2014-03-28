@@ -49,6 +49,9 @@
 
 		/** @property {string} deedUrl URL to the description of the license (e.g. the CC deed) */
 		this.deedUrl = deedUrl;
+
+		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
+		this.htmlUtils = new mw.mmv.HtmlUtils();
 	}
 	LP = License.prototype;
 
@@ -58,7 +61,7 @@
 	 */
 	LP.getShortLink = function () {
 		if ( this.deedUrl ) {
-			return this.jqueryToHtml(
+			return this.htmlUtils.jqueryToHtml(
 				$( '<a>' ).prop( {
 					href: this.deedUrl,
 					title: this.longName
@@ -67,15 +70,6 @@
 		} else {
 			return this.shortName;
 		}
-	};
-
-	/**
-	 * Converts a jQuery object to string.
-	 * @param {jQuery} $jq
-	 * @return {string}
-	 */
-	LP.jqueryToHtml = function ( $jq ) {
-		return $( '<span>' ).append( $jq ).html();
 	};
 
 	mw.mmv.model.License = License;

@@ -102,6 +102,16 @@ call_user_func( function() {
 		),
 	), $moduleInfo( 'mmv' ) );
 
+	$wgResourceModules['mmv.HtmlUtils'] = array_merge( array(
+		'scripts' => array(
+			'mmv.HtmlUtils.js',
+		),
+
+		'dependencies' => array(
+			'mmv.base',
+		),
+	), $moduleInfo( 'mmv' ) );
+
 	$wgResourceModules['mmv.model'] = array_merge( array(
 		'scripts' => array(
 			'mmv.model.js',
@@ -130,6 +140,7 @@ call_user_func( function() {
 
 		'dependencies' => array(
 			'mmv.model',
+			'mmv.HtmlUtils',
 		),
 	), $moduleInfo( 'mmv/model' ) );
 
@@ -296,6 +307,7 @@ call_user_func( function() {
 
 		'dependencies' => array(
 			'mmv.ui',
+			'mmv.HtmlUtils',
 			'oojs',
 		),
 	), $moduleInfo( 'mmv/ui' ) );
@@ -344,6 +356,7 @@ call_user_func( function() {
 			'jquery.color',
 			'mediawiki.jqueryMsg',
 			'mmv.ui',
+			'mmv.HtmlUtils',
 			'oojs',
 		),
 	), $moduleInfo( 'mmv/ui' ) );
@@ -364,6 +377,7 @@ call_user_func( function() {
 			'mmv.ui.fileUsage',
 			'mmv.ui.permission',
 			'mmv.ui.reuse.dialog',
+			'mmv.HtmlUtils',
 			'moment',
 			'oojs',
 		),
@@ -406,6 +420,7 @@ call_user_func( function() {
 		'dependencies' => array(
 			'mmv.base',
 			'oojs',
+			'mmv.HtmlUtils',
 		),
 
 		'messages' => array(
@@ -605,7 +620,7 @@ call_user_func( function() {
 			'jquery.hashchange',
 			'mediawiki.Title',
 			'mmv.logger',
-			'mmv.ui',
+			'mmv.HtmlUtils',
 		),
 	), $moduleInfo( 'mmv' ) );
 
