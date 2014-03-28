@@ -158,11 +158,12 @@
 	/**
 	 * Sets data needed by contaned tabs and makes dialog launch link visible.
 	 * @param {mw.mmv.model.Image} image
-	 * @param {mw.mmv.model.EmbedFileInfo} info
+	 * @param {mw.mmv.model.Repo} repo
+	 * @param {string} caption
 	 */
-	DP.set = function ( image, info ) {
+	DP.set = function ( image, repo, caption) {
 		this.tabs.share.set( image );
-		this.tabs.embed.set( image, info );
+		this.tabs.embed.set( image, repo, caption );
 		this.$reuseLink.removeClass( 'empty' );
 	};
 

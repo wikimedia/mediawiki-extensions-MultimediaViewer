@@ -220,14 +220,14 @@
 	 */
 	Image.parseExtmeta = function ( data, type ) {
 		var value = data && data.value;
-		if ( !value ) {
+		if ( value === null || value === undefined ) {
 			return undefined;
 		} else if ( type === 'string' ) {
 			return value.toString();
 		} else if ( type === 'float' ) {
 			return parseFloat( value );
 		} else if ( type === 'list' ) {
-			return value.split( '|' );
+			return value === '' ? [] : value.split( '|' );
 		} else {
 			throw 'mw.mmv.model.Image.parseExtmeta: unknown type';
 		}

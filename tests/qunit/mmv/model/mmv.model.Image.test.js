@@ -89,7 +89,8 @@
 	} );
 
 	QUnit.test( 'parseExtmeta()', 8, function ( assert ) {
-		var stringData = { value: 'foo' },
+		var Image = mw.mmv.model.Image,
+			stringData = { value: 'foo' },
 			floatData = { value: 1.23 },
 			floatStringData = { value: '1.23' },
 			listDataEmpty = {value: '' },

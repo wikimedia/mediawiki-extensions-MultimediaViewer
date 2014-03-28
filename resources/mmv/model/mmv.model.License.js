@@ -56,6 +56,24 @@
 	LP = License.prototype;
 
 	/**
+	 * Returns the short name of the license:
+	 * - if we have interface messages for this license (basically just CC and PD), use those
+	 * - otherwise use the short name from the license template (might or might not be translated
+	 *   still, depending on how the template is set up)
+	 * @return {string}
+	 * FIXME a model should not depend on an i18n class. We should probably use view models.
+	 */
+	LP.getShortName = function() {
+		var message = 'multimediaviewer-license-' + ( this.internalName || '' );
+		if ( mw.messages.exists( message ) ) {
+			return mw.message( message ).text();
+		} else {
+			return this.shortName;
+		}
+	};
+
+
+	/**
 	 * Returns a short HTML representation of the license.
 	 * @return {string}
 	 */
@@ -65,7 +83,7 @@
 				$( '<a>' ).prop( {
 					href: this.deedUrl,
 					title: this.longName
-				} ).text( this.shortName )
+				} ).text( this.getShortName() )
 			);
 		} else {
 			return this.shortName;

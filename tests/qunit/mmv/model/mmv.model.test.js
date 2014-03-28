@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function ( mw ) {
 	QUnit.module( 'mmv.model', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'File usage constructor sanity check', 5, function ( assert ) {
@@ -103,47 +103,4 @@
 		}
 	} );
 
-	QUnit.test( 'EmbedFileInfo constructor sanity check', 9, function ( assert ) {
-		var title = mw.Title.newFromText( 'File:Foobar.jpg' ),
-			src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
-			url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
-			siteName = 'Name of the web site',
-			$license = $( '<a class="mw-mlb-license empty" href="/wiki/File:License.txt">Public License</a>' ),
-			$author = $( '<span class="mw-mlb-author">Homer</span>' ),
-			$source = $( '<span class="mw-mlb-source">Iliad</span>' ),
-			license = {
-				plain: $license && $license.text(),
-				html: $license && $license.html()
-			},
-			author = {
-				plain: $author && $author.text(),
-				html: $author && $author.get( 0 ).outerHTML
-			},
-			source = {
-				plain: $source && $source.text(),
-				html: $source && $source.get( 0 ).outerHTML
-			},
-			caption = {
-				plain: 'Plain image caption',
-				html: '<b>HTML imgae caption</b>'
-			},
-			embedFileInfo = new mw.mmv.model.EmbedFileInfo(
-				title, src, url, siteName, license, author, source, caption );
-
-		assert.strictEqual( embedFileInfo.title, title, 'Title is set correctly' );
-		assert.strictEqual( embedFileInfo.src, src, 'Src is set correctly' );
-		assert.strictEqual( embedFileInfo.url, url, 'Url is set correctly' );
-		assert.strictEqual( embedFileInfo.siteName, siteName, 'Site name is set correctly' );
-		assert.strictEqual( embedFileInfo.license, license, 'License is set correctly' );
-		assert.strictEqual( embedFileInfo.author, author, 'Author is set correctly' );
-		assert.strictEqual( embedFileInfo.source, source, 'Source is set correctly' );
-		assert.strictEqual( embedFileInfo.caption, caption, 'Caption is set correctly' );
-
-		try {
-			embedFileInfo = new mw.mmv.model.EmbedFileInfo( title );
-		} catch (e) {
-			assert.ok( e, 'Exception is thrown when parameters are missing' );
-		}
-	} );
-
-}( mediaWiki, jQuery ) );
+}( mediaWiki ) );
