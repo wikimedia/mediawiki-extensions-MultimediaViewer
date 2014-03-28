@@ -23,10 +23,6 @@
     "multimediaviewer-permission-title": "Detalhes da licença",
     "multimediaviewer-permission-link": "ver termos",
     "multimediaviewer-permission-viewmore": "Ver mais",
-    "multimediaviewer-use-file": "Usar este ficheiro",
-    "multimediaviewer-use-file-owt": "Usar este ficheiro numa página wiki em forma de miniatura",
-    "multimediaviewer-use-file-own": "Usar este ficheiro numa página wiki",
-    "multimediaviewer-use-file-offwiki": "Usar este ficheiro noutro sítio da Internet",
     "multimediaviewer-about-mmv": "Sobre o Visualizador multimédia",
     "multimediaviewer-discuss-mmv": "Deixe o seu comentário",
     "multimediaviewer-geolocation": "Localização: $1",
@@ -34,5 +30,6 @@
     "multimediaviewer-fileusage-count-more": "Utilizada em mais de $1 {{PLURAL:$1|páginas}}",
     "multimediaviewer-fileusage-link": "Ver todas as utilizações",
     "multimediaviewer-fileusage-local-section": "Neste sítio",
-    "multimediaviewer-fileusage-global-section": "Noutros sítios"
+    "multimediaviewer-fileusage-global-section": "Noutros sítios",
+    "multimediaviewer-reuse-link": "Usar este ficheiro"
 }

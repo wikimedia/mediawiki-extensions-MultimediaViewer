@@ -20,10 +20,6 @@
     "multimediaviewer-permission-title": "Detalles de la llicencia",
     "multimediaviewer-permission-link": "ver los términos",
     "multimediaviewer-permission-viewmore": "Ver más",
-    "multimediaviewer-use-file": "Usar esti ficheru",
-    "multimediaviewer-use-file-owt": "Usar esti ficheru nuna páxina wiki, como miniatura",
-    "multimediaviewer-use-file-own": "Usar esti ficheru nuna páxina wiki, en llinia",
-    "multimediaviewer-use-file-offwiki": "Usar esti ficheru n'otru sitiu web",
     "multimediaviewer-about-mmv": "Tocante a Media Viewer",
     "multimediaviewer-discuss-mmv": "Dexar un comentariu",
     "multimediaviewer-geolocation": "Allugamientu: $1",
@@ -31,5 +27,6 @@
     "multimediaviewer-fileusage-count-more": "Usada en más de $1 {{PLURAL:$1|páxines}}",
     "multimediaviewer-fileusage-link": "Ver tolos usos",
     "multimediaviewer-fileusage-local-section": "Nesti sitiu",
-    "multimediaviewer-fileusage-global-section": "N'otros sitios"
+    "multimediaviewer-fileusage-global-section": "N'otros sitios",
+    "multimediaviewer-reuse-link": "Usar esti ficheru"
 }

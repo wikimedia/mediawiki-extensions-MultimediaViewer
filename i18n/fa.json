@@ -30,10 +30,6 @@
     "multimediaviewer-permission-title": "جزئیات مجوز",
     "multimediaviewer-permission-link": "مشاهدهٔ شرایط",
     "multimediaviewer-permission-viewmore": "مشاهدهٔ بیشتر",
-    "multimediaviewer-use-file": "استفاده از این پرونده",
-    "multimediaviewer-use-file-owt": "استفاده از این پرونده به صورت بندانگشتی در صفحه ویکی",
-    "multimediaviewer-use-file-own": "استفاده از این پرونده به صورت درون متن، در صفحه ویکی",
-    "multimediaviewer-use-file-offwiki": "ساتفاده از این پرونده در وب‌گاه دیگر",
     "multimediaviewer-about-mmv": "دربارهٔ نمایش‌دهندهٔ رسانه",
     "multimediaviewer-discuss-mmv": "گذاشتن بازخورد",
     "multimediaviewer-geolocation": "مکان: $1",
@@ -41,5 +37,6 @@
     "multimediaviewer-fileusage-count-more": "استفاده شده در بیش از $1  {{PLURAL:$1|صفحات}}",
     "multimediaviewer-fileusage-link": "مشاهدهٔ همهٔ استفاده‌ها",
     "multimediaviewer-fileusage-local-section": "در این سایت",
-    "multimediaviewer-fileusage-global-section": "در سایت‌های دیگر"
+    "multimediaviewer-fileusage-global-section": "در سایت‌های دیگر",
+    "multimediaviewer-reuse-link": "استفاده از این پرونده"
 }

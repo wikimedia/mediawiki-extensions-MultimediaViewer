@@ -4,12 +4,15 @@
             "John Reid"
         ]
     },
+    "multimediaviewer-optin-pref": "Enable new media seein expereeance",
     "multimediaviewer-metadata-error": "Mistak: Coudna laid eemage data. $1",
     "multimediaviewer-thumbnail-error": "Mistak: Coudna laid thummnail data. $1",
     "multimediaviewer-license-pd": "Public Domain",
     "multimediaviewer-permission-title": "License details",
     "multimediaviewer-permission-link": "view terms",
     "multimediaviewer-permission-viewmore": "View mair",
+    "multimediaviewer-discuss-mmv": "Tauk ower this featur",
+    "multimediaviewer-help-mmv": "Heelp",
     "multimediaviewer-fileusage-count": "Uised in $1 {{PLURAL:$1|page|pages}}",
     "multimediaviewer-fileusage-count-more": "Uised in mair than $1 {{PLURAL:$1|pages}}",
     "multimediaviewer-fileusage-link": "View aw uisses",
@@ -20,8 +23,10 @@
     "multimediaviewer-embed-tab": "Embed",
     "multimediaviewer-link-to-page": "Link til file descreeption page",
     "multimediaviewer-link-to-file": "Airt til oreeginal file",
+    "multimediaviewer-share-explanation": "Capie n freelie shair the airtin",
     "multimediaviewer-embed-wt": "Wikitex",
     "multimediaviewer-embed-html": "HTML",
+    "multimediaviewer-embed-explanation": "Uise this code tae embed the file",
     "multimediaviewer-html-embed-credit-text-tbls": "\"$1\" bi $2. Licensed unner $3 bi wa o $4.",
     "multimediaviewer-html-embed-credit-text-tls": "\"$1\". Licensed unner $2 bi waa o $3.",
     "multimediaviewer-html-embed-credit-text-tbs": "\"$1\" bi $2. Bi waa o $3.",
@@ -32,5 +37,9 @@
     "multimediaviewer-embed-byline": "Bi $1",
     "multimediaviewer-embed-license": "Licensed unner $1.",
     "multimediaviewer-embed-via": "Bi waa o $1.",
-    "multimediaviewer-default-embed-dimensions": "Defaut thummnail size"
+    "multimediaviewer-default-embed-dimensions": "Defaut thummnail size",
+    "multimediaviewer-original-embed-dimensions": "Oreeginal size $1",
+    "multimediaviewer-large-embed-dimensions": "Muckle $1",
+    "multimediaviewer-medium-embed-dimensions": "Midlin $1",
+    "multimediaviewer-small-embed-dimensions": "Smaw $1"
 }

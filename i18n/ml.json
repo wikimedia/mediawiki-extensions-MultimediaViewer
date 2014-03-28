@@ -21,10 +21,6 @@
     "multimediaviewer-permission-title": "ഉപയോഗാനുമതി വിവരങ്ങൾ",
     "multimediaviewer-permission-link": "നിബന്ധനകൾ കാണുക",
     "multimediaviewer-permission-viewmore": "കൂടുതൽ കാണുക",
-    "multimediaviewer-use-file": "ഈ പ്രമാണം ഉപയോഗിക്കുക",
-    "multimediaviewer-use-file-owt": "ഈ പ്രമാണം ഒരു വിക്കി താളിൽ, ലഘുചിത്രമായി ഉപയോഗിക്കുക",
-    "multimediaviewer-use-file-own": "ഈ പ്രമാണം ഒരു വിക്കിതാളിൽ, വരികൾക്കിടയിൽ ഉപയോഗിക്കുക",
-    "multimediaviewer-use-file-offwiki": "ഈ പ്രമാണം മറ്റൊരു വെബ്സൈറ്റിൽ ഉപയോഗിക്കുക",
     "multimediaviewer-about-mmv": "മീഡിയ ദർശനോപാധിയുടെ വിവരണം",
     "multimediaviewer-discuss-mmv": "പ്രതികരണം ചേർക്കുക",
     "multimediaviewer-geolocation": "സ്ഥാനം: $1",
@@ -32,5 +28,6 @@
     "multimediaviewer-fileusage-count-more": "{{PLURAL:$1|ഒന്നിൽ|$1 എണ്ണത്തിൽ}} അധികം താളുകളിൽ ഉപയോഗിച്ചിരിക്കുന്നു",
     "multimediaviewer-fileusage-link": "എല്ലാ ഉപയോഗവും കാണുക",
     "multimediaviewer-fileusage-local-section": "ഈ സൈറ്റിൽ",
-    "multimediaviewer-fileusage-global-section": "മറ്റ് സൈറ്റുകളിൽ"
+    "multimediaviewer-fileusage-global-section": "മറ്റ് സൈറ്റുകളിൽ",
+    "multimediaviewer-reuse-link": "ഈ പ്രമാണം ഉപയോഗിക്കുക"
 }

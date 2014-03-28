@@ -18,10 +18,7 @@
     "multimediaviewer-license-default": "عرض الترخيص",
     "multimediaviewer-permission-title": "تفاصيل الترخيص",
     "multimediaviewer-permission-link": "راجع الشروط",
-    "multimediaviewer-use-file": "استخدام هذا الملف",
-    "multimediaviewer-use-file-owt": "استخدام هذا الملف في صفحة ويكي، على هيئة صورة مصغرة",
-    "multimediaviewer-use-file-own": "استخدام هذا الملف في صفحة ويكي، على السطر",
-    "multimediaviewer-use-file-offwiki": "استخدام هذا الملف في موقع آخر",
     "multimediaviewer-about-mmv": "حول عارض الوسائط",
-    "multimediaviewer-discuss-mmv": "إعطاء رأيك"
+    "multimediaviewer-discuss-mmv": "إعطاء رأيك",
+    "multimediaviewer-reuse-link": "استخدام هذا الملف"
 }

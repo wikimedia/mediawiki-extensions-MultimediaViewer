@@ -16,11 +16,8 @@
     "multimediaviewer-userpage-link": "{{GENDER:$2|Uploadet}} af $1",
     "multimediaviewer-license-cc-pd": "Offentlig ejendom",
     "multimediaviewer-license-default": "Se licens",
-    "multimediaviewer-use-file": "Brug denne fil",
-    "multimediaviewer-use-file-owt": "Brug denne fil på en wikiside, som en miniature",
-    "multimediaviewer-use-file-own": "Brug denne fil på en wikiside, inline",
-    "multimediaviewer-use-file-offwiki": "Brug denne fil på en anden hjemmeside",
     "multimediaviewer-about-mmv": "Om Medieviser",
     "multimediaviewer-discuss-mmv": "Giv feedback",
-    "multimediaviewer-geolocation": "Sted: $1"
+    "multimediaviewer-geolocation": "Sted: $1",
+    "multimediaviewer-reuse-link": "Brug denne fil"
 }

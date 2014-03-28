@@ -24,10 +24,6 @@
     "multimediaviewer-permission-title": "라이선스 세부 사항",
     "multimediaviewer-permission-link": "이용 약관 보기",
     "multimediaviewer-permission-viewmore": "더 보기",
-    "multimediaviewer-use-file": "이 파일을 사용",
-    "multimediaviewer-use-file-owt": "이 파일을 위키 문서에서 섬네일로 사용",
-    "multimediaviewer-use-file-own": "이 파일을 위키 문서의 텍스트 사이에 사용",
-    "multimediaviewer-use-file-offwiki": "이 파일을 다른 웹사이트에서 사용",
     "multimediaviewer-about-mmv": "미디어 뷰어 정보",
     "multimediaviewer-discuss-mmv": "의견 남기기",
     "multimediaviewer-geolocation": "위치: $1",
@@ -35,5 +31,6 @@
     "multimediaviewer-fileusage-count-more": "$1개 보다 많은 {{PLURAL:$1|문서}}에서 사용됨",
     "multimediaviewer-fileusage-link": "모든 사용 보기",
     "multimediaviewer-fileusage-local-section": "이 사이트에서",
-    "multimediaviewer-fileusage-global-section": "다른 사이트에서"
+    "multimediaviewer-fileusage-global-section": "다른 사이트에서",
+    "multimediaviewer-reuse-link": "이 파일을 사용"
 }

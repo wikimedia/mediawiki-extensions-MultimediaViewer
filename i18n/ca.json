@@ -22,10 +22,6 @@
     "multimediaviewer-permission-title": "Detalls de la llicència",
     "multimediaviewer-permission-link": "Vegeu les condicions",
     "multimediaviewer-permission-viewmore": "Mostra'n més",
-    "multimediaviewer-use-file": "Utilitza aquest fitxer",
-    "multimediaviewer-use-file-owt": "Utilitza aquest fitxer en una pàgina wiki, com una miniatura",
-    "multimediaviewer-use-file-own": "Utilitza aquest fitxer en una pàgina wiki, directament",
-    "multimediaviewer-use-file-offwiki": "Utilitza aquest fitxer en un altre lloc web",
     "multimediaviewer-about-mmv": "Quant al visor multimèdia",
     "multimediaviewer-discuss-mmv": "Comentaris",
     "multimediaviewer-geolocation": "Emplaçament: $1",
@@ -33,5 +29,6 @@
     "multimediaviewer-fileusage-count-more": "Utilitzat en més de $1 {{PLURAL:$1|pàgines}}",
     "multimediaviewer-fileusage-link": "Mostra tots els usos",
     "multimediaviewer-fileusage-local-section": "En aquest web",
-    "multimediaviewer-fileusage-global-section": "En altres llocs"
+    "multimediaviewer-fileusage-global-section": "En altres llocs",
+    "multimediaviewer-reuse-link": "Utilitza aquest fitxer"
 }

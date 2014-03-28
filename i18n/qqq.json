@@ -1,7 +1,7 @@
 {
     "@metadata": {
         "authors": [
-            "Mark Holmquist <mtraceur@member.fsf.org>",
+            "Mark Holmquist \u003Cmtraceur@member.fsf.org\u003E",
             "Raymond",
             "Shirayuki"
         ]
@@ -43,15 +43,15 @@
     "multimediaviewer-about-mmv": "Text for a link to a page with more information about Media Viewer software.",
     "multimediaviewer-discuss-mmv": "Text for a link to a page where the user can discuss the Media Viewer software.\n{{Identical|Leave feedback}}",
     "multimediaviewer-help-mmv": "Text for a link to a page with help about Media Viewer software.",
-    "multimediaviewer-geoloc-north": "Symbol for representing \"north\" in geolocation coordinates.\n\nUsed as <code>$4</code> in {{msg-mw|Multimediaviewer-geoloc-coord}}.",
-    "multimediaviewer-geoloc-east": "Symbol for representing \"east\" in geolocation coordinates.\n\nUsed as <code>$4</code> in {{msg-mw|Multimediaviewer-geoloc-coord}}.",
-    "multimediaviewer-geoloc-south": "Symbol for representing \"south\" in geolocation coordinates.\n\nUsed as <code>$4</code> in {{msg-mw|Multimediaviewer-geoloc-coord}}.",
-    "multimediaviewer-geoloc-west": "Symbol for representing \"west\" in geolocation coordinates.\n\nUsed as <code>$4</code> in {{msg-mw|Multimediaviewer-geoloc-coord}}.",
+    "multimediaviewer-geoloc-north": "Symbol for representing \"north\" in geolocation coordinates.\n\nUsed as \u003Ccode\u003E$4\u003C/code\u003E in {{msg-mw|Multimediaviewer-geoloc-coord}}.",
+    "multimediaviewer-geoloc-east": "Symbol for representing \"east\" in geolocation coordinates.\n\nUsed as \u003Ccode\u003E$4\u003C/code\u003E in {{msg-mw|Multimediaviewer-geoloc-coord}}.",
+    "multimediaviewer-geoloc-south": "Symbol for representing \"south\" in geolocation coordinates.\n\nUsed as \u003Ccode\u003E$4\u003C/code\u003E in {{msg-mw|Multimediaviewer-geoloc-coord}}.",
+    "multimediaviewer-geoloc-west": "Symbol for representing \"west\" in geolocation coordinates.\n\nUsed as \u003Ccode\u003E$4\u003C/code\u003E in {{msg-mw|Multimediaviewer-geoloc-coord}}.",
     "multimediaviewer-geoloc-coord": "Format for geolocation coordinates. Parameters:\n* $1 - the number of degrees\n* $2 - the number of minutes\n* $3 - the number of seconds (rounded to the nearest hundredths place)\n* $4 - the direction symbol, defined by the following messages:\n** {{msg-mw|Multimediaviewer-geoloc-north}}\n** {{msg-mw|Multimediaviewer-geoloc-east}}\n** {{msg-mw|Multimediaviewer-geoloc-south}}\n** {{msg-mw|Multimediaviewer-geoloc-west}}",
     "multimediaviewer-geoloc-coords": "Format for sets of geolocation coordinates. Parameters:\n* $1 - the latitude\n* $2 - the longitude\nBoth are formatted according to {{msg-mw|Multimediaviewer-geoloc-coord}}.",
     "multimediaviewer-geolocation": "Message for displaying a location. Parameters:\n* $1 - a location which is formatted by {{msg-mw|Multimediaviewer-geoloc-coords}}",
-    "multimediaviewer-fileusage-count": "Used as <code><nowiki><h3></nowiki></code> heading for the list of pages which use this image.\n\nParameters:\n* $1 - the number of pages using the image\nSee also:\n* {{msg-mw|Multimediaviewer-fileusage-count-more}}",
-    "multimediaviewer-fileusage-count-more": "Used as <code><nowiki><h3></nowiki></code> heading for the list of pages which use this image.\n\nThis is used when the number is too large to accurately determine; it can be much larger than the value given in $1.\n\nParameters:\n* $1 - the number of pages\nSee also:\n* {{msg-mw|Multimediaviewer-fileusage-count}}",
+    "multimediaviewer-fileusage-count": "Used as \u003Ccode\u003E\u003Cnowiki\u003E\u003Ch3\u003E\u003C/nowiki\u003E\u003C/code\u003E heading for the list of pages which use this image.\n\nParameters:\n* $1 - the number of pages using the image\nSee also:\n* {{msg-mw|Multimediaviewer-fileusage-count-more}}",
+    "multimediaviewer-fileusage-count-more": "Used as \u003Ccode\u003E\u003Cnowiki\u003E\u003Ch3\u003E\u003C/nowiki\u003E\u003C/code\u003E heading for the list of pages which use this image.\n\nThis is used when the number is too large to accurately determine; it can be much larger than the value given in $1.\n\nParameters:\n* $1 - the number of pages\nSee also:\n* {{msg-mw|Multimediaviewer-fileusage-count}}",
     "multimediaviewer-fileusage-link": "Text of link pointing to [[Special:WhatLinksHere]] or [[Special:GlobalUsage]] when there are too many pages to fit into the metadata box.",
     "multimediaviewer-fileusage-local-section": "Section title for the local usages.\n\nFollowed by {{msg-mw|Multimediaviewer-fileusage-link}} and the list of pages.\n\nSee also:\n* {{msg-mw|Multimediaviewer-fileusage-global-section}}",
     "multimediaviewer-fileusage-global-section": "Section title for the global usages.\n\nFollowed by {{msg-mw|Multimediaviewer-fileusage-link}} and the list of pages.\n\nSee also:\n* {{msg-mw|Multimediaviewer-fileusage-local-section}}",

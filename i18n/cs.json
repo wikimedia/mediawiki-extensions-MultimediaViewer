@@ -23,10 +23,6 @@
     "multimediaviewer-license-default": "Zobrazit licenci",
     "multimediaviewer-permission-title": "Podrobnosti o licenci",
     "multimediaviewer-permission-link": "zobrazit podmínky",
-    "multimediaviewer-use-file": "Použít tento soubor",
-    "multimediaviewer-use-file-owt": "Použít tento soubor na wiki, jako náhled",
-    "multimediaviewer-use-file-own": "Použít tento soubor na wiki, uvnitř textu",
-    "multimediaviewer-use-file-offwiki": "Použít tento soubor na jiné webové stránce",
     "multimediaviewer-about-mmv": "O prohlížeči médií",
     "multimediaviewer-discuss-mmv": "Sdělte svůj názor",
     "multimediaviewer-geolocation": "Místo: $1",
@@ -34,5 +30,6 @@
     "multimediaviewer-fileusage-count-more": "Užito na více než $1 {{PLURAL:$1|stránce|stránkách}}",
     "multimediaviewer-fileusage-link": "Zobrazit všechna využití",
     "multimediaviewer-fileusage-local-section": "Na tomto projektu",
-    "multimediaviewer-fileusage-global-section": "Na ostatních projektech"
+    "multimediaviewer-fileusage-global-section": "Na ostatních projektech",
+    "multimediaviewer-reuse-link": "Použít tento soubor"
 }

@@ -20,10 +20,6 @@
     "multimediaviewer-permission-title": "Informații despre licență",
     "multimediaviewer-permission-link": "vezi condițiile",
     "multimediaviewer-permission-viewmore": "Mai mult",
-    "multimediaviewer-use-file": "Utilizează acest fișier",
-    "multimediaviewer-use-file-owt": "Utilizați acest fișier în cadrul unei pagini wiki, ca miniatură",
-    "multimediaviewer-use-file-own": "Utilizați acest fișier în cadrul unei pagini wiki, în linie cu textul",
-    "multimediaviewer-use-file-offwiki": "Utilizați acest fișier pe un alt site web",
     "multimediaviewer-about-mmv": "Despre Vizualizatorul multimedia",
     "multimediaviewer-discuss-mmv": "Lăsați o părere",
     "multimediaviewer-geolocation": "Poziție: $1",
@@ -31,5 +27,6 @@
     "multimediaviewer-fileusage-count-more": "Folosită în mai mult de $1 {{PLURAL:$1|pagini|de pagini}}",
     "multimediaviewer-fileusage-link": "Vezi toate utilizările",
     "multimediaviewer-fileusage-local-section": "Pe acest site",
-    "multimediaviewer-fileusage-global-section": "Pe alte site-uri"
+    "multimediaviewer-fileusage-global-section": "Pe alte site-uri",
+    "multimediaviewer-reuse-link": "Utilizează acest fișier"
 }

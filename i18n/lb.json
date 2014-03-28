@@ -17,7 +17,8 @@
     "multimediaviewer-permission-title": "Detailer vun der Lizenz",
     "multimediaviewer-permission-viewmore": "Méi weisen",
     "multimediaviewer-about-mmv": "Iwwer Media Viewer",
-    "multimediaviewer-discuss-mmv": "Feedback verloossen",
+    "multimediaviewer-discuss-mmv": "Dës Funktioun diskutéieren",
+    "multimediaviewer-help-mmv": "Hëllef",
     "multimediaviewer-geolocation": "Plaz: $1",
     "multimediaviewer-fileusage-count": "op {{PLURAL:$1|enger Säit|$1 Säite}} benotzt",
     "multimediaviewer-fileusage-count-more": "Op méi wéi {{PLURAL:$1|enger Säit|$1 Säite}} benotzt",
@@ -36,5 +37,7 @@
     "multimediaviewer-html-embed-credit-text-ts": "\"$1\". Iwwer $2.",
     "multimediaviewer-embed-byline": "Vum $1",
     "multimediaviewer-embed-license": "Lizenséiert ënner $1.",
-    "multimediaviewer-embed-via": "Iwwer $1."
+    "multimediaviewer-embed-via": "Iwwer $1.",
+    "multimediaviewer-large-embed-dimensions": "Grouss $1",
+    "multimediaviewer-small-embed-dimensions": "Kleng $1"
 }

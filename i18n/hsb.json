@@ -17,11 +17,8 @@
     "multimediaviewer-userpage-link": "Wot $1 {{GENDER:$2|nahraty|nahrata}}",
     "multimediaviewer-license-cc-pd": "Powšitkownosći přistupny",
     "multimediaviewer-license-default": "Licencu sej wobhladać",
-    "multimediaviewer-use-file": "Tutu dataju wužiwać",
-    "multimediaviewer-use-file-owt": "Wužij tutu dataju na wikistronje jako miniaturku",
-    "multimediaviewer-use-file-own": "Wužij tutu dataju na wikistronje zasadźenu",
-    "multimediaviewer-use-file-offwiki": "Wužij tutu dataju na druhim websydle",
     "multimediaviewer-about-mmv": "Wo medijowym wobhladowaku",
     "multimediaviewer-discuss-mmv": "Komentar zawostajić",
-    "multimediaviewer-geolocation": "Městno: $1"
+    "multimediaviewer-geolocation": "Městno: $1",
+    "multimediaviewer-reuse-link": "Tutu dataju wužiwać"
 }

@@ -20,10 +20,6 @@
     "multimediaviewer-permission-title": "Dagiti salaysay ti lisensia",
     "multimediaviewer-permission-link": "kitaen dagiti termino",
     "multimediaviewer-permission-viewmore": "Agkita pay ti adu",
-    "multimediaviewer-use-file": "Usaren daytoy a papeles",
-    "multimediaviewer-use-file-owt": "Usaren daytoy a papeles iti panid ti wiki, a kas bassit a ladawan",
-    "multimediaviewer-use-file-own": "Usaren daytoy a papeles iti panid ti wiki, a nailinia",
-    "multimediaviewer-use-file-offwiki": "Usaren daytoy a papeles iti sabali a website",
     "multimediaviewer-about-mmv": "Maipanggep ti Media Viewer",
     "multimediaviewer-discuss-mmv": "Mangibati ti feedback",
     "multimediaviewer-geolocation": "Lokasion: $1",
@@ -31,5 +27,6 @@
     "multimediaviewer-fileusage-count-more": "Naus-usar iti ad-adu ngem $1 a {{PLURAL:$1|pampanid}}",
     "multimediaviewer-fileusage-link": "Kitaen amin a panag-usar",
     "multimediaviewer-fileusage-local-section": "Iti daytoy a sitio",
-    "multimediaviewer-fileusage-global-section": "Kadagiti sabali a sitio"
+    "multimediaviewer-fileusage-global-section": "Kadagiti sabali a sitio",
+    "multimediaviewer-reuse-link": "Usaren daytoy a papeles"
 }
