@@ -16,12 +16,12 @@
  */
 
 ( function( mw, $ ) {
-	QUnit.module( 'mmv.ui.Buttons', QUnit.newMwEnvironment() );
+	QUnit.module( 'mmv.ui.CanvasButtons', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Prev/Next', 2, function( assert ) {
 		var i = 0,
 			$qf = $( '#qunit-fixture' ),
-			buttons = new mw.mmv.ui.Buttons( $qf, $( '<div>' ), $( '<div>' ) ),
+			buttons = new mw.mmv.ui.CanvasButtons( $qf, $( '<div>' ), $( '<div>' ) ),
 			viewer = new mw.mmv.MultimediaViewer();
 
 		viewer.ui = {};
