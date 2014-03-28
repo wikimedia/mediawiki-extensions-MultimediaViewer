@@ -195,11 +195,13 @@
 	 */
 	MMVP.loadImage = function ( image, initialImage ) {
 		var imageWidths,
-			viewer = this,
 			imagePromise,
 			metadataPromise,
 			start,
-			$initialImage = $( initialImage );
+			viewer = this,
+			$initialImage = $( initialImage ),
+			fileWidth = parseInt( $initialImage.data( 'file-width' ), 10 ),
+			fileHeight = parseInt( $initialImage.data( 'file-height' ), 10 );
 
 		this.currentIndex = image.index;
 
@@ -246,6 +248,20 @@
 			viewer.ui.panel.percent( 5 );
 		}
 
+		if ( fileWidth > 0 && fileHeight > 0 ) {
+			viewer.displayPlaceholderThumbnail( { width : fileWidth , height : fileHeight },
+				$initialImage,
+				imageWidths );
+		} else {
+			this.imageInfoProvider.get( image.filePageTitle ).done( function ( imageInfo ) {
+				if ( viewer.currentIndex !== image.index ) {
+					return;
+				}
+
+				viewer.displayPlaceholderThumbnail( imageInfo, $initialImage, imageWidths );
+			} );
+		}
+
 		imagePromise.progress( function ( thumbnailInfoResponse, imageResponse ) {
 			if ( viewer.currentIndex !== image.index ) {
 				return;
@@ -265,14 +281,6 @@
 			viewer.displayRealThumbnail( thumbnail, imageElement, imageWidths, $.now() - start );
 		} ).fail( function ( error ) {
 			viewer.ui.canvas.showError( error );
-		} );
-
-		this.imageInfoProvider.get( image.filePageTitle ).done( function ( imageInfo ) {
-			if ( viewer.currentIndex !== image.index ) {
-				return;
-			}
-
-			viewer.displayPlaceholderThumbnail( imageInfo, $initialImage, imageWidths );
 		} );
 
 		metadataPromise = this.fetchSizeIndependentLightboxInfo(
