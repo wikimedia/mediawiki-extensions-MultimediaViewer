@@ -62,7 +62,7 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	protected static function getModules( &$out ) {
-		$out->addModules( array( 'mmv.bootstrap.autostart' ) );
+		$out->addModules( array( 'mmv.head', 'mmv.bootstrap.autostart' ) );
 
 		return true;
 	}

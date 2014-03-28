@@ -41,6 +41,7 @@
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
 
+		this.thumbsReadyDeferred = $.Deferred();
 		this.thumbs = [];
 		this.$thumbs = $( '.gallery .image img, a.image img' );
 		this.processThumbs();
@@ -167,6 +168,8 @@
 		$link.add( $enlarge ).click( function ( e ) {
 			return bs.click( this, e, title );
 		} );
+
+		this.thumbsReadyDeferred.resolve();
 	};
 
 	/**
@@ -293,6 +296,10 @@
 		if ( this.$overlay ) {
 			this.$overlay.remove();
 		}
+	};
+
+	MMVB.whenThumbsReady = function () {
+		return this.thumbsReadyDeferred.promise();
 	};
 
 	mw.mmv.MultimediaViewerBootstrap = MultimediaViewerBootstrap;

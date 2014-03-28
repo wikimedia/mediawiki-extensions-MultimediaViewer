@@ -639,6 +639,14 @@ call_user_func( function() {
 		),
 	), $moduleInfo( 'mmv' ) );
 
+	$wgResourceModules['mmv.head'] = array_merge( array(
+		'scripts' => array(
+			'mmv.head.js',
+		),
+
+		'position' => 'top',
+	), $moduleInfo( 'mmv' ) );
+
 	$wgResourceModules['jquery.scrollTo'] = array_merge( array(
 		'scripts' => array(
 			'jquery.scrollTo.js',
