@@ -25,7 +25,7 @@
     "multimediaviewer-license-cc-pd": "公共领域",
     "multimediaviewer-license-pd": "公共领域",
     "multimediaviewer-license-default": "查看许可协议",
-    "multimediaviewer-permission-title": "许可协议详细信息",
+    "multimediaviewer-permission-title": "许可协议详情",
     "multimediaviewer-permission-link": "查看条款",
     "multimediaviewer-permission-viewmore": "查看更多",
     "multimediaviewer-about-mmv": "关于媒体文件查看器",
@@ -59,8 +59,9 @@
     "multimediaviewer-embed-license": "采用$1授权。",
     "multimediaviewer-embed-via": "来自$1。",
     "multimediaviewer-default-embed-dimensions": "默认缩略图尺寸",
-    "multimediaviewer-original-embed-dimensions": "原始大小$1",
-    "multimediaviewer-large-embed-dimensions": "大$1",
-    "multimediaviewer-medium-embed-dimensions": "中$1",
-    "multimediaviewer-small-embed-dimensions": "小$1"
+    "multimediaviewer-original-embed-dimensions": "原始尺寸 $1",
+    "multimediaviewer-large-embed-dimensions": "大 $1",
+    "multimediaviewer-medium-embed-dimensions": "中 $1",
+    "multimediaviewer-small-embed-dimensions": "小 $1",
+    "multimediaviewer-embed-dimensions": "- $1 × $2 像素"
 }

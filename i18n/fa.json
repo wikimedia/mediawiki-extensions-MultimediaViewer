@@ -38,5 +38,9 @@
     "multimediaviewer-fileusage-link": "مشاهدهٔ همهٔ استفاده‌ها",
     "multimediaviewer-fileusage-local-section": "در این سایت",
     "multimediaviewer-fileusage-global-section": "در سایت‌های دیگر",
-    "multimediaviewer-reuse-link": "استفاده از این پرونده"
+    "multimediaviewer-reuse-link": "استفاده از این پرونده",
+    "multimediaviewer-reuse-loading-placeholder": "بارگیری...",
+    "multimediaviewer-share-tab": "اشتراک‌گذاری",
+    "multimediaviewer-embed-tab": "توکارکردن",
+    "multimediaviewer-link-to-page": "پیوند به صفحهٔ توضیحات پرونده"
 }
