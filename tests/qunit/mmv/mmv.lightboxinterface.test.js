@@ -1,8 +1,21 @@
 ( function ( mw, $ ) {
+	var oldScrollTo;
+
+	function stubScrollTo() {
+		oldScrollTo = $.scrollTo;
+		$.scrollTo = function () { return { scrollTop : $.noop, on : $.noop, off : $.noop }; };
+	}
+
+	function restoreScrollTo() {
+		$.scrollTo = oldScrollTo;
+	}
+
 	QUnit.module( 'mmv.lightboxInterface', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Sanity test, object creation and ui construction', 23, function ( assert ) {
 		var lightbox = new mw.mmv.LightboxInterface();
+
+		stubScrollTo();
 
 		function checkIfUIAreasAttachedToDocument( inDocument ) {
 			var msg = inDocument === 1 ? ' ' : ' not ';
@@ -33,6 +46,8 @@
 
 		// UI areas not attached to the document anymore.
 		checkIfUIAreasAttachedToDocument(0);
+
+		restoreScrollTo();
 	} );
 
 	QUnit.test( 'Handler registration and clearance work OK', 2, function ( assert ) {
@@ -62,6 +77,10 @@
 		// we use a mock that pretends regular jquery.fullscreen behavior happened
 		$.fn.enterFullscreen = mw.mmv.testHelpers.enterFullscreenMock;
 		$.fn.exitFullscreen = mw.mmv.testHelpers.exitFullscreenMock;
+
+		stubScrollTo();
+
+		lightbox.buttons.fadeOut = $.noop;
 
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
@@ -108,11 +127,10 @@
 		// Unattach lightbox from document
 		lightbox.unattach();
 
-
-
 		$.fn.enterFullscreen = oldFnEnterFullscreen;
 		$.fn.exitFullscreen = oldFnExitFullscreen;
 		$.support.fullscreen = oldSupportFullscreen;
+		restoreScrollTo();
 	} );
 
 	QUnit.test( 'Fullscreen mode', 8, function ( assert ) {
@@ -122,6 +140,8 @@
 			oldFnExitFullscreen = $.fn.exitFullscreen,
 			oldRevealButtonsAndFadeIfNeeded,
 			buttonOffset;
+
+		stubScrollTo();
 
 		// ugly hack to avoid preloading which would require lightbox list being set up
 		viewer.preloadDistance = -1;
@@ -180,10 +200,13 @@
 
 		$.fn.enterFullscreen = oldFnEnterFullscreen;
 		$.fn.exitFullscreen = oldFnExitFullscreen;
+		restoreScrollTo();
 	} );
 
 	QUnit.test( 'isAnyActiveButtonHovered', 20, function ( assert ) {
 		var lightbox = new mw.mmv.LightboxInterface();
+
+		stubScrollTo();
 
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
@@ -215,6 +238,7 @@
 
 		// Unattach lightbox from document
 		lightbox.unattach();
+		restoreScrollTo();
 	} );
 
 	QUnit.test( 'Metadata scrolling', 15, function ( assert ) {
@@ -341,8 +365,6 @@
 
 		// Lightbox is supposed to restore the document scrollTop value that was set prior to opening it
 		assert.strictEqual( $.scrollTo().scrollTop(), scrollTopBeforeOpeningLightbox, 'document scrollTop value has been restored correctly' );
-
-
 
 		// Let's restore all originals, to make sure this test is free of side-effect
 		$.fn.scrollTop = originalJQueryScrollTop;

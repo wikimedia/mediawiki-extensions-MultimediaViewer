@@ -294,7 +294,10 @@
 			$document = $( document ),
 			$qf = $( '#qunit-fixture' ),
 			eventTypes = [ 'keydown', 'keyup', 'keypress', 'click', 'mousedown', 'mouseup' ],
-			modifiers = [ undefined, 'altKey', 'ctrlKey', 'shiftKey', 'metaKey' ];
+			modifiers = [ undefined, 'altKey', 'ctrlKey', 'shiftKey', 'metaKey' ],
+			oldScrollTo = $.scrollTo;
+
+		$.scrollTo = function () { return { scrollTop : $.noop, on : $.noop, off : $.noop }; };
 
 		viewer.setupEventHandlers();
 
@@ -325,6 +328,7 @@
 				QUnit.start();
 				$document.off( '.mmvtest' );
 				viewer.cleanupEventHandlers();
+				$.scrollTo = oldScrollTo;
 			}
 		}
 
