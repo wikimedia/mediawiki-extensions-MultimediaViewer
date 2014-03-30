@@ -3,7 +3,8 @@
         "authors": [
             "Mark Holmquist <mtraceur@member.fsf.org>",
             "Raymond",
-            "Shirayuki"
+            "Shirayuki",
+            "Liuxinyu970226"
         ]
     },
     "multimediaviewer-desc": "{{desc|name=Multimedia Viewer|url=https://www.mediawiki.org/wiki/Extension:MultimediaViewer}}",
@@ -80,6 +81,6 @@
     "multimediaviewer-original-embed-dimensions": "Text of size selector option which will generate wikitext for a thumbnail with the original (full) size.\n* $1 - thumbnail dimensions, defined by the following message:\n** {{msg-mw|Multimediaviewer-embed-dimensions}}",
     "multimediaviewer-large-embed-dimensions": "Text of size selector option which will generate wikitext for a thumbnail with small size.\n* $1 - thumbnail dimensions, defined by the following message:\n** {{msg-mw|Multimediaviewer-embed-dimensions}}",
     "multimediaviewer-medium-embed-dimensions": "Text of size selector option which will generate wikitext for a thumbnail with medium size.\n* $1 - thumbnail dimensions, defined by the following message:\n** {{msg-mw|Multimediaviewer-embed-dimensions}}",
-    "multimediaviewer-small-embed-dimensions": "Text of size selector option which will generate wikitext for a thumbnail with large size.\n* $1 - thumbnail dimensions, defined by the following message:\n** {{msg-mw|Multimediaviewer-embed-dimensions}}",
+    "multimediaviewer-small-embed-dimensions": "Text of size selector option which will generate wikitext for a thumbnail with large size.\n* $1 - thumbnail dimensions, defined by the following message:\n** {{msg-mw|Multimediaviewer-embed-dimensions}}\n\n{{Identical|Small}}",
     "multimediaviewer-embed-dimensions": "Dimensions for a given size selector option which will generate wikitext for a thumbnail.\n* $1 - width in pixels\n* $2 - height in pixels"
 }

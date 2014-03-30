@@ -21,7 +21,8 @@
     "multimediaviewer-permission-link": "afichar las condicions",
     "multimediaviewer-permission-viewmore": "Veire mai",
     "multimediaviewer-about-mmv": "A prepaus de la visionadoira de mèdias",
-    "multimediaviewer-discuss-mmv": "Daissar un vejaire a prepaus de la visionadoira de mèdias",
+    "multimediaviewer-discuss-mmv": "Discutir d'aquesta foncionalitat",
+    "multimediaviewer-help-mmv": "Ajuda",
     "multimediaviewer-geolocation": "Emplaçament : $1",
     "multimediaviewer-fileusage-count": "Utilizat sus $1 {{PLURAL:$1|pagina|paginas}}",
     "multimediaviewer-fileusage-count-more": "Utilizat sus mai de $1 {{PLURAL:$1|paginas}}",
@@ -29,5 +30,9 @@
     "multimediaviewer-fileusage-local-section": "Sus aqueste site",
     "multimediaviewer-fileusage-global-section": "Sus d’autres sites",
     "multimediaviewer-reuse-link": "Utilizar aqueste fichièr",
-    "multimediaviewer-reuse-loading-placeholder": "Cargament en cors…"
+    "multimediaviewer-reuse-loading-placeholder": "Cargament en cors…",
+    "multimediaviewer-original-embed-dimensions": "Talha d’origina $1",
+    "multimediaviewer-large-embed-dimensions": "Grand $1",
+    "multimediaviewer-medium-embed-dimensions": "Mejan $1",
+    "multimediaviewer-small-embed-dimensions": "Pichon $1"
 }

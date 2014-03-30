@@ -29,7 +29,8 @@
     "multimediaviewer-permission-link": "xem điều khoản",
     "multimediaviewer-permission-viewmore": "Xem thêm",
     "multimediaviewer-about-mmv": "Giới thiệu về Cửa sổ phương tiện",
-    "multimediaviewer-discuss-mmv": "Gửi phản hồi",
+    "multimediaviewer-discuss-mmv": "Thảo luận về tính năng này",
+    "multimediaviewer-help-mmv": "Trợ giúp",
     "multimediaviewer-geoloc-north": "B",
     "multimediaviewer-geoloc-east": "Đ",
     "multimediaviewer-geoloc-south": "N",
@@ -46,8 +47,10 @@
     "multimediaviewer-embed-tab": "Nhúng",
     "multimediaviewer-link-to-page": "Liên kết đến trang miêu tả",
     "multimediaviewer-link-to-file": "Liên kết đến tập tin gốc",
+    "multimediaviewer-share-explanation": "Sao chép và thoải mái chia sẻ liên kết này",
     "multimediaviewer-embed-wt": "Mã wiki",
     "multimediaviewer-embed-html": "HTML",
+    "multimediaviewer-embed-explanation": "Nhúng tập tin bằng đoạn mã này",
     "multimediaviewer-html-embed-credit-text-tbls": "“$1” của $2, phát hành theo giấy phép $3 do $4 cung cấp.",
     "multimediaviewer-html-embed-credit-text-tls": "“$1”, phát hành theo giấy phép $2 do $3 cung cấp.",
     "multimediaviewer-html-embed-credit-text-tbs": "“$1” của $2, do $3 cung cấp.",
@@ -59,5 +62,10 @@
     "multimediaviewer-embed-byline": "Bởi $1",
     "multimediaviewer-embed-license": "Phát hành theo giấy phép $1.",
     "multimediaviewer-embed-via": "Do $1 cung cấp.",
-    "multimediaviewer-default-embed-dimensions": "Kích thước hình nhỏ mặc định"
+    "multimediaviewer-default-embed-dimensions": "Kích thước hình nhỏ mặc định",
+    "multimediaviewer-original-embed-dimensions": "Kích thước gốc $1",
+    "multimediaviewer-large-embed-dimensions": "Lớn $1",
+    "multimediaviewer-medium-embed-dimensions": "Vừa $1",
+    "multimediaviewer-small-embed-dimensions": "Nhỏ $1",
+    "multimediaviewer-embed-dimensions": "– $1×$2 điểm ảnh"
 }
