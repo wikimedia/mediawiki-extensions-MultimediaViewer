@@ -16,16 +16,19 @@
  */
 
 ( function ( mw, $, oo ) {
+	var CBP;
+
 	/**
-	 * Represents the buttons in the interface - next, previous, close, and fullscreen.
-	 * @class mw.mmv.ui.Buttons
+	 * Represents the buttons which are displayed over the image - next, previous, close
+	 * and fullscreen.
+	 * @class mw.mmv.ui.CanvasButtons
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
 	 * @param {jQuery} $container The parent element we should put the buttons into.
 	 * @param {jQuery} $closeButton The close button element from the parent class.
 	 * @param {jQuery} $fullscreenButton The fullscreen button from the parent class.
 	 */
-	function Buttons( $container, $closeButton, $fullscreenButton ) {
+	function CanvasButtons( $container, $closeButton, $fullscreenButton ) {
 		var buttons = this;
 
 		mw.mmv.ui.Element.call( this, $container );
@@ -79,14 +82,14 @@
 			$container.trigger( $.Event( 'mmv-prev' ) );
 		} );
 	}
-
-	oo.inheritClass( Buttons, mw.mmv.ui.Element );
+	oo.inheritClass( CanvasButtons, mw.mmv.ui.Element );
+	CBP = CanvasButtons.prototype;
 
 	/**
 	 * Sets the top offset for the navigation buttons.
 	 * @param {number} offset
 	 */
-	Buttons.prototype.setOffset = function ( offset ) {
+	CBP.setOffset = function ( offset ) {
 		this.$nav.css( {
 			top: offset
 		} );
@@ -95,7 +98,7 @@
 	/**
 	 * Stops the fading animation of the buttons and cancel any opacity value
 	 */
-	Buttons.prototype.stopFade = function () {
+	CBP.stopFade = function () {
 		this.$buttons
 			.stop( true )
 			.removeClass( 'hidden' )
@@ -109,7 +112,7 @@
 	 * @param {boolean} showPrevButton
 	 * @param {boolean} showNextButton
 	 */
-	Buttons.prototype.toggle = function ( showPrevButton, showNextButton ) {
+	CBP.toggle = function ( showPrevButton, showNextButton ) {
 		this.$next.toggleClass( 'disabled', !showPrevButton );
 		this.$prev.toggleClass( 'disabled', !showNextButton );
 	};
@@ -117,7 +120,7 @@
 	/**
 	 * Fades out the active buttons
 	 */
-	Buttons.prototype.fadeOut = function () {
+	CBP.fadeOut = function () {
 		var buttons = this;
 
 		// We don't use animation chaining because delay() can't be stop()ed
@@ -136,7 +139,7 @@
 	 * @param {number} y The vertical coordinate of the position
 	 * @return bool
 	 */
-	Buttons.prototype.isAnyActiveButtonHovered = function ( x, y ) {
+	CBP.isAnyActiveButtonHovered = function ( x, y ) {
 		// We don't use mouseenter/mouseleave events because content is subject
 		// to change underneath the cursor, eg. when entering fullscreen or
 		// when going prev/next (the button can disappear when reaching ends)
@@ -160,7 +163,7 @@
 	/**
 	 * Reveals all active buttons and schedule a fade out if needed
 	 */
-	Buttons.prototype.revealAndFade = function ( mousePosition ) {
+	CBP.revealAndFade = function ( mousePosition ) {
 		if ( this.buttonsFadeTimeout ) {
 			clearTimeout( this.buttonsFadeTimeout );
 		}
@@ -176,5 +179,5 @@
 		}
 	};
 
-	mw.mmv.ui.Buttons = Buttons;
+	mw.mmv.ui.CanvasButtons = CanvasButtons;
 }( mediaWiki, jQuery, OO ) );

@@ -81,8 +81,8 @@ call_user_func( function() {
 		'dependencies' => array(
 			'mmv.base',
 			'mmv.ui',
-			'mmv.ui.buttons',
 			'mmv.ui.canvas',
+			'mmv.ui.canvasButtons',
 			'mmv.ui.categories',
 			'mmv.ui.description',
 			'mmv.ui.fileUsage',
@@ -533,13 +533,13 @@ call_user_func( function() {
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 
-	$wgResourceModules['mmv.ui.buttons'] = array_merge( array(
+	$wgResourceModules['mmv.ui.canvasButtons'] = array_merge( array(
 		'scripts' => array(
-			'mmv.ui.buttons.js',
+			'mmv.ui.canvasButtons.js',
 		),
 
 		'styles' => array(
-			'mmv.ui.buttons.less',
+			'mmv.ui.canvasButtons.less',
 		),
 
 		'dependencies' => array(
