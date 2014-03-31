@@ -168,6 +168,9 @@
 		$link.add( $enlarge ).click( function ( e ) {
 			return bs.click( this, e, title );
 		} );
+		// now that we have set up our real click handler we can we can remove the temporary
+		// handler added in mmv.head.js which just replays clicks to the real handler
+		$( document ).off( 'click.mmv-head' );
 
 		this.thumbsReadyDeferred.resolve();
 	};
