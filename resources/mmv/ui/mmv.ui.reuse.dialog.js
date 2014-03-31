@@ -68,20 +68,24 @@
 
 	// FIXME this should happen outside the dialog and the tabs, but we need to improve
 	DP.initTabs = function () {
-		var shareTab, embedTab;
+		var shareTab, embedTab, downloadTab;
 
 		this.tabs = {
 			share: new mw.mmv.ui.reuse.Share( this.$reuseDialog ),
-			embed: new mw.mmv.ui.reuse.Embed( this.$reuseDialog )
+			download: new mw.mmv.ui.reuse.Download( this.$reuseDialog ),
+			embed: new mw.mmv.ui.reuse.Embed( this.$reuseDialog ),
 		};
 
 		shareTab = new oo.ui.MenuItemWidget(
 			'share', { label: mw.message( 'multimediaviewer-share-tab' ).text() } );
+		downloadTab = new oo.ui.MenuItemWidget(
+			'download', { label: mw.message( 'multimediaviewer-download-tab' ).text() } );
 		embedTab = new oo.ui.MenuItemWidget(
 			'embed', { label: mw.message( 'multimediaviewer-embed-tab' ).text() } );
 
 		this.reuseTabs.addItems( [
 			shareTab,
+			downloadTab,
 			embedTab
 		] );
 
@@ -163,6 +167,7 @@
 	 */
 	DP.set = function ( image, repo, caption) {
 		this.tabs.share.set( image );
+		this.tabs.download.set( image );
 		this.tabs.embed.set( image, repo, caption );
 		this.$reuseLink.removeClass( 'empty' );
 	};

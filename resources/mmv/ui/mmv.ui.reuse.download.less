@@ -1,0 +1,62 @@
+@mw-ui-constructive-button-color: #00af89;
+
+.mw-mlb-download-pane {
+	margin-left: 10px;
+
+	/* Disable link clicks */
+	a.disabledLink {
+		pointer-events: none;
+		cursor: default;
+	}
+
+	.multimediaviewer-download-button {
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	/* Selection size arrow element */
+	.mw-mlb-download-select-menu {
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-color: @mw-ui-constructive-button-color;
+		border:0;
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+		border-left: 1px dotted black;
+		background-image: /* @embed */ url(../img/down.svg);
+	}
+
+	.multimediaviewer-download-image-size-name {
+		display:block;
+	}
+
+	.multimediaviewer-download-image-size {
+		display:block;
+		font-size: x-small;
+	}
+
+	.mw-mlb-download-preview-link {
+		display: block;
+		font-size: small;
+		margin-top: 12px;
+	}
+
+	/* Pulldown size menu */
+	.mw-mlb-download-size {
+		display: none;
+
+		&.active {
+			display: block;
+		}
+
+		.oo-ui-widget-disabled {
+			display: none;
+		}
+
+		/* Changes to pulldown menu */
+		.oo-ui-inlineMenuWidget-handle {
+			display: none;
+		}
+	}
+
+}

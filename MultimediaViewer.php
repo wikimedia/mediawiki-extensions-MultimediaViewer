@@ -451,10 +451,24 @@ call_user_func( function() {
 			'oojs-ui',
 			'mmv.ui.reuse.share',
 			'mmv.ui.reuse.embed',
+			'mmv.ui.reuse.download',
 		),
 
 		'messages' => array(
 			'multimediaviewer-reuse-link',
+		),
+	), $moduleInfo( 'mmv/ui' ) );
+
+	$wgResourceModules['mmv.ui.reuse.utils'] = array_merge( array(
+		'scripts' => array(
+			'mmv.ui.reuse.utils.js',
+		),
+
+		'dependencies' => array(
+			'mmv.HtmlUtils',
+			'mmv.ui',
+			'oojs',
+			'oojs-ui',
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 
@@ -481,6 +495,7 @@ call_user_func( function() {
 
 		'dependencies' => array(
 			'mmv.ui.reuse.tab',
+			'mmv.ui.reuse.utils',
 			'oojs',
 			'oojs-ui',
 		),
@@ -507,6 +522,7 @@ call_user_func( function() {
 
 		'dependencies' => array(
 			'mmv.ui.reuse.tab',
+			'mmv.ui.reuse.utils',
 			'oojs',
 			'oojs-ui',
 			'mmv.model.EmbedFileInfo',
@@ -530,6 +546,35 @@ call_user_func( function() {
 			'multimediaviewer-medium-embed-dimensions',
 			'multimediaviewer-small-embed-dimensions',
 			'multimediaviewer-embed-dimensions',
+			'multimediaviewer-embed-dimensions-separated',
+		),
+	), $moduleInfo( 'mmv/ui' ) );
+
+	$wgResourceModules['mmv.ui.reuse.download'] = array_merge( array(
+		'scripts' => array(
+			'mmv.ui.reuse.download.js',
+		),
+
+		'styles' => array(
+			'mmv.ui.reuse.download.less',
+		),
+
+		'dependencies' => array(
+			'mediawiki.ui',
+			'mediawiki.ui.button',
+			'mmv.ui.reuse.tab',
+			'mmv.ui.reuse.utils',
+		),
+
+		'messages' => array(
+			'multimediaviewer-download-tab',
+			'multimediaviewer-download-preview-link-title',
+			'multimediaviewer-download-original-button-name',
+			'multimediaviewer-download-small-button-name',
+			'multimediaviewer-download-medium-button-name',
+			'multimediaviewer-download-large-button-name',
+			'multimediaviewer-embed-dimensions',
+			'multimediaviewer-embed-dimensions-with-file-format',
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 

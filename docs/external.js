@@ -36,6 +36,11 @@
  */
 
 /**
+ * @class OO.ui.InlineMenuWidget
+ * <https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/OO.ui.InlineMenuWidget>
+ */
+
+/**
  * @class XMLHttpRequest
  * An AJAX request
  */

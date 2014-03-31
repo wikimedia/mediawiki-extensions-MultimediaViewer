@@ -170,56 +170,35 @@
 		embed.updateEmbedWikitext( width );
 	} );
 
-	QUnit.test( 'Size options are correct', 3, function ( assert ) {
+	QUnit.test( 'getPossibleImageSizesForWikitext()', 3, function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
 		exampleSizes = [
 			// Big wide image
 			{
 				width: 2048, height: 1536,
 				expected: {
-					html: {
-						small: { width: 193, height: 145 },
-						medium: { width: 640, height: 480 },
-						large: { width: 1200, height: 900 },
-						original: { width: 2048, height: 1536 }
-					},
-					wikitext: {
-						small: { width: 300, height: 225 },
-						medium: { width: 400, height: 300 },
-						large: { width: 500, height: 375 }
-					}
+					small: { width: 300, height: 225 },
+					medium: { width: 400, height: 300 },
+					large: { width: 500, height: 375 }
 				}
 			},
 
 			// Big tall image
 			{
 				width: 201, height: 1536,
-				expected: {
-					html: {
-						small: { width: 19, height: 145 },
-						medium: { width: 63, height: 480 },
-						large: { width: 118, height: 900 },
-						original: { width: 201, height: 1536 }
-					},
-					wikitext: {}
-				}
+				expected: { }
 			},
 
 			// Very small image
 			{
 				width: 15, height: 20,
-				expected: {
-					html: {
-						original: { width: 15, height: 20 }
-					},
-					wikitext: {}
-				}
+				expected: { }
 			}
 		],
 		i, cursize, opts;
 		for ( i = 0; i < exampleSizes.length; i++ ) {
 			cursize = exampleSizes[i];
-			opts = embed.getSizeOptions( cursize.width, cursize.height );
+			opts = embed.getPossibleImageSizesForWikitext( cursize.width, cursize.height );
 			assert.deepEqual( opts, cursize.expected, 'We got the expected results out of the size calculation function.' );
 		}
 	} );
@@ -235,10 +214,10 @@
 
 		QUnit.stop();
 
-		embed.updateMenuOptions = function( sizes, options ) {
+		embed.utils.updateMenuOptions = function( sizes, options ) {
 			assert.strictEqual( options.length, 4, 'Options passed correctly.' );
 		};
-		embed.getThumbnailUrlPromise = function () {
+		embed.utils.getThumbnailUrlPromise = function () {
 			return $.Deferred().resolve().promise();
 		};
 		embed.updateEmbedHtml = function () {
@@ -254,25 +233,6 @@
 		embed.set( { width: width, height: height }, embedFileInfo );
 
 		assert.ok( embed.embedFileInfo, 'embedFileInfo correctly set.' );
-	} );
-
-	QUnit.test( 'updateMenuOptions():', 6, function ( assert ) {
-		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
-		options = embed.embedSizeSwitchHtml.getMenu().getItems(),
-		width = 700,
-		height = 500,
-		sizes = embed.getSizeOptions( width, height ),
-		oldMessage = mw.message;
-
-		mw.message = function( messageKey ) {
-			assert.ok( messageKey.match(/^multimediaviewer-(small|medium|original|embed-dimensions)/), 'messageKey passed correctly.' );
-
-			return { text: $.noop };
-		};
-
-		embed.updateMenuOptions( sizes.html, options );
-
-		mw.message = oldMessage;
 	} );
 
 	QUnit.test( 'empty():', 6, function ( assert ) {

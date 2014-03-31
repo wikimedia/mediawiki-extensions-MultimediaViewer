@@ -57,6 +57,12 @@
     "multimediaviewer-reuse-loading-placeholder": "Loading…",
     "multimediaviewer-share-tab": "Share",
     "multimediaviewer-embed-tab": "Embed",
+    "multimediaviewer-download-tab": "Download",
+    "multimediaviewer-download-preview-link-title": "Preview in browser",
+    "multimediaviewer-download-original-button-name": "Download original size",
+    "multimediaviewer-download-small-button-name": "Download small size",
+    "multimediaviewer-download-medium-button-name": "Download medium size",
+    "multimediaviewer-download-large-button-name": "Download large size",
     "multimediaviewer-link-to-page": "Link to file description page",
     "multimediaviewer-link-to-file": "Link to original file",
     "multimediaviewer-share-explanation": "Copy and freely share the link",
@@ -79,5 +85,7 @@
     "multimediaviewer-large-embed-dimensions": "Large $1",
     "multimediaviewer-medium-embed-dimensions": "Medium $1",
     "multimediaviewer-small-embed-dimensions": "Small $1",
-    "multimediaviewer-embed-dimensions": "- $1 × $2 px"
+    "multimediaviewer-embed-dimensions": "$1 × $2 px",
+    "multimediaviewer-embed-dimensions-separated": "- $1",
+    "multimediaviewer-embed-dimensions-with-file-format": "$1 $2"
 }

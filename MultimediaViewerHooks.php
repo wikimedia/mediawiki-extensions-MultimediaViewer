@@ -208,9 +208,11 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv/ui/mmv.ui.metadataPanel.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.permission.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.reuse.dialog.test.js',
+				'tests/qunit/mmv/ui/mmv.ui.reuse.download.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.reuse.embed.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.reuse.share.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.reuse.tab.test.js',
+				'tests/qunit/mmv/ui/mmv.ui.reuse.utils.test.js',
 				'tests/qunit/mmv/mmv.testhelpers.js',
 			),
 			'dependencies' => array(
