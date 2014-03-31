@@ -18,6 +18,10 @@
 ( function ( mw, $ ) {
 	var $document = $( document );
 
+	if ( ! mw.mmv.isBrowserSupported() ) {
+		return;
+	}
+
 	// If the user disabled MediaViewer in his preferences, we do not set up click handling.
 	// This is loaded before user JS so we cannot check wgMediaViewer.
 	if ( mw.config.get( 'wgMediaViewerOnClick' ) !== true ) {
