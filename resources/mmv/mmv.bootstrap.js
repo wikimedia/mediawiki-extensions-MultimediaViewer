@@ -61,11 +61,14 @@
 			return deferred.reject();
 		}
 
+		bs.setupOverlay();
+
 		mw.loader.using( 'mmv', function() {
 			bs.isCSSReady( deferred );
 		}, function ( error ) {
 			mw.log( error.message );
 			deferred.reject( error.message );
+			bs.cleanupOverlay();
 		} );
 
 		return deferred.done( function ( viewer ) {
@@ -257,6 +260,8 @@
 
 		$( document ).on( 'mmv.hash', function ( e ) {
 			self.internalHashChange( e );
+		} ).on( 'mmv.close', function () {
+			self.cleanupOverlay();
 		} );
 	};
 
@@ -266,6 +271,28 @@
 	MMVB.cleanupEventHandlers = function () {
 		$( window ).off( 'hashchange' );
 		$( document ).off( 'mmv.hash' );
+	};
+
+	/**
+	 * Sets up the overlay while the viewer loads
+	 */
+	MMVB.setupOverlay = function () {
+		this.$overlay = $( '<div>' )
+			.addClass( 'mlb-overlay' );
+
+		$( document.body ).addClass( 'mw-mlb-lightbox-open' )
+			.append( this.$overlay );
+	};
+
+	/**
+	 * Cleans up the overlay
+	 */
+	MMVB.cleanupOverlay = function () {
+		$( document.body ).removeClass( 'mw-mlb-lightbox-open' );
+
+		if ( this.$overlay ) {
+			this.$overlay.remove();
+		}
 	};
 
 	mw.mmv.MultimediaViewerBootstrap = MultimediaViewerBootstrap;

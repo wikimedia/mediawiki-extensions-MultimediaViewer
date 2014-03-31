@@ -225,8 +225,6 @@
 		this.preloadThumbnails();
 		this.preloadFullscreenThumbnail( image );
 
-		$( document.body ).addClass( 'mw-mlb-lightbox-open' );
-
 		imageWidths = this.ui.canvas.getCurrentImageWidths();
 
 		this.resetBlurredThumbnailStates();
@@ -583,7 +581,8 @@
 	 * Handles close event coming from the lightbox
 	 */
 	MMVP.close = function () {
-		$( document.body ).removeClass( 'mw-mlb-lightbox-open' );
+		$( document ).trigger( $.Event( 'mmv.close' ) );
+
 		if ( comingFromHashChange === false ) {
 			$( document ).trigger( $.Event( 'mmv.hash', { hash : '#' } ) );
 		} else {

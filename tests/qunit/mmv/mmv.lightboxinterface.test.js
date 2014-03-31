@@ -12,7 +12,7 @@
 
 	QUnit.module( 'mmv.lightboxInterface', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sanity test, object creation and ui construction', 23, function ( assert ) {
+	QUnit.test( 'Sanity test, object creation and ui construction', 20, function ( assert ) {
 		var lightbox = new mw.mmv.LightboxInterface();
 
 		stubScrollTo();
@@ -21,7 +21,6 @@
 			var msg = inDocument === 1 ? ' ' : ' not ';
 			assert.strictEqual( $( '.mlb-wrapper' ).length, inDocument, 'Wrapper area' + msg + 'attached.' );
 			assert.strictEqual( $( '.mlb-main' ).length, inDocument, 'Main area' + msg + 'attached.' );
-			assert.strictEqual( $( '.mlb-overlay' ).length, inDocument, 'Overlay area' + msg + 'attached.' );
 			assert.strictEqual( $( '.mw-mlb-title' ).length, inDocument, 'Title area' + msg + 'attached.' );
 			assert.strictEqual( $( '.mw-mlb-author' ).length, inDocument, 'Author area' + msg + 'attached.' );
 			assert.strictEqual( $( '.mw-mlb-image-desc' ).length, inDocument, 'Description area' + msg + 'attached.' );

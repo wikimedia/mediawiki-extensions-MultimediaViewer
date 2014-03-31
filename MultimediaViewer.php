@@ -616,6 +616,10 @@ call_user_func( function() {
 			'mmv.bootstrap.js',
 		),
 
+		'styles' => array(
+			'mmv.bootstrap.less',
+		),
+
 		'dependencies' => array(
 			'jquery.hashchange',
 			'mediawiki.Title',
