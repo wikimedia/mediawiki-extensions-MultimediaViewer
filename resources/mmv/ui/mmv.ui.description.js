@@ -30,15 +30,15 @@
 		this.htmlUtils = new mw.mmv.HtmlUtils();
 
 		this.$imageDescDiv = $( '<div>' )
-			.addClass( 'mw-mlb-image-desc-div empty' )
+			.addClass( 'mw-mmv-image-desc-div empty' )
 			.appendTo( this.$container );
 
 		this.$imageCaption = $( '<p>' )
-			.addClass( 'mw-mlb-caption empty' )
+			.addClass( 'mw-mmv-caption empty' )
 			.appendTo( this.$imageDescDiv );
 
 		this.$imageDesc = $( '<p>' )
-			.addClass( 'mw-mlb-image-desc' )
+			.addClass( 'mw-mmv-image-desc' )
 			.appendTo( this.$imageDescDiv );
 	}
 

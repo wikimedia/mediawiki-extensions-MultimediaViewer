@@ -44,7 +44,7 @@
 		 * @property {jQuery}
 		 */
 		this.$imageDiv = $( '<div>' )
-			.addClass( 'mlb-image' );
+			.addClass( 'mw-mmv-image' );
 
 		this.$imageDiv.appendTo( this.$container );
 
@@ -273,7 +273,7 @@
 		this.$imageDiv.empty()
 			.addClass( 'error' )
 			.append(
-				$( '<div>' ).addClass( 'mlb-error-text' ).text(
+				$( '<div>' ).addClass( 'mw-mmv-error-text' ).text(
 					mw.message( 'multimediaviewer-thumbnail-error', error ).text()
 				)
 			);

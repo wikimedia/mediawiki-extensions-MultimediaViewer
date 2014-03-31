@@ -41,7 +41,7 @@
 		 * @property {jQuery}
 		 */
 		this.$box = $( '<div>' )
-			.addClass( 'mw-mlb-permission-box mw-mlb-info-box empty')
+			.addClass( 'mw-mmv-permission-box mw-mmv-info-box empty')
 			.appendTo( this.$container );
 
 		/**
@@ -59,9 +59,9 @@
 		 * @property {jQuery}
 		 */
 		this.$text = $( '<div>' )
-			.addClass( 'mw-mlb-permission-text' )
+			.addClass( 'mw-mmv-permission-text' )
 			.appendTo( this.$box )
-			.on( 'click', '.mw-mlb-permission-text-viewmore', function( e ) {
+			.on( 'click', '.mw-mmv-permission-text-viewmore', function( e ) {
 				e.preventDefault();
 				permission.grow();
 			} )
@@ -72,10 +72,10 @@
 		 * @property {jQuery}
 		 */
 		this.$fader = $( '<div>' )
-			.addClass( 'mw-mlb-permission-text-fader' )
+			.addClass( 'mw-mmv-permission-text-fader' )
 			.append(
 				$( '<a>' )
-					.addClass( 'mw-mlb-permission-text-viewmore' )
+					.addClass( 'mw-mmv-permission-text-viewmore' )
 					.prop( 'href', '#' )
 					.text( mw.message( 'multimediaviewer-permission-viewmore' ).text() )
 			);
@@ -86,7 +86,7 @@
 		 * @property {jQuery}
 		 */
 		this.$html = $( '<div>' )
-			.addClass( 'mw-mlb-permission-html' )
+			.addClass( 'mw-mmv-permission-html' )
 			.appendTo( this.$box );
 
 		/**
@@ -94,7 +94,7 @@
 		 * @property {jQuery}
 		 */
 		this.$close = $( '<div>' )
-			.addClass( 'mw-mlb-permission-close' )
+			.addClass( 'mw-mmv-permission-close' )
 			.on( 'click', function() {
 				permission.shrink();
 			} )

@@ -20,8 +20,8 @@
 
 	QUnit.test( 'getByline():', 4, function ( assert ) {
 		var formatter = new mw.mmv.EmbedFileFormatter(),
-			author = '<span class="mw-mlb-author">Homer</span>',
-			source = '<span class="mw-mlb-source">Iliad</span>',
+			author = '<span class="mw-mmv-author">Homer</span>',
+			source = '<span class="mw-mmv-source">Iliad</span>',
 			byline;
 
 		// Works with no arguments
@@ -65,8 +65,8 @@
 			licenseInternalName = '-',
 			licenseLongName = 'Public Domain, copyrights have lapsed',
 			licenseUrl = '//example.com/pd',
-			author = '<span class="mw-mlb-author">Homer</span>',
-			source = '<span class="mw-mlb-source">Iliad</span>',
+			author = '<span class="mw-mmv-author">Homer</span>',
+			source = '<span class="mw-mmv-source">Iliad</span>',
 			thumbUrl = 'https://upload.wikimedia.org/wikipedia/thumb/Foobar.jpg',
 			width = 700,
 			height = 500,

@@ -37,14 +37,14 @@
 		 */
 		this.formatter = new mw.mmv.EmbedFileFormatter();
 
-		this.$pane.addClass( 'mw-mlb-embed-pane' );
+		this.$pane.addClass( 'mw-mmv-embed-pane' );
 
 		this.$pane.appendTo( this.$container );
 
 		this.createSnippetTextAreas( this.$pane );
 
 		this.$explanation = $( '<div>' )
-			.addClass( 'mw-mlb-shareembed-explanation mw-mlb-embed-explanation' )
+			.addClass( 'mw-mmv-shareembed-explanation mw-mmv-embed-explanation' )
 			.text( mw.message( 'multimediaviewer-embed-explanation' ).text() )
 			.appendTo( this.$pane );
 
@@ -80,7 +80,7 @@
 	 */
 	EP.createSnippetTextAreas = function( $container ) {
 		this.embedTextHtml = new oo.ui.TextInputWidget( {
-			classes: [ 'mw-mlb-embed-text-html' ],
+			classes: [ 'mw-mmv-embed-text-html' ],
 			multiline: true,
 			readOnly: true
 		} );
@@ -89,7 +89,7 @@
 			.prop( 'placeholder', mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text() );
 
 		this.embedTextWikitext = new oo.ui.TextInputWidget( {
-			classes: [ 'mw-mlb-embed-text-wikitext', 'active' ],
+			classes: [ 'mw-mmv-embed-text-wikitext', 'active' ],
 			multiline: true,
 			readOnly: true
 		} );
@@ -114,7 +114,7 @@
 		var wikitextButtonOption,
 			htmlButtonOption;
 		this.embedSwitch = new oo.ui.ButtonSelectWidget( {
-			classes: [ 'mw-mlb-embed-select' ]
+			classes: [ 'mw-mmv-embed-select' ]
 		} );
 
 		wikitextButtonOption = new oo.ui.ButtonOptionWidget( 'wikitext', {
@@ -144,12 +144,12 @@
 	 */
 	EP.createSizePulldownMenus = function( $container ) {
 		var placeholderDimensions = $( '<span>' )
-			.addClass( 'mw-mlb-embed-dimensions' )
+			.addClass( 'mw-mmv-embed-dimensions' )
 			.text( mw.message( 'multimediaviewer-embed-dimensions', 0, 0 ).text() ).get( 0 ).outerHTML;
 
 		// Wikitext sizes pulldown menu
 		this.embedSizeSwitchWikitext = new oo.ui.InlineMenuWidget( {
-			classes: [ 'mw-mlb-embed-size', 'active' ]
+			classes: [ 'mw-mmv-embed-size', 'active' ]
 		} );
 
 		this.embedSizeChoicesWikitext = {};
@@ -195,7 +195,7 @@
 
 		// Html sizes pulldown menu
 		this.embedSizeSwitchHtml = new oo.ui.InlineMenuWidget( {
-			classes: [ 'mw-mlb-embed-size' ]
+			classes: [ 'mw-mmv-embed-size' ]
 		} );
 
 		this.embedHtmlSizeChoices = {};
@@ -594,7 +594,7 @@
 				data.height = sizes[data.name].height;
 
 				dimensions = $( '<span>' )
-					.addClass( 'mw-mlb-embed-dimensions' )
+					.addClass( 'mw-mmv-embed-dimensions' )
 					.text( mw.message( 'multimediaviewer-embed-dimensions', data.width, data.height ).text() ).get( 0 ).outerHTML;
 
 				$label = $( '<span>' ).html(

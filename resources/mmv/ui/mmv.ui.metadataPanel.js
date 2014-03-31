@@ -120,18 +120,18 @@
 		this.initializeProgress();
 
 		this.$dragBar = $( '<div>' )
-			.addClass( 'mw-mlb-drag-affordance' )
+			.addClass( 'mw-mmv-drag-affordance' )
 			.appendTo( this.$controlBar )
 			.click( function () {
 				panel.toggle();
 			} );
 
 		this.$dragIcon = $( '<div>' )
-			.addClass( 'mw-mlb-drag-icon' )
+			.addClass( 'mw-mmv-drag-icon' )
 			.appendTo( this.$dragBar );
 
 		this.$titleDiv = $( '<div>' )
-			.addClass( 'mw-mlb-title-contain' )
+			.addClass( 'mw-mmv-title-contain' )
 			.appendTo( this.$controlBar );
 
 		this.$container.append( this.$controlBar );
@@ -145,7 +145,7 @@
 	 */
 	MPP.initializeTitleAndCredit = function () {
 		this.$titleAndCredit = $( '<div>' )
-			.addClass( 'mw-mlb-title-credit' )
+			.addClass( 'mw-mmv-title-credit' )
 			.appendTo( this.$titleDiv );
 
 		this.initializeTitle();
@@ -157,11 +157,11 @@
 	 */
 	MPP.initializeTitle = function () {
 		this.$titlePara = $( '<p>' )
-			.addClass( 'mw-mlb-title-para' )
+			.addClass( 'mw-mmv-title-para' )
 			.appendTo( this.$titleAndCredit );
 
 		this.$title = $( '<span>' )
-			.addClass( 'mw-mlb-title' )
+			.addClass( 'mw-mmv-title' )
 			.appendTo( this.$titlePara );
 	};
 
@@ -170,13 +170,13 @@
 	 */
 	MPP.initializeCredit = function () {
 		this.$source = $( '<span>' )
-			.addClass( 'mw-mlb-source' );
+			.addClass( 'mw-mmv-source' );
 
 		this.$author = $( '<span>' )
-			.addClass( 'mw-mlb-author' );
+			.addClass( 'mw-mmv-author' );
 
 		this.$credit = $( '<p>' )
-			.addClass( 'mw-mlb-credit empty' )
+			.addClass( 'mw-mmv-credit empty' )
 			.html(
 				mw.message(
 					'multimediaviewer-credit',
@@ -194,12 +194,12 @@
 		var panel = this;
 
 		this.$license = $( '<a>' )
-			.addClass( 'mw-mlb-license empty' )
+			.addClass( 'mw-mmv-license empty' )
 			.prop( 'href', '#' )
 			.appendTo( this.$titlePara );
 
 		this.$permissionLink = $( '<span>' )
-			.addClass( 'mw-mlb-permission-link mw-mlb-label' )
+			.addClass( 'mw-mmv-permission-link mw-mmv-label' )
 			.text( mw.message( 'multimediaviewer-permission-link' ).text() )
 			.appendTo( this.$titlePara )
 			.hide()
@@ -214,15 +214,15 @@
 	 */
 	MPP.initializeImageMetadata = function () {
 		this.$imageMetadata = $( '<div>' )
-			.addClass( 'mw-mlb-image-metadata' )
+			.addClass( 'mw-mmv-image-metadata' )
 			.appendTo( this.$container );
 
 		this.$imageMetadataLeft = $( '<div>' )
-			.addClass( 'mw-mlb-image-metadata-column mw-mlb-image-metadata-desc-column' )
+			.addClass( 'mw-mmv-image-metadata-column mw-mmv-image-metadata-desc-column' )
 			.appendTo( this.$imageMetadata );
 
 		this.$imageMetadataRight = $( '<div>' )
-			.addClass( 'mw-mlb-image-metadata-column mw-mlb-image-metadata-links-column' )
+			.addClass( 'mw-mmv-image-metadata-column mw-mmv-image-metadata-links-column' )
 			.appendTo( this.$imageMetadata );
 
 		this.description = new mw.mmv.ui.Description( this.$imageMetadataLeft );
@@ -235,11 +235,11 @@
 	 */
 	MPP.initializeImageLinks = function () {
 		this.$imageLinkDiv = $( '<div>' )
-			.addClass( 'mw-mlb-image-links-div' )
+			.addClass( 'mw-mmv-image-links-div' )
 			.appendTo( this.$imageMetadataRight );
 
 		this.$imageLinks = $( '<ul>' )
-			.addClass( 'mw-mlb-image-links' )
+			.addClass( 'mw-mmv-image-links' )
 			.appendTo( this.$imageLinkDiv );
 
 		this.initializeRepoLink();
@@ -261,11 +261,11 @@
 	 */
 	MPP.initializeRepoLink = function () {
 		this.$repoLi = $( '<li>' )
-			.addClass( 'mw-mlb-repo-li empty' )
+			.addClass( 'mw-mmv-repo-li empty' )
 			.appendTo( this.$imageLinks );
 
 		this.$repo = $( '<a>' )
-			.addClass( 'mw-mlb-repo' )
+			.addClass( 'mw-mmv-repo' )
 			.prop( 'href', '#' )
 			.click( function ( e ) {
 				var $link = $( this ),
@@ -296,11 +296,11 @@
 	 */
 	MPP.initializeDatetime = function () {
 		this.$datetimeLi = $( '<li>' )
-			.addClass( 'mw-mlb-datetime-li empty' )
+			.addClass( 'mw-mmv-datetime-li empty' )
 			.appendTo( this.$imageLinks );
 
 		this.$datetime = $( '<span>' )
-			.addClass( 'mw-mlb-datetime' )
+			.addClass( 'mw-mmv-datetime' )
 			.appendTo( this.$datetimeLi );
 	};
 
@@ -309,11 +309,11 @@
 	 */
 	MPP.initializeUploader = function () {
 		this.$usernameLi = $( '<li>' )
-			.addClass( 'mw-mlb-username-li empty' )
+			.addClass( 'mw-mmv-username-li empty' )
 			.appendTo( this.$imageLinks );
 
 		this.$username = $( '<a>' )
-			.addClass( 'mw-mlb-username' )
+			.addClass( 'mw-mmv-username' )
 			.prop( 'href', '#' )
 			.appendTo( this.$usernameLi );
 	};
@@ -323,11 +323,11 @@
 	 */
 	MPP.initializeLocation = function () {
 		this.$locationLi = $( '<li>' )
-			.addClass( 'mw-mlb-location-li empty' )
+			.addClass( 'mw-mmv-location-li empty' )
 			.appendTo( this.$imageLinks );
 
 		this.$location = $( '<a>' )
-			.addClass( 'mw-mlb-location' )
+			.addClass( 'mw-mmv-location' )
 			.appendTo( this.$locationLi );
 	};
 
@@ -340,20 +340,20 @@
 		this.$mmvAboutLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).infoLink )
 			.text( mw.message( 'multimediaviewer-about-mmv' ).text() )
-			.addClass( 'mw-mlb-mmv-about-link' );
+			.addClass( 'mw-mmv-about-link' );
 
 		this.$mmvDiscussLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).discussionLink )
 			.text( mw.message( 'multimediaviewer-discuss-mmv' ).text() )
-			.addClass( 'mw-mlb-mmv-discuss-link' );
+			.addClass( 'mw-mmv-discuss-link' );
 
 		this.$mmvHelpLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).helpLink )
 			.text( mw.message( 'multimediaviewer-help-mmv' ).text() )
-			.addClass( 'mw-mlb-mmv-help-link' );
+			.addClass( 'mw-mmv-help-link' );
 
 		this.$mmvAboutLinks = $( '<div>' )
-			.addClass( 'mw-mlb-mmv-about-links' )
+			.addClass( 'mw-mmv-about-links' )
 			.append(
 				this.$mmvAboutLink,
 				separator,
@@ -369,11 +369,11 @@
 	 */
 	MPP.initializeProgress = function () {
 		this.$progress = $( '<div>' )
-			.addClass( 'mw-mlb-progress empty' )
+			.addClass( 'mw-mmv-progress empty' )
 			.appendTo( this.$controlBar );
 
 		this.$percent = $( '<div>' )
-			.addClass( 'mw-mlb-progress-percent' )
+			.addClass( 'mw-mmv-progress-percent' )
 			.appendTo( this.$progress );
 	};
 
@@ -415,7 +415,7 @@
 				this.$repoLiInlineStyle = $( '<style type="text/css" />' ).appendTo( 'head' );
 			}
 
-			this.$repoLiInlineStyle.html( '.mw-mlb-image-links li.mw-mlb-repo-li:before '
+			this.$repoLiInlineStyle.html( '.mw-mmv-image-links li.mw-mmv-repo-li:before '
 				+ '{ background-image: url("'
 				+ favIcon
 				+ '"); }'

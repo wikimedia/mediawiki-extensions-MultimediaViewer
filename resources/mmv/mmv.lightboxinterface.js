@@ -56,25 +56,25 @@
 		this.$filter = $( '<svg><filter id="gaussian-blur"><fegaussianblur stdDeviation="3"></filter></svg>' );
 
 		this.$wrapper = $( '<div>' )
-			.addClass( 'mlb-wrapper' );
+			.addClass( 'mw-mmv-wrapper' );
 
 		this.$main = $( '<div>' )
-			.addClass( 'mlb-main' );
+			.addClass( 'mw-mmv-main' );
 
 		// I blame CSS for this
 		this.$innerWrapper = $( '<div>' )
-			.addClass( 'mlb-image-inner-wrapper' );
+			.addClass( 'mw-mmv-image-inner-wrapper' );
 
 		this.$imageWrapper = $( '<div>' )
-			.addClass( 'mlb-image-wrapper' )
+			.addClass( 'mw-mmv-image-wrapper' )
 			.append( this.$innerWrapper );
 
 		this.$preDiv = $( '<div>' )
-			.addClass( 'mlb-pre-image' );
+			.addClass( 'mw-mmv-pre-image' );
 		this.setupPreDiv( addToPre );
 
 		this.$postDiv = $( '<div>' )
-			.addClass( 'mlb-post-image' );
+			.addClass( 'mw-mmv-post-image' );
 		this.setupPostDiv( addToPost );
 
 		this.$main.append(
@@ -241,18 +241,18 @@
 		var ui = this;
 
 		this.$controlBar = $( '<div>' )
-			.addClass( 'mlb-controls' );
+			.addClass( 'mw-mmv-controls' );
 
 		this.$closeButton = $( '<div>' )
 			.text( ' ' )
-			.addClass( 'mlb-close' )
+			.addClass( 'mw-mmv-close' )
 			.click( function () {
 				ui.unattach();
 			} );
 
 		this.$fullscreenButton = $( '<div>' )
 			.text( ' ' )
-			.addClass( 'mlb-fullscreen' )
+			.addClass( 'mw-mmv-fullscreen' )
 			.click( function () {
 				if ( ui.isFullscreen ) {
 					ui.exitFullscreen();
