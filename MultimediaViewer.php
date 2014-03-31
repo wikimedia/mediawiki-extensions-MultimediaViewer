@@ -719,6 +719,7 @@ call_user_func( function() {
 	$wgHooks['ResourceLoaderGetConfigVars'][] = 'MultimediaViewerHooks::resourceLoaderGetConfigVars';
 	$wgHooks['MakeGlobalVariablesScript'][] = 'MultimediaViewerHooks::makeGlobalVariablesScript';
 	$wgHooks['ResourceLoaderTestModules'][] = 'MultimediaViewerHooks::getTestModules';
+	$wgHooks['ThumbnailBeforeProduceHTML'][] = 'MultimediaViewerHooks::thumbnailBeforeProduceHTML';
 
 	$section = 'other';
 

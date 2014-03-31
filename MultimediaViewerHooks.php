@@ -223,4 +223,30 @@ class MultimediaViewerHooks {
 
 		return true;
 	}
+
+	/**
+	 * Modify thumbnail DOM
+	 * @param ThumbnailImage $thumbnail
+	 * @param array $attribs Attributes of the <img> element
+	 * @param array $linkAttribs Attributes of the wrapping <a> element
+	 */
+	public static function thumbnailBeforeProduceHTML( ThumbnailImage $thumbnail, array &$attribs, array &$linkAttribs ) {
+		$file = $thumbnail->getFile();
+
+		if ( $file ) {
+			// At the moment all classes that extend File have getWidth() and getHeight()
+			// but since the File class doesn't have these methods defined, this check
+			// is more future-proof
+
+			if ( method_exists( $file, 'getWidth' ) ) {
+				$attribs['data-file-width'] = $file->getWidth();
+			}
+
+			if ( method_exists( $file, 'getHeight' ) ) {
+				$attribs['data-file-height'] = $file->getHeight();
+			}
+		}
+
+		return true;
+	}
 }
