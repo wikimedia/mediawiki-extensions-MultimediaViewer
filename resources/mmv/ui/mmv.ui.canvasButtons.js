@@ -37,11 +37,11 @@
 		this.$fullscreen = $fullscreenButton;
 
 		this.$next = $( '<div>' )
-			.addClass( 'mw-mlb-next-image disabled' )
+			.addClass( 'mw-mmv-next-image disabled' )
 			.html( '&nbsp;' );
 
 		this.$prev = $( '<div>' )
-			.addClass( 'mw-mlb-prev-image disabled' )
+			.addClass( 'mw-mmv-prev-image disabled' )
 			.html( '&nbsp;' );
 
 		this.$nav = this.$next

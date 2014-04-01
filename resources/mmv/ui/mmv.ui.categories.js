@@ -58,7 +58,7 @@
 			cat = categories[i];
 
 			if ( !this.$categories ) {
-				this.$categories = $( '<li>' ).addClass( 'mw-mlb-image-category' )
+				this.$categories = $( '<li>' ).addClass( 'mw-mmv-image-category' )
 					.appendTo( this.$container );
 			}
 

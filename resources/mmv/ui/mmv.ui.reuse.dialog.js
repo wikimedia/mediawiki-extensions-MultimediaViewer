@@ -30,23 +30,23 @@
 		mw.mmv.ui.Element.call( this, $container );
 
 		this.$reuseLink = $( '<span>' )
-			.addClass( 'mw-mlb-reuse-link empty' )
+			.addClass( 'mw-mmv-reuse-link empty' )
 			.text( mw.message( 'multimediaviewer-reuse-link' ).text() );
 
 		this.$reuseLink.appendTo( $linkContainer );
 
 		this.$reuseDialog = $( '<div>' )
-			.addClass( 'mw-mlb-reuse-dialog' );
+			.addClass( 'mw-mmv-reuse-dialog' );
 
 		this.reuseTabs = new oo.ui.MenuWidget( {
-			classes: [ 'mw-mlb-reuse-tabs' ]
+			classes: [ 'mw-mmv-reuse-tabs' ]
 		} );
 		// MenuWidget has a nasty tendency to hide itself, maybe we're not using it right?
 		this.reuseTabs.hide = $.noop;
 		this.reuseTabs.$element.show().appendTo( this.$reuseDialog );
 
 		this.$downArrow = $( '<div>' )
-			.addClass( 'mw-mlb-reuse-down-arrow' )
+			.addClass( 'mw-mmv-reuse-down-arrow' )
 			.appendTo( this.$reuseDialog );
 
 		this.$reuseDialog.appendTo( this.$container );

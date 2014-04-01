@@ -1,7 +1,7 @@
 @import "mediawiki.mixins";
 @import "mmv.mixins";
 
-.mw-mlb-permission-box {
+.mw-mmv-permission-box {
 	position: relative;
 
 	width: 90%;
@@ -18,7 +18,7 @@
 		font-size: 0.95em;
 	}
 
-	.mw-mlb-permission-close {
+	.mw-mmv-permission-close {
 		display: none;
 
 		position: absolute;
@@ -32,7 +32,7 @@
 		cursor: pointer;
 	}
 
-	.mw-mlb-permission-text {
+	.mw-mmv-permission-text {
 		@text-font-size: 0.9em;
 		@text-line-height: 1.4;
 		@lines-shown: 3;
@@ -46,7 +46,7 @@
 		line-height: @text-line-height;
 		color: #555555;
 
-		.mw-mlb-permission-text-fader {
+		.mw-mmv-permission-text-fader {
 			position: absolute;
 			top: (@lines-shown - 1) * @text-line-height * @text-font-size;
 			width: 100%;
@@ -64,7 +64,7 @@
 		}
 	}
 
-	.mw-mlb-permission-html {
+	.mw-mmv-permission-html {
 		padding: 0 15px 15px;
 		display: none;
 		max-height: 400px;
@@ -72,15 +72,15 @@
 	}
 
 	&.full-size {
-		.mw-mlb-permission-close {
+		.mw-mmv-permission-close {
 			display: block;
 		}
 
-		.mw-mlb-permission-text {
+		.mw-mmv-permission-text {
 			display: none;
 		}
 
-		.mw-mlb-permission-html {
+		.mw-mmv-permission-html {
 			display: block;
 			border-top: 1px solid #f0f0f0;
 		}

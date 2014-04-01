@@ -34,11 +34,11 @@
 	SP = Share.prototype;
 
 	SP.init = function () {
-		this.$pane.addClass( 'mw-mlb-share-pane active' )
+		this.$pane.addClass( 'mw-mmv-share-pane active' )
 			.appendTo( this.$container );
 
 		this.pageInput = new oo.ui.TextInputWidget( {
-			classes: [ 'mw-mlb-share-page' ],
+			classes: [ 'mw-mmv-share-page' ],
 			readOnly: true
 		} );
 
@@ -46,7 +46,7 @@
 			.prop( 'placeholder', mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text() );
 
 		this.$pageLink = $( '<a>' )
-			.addClass( 'mw-mlb-share-page-link' )
+			.addClass( 'mw-mmv-share-page-link' )
 			.prop( 'alt', mw.message( 'multimediaviewer-link-to-page' ).text() )
 			.prop( 'target', '_blank' )
 			.html( '&nbsp;' )
@@ -55,7 +55,7 @@
 		this.pageInput.$element.appendTo( this.$pane );
 
 		this.$explanation = $( '<div>' )
-			.addClass( 'mw-mlb-shareembed-explanation' )
+			.addClass( 'mw-mmv-shareembed-explanation' )
 			.text( mw.message( 'multimediaviewer-share-explanation' ).text() )
 			.appendTo( this.$pane );
 

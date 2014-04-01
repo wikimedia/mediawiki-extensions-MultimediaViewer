@@ -284,9 +284,9 @@
 	 */
 	MMVB.setupOverlay = function () {
 		this.$overlay = $( '<div>' )
-			.addClass( 'mlb-overlay' );
+			.addClass( 'mw-mmv-overlay' );
 
-		$( document.body ).addClass( 'mw-mlb-lightbox-open' )
+		$( document.body ).addClass( 'mw-mmv-lightbox-open' )
 			.append( this.$overlay );
 	};
 
@@ -294,7 +294,7 @@
 	 * Cleans up the overlay
 	 */
 	MMVB.cleanupOverlay = function () {
-		$( document.body ).removeClass( 'mw-mlb-lightbox-open' );
+		$( document.body ).removeClass( 'mw-mmv-lightbox-open' );
 
 		if ( this.$overlay ) {
 			this.$overlay.remove();

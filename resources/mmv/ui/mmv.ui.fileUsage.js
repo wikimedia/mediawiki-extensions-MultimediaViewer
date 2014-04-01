@@ -59,7 +59,7 @@
 	FileUsage.prototype.init = function() {
 		this.$title = $( '<h3>' ).appendTo( this.$box );
 		this.$usageList = $( '<ul>' ).appendTo( this.$box );
-		this.$box.addClass( 'mw-mlb-fileusage-container' );
+		this.$box.addClass( 'mw-mmv-fileusage-container' );
 	};
 
 	/**
@@ -113,7 +113,7 @@
 		var $section;
 
 		if ( fileUsage.totalCount ) {
-			$section = $( '<li>' ).addClass( 'mw-mlb-fileusage-' + sectionType + '-section' )
+			$section = $( '<li>' ).addClass( 'mw-mmv-fileusage-' + sectionType + '-section' )
 					.msg( 'multimediaviewer-fileusage-' + sectionType + '-section' );
 
 			this.$usageList.append( $section );
@@ -156,7 +156,7 @@
 	 */
 	FileUsage.prototype.addViewAllLink = function( $section, url ) {
 		$section.append(
-			$( '<span>' ).addClass( 'mw-mlb-fileusage-view-all' ).append(
+			$( '<span>' ).addClass( 'mw-mmv-fileusage-view-all' ).append(
 				$( '<a>' ).msg( 'multimediaviewer-fileusage-link' )
 					.attr( 'href', url )
 			)

@@ -19,12 +19,12 @@
 
 		function checkIfUIAreasAttachedToDocument( inDocument ) {
 			var msg = inDocument === 1 ? ' ' : ' not ';
-			assert.strictEqual( $( '.mlb-wrapper' ).length, inDocument, 'Wrapper area' + msg + 'attached.' );
-			assert.strictEqual( $( '.mlb-main' ).length, inDocument, 'Main area' + msg + 'attached.' );
-			assert.strictEqual( $( '.mw-mlb-title' ).length, inDocument, 'Title area' + msg + 'attached.' );
-			assert.strictEqual( $( '.mw-mlb-author' ).length, inDocument, 'Author area' + msg + 'attached.' );
-			assert.strictEqual( $( '.mw-mlb-image-desc' ).length, inDocument, 'Description area' + msg + 'attached.' );
-			assert.strictEqual( $( '.mw-mlb-image-links' ).length, inDocument, 'Links area' + msg + 'attached.' );
+			assert.strictEqual( $( '.mw-mmv-wrapper' ).length, inDocument, 'Wrapper area' + msg + 'attached.' );
+			assert.strictEqual( $( '.mw-mmv-main' ).length, inDocument, 'Main area' + msg + 'attached.' );
+			assert.strictEqual( $( '.mw-mmv-title' ).length, inDocument, 'Title area' + msg + 'attached.' );
+			assert.strictEqual( $( '.mw-mmv-author' ).length, inDocument, 'Author area' + msg + 'attached.' );
+			assert.strictEqual( $( '.mw-mmv-image-desc' ).length, inDocument, 'Description area' + msg + 'attached.' );
+			assert.strictEqual( $( '.mw-mmv-image-links' ).length, inDocument, 'Links area' + msg + 'attached.' );
 		}
 
 		// UI areas not attached to the document yet.
@@ -37,8 +37,8 @@
 		checkIfUIAreasAttachedToDocument(1);
 
 		// Check that the close button on the lightbox still follow the spec (being visible right away)
-		assert.strictEqual( $( '#qunit-fixture .mlb-close' ).length, 1, 'There should be a close button' );
-		assert.ok( $( '#qunit-fixture .mlb-close' ).is(':visible'), 'The close button should be visible' );
+		assert.strictEqual( $( '#qunit-fixture .mw-mmv-close' ).length, 1, 'There should be a close button' );
+		assert.ok( $( '#qunit-fixture .mw-mmv-close' ).is(':visible'), 'The close button should be visible' );
 
 		// Unattach lightbox from document
 		lightbox.unattach();
