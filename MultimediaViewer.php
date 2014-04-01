@@ -300,6 +300,21 @@ call_user_func( function() {
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 
+	$wgResourceModules['mmv.ui.stripeButtons'] = array_merge( array(
+		'scripts' => array(
+			'mmv.ui.stripeButtons.js',
+		),
+
+		'styles' => array(
+			'mmv.ui.stripeButtons.less',
+		),
+
+		'dependencies' => array(
+			'mmv.ui',
+			'oojs',
+		),
+	), $moduleInfo( 'mmv/ui' ) );
+
 	$wgResourceModules['mmv.ui.description'] = array_merge( array(
 		'scripts' => array(
 			'mmv.ui.description.js',
@@ -372,6 +387,7 @@ call_user_func( function() {
 
 		'dependencies' => array(
 			'mmv.ui',
+			'mmv.ui.stripeButtons',
 			'mmv.ui.categories',
 			'mmv.ui.description',
 			'mmv.ui.fileUsage',

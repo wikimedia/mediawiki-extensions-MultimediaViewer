@@ -1,9 +1,5 @@
-@import "ui/mmv.mixins";
-
-/**
- * Animation helper from core
- */
-@import "mediawiki.mixins.animation";
+@import "mmv.globals";
+@import "mmv.mixins";
 
 /**
  * Override multilightbox styles that don't apply to us
@@ -24,11 +20,8 @@
 /**
  * Some variables
  */
-@title-height: 64px;
-@drag-height: 18px;
-@bottom-height: (@title-height + @drag-height);
+@bottom-height: (@metadatabar-top-content-height + @metadatabar-drag-height);
 @metadata-background: rgb(251, 251, 251);
-@progress-height: 3px;
 
 .mw-mmv-image-wrapper,
 .mw-mmv-controls {
@@ -51,7 +44,7 @@
 	.mw-mmv-controls {
 		@fullscreen-padding: 10px;
 		padding: (@fullscreen-padding / 2) 0;
-		height: (@title-height + @fullscreen-padding);
+		height: (@metadatabar-top-content-height + @fullscreen-padding);
 		background-color: rgba(251, 251, 251, 0);
 		transition: background-color 0.25s;
 		min-height: 0;
@@ -91,258 +84,9 @@
 	position: absolute;
 	min-height: (@bottom-height + 1);
 	opacity: 0;
-
-	&.invite {
-		.animation( mw-mmv-invite-animation 0.5s ease 0s 1 normal forwards )
-	}
-}
-
-.mw-mmv-post-image.invited {
-	opacity: 1;
-}
-
-.mw-mmv-invite-animation() {
-	0% {
-		opacity: 0.6;
-		margin-top: 5px;
-	}
-	50% {
-		opacity: 0.9;
-		margin-top: -3px;
-	}
-	100% {
-		opacity: 1;
-		margin-top: 0;
-	}
-}
-
-@-webkit-keyframes mw-mmv-invite-animation {
-	.mw-mmv-invite-animation;
-}
-
-@-moz-keyframes mw-mmv-invite-animation {
-	.mw-mmv-invite-animation;
-}
-
-@-o-keyframes mw-mmv-invite-animation {
-	.mw-mmv-invite-animation;
-}
-
-@keyframes mw-mmv-invite-animation {
-	.mw-mmv-invite-animation;
 }
 
 .mw-mmv-controls {
 	height: auto;
 	border-bottom: 1px solid #cccccc;
-}
-
-.mw-mmv-title-contain {
-	position: relative;
-}
-
-.mw-mmv-license,
-.mw-mmv-title-contain {
-	vertical-align: middle;
-}
-
-.mw-mmv-title-para {
-	margin-bottom: 1px;
-	margin-top: 0px;
-	padding: 0px;
-}
-
-.mw-mmv-title {
-	font-size: 1.2em;
-	max-width: 60%;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.mw-mmv-image-metadata {
-	width: 100%;
-	background-color: #fbfbfb;
-	position: relative;
-	padding-top: 10px;
-}
-
-.jq-fullscreened .mw-mmv-image-metadata {
-	display: none;
-}
-
-.mw-mmv-image-desc-div {
-	overflow-y: auto;
-}
-
-.mw-mmv-image-desc-div,
-.mw-mmv-image-links-div {
-	display: inline-block;
-	vertical-align: top;
-}
-
-.mw-mmv-image-desc-div {
-	max-height: 150px;
-	margin-bottom: 15px;
-}
-
-@littlefont: 0.85em;
-@mediumfont: 1em;
-
-.mw-mmv-caption,
-.mw-mmv-image-desc {
-	font-size: @mediumfont;
-	color: #555555;
-}
-
-.mw-mmv-image-links {
-	margin-left: 20px;
-	li {
-		list-style: none;
-		font-size: @littlefont;
-		color: #3f4040;
-
-		&.empty {
-			display: none;
-		}
-
-		&:before {
-			display: inline-block;
-			vertical-align: middle;
-			height: 16px;
-			width: 16px;
-			content: ' ';
-			margin-right: 10px;
-			background-size: contain;
-			background-position: right center;
-			background-repeat: no-repeat;
-		}
-
-		&.mw-mmv-repo-li:before {
-			/* @embed */
-			background-image: url(img/repo.svg);
-		}
-
-		&.mw-mmv-datetime-li:before {
-			/* @embed */
-			background-image: url(img/time.svg);
-		}
-
-		&.mw-mmv-username-li:before {
-			/* @embed */
-			background-image: url(img/user-ltr.svg);
-		}
-
-		&.mw-mmv-location-li:before {
-			/* @embed */
-			background-image: url(img/location.svg);
-		}
-
-		&.empty:before {
-			background-image: none !important;
-		}
-	}
-}
-
-.mw-mmv-license,
-.mw-mmv-title-credit {
-	display: inline-block;
-}
-
-.mw-mmv-title-credit {
-	width: 100%;
-	height: @title-height;
-}
-
-.mw-mmv-license {
-	color: #888888;
-	font-size: 0.9em;
-	padding-left: 10px;
-	vertical-align: baseline;
-
-	&.empty {
-		display: none;
-	}
-
-	&.cc-license:before {
-		background-size: contain;
-		/* @embed */
-		background-image: url(img/cc.svg);
-		display: inline-block;
-		vertical-align: text-bottom;
-		height: 20px;
-		width: 20px;
-		content: ' ';
-		margin-right: 5px;
-	}
-}
-
-.mw-mmv-license-contain,
-.mw-mmv-license {
-	text-align: right;
-}
-
-.mw-mmv-title-para,
-.mw-mmv-credit,
-.mw-mmv-image-desc,
-.mw-mmv-caption {
-	padding-left: 20px;
-}
-
-.mw-mmv-image-desc-div.empty .mw-mmv-image-desc {
-	color: rgb(136, 136, 136);
-	font-style: italic;
-}
-
-.mw-mmv-caption.empty {
-	display: none;
-}
-
-.mw-mmv-about-links {
-	font-size: @littlefont;
-	padding: 20px;
-	width: 50%;
-}
-
-.mw-mmv-drag-affordance {
-	width: 100%;
-	height: @drag-height;
-	cursor: pointer;
-}
-
-.mw-mmv-drag-icon {
-	width: 64px;
-	height: @drag-height;
-	/* @embed */
-	background-image: url(img/drag.svg);
-	background-repeat: no-repeat;
-	background-position: center bottom;
-	margin: 0 auto;
-	opacity: 0.6;
-	transition: opacity 0.25s;
-
-	&.pointing-down {
-		background-position: center top;
-		.rotate(180deg);
-	}
-}
-
-.mw-mmv-post-image:hover .mw-mmv-drag-icon {
-	opacity: 1;
-}
-
-.mw-mmv-progress {
-	width: 100%;
-	height: @progress-height;
-	background-color: rgb( 204, 204, 204 );
-	margin-top: -@progress-height;
-}
-
-.mw-mmv-progress.empty {
-	display: none;
-}
-
-.mw-mmv-progress-percent {
-	width: 0;
-	height: @progress-height;
-	background-color: rgb( 0, 113, 188 );
 }
