@@ -100,7 +100,7 @@
 		window.location.hash = '';
 	} );
 
-	QUnit.test( 'Progress', 3, function ( assert ) {
+	QUnit.test( 'Progress', 4, function ( assert ) {
 		var imageDeferred = $.Deferred(),
 			viewer = new mw.mmv.MultimediaViewer(),
 			i = 0;
@@ -125,8 +125,11 @@
 					} else if ( i === 1 ) {
 						assert.strictEqual( percent, 5,
 							'Percentage correctly animated to 5 by loadImage' );
-					} else {
+					} else if ( i === 2 ) {
 						assert.strictEqual( percent, 45,
+							'Percentage correctly funneled to panel UI' );
+					} else {
+						assert.strictEqual( percent, 100,
 							'Percentage correctly funneled to panel UI' );
 					}
 

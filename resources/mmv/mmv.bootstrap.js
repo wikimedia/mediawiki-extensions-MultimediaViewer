@@ -186,7 +186,7 @@
 		var $element = $( element );
 
 		// Do not interfere with non-left clicks or if modifier keys are pressed.
-		if ( e.which !== 1 || e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) {
+		if ( ( e.button !== 0 && e.which !== 1 ) || e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) {
 			return;
 		}
 

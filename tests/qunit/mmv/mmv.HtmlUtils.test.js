@@ -166,4 +166,12 @@
 		assert.strictEqual( utils.htmlToTextWithLinks( html ), 'Foo <a>bar</a>', 'works' );
 	} );
 
+	QUnit.test( 'isJQueryOrHTMLElement()', 3, function ( assert ) {
+		var utils = new mw.mmv.HtmlUtils();
+
+		assert.ok( utils.isJQueryOrHTMLElement( $( '<span>' ) ), 'Recognizes jQuery objects correctly' );
+		assert.ok( utils.isJQueryOrHTMLElement( $( '<span>' ).get( 0 ) ), 'Recognizes HTMLElements correctly' );
+		assert.ok( !utils.isJQueryOrHTMLElement( '<span></span>' ), 'Recognizes jQuery objects correctly' );
+	} );
+
 }( mediaWiki, jQuery ) );

@@ -37,7 +37,7 @@
 		 * @property {boolean}
 		 * @private
 		 */
-		this.hasAnimatedMetadata = window.localStorage !== undefined &&
+		this.hasAnimatedMetadata = window.localStorage === undefined ||
 			localStorage.getItem( 'mmv.hasOpenedMetadata' );
 
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */

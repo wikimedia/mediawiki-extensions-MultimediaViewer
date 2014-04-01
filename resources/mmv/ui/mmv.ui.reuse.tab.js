@@ -56,7 +56,11 @@
 	 * Makes the entire input/textarea selected when focused.
 	 */
 	TP.selectAllOnEvent = function () {
-		this.select();
+		try {
+			this.select();
+		} catch ( e ) {
+			// IE doesn't like when select() is called during the onfocus handler
+		}
 	};
 
 	/**

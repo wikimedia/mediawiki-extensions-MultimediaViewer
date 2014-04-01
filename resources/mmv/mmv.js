@@ -272,6 +272,9 @@
 				viewer.ui.panel.percent( imageResponse[ 1 ] );
 			}
 		} ).done( function ( thumbnail, imageElement ) {
+			// Fallback in case the browser doesn't have fancy progress updates
+			viewer.ui.panel.percent( 100 );
+
 			if ( viewer.currentIndex !== image.index ) {
 				return;
 			}

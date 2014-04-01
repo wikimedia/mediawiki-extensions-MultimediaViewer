@@ -45,7 +45,7 @@
 	 * @return {jQuery}
 	 */
 	HUP.wrapAndJquerify = function ( html ) {
-		if ( html instanceof jQuery || html instanceof  HTMLElement ) {
+		if ( this.isJQueryOrHTMLElement( html ) ) {
 			return $( '<div>' ).append( $( html ).clone() );
 		} else if ( typeof html === 'string' ) {
 			return $( '<div>' + html + '</div>' );
@@ -53,6 +53,30 @@
 			mw.log.warn( 'wrapAndJquerify: unknown type', html );
 			throw 'wrapAndJquerify: unknown type';
 		}
+	};
+
+	/**
+	 * Returns true of the object is a jQuery object or an HTMLElement, false otherwise
+	 * @param {string|HTMLElement|jQuery} html
+	 * @returns {Boolean}
+	 */
+	HUP.isJQueryOrHTMLElement = function ( html ) {
+		if ( html instanceof jQuery ) {
+			return true;
+		}
+
+		if ( window.HTMLElement ) {
+			if ( html instanceof HTMLElement ) {
+				return true;
+			}
+		} else {
+			// For IE < 9
+			if ( html.nodeType && html.nodeType === 1 ) {
+				return true;
+			}
+		}
+
+		return false;
 	};
 
 	/**
