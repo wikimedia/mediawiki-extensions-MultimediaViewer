@@ -77,14 +77,64 @@
 	 * Creates the feedback button.
 	 */
 	SBP.initFeedbackButton = function() {
+		var buttons = this;
+
 		this.buttons.$feedback = this.createButton(
 			'mw-mmv-stripe-button-feedback',
 			mw.message( 'multimediaviewer-feedback-button-text' ).plain(),
 			mw.message( 'multimediaviewer-feedback-popup-text' ).plain()
 		).prop( {
 			target: '_blank',
-			href: 'https://www.surveymonkey.com/s/media-viewer-1?c=mediaviewer'
+			href: this.getFeedbackSurveyUrl()
+		} ).click( function ( e ) {
+			buttons.openSurveyInNewWindow();
+			e.preventDefault();
 		} );
+	};
+
+	SBP.getFeedbackSurveyUrl = function () {
+		return 'https://www.surveymonkey.com/s/media-viewer-1?c=mediaviewer';
+	};
+
+	/**
+	 * Opens the survey in a new window, or brings it up if it is already opened.
+	 */
+	SBP.openSurveyInNewWindow = function () {
+		var surveyWindowWidth = screen.width * 0.85,
+			surveyWindowHeight = screen.height * 0.85,
+			feedbackSurveyWindowProperties = {
+				left: ( screen.width - surveyWindowWidth ) / 2,
+				top: ( screen.height - surveyWindowHeight ) / 2,
+				width: surveyWindowWidth,
+				height: surveyWindowHeight,
+				menubar: 0,
+				toolbar: 0,
+				location: 0,
+				personalbar: 0,
+				status: 0
+			};
+
+		if ( !this.surveyWindow || this.surveyWindow.closed ) {
+			this.surveyWindow = window.open( this.getFeedbackSurveyUrl(), 'mmv-survey',
+				this.createWindowOpenPropertyString( feedbackSurveyWindowProperties ) );
+		} else {
+			this.surveyWindow.focus();
+		}
+	};
+
+	/**
+	 * @protected
+	 * Takes a property object and turns it into a string suitable for the last parameter
+	 * of window.open.
+	 * @param {Object} properties
+	 * @return {string}
+	 */
+	SBP.createWindowOpenPropertyString = function ( properties ) {
+		var propertyArray = [];
+		$.each( properties, function ( key, value ) {
+			propertyArray.push( key + '=' + value );
+		} );
+		return propertyArray.join( ',' );
 	};
 
 	/**
