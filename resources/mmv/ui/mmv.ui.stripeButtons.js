@@ -39,6 +39,7 @@
 		 */
 		this.buttons = {};
 
+		this.initFeedbackButton();
 		this.initReuseButton();
 	}
 	oo.inheritClass( StripeButtons, mw.mmv.ui.Element );
@@ -49,11 +50,13 @@
 	 * Creates a new button on the metadata stripe.
 	 * @param {string} cssClass CSS class name for the button
 	 * @param {string} text HTML code for the button text
+	 * @param {string} popupText HTML code for the popup text
 	 */
-	SBP.createButton = function ( cssClass, text ) {
-		return $( '<span>' )
+	SBP.createButton = function ( cssClass, text, popupText ) {
+		return $( '<a>' )
 			.addClass( 'mw-mmv-stripe-button empty ' + cssClass )
 			.text( text )
+			.prop( 'title', popupText )
 			// elements are right-floated so we use prepend instead of append to keep the order
 			.prependTo( this.$buttonContainer );
 	};
@@ -67,6 +70,21 @@
 			'mw-mmv-stripe-button-reuse',
 			mw.message( 'multimediaviewer-reuse-link' ).text()
 		);
+	};
+
+	/**
+	 * @protected
+	 * Creates the feedback button.
+	 */
+	SBP.initFeedbackButton = function() {
+		this.buttons.$feedback = this.createButton(
+			'mw-mmv-stripe-button-feedback',
+			mw.message( 'multimediaviewer-feedback-button-text' ).plain(),
+			mw.message( 'multimediaviewer-feedback-popup-text' ).plain()
+		).prop( {
+			target: '_blank',
+			href: 'https://www.surveymonkey.com/s/media-viewer-1?c=mediaviewer'
+		} );
 	};
 
 	/**

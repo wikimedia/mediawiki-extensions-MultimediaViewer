@@ -313,6 +313,11 @@ call_user_func( function() {
 			'mmv.ui',
 			'oojs',
 		),
+
+		'messages' => array(
+			'multimediaviewer-feedback-button-text',
+			'multimediaviewer-feedback-popup-text',
+		),
 	), $moduleInfo( 'mmv/ui' ) );
 
 	$wgResourceModules['mmv.ui.description'] = array_merge( array(
