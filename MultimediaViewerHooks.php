@@ -228,9 +228,9 @@ class MultimediaViewerHooks {
 	 * Modify thumbnail DOM
 	 * @param ThumbnailImage $thumbnail
 	 * @param array $attribs Attributes of the <img> element
-	 * @param array $linkAttribs Attributes of the wrapping <a> element
+	 * @param array|boolean $linkAttribs Attributes of the wrapping <a> element
 	 */
-	public static function thumbnailBeforeProduceHTML( ThumbnailImage $thumbnail, array &$attribs, array &$linkAttribs ) {
+	public static function thumbnailBeforeProduceHTML( ThumbnailImage $thumbnail, array &$attribs, &$linkAttribs ) {
 		$file = $thumbnail->getFile();
 
 		if ( $file ) {
