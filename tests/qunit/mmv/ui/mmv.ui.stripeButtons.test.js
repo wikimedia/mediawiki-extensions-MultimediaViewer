@@ -18,13 +18,26 @@
 ( function( mw, $ ) {
 	QUnit.module( 'mmv.ui.StripeButtons', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sanity test, object creation and UI construction', 4, function ( assert ) {
-		var buttons = new mw.mmv.ui.StripeButtons( $( '#qunit-fixture' ) );
+	QUnit.test( 'Sanity test, object creation and UI construction', 5, function ( assert ) {
+		var buttons,
+			oldMwUserIsAnon = mw.user.isAnon;
+
+		// first pretend we are anonymous
+		mw.user.isAnon = function () { return true; };
+		buttons = new mw.mmv.ui.StripeButtons( $( '#qunit-fixture' ) );
 
 		assert.ok( buttons, 'UI element is created.' );
 		assert.strictEqual( buttons.buttons.$reuse.length, 1, 'Reuse button created.' );
 		assert.strictEqual( buttons.buttons.$feedback.length, 1, 'Feedback button created.' );
-		assert.strictEqual( buttons.buttons.$descriptionPage.length, 1, 'Feedback button created.' );
+		assert.ok( !buttons.buttons.$descriptionPage, 'File page button not created for anon.' );
+
+		// now pretend we are logged in
+		mw.user.isAnon = function () { return false; };
+		buttons = new mw.mmv.ui.StripeButtons( $( '#qunit-fixture' ) );
+
+		assert.strictEqual( buttons.buttons.$descriptionPage.length, 1, 'File page button created for logged in.' );
+
+		mw.user.isAnon = oldMwUserIsAnon;
 	} );
 
 	QUnit.test( 'set()/empty() sanity test:', 1, function ( assert ) {

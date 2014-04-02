@@ -41,7 +41,9 @@
 
 		this.initFeedbackButton();
 		this.initReuseButton();
-		this.initDescriptionPageButton();
+		if ( !mw.user.isAnon() ) {
+			this.initDescriptionPageButton();
+		}
 	}
 	oo.inheritClass( StripeButtons, mw.mmv.ui.Element );
 	SBP = StripeButtons.prototype;
@@ -164,11 +166,23 @@
 	 * @param {mw.mmv.model.Repo} repoInfo
 	 */
 	SBP.set = function ( imageInfo, repoInfo ) {
-		var descPagePopupMessage;
-
 		this.eachButton( function ( $button ) {
 			$button.removeClass( 'empty' );
 		} );
+
+		if ( !mw.user.isAnon() ) {
+			this.setDescriptionPageButton( imageInfo, repoInfo );
+		}
+	};
+
+	/**
+	 * @protected
+	 * Updates the button linking to the file page.
+	 * @param {mw.mmv.model.Image} imageInfo
+	 * @param {mw.mmv.model.Repo} repoInfo
+	 */
+	SBP.setDescriptionPageButton = function ( imageInfo, repoInfo ) {
+		var descPagePopupMessage;
 
 		descPagePopupMessage = repoInfo.isLocal
 			? null
@@ -187,7 +201,7 @@
 			this.setRepoInlineStyle( 'stripe-button-description-page',
 				'.mw-mmv-stripe-button-dynamic:before {' +
 					'background-image: url("' + repoInfo.favIcon + '");' +
-				'}'
+					'}'
 			);
 		}
 	};
@@ -201,10 +215,12 @@
 		} );
 
 		this.buttons.$reuse.removeClass( 'open' );
-		this.buttons.$descriptionPage.attr( { href: null, title: null, 'original-title': null } )
-			.removeClass( 'mw-mmv-stripe-button-dynamic mw-mmv-stripe-button-commons' );
-		$( '.mw-mmv-stripe-button-dynamic-before' ).remove();
-		this.setRepoInlineStyle( 'stripe-button-description-page', null );
+		if ( !mw.user.isAnon() ) {
+			this.buttons.$descriptionPage.attr( { href: null, title: null, 'original-title': null } )
+				.removeClass( 'mw-mmv-stripe-button-dynamic mw-mmv-stripe-button-commons' );
+			$( '.mw-mmv-stripe-button-dynamic-before' ).remove();
+			this.setRepoInlineStyle( 'stripe-button-description-page', null );
+		}
 	};
 
 	/**
