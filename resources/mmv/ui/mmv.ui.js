@@ -31,6 +31,12 @@
 
 		/** @property {Object.<string, string[]>} eventsRegistered Events that this element has registered with the DOM. */
 		this.eventsRegistered = {};
+
+		/**
+		 * @property {Object.<string, jQuery>} $inlineStyles a list of `<style>` elements in the head
+		 *  which we use to manipulate pseudo-classes and pseudo-elements.
+		 */
+		this.$inlineStyles = [];
 	}
 	EP = Element.prototype;
 
@@ -91,6 +97,28 @@
 				$( document ).off( thisevent, handlers.pop() );
 			}
 		}
+	};
+
+	/**
+	 * Manipulate CSS directly. This is needed to set styles for pseudo-classes and pseudo-elements.
+	 * @param {string} key some name to identify the style
+	 * @param {string|null} style a CSS snippet (set to null to delete the given style)
+	 */
+	EP.setRepoInlineStyle = function ( key, style ) {
+
+		if ( !this.$inlineStyles ) {
+			this.$inlineStyles = [];
+		}
+
+		if ( !this.$inlineStyles[key] ) {
+			if ( !style ) {
+				return;
+			}
+
+			this.$inlineStyles[key] = $( '<style type="text/css" />' ).appendTo( 'head' );
+		}
+
+		this.$inlineStyles[key].html( style || '' );
 	};
 
 	mw.mmv.ui = {};

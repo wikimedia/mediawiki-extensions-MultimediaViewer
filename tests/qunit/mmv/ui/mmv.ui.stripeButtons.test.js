@@ -18,18 +18,21 @@
 ( function( mw, $ ) {
 	QUnit.module( 'mmv.ui.StripeButtons', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sanity test, object creation and UI construction', 3, function ( assert ) {
+	QUnit.test( 'Sanity test, object creation and UI construction', 4, function ( assert ) {
 		var buttons = new mw.mmv.ui.StripeButtons( $( '#qunit-fixture' ) );
 
 		assert.ok( buttons, 'UI element is created.' );
 		assert.strictEqual( buttons.buttons.$reuse.length, 1, 'Reuse button created.' );
 		assert.strictEqual( buttons.buttons.$feedback.length, 1, 'Feedback button created.' );
+		assert.strictEqual( buttons.buttons.$descriptionPage.length, 1, 'Feedback button created.' );
 	} );
 
 	QUnit.test( 'set()/empty() sanity test:', 1, function ( assert ) {
-		var buttons = new mw.mmv.ui.StripeButtons( $( '#qunit-fixture' ) );
+		var buttons = new mw.mmv.ui.StripeButtons( $( '#qunit-fixture' ) ),
+			fakeImageInfo = { descriptionUrl: '//commons.wikimedia.org/wiki/File:Foo.jpg' },
+			fakeRepoInfo = { displayName: 'Wikimedia Commons' };
 
-		buttons.set();
+		buttons.set( fakeImageInfo, fakeRepoInfo );
 		buttons.empty();
 
 		assert.ok( true, 'No error on set()/empty().' );

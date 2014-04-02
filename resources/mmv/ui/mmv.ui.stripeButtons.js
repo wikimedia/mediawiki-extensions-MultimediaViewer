@@ -41,6 +41,7 @@
 
 		this.initFeedbackButton();
 		this.initReuseButton();
+		this.initDescriptionPageButton();
 	}
 	oo.inheritClass( StripeButtons, mw.mmv.ui.Element );
 	SBP = StripeButtons.prototype;
@@ -69,6 +70,13 @@
 		this.buttons.$reuse = this.createButton(
 			'mw-mmv-stripe-button-reuse',
 			mw.message( 'multimediaviewer-reuse-link' ).text()
+		);
+	};
+
+	SBP.initDescriptionPageButton = function() {
+		this.buttons.$descriptionPage = this.createButton(
+			'mw-mmv-stripe-button-commons',
+			mw.message( 'multimediaviewer-description-page-button-text' ).plain()
 		);
 	};
 
@@ -151,11 +159,35 @@
 
 	/**
 	 * @inheritdoc
+	 * @param {mw.mmv.model.Image} imageInfo
+	 * @param {mw.mmv.model.Repo} repoInfo
 	 */
-	SBP.set = function () {
+	SBP.set = function ( imageInfo, repoInfo ) {
+		var descPagePopupMessage;
+
 		this.eachButton( function ( $button ) {
 			$button.removeClass( 'empty' );
 		} );
+
+		descPagePopupMessage = repoInfo.isLocal
+			? 'multimediaviewer-description-page-popup-text-local'
+			: 'multimediaviewer-description-page-popup-text';
+
+		this.buttons.$descriptionPage.prop( {
+			href: imageInfo.descriptionUrl,
+			title: mw.message( descPagePopupMessage, repoInfo.displayName ).plain()
+		} );
+
+		if ( imageInfo.repo === 'wikimediacommons' ) {
+			this.buttons.$descriptionPage.addClass( 'mw-mmv-stripe-button-commons' );
+		} else {
+			this.buttons.$descriptionPage.addClass( 'mw-mmv-stripe-button-dynamic' );
+			this.setRepoInlineStyle( 'stripe-button-description-page',
+				'.mw-mmv-stripe-button-dynamic:before {' +
+					'background-image: url("' + repoInfo.favIcon + '");' +
+				'}'
+			);
+		}
 	};
 
 	/**
@@ -163,8 +195,14 @@
 	 */
 	SBP.empty = function () {
 		this.eachButton( function ( $button ) {
-			$button.addClass( 'empty' ).removeClass( 'open' );
+			$button.addClass( 'empty' );
 		} );
+
+		this.buttons.$reuse.removeClass( 'open' );
+		this.buttons.$descriptionPage.prop( 'href', undefined )
+			.removeClass( 'mw-mmv-stripe-button-dynamic mw-mmv-stripe-button-commons' );
+		$( '.mw-mmv-stripe-button-dynamic-before' ).remove();
+		this.setRepoInlineStyle( 'stripe-button-description-page', null );
 	};
 
 	/**

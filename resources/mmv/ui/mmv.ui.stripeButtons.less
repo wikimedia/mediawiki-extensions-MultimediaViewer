@@ -61,3 +61,16 @@
 	background-image: url(img/horn_grey.svg);
 	background-size: 100%;
 }
+
+.mw-mmv-stripe-button-commons:before {
+	/* @embed */
+	background-image: url(img/commons_gray.svg);
+}
+
+// for othe repos than Wikimedia Commons we manipulate :before dynamically from JS
+.mw-mmv-stripe-button-dynamic:before {
+	.grayscale;
+
+	width: 0.8em;
+	height: 0.8em;
+}

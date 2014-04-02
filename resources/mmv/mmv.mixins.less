@@ -39,3 +39,13 @@
     filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=(@degrees / 90.0));
 	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=(@degrees / 90.0))";
 }
+
+// from http://pixelhunter.me/post/25782670606/css3-grayscale
+.grayscale() {
+	-webkit-filter: grayscale(100%);
+	-moz-filter: grayscale(100%);
+	-ms-filter: grayscale(100%);
+	-o-filter: grayscale(100%);
+	filter: grayscale(100%);
+	filter: gray; // IE 6-9
+}

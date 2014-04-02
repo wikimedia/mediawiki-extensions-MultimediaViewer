@@ -89,5 +89,8 @@
     "multimediaviewer-embed-dimensions-separated": "- $1",
     "multimediaviewer-embed-dimensions-with-file-format": "$1 $2",
     "multimediaviewer-feedback-button-text": "Your feedback about this tool",
-    "multimediaviewer-feedback-popup-text": "Leave feedback about this new media viewing experience"
+    "multimediaviewer-feedback-popup-text": "Leave feedback about this new media viewing experience",
+    "multimediaviewer-description-page-button-text": "More details",
+    "multimediaviewer-description-page-popup-text": "More details on $1",
+    "multimediaviewer-description-page-popup-text-local": "More details"
 }

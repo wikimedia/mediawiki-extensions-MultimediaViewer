@@ -317,6 +317,9 @@ call_user_func( function() {
 		'messages' => array(
 			'multimediaviewer-feedback-button-text',
 			'multimediaviewer-feedback-popup-text',
+			'multimediaviewer-description-page-button-text',
+			'multimediaviewer-description-page-popup-text',
+			'multimediaviewer-description-page-popup-text-local',
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 
