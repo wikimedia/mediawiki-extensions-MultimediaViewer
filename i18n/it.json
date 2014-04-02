@@ -12,6 +12,7 @@
     "multimediaviewer-desc-nil": "Nessuna descrizione disponibile.",
     "multimediaviewer-pref": "Media Viewer",
     "multimediaviewer-pref-desc": "Sperimenta una miglior visualizzazione dei file multimediali con questo nuovo strumento che visualizza le immagini più grandi su pagine che ne riportano le miniature. Le immagini sono mostrate in un'interfaccia a schermo intero più gradevole, ma possono essere visualizzate anche alla dimensione originale.",
+    "multimediaviewer-optin-pref": "Attiva una nuova modalità per la visione dei file multimediali",
     "multimediaviewer-file-page": "Vai alla corrispondente pagina del file",
     "multimediaviewer-repository": "Ulteriori informazioni su $1",
     "multimediaviewer-repository-local": "Ulteriori informazioni",

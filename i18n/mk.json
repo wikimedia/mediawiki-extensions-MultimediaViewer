@@ -57,6 +57,7 @@
     "multimediaviewer-html-embed-credit-text-tb": "„$1“ од $2.",
     "multimediaviewer-html-embed-credit-text-ts": "„$1“. Преку $2.",
     "multimediaviewer-html-embed-credit-text-tl": "„$1“. Под лиценцата $2.",
+    "multimediaviewer-html-embed-credit-text-t": "„$1“.",
     "multimediaviewer-embed-byline": "Од $1",
     "multimediaviewer-embed-license": "Под лиценцата $1.",
     "multimediaviewer-embed-via": "Преку $1.",
@@ -64,5 +65,6 @@
     "multimediaviewer-original-embed-dimensions": "Изворна големина $1",
     "multimediaviewer-large-embed-dimensions": "Голема $1",
     "multimediaviewer-medium-embed-dimensions": "Средна $1",
-    "multimediaviewer-small-embed-dimensions": "Мала $1"
+    "multimediaviewer-small-embed-dimensions": "Мала $1",
+    "multimediaviewer-embed-dimensions": "— $1 × $2 пиксели"
 }
