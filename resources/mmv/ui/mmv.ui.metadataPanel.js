@@ -256,7 +256,7 @@
 		this.initializeDatetime();
 		this.initializeLocation();
 
-		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$container );
+		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$container, this.buttons.buttons.$reuse );
 		this.categories = new mw.mmv.ui.Categories( this.$imageLinks );
 
 		this.fileUsage = new mw.mmv.ui.FileUsage(

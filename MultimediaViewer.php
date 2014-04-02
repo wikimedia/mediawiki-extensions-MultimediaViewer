@@ -321,6 +321,7 @@ call_user_func( function() {
 			'multimediaviewer-description-page-button-text',
 			'multimediaviewer-description-page-popup-text',
 			'multimediaviewer-description-page-popup-text-local',
+			'multimediaviewer-reuse-link',
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 
@@ -477,10 +478,6 @@ call_user_func( function() {
 			'mmv.ui.reuse.share',
 			'mmv.ui.reuse.embed',
 			'mmv.ui.reuse.download',
-		),
-
-		'messages' => array(
-			'multimediaviewer-reuse-link',
 		),
 	), $moduleInfo( 'mmv/ui' ) );
 

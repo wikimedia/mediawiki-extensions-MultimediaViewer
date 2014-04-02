@@ -24,9 +24,12 @@
 	 * @class mw.mmv.ui.reuse.Dialog
 	 * @extends mw.mmv.ui.Element
 	 * @param {jQuery} $container the element to which the dialog will be appended
+	 * @param {jQuery} $openButton the button which opens the dialog. Only used for positioning.
 	 */
-	function Dialog( $container ) {
+	function Dialog( $container, $openButton ) {
 		mw.mmv.ui.Element.call( this, $container );
+
+		this.$openButton = $openButton;
 
 		this.$reuseDialog = $( '<div>' )
 			.addClass( 'mw-mmv-reuse-dialog' );
@@ -173,16 +176,25 @@
 	};
 
 	/**
+	 * @event mmv-reuse-opened
+	 * Fired when the dialog is opened.
+	 */
+	/**
 	 * Opens a dialog with information about file reuse.
 	 */
 	DP.openDialog = function () {
 		this.startListeningToOutsideClick();
 		this.$reuseDialog.show();
+		this.fixDownArrowPosition();
 		$( document ).trigger( 'mmv-reuse-opened' );
 		this.isOpen = true;
 		this.tabs[this.selectedTab].show();
 	};
 
+	/**
+	 * @event mmv-reuse-closed
+	 * Fired when the dialog is closed.
+	 */
 	/**
 	 * Closes the reuse dialog.
 	 */
@@ -217,6 +229,28 @@
 	 */
 	DP.stopListeningToOutsideClick = function () {
 		$( document ).off( 'click.mmv', this.outsideClickHandler );
+	};
+
+	/**
+	 * Fixes the tip of the container to point to the icon which opens it.
+	 */
+	DP.fixDownArrowPosition = function() {
+		var buttonPosition,
+			arrowPositionBase,
+			buttonWidth,
+			arrowWidth,
+			offset;
+
+		buttonPosition = this.$openButton.offset().left;
+		arrowPositionBase = this.$downArrow.offsetParent().offset().left;
+		buttonWidth = this.$openButton.outerWidth();
+		arrowWidth = this.$downArrow.outerWidth();
+
+		// this is the correct position of the arrow relative to the viewport - we want
+		// the middle of the arrow to be positioned over the middle of the button
+		offset = buttonPosition + ( buttonWidth - arrowWidth ) / 2;
+
+		this.$downArrow.css( 'left', ( offset - arrowPositionBase ) + 'px' );
 	};
 
 	mw.mmv.ui.reuse.Dialog = Dialog;

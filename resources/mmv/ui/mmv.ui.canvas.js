@@ -72,10 +72,18 @@
 	oo.inheritClass( Canvas, mw.mmv.ui.Element );
 	C = Canvas.prototype;
 
-	/** Maximum blownup factor tolerated */
+	/**
+	 * Maximum blownup factor tolerated
+	 * @property mw.mmv.ui.Canvas.MAX_BLOWUP_FACTOR
+	 * @static
+	 */
 	Canvas.MAX_BLOWUP_FACTOR = 11;
 
-	/** Blowup factor threshold at which blurring kicks in */
+	/**
+	 * Blowup factor threshold at which blurring kicks in
+	 * @property mw.mmv.ui.Canvas.BLUR_BLOWUP_FACTOR_THRESHOLD
+	 * @static
+	 */
 	Canvas.BLUR_BLOWUP_FACTOR_THRESHOLD = 2;
 
 	/**

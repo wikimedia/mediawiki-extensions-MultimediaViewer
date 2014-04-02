@@ -18,13 +18,18 @@
 ( function( mw, $ ) {
 	QUnit.module( 'mmv.ui.StripeButtons', QUnit.newMwEnvironment() );
 
+	function createStripeButtons() {
+		var fixture = $( '#qunit-fixture' );
+		return new mw.mmv.ui.StripeButtons( fixture, $( '<div>' ).appendTo( fixture ) );
+	}
+
 	QUnit.test( 'Sanity test, object creation and UI construction', 5, function ( assert ) {
 		var buttons,
 			oldMwUserIsAnon = mw.user.isAnon;
 
 		// first pretend we are anonymous
 		mw.user.isAnon = function () { return true; };
-		buttons = new mw.mmv.ui.StripeButtons( $( '#qunit-fixture' ) );
+		buttons = createStripeButtons();
 
 		assert.ok( buttons, 'UI element is created.' );
 		assert.strictEqual( buttons.buttons.$reuse.length, 1, 'Reuse button created.' );
@@ -33,7 +38,7 @@
 
 		// now pretend we are logged in
 		mw.user.isAnon = function () { return false; };
-		buttons = new mw.mmv.ui.StripeButtons( $( '#qunit-fixture' ) );
+		buttons = createStripeButtons();
 
 		assert.strictEqual( buttons.buttons.$descriptionPage.length, 1, 'File page button created for logged in.' );
 
@@ -41,7 +46,7 @@
 	} );
 
 	QUnit.test( 'set()/empty() sanity test:', 1, function ( assert ) {
-		var buttons = new mw.mmv.ui.StripeButtons( $( '#qunit-fixture' ) ),
+		var buttons = createStripeButtons(),
 			fakeImageInfo = { descriptionUrl: '//commons.wikimedia.org/wiki/File:Foo.jpg' },
 			fakeRepoInfo = { displayName: 'Wikimedia Commons' };
 
@@ -52,7 +57,7 @@
 	} );
 
 	QUnit.test( 'attach()/unattach():', 4, function ( assert ) {
-		var buttons = new mw.mmv.ui.StripeButtons( $( '#qunit-fixture' ) );
+		var buttons = createStripeButtons();
 
 		$( document ).on( 'mmv-reuse-open.test', function ( e ) {
 			assert.ok( e, 'Reuse panel opened.' );

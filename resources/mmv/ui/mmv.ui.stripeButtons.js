@@ -58,7 +58,7 @@
 	SBP.createButton = function ( cssClass, text, popupText ) {
 		return $( '<a>' )
 			.addClass( 'mw-mmv-stripe-button empty ' + cssClass )
-			.text( text )
+			// .text( text ) // disabled while we have 3 buttons to save space
 			.prop( 'title', popupText )
 			// elements are right-floated so we use prepend instead of append to keep the order
 			.prependTo( this.$buttonContainer )
@@ -72,10 +72,15 @@
 	SBP.initReuseButton = function() {
 		this.buttons.$reuse = this.createButton(
 			'mw-mmv-stripe-button-reuse',
+			mw.message( 'multimediaviewer-reuse-link' ).text(),
 			mw.message( 'multimediaviewer-reuse-link' ).text()
 		);
 	};
 
+	/**
+	 * @protected
+	 * Creates a button linking to the file description page.
+	 */
 	SBP.initDescriptionPageButton = function() {
 		this.buttons.$descriptionPage = this.createButton(
 			'mw-mmv-stripe-button-commons',
@@ -103,6 +108,11 @@
 		} );
 	};
 
+	/**
+	 * Generates a survey URL (currently constant but the possibility of splitting by
+	 * editor cohort was mentioned).
+	 * @return {string}
+	 */
 	SBP.getFeedbackSurveyUrl = function () {
 		return 'https://www.surveymonkey.com/s/media-viewer-1?c=mediaviewer';
 	};
@@ -223,6 +233,10 @@
 		}
 	};
 
+	/**
+	 * @event mmv-reuse-open
+	 * Fired when the buttonto open the reuse dialog is clicked.
+	 */
 	/**
 	 * Registers listeners.
 	 */
