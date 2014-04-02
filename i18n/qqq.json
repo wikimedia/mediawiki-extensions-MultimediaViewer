@@ -94,6 +94,5 @@
     "multimediaviewer-feedback-button-text": "Text of the button on top of the metadata panel which brings up a feedback survey. See also {{mw-msg|multimediaviewer-feedback-popup-text}}.",
     "multimediaviewer-feedback-popup-text": "Additional popup text of the button on top of the metadata panel which brings up a feedback survey. See also {{mw-msg|multimediaviewer-feedback-button-text}}.",
     "multimediaviewer-description-page-button-text": "Text of the button on top of the metadata panel which links to the file description page. See also {{mw-msg|multimediaviewer-description-page-popup-text}}.",
-    "multimediaviewer-description-page-popup-text": "Additional popup text of the button on top of the metadata panel which links to the file description page. See also {{mw-msg|multimediaviewer-description-page-button-text}}. $1 is the name of the site where the file comes from (e.g. \"Wikimedia Commons\").",
-    "multimediaviewer-description-page-popup-text-local": "Same as {{mw-msg|multimediaviewer-description-page-popup-text-local}}, but for local files."
+    "multimediaviewer-description-page-popup-text": "Additional popup text of the button on top of the metadata panel which links to the file description page. See also {{mw-msg|multimediaviewer-description-page-button-text}}. $1 is the name of the site where the file comes from (e.g. \"Wikimedia Commons\")."
 }

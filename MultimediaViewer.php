@@ -312,6 +312,7 @@ call_user_func( function() {
 		'dependencies' => array(
 			'mmv.ui',
 			'oojs',
+			'jquery.tipsy',
 		),
 
 		'messages' => array(

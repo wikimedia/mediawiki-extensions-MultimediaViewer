@@ -59,7 +59,8 @@
 			.text( text )
 			.prop( 'title', popupText )
 			// elements are right-floated so we use prepend instead of append to keep the order
-			.prependTo( this.$buttonContainer );
+			.prependTo( this.$buttonContainer )
+			.tipsy( { gravity: 's' } );
 	};
 
 	/**
@@ -91,7 +92,7 @@
 			'mw-mmv-stripe-button-feedback',
 			mw.message( 'multimediaviewer-feedback-button-text' ).plain(),
 			mw.message( 'multimediaviewer-feedback-popup-text' ).plain()
-		).prop( {
+		).attr( {
 			target: '_blank',
 			href: this.getFeedbackSurveyUrl()
 		} ).click( function ( e ) {
@@ -170,12 +171,13 @@
 		} );
 
 		descPagePopupMessage = repoInfo.isLocal
-			? 'multimediaviewer-description-page-popup-text-local'
-			: 'multimediaviewer-description-page-popup-text';
+			? null
+			: mw.message( 'multimediaviewer-description-page-popup-text', repoInfo.displayName ).plain();
 
-		this.buttons.$descriptionPage.prop( {
+		this.buttons.$descriptionPage.attr( {
 			href: imageInfo.descriptionUrl,
-			title: mw.message( descPagePopupMessage, repoInfo.displayName ).plain()
+			title: descPagePopupMessage,
+			'original-title': descPagePopupMessage // needed by jquery.tipsy
 		} );
 
 		if ( imageInfo.repo === 'wikimediacommons' ) {
@@ -199,7 +201,7 @@
 		} );
 
 		this.buttons.$reuse.removeClass( 'open' );
-		this.buttons.$descriptionPage.prop( 'href', undefined )
+		this.buttons.$descriptionPage.attr( { href: null, title: null, 'original-title': null } )
 			.removeClass( 'mw-mmv-stripe-button-dynamic mw-mmv-stripe-button-commons' );
 		$( '.mw-mmv-stripe-button-dynamic-before' ).remove();
 		this.setRepoInlineStyle( 'stripe-button-description-page', null );
