@@ -22,7 +22,7 @@
 
 	QUnit.module( 'mmv.ui.reuse.download', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sanity test, object creation and UI construction', 5, function ( assert ) {
+	QUnit.test( 'Sanity test, object creation and UI construction', 6, function ( assert ) {
 		var download = makeDownload();
 
 		assert.ok( download, 'download UI element is created.' );
@@ -30,6 +30,7 @@
 		assert.ok( download.$downloadButton && download.$selectionArrow, 'Download button created.' );
 		assert.ok( download.downloadSizeMenu, 'Image size pulldown menu created.' );
 		assert.ok( download.$previewLink, 'Preview link created.' );
+		assert.ok( download.defaultItem, 'Default item set.' );
 	} );
 
 	QUnit.test( 'set()/empty():', 5, function ( assert ) {
@@ -45,8 +46,8 @@
 		download.utils.updateMenuOptions = function() {
 			assert.ok( true, 'Menu options updated.' );
 		};
-		download.handleSizeSwitch = function() {
-			assert.ok( true, 'handleSizeSwitch() called to update the labels.' );
+		download.downloadSizeMenu.getMenu().selectItem = function() {
+			assert.ok( true, 'Default item selected to update the labels.' );
 		};
 
 		download.set( image );

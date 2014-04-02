@@ -40,6 +40,12 @@
 		/** @property {mw.mmv.ui.reuse.Utils} utils - */
 		this.utils = new mw.mmv.ui.reuse.Utils();
 
+		/**
+		 * Indicates whether or not the default option has been reset for both size menus.
+		 * @property {boolean}
+		 */
+		this.isSizeMenuDefaultReset = false;
+
 		this.$pane.addClass( 'mw-mmv-embed-pane' );
 
 		this.$pane.appendTo( this.$container );
@@ -61,10 +67,29 @@
 		this.$currentMainEmbedText = this.embedTextWikitext.$element;
 
 		/**
+		 * Default item for the html size menu.
+		 * @property {OO.ui.MenuItemWidget}
+		 */
+		this.defaultHtmlItem = this.embedSizeSwitchHtml.getMenu().getSelectedItem();
+
+		/**
+		 * Default item for the wikitext size menu.
+		 * @property {OO.ui.MenuItemWidget}
+		 */
+		this.defaultWikitextItem = this.embedSizeSwitchWikitext.getMenu().getSelectedItem();
+
+		/**
 		 * Currently selected size menu.
 		 * @property {OO.ui.MenuWidget}
 		 */
 		this.currentSizeMenu = this.embedSizeSwitchWikitext.getMenu();
+
+		/**
+		 * Current default item.
+		 * @property {OO.ui.MenuItemWidget}
+		 */
+		this.currentDefaultItem = this.defaultWikitextItem;
+
 	}
 	oo.inheritClass( Embed, mw.mmv.ui.reuse.Tab );
 	EP = Embed.prototype;
@@ -157,7 +182,7 @@
 		this.embedSizeSwitchHtml = this.utils.createPulldownMenu(
 			[ 'small', 'medium', 'large', 'original' ],
 			[ 'mw-mmv-embed-size' ],
-			'small'
+			'original'
 		);
 
 		$( '<p>' )
@@ -210,6 +235,8 @@
 
 	/**
 	 * Handles size menu change events.
+	 *
+	 * @param {OO.ui.MenuItemWidget}
 	 */
 	EP.handleSizeSwitch = function ( item ) {
 		var value = item.getData();
@@ -219,18 +246,24 @@
 
 	/**
 	 * Handles snippet type switch.
+	 *
+	 * @param {OO.ui.MenuItemWidget}
 	 */
 	EP.handleTypeSwitch = function ( item ) {
 		var value = item.getData();
 
 		if ( value === 'html' ) {
 			this.$currentMainEmbedText = this.embedTextHtml.$element;
-			this.currentSizeMenu = this.embedSizeSwitchHtml.getMenu();
 			this.embedSizeSwitchWikitext.getMenu().hide();
+
+			this.currentSizeMenu = this.embedSizeSwitchHtml.getMenu();
+			this.currentDefaultItem = this.defaultHtmlItem;
 		} else if ( value === 'wikitext' ) {
 			this.$currentMainEmbedText = this.embedTextWikitext.$element;
-			this.currentSizeMenu = this.embedSizeSwitchWikitext.getMenu();
 			this.embedSizeSwitchHtml.getMenu().hide();
+
+			this.currentSizeMenu = this.embedSizeSwitchWikitext.getMenu();
+			this.currentDefaultItem = this.defaultWikitextItem;
 		}
 
 		this.embedTextHtml.$element
@@ -241,9 +274,21 @@
 			.add( this.embedSizeSwitchWikitext.$element )
 			.toggleClass( 'active', value === 'wikitext' );
 
-		this.select();
+		// Reset current selection to default when switching the first time
+		if ( ! this.isSizeMenuDefaultReset ) {
+			this.resetCurrentSizeMenuToDefault();
+			this.isSizeMenuDefaultReset = true;
+		}
 
-		this.currentSizeMenu.selectItem( this.currentSizeMenu.getSelectedItem() );
+		this.select();
+	};
+
+	/**
+	 * Reset current menu selection to default item.
+	 */
+	EP.resetCurrentSizeMenuToDefault = function () {
+		this.currentSizeMenu.intializeSelection( this.currentDefaultItem );
+		this.currentSizeMenu.selectItem( this.currentDefaultItem );
 	};
 
 	/**
@@ -360,7 +405,9 @@
 		this.utils.updateMenuOptions( sizes.html, htmlSizeOptions );
 		this.utils.updateMenuOptions( sizes.wikitext, wikitextSizeOptions );
 
-		this.currentSizeMenu.selectItem( this.currentSizeMenu.getSelectedItem() );
+		// Reset defaults
+		this.isSizeMenuDefaultReset = false;
+		this.resetCurrentSizeMenuToDefault();
 
 		this.utils.getThumbnailUrlPromise( this.LARGE_IMAGE_WIDTH_THRESHOLD )
 			.done( function ( thumbnail ) {
@@ -421,6 +468,8 @@
 				};
 			}
 		}
+
+		sizes['default'] = { width: null, height: null };
 
 		return sizes;
 	};

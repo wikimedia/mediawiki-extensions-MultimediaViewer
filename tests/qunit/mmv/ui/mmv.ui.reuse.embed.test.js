@@ -20,7 +20,7 @@
 
 	QUnit.module( 'mmv.ui.reuse.Embed', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sanity test, object creation and UI construction', 9, function ( assert ) {
+	QUnit.test( 'Sanity test, object creation and UI construction', 13, function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf );
 
 		assert.ok( embed, 'Embed UI element is created.' );
@@ -31,7 +31,11 @@
 		assert.ok( embed.embedSizeSwitchWikitext, 'Size selection menu for wikitext created.' );
 		assert.ok( embed.embedSizeSwitchHtml, 'Size selection menu for html created.' );
 		assert.strictEqual( embed.$currentMainEmbedText.length, 1, 'Size selection menu for html created.' );
-		assert.ok( embed.currentSizeMenu, 'Size selection menu for html created.' );
+		assert.strictEqual( embed.isSizeMenuDefaultReset, false, 'Reset flag intialized correctly.' );
+		assert.ok( embed.defaultHtmlItem, 'Default item for html size selection intialized.' );
+		assert.ok( embed.defaultWikitextItem, 'Default item for wikitext size selection intialized.' );
+		assert.ok( embed.currentSizeMenu, 'Current size menu intialized.' );
+		assert.ok( embed.currentDefaultItem, 'Current default item intialized.' );
 	} );
 
 	QUnit.test( 'changeSize(): Skip if no item selected.', 0, function ( assert ) {
@@ -179,20 +183,25 @@
 				expected: {
 					small: { width: 300, height: 225 },
 					medium: { width: 400, height: 300 },
-					large: { width: 500, height: 375 }
+					large: { width: 500, height: 375 },
+					'default': { width: null, height: null }
 				}
 			},
 
 			// Big tall image
 			{
 				width: 201, height: 1536,
-				expected: { }
+				expected: {
+					'default': { width: null, height: null }
+				}
 			},
 
 			// Very small image
 			{
 				width: 15, height: 20,
-				expected: { }
+				expected: {
+					'default': { width: null, height: null }
+				}
 			}
 		],
 		i, cursize, opts;
@@ -203,7 +212,7 @@
 		}
 	} );
 
-	QUnit.test( 'set():', 6, function ( assert ) {
+	QUnit.test( 'set():', 8, function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
 		title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 		src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
@@ -216,6 +225,9 @@
 
 		embed.utils.updateMenuOptions = function( sizes, options ) {
 			assert.strictEqual( options.length, 4, 'Options passed correctly.' );
+		};
+		embed.resetCurrentSizeMenuToDefault = function() {
+			assert.ok( true, 'resetCurrentSizeMenuToDefault() is called.' );
 		};
 		embed.utils.getThumbnailUrlPromise = function () {
 			return $.Deferred().resolve().promise();
@@ -233,6 +245,7 @@
 		embed.set( { width: width, height: height }, embedFileInfo );
 
 		assert.ok( embed.embedFileInfo, 'embedFileInfo correctly set.' );
+		assert.strictEqual( embed.isSizeMenuDefaultReset, false, 'Reset flag cleared.' );
 	} );
 
 	QUnit.test( 'empty():', 6, function ( assert ) {
@@ -334,17 +347,29 @@
 			'select', embed.embedSizeSwitchWikitext.getMenu().getSelectedItem() );
 	} );
 
-	QUnit.test( 'handleTypeSwitch():', 2, function ( assert ) {
+	QUnit.test( 'handleTypeSwitch():', 6, function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf );
+
+		assert.strictEqual( embed.isSizeMenuDefaultReset, false, 'Reset flag intialized correctly.' );
+
+		embed.resetCurrentSizeMenuToDefault = function () {
+			assert.ok( true, 'resetCurrentSizeMenuToDefault() called.' );
+		};
 
 		// HTML selected
 		embed.handleTypeSwitch( { getData: function() { return 'html'; } } );
 
+		assert.strictEqual( embed.isSizeMenuDefaultReset, true, 'Reset flag updated correctly.' );
 		assert.ok( ! embed.embedSizeSwitchWikitext.getMenu().isVisible(), 'Wikitext size menu should be hidden.' );
 
-		// Wikitext selected
-		embed.handleTypeSwitch( { getData: function() { return 'wikitext'; } } );
+		embed.resetCurrentSizeMenuToDefault = function () {
+			assert.ok( false, 'resetCurrentSizeMenuToDefault() should not have been called.' );
+		};
 
+		// Wikitext selected, we are done resetting defaults
+		embed.handleTypeSwitch( { getData: function () { return 'wikitext'; } } );
+
+		assert.strictEqual( embed.isSizeMenuDefaultReset, true, 'Reset flag updated correctly.' );
 		assert.ok( ! embed.embedSizeSwitchHtml.getMenu().isVisible(), 'HTML size menu should be hidden.' );
 	} );
 

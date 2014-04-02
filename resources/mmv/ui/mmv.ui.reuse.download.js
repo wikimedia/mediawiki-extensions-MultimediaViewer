@@ -39,6 +39,12 @@
 		this.createDownloadButton( this.$pane );
 		this.createSizePulldownMenu( this.$pane );
 		this.createPreviewLink( this.$pane );
+
+		/**
+		 * Default item for the size menu.
+		 * @property {OO.ui.MenuItemWidget}
+		 */
+		this.defaultItem = this.downloadSizeMenu.getMenu().getSelectedItem();
 	}
 	oo.inheritClass( Download, mw.mmv.ui.reuse.Tab );
 	DP = Download.prototype;
@@ -85,24 +91,11 @@
 	 * @param {jQuery} $container
 	 */
 	DP.createSizePulldownMenu = function ( $container ) {
-		var sizeOptions;
-
 		this.downloadSizeMenu = this.utils.createPulldownMenu(
 			[ 'original', 'small', 'medium', 'large' ],
 			[ 'mw-mlb-download-size' ],
 			'original'
 		);
-
-		// FIXME: Initialize menu options so all entries are enabled, workaround for bug: cards/386
-		sizeOptions = this.downloadSizeMenu.getMenu().getItems();
-		this.utils.updateMenuOptions(
-			{
-				small: { width: 0, height: 0 },
-				medium: { width: 0, height: 0 },
-				large: { width: 0, height: 0 },
-				original: { width: 0, height: 0 }
-			},
-			sizeOptions );
 
 		$container.append( this.downloadSizeMenu.$element );
 	};
@@ -145,6 +138,8 @@
 
 	/**
 	 * Handles size menu change events.
+	 *
+	 * @param {OO.ui.MenuItemWidget}
 	 */
 	DP.handleSizeSwitch = function ( item ) {
 		var download = this,
@@ -192,8 +187,9 @@
 		// Note: This extension will not be the real one for file types other than: png/gif/jpg/jpeg
 		this.imageExtension = image.title.getExtension().toLowerCase();
 
-		// Update the download button label now that we have the info
-		this.handleSizeSwitch( this.downloadSizeMenu.getMenu().getSelectedItem() );
+		// Reset size menu to default item and update download button label now that we have the info
+		this.downloadSizeMenu.getMenu().intializeSelection( this.defaultItem );
+		this.downloadSizeMenu.getMenu().selectItem( this.defaultItem );
 	};
 
 	/**

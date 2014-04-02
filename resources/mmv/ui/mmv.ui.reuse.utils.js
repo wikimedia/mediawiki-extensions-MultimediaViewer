@@ -105,21 +105,15 @@
 			if ( sizes[data.name] ) {
 				option.setDisabled( false );
 
-				// These values are later used in the else if case below as flags
-				// to disable an option that is no longer pertinent. Ex: User went
-				// from a large image from which we have options(small, med, large) to
-				// a small image where the only pertinent option is small.
+				// These values are later used when the item is selected
 				data.width = sizes[data.name].width;
 				data.height = sizes[data.name].height;
 
 				$label = $( '<span>' ).html( this.getDimensionsMessageHtml( data.name, data.width, data.height ) );
 
 				option.setLabel( $label );
-			} else if ( data.width && data.height ) {
+			} else {
 				option.setDisabled( true );
-
-				data.width = null;
-				data.height = null;
 			}
 		}
 	};
