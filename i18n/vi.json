@@ -45,6 +45,12 @@
     "multimediaviewer-reuse-loading-placeholder": "Đang tải…",
     "multimediaviewer-share-tab": "Chia sẻ",
     "multimediaviewer-embed-tab": "Nhúng",
+    "multimediaviewer-download-tab": "Tải về",
+    "multimediaviewer-download-preview-link-title": "Xem trước trong trình duyệt",
+    "multimediaviewer-download-original-button-name": "Tải về hình gốc",
+    "multimediaviewer-download-small-button-name": "Tải về hình nhỏ",
+    "multimediaviewer-download-medium-button-name": "Tải về hình vừa",
+    "multimediaviewer-download-large-button-name": "Tải về hình lớn",
     "multimediaviewer-link-to-page": "Liên kết đến trang miêu tả",
     "multimediaviewer-link-to-file": "Liên kết đến tập tin gốc",
     "multimediaviewer-share-explanation": "Sao chép và thoải mái chia sẻ liên kết này",
@@ -67,5 +73,6 @@
     "multimediaviewer-large-embed-dimensions": "Lớn $1",
     "multimediaviewer-medium-embed-dimensions": "Vừa $1",
     "multimediaviewer-small-embed-dimensions": "Nhỏ $1",
-    "multimediaviewer-embed-dimensions": "– $1×$2 điểm ảnh"
+    "multimediaviewer-embed-dimensions": "$1×$2 điểm ảnh",
+    "multimediaviewer-embed-dimensions-separated": "– $1"
 }

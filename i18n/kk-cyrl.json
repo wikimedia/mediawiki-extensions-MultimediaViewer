@@ -36,6 +36,12 @@
     "multimediaviewer-reuse-loading-placeholder": "Жүктелуде...",
     "multimediaviewer-share-tab": "Бөлісу",
     "multimediaviewer-embed-tab": "Ендіру",
+    "multimediaviewer-download-tab": "Түсіру",
+    "multimediaviewer-download-preview-link-title": "Броузерден қарап шығу",
+    "multimediaviewer-download-original-button-name": "Түпнұсқа өлшемін түсіріп алу",
+    "multimediaviewer-download-small-button-name": "Кішкене өлшемін түсіріп алу",
+    "multimediaviewer-download-medium-button-name": "Орташа өлшемін түсіріп алу",
+    "multimediaviewer-download-large-button-name": "Үлкен өлшемін түсіріп алу",
     "multimediaviewer-link-to-page": "Файл сипаттама бетіне сілтеу",
     "multimediaviewer-link-to-file": "Тұпнұсқа файлға сілтеу",
     "multimediaviewer-share-explanation": "Сілтемені копиялау және бөлісу",
@@ -57,5 +63,5 @@
     "multimediaviewer-large-embed-dimensions": "Үлкен $1",
     "multimediaviewer-medium-embed-dimensions": "Орташа $1",
     "multimediaviewer-small-embed-dimensions": "Кіші $1",
-    "multimediaviewer-embed-dimensions": "- $1 × $2 px"
+    "multimediaviewer-embed-dimensions": "$1 × $2 px"
 }

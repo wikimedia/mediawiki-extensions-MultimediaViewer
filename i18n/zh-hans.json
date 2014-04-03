@@ -63,5 +63,5 @@
     "multimediaviewer-large-embed-dimensions": "大 $1",
     "multimediaviewer-medium-embed-dimensions": "中 $1",
     "multimediaviewer-small-embed-dimensions": "小 $1",
-    "multimediaviewer-embed-dimensions": "- $1 × $2 像素"
+    "multimediaviewer-embed-dimensions": "$1 × $2 像素"
 }

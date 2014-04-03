@@ -3,7 +3,8 @@
         "authors": [
             "Astralnet",
             "Geraki",
-            "Nikosguard"
+            "Nikosguard",
+            "Indoril"
         ]
     },
     "multimediaviewer-desc": "Επεκτείνετε τις μικρογραφίες σε μεγαλύτερο μέγεθος σε ένα περιβάλλον εργασίας πλήρους οθόνης.",
@@ -24,5 +25,10 @@
     "multimediaviewer-discuss-mmv": "Αφήστε σχόλια",
     "multimediaviewer-geolocation": "Τοποθεσία: $1",
     "multimediaviewer-fileusage-count": "Χρησιμοποιείται στο $1 {{PLURAL:$1|σελίδα|σελίδες}}",
-    "multimediaviewer-reuse-link": "Χρησιμοποιήστε αυτό το αρχείο"
+    "multimediaviewer-reuse-link": "Χρησιμοποιήστε αυτό το αρχείο",
+    "multimediaviewer-download-tab": "Λήψη",
+    "multimediaviewer-download-preview-link-title": "Προεπισκόπηση στο πρόγραμμα περιήγησης",
+    "multimediaviewer-download-small-button-name": "Λήψη μικρού μεγέθους",
+    "multimediaviewer-download-medium-button-name": "Λήψη μεσαίου μεγέθους",
+    "multimediaviewer-download-large-button-name": "Λήψη μεγάλου μεγέθους"
 }

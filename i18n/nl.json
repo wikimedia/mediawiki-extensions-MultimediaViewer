@@ -50,5 +50,6 @@
     "multimediaviewer-embed-byline": "Door $1",
     "multimediaviewer-embed-license": "Licentie $1.",
     "multimediaviewer-embed-via": "Via $1.",
-    "multimediaviewer-default-embed-dimensions": "Standaard miniatuurgrootte"
+    "multimediaviewer-default-embed-dimensions": "Standaard miniatuurgrootte",
+    "multimediaviewer-original-embed-dimensions": "Oorspronkelijke grootte $1"
 }

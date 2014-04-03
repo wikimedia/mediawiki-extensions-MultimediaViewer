@@ -44,6 +44,12 @@
     "multimediaviewer-reuse-loading-placeholder": "Вчитувам…",
     "multimediaviewer-share-tab": "Сподели",
     "multimediaviewer-embed-tab": "Вметни",
+    "multimediaviewer-download-tab": "Преземи",
+    "multimediaviewer-download-preview-link-title": "Прегледај во прелистувач",
+    "multimediaviewer-download-original-button-name": "Преземи во изворна големина",
+    "multimediaviewer-download-small-button-name": "Преземи мало",
+    "multimediaviewer-download-medium-button-name": "Преземи средно",
+    "multimediaviewer-download-large-button-name": "Преземи големо",
     "multimediaviewer-link-to-page": "Врска до описната страница на податотеката",
     "multimediaviewer-link-to-file": "Врска до изворната податотека",
     "multimediaviewer-share-explanation": "Ископирајте ја врската и слободно споделувајте ја",
@@ -66,5 +72,5 @@
     "multimediaviewer-large-embed-dimensions": "Голема $1",
     "multimediaviewer-medium-embed-dimensions": "Средна $1",
     "multimediaviewer-small-embed-dimensions": "Мала $1",
-    "multimediaviewer-embed-dimensions": "— $1 × $2 пиксели"
+    "multimediaviewer-embed-dimensions": "$1 × $2 пиксели"
 }
