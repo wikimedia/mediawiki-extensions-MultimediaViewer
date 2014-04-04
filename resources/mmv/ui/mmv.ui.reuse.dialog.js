@@ -24,16 +24,9 @@
 	 * @class mw.mmv.ui.reuse.Dialog
 	 * @extends mw.mmv.ui.Element
 	 * @param {jQuery} $container the element to which the dialog will be appended
-	 * @param {jQuery} $linkContainer the element to which the link to open the dialog will be appended
 	 */
-	function Dialog( $container, $linkContainer ) {
+	function Dialog( $container ) {
 		mw.mmv.ui.Element.call( this, $container );
-
-		this.$reuseLink = $( '<span>' )
-			.addClass( 'mw-mmv-reuse-link empty' )
-			.text( mw.message( 'multimediaviewer-reuse-link' ).text() );
-
-		this.$reuseLink.appendTo( $linkContainer );
 
 		this.$reuseDialog = $( '<div>' )
 			.addClass( 'mw-mmv-reuse-dialog' );
@@ -61,9 +54,7 @@
 
 		this.initTabs();
 	}
-
 	oo.inheritClass( Dialog, mw.mmv.ui.Element );
-
 	DP = Dialog.prototype;
 
 	// FIXME this should happen outside the dialog and the tabs, but we need to improve
@@ -133,7 +124,7 @@
 		var dialog = this,
 			tab;
 
-		this.$reuseLink.on( 'click', $.proxy( dialog.handleOpenCloseClick, dialog ) );
+		this.handleEvent( 'mmv-reuse-open', $.proxy( dialog.handleOpenCloseClick, dialog ) );
 		this.reuseTabs.on( 'select', $.proxy( dialog.handleTabSelection, dialog ) );
 
 		for ( tab in this.tabs ) {
@@ -150,7 +141,6 @@
 		this.constructor.super.prototype.unattach.call( this );
 
 		this.stopListeningToOutsideClick();
-		this.$reuseLink.off( 'click' );
 		this.reuseTabs.off( 'select' );
 
 		for ( tab in this.tabs ) {
@@ -169,7 +159,6 @@
 		this.tabs.share.set( image );
 		this.tabs.download.set( image );
 		this.tabs.embed.set( image, repo, caption );
-		this.$reuseLink.removeClass( 'empty' );
 	};
 
 	/**
@@ -181,8 +170,6 @@
 		for ( var tab in this.tabs ) {
 			this.tabs[tab].empty();
 		}
-
-		this.$reuseLink.addClass( 'empty' );
 	};
 
 	/**
@@ -191,7 +178,7 @@
 	DP.openDialog = function () {
 		this.startListeningToOutsideClick();
 		this.$reuseDialog.show();
-		this.$reuseLink.addClass( 'open' );
+		$( document ).trigger( 'mmv-reuse-opened' );
 		this.isOpen = true;
 		this.tabs[this.selectedTab].show();
 	};
@@ -202,7 +189,7 @@
 	DP.closeDialog = function () {
 		this.stopListeningToOutsideClick();
 		this.$reuseDialog.hide();
-		this.$reuseLink.removeClass( 'open' );
+		$( document ).trigger( 'mmv-reuse-closed' );
 		this.isOpen = false;
 	};
 

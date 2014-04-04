@@ -23,11 +23,10 @@
 
 	QUnit.module( 'mmv.ui.reuse.Dialog', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sanity test, object creation and UI construction', 4, function ( assert ) {
+	QUnit.test( 'Sanity test, object creation and UI construction', 3, function ( assert ) {
 		var reuseDialog = makeReuseDialog();
 
 		assert.ok( reuseDialog, 'Reuse UI element is created.' );
-		assert.strictEqual( reuseDialog.$reuseLink.length, 1, 'Reuse link created.' );
 		assert.strictEqual( reuseDialog.$reuseDialog.length, 1, 'Reuse dialog div created.' );
 		assert.ok( reuseDialog.reuseTabs, 'Reuse tabs created.' );
 	} );
@@ -92,7 +91,7 @@
 		};
 
 		// Triggering action events before attaching should do nothing
-		reuseDialog.$reuseLink.trigger( 'click' );
+		$( document ).trigger( 'mmv-reuse-open' );
 		reuseDialog.reuseTabs.emit( 'select' );
 
 		reuseDialog.handleOpenCloseClick = function() {
@@ -105,7 +104,7 @@
 		reuseDialog.attach();
 
 		// Action events should be handled now
-		reuseDialog.$reuseLink.trigger( 'click' );
+		$( document ).trigger( 'mmv-reuse-open' );
 		reuseDialog.reuseTabs.emit( 'select' );
 
 		// Test the unattach part
@@ -119,7 +118,7 @@
 		reuseDialog.unattach();
 
 		// Triggering action events now that we are unattached should do nothing
-		reuseDialog.$reuseLink.trigger( 'click' );
+		$( document ).trigger( 'mmv-reuse-open' );
 		reuseDialog.reuseTabs.emit( 'select' );
 	} );
 
@@ -167,7 +166,7 @@
 		assertDialogDoesNotCatchClicks();
 	} );
 
-	QUnit.test( 'set()/empty():', 3, function ( assert ) {
+	QUnit.test( 'set()/empty() sanity check:', 1, function ( assert ) {
 		var reuseDialog = makeReuseDialog(),
 		title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 		src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
@@ -181,15 +180,10 @@
 		},
 		embedFileInfo = new mw.mmv.model.EmbedFileInfo( title, src, url );
 
-		assert.ok( reuseDialog.$reuseLink.hasClass( 'empty' ), 'Dialog launch link is empty by default.' );
-
 		reuseDialog.set( image, embedFileInfo );
-
-		assert.ok( ! reuseDialog.$reuseLink.hasClass( 'empty' ), 'Dialog launch link is not empty after set().' );
-
 		reuseDialog.empty();
 
-		assert.ok( reuseDialog.$reuseLink.hasClass( 'empty' ), 'Dialog launch link is empty now.' );
+		assert.ok( true, 'Set/empty did not cause an error.' );
 	} );
 
 	QUnit.test( 'openDialog()/closeDialog():', 3, function ( assert ) {

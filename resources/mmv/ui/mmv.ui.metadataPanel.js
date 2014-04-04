@@ -62,10 +62,12 @@
 			panel.scroll();
 		} ) );
 
+		this.buttons.attach();
 		this.fileReuse.attach();
 	};
 
 	MPP.unattach = function() {
+		this.buttons.unattach();
 		this.fileReuse.unattach();
 		this.fileReuse.closeDialog();
 		this.clearEvents();
@@ -76,6 +78,8 @@
 	MPP.empty = function () {
 		this.$license.empty().addClass( 'empty' );
 		this.$permissionLink.hide();
+
+		this.buttons.empty();
 
 		this.description.empty();
 		this.categories.empty();
@@ -136,6 +140,7 @@
 
 		this.$container.append( this.$controlBar );
 
+		this.initializeButtons(); // float, needs to be on top
 		this.initializeTitleAndCredit();
 		this.initializeLicense();
 	};
@@ -209,6 +214,10 @@
 			} );
 	};
 
+	MPP.initializeButtons = function () {
+		this.buttons = new mw.mmv.ui.StripeButtons( this.$titleDiv );
+	};
+
 	/**
 	 * Initializes the main body of metadata elements.
 	 */
@@ -247,7 +256,7 @@
 		this.initializeDatetime();
 		this.initializeLocation();
 
-		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$container, this.$titleDiv );
+		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$container );
 		this.categories = new mw.mmv.ui.Categories( this.$imageLinks );
 
 		this.fileUsage = new mw.mmv.ui.FileUsage(
@@ -657,6 +666,8 @@
 		}
 
 		this.consolidateCredit( !!imageData.source, !!imageData.author );
+
+		this.buttons.set();
 
 		this.description.set( imageData.description, image.caption );
 		this.categories.set( repoData.getArticlePath(), imageData.categories );
