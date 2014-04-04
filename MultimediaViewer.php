@@ -689,6 +689,10 @@ call_user_func( function() {
 			'mmv.head.js',
 		),
 
+		'dependencies' => array(
+			'mmv.base',
+		),
+
 		'position' => 'top',
 	), $moduleInfo( 'mmv' ) );
 
