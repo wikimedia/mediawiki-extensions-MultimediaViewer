@@ -25,6 +25,11 @@
 	opacity: 0.8;
 	transition: opacity 0.25s;
 
+	// when the button is a link, we need more selector specificity
+	a&, a&:visited, a&:hover {
+		color: @button-text-color;
+	}
+
 	&.open,
 	&:hover {
 		opacity: 1;
@@ -49,4 +54,9 @@
 .mw-mmv-stripe-button-reuse:before {
 	/* @embed */
 	background-image: url(img/use-ltr.svg);
+}
+
+.mw-mmv-stripe-button-feedback:before {
+	/* @embed */
+	background-image: url(img/horn_grey.svg);
 }
