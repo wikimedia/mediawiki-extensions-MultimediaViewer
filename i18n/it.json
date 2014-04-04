@@ -66,5 +66,7 @@
     "multimediaviewer-original-embed-dimensions": "Dimensioni originali $1",
     "multimediaviewer-large-embed-dimensions": "Grande $1",
     "multimediaviewer-medium-embed-dimensions": "Media $1",
-    "multimediaviewer-small-embed-dimensions": "Piccola $1"
+    "multimediaviewer-small-embed-dimensions": "Piccola $1",
+    "multimediaviewer-feedback-button-text": "Commenta questo strumento",
+    "multimediaviewer-feedback-popup-text": "Lascia un commento su questa nuova esperienza di visualizzazione dei file multimediali"
 }

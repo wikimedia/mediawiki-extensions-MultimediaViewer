@@ -68,5 +68,9 @@
     "multimediaviewer-large-embed-dimensions": "גדול $1",
     "multimediaviewer-medium-embed-dimensions": "בינוני $1",
     "multimediaviewer-small-embed-dimensions": "קטן $1",
-    "multimediaviewer-embed-dimensions": "$1 × $2 פיקסלים"
+    "multimediaviewer-embed-dimensions": "$1 × $2 פיקסלים",
+    "multimediaviewer-feedback-button-text": "המשוב שלכם על הכלי הזה",
+    "multimediaviewer-feedback-popup-text": "השארת משוב על חוויית המולטימדיה החדשה",
+    "multimediaviewer-description-page-button-text": "פרטים נוספים",
+    "multimediaviewer-description-page-popup-text": "פרטים נוספים על $1"
 }

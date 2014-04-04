@@ -4,7 +4,8 @@
             "Mark Holmquist <mtraceur@member.fsf.org>",
             "Raymond",
             "Shirayuki",
-            "Liuxinyu970226"
+            "Liuxinyu970226",
+            "Robby"
         ]
     },
     "multimediaviewer-desc": "{{desc|name=Multimedia Viewer|url=https://www.mediawiki.org/wiki/Extension:MultimediaViewer}}",
@@ -60,7 +61,7 @@
     "multimediaviewer-reuse-loading-placeholder": "Text that appears in all reuse text boxes as a placeholder while the data loads.\n{{Identical|Loading}}",
     "multimediaviewer-share-tab": "Tab title text for the file reuse panel - used for the section with shareable URLs.",
     "multimediaviewer-embed-tab": "Tab title text for the file reuse panel - used for the section with embeddable HTML and wikitext.",
-    "multimediaviewer-download-tab": "Tab title text for the file reuse panel - used for file download functionality.",
+    "multimediaviewer-download-tab": "Tab title text for the file reuse panel - used for file download functionality.\n{{Identical|Download}}",
     "multimediaviewer-download-preview-link-title": "Text in the link that allows the user to preview the image of the selected size - used for file download functionality.",
     "multimediaviewer-download-original-button-name": "Text inside the button that lets the user download the original size image - used for file download functionality.",
     "multimediaviewer-download-small-button-name": "Text inside the button that lets the user download a small version of the original image - used for file download functionality.",
@@ -91,8 +92,8 @@
     "multimediaviewer-embed-dimensions": "Dimensions for a given size selector option which will generate wikitext for a thumbnail.\n* $1 - width in pixels\n* $2 - height in pixels",
     "multimediaviewer-embed-dimensions-separated": "Wraps the dimensions with a separator styled the same way, for the embed tab.\n* $1 - image dimensions\n\nSee also:\n* {{msg-mw|Multimediaviewer-embed-dimensions}}",
     "multimediaviewer-embed-dimensions-with-file-format": "Collates image dimensions and a file format.\n* $1 - image dimensions\n* $2 - file format extension, lowercased\n\nSee also:\n* {{msg-mw|Multimediaviewer-embed-dimensions}}",
-    "multimediaviewer-feedback-button-text": "Text of the button on top of the metadata panel which brings up a feedback survey. See also {{mw-msg|multimediaviewer-feedback-popup-text}}.",
-    "multimediaviewer-feedback-popup-text": "Additional popup text of the button on top of the metadata panel which brings up a feedback survey. See also {{mw-msg|multimediaviewer-feedback-button-text}}.",
-    "multimediaviewer-description-page-button-text": "Text of the button on top of the metadata panel which links to the file description page. See also {{mw-msg|multimediaviewer-description-page-popup-text}}.",
-    "multimediaviewer-description-page-popup-text": "Additional popup text of the button on top of the metadata panel which links to the file description page. See also {{mw-msg|multimediaviewer-description-page-button-text}}. $1 is the name of the site where the file comes from (e.g. \"Wikimedia Commons\")."
+    "multimediaviewer-feedback-button-text": "Text of the button on top of the metadata panel which brings up a feedback survey.\n\nSee also:\n* {{msg-mw|Multimediaviewer-feedback-popup-text}}",
+    "multimediaviewer-feedback-popup-text": "Additional popup text of the button on top of the metadata panel which brings up a feedback survey.\n\nSee also:\n* {{msg-mw|Multimediaviewer-feedback-button-text}}",
+    "multimediaviewer-description-page-button-text": "Text of the button on top of the metadata panel which links to the file description page.\n\nSee also:\n* {{msg-mw|Multimediaviewer-description-page-popup-text}}",
+    "multimediaviewer-description-page-popup-text": "Additional popup text of the button on top of the metadata panel which links to the file description page.\n\nParameters:\n* $1 - the name of the site where the file comes from (e.g. \"Wikimedia Commons\")\nSee also:\n* {{msg-mw|Multimediaviewer-description-page-button-text}}."
 }

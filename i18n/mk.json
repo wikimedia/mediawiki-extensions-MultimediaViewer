@@ -72,5 +72,9 @@
     "multimediaviewer-large-embed-dimensions": "Голема $1",
     "multimediaviewer-medium-embed-dimensions": "Средна $1",
     "multimediaviewer-small-embed-dimensions": "Мала $1",
-    "multimediaviewer-embed-dimensions": "$1 × $2 пиксели"
+    "multimediaviewer-embed-dimensions": "$1 × $2 пиксели",
+    "multimediaviewer-feedback-button-text": "Ваше мислење за алаткава",
+    "multimediaviewer-feedback-popup-text": "Дајте ваше мислење за нов преглед на снимки",
+    "multimediaviewer-description-page-button-text": "Поподробно",
+    "multimediaviewer-description-page-popup-text": "Поподробно на $1"
 }

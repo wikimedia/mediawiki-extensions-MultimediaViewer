@@ -68,5 +68,9 @@
     "multimediaviewer-large-embed-dimensions": "Grand $1",
     "multimediaviewer-medium-embed-dimensions": "Moyen $1",
     "multimediaviewer-small-embed-dimensions": "Petit $1",
-    "multimediaviewer-embed-dimensions": "$1 × $2 px"
+    "multimediaviewer-embed-dimensions": "$1 × $2 px",
+    "multimediaviewer-feedback-button-text": "Votre avis sur cet outil",
+    "multimediaviewer-feedback-popup-text": "Laisser un commentaire sur cette nouvelle expérience d’affichage des médias",
+    "multimediaviewer-description-page-button-text": "Plus de détails",
+    "multimediaviewer-description-page-popup-text": "Plus de détails sur $1"
 }
