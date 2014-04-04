@@ -104,7 +104,7 @@
 	 * @param {string} key some name to identify the style
 	 * @param {string|null} style a CSS snippet (set to null to delete the given style)
 	 */
-	EP.setRepoInlineStyle = function ( key, style ) {
+	EP.setInlineStyle = function ( key, style ) {
 
 		if ( !this.$inlineStyles ) {
 			this.$inlineStyles = [];

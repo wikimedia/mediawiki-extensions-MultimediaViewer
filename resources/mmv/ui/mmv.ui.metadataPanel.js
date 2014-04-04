@@ -420,13 +420,13 @@
 		// This horror exists because the CSS uses a :before pseudo-class to
 		// define the repo icon. This is the only way to override it.
 		if ( favIcon ) {
-			this.setRepoInlineStyle( 'repoDisplay',
+			this.setInlineStyle( 'repoDisplay',
 				'.mw-mmv-image-links li.mw-mmv-repo-li:before {' +
 					'background-image: url("' + favIcon + '");' +
 				'}'
 			);
 		} else {
-			this.setRepoInlineStyle( 'repoDisplay', null );
+			this.setInlineStyle( 'repoDisplay', null );
 		}
 
 		this.$repoLi.removeClass( 'empty' );
