@@ -64,7 +64,7 @@
 		// TODO:  Use oojs-ui constructive button widget instead
 		this.$downloadButton = $( '<a>' )
 			.attr( 'target', '_blank' )
-			.attr( 'download', 'download' )
+			.attr( 'download', '' )
 			.addClass( 'mw-ui-button mw-ui-constructive multimediaviewer-download-button' );
 
 		this.$selectionArrow = $( '<span>' )
