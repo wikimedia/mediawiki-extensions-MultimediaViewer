@@ -49,9 +49,6 @@
 	 * Initialize the entire interface - helper method.
 	 */
 	LIP.init = function () {
-		var addToPre = [],
-			addToPost = [];
-
 		// SVG filter, needed to achieve blur in Firefox
 		this.$filter = $( '<svg><filter id="gaussian-blur"><fegaussianblur stdDeviation="3"></filter></svg>' );
 
@@ -71,11 +68,12 @@
 
 		this.$preDiv = $( '<div>' )
 			.addClass( 'mw-mmv-pre-image' );
-		this.setupPreDiv( addToPre );
 
 		this.$postDiv = $( '<div>' )
 			.addClass( 'mw-mmv-post-image' );
-		this.setupPostDiv( addToPost );
+
+		this.$controlBar = $( '<div>' )
+			.addClass( 'mw-mmv-controls' );
 
 		this.$main.append(
 			this.$preDiv,
@@ -88,8 +86,10 @@
 			this.$main
 		);
 
+		this.setupCanvasButtons();
+
 		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$controlBar );
-		this.buttons = new mw.mmv.ui.CanvasButtons( this.$imageWrapper, this.$closeButton, this.$fullscreenButton );
+		this.buttons = new mw.mmv.ui.CanvasButtons( this.$preDiv, this.$closeButton, this.$fullscreenButton );
 		this.canvas = new mw.mmv.ui.Canvas( this.$innerWrapper, this.$imageWrapper, this.$wrapper );
 	};
 
@@ -234,14 +234,10 @@
 	};
 
 	/**
-	 * Setup for DOM elements which come before the main image
-	 * @param {Array.<HTMLElement|jQuery>} toAdd
+	 * Setup for canvas navigation buttons
 	 */
-	LIP.setupPreDiv = function ( toAdd ) {
+	LIP.setupCanvasButtons = function () {
 		var ui = this;
-
-		this.$controlBar = $( '<div>' )
-			.addClass( 'mw-mmv-controls' );
 
 		this.$closeButton = $( '<div>' )
 			.text( ' ' )
@@ -261,43 +257,11 @@
 				}
 			} );
 
-		this.setupFullscreenButton();
-
-		this.$controlBar.append(
-			this.$closeButton,
-			this.$fullscreenButton
-		);
-
-		this.$preDiv.append( this.$controlBar );
-
-		this.addElementsToDiv( this.$preDiv, toAdd );
-	};
-
-	/**
-	 * Sets up the fullscreen button
-	 */
-	LIP.setupFullscreenButton = function () {
 		// If the browser doesn't support fullscreen mode, hide the fullscreen button
 		if ( $.support.fullscreen ) {
 			this.$fullscreenButton.show();
 		} else {
 			this.$fullscreenButton.hide();
-		}
-	};
-
-	/**
-	 * Setup for DOM elements which come before the main image
-	 * @param {Array.<HTMLElement|jQuery>} toAdd
-	 */
-	LIP.setupPostDiv = function ( toAdd ) {
-		this.addElementsToDiv( this.$postDiv, toAdd );
-	};
-
-	LIP.addElementsToDiv = function ( $div, toAdd ) {
-		var i;
-
-		for ( i = 0; i < toAdd.length; i++ ) {
-			$div.append( toAdd[i] );
 		}
 	};
 

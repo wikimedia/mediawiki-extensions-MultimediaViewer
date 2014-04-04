@@ -85,15 +85,15 @@
 		lightbox.attach( '#qunit-fixture' );
 
 		$.support.fullscreen = false;
-		lightbox.setupFullscreenButton();
+		lightbox.setupCanvasButtons();
 
-		assert.ok( !lightbox.$fullscreenButton.is(':visible'),
+		assert.strictEqual( lightbox.$fullscreenButton.css( 'display' ), 'none',
 			'Fullscreen button is hidden when fullscreen mode is unavailable' );
 
 		$.support.fullscreen = true;
-		lightbox.setupFullscreenButton();
+		lightbox.setupCanvasButtons();
 
-		assert.ok( lightbox.$fullscreenButton.is(':visible'),
+		assert.strictEqual( lightbox.$fullscreenButton.css( 'display' ), 'block',
 			'Fullscreen button is visible when fullscreen mode is available' );
 
 		// Entering fullscreen

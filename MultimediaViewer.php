@@ -647,7 +647,6 @@ $wgResourceModules += array(
 		),
 
 		'styles' => array(
-			'mmv/mmv.less',
 			// Always make this one the last of the list (Bug 61852)
 			'mmv/mmv.loaded.css',
 		),
