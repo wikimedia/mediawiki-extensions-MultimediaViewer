@@ -54,5 +54,6 @@
     "multimediaviewer-embed-byline": "Av $1",
     "multimediaviewer-embed-license": "Licenserat under $1.",
     "multimediaviewer-embed-via": "Via $1.",
-    "multimediaviewer-default-embed-dimensions": "Standardstorlek för miniatyrer"
+    "multimediaviewer-default-embed-dimensions": "Standardstorlek för miniatyrer",
+    "multimediaviewer-description-page-popup-text": "Mer information om $1"
 }

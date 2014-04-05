@@ -1,0 +1,17 @@
+{
+    "@metadata": {
+        "authors": [
+            "Cocu"
+        ]
+    },
+    "multimediaviewer-download-tab": "Last ned",
+    "multimediaviewer-download-preview-link-title": "Forhåndsvis i nettleser",
+    "multimediaviewer-download-original-button-name": "Last ned originalstørrelse",
+    "multimediaviewer-download-small-button-name": "Last ned liten størrelse",
+    "multimediaviewer-download-medium-button-name": "Last ned medium størrelse",
+    "multimediaviewer-download-large-button-name": "Last ned stor størrelse",
+    "multimediaviewer-feedback-button-text": "Din tilbakemelding på dette verktøyet",
+    "multimediaviewer-feedback-popup-text": "Gi tilbakemelding på denne nye måten å se mediefiler på",
+    "multimediaviewer-description-page-button-text": "Se detaljer",
+    "multimediaviewer-description-page-popup-text": "Se detaljer på $1"
+}

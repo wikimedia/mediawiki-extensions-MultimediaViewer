@@ -16,6 +16,16 @@
     "multimediaviewer-license-pd": "পাবলিক ডোমেইন",
     "multimediaviewer-license-default": "লাইসেন্স দেখুন",
     "multimediaviewer-about-mmv": "মিডিয়া ভিউয়ার সম্পর্কে",
-    "multimediaviewer-discuss-mmv": "আপনার প্রতিক্রিয়া জানান",
-    "multimediaviewer-reuse-link": "এই ফাইলটি ব্যবহার করুন"
+    "multimediaviewer-discuss-mmv": "এই বৈশিষ্ট্য সম্পর্কে আলোচনা করুন",
+    "multimediaviewer-reuse-link": "এই ফাইলটি ব্যবহার করুন",
+    "multimediaviewer-download-tab": "ডাউনলোড",
+    "multimediaviewer-download-preview-link-title": "ব্রাউজারে প্রাকদর্শন",
+    "multimediaviewer-download-original-button-name": "মূল আকার ডাউনলোড করুন",
+    "multimediaviewer-download-small-button-name": "ছোট আকার ডাউনলোড করুন",
+    "multimediaviewer-download-medium-button-name": "মাঝারি আকার ডাউনলোড করুন",
+    "multimediaviewer-download-large-button-name": "বড় আকার ডাউনলোড করুন",
+    "multimediaviewer-feedback-button-text": "এই সরঞ্জাম সম্পর্কে আপনার প্রতিক্রিয়া",
+    "multimediaviewer-feedback-popup-text": "এই নতুন মিডিয়া দেখার অভিজ্ঞতা সম্পর্কে প্রতিক্রিয়া দিন",
+    "multimediaviewer-description-page-button-text": "আরো বিস্তারিত",
+    "multimediaviewer-description-page-popup-text": "$1-এ আরো বিস্তারিত"
 }

@@ -1,7 +1,8 @@
 {
     "@metadata": {
         "authors": [
-            "Arystanbek"
+            "Arystanbek",
+            "Габдулгани НИШ ХБН"
         ]
     },
     "multimediaviewer-desc": "Толық экранды интерфейсте шақын суреттерді өлшемін үлкен етіп кеңейту",
@@ -63,5 +64,9 @@
     "multimediaviewer-large-embed-dimensions": "Үлкен $1",
     "multimediaviewer-medium-embed-dimensions": "Орташа $1",
     "multimediaviewer-small-embed-dimensions": "Кіші $1",
-    "multimediaviewer-embed-dimensions": "$1 × $2 px"
+    "multimediaviewer-embed-dimensions": "$1 × $2 px",
+    "multimediaviewer-feedback-button-text": "Осы құрал туралы пікіріңізді қалдырыңыз",
+    "multimediaviewer-feedback-popup-text": "Бұл жаңа тәжірибелік медиа файл қараушы туралы пікіріңізді қалдырыңыз",
+    "multimediaviewer-description-page-button-text": "Толығырақ",
+    "multimediaviewer-description-page-popup-text": "Толығырақ $1 туралы"
 }

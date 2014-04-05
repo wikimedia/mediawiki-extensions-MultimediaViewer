@@ -31,8 +31,16 @@
     "multimediaviewer-fileusage-global-section": "Sus d’autres sites",
     "multimediaviewer-reuse-link": "Utilizar aqueste fichièr",
     "multimediaviewer-reuse-loading-placeholder": "Cargament en cors…",
+    "multimediaviewer-download-tab": "Telecargar",
+    "multimediaviewer-download-preview-link-title": "Apercebut dins lo navigador",
+    "multimediaviewer-download-original-button-name": "Telecargar amb la talha d’origina",
+    "multimediaviewer-download-small-button-name": "Telecargar en pichona talha",
+    "multimediaviewer-download-medium-button-name": "Telecargar en talha mejana",
+    "multimediaviewer-download-large-button-name": "Telecargar en granda talha",
     "multimediaviewer-original-embed-dimensions": "Talha d’origina $1",
     "multimediaviewer-large-embed-dimensions": "Grand $1",
     "multimediaviewer-medium-embed-dimensions": "Mejan $1",
-    "multimediaviewer-small-embed-dimensions": "Pichon $1"
+    "multimediaviewer-small-embed-dimensions": "Pichon $1",
+    "multimediaviewer-description-page-button-text": "Mai de detalhs",
+    "multimediaviewer-description-page-popup-text": "Mai de detalhs sus $1"
 }
