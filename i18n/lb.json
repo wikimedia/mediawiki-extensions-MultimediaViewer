@@ -46,5 +46,8 @@
     "multimediaviewer-original-embed-dimensions": "Original Gréisst $1",
     "multimediaviewer-large-embed-dimensions": "Grouss $1",
     "multimediaviewer-medium-embed-dimensions": "Mëttel $1",
-    "multimediaviewer-small-embed-dimensions": "Kleng $1"
+    "multimediaviewer-small-embed-dimensions": "Kleng $1",
+    "multimediaviewer-feedback-button-text": "Äre Feedback zu dësem Tool",
+    "multimediaviewer-description-page-button-text": "Méi Detailer",
+    "multimediaviewer-description-page-popup-text": "Méi Detailer op $1"
 }

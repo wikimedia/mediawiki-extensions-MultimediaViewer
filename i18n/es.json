@@ -28,6 +28,7 @@
     "multimediaviewer-permission-viewmore": "Ver más",
     "multimediaviewer-about-mmv": "Acerca del visor multimedia",
     "multimediaviewer-discuss-mmv": "Dejar comentarios",
+    "multimediaviewer-help-mmv": "Ayuda",
     "multimediaviewer-geolocation": "Ubicación: $1",
     "multimediaviewer-fileusage-count": "Utilizado en $1 {{PLURAL:$1| page|pages}}",
     "multimediaviewer-fileusage-count-more": "Utilizado en más de $1 {{PLURAL:$1|pages}}",
@@ -35,8 +36,12 @@
     "multimediaviewer-fileusage-local-section": "En este sitio",
     "multimediaviewer-fileusage-global-section": "En otros sitios",
     "multimediaviewer-reuse-link": "Usar este archivo",
+    "multimediaviewer-reuse-loading-placeholder": "Cargando…",
     "multimediaviewer-share-tab": "Compartir",
     "multimediaviewer-embed-tab": "Incrustar",
+    "multimediaviewer-download-tab": "Descargar",
+    "multimediaviewer-download-preview-link-title": "Previsualizar en navegador",
+    "multimediaviewer-download-original-button-name": "Descargar tamaño original",
     "multimediaviewer-link-to-page": "Enlace a la página de descripción del archivo",
     "multimediaviewer-link-to-file": "Enlace al archivo original",
     "multimediaviewer-embed-wt": "Wikitexto",
@@ -51,5 +56,7 @@
     "multimediaviewer-embed-byline": "Por $1",
     "multimediaviewer-embed-license": "Disponible bajo la licencia $1.",
     "multimediaviewer-embed-via": "Vía $1.",
-    "multimediaviewer-default-embed-dimensions": "Tamaño de miniaturas predeterminado"
+    "multimediaviewer-default-embed-dimensions": "Tamaño de miniaturas predeterminado",
+    "multimediaviewer-description-page-button-text": "Más detalles",
+    "multimediaviewer-description-page-popup-text": "Más detalles sobre $1"
 }
