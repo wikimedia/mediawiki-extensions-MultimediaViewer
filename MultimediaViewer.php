@@ -20,62 +20,54 @@
  * @author Mark Holmquist <mtraceur@member.fsf.org>
  * @copyright Copyright © 2013, Mark Holmquist
  */
+if ( !isset( $wgNetworkPerformanceSamplingFactor ) ) {
+	/** @var int|bool: If set, records image load network performance once per this many requests. False if unset. **/
+	$wgNetworkPerformanceSamplingFactor = false;
+}
 
-// do not pollute global namespace
-call_user_func( function() {
-	global $wgExtensionMessagesFiles, $wgResourceModules, $wgExtensionFunctions, $wgMediaViewerIsInBeta,
-		$wgAutoloadClasses, $wgHooks, $wgExtensionCredits, $wgNetworkPerformanceSamplingFactor,
-		$wgEnableMediaViewerForLoggedInUsersOnly, $wgDefaultUserOptions;
+if ( !isset( $wgMediaViewerIsInBeta ) ) {
+	/** @var bool: If set, Media Viewer will try to use BetaFeatures. False if unset. **/
+	$wgMediaViewerIsInBeta = false;
+}
 
-	if ( !isset( $wgNetworkPerformanceSamplingFactor ) ) {
-		/** @var int|bool: If set, records image load network performance once per this many requests. False if unset. **/
-		$wgNetworkPerformanceSamplingFactor = false;
-	}
-
-	if ( !isset( $wgMediaViewerIsInBeta ) ) {
-		/** @var bool: If set, Media Viewer will try to use BetaFeatures. False if unset. **/
-		$wgMediaViewerIsInBeta = false;
-	}
-
-	if ( !isset( $wgEnableMediaViewerForLoggedInUsersOnly ) ) {
-		/**
-		 * @var bool: If set, and $wgMediaViewerIsInBeta is unset, Media Viewer will be turned on for
-		 * all logged-in users. False if unset.
-		 */
-		$wgEnableMediaViewerForLoggedInUsersOnly = false;
-	}
-
-	$wgMessagesDirs['MultimediaViewer'] = __DIR__ . '/i18n';
-	$wgExtensionMessagesFiles['MultimediaViewer'] = __DIR__ . '/MultimediaViewer.i18n.php';
-
+if ( !isset( $wgEnableMediaViewerForLoggedInUsersOnly ) ) {
 	/**
-	 * @param string $path
-	 * @return array
+	 * @var bool: If set, and $wgMediaViewerIsInBeta is unset, Media Viewer will be turned on for
+	 * all logged-in users. False if unset.
 	 */
-	$moduleInfo = function( $path ) {
-		return array(
-			'localBasePath' => __DIR__ . "/resources/$path",
-			'remoteExtPath' => "MultimediaViewer/resources/$path",
-		);
-	};
+	$wgEnableMediaViewerForLoggedInUsersOnly = false;
+}
 
-	$wgResourceModules['mmv.lightboximage'] = array_merge( array(
+$wgMessagesDirs['MultimediaViewer'] = __DIR__ . '/i18n';
+$wgExtensionMessagesFiles['MultimediaViewer'] = __DIR__ . '/MultimediaViewer.i18n.php';
+
+/**
+ * @param string $path
+ * @return array
+ */
+$wgMediaViewerResourceTemplate = array(
+	'localBasePath' => __DIR__ . '/resources',
+	'remoteExtPath' => 'MultimediaViewer/resources',
+);
+
+$wgResourceModules += array(
+	'mmv.lightboximage' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.lightboximage.js',
+			'mmv/mmv.lightboximage.js',
 		),
 
 		'dependencies' => array(
 			'mmv.base',
 		),
-	), $moduleInfo( 'mmv' ) );
+	),
 
-	$wgResourceModules['mmv.lightboxinterface'] = array_merge( array(
+	'mmv.lightboxinterface' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.lightboxinterface.js',
+			'mmv/mmv.lightboxinterface.js',
 		),
 
 		'styles' => array(
-			'mmv.lightboxinterface.less',
+			'mmv/mmv.lightboxinterface.less',
 		),
 
 		'dependencies' => array(
@@ -88,11 +80,11 @@ call_user_func( function() {
 			'mmv.ui.fileUsage',
 			'mmv.ui.metadataPanel',
 		),
-	), $moduleInfo( 'mmv' ) );
+	),
 
-	$wgResourceModules['mmv.ThumbnailWidthCalculator'] = array_merge( array(
+	'mmv.ThumbnailWidthCalculator' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ThumbnailWidthCalculator.js',
+			'mmv/mmv.ThumbnailWidthCalculator.js',
 		),
 
 		'dependencies' => array(
@@ -100,132 +92,132 @@ call_user_func( function() {
 			'mmv.base',
 			'mmv.model.ThumbnailWidth',
 		),
-	), $moduleInfo( 'mmv' ) );
+	),
 
-	$wgResourceModules['mmv.HtmlUtils'] = array_merge( array(
+	'mmv.HtmlUtils' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.HtmlUtils.js',
+			'mmv/mmv.HtmlUtils.js',
 		),
 
 		'dependencies' => array(
 			'mmv.base',
 		),
-	), $moduleInfo( 'mmv' ) );
+	),
 
-	$wgResourceModules['mmv.model'] = array_merge( array(
+	'mmv.model' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.model.js',
+			'mmv/model/mmv.model.js',
 		),
 
 		'dependencies' => array(
 			'mmv.base',
 			'oojs',
 		),
-	), $moduleInfo( 'mmv/model' ) );
+	),
 
-	$wgResourceModules['mmv.model.EmbedFileInfo'] = array_merge( array(
+	'mmv.model.EmbedFileInfo' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.model.EmbedFileInfo.js',
+			'mmv/model/mmv.model.EmbedFileInfo.js',
 		),
 
 		'dependencies' => array(
 			'mmv.model',
 		),
-	), $moduleInfo( 'mmv/model' ) );
+	),
 
-	$wgResourceModules['mmv.model.License'] = array_merge( array(
+	'mmv.model.License' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.model.License.js',
+			'mmv/model/mmv.model.License.js',
 		),
 
 		'dependencies' => array(
 			'mmv.model',
 			'mmv.HtmlUtils',
 		),
-	), $moduleInfo( 'mmv/model' ) );
+	),
 
-	$wgResourceModules['mmv.model.FileUsage'] = array_merge( array(
+	'mmv.model.FileUsage' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.model.FileUsage.js',
+			'mmv/model/mmv.model.FileUsage.js',
 		),
 
 		'dependencies' => array(
 			'mmv.model',
 		),
-	), $moduleInfo( 'mmv/model' ) );
+	),
 
-	$wgResourceModules['mmv.model.Image'] = array_merge( array(
+	'mmv.model.Image' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.model.Image.js',
+			'mmv/model/mmv.model.Image.js',
 		),
 
 		'dependencies' => array(
 			'mmv.model',
 			'mmv.model.License',
 		),
-	), $moduleInfo( 'mmv/model' ) );
+	),
 
-	$wgResourceModules['mmv.model.Repo'] = array_merge( array(
+	'mmv.model.Repo' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.model.Repo.js',
+			'mmv/model/mmv.model.Repo.js',
 		),
 
 		'dependencies' => array(
 			'mmv.model',
 			'oojs',
 		),
-	), $moduleInfo( 'mmv/model' ) );
+	),
 
-	$wgResourceModules['mmv.model.Thumbnail'] = array_merge( array(
+	'mmv.model.Thumbnail' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.model.Thumbnail.js',
+			'mmv/model/mmv.model.Thumbnail.js',
 		),
 
 		'dependencies' => array(
 			'mmv.model',
 		),
-	), $moduleInfo( 'mmv/model' ) );
+	),
 
-	$wgResourceModules['mmv.model.ThumbnailWidth'] = array_merge( array(
+	'mmv.model.ThumbnailWidth' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.model.ThumbnailWidth.js',
+			'mmv/model/mmv.model.ThumbnailWidth.js',
 		),
 
 		'dependencies' => array(
 			'mmv.model',
 		),
-	), $moduleInfo( 'mmv/model' ) );
+	),
 
-	$wgResourceModules['mmv.model.User'] = array_merge( array(
+	'mmv.model.User' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.model.User.js',
+			'mmv/model/mmv.model.User.js',
 		),
 
 		'dependencies' => array(
 			'mmv.model',
 		),
-	), $moduleInfo( 'mmv/model' ) );
+	),
 
-	$wgResourceModules['mmv.model.TaskQueue'] = array_merge( array(
+	'mmv.model.TaskQueue' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.model.TaskQueue.js',
+			'mmv/model/mmv.model.TaskQueue.js',
 		),
 
 		'dependencies' => array(
 			'mmv.model',
 		),
-	), $moduleInfo( 'mmv/model' ) );
+	),
 
-	$wgResourceModules['mmv.provider'] = array_merge( array(
+	'mmv.provider' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.provider.Api.js',
-			'mmv.provider.ImageUsage.js',
-			'mmv.provider.GlobalUsage.js',
-			'mmv.provider.ImageInfo.js',
-			'mmv.provider.FileRepoInfo.js',
-			'mmv.provider.ThumbnailInfo.js',
-			'mmv.provider.UserInfo.js',
-			'mmv.provider.Image.js',
+			'mmv/provider/mmv.provider.Api.js',
+			'mmv/provider/mmv.provider.ImageUsage.js',
+			'mmv/provider/mmv.provider.GlobalUsage.js',
+			'mmv/provider/mmv.provider.ImageInfo.js',
+			'mmv/provider/mmv.provider.FileRepoInfo.js',
+			'mmv/provider/mmv.provider.ThumbnailInfo.js',
+			'mmv/provider/mmv.provider.UserInfo.js',
+			'mmv/provider/mmv.provider.Image.js',
 		),
 
 		'dependencies' => array(
@@ -239,35 +231,35 @@ call_user_func( function() {
 			'mmv.performance',
 			'oojs',
 		),
-	), $moduleInfo( 'mmv/provider' ) );
+	),
 
-	$wgResourceModules['mmv.base'] = array_merge( array(
+	'mmv.base' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.base.js',
+			'mmv/mmv.base.js',
 		),
-	), $moduleInfo( 'mmv' ) );
+	),
 
-	$wgResourceModules['mmv.ui'] = array_merge( array(
+	'mmv.ui' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ui.js',
+			'mmv/ui/mmv.ui.js',
 		),
 
 		'styles' => array(
-			'mmv.ui.less',
+			'mmv/ui/mmv.ui.less',
 		),
 
 		'dependencies' => array(
 			'mmv.base',
 		),
-	), $moduleInfo( 'mmv/ui' ) );
+	),
 
-	$wgResourceModules['mmv.ui.canvas'] = array_merge( array(
+	'mmv.ui.canvas' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ui.canvas.js',
+			'mmv/ui/mmv.ui.canvas.js',
 		),
 
 		'styles' => array(
-			'mmv.ui.canvas.less',
+			'mmv/ui/mmv.ui.canvas.less',
 		),
 
 		'messages' => array(
@@ -279,15 +271,15 @@ call_user_func( function() {
 			'mmv.ThumbnailWidthCalculator',
 			'oojs',
 		),
-	), $moduleInfo( 'mmv/ui' ) );
+	),
 
-	$wgResourceModules['mmv.ui.categories'] = array_merge( array(
+	'mmv.ui.categories' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ui.categories.js',
+			'mmv/ui/mmv.ui.categories.js',
 		),
 
 		'styles' => array(
-			'mmv.ui.categories.less',
+			'mmv/ui/mmv.ui.categories.less',
 		),
 
 		'dependencies' => array(
@@ -298,15 +290,15 @@ call_user_func( function() {
 		'messages' => array(
 			'comma-separator',
 		),
-	), $moduleInfo( 'mmv/ui' ) );
+	),
 
-	$wgResourceModules['mmv.ui.stripeButtons'] = array_merge( array(
+	'mmv.ui.stripeButtons' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ui.stripeButtons.js',
+			'mmv/ui/mmv.ui.stripeButtons.js',
 		),
 
 		'styles' => array(
-			'mmv.ui.stripeButtons.less',
+			'mmv/ui/mmv.ui.stripeButtons.less',
 		),
 
 		'dependencies' => array(
@@ -323,11 +315,11 @@ call_user_func( function() {
 			'multimediaviewer-description-page-popup-text-local',
 			'multimediaviewer-reuse-link',
 		),
-	), $moduleInfo( 'mmv/ui' ) );
+	),
 
-	$wgResourceModules['mmv.ui.description'] = array_merge( array(
+	'mmv.ui.description' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ui.description.js',
+			'mmv/ui/mmv.ui.description.js',
 		),
 
 		'dependencies' => array(
@@ -335,15 +327,15 @@ call_user_func( function() {
 			'mmv.HtmlUtils',
 			'oojs',
 		),
-	), $moduleInfo( 'mmv/ui' ) );
+	),
 
-	$wgResourceModules['mmv.ui.fileUsage'] = array_merge( array(
+	'mmv.ui.fileUsage' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ui.fileUsage.js',
+			'mmv/ui/mmv.ui.fileUsage.js',
 		),
 
 		'styles' => array(
-			'mmv.ui.fileUsage.less',
+			'mmv/ui/mmv.ui.fileUsage.less',
 		),
 
 		'dependencies' => array(
@@ -361,15 +353,15 @@ call_user_func( function() {
 			'multimediaviewer-fileusage-local-section',
 			'multimediaviewer-fileusage-global-section',
 		),
-	), $moduleInfo( 'mmv/ui' ) );
+	),
 
-	$wgResourceModules['mmv.ui.permission'] = array_merge( array(
+	'mmv.ui.permission' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ui.permission.js',
+			'mmv/ui/mmv.ui.permission.js',
 		),
 
 		'styles' => array(
-			'mmv.ui.permission.less',
+			'mmv/ui/mmv.ui.permission.less',
 		),
 
 		'messages' => array(
@@ -384,15 +376,15 @@ call_user_func( function() {
 			'mmv.HtmlUtils',
 			'oojs',
 		),
-	), $moduleInfo( 'mmv/ui' ) );
+	),
 
-	$wgResourceModules['mmv.ui.metadataPanel'] = array_merge( array(
+	'mmv.ui.metadataPanel' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ui.metadataPanel.js',
+			'mmv/ui/mmv.ui.metadataPanel.js',
 		),
 
 		'styles' => array(
-			'mmv.ui.metadataPanel.less',
+			'mmv/ui/mmv.ui.metadataPanel.less',
 		),
 
 		'dependencies' => array(
@@ -436,11 +428,11 @@ call_user_func( function() {
 
 			'multimediaviewer-metadata-error',
 		),
-	), $moduleInfo( 'mmv/ui' ) );
+	),
 
-	$wgResourceModules['mmv.embedFileFormatter'] = array_merge( array(
+	'mmv.embedFileFormatter' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.EmbedFileFormatter.js',
+			'mmv/mmv.EmbedFileFormatter.js',
 		),
 
 		'dependencies' => array(
@@ -460,15 +452,15 @@ call_user_func( function() {
 			'multimediaviewer-html-embed-credit-text-ts',
 			'multimediaviewer-html-embed-credit-text-tl',
 		),
-	), $moduleInfo( 'mmv' ) );
+	),
 
-	$wgResourceModules['mmv.ui.reuse.dialog'] = array_merge( array(
+	'mmv.ui.reuse.dialog' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ui.reuse.dialog.js',
+			'mmv/ui/mmv.ui.reuse.dialog.js',
 		),
 
 		'styles' => array(
-			'mmv.ui.reuse.dialog.less',
+			'mmv/ui/mmv.ui.reuse.dialog.less',
 		),
 
 		'dependencies' => array(
@@ -479,11 +471,11 @@ call_user_func( function() {
 			'mmv.ui.reuse.embed',
 			'mmv.ui.reuse.download',
 		),
-	), $moduleInfo( 'mmv/ui' ) );
+	),
 
-	$wgResourceModules['mmv.ui.reuse.utils'] = array_merge( array(
+	'mmv.ui.reuse.utils' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ui.reuse.utils.js',
+			'mmv/ui/mmv.ui.reuse.utils.js',
 		),
 
 		'dependencies' => array(
@@ -492,27 +484,27 @@ call_user_func( function() {
 			'oojs',
 			'oojs-ui',
 		),
-	), $moduleInfo( 'mmv/ui' ) );
+	),
 
-	$wgResourceModules['mmv.ui.reuse.tab'] = array_merge( array(
+	'mmv.ui.reuse.tab' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ui.reuse.tab.js',
+			'mmv/ui/mmv.ui.reuse.tab.js',
 		),
 
 		'dependencies' => array(
 			'mmv.ui',
 			'oojs',
 		),
-	), $moduleInfo( 'mmv/ui' ) );
+	),
 
-	$wgResourceModules['mmv.ui.reuse.share'] = array_merge( array(
+	'mmv.ui.reuse.share' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ui.reuse.share.js',
+			'mmv/ui/mmv.ui.reuse.share.js',
 		),
 
 		'styles' => array(
-			'mmv.ui.reuse.share.less',
-			'mmv.ui.reuse.shareembed.less',
+			'mmv/ui/mmv.ui.reuse.share.less',
+			'mmv/ui/mmv.ui.reuse.shareembed.less',
 		),
 
 		'dependencies' => array(
@@ -530,16 +522,16 @@ call_user_func( function() {
 			'multimediaviewer-link-to-file',
 			'multimediaviewer-link-to-page',
 		),
-	), $moduleInfo( 'mmv/ui' ) );
+	),
 
-	$wgResourceModules['mmv.ui.reuse.embed'] = array_merge( array(
+	'mmv.ui.reuse.embed' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ui.reuse.embed.js',
+			'mmv/ui/mmv.ui.reuse.embed.js',
 		),
 
 		'styles' => array(
-			'mmv.ui.reuse.embed.less',
-			'mmv.ui.reuse.shareembed.less',
+			'mmv/ui/mmv.ui.reuse.embed.less',
+			'mmv/ui/mmv.ui.reuse.shareembed.less',
 		),
 
 		'dependencies' => array(
@@ -570,15 +562,15 @@ call_user_func( function() {
 			'multimediaviewer-embed-dimensions',
 			'multimediaviewer-embed-dimensions-separated',
 		),
-	), $moduleInfo( 'mmv/ui' ) );
+	),
 
-	$wgResourceModules['mmv.ui.reuse.download'] = array_merge( array(
+	'mmv.ui.reuse.download' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ui.reuse.download.js',
+			'mmv/ui/mmv.ui.reuse.download.js',
 		),
 
 		'styles' => array(
-			'mmv.ui.reuse.download.less',
+			'mmv/ui/mmv.ui.reuse.download.less',
 		),
 
 		'dependencies' => array(
@@ -598,46 +590,46 @@ call_user_func( function() {
 			'multimediaviewer-embed-dimensions',
 			'multimediaviewer-embed-dimensions-with-file-format',
 		),
-	), $moduleInfo( 'mmv/ui' ) );
+	),
 
-	$wgResourceModules['mmv.ui.canvasButtons'] = array_merge( array(
+	'mmv.ui.canvasButtons' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.ui.canvasButtons.js',
+			'mmv/ui/mmv.ui.canvasButtons.js',
 		),
 
 		'styles' => array(
-			'mmv.ui.canvasButtons.less',
+			'mmv/ui/mmv.ui.canvasButtons.less',
 		),
 
 		'dependencies' => array(
 			'mmv.ui',
 			'oojs',
 		),
-	), $moduleInfo( 'mmv/ui' ) );
+	),
 
-	$wgResourceModules['mmv.logger'] = array_merge( array(
+	'mmv.logger' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.logger.js',
+			'mmv/mmv.logger.js',
 		),
 
 		'dependencies' => array(
 			'mmv.base',
 		),
-	), $moduleInfo( 'mmv' ) );
+	),
 
-	$wgResourceModules['mmv.performance'] = array_merge( array(
+	'mmv.performance' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.performance.js',
+			'mmv/mmv.performance.js',
 		),
 
 		'dependencies' => array(
 			'mmv.base',
 		),
-	), $moduleInfo( 'mmv' ) );
+	),
 
-	$wgResourceModules['mmv.api'] = array_merge( array(
+	'mmv.api' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.api.js',
+			'mmv/mmv.api.js',
 		),
 
 		'dependencies' => array(
@@ -645,17 +637,17 @@ call_user_func( function() {
 			'mmv.base',
 			'oojs',
 		),
-	), $moduleInfo( 'mmv' ) );
+	),
 
-	$wgResourceModules['mmv'] = array_merge( array(
+	'mmv' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.js',
+			'mmv/mmv.js',
 		),
 
 		'styles' => array(
-			'mmv.less',
+			'mmv/mmv.less',
 			// Always make this one the last of the list (Bug 61852)
-			'mmv.loaded.css',
+			'mmv/mmv.loaded.css',
 		),
 
 		'dependencies' => array(
@@ -676,15 +668,15 @@ call_user_func( function() {
 			'multimediaviewer-file-page',
 			'multimediaviewer-desc-nil',
 		),
-	), $moduleInfo( 'mmv' ) );
+	),
 
-	$wgResourceModules['mmv.bootstrap'] = array_merge( array(
+	'mmv.bootstrap' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.bootstrap.js',
+			'mmv/mmv.bootstrap.js',
 		),
 
 		'styles' => array(
-			'mmv.bootstrap.less',
+			'mmv/mmv.bootstrap.less',
 		),
 
 		'dependencies' => array(
@@ -693,22 +685,22 @@ call_user_func( function() {
 			'mmv.logger',
 			'mmv.HtmlUtils',
 		),
-	), $moduleInfo( 'mmv' ) );
+	),
 
-	$wgResourceModules['mmv.bootstrap.autostart'] = array_merge( array(
+	'mmv.bootstrap.autostart' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.bootstrap.autostart.js',
+			'mmv/mmv.bootstrap.autostart.js',
 		),
 
 		'dependencies' => array(
 			'mmv.base',
 			'mmv.bootstrap',
 		),
-	), $moduleInfo( 'mmv' ) );
+	),
 
-	$wgResourceModules['mmv.head'] = array_merge( array(
+	'mmv.head' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv.head.js',
+			'mmv/mmv.head.js',
 		),
 
 		'dependencies' => array(
@@ -716,116 +708,108 @@ call_user_func( function() {
 		),
 
 		'position' => 'top',
-	), $moduleInfo( 'mmv' ) );
+	),
 
-	$wgResourceModules['jquery.scrollTo'] = array_merge( array(
+	'jquery.scrollTo' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'jquery.scrollTo.js',
+			'jquery.scrollTo/jquery.scrollTo.js',
 		),
-	), $moduleInfo( 'jquery.scrollTo' ) );
+	),
 
-	$wgResourceModules['jquery.hashchange'] = array_merge( array(
+	'jquery.hashchange' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'jquery.hashchange.js',
+			'jquery.hashchange/jquery.hashchange.js',
 		),
-	), $moduleInfo( 'jquery.hashchange' ) );
+	),
+);
 
-	$wgExtensionFunctions[] = function () {
-		global $wgResourceModules;
+$wgExtensionFunctions[] = function () {
+	global $wgResourceModules;
 
-		if ( isset( $wgResourceModules['ext.eventLogging'] ) ) {
-			$wgResourceModules['schema.MediaViewer'] = array(
-				'class' => 'ResourceLoaderSchemaModule',
-				'schema' => 'MediaViewer',
-				'revision' => 7670440,
-			);
+	if ( isset( $wgResourceModules['ext.eventLogging'] ) ) {
+		$wgResourceModules['schema.MediaViewer'] = array(
+			'class' => 'ResourceLoaderSchemaModule',
+			'schema' => 'MediaViewer',
+			'revision' => 7670440,
+		);
 
-			$wgResourceModules['schema.MultimediaViewerNetworkPerformance'] = array(
-				'class' => 'ResourceLoaderSchemaModule',
-				'schema' => 'MultimediaViewerNetworkPerformance',
-				'revision' => 7917896,
-			);
+		$wgResourceModules['schema.MultimediaViewerNetworkPerformance'] = array(
+			'class' => 'ResourceLoaderSchemaModule',
+			'schema' => 'MultimediaViewerNetworkPerformance',
+			'revision' => 7917896,
+		);
 
-			$wgResourceModules['mmv.logger']['dependencies'][] = 'ext.eventLogging';
-			$wgResourceModules['mmv.logger']['dependencies'][] = 'schema.MediaViewer';
+		$wgResourceModules['mmv.logger']['dependencies'][] = 'ext.eventLogging';
+		$wgResourceModules['mmv.logger']['dependencies'][] = 'schema.MediaViewer';
 
-			$wgResourceModules['mmv.performance']['dependencies'][] = 'ext.eventLogging';
-			$wgResourceModules['mmv.performance']['dependencies'][] = 'schema.MultimediaViewerNetworkPerformance';
-		}
-	};
-
-	$licenses = array(
-		'cc-by-1.0',
-		'cc-sa-1.0',
-		'cc-by-sa-1.0',
-		'cc-by-2.0',
-		'cc-by-sa-2.0',
-		'cc-by-2.1',
-		'cc-by-sa-2.1',
-		'cc-by-2.5',
-		'cc-by-sa-2.5',
-		'cc-by-3.0',
-		'cc-by-sa-3.0',
-		'cc-by-sa-3.0-migrated',
-		'cc-by-4.0',
-		'cc-by-sa-4.0',
-		'cc-pd',
-		'cc-zero',
-		'pd',
-		'default',
-	);
-
-	foreach ( $licenses as $license ) {
-		$wgResourceModules['mmv']['messages'][] = 'multimediaviewer-license-' . $license;
+		$wgResourceModules['mmv.performance']['dependencies'][] = 'ext.eventLogging';
+		$wgResourceModules['mmv.performance']['dependencies'][] = 'schema.MultimediaViewerNetworkPerformance';
 	}
+};
 
-	$wgAutoloadClasses['MultimediaViewerHooks'] = __DIR__ . '/MultimediaViewerHooks.php';
+foreach ( array(
+	'cc-by-1.0',
+	'cc-sa-1.0',
+	'cc-by-sa-1.0',
+	'cc-by-2.0',
+	'cc-by-sa-2.0',
+	'cc-by-2.1',
+	'cc-by-sa-2.1',
+	'cc-by-2.5',
+	'cc-by-sa-2.5',
+	'cc-by-3.0',
+	'cc-by-sa-3.0',
+	'cc-by-sa-3.0-migrated',
+	'cc-by-4.0',
+	'cc-by-sa-4.0',
+	'cc-pd',
+	'cc-zero',
+	'pd',
+	'default',
+) as $license ) {
+	$wgResourceModules['mmv']['messages'][] = 'multimediaviewer-license-' . $license;
+}
 
-	$wgDefaultUserOptions['multimediaviewer-enable'] = true;
+$wgAutoloadClasses['MultimediaViewerHooks'] = __DIR__ . '/MultimediaViewerHooks.php';
 
-	$wgHooks['GetPreferences'][] = 'MultimediaViewerHooks::getPreferences';
-	$wgHooks['GetBetaFeaturePreferences'][] = 'MultimediaViewerHooks::getBetaPreferences';
-	$wgHooks['BeforePageDisplay'][] = 'MultimediaViewerHooks::getModulesForArticle';
-	$wgHooks['CategoryPageView'][] = 'MultimediaViewerHooks::getModulesForCategory';
-	$wgHooks['ResourceLoaderGetConfigVars'][] = 'MultimediaViewerHooks::resourceLoaderGetConfigVars';
-	$wgHooks['MakeGlobalVariablesScript'][] = 'MultimediaViewerHooks::makeGlobalVariablesScript';
-	$wgHooks['ResourceLoaderTestModules'][] = 'MultimediaViewerHooks::getTestModules';
-	$wgHooks['ThumbnailBeforeProduceHTML'][] = 'MultimediaViewerHooks::thumbnailBeforeProduceHTML';
+$wgDefaultUserOptions['multimediaviewer-enable'] = true;
 
-	$section = 'other';
+$wgHooks['GetPreferences'][] = 'MultimediaViewerHooks::getPreferences';
+$wgHooks['GetBetaFeaturePreferences'][] = 'MultimediaViewerHooks::getBetaPreferences';
+$wgHooks['BeforePageDisplay'][] = 'MultimediaViewerHooks::getModulesForArticle';
+$wgHooks['CategoryPageView'][] = 'MultimediaViewerHooks::getModulesForCategory';
+$wgHooks['ResourceLoaderGetConfigVars'][] = 'MultimediaViewerHooks::resourceLoaderGetConfigVars';
+$wgHooks['MakeGlobalVariablesScript'][] = 'MultimediaViewerHooks::makeGlobalVariablesScript';
+$wgHooks['ResourceLoaderTestModules'][] = 'MultimediaViewerHooks::getTestModules';
+$wgHooks['ThumbnailBeforeProduceHTML'][] = 'MultimediaViewerHooks::thumbnailBeforeProduceHTML';
 
-	if ( $wgMediaViewerIsInBeta ) {
-		$section = 'betafeatures';
-	}
-
-	$wgExtensionCredits[$section][] = array(
-		'path' => __FILE__,
-		'name' => 'MultimediaViewer',
-		'descriptionmsg' => 'multimediaviewer-desc',
-		'version' => '0.3.0',
-		'author' => array(
-			'MarkTraceur (Mark Holmquist)',
-			'Gilles Dubuc',
-			'Gergő Tisza',
-			'Aaron Arcos',
-			'Zeljko Filipin',
-			'Pau Giner',
-			'theopolisme',
-			'MatmaRex',
-			'apsdehal',
-			'vldandrew',
-			'Ebrahim Byagowi',
-			'Dereckson',
-			'Brion VIBBER',
-			'Yuki Shira',
-			'Yaroslav Melnychuk',
-			'tonythomas01',
-			'Raimond Spekking',
-			'Kunal Mehta',
-			'Jeff Hall',
-			'Christian Aistleitner',
-			'Amir E. Aharoni',
-		),
-		'url' => 'https://mediawiki.org/wiki/Extension:MultimediaViewer',
-	);
-} );
+$wgExtensionCredits['other'][] = array(
+	'path' => __FILE__,
+	'name' => 'MultimediaViewer',
+	'descriptionmsg' => 'multimediaviewer-desc',
+	'version' => '0.3.0',
+	'author' => array(
+		'MarkTraceur (Mark Holmquist)',
+		'Gilles Dubuc',
+		'Gergő Tisza',
+		'Aaron Arcos',
+		'Zeljko Filipin',
+		'Pau Giner',
+		'theopolisme',
+		'MatmaRex',
+		'apsdehal',
+		'vldandrew',
+		'Ebrahim Byagowi',
+		'Dereckson',
+		'Brion VIBBER',
+		'Yuki Shira',
+		'Yaroslav Melnychuk',
+		'tonythomas01',
+		'Raimond Spekking',
+		'Kunal Mehta',
+		'Jeff Hall',
+		'Christian Aistleitner',
+		'Amir E. Aharoni',
+	),
+	'url' => 'https://mediawiki.org/wiki/Extension:MultimediaViewer',
+);
