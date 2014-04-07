@@ -259,7 +259,7 @@
 	 * Clears listeners.
 	 */
 	SBP.unattach = function () {
-		this.constructor.super.prototype.unattach.call( this );
+		this.constructor['super'].prototype.unattach.call( this );
 		this.buttons.$reuse.off( 'click.mmv-stripeButtons' );
 	};
 

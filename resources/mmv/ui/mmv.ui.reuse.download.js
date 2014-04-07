@@ -28,7 +28,7 @@
 	 * @param {jQuery} $container
 	 */
 	function Download( $container ) {
-		Download.super.call( this, $container );
+		Download['super'].call( this, $container );
 
 		/** @property {mw.mmv.ui.reuse.Utils} utils - */
 		this.utils = new mw.mmv.ui.reuse.Utils();
@@ -130,7 +130,7 @@
 	 * Clears listeners.
 	 */
 	DP.unattach = function () {
-		this.constructor.super.prototype.unattach.call( this );
+		this.constructor['super'].prototype.unattach.call( this );
 
 		this.downloadSizeMenu.getMenu().off( 'select' );
 		this.$selectionArrow.off( 'click' );
