@@ -208,7 +208,7 @@
 			this.buttons.$descriptionPage.addClass( 'mw-mmv-stripe-button-commons' );
 		} else {
 			this.buttons.$descriptionPage.addClass( 'mw-mmv-stripe-button-dynamic' );
-			this.setRepoInlineStyle( 'stripe-button-description-page',
+			this.setInlineStyle( 'stripe-button-description-page',
 				'.mw-mmv-stripe-button-dynamic:before {' +
 					'background-image: url("' + repoInfo.favIcon + '");' +
 					'}'
@@ -229,7 +229,7 @@
 			this.buttons.$descriptionPage.attr( { href: null, title: null, 'original-title': null } )
 				.removeClass( 'mw-mmv-stripe-button-dynamic mw-mmv-stripe-button-commons' );
 			$( '.mw-mmv-stripe-button-dynamic-before' ).remove();
-			this.setRepoInlineStyle( 'stripe-button-description-page', null );
+			this.setInlineStyle( 'stripe-button-description-page', null );
 		}
 	};
 
