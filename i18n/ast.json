@@ -36,6 +36,12 @@
     "multimediaviewer-reuse-loading-placeholder": "Cargando...",
     "multimediaviewer-share-tab": "Compartir",
     "multimediaviewer-embed-tab": "Incrustar",
+    "multimediaviewer-download-tab": "Descargar",
+    "multimediaviewer-download-preview-link-title": "Vista previa nel navegador",
+    "multimediaviewer-download-original-button-name": "Descargar el tamañu orixinal",
+    "multimediaviewer-download-small-button-name": "Descargar el tamañu pequeñu",
+    "multimediaviewer-download-medium-button-name": "Descargar el tamañu medianu",
+    "multimediaviewer-download-large-button-name": "Descargar el tamañu grande",
     "multimediaviewer-link-to-page": "Enllaz a la páxina de descripción del ficheru",
     "multimediaviewer-link-to-file": "Enllaz al ficheru orixinal",
     "multimediaviewer-share-explanation": "Copiar y compartir llibremente l'enllaz",
@@ -56,5 +62,9 @@
     "multimediaviewer-original-embed-dimensions": "Tamañu orixinal $1",
     "multimediaviewer-large-embed-dimensions": "Grande $1",
     "multimediaviewer-medium-embed-dimensions": "Medianu $1",
-    "multimediaviewer-small-embed-dimensions": "Pequeñu $1"
+    "multimediaviewer-small-embed-dimensions": "Pequeñu $1",
+    "multimediaviewer-feedback-button-text": "La so opinión sobro esta ferramienta",
+    "multimediaviewer-feedback-popup-text": "Dexar comentarios sobro esta nueva esperiencia de visualización de multimedia",
+    "multimediaviewer-description-page-button-text": "Más detalles",
+    "multimediaviewer-description-page-popup-text": "Más detalles sobro $1"
 }
