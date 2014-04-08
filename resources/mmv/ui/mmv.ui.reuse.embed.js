@@ -70,13 +70,13 @@
 		 * Default item for the html size menu.
 		 * @property {OO.ui.MenuItemWidget}
 		 */
-		this.defaultHtmlItem = this.embedSizeSwitchHtml.getMenu().getSelectedItem();
+		this.defaultHtmlItem = this.embedSizeSwitchHtml.getMenu().getFirstSelectableItem();
 
 		/**
 		 * Default item for the wikitext size menu.
 		 * @property {OO.ui.MenuItemWidget}
 		 */
-		this.defaultWikitextItem = this.embedSizeSwitchWikitext.getMenu().getSelectedItem();
+		this.defaultWikitextItem = this.embedSizeSwitchWikitext.getMenu().getFirstSelectableItem();
 
 		/**
 		 * Currently selected size menu.
@@ -161,7 +161,6 @@
 			.append( this.embedSwitch.$element )
 			.appendTo( $container );
 
-		// Default to 'wikitext'
 		this.embedSwitch.selectItem( wikitextButtonOption );
 	};
 
@@ -211,12 +210,9 @@
 		// Register handler for switching between wikitext/html snippets
 		this.embedSwitch.on( 'select', $.proxy( embed.handleTypeSwitch, embed ) );
 
-		// workaround for bug 63094
-		this.proxiedHandleSizeSwitch = this.proxiedHandleSizeSwitch  || $.proxy( this.handleSizeSwitch, this );
-
 		// Register handlers for switching between file sizes
-		this.embedSizeSwitchHtml.getMenu().on( 'select', this.proxiedHandleSizeSwitch );
-		this.embedSizeSwitchWikitext.getMenu().on( 'select', this.proxiedHandleSizeSwitch );
+		this.embedSizeSwitchHtml.getMenu().on( 'select', $.proxy( this.handleSizeSwitch, this ) );
+		this.embedSizeSwitchWikitext.getMenu().on( 'select', $.proxy( this.handleSizeSwitch, this ) );
 	};
 
 	/**
@@ -228,15 +224,14 @@
 		this.embedTextHtml.offDOMEvent( 'focus mousedown click' );
 		this.embedTextWikitext.offDOMEvent( 'focus mousedown click' );
 		this.embedSwitch.off( 'select' );
-		// the noop is needed for some tests which call unattach before calling attach.
-		this.embedSizeSwitchHtml.getMenu().off( 'select', this.proxiedHandleSizeSwitch || $.noop );
-		this.embedSizeSwitchWikitext.getMenu().off( 'select', this.proxiedHandleSizeSwitch || $.noop );
+		this.embedSizeSwitchHtml.getMenu().off( 'select' );
+		this.embedSizeSwitchWikitext.getMenu().off( 'select' );
 	};
 
 	/**
 	 * Handles size menu change events.
 	 *
-	 * @param {OO.ui.MenuItemWidget}
+	 * @param {OO.ui.MenuItemWidget} item
 	 */
 	EP.handleSizeSwitch = function ( item ) {
 		var value = item.getData();
@@ -247,7 +242,7 @@
 	/**
 	 * Handles snippet type switch.
 	 *
-	 * @param {OO.ui.MenuItemWidget}
+	 * @param {OO.ui.MenuItemWidget} item
 	 */
 	EP.handleTypeSwitch = function ( item ) {
 		var value = item.getData();
@@ -287,7 +282,6 @@
 	 * Reset current menu selection to default item.
 	 */
 	EP.resetCurrentSizeMenuToDefault = function () {
-		this.currentSizeMenu.intializeSelection( this.currentDefaultItem );
 		this.currentSizeMenu.selectItem( this.currentDefaultItem );
 	};
 

@@ -77,7 +77,7 @@
 
 		// Triggering action events before attaching should do nothing
 		download.downloadSizeMenu.getMenu().emit(
-			'select', download.downloadSizeMenu.getMenu().getSelectedItem() );
+			'choose', download.downloadSizeMenu.getMenu().getSelectedItem() );
 		download.$selectionArrow.click();
 
 		download.handleSizeSwitch = function() {
@@ -91,7 +91,7 @@
 
 		// Action events should be handled now
 		download.downloadSizeMenu.getMenu().emit(
-			'select', download.downloadSizeMenu.getMenu().getSelectedItem() );
+			'choose', download.downloadSizeMenu.getMenu().getSelectedItem() );
 		download.$selectionArrow.click();
 
 		// Test the unattach part
@@ -106,7 +106,7 @@
 
 		// Triggering action events now that we are unattached should do nothing
 		download.downloadSizeMenu.getMenu().emit(
-			'select', download.downloadSizeMenu.getMenu().getSelectedItem() );
+			'choose', download.downloadSizeMenu.getMenu().getSelectedItem() );
 		download.$selectionArrow.click();
 	} );
 

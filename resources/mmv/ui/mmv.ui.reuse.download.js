@@ -44,7 +44,7 @@
 		 * Default item for the size menu.
 		 * @property {OO.ui.MenuItemWidget}
 		 */
-		this.defaultItem = this.downloadSizeMenu.getMenu().getSelectedItem();
+		this.defaultItem = this.downloadSizeMenu.getMenu().getFirstSelectableItem();
 	}
 	oo.inheritClass( Download, mw.mmv.ui.reuse.Tab );
 	DP = Download.prototype;
@@ -120,7 +120,7 @@
 		var download = this;
 
 		// Register handlers for switching between file sizes
-		this.downloadSizeMenu.getMenu().on( 'select', $.proxy( download.handleSizeSwitch, download ) );
+		this.downloadSizeMenu.getMenu().on( 'choose', $.proxy( download.handleSizeSwitch, download ) );
 		this.$selectionArrow.on( 'click', function () {
 			download.downloadSizeMenu.$element.click();
 		} );
@@ -132,14 +132,14 @@
 	DP.unattach = function () {
 		this.constructor.super.prototype.unattach.call( this );
 
-		this.downloadSizeMenu.getMenu().off( 'select' );
+		this.downloadSizeMenu.getMenu().off( 'choose' );
 		this.$selectionArrow.off( 'click' );
 	};
 
 	/**
 	 * Handles size menu change events.
 	 *
-	 * @param {OO.ui.MenuItemWidget}
+	 * @param {OO.ui.MenuItemWidget} item
 	 */
 	DP.handleSizeSwitch = function ( item ) {
 		var download = this,
@@ -188,8 +188,7 @@
 		this.imageExtension = image.title.getExtension().toLowerCase();
 
 		// Reset size menu to default item and update download button label now that we have the info
-		this.downloadSizeMenu.getMenu().intializeSelection( this.defaultItem );
-		this.downloadSizeMenu.getMenu().selectItem( this.defaultItem );
+		this.downloadSizeMenu.getMenu().chooseItem( this.defaultItem );
 	};
 
 	/**
