@@ -25,9 +25,13 @@
 	 * metadata panel).
 	 * @constructor
 	 * @param {jQuery} $container
+	 * @param {Object} localStorage the localStorage object, for dependency injection
 	 */
-	function StripeButtons( $container ) {
+	function StripeButtons( $container, localStorage ) {
 		mw.mmv.ui.Element.call( this, $container );
+
+		/** @property {Object} localStorage the window.localStorage object */
+		this.localStorage = localStorage;
 
 		this.$buttonContainer = $( '<div>' )
 			.addClass( 'mw-mmv-stripe-button-container' )
@@ -106,8 +110,81 @@
 			href: this.getFeedbackSurveyUrl()
 		} ).click( function ( e ) {
 			buttons.openSurveyInNewWindow();
+			buttons.maxOutTooltipDisplayCount();
 			e.preventDefault();
 		} );
+	};
+
+	SBP.feedbackSettings = {
+		/** Show the tooltip this many seconds to get the user's attention, even when it is not hovered. */
+		tooltipDisplayDuration: 5,
+		/** Wait for this long after the viewer is opened, before showing the tooltip. */
+		tooltipDelay: 5,
+		/** Only show the tooltip this many times */
+		tooltipMaxDisplayCount: 3
+	};
+
+	/**
+	 * Returns the number of times the tooltip was shown so far. This number is set to 999 if the
+	 * user clicked on the link already, or we cannot count how many times the tooltip was shown
+	 * already.
+	 * @return {number}
+	 */
+	SBP.getTooltipDisplayCount = function () {
+		if ( !this.localStorage ) {
+			return 999;
+		}
+		if ( this.tooltipDisplayCount === undefined ) {
+			this.tooltipDisplayCount = this.localStorage.getItem( 'mmv.tooltipDisplayCount' );
+			if ( this.tooltipDisplayCount === null ) {
+				this.tooltipDisplayCount = 0;
+				this.localStorage.setItem( 'mmv.tooltipDisplayCount', 0 );
+			}
+		}
+		return this.tooltipDisplayCount;
+	};
+
+	/**
+	 * Increases tooltip display count.
+	 */
+	SBP.increaseTooltipDisplayCount = function () {
+		this.getTooltipDisplayCount();
+		if ( this.tooltipDisplayCount !== undefined ) {
+			this.tooltipDisplayCount++;
+			this.localStorage.setItem( 'mmv.tooltipDisplayCount', this.tooltipDisplayCount );
+		}
+	};
+
+	/**
+	 * Sets tooltip display count so large that the tooltip will never be shown again.
+	 * We use this for users who already opened the form.
+	 */
+	SBP.maxOutTooltipDisplayCount = function () {
+		this.getTooltipDisplayCount();
+		if ( this.tooltipDisplayCount !== undefined ) {
+			this.tooltipDisplayCount = 999;
+			this.localStorage.setItem( 'mmv.tooltipDisplayCount', this.tooltipDisplayCount );
+		}
+	};
+
+	/**
+	 * Show the tooltip to the user if it was not shown often enough yet.
+	 */
+	SBP.maybeDisplayTooltip = function () {
+		if (
+			this.readyToShowFeedbackTooltip &&
+			this.getTooltipDisplayCount() < this.feedbackSettings.tooltipMaxDisplayCount
+		) {
+			this.buttons.$feedback.tipsy( 'show' );
+			this.setTimer( 'feedbackTooltip.hide', function () {
+				this.buttons.$feedback.tipsy( 'hide' );
+			}, this.feedbackSettings.tooltipDisplayDuration * 1000 );
+			this.increaseTooltipDisplayCount();
+			this.readyToShowFeedbackTooltip = false;
+		} else {
+			// if the tooltip is visible already, make sure it is not hidden too quickly
+			this.resetTimer( 'feedbackTooltip.hide' );
+		}
 	};
 
 	/**
@@ -193,6 +270,8 @@
 		if ( !mw.user.isAnon() ) {
 			this.setDescriptionPageButton( imageInfo, repoInfo );
 		}
+
+		this.maybeDisplayTooltip();
 	};
 
 	/**
@@ -221,7 +300,7 @@
 			this.setInlineStyle( 'stripe-button-description-page',
 				'.mw-mmv-stripe-button-dynamic:before {' +
 					'background-image: url("' + repoInfo.favIcon + '");' +
-					'}'
+				'}'
 			);
 		}
 	};
@@ -263,6 +342,12 @@
 		this.handleEvent( 'mmv-reuse-closed', function () {
 			buttons.$reuse.removeClass( 'open' );
 		} );
+
+		this.readyToShowFeedbackTooltip = false;
+		this.setTimer( 'feedbackTooltip.show', function () {
+			this.readyToShowFeedbackTooltip = true;
+			this.maybeDisplayTooltip();
+		}, this.feedbackSettings.tooltipDelay * 1000 );
 	};
 
 	/**
@@ -271,6 +356,8 @@
 	SBP.unattach = function () {
 		this.constructor.super.prototype.unattach.call( this );
 		this.buttons.$reuse.off( 'click.mmv-stripeButtons' );
+
+		this.clearTimer( 'feedbackTooltip.show' );
 	};
 
 	mw.mmv.ui.StripeButtons = StripeButtons;
