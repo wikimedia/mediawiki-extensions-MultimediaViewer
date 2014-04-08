@@ -37,6 +37,13 @@
 		 *  which we use to manipulate pseudo-classes and pseudo-elements.
 		 */
 		this.$inlineStyles = [];
+
+		/**
+		 * @private
+		 * Stores named timeouts. See setTimer().
+		 * @property {Object.<string, {timeout: Object, handler: function(), delay: number}>}
+		 */
+		this.timers = {};
 	}
 	EP = Element.prototype;
 
@@ -119,6 +126,60 @@
 		}
 
 		this.$inlineStyles[key].html( style || '' );
+	};
+
+	/**
+	 * Sets a timer. This is a shortcut to using the native setTimout and then storing
+	 * the reference, with some small differences for convenience:
+	 * - setting the same timer again clears the old one
+	 * - callbacks have the element as their context
+	 * Timers are local to the element.
+	 * See also clearTimer() and resetTimer().
+	 * @param {string} name
+	 * @param {function()} callback
+	 * @param {number} delay delay in milliseconds
+	 */
+	EP.setTimer = function ( name, callback, delay ) {
+		var element = this;
+
+		this.clearTimer( name );
+		this.timers[name] = {
+			timeout: null,
+			handler: callback,
+			delay: delay
+		};
+		this.timers[name].timeout = setTimeout( function () {
+			delete element.timers[name];
+			callback.call( element );
+		}, delay );
+	};
+
+	/**
+	 * Clears a timer. See setTimer().
+	 * @param {string} name
+	 */
+	EP.clearTimer = function( name ) {
+		if ( name in this.timers ) {
+			clearTimeout( this.timers[name].timeout );
+			delete this.timers[name];
+		}
+	};
+
+	/**
+	 * Resets a timer, so that its delay will be relative to when resetTimer() was called, not when
+	 * the timer was created. Optionally changes the delay as well.
+	 * Resetting a timer that does not exist or has already fired has no effect.
+	 * See setTimer().
+	 * @param {string} name
+	 * @param {number} [delay] delay in milliseconds
+	 */
+	EP.resetTimer = function( name, delay ) {
+		if ( name in this.timers ) {
+			if ( delay === undefined ) {
+				delay = this.timers[name].delay;
+			}
+			this.setTimer( name, this.timers[name].handler, delay );
+		}
 	};
 
 	mw.mmv.ui = {};
