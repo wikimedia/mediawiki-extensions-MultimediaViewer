@@ -44,7 +44,7 @@
 	Categories.prototype.set = function ( articlePath, categories ) {
 		var i, cat, href, $category;
 
-		this.$categories.empty();
+		this.empty();
 
 		if ( !categories || !categories.length ) {
 			return;
@@ -74,6 +74,8 @@
 				$category.find( '.comma-container' ).remove();
 			}
 		}
+
+		this.$container.removeClass( 'empty' );
 	};
 
 	/**
@@ -81,6 +83,7 @@
 	 */
 	Categories.prototype.empty = function () {
 		this.$categories.empty();
+		this.$container.addClass( 'empty' );
 	};
 
 	mw.mmv.ui.Categories = Categories;

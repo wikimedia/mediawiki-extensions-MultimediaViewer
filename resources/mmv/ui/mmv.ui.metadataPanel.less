@@ -4,6 +4,24 @@
 
 @progress-height: 3px;
 
+@info-box-color: #FFFFFF;
+@info-box-border-color: #DDDDDD;
+@info-box-border-shadow-color: #C9C9C9;
+
+@secondary-text-color: rgb(136, 136, 136);
+
+.mw-mmv-info-box {
+	display: inline-block;
+	overflow: hidden;
+	width: 100%;
+
+	border: 1px solid @info-box-border-color;
+	border-bottom: 2px solid @info-box-border-shadow-color;
+	.box-round(3px);
+
+	background-color: @info-box-color;
+}
+
 .mw-mmv-post-image {
 	&.invite {
 		.animation( mw-mmv-invite-animation 0.5s ease 0s 1 normal forwards );
@@ -72,7 +90,7 @@
 }
 
 .mw-mmv-image-links {
-	margin-left: 20px;
+	margin: 0 20px;
 	li {
 		list-style: none;
 		font-size: @littlefont;
@@ -94,11 +112,6 @@
 			background-repeat: no-repeat;
 		}
 
-		&.mw-mmv-repo-li:before {
-			/* @embed */
-			background-image: url(img/repo.svg);
-		}
-
 		&.mw-mmv-datetime-li:before {
 			/* @embed */
 			background-image: url(img/time.svg);
@@ -114,9 +127,51 @@
 			background-image: url(img/location.svg);
 		}
 
+		&.mw-mmv-repo-li:before {
+			display: none;
+		}
+
 		&.empty:before {
 			background-image: none !important;
 		}
+	}
+}
+
+.mw-mmv-repo-li {
+	@padding: 5px;
+	@icon-size: 16px;
+
+	display: block;
+	min-height: @icon-size;
+	border: 1px solid @info-box-border-color;
+	.box-round(5px);
+	padding: @padding;
+	padding-left: @icon-size + 2 * @padding;
+
+	/* @embed */
+	background-image: url(img/repo.svg);
+	background-repeat: no-repeat;
+	background-size: auto @icon-size;
+	background-position: @padding center;
+	background-color: @info-box-color;
+
+	line-height: 1.3;
+
+	&.commons { // there is an extra subtitle for Commons images, box should be larger
+		@icon-size: 32px;
+		min-height: @icon-size;
+		padding-left: @icon-size + 2 * @padding;
+		background-size: auto @icon-size;
+	}
+
+	.mw-mmv-repo,
+	.mw-mmv-repo-subtitle {
+		display: block;
+	}
+
+	.mw-mmv-repo-subtitle {
+		color: @secondary-text-color;
+		font-size: small;
 	}
 }
 
@@ -168,7 +223,7 @@
 }
 
 .mw-mmv-image-desc-div.empty .mw-mmv-image-desc {
-	color: rgb(136, 136, 136);
+	color: @secondary-text-color;
 	font-style: italic;
 }
 
