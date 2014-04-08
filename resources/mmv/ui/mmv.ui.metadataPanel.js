@@ -251,53 +251,18 @@
 			.addClass( 'mw-mmv-image-links' )
 			.appendTo( this.$imageLinkDiv );
 
-		this.initializeRepoLink();
 		this.initializeUploader();
 		this.initializeDatetime();
 		this.initializeLocation();
+		this.initializeCategories();
+		this.initializeRepoLink();
 
 		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$container, this.buttons.buttons.$reuse );
-		this.categories = new mw.mmv.ui.Categories( this.$imageLinks );
 
 		this.fileUsage = new mw.mmv.ui.FileUsage(
 			$( '<div>' ).appendTo( this.$imageMetadataRight )
 		);
 		this.fileUsage.init();
-	};
-
-	/**
-	 * Initializes the link to the file page on the (maybe remote) repository.
-	 */
-	MPP.initializeRepoLink = function () {
-		this.$repoLi = $( '<li>' )
-			.addClass( 'mw-mmv-repo-li empty' )
-			.appendTo( this.$imageLinks );
-
-		this.$repo = $( '<a>' )
-			.addClass( 'mw-mmv-repo' )
-			.prop( 'href', '#' )
-			.click( function ( e ) {
-				var $link = $( this ),
-					redirect;
-
-				if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey || e.button === 1 ) {
-					// They are likely opening the link in a new window or tab
-					mw.mmv.logger.log( 'site-link-click' );
-					return;
-				}
-
-				// If it's a plain click, we need to wait for the logging to
-				// be done before navigating to the desired page
-				e.preventDefault();
-
-				redirect = function () {
-					window.location.href = $link.prop( 'href' );
-				};
-
-				// We want to redirect anyway, whether logging worked or not
-				mw.mmv.logger.log( 'site-link-click' ).then( redirect, redirect );
-			} )
-			.appendTo( this.$repoLi );
 	};
 
 	/**
@@ -338,6 +303,52 @@
 		this.$location = $( '<a>' )
 			.addClass( 'mw-mmv-location' )
 			.appendTo( this.$locationLi );
+	};
+
+	/**
+	 * Initializes the list of categories of the image
+	 */
+	MPP.initializeCategories = function () {
+		this.categories = new mw.mmv.ui.Categories(
+			$( '<li>' )
+				.addClass( 'mw-mmv-image-category' )
+				.appendTo( this.$imageLinks )
+		);
+	};
+
+	/**
+	 * Initializes the link to the file page on the (maybe remote) repository.
+	 */
+	MPP.initializeRepoLink = function () {
+		this.$repoLi = $( '<li>' )
+			.addClass( 'mw-mmv-repo-li empty' )
+			.appendTo( this.$imageLinks );
+
+		this.$repo = $( '<a>' )
+			.addClass( 'mw-mmv-repo' )
+			.prop( 'href', '#' )
+			.click( function ( e ) {
+				var $link = $( this ),
+					redirect;
+
+				if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey || e.button === 1 ) {
+					// They are likely opening the link in a new window or tab
+					mw.mmv.logger.log( 'site-link-click' );
+					return;
+				}
+
+				// If it's a plain click, we need to wait for the logging to
+				// be done before navigating to the desired page
+				e.preventDefault();
+
+				redirect = function () {
+					window.location.href = $link.prop( 'href' );
+				};
+
+				// We want to redirect anyway, whether logging worked or not
+				mw.mmv.logger.log( 'site-link-click' ).then( redirect, redirect );
+			} )
+			.appendTo( this.$repoLi );
 	};
 
 	/**
