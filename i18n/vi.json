@@ -74,5 +74,9 @@
     "multimediaviewer-medium-embed-dimensions": "Vừa $1",
     "multimediaviewer-small-embed-dimensions": "Nhỏ $1",
     "multimediaviewer-embed-dimensions": "$1×$2 điểm ảnh",
-    "multimediaviewer-embed-dimensions-separated": "– $1"
+    "multimediaviewer-embed-dimensions-separated": "– $1",
+    "multimediaviewer-feedback-button-text": "Phản hồi của bạn về công cụ này",
+    "multimediaviewer-feedback-popup-text": "Để lại phản hồi về giao diện xem phương tiện mới này",
+    "multimediaviewer-description-page-button-text": "Thêm chi tiết",
+    "multimediaviewer-description-page-popup-text": "Thêm chi tiết về $1"
 }
