@@ -61,10 +61,10 @@
 		this.createSizePulldownMenus( this.$pane );
 
 		/**
-		 * Currently selected embed snippet, defaults to wikitext.
+		 * Currently selected embed snippet.
 		 * @property {jQuery}
 		 */
-		this.$currentMainEmbedText = this.embedTextWikitext.$element;
+		this.$currentMainEmbedText = mw.user.isAnon() ? this.embedTextHtml.$element : this.embedTextWikitext.$element;
 
 		/**
 		 * Default item for the html size menu.
@@ -83,13 +83,13 @@
 		 * @property {OO.ui.MenuWidget}
 		 */
 		this.currentSizeMenu = this.embedSizeSwitchWikitext.getMenu();
+		this.currentSizeMenu = mw.user.isAnon() ? this.embedSizeSwitchHtml.getMenu() : this.embedSizeSwitchWikitext.getMenu();
 
 		/**
 		 * Current default item.
 		 * @property {OO.ui.MenuItemWidget}
 		 */
-		this.currentDefaultItem = this.defaultWikitextItem;
-
+		this.currentDefaultItem = mw.user.isAnon() ? this.defaultHtmlItem : this.defaultWikitextItem;
 	}
 	oo.inheritClass( Embed, mw.mmv.ui.reuse.Tab );
 	EP = Embed.prototype;
@@ -107,8 +107,13 @@
 	 * @param {jQuery} $container
 	 */
 	EP.createSnippetTextAreas = function( $container ) {
+		var wikitextClasses = [ 'mw-mmv-embed-text-wikitext' ],
+			htmlClasses = [ 'mw-mmv-embed-text-html' ];
+
+		( mw.user.isAnon() ? htmlClasses : wikitextClasses ).push( 'active' );
+
 		this.embedTextHtml = new oo.ui.TextInputWidget( {
-			classes: [ 'mw-mmv-embed-text-html' ],
+			classes: htmlClasses,
 			multiline: true,
 			readOnly: true
 		} );
@@ -117,7 +122,7 @@
 			.prop( 'placeholder', mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text() );
 
 		this.embedTextWikitext = new oo.ui.TextInputWidget( {
-			classes: [ 'mw-mmv-embed-text-wikitext', 'active' ],
+			classes: wikitextClasses,
 			multiline: true,
 			readOnly: true
 		} );
@@ -141,6 +146,7 @@
 	EP.createSnippetSelectionButtons = function( $container ) {
 		var wikitextButtonOption,
 			htmlButtonOption;
+
 		this.embedSwitch = new oo.ui.ButtonSelectWidget( {
 			classes: [ 'mw-mmv-embed-select' ]
 		} );
@@ -161,7 +167,8 @@
 			.append( this.embedSwitch.$element )
 			.appendTo( $container );
 
-		this.embedSwitch.selectItem( wikitextButtonOption );
+		// Logged-out defaults to 'html', logged-in to 'wikitext'
+		this.embedSwitch.selectItem( mw.user.isAnon() ? htmlButtonOption : wikitextButtonOption );
 	};
 
 	/**
@@ -170,19 +177,25 @@
 	 * @param {jQuery} $container
 	 */
 	EP.createSizePulldownMenus = function( $container ) {
+		var wikitextClasses = [ 'mw-mmv-embed-size' ],
+			htmlClasses = [ 'mw-mmv-embed-size' ];
+
+		( mw.user.isAnon() ? htmlClasses : wikitextClasses ).push( 'active' );
+
 		// Wikitext sizes pulldown menu
 		this.embedSizeSwitchWikitext = this.utils.createPulldownMenu(
 			[ 'default', 'small', 'medium', 'large' ],
-			[ 'mw-mmv-embed-size', 'active' ],
+			wikitextClasses,
 			'default'
 		);
 
 		// Html sizes pulldown menu
 		this.embedSizeSwitchHtml = this.utils.createPulldownMenu(
 			[ 'small', 'medium', 'large', 'original' ],
-			[ 'mw-mmv-embed-size' ],
+			htmlClasses,
 			'original'
 		);
+
 
 		$( '<p>' )
 			.append(
@@ -411,6 +424,8 @@
 			.done( function ( thumbnail ) {
 				embed.updateEmbedHtml( thumbnail );
 				embed.select();
+				// This is needed to update the input's wikitext/html based on the currently selected item
+				embed.currentSizeMenu.selectItem( embed.currentSizeMenu.getSelectedItem() );
 			} );
 	};
 

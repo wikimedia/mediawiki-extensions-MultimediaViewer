@@ -373,4 +373,20 @@
 		assert.ok( ! embed.embedSizeSwitchHtml.getMenu().isVisible(), 'HTML size menu should be hidden.' );
 	} );
 
+	QUnit.test( 'Logged out', 4, function ( assert ) {
+		var embed,
+			oldUserIsAnon = mw.user.isAnon;
+
+		mw.user.isAnon = function () { return true; };
+
+		embed = new mw.mmv.ui.reuse.Embed( $qf );
+
+		assert.ok( ! embed.embedSizeSwitchWikitext.$element.hasClass( 'active' ), 'Wikitext widget should be hidden.' );
+		assert.ok( embed.embedSizeSwitchHtml.$element.hasClass( 'active' ), 'HTML widget should be visible.' );
+		assert.ok( ! embed.embedTextWikitext.$element.hasClass( 'active' ), 'Wikitext input should be hidden.' );
+		assert.ok( embed.embedTextHtml.$element.hasClass( 'active' ), 'HTML input should be visible.' );
+
+		mw.user.isAnon = oldUserIsAnon;
+	} );
+
 }( mediaWiki, jQuery ) );
