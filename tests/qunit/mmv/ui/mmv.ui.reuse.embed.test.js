@@ -299,9 +299,9 @@
 		embed.embedTextWikitext.$element.focus();
 		embed.embedSwitch.emit( 'select' );
 		embed.embedSizeSwitchHtml.getMenu().emit(
-			'select', embed.embedSizeSwitchHtml.getMenu().getSelectedItem() );
+			'choose', embed.embedSizeSwitchHtml.getMenu().getSelectedItem() );
 		embed.embedSizeSwitchWikitext.getMenu().emit(
-			'select', embed.embedSizeSwitchWikitext.getMenu().getSelectedItem() );
+			'choose', embed.embedSizeSwitchWikitext.getMenu().getSelectedItem() );
 
 		embed.selectAllOnEvent = function() {
 			assert.ok( true, 'selectAllOnEvent was called.' );
@@ -320,9 +320,9 @@
 		embed.embedTextWikitext.$element.focus();
 		embed.embedSwitch.emit( 'select' );
 		embed.embedSizeSwitchHtml.getMenu().emit(
-			'select', embed.embedSizeSwitchHtml.getMenu().getSelectedItem() );
+			'choose', embed.embedSizeSwitchHtml.getMenu().getSelectedItem() );
 		embed.embedSizeSwitchWikitext.getMenu().emit(
-			'select', embed.embedSizeSwitchWikitext.getMenu().getSelectedItem() );
+			'choose', embed.embedSizeSwitchWikitext.getMenu().getSelectedItem() );
 
 		// Test the unattach part
 		embed.selectAllOnEvent = function() {
@@ -342,9 +342,9 @@
 		embed.embedTextWikitext.$element.focus();
 		embed.embedSwitch.emit( 'select' );
 		embed.embedSizeSwitchHtml.getMenu().emit(
-			'select', embed.embedSizeSwitchHtml.getMenu().getSelectedItem() );
+			'choose', embed.embedSizeSwitchHtml.getMenu().getSelectedItem() );
 		embed.embedSizeSwitchWikitext.getMenu().emit(
-			'select', embed.embedSizeSwitchWikitext.getMenu().getSelectedItem() );
+			'choose', embed.embedSizeSwitchWikitext.getMenu().getSelectedItem() );
 	} );
 
 	QUnit.test( 'handleTypeSwitch():', 6, function ( assert ) {

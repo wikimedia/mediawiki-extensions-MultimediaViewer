@@ -66,7 +66,7 @@
 		}
 
 		menu.getMenu().addItems( items );
-		menu.getMenu().selectItem( choices[ def ] );
+		menu.getMenu().chooseItem( choices[ def ] );
 
 		return menu;
 	};
