@@ -30,6 +30,11 @@ if ( !isset( $wgMediaViewerIsInBeta ) ) {
 	$wgMediaViewerIsInBeta = false;
 }
 
+if ( !isset( $wgMediaViewerShowSurvey ) ) {
+	/** @var bool: If set, MediaViewer might direct the user to a survey. **/
+	$wgMediaViewerShowSurvey = false;
+}
+
 if ( !isset( $wgEnableMediaViewerForLoggedInUsersOnly ) ) {
 	/**
 	 * @var bool: If set, and $wgMediaViewerIsInBeta is unset, Media Viewer will be turned on for

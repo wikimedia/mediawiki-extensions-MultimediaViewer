@@ -16,14 +16,25 @@
  */
 
 ( function( mw, $ ) {
-	QUnit.module( 'mmv.ui.StripeButtons', QUnit.newMwEnvironment() );
+	var oldShowSurvey;
+
+	QUnit.module( 'mmv.ui.StripeButtons', QUnit.newMwEnvironment( {
+		setup: function () {
+			// pretend surveys are enabled for this site
+			oldShowSurvey = mw.config.get( 'wgMultimediaViewer' ).showSurvey;
+			mw.config.get( 'wgMultimediaViewer' ).showSurvey = true;
+		},
+		teardown: function () {
+			mw.config.get( 'wgMultimediaViewer' ).showSurvey = oldShowSurvey;
+		}
+	} ) );
 
 	function createStripeButtons() {
 		var fixture = $( '#qunit-fixture' );
-		return new mw.mmv.ui.StripeButtons( fixture, $( '<div>' ).appendTo( fixture ) );
+		return new mw.mmv.ui.StripeButtons( fixture );
 	}
 
-	QUnit.test( 'Sanity test, object creation and UI construction', 5, function ( assert ) {
+	QUnit.test( 'Sanity test, object creation and UI construction', 4, function ( assert ) {
 		var buttons,
 			oldMwUserIsAnon = mw.user.isAnon;
 
@@ -33,7 +44,6 @@
 
 		assert.ok( buttons, 'UI element is created.' );
 		assert.strictEqual( buttons.buttons.$reuse.length, 1, 'Reuse button created.' );
-		assert.strictEqual( buttons.buttons.$feedback.length, 1, 'Feedback button created.' );
 		assert.ok( !buttons.buttons.$descriptionPage, 'File page button not created for anon.' );
 
 		// now pretend we are logged in
@@ -43,6 +53,29 @@
 		assert.strictEqual( buttons.buttons.$descriptionPage.length, 1, 'File page button created for logged in.' );
 
 		mw.user.isAnon = oldMwUserIsAnon;
+	} );
+
+	QUnit.test( 'Survey conditions', 3, function ( assert ) {
+		var buttons,
+			oldLanguage = mw.config.get( 'wgUserLanguage' );
+
+		// pretend surveys are disabled for this site
+		mw.config.get( 'wgMultimediaViewer' ).showSurvey = false;
+		mw.config.set( 'wgUserLanguage', 'en' );
+		buttons = createStripeButtons();
+		assert.ok( !buttons.buttons.$feedback, 'No survey button by default.' );
+
+		// pretend surveys are enabled for this site
+		mw.config.get( 'wgMultimediaViewer' ).showSurvey = true;
+		buttons = createStripeButtons();
+		assert.ok( buttons.buttons.$feedback, 'Survey button shown when enabled.' );
+
+		// now pretend we don't speak English
+		mw.config.set( 'wgUserLanguage', 'el' );
+		buttons = createStripeButtons();
+		assert.ok( !buttons.buttons.$feedback, 'No survey for non-english speakers.' );
+
+		mw.config.set( 'wgUserLanguage', oldLanguage );
 	} );
 
 	QUnit.test( 'set()/empty() sanity test:', 1, function ( assert ) {

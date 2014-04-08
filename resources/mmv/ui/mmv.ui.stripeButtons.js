@@ -39,7 +39,9 @@
 		 */
 		this.buttons = {};
 
-		this.initFeedbackButton();
+		if ( this.shouldShowFeedbackSurvey() ) {
+			this.initFeedbackButton();
+		}
 		this.initReuseButton();
 		if ( !mw.user.isAnon() ) {
 			this.initDescriptionPageButton();
@@ -109,12 +111,20 @@
 	};
 
 	/**
+	 * Checks if it is suitable to show a survey to the current user.
+	 */
+	SBP.shouldShowFeedbackSurvey = function () {
+		return mw.config.get( 'wgMultimediaViewer' ).showSurvey &&
+			mw.config.get( 'wgUserLanguage' ) === 'en';
+	};
+
+	/**
 	 * Generates a survey URL (currently constant but the possibility of splitting by
 	 * editor cohort was mentioned).
 	 * @return {string}
 	 */
 	SBP.getFeedbackSurveyUrl = function () {
-		return 'https://www.surveymonkey.com/s/media-viewer-1?c=mediaviewer';
+		return 'https://www.surveymonkey.com/s/media-viewer-1?c=' + mw.config.get( 'wgDBname' );
 	};
 
 	/**
