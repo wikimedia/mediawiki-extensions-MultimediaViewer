@@ -215,7 +215,7 @@
 	};
 
 	MPP.initializeButtons = function () {
-		this.buttons = new mw.mmv.ui.StripeButtons( this.$titleDiv );
+		this.buttons = new mw.mmv.ui.StripeButtons( this.$titleDiv, window.localStorage );
 	};
 
 	/**

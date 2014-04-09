@@ -633,6 +633,33 @@
 	};
 
 	/**
+	 * @event mmv.close
+	 * Fired when the viewer should be closed. This is used by components (e.g. the close button)
+	 * to notify the main app that it should close.
+	 */
+	/**
+	 * @event mmv-close
+	 * Fired when the viewer is closed. This is used by the main app to notify other components
+	 * (notably the bootstrap).
+	 */
+	/**
+	 * @event mmv-next
+	 * Fired when the user requests the next image.
+	 */
+	/**
+	 * @event mmv-prev
+	 * Fired when the user requests the previous image.
+	 */
+	/**
+	 * @event mmv-resize
+	 * Fired when the screen size changes.
+	 */
+	/**
+	 * @event mmv-request-thumbnail
+	 * Used by components to request a thumbnail URL for the current thumbnail, with a given size.
+	 * @param {number} size
+	 */
+	/**
 	 * Registers all event handlers
 	 */
 	MMVP.setupEventHandlers = function () {

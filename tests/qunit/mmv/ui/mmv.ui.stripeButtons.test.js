@@ -23,6 +23,7 @@
 			// pretend surveys are enabled for this site
 			oldShowSurvey = mw.config.get( 'wgMultimediaViewer' ).showSurvey;
 			mw.config.get( 'wgMultimediaViewer' ).showSurvey = true;
+			this.clock = this.sandbox.useFakeTimers();
 		},
 		teardown: function () {
 			mw.config.get( 'wgMultimediaViewer' ).showSurvey = oldShowSurvey;
@@ -31,7 +32,10 @@
 
 	function createStripeButtons() {
 		var fixture = $( '#qunit-fixture' );
-		return new mw.mmv.ui.StripeButtons( fixture );
+		return new mw.mmv.ui.StripeButtons( fixture, {
+			getItem: function () { return 999; },
+			setItem: $.noop
+		} );
 	}
 
 	QUnit.test( 'Sanity test, object creation and UI construction', 4, function ( assert ) {
@@ -109,5 +113,58 @@
 		assert.ok( !buttons.buttons.$reuse.hasClass( 'open' ), 'open event is not handled when unattached' );
 
 		$( document ).off( 'mmv-reuse-open.test' );
+	} );
+
+	QUnit.test( 'Feedback tooltip', 8, function ( assert ) {
+		var buttons = createStripeButtons(),
+			displayCount,
+			hasTooltip = function () { return !!$( '.tipsy' ).length; };
+
+		this.sandbox.stub( buttons.localStorage, 'getItem', function () { return displayCount; } );
+		this.sandbox.stub( buttons.localStorage, 'setItem', function ( _, val ) { displayCount = val; } );
+
+		displayCount = 0;
+		buttons.attach();
+
+		assert.ok( !hasTooltip(), 'No tooltip initially' );
+
+		this.clock.tick( 1000 );
+		assert.ok( !hasTooltip(), 'No tooltip after 1s' );
+
+		this.clock.tick( 5000 );
+		assert.ok( hasTooltip(), 'Tooltip visible after 6s' );
+		assert.strictEqual( displayCount, 1, 'displayCount was increased' );
+
+		this.clock.tick( 5000 );
+		assert.ok( !hasTooltip(), 'Tooltip hidden again after 11s' );
+
+		buttons.unattach();
+		delete buttons.tooltipDisplayCount;
+
+		displayCount = 3;
+		buttons.attach();
+
+		this.clock.tick( 6000 );
+		assert.ok( !hasTooltip(), 'No tooltip after 6s when display count limit reached' );
+
+		buttons.unattach();
+		delete buttons.tooltipDisplayCount;
+
+		displayCount = 0;
+		buttons.openSurveyInNewWindow = this.sandbox.stub();
+		buttons.attach();
+		buttons.buttons.$feedback.triggerHandler( 'click' );
+
+		this.clock.tick( 6000 );
+		assert.ok( !hasTooltip(), 'No tooltip if button was clicked' );
+
+		buttons.unattach();
+		delete buttons.tooltipDisplayCount;
+
+		displayCount = 0;
+		buttons.attach();
+		buttons.unattach();
+		this.clock.tick( 6000 );
+		assert.ok( !hasTooltip(), 'No tooltip when unattached' );
 	} );
 }( mediaWiki, jQuery ) );
