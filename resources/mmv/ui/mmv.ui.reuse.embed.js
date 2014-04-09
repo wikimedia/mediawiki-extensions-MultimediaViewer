@@ -224,7 +224,6 @@
 		this.embedTextHtml.offDOMEvent( 'focus mousedown click' );
 		this.embedTextWikitext.offDOMEvent( 'focus mousedown click' );
 		this.embedSwitch.off( 'select' );
-		// the noop is needed for some tests which call unattach before calling attach.
 		this.embedSizeSwitchHtml.getMenu().off( 'choose' );
 		this.embedSizeSwitchWikitext.getMenu().off( 'choose' );
 	};
