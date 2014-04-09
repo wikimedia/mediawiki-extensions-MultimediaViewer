@@ -221,6 +221,7 @@ $wgResourceModules += array(
 			'mmv/provider/mmv.provider.ImageInfo.js',
 			'mmv/provider/mmv.provider.FileRepoInfo.js',
 			'mmv/provider/mmv.provider.ThumbnailInfo.js',
+			'mmv/provider/mmv.provider.GuessedThumbnailInfo.js',
 			'mmv/provider/mmv.provider.UserInfo.js',
 			'mmv/provider/mmv.provider.Image.js',
 		),
