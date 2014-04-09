@@ -2,9 +2,12 @@
     "@metadata": {
         "authors": [
             "Liuxinyu970226",
-            "Simon Shek"
+            "Simon Shek",
+            "Liangent"
         ]
     },
+    "multimediaviewer-pref": "媒體檢視器",
+    "multimediaviewer-pref-desc": "這個新的工具可以改善您的多媒體瀏覽體驗。它會在有縮圖的網頁中以更大的尺寸顯示影像；影像將以浮動視窗呈現，您也可以選擇檢視原始大小的圖片。",
     "multimediaviewer-license-cc-pd": "公共領域",
     "multimediaviewer-license-pd": "公共領域",
     "multimediaviewer-discuss-mmv": "遞交反饋",
