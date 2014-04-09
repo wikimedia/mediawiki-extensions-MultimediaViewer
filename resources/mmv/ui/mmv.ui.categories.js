@@ -26,10 +26,12 @@
 	function Categories( $container ) {
 		mw.mmv.ui.Element.call( this, $container );
 
-		this.$categoryTpl = $( '<span>')
+		this.$categoryTpl = $( '<span>').addClass( 'mw-mmv-tag' )
 			.append( $( '<span>').addClass( 'comma-container' )
 				.text( mw.message( 'comma-separator' ) ) )
 			.append( '<a>' );
+
+		this.$categories = $( '<span>' ).appendTo( this.$container );
 	}
 
 	oo.inheritClass( Categories, mw.mmv.ui.Element );
@@ -42,7 +44,7 @@
 	Categories.prototype.set = function ( articlePath, categories ) {
 		var i, cat, href, $category;
 
-		this.empty();
+		this.$categories.empty();
 
 		if ( !categories || !categories.length ) {
 			return;
@@ -56,11 +58,6 @@
 
 		for ( i = 0; i < categories.length; i++ ) {
 			cat = categories[i];
-
-			if ( !this.$categories ) {
-				this.$categories = $( '<li>' ).addClass( 'mw-mmv-image-category' )
-					.appendTo( this.$container );
-			}
 
 			href = articlePath.replace( '$1', 'Category:' + cat );
 
@@ -83,10 +80,7 @@
 	 * @inheritdoc
 	 */
 	Categories.prototype.empty = function () {
-		if ( this.$categories ) {
-			this.$categories.remove();
-			this.$categories = undefined;
-		}
+		this.$categories.empty();
 	};
 
 	mw.mmv.ui.Categories = Categories;
