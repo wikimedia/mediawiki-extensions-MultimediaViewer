@@ -44,7 +44,7 @@
 		 * Default item for the size menu.
 		 * @property {OO.ui.MenuItemWidget}
 		 */
-		this.defaultItem = this.downloadSizeMenu.getMenu().getFirstSelectableItem();
+		this.defaultItem = this.downloadSizeMenu.getMenu().getSelectedItem();
 	}
 	oo.inheritClass( Download, mw.mmv.ui.reuse.Tab );
 	DP = Download.prototype;

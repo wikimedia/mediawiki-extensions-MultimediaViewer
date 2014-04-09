@@ -70,13 +70,13 @@
 		 * Default item for the html size menu.
 		 * @property {OO.ui.MenuItemWidget}
 		 */
-		this.defaultHtmlItem = this.embedSizeSwitchHtml.getMenu().getFirstSelectableItem();
+		this.defaultHtmlItem = this.embedSizeSwitchHtml.getMenu().getSelectedItem();
 
 		/**
 		 * Default item for the wikitext size menu.
 		 * @property {OO.ui.MenuItemWidget}
 		 */
-		this.defaultWikitextItem = this.embedSizeSwitchWikitext.getMenu().getFirstSelectableItem();
+		this.defaultWikitextItem = this.embedSizeSwitchWikitext.getMenu().getSelectedItem();
 
 		/**
 		 * Currently selected size menu.
@@ -211,8 +211,8 @@
 		this.embedSwitch.on( 'select', $.proxy( embed.handleTypeSwitch, embed ) );
 
 		// Register handlers for switching between file sizes
-		this.embedSizeSwitchHtml.getMenu().on( 'select', $.proxy( this.handleSizeSwitch, this ) );
-		this.embedSizeSwitchWikitext.getMenu().on( 'select', $.proxy( this.handleSizeSwitch, this ) );
+		this.embedSizeSwitchHtml.getMenu().on( 'choose', $.proxy( this.handleSizeSwitch, this ) );
+		this.embedSizeSwitchWikitext.getMenu().on( 'choose', $.proxy( this.handleSizeSwitch, this ) );
 	};
 
 	/**
@@ -224,8 +224,9 @@
 		this.embedTextHtml.offDOMEvent( 'focus mousedown click' );
 		this.embedTextWikitext.offDOMEvent( 'focus mousedown click' );
 		this.embedSwitch.off( 'select' );
-		this.embedSizeSwitchHtml.getMenu().off( 'select' );
-		this.embedSizeSwitchWikitext.getMenu().off( 'select' );
+		// the noop is needed for some tests which call unattach before calling attach.
+		this.embedSizeSwitchHtml.getMenu().off( 'choose' );
+		this.embedSizeSwitchWikitext.getMenu().off( 'choose' );
 	};
 
 	/**
@@ -282,7 +283,11 @@
 	 * Reset current menu selection to default item.
 	 */
 	EP.resetCurrentSizeMenuToDefault = function () {
-		this.currentSizeMenu.selectItem( this.currentDefaultItem );
+		this.currentSizeMenu.chooseItem( this.currentDefaultItem );
+		// Force select logic to update the selected item bar, otherwise we end up
+		// with the wrong label. This is implementation dependent and maybe it should
+		// be done via a to flag to OO.ui.SelectWidget.prototype.chooseItem()?
+		this.currentSizeMenu.emit( 'select', this.currentDefaultItem );
 	};
 
 	/**
