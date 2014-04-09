@@ -81,6 +81,7 @@
 		} ).fail( function( message ) {
 			mw.log.warn( message );
 			bs.cleanupOverlay();
+			mw.notify( 'Error loading MediaViewer: ' + message );
 		} );
 	};
 
