@@ -67,9 +67,7 @@
 		mw.loader.using( 'mmv', function() {
 			bs.isCSSReady( deferred );
 		}, function ( error ) {
-			mw.log( error.message );
 			deferred.reject( error.message );
-			bs.cleanupOverlay();
 		} );
 
 		return deferred.done( function ( viewer ) {
@@ -80,6 +78,9 @@
 
 				bs.viewerInitialized = true;
 			}
+		} ).fail( function( message ) {
+			mw.log.warn( message );
+			bs.cleanupOverlay();
 		} );
 	};
 
@@ -91,12 +92,19 @@
 	MMVB.isCSSReady = function ( deferred ) {
 		var $dummy = $( '<div class="' + this.readinessCSSClass + '">' )
 			.appendTo( $( document.body ) ),
-			bs = this;
+			bs = this,
+			viewer;
 
 		if ( $dummy.css( 'display' ) === 'inline' ) {
 			// Let's be clean and remove the test item before resolving the deferred
 			$dummy.remove();
-			deferred.resolve( bs.getViewer() );
+			try {
+				viewer = bs.getViewer();
+			} catch ( e ) {
+				deferred.reject( e.message );
+				return;
+			}
+			deferred.resolve( viewer );
 		} else {
 			$dummy.remove();
 			setTimeout( function () { bs.isCSSReady( deferred ); }, this.readinessWaitDuration );
@@ -214,6 +222,8 @@
 	 * Handles the browser location hash on pageload or hash change
 	 */
 	MMVB.hash = function () {
+		var bootstrap = this;
+
 		// There is no point loading the mmv if it isn't loaded yet for hash changes unrelated to the mmv
 		// Such as anchor links on the page
 		if ( !this.viewerInitialized && window.location.hash.indexOf( '#mediaviewer/') !== 0 ) {
@@ -227,6 +237,11 @@
 
 		this.loadViewer().then( function ( viewer ) {
 			viewer.hash();
+			// this is an ugly temporary fix to avoid a black screen of death when
+			// the page is loaded with an invalid MMV url
+			if ( !viewer.isOpen ) {
+				bootstrap.cleanupOverlay();
+			}
 		} );
 	};
 
@@ -283,8 +298,10 @@
 	 * Sets up the overlay while the viewer loads
 	 */
 	MMVB.setupOverlay = function () {
-		this.$overlay = $( '<div>' )
-			.addClass( 'mw-mmv-overlay' );
+		if ( !this.$overlay ) {
+			this.$overlay = $( '<div>' )
+				.addClass( 'mw-mmv-overlay' );
+		}
 
 		$( document.body ).addClass( 'mw-mmv-lightbox-open' )
 			.append( this.$overlay );
