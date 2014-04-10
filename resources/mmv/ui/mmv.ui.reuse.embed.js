@@ -82,7 +82,6 @@
 		 * Currently selected size menu.
 		 * @property {OO.ui.MenuWidget}
 		 */
-		this.currentSizeMenu = this.embedSizeSwitchWikitext.getMenu();
 		this.currentSizeMenu = mw.user.isAnon() ? this.embedSizeSwitchHtml.getMenu() : this.embedSizeSwitchWikitext.getMenu();
 
 		/**
@@ -424,8 +423,6 @@
 			.done( function ( thumbnail ) {
 				embed.updateEmbedHtml( thumbnail );
 				embed.select();
-				// This is needed to update the input's wikitext/html based on the currently selected item
-				embed.currentSizeMenu.selectItem( embed.currentSizeMenu.getSelectedItem() );
 			} );
 	};
 
