@@ -214,7 +214,7 @@
 			$html = this.wrapAndJquerify( html );
 			this.filterInvisible( $html );
 			this.appendWhitespaceToBlockElements( $html );
-			this.whitelistHtml( $html, 'a' );
+			this.whitelistHtml( $html, 'a, span' );
 			cache.textWithLinks[html] = this.mergeWhitespace( $html.html() );
 		}
 		return cache.textWithLinks[html];

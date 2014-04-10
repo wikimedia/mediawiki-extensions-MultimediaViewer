@@ -493,23 +493,8 @@
 	 * @param {string} author With unsafe HTML
 	 */
 	MPP.setCredit = function ( source, author ) {
-		if ( source ) {
-			this.source = $( '<span>' )
-				.addClass( 'mw-mlb-source' )
-				.append( $.parseHTML( source ) )
-				.html();
-		} else {
-			this.source = null;
-		}
-
-		if ( author ) {
-			this.author = $( '<span>' )
-				.addClass( 'mw-mlb-author' )
-				.append( $.parseHTML( author ) )
-				.html();
-		} else {
-			this.author = null;
-		}
+		this.source = source || null;
+		this.author = author || null;
 
 		if ( author && source ) {
 			this.creditField.set(
@@ -520,12 +505,10 @@
 				).plain()
 			);
 		} else if ( author ) {
-			this.creditField.set( author );
+			this.creditField.set( this.author );
 		} else if ( source ) {
-			this.creditField.set( source );
+			this.creditField.set( this.source );
 		}
-
-		this.$credit.toggleClass( 'empty', !( author || source ) );
 	};
 
 	/**
@@ -533,6 +516,13 @@
 	 * @param {string} source Warning - unsafe HTML sometimes goes here
 	 */
 	MPP.setSource = function ( source ) {
+		if ( source ) {
+			source = $( '<span>' )
+				.addClass( 'mw-mmv-source' )
+				.append( $.parseHTML( source ) )
+				.get( 0 ).outerHTML;
+		}
+
 		this.setCredit( source, this.author );
 	};
 
@@ -541,6 +531,13 @@
 	 * @param {string} author Warning - unsafe HTML sometimes goes here
 	 */
 	MPP.setAuthor = function ( author ) {
+		if ( author ) {
+			author = $( '<span>' )
+				.addClass( 'mw-mmv-author' )
+				.append( $.parseHTML( author ) )
+				.get( 0 ).outerHTML;
+		}
+
 		this.setCredit( this.source, author );
 	};
 

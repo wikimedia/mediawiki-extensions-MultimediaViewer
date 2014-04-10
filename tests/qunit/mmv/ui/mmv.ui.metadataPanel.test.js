@@ -171,7 +171,7 @@
 		assert.strictEqual( panel.$title.text(), title, 'Title is correctly set' );
 		assert.ok( !panel.$credit.hasClass( 'empty' ), 'Credit is not empty' );
 		assert.ok( !panel.$datetimeLi.hasClass( 'empty' ), 'Date/Time is not empty' );
-		assert.strictEqual( panel.creditField.$element.html(), imageData.author + ' - Lost<a href=\"foo\">Bar</a>', 'Source and author are correctly set' );
+		assert.strictEqual( panel.creditField.$element.html(), '<span class="mw-mmv-author">' + imageData.author + '</span> - <span class="mw-mmv-source">Lost<a href=\"foo\">Bar</a></span>', 'Source and author are correctly set' );
 		assert.ok( panel.$datetime.text().indexOf( 'August 26 2013' ) > 0, 'Correct date is displayed' );
 		assert.strictEqual( panel.$license.text(), 'CC BY 2.0', 'License is correctly set' );
 		assert.ok( panel.$username.text().indexOf( imageData.lastUploader ) > 0, 'Correct username is displayed' );

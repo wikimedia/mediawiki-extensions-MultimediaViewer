@@ -19,7 +19,7 @@ class LightboxDemoPage
   span(:mmv_metadata_title, class: "mw-mmv-title")
   a(:mmv_metadata_license, class: "mw-mmv-license cc-license")
   p(:mmv_metadata_credit, class: "mw-mmv-credit")
-  p(:mmv_metadata_source, class: "mw-mmv-credit")
+  span(:mmv_metadata_source, class: "mw-mmv-source")
 
   div(:mmv_image_metadata_wrapper, class: "mw-mmv-image-metadata")
   p(:mmv_image_metadata_caption, class: "mw-mmv-caption")

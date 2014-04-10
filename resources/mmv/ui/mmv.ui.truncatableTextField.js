@@ -75,6 +75,8 @@
 	TTFP.set = function ( value ) {
 		this.whitelistHtmlAndSet( value );
 		this.shrink();
+
+		this.$element.toggleClass( 'empty', !value );
 	};
 
 	/**
