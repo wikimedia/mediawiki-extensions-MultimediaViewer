@@ -76,5 +76,7 @@
     "multimediaviewer-feedback-button-text": "Ваше мислење за алаткава",
     "multimediaviewer-feedback-popup-text": "Дајте ваше мислење за нов преглед на снимки",
     "multimediaviewer-description-page-button-text": "Поподробно",
-    "multimediaviewer-description-page-popup-text": "Поподробно на $1"
+    "multimediaviewer-description-page-popup-text": "Поподробно на $1",
+    "multimediaviewer-commons-subtitle": "Слободно складиште на медиумски содржини",
+    "multimediaviewer-view-expanded": "Прошири"
 }
