@@ -57,9 +57,9 @@
 		} );
 	} );
 
-	QUnit.test( 'Check viewer invoked when clicking on legit image links', 4, function ( assert ) {
+	QUnit.test( 'Check viewer invoked when clicking on legit image links', 7, function ( assert ) {
 		// TODO: Is <div class="gallery"><span class="image"><img/></span></div> valid ???
-		var div, link, link2, link3, bootstrap,
+		var div, link, link2, link3, link4, bootstrap,
 			viewer = { initWithThumbs : $.noop };
 
 		// Create gallery with legit link image
@@ -74,8 +74,21 @@
 		link3 = $( '<a>' ).addClass( 'noImage' ).appendTo( div );
 		$( '<img>' ).attr( 'src',  'thumb3.jpg' ).appendTo( link3 );
 
+		$( '<div>' ).addClass( 'fullMedia' ).appendTo( div );
+		$( '<img>' ).attr( 'src', 'thumb4.jpg' ).appendTo(
+			$( '<a>' )
+				.appendTo(
+					$( '<div>' )
+						.attr( 'id', 'file' )
+						.appendTo( '#qunit-fixture' )
+				)
+		);
+
 		// Create a new bootstrap object to trigger the DOM scan, etc.
 		bootstrap = createBootstrap( viewer );
+
+		link4 = $( '.fullMedia .mw-mmv-view-expanded' );
+		assert.ok( link4.length, 'Link for viewing expanded file was set up.' );
 
 		bootstrap.setupOverlay = function () {
 			assert.ok( true, 'Overlay was set up' );
@@ -90,6 +103,9 @@
 
 		// Click on legit link
 		link2.trigger( { type : 'click', which : 1 } );
+
+		// Click on legit link
+		link4.trigger( { type: 'click', which: 1 } );
 
 		bootstrap.setupOverlay = function () {
 			assert.ok( false, 'Overlay was not set up' );

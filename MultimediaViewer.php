@@ -686,6 +686,10 @@ $wgResourceModules += array(
 			'mmv.logger',
 			'mmv.HtmlUtils',
 		),
+
+		'messages' => array(
+			'multimediaviewer-view-expanded',
+		),
 	),
 
 	'mmv.bootstrap.autostart' => $wgMediaViewerResourceTemplate + array(

@@ -43,7 +43,7 @@
 
 		this.thumbsReadyDeferred = $.Deferred();
 		this.thumbs = [];
-		this.$thumbs = $( '.gallery .image img, a.image img' );
+		this.$thumbs = $( '.gallery .image img, a.image img, #file a img' );
 		this.processThumbs();
 	}
 
@@ -157,6 +157,22 @@
 			$thumbCaption = $thumbContain.find( '.thumbcaption' ).clone();
 			$thumbCaption.find( '.magnify' ).remove();
 			caption = this.htmlUtils.htmlToTextWithLinks( $thumbCaption.html() || '' );
+		}
+
+		if ( $thumb.closest( '#file' ).length > 0 ) {
+			// This is a file page. Make adjustments.
+			link = $thumb.closest( 'a' ).prop( 'href' );
+
+			$( '<p>' )
+				.append(
+					$link = $( '<a>' )
+						// It won't matter because we catch the click event anyway, but
+						// give the user some URL to see.
+						.prop( 'href', $thumb.closest( 'a' ).prop( 'href' ) )
+						.addClass( 'mw-mmv-view-expanded' )
+						.text( mw.message( 'multimediaviewer-view-expanded' ).text() )
+				)
+				.appendTo( $( '.fullMedia' ) );
 		}
 
 		// This is the data that will be passed onto the mmv

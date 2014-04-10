@@ -1,3 +1,5 @@
+@expand-link-border-color: #dddddd;
+
 .mw-mmv-overlay {
 	position: fixed;
 	top: 0px;
@@ -24,4 +26,15 @@ body.mw-mmv-lightbox-open #content {
 body.mw-mmv-lightbox-open > :not(.mw-mmv-overlay, .mw-mmv-wrapper) {
 	/** Stop the article from scrolling in the background */
 	display: none;
+}
+
+.mw-mmv-view-expanded {
+	display: inline-block;
+	border: 1px solid @expand-link-border-color;
+	padding: 5px;
+	padding-left: 34px;
+	/* @embed */
+	background-image: url('img/expand.svg');
+	background-position: left;
+	background-repeat: no-repeat;
 }
