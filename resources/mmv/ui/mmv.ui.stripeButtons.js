@@ -299,11 +299,14 @@
 			this.buttons.$descriptionPage.addClass( 'mw-mmv-stripe-button-commons' );
 		} else {
 			this.buttons.$descriptionPage.addClass( 'mw-mmv-stripe-button-dynamic' );
-			this.setInlineStyle( 'stripe-button-description-page',
-				'.mw-mmv-stripe-button-dynamic:before {' +
-					'background-image: url("' + repoInfo.favIcon + '");' +
-				'}'
-			);
+			if ( repoInfo.favIcon ) {
+				this.setInlineStyle( 'stripe-button-description-page',
+					// needs to be more specific then the fallback rule in stripeButtons.less
+					'.mw-mmv-stripe-button-container .mw-mmv-stripe-button-dynamic:before {' +
+						'background-image: url("' + repoInfo.favIcon + '");' +
+					'}'
+				);
+			}
 		}
 	};
 
