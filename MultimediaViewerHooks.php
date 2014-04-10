@@ -145,12 +145,13 @@ class MultimediaViewerHooks {
 	 */
 	public static function resourceLoaderGetConfigVars( &$vars ) {
 		global $wgAPIPropModules, $wgNetworkPerformanceSamplingFactor,
-			   $wgMediaViewerShowSurvey;
+			   $wgMediaViewerUseThumbnailGuessing, $wgMediaViewerShowSurvey;
 		$vars['wgMultimediaViewer'] = array(
 			'infoLink' => self::$infoLink,
 			'discussionLink' => self::$discussionLink,
 			'helpLink' => self::$helpLink,
 			'globalUsageAvailable' => isset( $wgAPIPropModules['globalusage'] ),
+			'useThumbnailGuessing' => (bool)$wgMediaViewerUseThumbnailGuessing,
 			'showSurvey' => (bool)$wgMediaViewerShowSurvey,
 		);
 		$vars['wgNetworkPerformanceSamplingFactor'] = $wgNetworkPerformanceSamplingFactor;

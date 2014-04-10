@@ -374,6 +374,130 @@
 			return $.Deferred().reject();
 		};
 
-		viewer.fetchThumbnail( title, 1000, intendedWidth, 60 );
+		viewer.fetchThumbnail( title, 1000, null, intendedWidth, 60 );
+	} );
+
+	QUnit.test( 'fetchThumbnail()', 14, function ( assert ) {
+		var viewer = new mw.mmv.MultimediaViewer(),
+			oldUseThumbnailGuessing = mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing,
+			file = new mw.Title( 'File:Copyleft.svg' ),
+			sampleURL = 'http://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Copyleft.svg/300px-Copyleft.svg.png',
+			width = 100,
+			originalWidth = 1000,
+			originalHeight = 1000,
+			apiURL = 'foo',
+			guessedURL = 'bar';
+
+		mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing = true;
+
+		viewer.guessedThumbnailInfoProvider = {
+			get: function() {
+				assert.ok( false, 'Guessed thumbnail provider should not be called, because we lack sample URL and original dimensions' );
+			}
+		};
+
+		viewer.thumbnailInfoProvider = {
+			get: function() {
+				assert.ok( true, 'Classic thumbnail info provider should be called, because we lack sample URL and original dimensions' );
+				return $.Deferred().reject();
+			}
+		};
+
+		viewer.fetchThumbnail( file, width );
+
+		viewer.guessedThumbnailInfoProvider = {
+			get: function() {
+				assert.ok( true, 'Guessed thumbnail provider should be called' );
+				return $.Deferred().reject();
+			}
+		};
+
+		viewer.thumbnailInfoProvider = {
+			get: function() {
+				assert.ok( true, 'API thumbnail info provider should be called as a fallback, since we could not guess the URL' );
+				return $.Deferred().reject();
+			}
+		};
+
+		viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight );
+
+		viewer.thumbnailInfoProvider = {
+			get: function() {
+				assert.ok( true, 'API thumbnail info provider should be called as a fallback, since we could not guess the URL' );
+				return $.Deferred().resolve( { url : apiURL } );
+			}
+		};
+
+		viewer.imageProvider = {
+			get: function( url ) {
+				assert.strictEqual( url, apiURL, 'Image provider is called based on data provided by the API provider' );
+				return $.Deferred().resolve();
+			}
+		};
+
+		viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight );
+
+		viewer.guessedThumbnailInfoProvider = {
+			get: function() {
+				assert.ok( true, 'Guessed thumbnail provider should be called' );
+				return $.Deferred().resolve( { url : guessedURL } );
+			}
+		};
+
+		viewer.imageProvider = {
+			get: function( url ) {
+				assert.strictEqual( url, guessedURL, 'Image provider is called based on data provided by the guessed provider' );
+				return $.Deferred().reject();
+			}
+		};
+
+		viewer.thumbnailInfoProvider = {
+			get: function() {
+				assert.ok( true, 'API thumbnail info provider should be called as a fallback, since the URL we hit did not exist' );
+				return $.Deferred().reject();
+			}
+		};
+
+		viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight );
+
+		viewer.imageProvider = {
+			get: function( url ) {
+				assert.strictEqual( url, guessedURL, 'Image provider is called based on data provided by the guessed provider' );
+				return $.Deferred().resolve();
+			}
+		};
+
+		viewer.thumbnailInfoProvider = {
+			get: function() {
+				assert.ok( false, 'API thumbnail info provider should not be called as a fallback' );
+				return $.Deferred().reject();
+			}
+		};
+
+		QUnit.stop();
+
+		viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight ).then( function() {
+			assert.ok( true, 'Guessed URL is all that was needed to load the thumb' );
+			QUnit.start();
+		} );
+
+		mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing = false;
+
+		viewer.guessedThumbnailInfoProvider = {
+			get: function() {
+				assert.ok( false, 'Guessed thumbnail provider should not be called, since it was disabled in extension configuration' );
+			}
+		};
+
+		viewer.thumbnailInfoProvider = {
+			get: function() {
+				assert.ok( true, 'Classic thumbnail info provider should be called, since guesser was disabled in extension configuration' );
+				return $.Deferred().reject();
+			}
+		};
+
+		viewer.fetchThumbnail( file, width );
+
+		mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing = oldUseThumbnailGuessing;
 	} );
 }( mediaWiki, jQuery ) );

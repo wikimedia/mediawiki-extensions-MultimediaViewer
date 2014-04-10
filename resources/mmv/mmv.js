@@ -54,6 +54,12 @@
 		this.thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( new mw.mmv.Api( 'thumbnailinfo' ) );
 
 		/**
+		 * @property {mw.mmv.provider.ThumbnailInfo}
+		 * @private
+		 */
+		this.guessedThumbnailInfoProvider = new mw.mmv.provider.GuessedThumbnailInfo();
+
+		/**
 		 * @property {mw.mmv.provider.UserInfo}
 		 * @private
 		 */
@@ -566,6 +572,7 @@
 		return this.fetchThumbnail(
 			image.filePageTitle,
 			width,
+			image.src,
 			image.originalWidth,
 			image.originalHeight
 		);
@@ -575,26 +582,51 @@
 	 * Loads size-dependent components of a lightbox - the thumbnail model and the image itself.
 	 * @param {mw.Title} fileTitle
 	 * @param {number} width the width of the requested thumbnail
+	 * @param {string} [sampleUrl] a thumbnail URL for the same file (but with different size) (might be missing)
 	 * @param {number} [originalWidth] the width of the original, full-sized file (might be missing)
 	 * @param {number} [originalHeight] the height of the original, full-sized file (might be missing)
 	 * @returns {jQuery.Promise.<mw.mmv.model.Thumbnail, HTMLImageElement>}
 	 */
-	MMVP.fetchThumbnail = function ( fileTitle, width, originalWidth, originalHeight ) {
-		$.noop( originalHeight ); // keep JSHint happy... will be removed later
+	MMVP.fetchThumbnail = function ( fileTitle, width, sampleUrl, originalWidth, originalHeight ) {
 		var viewer = this,
+			guessing = false,
 			thumbnailPromise,
 			imagePromise;
 
 		if ( originalWidth && width > originalWidth ) {
 			// Do not request images larger than the original image
+			// This would be possible (but still unwanted) for SVG images
 			width = originalWidth;
 		}
 
-		thumbnailPromise = this.thumbnailInfoProvider.get( fileTitle, width );
+		if (
+			sampleUrl && originalWidth && originalHeight &&
+			mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing
+		) {
+			guessing = true;
+			thumbnailPromise = this.guessedThumbnailInfoProvider.get(
+				fileTitle, sampleUrl, width, originalWidth, originalHeight
+			).then( null, function () { // catch rejection, use fallback
+					return viewer.thumbnailInfoProvider.get( fileTitle, width );
+			} );
+		} else {
+			thumbnailPromise = this.thumbnailInfoProvider.get( fileTitle, width );
+		}
 
 		imagePromise = thumbnailPromise.then( function ( thumbnail ) {
 			return viewer.imageProvider.get( thumbnail.url );
 		} );
+
+		if ( guessing ) {
+			// If we guessed wrong, need to retry with real URL on failure.
+			// As a side effect this introduces an extra (harmless) retry of a failed thumbnailInfoProvider.get call
+			// because thumbnailInfoProvider.get is already called above when guessedThumbnailInfoProvider.get fails.
+			imagePromise = imagePromise.then( null, function () {
+				return viewer.thumbnailInfoProvider.get( fileTitle, width ).then( function ( thumbnail ) {
+					return viewer.imageProvider.get( thumbnail.url );
+				} );
+			} );
+		}
 
 		return $.when( thumbnailPromise, imagePromise );
 	};

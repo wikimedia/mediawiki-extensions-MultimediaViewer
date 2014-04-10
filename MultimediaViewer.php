@@ -30,6 +30,26 @@ if ( !isset( $wgMediaViewerIsInBeta ) ) {
 	$wgMediaViewerIsInBeta = false;
 }
 
+if ( !isset( $wgMediaViewerUseThumbnailGuessing ) ) {
+	/**
+	 * When this is enabled, MediaViewer will try to guess image URLs instead of making an
+	 * imageinfo API to get them from the server. This speeds up image loading, but does not
+	 * work well with certain settings (especially $wgGenerateThumbnailOnParse == true).
+	 * If e.g. you use non-standard thumbnail URLs, you might want to override this to false.
+	 *
+	 * Note that MediaViewer will catch 404 errors and do an API request when this is enabled,
+	 * so even if it does not work with your config, there should be no visible breakage, but
+	 * there will be a small performance hit. You have to look at network logs to checks whether
+	 * it works or not.
+	 *
+	 * FIXME this should be configurable per-repo. Even if the local wiki pre-renders thumbnails,
+	 * remotes such as Commons will work (and vice versa).
+	 *
+	 * @var bool
+	 */
+	$wgMediaViewerUseThumbnailGuessing = true;
+}
+
 if ( !isset( $wgMediaViewerShowSurvey ) ) {
 	/** @var bool: If set, MediaViewer might direct the user to a survey. **/
 	$wgMediaViewerShowSurvey = false;
