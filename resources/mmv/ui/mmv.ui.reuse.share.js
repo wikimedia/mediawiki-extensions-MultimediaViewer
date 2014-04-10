@@ -26,7 +26,7 @@
 	 * @param {jQuery} $container
 	 */
 	function Share( $container ) {
-		Share.super.call( this, $container );
+		Share['super'].call( this, $container );
 
 		this.init();
 	}
@@ -66,7 +66,7 @@
 	 * Shows the pane.
 	 */
 	SP.show = function () {
-		this.constructor.super.prototype.show.call( this );
+		this.constructor['super'].prototype.show.call( this );
 		this.select();
 	};
 
@@ -107,7 +107,7 @@
 	 * @inheritdoc
 	 */
 	SP.unattach = function() {
-		this.constructor.super.prototype.unattach.call( this );
+		this.constructor['super'].prototype.unattach.call( this );
 
 		this.pageInput.offDOMEvent( 'focus mousedown click' );
 	};

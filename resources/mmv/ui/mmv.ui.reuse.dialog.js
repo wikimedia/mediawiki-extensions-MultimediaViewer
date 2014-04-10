@@ -141,7 +141,7 @@
 	DP.unattach = function() {
 		var tab;
 
-		this.constructor.super.prototype.unattach.call( this );
+		this.constructor['super'].prototype.unattach.call( this );
 
 		this.stopListeningToOutsideClick();
 		this.reuseTabs.off( 'select' );

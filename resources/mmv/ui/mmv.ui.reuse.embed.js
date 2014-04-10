@@ -29,7 +29,7 @@
 	 * @param {jQuery} $container
 	 */
 	function Embed( $container ) {
-		Embed.super.call( this, $container );
+		Embed['super'].call( this, $container );
 
 		/**
 		 * Formatter converting image data into formats needed for output
@@ -231,7 +231,7 @@
 	 * Clears listeners.
 	 */
 	EP.unattach = function() {
-		this.constructor.super.prototype.unattach.call( this );
+		this.constructor['super'].prototype.unattach.call( this );
 
 		this.embedTextHtml.offDOMEvent( 'focus mousedown click' );
 		this.embedTextWikitext.offDOMEvent( 'focus mousedown click' );
@@ -373,7 +373,7 @@
 	 * Shows the pane.
 	 */
 	EP.show = function () {
-		this.constructor.super.prototype.show.call( this );
+		this.constructor['super'].prototype.show.call( this );
 		this.select();
 	};
 
