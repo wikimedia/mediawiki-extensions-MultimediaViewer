@@ -46,6 +46,12 @@
 
 		/** @property {string} caption The caption of the image, if any */
 		this.caption = caption;
+
+		/** @property {number|undefined} originalWidth Width of the full-sized file (read from HTML data attribute, might be missing) */
+		this.originalWidth = undefined;
+
+		/** @property {number|undefined} originalHeight Height of the full-sized file (read from HTML data attribute, might be missing) */
+		this.originalHeight = undefined;
 	}
 
 	var LIP = LightboxImage.prototype;

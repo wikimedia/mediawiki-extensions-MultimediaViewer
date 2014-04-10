@@ -130,11 +130,15 @@
 	 * @returns {mw.mmv.LightboxImage}
 	 */
 	MMVP.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption ) {
-		var thisImage = new mw.mmv.LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption );
+		var thisImage = new mw.mmv.LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption ),
+			$thumb = $( thumb );
+
 		thisImage.filePageLink = filePageLink;
 		thisImage.filePageTitle = fileTitle;
 		thisImage.index = index;
 		thisImage.thumbnail = thumb;
+		thisImage.originalWidth = parseInt( $thumb.data( 'file-width' ), 10 );
+		thisImage.originalHeight = parseInt( $thumb.data( 'file-height' ), 10 );
 
 		return thisImage;
 	};
@@ -146,15 +150,15 @@
 	 */
 	MMVP.resize = function ( ui ) {
 		var viewer = this,
-			fileTitle = this.currentImageFileTitle,
+			image = this.thumbs[ this.currentIndex].image,
 			imageWidths;
 
 		this.preloadThumbnails();
 
-		if ( fileTitle ) {
+		if ( image ) {
 			imageWidths = ui.canvas.getCurrentImageWidths();
-			this.fetchThumbnail(
-				fileTitle, imageWidths.real
+			this.fetchThumbnailForLightboxImage(
+				image, imageWidths.real
 			).then( function( thumbnail, image ) {
 				viewer.setImage( ui, thumbnail, image, imageWidths );
 			}, function ( error ) {
@@ -200,8 +204,8 @@
 			start,
 			viewer = this,
 			$initialImage = $( initialImage ),
-			fileWidth = parseInt( $initialImage.data( 'file-width' ), 10 ),
-			fileHeight = parseInt( $initialImage.data( 'file-height' ), 10 );
+			fileWidth = image.originalWidth,
+			fileHeight = image.originalHeight;
 
 		this.currentIndex = image.index;
 
@@ -237,7 +241,7 @@
 		// while another image is already loading
 		viewer.ui.panel.percent( 0 );
 
-		imagePromise = this.fetchThumbnail( image.filePageTitle, imageWidths.real );
+		imagePromise = this.fetchThumbnailForLightboxImage( image, imageWidths.real );
 
 		// Check that the image hasn't already been loaded
 		if ( imagePromise.state() === 'pending' ) {
@@ -489,8 +493,8 @@
 
 		this.thumbnailPreloadQueue = this.pushLightboxImagesIntoQueue( function( lightboxImage ) {
 			return function() {
-				return viewer.fetchThumbnail(
-					lightboxImage.filePageTitle,
+				return viewer.fetchThumbnailForLightboxImage(
+					lightboxImage,
 					viewer.ui.canvas.getLightboxImageWidths( lightboxImage ).real
 				);
 			};
@@ -503,8 +507,8 @@
 	 * Preload the fullscreen size of the current image.
 	 */
 	MMVP.preloadFullscreenThumbnail = function( image ) {
-		this.fetchThumbnail(
-			image.filePageTitle,
+		this.fetchThumbnailForLightboxImage(
+			image,
 			this.ui.canvas.getLightboxImageWidthsForFullscreen( image ).real
 		);
 	};
@@ -543,11 +547,28 @@
 
 	/**
 	 * Loads size-dependent components of a lightbox - the thumbnail model and the image itself.
+	 * @param {mw.mmv.LightboxImage} image
+	 * @param {number} width the width of the requested thumbnail
+	 */
+	MMVP.fetchThumbnailForLightboxImage = function ( image, width ) {
+		return this.fetchThumbnail(
+			image.filePageTitle,
+			width,
+			image.originalWidth,
+			image.originalHeight
+		);
+	};
+
+	/**
+	 * Loads size-dependent components of a lightbox - the thumbnail model and the image itself.
 	 * @param {mw.Title} fileTitle
-	 * @param {number} width
+	 * @param {number} width the width of the requested thumbnail
+	 * @param {number} [originalWidth] the width of the original, full-sized file (might be missing)
+	 * @param {number} [originalHeight] the height of the original, full-sized file (might be missing)
 	 * @returns {jQuery.Promise.<mw.mmv.model.Thumbnail, HTMLImageElement>}
 	 */
-	MMVP.fetchThumbnail = function ( fileTitle, width ) {
+	MMVP.fetchThumbnail = function ( fileTitle, width, originalWidth, originalHeight ) {
+		$.noop( originalWidth, originalHeight ); // keep JSHint happy... will be removed later
 		var viewer = this,
 			thumbnailPromise,
 			imagePromise;
