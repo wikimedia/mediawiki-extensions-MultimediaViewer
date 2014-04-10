@@ -345,11 +345,13 @@
 			buttons.$reuse.removeClass( 'open' );
 		} );
 
-		this.readyToShowFeedbackTooltip = false;
-		this.setTimer( 'feedbackTooltip.show', function () {
-			this.readyToShowFeedbackTooltip = true;
-			this.maybeDisplayTooltip();
-		}, this.feedbackSettings.tooltipDelay * 1000 );
+		if ( this.shouldShowFeedbackSurvey() ) {
+			this.readyToShowFeedbackTooltip = false;
+			this.setTimer( 'feedbackTooltip.show', function () {
+				this.readyToShowFeedbackTooltip = true;
+				this.maybeDisplayTooltip();
+			}, this.feedbackSettings.tooltipDelay * 1000 );
+		}
 	};
 
 	/**
