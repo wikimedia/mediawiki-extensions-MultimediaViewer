@@ -68,6 +68,16 @@
 	};
 
 	/**
+	 * Returns true if the repo is Wikimedia Commons.
+	 * (This depends some
+	 * @return {boolean}
+	 */
+	Repo.prototype.isCommons = function() {
+		// there does not seem to be a sane way to do this
+		return this.displayName === 'Wikimedia Commons';
+	};
+
+	/**
 	* Gets the article path for the repository.
 	* @param {boolean} absolute if true, the URL will be absolute (if false, it still might be)
 	* @return {string} Replace $1 with the page name you want to link to.

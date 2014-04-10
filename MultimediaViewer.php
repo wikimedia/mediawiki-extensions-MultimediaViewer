@@ -249,10 +249,6 @@ $wgResourceModules += array(
 			'mmv/ui/mmv.ui.js',
 		),
 
-		'styles' => array(
-			'mmv/ui/mmv.ui.less',
-		),
-
 		'dependencies' => array(
 			'mmv.base',
 		),
@@ -408,6 +404,7 @@ $wgResourceModules += array(
 		'messages' => array(
 			'multimediaviewer-repository',
 			'multimediaviewer-repository-local',
+			'multimediaviewer-commons-subtitle',
 
 			'multimediaviewer-credit',
 

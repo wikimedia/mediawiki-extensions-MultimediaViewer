@@ -93,7 +93,8 @@
 		this.$usernameLi.addClass( 'empty' );
 
 		this.$repo.empty();
-		this.$repoLi.addClass( 'empty' );
+		this.$repoSubtitle.empty();
+		this.$repoLi.addClass( 'empty' ).removeClass( 'remote local' );
 
 		this.$datetime.empty();
 		this.$datetimeLi.addClass( 'empty' );
@@ -349,6 +350,10 @@
 				mw.mmv.logger.log( 'site-link-click' ).then( redirect, redirect );
 			} )
 			.appendTo( this.$repoLi );
+
+		this.$repoSubtitle = $( '<span>' )
+			.addClass( 'mw-mmv-repo-subtitle' )
+			.appendTo( this.$repoLi );
 	};
 
 	/**
@@ -412,33 +417,24 @@
 
 	/**
 	 * Sets the display name of the repository
-	 * @param {string} displayname
-	 * @param {string} favIcon
-	 * @param {boolean} isLocal true if this is the local repo ( the file has been uploaded locally)
+	 * @param {mw.mmv.model.Repo} repoInfo
 	 */
-	MPP.setRepoDisplay = function ( displayname, favIcon, isLocal ) {
-		if ( isLocal ) {
-			this.$repo.text(
-				mw.message( 'multimediaviewer-repository-local' ).text()
-			);
-		} else {
-			displayname = displayname || mw.config.get( 'wgSiteName' );
-			this.$repo.text(
-				mw.message( 'multimediaviewer-repository', displayname ).text()
-			);
-		}
+	MPP.setRepoDisplay = function ( repoInfo ) {
+		var repositoryMessage,
+			displayName = repoInfo.displayName || mw.config.get( 'wgSiteName' ),
+			isCommons = repoInfo.isCommons();
 
-		// This horror exists because the CSS uses a :before pseudo-class to
-		// define the repo icon. This is the only way to override it.
-		if ( favIcon ) {
-			this.setInlineStyle( 'repoDisplay',
-				'.mw-mmv-image-links li.mw-mmv-repo-li:before {' +
-					'background-image: url("' + favIcon + '");' +
-				'}'
-			);
-		} else {
-			this.setInlineStyle( 'repoDisplay', null );
-		}
+		repositoryMessage = repoInfo.isLocal ?
+			mw.message( 'multimediaviewer-repository-local' ).text() :
+			mw.message( 'multimediaviewer-repository', displayName ).text();
+		this.$repo.text( repositoryMessage );
+
+		this.$repoLi.css( 'background-image',
+			repoInfo.favIcon ? 'url("' + repoInfo.favIcon + '")' : null );
+
+		this.$repoLi.toggleClass( 'commons', isCommons );
+		this.$repoSubtitle.text(
+			isCommons ? mw.message( 'multimediaviewer-commons-subtitle' ).text() : '' );
 
 		this.$repoLi.removeClass( 'empty' );
 	};
@@ -655,7 +651,7 @@
 			fileTitle = image.filePageTitle;
 
 		this.setFileTitle( fileTitle.getNameText() );
-		this.setRepoDisplay( repoData.displayName, repoData.favIcon, repoData.isLocal );
+		this.setRepoDisplay( repoData );
 		this.setFilePageLink( imageData.descriptionUrl );
 
 		if ( imageData.creationDateTime ) {

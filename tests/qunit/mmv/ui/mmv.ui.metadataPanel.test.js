@@ -42,12 +42,14 @@
 
 	QUnit.test( 'Setting repository information in the UI works as expected', 3, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) );
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
+			repoInfo = new mw.mmv.model.Repo( 'Example Wiki' );
 
-		panel.setRepoDisplay( 'Example Wiki' );
+		panel.setRepoDisplay( repoInfo );
 		assert.strictEqual( panel.$repo.text(), 'Learn more on Example Wiki', 'Text set to something useful for remote wiki - if this fails it might be because of localisation' );
 
-		panel.setRepoDisplay();
+		repoInfo = new mw.mmv.model.Repo();
+		panel.setRepoDisplay( repoInfo );
 		assert.strictEqual( panel.$repo.text(), 'Learn more on ' + mw.config.get( 'wgSiteName' ), 'Text set to something useful for local wiki - if this fails it might be because of localisation' );
 
 		panel.setFilePageLink( 'https://commons.wikimedia.org/wiki/File:Foobar.jpg' );
@@ -133,7 +135,8 @@
 				hasCoords: function() { return false; }
 			},
 			repoData = {
-				getArticlePath : function() { return 'Foo'; }
+				getArticlePath : function() { return 'Foo'; },
+				isCommons: function() { return false; }
 			},
 			localUsage = {},
 			globalUsage = {},
