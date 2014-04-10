@@ -271,7 +271,9 @@
 			this.setDescriptionPageButton( imageInfo, repoInfo );
 		}
 
-		this.maybeDisplayTooltip();
+		if ( this.shouldShowFeedbackSurvey() ) {
+			this.maybeDisplayTooltip();
+		}
 	};
 
 	/**
