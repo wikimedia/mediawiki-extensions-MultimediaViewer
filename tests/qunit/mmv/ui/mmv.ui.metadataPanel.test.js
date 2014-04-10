@@ -274,4 +274,27 @@
 
 		$qf.removeClass( 'invited' );
 	} );
+
+	QUnit.test( 'Repo icon', 4, function ( assert ) {
+		var $qf = $( '#qunit-fixture' ),
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
+			favIcon = 'http://foo.com/bar',
+			repoData = {
+				favIcon: favIcon,
+				getArticlePath : function() { return 'Foo'; },
+				isCommons: function() { return false; }
+			};
+
+		panel.setRepoDisplay( repoData );
+
+		assert.ok( panel.$repoLi.css( 'background-image' ).indexOf( favIcon ) !== -1, 'Repo favicon is correctly applied' );
+		assert.ok( !panel.$repoLi.hasClass( 'commons' ), 'Repo does not have commons class' );
+
+		repoData.isCommons = function() { return true; };
+
+		panel.setRepoDisplay( repoData );
+
+		assert.ok( panel.$repoLi.css( 'background-image' ).indexOf( 'data:image/svg+xml' ) !== -1, 'Repo favicon is correctly replaced by svg for Commons' );
+		assert.ok( panel.$repoLi.hasClass( 'commons' ), 'Repo has commons class' );
+	} );
 }( mediaWiki, jQuery ) );
