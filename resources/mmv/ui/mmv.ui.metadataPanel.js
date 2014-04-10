@@ -430,7 +430,7 @@
 		this.$repo.text( repositoryMessage );
 
 		this.$repoLi.css( 'background-image',
-			repoInfo.favIcon ? 'url("' + repoInfo.favIcon + '")' : null );
+			( repoInfo.favIcon && !isCommons ) ? 'url("' + repoInfo.favIcon + '")' : '' );
 
 		this.$repoLi.toggleClass( 'commons', isCommons );
 		this.$repoSubtitle.text(
