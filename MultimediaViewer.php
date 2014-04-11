@@ -414,7 +414,6 @@ $wgResourceModules += array(
 			'mmv.ui.permission',
 			'mmv.ui.reuse.dialog',
 			'mmv.ui.truncatableTextField',
-			'moment',
 			'oojs',
 		),
 

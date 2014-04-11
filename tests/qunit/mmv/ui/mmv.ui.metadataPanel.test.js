@@ -196,9 +196,14 @@
 		var $qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
 			date1 = 'Garbage',
-			result = panel.formatDate( date1 );
+			promise = panel.formatDate( date1 );
 
-		assert.strictEqual( result, date1, 'Invalid date is correctly ignored' );
+		QUnit.stop();
+
+		promise.then( function ( result ) {
+			assert.strictEqual( result, date1, 'Invalid date is correctly ignored' );
+			QUnit.start();
+		} );
 	} );
 
 	QUnit.test( 'Progress bar', 10, function ( assert ) {
