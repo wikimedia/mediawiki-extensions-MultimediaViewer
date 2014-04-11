@@ -613,13 +613,14 @@
 	 * Handles close event coming from the lightbox
 	 */
 	MMVP.close = function () {
-		$( document ).trigger( $.Event( 'mmv.close' ) );
-
 		if ( comingFromHashChange === false ) {
-			$( document ).trigger( $.Event( 'mmv.hash', { hash : '#' } ) );
+			$( document ).trigger( $.Event( 'mmv-hash', { hash : '#' } ) );
 		} else {
 			comingFromHashChange = false;
 		}
+
+		// This has to happen after the hash reset, because setting the hash to # will reset the page scroll
+		$( document ).trigger( $.Event( 'mmv-cleanup-overlay' ) );
 
 		this.isOpen = false;
 	};
@@ -634,7 +635,7 @@
 		if ( linkState[0] === '#mediaviewer' ) {
 			this.loadImageByTitle( linkState[ 1 ] );
 		} else if ( this.isOpen ) {
-			// This allows us to avoid the mmv.hash event that normally happens on close
+			// This allows us to avoid the mmv-hash event that normally happens on close
 			comingFromHashChange = true;
 
 			if ( this.ui ) {
@@ -649,19 +650,13 @@
 	MMVP.setHash = function() {
 		if ( !this.comingFromHashChange ) {
 			var hashFragment = '#mediaviewer/' + this.currentImageFilename;
-			$( document ).trigger( $.Event( 'mmv.hash', { hash : hashFragment } ) );
+			$( document ).trigger( $.Event( 'mmv-hash', { hash : hashFragment } ) );
 		}
 	};
 
 	/**
-	 * @event mmv.close
-	 * Fired when the viewer should be closed. This is used by components (e.g. the close button)
-	 * to notify the main app that it should close.
-	 */
-	/**
 	 * @event mmv-close
-	 * Fired when the viewer is closed. This is used by the main app to notify other components
-	 * (notably the bootstrap).
+	 * Fired when the viewer is closed. This is used by the ligthbox to notify the main app.
 	 */
 	/**
 	 * @event mmv-next

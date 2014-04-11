@@ -5,6 +5,10 @@ end
 
 When(/^I click on the first image in the article$/) do
   on(LightboxDemoPage) do |page|
+    # Scroll the article on purpose
+    page.execute_script "window.scroll(10, 100)"
+    @articleScrollTop = page.execute_script("return $(window).scrollTop();")
+    @articleScrollLeft = page.execute_script("return $(window).scrollLeft();")
     page.image1_in_article
   end
 end
@@ -58,6 +62,13 @@ Then(/^the image and metadata of the previous image should appear$/) do
     page.image1_in_article_element.should_not be_visible
 
     check_elements_in_viewer_for_image1(page)
+  end
+end
+
+Then(/^the wiki article should be scrolled to the same position as before opening MMV$/) do
+  on(LightboxDemoPage) do |page|
+    page.execute_script("return $(window).scrollTop();").should eq @articleScrollTop
+    page.execute_script("return $(window).scrollLeft();").should eq @articleScrollLeft
   end
 end
 

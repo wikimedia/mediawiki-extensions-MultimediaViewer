@@ -7,7 +7,7 @@ class LightboxDemoPage
   # Tag page elements that we will need.
 
   # First image in lightbox demo page
-  a(:image1_in_article, href: /Kerala\.jpg$/)
+  a(:image1_in_article, class: "image", href: /Kerala\.jpg$/)
 
   # Wrapper div for all mmv elements
   div(:mmv_wrapper, class: "mw-mmv-wrapper")

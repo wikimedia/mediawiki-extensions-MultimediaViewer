@@ -23,3 +23,4 @@ Feature: Basic Multimedia Viewer navigation
     Then the image and metadata of the previous image should appear
     When I close MMV
     Then I should be navigated back to the original wiki article
+    Then the wiki article should be scrolled to the same position as before opening MMV
