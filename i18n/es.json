@@ -58,5 +58,7 @@
     "multimediaviewer-embed-via": "Vía $1.",
     "multimediaviewer-default-embed-dimensions": "Tamaño de miniaturas predeterminado",
     "multimediaviewer-description-page-button-text": "Más detalles",
-    "multimediaviewer-description-page-popup-text": "Más detalles sobre $1"
+    "multimediaviewer-description-page-popup-text": "Más detalles sobre $1",
+    "multimediaviewer-commons-subtitle": "El repositorio de multimedia libre",
+    "multimediaviewer-view-expanded": "Vista Expandida"
 }

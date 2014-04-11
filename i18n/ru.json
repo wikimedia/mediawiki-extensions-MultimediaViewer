@@ -69,5 +69,6 @@
     "multimediaviewer-feedback-popup-text": "Оставьте отзыв об этом новом способе просмотра медиа-файлов",
     "multimediaviewer-description-page-button-text": "Подробнее",
     "multimediaviewer-description-page-popup-text": "Подробнее на $1",
-    "multimediaviewer-commons-subtitle": "Хранилище свободных медиа-файлов"
+    "multimediaviewer-commons-subtitle": "Хранилище свободных медиа-файлов",
+    "multimediaviewer-view-expanded": "Развернуть просмотр"
 }

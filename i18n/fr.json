@@ -5,7 +5,8 @@
             "Jean-Frédéric",
             "Ltrlg",
             "NemesisIII",
-            "Verdy p"
+            "Verdy p",
+            "Sherbrooke"
         ]
     },
     "multimediaviewer-desc": "Agrandit les vignettes dans une interface en plein écran.",
@@ -72,5 +73,7 @@
     "multimediaviewer-feedback-button-text": "Votre avis sur cet outil",
     "multimediaviewer-feedback-popup-text": "Laisser un commentaire sur cette nouvelle expérience d’affichage des médias",
     "multimediaviewer-description-page-button-text": "Plus de détails",
-    "multimediaviewer-description-page-popup-text": "Plus de détails sur $1"
+    "multimediaviewer-description-page-popup-text": "Plus de détails sur $1",
+    "multimediaviewer-commons-subtitle": "L'entrepôt de média libre",
+    "multimediaviewer-view-expanded": "Agrandir vue"
 }

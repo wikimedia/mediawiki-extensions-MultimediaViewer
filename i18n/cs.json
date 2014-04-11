@@ -4,7 +4,8 @@
             "Mormegil",
             "Paxt",
             "Rosnicka.kacka",
-            "Utar"
+            "Utar",
+            "Dominikmatus"
         ]
     },
     "multimediaviewer-desc": "Zvětší náhledy obrázků do celoobrazovkového rozhraní.",
@@ -70,5 +71,7 @@
     "multimediaviewer-feedback-button-text": "Váš názor na tento nástroj",
     "multimediaviewer-feedback-popup-text": "Podělit se o názory na tento nový způsob prohlížení médií",
     "multimediaviewer-description-page-button-text": "Více informací",
-    "multimediaviewer-description-page-popup-text": "Více informací na {{grammar:6sg|$1}}"
+    "multimediaviewer-description-page-popup-text": "Více informací na {{grammar:6sg|$1}}",
+    "multimediaviewer-commons-subtitle": "Úložiště volných médií",
+    "multimediaviewer-view-expanded": "Zvětšit"
 }

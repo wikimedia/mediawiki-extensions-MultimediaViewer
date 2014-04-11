@@ -5,7 +5,8 @@
             "Raymond",
             "Shirayuki",
             "Liuxinyu970226",
-            "Robby"
+            "Robby",
+            "Mormegil"
         ]
     },
     "multimediaviewer-desc": "{{desc|name=Multimedia Viewer|url=https://www.mediawiki.org/wiki/Extension:MultimediaViewer}}",
@@ -96,6 +97,6 @@
     "multimediaviewer-feedback-popup-text": "Additional popup text of the button on top of the metadata panel which brings up a feedback survey.\n\nSee also:\n* {{msg-mw|Multimediaviewer-feedback-button-text}}",
     "multimediaviewer-description-page-button-text": "Text of the button on top of the metadata panel which links to the file description page.\n\nSee also:\n* {{msg-mw|Multimediaviewer-description-page-popup-text}}",
     "multimediaviewer-description-page-popup-text": "Additional popup text of the button on top of the metadata panel which links to the file description page.\n\nParameters:\n* $1 - the name of the site where the file comes from (e.g. \"Wikimedia Commons\")\nSee also:\n* {{msg-mw|Multimediaviewer-description-page-button-text}}.",
-    "multimediaviewer-commons-subtitle": "Additional text to display under {{mw-msg|multimediaviewer-repository}} when the image is from Commons.",
+    "multimediaviewer-commons-subtitle": "Additional text to display under {{msg-mw|multimediaviewer-repository}} when the image is from Commons.",
     "multimediaviewer-view-expanded": "Label for a link on a file page to view the current image in the media viewer."
 }

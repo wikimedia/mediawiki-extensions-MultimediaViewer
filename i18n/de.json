@@ -3,13 +3,14 @@
         "authors": [
             "Kghbln",
             "Metalhead64",
-            "Snatcher"
+            "Snatcher",
+            "Inkowik"
         ]
     },
     "multimediaviewer-desc": "Ermöglicht die Darstellung von Vorschaubildern in einer Vollbildschnittstelle",
     "multimediaviewer-desc-nil": "Keine Beschreibung verfügbar.",
     "multimediaviewer-pref": "Medienbetrachter",
-    "multimediaviewer-pref-desc": "Dieses neue Werkzeug steigert dein Multimedia-Betrachtungserlebnis. Es zeigt Bilder auf Seiten größer an, die Vorschaubilder haben. Bilder werden in einem schöneren Vollbildschnittstellenoverlay angezeigt und können auch als Vollbild dargestellt werden.",
+    "multimediaviewer-pref-desc": "Dieses neue Werkzeug ändert die Ansicht von Multimediadateien. Es zeigt Bilder auf Seiten größer an, die Vorschaubilder haben. Bilder werden in einem den Artikel überlagernden Kasten angezeigt und können auch als Vollbild dargestellt werden.",
     "multimediaviewer-optin-pref": "Neues Medienbetrachtungserlebnis aktivieren",
     "multimediaviewer-file-page": "Gehe zur dazugehörigen Dateiseite",
     "multimediaviewer-repository": "Mehr erfahren auf $1",
