@@ -24,11 +24,17 @@
     "multimediaviewer-download-tab": "Чуяккха",
     "multimediaviewer-download-preview-link-title": "Браузер чохь хьалха муха ю хьажар",
     "multimediaviewer-download-original-button-name": "ДӀайолалун барамехь чуяккха",
+    "multimediaviewer-download-small-button-name": "Чуяккха жима барамехь",
+    "multimediaviewer-download-medium-button-name": "Чуяккха юкъара барамехь",
     "multimediaviewer-download-large-button-name": "Чуяккха йоккха барамца",
     "multimediaviewer-original-embed-dimensions": "Оригинальни барам $1",
     "multimediaviewer-large-embed-dimensions": "Йоккханиг $1",
     "multimediaviewer-medium-embed-dimensions": "Юккъерниг $1",
     "multimediaviewer-small-embed-dimensions": "Жимниг $1",
+    "multimediaviewer-feedback-button-text": "ГӀирсах лаьцна хьуна хетарг",
+    "multimediaviewer-feedback-popup-text": "Медиа-файлашка хьажаран керла аьттох лаце хаам битта",
+    "multimediaviewer-description-page-button-text": "Мадарра",
+    "multimediaviewer-description-page-popup-text": "Мадарра ду $1 чохь",
     "multimediaviewer-commons-subtitle": "Медиа-файлаш латайо меттиг",
     "multimediaviewer-view-expanded": "Схьадаста хьажар"
 }
