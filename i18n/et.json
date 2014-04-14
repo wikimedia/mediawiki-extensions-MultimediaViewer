@@ -1,7 +1,8 @@
 {
     "@metadata": {
         "authors": [
-            "Pikne"
+            "Pikne",
+            "WikedKentaur"
         ]
     },
     "multimediaviewer-desc": "Võimaldab vaadata pisipilte täisekraaniliideses.",
@@ -31,8 +32,14 @@
     "multimediaviewer-fileusage-local-section": "Selles võrgukohas",
     "multimediaviewer-fileusage-global-section": "Teistes võrgukohtades",
     "multimediaviewer-reuse-link": "Kasuta seda faili",
+    "multimediaviewer-reuse-loading-placeholder": "Laadimine...",
     "multimediaviewer-share-tab": "Jagamine",
     "multimediaviewer-embed-tab": "Manustamine",
+    "multimediaviewer-download-tab": "Laadi alla",
+    "multimediaviewer-download-preview-link-title": "Eelvaade brauseris",
+    "multimediaviewer-download-original-button-name": "Laadi alla originaalsuuruses",
+    "multimediaviewer-download-small-button-name": "Laadi alla vähendatud suuruses",
+    "multimediaviewer-link-to-page": "Link faili kirjelduslehele",
     "multimediaviewer-share-explanation": "Kopeeri ja jaga vabalt seda linki.",
     "multimediaviewer-embed-wt": "Vikitekst",
     "multimediaviewer-embed-explanation": "Kasuta seda koodi, et fail manustada.",

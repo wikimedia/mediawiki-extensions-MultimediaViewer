@@ -5,7 +5,8 @@
             "Hym411",
             "Jskang",
             "Priviet",
-            "아라"
+            "아라",
+            "Keysuck"
         ]
     },
     "multimediaviewer-desc": "섬네일 이미지를 풀스크린 인터페이스에서 더 큰 크기로 확장합니다.",
@@ -69,5 +70,6 @@
     "multimediaviewer-feedback-button-text": "이 도구에 대한 의견",
     "multimediaviewer-feedback-popup-text": "이 새로운 미디어 감상 경험에 대해 의견 남기기",
     "multimediaviewer-description-page-button-text": "자세한 내용",
-    "multimediaviewer-description-page-popup-text": "$1의 자세한 내용"
+    "multimediaviewer-description-page-popup-text": "$1의 자세한 내용",
+    "multimediaviewer-view-expanded": "화면 확장"
 }

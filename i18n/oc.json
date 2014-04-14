@@ -41,6 +41,9 @@
     "multimediaviewer-large-embed-dimensions": "Grand $1",
     "multimediaviewer-medium-embed-dimensions": "Mejan $1",
     "multimediaviewer-small-embed-dimensions": "Pichon $1",
+    "multimediaviewer-feedback-button-text": "Vòstre vejaires sus aquesta aisina",
     "multimediaviewer-description-page-button-text": "Mai de detalhs",
-    "multimediaviewer-description-page-popup-text": "Mai de detalhs sus $1"
+    "multimediaviewer-description-page-popup-text": "Mai de detalhs sus $1",
+    "multimediaviewer-commons-subtitle": "L'entrepaus de mèdia liure",
+    "multimediaviewer-view-expanded": "Agrandir vista"
 }
