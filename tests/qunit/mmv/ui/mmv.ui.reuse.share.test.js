@@ -36,6 +36,7 @@
 			image = { // fake mw.mmv.model.Image
 				title: new mw.Title( 'File:Foobar.jpg' ),
 				url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
+				descriptionUrl: '//commons.wikimedia.org/wiki/File:Foobar.jpg'
 			};
 
 		assert.notStrictEqual( ! share.pageInput.getValue(), '', 'pageInput is empty.' );
@@ -58,6 +59,7 @@
 			image = {
 				title: new mw.Title( 'File:Foobar.jpg' ),
 				url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
+				descriptionUrl: '//commons.wikimedia.org/wiki/File:Foobar.jpg'
 			};
 
 		share.set( image );

@@ -235,7 +235,7 @@
 		}
 
 		this.loadViewer().then( function ( viewer ) {
-			viewer.loadImageByTitle( title.getPrefixedText(), true );
+			viewer.loadImageByTitle( title, true );
 		} );
 
 		e.preventDefault();

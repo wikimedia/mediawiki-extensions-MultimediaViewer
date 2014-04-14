@@ -471,6 +471,7 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.base',
+			'mmv.routing',
 			'oojs',
 			'mmv.HtmlUtils',
 		),
@@ -540,6 +541,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'mmv.ui.reuse.tab',
 			'mmv.ui.reuse.utils',
+			'mmv.routing',
 			'oojs',
 			'oojs-ui',
 		),
@@ -686,6 +688,7 @@ $wgResourceModules += array(
 			'mmv.model.TaskQueue',
 			'mmv.lightboxinterface',
 			'mmv.provider',
+			'mmv.routing',
 			'jquery.fullscreen',
 			'jquery.hidpi',
 			'jquery.scrollTo',

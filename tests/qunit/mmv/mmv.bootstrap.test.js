@@ -228,7 +228,7 @@
 			$link = $div.find( 'a.image' );
 
 		viewer.loadImageByTitle = function ( loadedTitle ) {
-			assert.strictEqual( loadedTitle, 'File:Foo.jpg', 'Titles are identical' );
+			assert.strictEqual( loadedTitle.getPrefixedDb(), 'File:Foo.jpg', 'Titles are identical' );
 		};
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.

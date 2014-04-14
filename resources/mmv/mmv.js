@@ -80,9 +80,14 @@
 
 		/**
 		 * Image index on page.
-		 * @type {number}
+		 * @property {number}
 		 */
 		this.currentIndex = 0;
+
+		/**
+		 * @property {mw.mmv.routing.Router} router -
+		 */
+		this.router = new mw.mmv.routing.Router();
 
 		/**
 		 * UI object used to display the pictures in the page.
@@ -318,7 +323,7 @@
 
 	/**
 	 * Loads an image by its title
-	 * @param {string} title
+	 * @param {mw.Title} title
 	 * @param {boolean} updateHash Viewer should update the location hash when true
 	 */
 	MMVP.loadImageByTitle = function ( title, updateHash ) {
@@ -331,7 +336,7 @@
 		this.comingFromHashChange = !updateHash;
 
 		$.each( this.thumbs, function ( idx, thumb ) {
-			if ( thumb.title.getPrefixedText() === title ) {
+			if ( thumb.title.getPrefixedText() === title.getPrefixedText() ) {
 				viewer.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ], true );
 				return false;
 			}
@@ -635,11 +640,10 @@
 	 * Handles a hash change coming from the browser
 	 */
 	MMVP.hash = function () {
-		var hash = decodeURIComponent( window.location.hash ),
-			linkState = hash.split( '/' );
+		var route = this.router.parseLocation( window.location );
 
-		if ( linkState[0] === '#mediaviewer' ) {
-			this.loadImageByTitle( linkState[ 1 ] );
+		if ( route instanceof mw.mmv.routing.ThumbnailRoute ) {
+			this.loadImageByTitle( route.fileTitle );
 		} else if ( this.isOpen ) {
 			// This allows us to avoid the mmv-hash event that normally happens on close
 			comingFromHashChange = true;
@@ -654,8 +658,10 @@
 	};
 
 	MMVP.setHash = function() {
+		var route, hashFragment;
 		if ( !this.comingFromHashChange ) {
-			var hashFragment = '#mediaviewer/' + this.currentImageFilename;
+			route = new mw.mmv.routing.ThumbnailRoute( this.currentImageFileTitle );
+			hashFragment = '#' + this.router.createHash( route );
 			$( document ).trigger( $.Event( 'mmv-hash', { hash : hashFragment } ) );
 		}
 	};

@@ -78,7 +78,7 @@
 		$( '#qunit-fixture' ).append( '<a class="image"><img src="' + imageSrc + '"></a>' );
 
 		viewer.loadImageByTitle = function( title ) {
-			assert.strictEqual( title, 'File:' + imageSrc, 'The title matches' );
+			assert.strictEqual( title.getPrefixedText(), 'File:' + imageSrc, 'The title matches' );
 		};
 
 		// Open a valid mmv hash link and check that the right image is requested.

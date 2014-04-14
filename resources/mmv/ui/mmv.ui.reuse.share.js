@@ -28,6 +28,11 @@
 	function Share( $container ) {
 		Share['super'].call( this, $container );
 
+		/**
+		 * @property {mw.mmv.routing.Router} router -
+		 */
+		this.router = new mw.mmv.routing.Router();
+
 		this.init();
 	}
 	oo.inheritClass( Share, mw.mmv.ui.reuse.Tab );
@@ -75,8 +80,9 @@
 	 * @param {mw.mmv.model.Image} image
 	 */
 	SP.set = function ( image ) {
-		// FIXME this should be handled by mmv.js to be DRY
-		var url = image.descriptionUrl + '#mediaviewer/' + image.title.getMainText();
+		var route = new mw.mmv.routing.ThumbnailRoute( image.title ),
+			url = this.router.createHashedUrl( route, image.descriptionUrl );
+
 		this.pageInput.setValue( url );
 
 		this.select();

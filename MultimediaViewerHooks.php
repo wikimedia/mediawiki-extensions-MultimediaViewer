@@ -228,7 +228,6 @@ class MultimediaViewerHooks {
 				'mmv.ui.reuse.share',
 				'mmv.ui.reuse.embed',
 				'mmv.ui.reuse.download',
-				'mmv.routing',
 			),
 			'localBasePath' => __DIR__,
 			'remoteExtPath' => 'MultimediaViewer',

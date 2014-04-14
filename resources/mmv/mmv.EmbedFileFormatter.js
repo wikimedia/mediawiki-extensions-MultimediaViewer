@@ -26,6 +26,11 @@
 	function EmbedFileFormatter() {
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
+
+		/**
+		 * @property {mw.mmv.routing.Router} router -
+		 */
+		this.router = new mw.mmv.routing.Router();
 	}
 	EFFP = EmbedFileFormatter.prototype;
 
@@ -167,13 +172,12 @@
 	};
 
 	/**
-	 * Generare a link which we will be using for sharing stuff.
-	 * FIXME this should be handled by mmv.js to be DRY
-	 *
+	 * Generate a link which we will be using for sharing stuff.
 	 * @param {mw.mmv.model.EmbedFileInfo} info
 	 */
 	EFFP.getLinkUrl = function ( info ) {
-		return info.imageInfo.descriptionUrl + '#mediaviewer/' + info.imageInfo.title.getMainText();
+		var route = new mw.mmv.routing.ThumbnailRoute( info.imageInfo.title );
+		return this.router.createHashedUrl( route, info.imageInfo.descriptionUrl );
 	};
 
 	mw.mmv.EmbedFileFormatter = EmbedFileFormatter;
