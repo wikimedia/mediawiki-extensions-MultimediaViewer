@@ -121,13 +121,9 @@
 
 		// Advanced description needs to be below the fold when the lightbox opens
 		// regardless of what the scroll value was prior to opening the lightbox
-
-		// Only scroll and save the position if it's the first attach
-		// Otherwise it could be an attach event happening because of prev/next
-		if ( this.scrollTopBeforeAttach === undefined ) {
-			// Save the scrollTop value because we want below to be back to where they were
-			// before opening the lightbox
-			this.scrollTopBeforeAttach = $.scrollTo().scrollTop();
+		// If the lightbox is already attached, it means we're doing prev/next, and
+		// we should avoid scrolling the panel
+		if ( !this.attached ) {
 			$.scrollTo( 0, 0 );
 		}
 
@@ -188,17 +184,14 @@
 
 		// Reset the cursor fading
 		this.fadeStopped();
+
+		this.attached = true;
 	};
 
 	/**
 	 * Detaches the interface from the DOM.
 	 */
 	LIP.unattach = function () {
-		// We trigger this event on the document because unattach() can run
-		// when the interface is unattached
-		$( document ).trigger( $.Event( 'mmv-close' ) )
-			.off( 'jq-fullscreen-change.lip' );
-
 		this.$wrapper.detach();
 
 		this.currentlyAttached = false;
@@ -207,15 +200,16 @@
 
 		this.canvas.unattach();
 
-		// Restore the scrollTop as it was before opening the lightbox
-		if ( this.scrollTopBeforeAttach !== undefined ) {
-			$.scrollTo( this.scrollTopBeforeAttach, 0 );
-			this.scrollTopBeforeAttach = undefined;
-		}
-
 		this.panel.fileReuse.closeDialog();
 
 		this.clearEvents();
+
+		// We trigger this event on the document because unattach() can run
+		// when the interface is unattached
+		$( document ).trigger( $.Event( 'mmv-close' ) )
+			.off( 'jq-fullscreen-change.lip' );
+
+		this.attached = false;
 	};
 
 	/**

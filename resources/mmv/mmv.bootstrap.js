@@ -45,6 +45,8 @@
 		this.thumbs = [];
 		this.$thumbs = $( '.gallery .image img, a.image img, #file a img' );
 		this.processThumbs();
+
+		this.browserHistory = window.history;
 	}
 
 	MMVB = MultimediaViewerBootstrap.prototype;
@@ -264,13 +266,26 @@
 
 	/**
 	 * Handles hash change requests coming from mmv
-	 * @param {jQuery.Event} e Custom mmv.hash event
+	 * @param {jQuery.Event} e Custom mmv-hash event
 	 */
 	MMVB.internalHashChange = function ( e ) {
-		// Since we voluntarily changed the hash, we don't want MMVB.hash to treat it
-		this.skipNextHashHandling = true;
+		var hash = e.hash;
 
-		window.location.hash = e.hash;
+		// The advantage of using pushState when it's available is that it has to ability to truly
+		// clear the hash, not leaving "#" in the history
+		// An entry with "#" in the history has the side-effect of resetting the scroll position when navigating the history
+		if ( this.browserHistory ) {
+			// In order to truly clear the hash, we need to reconstruct the hash-free URL
+			if ( hash === '#' ) {
+				hash = window.location.href.replace( /#.*$/, '' );
+			}
+			this.browserHistory.pushState( null, null, hash );
+		} else {
+			// Since we voluntarily changed the hash, we don't want MMVB.hash (which will trigger on hashchange event) to treat it
+			this.skipNextHashHandling = true;
+
+			window.location.hash = hash;
+		}
 	};
 
 	/**
@@ -292,13 +307,16 @@
 	MMVB.setupEventHandlers = function () {
 		var self = this;
 
-		$( window ).hashchange( function () {
+		$( window ).on( this.browserHistory ? 'popstate.mmvb' : 'hashchange', function () {
 			self.hash();
-		} ).hashchange();
+		} );
 
-		$( document ).on( 'mmv.hash', function ( e ) {
+		// Interpret any hash that might already be in the url
+		self.hash();
+
+		$( document ).on( 'mmv-hash', function ( e ) {
 			self.internalHashChange( e );
-		} ).on( 'mmv.close', function () {
+		} ).on( 'mmv-cleanup-overlay', function () {
 			self.cleanupOverlay();
 		} );
 	};
@@ -307,20 +325,31 @@
 	 * Cleans up event handlers, used for tests
 	 */
 	MMVB.cleanupEventHandlers = function () {
-		$( window ).off( 'hashchange' );
-		$( document ).off( 'mmv.hash' );
+		$( window ).off( 'hashchange popstate.mmvb' );
+		$( document ).off( 'mmv-hash' );
 	};
 
 	/**
 	 * Sets up the overlay while the viewer loads
 	 */
 	MMVB.setupOverlay = function () {
+		var $scrollTo = $.scrollTo(),
+			$body = $( document.body );
+
+		// There are situations where we can call setupOverlay while the overlay is already there,
+		// such as inside this.hash(). In that case, do nothing
+		if ( $body.hasClass( 'mw-mmv-lightbox-open' ) ) {
+			return;
+		}
+
 		if ( !this.$overlay ) {
 			this.$overlay = $( '<div>' )
 				.addClass( 'mw-mmv-overlay' );
 		}
 
-		$( document.body ).addClass( 'mw-mmv-lightbox-open' )
+		this.savedScroll = { top : $scrollTo.scrollTop(), left : $scrollTo.scrollLeft() };
+
+		$body.addClass( 'mw-mmv-lightbox-open' )
 			.append( this.$overlay );
 	};
 
@@ -332,6 +361,11 @@
 
 		if ( this.$overlay ) {
 			this.$overlay.remove();
+		}
+
+		if ( this.savedScroll ) {
+			$.scrollTo( this.savedScroll, 0 );
+			this.savedScroll = undefined;
 		}
 	};
 

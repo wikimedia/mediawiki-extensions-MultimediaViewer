@@ -240,11 +240,10 @@
 		restoreScrollTo();
 	} );
 
-	QUnit.test( 'Metadata scrolling', 15, function ( assert ) {
+	QUnit.test( 'Metadata scrolling', 14, function ( assert ) {
 		var ui = new mw.mmv.LightboxInterface(),
 			keydown = $.Event( 'keydown' ),
 			$document = $( document ),
-			scrollTopBeforeOpeningLightbox,
 			originalJQueryScrollTop = $.fn.scrollTop,
 			memorizedScrollToScroll = 0,
 			originalJQueryScrollTo = $.scrollTo;
@@ -339,11 +338,6 @@
 
 		// Second phase of the test: scroll memory
 
-		// Scroll down a little bit to check that the scroll memory works
-		$.scrollTo( 10, 0 );
-
-		scrollTopBeforeOpeningLightbox = $.scrollTo().scrollTop();
-
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		ui.attach( '#qunit-fixture' );
 
@@ -361,9 +355,6 @@
 
 		// Unattach lightbox from document
 		ui.unattach();
-
-		// Lightbox is supposed to restore the document scrollTop value that was set prior to opening it
-		assert.strictEqual( $.scrollTo().scrollTop(), scrollTopBeforeOpeningLightbox, 'document scrollTop value has been restored correctly' );
 
 		// Let's restore all originals, to make sure this test is free of side-effect
 		$.fn.scrollTop = originalJQueryScrollTop;

@@ -27,6 +27,31 @@
 		return bootstrap;
 	}
 
+	function hashTest( bootstrap, assert ) {
+		var hash = 'mediaviewer/foo';
+
+		bootstrap.setupEventHandlers();
+
+		bootstrap.loadViewer = function () {
+			assert.ok( false, 'Viewer should not be loaded' );
+			return $.Deferred().reject();
+		};
+
+		window.location.hash = 'Foo';
+
+		bootstrap.loadViewer = function () {
+			QUnit.start();
+			assert.ok( true, 'Viewer should be loaded' );
+			bootstrap.cleanupEventHandlers();
+			window.location.hash = '';
+
+			return $.Deferred().reject();
+		};
+
+		QUnit.stop();
+		window.location.hash = hash;
+	}
+
 	QUnit.test( 'Promise does not hang on ResourceLoader errors', 3, function ( assert ) {
 		var oldUsing = mw.loader.using,
 			bootstrap,
@@ -229,58 +254,47 @@
 		$link.trigger( { type : 'click', which : 1 } );
 	} );
 
-	QUnit.asyncTest( 'Only load the viewer on a valid hash', 1, function ( assert ) {
+	QUnit.test( 'Only load the viewer on a valid hash (modern browsers)', 1, function ( assert ) {
 		var bootstrap;
 
 		window.location.hash = '';
 
 		bootstrap = createBootstrap();
-		bootstrap.setupEventHandlers();
 
-		bootstrap.loadViewer = function () {
-			assert.ok( false, 'Viewer should not be loaded' );
-			return $.Deferred().reject();
-		};
+		hashTest( bootstrap, assert );
+	} );
 
-		window.location.hash = 'Foo';
+	QUnit.test( 'Only load the viewer on a valid hash (old browsers)', 1, function ( assert ) {
+		var bootstrap;
 
-		bootstrap.loadViewer = function () {
-			QUnit.start();
-			assert.ok( true, 'Viewer should be loaded' );
-			bootstrap.cleanupEventHandlers();
-			window.location.hash = '';
-			return $.Deferred().reject();
-		};
+		window.location.hash = '';
 
-		window.location.hash = 'mediaviewer/foo';
+		bootstrap = createBootstrap();
+		bootstrap.browserHistory = undefined;
+
+		hashTest( bootstrap, assert );
 	} );
 
 	QUnit.test( 'internalHashChange', 1, function ( assert ) {
+		var bootstrap = createBootstrap(),
+			hash = '#mediaviewer/foo';
+
 		window.location.hash = '';
 
-		var bootstrap = createBootstrap(),
-			hash = '#mediaviewer/foo',
-			oldHash = bootstrap.hash;
-
 		bootstrap.setupEventHandlers();
-
-		bootstrap.hash = function () {
-			oldHash.call( this );
-
-			bootstrap.cleanupEventHandlers();
-			window.location.hash = '';
-			QUnit.start();
-		};
 
 		bootstrap.loadViewer = function () {
 			assert.ok( false, 'Viewer should not be loaded' );
 			return $.Deferred().reject();
 		};
 
-		QUnit.stop();
 		bootstrap.internalHashChange( { hash: hash } );
 
 		assert.strictEqual( window.location.hash, hash, 'Window\'s hash has been updated correctly' );
+
+		bootstrap.cleanupEventHandlers();
+
+		window.location.hash = '';
 	} );
 
 	QUnit.test( 'isCSSReady', 3, function ( assert ) {
@@ -309,5 +323,33 @@
 		} );
 
 		$style.appendTo( 'head' );
+	} );
+
+	QUnit.test( 'Restoring article scroll position', 2, function ( assert ) {
+		var bootstrap = createBootstrap(),
+			scrollTop = 50,
+			scrollLeft = 60,
+			stubbedScrollTop = scrollTop,
+			stubbedScrollLeft = scrollLeft;
+
+		this.sandbox.stub( $, 'scrollTo', function ( target ) {
+			if ( target ) {
+				stubbedScrollTop = target.top;
+				stubbedScrollLeft = target.left;
+			} else {
+				return {
+					scrollTop : function () { return stubbedScrollTop; },
+					scrollLeft : function () { return stubbedScrollLeft; }
+				};
+			}
+		} );
+
+		bootstrap.setupOverlay();
+		// Calling this a second time because it can happen in history navigation context
+		bootstrap.setupOverlay();
+		bootstrap.cleanupOverlay();
+
+		assert.strictEqual( stubbedScrollTop, scrollTop, 'Scroll is correctly reset to original top position' );
+		assert.strictEqual( stubbedScrollLeft, scrollLeft, 'Scroll is correctly reset to original left position' );
 	} );
 }( mediaWiki, jQuery ) );

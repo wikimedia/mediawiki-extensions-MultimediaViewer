@@ -698,6 +698,7 @@ $wgResourceModules += array(
 			'mediawiki.Title',
 			'mmv.logger',
 			'mmv.HtmlUtils',
+			'jquery.scrollTo',
 		),
 
 		'messages' => array(
