@@ -310,6 +310,7 @@
 			}
 
 			viewer.ui.panel.animateMetadataOnce();
+			viewer.preloadDependencies();
 		} );
 
 		this.comingFromHashChange = false;
@@ -706,8 +707,15 @@
 	/**
 	* Unregisters all event handlers. Currently only used in tests.
 	*/
-	 MMVP.cleanupEventHandlers = function () {
+	MMVP.cleanupEventHandlers = function () {
 		$( document ).off( 'mmv-close.mmvp mmv-next.mmvp mmv-prev.mmvp mmv-resize.mmvp' );
+	};
+
+	/**
+	 * Preloads JS and CSS dependencies that aren't needed to display the first image, but could be needed later
+	 */
+	MMVP.preloadDependencies = function () {
+		mw.loader.load( [ 'mmv.ui.reuse.share', 'mmv.ui.reuse.embed', 'mmv.ui.reuse.download' ] );
 	};
 
 	mw.mmv.MultimediaViewer = MultimediaViewer;

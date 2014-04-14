@@ -34,13 +34,6 @@
 		this.$reuseDialog = $( '<div>' )
 			.addClass( 'mw-mmv-reuse-dialog' );
 
-		this.reuseTabs = new oo.ui.MenuWidget( {
-			classes: [ 'mw-mmv-reuse-tabs' ]
-		} );
-		// MenuWidget has a nasty tendency to hide itself, maybe we're not using it right?
-		this.reuseTabs.hide = $.noop;
-		this.reuseTabs.$element.show().appendTo( this.$reuseDialog );
-
 		this.$downArrow = $( '<div>' )
 			.addClass( 'mw-mmv-reuse-down-arrow' )
 			.appendTo( this.$reuseDialog );
@@ -54,8 +47,6 @@
 		 * @property {Object.<string, mw.mmv.ui.Element>} List of tab ui objects.
 		 */
 		this.tabs = null;
-
-		this.initTabs();
 	}
 	oo.inheritClass( Dialog, mw.mmv.ui.Element );
 	DP = Dialog.prototype;
@@ -63,6 +54,14 @@
 	// FIXME this should happen outside the dialog and the tabs, but we need to improve
 	DP.initTabs = function () {
 		var shareTab, embedTab, downloadTab;
+
+		this.reuseTabs = new oo.ui.MenuWidget( {
+			classes: [ 'mw-mmv-reuse-tabs' ]
+		} );
+
+		// MenuWidget has a nasty tendency to hide itself, maybe we're not using it right?
+		this.reuseTabs.hide = $.noop;
+		this.reuseTabs.$element.show().appendTo( this.$reuseDialog );
 
 		this.tabs = {
 			share: new mw.mmv.ui.reuse.Share( this.$reuseDialog ),
@@ -86,19 +85,51 @@
 		// Default to 'share' tab
 		this.selectedTab = 'share';
 		this.reuseTabs.selectItem( shareTab );
+
+		if ( this.dependenciesNeedToBeAttached ) {
+			this.attachDependencies();
+		}
+
+		if ( this.tabsSetValues ) {
+			// This is a delayed set() for the elements we've just created on demand
+			this.tabs.share.set.apply( this.tabs.share, this.tabsSetValues.share );
+			this.tabs.download.set.apply( this.tabs.download, this.tabsSetValues.download );
+			this.tabs.embed.set.apply( this.tabs.embed, this.tabsSetValues.embed );
+			this.tabsSetValues = undefined;
+		}
 	};
 
 	/**
 	 * Handles click on link that opens/closes the dialog.
 	 */
-	 DP.handleOpenCloseClick = function() {
+	 DP.handleOpenCloseClick = function () {
+		var dialog = this,
+			$deferred = $.Deferred();
+
 		mw.mmv.logger.log( 'use-this-file-link-click' );
 
-		if ( this.isOpen ) {
-			this.closeDialog();
+		if ( this.tabs === null ) {
+			// initTabs() needs to have these dependencies loaded in order to run
+			mw.loader.using( [ 'mmv.ui.reuse.share', 'mmv.ui.reuse.embed', 'mmv.ui.reuse.download' ], function () {
+				dialog.initTabs();
+				$deferred.resolve();
+			}, function (error) {
+				$deferred.reject( error );
+				if ( window.console && window.console.error ) {
+					window.console.error( 'mw.loader.using error when trying to load reuse dependencies', error );
+				}
+			} );
 		} else {
-			this.openDialog();
+			$deferred.resolve();
 		}
+
+		$deferred.then( function() {
+			if ( dialog.isOpen ) {
+				dialog.closeDialog();
+			} else {
+				dialog.openDialog();
+			}
+		} );
 
 		return false;
 	 };
@@ -123,31 +154,52 @@
 	/**
 	 * Registers listeners.
 	 */
-	DP.attach = function() {
-		var dialog = this,
-			tab;
+	DP.attach = function () {
+		var dialog = this;
 
 		this.handleEvent( 'mmv-reuse-open', $.proxy( dialog.handleOpenCloseClick, dialog ) );
-		this.reuseTabs.on( 'select', $.proxy( dialog.handleTabSelection, dialog ) );
 
-		for ( tab in this.tabs ) {
-			this.tabs[tab].attach();
+		this.attachDependencies();
+	};
+
+	/**
+	 * Registrers listeners for dependencies loaded on demand
+	 */
+	DP.attachDependencies = function () {
+		var tab, dialog = this;
+
+		if ( this.reuseTabs && this.tabs ) {
+			// This is a delayed attach() for the elements we've just created on demand
+			this.reuseTabs.on( 'select', $.proxy( dialog.handleTabSelection, dialog ) );
+
+			for ( tab in this.tabs ) {
+				this.tabs[tab].attach();
+			}
+
+			this.dependenciesNeedToBeAttached = false;
+		} else {
+			this.dependenciesNeedToBeAttached = true;
 		}
 	};
 
 	/**
 	 * Clears listeners.
 	 */
-	DP.unattach = function() {
+	DP.unattach = function () {
 		var tab;
 
 		this.constructor['super'].prototype.unattach.call( this );
 
 		this.stopListeningToOutsideClick();
-		this.reuseTabs.off( 'select' );
 
-		for ( tab in this.tabs ) {
-			this.tabs[tab].unattach();
+		if ( this.reuseTabs ) {
+			this.reuseTabs.off( 'select' );
+		}
+
+		if ( this.tabs ) {
+			for ( tab in this.tabs ) {
+				this.tabs[tab].unattach();
+			}
 		}
 	};
 
@@ -159,9 +211,17 @@
 	 * @param {string} caption
 	 */
 	DP.set = function ( image, repo, caption) {
-		this.tabs.share.set( image );
-		this.tabs.download.set( image );
-		this.tabs.embed.set( image, repo, caption );
+		if ( this.tabs !== null ) {
+			this.tabs.share.set( image );
+			this.tabs.download.set( image );
+			this.tabs.embed.set( image, repo, caption );
+		} else {
+			this.tabsSetValues = {
+				share : [ image ],
+				download : [ image ],
+				embed : [ image, repo, caption ]
+			};
+		}
 	};
 
 	/**

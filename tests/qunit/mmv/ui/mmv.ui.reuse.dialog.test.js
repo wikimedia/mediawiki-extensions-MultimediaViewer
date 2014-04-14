@@ -23,12 +23,11 @@
 
 	QUnit.module( 'mmv.ui.reuse.Dialog', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sanity test, object creation and UI construction', 3, function ( assert ) {
+	QUnit.test( 'Sanity test, object creation and UI construction', 2, function ( assert ) {
 		var reuseDialog = makeReuseDialog();
 
 		assert.ok( reuseDialog, 'Reuse UI element is created.' );
 		assert.strictEqual( reuseDialog.$reuseDialog.length, 1, 'Reuse dialog div created.' );
-		assert.ok( reuseDialog.reuseTabs, 'Reuse tabs created.' );
 	} );
 
 	QUnit.test( 'handleOpenCloseClick():', 2, function ( assert ) {
@@ -59,6 +58,8 @@
 	QUnit.test( 'handleTabSelection():', 4, function ( assert ) {
 		var reuseDialog = makeReuseDialog();
 
+		reuseDialog.initTabs();
+
 		reuseDialog.tabs.share.show = function () {
 			assert.ok( true, 'Share tab shown.' );
 		};
@@ -82,6 +83,8 @@
 
 	QUnit.test( 'attach()/unattach():', 2, function ( assert ) {
 		var reuseDialog = makeReuseDialog();
+
+		reuseDialog.initTabs();
 
 		reuseDialog.handleOpenCloseClick = function() {
 			assert.ok( false, 'handleOpenCloseClick should not have been called.' );
@@ -125,6 +128,8 @@
 	QUnit.test( 'start/stopListeningToOutsideClick():', 11, function ( assert ) {
 		var reuseDialog = makeReuseDialog(),
 			realCloseDialog = reuseDialog.closeDialog;
+
+		reuseDialog.initTabs();
 
 		function clickOutsideDialog() {
 			var event = new $.Event( 'click', { target: reuseDialog.$container[0] } );
@@ -199,6 +204,8 @@
 			height: 80
 		},
 		embedFileInfo = new mw.mmv.model.EmbedFileInfo( title, src, url );
+
+		reuseDialog.initTabs();
 
 		reuseDialog.set( image, embedFileInfo );
 

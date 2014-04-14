@@ -485,10 +485,6 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'mmv.ui',
 			'oojs',
-			'oojs-ui',
-			'mmv.ui.reuse.share',
-			'mmv.ui.reuse.embed',
-			'mmv.ui.reuse.download',
 		),
 	),
 

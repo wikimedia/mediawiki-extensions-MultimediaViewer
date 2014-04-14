@@ -222,6 +222,9 @@ class MultimediaViewerHooks {
 			'dependencies' => array(
 				'mmv',
 				'mmv.bootstrap',
+				'mmv.ui.reuse.share',
+				'mmv.ui.reuse.embed',
+				'mmv.ui.reuse.download',
 			),
 			'localBasePath' => __DIR__,
 			'remoteExtPath' => 'MultimediaViewer',
