@@ -238,6 +238,21 @@ $wgResourceModules += array(
 		),
 	),
 
+	'mmv.routing' => $wgMediaViewerResourceTemplate + array(
+			'scripts' => array(
+				'mmv/routing/mmv.routing.js',
+				'mmv/routing/mmv.routing.Route.js',
+				'mmv/routing/mmv.routing.ThumbnailRoute.js',
+				'mmv/routing/mmv.routing.MainFileRoute.js',
+				'mmv/routing/mmv.routing.Router.js',
+			),
+
+			'dependencies' => array(
+				'mediawiki.Title',
+				'oojs',
+			),
+	),
+
 	'mmv.base' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/mmv.base.js',
