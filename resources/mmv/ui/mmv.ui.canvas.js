@@ -186,20 +186,7 @@
 		var targetWidth,
 			targetHeight,
 			blowupFactor,
-			blurredThumbnailShown = false,
-			maxSizeFileExtensions = {
-				'svg' : true,
-			};
-
-		// There are some file types (SVG for example) for which there is no concept
-		// of initial size. For these cases we force a max canvas resize and no bluring.
-		if ( maxSizeFileExtensions[ this.imageRawMetadata.filePageTitle.getExtension().toLowerCase() ] ) {
-			$imagePlaceholder.width( imageWidths.cssWidth );
-			$imagePlaceholder.height( imageWidths.cssHeight );
-			this.set( this.imageRawMetadata, $imagePlaceholder.show() );
-
-			return blurredThumbnailShown;
-		}
+			blurredThumbnailShown = false;
 
 		// Assume natural thumbnail size¸
 		targetWidth = imageInfo.width;

@@ -111,7 +111,7 @@
 		assert.ok( ! canvas.resizeListener, 'resize listener has been removed.' );
 	} );
 
-	QUnit.test( 'maybeDisplayPlaceholder: Max area for SVG files', 5, function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: Constrained area for SVG files', 4, function ( assert ) {
 		var $image,
 			blurredThumbnailShown,
 			$qf = $( '#qunit-fixture' ),
@@ -124,7 +124,7 @@
 		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
-			assert.ok ( true, 'Placeholder is shown');
+			assert.ok ( false, 'Placeholder is not shown');
 		};
 
 		$image = $( '<img>' ).width( 10 ).height( 5 );
@@ -135,8 +135,8 @@
 			{ cssWidth : 300, cssHeight: 150 }
 		);
 
-		assert.strictEqual( $image.width(), 300, 'Placeholder width was set to max' );
-		assert.strictEqual( $image.height(), 150, 'Placeholder height was set to max' );
+		assert.strictEqual( $image.width(), 10, 'Placeholder width was not set to max' );
+		assert.strictEqual( $image.height(), 5, 'Placeholder height was not set to max' );
 		assert.ok( ! $image.hasClass( 'blurred' ), 'Placeholder is not blurred' );
 		assert.ok( ! blurredThumbnailShown, 'Placeholder state is correct' );
 	} );

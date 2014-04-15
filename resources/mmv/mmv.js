@@ -569,14 +569,19 @@
 	 * @returns {jQuery.Promise.<mw.mmv.model.Thumbnail, HTMLImageElement>}
 	 */
 	MMVP.fetchThumbnail = function ( fileTitle, width, originalWidth, originalHeight ) {
-		$.noop( originalWidth, originalHeight ); // keep JSHint happy... will be removed later
+		$.noop( originalHeight ); // keep JSHint happy... will be removed later
 		var viewer = this,
 			thumbnailPromise,
 			imagePromise;
 
+		if ( originalWidth && width > originalWidth ) {
+			// Do not request images larger than the original image
+			width = originalWidth;
+		}
+
 		thumbnailPromise = this.thumbnailInfoProvider.get( fileTitle, width );
 
-		imagePromise = thumbnailPromise.then( function( thumbnail ) {
+		imagePromise = thumbnailPromise.then( function ( thumbnail ) {
 			return viewer.imageProvider.get( thumbnail.url );
 		} );
 
