@@ -31,6 +31,12 @@ When(/^I close MMV$/) do
   end
 end
 
+When(/^I press the browser back button$/) do
+  on(LightboxDemoPage) do |page|
+    page.execute_script("window.history.back();");
+  end
+end
+
 Then(/^I should be navigated back to the original wiki article$/) do
   on(LightboxDemoPage) do |page|
     page.image1_in_article_element.should be_visible
