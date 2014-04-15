@@ -5,10 +5,10 @@ end
 
 When(/^I click on the first image in the article$/) do
   on(LightboxDemoPage) do |page|
-    # Scroll the article on purpose
-    page.execute_script "window.scroll(10, 100)"
-    @articleScrollTop = page.execute_script("return $(window).scrollTop();")
-    @articleScrollLeft = page.execute_script("return $(window).scrollLeft();")
+    # We store the offset of the image as the scroll position, because cucumber/selenium
+    # automatically scrolls to it when we ask it to click on it
+    @articleScrollTop = page.execute_script("return Math.round($('a[href=\"/wiki/File:Sunrise_over_fishing_boats_in_Kerala.jpg\"]').first().find('img').offset().top);")
+    # Scrolls to the image and clicks on it
     page.image1_in_article
   end
 end
@@ -68,7 +68,6 @@ end
 Then(/^the wiki article should be scrolled to the same position as before opening MMV$/) do
   on(LightboxDemoPage) do |page|
     page.execute_script("return $(window).scrollTop();").should eq @articleScrollTop
-    page.execute_script("return $(window).scrollLeft();").should eq @articleScrollLeft
   end
 end
 
