@@ -30,21 +30,31 @@
 	 * Possible log actions, and their associated English developer log strings.
 	 *
 	 * These events are not de-duped. Eg. if the user opens the same site link
-	 * in 10 tabs, there will be 10 site-link-click events. If they view the
+	 * in 10 tabs, there will be 10 file-description-page events. If they view the
 	 * same image 10 times by hitting the prev/next buttons, there will be 10
 	 * image-view events, etc.
 	 * @property
 	 * @static
 	 */
 	L.logActions = {
-		'thumbnail-link-click': 'User clicked on thumbnail to open lightbox.',
-		'enlarge-link-click': 'User clicked on enlarge link to open lightbox.',
-		'fullscreen-link-click': 'User clicked on fullscreen button in lightbox.',
-		'defullscreen-link-click': 'User clicked on button to return to normal lightbox view.',
-		'close-link-click': 'User clicked on the lightbox close button.',
-		'site-link-click': 'User clicked on the link to the file description page.',
-		'use-this-file-link-click': 'User clicked on the link to use this file.',
-		'image-view': 'User viewed an image'
+		'thumbnail': 'User clicked on a thumbnail to open Media Viewer.',
+		'enlarge': 'User clicked on an enlarge link to open Media Viewer.',
+		'fullscreen': 'User entered fullscreen mode.',
+		'defullscreen': 'User exited fullscreen mode.',
+		'close': 'User closed Media Viewer.',
+		'file-description-page': 'User opened the file description page.',
+		'use-this-file-open': 'User opened the dialog to use this file.',
+		'image-view': 'User viewed an image.',
+		'metadata-open': 'User opened the metadata panel.',
+		'metadata-close': 'User closed the metadata panel.',
+		'next-image': 'User viewed the next image.',
+		'prev-image': 'User viewed the previous image.',
+		'terms-open': 'User opened the usage terms.',
+		'license-page': 'User opened the license page.',
+		'author-page': 'User opened the author page.',
+		'source-page': 'User opened the source page.',
+		'hash-load': 'User loaded the image via a hash on pageload.',
+		'history-navigation': 'User navigated with the browser history.'
 	};
 
 	/**

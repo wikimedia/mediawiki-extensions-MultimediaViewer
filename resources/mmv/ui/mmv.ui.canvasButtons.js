@@ -56,17 +56,9 @@
 
 		$( document ).on( 'mmv-close', function () {
 			buttons.$nav.addClass( 'disabled' );
-		} ).on( 'jq-fullscreen-change.lip', function ( e ) {
-			if ( e.fullscreen ) {
-				mw.mmv.logger.log( 'fullscreen-link-click' );
-			} else {
-				mw.mmv.logger.log( 'defullscreen-link-click' );
-			}
 		} );
 
 		this.$close.click( function () {
-			mw.mmv.logger.log( 'close-link-click' );
-
 			$container.trigger( $.Event( 'mmv-close' ) );
 		} );
 

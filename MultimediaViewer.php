@@ -77,6 +77,7 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.base',
+			'mmv.logger',
 			'mmv.ui',
 			'mmv.ui.canvas',
 			'mmv.ui.canvasButtons',
@@ -373,6 +374,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'jquery.color',
 			'mediawiki.jqueryMsg',
+			'mmv.logger',
 			'mmv.ui',
 			'mmv.HtmlUtils',
 			'oojs',
@@ -406,6 +408,7 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.HtmlUtils',
+			'mmv.logger',
 			'mmv.ui',
 			'mmv.ui.stripeButtons',
 			'mmv.ui.categories',
@@ -668,6 +671,7 @@ $wgResourceModules += array(
 			'mmv.api',
 			'mmv.base',
 			'mmv.lightboximage',
+			'mmv.logger',
 			'mmv.model.TaskQueue',
 			'mmv.lightboxinterface',
 			'mmv.provider',
@@ -749,7 +753,7 @@ $wgExtensionFunctions[] = function () {
 		$wgResourceModules['schema.MediaViewer'] = array(
 			'class' => 'ResourceLoaderSchemaModule',
 			'schema' => 'MediaViewer',
-			'revision' => 7670440,
+			'revision' => 8245578,
 		);
 
 		$wgResourceModules['schema.MultimediaViewerNetworkPerformance'] = array(

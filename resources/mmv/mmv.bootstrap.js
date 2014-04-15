@@ -223,9 +223,9 @@
 		}
 
 		if ( $element.is( 'a.image' ) ) {
-			mw.mmv.logger.log( 'thumbnail-link-click' );
+			mw.mmv.logger.log( 'thumbnail' );
 		} else if ( $element.is( '.magnify a' ) ) {
-			mw.mmv.logger.log( 'enlarge-link-click' );
+			mw.mmv.logger.log( 'enlarge' );
 		}
 
 		this.loadViewer().then( function ( viewer ) {
@@ -239,8 +239,9 @@
 
 	/**
 	 * Handles the browser location hash on pageload or hash change
+	 * @param {boolean} log Whether this is called for the hash that came with the pageload
 	 */
-	MMVB.hash = function () {
+	MMVB.hash = function ( initialHash ) {
 		var bootstrap = this;
 
 		// There is no point loading the mmv if it isn't loaded yet for hash changes unrelated to the mmv
@@ -260,6 +261,10 @@
 			// the page is loaded with an invalid MMV url
 			if ( !viewer.isOpen ) {
 				bootstrap.cleanupOverlay();
+			} else if ( initialHash ) {
+				mw.mmv.logger.log( 'hash-load' );
+			} else {
+				mw.mmv.logger.log( 'history-navigation' );
 			}
 		} );
 	};
@@ -312,7 +317,7 @@
 		} );
 
 		// Interpret any hash that might already be in the url
-		self.hash();
+		self.hash( true );
 
 		$( document ).on( 'mmv-hash', function ( e ) {
 			self.internalHashChange( e );

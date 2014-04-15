@@ -600,6 +600,7 @@
 	 * Opens the next image
 	 */
 	MMVP.nextImage = function () {
+		mw.mmv.logger.log( 'next-image' );
 		this.loadIndex( this.currentIndex + 1 );
 	};
 
@@ -607,6 +608,7 @@
 	 * Opens the previous image
 	 */
 	MMVP.prevImage = function () {
+		mw.mmv.logger.log( 'prev-image' );
 		this.loadIndex( this.currentIndex - 1 );
 	};
 
