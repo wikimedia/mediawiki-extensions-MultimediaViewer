@@ -133,6 +133,7 @@
 		var $thumbCaption,
 			caption,
 			bs = this,
+			alwaysOpen = false,
 			$thumb = $( thumb ),
 			$link = $thumb.closest( 'a.image' ),
 			$thumbContain = $link.closest( '.thumb' ),
@@ -175,6 +176,9 @@
 						.text( mw.message( 'multimediaviewer-view-expanded' ).text() )
 				)
 				.appendTo( $( '.fullMedia' ) );
+
+			// Ignore the preference, open anyway
+			alwaysOpen = true;
 		}
 
 		// This is the data that will be passed onto the mmv
@@ -193,7 +197,7 @@
 		}
 
 		$link.add( $enlarge ).click( function ( e ) {
-			return bs.click( this, e, title );
+			return bs.click( this, e, title, alwaysOpen );
 		} );
 		// now that we have set up our real click handler we can we can remove the temporary
 		// handler added in mmv.head.js which just replays clicks to the real handler
@@ -207,9 +211,11 @@
 	 * @param {Object} element Clicked element
 	 * @param {jQuery.Event} e jQuery event object
 	 * @param {string} title File title
+	 * @param {boolean} overridePreference Whether to ignore global preferences and open
+	 * the lightbox on this click event.
 	 * @returns {boolean}
 	 */
-	MMVB.click = function ( element, e, title ) {
+	MMVB.click = function ( element, e, title, overridePreference ) {
 		var $element = $( element );
 
 		// Do not interfere with non-left clicks or if modifier keys are pressed.
@@ -218,7 +224,7 @@
 		}
 
 		// Don't load if someone has specifically stopped us from doing so
-		if ( mw.config.get( 'wgMediaViewerOnClick' ) !== true ) {
+		if ( mw.config.get( 'wgMediaViewerOnClick' ) !== true && overridePreference !== true ) {
 			return;
 		}
 

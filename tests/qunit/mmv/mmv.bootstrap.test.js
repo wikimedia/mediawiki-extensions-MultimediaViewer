@@ -1,5 +1,15 @@
 ( function ( mw, $ ) {
-	QUnit.module( 'mmv.bootstrap', QUnit.newMwEnvironment() );
+	var backup = {};
+
+	QUnit.module( 'mmv.bootstrap', QUnit.newMwEnvironment( {
+		setup: function () {
+			backup.onclick = mw.config.get( 'wgMediaViewerOnClick' );
+			mw.config.set( 'wgMediaViewerOnClick', true );
+		},
+
+		teardown: function () {
+			mw.config.set( 'wgMediaViewerOnClick', backup.onclick );
+		} } ) );
 
 	function createGallery( imageSrc ) {
 		var div = $( '<div>' ).addClass( 'gallery' ).appendTo( '#qunit-fixture' ),
@@ -82,7 +92,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Check viewer invoked when clicking on legit image links', 7, function ( assert ) {
+	QUnit.test( 'Check viewer invoked when clicking on legit image links', 9, function ( assert ) {
 		// TODO: Is <div class="gallery"><span class="image"><img/></span></div> valid ???
 		var div, link, link2, link3, link4, bootstrap,
 			viewer = { initWithThumbs : $.noop };
@@ -132,6 +142,11 @@
 		// Click on legit link
 		link4.trigger( { type: 'click', which: 1 } );
 
+		// Click on legit link even when preference says not to
+		mw.config.set( 'wgMediaViewerOnClick', false );
+		link4.trigger( { type: 'click', which: 1 } );
+		mw.config.set( 'wgMediaViewerOnClick', true );
+
 		bootstrap.setupOverlay = function () {
 			assert.ok( false, 'Overlay was not set up' );
 		};
@@ -142,6 +157,11 @@
 
 		// Click on non-legit link
 		link3.trigger( { type : 'click', which : 1 } );
+
+		// Click on legit links with preference off
+		mw.config.set( 'wgMediaViewerOnClick', false );
+		link.trigger( { type : 'click', which : 1 } );
+		link2.trigger( { type : 'click', which : 1 } );
 	} );
 
 	QUnit.test( 'Skip images with invalid extensions', 0, function ( assert ) {
