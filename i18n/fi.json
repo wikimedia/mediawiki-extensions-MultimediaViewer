@@ -3,7 +3,8 @@
         "authors": [
             "Elseweyr",
             "Nike",
-            "Stryn"
+            "Stryn",
+            "ElmA"
         ]
     },
     "multimediaviewer-desc": "Näytä pienoiskuvat suuremmassa koossa kokoruututilassa.",
@@ -50,9 +51,20 @@
     "multimediaviewer-embed-wt": "Wikiteksti",
     "multimediaviewer-embed-html": "HTML",
     "multimediaviewer-embed-explanation": "Käytä tätä koodia upottaaksesi tiedoston",
+    "multimediaviewer-html-embed-credit-text-tbl": "\"$1\" käyttäjältä $2. Käytettävissä lisenssillä $3.",
+    "multimediaviewer-html-embed-credit-text-tb": "\"$1\" käyttäjältä $2.",
+    "multimediaviewer-html-embed-credit-text-tl": "\"$1\". Käytettävissä lisenssillä $2.",
+    "multimediaviewer-embed-byline": "Käyttäjältä $1",
+    "multimediaviewer-embed-license": "Lisensoitu lisenssin $1 alla",
+    "multimediaviewer-default-embed-dimensions": "Pikkukuvien oletuskoko",
+    "multimediaviewer-original-embed-dimensions": "Alkuperäinen koko $1",
+    "multimediaviewer-large-embed-dimensions": "Suuri $1",
+    "multimediaviewer-medium-embed-dimensions": "Keskikokoinen $1",
+    "multimediaviewer-small-embed-dimensions": "Pieni $1",
     "multimediaviewer-feedback-button-text": "Palautteesi tästä työkalusta",
     "multimediaviewer-feedback-popup-text": "Jätä palautetta tästä uudesta median katselukokemuksesta",
     "multimediaviewer-description-page-button-text": "Lisätietoja",
-    "multimediaviewer-description-page-popup-text": "Lisätietoja sivulla",
+    "multimediaviewer-description-page-popup-text": "Lisätietoja sivulla $1",
+    "multimediaviewer-commons-subtitle": "Vapaa tietokanta",
     "multimediaviewer-view-expanded": "Laajenna näkymä"
 }

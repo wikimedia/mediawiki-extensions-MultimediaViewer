@@ -9,17 +9,17 @@
             "Keysuck"
         ]
     },
-    "multimediaviewer-desc": "섬네일 이미지를 풀스크린 인터페이스에서 더 큰 크기로 확장합니다.",
-    "multimediaviewer-desc-nil": "설명이 없습니다.",
+    "multimediaviewer-desc": "섬네일을 전체 화면 인터페이스에서 더 큰 크기로 확장합니다.",
+    "multimediaviewer-desc-nil": "사용할 수 있는 설명이 없습니다.",
     "multimediaviewer-pref": "미디어 뷰어",
-    "multimediaviewer-pref-desc": "이 새 도구로 멀티미디어를 더 쉽게 감상하십시오. 이 도구는 섬네일 이미지가 있는 문서에서 그 섬네일을 더 크게 나타냅니다. 큰 이미지는 보기 편리한 풀스크린 인터페이스로 표시되며 원본 크기로 표시될 수도 있습니다.",
+    "multimediaviewer-pref-desc": "이 새 도구로 멀티미디어를 보는 경험을 개선하세요. 이 도구는 섬네일이 있는 문서에서 그림을 더 크게 보여줍니다. 그림은 화면 위에 보기 편리한 전체 화면 인터페이스로 보여지며 완전한 크기로 볼 수도 있습니다.",
     "multimediaviewer-optin-pref": "새 미디어 보기 경험을 활성화",
     "multimediaviewer-file-page": "해당 파일 문서로 가기",
-    "multimediaviewer-repository": "$1에서 더 자세히 보기",
+    "multimediaviewer-repository": "$1에서 더 알아보기",
     "multimediaviewer-repository-local": "더 알아보기",
     "multimediaviewer-datetime-created": "$1에 만듦",
-    "multimediaviewer-datetime-uploaded": "$1에 업로드",
-    "multimediaviewer-userpage-link": "$1가 {{GENDER:$2|업로드}}",
+    "multimediaviewer-datetime-uploaded": "$1에 올림",
+    "multimediaviewer-userpage-link": "$1 사용자가 {{GENDER:$2|올림}}",
     "multimediaviewer-metadata-error": "오류: 그림 데이터를 불러오지 못했습니다. $1",
     "multimediaviewer-thumbnail-error": "오류: 섬네일 데이터를 불러오지 못했습니다. $1",
     "multimediaviewer-license-cc-pd": "퍼블릭 도메인",
@@ -40,7 +40,7 @@
     "multimediaviewer-reuse-link": "이 파일 사용하기",
     "multimediaviewer-reuse-loading-placeholder": "불러오는 중…",
     "multimediaviewer-share-tab": "공유하기",
-    "multimediaviewer-embed-tab": "포함",
+    "multimediaviewer-embed-tab": "포함하기",
     "multimediaviewer-download-tab": "다운로드",
     "multimediaviewer-download-preview-link-title": "브라우저에서 미리 보기",
     "multimediaviewer-download-original-button-name": "원래 크기 다운로드",
@@ -62,6 +62,7 @@
     "multimediaviewer-html-embed-credit-text-tl": "\"$1\". $2로 라이선스됨.",
     "multimediaviewer-embed-byline": "$1 만듦",
     "multimediaviewer-embed-license": "$1로 라이선스됨.",
+    "multimediaviewer-embed-via": "$1(을)를 통해.",
     "multimediaviewer-default-embed-dimensions": "기본 섬네일 크기",
     "multimediaviewer-original-embed-dimensions": "원래 크기 $1",
     "multimediaviewer-large-embed-dimensions": "큰 크기 $1",
@@ -71,5 +72,6 @@
     "multimediaviewer-feedback-popup-text": "이 새로운 미디어 감상 경험에 대해 의견 남기기",
     "multimediaviewer-description-page-button-text": "자세한 내용",
     "multimediaviewer-description-page-popup-text": "$1의 자세한 내용",
-    "multimediaviewer-view-expanded": "화면 확장"
+    "multimediaviewer-commons-subtitle": "자유 미디어 저장소",
+    "multimediaviewer-view-expanded": "보임 확장"
 }
