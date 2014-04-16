@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Fulup"
+			"Fulup",
+			"Y-M D"
 		]
 	},
-	"multimediaviewer-repository-local": "Gouzout hiroc'h"
+	"multimediaviewer-repository-local": "Gouzout hiroc'h",
+	"multimediaviewer-download-tab": "Pellgargañ"
 }
