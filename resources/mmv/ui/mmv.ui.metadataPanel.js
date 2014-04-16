@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo, moment ) {
+( function ( mw, $, oo ) {
 	// Shortcut for prototype later
 	var MPP;
 
@@ -654,6 +654,7 @@
 	 */
 	MPP.setImageInfo = function ( image, imageData, repoData, localUsage, globalUsage, user ) {
 		var msgname,
+			panel = this,
 			fileTitle = image.filePageTitle;
 
 		this.setFileTitle( fileTitle.getNameText() );
@@ -661,9 +662,19 @@
 		this.setFilePageLink( imageData.descriptionUrl );
 
 		if ( imageData.creationDateTime ) {
-			this.setDateTime( this.formatDate( imageData.creationDateTime ), true );
+			// Use the raw date until moment can try to interpret it
+			panel.setDateTime( imageData.creationDateTime );
+
+			this.formatDate( imageData.creationDateTime ).then( function ( formattedDate ) {
+				panel.setDateTime( formattedDate, true );
+			} );
 		} else if ( imageData.uploadDateTime ) {
-			this.setDateTime( this.formatDate( imageData.uploadDateTime ) );
+			// Use the raw date until moment can try to interpret it
+			panel.setDateTime( imageData.uploadDateTime );
+
+			this.formatDate( imageData.uploadDateTime ).then( function ( formattedDate ) {
+				panel.setDateTime( formattedDate );
+			} );
 		}
 
 		if ( imageData.source ) {
@@ -721,14 +732,28 @@
 	 * Transforms a date string into localized, human-readable format.
 	 * Unrecognized strings are returned unchanged.
 	 * @param {string} dateString
-	 * @return {string}
+	 * @return {jQuery.Deferred}
 	 */
 	MPP.formatDate = function ( dateString ) {
-		var date = moment( dateString );
-		if ( !date.isValid() ) {
-			return dateString;
-		}
-		return date.format( 'LL' );
+		var deferred = $.Deferred(),
+			date;
+
+		mw.loader.using( 'moment', function () {
+			date = moment( dateString );
+
+			if ( date.isValid() ) {
+				deferred.resolve( date.format( 'LL' ) );
+			} else {
+				deferred.resolve( dateString );
+			}
+		}, function ( error ) {
+			deferred.reject( error );
+			if ( window.console && window.console.error ) {
+				window.console.error( 'mw.loader.using error when trying to load moment', error );
+			}
+		} );
+
+		return deferred.promise();
 	};
 
 	/**
@@ -852,4 +877,4 @@
 	};
 
 	mw.mmv.ui.MetadataPanel = MetadataPanel;
-}( mediaWiki, jQuery, OO, moment ) );
+}( mediaWiki, jQuery, OO ) );
