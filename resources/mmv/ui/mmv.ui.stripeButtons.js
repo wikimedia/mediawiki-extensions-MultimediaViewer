@@ -188,11 +188,36 @@
 	};
 
 	/**
+	 * Returns a link to a survey in the given language or null if that language is not supported
+	 * @param {string|null} langcode
+	 */
+	SBP.getFeedbackSurveyBaseUrlForLanguage = function ( langcode ) {
+		var baseUrl = 'https://www.surveymonkey.com/s/media-viewer-1',
+			surveyTranslations = { ca: 1, hu: 1 };
+
+		langcode = langcode.split( /[_-]/ )[0]; // get rid of variants
+		if ( langcode === 'en') {
+			return baseUrl;
+		} else if ( surveyTranslations[langcode] ) {
+			return baseUrl + '-' + langcode;
+		} else {
+			return null;
+		}
+	};
+
+	/**
+	 * Returns a link to a survey in the user language, or null if not supported
+	 */
+	SBP.getFeedbackSurveyBaseUrl = function () {
+		return this.getFeedbackSurveyBaseUrlForLanguage( mw.config.get( 'wgUserLanguage' ) );
+	};
+
+	/**
 	 * Checks if it is suitable to show a survey to the current user.
 	 */
 	SBP.shouldShowFeedbackSurvey = function () {
 		return mw.config.get( 'wgMultimediaViewer' ).showSurvey &&
-			mw.config.get( 'wgUserLanguage' ) === 'en';
+			this.getFeedbackSurveyBaseUrl();
 	};
 
 	/**
@@ -201,7 +226,7 @@
 	 * @return {string}
 	 */
 	SBP.getFeedbackSurveyUrl = function () {
-		return 'https://www.surveymonkey.com/s/media-viewer-1?c=' + mw.config.get( 'wgDBname' );
+		return this.getFeedbackSurveyBaseUrl() + '?c=' + mw.config.get( 'wgDBname' );
 	};
 
 	/**
