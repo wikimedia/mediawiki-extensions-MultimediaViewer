@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "ElangoRamanujam"
-        ]
-    },
-    "multimediaviewer-download-tab": "பதிவிறக்குக",
-    "multimediaviewer-description-page-button-text": "மேலதிக விபரங்கள்"
+	"@metadata": {
+		"authors": [
+			"ElangoRamanujam"
+		]
+	},
+	"multimediaviewer-download-tab": "பதிவிறக்குக",
+	"multimediaviewer-description-page-button-text": "மேலதிக விபரங்கள்"
 }

@@ -1,32 +1,32 @@
 {
-    "@metadata": {
-        "authors": [
-            "Toliño"
-        ]
-    },
-    "multimediaviewer-desc": "Expande as miniaturas ata un tamaño maior dentro dunha interface a pantalla completa.",
-    "multimediaviewer-desc-nil": "Non hai ningunha descrición dispoñible.",
-    "multimediaviewer-pref": "Visor de ficheiros multimedia",
-    "multimediaviewer-pref-desc": "Mellore a súa experiencia de visualización de ficheiros multimedia con esta nova ferramenta. Mostra as imaxes nun tamaño maior nas páxinas que teñen miniaturas. As imaxes móstranse nun visor a pantalla completa agradable e as imaxes tamén se poden ver a tamaño completo.",
-    "multimediaviewer-file-page": "Ir á páxina de ficheiro correspondente",
-    "multimediaviewer-repository": "Máis información en $1",
-    "multimediaviewer-repository-local": "Máis información",
-    "multimediaviewer-datetime-created": "Creado o $1",
-    "multimediaviewer-datetime-uploaded": "Cargado o $1",
-    "multimediaviewer-userpage-link": "{{GENDER:$2|Cargado}} por $1",
-    "multimediaviewer-license-cc-pd": "Dominio público",
-    "multimediaviewer-license-pd": "Dominio público",
-    "multimediaviewer-license-default": "Ver a licenza",
-    "multimediaviewer-permission-title": "Detalles da licenza",
-    "multimediaviewer-permission-link": "ver os termos",
-    "multimediaviewer-permission-viewmore": "Ollar máis",
-    "multimediaviewer-about-mmv": "Acerca do visor de ficheiros multimedia",
-    "multimediaviewer-discuss-mmv": "Deixe un comentario",
-    "multimediaviewer-geolocation": "Localización: $1",
-    "multimediaviewer-fileusage-count": "Empregada {{PLURAL:$1|nunha páxina|en $1 páxinas}}",
-    "multimediaviewer-fileusage-count-more": "Empregada en máis de $1 {{PLURAL:$1|páxinas}}",
-    "multimediaviewer-fileusage-link": "Ver todos os usos",
-    "multimediaviewer-fileusage-local-section": "Neste sitio",
-    "multimediaviewer-fileusage-global-section": "Noutros sitios",
-    "multimediaviewer-reuse-link": "Utilizar este ficheiro"
+	"@metadata": {
+		"authors": [
+			"Toliño"
+		]
+	},
+	"multimediaviewer-desc": "Expande as miniaturas ata un tamaño maior dentro dunha interface a pantalla completa.",
+	"multimediaviewer-desc-nil": "Non hai ningunha descrición dispoñible.",
+	"multimediaviewer-pref": "Visor de ficheiros multimedia",
+	"multimediaviewer-pref-desc": "Mellore a súa experiencia de visualización de ficheiros multimedia con esta nova ferramenta. Mostra as imaxes nun tamaño maior nas páxinas que teñen miniaturas. As imaxes móstranse nun visor a pantalla completa agradable e as imaxes tamén se poden ver a tamaño completo.",
+	"multimediaviewer-file-page": "Ir á páxina de ficheiro correspondente",
+	"multimediaviewer-repository": "Máis información en $1",
+	"multimediaviewer-repository-local": "Máis información",
+	"multimediaviewer-datetime-created": "Creado o $1",
+	"multimediaviewer-datetime-uploaded": "Cargado o $1",
+	"multimediaviewer-userpage-link": "{{GENDER:$2|Cargado}} por $1",
+	"multimediaviewer-license-cc-pd": "Dominio público",
+	"multimediaviewer-license-pd": "Dominio público",
+	"multimediaviewer-license-default": "Ver a licenza",
+	"multimediaviewer-permission-title": "Detalles da licenza",
+	"multimediaviewer-permission-link": "ver os termos",
+	"multimediaviewer-permission-viewmore": "Ollar máis",
+	"multimediaviewer-about-mmv": "Acerca do visor de ficheiros multimedia",
+	"multimediaviewer-discuss-mmv": "Deixe un comentario",
+	"multimediaviewer-geolocation": "Localización: $1",
+	"multimediaviewer-fileusage-count": "Empregada {{PLURAL:$1|nunha páxina|en $1 páxinas}}",
+	"multimediaviewer-fileusage-count-more": "Empregada en máis de $1 {{PLURAL:$1|páxinas}}",
+	"multimediaviewer-fileusage-link": "Ver todos os usos",
+	"multimediaviewer-fileusage-local-section": "Neste sitio",
+	"multimediaviewer-fileusage-global-section": "Noutros sitios",
+	"multimediaviewer-reuse-link": "Utilizar este ficheiro"
 }

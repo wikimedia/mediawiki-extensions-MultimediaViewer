@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Filzstift"
-        ]
-    },
-    "multimediaviewer-desc": "Ermöglicht die Darstellung von Vorschaubildern in einer Vollbildschnittstelle"
+	"@metadata": {
+		"authors": [
+			"Filzstift"
+		]
+	},
+	"multimediaviewer-desc": "Ermöglicht die Darstellung von Vorschaubildern in einer Vollbildschnittstelle"
 }

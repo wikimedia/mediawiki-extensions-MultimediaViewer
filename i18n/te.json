@@ -1,15 +1,15 @@
 {
-    "@metadata": {
-        "authors": [
-            "Chaduvari",
-            "Ravichandra",
-            "రహ్మానుద్దీన్"
-        ]
-    },
-    "multimediaviewer-license-pd": "పబ్లిక్ డోమెయిను",
-    "multimediaviewer-permission-viewmore": "మరింత చూడండి",
-    "multimediaviewer-fileusage-link": "అన్ని వాడుకలు చూడు",
-    "multimediaviewer-fileusage-local-section": "ఈ సైటుపై",
-    "multimediaviewer-fileusage-global-section": "ఇతర సైట్లలో",
-    "multimediaviewer-reuse-loading-placeholder": "లోడవుతోంది..."
+	"@metadata": {
+		"authors": [
+			"Chaduvari",
+			"Ravichandra",
+			"రహ్మానుద్దీన్"
+		]
+	},
+	"multimediaviewer-license-pd": "పబ్లిక్ డోమెయిను",
+	"multimediaviewer-permission-viewmore": "మరింత చూడండి",
+	"multimediaviewer-fileusage-link": "అన్ని వాడుకలు చూడు",
+	"multimediaviewer-fileusage-local-section": "ఈ సైటుపై",
+	"multimediaviewer-fileusage-global-section": "ఇతర సైట్లలో",
+	"multimediaviewer-reuse-loading-placeholder": "లోడవుతోంది..."
 }

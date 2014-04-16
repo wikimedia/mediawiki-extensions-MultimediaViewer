@@ -1,23 +1,20 @@
 {
-    "@metadata": {
-        "authors": [
-            "William Surya Permana"
-        ]
-    },
-    "multimediaviewer-desc": "Membentangkan gambar mini dalam ukuran yang lebih desar di dalam 'kotak tipis'",
-    "multimediaviewer-pref": "Penampil Media",
-    "multimediaviewer-pref-desc": "Tingkatkan pengalaman penampilan multimedia Anda dengan alat baru ini. Penampil Media menampilkan gambar dalam ukuran yang lebih besar pada halaman yang memiliki gambar mini. Gambar ditampilkan dalam 'kotak tipis' melayang yang lebih indah, dan dapat juga ditampilkan dalam ukuran penuh.",
-    "multimediaviewer-file-page": "Pergi ke halaman berkas terkait",
-    "multimediaviewer-repository": "Pelajari selengkapnya di $1",
-    "multimediaviewer-datetime-created": "Dibuat pada $1",
-    "multimediaviewer-datetime-uploaded": "Diunggah pada $1",
-    "multimediaviewer-userpage-link": "{{GENDER:$2|Diunggah}} oleh $1",
-    "multimediaviewer-license-cc-pd": "Domain Umum",
-    "multimediaviewer-license-default": "Lihat lisensi",
-    "multimediaviewer-use-file": "Gunakan berkas ini",
-    "multimediaviewer-use-file-owt": "Gunakan berkas ini pada halaman wiki, sebagai gambar mini",
-    "multimediaviewer-use-file-own": "Gunakan berkas ini pada halaman wiki, dalam baris",
-    "multimediaviewer-use-file-offwiki": "Gunakan berkas ini pada situs web lain",
-    "multimediaviewer-about-mmv": "Tentang Penampil Media",
-    "multimediaviewer-discuss-mmv": "Tinggalkan umpan balik"
+	"@metadata": {
+		"authors": [
+			"William Surya Permana"
+		]
+	},
+	"multimediaviewer-desc": "Membentangkan gambar mini dalam ukuran yang lebih desar di dalam 'kotak tipis'",
+	"multimediaviewer-pref": "Penampil Media",
+	"multimediaviewer-pref-desc": "Tingkatkan pengalaman penampilan multimedia Anda dengan alat baru ini. Penampil Media menampilkan gambar dalam ukuran yang lebih besar pada halaman yang memiliki gambar mini. Gambar ditampilkan dalam 'kotak tipis' melayang yang lebih indah, dan dapat juga ditampilkan dalam ukuran penuh.",
+	"multimediaviewer-file-page": "Pergi ke halaman berkas terkait",
+	"multimediaviewer-repository": "Pelajari selengkapnya di $1",
+	"multimediaviewer-datetime-created": "Dibuat pada $1",
+	"multimediaviewer-datetime-uploaded": "Diunggah pada $1",
+	"multimediaviewer-userpage-link": "{{GENDER:$2|Diunggah}} oleh $1",
+	"multimediaviewer-license-cc-pd": "Domain Umum",
+	"multimediaviewer-license-default": "Lihat lisensi",
+	"multimediaviewer-about-mmv": "Tentang Penampil Media",
+	"multimediaviewer-discuss-mmv": "Tinggalkan umpan balik",
+	"multimediaviewer-reuse-link": "Gunakan berkas ini"
 }

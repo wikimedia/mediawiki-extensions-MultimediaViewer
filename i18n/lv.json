@@ -1,11 +1,11 @@
 {
-    "@metadata": {
-        "authors": [
-            "Papuass"
-        ]
-    },
-    "multimediaviewer-desc-nil": "Apraksts nav pieejams.",
-    "multimediaviewer-help-mmv": "Palīdzība",
-    "multimediaviewer-share-tab": "Dalīties",
-    "multimediaviewer-embed-html": "HTML"
+	"@metadata": {
+		"authors": [
+			"Papuass"
+		]
+	},
+	"multimediaviewer-desc-nil": "Apraksts nav pieejams.",
+	"multimediaviewer-help-mmv": "Palīdzība",
+	"multimediaviewer-share-tab": "Dalīties",
+	"multimediaviewer-embed-html": "HTML"
 }

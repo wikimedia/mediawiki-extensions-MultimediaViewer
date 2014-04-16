@@ -1,34 +1,34 @@
 {
-    "@metadata": {
-        "authors": [
-            "Astralnet",
-            "Geraki",
-            "Nikosguard",
-            "Indoril"
-        ]
-    },
-    "multimediaviewer-desc": "Επεκτείνετε τις μικρογραφίες σε μεγαλύτερο μέγεθος σε ένα περιβάλλον εργασίας πλήρους οθόνης.",
-    "multimediaviewer-desc-nil": "Χωρίς διαθέσιμη περιγραφή.",
-    "multimediaviewer-pref": "Media Viewer",
-    "multimediaviewer-pref-desc": "Βελτιώστε την εμπειρία σας στην εμφάνιση πολυμέσων με αυτό το νέο εργαλείο. Εμφανίζει εικόνες σε μεγαλύτερο μέγεθος σε σελίδες που έχουν μικρογραφίες. Οι εικόνες εμφανίζονται σε μια καλύτερη πλήρους οθόνης διεπαφή επικάλυψης, και μπορούν επίσης να εμφανιστούν σε πλήρες μέγεθος.",
-    "multimediaviewer-file-page": "Μεταβείτε στην αντίστοιχη σελίδα του αρχείου",
-    "multimediaviewer-repository": "Μάθετε περισσότερα σχετικά με το $1",
-    "multimediaviewer-repository-local": "Μάθετε περισσότερα",
-    "multimediaviewer-datetime-created": "Δημιουργήθηκε στις $1",
-    "multimediaviewer-datetime-uploaded": "Ανέβηκε στις $1",
-    "multimediaviewer-userpage-link": "Ανέβηκε από {{GENDER:$2|τον|την}} $1",
-    "multimediaviewer-license-cc-by-4.0": "CC BY 4.0",
-    "multimediaviewer-license-cc-by-sa-4.0": "CC BY-SA 4.0",
-    "multimediaviewer-license-cc-pd": "Κοινό κτήμα",
-    "multimediaviewer-license-default": "Δείτε την άδεια",
-    "multimediaviewer-about-mmv": "Περί το Media Viewer",
-    "multimediaviewer-discuss-mmv": "Αφήστε σχόλια",
-    "multimediaviewer-geolocation": "Τοποθεσία: $1",
-    "multimediaviewer-fileusage-count": "Χρησιμοποιείται στο $1 {{PLURAL:$1|σελίδα|σελίδες}}",
-    "multimediaviewer-reuse-link": "Χρησιμοποιήστε αυτό το αρχείο",
-    "multimediaviewer-download-tab": "Λήψη",
-    "multimediaviewer-download-preview-link-title": "Προεπισκόπηση στο πρόγραμμα περιήγησης",
-    "multimediaviewer-download-small-button-name": "Λήψη μικρού μεγέθους",
-    "multimediaviewer-download-medium-button-name": "Λήψη μεσαίου μεγέθους",
-    "multimediaviewer-download-large-button-name": "Λήψη μεγάλου μεγέθους"
+	"@metadata": {
+		"authors": [
+			"Astralnet",
+			"Geraki",
+			"Nikosguard",
+			"Indoril"
+		]
+	},
+	"multimediaviewer-desc": "Επεκτείνετε τις μικρογραφίες σε μεγαλύτερο μέγεθος σε ένα περιβάλλον εργασίας πλήρους οθόνης.",
+	"multimediaviewer-desc-nil": "Χωρίς διαθέσιμη περιγραφή.",
+	"multimediaviewer-pref": "Media Viewer",
+	"multimediaviewer-pref-desc": "Βελτιώστε την εμπειρία σας στην εμφάνιση πολυμέσων με αυτό το νέο εργαλείο. Εμφανίζει εικόνες σε μεγαλύτερο μέγεθος σε σελίδες που έχουν μικρογραφίες. Οι εικόνες εμφανίζονται σε μια καλύτερη πλήρους οθόνης διεπαφή επικάλυψης, και μπορούν επίσης να εμφανιστούν σε πλήρες μέγεθος.",
+	"multimediaviewer-file-page": "Μεταβείτε στην αντίστοιχη σελίδα του αρχείου",
+	"multimediaviewer-repository": "Μάθετε περισσότερα σχετικά με το $1",
+	"multimediaviewer-repository-local": "Μάθετε περισσότερα",
+	"multimediaviewer-datetime-created": "Δημιουργήθηκε στις $1",
+	"multimediaviewer-datetime-uploaded": "Ανέβηκε στις $1",
+	"multimediaviewer-userpage-link": "Ανέβηκε από {{GENDER:$2|τον|την}} $1",
+	"multimediaviewer-license-cc-by-4.0": "CC BY 4.0",
+	"multimediaviewer-license-cc-by-sa-4.0": "CC BY-SA 4.0",
+	"multimediaviewer-license-cc-pd": "Κοινό κτήμα",
+	"multimediaviewer-license-default": "Δείτε την άδεια",
+	"multimediaviewer-about-mmv": "Περί το Media Viewer",
+	"multimediaviewer-discuss-mmv": "Αφήστε σχόλια",
+	"multimediaviewer-geolocation": "Τοποθεσία: $1",
+	"multimediaviewer-fileusage-count": "Χρησιμοποιείται στο $1 {{PLURAL:$1|σελίδα|σελίδες}}",
+	"multimediaviewer-reuse-link": "Χρησιμοποιήστε αυτό το αρχείο",
+	"multimediaviewer-download-tab": "Λήψη",
+	"multimediaviewer-download-preview-link-title": "Προεπισκόπηση στο πρόγραμμα περιήγησης",
+	"multimediaviewer-download-small-button-name": "Λήψη μικρού μεγέθους",
+	"multimediaviewer-download-medium-button-name": "Λήψη μεσαίου μεγέθους",
+	"multimediaviewer-download-large-button-name": "Λήψη μεγάλου μεγέθους"
 }

@@ -1,19 +1,16 @@
 {
-    "@metadata": {
-        "authors": [
-            "MaGa"
-        ]
-    },
-    "multimediaviewer-pref": "Preglednik medijskih datoteka",
-    "multimediaviewer-pref-desc": "Poboljšajte svoje iskustvo pregledavajući multimedijske sadržaje uz pomoć ovog alata. Alat prikazuje slike u većoj veličini i u ljepšem Lightbox okviru. Slike se mogu vidjeti i u pravoj veličini.",
-    "multimediaviewer-repository": "Više na projektu $1",
-    "multimediaviewer-datetime-created": "Napravljeno $1",
-    "multimediaviewer-userpage-link": "Sliku {{GENDER:$2|postavio|postavila}} $1",
-    "multimediaviewer-license-default": "Prikaži licenciju",
-    "multimediaviewer-use-file": "Uporaba datoteke",
-    "multimediaviewer-use-file-owt": "Uporaba datoteke kao sličice na wiki stranici",
-    "multimediaviewer-use-file-own": "Uporaba datoteke na wiki stranici u pravoj veličini",
-    "multimediaviewer-use-file-offwiki": "Uporaba datoteke na nekoj drugoj internetskoj stranici",
-    "multimediaviewer-about-mmv": "O pregledniku multimedijskih datoteka",
-    "multimediaviewer-discuss-mmv": "Napišite povratnu informaciju"
+	"@metadata": {
+		"authors": [
+			"MaGa"
+		]
+	},
+	"multimediaviewer-pref": "Preglednik medijskih datoteka",
+	"multimediaviewer-pref-desc": "Poboljšajte svoje iskustvo pregledavajući multimedijske sadržaje uz pomoć ovog alata. Alat prikazuje slike u većoj veličini i u ljepšem Lightbox okviru. Slike se mogu vidjeti i u pravoj veličini.",
+	"multimediaviewer-repository": "Više na projektu $1",
+	"multimediaviewer-datetime-created": "Napravljeno $1",
+	"multimediaviewer-userpage-link": "Sliku {{GENDER:$2|postavio|postavila}} $1",
+	"multimediaviewer-license-default": "Prikaži licenciju",
+	"multimediaviewer-about-mmv": "O pregledniku multimedijskih datoteka",
+	"multimediaviewer-discuss-mmv": "Napišite povratnu informaciju",
+	"multimediaviewer-reuse-link": "Uporaba datoteke"
 }

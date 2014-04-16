@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "Jewel457"
-        ]
-    },
-    "multimediaviewer-fileusage-count": "Gamit sa",
-    "multimediaviewer-fileusage-link": "Tingnan ang mga iba pang gamit",
-    "multimediaviewer-fileusage-global-section": "Sa ibang mga sites"
+	"@metadata": {
+		"authors": [
+			"Jewel457"
+		]
+	},
+	"multimediaviewer-fileusage-count": "Gamit sa",
+	"multimediaviewer-fileusage-link": "Tingnan ang mga iba pang gamit",
+	"multimediaviewer-fileusage-global-section": "Sa ibang mga sites"
 }

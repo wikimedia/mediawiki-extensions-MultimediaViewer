@@ -1,33 +1,33 @@
 {
-    "@metadata": {
-        "authors": [
-            "Clockery",
-            "Praveenp"
-        ]
-    },
-    "multimediaviewer-desc": "ലഘുചിത്രങ്ങൾ ഫുൾസ്ക്രീനായി വികസിപ്പിക്കുക",
-    "multimediaviewer-desc-nil": "വിവരണം ലഭ്യമല്ല.",
-    "multimediaviewer-pref": "മീഡിയ ദർശനോപാധി",
-    "multimediaviewer-pref-desc": "ഈ പുതിയ ഉപകരണമുപയോഗിച്ച് താങ്കളുടെ മീഡിയ ദർശനാനുഭവം മെച്ചപ്പെടുത്തൂ. ലഘുചിത്രങ്ങൾ ഉപയോഗിച്ചിരിക്കുന്ന താളുകളിലെ ചിത്രങ്ങൾ ഇതുപയോഗിച്ച് വലുതായി കാണാം. ചിത്രങ്ങൾ സുന്ദരമായ ഫുൾസ്ക്രീൻ സമ്പർക്കമുഖ രൂപത്തിലോ, പൂർണ്ണവലിപ്പത്തിലോ കാണാനാവുന്നതാണ്.",
-    "multimediaviewer-file-page": "ബന്ധപ്പെട്ട പ്രമാണത്താളിലേയ്ക്ക് പോവുക",
-    "multimediaviewer-repository": "$1 സംരംഭത്തിൽ കൂടുതൽ അറിയുക",
-    "multimediaviewer-repository-local": "കൂടുതൽ അറിയുക",
-    "multimediaviewer-datetime-created": "സൃഷ്ടിച്ചത്: $1",
-    "multimediaviewer-datetime-uploaded": "അപ്‌ലോഡ് ചെയ്തത്: $1",
-    "multimediaviewer-userpage-link": "അപ്‌ലോഡ് {{GENDER:$2|ചെയ്ത}} ഉപയോക്താവ്: $1",
-    "multimediaviewer-license-cc-pd": "പൊതുസഞ്ചയം",
-    "multimediaviewer-license-pd": "പൊതുസഞ്ചയം",
-    "multimediaviewer-license-default": "ഉപയോഗാനുമതി കാണുക",
-    "multimediaviewer-permission-title": "ഉപയോഗാനുമതി വിവരങ്ങൾ",
-    "multimediaviewer-permission-link": "നിബന്ധനകൾ കാണുക",
-    "multimediaviewer-permission-viewmore": "കൂടുതൽ കാണുക",
-    "multimediaviewer-about-mmv": "മീഡിയ ദർശനോപാധിയുടെ വിവരണം",
-    "multimediaviewer-discuss-mmv": "പ്രതികരണം ചേർക്കുക",
-    "multimediaviewer-geolocation": "സ്ഥാനം: $1",
-    "multimediaviewer-fileusage-count": "{{PLURAL:$1|ഒരു താളിൽ|$1 താളുകളിൽ}} ഉപയോഗിച്ചിരിക്കുന്നു",
-    "multimediaviewer-fileusage-count-more": "{{PLURAL:$1|ഒന്നിൽ|$1 എണ്ണത്തിൽ}} അധികം താളുകളിൽ ഉപയോഗിച്ചിരിക്കുന്നു",
-    "multimediaviewer-fileusage-link": "എല്ലാ ഉപയോഗവും കാണുക",
-    "multimediaviewer-fileusage-local-section": "ഈ സൈറ്റിൽ",
-    "multimediaviewer-fileusage-global-section": "മറ്റ് സൈറ്റുകളിൽ",
-    "multimediaviewer-reuse-link": "ഈ പ്രമാണം ഉപയോഗിക്കുക"
+	"@metadata": {
+		"authors": [
+			"Clockery",
+			"Praveenp"
+		]
+	},
+	"multimediaviewer-desc": "ലഘുചിത്രങ്ങൾ ഫുൾസ്ക്രീനായി വികസിപ്പിക്കുക",
+	"multimediaviewer-desc-nil": "വിവരണം ലഭ്യമല്ല.",
+	"multimediaviewer-pref": "മീഡിയ ദർശനോപാധി",
+	"multimediaviewer-pref-desc": "ഈ പുതിയ ഉപകരണമുപയോഗിച്ച് താങ്കളുടെ മീഡിയ ദർശനാനുഭവം മെച്ചപ്പെടുത്തൂ. ലഘുചിത്രങ്ങൾ ഉപയോഗിച്ചിരിക്കുന്ന താളുകളിലെ ചിത്രങ്ങൾ ഇതുപയോഗിച്ച് വലുതായി കാണാം. ചിത്രങ്ങൾ സുന്ദരമായ ഫുൾസ്ക്രീൻ സമ്പർക്കമുഖ രൂപത്തിലോ, പൂർണ്ണവലിപ്പത്തിലോ കാണാനാവുന്നതാണ്.",
+	"multimediaviewer-file-page": "ബന്ധപ്പെട്ട പ്രമാണത്താളിലേയ്ക്ക് പോവുക",
+	"multimediaviewer-repository": "$1 സംരംഭത്തിൽ കൂടുതൽ അറിയുക",
+	"multimediaviewer-repository-local": "കൂടുതൽ അറിയുക",
+	"multimediaviewer-datetime-created": "സൃഷ്ടിച്ചത്: $1",
+	"multimediaviewer-datetime-uploaded": "അപ്‌ലോഡ് ചെയ്തത്: $1",
+	"multimediaviewer-userpage-link": "അപ്‌ലോഡ് {{GENDER:$2|ചെയ്ത}} ഉപയോക്താവ്: $1",
+	"multimediaviewer-license-cc-pd": "പൊതുസഞ്ചയം",
+	"multimediaviewer-license-pd": "പൊതുസഞ്ചയം",
+	"multimediaviewer-license-default": "ഉപയോഗാനുമതി കാണുക",
+	"multimediaviewer-permission-title": "ഉപയോഗാനുമതി വിവരങ്ങൾ",
+	"multimediaviewer-permission-link": "നിബന്ധനകൾ കാണുക",
+	"multimediaviewer-permission-viewmore": "കൂടുതൽ കാണുക",
+	"multimediaviewer-about-mmv": "മീഡിയ ദർശനോപാധിയുടെ വിവരണം",
+	"multimediaviewer-discuss-mmv": "പ്രതികരണം ചേർക്കുക",
+	"multimediaviewer-geolocation": "സ്ഥാനം: $1",
+	"multimediaviewer-fileusage-count": "{{PLURAL:$1|ഒരു താളിൽ|$1 താളുകളിൽ}} ഉപയോഗിച്ചിരിക്കുന്നു",
+	"multimediaviewer-fileusage-count-more": "{{PLURAL:$1|ഒന്നിൽ|$1 എണ്ണത്തിൽ}} അധികം താളുകളിൽ ഉപയോഗിച്ചിരിക്കുന്നു",
+	"multimediaviewer-fileusage-link": "എല്ലാ ഉപയോഗവും കാണുക",
+	"multimediaviewer-fileusage-local-section": "ഈ സൈറ്റിൽ",
+	"multimediaviewer-fileusage-global-section": "മറ്റ് സൈറ്റുകളിൽ",
+	"multimediaviewer-reuse-link": "ഈ പ്രമാണം ഉപയോഗിക്കുക"
 }
