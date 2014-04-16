@@ -363,4 +363,17 @@
 			}
 		}
 	} );
+
+	QUnit.test( 'Refuse to load too-big thumbnails', 1, function ( assert ) {
+		var viewer = new mw.mmv.MultimediaViewer(),
+			intendedWidth = 50,
+			title = mw.Title.newFromText( 'File:Foobar.svg' );
+
+		viewer.thumbnailInfoProvider.get = function ( fileTitle, width ) {
+			assert.strictEqual( width, intendedWidth );
+			return $.Deferred().reject();
+		};
+
+		viewer.fetchThumbnail( title, 1000, intendedWidth, 60 );
+	} );
 }( mediaWiki, jQuery ) );
