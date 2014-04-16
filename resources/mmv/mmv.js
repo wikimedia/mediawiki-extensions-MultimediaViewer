@@ -499,6 +499,12 @@
 
 		this.thumbnailPreloadQueue = this.pushLightboxImagesIntoQueue( function( lightboxImage ) {
 			return function() {
+				// viewer.ui.canvas.getLightboxImageWidths needs the viewer to be open
+				// because it needs to read the size of visible elements
+				if ( !viewer.isOpen ) {
+					return;
+				}
+
 				return viewer.fetchThumbnailForLightboxImage(
 					lightboxImage,
 					viewer.ui.canvas.getLightboxImageWidths( lightboxImage ).real
