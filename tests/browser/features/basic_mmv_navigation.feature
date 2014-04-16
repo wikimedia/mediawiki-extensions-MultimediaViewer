@@ -24,3 +24,7 @@ Feature: Basic Multimedia Viewer navigation
     When I close MMV
     Then I should be navigated back to the original wiki article
     Then the wiki article should be scrolled to the same position as before opening MMV
+    When I click on the first image in the article
+    And I press the browser back button
+    Then I should be navigated back to the original wiki article
+    Then the wiki article should be scrolled to the same position as before opening MMV
