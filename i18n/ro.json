@@ -12,7 +12,7 @@
 	"multimediaviewer-file-page": "Du-te la pagina asociată fișierului",
 	"multimediaviewer-repository": "Mai multe la $1",
 	"multimediaviewer-repository-local": "Mai multe",
-	"multimediaviewer-datetime-created": "Creată la $1",
+	"multimediaviewer-datetime-created": "Creată în $1",
 	"multimediaviewer-datetime-uploaded": "Încărcată la $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Încărcată}} de $1",
 	"multimediaviewer-metadata-error": "Eroare: Nu s-au putut încărca datele imaginii. $1",
