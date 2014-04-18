@@ -405,7 +405,6 @@
 	 */
 	MPP.setFilePageLink = function ( url ) {
 		this.$repo.prop( 'href', url );
-		this.$license.prop( 'href', url );
 	};
 
 	/**
@@ -552,12 +551,14 @@
 	/**
 	 * Sets the license display in the panel
 	 * @param {string} license The human-readable name of the license
+	 * @param {string} url The URL to the license deed.
 	 * @param {boolean} isCc Whether this is a CC license
 	 */
-	MPP.setLicense = function ( license, isCc ) {
+	MPP.setLicense = function ( license, url, isCc ) {
 		this.$license
 			.text( license )
-			.toggleClass( 'cc-license', isCc );
+			.toggleClass( 'cc-license', isCc )
+			.prop( 'href', url );
 
 		this.$license.removeClass( 'empty' );
 	};
@@ -700,7 +701,11 @@
 		}
 
 		if ( imageData.license ) {
-			this.setLicense( mw.message( msgname ).text(), imageData.isCcLicensed() );
+			this.setLicense(
+				mw.message( msgname ).text(),
+				imageData.license.deedUrl || imageData.descriptionUrl,
+				imageData.isCcLicensed()
+			);
 		}
 
 		if ( imageData.permission ) {
