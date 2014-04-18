@@ -742,8 +742,6 @@
 		if ( !this.hasAnimatedMetadata ) {
 			this.hasAnimatedMetadata = true;
 			this.$container.addClass( 'invite' );
-		} else {
-			this.$container.addClass( 'invited' );
 		}
 	};
 

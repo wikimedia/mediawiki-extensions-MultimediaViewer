@@ -210,7 +210,7 @@
 	} );
 
 
-	QUnit.test( 'Metadata div is only animated once', 6, function ( assert ) {
+	QUnit.test( 'Metadata div is only animated once', 4, function ( assert ) {
 		localStorage.removeItem( 'mmv.hasOpenedMetadata' );
 
 		var $qf = $( '#qunit-fixture' ),
@@ -220,8 +220,6 @@
 
 		assert.ok( panel.hasAnimatedMetadata,
 			'The first call to animateMetadataOnce set hasAnimatedMetadata to true' );
-		assert.ok( !$qf.hasClass( 'invited' ),
-			'After the first call to animateMetadataOnce led to an animation' );
 		assert.ok( $qf.hasClass( 'invite' ),
 			'The first call to animateMetadataOnce led to an animation' );
 
@@ -230,12 +228,8 @@
 		panel.animateMetadataOnce();
 
 		assert.strictEqual( panel.hasAnimatedMetadata, true, 'The second call to animateMetadataOnce did not change the value of hasAnimatedMetadata' );
-		assert.ok( $qf.hasClass( 'invited' ),
-			'After the second call to animateMetadataOnce the div is shown right away' );
 		assert.ok( !$qf.hasClass( 'invite' ),
 			'The second call to animateMetadataOnce did not lead to an animation' );
-
-		$qf.removeClass( 'invited' );
 	} );
 
 	QUnit.test( 'Repo icon', 4, function ( assert ) {
