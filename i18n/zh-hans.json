@@ -73,8 +73,8 @@
 	"multimediaviewer-embed-dimensions-separated": "- $1",
 	"multimediaviewer-feedback-button-text": "你对该工具的反馈",
 	"multimediaviewer-feedback-popup-text": "留下关于这种新的媒体文件查看体验的反馈",
-	"multimediaviewer-description-page-button-text": "更多细节",
-	"multimediaviewer-description-page-popup-text": "$1上的更多细节",
+	"multimediaviewer-description-page-button-text": "更多详细信息",
+	"multimediaviewer-description-page-popup-text": "$1上的更多详细信息",
 	"multimediaviewer-commons-subtitle": "自由媒体的存储库",
 	"multimediaviewer-view-expanded": "展开视图"
 }

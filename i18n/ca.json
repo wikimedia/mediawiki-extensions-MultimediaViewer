@@ -3,10 +3,11 @@
 		"authors": [
 			"Fitoschido",
 			"QuimGil",
-			"Vriullop"
+			"Vriullop",
+			"Ssola"
 		]
 	},
-	"multimediaviewer-desc": "Amplia les miniatures en una interfície a pantalla complerta.",
+	"multimediaviewer-desc": "Amplia les miniatures en una interfície a pantalla completa.",
 	"multimediaviewer-desc-nil": "Sense descripció disponible.",
 	"multimediaviewer-pref": "Visualitzador multimèdia",
 	"multimediaviewer-pref-desc": "Milloreu la vostra experiència de visualització multimèdia amb aquesta nova eina. Mostra imatges a mida més gran en les pàgines que tenen miniatures. Les imatges es mostren en una pantalla completa més agradable, i també es poden veure a mida completa.",
@@ -65,7 +66,7 @@
 	"multimediaviewer-large-embed-dimensions": "Gran $1",
 	"multimediaviewer-medium-embed-dimensions": "Mitjana $1",
 	"multimediaviewer-small-embed-dimensions": "Petita $1",
-	"multimediaviewer-feedback-button-text": "La seva opinió sobre aquesta eina",
+	"multimediaviewer-feedback-button-text": "La vostra opinió sobre aquesta eina",
 	"multimediaviewer-feedback-popup-text": "Deixar comentaris sobre aquesta nova experiència de visualització multimèdia",
 	"multimediaviewer-description-page-button-text": "Més detalls",
 	"multimediaviewer-description-page-popup-text": "Més detalls sobre $1"

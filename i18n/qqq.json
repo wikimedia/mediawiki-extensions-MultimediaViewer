@@ -6,7 +6,8 @@
 			"Shirayuki",
 			"Liuxinyu970226",
 			"Robby",
-			"Mormegil"
+			"Mormegil",
+			"Amire80"
 		]
 	},
 	"multimediaviewer-desc": "{{desc|name=Multimedia Viewer|url=https://www.mediawiki.org/wiki/Extension:MultimediaViewer}}",
@@ -15,7 +16,7 @@
 	"multimediaviewer-pref-desc": "Description of preference",
 	"multimediaviewer-optin-pref": "Label for non-beta preference.",
 	"multimediaviewer-file-page": "Text for a link to the file page for an image.",
-	"multimediaviewer-repository": "Link to the repository where the image is hosted. Parameters:\n* $1 - the display name of that site\nSee also:\n* {{msg-mw|multimediaviewer-repository-local}}",
+	"multimediaviewer-repository": "Link to the repository where the image is hosted. \"On\" here means \"at\" and not \"about\". Parameters:\n* $1 - the display name of that site\nSee also:\n* {{msg-mw|multimediaviewer-repository-local}}",
 	"multimediaviewer-repository-local": "Link to repository where the image is locally hosted.\n{{Identical|Learn more}}\nSee also:\n* {{msg-mw|multimediaviewer-repository}}",
 	"multimediaviewer-datetime-created": "Used in JavaScript code. Parameters:\n* $1 - time and date (formatted)\nSee also:\n* {{msg-mw|Multimediaviewer-datetime-uploaded}}",
 	"multimediaviewer-datetime-uploaded": "Used in JavaScript code. Parameters:\n* $1 - time and date (formatted)\nSee also:\n* {{msg-mw|Multimediaviewer-datetime-created}}",
@@ -96,7 +97,7 @@
 	"multimediaviewer-feedback-button-text": "Text of the button on top of the metadata panel which brings up a feedback survey.\n\nSee also:\n* {{msg-mw|Multimediaviewer-feedback-popup-text}}",
 	"multimediaviewer-feedback-popup-text": "Additional popup text of the button on top of the metadata panel which brings up a feedback survey.\n\nSee also:\n* {{msg-mw|Multimediaviewer-feedback-button-text}}",
 	"multimediaviewer-description-page-button-text": "Text of the button on top of the metadata panel which links to the file description page.\n\nSee also:\n* {{msg-mw|Multimediaviewer-description-page-popup-text}}",
-	"multimediaviewer-description-page-popup-text": "Additional popup text of the button on top of the metadata panel which links to the file description page.\n\nParameters:\n* $1 - the name of the site where the file comes from (e.g. \"Wikimedia Commons\")\nSee also:\n* {{msg-mw|Multimediaviewer-description-page-button-text}}.",
+	"multimediaviewer-description-page-popup-text": "Additional popup text of the button on top of the metadata panel, which links to the file description page.\n\nParameters:\n* $1 - the name of the site where the file comes from (e.g. \"Wikimedia Commons\")\nSee also:\n* {{msg-mw|Multimediaviewer-description-page-button-text}}.",
 	"multimediaviewer-commons-subtitle": "Additional text to display under {{msg-mw|multimediaviewer-repository}} when the image is from Commons.",
 	"multimediaviewer-view-expanded": "Label for a link on a file page to view the current image in the media viewer."
 }

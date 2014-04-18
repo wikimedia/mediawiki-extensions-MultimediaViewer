@@ -12,7 +12,7 @@
 	"multimediaviewer-pref-desc": "הכלי החדש הזה משפר את חוויית המולטימדיה שלך. הוא מציג תמונות מוגדלות בדפים עם תמונות ממוזערות. התמונות מוצגות בשכבה במסך מלא וניתן להציג אותן גם בגודל מלא.",
 	"multimediaviewer-optin-pref": "הפעלת חוויית הצגת מולטימדיה חדשה",
 	"multimediaviewer-file-page": "מעבר אל דף הקובץ המתאים",
-	"multimediaviewer-repository": "מידע נוסף על $1",
+	"multimediaviewer-repository": "מידע נוסף ב{{GRAMMAR:תחילית|$1}}",
 	"multimediaviewer-repository-local": "מידע נוסף",
 	"multimediaviewer-datetime-created": "נוצר ב־$1",
 	"multimediaviewer-datetime-uploaded": "הועלה ב־$1",

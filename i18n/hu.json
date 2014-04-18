@@ -1,7 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Tgr"
+			"Tgr",
+			"Misibacsi",
+			"Tacsipacsi"
 		]
 	},
 	"multimediaviewer-desc": "A teljes képernyőre kinagyíthatóvá teszi a beágyazott képeket.",
@@ -22,6 +24,7 @@
 	"multimediaviewer-permission-viewmore": "Bővebben",
 	"multimediaviewer-about-mmv": "A Képnézegetőről",
 	"multimediaviewer-discuss-mmv": "Megbeszélés",
+	"multimediaviewer-help-mmv": "Súgó",
 	"multimediaviewer-geolocation": "Hely: $1",
 	"multimediaviewer-fileusage-count": "$1 lapon szerepel",
 	"multimediaviewer-fileusage-count-more": "Több, mint $1 lapon szerepel",
@@ -29,5 +32,26 @@
 	"multimediaviewer-fileusage-local-section": "Ezen a wikin",
 	"multimediaviewer-fileusage-global-section": "Más wikiken",
 	"multimediaviewer-reuse-link": "A fájl használata máshol",
-	"multimediaviewer-feedback-popup-text": "Mondd el a véleményed az új képmegjelenítésről"
+	"multimediaviewer-reuse-loading-placeholder": "Betöltés…",
+	"multimediaviewer-share-tab": "Megoszt",
+	"multimediaviewer-embed-tab": "Beágyaz",
+	"multimediaviewer-download-tab": "Letölt",
+	"multimediaviewer-download-preview-link-title": "Előnézet a böngészőben",
+	"multimediaviewer-download-original-button-name": "Letöltés eredeti méretben",
+	"multimediaviewer-download-small-button-name": "Letöltés kis méretben",
+	"multimediaviewer-download-medium-button-name": "Letöltés közepes méretben",
+	"multimediaviewer-download-large-button-name": "Letöltés nagy méretben",
+	"multimediaviewer-link-to-page": "Link a leírólapra",
+	"multimediaviewer-link-to-file": "Link az eredeti fájlra",
+	"multimediaviewer-embed-wt": "Wikiszöveg",
+	"multimediaviewer-embed-html": "HTML",
+	"multimediaviewer-original-embed-dimensions": "Eredeti méret $1",
+	"multimediaviewer-large-embed-dimensions": "Nagy méret $1",
+	"multimediaviewer-medium-embed-dimensions": "Közepes méret $1",
+	"multimediaviewer-small-embed-dimensions": "Kis méret $1",
+	"multimediaviewer-feedback-button-text": "Visszajelzés erről az eszközről",
+	"multimediaviewer-feedback-popup-text": "Mondd el a véleményed az új képmegjelenítésről",
+	"multimediaviewer-description-page-button-text": "További részletek",
+	"multimediaviewer-description-page-popup-text": "További részletek erről: $1",
+	"multimediaviewer-view-expanded": "Bontsa ki megtekintésre"
 }
