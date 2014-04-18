@@ -244,7 +244,8 @@
 				toolbar: 0,
 				location: 0,
 				personalbar: 0,
-				status: 0
+				status: 0,
+				scrollbars: 1
 			};
 
 		if ( !this.surveyWindow || this.surveyWindow.closed ) {
