@@ -548,14 +548,20 @@
 	MPP.setLicense = function ( license, filePageUrl ) {
 		var message, shortName, url, isCc;
 
-		message = 'multimediaviewer-license-' + ( license.internalName || '' );
-		if ( mw.messages.exists( message ) ) {
-			shortName = mw.message( message ).text();
+		if ( license ) {
+			message = 'multimediaviewer-license-' + ( license.internalName || '' );
+			if ( mw.messages.exists( message ) ) {
+				shortName = mw.message( message ).text();
+			} else {
+				shortName = mw.message( 'multimediaviewer-license-default' ).text();
+			}
+			url = license.deedUrl || filePageUrl;
+			isCc = license.isCc();
 		} else {
 			shortName = mw.message( 'multimediaviewer-license-default' ).text();
+			url = filePageUrl;
+			isCc = false;
 		}
-		url = license.deedUrl || filePageUrl;
-		isCc = license.isCc();
 
 		this.$license
 			.text( shortName )
@@ -691,9 +697,7 @@
 		this.description.set( imageData.description, image.caption );
 		this.categories.set( repoData.getArticlePath(), imageData.categories );
 
-		if ( imageData.license ) {
-			this.setLicense( imageData.license, imageData.descriptionUrl );
-		}
+		this.setLicense( imageData.license, imageData.descriptionUrl );
 
 		if ( imageData.permission ) {
 			this.setPermission( imageData.permission );

@@ -152,7 +152,8 @@
 
 		assert.strictEqual( panel.$title.text(), title, 'Title is correctly set' );
 		assert.ok( panel.$credit.hasClass( 'empty' ), 'Credit is empty' );
-		assert.ok( panel.$license.hasClass( 'empty' ), 'License is empty' );
+		assert.strictEqual( panel.$license.prop( 'href' ), imageData.descriptionUrl,
+			'User is directed to file page for license information' );
 		assert.ok( panel.$usernameLi.hasClass( 'empty' ), 'Username is empty' );
 		assert.ok( panel.$datetimeLi.hasClass( 'empty' ), 'Date/Time is empty' );
 		assert.ok( panel.$locationLi.hasClass( 'empty' ), 'Location is empty' );
