@@ -24,9 +24,12 @@
 	 * @extends mw.mmv.provider.Api
 	 * @constructor
 	 * @param {mw.Api} api
+	 * @param {Object} [options]
+	 * @cfg {number} [maxage] cache expiration time, in seconds
+	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
 	 */
-	function ThumbnailInfo( api ) {
-		mw.mmv.provider.Api.call( this, api );
+	function ThumbnailInfo( api, options ) {
+		mw.mmv.provider.Api.call( this, api, options );
 	}
 	oo.inheritClass( ThumbnailInfo, mw.mmv.provider.Api );
 
@@ -46,14 +49,13 @@
 			cacheKey = file.getPrefixedDb() + '|' + ( width || '' ) + '|' + ( height || '' );
 
 		return this.getCachedPromise( cacheKey, function () {
-			return provider.api.get( {
+			return provider.apiGetWithMaxAge( {
 				action: 'query',
 				prop: 'imageinfo',
 				titles: file.getPrefixedDb(),
 				iiprop: 'url',
 				iiurlwidth: width, // mw.Api will omit null/undefined parameters
-				iiurlheight: height,
-				format: 'json'
+				iiurlheight: height
 			} ).then( function( data ) {
 				return provider.getQueryPage( file, data );
 			} ).then( function( page ) {

@@ -24,9 +24,12 @@
 	 * @extends mw.mmv.provider.Api
 	 * @constructor
 	 * @param {mw.Api} api
+	 * @param {Object} [options]
+	 * @cfg {number} [maxage] cache expiration time, in seconds
+	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
 	 */
-	function UserInfo( api ) {
-		mw.mmv.provider.Api.call( this, api );
+	function UserInfo( api, options ) {
+		mw.mmv.provider.Api.call( this, api, options );
 	}
 	oo.inheritClass( UserInfo, mw.mmv.provider.Api );
 
@@ -53,7 +56,7 @@
 		}
 
 		return this.getCachedPromise( cacheKey, function () {
-			return provider.api.get( {
+			return provider.apiGetWithMaxAge( {
 				action: 'query',
 				list: 'users',
 				ususers: username,

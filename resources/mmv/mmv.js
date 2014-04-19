@@ -26,6 +26,8 @@
 	 * @constructor
 	 */
 	function MultimediaViewer() {
+		var apiCacheMaxAge = 86400; // one day
+
 		/**
 		 * @property {mw.mmv.provider.Image}
 		 * @private
@@ -45,13 +47,15 @@
 		 * @property {mw.mmv.provider.FileRepoInfo}
 		 * @private
 		 */
-		this.fileRepoInfoProvider = new mw.mmv.provider.FileRepoInfo( new mw.mmv.Api( 'filerepoinfo' ) );
+		this.fileRepoInfoProvider = new mw.mmv.provider.FileRepoInfo( new mw.mmv.Api( 'filerepoinfo' ),
+			{ maxage: apiCacheMaxAge } );
 
 		/**
 		 * @property {mw.mmv.provider.ThumbnailInfo}
 		 * @private
 		 */
-		this.thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( new mw.mmv.Api( 'thumbnailinfo' ) );
+		this.thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( new mw.mmv.Api( 'thumbnailinfo' ),
+			{ maxage: apiCacheMaxAge } );
 
 		/**
 		 * @property {mw.mmv.provider.ThumbnailInfo}
@@ -63,21 +67,24 @@
 		 * @property {mw.mmv.provider.UserInfo}
 		 * @private
 		 */
-		this.userInfoProvider = new mw.mmv.provider.UserInfo( new mw.mmv.Api( 'userinfo' ) );
+		this.userInfoProvider = new mw.mmv.provider.UserInfo( new mw.mmv.Api( 'userinfo' ),
+			{ maxage: apiCacheMaxAge } );
 
 		/**
 		 * @property {mw.mmv.provider.ImageUsage}
 		 * @private
 		 */
-		this.imageUsageProvider = new mw.mmv.provider.ImageUsage( new mw.mmv.Api( 'imageusage' ) );
+		this.imageUsageProvider = new mw.mmv.provider.ImageUsage( new mw.mmv.Api( 'imageusage' ),
+			{ maxage: apiCacheMaxAge } );
 
 		/**
 		 * @property {mw.mmv.provider.GlobalUsage}
 		 * @private
 		 */
-		this.globalUsageProvider = new mw.mmv.provider.GlobalUsage( new mw.mmv.Api( 'globalusage' ),
-			{ doNotUseApi: !mw.config.get( 'wgMultimediaViewer' ).globalUsageAvailable }
-		);
+		this.globalUsageProvider = new mw.mmv.provider.GlobalUsage( new mw.mmv.Api( 'globalusage' ), {
+			doNotUseApi: !mw.config.get( 'wgMultimediaViewer' ).globalUsageAvailable,
+			maxage: apiCacheMaxAge
+		} );
 		// replace with this one to test global usage on a local wiki without going through all the
 		// hassle required for installing the extension:
 		//this.globalUsageProvider = new mw.mmv.provider.GlobalUsage(
