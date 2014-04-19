@@ -240,7 +240,7 @@
 
 		this.preloadImagesMetadata();
 		this.preloadThumbnails();
-		this.preloadFullscreenThumbnail( image );
+		// this.preloadFullscreenThumbnail( image ); // disabled - #474
 
 		imageWidths = this.ui.canvas.getCurrentImageWidths();
 
