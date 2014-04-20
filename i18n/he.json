@@ -73,7 +73,7 @@
 	"multimediaviewer-feedback-button-text": "המשוב שלכם על הכלי הזה",
 	"multimediaviewer-feedback-popup-text": "השארת משוב על חוויית המולטימדיה החדשה",
 	"multimediaviewer-description-page-button-text": "פרטים נוספים",
-	"multimediaviewer-description-page-popup-text": "פרטים נוספים על $1",
+	"multimediaviewer-description-page-popup-text": "פרטים נוספים ב{{GRAMMAR:תחילית|$1}}",
 	"multimediaviewer-commons-subtitle": "מאגר המדיה החופשי",
 	"multimediaviewer-view-expanded": "הרחבת התצוגה"
 }

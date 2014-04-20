@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Shirayuki"
+			"Shirayuki",
+			"Whym"
 		]
 	},
 	"multimediaviewer-desc": "縮小画像を全画面表示インターフェイス内に拡大表示する",
@@ -36,7 +37,7 @@
 	"multimediaviewer-permission-title": "ライセンスの詳細",
 	"multimediaviewer-permission-link": "規約を閲覧",
 	"multimediaviewer-about-mmv": "メディア ビューアーについて",
-	"multimediaviewer-discuss-mmv": "フィードバックを送信",
+	"multimediaviewer-discuss-mmv": "この機能について議論",
 	"multimediaviewer-help-mmv": "ヘルプ",
 	"multimediaviewer-geoloc-north": "北緯",
 	"multimediaviewer-geoloc-east": "東経",
@@ -45,11 +46,29 @@
 	"multimediaviewer-geoloc-coord": "$4$1度$2分$3秒",
 	"multimediaviewer-geoloc-coords": "$1 $2",
 	"multimediaviewer-geolocation": "場所: $1",
+	"multimediaviewer-fileusage-count": "$1 ページで使用中",
+	"multimediaviewer-fileusage-count-more": "$1 ページ以上で使用中",
 	"multimediaviewer-fileusage-link": "すべての使用状況を閲覧",
 	"multimediaviewer-fileusage-local-section": "このサイト上",
 	"multimediaviewer-fileusage-global-section": "他のサイト上",
 	"multimediaviewer-reuse-link": "このファイルを使用",
 	"multimediaviewer-reuse-loading-placeholder": "読み込み中…",
 	"multimediaviewer-download-tab": "ダウンロード",
-	"multimediaviewer-download-preview-link-title": "ブラウザーでプレビュー"
+	"multimediaviewer-download-preview-link-title": "ブラウザーでプレビュー",
+	"multimediaviewer-download-original-button-name": "元サイズでダウンロード",
+	"multimediaviewer-embed-html": "HTML",
+	"multimediaviewer-html-embed-credit-text-tbs": "「$1」、$2 作、$3 提供。",
+	"multimediaviewer-html-embed-credit-text-tl": "「$1」。$2 でライセンスされています。",
+	"multimediaviewer-html-embed-credit-text-t": "「$1」。",
+	"multimediaviewer-embed-license": "$1 でライセンスされています。",
+	"multimediaviewer-original-embed-dimensions": "原寸 $1",
+	"multimediaviewer-large-embed-dimensions": "大 $1",
+	"multimediaviewer-medium-embed-dimensions": "中 $1",
+	"multimediaviewer-small-embed-dimensions": "小 $1",
+	"multimediaviewer-embed-dimensions": "$1 × $2 ピクセル",
+	"multimediaviewer-feedback-button-text": "このツールに関するご意見",
+	"multimediaviewer-description-page-button-text": "詳細を見る",
+	"multimediaviewer-description-page-popup-text": "詳細を$1で見る",
+	"multimediaviewer-commons-subtitle": "フリーなマルチメディアの保管庫",
+	"multimediaviewer-view-expanded": "拡張ビュー"
 }

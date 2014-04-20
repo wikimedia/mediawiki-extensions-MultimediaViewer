@@ -20,5 +20,7 @@
 	"multimediaviewer-download-preview-link-title": "在瀏覽器中預覽",
 	"multimediaviewer-download-original-button-name": "下載原始大小",
 	"multimediaviewer-download-large-button-name": "下載大尺寸",
-	"multimediaviewer-embed-explanation": "用此代碼嵌入此檔案"
+	"multimediaviewer-embed-explanation": "用此代碼嵌入此檔案",
+	"multimediaviewer-description-page-button-text": "更多詳細資訊",
+	"multimediaviewer-description-page-popup-text": "於$1之更多詳細資訊"
 }

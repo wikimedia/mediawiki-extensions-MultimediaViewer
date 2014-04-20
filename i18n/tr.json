@@ -13,5 +13,6 @@
 	"multimediaviewer-about-mmv": "Ortam Görüntüleyici hakkında",
 	"multimediaviewer-geolocation": "Konum: $1",
 	"multimediaviewer-reuse-loading-placeholder": "Yükleniyor...",
-	"multimediaviewer-embed-html": "HTML"
+	"multimediaviewer-embed-html": "HTML",
+	"multimediaviewer-view-expanded": "Görünümü genişlet"
 }
