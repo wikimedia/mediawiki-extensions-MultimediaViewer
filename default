@@ -1,0 +1,17 @@
+[dashboard]
+  title = Multimedia
+  description = Welcome to the Multimedia dashboard!
+[section "MultimediaViewer"]
+  query = project:mediawiki/extensions/MultimediaViewer status:open limit:10
+[section "Core"]
+  query = project:mediawiki/core status:open (owner:MarkTraceur OR owner:{Gergő Tisza} OR owner:Gilles) limit:10
+[section "Config"]
+  query = project:operations/mediawiki-config status:open (owner:MarkTraceur OR owner:{Gergő Tisza} OR owner:Gilles) limit:10
+[section "CommonsMetadata"]
+  query = project:mediawiki/extensions/CommonsMetadata status:open limit:10
+[section "UploadWizard"]
+  query = project:mediawiki/extensions/UploadWizard status:open limit:10
+[section "BetaFeatures"]
+  query = project:mediawiki/extensions/BetaFeatures status:open limit:10
+[section "Recently merged"]
+  query = status:merged NOT owner:L10n-bot (owner:MarkTraceur OR owner:{Gergő Tisza} OR owner:Gilles OR project:mediawiki/extensions/BetaFeatures OR project:mediawiki/extensions/MultimediaViewer OR project:mediawiki/extensions/CommonsMetadata OR project:mediawiki/core OR project:operations/mediawiki-config OR project:mediawiki/extensions/UploadWizard) limit:20 
