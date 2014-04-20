@@ -29,7 +29,7 @@ Then /^the File: page image is loaded$/ do
 end
 
 Then /^the MMV image is loaded in (\d+) percent of the time with a (.*) cache and an? (.*) browser window$/ do |percentage, cache, window_size|
-  on(LightboxDemoPage) do |page|
+  on(E2ETestPage) do |page|
     wait_for_image_load page, ".mw-mmv-image img"
     mmv_time = Time.now.getutc - @image_click_time
     log_performance "mmv", (mmv_time * 1000).to_i.to_s, cache, window_size

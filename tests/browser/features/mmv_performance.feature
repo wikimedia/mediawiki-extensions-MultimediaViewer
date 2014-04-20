@@ -1,9 +1,8 @@
-@login @mediawiki.org
+@mediawiki.org @firefox
 Feature: Multimedia Viewer performance
 
   Background:
-    Given I am logged in
-    And I am at a wiki article with at least two embedded pictures
+    Given I am at a wiki article with at least two embedded pictures
 
   Scenario: Commons with warm cache
     Given I visit an unrelated Commons page to warm up the browser cache
