@@ -148,4 +148,19 @@
 			QUnit.start();
 		} );
 	} );
+
+	QUnit.asyncTest( 'UserInfo fake test', 4, function ( assert ) {
+		var api = { get: this.sandbox.stub().throws( 'API was invoked' ) },
+			username = 'Catrope',
+			repoInfo = {},
+			userInfoProvider = new mw.mmv.provider.UserInfo( api, { useApi: false } );
+
+		userInfoProvider.get( username, repoInfo ).done( function( user ) {
+			assert.strictEqual( user.username, 'Catrope', 'username is set correctly' );
+			assert.strictEqual( user.gender, mw.mmv.model.User.Gender.UNKNOWN, 'gender is set to unknown' );
+			assert.ok( user.fake, 'fake flag is set' );
+			assert.ok( !api.get.called, 'API was not called' );
+			QUnit.start();
+		} );
+	} );
 }( mediaWiki, jQuery ) );

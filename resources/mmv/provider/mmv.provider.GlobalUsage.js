@@ -30,7 +30,7 @@
 	 * @cfg {number} [apiLimit=100] number of entries to get from the API. If there are
 	 *         more pages than this, we won't have an accurate count.
 	 *         (Also, influences query performance.)
-	 * @cfg {boolean} [doNotUseApi=false] If true, always returns an empty result immediately,
+	 * @cfg {boolean} [useApi=true] If false, always returns an empty result immediately,
 	 *         without doing an actual API call. Used when the GlobalUsage extension (and thus the
 	 *         API) is not available.
 	 * @cfg {number} [dataLimit=10] number of entries to actually put into the model.
@@ -39,7 +39,7 @@
 	 */
 	function GlobalUsage( api, options ) {
 		options = $.extend( {
-			doNotUseApi: false,
+			useApi: true,
 			apiLimit: 100,
 			dataLimit: 10
 		}, options );
@@ -57,7 +57,7 @@
 		var provider = this,
 			fileUsage;
 
-		if ( this.options.doNotUseApi ) {
+		if ( !this.options.useApi ) {
 			fileUsage = new mw.mmv.model.FileUsage( file, mw.mmv.model.FileUsage.Scope.GLOBAL,
 				[], 0, false );
 			fileUsage.fake = true;

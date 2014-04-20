@@ -739,6 +739,9 @@ $wgResourceModules += array(
 		'messages' => array(
 			'multimediaviewer-file-page',
 			'multimediaviewer-desc-nil',
+
+			// messages that are gender-dependent (we need to check if they really depend on the gender):
+			'multimediaviewer-userpage-link',
 		),
 	),
 

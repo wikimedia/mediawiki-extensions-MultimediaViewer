@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, oo ) {
+( function ( mw, $, oo ) {
 
 	/**
 	 * Gets user information (currently just the gender).
@@ -25,10 +25,14 @@
 	 * @constructor
 	 * @param {mw.Api} api
 	 * @param {Object} [options]
+	 * @cfg {boolean} [useApi=true] If false, always returns an empty result immediately,
+	 *         without doing an actual API call. Used when the current language does not have genders.
 	 * @cfg {number} [maxage] cache expiration time, in seconds
 	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
 	 */
 	function UserInfo( api, options ) {
+		options = $.extend( { useApi: true }, options );
+
 		mw.mmv.provider.Api.call( this, api, options );
 	}
 	oo.inheritClass( UserInfo, mw.mmv.provider.Api );
@@ -40,9 +44,21 @@
 	 * @return {jQuery.Promise.<mw.mmv.model.User>} user
 	 */
 	UserInfo.prototype.get = function( username, repoInfo ) {
-		var provider = this,
+		var user,
+			provider = this,
 			ajaxOptions = {},
 			cacheKey = username;
+
+		if ( !this.options.useApi ) {
+			// Create a user object with unknown gender without doing an API request.
+			// This is used when the language does not use genders, so it would be a waste of time.
+			// (This might maybe result in incorrect text if the message does not have a translation
+			// and the fallback language does have genders, but that's an extremely rare edge case
+			// we can just ignore.)
+			user = new mw.mmv.model.User( username, mw.mmv.model.User.Gender.UNKNOWN );
+			user.fake = true;
+			return $.Deferred().resolve( user );
+		}
 
 		// For local/shared db images the user should be visible via a local API request,
 		// maybe. (In practice we have Wikimedia users who haven't completed the SUL
@@ -75,4 +91,4 @@
 	};
 
 	mw.mmv.provider.UserInfo = UserInfo;
-}( mediaWiki, OO ) );
+}( mediaWiki, jQuery, OO ) );
