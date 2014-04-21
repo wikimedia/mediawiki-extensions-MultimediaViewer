@@ -541,22 +541,24 @@
 	};
 
 	/**
-	 * Sets the license data in the DOM
-	 * @param {string} license The license this file has.
-	 */
-	MPP.setLicenseData = function ( license ) {
-		this.$license.data( 'license', license );
-	};
-
-	/**
 	 * Sets the license display in the panel
-	 * @param {string} license The human-readable name of the license
-	 * @param {string} url The URL to the license deed.
-	 * @param {boolean} isCc Whether this is a CC license
+	 * @param {mw.mmv.model.License|null} license license data (could be missing)
+	 * @param {string} filePageUrl URL of the file description page
 	 */
-	MPP.setLicense = function ( license, url, isCc ) {
+	MPP.setLicense = function ( license, filePageUrl ) {
+		var message, shortName, url, isCc;
+
+		message = 'multimediaviewer-license-' + ( license.internalName || '' );
+		if ( mw.messages.exists( message ) ) {
+			shortName = mw.message( message ).text();
+		} else {
+			shortName = mw.message( 'multimediaviewer-license-default' ).text();
+		}
+		url = license.deedUrl || filePageUrl;
+		isCc = license.isCc();
+
 		this.$license
-			.text( license )
+			.text( shortName )
 			.toggleClass( 'cc-license', isCc )
 			.prop( 'href', url );
 
@@ -654,8 +656,7 @@
 	 * @param {mw.mmv.model.User} user
 	 */
 	MPP.setImageInfo = function ( image, imageData, repoData, localUsage, globalUsage, user ) {
-		var msgname,
-			panel = this,
+		var panel = this,
 			fileTitle = image.filePageTitle;
 
 		this.setFileTitle( fileTitle.getNameText() );
@@ -690,22 +691,8 @@
 		this.description.set( imageData.description, image.caption );
 		this.categories.set( repoData.getArticlePath(), imageData.categories );
 
-		msgname = 'multimediaviewer-license-' + ( imageData.license && imageData.license.internalName || '' );
-
-		if ( !mw.messages.exists( msgname ) ) {
-			// Cannot display, fallback or fail
-			msgname = 'multimediaviewer-license-default';
-		} else {
-			// License found, store the license data
-			this.setLicenseData( mw.message( msgname ).text() );
-		}
-
 		if ( imageData.license ) {
-			this.setLicense(
-				mw.message( msgname ).text(),
-				imageData.license.deedUrl || imageData.descriptionUrl,
-				imageData.isCcLicensed()
-			);
+			this.setLicense( imageData.license, imageData.descriptionUrl );
 		}
 
 		if ( imageData.permission ) {

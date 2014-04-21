@@ -56,6 +56,14 @@
 	LP = License.prototype;
 
 	/**
+	 * Check whether this is a Creative Commons license.
+	 * @returns {boolean}
+	 */
+	LP.isCc = function () {
+		return this.internalName && this.internalName.substr( 0, 2 ) === 'cc';
+	};
+
+	/**
 	 * Returns the short name of the license:
 	 * - if we have interface messages for this license (basically just CC and PD), use those
 	 * - otherwise use the short name from the license template (might or might not be translated
