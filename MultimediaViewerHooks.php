@@ -213,6 +213,7 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv/ui/mmv.ui.description.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.fileUsage.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.metadataPanel.test.js',
+				'tests/qunit/mmv/ui/mmv.ui.progressBar.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.permission.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.stripeButtons.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.reuse.dialog.test.js',

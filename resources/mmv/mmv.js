@@ -250,7 +250,7 @@
 
 		// Reset the progress bar, it could be at any state if we're calling loadImage
 		// while another image is already loading
-		viewer.ui.panel.percent( 0 );
+		viewer.ui.panel.progressBar.percent( 0 );
 
 		imagePromise = this.fetchThumbnailForLightboxImage( image, imageWidths.real );
 
@@ -258,7 +258,7 @@
 		if ( imagePromise.state() === 'pending' ) {
 			// Animate it to 5 to give a sense to something is happening, even if we're stuck
 			// waiting for server-side processing, such as thumbnail (re)generation
-			viewer.ui.panel.percent( 5 );
+			viewer.ui.panel.progressBar.percent( 5 );
 		}
 
 		if ( fileWidth > 0 && fileHeight > 0 ) {
@@ -284,11 +284,11 @@
 				&& viewer.ui.panel
 				&& imageResponse.length === 2
 				&& imageResponse[ 1 ] > 5 ) {
-				viewer.ui.panel.percent( imageResponse[ 1 ] );
+				viewer.ui.panel.progressBar.percent( imageResponse[ 1 ] );
 			}
 		} ).done( function ( thumbnail, imageElement ) {
 			// Fallback in case the browser doesn't have fancy progress updates
-			viewer.ui.panel.percent( 100 );
+			viewer.ui.panel.progressBar.percent( 100 );
 
 			if ( viewer.currentIndex !== image.index ) {
 				return;

@@ -104,7 +104,7 @@
 
 		this.$dragIcon.removeClass( 'pointing-down' );
 
-		this.$progress.addClass( 'empty' );
+		this.progressBar.empty();
 
 		// need to remove this to avoid animating again when reopening lightbox on same page
 		this.$container.removeClass( 'invite' );
@@ -122,7 +122,7 @@
 	MPP.initializeHeader = function () {
 		var panel = this;
 
-		this.initializeProgress();
+		this.progressBar = new mw.mmv.ui.ProgressBar( this.$controlBar );
 
 		this.$dragBar = $( '<div>' )
 			.addClass( 'mw-mmv-drag-affordance' )
@@ -380,19 +380,6 @@
 				this.$mmvHelpLink
 			)
 			.appendTo( this.$imageMetadata );
-	};
-
-	/**
-	 * Initializes the progress display at the top of the panel.
-	 */
-	MPP.initializeProgress = function () {
-		this.$progress = $( '<div>' )
-			.addClass( 'mw-mmv-progress empty' )
-			.appendTo( this.$controlBar );
-
-		this.$percent = $( '<div>' )
-			.addClass( 'mw-mmv-progress-percent' )
-			.appendTo( this.$progress );
 	};
 
 	// *********************************
@@ -817,35 +804,6 @@
 			if (targetBottom > viewportBottom ) {
 				$.scrollTo( viewportTop + ( targetBottom - viewportBottom ), duration, settings );
 			}
-		}
-	};
-
-	/**
-	 * Handles the progress display when a percentage of progress is received
-	 * @param {number} percent
-	 */
-	MPP.percent = function ( percent ) {
-		var panel = this;
-
-		if ( percent === 0 ) {
-			// When a 0% update comes in, we jump without animation to 0 and we hide the bar
-			this.$progress.addClass( 'empty' );
-			this.$percent.stop().css( { width : 0 } );
-		} else if ( percent === 100 ) {
-			// When a 100% update comes in, we make sure that the bar is visible, we animate
-			// fast to 100 and we hide the bar when the animation is done
-			this.$progress.removeClass( 'empty' );
-			this.$percent.stop().animate( { width : percent + '%' }, 50, 'swing',
-				function () {
-					// Reset the position for good measure
-					panel.$percent.stop().css( { width : 0 } );
-					panel.$progress.addClass( 'empty' );
-				} );
-		} else {
-			// When any other % update comes in, we make sure the bar is visible
-			// and we animate to the right position
-			this.$progress.removeClass( 'empty' );
-			this.$percent.stop().animate( { width : percent + '%' } );
 		}
 	};
 

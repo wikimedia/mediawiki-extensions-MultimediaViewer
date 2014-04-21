@@ -118,22 +118,24 @@
 			panel : {
 				setImageInfo : $.noop,
 				animateMetadataOnce : $.noop,
-				percent : function ( percent ) {
-					if ( i === 0 ) {
-						assert.strictEqual( percent, 0,
-							'Percentage correctly reset by loadImage' );
-					} else if ( i === 1 ) {
-						assert.strictEqual( percent, 5,
-							'Percentage correctly animated to 5 by loadImage' );
-					} else if ( i === 2 ) {
-						assert.strictEqual( percent, 45,
-							'Percentage correctly funneled to panel UI' );
-					} else {
-						assert.strictEqual( percent, 100,
-							'Percentage correctly funneled to panel UI' );
-					}
+				progressBar: {
+					percent : function ( percent ) {
+						if ( i === 0 ) {
+							assert.strictEqual( percent, 0,
+								'Percentage correctly reset by loadImage' );
+						} else if ( i === 1 ) {
+							assert.strictEqual( percent, 5,
+								'Percentage correctly animated to 5 by loadImage' );
+						} else if ( i === 2 ) {
+							assert.strictEqual( percent, 45,
+								'Percentage correctly funneled to panel UI' );
+						} else {
+							assert.strictEqual( percent, 100,
+								'Percentage correctly funneled to panel UI' );
+						}
 
-					i++;
+						i++;
+					}
 				}
 			},
 			open : $.noop };
@@ -241,9 +243,11 @@
 			panel : { setImageInfo : function () {
 					assert.ok( false, 'Metadata of the first image should not be shown' );
 				},
-				percent : function ( response, percent ) {
-					if ( percent === 45 ) {
-						assert.ok( false, 'Progress of the first image should not be shown' );
+				progressBar: {
+					percent : function ( response, percent ) {
+						if ( percent === 45 ) {
+							assert.ok( false, 'Progress of the first image should not be shown' );
+						}
 					}
 				},
 				empty: $.noop,

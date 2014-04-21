@@ -431,6 +431,21 @@ $wgResourceModules += array(
 		),
 	),
 
+	'mmv.ui.progressBar' => $wgMediaViewerResourceTemplate + array(
+			'scripts' => array(
+				'mmv/ui/mmv.ui.progressBar.js',
+			),
+
+			'styles' => array(
+				'mmv/ui/mmv.ui.progressBar.less',
+			),
+
+			'dependencies' => array(
+				'mmv.ui',
+				'oojs',
+			),
+	),
+
 	'mmv.ui.metadataPanel' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/ui/mmv.ui.metadataPanel.js',
@@ -443,6 +458,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'mmv.HtmlUtils',
 			'mmv.ui',
+			'mmv.ui.progressBar',
 			'mmv.ui.stripeButtons',
 			'mmv.ui.categories',
 			'mmv.ui.description',
