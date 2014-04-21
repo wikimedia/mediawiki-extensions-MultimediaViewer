@@ -45,6 +45,9 @@
 		 * @property {OO.ui.MenuItemWidget}
 		 */
 		this.defaultItem = this.downloadSizeMenu.getMenu().getSelectedItem();
+
+		/** @property {mw.mmv.model.Image|null} Image the download button currently points to. */
+		this.image = null;
 	}
 	oo.inheritClass( Download, mw.mmv.ui.reuse.Tab );
 	DP = Download.prototype;
@@ -145,19 +148,34 @@
 		var download = this,
 			value = item.getData();
 
-		// Disable download while we get the image
-		this.$downloadButton.addClass( 'disabledLink' );
-		// Set a temporary message. It will be updated once we have the file type.
-		this.setButtonText( value.name, this.imageExtension, value.width, value.height );
-
-		this.utils.getThumbnailUrlPromise( value.width ).done( function ( thumbnail ) {
-			download.$downloadButton.attr( 'href', thumbnail.url + '?download' );
-			download.$previewLink.attr( 'href', thumbnail.url );
-			download.setButtonText( value.name, download.getExtensionFromUrl( thumbnail.url ),
+		if ( value.name === 'original' && this.image !== null ) {
+			this.setDownloadUrl( this.image.url );
+			this.setButtonText( value.name, this.getExtensionFromUrl( this.image.url ),
 				value.width, value.height );
-			// Re-enable download
-			download.$downloadButton.removeClass( 'disabledLink' );
-		} );
+		} else {
+			// Disable download while we get the image
+			this.$downloadButton.addClass( 'disabledLink' );
+			// Set a temporary message. It will be updated once we have the file type.
+			this.setButtonText( value.name, this.imageExtension, value.width, value.height );
+
+			this.utils.getThumbnailUrlPromise( value.width ).done( function ( thumbnail ) {
+				download.setDownloadUrl( thumbnail.url );
+				download.setButtonText( value.name, download.getExtensionFromUrl( thumbnail.url ),
+					value.width, value.height );
+			} );
+		}
+	};
+
+	/**
+	 * Sets the URL on the download button.
+	 * @param {string} url
+	 */
+	DP.setDownloadUrl = function ( url ) {
+		this.$downloadButton.attr( 'href', url + '?download' );
+		this.$previewLink.attr( 'href', url );
+
+		// Re-enable download
+		this.$downloadButton.removeClass( 'disabledLink' );
 	};
 
 	/**
@@ -200,6 +218,8 @@
 		var sizeOptions = this.downloadSizeMenu.getMenu().getItems(),
 			sizes = this.utils.getPossibleImageSizesForHtml( image.width, image.height );
 
+		this.image = image;
+
 		this.utils.updateMenuOptions( sizes, sizeOptions );
 
 		this.downloadSizeMenu.$element.addClass( 'active' );
@@ -221,6 +241,8 @@
 		this.$downloadButton.attr( 'href', '' );
 		this.$previewLink.attr( 'href', '' );
 		this.imageExtension = undefined;
+
+		this.image = null;
 	};
 
 
