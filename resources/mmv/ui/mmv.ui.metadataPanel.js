@@ -546,15 +546,10 @@
 	 * @param {string} filePageUrl URL of the file description page
 	 */
 	MPP.setLicense = function ( license, filePageUrl ) {
-		var message, shortName, url, isCc;
+		var shortName, url, isCc;
 
 		if ( license ) {
-			message = 'multimediaviewer-license-' + ( license.internalName || '' );
-			if ( mw.messages.exists( message ) ) {
-				shortName = mw.message( message ).text();
-			} else {
-				shortName = mw.message( 'multimediaviewer-license-default' ).text();
-			}
+			shortName = license.getShortName();
 			url = license.deedUrl || filePageUrl;
 			isCc = license.isCc();
 		} else {
