@@ -5,5 +5,11 @@
 		]
 	},
 	"multimediaviewer-reuse-link": "Koristi ovu datoteku",
+	"multimediaviewer-share-explanation": "Kopirajte i slobodno delite ovu vezu",
+	"multimediaviewer-embed-wt": "Vikitekst",
+	"multimediaviewer-embed-html": "HTML",
+	"multimediaviewer-embed-explanation": "Koristite ovaj kod da ugradite datoteku",
+	"multimediaviewer-description-page-button-text": "Prikaži detalje",
+	"multimediaviewer-description-page-popup-text": "Prikaži detalje na $1",
 	"multimediaviewer-view-expanded": "Raširi"
 }
