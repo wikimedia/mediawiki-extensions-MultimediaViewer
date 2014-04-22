@@ -192,14 +192,17 @@
 	 * @param {string|null} langcode
 	 */
 	SBP.getFeedbackSurveyBaseUrlForLanguage = function ( langcode ) {
-		var baseUrl = 'https://www.surveymonkey.com/s/media-viewer-1',
-			surveyTranslations = { ca: 1, hu: 1 };
+		var baseLangcode,
+			baseUrl = 'https://www.surveymonkey.com/s/media-viewer-1',
+			surveyTranslations = { ca: 'ca', hu: 'hu', fr: 'fr', pt: 'pt-br', 'pt-br': 'pt-br', de: 'de' };
 
-		langcode = langcode.split( /[_-]/ )[0]; // get rid of variants
-		if ( langcode === 'en') {
+		baseLangcode = langcode.split( /[_-]/ )[0]; // get rid of variants
+		if ( baseLangcode === 'en') {
 			return baseUrl;
 		} else if ( surveyTranslations[langcode] ) {
-			return baseUrl + '-' + langcode;
+			return baseUrl + '-' + surveyTranslations[langcode];
+		} else if ( surveyTranslations[baseLangcode] ) {
+			return baseUrl + '-' + surveyTranslations[baseLangcode];
 		} else {
 			return null;
 		}

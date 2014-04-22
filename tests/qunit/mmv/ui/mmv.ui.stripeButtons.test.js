@@ -82,6 +82,25 @@
 		mw.config.set( 'wgUserLanguage', oldLanguage );
 	} );
 
+	QUnit.test( 'getFeedbackSurveyBaseUrlForLanguage()', 7, function ( assert ) {
+		var buttons = createStripeButtons();
+
+		assert.strictEqual( buttons.getFeedbackSurveyBaseUrlForLanguage( 'en' ),
+			'https://www.surveymonkey.com/s/media-viewer-1', 'Base survey URL for english' );
+		assert.strictEqual( buttons.getFeedbackSurveyBaseUrlForLanguage( 'hu' ),
+			'https://www.surveymonkey.com/s/media-viewer-1-hu', 'Language code appended for supported languages' );
+		assert.strictEqual( buttons.getFeedbackSurveyBaseUrlForLanguage( 'el' ),
+			null, 'Null for non-supported languages' );
+		assert.strictEqual( buttons.getFeedbackSurveyBaseUrlForLanguage( 'en-gb' ),
+			'https://www.surveymonkey.com/s/media-viewer-1', 'Base survey URL for english variants' );
+		assert.strictEqual( buttons.getFeedbackSurveyBaseUrlForLanguage( 'fr-xx' ),
+			'https://www.surveymonkey.com/s/media-viewer-1-fr', 'Base code appended for other variants' );
+		assert.strictEqual( buttons.getFeedbackSurveyBaseUrlForLanguage( 'pt-br' ),
+			'https://www.surveymonkey.com/s/media-viewer-1-pt-br', 'Full code appended if the variant itself is supported' );
+		assert.strictEqual( buttons.getFeedbackSurveyBaseUrlForLanguage( 'pt' ),
+			'https://www.surveymonkey.com/s/media-viewer-1-pt-br', 'Temporary special case for pt' );
+	} );
+
 	QUnit.test( 'set()/empty() sanity test:', 1, function ( assert ) {
 		var buttons = createStripeButtons(),
 			fakeImageInfo = { descriptionUrl: '//commons.wikimedia.org/wiki/File:Foo.jpg' },
