@@ -34,6 +34,8 @@
 	 *         without doing an actual API call. Used when the GlobalUsage extension (and thus the
 	 *         API) is not available.
 	 * @cfg {number} [dataLimit=10] number of entries to actually put into the model.
+	 * @cfg {number} [maxage] cache expiration time, in seconds
+	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
 	 */
 	function GlobalUsage( api, options ) {
 		options = $.extend( {
@@ -63,14 +65,13 @@
 		}
 
 		return this.getCachedPromise( file.getPrefixedDb(), function () {
-			return provider.api.get( {
+			return provider.apiGetWithMaxAge( {
 				action: 'query',
 				prop: 'globalusage',
 				titles: file.getPrefixedDb(),
-				guprop: ['url', 'namespace'],
+				guprop: 'url|namespace',
 				gufilterlocal: 1,
-				gulimit: provider.options.apiLimit,
-				format: 'json'
+				gulimit: provider.options.apiLimit
 			} ).then( function( data ) {
 				return provider.getQueryPage( file, data );
 			} ).then( function( pageData, data ) {
