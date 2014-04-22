@@ -96,7 +96,8 @@
 		var $dummy = $( '<div class="' + this.readinessCSSClass + '">' )
 			.appendTo( $( document.body ) ),
 			bs = this,
-			viewer;
+			viewer,
+			message;
 
 		if ( $dummy.css( 'display' ) === 'inline' ) {
 			// Let's be clean and remove the test item before resolving the deferred
@@ -104,7 +105,11 @@
 			try {
 				viewer = bs.getViewer();
 			} catch ( e ) {
-				deferred.reject( e.message );
+				message = e.message;
+				if ( e.stack ) {
+					message += '\n' + e.stack;
+				}
+				deferred.reject( message );
 				return;
 			}
 			deferred.resolve( viewer );
