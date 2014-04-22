@@ -129,6 +129,8 @@
 	 * Enlarge the box, show HTML instead of text.
 	 */
 	P.grow = function() {
+		mw.mmv.logger.log( 'terms-open' );
+
 		this.$box.addClass( 'full-size' )
 			.stop( true )
 			.animate( { backgroundColor: '#FFFFA0' }, 500)

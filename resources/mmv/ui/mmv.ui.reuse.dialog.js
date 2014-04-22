@@ -106,7 +106,7 @@
 		var dialog = this,
 			$deferred = $.Deferred();
 
-		mw.mmv.logger.log( 'use-this-file-link-click' );
+		mw.mmv.logger.log( 'use-this-file-open' );
 
 		if ( this.tabs === null ) {
 			// initTabs() needs to have these dependencies loaded in order to run
