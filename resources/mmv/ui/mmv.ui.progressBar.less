@@ -1,9 +1,12 @@
-@progress-height: 3px;
+@import "mediawiki.mixins.animation";
+
+@progress-height: 14px;
 
 .mw-mmv-progress {
 	width: 100%;
 	height: @progress-height;
-	background-color: rgb( 204, 204, 204 );
+	background-color: #cccccc;
+	background-color: rgba( 221, 221, 221, 0.5 );
 	margin-top: -@progress-height;
 }
 
@@ -14,5 +17,32 @@
 .mw-mmv-progress-percent {
 	width: 0;
 	height: @progress-height;
-	background-color: rgb( 0, 113, 188 );
+	background: linear-gradient(-45deg, transparent 33%, rgba(0,0,0,0.1) 33%,  rgba(0,0,0,0.1) 66%, transparent 66%), #347bff;
+	background-size: 35px 20px, 100% 100%, 100% 100%;
+	.animation( mw-mmv-progress-percent-animation 1.5s linear infinite );
+}
+
+.mw-mmv-progress-percent-animation() {
+	0% {
+		background-position: 0px 0px;
+	}
+	100% {
+		background-position: -70px 0px;
+	}
+}
+
+@-webkit-keyframes mw-mmv-progress-percent-animation {
+	.mw-mmv-progress-percent-animation;
+}
+
+@-moz-keyframes mw-mmv-progress-percent-animation {
+	.mw-mmv-progress-percent-animation;
+}
+
+@-o-keyframes mw-mmv-progress-percent-animation {
+	.mw-mmv-progress-percent-animation;
+}
+
+@keyframes mw-mmv-progress-percent-animation {
+	.mw-mmv-progress-percent-animation;
 }
