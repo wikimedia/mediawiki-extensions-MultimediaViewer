@@ -2,8 +2,6 @@
 @import "../mmv.mixins";
 @import "mediawiki.mixins.animation";
 
-@progress-height: 3px;
-
 @info-box-color: #FFFFFF;
 @info-box-border-color: #DDDDDD;
 @info-box-border-shadow-color: #C9C9C9;
@@ -265,23 +263,6 @@
 
 .mw-mmv-post-image:hover .mw-mmv-drag-icon {
 	opacity: 1;
-}
-
-.mw-mmv-progress {
-	width: 100%;
-	height: @progress-height;
-	background-color: rgb( 204, 204, 204 );
-	margin-top: -@progress-height;
-}
-
-.mw-mmv-progress.empty {
-	display: none;
-}
-
-.mw-mmv-progress-percent {
-	width: 0;
-	height: @progress-height;
-	background-color: rgb( 0, 113, 188 );
 }
 
 .mw-mmv-label {

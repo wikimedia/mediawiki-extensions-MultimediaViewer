@@ -1,0 +1,18 @@
+@progress-height: 3px;
+
+.mw-mmv-progress {
+	width: 100%;
+	height: @progress-height;
+	background-color: rgb( 204, 204, 204 );
+	margin-top: -@progress-height;
+}
+
+.mw-mmv-progress.empty {
+	display: none;
+}
+
+.mw-mmv-progress-percent {
+	width: 0;
+	height: @progress-height;
+	background-color: rgb( 0, 113, 188 );
+}
