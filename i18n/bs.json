@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"DzWiki"
+		]
+	},
+	"multimediaviewer-pref": "Preglednik medijskih datoteka",
+	"multimediaviewer-repository-local": "Saznajte više",
+	"multimediaviewer-datetime-created": "Napravljeno $1",
+	"multimediaviewer-license-default": "Vidi licencu",
+	"multimediaviewer-permission-title": "Detalji licence",
+	"multimediaviewer-permission-link": "vidi uslove",
+	"multimediaviewer-permission-viewmore": "Prikaži još",
+	"multimediaviewer-about-mmv": "O pregledniku multimedijskih datoteka",
+	"multimediaviewer-help-mmv": "Pomoć",
+	"multimediaviewer-geolocation": "Lokacija: $1",
+	"multimediaviewer-fileusage-count": "Koristi se u $1 {{PLURAL:$1|stranici|stranice|stranica}}",
+	"multimediaviewer-fileusage-count-more": "Koristi se u više od $1 {{PLURAL:$1|stranica}}",
+	"multimediaviewer-reuse-loading-placeholder": "Učitavanje...",
+	"multimediaviewer-share-tab": "Dijeli",
+	"multimediaviewer-embed-wt": "Wikitekst",
+	"multimediaviewer-embed-html": "HTML",
+	"multimediaviewer-original-embed-dimensions": "Originalna veličina $1"
+}

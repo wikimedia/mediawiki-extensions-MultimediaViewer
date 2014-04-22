@@ -3,7 +3,8 @@
 		"authors": [
 			"Kaganer",
 			"Okras",
-			"Tucvbif"
+			"Tucvbif",
+			"Meshkov.a"
 		]
 	},
 	"multimediaviewer-desc": "Раскрывает эскизы в большие изображения на весь экран.",
@@ -40,7 +41,7 @@
 	"multimediaviewer-embed-tab": "Внедрённый",
 	"multimediaviewer-download-tab": "Скачать",
 	"multimediaviewer-download-preview-link-title": "Предварительный просмотр в браузере",
-	"multimediaviewer-download-original-button-name": "Скачать в исходном размере",
+	"multimediaviewer-download-original-button-name": "Скачать оригинальный размер",
 	"multimediaviewer-download-small-button-name": "Скачать в маленьком размере",
 	"multimediaviewer-download-medium-button-name": "Скачать в среднем размере",
 	"multimediaviewer-download-large-button-name": "Скачать в большом размере",

@@ -3,7 +3,8 @@
 		"authors": [
 			"Amire80",
 			"Neukoln",
-			"בנימין"
+			"בנימין",
+			"Yona b"
 		]
 	},
 	"multimediaviewer-desc": "הגדלת תמונות ממוזערות למסך מלא.",
@@ -40,12 +41,12 @@
 	"multimediaviewer-fileusage-global-section": "באתרים אחרים",
 	"multimediaviewer-reuse-link": "שימוש בקובץ הזה",
 	"multimediaviewer-reuse-loading-placeholder": "טוען...",
-	"multimediaviewer-share-tab": "שתף",
-	"multimediaviewer-embed-tab": "הטמע",
-	"multimediaviewer-download-tab": "הורד",
+	"multimediaviewer-share-tab": "שיתוף",
+	"multimediaviewer-embed-tab": "הטמעה",
+	"multimediaviewer-download-tab": "הורדה",
 	"multimediaviewer-download-preview-link-title": "תצוגה מקדימה בדפדפן",
-	"multimediaviewer-download-original-button-name": "הורד בגודל מקורי",
-	"multimediaviewer-download-small-button-name": "הורד בגודל קטן",
+	"multimediaviewer-download-original-button-name": "הורדה בגודל מקורי",
+	"multimediaviewer-download-small-button-name": "הורדה בגודל קטן",
 	"multimediaviewer-download-medium-button-name": "הורדה בגודל בינוני",
 	"multimediaviewer-download-large-button-name": "הורדה בגודל גדול",
 	"multimediaviewer-link-to-page": "קישור לדף תיאור הקובץ",
