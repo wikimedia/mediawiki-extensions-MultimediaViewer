@@ -561,7 +561,8 @@
 		this.$license
 			.text( shortName )
 			.toggleClass( 'cc-license', isCc )
-			.prop( 'href', url );
+			.prop( 'href', url )
+			.prop( 'target', license && license.deedUrl ? '_blank' : '' );
 
 		this.$license.removeClass( 'empty' );
 	};

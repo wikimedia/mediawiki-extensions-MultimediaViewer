@@ -120,7 +120,7 @@
 		);
 	} );
 
-	QUnit.test( 'Setting image information works as expected', 14, function ( assert ) {
+	QUnit.test( 'Setting image information works as expected', 16, function ( assert ) {
 		var gender,
 			$qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
@@ -154,6 +154,7 @@
 		assert.ok( panel.$credit.hasClass( 'empty' ), 'Credit is empty' );
 		assert.strictEqual( panel.$license.prop( 'href' ), imageData.descriptionUrl,
 			'User is directed to file page for license information' );
+		assert.ok( !panel.$license.prop( 'target' ), 'License information opens in same window' );
 		assert.ok( panel.$usernameLi.hasClass( 'empty' ), 'Username is empty' );
 		assert.ok( panel.$datetimeLi.hasClass( 'empty' ), 'Date/Time is empty' );
 		assert.ok( panel.$locationLi.hasClass( 'empty' ), 'Location is empty' );
@@ -162,7 +163,9 @@
 		imageData.uploadDateTime = '2013-08-25T14:41:02Z';
 		imageData.source = '<b>Lost</b><a href="foo">Bar</a>';
 		imageData.author = 'Bob';
-		imageData.license = new mw.mmv.model.License( 'CC-BY-2.0', 'cc-by-2.0' );
+		imageData.license = new mw.mmv.model.License( 'CC-BY-2.0', 'cc-by-2.0',
+			'Creative Commons Attribution - Share Alike 2.0',
+			'http://creativecommons.org/licenses/by-sa/2.0/' );
 		gender = 'female';
 		imageData.lastUploader = 'Ursula';
 
@@ -174,6 +177,7 @@
 		assert.strictEqual( panel.creditField.$element.html(), '<span class="mw-mmv-author">' + imageData.author + '</span> - <span class="mw-mmv-source">Lost<a href=\"foo\">Bar</a></span>', 'Source and author are correctly set' );
 		assert.ok( panel.$datetime.text().indexOf( 'August 26 2013' ) > 0, 'Correct date is displayed' );
 		assert.strictEqual( panel.$license.text(), 'CC BY 2.0', 'License is correctly set' );
+		assert.ok( panel.$license.prop( 'target' ), 'License information opens in new window' );
 		assert.ok( panel.$username.text().indexOf( imageData.lastUploader ) > 0, 'Correct username is displayed' );
 
 		imageData.creationDateTime = undefined;
