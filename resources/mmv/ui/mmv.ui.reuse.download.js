@@ -143,32 +143,52 @@
 	 */
 	DP.handleSizeSwitch = function ( item ) {
 		var download = this,
-			value = item.getData(),
-			message = mw.message(
-				'multimediaviewer-download-' + value.name + '-button-name' ).text(),
-			sizeMessage = mw.message( 'multimediaviewer-embed-dimensions-with-file-format',
-				mw.message( 'multimediaviewer-embed-dimensions', value.width, value.height ).text(),
-				this.imageExtension
-			).text();
-
-		// Update button label and size strings to reflect new selected size
-		this.$downloadButton.html(
-			'<span class="multimediaviewer-download-image-size-name">' +
-			message + '</span>' +
-			'<span class="multimediaviewer-download-image-size">' +
-			sizeMessage + '</span>'
-		);
+			value = item.getData();
 
 		// Disable download while we get the image
 		this.$downloadButton.addClass( 'disabledLink' );
+		// Set a temporary message. It will be updated once we have the file type.
+		this.setButtonText( value.name, this.imageExtension, value.width, value.height );
 
 		this.utils.getThumbnailUrlPromise( value.width ).done( function ( thumbnail ) {
 			download.$downloadButton.attr( 'href', thumbnail.url + '?download' );
 			download.$previewLink.attr( 'href', thumbnail.url );
-
+			download.setButtonText( value.name, download.getExtensionFromUrl( thumbnail.url ),
+				value.width, value.height );
 			// Re-enable download
 			download.$downloadButton.removeClass( 'disabledLink' );
 		} );
+	};
+
+	/**
+	 * Sets the text of the download button.
+	 * @param {string} sizeClass A size class such as 'small'
+	 * @param {string} extension file extension
+	 * @param {number} width
+	 * @param {number} height
+	 */
+	DP.setButtonText = function( sizeClass, extension, width, height ) {
+		var sizeClasMessage, sizeMessage, dimensionMessage;
+
+		sizeClasMessage = mw.message( 'multimediaviewer-download-' + sizeClass + '-button-name' ).text();
+		dimensionMessage = mw.message( 'multimediaviewer-embed-dimensions', width, height ).text();
+		sizeMessage = mw.message( 'multimediaviewer-embed-dimensions-with-file-format',
+			dimensionMessage, extension ).text();
+
+		// Update button label and size strings to reflect new selected size
+		this.$downloadButton.html(
+			'<span class="multimediaviewer-download-image-size-name">' + sizeClasMessage + '</span>'
+				+ '<span class="multimediaviewer-download-image-size">' + sizeMessage + '</span>'
+		);
+	};
+
+	/**
+	 * Chops off the extension part of an URL.
+	 * @param {string} url
+	 */
+	DP.getExtensionFromUrl = function( url ) {
+		var urlParts = url.split( '.' );
+		return urlParts[urlParts.length - 1];
 	};
 
 	/**
