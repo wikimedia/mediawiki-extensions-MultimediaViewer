@@ -340,6 +340,7 @@ $wgResourceModules += array(
 		),
 
 		'dependencies' => array(
+			'mediawiki.jqueryMsg',
 			'mmv.ui',
 			'oojs',
 			'jquery.tipsy',
