@@ -155,15 +155,16 @@
 		} );
 	} );
 
-	QUnit.asyncTest( 'GlobalUsage doNotUseApi test', 2, function ( assert ) {
-		var api = {},
-			options = { doNotUseApi: true },
+	QUnit.asyncTest( 'GlobalUsage useApi test', 3, function ( assert ) {
+		var api = { get: this.sandbox.stub().throws( 'API was invoked' ) },
+			options = { useApi: false },
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			globalUsageProvider = new mw.mmv.provider.GlobalUsage( api, options );
 
 		globalUsageProvider.get( file ).done( function( fileUsage ) {
 			assert.strictEqual( fileUsage.pages.length, 0, 'Does not return any pages' );
 			assert.ok( fileUsage.fake );
+			assert.ok( !api.get.called, 'API was not called' );
 			QUnit.start();
 		} );
 	} );

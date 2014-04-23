@@ -67,8 +67,10 @@
 		 * @property {mw.mmv.provider.UserInfo}
 		 * @private
 		 */
-		this.userInfoProvider = new mw.mmv.provider.UserInfo( new mw.mmv.Api( 'userinfo' ),
-			{ maxage: apiCacheMaxAge } );
+		this.userInfoProvider = new mw.mmv.provider.UserInfo( new mw.mmv.Api( 'userinfo' ), {
+			useApi: this.needGender(),
+			maxage: apiCacheMaxAge
+		} );
 
 		/**
 		 * @property {mw.mmv.provider.ImageUsage}
@@ -82,7 +84,7 @@
 		 * @private
 		 */
 		this.globalUsageProvider = new mw.mmv.provider.GlobalUsage( new mw.mmv.Api( 'globalusage' ), {
-			doNotUseApi: !mw.config.get( 'wgMultimediaViewer' ).globalUsageAvailable,
+			useApi: mw.config.get( 'wgMultimediaViewer' ).globalUsageAvailable,
 			maxage: apiCacheMaxAge
 		} );
 		// replace with this one to test global usage on a local wiki without going through all the
@@ -111,6 +113,22 @@
 	}
 
 	MMVP = MultimediaViewer.prototype;
+
+	/**
+	 * Check if we need to fetch gender information. This relies on the fact that
+	 * multimediaviewer-userpage-link is the only message which takes a gender parameter.
+	 * @return {boolean}
+	 * FIXME there has to be a better way than this
+	 */
+	MMVP.needGender = function () {
+		var male, female, unknown;
+
+		male = mw.message( 'multimediaviewer-userpage-link', '_', 'male' ).text();
+		female = mw.message( 'multimediaviewer-userpage-link', '_', 'female' ).text();
+		unknown = mw.message( 'multimediaviewer-userpage-link', '_', 'unknown' ).text();
+
+		return male !== female || male !== unknown || female !== unknown;
+	};
 
 	/**
 	 * Initialize the lightbox interface given an array of thumbnail
