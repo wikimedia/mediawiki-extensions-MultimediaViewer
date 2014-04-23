@@ -60,7 +60,7 @@
 	 * @returns {boolean}
 	 */
 	LP.isCc = function () {
-		return this.internalName && this.internalName.substr( 0, 2 ) === 'cc';
+		return this.internalName ? this.internalName.substr( 0, 2 ) === 'cc' : false;
 	};
 
 	/**
