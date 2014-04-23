@@ -164,6 +164,9 @@
 		if ( $thumbContain.length !== 0 && $thumbContain.is( '.thumb' ) ) {
 			$thumbCaption = $thumbContain.find( '.thumbcaption' ).clone();
 			$thumbCaption.find( '.magnify' ).remove();
+			if ( !$thumbCaption.length ) { // gallery, maybe
+				$thumbCaption = $thumbContain.closest( '.gallerybox' ).find( '.gallerytext' ).clone();
+			}
 			caption = this.htmlUtils.htmlToTextWithLinks( $thumbCaption.html() || '' );
 		}
 
