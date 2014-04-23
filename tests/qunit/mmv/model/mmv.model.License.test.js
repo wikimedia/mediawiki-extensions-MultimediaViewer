@@ -101,4 +101,19 @@
 			'Title for license with link is formatted correctly' );
 	} );
 
+	QUnit.test( 'isCc()', 3, function( assert ) {
+		var license;
+
+		license = new mw.mmv.model.License( 'CC-BY-SA-2.0', 'cc-by-sa-2.0',
+			'Creative Commons Attribution - ShareAlike 2.0',
+			'http://creativecommons.org/licenses/by-sa/2.0/' );
+		assert.strictEqual( license.isCc(), true, 'CC license recognized' );
+
+		license = new mw.mmv.model.License( 'Public Domain', 'pd',
+			'Public Domain for lack of originality' );
+		assert.strictEqual( license.isCc(), false, 'Non-CC license not recognized' );
+
+		license = new mw.mmv.model.License( 'MIT' );
+		assert.strictEqual( license.isCc(), false, 'Non-CC license with no internal name not recognized' );
+	} );
 }( mediaWiki, jQuery ) );
