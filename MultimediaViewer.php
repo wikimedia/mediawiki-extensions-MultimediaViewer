@@ -500,6 +500,9 @@ $wgResourceModules += array(
 			'multimediaviewer-discuss-mmv',
 			'multimediaviewer-help-mmv',
 
+			// Reuse the preferences message in the top-right menu.
+			'mypreferences',
+
 			'multimediaviewer-metadata-error',
 		),
 	),

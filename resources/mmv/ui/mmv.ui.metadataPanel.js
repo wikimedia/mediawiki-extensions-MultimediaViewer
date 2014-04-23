@@ -362,7 +362,8 @@
 	 * Initializes two about links at the bottom of the panel.
 	 */
 	MPP.initializeAboutLinks = function () {
-		var separator = ' | ';
+		var target,
+			separator = ' | ';
 
 		this.$mmvAboutLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).infoLink )
@@ -389,6 +390,26 @@
 				this.$mmvHelpLink
 			)
 			.appendTo( this.$imageMetadata );
+
+		if ( !mw.user.isAnon() ) {
+			target = mw.Title.newFromText( 'Special:Preferences' ).getUrl();
+
+			if ( mw.config.get( 'wgMediaViewerIsInBeta' ) ) {
+				target += '#mw-prefsection-betafeatures';
+			} else {
+				target += '#mw-prefsection-rendering';
+			}
+
+			this.$mmvPreferenceLink = $( '<a>' )
+				.prop( 'href', target )
+				.text( mw.message( 'mypreferences' ) )
+				.addClass( 'mw-mmv-preference-link' );
+
+			this.$mmvAboutLinks.append(
+				separator,
+				this.$mmvPreferenceLink
+			);
+		}
 	};
 
 	// *********************************

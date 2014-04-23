@@ -254,4 +254,22 @@
 		assert.ok( panel.$repoLi.css( 'background-image' ).indexOf( 'data:image/svg+xml' ) !== -1, 'Repo favicon is correctly replaced by svg for Commons' );
 		assert.ok( panel.$repoLi.hasClass( 'commons' ), 'Repo has commons class' );
 	} );
+
+	QUnit.test( 'About links', 5, function ( assert ) {
+		var panel,
+			$qf = $( '#qunit-fixture' );
+
+		this.sandbox.stub( mw.user, 'isAnon' );
+		mw.user.isAnon.returns( false );
+		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ) );
+
+		assert.strictEqual( $qf.find( '.mw-mmv-about-link' ).length, 1, 'About link is created.' );
+		assert.strictEqual( $qf.find( '.mw-mmv-discuss-link' ).length, 1, 'Discuss link is created.' );
+		assert.strictEqual( $qf.find( '.mw-mmv-help-link' ).length, 1, 'Help link is created.' );
+		assert.strictEqual( $qf.find( '.mw-mmv-preference-link' ).length, 1, 'Preferences link is created for logged-in user.' );
+
+		mw.user.isAnon.returns( true );
+		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ) );
+		assert.strictEqual( $qf.find( '.mw-mmv-preference-link' ).length, 0, 'Preferences link is not created for anon user.' );
+	} );
 }( mediaWiki, jQuery ) );
