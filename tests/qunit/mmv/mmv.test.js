@@ -174,8 +174,30 @@
 		viewer.ui = { canvas : {
 			maybeDisplayPlaceholder : function() { return true; }
 		} };
+		viewer.imageInfoProvider.get = this.sandbox.stub();
 
-		viewer.displayPlaceholderThumbnail( undefined, undefined, undefined);
+		viewer.displayPlaceholderThumbnail( { originalWidth: 100, originalHeight: 100 }, undefined, undefined);
+
+		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
+		assert.ok( !viewer.realThumbnailShown, 'Real thumbnail state is correct' );
+
+		viewer.displayRealThumbnail();
+
+		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
+		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
+	} );
+
+	QUnit.test( 'Placeholder first, then real thumbnail - missing size', 4, function ( assert ) {
+		var viewer = new mw.mmv.MultimediaViewer();
+
+		viewer.currentIndex = 1;
+		viewer.setImage = $.noop;
+		viewer.ui = { canvas : {
+			maybeDisplayPlaceholder : function() { return true; }
+		} };
+		viewer.imageInfoProvider.get = this.sandbox.stub().returns( $.Deferred().resolve( {width: 100, height: 100 } ) );
+
+		viewer.displayPlaceholderThumbnail( { index: 1 }, undefined, undefined);
 
 		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 		assert.ok( !viewer.realThumbnailShown, 'Real thumbnail state is correct' );
@@ -199,7 +221,7 @@
 		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 
-		viewer.displayPlaceholderThumbnail( undefined, undefined, undefined);
+		viewer.displayPlaceholderThumbnail( {}, undefined, undefined);
 
 		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );

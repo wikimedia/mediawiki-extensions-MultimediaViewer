@@ -177,23 +177,23 @@
 	 * We set SVG files to the maximum screen size available.
 	 * Assumes set function called before.
 	 *
-	 * @param {mw.mmv.model.Image} imageInfo
+	 * @param {{width: number, height: number}} size
 	 * @param {jQuery} $imagePlaceholder Image placeholder to be displayed while the real image loads.
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
 	 * @returns {boolean} Whether the image was blured or not
 	 */
-	 C.maybeDisplayPlaceholder = function ( imageInfo, $imagePlaceholder, imageWidths ) {
+	 C.maybeDisplayPlaceholder = function ( size, $imagePlaceholder, imageWidths ) {
 		var targetWidth,
 			targetHeight,
 			blowupFactor,
 			blurredThumbnailShown = false;
 
 		// Assume natural thumbnail size¸
-		targetWidth = imageInfo.width;
-		targetHeight = imageInfo.height;
+		targetWidth = size.width;
+		targetHeight = size.height;
 
 		// If the image is bigger than the screen we need to resize it
-		if ( imageInfo.width > imageWidths.cssWidth ) { // This assumes imageInfo.width in CSS units
+		if ( size.width > imageWidths.cssWidth ) { // This assumes imageInfo.width in CSS units
 			targetWidth = imageWidths.cssWidth;
 			targetHeight = imageWidths.cssHeight;
 		}
