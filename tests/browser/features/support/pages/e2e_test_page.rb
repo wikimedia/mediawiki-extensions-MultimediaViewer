@@ -1,8 +1,8 @@
-class LightboxDemoPage
+class E2ETestPage
   include PageObject
   include URL
 
-  page_url URL.url("Lightbox_demo")
+  page_url URL.url("MediaViewerE2ETest")
 
   # Tag page elements that we will need.
 
@@ -10,6 +10,9 @@ class LightboxDemoPage
   a(:image1_in_article, class: "image", href: /Kerala\.jpg$/)
 
   a(:other_image_in_article, href: /Academy_of_Sciences\.jpg$/)
+
+  # Black overlay
+  div(:mmv_overlay, class: "mw-mmv-overlay")
 
   # Wrapper div for all mmv elements
   div(:mmv_wrapper, class: "mw-mmv-wrapper")
