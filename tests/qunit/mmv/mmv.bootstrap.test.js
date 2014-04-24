@@ -5,6 +5,7 @@
 		setup: function () {
 			backup.onclick = mw.config.get( 'wgMediaViewerOnClick' );
 			mw.config.set( 'wgMediaViewerOnClick', true );
+			this.clock = this.sandbox.useFakeTimers();
 		},
 
 		teardown: function () {
@@ -187,7 +188,7 @@
 		var $div, $link, bootstrap,
 			viewer = { initWithThumbs : $.noop };
 
-		// Create gallery with image that has invalid name extension
+		// Create gallery with image that has valid name extension
 		$div = createGallery();
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
@@ -325,10 +326,6 @@
 				.text( '.' + CSSclass + ' { display: inline; }' );
 
 		bootstrap.readinessCSSClass = CSSclass;
-		// This speeds up the test execution
-		// It's not zero because if the test fails, the browser would get hammered indefinitely
-		bootstrap.readinessWaitDuration = 30;
-
 		bootstrap.isCSSReady( deferred );
 
 		assert.strictEqual( deferred.state(), 'pending', 'The style isn\'t on the page yet' );
@@ -343,6 +340,8 @@
 		} );
 
 		$style.appendTo( 'head' );
+
+		this.clock.tick( bootstrap.readinessWaitDuration );
 	} );
 
 	QUnit.test( 'Restoring article scroll position', 2, function ( assert ) {
@@ -371,5 +370,30 @@
 
 		assert.strictEqual( stubbedScrollTop, scrollTop, 'Scroll is correctly reset to original top position' );
 		assert.strictEqual( stubbedScrollLeft, scrollLeft, 'Scroll is correctly reset to original left position' );
+	} );
+
+	QUnit.test( 'Preload JS/CSS dependencies on thumb hover', 2, function ( assert ) {
+		var $div, bootstrap,
+			viewer = { initWithThumbs : $.noop };
+
+		// Create gallery with image that has valid name extension
+		$div = createThumb();
+
+		// Create a new bootstrap object to trigger the DOM scan, etc.
+		bootstrap = createBootstrap( viewer );
+
+		this.sandbox.stub( mw.loader, 'load' );
+
+		$div.mouseenter();
+		this.clock.tick( bootstrap.hoverWaitDuration - 50 );
+		$div.mouseleave();
+
+		assert.ok( !mw.loader.load.called, 'Dependencies should not be preloaded if the thumb is not hovered long enough' );
+
+		$div.mouseenter();
+		this.clock.tick( bootstrap.hoverWaitDuration + 50 );
+		$div.mouseleave();
+
+		assert.ok( mw.loader.load.called, 'Dependencies should be preloaded if the thumb is hovered long enough' );
 	} );
 }( mediaWiki, jQuery ) );

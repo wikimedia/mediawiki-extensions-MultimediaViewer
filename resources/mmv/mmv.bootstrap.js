@@ -37,12 +37,14 @@
 		// Exposed for tests
 		this.readinessCSSClass = 'mw-mmv-has-been-loaded';
 		this.readinessWaitDuration = 100;
+		this.hoverWaitDuration = 200;
 
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
 
 		this.thumbsReadyDeferred = $.Deferred();
 		this.thumbs = [];
+
 		this.$thumbs = $( '.gallery .image img, a.image img, #file a img' );
 		this.processThumbs();
 
@@ -177,6 +179,21 @@
 				$thumbCaption = $thumbContain.closest( '.gallerybox' ).find( '.gallerytext' ).clone();
 			}
 			caption = this.htmlUtils.htmlToTextWithLinks( $thumbCaption.html() || '' );
+
+			// If this is a thumb, we preload JS/CSS when the mouse cursor hovers the thumb container (thumb image + caption + border)
+			$thumbContain.mouseenter( function() {
+				// There is no point preloading if clicking the thumb won't open Media Viewer
+				if ( mw.config.get( 'wgMediaViewerOnClick' ) !== true ) {
+					return;
+				}
+				bs.preloadOnHoverTimer = setTimeout( function() {
+					mw.loader.load( 'mmv' );
+				}, bs.hoverWaitDuration );
+			} ).mouseleave( function() {
+				if ( bs.preloadOnHoverTimer ) {
+					clearTimeout( bs.preloadOnHoverTimer );
+				}
+			} );
 		}
 
 		if ( $thumb.closest( '#file' ).length > 0 ) {
@@ -205,13 +222,6 @@
 			title : title,
 			link : link,
 			caption : caption } );
-
-		if ( $thumbContain.length === 0 ) {
-			// This isn't a thumbnail! Just use the link.
-			$thumbContain = $link;
-		} else if ( $thumbContain.is( '.thumb' ) ) {
-			$thumbContain = $thumbContain.find( '.image' );
-		}
 
 		$link.add( $enlarge ).click( function ( e ) {
 			return bs.click( this, e, title, alwaysOpen );
