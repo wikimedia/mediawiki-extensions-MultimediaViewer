@@ -19,6 +19,10 @@ Given /^I have a large browser window$/ do
   @browser.window.resize_to 1920, 1080
 end
 
+Given /^I am using a custom user agent$/ do
+  @browser = browser(test_name(@scenario), {user_agent: ENV["BROWSER_USERAGENT"]})
+end
+
 Then /^the File: page image is loaded$/ do
   on(CommonsPage) do |page|
     wait_for_image_load page, ".fullImageLink img"

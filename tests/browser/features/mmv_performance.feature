@@ -2,7 +2,8 @@
 Feature: Multimedia Viewer performance
 
   Background:
-    Given I am at a wiki article with at least two embedded pictures
+    Given I am using a custom user agent
+    And I am at a wiki article with at least two embedded pictures
 
   Scenario: Commons with warm cache
     Given I visit an unrelated Commons page to warm up the browser cache
