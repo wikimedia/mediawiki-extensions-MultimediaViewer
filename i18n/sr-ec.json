@@ -4,6 +4,7 @@
 			"Milicevic01"
 		]
 	},
+	"multimediaviewer-desc-nil": "Опис није доступан.",
 	"multimediaviewer-repository-local": "Сазнајте више",
 	"multimediaviewer-datetime-created": "Направљено $1",
 	"multimediaviewer-datetime-uploaded": "Послато $1",
@@ -14,6 +15,7 @@
 	"multimediaviewer-permission-title": "Детаљи лиценце",
 	"multimediaviewer-permission-link": "види услове",
 	"multimediaviewer-permission-viewmore": "Прикажи још",
+	"multimediaviewer-discuss-mmv": "Расправа",
 	"multimediaviewer-help-mmv": "Помоћ",
 	"multimediaviewer-geolocation": "Локација: $1",
 	"multimediaviewer-fileusage-count": "Користи се у $1 {{PLURAL:$1|страници|странице|страница}}",
@@ -26,6 +28,7 @@
 	"multimediaviewer-share-tab": "Дели",
 	"multimediaviewer-embed-tab": "Угради",
 	"multimediaviewer-download-tab": "Преузми",
+	"multimediaviewer-download-preview-link-title": "Прегледај у веб прегледачу",
 	"multimediaviewer-download-original-button-name": "Преузми у оригиналној величини",
 	"multimediaviewer-download-small-button-name": "Преузми у малој величини",
 	"multimediaviewer-download-medium-button-name": "Преузми у средњој величини",
@@ -33,6 +36,7 @@
 	"multimediaviewer-embed-wt": "Викитекст",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "Користите овај код да уградите датотеку",
+	"multimediaviewer-default-embed-dimensions": "Подразумевана величина",
 	"multimediaviewer-original-embed-dimensions": "Оригинална величина $1",
 	"multimediaviewer-large-embed-dimensions": "Велика $1",
 	"multimediaviewer-medium-embed-dimensions": "Средња $1",
