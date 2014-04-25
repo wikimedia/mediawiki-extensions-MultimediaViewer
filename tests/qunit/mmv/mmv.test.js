@@ -102,8 +102,7 @@
 
 	QUnit.test( 'Progress', 4, function ( assert ) {
 		var imageDeferred = $.Deferred(),
-			viewer = new mw.mmv.MultimediaViewer(),
-			i = 0;
+			viewer = new mw.mmv.MultimediaViewer();
 
 		viewer.thumbs = [];
 		viewer.displayPlaceholderThumbnail = $.noop;
@@ -114,28 +113,15 @@
 		viewer.ui = {
 			setupForLoad : $.noop,
 			canvas : { set : $.noop,
+				unblurWithAnimation: $.noop,
+				unblur: $.noop,
 				getCurrentImageWidths : function () { return { real : 0 }; } },
 			panel : {
 				setImageInfo : $.noop,
 				animateMetadataOnce : $.noop,
 				progressBar: {
-					percent : function ( percent ) {
-						if ( i === 0 ) {
-							assert.strictEqual( percent, 0,
-								'Percentage correctly reset by loadImage' );
-						} else if ( i === 1 ) {
-							assert.strictEqual( percent, 5,
-								'Percentage correctly animated to 5 by loadImage' );
-						} else if ( i === 2 ) {
-							assert.strictEqual( percent, 45,
-								'Percentage correctly funneled to panel UI' );
-						} else {
-							assert.strictEqual( percent, 100,
-								'Percentage correctly funneled to panel UI' );
-						}
-
-						i++;
-					}
+					animateTo: this.sandbox.stub(),
+					jumpTo: this.sandbox.stub()
 				}
 			},
 			open : $.noop };
@@ -145,9 +131,116 @@
 		viewer.thumbnailInfoProvider.get = function() { return $.Deferred().resolve( {} ); };
 
 		viewer.loadImage( { filePageTitle : new mw.Title( 'File:Stuff.jpg' ) }, new Image() );
+		assert.ok( viewer.ui.panel.progressBar.jumpTo.lastCall.calledWith( 0 ),
+			'Percentage correctly reset by loadImage' );
+
+		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 5 ),
+			'Percentage correctly animated to 5 by loadImage' );
 
 		imageDeferred.notify( 'response', 45 );
+		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 45 ),
+			'Percentage correctly funneled to panel UI' );
+
 		imageDeferred.resolve();
+		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 100 ),
+			'Percentage correctly funneled to panel UI' );
+
+		viewer.close();
+	} );
+
+	QUnit.test( 'Progress when switching images', 11, function ( assert ) {
+		var firstImageDeferred = $.Deferred(),
+			secondImageDeferred = $.Deferred(),
+			firstImage = { index: 1, filePageTitle : new mw.Title( 'File:First.jpg' ) },
+			secondImage = { index: 2, filePageTitle : new mw.Title( 'File:Second.jpg' ) },
+			viewer = new mw.mmv.MultimediaViewer();
+
+		viewer.thumbs = [];
+		viewer.displayPlaceholderThumbnail = $.noop;
+		viewer.setImage = $.noop;
+		viewer.scroll = $.noop;
+		viewer.preloadFullscreenThumbnail = $.noop;
+		viewer.preloadImagesMetadata = $.noop;
+		viewer.preloadThumbnails = $.noop;
+		viewer.fetchSizeIndependentLightboxInfo = function () { return $.Deferred().resolve(); };
+		viewer.ui = {
+			setupForLoad : $.noop,
+			canvas : { set : $.noop,
+				unblurWithAnimation: $.noop,
+				unblur: $.noop,
+				getCurrentImageWidths : function () { return { real : 0 }; } },
+			panel : {
+				setImageInfo : $.noop,
+				animateMetadataOnce : $.noop,
+				progressBar: {
+					hide: this.sandbox.stub(),
+					animateTo: this.sandbox.stub(),
+					jumpTo: this.sandbox.stub()
+				}
+			},
+			open : $.noop,
+			empty: $.noop };
+
+		viewer.imageInfoProvider.get = function() { return $.Deferred().resolve(); };
+		viewer.thumbnailInfoProvider.get = function() { return $.Deferred().resolve( {} ); };
+
+		// load some image
+		viewer.imageProvider.get = this.sandbox.stub().returns( firstImageDeferred );
+		viewer.loadImage( firstImage, new Image() );
+
+		assert.ok( viewer.ui.panel.progressBar.jumpTo.lastCall.calledWith( 0 ),
+			'Percentage correctly reset for new first image' );
+		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 5 ),
+			'Percentage correctly animated to 5 for first new image' );
+
+		firstImageDeferred.notify( 'response', 20 );
+
+		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 20 ),
+			'Percentage correctly animated when active image is loading' );
+
+		// change to another image
+		viewer.imageProvider.get = this.sandbox.stub().returns( secondImageDeferred );
+		viewer.loadImage( secondImage, new Image() );
+
+		assert.ok( viewer.ui.panel.progressBar.jumpTo.lastCall.calledWith( 0 ),
+			'Percentage correctly reset for second new image' );
+		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 5 ),
+			'Percentage correctly animated to 5 for second new image' );
+
+		secondImageDeferred.notify( 'response', 30 );
+
+		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 30 ),
+			'Percentage correctly animated when active image is loading' );
+
+		// this is the most convenient way of checking for new calls - just reset() and check called
+		viewer.ui.panel.progressBar.animateTo.reset();
+		viewer.ui.panel.progressBar.jumpTo.reset();
+
+		firstImageDeferred.notify( 'response', 40 );
+
+		assert.ok( !viewer.ui.panel.progressBar.animateTo.called,
+			'Percentage not animated when inactive image is loading' );
+		assert.ok( !viewer.ui.panel.progressBar.jumpTo.called,
+			'Percentage not changed when inactive image is loading' );
+
+		secondImageDeferred.notify( 'response', 50 );
+
+		// change back to first image
+		viewer.loadImage( firstImage, new Image() );
+
+		assert.ok( viewer.ui.panel.progressBar.jumpTo.lastCall.calledWith( 40 ),
+			'Percentage jumps to right value when changing images' );
+
+		secondImageDeferred.resolve();
+		assert.ok( !viewer.ui.panel.progressBar.hide.called,
+			'Progress bar not hidden when something finishes in the background' );
+
+		// change to second image which has finished loading
+		viewer.imageProvider.get = this.sandbox.stub().returns( secondImageDeferred );
+		viewer.loadImage( secondImage, new Image() );
+
+		assert.ok( viewer.ui.panel.progressBar.hide.called,
+			'Progress bar not hidden when switching to finished image' );
 
 		viewer.close();
 	} );
@@ -172,6 +265,8 @@
 
 		viewer.setImage = $.noop;
 		viewer.ui = { canvas : {
+			unblurWithAnimation: $.noop,
+			unblur: $.noop,
 			maybeDisplayPlaceholder : function() { return true; }
 		} };
 		viewer.imageInfoProvider.get = this.sandbox.stub();
@@ -193,6 +288,8 @@
 		viewer.currentIndex = 1;
 		viewer.setImage = $.noop;
 		viewer.ui = { canvas : {
+			unblurWithAnimation: $.noop,
+			unblur: $.noop,
 			maybeDisplayPlaceholder : function() { return true; }
 		} };
 		viewer.imageInfoProvider.get = this.sandbox.stub().returns( $.Deferred().resolve( {width: 100, height: 100 } ) );
@@ -213,8 +310,11 @@
 
 		viewer.setImage = $.noop;
 		viewer.ui = {
-			showImage : $.noop
-		};
+			showImage : $.noop,
+			canvas : {
+				unblurWithAnimation: $.noop,
+				unblur: $.noop
+		} };
 
 		viewer.displayRealThumbnail();
 
@@ -227,94 +327,78 @@
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'displayRealThumbnail', 1, function ( assert ) {
+	QUnit.test( 'displayRealThumbnail', 2, function ( assert ) {
 		var viewer = new mw.mmv.MultimediaViewer();
 
 		viewer.setImage = $.noop;
 		viewer.ui = { canvas : {
-			unblur : function () { assert.ok( false, 'Image should not be unblurred yet' ); }
+			unblurWithAnimation : this.sandbox.stub(),
+			unblur: $.noop
 		} };
 		viewer.blurredThumbnailShown = true;
 
-		// Should not result in an unblur (image cache from cache)
+		// Should not result in an unblurWithAnimation animation (image cache from cache)
 		viewer.displayRealThumbnail( undefined, undefined, undefined, 5 );
+		assert.ok( !viewer.ui.canvas.unblurWithAnimation.called, 'There should not be an unblurWithAnimation animation' );
 
-		viewer.ui.canvas.unblur = function () {
-			assert.ok( true, 'Image needs to be unblurred' );
-		};
-
-		// Should result in an unblur (image didn't come from cache)
+		// Should result in an unblurWithAnimation (image didn't come from cache)
 		viewer.displayRealThumbnail( undefined, undefined, undefined, 1000 );
+		assert.ok( viewer.ui.canvas.unblurWithAnimation.called, 'There should be an unblurWithAnimation animation' );
 	} );
 
-	QUnit.test( 'New image loaded while another one is loading', 1, function ( assert ) {
-		var imageDeferred,
-			ligthboxInfoDeferred,
-			viewer = new mw.mmv.MultimediaViewer(),
+	QUnit.test( 'New image loaded while another one is loading', 5, function ( assert ) {
+		var viewer = new mw.mmv.MultimediaViewer(),
 			firstImageDeferred = $.Deferred(),
 			secondImageDeferred = $.Deferred(),
 			firstLigthboxInfoDeferred = $.Deferred(),
 			secondLigthboxInfoDeferred = $.Deferred();
 
 		viewer.preloadFullscreenThumbnail = $.noop;
-		viewer.fetchSizeIndependentLightboxInfo = function () { return ligthboxInfoDeferred.promise(); };
+		viewer.fetchSizeIndependentLightboxInfo = this.sandbox.stub();
 		viewer.ui = {
 			setupForLoad : $.noop,
 			canvas : { set : $.noop,
 				getCurrentImageWidths : function () { return { real : 0 }; } },
-			panel : { setImageInfo : function () {
-					assert.ok( false, 'Metadata of the first image should not be shown' );
-				},
+			panel : {
+				setImageInfo : this.sandbox.stub(),
 				progressBar: {
-					percent : function ( response, percent ) {
-						if ( percent === 45 ) {
-							assert.ok( false, 'Progress of the first image should not be shown' );
-						}
-					}
+					animateTo : this.sandbox.stub(),
+					jumpTo : this.sandbox.stub()
 				},
 				empty: $.noop,
 				animateMetadataOnce: $.noop
 			},
 			open : $.noop,
 			empty: $.noop };
+		viewer.displayRealThumbnail = this.sandbox.stub();
 		viewer.eachPrealoadableLightboxIndex = $.noop;
-		viewer.animateMetadataDivOnce = function () {
-			assert.ok( false, 'Metadata of the first image should not be animated' );
-			return $.Deferred().reject();
-		};
-
-		viewer.imageProvider.get = function() { return imageDeferred.promise(); };
+		viewer.animateMetadataDivOnce = this.sandbox.stub().returns( $.Deferred().reject() );
+		viewer.imageProvider.get = this.sandbox.stub();
 		viewer.imageInfoProvider.get = function() { return $.Deferred().reject(); };
 		viewer.thumbnailInfoProvider.get = function() { return $.Deferred().resolve( {} ); };
 
-		imageDeferred = firstImageDeferred;
-		ligthboxInfoDeferred = firstLigthboxInfoDeferred;
+		viewer.imageProvider.get.returns( firstImageDeferred.promise() );
+		viewer.fetchSizeIndependentLightboxInfo.returns( firstLigthboxInfoDeferred.promise() );
 		viewer.loadImage( { filePageTitle : new mw.Title( 'File:Foo.jpg' ), index : 0 }, new Image() );
+		assert.ok( !viewer.animateMetadataDivOnce.called, 'Metadata of the first image should not be animated' );
+		assert.ok( !viewer.ui.panel.setImageInfo.called, 'Metadata of the first image should not be shown' );
 
-		imageDeferred = secondImageDeferred;
-		ligthboxInfoDeferred = secondLigthboxInfoDeferred;
+		viewer.imageProvider.get.returns( secondImageDeferred.promise() );
+		viewer.fetchSizeIndependentLightboxInfo.returns( secondLigthboxInfoDeferred.promise() );
 		viewer.loadImage( { filePageTitle : new mw.Title( 'File:Bar.jpg' ), index : 1 }, new Image() );
 
-		viewer.displayRealThumbnail = function () {
-			assert.ok( false, 'The first image being done loading should have no effect');
-		};
-
+		viewer.ui.panel.progressBar.animateTo.reset();
 		firstImageDeferred.notify( undefined, 45 );
+		assert.ok( !viewer.ui.panel.progressBar.animateTo.reset.called, 'Progress of the first image should not be shown' );
+
 		firstImageDeferred.resolve();
 		firstLigthboxInfoDeferred.resolve();
+		assert.ok( !viewer.displayRealThumbnail.called, 'The first image being done loading should have no effect');
 
-		viewer.ui.panel.setImageInfo = $.noop;
-		viewer.animateMetadataDivOnce = function() { return $.Deferred().reject(); };
-
-		viewer.displayRealThumbnail = function () {
-			assert.ok( true, 'The second image being done loading should result in the image being shown');
-			QUnit.start();
-			viewer.close();
-		};
-
-		QUnit.stop();
+		viewer.displayRealThumbnail = this.sandbox.spy( function () { viewer.close(); } );
 		secondImageDeferred.resolve();
 		secondLigthboxInfoDeferred.resolve();
+		assert.ok( viewer.displayRealThumbnail.called, 'The second image being done loading should result in the image being shown');
 	} );
 
 	QUnit.test( 'Events are not trapped after the viewer is closed', 0, function( assert ) {

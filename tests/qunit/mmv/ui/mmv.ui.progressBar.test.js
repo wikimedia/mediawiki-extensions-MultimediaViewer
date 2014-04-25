@@ -24,7 +24,7 @@
 		assert.ok( progressBar.$progress.hasClass( 'empty' ), 'ProgressBar starts empty' );
 	} );
 
-	QUnit.test( 'Progress bar', 11, function ( assert ) {
+	QUnit.test( 'animateTo()', 8, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			progress = new mw.mmv.ui.ProgressBar( $qf );
 
@@ -35,16 +35,9 @@
 			$( this ).css( target );
 			assert.strictEqual( target.width, '50%', 'Animation should go to 50%' );
 		} );
-		progress.percent( 50 );
+		progress.animateTo( 50 );
 		assert.ok( !progress.$progress.hasClass( 'empty' ), 'Progress bar is visible' );
 		assert.strictEqual( progress.$percent.width(), $qf.width() / 2, 'Progress bar\'s indicator is at half' );
-
-		$.fn.animate.restore();
-		this.sandbox.stub( $.fn, 'animate' );
-		progress.percent( 0 );
-		assert.ok( !$.fn.animate.called, 'Going to 0% should not animate' );
-		assert.ok( progress.$progress.hasClass( 'empty' ), 'Progress bar is hidden' );
-		assert.strictEqual( progress.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
 
 		$.fn.animate.restore();
 		this.sandbox.stub( $.fn, 'animate', function ( target, duration, transition, callback ) {
@@ -56,7 +49,25 @@
 				callback();
 			}
 		} );
-		progress.percent( 100 );
+		progress.animateTo( 100 );
+		assert.ok( progress.$progress.hasClass( 'empty' ), 'Progress bar is hidden' );
+		assert.strictEqual( progress.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
+	} );
+
+	QUnit.test( 'jumpTo()/hide()', 6, function ( assert ) {
+		var $qf = $( '#qunit-fixture' ),
+			progress = new mw.mmv.ui.ProgressBar( $qf );
+
+		assert.ok( progress.$progress.hasClass( 'empty' ), 'Progress bar is hidden' );
+		assert.strictEqual( progress.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
+
+		progress.jumpTo( 50 );
+
+		assert.ok( !progress.$progress.hasClass( 'empty' ), 'Progress bar is visible' );
+		assert.strictEqual( progress.$percent.width(), $qf.width() / 2, 'Progress bar\'s indicator is at half' );
+
+		progress.hide();
+
 		assert.ok( progress.$progress.hasClass( 'empty' ), 'Progress bar is hidden' );
 		assert.strictEqual( progress.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
 	} );

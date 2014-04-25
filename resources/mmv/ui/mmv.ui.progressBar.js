@@ -45,36 +45,45 @@
 	};
 
 	PBP.empty = function () {
+		this.hide();
+	};
+
+	/**
+	 * Hides the bar, resets it to 0 and stops any animation in progress.
+	 */
+	PBP.hide = function () {
 		this.$progress.addClass( 'empty' );
+		this.$percent.stop().css( { width : 0 } );
 	};
 
 	/**
 	 * Handles the progress display when a percentage of progress is received
-	 * @param {number} percent
+	 * @param {number} percent a number between 0 and 100
 	 */
-	PBP.percent = function ( percent ) {
+	PBP.animateTo = function ( percent ) {
 		var panel = this;
 
-		if ( percent === 0 ) {
-			// When a 0% update comes in, we jump without animation to 0 and we hide the bar
-			this.$progress.addClass( 'empty' );
-			this.$percent.stop().css( { width : 0 } );
-		} else if ( percent === 100 ) {
+		this.$progress.removeClass( 'empty' );
+		this.$percent.stop();
+
+		if ( percent === 100 ) {
 			// When a 100% update comes in, we make sure that the bar is visible, we animate
 			// fast to 100 and we hide the bar when the animation is done
-			this.$progress.removeClass( 'empty' );
-			this.$percent.stop().animate( { width : percent + '%' }, 50, 'swing',
-				function () {
-					// Reset the position for good measure
-					panel.$percent.stop().css( { width : 0 } );
-					panel.$progress.addClass( 'empty' );
-				} );
+			this.$percent.animate( { width : percent + '%' }, 50, 'swing', $.proxy( panel.hide, panel ) );
 		} else {
 			// When any other % update comes in, we make sure the bar is visible
 			// and we animate to the right position
-			this.$progress.removeClass( 'empty' );
-			this.$percent.stop().animate( { width : percent + '%' } );
+			this.$percent.animate( { width : percent + '%' } );
 		}
+	};
+
+	/**
+	 * Goes to the given percent without animation
+	 * @param {number} percent a number between 0 and 100
+	 */
+	PBP.jumpTo = function ( percent ) {
+		this.$progress.removeClass( 'empty' );
+		this.$percent.stop().css( { width : percent + '%' } );
 	};
 
 	mw.mmv.ui.ProgressBar = ProgressBar;

@@ -220,11 +220,11 @@
 	 * Loads and sets the specified image. It also updates the controls.
 	 * @param {mw.mmv.LightboxInterface} ui image container
 	 * @param {mw.mmv.model.Thumbnail} thumbnail thumbnail information
-	 * @param {HTMLImageElement} image
+	 * @param {HTMLImageElement} imageElement
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
 	 */
-	MMVP.setImage = function ( ui, thumbnail, image, imageWidths ) {
-		ui.canvas.setImageAndMaxDimensions( thumbnail, image, imageWidths );
+	MMVP.setImage = function ( ui, thumbnail, imageElement, imageWidths ) {
+		ui.canvas.setImageAndMaxDimensions( thumbnail, imageElement, imageWidths );
 		this.updateControls();
 	};
 
@@ -243,7 +243,6 @@
 
 		this.currentIndex = image.index;
 
-		this.currentImageFilename = image.filePageTitle.getPrefixedText();
 		this.currentImageFileTitle = image.filePageTitle;
 
 		if ( !this.isOpen ) {
@@ -267,15 +266,17 @@
 
 		imageWidths = this.ui.canvas.getCurrentImageWidths();
 
-		this.resetBlurredThumbnailStates();
 
 		start = $.now();
 
 		imagePromise = this.fetchThumbnailForLightboxImage( image, imageWidths.real );
 
-		viewer.displayPlaceholderThumbnail( image, $initialImage, imageWidths );
+		this.resetBlurredThumbnailStates();
+		if ( imagePromise.state() === 'pending' ) {
+			this.displayPlaceholderThumbnail( image, $initialImage, imageWidths );
+		}
 
-		this.setupProgressBar( image, imagePromise );
+		this.setupProgressBar( image, imagePromise, imageWidths.real );
 
 		imagePromise.done( function ( thumbnail, imageElement ) {
 			if ( viewer.currentIndex !== image.index ) {
@@ -338,29 +339,52 @@
 	};
 
 	/**
-	 * Resets the cross-request states needed to handle the blurred thumbnail logic
+	 * @private
+	 * Image loading progress. Keyed by image (database) name + '|' + thumbnail width in pixels,
+	 * value is undefined, 'blurred' or 'real' (meaning respectively that no thumbnail is shown
+	 * yet / the thumbnail that existed on the page is shown, enlarged and blurred / the real,
+	 * correct-size thumbnail is shown).
+	 * @property {Object.<string, string>}
+	 */
+	MMVP.thumbnailStateCache = {};
+
+	/**
+	 * Resets the cross-request states needed to handle the blurred thumbnail logic.
 	 */
 	MMVP.resetBlurredThumbnailStates = function () {
+		/**
+		 * Stores whether the real image was loaded and displayed already.
+		 * This is reset when paging, so it is not necessarily accurate.
+		 * @property {boolean}
+		 */
 		this.realThumbnailShown = false;
+
+		/**
+		 * Stores whether the a blurred placeholder is being displayed in place of the real image.
+		 * When a placeholder is displayed, but it is not blurred, this is false.
+		 * This is reset when paging, so it is not necessarily accurate.
+		 * @property {boolean}
+		 */
 		this.blurredThumbnailShown = false;
 	};
 
 	/**
 	 * Display the real, full-resolution, thumbnail that was fetched with fetchThumbnail
 	 * @param {mw.mmv.model.Thumbnail} thumbnail
-	 * @param {HTMLImageElement} image
+	 * @param {HTMLImageElement} imageElement
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
 	 * @param {number} loadTime Time it took to load the thumbnail
 	 */
-	MMVP.displayRealThumbnail = function ( thumbnail, image, imageWidths, loadTime ) {
+	MMVP.displayRealThumbnail = function ( thumbnail, imageElement, imageWidths, loadTime ) {
 		this.realThumbnailShown = true;
 
-		this.setImage( this.ui, thumbnail, image, imageWidths );
+		this.setImage( this.ui, thumbnail, imageElement, imageWidths );
 
-		// We only animate unblur if the image wasn't loaded from the cache
+		// We only animate unblurWithAnimation if the image wasn't loaded from the cache
 		// A load in < 10ms is considered to be a browser cache hit
-		// And of course we only unblur if there was a blur to begin with
 		if ( this.blurredThumbnailShown && loadTime > 10 ) {
+			this.ui.canvas.unblurWithAnimation();
+		} else {
 			this.ui.canvas.unblur();
 		}
 
@@ -372,13 +396,15 @@
 	 * @param {mw.mmv.LightboxImage} image
 	 * @param {jQuery} $initialImage The thumbnail from the page
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
-	 * @param {boolean} [recursion=false] for internal use, never set this
+	 * @param {boolean} [recursion=false] for internal use, never set this when calling from outside
 	 */
 	MMVP.displayPlaceholderThumbnail = function ( image, $initialImage, imageWidths, recursion ) {
 		var viewer = this,
 			size = { width : image.originalWidth, height : image.originalHeight };
 
-		// If the actual image has already been displayed, there's no point showing the blurry one
+		// If the actual image has already been displayed, there's no point showing the blurry one.
+		// This can happen if the API request to get the original image size needed to show the
+		// placeholder thumbnail takes longer then loading the actual thumbnail.
 		if ( this.realThumbnailShown ) {
 			return;
 		}
@@ -408,57 +434,70 @@
 	};
 
 	/**
+	 * @private
+	 * Image loading progress. Keyed by image (database) name + '|' + thumbnail width in pixels,
+	 * value is a number between 0-100.
+	 * @property {Object.<string, number>}
+	 */
+	MMVP.progressCache = {};
+
+	/**
 	 * Displays a progress bar for the image loading, if necessary, and sets up handling of
 	 * all the related callbacks.
-	 * FIXME would be nice to pass a simple promise which only returns a single number
-	 * and does not fire when the image is not visible
 	 * @param {mw.mmv.LightboxImage} image
 	 * @param {jQuery.Promise.<mw.mmv.model.Thumbnail, HTMLImageElement>} imagePromise
+	 * @param {number} imageWidth needed for caching progress (FIXME)
 	 */
-	MMVP.setupProgressBar = function ( image, imagePromise ) {
-		var viewer = this;
-
-		// Reset the progress bar, it could be at any state if we're calling loadImage
-		// while another image is already loading
-		// FIXME we should probably jump to the current progress instead
-		viewer.ui.panel.progressBar.percent( 0 );
+	MMVP.setupProgressBar = function ( image, imagePromise, imageWidth ) {
+		var viewer = this,
+			progressBar = viewer.ui.panel.progressBar,
+			key = image.filePageTitle.getPrefixedDb() + '|' + imageWidth;
 
 		if ( imagePromise.state() !== 'pending' ) {
-			// image has already loaded (or failed to load) - nothing to do
+			// image has already loaded (or failed to load) - do not show the progress bar
+			progressBar.hide();
 			return;
 		}
 
-		// FIXME this is all wrong, we might be navigating back to a half-loaded image
+		if ( !this.progressCache[key] ) {
+			// Animate progress bar to 5 to give a sense that something is happening, and make sure
+			// the progress bar is noticeable, even if we're sitting at 0% stuck waiting for
+			// server-side processing, such as thumbnail (re)generation
+			progressBar.jumpTo( 0 );
+			progressBar.animateTo( 5 );
+			viewer.progressCache[key] = 5;
+		} else {
+			progressBar.jumpTo( this.progressCache[key] );
+		}
 
-		// Animate progress bar to 5 to give a sense to something is happening, even if we're
-		// stuck waiting for server-side processing, such as thumbnail (re)generation
-		viewer.ui.panel.progressBar.percent( 5 );
-
-		imagePromise.progress( function ( thumbnailInfoResponse, imageResponse ) {
-			// FIXME this should be explained in a comment
-			var progress = imageResponse[1];
-
-			if ( viewer.currentIndex !== image.index ) {
+		// FIXME would be nice to have a "filtered" promise which does not fire when the image is not visible
+		imagePromise.progress( function ( progress ) {
+			// We pretend progress is always at least 5%, so progress events below 5% should be ignored
+			// 100 will be handled by the done handler, do not mix two animations
+			if ( progress < 5 || progress === 100 ) {
 				return;
 			}
 
-			// We started from 5, don't move backwards
-			if ( progress > 5 ) {
-				viewer.ui.panel.progressBar.percent( progress );
+			viewer.progressCache[key] = progress;
+
+			// Touch the UI only if the user is looking at this image
+			if ( viewer.currentIndex === image.index ) {
+				progressBar.animateTo( progress );
 			}
 		} ).done( function () {
-			if ( viewer.currentIndex !== image.index ) {
-				return;
-			}
+			viewer.progressCache[key] = 100;
 
-			// Fallback in case the browser doesn't have fancy progress updates
-			viewer.ui.panel.progressBar.percent( 100 );
-		} ).fail( function () {
-			if ( viewer.currentIndex !== image.index ) {
-				return;
+			if ( viewer.currentIndex === image.index ) {
+				// Fallback in case the browser doesn't have fancy progress updates
+				progressBar.animateTo( 100 );
 			}
-			// Hide progress bar on error
-			viewer.ui.panel.progressBar.percent( 0 );
+		} ).fail( function () {
+			viewer.progressCache[key] = 100;
+
+			if ( viewer.currentIndex === image.index ) {
+				// Hide progress bar on error
+				progressBar.hide();
+			}
 		} );
 	};
 
@@ -653,7 +692,9 @@
 	 * @param {string} [sampleUrl] a thumbnail URL for the same file (but with different size) (might be missing)
 	 * @param {number} [originalWidth] the width of the original, full-sized file (might be missing)
 	 * @param {number} [originalHeight] the height of the original, full-sized file (might be missing)
-	 * @returns {jQuery.Promise.<mw.mmv.model.Thumbnail, HTMLImageElement>}
+	 * @returns {jQuery.Promise.<mw.mmv.model.Thumbnail, HTMLImageElement>} A promise resolving to
+	 *  a thumbnail model and an <img> element. It might or might not have progress events which
+	 *  return a single number.
 	 */
 	MMVP.fetchThumbnail = function ( fileTitle, width, sampleUrl, originalWidth, originalHeight ) {
 		var viewer = this,
@@ -696,7 +737,10 @@
 			} );
 		}
 
-		return $.when( thumbnailPromise, imagePromise );
+		return $.when( thumbnailPromise, imagePromise ).then( null, null, function ( thumbnailProgress, imageProgress ) {
+			// Make progress events have a nice format.
+			return imageProgress[1];
+		} );
 	};
 
 	/**
