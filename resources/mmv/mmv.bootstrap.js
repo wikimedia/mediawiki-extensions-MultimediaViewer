@@ -376,6 +376,8 @@
 	 * Cleans up the overlay
 	 */
 	MMVB.cleanupOverlay = function () {
+		var bootstrap = this;
+
 		$( document.body ).removeClass( 'mw-mmv-lightbox-open' );
 
 		if ( this.$overlay ) {
@@ -383,8 +385,8 @@
 		}
 
 		if ( this.savedScroll ) {
-			$.scrollTo( this.savedScroll, 0 );
-			this.savedScroll = undefined;
+			// setTimeout because otherwise Chrome will scroll back to top after the popstate event handlers run
+			setTimeout( function() { $.scrollTo( bootstrap.savedScroll, 0 ); bootstrap.savedScroll = undefined; }, 0 );
 		}
 	};
 
