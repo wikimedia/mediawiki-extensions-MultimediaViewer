@@ -730,6 +730,7 @@ $wgResourceModules += array(
 			'mmv.lightboxinterface',
 			'mmv.provider',
 			'mmv.routing',
+			'mmv.DurationLogger',
 			'jquery.fullscreen',
 			'jquery.hidpi',
 			'jquery.scrollTo',
@@ -760,6 +761,7 @@ $wgResourceModules += array(
 			'mediawiki.Title',
 			'mmv.logger',
 			'mmv.HtmlUtils',
+			'mmv.DurationLogger',
 			'jquery.scrollTo',
 		),
 
@@ -779,6 +781,16 @@ $wgResourceModules += array(
 		),
 	),
 
+	'mmv.DurationLogger' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/mmv.DurationLogger.js',
+		),
+
+		'dependencies' => array(
+			'mmv.base'
+		)
+	),
+
 	'mmv.head' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/mmv.head.js',
@@ -786,6 +798,7 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.base',
+			'mmv.DurationLogger'
 		),
 
 		'position' => 'top',
@@ -820,11 +833,20 @@ $wgExtensionFunctions[] = function () {
 			'revision' => 7917896,
 		);
 
+		$wgResourceModules['schema.MultimediaViewerDuration'] = array(
+			'class' => 'ResourceLoaderSchemaModule',
+			'schema' => 'MultimediaViewerDuration',
+			'revision' => 8318615,
+		);
+
 		$wgResourceModules['mmv.logger']['dependencies'][] = 'ext.eventLogging';
 		$wgResourceModules['mmv.logger']['dependencies'][] = 'schema.MediaViewer';
 
 		$wgResourceModules['mmv.performance']['dependencies'][] = 'ext.eventLogging';
 		$wgResourceModules['mmv.performance']['dependencies'][] = 'schema.MultimediaViewerNetworkPerformance';
+
+		$wgResourceModules['mmv.DurationLogger']['dependencies'][] = 'ext.eventLogging';
+		$wgResourceModules['mmv.DurationLogger']['dependencies'][] = 'schema.MultimediaViewerDuration';
 	}
 };
 

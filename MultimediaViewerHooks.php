@@ -181,6 +181,7 @@ class MultimediaViewerHooks {
 			'scripts' => array(
 				'tests/qunit/mmv/mmv.bootstrap.test.js',
 				'tests/qunit/mmv/mmv.test.js',
+				'tests/qunit/mmv/mmv.DurationLogger.test.js',
 				'tests/qunit/mmv/mmv.lightboxinterface.test.js',
 				'tests/qunit/mmv/mmv.lightboximage.test.js',
 				'tests/qunit/mmv/mmv.ThumbnailWidthCalculator.test.js',

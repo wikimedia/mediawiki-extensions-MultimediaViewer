@@ -6,6 +6,7 @@
 				"name": "Base",
 				"classes": [
 					"mw.mmv.Api",
+					"mw.mmv.DurationLogger",
 					"mw.mmv.EmbedFileFormatter",
 					"mw.mmv.HtmlUtils",
 					"mw.mmv.LightboxImage",

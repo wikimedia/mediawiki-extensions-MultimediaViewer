@@ -110,6 +110,18 @@
 		 * @private
 		 */
 		this.ui = new mw.mmv.LightboxInterface();
+
+		/**
+		 * How many sharp images have been displayed in Media Viewer since the pageload
+		 * @property {number}
+		 */
+		this.imageDisplayedCount = 0;
+
+		/**
+		 * How many data-filled metadata panels have been displayed in Media Viewer since the pageload
+		 * @property {number}
+		 */
+		this.metadataDisplayedCount = 0;
 	}
 
 	MMVP = MultimediaViewer.prototype;
@@ -282,6 +294,9 @@
 				return;
 			}
 
+			if ( viewer.imageDisplayedCount++ === 0 ) {
+				mw.mmv.DurationLogger.stop( 'click-to-first-image' );
+			}
 			viewer.displayRealThumbnail( thumbnail, imageElement, imageWidths, $.now() - start );
 		} ).fail( function ( error ) {
 			viewer.ui.canvas.showError( error );
@@ -294,6 +309,9 @@
 				return;
 			}
 
+			if ( viewer.metadataDisplayedCount++ === 0 ) {
+				mw.mmv.DurationLogger.stop( 'click-to-first-metadata' );
+			}
 			viewer.ui.panel.setImageInfo( image, imageInfo, repoInfo, localUsage, globalUsage, userInfo );
 		} ).fail( function ( error ) {
 			if ( viewer.currentIndex !== image.index ) {
