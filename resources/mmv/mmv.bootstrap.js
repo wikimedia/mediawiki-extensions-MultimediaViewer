@@ -125,9 +125,18 @@
 	MMVB.processThumbs = function () {
 		var bs = this;
 
-		this.$thumbs.each( function ( i, thumb ) {
-			bs.processThumb( thumb );
-		} );
+		// if this breaks in IE8, see https://github.com/ebryn/backburner.js/pull/50
+		// but it probably won't since there is a catch further up the chain
+		try {
+			this.$thumbs.each( function ( i, thumb ) {
+				bs.processThumb( thumb );
+			} );
+		} finally {
+			this.thumbsReadyDeferred.resolve();
+			// now that we have set up our real click handler we can we can remove the temporary
+			// handler added in mmv.head.js which just replays clicks to the real handler
+			$( document ).off( 'click.mmv-head' );
+		}
 	};
 
 	/**
@@ -207,11 +216,6 @@
 		$link.add( $enlarge ).click( function ( e ) {
 			return bs.click( this, e, title, alwaysOpen );
 		} );
-		// now that we have set up our real click handler we can we can remove the temporary
-		// handler added in mmv.head.js which just replays clicks to the real handler
-		$( document ).off( 'click.mmv-head' );
-
-		this.thumbsReadyDeferred.resolve();
 	};
 
 	/**
