@@ -5,13 +5,15 @@
 			"SPQRobin",
 			"Siebrand",
 			"Sjoerddebruin",
-			"Southparkfan"
+			"Southparkfan",
+			"Romaine"
 		]
 	},
 	"multimediaviewer-desc": "Miniatuurafbeeldingen schermvullend weergeven.",
 	"multimediaviewer-desc-nil": "Geen omschrijving beschikbaar.",
 	"multimediaviewer-pref": "Mediaviewer",
 	"multimediaviewer-pref-desc": "Verbeteren uw multimediaervaring met dit nieuwe instrument. Afbeeldingen worden groter weergegeven op pagina's met miniaturen. Afbeeldingen worden schermvullend weergegeven en kunnen ook worden bekeken op ware grootte.",
+	"multimediaviewer-optin-pref": "Nieuwe media-kijkervaring aanzetten",
 	"multimediaviewer-file-page": "Naar de bestandspagina gaan",
 	"multimediaviewer-repository": "Meer informatie over $1",
 	"multimediaviewer-repository-local": "Lees meer",
