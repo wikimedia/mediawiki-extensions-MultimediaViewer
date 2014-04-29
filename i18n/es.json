@@ -6,12 +6,15 @@
 			"Ciencia Al Poder",
 			"Csbotero",
 			"Fitoschido",
-			"PoLuX124"
+			"PoLuX124",
+			"DJ Nietzsche"
 		]
 	},
+	"multimediaviewer-desc": "Expande las miniaturas a un tamaño mayor en una vista de pantalla completa.",
 	"multimediaviewer-desc-nil": "Sin descripción disponible.",
 	"multimediaviewer-pref": "Visor multimedia",
 	"multimediaviewer-pref-desc": "Mejora tu experiencia de visualización multimedia con esta herramienta. Las imágenes se muestran en una vista a pantalla completa que incluye información relevante de las mismas.",
+	"multimediaviewer-optin-pref": "Activar el nuevo visor multimedia",
 	"multimediaviewer-file-page": "Ir a la página del archivo correspondiente",
 	"multimediaviewer-repository": "Más información en $1",
 	"multimediaviewer-repository-local": "Más información",
@@ -68,6 +71,7 @@
 	"multimediaviewer-small-embed-dimensions": "Pequeño, $1",
 	"multimediaviewer-embed-dimensions": "$1 × $2 px",
 	"multimediaviewer-feedback-button-text": "Tu opinión sobre esta herramienta",
+	"multimediaviewer-feedback-popup-text": "Dejar comentarios sobre este nuevo visor multimedia",
 	"multimediaviewer-description-page-button-text": "Más detalles",
 	"multimediaviewer-description-page-popup-text": "Más detalles sobre $1",
 	"multimediaviewer-commons-subtitle": "El repositorio de multimedia libre",
