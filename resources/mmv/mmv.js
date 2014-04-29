@@ -239,9 +239,7 @@
 			metadataPromise,
 			start,
 			viewer = this,
-			$initialImage = $( initialImage ),
-			fileWidth = image.originalWidth,
-			fileHeight = image.originalHeight;
+			$initialImage = $( initialImage );
 
 		this.currentIndex = image.index;
 
@@ -273,48 +271,13 @@
 
 		start = $.now();
 
-		// Reset the progress bar, it could be at any state if we're calling loadImage
-		// while another image is already loading
-		viewer.ui.panel.progressBar.percent( 0 );
-
 		imagePromise = this.fetchThumbnailForLightboxImage( image, imageWidths.real );
 
-		// Check that the image hasn't already been loaded
-		if ( imagePromise.state() === 'pending' ) {
-			// Animate it to 5 to give a sense to something is happening, even if we're stuck
-			// waiting for server-side processing, such as thumbnail (re)generation
-			viewer.ui.panel.progressBar.percent( 5 );
-		}
+		viewer.displayPlaceholderThumbnail( image, $initialImage, imageWidths );
 
-		if ( fileWidth > 0 && fileHeight > 0 ) {
-			viewer.displayPlaceholderThumbnail( { width : fileWidth , height : fileHeight },
-				$initialImage,
-				imageWidths );
-		} else {
-			this.imageInfoProvider.get( image.filePageTitle ).done( function ( imageInfo ) {
-				if ( viewer.currentIndex !== image.index ) {
-					return;
-				}
+		this.setupProgressBar( image, imagePromise );
 
-				viewer.displayPlaceholderThumbnail( imageInfo, $initialImage, imageWidths );
-			} );
-		}
-
-		imagePromise.progress( function ( thumbnailInfoResponse, imageResponse ) {
-			if ( viewer.currentIndex !== image.index ) {
-				return;
-			}
-
-			if ( viewer.ui
-				&& viewer.ui.panel
-				&& imageResponse.length === 2
-				&& imageResponse[ 1 ] > 5 ) {
-				viewer.ui.panel.progressBar.percent( imageResponse[ 1 ] );
-			}
-		} ).done( function ( thumbnail, imageElement ) {
-			// Fallback in case the browser doesn't have fancy progress updates
-			viewer.ui.panel.progressBar.percent( 100 );
-
+		imagePromise.done( function ( thumbnail, imageElement ) {
 			if ( viewer.currentIndex !== image.index ) {
 				return;
 			}
@@ -406,18 +369,97 @@
 
 	/**
 	 * Display the blurred thumbnail from the page
-	 * @param {mw.mmv.model.Image} imageInfo
+	 * @param {mw.mmv.LightboxImage} image
 	 * @param {jQuery} $initialImage The thumbnail from the page
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
+	 * @param {boolean} [recursion=false] for internal use, never set this
 	 */
-	MMVP.displayPlaceholderThumbnail = function ( imageInfo, $initialImage, imageWidths ) {
+	MMVP.displayPlaceholderThumbnail = function ( image, $initialImage, imageWidths, recursion ) {
+		var viewer = this,
+			size = { width : image.originalWidth, height : image.originalHeight };
+
 		// If the actual image has already been displayed, there's no point showing the blurry one
 		if ( this.realThumbnailShown ) {
 			return;
 		}
 
-		this.blurredThumbnailShown = this.ui.canvas.maybeDisplayPlaceholder(
-			imageInfo, $initialImage, imageWidths );
+		// Width/height of the original image are added to the HTML by MediaViewer via a PHP hook,
+		// and can be missing in exotic circumstances, e. g. when the extension has only been
+		// enabled recently and the HTML cache has not cleared yet. If that is the case, we need
+		// to fetch the size from the API first.
+		if ( !size.width || !size.height ) {
+			if ( recursion ) {
+				// this should not be possible, but an infinite recursion is nasty
+				// business, so we make a sanity check
+				throw 'MediaViewer internal error: displayPlaceholderThumbnail recursion';
+			}
+			this.imageInfoProvider.get( image.filePageTitle ).done( function ( imageInfo ) {
+				// Make sure the user has not navigated away while we were waiting for the size
+				if ( viewer.currentIndex === image.index ) {
+					image.originalWidth = imageInfo.width;
+					image.originalHeight = imageInfo.height;
+					viewer.displayPlaceholderThumbnail( image, $initialImage, imageWidths, true );
+				}
+			} );
+		} else {
+			this.blurredThumbnailShown = this.ui.canvas.maybeDisplayPlaceholder(
+				size, $initialImage, imageWidths );
+		}
+	};
+
+	/**
+	 * Displays a progress bar for the image loading, if necessary, and sets up handling of
+	 * all the related callbacks.
+	 * FIXME would be nice to pass a simple promise which only returns a single number
+	 * and does not fire when the image is not visible
+	 * @param {mw.mmv.LightboxImage} image
+	 * @param {jQuery.Promise.<mw.mmv.model.Thumbnail, HTMLImageElement>} imagePromise
+	 */
+	MMVP.setupProgressBar = function ( image, imagePromise ) {
+		var viewer = this;
+
+		// Reset the progress bar, it could be at any state if we're calling loadImage
+		// while another image is already loading
+		// FIXME we should probably jump to the current progress instead
+		viewer.ui.panel.progressBar.percent( 0 );
+
+		if ( imagePromise.state() !== 'pending' ) {
+			// image has already loaded (or failed to load) - nothing to do
+			return;
+		}
+
+		// FIXME this is all wrong, we might be navigating back to a half-loaded image
+
+		// Animate progress bar to 5 to give a sense to something is happening, even if we're
+		// stuck waiting for server-side processing, such as thumbnail (re)generation
+		viewer.ui.panel.progressBar.percent( 5 );
+
+		imagePromise.progress( function ( thumbnailInfoResponse, imageResponse ) {
+			// FIXME this should be explained in a comment
+			var progress = imageResponse[1];
+
+			if ( viewer.currentIndex !== image.index ) {
+				return;
+			}
+
+			// We started from 5, don't move backwards
+			if ( progress > 5 ) {
+				viewer.ui.panel.progressBar.percent( progress );
+			}
+		} ).done( function () {
+			if ( viewer.currentIndex !== image.index ) {
+				return;
+			}
+
+			// Fallback in case the browser doesn't have fancy progress updates
+			viewer.ui.panel.progressBar.percent( 100 );
+		} ).fail( function () {
+			if ( viewer.currentIndex !== image.index ) {
+				return;
+			}
+			// Hide progress bar on error
+			viewer.ui.panel.progressBar.percent( 0 );
+		} );
 	};
 
 	/**
@@ -592,6 +634,7 @@
 	 * Loads size-dependent components of a lightbox - the thumbnail model and the image itself.
 	 * @param {mw.mmv.LightboxImage} image
 	 * @param {number} width the width of the requested thumbnail
+	 * @returns {jQuery.Promise.<mw.mmv.model.Thumbnail, HTMLImageElement>}
 	 */
 	MMVP.fetchThumbnailForLightboxImage = function ( image, width ) {
 		return this.fetchThumbnail(
