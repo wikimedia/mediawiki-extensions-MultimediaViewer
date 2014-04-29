@@ -64,15 +64,10 @@
 	}
 
 	QUnit.test( 'Promise does not hang on ResourceLoader errors', 3, function ( assert ) {
-		var oldUsing = mw.loader.using,
-			bootstrap,
+		var bootstrap,
 			errorMessage = 'loading failed';
 
-		mw.loader.using = function ( module, success, error ) {
-			if ( $.isFunction( error ) ) {
-				error( new Error( errorMessage, ['mmv'] ) );
-			}
-		};
+		this.sandbox.stub( mw.loader, 'using' ).callsArgWith( 2, new Error( errorMessage, ['mmv'] ) );
 
 		bootstrap = createBootstrap();
 
@@ -89,8 +84,24 @@
 		bootstrap.loadViewer().fail( function ( message ) {
 			assert.strictEqual( message, errorMessage, 'promise is rejected with the error message when loading fails' );
 			QUnit.start();
-			mw.loader.using = oldUsing;
 		} );
+	} );
+
+	QUnit.test( 'Clicks are not captured once the loading fails', 4, function ( assert ) {
+		var event, returnValue,
+			bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+
+		this.sandbox.stub( mw.loader, 'using' ).callsArgWith( 2, new Error( 'loading failed', ['mmv'] ) );
+
+		event = new $.Event( 'click', { button: 0, which: 1 } );
+		returnValue = bootstrap.click( {}, event, 'foo' );
+		assert.ok( event.isDefaultPrevented(), 'First click is caught' );
+		assert.strictEqual( returnValue, false, 'First click is caught' );
+
+		event = new $.Event( 'click', { button: 0, which: 1 } );
+		returnValue = bootstrap.click( {}, event, 'foo' );
+		assert.ok( !event.isDefaultPrevented(), 'Click after loading failure is not caught' );
+		assert.notStrictEqual( returnValue, false, 'Click after loading failure is not caught' );
 	} );
 
 	QUnit.test( 'Check viewer invoked when clicking on legit image links', 9, function ( assert ) {

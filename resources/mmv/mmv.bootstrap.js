@@ -42,6 +42,12 @@
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
 
+		/**
+		 * This flag is set to true when we were unable to load the viewer.
+		 * @property {boolean}
+		 */
+		this.viewerIsBroken = false;
+
 		this.thumbsReadyDeferred = $.Deferred();
 		this.thumbs = [];
 
@@ -85,6 +91,7 @@
 		} ).fail( function( message ) {
 			mw.log.warn( message );
 			bs.cleanupOverlay();
+			bs.viewerIsBroken = true;
 			mw.notify( 'Error loading MediaViewer: ' + message );
 		} );
 	};
@@ -230,7 +237,7 @@
 
 	/**
 	 * Handles a click event on a link
-	 * @param {Object} element Clicked element
+	 * @param {HTMLElement} element Clicked element
 	 * @param {jQuery.Event} e jQuery event object
 	 * @param {string} title File title
 	 * @param {boolean} overridePreference Whether to ignore global preferences and open
@@ -247,6 +254,11 @@
 
 		// Don't load if someone has specifically stopped us from doing so
 		if ( mw.config.get( 'wgMediaViewerOnClick' ) !== true && overridePreference !== true ) {
+			return;
+		}
+
+		// Don't load if we already tried loading and it failed
+		if ( this.viewerIsBroken ) {
 			return;
 		}
 
