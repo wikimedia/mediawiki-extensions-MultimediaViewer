@@ -17,7 +17,7 @@
 
 ( function( mw, $ ) {
 	/**
-	 * @class mw.mmv.proivder.GuessedThumbnailInfo
+	 * @class mw.mmv.provider.GuessedThumbnailInfo
 	 * This provider is similar to mw.mmv.provider.ThumbnailInfo, but instead of making an API call
 	 * to get the thumbnail URL, it tries to guess it. There are two failure modes:
 	 * - known failure: in the given situation it does not seem possible or safe to guess the URL.
