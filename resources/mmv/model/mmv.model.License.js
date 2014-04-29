@@ -22,10 +22,10 @@
 	 * Class for storing license information about an image. For available fields, see
 	 * TemplateParser::$licenseFieldClasses in the CommonsMetadata extension.
 	 * @class mw.mmv.model.License
-	 * @param {string} shortName see {@link License#shortName}
-	 * @param {string} [internalName] see {@link License#internalName}
-	 * @param {string} [longName] see {@link License#longName}
-	 * @param {string} [deedUrl] see {@link License#deedUrl}
+	 * @param {string} shortName see {@link #shortName}
+	 * @param {string} [internalName] see {@link #internalName}
+	 * @param {string} [longName] see {@link #longName}
+	 * @param {string} [deedUrl] see {@link #deedUrl}
 	 * @constructor
 	 */
 	function License(
