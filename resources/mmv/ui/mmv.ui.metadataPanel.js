@@ -37,8 +37,7 @@
 		 * @property {boolean}
 		 * @private
 		 */
-		this.hasAnimatedMetadata = window.localStorage === undefined ||
-			localStorage.getItem( 'mmv.hasOpenedMetadata' );
+		this.hasAnimatedMetadata = !window.localStorage || localStorage.getItem( 'mmv.hasOpenedMetadata' );
 
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
@@ -829,7 +828,7 @@
 		if (
 			!this.savedHasOpenedMetadata &&
 			scrolled &&
-			window.localStorage !== undefined
+			window.localStorage
 		) {
 			localStorage.setItem( 'mmv.hasOpenedMetadata', true );
 			this.savedHasOpenedMetadata = true;
