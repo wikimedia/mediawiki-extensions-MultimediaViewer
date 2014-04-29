@@ -195,7 +195,7 @@
 		var baseLangcode,
 			baseUrl = 'https://www.surveymonkey.com/s/media-viewer-1',
 			surveyTranslations = { ca: 'ca', hu: 'hu', fr: 'fr', pt: 'pt-br', 'pt-br': 'pt-br',
-				de: 'de', es: 'es' };
+				de: 'de', es: 'es', nl: 'nl' };
 
 		baseLangcode = langcode.split( /[_-]/ )[0]; // get rid of variants
 		if ( baseLangcode === 'en') {
