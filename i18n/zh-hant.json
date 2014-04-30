@@ -3,7 +3,8 @@
 		"authors": [
 			"Liuxinyu970226",
 			"Simon Shek",
-			"Liangent"
+			"Liangent",
+			"Cwlin0416"
 		]
 	},
 	"multimediaviewer-desc-nil": "並無說明。",
@@ -53,6 +54,9 @@
 	"multimediaviewer-embed-byline": "由$1",
 	"multimediaviewer-embed-license": "基於$1授權。",
 	"multimediaviewer-embed-via": "經由$1。",
+	"multimediaviewer-large-embed-dimensions": "大型 $1",
+	"multimediaviewer-medium-embed-dimensions": "中型 $1",
+	"multimediaviewer-small-embed-dimensions": "小型 $1",
 	"multimediaviewer-description-page-button-text": "更多詳細資訊",
 	"multimediaviewer-description-page-popup-text": "於$1之更多詳細資訊"
 }

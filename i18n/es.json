@@ -7,7 +7,8 @@
 			"Csbotero",
 			"Fitoschido",
 			"PoLuX124",
-			"DJ Nietzsche"
+			"DJ Nietzsche",
+			"Jduranboger"
 		]
 	},
 	"multimediaviewer-desc": "Expande las miniaturas a un tamaño mayor en una vista de pantalla completa.",
@@ -20,7 +21,7 @@
 	"multimediaviewer-repository-local": "Más información",
 	"multimediaviewer-datetime-created": "Creado el $1",
 	"multimediaviewer-datetime-uploaded": "Subido el $1",
-	"multimediaviewer-userpage-link": "Cargado por $1",
+	"multimediaviewer-userpage-link": "{{GENDER:$2|Cargado}} por $1",
 	"multimediaviewer-metadata-error": "Error: no se pueden cargar los datos de la imagen. $1",
 	"multimediaviewer-thumbnail-error": "Error: no se pueden cargar los datos de miniaturas. $1",
 	"multimediaviewer-license-cc-pd": "Dominio público",
