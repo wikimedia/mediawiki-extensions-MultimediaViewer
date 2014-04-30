@@ -68,7 +68,7 @@
 			.prop( 'title', popupText )
 			// elements are right-floated so we use prepend instead of append to keep the order
 			.prependTo( this.$buttonContainer )
-			.tipsy( { gravity: 's' } );
+			.tipsy( { gravity: $( document.body ).hasClass( 'rtl' ) ? 'sw' : 'se' } );
 	};
 
 	/**
