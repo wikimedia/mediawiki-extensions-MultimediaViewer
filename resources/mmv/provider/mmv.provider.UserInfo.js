@@ -68,6 +68,8 @@
 		if ( repoInfo.apiUrl ) {
 			ajaxOptions.url = repoInfo.apiUrl;
 			ajaxOptions.dataType = 'jsonp';
+			ajaxOptions.cache = true; // do not append `_=<timestamp>` to the URL
+			ajaxOptions.jsonpCallback = this.getCallbackName( username  );
 			cacheKey = cacheKey + '|' + repoInfo.apiUrl; // local and remote user names could conflict
 		}
 
@@ -88,6 +90,24 @@
 				}
 			} );
 		} );
+	};
+
+	/**,
+	 * Generate JSONP callback function name.
+	 * jQuery uses a random string by default, which would break caching.
+	 * On the other hand the callback needs to be unique to avoid surprises when multiple
+	 * requests run in parallel. And of course needs to be a valid JS variable name.
+	 * @param username
+	 */
+	UserInfo.prototype.getCallbackName = function ( username ) {
+		// Javascript variable name charset rules are fairly lax but better safe then sorry,
+		// so let's encode every non-alphanumeric character.
+		// Per http://stackoverflow.com/questions/1809153/maximum-length-of-variable-name-in-javascript
+		// length should not be an issue (might add a few hundred bytes to the request & response size
+		// for very long usernames, but we can live with that).
+		return 'mmv_userinfo_' + mw.util.rawurlencode( username )// encodes all characters except -.~_
+			.replace( /-/g, '%2D' ).replace( /\./g, '%2E' ).replace( /~/g, '%7E' ).replace( /_/g, '%5F' )
+			.replace( /%/g, '_' );
 	};
 
 	mw.mmv.provider.UserInfo = UserInfo;
