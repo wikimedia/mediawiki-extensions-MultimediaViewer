@@ -33,7 +33,7 @@
 	function createStripeButtons() {
 		var fixture = $( '#qunit-fixture' );
 		return new mw.mmv.ui.StripeButtons( fixture, {
-			getItem: function () { return 999; },
+			getItem: function () { return mw.mmv.ui.StripeButtons.feedbackSettings.tooltipMaxDisplayCount; },
 			setItem: $.noop
 		} );
 	}
@@ -185,5 +185,37 @@
 		buttons.unattach();
 		this.clock.tick( 6000 );
 		assert.ok( !hasTooltip(), 'No tooltip when unattached' );
+	} );
+
+	QUnit.test( 'No localStorage', 3, function( assert ) {
+		var fixture = $( '#qunit-fixture' ),
+			buttons = new mw.mmv.ui.StripeButtons( fixture, undefined );
+
+		assert.strictEqual( buttons.getTooltipDisplayCount(), buttons.feedbackSettings.tooltipMaxDisplayCount, 'Initial tooltip count is tooltipMaxDisplayCount' );
+
+		buttons.increaseTooltipDisplayCount();
+
+		assert.strictEqual( buttons.getTooltipDisplayCount(), buttons.feedbackSettings.tooltipMaxDisplayCount, 'Tooltip count is still tooltipMaxDisplayCount' );
+
+		buttons.maxOutTooltipDisplayCount();
+
+		assert.strictEqual( buttons.getTooltipDisplayCount(), buttons.feedbackSettings.tooltipMaxDisplayCount, 'Tooltip count is still tooltipMaxDisplayCount' );
+	} );
+
+	QUnit.test( 'Full localStorage', 3, function( assert ) {
+		var buttons = createStripeButtons();
+
+		this.sandbox.stub( buttons.localStorage, 'getItem', function () { return null; } );
+		this.sandbox.stub( buttons.localStorage, 'setItem', function () { throw 'I am full'; } );
+
+		assert.strictEqual( buttons.getTooltipDisplayCount(), buttons.feedbackSettings.tooltipMaxDisplayCount, 'Initial tooltip count is tooltipMaxDisplayCount' );
+
+		buttons.increaseTooltipDisplayCount();
+
+		assert.strictEqual( buttons.getTooltipDisplayCount(), buttons.feedbackSettings.tooltipMaxDisplayCount, 'Tooltip count is still tooltipMaxDisplayCount' );
+
+		buttons.maxOutTooltipDisplayCount();
+
+		assert.strictEqual( buttons.getTooltipDisplayCount(), buttons.feedbackSettings.tooltipMaxDisplayCount, 'Tooltip count is still tooltipMaxDisplayCount' );
 	} );
 }( mediaWiki, jQuery ) );

@@ -26,18 +26,22 @@
 	 * @constructor
 	 * @param {jQuery} $container The container for the panel.
 	 * @param {jQuery} $controlBar The control bar element.
+	 * @param {Object} localStorage the localStorage object, for dependency injection
 	 */
-	function MetadataPanel( $container, $controlBar ) {
+	function MetadataPanel( $container, $controlBar, localStorage ) {
 		mw.mmv.ui.Element.call( this, $container );
 
 		this.$controlBar = $controlBar;
+
+		/** @property {Object} localStorage the window.localStorage object */
+		this.localStorage = localStorage;
 
 		/**
 		 * Whether we've fired an animation for the metadata div.
 		 * @property {boolean}
 		 * @private
 		 */
-		this.hasAnimatedMetadata = !window.localStorage || localStorage.getItem( 'mmv.hasOpenedMetadata' );
+		this.hasAnimatedMetadata = !this.localStorage || this.localStorage.getItem( 'mmv.hasOpenedMetadata' );
 
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
@@ -218,7 +222,7 @@
 	};
 
 	MPP.initializeButtons = function () {
-		this.buttons = new mw.mmv.ui.StripeButtons( this.$titleDiv, window.localStorage );
+		this.buttons = new mw.mmv.ui.StripeButtons( this.$titleDiv, this.localStorage );
 	};
 
 	/**
@@ -849,9 +853,15 @@
 		if (
 			!this.savedHasOpenedMetadata &&
 			scrolled &&
-			window.localStorage
+			this.localStorage
 		) {
-			localStorage.setItem( 'mmv.hasOpenedMetadata', true );
+			try {
+				this.localStorage.setItem( 'mmv.hasOpenedMetadata', true );
+			} catch ( e ) {
+				// localStorage is full or disabled
+			}
+
+			// We mark it as saved even when localStorage failed, because retrying will very likely fail as well
 			this.savedHasOpenedMetadata = true;
 		}
 	};

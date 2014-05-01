@@ -211,10 +211,13 @@
 
 
 	QUnit.test( 'Metadata div is only animated once', 4, function ( assert ) {
-		localStorage.removeItem( 'mmv.hasOpenedMetadata' );
-
 		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) );
+			displayCount,
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), {
+				// We simulate localStorage to avoid test side-effects
+				getItem: function () { return displayCount; },
+				setItem: function ( _, val ) { displayCount = val; }
+			} );
 
 		panel.animateMetadataOnce();
 
@@ -271,5 +274,27 @@
 		mw.user.isAnon.returns( true );
 		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ) );
 		assert.strictEqual( $qf.find( '.mw-mmv-preference-link' ).length, 0, 'Preferences link is not created for anon user.' );
+	} );
+
+	QUnit.test( 'No localStorage', 1, function( assert ) {
+		var $qf = $( '#qunit-fixture' ),
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) );
+
+		this.sandbox.stub( $, 'scrollTo', function() { return { scrollTop : function() { return 10; } }; } );
+
+		panel.scroll();
+
+		assert.ok( !panel.savedHasOpenedMetadata, 'No localStorage, we don\'t try to save the opened flag' );
+	} );
+
+	QUnit.test( 'Full localStorage', 1, function( assert ) {
+		var $qf = $( '#qunit-fixture' ),
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), { getItem : $.noop, setItem : function() { throw 'I am full'; } } );
+
+		this.sandbox.stub( $, 'scrollTo', function() { return { scrollTop : function() { return 10; } }; } );
+
+		panel.scroll();
+
+		assert.ok( panel.savedHasOpenedMetadata, 'Full localStorage, we don\'t try to save the opened flag more than once' );
 	} );
 }( mediaWiki, jQuery ) );

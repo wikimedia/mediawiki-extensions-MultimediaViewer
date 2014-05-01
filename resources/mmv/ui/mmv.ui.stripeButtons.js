@@ -125,20 +125,25 @@
 	};
 
 	/**
-	 * Returns the number of times the tooltip was shown so far. This number is set to 999 if the
+	 * Returns the number of times the tooltip was shown so far. This number is set to this.feedbackSettings.tooltipMaxDisplayCount if the
 	 * user clicked on the link already, or we cannot count how many times the tooltip was shown
 	 * already.
 	 * @return {number}
 	 */
 	SBP.getTooltipDisplayCount = function () {
 		if ( !this.localStorage ) {
-			return 999;
+			return this.feedbackSettings.tooltipMaxDisplayCount;
 		}
 		if ( this.tooltipDisplayCount === undefined ) {
 			this.tooltipDisplayCount = this.localStorage.getItem( 'mmv.tooltipDisplayCount' );
 			if ( this.tooltipDisplayCount === null ) {
 				this.tooltipDisplayCount = 0;
-				this.localStorage.setItem( 'mmv.tooltipDisplayCount', 0 );
+				try {
+					this.localStorage.setItem( 'mmv.tooltipDisplayCount', 0 );
+				} catch ( e ) {
+					// localStorage is full or disabled
+					this.tooltipDisplayCount = this.feedbackSettings.tooltipMaxDisplayCount;
+				}
 			}
 		}
 		return this.tooltipDisplayCount;
@@ -149,9 +154,16 @@
 	 */
 	SBP.increaseTooltipDisplayCount = function () {
 		this.getTooltipDisplayCount();
-		if ( this.tooltipDisplayCount !== undefined ) {
+		if ( this.tooltipDisplayCount !== undefined && this.tooltipDisplayCount < this.feedbackSettings.tooltipMaxDisplayCount ) {
 			this.tooltipDisplayCount++;
-			this.localStorage.setItem( 'mmv.tooltipDisplayCount', this.tooltipDisplayCount );
+
+			if ( this.localStorage ) {
+				try {
+					this.localStorage.setItem( 'mmv.tooltipDisplayCount', this.tooltipDisplayCount );
+				} catch ( e ) {
+					// localStorage is full or disabled
+				}
+			}
 		}
 	};
 
@@ -162,8 +174,15 @@
 	SBP.maxOutTooltipDisplayCount = function () {
 		this.getTooltipDisplayCount();
 		if ( this.tooltipDisplayCount !== undefined ) {
-			this.tooltipDisplayCount = 999;
-			this.localStorage.setItem( 'mmv.tooltipDisplayCount', this.tooltipDisplayCount );
+			this.tooltipDisplayCount = this.feedbackSettings.tooltipMaxDisplayCount;
+
+			if ( this.localStorage ) {
+				try {
+					this.localStorage.setItem( 'mmv.tooltipDisplayCount', this.tooltipDisplayCount );
+				} catch ( e ) {
+					// localStorage is full or disabled
+				}
+			}
 		}
 	};
 
