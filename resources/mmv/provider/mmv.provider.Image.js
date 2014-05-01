@@ -37,10 +37,12 @@
 	}
 
 	/**
-	 * Loads an image and returns it.
-	 * Includes performance metrics.
+	 * Loads an image and returns it. Includes performance metrics via mw.mmv.Performance.
+	 * When the browser supports it, the image is loaded as an AJAX request.
 	 * @param {string} url
-	 * @return {jQuery.Promise.<HTMLImageElement>} a promise which resolves to the image object
+	 * @return {jQuery.Promise.<HTMLImageElement>} A promise which resolves to the image object.
+	 *  When loaded via AJAX, it has progress events, which return an array with the content loaded
+	 *  so far and with the progress as a floating-point number between 0 and 100.
 	 */
 	Image.prototype.get = function ( url ) {
 		var provider = this,
@@ -59,11 +61,12 @@
 					provider.performance.recordEntry( 'image', $.now() - start, url );
 				} );
 			}
+			this.cache[cacheKey].fail( function ( error ) {
+				mw.log( provider.constructor.name + ' provider failed to load: ', error );
+			} );
 		}
 
-		return this.cache[cacheKey].fail( function ( error ) {
-			mw.log( provider.constructor.name + ' provider failed to load: ', error );
-		} );
+		return this.cache[cacheKey];
 	};
 
 	/**

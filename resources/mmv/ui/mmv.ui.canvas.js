@@ -113,11 +113,11 @@
 	 * Sets contained image and also the max dimensions. Called while resizing the viewer.
 	 * Assumes set function called before.
 	 * @param {mw.mmv.model.Thumbnail} thumbnail thumbnail information
-	 * @param {HTMLImageElement} imageEle
+	 * @param {HTMLImageElement} imageElement
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
 	 */
-	C.setImageAndMaxDimensions = function( thumbnail, imageEle, imageWidths ) {
-		var $image = $( imageEle );
+	C.setImageAndMaxDimensions = function( thumbnail, imageElement, imageWidths ) {
+		var $image = $( imageElement );
 
 		function makeMaxMatchParent ( $image ) {
 			$image.css( {
@@ -128,10 +128,10 @@
 
 		// we downscale larger images but do not scale up smaller ones, that would look ugly
 		if ( thumbnail.width > imageWidths.cssWidth ) {
-			imageEle.width = imageWidths.cssWidth;
+			imageElement.width = imageWidths.cssWidth;
 		}
 
-		if ( this.$image.is( imageEle ) ) { // http://bugs.jquery.com/ticket/4087
+		if ( this.$image.is( imageElement ) ) { // http://bugs.jquery.com/ticket/4087
 			// We may be changing the width of the image when we resize, we should also
 			// update the max dimensions otherwise the image is not scaled properly
 			makeMaxMatchParent( this.$image );
@@ -233,7 +233,7 @@
 	/**
 	 * Animates the image into focus
 	 */
-	C.unblur = function() {
+	C.unblurWithAnimation = function() {
 		var self = this,
 			animationLength = 300;
 
@@ -251,13 +251,17 @@
 					'filter' : 'blur(' + step + 'px)' } );
 			},
 			complete: function () {
-				// When the animation is complete, the blur value is 0
-				// We apply empty CSS values to remove the inline styles applied by jQuery
-				// so that they don't get in the way of styles defined in CSS
-				self.$image.css( { '-webkit-filter' : '', 'opacity' : '' } )
-					.removeClass( 'blurred' );
+				// When the animation is complete, the blur value is 0, clean things up
+				self.unblur();
 			}
 		} );
+	};
+
+	C.unblur = function() {
+		// We apply empty CSS values to remove the inline styles applied by jQuery
+		// so that they don't get in the way of styles defined in CSS
+		this.$image.css( { '-webkit-filter' : '', 'opacity' : '' } )
+			.removeClass( 'blurred' );
 	};
 
 	/**

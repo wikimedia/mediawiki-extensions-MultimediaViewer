@@ -287,7 +287,7 @@
 
 		canvas.$image =  $( '<img>' );
 
-		canvas.unblur();
+		canvas.unblurWithAnimation();
 
 		assert.ok( ! canvas.$image.css( '-webkit-filter' ) || !canvas.$image.css( '-webkit-filter' ).length,
 			'Image has no filter left' );
