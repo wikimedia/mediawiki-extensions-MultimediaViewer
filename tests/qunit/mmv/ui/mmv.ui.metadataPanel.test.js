@@ -210,7 +210,7 @@
 	} );
 
 
-	QUnit.test( 'Metadata div is only animated once', 4, function ( assert ) {
+	QUnit.test( 'Metadata div is only animated once', 5, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			displayCount,
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), {
@@ -218,6 +218,8 @@
 				getItem: function () { return displayCount; },
 				setItem: function ( _, val ) { displayCount = val; }
 			} );
+
+		panel.attach();
 
 		panel.animateMetadataOnce();
 
@@ -233,6 +235,14 @@
 		assert.strictEqual( panel.hasAnimatedMetadata, true, 'The second call to animateMetadataOnce did not change the value of hasAnimatedMetadata' );
 		assert.ok( !$qf.hasClass( 'invite' ),
 			'The second call to animateMetadataOnce did not lead to an animation' );
+
+		panel.unattach();
+
+		panel.attach();
+
+		panel.animateMetadataOnce();
+		assert.ok( $qf.hasClass( 'invite' ),
+			'After closing and opening the viewer, the panel is animated again' );
 	} );
 
 	QUnit.test( 'Repo icon', 4, function ( assert ) {

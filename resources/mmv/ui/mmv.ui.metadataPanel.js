@@ -37,11 +37,11 @@
 		this.localStorage = localStorage;
 
 		/**
-		 * Whether we've fired an animation for the metadata div.
+		 * Whether we've already fired an animation for the metadata div in this lightbox session.
 		 * @property {boolean}
 		 * @private
 		 */
-		this.hasAnimatedMetadata = !this.localStorage || this.localStorage.getItem( 'mmv.hasOpenedMetadata' );
+		this.hasAnimatedMetadata = undefined;
 
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
@@ -67,6 +67,9 @@
 
 		this.buttons.attach();
 		this.fileReuse.attach();
+
+		// reset animation flag when the viewer is reopened
+		this.hasAnimatedMetadata = !this.localStorage || this.localStorage.getItem( 'mmv.hasOpenedMetadata' );
 	};
 
 	MPP.unattach = function() {
