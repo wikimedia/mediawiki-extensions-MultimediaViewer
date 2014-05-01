@@ -317,7 +317,7 @@
 
 		descPagePopupMessage = repoInfo.isLocal
 			? mw.message( 'multimediaviewer-description-page-button-text' ).plain()
-			: mw.message( 'multimediaviewer-description-page-popup-text', repoInfo.displayName ).plain();
+			: mw.message( 'multimediaviewer-description-page-popup-text', repoInfo.displayName ).text();
 
 		this.buttons.$descriptionPage.attr( {
 			href: imageInfo.descriptionUrl,
