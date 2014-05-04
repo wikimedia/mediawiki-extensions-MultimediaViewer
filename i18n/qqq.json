@@ -85,7 +85,7 @@
 	"multimediaviewer-html-embed-credit-text-t": "Credit text, used when generating HTML to reuse an image.\nWhich one of the multimediaviewer-html-embed-credit-text-* messages is used will depend on what information about the image is available.\n* $1 - name of the work (typically the filename without an extension)\nEach of the parameters could be either plain text or a link.",
 	"multimediaviewer-embed-byline": "Byline (author credit) text, used when generating wikitext/HTML to reuse the image. $1 is author name.",
 	"multimediaviewer-embed-license": "License information, used when generating wikitext/HTML to reuse the image. $1 is the license name.",
-	"multimediaviewer-embed-via": "Source information (e. g. \"via Flickr\"), used when generating wikitext/HTML to reuse the image.\n$1 is source (probably a website or institution name)",
+	"multimediaviewer-embed-via": "Source information (e.g. \"via Flickr\"), used when generating wikitext/HTML to reuse the image.\n\nParameters:\n* $1 - source (probably a website or institution name)",
 	"multimediaviewer-default-embed-dimensions": "Text of size selector option which will generate wikitext for a thumbnail without explicit size.",
 	"multimediaviewer-original-embed-dimensions": "Text of size selector option which will generate wikitext for a thumbnail with the original (full) size.\n* $1 - thumbnail dimensions, defined by the following message:\n** {{msg-mw|Multimediaviewer-embed-dimensions}}",
 	"multimediaviewer-large-embed-dimensions": "Text of size selector option which will generate wikitext for a thumbnail with small size.\n* $1 - thumbnail dimensions, defined by the following message:\n** {{msg-mw|Multimediaviewer-embed-dimensions}}\n{{Identical|Large}}",
