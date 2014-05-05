@@ -296,7 +296,7 @@
 			}
 
 			if ( viewer.imageDisplayedCount++ === 0 ) {
-				mw.mmv.DurationLogger.stop( 'click-to-first-image' );
+				mw.mmv.durationLogger.stop( 'click-to-first-image' );
 			}
 			viewer.displayRealThumbnail( thumbnail, imageElement, imageWidths, $.now() - start );
 		} ).fail( function ( error ) {
@@ -311,7 +311,7 @@
 			}
 
 			if ( viewer.metadataDisplayedCount++ === 0 ) {
-				mw.mmv.DurationLogger.stop( 'click-to-first-metadata' );
+				mw.mmv.durationLogger.stop( 'click-to-first-metadata' );
 			}
 			viewer.ui.panel.setImageInfo( image, imageInfo, repoInfo, localUsage, globalUsage, userInfo );
 		} ).fail( function ( error ) {

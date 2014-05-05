@@ -82,7 +82,8 @@
 				"classes": [
 					"mw",
 					"mw.Api",
-					"mw.Title"
+					"mw.Title",
+					"mw.eventLog"
 				]
 			},
 			{

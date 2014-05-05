@@ -21,12 +21,30 @@
 	/**
 	 * Writes Event Logging entries for duration measurements
 	 * @class mw.mmv.DurationLogger
+	 * @constructor
 	 */
 	function DurationLogger() {
 		this.starts = {};
+		this.schema = 'MultimediaViewerDuration';
 	}
 
 	L = DurationLogger.prototype;
+
+	/**
+	 * Sets the Geo object providing country information about the visitor
+	 * @param {Object} Geo object containing country GeoIP information about the user
+	 */
+	L.setGeo = function ( Geo ) {
+		this.Geo = Geo;
+	};
+
+	/**
+	 * Sets the eventLog object providing a facility to record events
+	 * @param {mw.eventLog} eventLog EventLogging instance
+	 */
+	L.setEventLog = function ( eventLog ) {
+		this.eventLog = eventLog;
+	};
 
 	/**
 	 * Saves the start of a duration
@@ -36,16 +54,19 @@
 		var i,
 			start = $.now();
 
-		if ( $.isArray( typeOrTypes ) ) {
-			for ( i = 0; i < typeOrTypes.length; i++ ) {
-				// Don't overwrite an existing value
-				if ( !this.starts.hasOwnProperty( typeOrTypes[ i ] ) ) {
-					this.starts[ typeOrTypes[ i ] ] = start;
-				}
+		if ( !typeOrTypes ) {
+			throw 'Must specify type';
+		}
+
+		if ( !$.isArray( typeOrTypes ) ) {
+			typeOrTypes = [ typeOrTypes ];
+		}
+
+		for ( i = 0; i < typeOrTypes.length; i++ ) {
+			// Don't overwrite an existing value
+			if ( !this.starts.hasOwnProperty( typeOrTypes[ i ] ) ) {
+				this.starts[ typeOrTypes[ i ] ] = start;
 			}
-		// Don't overwrite an existing value
-		} else if ( typeOrTypes && !this.starts.hasOwnProperty( typeOrTypes ) ) {
-			this.starts[ typeOrTypes ] = start;
 		}
 	};
 
@@ -54,7 +75,12 @@
 	 * @param {string} type Type of duration being measured.
 	 */
 	L.stop = function ( type ) {
-		var e, duration;
+		var e, duration, message,
+			self = this;
+
+		if ( !type ) {
+			throw 'Must specify type';
+		}
 
 		if ( this.starts.hasOwnProperty( type ) ) {
 			duration = $.now() - this.starts[ type ];
@@ -65,17 +91,16 @@
 				loggedIn : !mw.user.isAnon()
 			};
 
-			if ( $.isPlainObject( window.Geo ) && typeof window.Geo.country === 'string' ) {
-				e.country = window.Geo.country;
-			}
+			message = type + ': ' + duration + 'ms';
 
-			if ( mw.eventLog ) {
-				mw.eventLog.logEvent( 'MultimediaViewerDuration', e );
-			}
+			this.loadDependencies().then( function () {
+				if ( $.isPlainObject( self.Geo ) && typeof self.Geo.country === 'string' ) {
+					e.country = self.Geo.country;
+				}
 
-			if ( window.console && window.console.log ) {
-				window.console.log( type + ': ' + duration + 'ms' );
-			}
+				self.eventLog.logEvent( self.schema, e );
+				mw.log( message );
+			} );
 		}
 
 		if ( this.starts.hasOwnProperty( type ) ) {
@@ -83,5 +108,35 @@
 		}
 	};
 
-	mw.mmv.DurationLogger = new DurationLogger();
+	/**
+	 * Loads the dependencies that allow us to log events
+	 * @returns {jQuery.Promise}
+	 */
+	L.loadDependencies = function () {
+		var self = this,
+			waitForEventLog = $.Deferred();
+
+		// Waits for dom readiness because we don't want to have these dependencies loaded in the head
+		$( document ).ready( function() {
+			// window.Geo is currently defined in components that are loaded independently, there is no cheap
+			// way to load just that information. Either we piggy-back on something that already loaded it
+			// or we just don't have it
+			if ( window.Geo ) {
+				self.setGeo( window.Geo );
+			}
+
+			try {
+				mw.loader.using( 'ext.eventLogging', function() {
+					self.setEventLog( mw.eventLog );
+					waitForEventLog.resolve();
+				} );
+			} catch ( e ) {
+				waitForEventLog.reject();
+			}
+		} );
+
+		return waitForEventLog;
+	};
+
+	mw.mmv.durationLogger = new DurationLogger();
 }( mediaWiki, jQuery ) );

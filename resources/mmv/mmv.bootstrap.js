@@ -262,7 +262,7 @@
 			return;
 		}
 
-		mw.mmv.DurationLogger.start( [ 'click-to-first-image', 'click-to-first-metadata' ] );
+		mw.mmv.durationLogger.start( [ 'click-to-first-image', 'click-to-first-metadata' ] );
 
 		if ( $element.is( 'a.image' ) ) {
 			mw.mmv.logger.log( 'thumbnail' );
