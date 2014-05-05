@@ -327,7 +327,7 @@
 				return;
 			}
 
-			viewer.ui.panel.animateMetadataOnce();
+			viewer.ui.panel.scroller.animateMetadataOnce();
 			viewer.preloadDependencies();
 		} );
 
