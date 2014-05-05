@@ -240,18 +240,19 @@
 		restoreScrollTo();
 	} );
 
-	QUnit.test( 'Metadata scrolling', 14, function ( assert ) {
-		var ui = new mw.mmv.LightboxInterface(),
-			keydown = $.Event( 'keydown' ),
-			$document = $( document ),
+	/**
+	 * We need to set up a proxy on the jQuery scrollTop function and the jQuery.scrollTo plugin,
+	 * that will let us pretend that the document really scrolled and that will return values
+	 * as if the scroll happened.
+	 * @param {sinon.sandbox} sandbox
+	 * @param {mw.mmv.LightboxInterface} ui
+	 */
+	function stubScrollFunctions( sandbox, ui ) {
+		var memorizedScrollToScroll = 0,
 			originalJQueryScrollTop = $.fn.scrollTop,
-			memorizedScrollToScroll = 0,
 			originalJQueryScrollTo = $.scrollTo;
 
-		// We need to set up a proxy on the jQuery scrollTop function
-		// that will let us pretend that the document really scrolled
-		// and that will return values as if the scroll happened
-		$.fn.scrollTop = function ( scrollTop ) {
+		sandbox.stub( $.fn, 'scrollTop', function ( scrollTop ) {
 			// On some browsers $.scrollTo() != $document
 			if ( $.scrollTo().is( this ) ) {
 				if ( scrollTop !== undefined ) {
@@ -263,10 +264,9 @@
 			}
 
 			return originalJQueryScrollTop.call( this, scrollTop );
-		};
+		} );
 
-		// Same idea as above, for the scrollTo plugin
-		$.scrollTo = function ( scrollTo ) {
+		sandbox.stub( $, 'scrollTo', function ( scrollTo ) {
 			var $element;
 
 			if ( scrollTo !== undefined ) {
@@ -281,7 +281,15 @@
 			}
 
 			return $element;
-		};
+		} );
+	}
+
+	QUnit.test( 'Metadata scrolling', 14, function ( assert ) {
+		var ui = new mw.mmv.LightboxInterface(),
+			keydown = $.Event( 'keydown' ),
+			$document = $( document );
+
+		stubScrollFunctions( this.sandbox, ui );
 
 		// First phase of the test: up and down arrows
 
@@ -297,6 +305,9 @@
 
 		assert.ok( !localStorage.getItem( 'mmv.hasOpenedMetadata' ),
 			'The metadata hasn\'t been open yet, no entry in localStorage' );
+
+		keydown.which = 40; // Down arrow
+		$document.trigger( keydown );
 
 		keydown.which = 38; // Up arrow
 		$document.trigger( keydown );
@@ -355,10 +366,55 @@
 
 		// Unattach lightbox from document
 		ui.unattach();
+	} );
 
-		// Let's restore all originals, to make sure this test is free of side-effect
-		$.fn.scrollTop = originalJQueryScrollTop;
-		$.scrollTo = originalJQueryScrollTo;
+	QUnit.test( 'Metadata scroll logging', 6, function ( assert ) {
+		var ui = new mw.mmv.LightboxInterface(),
+			keydown = $.Event( 'keydown' ),
+			$document = $( document );
+
+		stubScrollFunctions( this.sandbox, ui );
+		this.sandbox.stub( mw.mmv.logger, 'log' );
+
+		// Attach lightbox to testing fixture to avoid interference with other tests.
+		ui.attach(  '#qunit-fixture'  );
+
+		keydown.which = 40; // Down arrow
+		$document.trigger( keydown );
+
+		assert.ok( !mw.mmv.logger.log.called, 'Closing keypress not logged when the panel is closed already' );
+		mw.mmv.logger.log.reset();
+
+		keydown.which = 38; // Up arrow
+		$document.trigger( keydown );
+
+		assert.ok( mw.mmv.logger.log.calledWithExactly( 'metadata-open' ), 'Opening keypress logged' );
+		mw.mmv.logger.log.reset();
+
+		keydown.which = 38; // Up arrow
+		$document.trigger( keydown );
+
+		assert.ok( !mw.mmv.logger.log.called, 'Opening keypress not logged when the panel is opened already' );
+		mw.mmv.logger.log.reset();
+
+		keydown.which = 40; // Down arrow
+		$document.trigger( keydown );
+
+		assert.ok( mw.mmv.logger.log.calledWithExactly( 'metadata-close' ), 'Closing keypress logged' );
+		mw.mmv.logger.log.reset();
+
+		ui.panel.$dragIcon.click();
+
+		assert.ok( mw.mmv.logger.log.calledWithExactly( 'metadata-open' ), 'Opening click logged' );
+		mw.mmv.logger.log.reset();
+
+		ui.panel.$dragIcon.click();
+
+		assert.ok( mw.mmv.logger.log.calledWithExactly( 'metadata-close' ), 'Closing click logged' );
+		mw.mmv.logger.log.reset();
+
+		// Unattach lightbox from document
+		ui.unattach();
 	} );
 
 	QUnit.test( 'Keyboard prev/next', 2, function ( assert ) {
