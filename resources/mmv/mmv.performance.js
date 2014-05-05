@@ -119,11 +119,6 @@
 			return;
 		}
 
-		// Don't record entries that hit the browser cache
-		if ( total !== undefined && total < 1 ) {
-			return;
-		}
-
 		if ( url && url.length ) {
 			// There is no need to measure the same url more than once
 			if ( url in this.performanceChecked ) {

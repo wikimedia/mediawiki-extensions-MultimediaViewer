@@ -52,7 +52,7 @@
 		var performance = new mw.mmv.Performance(),
 			oldEventLog = mw.eventLog,
 			type = 'gender',
-			total = 10;
+			total = 100;
 
 		captureEventLog();
 
@@ -183,7 +183,7 @@
 
 		captureEventLog();
 
-		performance.recordEntry( type, 1, url, fakeRequest );
+		performance.recordEntry( type, 100, url, fakeRequest );
 
 		assert.strictEqual( stats.type, type, 'Type of event matches' );
 		assert.strictEqual( stats.varnish1, varnish1, 'First varnish server name extracted' );
