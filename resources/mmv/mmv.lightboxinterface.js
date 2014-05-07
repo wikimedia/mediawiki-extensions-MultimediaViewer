@@ -297,6 +297,10 @@
 			this.mousePosition = { x: 0, y: 0 };
 			this.buttons.fadeOut();
 		}
+
+		// Some browsers only send resize events before toggling fullscreen, but not once the toggling is done
+		// This makes sure that the UI is properly resized after a fullscreen change
+		this.$main.trigger( $.Event( 'mmv-resize') );
 	};
 
 	/**
