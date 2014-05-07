@@ -257,11 +257,29 @@
 		} );
 	};
 
-	C.unblur = function() {
+	C.unblur = function () {
 		// We apply empty CSS values to remove the inline styles applied by jQuery
 		// so that they don't get in the way of styles defined in CSS
 		this.$image.css( { '-webkit-filter' : '', 'opacity' : '', 'filter' : '' } )
 			.removeClass( 'blurred' );
+	};
+
+	/**
+	 * Switches into zoom mode. For now, we just open the full-sized image in a new window.
+	 * @param {mw.Title} title image name
+	 * @param {mw.mmv.model.Thumbnail} thumbnailInfo
+	 */
+	C.zoom = function ( title, thumbnailInfo ) {
+		// temporary zoom solution
+		var zoomedImageUrl = thumbnailInfo.url;
+
+		// disable this while zoom viewer is broken
+//		if ( thumbnailInfo.width * thumbnailInfo.height > 2000000 ) {
+//			zoomedImageUrl = 'http://toolserver.org/~dschwen/iip/wip.php?f='
+//				+ encodeURIComponent( title.getMain() );
+//		}
+
+		window.open( zoomedImageUrl );
 	};
 
 	/**

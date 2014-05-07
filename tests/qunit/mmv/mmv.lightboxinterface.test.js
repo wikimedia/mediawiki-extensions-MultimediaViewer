@@ -202,7 +202,7 @@
 		restoreScrollTo();
 	} );
 
-	QUnit.test( 'isAnyActiveButtonHovered', 20, function ( assert ) {
+	QUnit.test( 'isAnyActiveButtonHovered', 25, function ( assert ) {
 		var lightbox = new mw.mmv.LightboxInterface();
 
 		stubScrollTo();

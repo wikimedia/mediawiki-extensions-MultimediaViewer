@@ -36,6 +36,10 @@
 		this.$close = $closeButton;
 		this.$fullscreen = $fullscreenButton;
 
+		this.$zoom = $( '<div>' )
+			.addClass( 'mw-mmv-zoom disabled' )
+			.html( '&nbsp;' );
+
 		this.$next = $( '<div>' )
 			.addClass( 'mw-mmv-next-image disabled' )
 			.html( '&nbsp;' );
@@ -49,6 +53,7 @@
 
 		this.$buttons = this.$close
 			.add( this.$fullscreen )
+			.add( this.$zoom )
 			.add( this.$next )
 			.add( this.$prev );
 
@@ -60,6 +65,10 @@
 
 		this.$close.click( function () {
 			$container.trigger( $.Event( 'mmv-close' ) );
+		} );
+
+		this.$zoom.click( function () {
+			$container.trigger( $.Event( 'mmv-zoom' ) );
 		} );
 
 		this.$next.click( function () {
@@ -100,9 +109,17 @@
 	 * @param {boolean} showPrevButton
 	 * @param {boolean} showNextButton
 	 */
-	CBP.toggle = function ( showPrevButton, showNextButton ) {
+	CBP.togglePrevNext = function ( showPrevButton, showNextButton ) {
 		this.$next.toggleClass( 'disabled', !showPrevButton );
 		this.$prev.toggleClass( 'disabled', !showNextButton );
+	};
+
+	/**
+	 * Toggles whether the zoom control is visible.
+	 * @param {boolean} visible
+	 */
+	CBP.toggleZoom = function ( visible ) {
+		this.$zoom.toggleClass( 'disabled', !visible );
 	};
 
 	/**

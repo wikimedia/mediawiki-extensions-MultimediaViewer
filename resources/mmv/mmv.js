@@ -282,6 +282,7 @@
 		start = $.now();
 
 		imagePromise = this.fetchThumbnailForLightboxImage( image, imageWidths.real );
+		metadataPromise = this.fetchSizeIndependentLightboxInfo( image.filePageTitle );
 
 		this.resetBlurredThumbnailStates();
 		if ( imagePromise.state() === 'pending' ) {
@@ -289,6 +290,7 @@
 		}
 
 		this.setupProgressBar( image, imagePromise, imageWidths.real );
+		this.setupZoomControl( image, metadataPromise, imageWidths.cssWidth );
 
 		imagePromise.done( function ( thumbnail, imageElement ) {
 			if ( viewer.currentIndex !== image.index ) {
@@ -303,9 +305,7 @@
 			viewer.ui.canvas.showError( error );
 		} );
 
-		metadataPromise = this.fetchSizeIndependentLightboxInfo(
-			image.filePageTitle
-		).done( function ( imageInfo, repoInfo, localUsage, globalUsage, userInfo ) {
+		metadataPromise.done( function ( imageInfo, repoInfo, localUsage, globalUsage, userInfo ) {
 			if ( viewer.currentIndex !== image.index ) {
 				return;
 			}
@@ -520,6 +520,119 @@
 	};
 
 	/**
+	 * Returns the original size of the image (i.e. the size of the full image, as opposed to the
+	 * size of the thumbnail). This information might or might not be available in the HTML source;
+	 * when it is not, we need to wait for the API response.
+	 * @param {mw.mmv.LightboxImage} image
+	 * @param {jQuery.Promise.<mw.mmv.model.Image>} metadataPromise
+	 * @returns {jQuery.Promise.<number, number>} width and height of the original image in pixels
+	 */
+	MMVP.fetchOriginalImageSize = function ( image, metadataPromise ) {
+		if ( image.originalWidth && image.originalHeight ) {
+			return $.when( image.originalWidth, image.originalHeight );
+		} else {
+			return metadataPromise.then( function ( imageInfo ) {
+				return $.when( imageInfo.width, imageInfo.height );
+			} );
+		}
+	};
+
+	/**
+	 * Displays a zoom icon if the image can be zoomed.
+	 * @param {mw.mmv.LightboxImage} image
+	 * @param {jQuery.Promise.<mw.mmv.model.Image>} metadataPromise
+	 * @param {number} imageWidth needed for caching progress
+	 */
+	MMVP.setupZoomControl = function ( image, metadataPromise, imageWidth ) {
+		var viewer = this,
+			originalWidthPromise = this.fetchOriginalImageSize( image, metadataPromise );
+
+		if ( originalWidthPromise.state() === 'pending' ) {
+			this.ui.buttons.toggleZoom( false ); // hide zoom while we don't know if it's available
+		}
+		originalWidthPromise.done( function ( originalImageWidth ) {
+			if ( viewer.currentIndex === image.index ) {
+				viewer.ui.buttons.toggleZoom( originalImageWidth > imageWidth );
+			}
+		});
+	};
+
+	/**
+	 * When showing a large image for zoom, it will be never larger than this.
+	 * @property {number}
+	 */
+	MMVP.MAX_ZOOM_WIDTH = 3000;
+
+	/**
+	 * Fetches data needed for zooming and forvards it to the canvas.
+	 */
+	MMVP.zoom = function () {
+		var zoomWindow,
+			metadataPromise, originalWidthPromise, thumbnailPromise,
+			viewer = this,
+			image = this.thumbs[ this.currentIndex ].image,
+			placeholderUrl = mw.config.get( 'wgExtensionAssetsPath' ) + '/MultimediaViewer/resources/mmv/img/ajax-loader.gif';
+
+		// We need the full size of the image and we need the URL to a large thumbnail (not
+		// necessarily full-sized since we try to cap the size; even if it is full-sized, not
+		// necessarily the same URL as that of the full-sized image - e.g. SVG is converted to PNG).
+		//
+		// Modern browsers tend to block window.open calls unless they are directly triggered by
+		// user actions, so we can't wait for the URL to load, we need to open the window right now,
+		// using the thumbnail image, since that's the only thing we have. We can change the URL
+		// once we learn it.
+		//
+		// We could make an imageinfo request to get the URL, but that takes a few hundred
+		// milliseconds, and the user has to stare at the thumbnail in the newly opened window
+		// until then, so let's not do that. Instead we use the thumbnail guesser, which returns
+		// an URL immediately most of the time, but that URL can turn out to be wrong - in that
+		// case, we need to update the window location. (Note that loading a large image will take
+		// long, but trying and getting a 404 is quick, so even in the worst case we get the
+		// correct URL reasonably quickly. The user will see an error message for a few hundred ms
+		// but not long enough to give up and close the window.)
+		//
+		// To do this, we need to get notified when the thumbnail loader learns the URL; we use
+		// a horrible hack to do that.
+		//
+		// (We could have a saner solution if we could request multiple thumbnail sizes in an
+		// imageinfo API call; we could then just ask for a MAX_ZOOM_WIDTH and a 999999px thumbnail
+		// right inside the fetchSizeIndependentLightboxInfo call and would already have all needed
+		// information by the time we reach this point. This is bug 54035.)
+
+		zoomWindow = window.open( placeholderUrl );
+
+		metadataPromise = this.fetchSizeIndependentLightboxInfo( viewer.currentImageFileTitle );
+		originalWidthPromise = this.fetchOriginalImageSize( image, metadataPromise );
+		thumbnailPromise = originalWidthPromise.then( function ( width ) {
+			var mainPromise = viewer.fetchThumbnailForLightboxImage( image, Math.min( width, viewer.MAX_ZOOM_WIDTH ) );
+			mainPromise.urlPromise.progress( function ( url ) {
+				// We don't do the usual "is the user still looking at the same image" check here,
+				// since the zoom will open in a new window.
+				if ( url === null ) {
+					// URL was guessed wrong, the window is probably showing a 404 page now
+					// show something better while waiting for the correct URL
+					zoomWindow.location = placeholderUrl;
+				} else {
+					zoomWindow.location = url;
+				}
+			} );
+			return mainPromise;
+		} );
+	};
+
+	/**
+	 * Alternative for zoom() - much nicer, both UI-wise and because we don't need to get an URL
+	 * so much of the convoluted logic in zoom() can be skipped.
+	 * Unfortunately the zoom viewer tool needs to be moved to Tool Labs first, so right now this
+	 * function is not used.
+	 */
+	MMVP.zoomWithZoomViewer = function () {
+		var image = this.thumbs[ this.currentIndex ].image,
+			url = 'http://toolserver.org/~dschwen/iip/wip.php?f=' + encodeURIComponent( image.title.getMain() );
+		window.open( url );
+	};
+
+	/**
 	 * Preload this many prev/next images to speed up navigation.
 	 * (E.g. preloadDistance = 3 means that the previous 3 and the next 3 images will be loaded.)
 	 * Preloading only happens when the viewer is open.
@@ -715,10 +828,10 @@
 	 *  return a single number.
 	 */
 	MMVP.fetchThumbnail = function ( fileTitle, width, sampleUrl, originalWidth, originalHeight ) {
-		var viewer = this,
+		var thumbnailPromise, imagePromise, finalPromise,
+			viewer = this,
 			guessing = false,
-			thumbnailPromise,
-			imagePromise;
+			urlDeferred = $.Deferred();
 
 		if ( originalWidth && width > originalWidth ) {
 			// Do not request images larger than the original image
@@ -734,6 +847,7 @@
 			thumbnailPromise = this.guessedThumbnailInfoProvider.get(
 				fileTitle, sampleUrl, width, originalWidth, originalHeight
 			).then( null, function () { // catch rejection, use fallback
+					guessing = false;
 					return viewer.thumbnailInfoProvider.get( fileTitle, width );
 			} );
 		} else {
@@ -741,6 +855,7 @@
 		}
 
 		imagePromise = thumbnailPromise.then( function ( thumbnail ) {
+			urlDeferred.notify( thumbnail.url, guessing );
 			return viewer.imageProvider.get( thumbnail.url );
 		} );
 
@@ -749,16 +864,29 @@
 			// As a side effect this introduces an extra (harmless) retry of a failed thumbnailInfoProvider.get call
 			// because thumbnailInfoProvider.get is already called above when guessedThumbnailInfoProvider.get fails.
 			imagePromise = imagePromise.then( null, function () {
+				urlDeferred.notify( null, true );
 				return viewer.thumbnailInfoProvider.get( fileTitle, width ).then( function ( thumbnail ) {
+					urlDeferred.notify( thumbnail.url, false );
 					return viewer.imageProvider.get( thumbnail.url );
 				} );
 			} );
 		}
 
-		return $.when( thumbnailPromise, imagePromise ).then( null, null, function ( thumbnailProgress, imageProgress ) {
+		finalPromise = $.when( thumbnailPromise, imagePromise ).then( null, null, function ( thumbnailProgress, imageProgress ) {
 			// Make progress events have a nice format.
 			return imageProgress[1];
 		} );
+
+		// This is a horrible hack to make it possible for some consumers to react when the URL
+		// changes, instead of waiting while the file is fully downloaded (which can take long)
+		// to learn the URL. The urlPromise field never triggers, but it emits a progress event
+		// once we figure out the URL and start downloading. Due to URL guessing, this might happen
+		// twice, and the first might not be the right URL. These events expect a callback
+		// with the signature (url: string, isGuessed: boolean). It also emits a notify event with
+		// (null, true) when it learns that the guessed URL is true.
+		finalPromise.urlPromise = urlDeferred.promise();
+
+		return finalPromise;
 	};
 
 	/**
@@ -865,6 +993,8 @@
 
 		$( document ).on( 'mmv-close.mmvp', function () {
 			viewer.close();
+		} ).on( 'mmv-zoom.mmvp', function () {
+			viewer.zoom();
 		} ).on( 'mmv-next.mmvp', function () {
 			viewer.nextImage();
 		} ).on( 'mmv-prev.mmvp', function () {
