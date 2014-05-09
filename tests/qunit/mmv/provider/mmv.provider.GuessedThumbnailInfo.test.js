@@ -129,12 +129,17 @@
 			'Original url recognized as being full size' );
 	} );
 
-	QUnit.test( 'obscureFilename()', 1, function ( assert ) {
+	QUnit.test( 'obscureFilename()', 2, function ( assert ) {
 		var provider = new mw.mmv.provider.GuessedThumbnailInfo(),
 			file = new mw.Title( 'File:Copyleft.svg' );
 
 		assert.strictEqual( provider.obscureFilename( 'http://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Copyleft.svg/300px-Copyleft.svg.png', file ),
 			'http://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/<filename>/300px-<filename>.png', 'Filename correctly obscured' );
+
+		file = new mw.Title( 'File:Hoag\'s_object.jpg' );
+
+		assert.strictEqual( provider.obscureFilename( 'http://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Hoag%27s_object.jpg/180px-Hoag%27s_object.jpg', file ),
+			'http://upload.wikimedia.org/wikipedia/commons/thumb/d/da/<filename>/180px-<filename>', 'Filename with urlencoded character correctly obscured' );
 	} );
 
 	QUnit.test( 'restoreFilename()', 1, function ( assert ) {
@@ -246,23 +251,30 @@
 			'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Ranunculus_gmelinii_NRCS-2.tiff/lossy-page1-220px-Ranunculus_gmelinii_NRCS-2.tiff.jpg', 'Works with extra parameters' );
 	} );
 
-	QUnit.test( 'guessFullUrl()', 2, function ( assert ) {
+	QUnit.test( 'guessFullUrl()', 3, function ( assert ) {
 		var provider = new mw.mmv.provider.GuessedThumbnailInfo(),
 			file = new mw.Title( 'File:Copyleft.svg' ),
 			fullUrl = 'http://upload.wikimedia.org/wikipedia/commons/8/8b/Copyleft.svg',
 			sampleUrl = 'http://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Copyleft.svg/300px-Copyleft.svg.png',
 			result;
 
-			result = provider.guessFullUrl( file, sampleUrl );
+		result = provider.guessFullUrl( file, sampleUrl );
 
-			assert.strictEqual( result, fullUrl, 'guessFullUrl returns correct full URL for SVG' );
+		assert.strictEqual( result, fullUrl, 'guessFullUrl returns correct full URL for SVG' );
 
-			file = new mw.Title( 'File:அணில்-3-தென்னையின்_வளர்நிலை.jpg' );
-			fullUrl = 'http://upload.beta.wmflabs.org/wikipedia/en/1/15/அணில்-3-தென்னையின்_வளர்நிலை.jpg';
-			sampleUrl = 'http://upload.beta.wmflabs.org/wikipedia/en/1/15/அணில்-3-தென்னையின்_வளர்நிலை.jpg/800px-அணில்-3-தென்னையின்_வளர்நிலை.jpg';
+		file = new mw.Title( 'File:அணில்-3-தென்னையின்_வளர்நிலை.jpg' );
+		fullUrl = 'https://upload.wikimedia.org/wikipedia/commons/1/15/%E0%AE%85%E0%AE%A3%E0%AE%BF%E0%AE%B2%E0%AF%8D-3-%E0%AE%A4%E0%AF%86%E0%AE%A9%E0%AF%8D%E0%AE%A9%E0%AF%88%E0%AE%AF%E0%AE%BF%E0%AE%A9%E0%AF%8D_%E0%AE%B5%E0%AE%B3%E0%AE%B0%E0%AF%8D%E0%AE%A8%E0%AE%BF%E0%AE%B2%E0%AF%88.jpg';
+		sampleUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/%E0%AE%85%E0%AE%A3%E0%AE%BF%E0%AE%B2%E0%AF%8D-3-%E0%AE%A4%E0%AF%86%E0%AE%A9%E0%AF%8D%E0%AE%A9%E0%AF%88%E0%AE%AF%E0%AE%BF%E0%AE%A9%E0%AF%8D_%E0%AE%B5%E0%AE%B3%E0%AE%B0%E0%AF%8D%E0%AE%A8%E0%AE%BF%E0%AE%B2%E0%AF%88.jpg/800px-%E0%AE%85%E0%AE%A3%E0%AE%BF%E0%AE%B2%E0%AF%8D-3-%E0%AE%A4%E0%AF%86%E0%AE%A9%E0%AF%8D%E0%AE%A9%E0%AF%88%E0%AE%AF%E0%AE%BF%E0%AE%A9%E0%AF%8D_%E0%AE%B5%E0%AE%B3%E0%AE%B0%E0%AF%8D%E0%AE%A8%E0%AE%BF%E0%AE%B2%E0%AF%88.jpg';
 
-			result = provider.guessFullUrl( file, sampleUrl );
+		result = provider.guessFullUrl( file, sampleUrl );
 
-			assert.strictEqual( result, fullUrl, 'guessFullUrl returns correct full URL for JPG with unicode name' );
+		assert.strictEqual( result, fullUrl, 'guessFullUrl returns correct full URL for JPG with unicode name' );
+
+		file = new mw.Title( 'File:அணில்-3-தென்னையின்_வளர்நிலை.jpg' );
+		sampleUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/அணில்-3-தென்னையின்_வளர்நிலை.jpg/800px-அணில்-3-தென்னையின்_வளர்நிலை.jpg';
+
+		result = provider.guessFullUrl( file, sampleUrl );
+
+		assert.strictEqual( result, undefined, 'guessFullUrl bails out when URL encoding is not as expected' );
 	} );
 }( mediaWiki ) );
