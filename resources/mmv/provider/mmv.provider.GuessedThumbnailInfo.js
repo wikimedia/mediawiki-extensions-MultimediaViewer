@@ -60,7 +60,7 @@
 	 * to guess how the URL would look. If that's the case, the promise just rejects.
 	 *
 	 * @param {mw.Title} file
-	 * @param {string} sampleUrl a thumbnail URL for the same file (but with different size)
+	 * @param {string} sampleUrl a thumbnail URL for the same file (but with different size).
 	 * @param {number} width thumbnail width in pixels
 	 * @param {number} originalWidth width of original image in pixels
 	 * @param {number} originalHeight height of original image in pixels
@@ -145,9 +145,12 @@
 	 * @return {string} thumbnnail URL with occurences of the filename replaced by `<filename>`
 	 */
 	GuessedThumbnailInfo.prototype.obscureFilename = function ( url, file ) {
+		// corresponds to File::getUrlRel() which uses rawurlencode()
+		var filenameInUrl = mw.util.rawurlencode( file.getMain() );
+
 		// In the URL to the original file the filename occurs once. In a thumbnail URL it usually
 		// occurs twice, but can occur once if it is too short. We replace twice, can't hurt.
-		return url.replace( file.getMain(), '<filename>' ).replace( file.getMain(), '<filename>' );
+		return url.replace( filenameInUrl, '<filename>' ).replace( filenameInUrl, '<filename>' );
 	};
 
 	/**
@@ -158,8 +161,11 @@
 	 * @return {string} original thumbnnail URL
 	 */
 	GuessedThumbnailInfo.prototype.restoreFilename = function ( url, file ) {
+		// corresponds to File::getUrlRel() which uses rawurlencode()
+		var filenameInUrl = mw.util.rawurlencode( file.getMain() );
+
 		// <> cannot be used in titles, so this is safe
-		return url.replace( '<filename>', file.getMain() ).replace( '<filename>', file.getMain() );
+		return url.replace( '<filename>', filenameInUrl ).replace( '<filename>', filenameInUrl );
 	};
 
 	/**
@@ -252,6 +258,11 @@
 	 */
 	GuessedThumbnailInfo.prototype.guessFullUrl = function ( file, thumbnailUrl ) {
 		var url = this.obscureFilename( thumbnailUrl, file );
+
+		if ( url === thumbnailUrl ) {
+			// Did not find the filename, maybe due to URL encoding issues. Bail out.
+			return undefined;
+		}
 
 		// this depends on some config settings, but will work with default or WMF settings.
 		url = url.replace( /<filename>.*/, '<filename>' );
