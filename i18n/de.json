@@ -4,7 +4,8 @@
 			"Kghbln",
 			"Metalhead64",
 			"Snatcher",
-			"Inkowik"
+			"Inkowik",
+			"Steinsplitter"
 		]
 	},
 	"multimediaviewer-desc": "Ermöglicht die Darstellung von Vorschaubildern in einer Vollbildschnittstelle",
@@ -35,8 +36,8 @@
 	"multimediaviewer-fileusage-count": "Auf {{PLURAL:$1|einer Seite|$1 Seiten}} verwendet",
 	"multimediaviewer-fileusage-count-more": "Auf mehr als $1 {{PLURAL:$1|Seiten}} verwendet",
 	"multimediaviewer-fileusage-link": "Alle Verwendungen ansehen",
-	"multimediaviewer-fileusage-local-section": "Auf dieser Website",
-	"multimediaviewer-fileusage-global-section": "Auf anderen Websites",
+	"multimediaviewer-fileusage-local-section": "Auf dieser Webseite",
+	"multimediaviewer-fileusage-global-section": "Auf anderen Webseiten",
 	"multimediaviewer-reuse-link": "Diese Datei verwenden",
 	"multimediaviewer-reuse-loading-placeholder": "Lade …",
 	"multimediaviewer-share-tab": "Teilen",
@@ -72,6 +73,6 @@
 	"multimediaviewer-feedback-popup-text": "Hinterlasse eine Rückmeldung zum neuen Medienbetrachter",
 	"multimediaviewer-description-page-button-text": "Weitere Einzelheiten",
 	"multimediaviewer-description-page-popup-text": "Weitere Einzelheiten auf $1",
-	"multimediaviewer-commons-subtitle": "Das freie Medienrepositorium",
+	"multimediaviewer-commons-subtitle": "Das freie Medienarchiv",
 	"multimediaviewer-view-expanded": "Erweiterte Ansicht"
 }
