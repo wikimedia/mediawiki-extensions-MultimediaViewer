@@ -338,8 +338,7 @@
 			.addClass( 'mw-mmv-repo' )
 			.prop( 'href', '#' )
 			.click( function ( e ) {
-				var $link = $( this ),
-					redirect;
+				var $link = $( this );
 
 				if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey || e.button === 1 ) {
 					// They are likely opening the link in a new window or tab
@@ -351,12 +350,10 @@
 				// be done before navigating to the desired page
 				e.preventDefault();
 
-				redirect = function () {
-					window.location.href = $link.prop( 'href' );
-				};
-
 				// We want to redirect anyway, whether logging worked or not
-				mw.mmv.logger.log( 'file-description-page' ).then( redirect, redirect );
+				mw.mmv.logger.log( 'file-description-page' ).always( function () {
+					window.location.href = $link.prop( 'href' );
+				} );
 			} )
 			.appendTo( this.$repoLi );
 
@@ -791,13 +788,21 @@
 	 */
 	MPP.toggle = function ( forceDirection ) {
 		var scrollTopWhenOpen = this.$container.outerHeight() - this.$controlBar.outerHeight(),
-			scrollTopTarget = $.scrollTo().scrollTop() > 0 ? 0 : scrollTopWhenOpen;
+			scrollTopWhenClosed = 0,
+			scrollTop = $.scrollTo().scrollTop(),
+			panelIsOpen = scrollTop > scrollTopWhenClosed,
+			scrollTopTarget = panelIsOpen ? scrollTopWhenClosed : scrollTopWhenOpen;
 
 		if ( forceDirection ) {
-			scrollTopTarget = forceDirection === 'down' ? 0 : scrollTopWhenOpen;
+			scrollTopTarget = forceDirection === 'down' ? scrollTopWhenClosed : scrollTopWhenOpen;
+			if ( scrollTop === scrollTopTarget ) {
+				// The user pressed down when the panel was closed already (or up when fully open).
+				// Not a real toggle; do not log.
+				return;
+			}
 		}
 
-		mw.mmv.logger.log( scrollTopTarget ? 'metadata-open' : 'metadata-close' );
+		mw.mmv.logger.log( scrollTopTarget === scrollTopWhenOpen ? 'metadata-open' : 'metadata-close' );
 
 		$.scrollTo( scrollTopTarget, 400 );
 	};
