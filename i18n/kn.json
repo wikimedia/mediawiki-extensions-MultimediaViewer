@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Vikassy",
-			"Pavanaja"
+			"Pavanaja",
+			"Nayvik"
 		]
 	},
 	"multimediaviewer-desc": "ಚಿಕ್ಕ ಚಿತ್ರವನ್ನು ಪೂರ್ತಿ ಪರದೆಗೆ ದೊಡ್ಡದು ಮಾಡಿ",
@@ -20,7 +21,7 @@
 	"multimediaviewer-license-cc-pd": "ಸಾರ್ವಜನಿಕರಿಗೆ ಸೇರಿದ್ದು",
 	"multimediaviewer-license-pd": "ಸಾರ್ವಜನಿಕರಿಗೆ ಸೇರಿದ್ದು",
 	"multimediaviewer-license-default": "ಪರವಾನಗಿ ವೀಕ್ಷಿಸಿ",
-	"multimediaviewer-permission-title": "ಪರವಾನಗಿ ವಿವರಗಳು",
+	"multimediaviewer-permission-title": "ಪರವಾನಗಿಯ ವಿವರಗಳು",
 	"multimediaviewer-permission-link": "ಶರತ್ತುಗಳನ್ನು ವೀಕ್ಷಿಸಿ",
 	"multimediaviewer-permission-viewmore": "ಹೆಚ್ಚಿನದ್ದನ್ನು ವೀಕ್ಷಿಸಿ",
 	"multimediaviewer-about-mmv": "ಮೀಡಿಯಾ ವ್ಯೂವರ್ ಬಗ್ಗೆ",
