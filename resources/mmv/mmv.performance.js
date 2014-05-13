@@ -36,7 +36,7 @@
 
 		// by default logging is cut off after 150 resources, which is not enough in debug mode
 		// only supported by IE
-		if ( mw.config.get( 'debug' ) && performance.setResourceTimingBufferSize ) {
+		if ( mw.config.get( 'debug' ) && performance && performance.setResourceTimingBufferSize ) {
 			performance.setResourceTimingBufferSize( 500 );
 		}
 	};

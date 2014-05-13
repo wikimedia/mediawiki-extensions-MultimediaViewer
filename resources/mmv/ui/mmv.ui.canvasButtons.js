@@ -62,10 +62,6 @@
 			$container.trigger( $.Event( 'mmv-close' ) );
 		} );
 
-		this.$fullscreen.click( function () {
-			$container.trigger( $.Event( 'mmv-fullscreen' ) );
-		} );
-
 		this.$next.click( function () {
 			$container.trigger( $.Event( 'mmv-next' ) );
 		} );
