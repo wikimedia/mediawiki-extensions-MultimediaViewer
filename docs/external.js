@@ -15,6 +15,11 @@
  */
 
 /**
+ * @class mw.eventLog
+ * <https://www.mediawiki.org/wiki/Extension:EventLogging>
+ */
+
+/**
  * @class HTMLElement
  * An HTML element.
  */
