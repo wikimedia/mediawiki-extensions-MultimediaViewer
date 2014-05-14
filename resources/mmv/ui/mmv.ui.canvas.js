@@ -260,7 +260,7 @@
 	C.unblur = function() {
 		// We apply empty CSS values to remove the inline styles applied by jQuery
 		// so that they don't get in the way of styles defined in CSS
-		this.$image.css( { '-webkit-filter' : '', 'opacity' : '' } )
+		this.$image.css( { '-webkit-filter' : '', 'opacity' : '', 'filter' : '' } )
 			.removeClass( 'blurred' );
 	};
 
@@ -284,10 +284,17 @@
 	 * @returns {mw.mmv.model.ThumbnailWidth}
 	 */
 	C.getLightboxImageWidths = function ( image ) {
-		var thumb = image.thumbnail;
+		var thumb = image.thumbnail,
+			$window = $( window ),
+			availableWidth = $window.width(),
+			availableHeight = $window.height() - $( '.mw-mmv-controls' ).height();
+
+		// For the above don't rely on this.$imageWrapper's sizing anymore because it's fragile
+		// Depending on what the wrapper contains, its size can be 0 on some browsers.
+		// Therefore, we calculate the available space manually
 
 		return this.thumbnailWidthCalculator.calculateWidths(
-			this.$imageWrapper.width(), this.$imageWrapper.height(), thumb.width, thumb.height );
+			availableWidth, availableHeight, thumb.width, thumb.height );
 	};
 
 	/**

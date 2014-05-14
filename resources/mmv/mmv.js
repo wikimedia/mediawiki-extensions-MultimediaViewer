@@ -198,7 +198,7 @@
 	 */
 	MMVP.resize = function ( ui ) {
 		var viewer = this,
-			image = this.thumbs[ this.currentIndex].image,
+			image = this.thumbs[ this.currentIndex ].image,
 			imageWidths;
 
 		this.preloadThumbnails();
