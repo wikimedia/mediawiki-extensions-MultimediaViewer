@@ -1,6 +1,5 @@
 @import "../mmv.globals";
 @import "../mmv.mixins";
-@import "mediawiki.mixins.animation";
 
 @info-box-color: #FFFFFF;
 @info-box-border-color: #DDDDDD;
@@ -17,69 +16,6 @@
 	.box-round(3px);
 
 	background-color: @info-box-color;
-}
-
-.mw-mmv-post-image {
-	.animation( mw-mmv-appear-animation 0.5s ease 0s 1 normal forwards );
-	&.invite {
-		.animation( mw-mmv-invite-animation 0.5s ease 0s 1 normal forwards );
-	}
-}
-
-.mw-mmv-appear-animation() {
-	0% {
-		opacity: 0.6;
-	}
-	50% {
-		opacity: 0.9;
-	}
-	100% {
-		opacity: 1;
-	}
-}
-
-@-webkit-keyframes mw-mmv-appear-animation {
-	.mw-mmv-appear-animation;
-}
-
-@-moz-keyframes mw-mmv-appear-animation {
-	.mw-mmv-appear-animation;
-}
-
-@-o-keyframes mw-mmv-appear-animation {
-	.mw-mmv-appear-animation;
-}
-
-@keyframes mw-mmv-appear-animation {
-	.mw-mmv-appear-animation;
-}
-
-.mw-mmv-invite-animation() {
-	0% {
-		margin-top: 0px;
-	}
-	50% {
-		margin-top: -15px;
-	}
-	100% {
-		margin-top: 0;
-	}
-}
-
-@-webkit-keyframes mw-mmv-invite-animation {
-	.mw-mmv-invite-animation;
-}
-
-@-moz-keyframes mw-mmv-invite-animation {
-	.mw-mmv-invite-animation;
-}
-
-@-o-keyframes mw-mmv-invite-animation {
-	.mw-mmv-invite-animation;
-}
-
-@keyframes mw-mmv-invite-animation {
-	.mw-mmv-invite-animation;
 }
 
 .mw-mmv-title-contain {
@@ -289,33 +225,6 @@
 	font-size: @littlefont;
 	padding: 20px;
 	width: 50%;
-}
-
-.mw-mmv-drag-affordance {
-	width: 100%;
-	height: @metadatabar-drag-height;
-	cursor: pointer;
-}
-
-.mw-mmv-drag-icon {
-	width: 64px;
-	height: @metadatabar-drag-height;
-	/* @embed */
-	background-image: url(img/drag.svg);
-	background-repeat: no-repeat;
-	background-position: center bottom;
-	margin: 0 auto;
-	opacity: 0.6;
-	transition: opacity 0.25s;
-
-	&.pointing-down {
-		background-position: center top;
-		.rotate(180deg);
-	}
-}
-
-.mw-mmv-post-image:hover .mw-mmv-drag-icon {
-	opacity: 1;
 }
 
 .mw-mmv-label {

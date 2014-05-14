@@ -452,10 +452,12 @@ $wgResourceModules += array(
 	'mmv.ui.metadataPanel' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/ui/mmv.ui.metadataPanel.js',
+			'mmv/ui/mmv.ui.metadataPanelScroller.js',
 		),
 
 		'styles' => array(
 			'mmv/ui/mmv.ui.metadataPanel.less',
+			'mmv/ui/mmv.ui.metadataPanelScroller.less',
 		),
 
 		'dependencies' => array(

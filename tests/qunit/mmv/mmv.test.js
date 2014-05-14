@@ -118,7 +118,9 @@
 				getCurrentImageWidths : function () { return { real : 0 }; } },
 			panel : {
 				setImageInfo : $.noop,
-				animateMetadataOnce : $.noop,
+				scroller: {
+					animateMetadataOnce : $.noop
+				},
 				progressBar: {
 					animateTo: this.sandbox.stub(),
 					jumpTo: this.sandbox.stub()
@@ -171,7 +173,9 @@
 				getCurrentImageWidths : function () { return { real : 0 }; } },
 			panel : {
 				setImageInfo : $.noop,
-				animateMetadataOnce : $.noop,
+				scroller: {
+					animateMetadataOnce : $.noop
+				},
 				progressBar: {
 					hide: this.sandbox.stub(),
 					animateTo: this.sandbox.stub(),
@@ -361,12 +365,14 @@
 				getCurrentImageWidths : function () { return { real : 0 }; } },
 			panel : {
 				setImageInfo : this.sandbox.stub(),
+				scroller: {
+					animateMetadataOnce : $.noop
+				},
 				progressBar: {
 					animateTo : this.sandbox.stub(),
 					jumpTo : this.sandbox.stub()
 				},
 				empty: $.noop,
-				animateMetadataOnce: $.noop
 			},
 			open : $.noop,
 			empty: $.noop };

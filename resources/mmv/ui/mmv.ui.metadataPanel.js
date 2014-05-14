@@ -32,56 +32,33 @@
 		mw.mmv.ui.Element.call( this, $container );
 
 		this.$controlBar = $controlBar;
-
-		/** @property {Object} localStorage the window.localStorage object */
-		this.localStorage = localStorage;
-
-		/**
-		 * Whether we've already fired an animation for the metadata div in this lightbox session.
-		 * @property {boolean}
-		 * @private
-		 */
-		this.hasAnimatedMetadata = undefined;
-
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
 
-		this.initializeHeader();
+		this.initializeHeader( localStorage );
 		this.initializeImageMetadata();
 		this.initializeAboutLinks();
 	}
-
 	oo.inheritClass( MetadataPanel, mw.mmv.ui.Element );
-
 	MPP = MetadataPanel.prototype;
 
 	MPP.attach = function() {
-		var panel = this;
-		this.handleEvent( 'keydown', function ( e ) {
-			panel.keydown( e );
-		} );
-
-		$.scrollTo().on( 'scroll.mmvp', $.throttle( 250, function() {
-			panel.scroll();
-		} ) );
-
+		this.scroller.attach();
 		this.buttons.attach();
 		this.fileReuse.attach();
-
-		// reset animation flag when the viewer is reopened
-		this.hasAnimatedMetadata = !this.localStorage || this.localStorage.getItem( 'mmv.hasOpenedMetadata' );
 	};
 
 	MPP.unattach = function() {
+		this.scroller.unattach();
 		this.buttons.unattach();
 		this.fileReuse.unattach();
 		this.fileReuse.closeDialog();
 		this.clearEvents();
-
-		$.scrollTo().off( 'scroll.mmvp' );
 	};
 
 	MPP.empty = function () {
+		this.scroller.empty();
+
 		this.$license.empty().addClass( 'empty' );
 		this.$permissionLink.hide();
 
@@ -108,12 +85,7 @@
 		this.$location.empty();
 		this.$locationLi.addClass( 'empty' );
 
-		this.$dragIcon.removeClass( 'pointing-down' );
-
 		this.progressBar.empty();
-
-		// need to remove this to avoid animating again when reopening lightbox on same page
-		this.$container.removeClass( 'invite' );
 
 		this.fileReuse.empty();
 	};
@@ -124,22 +96,13 @@
 
 	/**
 	 * Initializes the header, which contains the title, credit, and license elements.
+	 * @param {Object} localStorage the localStorage object, for dependency injection
 	 */
-	MPP.initializeHeader = function () {
-		var panel = this;
-
+	MPP.initializeHeader = function ( localStorage ) {
 		this.progressBar = new mw.mmv.ui.ProgressBar( this.$controlBar );
 
-		this.$dragBar = $( '<div>' )
-			.addClass( 'mw-mmv-drag-affordance' )
-			.appendTo( this.$controlBar )
-			.click( function () {
-				panel.toggle();
-			} );
-
-		this.$dragIcon = $( '<div>' )
-			.addClass( 'mw-mmv-drag-icon' )
-			.appendTo( this.$dragBar );
+		this.scroller = new mw.mmv.ui.MetadataPanelScroller( this.$container, this.$controlBar,
+			localStorage );
 
 		this.$titleDiv = $( '<div>' )
 			.addClass( 'mw-mmv-title-contain' )
@@ -220,7 +183,7 @@
 			.hide()
 			.on( 'click', function() {
 				panel.permission.grow();
-				panel.scrollIntoView( panel.permission.$box, 500 );
+				panel.scroller.scrollIntoView( panel.permission.$box, 500 );
 			} );
 	};
 
@@ -767,111 +730,6 @@
 		} );
 
 		return deferred.promise();
-	};
-
-	/**
-	 * Animates the metadata area when the viewer is first opened.
-	 */
-	MPP.animateMetadataOnce = function () {
-		if ( !this.hasAnimatedMetadata ) {
-			this.hasAnimatedMetadata = true;
-			this.$container.addClass( 'invite' );
-		}
-	};
-
-	// ********************************
-	// ******** Action methods ********
-	// ********************************
-
-	/**
-	 * Toggles the metadata div being totally visible.
-	 */
-	MPP.toggle = function ( forceDirection ) {
-		var scrollTopWhenOpen = this.$container.outerHeight() - this.$controlBar.outerHeight(),
-			scrollTopWhenClosed = 0,
-			scrollTop = $.scrollTo().scrollTop(),
-			panelIsOpen = scrollTop > scrollTopWhenClosed,
-			scrollTopTarget = panelIsOpen ? scrollTopWhenClosed : scrollTopWhenOpen;
-
-		if ( forceDirection ) {
-			scrollTopTarget = forceDirection === 'down' ? scrollTopWhenClosed : scrollTopWhenOpen;
-			if ( scrollTop === scrollTopTarget ) {
-				// The user pressed down when the panel was closed already (or up when fully open).
-				// Not a real toggle; do not log.
-				return;
-			}
-		}
-
-		mw.mmv.logger.log( scrollTopTarget === scrollTopWhenOpen ? 'metadata-open' : 'metadata-close' );
-
-		$.scrollTo( scrollTopTarget, 400 );
-	};
-
-	/**
-	 * Handles keydown events for this element.
-	 */
-	MPP.keydown = function ( e ) {
-		switch ( e.which ) {
-			case 40:
-				// Down arrow
-				this.toggle( 'down' );
-				e.preventDefault();
-				break;
-			case 38:
-				// Up arrow
-				this.toggle( 'up' );
-				e.preventDefault();
-				break;
-		}
-	};
-
-	/**
-	 * Makes sure that the given element (which must be a descendant of the metadata panel) is
-	 * in view. If it isn't, scrolls the panel smoothly to reveal it.
-	 * @param {HTMLElement|jQuery|string} target
-	 * @param {number} [duration] animation length
-	 * @param {Object} [settings] see jQuery.scrollTo
-	 */
-	MPP.scrollIntoView = function( target, duration, settings ) {
-		var $target = $( target ),
-			targetHeight = $target.height(),
-			targetTop = $target.offset().top,
-			targetBottom = targetTop + targetHeight,
-			viewportHeight = $(window).height(),
-			viewportTop = $.scrollTo().scrollTop(),
-			viewportBottom = viewportTop + viewportHeight;
-
-		// we omit here a bunch of cases which are logically possible but unlikely given the size
-		// of the panel, and only care about the one which will actually happen
-		if ( targetHeight <= viewportHeight ) { // target fits into screen
-			if (targetBottom > viewportBottom ) {
-				$.scrollTo( viewportTop + ( targetBottom - viewportBottom ), duration, settings );
-			}
-		}
-	};
-
-	/**
-	 * Receives the window's scroll events and flips the chevron if necessary.
-	 */
-	MPP.scroll = function () {
-		var scrolled = !!$.scrollTo().scrollTop();
-
-		this.$dragIcon.toggleClass( 'pointing-down', scrolled );
-
-		if (
-			!this.savedHasOpenedMetadata &&
-			scrolled &&
-			this.localStorage
-		) {
-			try {
-				this.localStorage.setItem( 'mmv.hasOpenedMetadata', true );
-			} catch ( e ) {
-				// localStorage is full or disabled
-			}
-
-			// We mark it as saved even when localStorage failed, because retrying will very likely fail as well
-			this.savedHasOpenedMetadata = true;
-		}
 	};
 
 	mw.mmv.ui.MetadataPanel = MetadataPanel;

@@ -277,7 +277,7 @@
 
 			if ( scrollTo !== undefined ) {
 				// Trigger event manually
-				ui.panel.scroll();
+				ui.panel.scroller.scroll();
 			}
 
 			return $element;
@@ -293,14 +293,14 @@
 
 		// First phase of the test: up and down arrows
 
-		ui.panel.hasAnimatedMetadata = false;
+		ui.panel.scroller.hasAnimatedMetadata = false;
 		localStorage.removeItem( 'mmv.hasOpenedMetadata' );
 
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		ui.attach(  '#qunit-fixture'  );
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0, 'scrollTo scrollTop should be set to 0' );
-		assert.ok( !ui.panel.$dragIcon.hasClass( 'pointing-down' ),
+		assert.ok( !ui.panel.scroller.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing up' );
 
 		assert.ok( !localStorage.getItem( 'mmv.hasOpenedMetadata' ),
@@ -315,7 +315,7 @@
 		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ),
 			ui.panel.$imageMetadata.outerHeight(),
 			'scrollTo scrollTop should be set to the metadata height after pressing up arrow' );
-		assert.ok( ui.panel.$dragIcon.hasClass( 'pointing-down' ),
+		assert.ok( ui.panel.scroller.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing down after pressing up arrow' );
 		assert.ok( localStorage.getItem( 'mmv.hasOpenedMetadata' ),
 			'localStorage knows that the metadata has been open' );
@@ -325,22 +325,22 @@
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0,
 			'scrollTo scrollTop should be set to 0 after pressing down arrow' );
-		assert.ok( !ui.panel.$dragIcon.hasClass( 'pointing-down' ),
+		assert.ok( !ui.panel.scroller.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing up after pressing down arrow' );
 
-		ui.panel.$dragIcon.click();
+		ui.panel.scroller.$dragIcon.click();
 
 		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ),
 			ui.panel.$imageMetadata.outerHeight(),
 			'scrollTo scrollTop should be set to the metadata height after clicking the chevron once' );
-		assert.ok( ui.panel.$dragIcon.hasClass( 'pointing-down' ),
+		assert.ok( ui.panel.scroller.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing down after clicking the chevron once' );
 
-		ui.panel.$dragIcon.click();
+		ui.panel.scroller.$dragIcon.click();
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0,
 			'scrollTo scrollTop should be set to 0 after clicking the chevron twice' );
-		assert.ok( !ui.panel.$dragIcon.hasClass( 'pointing-down' ),
+		assert.ok( !ui.panel.scroller.$dragIcon.hasClass( 'pointing-down' ),
 			'Chevron pointing up after clicking the chevron twice' );
 
 		// Unattach lightbox from document
@@ -403,12 +403,12 @@
 		assert.ok( mw.mmv.logger.log.calledWithExactly( 'metadata-close' ), 'Closing keypress logged' );
 		mw.mmv.logger.log.reset();
 
-		ui.panel.$dragIcon.click();
+		ui.panel.scroller.$dragIcon.click();
 
 		assert.ok( mw.mmv.logger.log.calledWithExactly( 'metadata-open' ), 'Opening click logged' );
 		mw.mmv.logger.log.reset();
 
-		ui.panel.$dragIcon.click();
+		ui.panel.scroller.$dragIcon.click();
 
 		assert.ok( mw.mmv.logger.log.calledWithExactly( 'metadata-close' ), 'Closing click logged' );
 		mw.mmv.logger.log.reset();

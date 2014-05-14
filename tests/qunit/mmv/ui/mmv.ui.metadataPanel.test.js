@@ -20,7 +20,7 @@
 
 	QUnit.module( 'mmv.ui.metadataPanel', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'The panel is emptied properly when necessary', thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length + 2, function ( assert ) {
+	QUnit.test( 'The panel is emptied properly when necessary', thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length, function ( assert ) {
 		var i,
 			$qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) );
@@ -34,9 +34,6 @@
 		for ( i = 0; i < thingsShouldHaveEmptyClass.length; i++ ) {
 			assert.strictEqual( panel[thingsShouldHaveEmptyClass[i]].hasClass( 'empty' ), true, 'We successfully applied the empty class to the ' + thingsShouldHaveEmptyClass[i] + ' element' );
 		}
-
-		assert.ok( !panel.$dragIcon.hasClass( 'pointing-down' ), 'We successfully reset the chevron' );
-		assert.ok( !panel.$container.hasClass( 'invite' ), 'We successfully reset the invite' );
 	} );
 
 	QUnit.test( 'Setting repository information in the UI works as expected', 3, function ( assert ) {
@@ -209,42 +206,6 @@
 		} );
 	} );
 
-
-	QUnit.test( 'Metadata div is only animated once', 5, function ( assert ) {
-		var $qf = $( '#qunit-fixture' ),
-			displayCount,
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), {
-				// We simulate localStorage to avoid test side-effects
-				getItem: function () { return displayCount; },
-				setItem: function ( _, val ) { displayCount = val; }
-			} );
-
-		panel.attach();
-
-		panel.animateMetadataOnce();
-
-		assert.ok( panel.hasAnimatedMetadata,
-			'The first call to animateMetadataOnce set hasAnimatedMetadata to true' );
-		assert.ok( $qf.hasClass( 'invite' ),
-			'The first call to animateMetadataOnce led to an animation' );
-
-		$qf.removeClass( 'invite' );
-
-		panel.animateMetadataOnce();
-
-		assert.strictEqual( panel.hasAnimatedMetadata, true, 'The second call to animateMetadataOnce did not change the value of hasAnimatedMetadata' );
-		assert.ok( !$qf.hasClass( 'invite' ),
-			'The second call to animateMetadataOnce did not lead to an animation' );
-
-		panel.unattach();
-
-		panel.attach();
-
-		panel.animateMetadataOnce();
-		assert.ok( $qf.hasClass( 'invite' ),
-			'After closing and opening the viewer, the panel is animated again' );
-	} );
-
 	QUnit.test( 'Repo icon', 4, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
@@ -284,27 +245,5 @@
 		mw.user.isAnon.returns( true );
 		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ) );
 		assert.strictEqual( $qf.find( '.mw-mmv-preference-link' ).length, 0, 'Preferences link is not created for anon user.' );
-	} );
-
-	QUnit.test( 'No localStorage', 1, function( assert ) {
-		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) );
-
-		this.sandbox.stub( $, 'scrollTo', function() { return { scrollTop : function() { return 10; } }; } );
-
-		panel.scroll();
-
-		assert.ok( !panel.savedHasOpenedMetadata, 'No localStorage, we don\'t try to save the opened flag' );
-	} );
-
-	QUnit.test( 'Full localStorage', 1, function( assert ) {
-		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), { getItem : $.noop, setItem : function() { throw 'I am full'; } } );
-
-		this.sandbox.stub( $, 'scrollTo', function() { return { scrollTop : function() { return 10; } }; } );
-
-		panel.scroll();
-
-		assert.ok( panel.savedHasOpenedMetadata, 'Full localStorage, we don\'t try to save the opened flag more than once' );
 	} );
 }( mediaWiki, jQuery ) );
