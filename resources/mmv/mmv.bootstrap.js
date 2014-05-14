@@ -321,11 +321,12 @@
 		// The advantage of using pushState when it's available is that it has to ability to truly
 		// clear the hash, not leaving "#" in the history
 		// An entry with "#" in the history has the side-effect of resetting the scroll position when navigating the history
-		if ( this.browserHistory ) {
+		if ( this.browserHistory && this.browserHistory.pushState ) {
 			// In order to truly clear the hash, we need to reconstruct the hash-free URL
 			if ( hash === '#' ) {
 				hash = window.location.href.replace( /#.*$/, '' );
 			}
+
 			this.browserHistory.pushState( null, null, hash );
 		} else {
 			// Since we voluntarily changed the hash, we don't want MMVB.hash (which will trigger on hashchange event) to treat it

@@ -261,7 +261,7 @@
 		assert.ok( ! blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'Unblur', 3, function ( assert ) {
+	QUnit.test( 'Unblur', 4, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			canvas = new mw.mmv.ui.Canvas( $qf ),
 			oldAnimate = $.fn.animate;
@@ -290,6 +290,8 @@
 		canvas.unblurWithAnimation();
 
 		assert.ok( ! canvas.$image.css( '-webkit-filter' ) || !canvas.$image.css( '-webkit-filter' ).length,
+			'Image has no -webkit-filter left' );
+		assert.ok( ! canvas.$image.css( 'filter' ) || !canvas.$image.css( 'filter' ).length || canvas.$image.css( 'filter' ) === 'none',
 			'Image has no filter left' );
 		assert.strictEqual( parseInt( canvas.$image.css( 'opacity' ), 10 ), 1,
 			'Image is fully opaque' );
