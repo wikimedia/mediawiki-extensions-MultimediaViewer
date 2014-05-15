@@ -110,7 +110,6 @@
 		viewer.scroll = $.noop;
 		viewer.preloadFullscreenThumbnail = $.noop;
 		viewer.fetchSizeIndependentLightboxInfo = function () { return $.Deferred().resolve(); };
-		viewer.setupZoomControl = $.noop;
 		viewer.ui = {
 			setupForLoad : $.noop,
 			canvas : { set : $.noop,
@@ -166,7 +165,6 @@
 		viewer.preloadImagesMetadata = $.noop;
 		viewer.preloadThumbnails = $.noop;
 		viewer.fetchSizeIndependentLightboxInfo = function () { return $.Deferred().resolve(); };
-		viewer.setupZoomControl = $.noop;
 		viewer.ui = {
 			setupForLoad : $.noop,
 			canvas : { set : $.noop,
@@ -361,7 +359,6 @@
 
 		viewer.preloadFullscreenThumbnail = $.noop;
 		viewer.fetchSizeIndependentLightboxInfo = this.sandbox.stub();
-		viewer.setupZoomControl = $.noop;
 		viewer.ui = {
 			setupForLoad : $.noop,
 			canvas : { set : $.noop,
@@ -408,25 +405,6 @@
 		secondImageDeferred.resolve();
 		secondLigthboxInfoDeferred.resolve();
 		assert.ok( viewer.displayRealThumbnail.called, 'The second image being done loading should result in the image being shown');
-	} );
-
-	QUnit.test( 'Zoom control', 4, function( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer();
-
-		viewer.currentIndex = 0;
-		viewer.ui = { buttons: { toggleZoom: this.sandbox.stub() } };
-
-		viewer.setupZoomControl( { index: 0, originalWidth: 1000, originalHeight: 1000}, $.Deferred(), 500 );
-		assert.ok( viewer.ui.buttons.toggleZoom.lastCall.calledWith( true ), 'Original larger, size available: zoom control is visible' );
-
-		viewer.setupZoomControl( { index: 0, originalWidth: 1000, originalHeight: 1000 }, $.Deferred(), 1000 );
-		assert.ok( viewer.ui.buttons.toggleZoom.lastCall.calledWith( false ), 'Original the same, size available: zoom control is not visible' );
-
-		viewer.setupZoomControl( { index: 0 }, $.Deferred().resolve( { width: 1000, height: 1000 } ), 500 );
-		assert.ok( viewer.ui.buttons.toggleZoom.lastCall.calledWith( true ), 'Original larger, size unavailable: zoom control is visible' );
-
-		viewer.setupZoomControl( { index: 0 }, $.Deferred().resolve( { width: 1000, height: 1000 } ), 1000 );
-		assert.ok( viewer.ui.buttons.toggleZoom.lastCall.calledWith( false ), 'Original the same, size unavailable: zoom control is not visible' );
 	} );
 
 	QUnit.test( 'Events are not trapped after the viewer is closed', 0, function( assert ) {

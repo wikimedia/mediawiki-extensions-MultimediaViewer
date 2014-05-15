@@ -380,7 +380,7 @@
 		}
 
 		this.buttons.setOffset( prevNextTop );
-		this.buttons.togglePrevNext( showPrevButton, showNextButton );
+		this.buttons.toggle( showPrevButton, showNextButton );
 	};
 
 	mw.mmv.LightboxInterface = LightboxInterface;
