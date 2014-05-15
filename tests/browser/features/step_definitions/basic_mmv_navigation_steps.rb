@@ -70,7 +70,8 @@ end
 
 Then(/^the wiki article should be scrolled to the same position as before opening MMV$/) do
   on(E2ETestPage) do |page|
-    page.execute_script("return $(window).scrollTop();").should eq @articleScrollTop
+    @scrollDifference = page.execute_script("return $(window).scrollTop();") - @articleScrollTop
+    @scrollDifference.abs.should be < 2
   end
 end
 
