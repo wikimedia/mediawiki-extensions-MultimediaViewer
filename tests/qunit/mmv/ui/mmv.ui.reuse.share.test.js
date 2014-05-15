@@ -69,7 +69,8 @@
 		};
 
 		// Triggering action events before attaching should do nothing
-		share.pageInput.$element.focus();
+		// use of focus() would run into jQuery bug #14740 and similar issues
+		share.pageInput.$element.triggerHandler( 'focus' );
 
 		share.selectAllOnEvent = function () {
 			assert.ok( true, 'selectAllOnEvent was called.' );
@@ -78,7 +79,7 @@
 		share.attach();
 
 		// Action events should be handled now
-		share.pageInput.$element.focus();
+		share.pageInput.$element.triggerHandler( 'focus' );
 
 		// Test the unattach part
 		share.selectAllOnEvent = function() {
@@ -88,7 +89,7 @@
 		share.unattach();
 
 		// Triggering action events now that we are unattached should do nothing
-		share.pageInput.$element.focus();
+		share.pageInput.$element.triggerHandler( 'focus' );
 	} );
 
 }( mediaWiki, jQuery ) );
