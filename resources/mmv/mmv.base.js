@@ -21,7 +21,8 @@
 		// We have to disable support for IE < 9 until this is fixed: https://bugzilla.wikimedia.org/show_bug.cgi?id=63303
 		// This can't be done with feature detection, as the error IE triggers in that situation can't be caught
 		isBrowserSupported : function () {
-			return ! ( $.browser.msie && parseFloat( $.browser.version ) < 9 );
+			var profile = $.client.profile();
+			return ! ( profile.name === 'msie' && profile.versionNumber < 9 );
 		}
 	};
 }( mediaWiki, jQuery ) );
