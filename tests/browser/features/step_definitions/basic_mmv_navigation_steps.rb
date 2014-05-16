@@ -28,7 +28,7 @@ When(/^I click the previous arrow$/) do
 end
 
 When(/^I close MMV$/) do
-  on(E2ETestPage).mmv_close_button_element.when_present.click
+  on(E2ETestPage).mmv_close_button_element.when_present(30).click
 end
 
 When(/^I press the browser back button$/) do
