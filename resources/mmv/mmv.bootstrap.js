@@ -355,7 +355,7 @@
 	MMVB.setupEventHandlers = function () {
 		var self = this;
 
-		$( window ).on( this.browserHistory ? 'popstate.mmvb' : 'hashchange', function () {
+		$( window ).on( this.browserHistory && this.browserHistory.pushState ? 'popstate.mmvb' : 'hashchange', function () {
 			self.hash();
 		} );
 
