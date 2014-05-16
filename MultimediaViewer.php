@@ -25,6 +25,17 @@ if ( !isset( $wgNetworkPerformanceSamplingFactor ) ) {
 	$wgNetworkPerformanceSamplingFactor = false;
 }
 
+if ( !isset( $wgMediaViewerSamplingFactor ) ) {
+	/**
+	 * If set, records user activity and loading times. A value of 1000 means there will be an
+	 * 1:1000 chance to enable logging on page load; for that page, either all or none of the
+	 * events will be logged.
+	 * False if unset.
+	 * @var int|bool
+	 */
+	$wgMediaViewerSamplingFactor = false;
+}
+
 if ( !isset( $wgMediaViewerIsInBeta ) ) {
 	/** @var bool: If set, Media Viewer will try to use BetaFeatures. False if unset. **/
 	$wgMediaViewerIsInBeta = false;

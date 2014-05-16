@@ -2,6 +2,7 @@
 	QUnit.module( 'mmv.DurationLogger', QUnit.newMwEnvironment({
 		setup: function () {
 			this.clock = this.sandbox.useFakeTimers();
+			mw.config.get( 'wgMultimediaViewer' ).samplingFactor = 1;
 		}
 	} ) );
 
