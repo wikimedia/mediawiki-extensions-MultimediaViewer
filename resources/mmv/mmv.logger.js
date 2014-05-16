@@ -75,7 +75,7 @@
 
 		mw.log( translatedAction );
 
-		if ( mw.eventLog && !skipEventLog ) {
+		if ( mw.eventLog && !skipEventLog && this.isInSample() ) {
 			return mw.eventLog.logEvent( 'MediaViewer', {
 				version: '1.1',
 				action: action
@@ -83,6 +83,15 @@
 		}
 
 		return $.Deferred().resolve();
+	};
+
+	L.isInSample = function () {
+		var factor = mw.config.get( 'wgMultimediaViewer' ).samplingFactor;
+
+		if ( !$.isNumeric( factor ) || factor < 1 ) {
+			return false;
+		}
+		return Math.floor( Math.random() * factor ) === 0;
 	};
 
 	mw.mmv.logger = new Logger();
