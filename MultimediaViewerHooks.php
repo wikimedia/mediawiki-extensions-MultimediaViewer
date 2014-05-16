@@ -76,7 +76,7 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	public static function getModulesForArticle( &$out, &$skin ) {
-		if ( count( $out->getFileSearchOptions() ) > 0 || $out->getTitle()->inNamespace( NS_FILE ) ) {
+		if ( 1 /* count( $out->getFileSearchOptions() ) > 0 || $out->getTitle()->inNamespace( NS_FILE ) */ ) { // FIXME broken in core
 			return self::getModules( $out );
 		}
 
