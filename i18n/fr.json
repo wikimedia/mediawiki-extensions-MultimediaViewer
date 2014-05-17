@@ -6,14 +6,15 @@
 			"Ltrlg",
 			"NemesisIII",
 			"Verdy p",
-			"Sherbrooke"
+			"Sherbrooke",
+			"Seb35"
 		]
 	},
 	"multimediaviewer-desc": "Agrandit les vignettes dans une interface en plein écran.",
 	"multimediaviewer-desc-nil": "Aucune description disponible.",
 	"multimediaviewer-pref": "Visionneuse de Médias",
 	"multimediaviewer-pref-desc": "Améliorez votre expérience de visualisation multimédia avec ce nouvel outil. Il affiche les images en grande taille sur les pages qui ont des vignettes. Les images sont affichées dans un joli cadre d’interface en plein écran, et peuvent aussi être affichées en taille maximale.",
-	"multimediaviewer-optin-pref": "Activer l’expérimentation d’affichage des nouveaux médias",
+	"multimediaviewer-optin-pref": "Activer la nouvelle visionneuse de médias",
 	"multimediaviewer-file-page": "Aller à la page du fichier correspondant",
 	"multimediaviewer-repository": "En savoir plus sur $1",
 	"multimediaviewer-repository-local": "En savoir plus",
