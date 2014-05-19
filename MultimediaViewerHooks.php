@@ -144,7 +144,7 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	public static function resourceLoaderGetConfigVars( &$vars ) {
-		global $wgAPIPropModules, $wgNetworkPerformanceSamplingFactor, $wgMediaViewerSamplingFactor,
+		global $wgAPIPropModules, $wgMediaViewerActionLoggingSamplingFactorMap, $wgNetworkPerformanceSamplingFactor, $wgMediaViewerDurationLoggingSamplingFactor,
 			   $wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing, $wgMediaViewerShowSurvey;
 		$vars['wgMultimediaViewer'] = array(
 			'infoLink' => self::$infoLink,
@@ -153,9 +153,10 @@ class MultimediaViewerHooks {
 			'globalUsageAvailable' => isset( $wgAPIPropModules['globalusage'] ),
 			'useThumbnailGuessing' => (bool)$wgMediaViewerUseThumbnailGuessing,
 			'showSurvey' => (bool)$wgMediaViewerShowSurvey,
-			'samplingFactor' => $wgMediaViewerSamplingFactor,
+			'durationSamplingFactor' => $wgMediaViewerDurationLoggingSamplingFactor,
+			'networkPerformanceSamplingFactor' => $wgNetworkPerformanceSamplingFactor,
+			'actionLoggingSamplingFactorMap' => $wgMediaViewerActionLoggingSamplingFactorMap,
 		);
-		$vars['wgNetworkPerformanceSamplingFactor'] = $wgNetworkPerformanceSamplingFactor;
 		$vars['wgMediaViewer'] = true;
 		$vars['wgMediaViewerIsInBeta'] = $wgMediaViewerIsInBeta;
 
@@ -190,7 +191,7 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv/mmv.EmbedFileFormatter.test.js',
 				'tests/qunit/mmv/mmv.HtmlUtils.test.js',
 				'tests/qunit/mmv/mmv.performance.test.js',
-				'tests/qunit/mmv/mmv.logger.test.js',
+				'tests/qunit/mmv/mmv.ActionLogger.test.js',
 				'tests/qunit/mmv/model/mmv.model.test.js',
 				'tests/qunit/mmv/model/mmv.model.TaskQueue.test.js',
 				'tests/qunit/mmv/model/mmv.model.License.test.js',

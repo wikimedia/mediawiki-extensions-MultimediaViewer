@@ -15,36 +15,34 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function ( mw, $, oo ) {
 	var L;
 
 	/**
-	 * Writes Event Logging entries for duration measurements
+	 * Writes EventLogging entries for duration measurements
 	 * @class mw.mmv.DurationLogger
+	 * @extends mw.mmv.Logger
 	 * @constructor
 	 */
 	function DurationLogger() {
 		this.starts = {};
-		this.schema = 'MultimediaViewerDuration';
 	}
+
+	oo.inheritClass( DurationLogger, mw.mmv.Logger );
 
 	L = DurationLogger.prototype;
 
 	/**
-	 * Sets the Geo object providing country information about the visitor
-	 * @param {Object} Geo object containing country GeoIP information about the user
+	 * @override
+	 * @inheritdoc
 	 */
-	L.setGeo = function ( Geo ) {
-		this.Geo = Geo;
-	};
+	L.samplingFactor = mw.config.get( 'wgMultimediaViewer' ).durationSamplingFactor;
 
 	/**
-	 * Sets the eventLog object providing a facility to record events
-	 * @param {mw.eventLog} eventLog EventLogging instance
+	 * @override
+	 * @inheritdoc
 	 */
-	L.setEventLog = function ( eventLog ) {
-		this.eventLog = eventLog;
-	};
+	L.schema = 'MultimediaViewerDuration';
 
 	/**
 	 * Saves the start of a duration
@@ -73,37 +71,32 @@
 	/**
 	 * Logs a duration if a start was recorded first
 	 * @param {string} type Type of duration being measured.
+	 * @param {number} start Start timestamp that to substitute the one coming from start()
 	 */
-	L.stop = function ( type ) {
-		var e, duration, message,
-			self = this;
+	L.stop = function ( type, start ) {
+		var e, duration, message, startTimestamp;
 
 		if ( !type ) {
 			throw 'Must specify type';
 		}
 
-		if ( this.starts.hasOwnProperty( type ) ) {
-			duration = $.now() - this.starts[ type ];
+		startTimestamp = this.starts.hasOwnProperty( type ) ? this.starts[ type ] : start;
+
+		if ( startTimestamp !== undefined ) {
+			duration = $.now() - startTimestamp;
 
 			e = {
 				type : type,
 				duration : duration,
-				loggedIn : !mw.user.isAnon()
+				loggedIn : !mw.user.isAnon(),
+				samplingFactor : this.samplingFactor
 			};
 
 			message = type + ': ' + duration + 'ms';
 
-			this.loadDependencies().then( function () {
-				if ( $.isPlainObject( self.Geo ) && typeof self.Geo.country === 'string' ) {
-					e.country = self.Geo.country;
-				}
+			mw.log( message );
 
-				if ( self.isInSample() ) {
-					self.eventLog.logEvent( self.schema, e );
-				}
-
-				mw.log( message );
-			} );
+			this.log( e );
 		}
 
 		if ( this.starts.hasOwnProperty( type ) ) {
@@ -111,44 +104,5 @@
 		}
 	};
 
-	/**
-	 * Loads the dependencies that allow us to log events
-	 * @returns {jQuery.Promise}
-	 */
-	L.loadDependencies = function () {
-		var self = this,
-			waitForEventLog = $.Deferred();
-
-		// Waits for dom readiness because we don't want to have these dependencies loaded in the head
-		$( document ).ready( function() {
-			// window.Geo is currently defined in components that are loaded independently, there is no cheap
-			// way to load just that information. Either we piggy-back on something that already loaded it
-			// or we just don't have it
-			if ( window.Geo ) {
-				self.setGeo( window.Geo );
-			}
-
-			try {
-				mw.loader.using( 'ext.eventLogging', function() {
-					self.setEventLog( mw.eventLog );
-					waitForEventLog.resolve();
-				} );
-			} catch ( e ) {
-				waitForEventLog.reject();
-			}
-		} );
-
-		return waitForEventLog;
-	};
-
-	L.isInSample = function () {
-		var factor = mw.config.get( 'wgMultimediaViewer' ).samplingFactor;
-
-		if ( !$.isNumeric( factor ) || factor < 1 ) {
-			return false;
-		}
-		return Math.floor( Math.random() * factor ) === 0;
-	};
-
 	mw.mmv.durationLogger = new DurationLogger();
-}( mediaWiki, jQuery ) );
+}( mediaWiki, jQuery, OO ) );

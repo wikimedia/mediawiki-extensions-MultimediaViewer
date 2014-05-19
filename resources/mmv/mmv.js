@@ -406,7 +406,7 @@
 			this.ui.canvas.unblur();
 		}
 
-		mw.mmv.logger.log( 'image-view' );
+		mw.mmv.actionLogger.log( 'image-view' );
 	};
 
 	/**
@@ -778,7 +778,7 @@
 	 * Opens the next image
 	 */
 	MMVP.nextImage = function () {
-		mw.mmv.logger.log( 'next-image' );
+		mw.mmv.actionLogger.log( 'next-image' );
 		this.loadIndex( this.currentIndex + 1 );
 	};
 
@@ -786,7 +786,7 @@
 	 * Opens the previous image
 	 */
 	MMVP.prevImage = function () {
-		mw.mmv.logger.log( 'prev-image' );
+		mw.mmv.actionLogger.log( 'prev-image' );
 		this.loadIndex( this.currentIndex - 1 );
 	};
 

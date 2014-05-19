@@ -21,19 +21,27 @@
  * @copyright Copyright © 2013, Mark Holmquist
  */
 if ( !isset( $wgNetworkPerformanceSamplingFactor ) ) {
-	/** @var int|bool: If set, records image load network performance once per this many requests. False if unset. **/
+	/** @var int|bool: If set, records image load network performance via EventLogging once per this many requests. False if unset. **/
 	$wgNetworkPerformanceSamplingFactor = false;
 }
 
-if ( !isset( $wgMediaViewerSamplingFactor ) ) {
+if ( !isset( $wgMediaViewerDurationLoggingSamplingFactor ) ) {
 	/**
-	 * If set, records user activity and loading times. A value of 1000 means there will be an
-	 * 1:1000 chance to enable logging on page load; for that page, either all or none of the
-	 * events will be logged.
+	 * If set, records loading times via EventLogging. A value of 1000 means there will be an
+	 * 1:1000 chance to log the duration event.
 	 * False if unset.
 	 * @var int|bool
 	 */
-	$wgMediaViewerSamplingFactor = false;
+	$wgMediaViewerDurationLoggingSamplingFactor = false;
+}
+
+if ( !isset( $wgMediaViewerActionLoggingSamplingFactorMap ) ) {
+	/**
+	 * If set, records user actions via EventLogging and applies a sampling factor according to the map. A "default" key in the map must be set.
+	 * False if unset.
+	 * @var array|bool
+	 */
+	$wgMediaViewerActionLoggingSamplingFactorMap = false;
 }
 
 if ( !isset( $wgMediaViewerIsInBeta ) ) {
@@ -108,7 +116,7 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.base',
-			'mmv.logger',
+			'mmv.ActionLogger',
 			'mmv.ui',
 			'mmv.ui.canvas',
 			'mmv.ui.canvasButtons',
@@ -426,7 +434,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'jquery.color',
 			'mediawiki.jqueryMsg',
-			'mmv.logger',
+			'mmv.ActionLogger',
 			'mmv.ui',
 			'mmv.HtmlUtils',
 			'oojs',
@@ -477,7 +485,7 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.HtmlUtils',
-			'mmv.logger',
+			'mmv.ActionLogger',
 			'mmv.ui',
 			'mmv.ui.progressBar',
 			'mmv.ui.stripeButtons',
@@ -701,7 +709,7 @@ $wgResourceModules += array(
 
 	'mmv.logger' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv/mmv.logger.js',
+			'mmv/mmv.Logger.js',
 		),
 
 		'dependencies' => array(
@@ -716,6 +724,8 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.base',
+			'mmv.logger',
+			'oojs',
 		),
 	),
 
@@ -745,7 +755,7 @@ $wgResourceModules += array(
 			'mmv.api',
 			'mmv.base',
 			'mmv.lightboximage',
-			'mmv.logger',
+			'mmv.ActionLogger',
 			'mmv.model.TaskQueue',
 			'mmv.lightboxinterface',
 			'mmv.provider',
@@ -779,7 +789,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'jquery.hashchange',
 			'mediawiki.Title',
-			'mmv.logger',
+			'mmv.ActionLogger',
 			'mmv.HtmlUtils',
 			'mmv.DurationLogger',
 			'jquery.scrollTo',
@@ -801,13 +811,27 @@ $wgResourceModules += array(
 		),
 	),
 
+	'mmv.ActionLogger' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/mmv.ActionLogger.js',
+		),
+
+		'dependencies' => array(
+			'mmv.base',
+			'mmv.logger',
+			'oojs'
+		)
+	),
+
 	'mmv.DurationLogger' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/mmv.DurationLogger.js',
 		),
 
 		'dependencies' => array(
-			'mmv.base'
+			'mmv.base',
+			'mmv.logger',
+			'oojs'
 		)
 	),
 
@@ -817,8 +841,7 @@ $wgResourceModules += array(
 		),
 
 		'dependencies' => array(
-			'mmv.base',
-			'mmv.DurationLogger'
+			'mmv.base'
 		),
 
 		'position' => 'top',
@@ -838,35 +861,16 @@ $wgResourceModules += array(
 );
 
 $wgExtensionFunctions[] = function () {
-	global $wgResourceModules;
+	global $wgResourceModules, $wgEventLoggingSchemas;
 
 	if ( isset( $wgResourceModules['ext.eventLogging'] ) ) {
-		$wgResourceModules['schema.MediaViewer'] = array(
-			'class' => 'ResourceLoaderSchemaModule',
-			'schema' => 'MediaViewer',
-			'revision' => 8245578,
-		);
+		$wgEventLoggingSchemas[ 'MediaViewer' ] = 8572637;
+		$wgEventLoggingSchemas[ 'MultimediaViewerNetworkPerformance' ] = 7917896;
+		$wgEventLoggingSchemas[ 'MultimediaViewerDuration' ] = 8572641;
 
-		$wgResourceModules['schema.MultimediaViewerNetworkPerformance'] = array(
-			'class' => 'ResourceLoaderSchemaModule',
-			'schema' => 'MultimediaViewerNetworkPerformance',
-			'revision' => 7917896,
-		);
-
-		$wgResourceModules['schema.MultimediaViewerDuration'] = array(
-			'class' => 'ResourceLoaderSchemaModule',
-			'schema' => 'MultimediaViewerDuration',
-			'revision' => 8318615,
-		);
-
-		$wgResourceModules['mmv.logger']['dependencies'][] = 'ext.eventLogging';
-		$wgResourceModules['mmv.logger']['dependencies'][] = 'schema.MediaViewer';
-
+		$wgResourceModules['mmv.ActionLogger']['dependencies'][] = 'ext.eventLogging';
 		$wgResourceModules['mmv.performance']['dependencies'][] = 'ext.eventLogging';
-		$wgResourceModules['mmv.performance']['dependencies'][] = 'schema.MultimediaViewerNetworkPerformance';
-
 		$wgResourceModules['mmv.DurationLogger']['dependencies'][] = 'ext.eventLogging';
-		$wgResourceModules['mmv.DurationLogger']['dependencies'][] = 'schema.MultimediaViewerDuration';
 	}
 };
 

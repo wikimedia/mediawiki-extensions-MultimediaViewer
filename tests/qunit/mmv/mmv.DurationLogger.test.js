@@ -2,12 +2,12 @@
 	QUnit.module( 'mmv.DurationLogger', QUnit.newMwEnvironment({
 		setup: function () {
 			this.clock = this.sandbox.useFakeTimers();
-			mw.config.get( 'wgMultimediaViewer' ).samplingFactor = 1;
 		}
 	} ) );
 
 	QUnit.test( 'start()', 8, function ( assert ) {
 		var durationLogger = new mw.mmv.durationLogger.constructor();
+		durationLogger.samplingFactor = 1;
 
 		try {
 			durationLogger.start();
@@ -33,14 +33,15 @@
 		assert.strictEqual( durationLogger.starts.bar, 1000, 'Third simultaneous event start not overwritten' );
 	} );
 
-	QUnit.test( 'stop()', 12, function ( assert ) {
+	QUnit.test( 'stop()', 17, function ( assert ) {
 		var dependenciesDeferred = $.Deferred(),
-			fakeEventLog = { logEvent : $.noop },
+			fakeEventLog = { logEvent : this.sandbox.stub() },
 			durationLogger = new mw.mmv.durationLogger.constructor();
 
+		durationLogger.samplingFactor = 1;
+
 		this.sandbox.stub( mw.user, 'isAnon' ).returns( false );
-		this.sandbox.stub( fakeEventLog, 'logEvent' );
-		this.sandbox.stub( durationLogger, 'loadDependencies' ).returns ( dependenciesDeferred.promise() );
+		this.sandbox.stub( durationLogger, 'loadDependencies' ).returns( dependenciesDeferred.promise() );
 
 		try {
 			durationLogger.stop();
@@ -66,18 +67,23 @@
 
 		dependenciesDeferred.resolve();
 
-		assert.ok( fakeEventLog.logEvent.calledWithMatch( 'MultimediaViewerDuration', { type : 'bar', duration : 1000, loggedIn : true } ),
-			'Data passed to EventLogging is correct' );
-		assert.ok( fakeEventLog.logEvent.calledWithMatch( 'MultimediaViewerDuration', { type : 'bob', duration : 4000, loggedIn : true } ),
-			'Data passed to EventLogging is correct' );
+		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 0 ], 'MultimediaViewerDuration', 'EventLogging schema is correct' );
+		assert.deepEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ], { type : 'bar', duration : 1000, loggedIn : true, samplingFactor : 1 },
+			'EventLogging data is correct' );
+
+		assert.strictEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 0 ], 'MultimediaViewerDuration', 'EventLogging schema is correct' );
+		assert.deepEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 1 ], { type : 'bob', duration : 4000, loggedIn : true, samplingFactor : 1 },
+			'EventLogging data is correct' );
+
 		assert.strictEqual( fakeEventLog.logEvent.callCount, 2, 'logEvent called when processing the queue' );
 
 		durationLogger.start( 'foo' );
 		this.clock.tick( 3000 );
 		durationLogger.stop( 'foo' );
 
-		assert.ok( fakeEventLog.logEvent.calledWithMatch( 'MultimediaViewerDuration', { type : 'foo', duration : 3000, loggedIn : true } ),
-			'Data passed to EventLogging is correct' );
+		assert.strictEqual( fakeEventLog.logEvent.getCall( 2 ).args[ 0 ], 'MultimediaViewerDuration', 'EventLogging schema is correct' );
+		assert.deepEqual( fakeEventLog.logEvent.getCall( 2 ).args[ 1 ], { type : 'foo', duration : 3000, loggedIn : true, samplingFactor : 1 },
+			'EventLogging data is correct' );
 
 		assert.strictEqual( durationLogger.starts.bar, undefined, 'Start value deleted after stop' );
 
@@ -88,16 +94,22 @@
 		this.clock.tick( 2000 );
 		durationLogger.stop( 'baz' );
 
-		assert.ok( fakeEventLog.logEvent.calledWithMatch( 'MultimediaViewerDuration', { type : 'baz', duration : 2000, loggedIn : false, country : 'FR' } ),
-			'Data passed to EventLogging is correct' );
+		assert.strictEqual( fakeEventLog.logEvent.getCall( 3 ).args[ 0 ], 'MultimediaViewerDuration', 'EventLogging schema is correct' );
+		assert.deepEqual( fakeEventLog.logEvent.getCall( 3 ).args[ 1 ], { type : 'baz', duration : 2000, loggedIn : false, country : 'FR', samplingFactor : 1 },
+			'EventLogging data is correct' );
 
 		assert.strictEqual( durationLogger.starts.bar, undefined, 'Start value deleted after stop' );
 
-		assert.strictEqual( fakeEventLog.logEvent.callCount, 4, 'logEvent has been called four times at this point in the test' );
+		durationLogger.stop( 'fooz', $.now() - 9000 );
+
+		assert.deepEqual( fakeEventLog.logEvent.getCall( 4 ).args[ 1 ], { type : 'fooz', duration : 9000, loggedIn : false, country : 'FR', samplingFactor : 1 },
+			'EventLogging data is correct' );
+
+		assert.strictEqual( fakeEventLog.logEvent.callCount, 5, 'logEvent has been called fives times at this point in the test' );
 
 		durationLogger.stop( 'foo' );
 
-		assert.strictEqual( fakeEventLog.logEvent.callCount, 4, 'Stop without a start doesn\'t get logged' );
+		assert.strictEqual( fakeEventLog.logEvent.callCount, 5, 'Stop without a start doesn\'t get logged' );
 	} );
 
 	QUnit.test( 'loadDependencies()', 3, function ( assert ) {
@@ -106,8 +118,7 @@
 
 		this.sandbox.stub( mw.loader, 'using' );
 
-		mw.loader.using.withArgs( 'ext.centralNotice' ).throws( 'CentralNotice is missing' );
-		mw.loader.using.withArgs( 'ext.eventLogging' ).throws( 'EventLogging is missing' );
+		mw.loader.using.withArgs( [ 'ext.eventLogging', 'schema.MultimediaViewerDuration' ] ).throws( 'EventLogging is missing' );
 
 		promise = durationLogger.loadDependencies();
 
@@ -117,8 +128,7 @@
 		mw.loader.using.restore();
 		this.sandbox.stub( mw.loader, 'using' );
 
-		mw.loader.using.withArgs( 'ext.centralNotice' ).callsArg( 1 );
-		mw.loader.using.withArgs( 'ext.eventLogging' ).throws( 'EventLogging is missing' );
+		mw.loader.using.withArgs( [ 'ext.eventLogging', 'schema.MultimediaViewerDuration' ] ).throws( 'EventLogging is missing' );
 
 		promise = durationLogger.loadDependencies();
 
@@ -128,8 +138,7 @@
 		mw.loader.using.restore();
 		this.sandbox.stub( mw.loader, 'using' );
 
-		mw.loader.using.withArgs( 'ext.centralNotice' ).throws( 'CentralNotice is missing' );
-		mw.loader.using.withArgs( 'ext.eventLogging' ).callsArg( 1 );
+		mw.loader.using.withArgs( [ 'ext.eventLogging', 'schema.MultimediaViewerDuration' ] ).callsArg( 1 );
 
 		promise = durationLogger.loadDependencies();
 

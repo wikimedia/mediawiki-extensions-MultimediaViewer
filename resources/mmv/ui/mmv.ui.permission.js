@@ -129,7 +129,7 @@
 	 * Enlarge the box, show HTML instead of text.
 	 */
 	P.grow = function() {
-		mw.mmv.logger.log( 'terms-open' );
+		mw.mmv.actionLogger.log( 'terms-open' );
 
 		this.$box.addClass( 'full-size' )
 			.stop( true )

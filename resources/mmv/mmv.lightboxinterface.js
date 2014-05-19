@@ -192,7 +192,7 @@
 	 * Detaches the interface from the DOM.
 	 */
 	LIP.unattach = function () {
-		mw.mmv.logger.log( 'close' );
+		mw.mmv.actionLogger.log( 'close' );
 
 		this.$wrapper.detach();
 
@@ -269,9 +269,9 @@
 		this.isFullscreen = e.fullscreen;
 
 		if ( this.isFullscreen ) {
-			mw.mmv.logger.log( 'fullscreen' );
+			mw.mmv.actionLogger.log( 'fullscreen' );
 		} else {
-			mw.mmv.logger.log( 'defullscreen' );
+			mw.mmv.actionLogger.log( 'defullscreen' );
 		}
 
 		if ( !this.fullscreenButtonJustPressed && !e.fullscreen ) {

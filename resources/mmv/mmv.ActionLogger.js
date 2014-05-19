@@ -15,16 +15,37 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function ( mw, $, oo ) {
 	var L;
 
 	/**
 	 * Writes log entries
-	 * @class mw.mmv.Logger
+	 * @class mw.mmv.ActionLogger
+	 * @extends mw.mmv.Logger
+	 * @constructor
 	 */
-	function Logger() {}
+	function ActionLogger() {}
 
-	L = Logger.prototype;
+	oo.inheritClass( ActionLogger, mw.mmv.Logger );
+
+	L = ActionLogger.prototype;
+
+	/**
+	 * Sampling factor key-value map.
+	 *
+	 * The map's keys are the action identifiers and the values are the sampling factor for each action type.
+	 * There is a "default" key defined providing a default sampling factor for actions that aren't explicitely
+	 * set in the map.
+	 * @property {Object.<string, number>}
+	 * @static
+	 */
+	L.samplingFactorMap = mw.config.get( 'wgMultimediaViewer' ).actionLoggingSamplingFactorMap;
+
+	/**
+	 * @override
+	 * @inheritdoc
+	 */
+	L.schema = 'MediaViewer';
 
 	/**
 	 * Possible log actions, and their associated English developer log strings.
@@ -65,7 +86,8 @@
 	 * @returns {jQuery.Promise}
 	 */
 	L.log = function ( action, skipEventLog, substitutions ) {
-		var translatedAction = this.logActions[action] || action;
+		var translatedAction = this.logActions[action] || action,
+			self = this;
 
 		if ( $.isPlainObject( substitutions ) ) {
 			$.each( substitutions, function( key, value ) {
@@ -75,18 +97,34 @@
 
 		mw.log( translatedAction );
 
-		if ( mw.eventLog && !skipEventLog && this.isInSample() ) {
-			return mw.eventLog.logEvent( 'MediaViewer', {
-				version: '1.1',
-				action: action
+		if ( !skipEventLog && self.isInSample( action ) ) {
+			return this.loadDependencies().then( function () {
+				self.eventLog.logEvent( self.schema, {
+					action : action,
+					samplingFactor : self.getActionFactor( action )
+				} );
 			} );
+		} else {
+			return $.Deferred().resolve();
 		}
-
-		return $.Deferred().resolve();
 	};
 
-	L.isInSample = function () {
-		var factor = mw.config.get( 'wgMultimediaViewer' ).samplingFactor;
+	/**
+	 * Returns the sampling factor for a given action
+	 * @param {string} action The key representing the action
+	 * @returns {number} Sampling factor
+	 */
+	L.getActionFactor = function ( action ) {
+		return this.samplingFactorMap[ action ] || this.samplingFactorMap.default;
+	};
+
+	/**
+	 * Returns whether or not we should measure this request for this action
+	 * @param {string} action The key representing the action
+	 * @returns {boolean} True if this request needs to be sampled
+	 */
+	L.isInSample = function ( action ) {
+		var factor = this.getActionFactor( action );
 
 		if ( !$.isNumeric( factor ) || factor < 1 ) {
 			return false;
@@ -94,5 +132,6 @@
 		return Math.floor( Math.random() * factor ) === 0;
 	};
 
-	mw.mmv.logger = new Logger();
-}( mediaWiki, jQuery ) );
+	mw.mmv.ActionLogger = ActionLogger;
+	mw.mmv.actionLogger = new mw.mmv.ActionLogger();
+}( mediaWiki, jQuery, OO ) );

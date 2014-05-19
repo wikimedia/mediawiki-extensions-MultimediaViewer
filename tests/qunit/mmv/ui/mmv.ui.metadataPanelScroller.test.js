@@ -225,54 +225,54 @@
 
 		stubScrollFunctions( this.sandbox, scroller );
 
-		this.sandbox.stub( mw.mmv.logger, 'log' );
+		this.sandbox.stub( mw.mmv.actionLogger, 'log' );
 
 		assert.ok( !$container.hasClass( 'mw-mmv-highlight-chevron' ), 'Chevron is not highlighted' );
 
 		keydown.which = 40; // Down arrow
 		scroller.keydown( keydown );
 
-		assert.ok( !mw.mmv.logger.log.called, 'Closing keypress not logged when the panel is closed already' );
+		assert.ok( !mw.mmv.actionLogger.log.called, 'Closing keypress not logged when the panel is closed already' );
 		assert.ok( $container.hasClass( 'mw-mmv-highlight-chevron' ), 'Chevron is highlighted' );
 		this.clock.tick( scroller.highlightDuration );
 		assert.ok( !$container.hasClass( 'mw-mmv-highlight-chevron' ), 'Chevron is not highlighted' );
-		mw.mmv.logger.log.reset();
+		mw.mmv.actionLogger.log.reset();
 
 		keydown.which = 38; // Up arrow
 		scroller.keydown( keydown );
 		this.clock.tick( scroller.toggleScrollDuration );
 
-		assert.ok( mw.mmv.logger.log.calledWithExactly( 'metadata-open' ), 'Opening keypress logged' );
-		mw.mmv.logger.log.reset();
+		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-open' ), 'Opening keypress logged' );
+		mw.mmv.actionLogger.log.reset();
 
 		assert.ok( !$container.hasClass( 'mw-mmv-highlight-chevron' ), 'Chevron is not highlighted' );
 
 		keydown.which = 38; // Up arrow
 		scroller.keydown( keydown );
 
-		assert.ok( !mw.mmv.logger.log.called, 'Opening keypress not logged when the panel is opened already' );
+		assert.ok( !mw.mmv.actionLogger.log.called, 'Opening keypress not logged when the panel is opened already' );
 		assert.ok( $container.hasClass( 'mw-mmv-highlight-chevron' ), 'Chevron is highlighted' );
 		this.clock.tick( scroller.highlightDuration );
 		assert.ok( !$container.hasClass( 'mw-mmv-highlight-chevron' ), 'Chevron is not highlighted' );
-		mw.mmv.logger.log.reset();
+		mw.mmv.actionLogger.log.reset();
 
 		keydown.which = 40; // Down arrow
 		scroller.keydown( keydown );
 		this.clock.tick( scroller.toggleScrollDuration );
 
-		assert.ok( mw.mmv.logger.log.calledWithExactly( 'metadata-close' ), 'Closing keypress logged' );
-		mw.mmv.logger.log.reset();
+		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-close' ), 'Closing keypress logged' );
+		mw.mmv.actionLogger.log.reset();
 
 		scroller.$dragIcon.click();
 		this.clock.tick( scroller.toggleScrollDuration );
 
-		assert.ok( mw.mmv.logger.log.calledWithExactly( 'metadata-open' ), 'Opening click logged' );
-		mw.mmv.logger.log.reset();
+		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-open' ), 'Opening click logged' );
+		mw.mmv.actionLogger.log.reset();
 
 		scroller.$dragIcon.click();
 		this.clock.tick( scroller.toggleScrollDuration );
 
-		assert.ok( mw.mmv.logger.log.calledWithExactly( 'metadata-close' ), 'Closing click logged' );
-		mw.mmv.logger.log.reset();
+		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-close' ), 'Closing click logged' );
+		mw.mmv.actionLogger.log.reset();
 	} );
 }( mediaWiki, jQuery ) );

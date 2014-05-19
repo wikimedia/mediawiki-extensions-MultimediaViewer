@@ -16,7 +16,8 @@
  */
 
 ( function ( mw, $ ) {
-	var $document = $( document );
+	var $document = $( document ),
+		start;
 
 	if ( ! mw.mmv.isBrowserSupported() ) {
 		return;
@@ -35,14 +36,14 @@
 			return;
 		}
 
-		mw.mmv.durationLogger.start( 'early-click-to-replay-click' );
+		start = $.now();
 
 		// We wait for document readiness because mw.loader.using writes to the DOM
 		// which can cause a blank page if it happens before DOM readiness
 		$document.ready( function () {
-			mw.loader.using( 'mmv.bootstrap.autostart', function() {
+			mw.loader.using( [ 'mmv.bootstrap.autostart', 'mmv.DurationLogger' ] , function() {
 				mw.mmv.bootstrap.whenThumbsReady().then( function () {
-					mw.mmv.durationLogger.stop( 'early-click-to-replay-click' );
+					mw.mmv.durationLogger.stop( 'early-click-to-replay-click', start );
 
 					// We have to copy the properties, passing e doesn't work. Probably because of preventDefault()
 					$( e.target ).trigger( { type : 'click', which: 1, replayed: true } );

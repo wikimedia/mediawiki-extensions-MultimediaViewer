@@ -123,10 +123,10 @@
 			.addClass( 'mw-mmv-title-credit' )
 			// Since these elements are created dynamically, we listen this way for logging purposes
 			.on( 'click', '.mw-mmv-author a', function () {
-				mw.mmv.logger.log( 'author-page' );
+				mw.mmv.actionLogger.log( 'author-page' );
 			} )
 			.on( 'click', '.mw-mmv-source a', function () {
-				mw.mmv.logger.log( 'source-page' );
+				mw.mmv.actionLogger.log( 'source-page' );
 			} )
 			.appendTo( this.$titleDiv );
 
@@ -173,7 +173,7 @@
 			.prop( 'href', '#' )
 			.appendTo( this.$titlePara )
 			.on( 'click', function() {
-				mw.mmv.logger.log( 'license-page' );
+				mw.mmv.actionLogger.log( 'license-page' );
 			} );
 
 		this.$permissionLink = $( '<span>' )
@@ -305,7 +305,7 @@
 
 				if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey || e.button === 1 ) {
 					// They are likely opening the link in a new window or tab
-					mw.mmv.logger.log( 'file-description-page' );
+					mw.mmv.actionLogger.log( 'file-description-page' );
 					return;
 				}
 
@@ -314,7 +314,7 @@
 				e.preventDefault();
 
 				// We want to redirect anyway, whether logging worked or not
-				mw.mmv.logger.log( 'file-description-page' ).always( function () {
+				mw.mmv.actionLogger.log( 'file-description-page' ).always( function () {
 					window.location.href = $link.prop( 'href' );
 				} );
 			} )

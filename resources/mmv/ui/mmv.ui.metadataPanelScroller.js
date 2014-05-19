@@ -141,7 +141,7 @@
 			}
 		}
 
-		mw.mmv.logger.log( scrollTopTarget === scrollTopWhenOpen ? 'metadata-open' : 'metadata-close' );
+		mw.mmv.actionLogger.log( scrollTopTarget === scrollTopWhenOpen ? 'metadata-open' : 'metadata-close' );
 
 		$.scrollTo( scrollTopTarget, this.toggleScrollDuration );
 	};

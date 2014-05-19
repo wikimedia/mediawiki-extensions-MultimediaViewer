@@ -265,9 +265,9 @@
 		mw.mmv.durationLogger.start( [ 'click-to-first-image', 'click-to-first-metadata' ] );
 
 		if ( $element.is( 'a.image' ) ) {
-			mw.mmv.logger.log( 'thumbnail' );
+			mw.mmv.actionLogger.log( 'thumbnail' );
 		} else if ( $element.is( '.magnify a' ) ) {
-			mw.mmv.logger.log( 'enlarge' );
+			mw.mmv.actionLogger.log( 'enlarge' );
 		}
 
 		this.loadViewer().then( function ( viewer ) {
@@ -304,9 +304,9 @@
 			if ( !viewer.isOpen ) {
 				bootstrap.cleanupOverlay();
 			} else if ( initialHash ) {
-				mw.mmv.logger.log( 'hash-load' );
+				mw.mmv.actionLogger.log( 'hash-load' );
 			} else {
-				mw.mmv.logger.log( 'history-navigation' );
+				mw.mmv.actionLogger.log( 'history-navigation' );
 			}
 		} );
 	};
