@@ -209,7 +209,7 @@
 	QUnit.test( 'Repo icon', 4, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
-			favIcon = 'http://foo.com/bar',
+			favIcon = 'http://example.com/foo-fav',
 			repoData = {
 				favIcon: favIcon,
 				getArticlePath : function() { return 'Foo'; },
