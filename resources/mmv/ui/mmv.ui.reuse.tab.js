@@ -54,6 +54,7 @@
 
 	/**
 	 * Makes the entire input/textarea selected when focused.
+	 * Invoked with that input/textarea as context.
 	 */
 	TP.selectAllOnEvent = function () {
 		try {
@@ -66,6 +67,7 @@
 	/**
 	 * Reduces the action of clicks to solely focusing the input/textarea.
 	 * Essentialy disables clicking inside the text to select a portion of it.
+	 * Invoked with that input/textarea as context.
 	 */
 	TP.onlyFocus = function ( e ) {
 		this.focus();

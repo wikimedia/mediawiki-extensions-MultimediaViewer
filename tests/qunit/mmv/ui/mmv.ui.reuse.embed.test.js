@@ -296,8 +296,8 @@
 
 		// Triggering action events before attaching should do nothing
 		// use of focus() would run into jQuery bug #14740 and similar issues
-		embed.embedTextHtml.$element.triggerHandler( 'focus' );
-		embed.embedTextWikitext.$element.triggerHandler( 'focus' );
+		embed.embedTextHtml.$element.find( 'textarea' ).triggerHandler( 'focus' );
+		embed.embedTextWikitext.$element.find( 'textarea' ).triggerHandler( 'focus' );
 		embed.embedSwitch.emit( 'select' );
 		embed.embedSizeSwitchHtml.getMenu().emit(
 			'choose', embed.embedSizeSwitchHtml.getMenu().getSelectedItem() );
@@ -317,8 +317,8 @@
 		embed.attach();
 
 		// Action events should be handled now
-		embed.embedTextHtml.$element.triggerHandler( 'focus' );
-		embed.embedTextWikitext.$element.triggerHandler( 'focus' );
+		embed.embedTextHtml.$element.find( 'textarea' ).triggerHandler( 'focus' );
+		embed.embedTextWikitext.$element.find( 'textarea' ).triggerHandler( 'focus' );
 		embed.embedSwitch.emit( 'select' );
 		embed.embedSizeSwitchHtml.getMenu().emit(
 			'choose', embed.embedSizeSwitchHtml.getMenu().getSelectedItem() );
@@ -339,8 +339,8 @@
 		embed.unattach();
 
 		// Triggering action events now that we are unattached should do nothing
-		embed.embedTextHtml.$element.triggerHandler( 'focus' );
-		embed.embedTextWikitext.$element.triggerHandler( 'focus' );
+		embed.embedTextHtml.$element.find( 'textarea' ).triggerHandler( 'focus' );
+		embed.embedTextWikitext.$element.find( 'textarea' ).triggerHandler( 'focus' );
 		embed.embedSwitch.emit( 'select' );
 		embed.embedSizeSwitchHtml.getMenu().emit(
 			'choose', embed.embedSizeSwitchHtml.getMenu().getSelectedItem() );

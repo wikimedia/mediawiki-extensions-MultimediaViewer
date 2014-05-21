@@ -104,18 +104,20 @@
 	SP.attach = function() {
 		var $input = this.pageInput.$element.find( 'input' );
 
-		this.pageInput.onDOMEvent( 'focus', $.proxy( this.selectAllOnEvent, $input ) );
+		$input.on( 'focus', this.selectAllOnEvent );
 		// Disable partial text selection inside the textbox
-		this.pageInput.onDOMEvent( 'mousedown click', $.proxy( this.onlyFocus, $input ) );
+		$input.on( 'mousedown click', this.onlyFocus );
 	};
 
 	/**
 	 * @inheritdoc
 	 */
 	SP.unattach = function() {
+		var $input = this.pageInput.$element.find( 'input' );
+
 		this.constructor['super'].prototype.unattach.call( this );
 
-		this.pageInput.offDOMEvent( 'focus mousedown click' );
+		$input.off( 'focus mousedown click' );
 	};
 
 	/**
