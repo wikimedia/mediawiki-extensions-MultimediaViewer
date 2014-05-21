@@ -6,12 +6,13 @@
 			"Shizhao",
 			"Stieizc",
 			"Xiaomingyan",
-			"Yfdyh000"
+			"Yfdyh000",
+			"Hudafu"
 		]
 	},
 	"multimediaviewer-desc": "在全屏界面中以较大尺寸显示缩略图。",
 	"multimediaviewer-desc-nil": "没有可用的描述。",
-	"multimediaviewer-pref": "媒体查看器",
+	"multimediaviewer-pref": "媒体文件查看器",
 	"multimediaviewer-pref-desc": "使用这个新工具改善你的多媒体浏览体验。它能以更大的尺寸显示页面中的缩略图。图像将显示于一个漂亮的全屏界面浮层中，并能以完整尺寸查看。",
 	"multimediaviewer-optin-pref": "启用新媒体查看体验",
 	"multimediaviewer-file-page": "转到相应的文件页",
@@ -28,7 +29,7 @@
 	"multimediaviewer-permission-title": "许可协议详情",
 	"multimediaviewer-permission-link": "查看条款",
 	"multimediaviewer-permission-viewmore": "查看更多",
-	"multimediaviewer-about-mmv": "关于媒体查看器",
+	"multimediaviewer-about-mmv": "关于媒体文件查看器",
 	"multimediaviewer-discuss-mmv": "讨论此功能",
 	"multimediaviewer-help-mmv": "帮助",
 	"multimediaviewer-geolocation": "位于：$1",
