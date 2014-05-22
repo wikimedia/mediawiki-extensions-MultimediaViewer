@@ -39,10 +39,20 @@
 		 */
 		this.hasAnimatedMetadata = undefined;
 
+		/**
+		 * Timer used to highlight the chevron when the wrong key is pressed
+		 * @property {number}
+		 * @private
+		 */
+		this.highlightTimeout = undefined;
+
 		this.initialize();
 	}
 	oo.inheritClass( MetadataPanelScroller, mw.mmv.ui.Element );
 	MPSP = MetadataPanelScroller.prototype;
+
+	MPSP.highlightDuration = 500;
+	MPSP.toggleScrollDuration = 400;
 
 	MPSP.attach = function() {
 		var panel = this;
@@ -69,6 +79,10 @@
 
 		// need to remove this to avoid animating again when reopening lightbox on same page
 		this.$container.removeClass( 'invite' );
+
+		if ( this.highlightTimeout ) {
+			clearTimeout( this.highlightTimeout );
+		}
 	};
 
 	MPSP.initialize = function () {
@@ -100,7 +114,8 @@
 	 * Toggles the metadata div being totally visible.
 	 */
 	MPSP.toggle = function ( forceDirection ) {
-		var scrollTopWhenOpen = this.$container.outerHeight() - this.$controlBar.outerHeight(),
+		var self = this,
+			scrollTopWhenOpen = this.$container.outerHeight() - this.$controlBar.outerHeight(),
 			scrollTopWhenClosed = 0,
 			scrollTop = $.scrollTo().scrollTop(),
 			panelIsOpen = scrollTop > scrollTopWhenClosed,
@@ -110,14 +125,25 @@
 			scrollTopTarget = forceDirection === 'down' ? scrollTopWhenClosed : scrollTopWhenOpen;
 			if ( scrollTop === scrollTopTarget ) {
 				// The user pressed down when the panel was closed already (or up when fully open).
-				// Not a real toggle; do not log.
+				// Not a real toggle; highlight the chevron to attract attention.
+				this.$container.addClass( 'mw-mmv-highlight-chevron' );
+
+				if ( this.highlightTimeout ) {
+					clearTimeout( this.highlightTimeout );
+				}
+
+				this.highlightTimeout = setTimeout( function() {
+					if ( self.$container ) {
+						self.$container.removeClass( 'mw-mmv-highlight-chevron' );
+					}
+				}, this.highlightDuration );
 				return;
 			}
 		}
 
 		mw.mmv.logger.log( scrollTopTarget === scrollTopWhenOpen ? 'metadata-open' : 'metadata-close' );
 
-		$.scrollTo( scrollTopTarget, 400 );
+		$.scrollTo( scrollTopTarget, this.toggleScrollDuration );
 	};
 
 	/**
@@ -132,7 +158,7 @@
 			targetHeight = $target.height(),
 			targetTop = $target.offset().top,
 			targetBottom = targetTop + targetHeight,
-			viewportHeight = $(window).height(),
+			viewportHeight = $( window ).height(),
 			viewportTop = $.scrollTo().scrollTop(),
 			viewportBottom = viewportTop + viewportHeight;
 
