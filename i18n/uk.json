@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Andriykopanytsia"
+			"Andriykopanytsia",
+			"Ата"
 		]
 	},
 	"multimediaviewer-desc": "Розгорнути мініатюри в більшому розмірі у лайтбоксі.",
@@ -49,5 +50,6 @@
 	"multimediaviewer-embed-byline": "Від $1",
 	"multimediaviewer-embed-license": "Під ліцензією $1.",
 	"multimediaviewer-embed-via": "Через $1.",
-	"multimediaviewer-default-embed-dimensions": "Типовий розмір мініатюри"
+	"multimediaviewer-default-embed-dimensions": "Типовий розмір мініатюри",
+	"multimediaviewer-view-expanded": "Розгорнути перегляд"
 }
