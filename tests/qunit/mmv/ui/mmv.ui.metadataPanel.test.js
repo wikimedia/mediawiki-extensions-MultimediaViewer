@@ -15,7 +15,7 @@
 			'$usernameLi',
 			'$locationLi',
 			'$repoLi',
-			'$datetimeLi',
+			'$datetimeLi'
 		];
 
 	QUnit.module( 'mmv.ui.metadataPanel', QUnit.newMwEnvironment() );

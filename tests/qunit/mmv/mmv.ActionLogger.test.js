@@ -13,7 +13,7 @@
 		this.sandbox.stub( logger, 'loadDependencies' ).returns( $.Deferred().resolve() );
 		this.sandbox.stub( mw, 'log' );
 
-		logger.samplingFactorMap = { default : 1 };
+		logger.samplingFactorMap = { 'default' : 1 };
 		logger.setEventLog( fakeEventLog );
 		logger.logActions = {};
 		logger.logActions[ action1key ] = action1value;

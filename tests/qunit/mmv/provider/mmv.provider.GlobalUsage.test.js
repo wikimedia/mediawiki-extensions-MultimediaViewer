@@ -156,7 +156,7 @@
 	} );
 
 	QUnit.asyncTest( 'GlobalUsage useApi test', 3, function ( assert ) {
-		var api = { get: this.sandbox.stub().throws( 'API was invoked' ) },
+		var api = { get: this.sandbox.stub()['throws']( 'API was invoked' ) },
 			options = { useApi: false },
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			globalUsageProvider = new mw.mmv.provider.GlobalUsage( api, options );

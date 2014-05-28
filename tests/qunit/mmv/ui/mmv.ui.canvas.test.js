@@ -119,7 +119,7 @@
 			canvas = new mw.mmv.ui.Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function() { return 'svg'; },
+			getExtension: function() { return 'svg'; }
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
@@ -149,7 +149,7 @@
 			canvas = new mw.mmv.ui.Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function() { return 'png'; },
+			getExtension: function() { return 'png'; }
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
@@ -179,7 +179,7 @@
 			canvas = new mw.mmv.ui.Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function() { return 'png'; },
+			getExtension: function() { return 'png'; }
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
@@ -209,7 +209,7 @@
 			canvas = new mw.mmv.ui.Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function() { return 'png'; },
+			getExtension: function() { return 'png'; }
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
@@ -239,7 +239,7 @@
 			canvas = new mw.mmv.ui.Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function() { return 'png'; },
+			getExtension: function() { return 'png'; }
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 

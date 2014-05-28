@@ -22,6 +22,7 @@
 
 	// Enforcing
 	"bitwise": true,
+	"es3": true,
 	// Relaxing
 	"laxbreak": true,
 	"smarttabs": true,

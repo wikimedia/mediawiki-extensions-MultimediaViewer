@@ -66,7 +66,7 @@
 		this.tabs = {
 			share: new mw.mmv.ui.reuse.Share( this.$reuseDialog ),
 			download: new mw.mmv.ui.reuse.Download( this.$reuseDialog ),
-			embed: new mw.mmv.ui.reuse.Embed( this.$reuseDialog ),
+			embed: new mw.mmv.ui.reuse.Embed( this.$reuseDialog )
 		};
 
 		shareTab = new oo.ui.MenuItemWidget(

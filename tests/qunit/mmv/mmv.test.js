@@ -372,7 +372,7 @@
 					animateTo : this.sandbox.stub(),
 					jumpTo : this.sandbox.stub()
 				},
-				empty: $.noop,
+				empty: $.noop
 			},
 			open : $.noop,
 			empty: $.noop };

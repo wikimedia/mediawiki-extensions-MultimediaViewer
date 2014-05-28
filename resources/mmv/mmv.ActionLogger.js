@@ -115,7 +115,7 @@
 	 * @returns {number} Sampling factor
 	 */
 	L.getActionFactor = function ( action ) {
-		return this.samplingFactorMap[ action ] || this.samplingFactorMap.default;
+		return this.samplingFactorMap[ action ] || this.samplingFactorMap['default'];
 	};
 
 	/**
