@@ -64,8 +64,8 @@
 		this.reuseTabs.$element.show().appendTo( this.$reuseDialog );
 
 		this.tabs = {
-			share: new mw.mmv.ui.reuse.Share( this.$reuseDialog ),
 			download: new mw.mmv.ui.reuse.Download( this.$reuseDialog ),
+			share: new mw.mmv.ui.reuse.Share( this.$reuseDialog ),
 			embed: new mw.mmv.ui.reuse.Embed( this.$reuseDialog )
 		};
 
@@ -77,14 +77,14 @@
 			'embed', { label: mw.message( 'multimediaviewer-embed-tab' ).text() } );
 
 		this.reuseTabs.addItems( [
-			shareTab,
 			downloadTab,
+			shareTab,
 			embedTab
 		] );
 
 		// Default to 'share' tab
-		this.selectedTab = 'share';
-		this.reuseTabs.selectItem( shareTab );
+		this.selectedTab = 'download';
+		this.reuseTabs.selectItem( downloadTab );
 
 		if ( this.dependenciesNeedToBeAttached ) {
 			this.attachDependencies();
