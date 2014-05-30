@@ -344,7 +344,8 @@
 			'original-title': descPagePopupMessage // needed by jquery.tipsy
 		} );
 
-		if ( imageInfo.repo === 'wikimediacommons' ) {
+		if ( imageInfo.repo === 'wikimediacommons' || (
+				imageInfo.repo === 'shared' && repoInfo.displayName === 'Wikimedia Commons' ) ) {
 			this.buttons.$descriptionPage.addClass( 'mw-mmv-stripe-button-commons' );
 		} else {
 			this.buttons.$descriptionPage.addClass( 'mw-mmv-stripe-button-dynamic' );
