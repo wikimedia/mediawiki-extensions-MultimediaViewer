@@ -76,7 +76,16 @@
 	MPSP.initialize = function () {
 		var panel = this;
 
+		this.dragBarGravity = 's';
+
 		this.$dragBar = $( '<div>' )
+			.prop( 'title', mw.message( 'multimediaviewer-panel-open-popup-text' ).text() )
+			.tipsy( {
+				delayIn: mw.config.get( 'wgMultimediaViewer').tooltipDelay,
+				gravity: function () {
+					return panel.dragBarGravity;
+				}
+			} )
 			.addClass( 'mw-mmv-drag-affordance' )
 			.appendTo( this.$controlBar )
 			.click( function () {
@@ -106,13 +115,25 @@
 			scrollTopWhenClosed = 0,
 			scrollTop = $.scrollTo().scrollTop(),
 			panelIsOpen = scrollTop > scrollTopWhenClosed,
-			scrollTopTarget = panelIsOpen ? scrollTopWhenClosed : scrollTopWhenOpen;
+			scrollTopTarget = panelIsOpen ? scrollTopWhenClosed : scrollTopWhenOpen,
+			wasOpen = scrollTopTarget === scrollTopWhenOpen;
 
 		if ( forceDirection ) {
 			scrollTopTarget = forceDirection === 'down' ? scrollTopWhenClosed : scrollTopWhenOpen;
 		}
 
-		mw.mmv.actionLogger.log( scrollTopTarget === scrollTopWhenOpen ? 'metadata-open' : 'metadata-close' );
+		mw.mmv.actionLogger.log( wasOpen ? 'metadata-open' : 'metadata-close' );
+
+		this.$dragBar
+			.prop( 'title',
+				mw.message(
+					'multimediaviewer-panel-' +
+					( !wasOpen ? 'open' : 'close' ) +
+					'-popup-text'
+				).text()
+			);
+
+		this.dragBarGravity = wasOpen ? 'n' : 's';
 
 		$.scrollTo( scrollTopTarget, this.toggleScrollDuration );
 	};

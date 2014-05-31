@@ -16,7 +16,8 @@
  */
 
 ( function ( mw, $ ) {
-	var EP;
+	var EP,
+		cachedRTL;
 
 	/**
 	 * Represents a UI element.
@@ -46,6 +47,18 @@
 		this.timers = {};
 	}
 	EP = Element.prototype;
+
+	/**
+	 * Checks whether the document is RTL. Assumes it doesn't change.
+	 * @returns {boolean}
+	 */
+	EP.isRTL = function () {
+		if ( cachedRTL === undefined ) {
+			cachedRTL = $( document.body ).hasClass( 'rtl' );
+		}
+
+		return cachedRTL;
+	};
 
 	/**
 	 * @abstract

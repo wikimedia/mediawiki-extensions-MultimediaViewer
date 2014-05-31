@@ -156,6 +156,7 @@ class MultimediaViewerHooks {
 			'durationSamplingFactor' => $wgMediaViewerDurationLoggingSamplingFactor,
 			'networkPerformanceSamplingFactor' => $wgNetworkPerformanceSamplingFactor,
 			'actionLoggingSamplingFactorMap' => $wgMediaViewerActionLoggingSamplingFactorMap,
+			'tooltipDelay' => 1000,
 		);
 		$vars['wgMediaViewer'] = true;
 		$vars['wgMediaViewerIsInBeta'] = $wgMediaViewerIsInBeta;

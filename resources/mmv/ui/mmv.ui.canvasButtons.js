@@ -29,7 +29,8 @@
 	 * @param {jQuery} $fullscreenButton The fullscreen button from the parent class.
 	 */
 	function CanvasButtons( $container, $closeButton, $fullscreenButton ) {
-		var buttons = this;
+		var buttons = this,
+			tooltipDelay = mw.config.get( 'wgMultimediaViewer').tooltipDelay;
 
 		mw.mmv.ui.Element.call( this, $container );
 
@@ -39,16 +40,30 @@
 		this.$viewFile = $( '<div>' )
 			.text( ' ' )
 			.prop( 'title', mw.message( 'multimediaviewer-viewfile-link' ).text() )
+			.tipsy( {
+				delayIn: tooltipDelay,
+				gravity: this.isRTL() ? 'sw' : 'se'
+			} )
 			.addClass( 'mw-mmv-viewfile' )
 			.click( function () {
 				$( document ).trigger( 'mmv-viewfile' );
 			} );
 
 		this.$next = $( '<div>' )
+			.prop( 'title', mw.message( 'multimediaviewer-next-image-popup-text' ).text() )
+			.tipsy( {
+				delayIn: tooltipDelay,
+				gravity: this.isRTL() ? 'w' : 'e'
+			} )
 			.addClass( 'mw-mmv-next-image disabled' )
 			.html( '&nbsp;' );
 
 		this.$prev = $( '<div>' )
+			.prop( 'title', mw.message( 'multimediaviewer-prev-image-popup-text' ).text() )
+			.tipsy( {
+				delayIn: tooltipDelay,
+				gravity: this.isRTL() ? 'e' : 'w'
+			} )
 			.addClass( 'mw-mmv-prev-image disabled' )
 			.html( '&nbsp;' );
 

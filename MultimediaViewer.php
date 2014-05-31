@@ -125,6 +125,12 @@ $wgResourceModules += array(
 			'mmv.ui.fileUsage',
 			'mmv.ui.metadataPanel',
 		),
+
+		'messages' => array(
+			'multimediaviewer-close-popup-text',
+			'multimediaviewer-fullscreen-popup-text',
+			'multimediaviewer-defullscreen-popup-text',
+		),
 	),
 
 	'mmv.ThumbnailWidthCalculator' => $wgMediaViewerResourceTemplate + array(
@@ -535,6 +541,14 @@ $wgResourceModules += array(
 			'mypreferences',
 
 			'multimediaviewer-metadata-error',
+
+			'multimediaviewer-title-popup-text',
+			'multimediaviewer-author-popup-text',
+			'multimediaviewer-source-popup-text',
+			'multimediaviewer-panel-open-popup-text',
+			'multimediaviewer-panel-close-popup-text',
+			'multimediaviewer-next-image-popup-text',
+			'multimediaviewer-prev-image-popup-text',
 		),
 	),
 
