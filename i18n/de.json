@@ -12,7 +12,7 @@
 	"multimediaviewer-desc-nil": "Keine Beschreibung verfügbar.",
 	"multimediaviewer-pref": "Medienbetrachter",
 	"multimediaviewer-pref-desc": "Dieses neue Werkzeug ändert die Ansicht von Multimediadateien. Es zeigt Bilder auf Seiten größer an, die Vorschaubilder haben. Bilder werden in einem den Artikel überlagernden Kasten angezeigt und können auch als Vollbild dargestellt werden.",
-	"multimediaviewer-optin-pref": "Neue Medienbetrachtung aktivieren",
+	"multimediaviewer-optin-pref": "Den <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Medienbetrachter]</span> aktivieren",
 	"multimediaviewer-file-page": "Gehe zur dazugehörigen Dateiseite",
 	"multimediaviewer-repository": "Mehr erfahren auf $1",
 	"multimediaviewer-repository-local": "Mehr erfahren",

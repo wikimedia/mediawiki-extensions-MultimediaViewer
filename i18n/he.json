@@ -11,7 +11,7 @@
 	"multimediaviewer-desc-nil": "התיאור אינו זמין.",
 	"multimediaviewer-pref": "מציג מדיה",
 	"multimediaviewer-pref-desc": "הכלי החדש הזה משפר את חוויית המולטימדיה שלך. הוא מציג תמונות מוגדלות בדפים עם תמונות ממוזערות. התמונות מוצגות בשכבה במסך מלא וניתן להציג אותן גם בגודל מלא.",
-	"multimediaviewer-optin-pref": "הפעלת חוויית הצגת מולטימדיה חדשה",
+	"multimediaviewer-optin-pref": "הפעלת <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer מציג המדיה]</span>",
 	"multimediaviewer-file-page": "מעבר אל דף הקובץ המתאים",
 	"multimediaviewer-repository": "מידע נוסף ב{{GRAMMAR:תחילית|$1}}",
 	"multimediaviewer-repository-local": "מידע נוסף",
