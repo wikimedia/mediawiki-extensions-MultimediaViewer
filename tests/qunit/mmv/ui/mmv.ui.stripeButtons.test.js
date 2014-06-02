@@ -104,7 +104,7 @@
 	QUnit.test( 'set()/empty() sanity test:', 1, function ( assert ) {
 		var buttons = createStripeButtons(),
 			fakeImageInfo = { descriptionUrl: '//commons.wikimedia.org/wiki/File:Foo.jpg' },
-			fakeRepoInfo = { displayName: 'Wikimedia Commons' };
+			fakeRepoInfo = { displayName: 'Wikimedia Commons', isCommons: function () { return true; } };
 
 		buttons.set( fakeImageInfo, fakeRepoInfo );
 		buttons.empty();
