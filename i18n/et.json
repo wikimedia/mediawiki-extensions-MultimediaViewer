@@ -9,7 +9,7 @@
 	"multimediaviewer-desc-nil": "Kirjeldus pole saadaval.",
 	"multimediaviewer-pref": "Failivaatur",
 	"multimediaviewer-pref-desc": "Täienda meediafailide vaatamise võimalusi selle uue tööriistaga. See võimaldab kuvada pisipiltidega lehekülgedel pildid suuremana. Pilte saab näidata kenamas täisekraaniliideses ja ka täissuuruses.",
-	"multimediaviewer-optin-pref": "Kasuta uut meediafailide vaatamise vahendit",
+	"multimediaviewer-optin-pref": "Kasuta <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer failivaaturit]</span>",
 	"multimediaviewer-file-page": "Mine failileheküljele",
 	"multimediaviewer-repository": "Lisateave asukohas $1",
 	"multimediaviewer-repository-local": "Lisateave",
