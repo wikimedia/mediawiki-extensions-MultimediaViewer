@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Njardarlogar"
+		]
+	},
+	"multimediaviewer-desc-nil": "Inga skilding er tilgjengeleg.",
+	"multimediaviewer-datetime-uploaded": "Lasta opp",
+	"multimediaviewer-userpage-link": "{{GENDER:$2|Lasta opp}} av $1",
+	"multimediaviewer-about-mmv": "Om medieframsynaren",
+	"multimediaviewer-discuss-mmv": "Diskuter denne funksjonen",
+	"multimediaviewer-help-mmv": "Hjelp",
+	"multimediaviewer-fileusage-link": "Sjå all bruk",
+	"multimediaviewer-fileusage-local-section": "På denne nettstaden",
+	"multimediaviewer-fileusage-global-section": "På andre nettstader",
+	"multimediaviewer-reuse-link": "Bruk fila",
+	"multimediaviewer-description-page-popup-text": "Meir informasjon på $1"
+}

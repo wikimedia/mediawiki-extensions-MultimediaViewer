@@ -21,12 +21,19 @@
 	"multimediaviewer-permission-link": "ver os termos",
 	"multimediaviewer-permission-viewmore": "Ollar máis",
 	"multimediaviewer-about-mmv": "Acerca do visor de ficheiros multimedia",
-	"multimediaviewer-discuss-mmv": "Deixe un comentario",
+	"multimediaviewer-discuss-mmv": "Conversar sobre esta característica",
+	"multimediaviewer-help-mmv": "Axuda",
 	"multimediaviewer-geolocation": "Localización: $1",
 	"multimediaviewer-fileusage-count": "Empregada {{PLURAL:$1|nunha páxina|en $1 páxinas}}",
 	"multimediaviewer-fileusage-count-more": "Empregada en máis de $1 {{PLURAL:$1|páxinas}}",
 	"multimediaviewer-fileusage-link": "Ver todos os usos",
 	"multimediaviewer-fileusage-local-section": "Neste sitio",
 	"multimediaviewer-fileusage-global-section": "Noutros sitios",
-	"multimediaviewer-reuse-link": "Utilizar este ficheiro"
+	"multimediaviewer-reuse-link": "Utilizar este ficheiro",
+	"multimediaviewer-reuse-loading-placeholder": "Cargando…",
+	"multimediaviewer-share-tab": "Compartir",
+	"multimediaviewer-embed-tab": "Incorporar",
+	"multimediaviewer-download-tab": "Descargar",
+	"multimediaviewer-embed-wt": "Texto wiki",
+	"multimediaviewer-embed-html": "HTML"
 }
