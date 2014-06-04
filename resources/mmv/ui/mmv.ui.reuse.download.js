@@ -33,7 +33,7 @@
 		/** @property {mw.mmv.ui.reuse.Utils} utils - */
 		this.utils = new mw.mmv.ui.reuse.Utils();
 
-		this.$pane.addClass( 'mw-mlb-download-pane' );
+		this.$pane.addClass( 'mw-mlb-download-pane active' );
 		this.$pane.appendTo( this.$container );
 
 		this.createDownloadButton( this.$pane );

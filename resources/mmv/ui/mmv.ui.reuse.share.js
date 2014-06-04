@@ -39,7 +39,7 @@
 	SP = Share.prototype;
 
 	SP.init = function () {
-		this.$pane.addClass( 'mw-mmv-share-pane active' )
+		this.$pane.addClass( 'mw-mmv-share-pane' )
 			.appendTo( this.$container );
 
 		this.pageInput = new oo.ui.TextInputWidget( {
