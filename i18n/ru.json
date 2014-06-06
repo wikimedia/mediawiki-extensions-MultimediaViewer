@@ -4,7 +4,8 @@
 			"Kaganer",
 			"Okras",
 			"Tucvbif",
-			"Meshkov.a"
+			"Meshkov.a",
+			"Wizardist"
 		]
 	},
 	"multimediaviewer-desc": "Раскрывает эскизы в большие изображения на весь экран.",
@@ -22,7 +23,7 @@
 	"multimediaviewer-thumbnail-error": "Ошибка: Не удалось загрузить данные эскиза. $1",
 	"multimediaviewer-license-cc-pd": "Общественное достояние",
 	"multimediaviewer-license-pd": "Общественное достояние",
-	"multimediaviewer-license-default": "Посмотр лицензии",
+	"multimediaviewer-license-default": "Просмотр лицензии",
 	"multimediaviewer-permission-title": "Сведения о лицензии",
 	"multimediaviewer-permission-link": "просмотр условий",
 	"multimediaviewer-permission-viewmore": "Посмотреть подробнее",

@@ -5,6 +5,7 @@
 		]
 	},
 	"multimediaviewer-desc-nil": "Opis nije dostupan.",
+	"multimediaviewer-optin-pref": "Omogući <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Media Viewer]</span>",
 	"multimediaviewer-repository-local": "Saznajte više",
 	"multimediaviewer-datetime-created": "Napravljeno $1",
 	"multimediaviewer-datetime-uploaded": "Poslato $1",
