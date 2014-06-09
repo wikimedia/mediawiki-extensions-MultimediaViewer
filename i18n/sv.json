@@ -13,7 +13,7 @@
 	"multimediaviewer-desc-nil": "Ingen beskrivning tillgänglig.",
 	"multimediaviewer-pref": "Mediavisare",
 	"multimediaviewer-pref-desc": "Förbättra din multimediaupplevelse med detta nya verktyg. Det visar bilder i större storlek på sidor som har miniatyrer. Bilder visas i ett trevligare fullskärmsöverlägg, och kan också ses i full storlek.",
-	"multimediaviewer-optin-pref": "Aktivera en ny multimediaupplevelse",
+	"multimediaviewer-optin-pref": "Aktivera <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Mediavisaren]</span>",
 	"multimediaviewer-file-page": "Gå till motsvarande filsida",
 	"multimediaviewer-repository": "Läs mer på $1",
 	"multimediaviewer-repository-local": "Läs mer",
