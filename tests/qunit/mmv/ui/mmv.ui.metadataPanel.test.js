@@ -42,11 +42,11 @@
 			repoInfo = new mw.mmv.model.Repo( 'Example Wiki' );
 
 		panel.setRepoDisplay( repoInfo );
-		assert.strictEqual( panel.$repo.text(), 'Learn more on Example Wiki', 'Text set to something useful for remote wiki - if this fails it might be because of localisation' );
+		assert.strictEqual( panel.$repo.text(), 'More details about this file on Example Wiki', 'Text set to something useful for remote wiki - if this fails it might be because of localisation' );
 
 		repoInfo = new mw.mmv.model.Repo();
 		panel.setRepoDisplay( repoInfo );
-		assert.strictEqual( panel.$repo.text(), 'Learn more on ' + mw.config.get( 'wgSiteName' ), 'Text set to something useful for local wiki - if this fails it might be because of localisation' );
+		assert.strictEqual( panel.$repo.text(), 'More details about this file on ' + mw.config.get( 'wgSiteName' ), 'Text set to something useful for local wiki - if this fails it might be because of localisation' );
 
 		panel.setFilePageLink( 'https://commons.wikimedia.org/wiki/File:Foobar.jpg' );
 		assert.strictEqual( panel.$repo.prop( 'href' ), 'https://commons.wikimedia.org/wiki/File:Foobar.jpg', 'The file link was set successfully.' );
