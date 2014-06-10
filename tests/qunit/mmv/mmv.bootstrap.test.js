@@ -1,16 +1,12 @@
 ( function ( mw, $ ) {
-	var backup = {};
-
 	QUnit.module( 'mmv.bootstrap', QUnit.newMwEnvironment( {
 		setup: function () {
-			backup.onclick = mw.config.get( 'wgMediaViewerOnClick' );
+			mw.config.set( 'wgMediaViewer', true );
 			mw.config.set( 'wgMediaViewerOnClick', true );
+			this.sandbox.stub( mw.user, 'isAnon').returns( false );
 			this.clock = this.sandbox.useFakeTimers();
-		},
-
-		teardown: function () {
-			mw.config.set( 'wgMediaViewerOnClick', backup.onclick );
-		} } ) );
+		}
+	} ) );
 
 	function createGallery( imageSrc ) {
 		var div = $( '<div>' ).addClass( 'gallery' ).appendTo( '#qunit-fixture' ),

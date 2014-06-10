@@ -39,6 +39,17 @@
 		this.readinessWaitDuration = 100;
 		this.hoverWaitDuration = 200;
 
+		// TODO lazy-load config and htmlUtils
+
+		/** @property {mw.mmv.Config} config - */
+		this.config = new mw.mmv.Config(
+			mw.config.get( 'wgMultimediaViewer', {} ),
+			mw.config,
+			mw.user,
+			new mw.Api(),
+			window.localStorage
+		);
+
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
 
@@ -190,7 +201,7 @@
 			// If this is a thumb, we preload JS/CSS when the mouse cursor hovers the thumb container (thumb image + caption + border)
 			$thumbContain.mouseenter( function() {
 				// There is no point preloading if clicking the thumb won't open Media Viewer
-				if ( mw.config.get( 'wgMediaViewerOnClick' ) !== true ) {
+				if ( !bs.config.isMediaViewerEnabledOnClick() ) {
 					return;
 				}
 				bs.preloadOnHoverTimer = setTimeout( function() {
@@ -253,7 +264,7 @@
 		}
 
 		// Don't load if someone has specifically stopped us from doing so
-		if ( mw.config.get( 'wgMediaViewerOnClick' ) !== true && overridePreference !== true ) {
+		if ( !this.config.isMediaViewerEnabledOnClick() && overridePreference !== true ) {
 			return;
 		}
 

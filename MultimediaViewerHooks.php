@@ -189,6 +189,7 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv/mmv.lightboximage.test.js',
 				'tests/qunit/mmv/mmv.ThumbnailWidthCalculator.test.js',
 				'tests/qunit/mmv/mmv.EmbedFileFormatter.test.js',
+				'tests/qunit/mmv/mmv.Config.test.js',
 				'tests/qunit/mmv/mmv.HtmlUtils.test.js',
 				'tests/qunit/mmv/mmv.performance.test.js',
 				'tests/qunit/mmv/mmv.ActionLogger.test.js',
