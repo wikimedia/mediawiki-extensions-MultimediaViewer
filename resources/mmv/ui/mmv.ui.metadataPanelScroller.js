@@ -39,19 +39,11 @@
 		 */
 		this.hasAnimatedMetadata = undefined;
 
-		/**
-		 * Timer used to highlight the chevron when the wrong key is pressed
-		 * @property {number}
-		 * @private
-		 */
-		this.highlightTimeout = undefined;
-
 		this.initialize();
 	}
 	oo.inheritClass( MetadataPanelScroller, mw.mmv.ui.Element );
 	MPSP = MetadataPanelScroller.prototype;
 
-	MPSP.highlightDuration = 500;
 	MPSP.toggleScrollDuration = 400;
 
 	MPSP.attach = function() {
@@ -79,10 +71,6 @@
 
 		// need to remove this to avoid animating again when reopening lightbox on same page
 		this.$container.removeClass( 'invite' );
-
-		if ( this.highlightTimeout ) {
-			clearTimeout( this.highlightTimeout );
-		}
 	};
 
 	MPSP.initialize = function () {
@@ -114,8 +102,7 @@
 	 * Toggles the metadata div being totally visible.
 	 */
 	MPSP.toggle = function ( forceDirection ) {
-		var self = this,
-			scrollTopWhenOpen = this.$container.outerHeight() - this.$controlBar.outerHeight(),
+		var scrollTopWhenOpen = this.$container.outerHeight() - this.$controlBar.outerHeight(),
 			scrollTopWhenClosed = 0,
 			scrollTop = $.scrollTo().scrollTop(),
 			panelIsOpen = scrollTop > scrollTopWhenClosed,
@@ -123,22 +110,6 @@
 
 		if ( forceDirection ) {
 			scrollTopTarget = forceDirection === 'down' ? scrollTopWhenClosed : scrollTopWhenOpen;
-			if ( scrollTop === scrollTopTarget ) {
-				// The user pressed down when the panel was closed already (or up when fully open).
-				// Not a real toggle; highlight the chevron to attract attention.
-				this.$container.addClass( 'mw-mmv-highlight-chevron' );
-
-				if ( this.highlightTimeout ) {
-					clearTimeout( this.highlightTimeout );
-				}
-
-				this.highlightTimeout = setTimeout( function() {
-					if ( self.$container ) {
-						self.$container.removeClass( 'mw-mmv-highlight-chevron' );
-					}
-				}, this.highlightDuration );
-				return;
-			}
 		}
 
 		mw.mmv.actionLogger.log( scrollTopTarget === scrollTopWhenOpen ? 'metadata-open' : 'metadata-close' );
@@ -176,14 +147,10 @@
 	 */
 	MPSP.keydown = function ( e ) {
 		switch ( e.which ) {
-			case 40:
-				// Down arrow
-				this.toggle( 'down' );
-				e.preventDefault();
-				break;
-			case 38:
-				// Up arrow
-				this.toggle( 'up' );
+			case 40: // Down arrow
+				// fall through
+			case 38: // Up arrow
+				this.toggle();
 				e.preventDefault();
 				break;
 		}
