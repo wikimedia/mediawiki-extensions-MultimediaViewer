@@ -3,7 +3,8 @@
 		"authors": [
 			"Tgr",
 			"Misibacsi",
-			"Tacsipacsi"
+			"Tacsipacsi",
+			"Csega"
 		]
 	},
 	"multimediaviewer-desc": "A teljes képernyőre kinagyíthatóvá teszi a beágyazott képeket.",
@@ -40,7 +41,7 @@
 	"multimediaviewer-embed-tab": "Beágyaz",
 	"multimediaviewer-download-tab": "Letölt",
 	"multimediaviewer-download-preview-link-title": "Előnézet a böngészőben",
-	"multimediaviewer-download-original-button-name": "Letöltés eredeti méretben",
+	"multimediaviewer-download-original-button-name": "Eredeti fájl letöltése",
 	"multimediaviewer-download-small-button-name": "Letöltés kis méretben",
 	"multimediaviewer-download-medium-button-name": "Letöltés közepes méretben",
 	"multimediaviewer-download-large-button-name": "Letöltés nagy méretben",
@@ -61,7 +62,7 @@
 	"multimediaviewer-embed-license": "Engedély: $1",
 	"multimediaviewer-embed-via": "Forrás: $1",
 	"multimediaviewer-default-embed-dimensions": "Normál méret",
-	"multimediaviewer-original-embed-dimensions": "Eredeti méret $1",
+	"multimediaviewer-original-embed-dimensions": "Eredeti fájl $1",
 	"multimediaviewer-large-embed-dimensions": "Nagy méret $1",
 	"multimediaviewer-medium-embed-dimensions": "Közepes méret $1",
 	"multimediaviewer-small-embed-dimensions": "Kis méret $1",
