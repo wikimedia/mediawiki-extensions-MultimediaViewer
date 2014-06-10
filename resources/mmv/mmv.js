@@ -877,6 +877,10 @@
 			} else {
 				return $.Deferred().reject();
 			}
+		} ).on( 'mmv-viewfile.mmvp', function () {
+			viewer.imageInfoProvider.get( viewer.currentImageFileTitle ).done( function ( imageInfo ) {
+				document.location = imageInfo.url;
+			} );
 		} );
 	};
 
