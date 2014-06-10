@@ -48,7 +48,7 @@
 
 		assert.ok( buttons, 'UI element is created.' );
 		assert.strictEqual( buttons.buttons.$reuse.length, 1, 'Reuse button created.' );
-		assert.ok( !buttons.buttons.$descriptionPage, 'File page button not created for anon.' );
+		assert.ok( buttons.buttons.$descriptionPage, 'File page button created for anon.' );
 
 		// now pretend we are logged in
 		mw.user.isAnon = function () { return false; };

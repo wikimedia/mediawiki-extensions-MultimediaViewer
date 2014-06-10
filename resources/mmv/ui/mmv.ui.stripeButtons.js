@@ -47,9 +47,7 @@
 			this.initFeedbackButton();
 		}
 		this.initReuseButton();
-		if ( !mw.user.isAnon() ) {
-			this.initDescriptionPageButton();
-		}
+		this.initDescriptionPageButton();
 	}
 	oo.inheritClass( StripeButtons, mw.mmv.ui.Element );
 	SBP = StripeButtons.prototype;
@@ -316,9 +314,7 @@
 			$button.removeClass( 'empty' );
 		} );
 
-		if ( !mw.user.isAnon() ) {
-			this.setDescriptionPageButton( imageInfo, repoInfo );
-		}
+		this.setDescriptionPageButton( imageInfo, repoInfo );
 
 		if ( this.shouldShowFeedbackSurvey() ) {
 			this.maybeDisplayTooltip();
@@ -369,12 +365,11 @@
 		} );
 
 		this.buttons.$reuse.removeClass( 'open' );
-		if ( !mw.user.isAnon() ) {
-			this.buttons.$descriptionPage.attr( { href: null, title: null, 'original-title': null } )
-				.removeClass( 'mw-mmv-stripe-button-dynamic mw-mmv-stripe-button-commons' );
-			$( '.mw-mmv-stripe-button-dynamic-before' ).remove();
-			this.setInlineStyle( 'stripe-button-description-page', null );
-		}
+
+		this.buttons.$descriptionPage.attr( { href: null, title: null, 'original-title': null } )
+			.removeClass( 'mw-mmv-stripe-button-dynamic mw-mmv-stripe-button-commons' );
+		$( '.mw-mmv-stripe-button-dynamic-before' ).remove();
+		this.setInlineStyle( 'stripe-button-description-page', null );
 	};
 
 	/**
