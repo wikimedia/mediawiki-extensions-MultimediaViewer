@@ -64,6 +64,8 @@
 		scroller.animateMetadataOnce();
 		assert.ok( $qf.hasClass( 'invite' ),
 			'After closing and opening the viewer, the panel is animated again' );
+
+		scroller.unattach();
 	} );
 
 	QUnit.test( 'No localStorage', 1, function( assert ) {
@@ -157,10 +159,6 @@
 
 		assert.ok( !fakeLocalStorage.setItem.called, 'The metadata hasn\'t been open yet, no entry in localStorage' );
 
-		keydown.which = 40; // Down arrow
-		scroller.keydown( keydown );
-		this.clock.tick( scroller.highlightDuration );
-
 		keydown.which = 38; // Up arrow
 		scroller.keydown( keydown );
 		this.clock.tick( scroller.toggleScrollDuration );
@@ -216,7 +214,7 @@
 		scroller.unattach();
 	} );
 
-	QUnit.test( 'Metadata scroll logging', 12, function ( assert ) {
+	QUnit.test( 'Metadata scroll logging', 6, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			$container = $( '<div>' ).css( 'height', 100 ).appendTo( $qf ),
 			$controlBar = $( '<div>' ).css( 'height', 50 ).appendTo( $container ),
@@ -227,17 +225,6 @@
 
 		this.sandbox.stub( mw.mmv.actionLogger, 'log' );
 
-		assert.ok( !$container.hasClass( 'mw-mmv-highlight-chevron' ), 'Chevron is not highlighted' );
-
-		keydown.which = 40; // Down arrow
-		scroller.keydown( keydown );
-
-		assert.ok( !mw.mmv.actionLogger.log.called, 'Closing keypress not logged when the panel is closed already' );
-		assert.ok( $container.hasClass( 'mw-mmv-highlight-chevron' ), 'Chevron is highlighted' );
-		this.clock.tick( scroller.highlightDuration );
-		assert.ok( !$container.hasClass( 'mw-mmv-highlight-chevron' ), 'Chevron is not highlighted' );
-		mw.mmv.actionLogger.log.reset();
-
 		keydown.which = 38; // Up arrow
 		scroller.keydown( keydown );
 		this.clock.tick( scroller.toggleScrollDuration );
@@ -245,15 +232,18 @@
 		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-open' ), 'Opening keypress logged' );
 		mw.mmv.actionLogger.log.reset();
 
-		assert.ok( !$container.hasClass( 'mw-mmv-highlight-chevron' ), 'Chevron is not highlighted' );
-
 		keydown.which = 38; // Up arrow
 		scroller.keydown( keydown );
+		this.clock.tick( scroller.toggleScrollDuration );
 
-		assert.ok( !mw.mmv.actionLogger.log.called, 'Opening keypress not logged when the panel is opened already' );
-		assert.ok( $container.hasClass( 'mw-mmv-highlight-chevron' ), 'Chevron is highlighted' );
-		this.clock.tick( scroller.highlightDuration );
-		assert.ok( !$container.hasClass( 'mw-mmv-highlight-chevron' ), 'Chevron is not highlighted' );
+		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-close' ), 'Closing keypress logged' );
+		mw.mmv.actionLogger.log.reset();
+
+		keydown.which = 40; // Down arrow
+		scroller.keydown( keydown );
+		this.clock.tick( scroller.toggleScrollDuration );
+
+		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-open' ), 'Opening keypress logged' );
 		mw.mmv.actionLogger.log.reset();
 
 		keydown.which = 40; // Down arrow
