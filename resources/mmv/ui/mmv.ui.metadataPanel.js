@@ -32,12 +32,23 @@
 		mw.mmv.ui.Element.call( this, $container );
 
 		this.$controlBar = $controlBar;
+
+		/** @property {mw.mmv.Config} config - */
+		this.config = new mw.mmv.Config(
+			mw.config.get( 'wgMultimediaViewer', {} ),
+			mw.config,
+			mw.user,
+			new mw.Api(),
+			window.localStorage
+		);
+
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
 
 		this.initializeHeader( localStorage );
 		this.initializeImageMetadata();
 		this.initializeAboutLinks();
+		this.initializePreferenceLinks();
 	}
 	oo.inheritClass( MetadataPanel, mw.mmv.ui.Element );
 	MPP = MetadataPanel.prototype;
@@ -329,8 +340,7 @@
 	 * Initializes two about links at the bottom of the panel.
 	 */
 	MPP.initializeAboutLinks = function () {
-		var target,
-			separator = ' | ';
+		var separator = ' | ';
 
 		this.$mmvAboutLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).infoLink )
@@ -357,15 +367,50 @@
 				this.$mmvHelpLink
 			)
 			.appendTo( this.$imageMetadata );
+	};
 
-		if ( !mw.user.isAnon() ) {
+	/**
+	 * Initialize the link for enabling/disabling MediaViewer.
+	 */
+	MPP.initializePreferenceLinks = function () {
+		var target,
+			panel = this,
+			separator = ' | ',
+			optInStatus = this.config.isMediaViewerEnabledOnClick();
+
+		function setText( $link, status ) {
+			$link
+				.text( mw.message( status ? 'multimediaviewer-optout-mmv' : 'multimediaviewer-optin-mmv' ).text() )
+				.prop( 'title', mw.message( status ? 'multimediaviewer-optout-help' : 'multimediaviewer-optin-help' ).text() );
+		}
+
+		if ( !mw.config.get( 'wgMediaViewerIsInBeta' ) && this.config.canSetMediaViewerEnabledOnClick() ) {
+			this.$mmvOptOutLink = $( '<a>' )
+				.prop( 'href', '#' )
+				.addClass( 'mw-mmv-optout-link' )
+				.tipsy( { gravity: 's' } )
+				.click( function ( e ) {
+					var newOptInStatus = !panel.config.isMediaViewerEnabledOnClick();
+					e.preventDefault();
+					panel.config.setMediaViewerEnabledOnClick( newOptInStatus).done( function () {
+						setText( panel.$mmvOptOutLink, newOptInStatus );
+						panel.$mmvOptOutLink.tipsy( 'hide' );
+					} ).fail( function () {
+						mw.notify( 'Error while trying to change preference' );
+					} );
+				} );
+
+			setText( this.$mmvOptOutLink, optInStatus );
+
+			this.$mmvAboutLinks.append(
+				separator,
+				this.$mmvOptOutLink
+			);
+		}
+
+		if ( !mw.user.isAnon() && mw.config.get( 'wgMediaViewerIsInBeta' ) ) {
 			target = mw.Title.newFromText( 'Special:Preferences' ).getUrl();
-
-			if ( mw.config.get( 'wgMediaViewerIsInBeta' ) ) {
-				target += '#mw-prefsection-betafeatures';
-			} else {
-				target += '#mw-prefsection-rendering';
-			}
+			target += '#mw-prefsection-betafeatures';
 
 			this.$mmvPreferenceLink = $( '<a>' )
 				.prop( 'href', target )
