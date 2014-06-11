@@ -127,20 +127,18 @@
 
 	/**
 	 * Appends links pointing to the given pages to the end of the usage list.
-	 * @param {{wiki: (string|null), page: mw.Title}[]} pages
+	 * @param {Array.<mw.Title|mw.mmv.model.IwTitle>} pages
 	 * @protected
 	 */
 	FileUsage.prototype.addPageLinks = function( pages ) {
-		var ui = this;
-
 		this.$usageList.append( $.map( pages, function( item ) {
-			var pageUrl = ui.getFileUrl( item.page, item.wiki ),
-				pageLink = $( '<a>' ).attr( 'href', pageUrl ).text( item.page.getMainText() );
+			var pageUrl = item.getUrl(),
+				pageLink = $( '<a>' ).attr( 'href', pageUrl ).text( item.getPrefixedText() );
 
-			if ( item.wiki ) {
+			if ( item instanceof mw.mmv.model.IwTitle ) {
 				// external link - show the wiki name next to it
 				return $( '<li>' ).append( pageLink ).append(
-					$( '<aside>' ).text( item.wiki )
+					$( '<aside>' ).text( item.getDomain() )
 				);
 			} else {
 				return $( '<li>' ).append( pageLink );
@@ -161,21 +159,6 @@
 					.attr( 'href', url )
 			)
 		);
-	};
-
-	/**
-	 * Returns an URL to the given file.
-	 * @param {mw.Title} page
-	 * @param {string} wiki domain name
-	 * @protected
-	 */
-	FileUsage.prototype.getFileUrl = function( page, wiki ) {
-		// TODO the nice way to handle this would be to have a mw.IwTitle class for interwiki links
-		if ( wiki ) {
-			return new mw.Uri( wiki + page.getUrl() ).toString();
-		} else {
-			return page.getUrl();
-		}
 	};
 
 	/**

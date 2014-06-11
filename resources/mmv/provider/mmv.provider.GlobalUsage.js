@@ -51,7 +51,7 @@
 	/**
 	 * Fetches the global usage data from the API.
 	 * @param {mw.Title} file
-	 * @return {jQuery.Promise}
+	 * @return {jQuery.Promise.<mw.mmv.model.FileUsage>}
 	 */
 	GlobalUsage.prototype.get = function( file ) {
 		var provider = this,
@@ -77,10 +77,7 @@
 			} ).then( function( pageData, data ) {
 				var pages;
 				pages = $.map( pageData.globalusage || {}, function( item ) {
-					return {
-						wiki: item.wiki,
-						page: new mw.Title( item.title, item.ns )
-					};
+					return new mw.mmv.model.IwTitle( item.ns, item.title, item.wiki, item.url );
 				} );
 				return new mw.mmv.model.FileUsage(
 					file,

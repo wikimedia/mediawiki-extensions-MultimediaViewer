@@ -160,6 +160,16 @@ $wgResourceModules += array(
 		),
 	),
 
+	'mmv.model.IwTitle' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/model/mmv.model.IwTitle.js',
+		),
+
+		'dependencies' => array(
+			'mmv.model',
+		),
+	),
+
 	'mmv.model.EmbedFileInfo' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/model/mmv.model.EmbedFileInfo.js',
@@ -269,6 +279,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'mediawiki.Title',
 			'mmv.model',
+			'mmv.model.IwTitle',
 			'mmv.model.FileUsage',
 			'mmv.model.Image',
 			'mmv.model.Repo',
@@ -405,6 +416,7 @@ $wgResourceModules += array(
 			'mediawiki.Uri',
 			'mediawiki.jqueryMsg',
 			'mmv.ui',
+			'mmv.model.IwTitle',
 			'oojs',
 		),
 

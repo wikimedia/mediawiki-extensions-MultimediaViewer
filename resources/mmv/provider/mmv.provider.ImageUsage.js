@@ -45,7 +45,7 @@
 	/**
 	 * Runs an API GET request to get the image usage.
 	 * @param {mw.Title} file
-	 * @return {jQuery.Promise}
+	 * @return {jQuery.Promise.<mw.mmv.model.FileUsage>}
 	 */
 	ImageUsage.prototype.get = function( file ) {
 		var provider = this;
@@ -62,10 +62,7 @@
 			} ).then( function( imageusage, data ) {
 				var pages;
 				pages = $.map( imageusage, function( item ) {
-					return {
-						wiki: null,
-						page: new mw.Title( item.title, item.ns )
-					};
+					return new mw.Title( item.title, item.ns );
 				} );
 				return new mw.mmv.model.FileUsage(
 					file,

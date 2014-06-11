@@ -90,7 +90,7 @@
 		// replace with this one to test global usage on a local wiki without going through all the
 		// hassle required for installing the extension:
 		//this.globalUsageProvider = new mw.mmv.provider.GlobalUsage(
-		//	new mw.mmv.Api( {ajax: { url: 'http://commons.wikimedia.org/w/api.php', dataType: 'jsonp' } } )
+		//	new mw.mmv.Api( 'globalusage', { ajax: { url: 'http://commons.wikimedia.org/w/api.php', dataType: 'jsonp' } } )
 		//);
 
 		/**
