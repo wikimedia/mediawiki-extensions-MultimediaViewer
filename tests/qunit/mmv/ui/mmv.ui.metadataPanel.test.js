@@ -229,21 +229,33 @@
 		assert.ok( panel.$repoLi.hasClass( 'commons' ), 'Repo has commons class' );
 	} );
 
-	QUnit.test( 'About links', 5, function ( assert ) {
+	QUnit.test( 'About links', 9, function ( assert ) {
 		var panel,
-			$qf = $( '#qunit-fixture' );
+			$qf = $( '#qunit-fixture'),
+			oldWgMediaViewerIsInBeta = mw.config.get( 'wgMediaViewerIsInBeta' );
 
 		this.sandbox.stub( mw.user, 'isAnon' );
-		mw.user.isAnon.returns( false );
+		mw.config.set( 'wgMediaViewerIsInBeta', false );
 		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ) );
 
 		assert.strictEqual( $qf.find( '.mw-mmv-about-link' ).length, 1, 'About link is created.' );
 		assert.strictEqual( $qf.find( '.mw-mmv-discuss-link' ).length, 1, 'Discuss link is created.' );
 		assert.strictEqual( $qf.find( '.mw-mmv-help-link' ).length, 1, 'Help link is created.' );
+		assert.strictEqual( $qf.find( '.mw-mmv-optout-link' ).length, 1, 'Opt-out link is created.' );
+		assert.strictEqual( $qf.find( '.mw-mmv-preference-link' ).length, 0, 'Preferences link is not created when not in beta.' );
+
+		mw.config.set( 'wgMediaViewerIsInBeta', true );
+
+		mw.user.isAnon.returns( false );
+		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ) );
+		assert.strictEqual( $qf.find( '.mw-mmv-optout-link' ).length, 0, 'Opt-out link is not created when in beta.' );
 		assert.strictEqual( $qf.find( '.mw-mmv-preference-link' ).length, 1, 'Preferences link is created for logged-in user.' );
 
 		mw.user.isAnon.returns( true );
 		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ) );
+		assert.strictEqual( $qf.find( '.mw-mmv-optout-link' ).length, 0, 'Opt-out link is not created when in beta.' );
 		assert.strictEqual( $qf.find( '.mw-mmv-preference-link' ).length, 0, 'Preferences link is not created for anon user.' );
+
+		mw.config.set( 'wgMediaViewerIsInBeta', oldWgMediaViewerIsInBeta );
 	} );
 }( mediaWiki, jQuery ) );

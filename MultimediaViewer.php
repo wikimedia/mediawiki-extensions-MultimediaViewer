@@ -496,6 +496,7 @@ $wgResourceModules += array(
 			'mmv.ui.reuse.dialog',
 			'mmv.ui.truncatableTextField',
 			'oojs',
+			'jquery.tipsy',
 		),
 
 		'messages' => array(
@@ -524,6 +525,10 @@ $wgResourceModules += array(
 			'multimediaviewer-about-mmv',
 			'multimediaviewer-discuss-mmv',
 			'multimediaviewer-help-mmv',
+			'multimediaviewer-optout-mmv',
+			'multimediaviewer-optin-mmv',
+			'multimediaviewer-optout-help',
+			'multimediaviewer-optin-help',
 
 			// Reuse the preferences message in the top-right menu.
 			'mypreferences',
