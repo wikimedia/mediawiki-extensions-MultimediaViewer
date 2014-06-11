@@ -36,6 +36,14 @@
 		this.$close = $closeButton;
 		this.$fullscreen = $fullscreenButton;
 
+		this.$viewFile = $( '<div>' )
+			.text( ' ' )
+			.prop( 'title', mw.message( 'multimediaviewer-viewfile-link' ).text() )
+			.addClass( 'mw-mmv-viewfile' )
+			.click( function () {
+				$( document ).trigger( 'mmv-viewfile' );
+			} );
+
 		this.$next = $( '<div>' )
 			.addClass( 'mw-mmv-next-image disabled' )
 			.html( '&nbsp;' );
@@ -50,7 +58,8 @@
 		this.$buttons = this.$close
 			.add( this.$fullscreen )
 			.add( this.$next )
-			.add( this.$prev );
+			.add( this.$prev )
+			.add( this.$viewFile );
 
 		this.$buttons.appendTo( this.$container );
 

@@ -705,6 +705,10 @@ $wgResourceModules += array(
 			'mmv.ui',
 			'oojs',
 		),
+
+		'messages' => array(
+			'multimediaviewer-viewfile-link',
+		),
 	),
 
 	'mmv.logger' => $wgMediaViewerResourceTemplate + array(
