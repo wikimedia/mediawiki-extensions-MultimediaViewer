@@ -38,8 +38,23 @@
 
 	.mw-mlb-download-preview-link {
 		display: block;
-		font-size: small;
 		margin-top: 12px;
+		margin-left: -6px;
+		font-size: 16px;
+		color: #555555;
+
+		&:before {
+			display: inline-block;
+			vertical-align: middle;
+			content: ' ';
+			width: 44px;
+			height: 30px;
+			/* @embed */
+			background-image: url(img/open.svg);
+			background-size: contain;
+			background-position: right center;
+			background-repeat: no-repeat;
+		}
 	}
 
 	/* Pulldown size menu */
