@@ -745,6 +745,16 @@ $wgResourceModules += array(
 		),
 	),
 
+	'mmv.Config' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/mmv.Config.js',
+		),
+
+		'dependencies' => array(
+			'mmv.base',
+		),
+	),
+
 	'mmv' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/mmv.js',
@@ -793,6 +803,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'jquery.hashchange',
 			'mediawiki.Title',
+			'mmv.Config',
 			'mmv.ActionLogger',
 			'mmv.HtmlUtils',
 			'mmv.DurationLogger',

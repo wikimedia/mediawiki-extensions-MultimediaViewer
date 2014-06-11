@@ -25,7 +25,10 @@
 
 	// If the user disabled MediaViewer in his preferences, we do not set up click handling.
 	// This is loaded before user JS so we cannot check wgMediaViewer.
-	if ( mw.config.get( 'wgMediaViewerOnClick' ) !== true ) {
+	if (
+		mw.config.get( 'wgMediaViewerOnClick' ) !== true
+		|| mw.user.isAnon() && window.localStorage && localStorage.getItem( 'wgMediaViewerOnClick' ) === false
+	) {
 		return;
 	}
 
