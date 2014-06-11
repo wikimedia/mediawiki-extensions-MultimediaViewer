@@ -484,6 +484,7 @@ $wgResourceModules += array(
 		),
 
 		'dependencies' => array(
+			'mediawiki.user',
 			'mmv.HtmlUtils',
 			'mmv.ActionLogger',
 			'mmv.ui',
@@ -640,6 +641,7 @@ $wgResourceModules += array(
 		),
 
 		'dependencies' => array(
+			'mediawiki.user',
 			'mmv.ui.reuse.tab',
 			'mmv.ui.reuse.utils',
 			'oojs',
@@ -757,6 +759,7 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.base',
+			'mediawiki.user',
 		),
 	),
 
@@ -851,7 +854,8 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'mmv.base',
 			'mmv.logger',
-			'oojs'
+			'oojs',
+			'mediawiki.user',
 		)
 	),
 
@@ -861,7 +865,8 @@ $wgResourceModules += array(
 		),
 
 		'dependencies' => array(
-			'mmv.base'
+			'mmv.base',
+			'mediawiki.user',
 		),
 
 		'position' => 'top',
