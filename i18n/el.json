@@ -4,7 +4,8 @@
 			"Astralnet",
 			"Geraki",
 			"Nikosguard",
-			"Indoril"
+			"Indoril",
+			"Evropi"
 		]
 	},
 	"multimediaviewer-desc": "Επεκτείνετε τις μικρογραφίες σε μεγαλύτερο μέγεθος σε ένα περιβάλλον εργασίας πλήρους οθόνης.",
@@ -14,8 +15,8 @@
 	"multimediaviewer-file-page": "Μεταβείτε στην αντίστοιχη σελίδα του αρχείου",
 	"multimediaviewer-repository": "Μάθετε περισσότερα σχετικά με το $1",
 	"multimediaviewer-repository-local": "Μάθετε περισσότερα",
-	"multimediaviewer-datetime-created": "Δημιουργήθηκε στις $1",
-	"multimediaviewer-datetime-uploaded": "Ανέβηκε στις $1",
+	"multimediaviewer-datetime-created": "Δημιουργήθηκε: $1",
+	"multimediaviewer-datetime-uploaded": "Μεταφορτώθηκε:$1",
 	"multimediaviewer-userpage-link": "Ανέβηκε από {{GENDER:$2|τον|την}} $1",
 	"multimediaviewer-license-cc-by-4.0": "CC BY 4.0",
 	"multimediaviewer-license-cc-by-sa-4.0": "CC BY-SA 4.0",
