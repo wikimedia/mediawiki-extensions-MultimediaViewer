@@ -154,6 +154,11 @@
 			.appendTo( this.$titleAndCredit );
 
 		this.$title = $( '<span>' )
+			.prop( 'title', mw.message( 'multimediaviewer-title-popup-text' ) )
+			.tipsy( {
+				delayIn: mw.config.get( 'wgMultimediaViewer').tooltipDelay,
+				gravity: this.isRTL() ? 'se' : 'sw'
+			} )
 			.addClass( 'mw-mmv-title' );
 
 		this.title = new mw.mmv.ui.TruncatableTextField( this.$titlePara, this.$title );
@@ -521,6 +526,8 @@
 	 * @param {string} author With unsafe HTML
 	 */
 	MPP.setCredit = function ( source, author ) {
+		var tooltipDelay = mw.config.get( 'wgMultimediaViewer').tooltipDelay;
+
 		this.source = source || null;
 		this.author = author || null;
 
@@ -537,6 +544,20 @@
 		} else if ( source ) {
 			this.creditField.set( this.source );
 		}
+
+		this.$titleAndCredit.find( '.mw-mmv-author' )
+			.prop( 'title', mw.message( 'multimediaviewer-author-popup-text' ).text() )
+			.tipsy( {
+				delayIn: tooltipDelay,
+				gravity: this.isRTL() ? 'se' : 'sw'
+			} );
+
+		this.$titleAndCredit.find( '.mw-mmv-source' )
+			.prop( 'title', mw.message( 'multimediaviewer-source-popup-text' ).text() )
+			.tipsy( {
+				delayIn: tooltipDelay,
+				gravity: this.isRTL() ? 'se' : 'sw'
+			} );
 	};
 
 	/**

@@ -98,5 +98,15 @@
     "multimediaviewer-description-page-button-text": "More details",
     "multimediaviewer-description-page-popup-text": "More details on $1",
     "multimediaviewer-commons-subtitle": "The free media repository",
-    "multimediaviewer-view-expanded": "Expand view"
+    "multimediaviewer-view-expanded": "Expand view",
+	"multimediaviewer-close-popup-text": "Close this tool. Or press 'Esc' to exit",
+	"multimediaviewer-fullscreen-popup-text": "Show in full screen",
+	"multimediaviewer-defullscreen-popup-text": "Exit full screen",
+	"multimediaviewer-next-image-popup-text": "Show next image",
+	"multimediaviewer-prev-image-popup-text": "Show previous image",
+	"multimediaviewer-title-popup-text": "File name",
+	"multimediaviewer-author-popup-text": "Author",
+	"multimediaviewer-source-popup-text": "Source",
+	"multimediaviewer-panel-open-popup-text": "More details",
+	"multimediaviewer-panel-close-popup-text": "Fewer details"
 }

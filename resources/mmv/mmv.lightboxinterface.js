@@ -233,11 +233,17 @@
 	 * Setup for canvas navigation buttons
 	 */
 	LIP.setupCanvasButtons = function () {
-		var ui = this;
+		var ui = this,
+			tooltipDelay = mw.config.get( 'wgMultimediaViewer').tooltipDelay;
 
 		this.$closeButton = $( '<div>' )
 			.text( ' ' )
 			.addClass( 'mw-mmv-close' )
+			.prop( 'title', mw.message( 'multimediaviewer-close-popup-text' ).text() )
+			.tipsy( {
+				delayIn: tooltipDelay,
+				gravity: this.isRTL() ? 'nw' : 'ne'
+			} )
 			.click( function () {
 				ui.unattach();
 			} );
@@ -245,6 +251,11 @@
 		this.$fullscreenButton = $( '<div>' )
 			.text( ' ' )
 			.addClass( 'mw-mmv-fullscreen' )
+			.prop( 'title', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() )
+			.tipsy( {
+				delayIn: tooltipDelay,
+				gravity: this.isRTL() ? 'nw' : 'ne'
+			} )
 			.click( function () {
 				if ( ui.isFullscreen ) {
 					ui.exitFullscreen();
@@ -270,8 +281,14 @@
 
 		if ( this.isFullscreen ) {
 			mw.mmv.actionLogger.log( 'fullscreen' );
+
+			this.$fullscreenButton
+				.prop( 'title', mw.message( 'multimediaviewer-defullscreen-popup-text' ).text() );
 		} else {
 			mw.mmv.actionLogger.log( 'defullscreen' );
+
+			this.$fullscreenButton
+				.prop( 'title', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() );
 		}
 
 		if ( !this.fullscreenButtonJustPressed && !e.fullscreen ) {
