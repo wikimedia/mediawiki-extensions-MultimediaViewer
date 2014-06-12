@@ -1,7 +1,12 @@
 @mw-ui-constructive-button-color: #00af89;
+@pane-padding: 10px;
+@attribution-color: #f2f2f2;
+@attribution-logo-size: 64px;
 
 .mw-mlb-download-pane {
-	margin-left: 10px;
+	padding: 0 @pane-padding;
+	position: relative;
+	height: 280px;
 
 	/* Disable link clicks */
 	a.disabledLink {
@@ -75,4 +80,62 @@
 		}
 	}
 
+	.mw-mmv-download-attribution {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding: 0 @pane-padding @pane-padding;
+
+		background-color: @attribution-color;
+
+		&-how {
+			position: relative;
+			display: block;
+			padding: 5px;
+
+			.mw-mmv-download-attribution-close-button {
+				cursor: pointer;
+				position: absolute;
+				top: 5px;
+				right: 0px;
+				width: 12px;
+				height: 12px;
+				/* @embed */
+				background-image: url(img/x_gray.svg);
+			}
+		}
+
+		&-how-header,
+		&-cta-header {
+			font-size: large;
+			font-weight: bold;
+		}
+
+		&-cta {
+			cursor: pointer;
+			display: none;
+			padding-left: @attribution-logo-size + 7px;
+
+			/* @embed */
+			background-image: url(img/user-ltr.svg);
+			background-repeat: no-repeat;
+			background-size: @attribution-logo-size;
+			background-position: left center;
+		}
+
+		&.mw-mmv-download-attribution-collapsed {
+			.mw-mmv-download-attribution-cta {
+				display: block;
+			}
+
+			.mw-mmv-download-attribution-how {
+				display: none;
+			}
+		}
+	}
+}
+
+.mw-mmv-reuse-dialog.mw-mmv-reuse-download-active .mw-mmv-reuse-down-arrow {
+	background-color: @attribution-color;
 }

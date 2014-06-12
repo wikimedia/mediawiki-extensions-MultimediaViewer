@@ -209,11 +209,11 @@
 			width: 100,
 			height: 80
 		},
-		embedFileInfo = new mw.mmv.model.EmbedFileInfo( title, src, url );
+		repoInfo = new mw.mmv.model.Repo( 'Wikipedia', '//wikipedia.org/favicon.ico', true );
 
 		reuseDialog.initTabs();
 
-		reuseDialog.set( image, embedFileInfo );
+		reuseDialog.set( image, repoInfo );
 
 		assert.ok( ! reuseDialog.isOpen, 'Dialog closed by default.' );
 

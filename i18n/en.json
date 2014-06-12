@@ -76,6 +76,14 @@
     "multimediaviewer-embed-wt": "Wikitext",
     "multimediaviewer-embed-html": "HTML",
     "multimediaviewer-embed-explanation": "Use this code to embed the file",
+    "multimediaviewer-text-embed-credit-text-tbls": "\"$1\" by $2. Licensed under $3 via $4.",
+    "multimediaviewer-text-embed-credit-text-tls": "\"$1\". Licensed under $2 via $3.",
+    "multimediaviewer-text-embed-credit-text-tbs": "\"$1\" by $2. Via $3.",
+    "multimediaviewer-text-embed-credit-text-tbl": "\"$1\" by $2. Licensed under $3.",
+    "multimediaviewer-text-embed-credit-text-tb": "\"$1\" by $2.",
+    "multimediaviewer-text-embed-credit-text-ts": "\"$1\". Via $2.",
+    "multimediaviewer-text-embed-credit-text-tl": "\"$1\". Licensed under $2.",
+    "multimediaviewer-text-embed-credit-text-t": "\"$1\".",
     "multimediaviewer-html-embed-credit-text-tbls": "\"$1\" by $2. Licensed under $3 via $4.",
     "multimediaviewer-html-embed-credit-text-tls": "\"$1\". Licensed under $2 via $3.",
     "multimediaviewer-html-embed-credit-text-tbs": "\"$1\" by $2. Via $3.",
@@ -110,5 +118,9 @@
     "multimediaviewer-author-popup-text": "Author",
     "multimediaviewer-source-popup-text": "Source",
     "multimediaviewer-panel-open-popup-text": "More details",
-    "multimediaviewer-panel-close-popup-text": "Fewer details"
+    "multimediaviewer-panel-close-popup-text": "Fewer details",
+    "multimediaviewer-download-attribution-cta-header": "You need to attribute the author",
+    "multimediaviewer-download-attribution-cta": "Show me how",
+    "multimediaviewer-attr-plain": "Plain",
+    "multimediaviewer-attr-html": "HTML"
 }

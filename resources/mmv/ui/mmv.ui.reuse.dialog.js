@@ -230,15 +230,15 @@
 	 * @param {mw.mmv.model.Repo} repo
 	 * @param {string} caption
 	 */
-	DP.set = function ( image, repo, caption) {
+	DP.set = function ( image, repo, caption ) {
 		if ( this.tabs !== null ) {
 			this.tabs.share.set( image );
-			this.tabs.download.set( image );
+			this.tabs.download.set( image, repo );
 			this.tabs.embed.set( image, repo, caption );
 		} else {
 			this.tabsSetValues = {
 				share : [ image ],
-				download : [ image ],
+				download : [ image, repo ],
 				embed : [ image, repo, caption ]
 			};
 		}
