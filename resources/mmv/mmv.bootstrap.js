@@ -160,6 +160,20 @@
 	};
 
 	/**
+	 * Check if this thumbnail should be handled by MediaViewer
+	 * @param {jQuery} $thumb the thumbnail (an `<img>` element) in question
+	 * @return {boolean}
+	 */
+	MMVB.isAllowedThumb = function ( $thumb ) {
+		// .metadata means this is inside an informational template like {{refimprove}} on enwiki.
+		// .noviewer means MediaViewer has been specifically disabled for this image
+		// .noarticletext means we are on an error page for a non-existing article, the image is part of some
+		//  template // FIXME this should be handled by .metadata
+		return $thumb.closest( '.metadata, .noviewer, .noarticletext' ).length === 0;
+
+	};
+
+	/**
 	 * Processes a thumb
 	 * @param {Object} thumb
 	 */
@@ -179,14 +193,7 @@
 			return;
 		}
 
-		if (
-			// This is almost certainly an icon for an informational template like
-			// {{refimprove}} on enwiki.
-			$thumb.closest( '.metadata' ).length > 0 ||
-
-			// This is an article with no text.
-			$thumb.closest( '.noarticletext' ).length > 0
-		) {
+		if ( !bs.isAllowedThumb( $thumb ) ) {
 			return;
 		}
 

@@ -403,4 +403,28 @@
 
 		assert.ok( mw.loader.load.called, 'Dependencies should be preloaded if the thumb is hovered long enough' );
 	} );
+
+	QUnit.test( 'isAllowedThumb', 5, function ( assert ) {
+		var $container = $( '<div>' ),
+			$thumb = $( '<img>' ).appendTo( $container ),
+			bootstrap = createBootstrap();
+
+
+		assert.ok( bootstrap.isAllowedThumb( $thumb ), 'Normal image in a div is allowed.' );
+
+		$container.addClass( 'metadata' );
+		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image in a metadata container is disallowed.' );
+
+		$container.prop( 'class', '' );
+		$container.addClass( 'noviewer' );
+		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image in a noviewer container is disallowed.' );
+
+		$container.prop( 'class', '' );
+		$container.addClass( 'noarticletext' );
+		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image in an empty article is disallowed.' );
+
+		$container.prop( 'class', '' );
+		$thumb.addClass( 'noviewer' );
+		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image with a noviewer class is disallowed.' );
+	} );
 }( mediaWiki, jQuery ) );
