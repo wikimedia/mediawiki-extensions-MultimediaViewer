@@ -8,5 +8,12 @@
 	"multimediaviewer-help-mmv": "Palīdzība",
 	"multimediaviewer-share-tab": "Dalīties",
 	"multimediaviewer-download-tab": "Lejupielādēt",
-	"multimediaviewer-embed-html": "HTML"
+	"multimediaviewer-embed-html": "HTML",
+	"multimediaviewer-fullscreen-popup-text": "Parādīt pilnekrāna režīmā",
+	"multimediaviewer-defullscreen-popup-text": "Iziet no pilnekrāna režīma",
+	"multimediaviewer-next-image-popup-text": "Rādīt nākamo attēlu",
+	"multimediaviewer-prev-image-popup-text": "Rādīt iepriekšējo attēlu",
+	"multimediaviewer-title-popup-text": "Faila nosaukums",
+	"multimediaviewer-author-popup-text": "Autors",
+	"multimediaviewer-source-popup-text": "Avots"
 }

@@ -79,5 +79,15 @@
 	"multimediaviewer-description-page-button-text": "Weitere Einzelheiten",
 	"multimediaviewer-description-page-popup-text": "Weitere Einzelheiten auf $1",
 	"multimediaviewer-commons-subtitle": "Das freie Medienarchiv",
-	"multimediaviewer-view-expanded": "Erweiterte Ansicht"
+	"multimediaviewer-view-expanded": "Erweiterte Ansicht",
+	"multimediaviewer-close-popup-text": "Dieses Werkzeug schließen (Esc)",
+	"multimediaviewer-fullscreen-popup-text": "In Vollbild anzeigen",
+	"multimediaviewer-defullscreen-popup-text": "Vollbild beenden",
+	"multimediaviewer-next-image-popup-text": "Nächstes Bild anzeigen",
+	"multimediaviewer-prev-image-popup-text": "Vorheriges Bild anzeigen",
+	"multimediaviewer-title-popup-text": "Dateiname",
+	"multimediaviewer-author-popup-text": "Urheber",
+	"multimediaviewer-source-popup-text": "Quelle",
+	"multimediaviewer-panel-open-popup-text": "Weitere Einzelheiten",
+	"multimediaviewer-panel-close-popup-text": "Weniger Einzelheiten"
 }

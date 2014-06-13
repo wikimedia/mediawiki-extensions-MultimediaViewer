@@ -81,5 +81,9 @@
 	"multimediaviewer-description-page-button-text": "詳細を見る",
 	"multimediaviewer-description-page-popup-text": "詳細を$1で見る",
 	"multimediaviewer-commons-subtitle": "フリーなマルチメディアの保管庫",
-	"multimediaviewer-view-expanded": "拡張ビュー"
+	"multimediaviewer-view-expanded": "拡張ビュー",
+	"multimediaviewer-defullscreen-popup-text": "全画面表示を終了",
+	"multimediaviewer-next-image-popup-text": "次の画像を表示",
+	"multimediaviewer-prev-image-popup-text": "前の画像を表示",
+	"multimediaviewer-title-popup-text": "ファイル名"
 }

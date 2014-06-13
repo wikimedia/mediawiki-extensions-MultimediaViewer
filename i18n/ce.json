@@ -68,5 +68,8 @@
 	"multimediaviewer-description-page-button-text": "Мадарра",
 	"multimediaviewer-description-page-popup-text": "Мадарра ду $1 чохь",
 	"multimediaviewer-commons-subtitle": "Медиа-файлаш латайо меттиг",
-	"multimediaviewer-view-expanded": "Схьадаста хьажар"
+	"multimediaviewer-view-expanded": "Схьадаста хьажар",
+	"multimediaviewer-title-popup-text": "Файлан цӀе",
+	"multimediaviewer-author-popup-text": "Автор",
+	"multimediaviewer-source-popup-text": "Хьост"
 }

@@ -84,5 +84,15 @@
 	"multimediaviewer-description-page-button-text": "Поподробно",
 	"multimediaviewer-description-page-popup-text": "Поподробно на $1",
 	"multimediaviewer-commons-subtitle": "Слободно складиште на медиумски содржини",
-	"multimediaviewer-view-expanded": "Прошири"
+	"multimediaviewer-view-expanded": "Прошири",
+	"multimediaviewer-close-popup-text": "Затворете ја алаткава. Или притиснете на „Esc“ за да излезете",
+	"multimediaviewer-fullscreen-popup-text": "Прикажи во полн екран",
+	"multimediaviewer-defullscreen-popup-text": "Излези од полн екран",
+	"multimediaviewer-next-image-popup-text": "Прикажи следна слика",
+	"multimediaviewer-prev-image-popup-text": "Прикажи претходна слика",
+	"multimediaviewer-title-popup-text": "Име на податотека",
+	"multimediaviewer-author-popup-text": "Автор",
+	"multimediaviewer-source-popup-text": "Извор",
+	"multimediaviewer-panel-open-popup-text": "Поподробно",
+	"multimediaviewer-panel-close-popup-text": "Помалку подробно"
 }

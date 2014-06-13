@@ -77,5 +77,15 @@
 	"multimediaviewer-description-page-button-text": "Ulteriori dettagli",
 	"multimediaviewer-description-page-popup-text": "Ulteriori dettagli su $1",
 	"multimediaviewer-commons-subtitle": "L'archivio di file multimediali liberi",
-	"multimediaviewer-view-expanded": "Espandi visualizzazione"
+	"multimediaviewer-view-expanded": "Espandi visualizzazione",
+	"multimediaviewer-close-popup-text": "Chiudi questo strumento. O premi 'Esc' per uscire",
+	"multimediaviewer-fullscreen-popup-text": "Visualizza a schermo intero",
+	"multimediaviewer-defullscreen-popup-text": "Esci da schermo intero",
+	"multimediaviewer-next-image-popup-text": "Visualizza l'immagine successiva",
+	"multimediaviewer-prev-image-popup-text": "Visualizza l'immagine precedente",
+	"multimediaviewer-title-popup-text": "Nome del file",
+	"multimediaviewer-author-popup-text": "Autore",
+	"multimediaviewer-source-popup-text": "Fonte",
+	"multimediaviewer-panel-open-popup-text": "Ulteriori dettagli",
+	"multimediaviewer-panel-close-popup-text": "Meno dettagli"
 }

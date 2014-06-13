@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Servien"
+		]
+	},
+	"multimediaviewer-fullscreen-popup-text": "Op volledig scharm laoten zien",
+	"multimediaviewer-defullscreen-popup-text": "Volledig scharm sluten",
+	"multimediaviewer-next-image-popup-text": "t Volgende plaotjen",
+	"multimediaviewer-prev-image-popup-text": "t Veurige plaotjen",
+	"multimediaviewer-title-popup-text": "Bestaandsnaam",
+	"multimediaviewer-author-popup-text": "Auteur",
+	"multimediaviewer-source-popup-text": "Bron",
+	"multimediaviewer-panel-open-popup-text": "Meer details"
+}

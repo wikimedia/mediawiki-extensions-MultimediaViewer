@@ -82,5 +82,15 @@
 	"multimediaviewer-description-page-button-text": "详情",
 	"multimediaviewer-description-page-popup-text": "$1上的更多详情",
 	"multimediaviewer-commons-subtitle": "自由的媒体文件存储库",
-	"multimediaviewer-view-expanded": "展开视图"
+	"multimediaviewer-view-expanded": "展开视图",
+	"multimediaviewer-close-popup-text": "关闭此工具。或按“Esc”键退出",
+	"multimediaviewer-fullscreen-popup-text": "全屏显示",
+	"multimediaviewer-defullscreen-popup-text": "退出全屏",
+	"multimediaviewer-next-image-popup-text": "显示下一图像",
+	"multimediaviewer-prev-image-popup-text": "显示上一图像",
+	"multimediaviewer-title-popup-text": "文件名",
+	"multimediaviewer-author-popup-text": "作者",
+	"multimediaviewer-source-popup-text": "来源",
+	"multimediaviewer-panel-open-popup-text": "详情",
+	"multimediaviewer-panel-close-popup-text": "更少信息"
 }

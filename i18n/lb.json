@@ -51,5 +51,12 @@
 	"multimediaviewer-small-embed-dimensions": "Kleng $1",
 	"multimediaviewer-feedback-button-text": "Äre Feedback zu dësem Tool",
 	"multimediaviewer-description-page-button-text": "Méi Detailer",
-	"multimediaviewer-description-page-popup-text": "Méi Detailer op $1"
+	"multimediaviewer-description-page-popup-text": "Méi Detailer op $1",
+	"multimediaviewer-defullscreen-popup-text": "Aus dem ganzen Ecran erausgoen",
+	"multimediaviewer-next-image-popup-text": "Nächst Bild weisen",
+	"multimediaviewer-prev-image-popup-text": "Vireg Bild weisen",
+	"multimediaviewer-title-popup-text": "Numm vum Fichier",
+	"multimediaviewer-author-popup-text": "Auteur",
+	"multimediaviewer-source-popup-text": "Quell",
+	"multimediaviewer-panel-open-popup-text": "Méi Detailer"
 }

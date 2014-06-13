@@ -81,5 +81,15 @@
 	"multimediaviewer-description-page-button-text": "פרטים נוספים",
 	"multimediaviewer-description-page-popup-text": "פרטים נוספים ב{{GRAMMAR:תחילית|$1}}",
 	"multimediaviewer-commons-subtitle": "מאגר המדיה החופשי",
-	"multimediaviewer-view-expanded": "הרחבת התצוגה"
+	"multimediaviewer-view-expanded": "הרחבת התצוגה",
+	"multimediaviewer-close-popup-text": "סגירת הכלי הזה. אפשר גם ללחוץ \"Esc\" ליציאה",
+	"multimediaviewer-fullscreen-popup-text": "הצגה במסך מלא",
+	"multimediaviewer-defullscreen-popup-text": "יציאה ממסך מלא",
+	"multimediaviewer-next-image-popup-text": "הצגת התמונה הבאה",
+	"multimediaviewer-prev-image-popup-text": "הצגת התמונה הקודמת",
+	"multimediaviewer-title-popup-text": "שם קובץ",
+	"multimediaviewer-author-popup-text": "יוצר",
+	"multimediaviewer-source-popup-text": "מקור",
+	"multimediaviewer-panel-open-popup-text": "פרטים נוספים",
+	"multimediaviewer-panel-close-popup-text": "פחות פרטים"
 }

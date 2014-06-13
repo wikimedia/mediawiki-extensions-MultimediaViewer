@@ -32,6 +32,9 @@
 	"multimediaviewer-discuss-mmv": "Diskuse k této funkci",
 	"multimediaviewer-help-mmv": "Nápověda",
 	"multimediaviewer-optout-mmv": "Vypnout Prohlížeč médií",
+	"multimediaviewer-optin-mmv": "Znovu zapnout Prohlížeč médií",
+	"multimediaviewer-optout-help": "Kliknutím na tento odkaz zakážete u náhledů Prohlížeč médií; místo toho povedou rovnou na stránku s popisem souboru. I nadále si budete moci otevřít Prohlížeč médií pomocí tam zobrazeného tlačítka „Zvětšit“; v článcích si budete moci Prohlížeč médií znovu povolit pomocí stejného odkazu.",
+	"multimediaviewer-optin-help": "Kliknutím na tento odkaz zapnete Prohlížeč médií, který se pak vždy objeví po kliknutí na náhled v článku.",
 	"multimediaviewer-geolocation": "Místo: $1",
 	"multimediaviewer-fileusage-count": "Použito na $1 {{PLURAL:$1|stránce|stránkách}}",
 	"multimediaviewer-fileusage-count-more": "Užito na více než $1 {{PLURAL:$1|stránce|stránkách}}",
@@ -75,5 +78,15 @@
 	"multimediaviewer-description-page-button-text": "Více informací",
 	"multimediaviewer-description-page-popup-text": "Více informací na {{grammar:6sg|$1}}",
 	"multimediaviewer-commons-subtitle": "Úložiště volných médií",
-	"multimediaviewer-view-expanded": "Zvětšit"
+	"multimediaviewer-view-expanded": "Zvětšit",
+	"multimediaviewer-close-popup-text": "Zavřít tento nástroj (Esc)",
+	"multimediaviewer-fullscreen-popup-text": "Zobrazit přes celou obrazovku",
+	"multimediaviewer-defullscreen-popup-text": "Ukončit celou obrazovku",
+	"multimediaviewer-next-image-popup-text": "Zobrazit další obrázek",
+	"multimediaviewer-prev-image-popup-text": "Zobrazit předchozí obrázek",
+	"multimediaviewer-title-popup-text": "Jméno souboru",
+	"multimediaviewer-author-popup-text": "Autor",
+	"multimediaviewer-source-popup-text": "Zdroj",
+	"multimediaviewer-panel-open-popup-text": "Více informací",
+	"multimediaviewer-panel-close-popup-text": "Méně informací"
 }

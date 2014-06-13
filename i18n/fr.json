@@ -81,5 +81,15 @@
 	"multimediaviewer-description-page-button-text": "Plus de détails",
 	"multimediaviewer-description-page-popup-text": "Plus de détails sur $1",
 	"multimediaviewer-commons-subtitle": "La médiathèque libre",
-	"multimediaviewer-view-expanded": "Agrandir vue"
+	"multimediaviewer-view-expanded": "Agrandir vue",
+	"multimediaviewer-close-popup-text": "Fermer cet outil. Ou appuyer sur 'Esc' pour sortir",
+	"multimediaviewer-fullscreen-popup-text": "Afficher en plein écran",
+	"multimediaviewer-defullscreen-popup-text": "Sortir du plein écran",
+	"multimediaviewer-next-image-popup-text": "Afficher l’image suivante",
+	"multimediaviewer-prev-image-popup-text": "Afficher l’image précédente",
+	"multimediaviewer-title-popup-text": "Nom du fichier",
+	"multimediaviewer-author-popup-text": "Auteur",
+	"multimediaviewer-source-popup-text": "Source",
+	"multimediaviewer-panel-open-popup-text": "Plus de détails",
+	"multimediaviewer-panel-close-popup-text": "Moins de détails"
 }
