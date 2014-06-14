@@ -5,7 +5,9 @@
 			"CristianCantoro",
 			"Maria victoria",
 			"OrbiliusMagister",
-			"Rosh"
+			"Rosh",
+			"Melos",
+			"PeppeAeco"
 		]
 	},
 	"multimediaviewer-desc": "Espande le miniature in dimensioni maggiori in un'interfaccia a schermo intero.",
@@ -46,7 +48,7 @@
 	"multimediaviewer-share-tab": "Condividi",
 	"multimediaviewer-embed-tab": "Incorpora",
 	"multimediaviewer-download-tab": "Scarica",
-	"multimediaviewer-download-preview-link-title": "Anteprima nel browser",
+	"multimediaviewer-download-preview-link-title": "Visualizza nel browser",
 	"multimediaviewer-download-original-button-name": "Scarica il file originale",
 	"multimediaviewer-download-small-button-name": "Scarica dimensioni piccole",
 	"multimediaviewer-download-medium-button-name": "Scarica dimensioni medie",
@@ -78,7 +80,7 @@
 	"multimediaviewer-description-page-popup-text": "Ulteriori dettagli su $1",
 	"multimediaviewer-commons-subtitle": "L'archivio di file multimediali liberi",
 	"multimediaviewer-view-expanded": "Espandi visualizzazione",
-	"multimediaviewer-close-popup-text": "Chiudi questo strumento. O premi 'Esc' per uscire",
+	"multimediaviewer-close-popup-text": "Chiudi questo strumento (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Visualizza a schermo intero",
 	"multimediaviewer-defullscreen-popup-text": "Esci da schermo intero",
 	"multimediaviewer-next-image-popup-text": "Visualizza l'immagine successiva",
