@@ -42,7 +42,7 @@
 	"multimediaviewer-share-tab": "Distribuire",
 	"multimediaviewer-embed-tab": "Încorporare",
 	"multimediaviewer-download-tab": "Descărcare",
-	"multimediaviewer-download-preview-link-title": "Previzualizează cu navigatorul",
+	"multimediaviewer-download-preview-link-title": "Vizualizează cu navigatorul",
 	"multimediaviewer-download-original-button-name": "Descarcă fișierul original",
 	"multimediaviewer-download-small-button-name": "Descarcă la dimensiune mică",
 	"multimediaviewer-download-medium-button-name": "Descarcă la dimensiune intermediară",
@@ -73,5 +73,15 @@
 	"multimediaviewer-description-page-button-text": "Mai multe detalii",
 	"multimediaviewer-description-page-popup-text": "Mai multe detalii la $1",
 	"multimediaviewer-commons-subtitle": "Depozitul liber de conținut media",
-	"multimediaviewer-view-expanded": "Extinde vizualizarea"
+	"multimediaviewer-view-expanded": "Extinde vizualizarea",
+	"multimediaviewer-close-popup-text": "Închide această unealtă (Esc)",
+	"multimediaviewer-fullscreen-popup-text": "Afișează pe tot ecranul",
+	"multimediaviewer-defullscreen-popup-text": "Ieșire din ecran complet",
+	"multimediaviewer-next-image-popup-text": "Afișează imaginea următoare",
+	"multimediaviewer-prev-image-popup-text": "Afișează imaginea anterioară",
+	"multimediaviewer-title-popup-text": "Numele fișierului",
+	"multimediaviewer-author-popup-text": "Autor",
+	"multimediaviewer-source-popup-text": "Sursă",
+	"multimediaviewer-panel-open-popup-text": "Mai multe detalii",
+	"multimediaviewer-panel-close-popup-text": "Mai puține detalii"
 }

@@ -19,6 +19,7 @@
 	"multimediaviewer-about-mmv": "Iwwer Media Viewer",
 	"multimediaviewer-discuss-mmv": "Dës Funktioun diskutéieren",
 	"multimediaviewer-help-mmv": "Hëllef",
+	"multimediaviewer-optout-mmv": "Media Viewer ausschalten",
 	"multimediaviewer-geolocation": "Plaz: $1",
 	"multimediaviewer-fileusage-count": "op {{PLURAL:$1|enger Säit|$1 Säite}} benotzt",
 	"multimediaviewer-fileusage-count-more": "Op méi wéi {{PLURAL:$1|enger Säit|$1 Säite}} benotzt",
@@ -31,7 +32,7 @@
 	"multimediaviewer-share-tab": "Deelen",
 	"multimediaviewer-embed-tab": "Abannen",
 	"multimediaviewer-download-tab": "Eroflueden",
-	"multimediaviewer-download-preview-link-title": "Am Browser weisen ouni ze späicheren",
+	"multimediaviewer-download-preview-link-title": "Am Browser weisen",
 	"multimediaviewer-download-original-button-name": "Originalfichier eroflueden",
 	"multimediaviewer-download-small-button-name": "Kleng Gréisst eroflueden",
 	"multimediaviewer-download-medium-button-name": "Mëttel Gréisst eroflueden",
@@ -58,5 +59,6 @@
 	"multimediaviewer-title-popup-text": "Numm vum Fichier",
 	"multimediaviewer-author-popup-text": "Auteur",
 	"multimediaviewer-source-popup-text": "Quell",
-	"multimediaviewer-panel-open-popup-text": "Méi Detailer"
+	"multimediaviewer-panel-open-popup-text": "Méi Detailer",
+	"multimediaviewer-panel-close-popup-text": "Manner Detailer"
 }

@@ -44,7 +44,7 @@
 	"multimediaviewer-share-tab": "Jagamine",
 	"multimediaviewer-embed-tab": "Manustamine",
 	"multimediaviewer-download-tab": "Allalaadimine",
-	"multimediaviewer-download-preview-link-title": "Eelvaade brauseris",
+	"multimediaviewer-download-preview-link-title": "Vaata veebilehitsejas",
 	"multimediaviewer-download-original-button-name": "Laadi alla algsuuruses",
 	"multimediaviewer-download-small-button-name": "Laadi alla väike pilt",
 	"multimediaviewer-download-medium-button-name": "Laadi alla keskmises suuruses",
@@ -73,5 +73,15 @@
 	"multimediaviewer-description-page-button-text": "Veel üksikasju",
 	"multimediaviewer-description-page-popup-text": "Veel üksikasju asukohas $1",
 	"multimediaviewer-commons-subtitle": "Vabade meediafailide varamu",
-	"multimediaviewer-view-expanded": "Laiendatud vaade"
+	"multimediaviewer-view-expanded": "Laiendatud vaade",
+	"multimediaviewer-close-popup-text": "Sule see tööriist (Esc)",
+	"multimediaviewer-fullscreen-popup-text": "Näita täisekraanil",
+	"multimediaviewer-defullscreen-popup-text": "Sule täisekraan",
+	"multimediaviewer-next-image-popup-text": "Näita järgmist pilti",
+	"multimediaviewer-prev-image-popup-text": "Näita eelmist pilti",
+	"multimediaviewer-title-popup-text": "Failinimi",
+	"multimediaviewer-author-popup-text": "Autor",
+	"multimediaviewer-source-popup-text": "Allikas",
+	"multimediaviewer-panel-open-popup-text": "Veel üksikasju",
+	"multimediaviewer-panel-close-popup-text": "Vähem üksikasju"
 }

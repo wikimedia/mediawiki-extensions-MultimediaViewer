@@ -48,7 +48,7 @@
 	"multimediaviewer-share-tab": "Compartir",
 	"multimediaviewer-embed-tab": "Incrustar",
 	"multimediaviewer-download-tab": "Descargar",
-	"multimediaviewer-download-preview-link-title": "Previsualizar en navegador",
+	"multimediaviewer-download-preview-link-title": "Ver en el navegador",
 	"multimediaviewer-download-original-button-name": "Descargar el archivo original",
 	"multimediaviewer-download-small-button-name": "Descargar tamaño pequeño",
 	"multimediaviewer-download-medium-button-name": "Descargar tamaño mediano",
@@ -80,5 +80,15 @@
 	"multimediaviewer-description-page-button-text": "Más detalles",
 	"multimediaviewer-description-page-popup-text": "Más detalles sobre $1",
 	"multimediaviewer-commons-subtitle": "El repositorio de multimedia libre",
-	"multimediaviewer-view-expanded": "Vista Expandida"
+	"multimediaviewer-view-expanded": "Vista Expandida",
+	"multimediaviewer-close-popup-text": "Cerrar esta herramienta (Esc)",
+	"multimediaviewer-fullscreen-popup-text": "Mostrar a pantalla completa",
+	"multimediaviewer-defullscreen-popup-text": "Salir del modo a pantalla completa",
+	"multimediaviewer-next-image-popup-text": "Mostrar imagen siguiente",
+	"multimediaviewer-prev-image-popup-text": "Mostrar imagen anterior",
+	"multimediaviewer-title-popup-text": "Nombre de archivo",
+	"multimediaviewer-author-popup-text": "Autor",
+	"multimediaviewer-source-popup-text": "Origen",
+	"multimediaviewer-panel-open-popup-text": "Más detalles",
+	"multimediaviewer-panel-close-popup-text": "Menos detalles"
 }

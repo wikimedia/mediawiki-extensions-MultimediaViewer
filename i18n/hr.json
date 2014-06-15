@@ -12,5 +12,7 @@
 	"multimediaviewer-license-default": "Prikaži licenciju",
 	"multimediaviewer-about-mmv": "O pregledniku multimedijskih datoteka",
 	"multimediaviewer-discuss-mmv": "Napišite povratnu informaciju",
-	"multimediaviewer-reuse-link": "Uporaba datoteke"
+	"multimediaviewer-reuse-link": "Uporaba datoteke",
+	"multimediaviewer-description-page-popup-text": "Više detalja na projektu $1",
+	"multimediaviewer-view-expanded": "Povećani prikaz"
 }
