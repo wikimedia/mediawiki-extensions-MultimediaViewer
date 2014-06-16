@@ -8,14 +8,15 @@
 			"Fitoschido",
 			"PoLuX124",
 			"DJ Nietzsche",
-			"Jduranboger"
+			"Jduranboger",
+			"Macofe"
 		]
 	},
 	"multimediaviewer-desc": "Expande las miniaturas a un tamaño mayor en una vista de pantalla completa.",
 	"multimediaviewer-desc-nil": "Sin descripción disponible.",
 	"multimediaviewer-pref": "Visor multimedia",
 	"multimediaviewer-pref-desc": "Mejora tu experiencia de visualización multimedia con esta herramienta. Las imágenes se muestran en una vista a pantalla completa que incluye información relevante de las mismas.",
-	"multimediaviewer-optin-pref": "Activar el nuevo visor multimedia",
+	"multimediaviewer-optin-pref": "Habilitar <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Media Viewer]</span>",
 	"multimediaviewer-file-page": "Ir a la página del archivo correspondiente",
 	"multimediaviewer-repository": "Más información en $1",
 	"multimediaviewer-repository-local": "Más información",
@@ -83,7 +84,7 @@
 	"multimediaviewer-view-expanded": "Vista Expandida",
 	"multimediaviewer-close-popup-text": "Cerrar esta herramienta (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Mostrar a pantalla completa",
-	"multimediaviewer-defullscreen-popup-text": "Salir del modo a pantalla completa",
+	"multimediaviewer-defullscreen-popup-text": "Salir de pantalla completa",
 	"multimediaviewer-next-image-popup-text": "Mostrar imagen siguiente",
 	"multimediaviewer-prev-image-popup-text": "Mostrar imagen anterior",
 	"multimediaviewer-title-popup-text": "Nombre de archivo",

@@ -69,5 +69,8 @@
 	"multimediaviewer-feedback-button-text": "La vostra opinió sobre aquesta eina",
 	"multimediaviewer-feedback-popup-text": "Deixar comentaris sobre aquesta nova experiència de visualització multimèdia",
 	"multimediaviewer-description-page-button-text": "Més detalls",
-	"multimediaviewer-description-page-popup-text": "Més detalls sobre $1"
+	"multimediaviewer-description-page-popup-text": "Més detalls sobre $1",
+	"multimediaviewer-close-popup-text": "Tanca aquesta eina (Esc)",
+	"multimediaviewer-author-popup-text": "Autor",
+	"multimediaviewer-source-popup-text": "Font"
 }
