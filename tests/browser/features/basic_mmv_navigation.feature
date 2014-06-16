@@ -1,4 +1,4 @@
-@en.wikipedia.beta.wmflabs.org @firefox @chrome @internet_explorer_9 @internet_explorer_10
+@en.wikipedia.beta.wmflabs.org @firefox @chrome @internet_explorer_9 @internet_explorer_10 @safari
 Feature: Basic Multimedia Viewer navigation
 
   Scenario: Multimedia Viewer (MMV)
