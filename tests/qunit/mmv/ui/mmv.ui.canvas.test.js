@@ -54,7 +54,10 @@
 
 	QUnit.test( 'setImageAndMaxDimensions()', 8, function( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			canvas = new mw.mmv.ui.Canvas( $qf ),
+			$mainWrapper = $( '<div>' ).appendTo( $qf ),
+			$innerWrapper =$( '<div>' ).appendTo( $mainWrapper ),
+			$imageWrapper = $( '<div>' ).appendTo( $innerWrapper ),
+			canvas = new mw.mmv.ui.Canvas( $innerWrapper, $imageWrapper, $mainWrapper ),
 			imageRawMetadata = new mw.mmv.LightboxImage( 'foo.png' ),
 			image = new Image(),
 			$imageElem = $( image ),
@@ -77,8 +80,8 @@
 
 		assert.strictEqual( image.width, originalWidth, 'Image width was not modified.' );
 		assert.strictEqual( canvas.$image, $imageElem, 'Image element still set correctly.' );
+		assert.strictEqual( canvas.$image.css( 'maxWidth' ), canvas.$imageDiv.width() + 'px', 'MaxWidth set correctly.' );
 		assert.strictEqual( canvas.$image.css( 'maxHeight' ), canvas.$imageDiv.height() + 'px', 'MaxHeight set correctly.' );
-		assert.strictEqual( canvas.$image.css( 'maxWidth' ), canvas.$imageDiv.width() + 'px', 'MaxHeight set correctly.' );
 
 		$currentImage = canvas.$image;
 
@@ -92,8 +95,8 @@
 
 		assert.strictEqual( image2.width, screenWidth, 'Image width was trimmed correctly.' );
 		assert.notStrictEqual( canvas.$image, $currentImage, 'Image element switched correctly.' );
+		assert.strictEqual( canvas.$image.css( 'maxWidth' ), canvas.$imageDiv.width() + 'px', 'MaxWidth set correctly.' );
 		assert.strictEqual( canvas.$image.css( 'maxHeight' ), canvas.$imageDiv.height() + 'px', 'MaxHeight set correctly.' );
-		assert.strictEqual( canvas.$image.css( 'maxWidth' ), canvas.$imageDiv.width() + 'px', 'MaxHeight set correctly.' );
 	} );
 
 	QUnit.test( 'attach and unattach', 3, function( assert ) {

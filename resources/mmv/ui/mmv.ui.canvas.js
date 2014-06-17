@@ -110,6 +110,19 @@
 	};
 
 	/**
+	 * Sets max-width and max-height of the image equal to those of its parent element.
+	 * FIXME what is this good for, actually?
+	 */
+	C.setImageMaxDimensions = function() {
+		this.$image.css( {
+			maxWidth : this.$image.parent().width(),
+			// for height, use closest ancestor which has non-content-defined height;
+			// otherwise this could be determined by the height of the image.
+			maxHeight : this.$imageWrapper.height()
+		} );
+	};
+
+	/**
 	 * Sets contained image and also the max dimensions. Called while resizing the viewer.
 	 * Assumes set function called before.
 	 * @param {mw.mmv.model.Thumbnail} thumbnail thumbnail information
@@ -119,29 +132,17 @@
 	C.setImageAndMaxDimensions = function( thumbnail, imageElement, imageWidths ) {
 		var $image = $( imageElement );
 
-		function makeMaxMatchParent ( $image ) {
-			$image.css( {
-				maxHeight : $image.parent().height(),
-				maxWidth : $image.parent().width()
-			} );
-		}
-
 		// we downscale larger images but do not scale up smaller ones, that would look ugly
 		if ( thumbnail.width > imageWidths.cssWidth ) {
 			imageElement.width = imageWidths.cssWidth;
 		}
 
-		if ( this.$image.is( imageElement ) ) { // http://bugs.jquery.com/ticket/4087
-			// We may be changing the width of the image when we resize, we should also
-			// update the max dimensions otherwise the image is not scaled properly
-			makeMaxMatchParent( this.$image );
-			return;
+		if ( !this.$image.is( imageElement ) ) { // http://bugs.jquery.com/ticket/4087
+			this.$image.replaceWith( $image );
+			this.$image = $image;
 		}
 
-		this.$image.replaceWith( $image );
-		this.$image = $image;
-
-		makeMaxMatchParent( this.$image );
+		this.setImageMaxDimensions();
 	};
 
 	/**
