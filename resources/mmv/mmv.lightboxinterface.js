@@ -73,7 +73,7 @@
 			.addClass( 'mw-mmv-post-image' );
 
 		this.$controlBar = $( '<div>' )
-			.addClass( 'mw-mmv-controls' );
+			.addClass( 'mw-mmv-above-fold' );
 
 		this.$main.append(
 			this.$preDiv,

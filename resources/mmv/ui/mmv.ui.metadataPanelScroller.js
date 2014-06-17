@@ -33,11 +33,18 @@
 		this.localStorage = localStorage;
 
 		/**
+		 * Whether this user has ever opened the metadata panel.
+		 * Based on a localstorage flag; will be set to true if the client does not support localstorage.
+		 * @type {boolean}
+		 */
+		this.hasOpenedMetadata = undefined;
+
+		/**
 		 * Whether we've already fired an animation for the metadata div in this lightbox session.
 		 * @property {boolean}
 		 * @private
 		 */
-		this.hasAnimatedMetadata = undefined;
+		this.hasAnimatedMetadata = false;
 
 		this.initialize();
 	}
@@ -58,7 +65,7 @@
 		} ) );
 
 		// reset animation flag when the viewer is reopened
-		this.hasAnimatedMetadata = !this.localStorage || this.localStorage.getItem( 'mmv.hasOpenedMetadata' );
+		this.hasAnimatedMetadata = false;
 	};
 
 	MPSP.unattach = function() {
@@ -67,7 +74,7 @@
 	};
 
 	MPSP.empty = function () {
-		this.$dragIcon.removeClass( 'pointing-down' );
+		this.$dragIcon.toggleClass( 'panel-never-opened', !this.hasOpenedMetadata );
 
 		// need to remove this to avoid animating again when reopening lightbox on same page
 		this.$container.removeClass( 'invite' );
@@ -76,32 +83,33 @@
 	MPSP.initialize = function () {
 		var panel = this;
 
-		this.dragBarGravity = 's';
-
-		this.$dragBar = $( '<div>' )
+		this.$dragIcon = $( '<div>' )
+			.addClass( 'mw-mmv-drag-icon mw-mmv-drag-icon-pointing-down' )
+			.toggleClass( 'panel-never-opened', !this.hasOpenedMetadata )
 			.prop( 'title', mw.message( 'multimediaviewer-panel-open-popup-text' ).text() )
-			.tipsy( {
-				delayIn: mw.config.get( 'wgMultimediaViewer').tooltipDelay,
-				gravity: function () {
-					return panel.dragBarGravity;
-				}
-			} )
-			.addClass( 'mw-mmv-drag-affordance' )
+			.tipsy( { gravity: 's', delayIn: mw.config.get( 'wgMultimediaViewer').tooltipDelay } )
 			.appendTo( this.$controlBar )
 			.click( function () {
 				panel.toggle();
 			} );
 
-		this.$dragIcon = $( '<div>' )
-			.addClass( 'mw-mmv-drag-icon' )
-			.appendTo( this.$dragBar );
+		this.$dragIconBottom = $( '<div>' )
+			.addClass( 'mw-mmv-drag-icon mw-mmv-drag-icon-pointing-up' )
+			.prop( 'title', mw.message( 'multimediaviewer-panel-close-popup-text' ).text() )
+			.tipsy( { gravity: 's', delayIn: mw.config.get( 'wgMultimediaViewer').tooltipDelay } )
+			.appendTo( this.$container )
+			.click( function () {
+				panel.toggle();
+			} );
+
+		this.hasOpenedMetadata = !this.localStorage || this.localStorage.getItem( 'mmv.hasOpenedMetadata' );
 	};
 
 	/**
 	 * Animates the metadata area when the viewer is first opened.
 	 */
 	MPSP.animateMetadataOnce = function () {
-		if ( !this.hasAnimatedMetadata ) {
+		if ( !this.hasOpenedMetadata && !this.hasAnimatedMetadata ) {
 			this.hasAnimatedMetadata = true;
 			this.$container.addClass( 'invite' );
 		}
@@ -123,17 +131,6 @@
 		}
 
 		mw.mmv.actionLogger.log( wasOpen ? 'metadata-open' : 'metadata-close' );
-
-		this.$dragBar
-			.prop( 'title',
-				mw.message(
-					'multimediaviewer-panel-' +
-					( !wasOpen ? 'open' : 'close' ) +
-					'-popup-text'
-				).text()
-			);
-
-		this.dragBarGravity = wasOpen ? 'n' : 's';
 
 		$.scrollTo( scrollTopTarget, this.toggleScrollDuration );
 	};
@@ -183,21 +180,20 @@
 	MPSP.scroll = function () {
 		var scrolled = !!$.scrollTo().scrollTop();
 
-		this.$dragIcon.toggleClass( 'pointing-down', scrolled );
+		this.$dragIcon.toggleClass( 'panel-open', scrolled );
 
 		if (
-			!this.savedHasOpenedMetadata &&
-				scrolled &&
-				this.localStorage
-			) {
+			!this.hasOpenedMetadata
+			&& scrolled
+			&& this.localStorage
+		) {
+			this.hasOpenedMetadata = true;
+			this.$dragIcon.removeClass( 'panel-never-opened' );
 			try {
 				this.localStorage.setItem( 'mmv.hasOpenedMetadata', true );
 			} catch ( e ) {
 				// localStorage is full or disabled
 			}
-
-			// We mark it as saved even when localStorage failed, because retrying will very likely fail as well
-			this.savedHasOpenedMetadata = true;
 		}
 	};
 

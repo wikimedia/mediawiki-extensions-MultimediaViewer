@@ -1,7 +1,6 @@
 @import "mmv.globals";
 @import "mmv.mixins";
 
-@bottom-height: (@metadatabar-top-content-height + @metadatabar-drag-height);
 @metadata-background: rgb(251, 251, 251);
 
 .mw-mmv-wrapper {
@@ -23,14 +22,10 @@
 	}
 }
 
-.mw-mmv-image-wrapper,
-.mw-mmv-controls {
-	top: 0px;
-	bottom: @bottom-height;
-}
-
 .mw-mmv-image-wrapper {
 	position: fixed;
+	top: 0px;
+	bottom: @metadatabar-above-fold-height;
 	left: 0px;
 	right: 0px;
 }
@@ -56,17 +51,19 @@
 	height: auto;
 	color: #333333;
 	background-color: @metadata-background;
-	min-height: (@bottom-height + 1);
+	min-height: (@metadatabar-above-fold-height + 1);
 	z-index: 2;
 }
 
-.mw-mmv-controls {
+// above-the-fold part of the metadata panel
+.mw-mmv-above-fold {
 	width: 100%;
-	height: auto;
+	height: @metadatabar-above-fold-height;
+	position: relative;
 	border-bottom: 1px solid #cccccc;
 }
 
-/* Fullscreen styles */
+// Fullscreen styles
 
 .cursor-hidden {
 	cursor: none;
@@ -77,22 +74,17 @@
 }
 
 .jq-fullscreened {
-	.mw-mmv-image-wrapper,
-	.mw-mmv-post-image,
-	.mw-mmv-controls {
+	.mw-mmv-image-wrapper, // make the image occupy the whole screen
+	.mw-mmv-post-image {  // make sure the panel fits in the screen and does not cause scrollbars to appear
 		bottom: 0px;
 	}
 
-	.mw-mmv-post-image,
-	.mw-mmv-controls {
-		@fullscreen-padding: 10px;
-		padding: (@fullscreen-padding / 2) 0;
-		height: (@metadatabar-top-content-height + @fullscreen-padding);
-		min-height: 0;
+	.mw-mmv-above-fold {
+		height: @metadatabar-above-fold-fullscreen-height;
 	}
 
 	.mw-mmv-post-image {
-		position: fixed;
+		min-height: 0;
 		.opacity(0);
 		transition: opacity 0.25s;
 
