@@ -287,12 +287,13 @@
 	C.getLightboxImageWidths = function ( image ) {
 		var thumb = image.thumbnail,
 			$window = $( window ),
+			$aboveFold = $( '.mw-mmv-controls' ),
+			isFullscreened = !!$aboveFold.closest( '.jq-fullscreened' ).length,
+			// Don't rely on this.$imageWrapper's sizing because it's fragile.
+			// Depending on what the wrapper contains, its size can be 0 on some browsers.
+			// Therefore, we calculate the available space manually
 			availableWidth = $window.width(),
-			availableHeight = $window.height() - $( '.mw-mmv-controls' ).height();
-
-		// For the above don't rely on this.$imageWrapper's sizing anymore because it's fragile
-		// Depending on what the wrapper contains, its size can be 0 on some browsers.
-		// Therefore, we calculate the available space manually
+			availableHeight =  $window.height() - ( isFullscreened ? 0 : $aboveFold.height() );
 
 		return this.thumbnailWidthCalculator.calculateWidths(
 			availableWidth, availableHeight, thumb.width, thumb.height );

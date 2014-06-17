@@ -7,6 +7,10 @@
 	&.invite {
 		.animation( mw-mmv-invite-animation 1s ease 0s 1 normal forwards );
 	}
+
+	.jq-fullscreened & {
+		.animation(none);
+	}
 }
 
 .mw-mmv-appear-animation() {
@@ -69,6 +73,10 @@
 	width: 100%;
 	height: @metadatabar-drag-height;
 	cursor: pointer;
+
+	.jq-fullscreened & {
+		display: none;
+	}
 }
 
 .mw-mmv-drag-icon {

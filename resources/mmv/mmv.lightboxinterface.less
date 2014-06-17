@@ -83,29 +83,16 @@
 		bottom: 0px;
 	}
 
-	.mw-mmv-drag-affordance {
-		display: none;
-	}
-
 	.mw-mmv-post-image,
 	.mw-mmv-controls {
 		@fullscreen-padding: 10px;
 		padding: (@fullscreen-padding / 2) 0;
 		height: (@metadatabar-top-content-height + @fullscreen-padding);
-		background-color: rgba(251, 251, 251, 0);
-		transition: background-color 0.25s;
 		min-height: 0;
-
-		&:hover {
-			background-color: @metadata-background;
-		}
 	}
 
 	.mw-mmv-post-image {
 		position: fixed;
-	}
-
-	.mw-mmv-controls {
 		.opacity(0);
 		transition: opacity 0.25s;
 
