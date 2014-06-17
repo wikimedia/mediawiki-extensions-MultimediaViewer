@@ -79,7 +79,7 @@
 	background-repeat: no-repeat;
 	background-position: center bottom;
 	margin: 0 auto;
-	opacity: 0.7;
+	.opacity(0.7);
 	transition: opacity 0.25s;
 
 	&.pointing-down {
@@ -90,10 +90,10 @@
 	.mw-mmv-post-image.invite & {
 		/* @embed */
 		background-image: url(img/drag-active.svg);
-		opacity: 0.9;
+		.opacity(0.9);
 	}
 }
 
 .mw-mmv-post-image:hover .mw-mmv-drag-icon {
-	opacity: 1;
+	.opacity(1);
 }
