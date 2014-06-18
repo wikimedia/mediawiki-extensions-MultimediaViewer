@@ -261,4 +261,56 @@
 
 		mw.config.set( 'wgMediaViewerIsInBeta', oldWgMediaViewerIsInBeta );
 	} );
+
+	QUnit.test( 'About links', 8, function ( assert ) {
+		var panel,
+			deferred,
+			$qf = $( '#qunit-fixture' ),
+			config = {
+				isMediaViewerEnabledOnClick: this.sandbox.stub(),
+				setMediaViewerEnabledOnClick: this.sandbox.stub(),
+				canSetMediaViewerEnabledOnClick: this.sandbox.stub()
+			},
+			oldWgMediaViewerIsInBeta = mw.config.get( 'wgMediaViewerIsInBeta' );
+
+		this.sandbox.stub( mw.user, 'isAnon' );
+		this.sandbox.stub( $.fn, 'tipsy' ).returnsThis(); // interferes with the fake clock in other tests
+		mw.config.set( 'wgMediaViewerIsInBeta', false );
+		panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) );
+		panel.config = config;
+
+		// FIXME should not do work in the constructor
+		panel.$mmvOptOutLink.remove();
+		panel.$mmvOptOutLink = undefined;
+		config.canSetMediaViewerEnabledOnClick.returns( false );
+		panel.initializePreferenceLinks();
+		assert.strictEqual( $qf.find( '.mw-mmv-optout-link' ).length, 0, 'Optout link is hidden when option cannot be set' );
+
+		config.canSetMediaViewerEnabledOnClick.returns( true );
+		config.isMediaViewerEnabledOnClick.returns( true );
+		panel.initializePreferenceLinks();
+		assert.ok( $qf.find( '.mw-mmv-optout-link' ).text().match( /disable/i ), 'Optout link is visible when MediaViewer can be disabled' );
+
+		deferred = $.Deferred();
+		config.setMediaViewerEnabledOnClick.returns( deferred );
+		$qf.find( '.mw-mmv-optout-link' ).click();
+		assert.ok( config.setMediaViewerEnabledOnClick.calledWith( false ), 'When MediaViewer is active, it is disabled on click' );
+		assert.ok( $qf.find( '.mw-mmv-optout-link' ).is( '.pending' ), 'Pending class is set while disabling in progress' );
+		config.setMediaViewerEnabledOnClick.reset();
+		$qf.find( '.mw-mmv-optout-link' ).click();
+		assert.ok( !config.setMediaViewerEnabledOnClick.called, 'click has no effect when another request is pending' );
+		deferred.resolve();
+		assert.ok( !$qf.find( '.mw-mmv-optout-link' ).is( '.pending' ), 'Pending class removed after change has finished' );
+
+		config.isMediaViewerEnabledOnClick.returns( false );
+		panel.initializePreferenceLinks();
+		assert.ok( $qf.find( '.mw-mmv-optout-link' ).text().match( /enable/i ), 'Optin link is visible when MediaViewer can be enabled' );
+
+		config.setMediaViewerEnabledOnClick.reset();
+		config.setMediaViewerEnabledOnClick.returns( deferred );
+		$qf.find( '.mw-mmv-optout-link' ).click();
+		assert.ok( config.setMediaViewerEnabledOnClick.calledWith( true ), 'When MediaViewer is inactive, it is enabled on click' );
+
+		mw.config.set( 'wgMediaViewerIsInBeta', oldWgMediaViewerIsInBeta );
+	} );
 }( mediaWiki, jQuery ) );
