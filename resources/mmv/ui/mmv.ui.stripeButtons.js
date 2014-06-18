@@ -94,7 +94,10 @@
 		this.buttons.$descriptionPage = this.createButton(
 			'mw-mmv-stripe-button-commons',
 			mw.message( 'multimediaviewer-description-page-button-text' ).plain()
-		);
+		).click( function () {
+			mw.mmv.actionLogger.log( 'file-description-page-abovefold' );
+		} );
+
 	};
 
 	/**

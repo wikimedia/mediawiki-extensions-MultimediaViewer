@@ -64,6 +64,7 @@
 		'defullscreen': 'User exited fullscreen mode.',
 		'close': 'User closed Media Viewer.',
 		'file-description-page': 'User opened the file description page.',
+		'file-description-page-abovefold': 'User opened the file description page via the above-the-fold button.',
 		'use-this-file-open': 'User opened the dialog to use this file.',
 		'image-view': 'User viewed an image.',
 		'metadata-open': 'User opened the metadata panel.',
