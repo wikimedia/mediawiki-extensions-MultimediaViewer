@@ -15,6 +15,12 @@
 	user-select: none;
 }
 
+.opacity(@value) {
+	opacity: @value;
+	filter: e(%("alpha(opacity=%s)", round(@value * 100))); // IE6-8
+	zoom: 1; // IE 6-7 hasLayout hack
+}
+
 // from http://stackoverflow.com/a/12178019/323407
 .fade-out(@backgroundColor: white) {
 	@invisible: fadeout(@backgroundColor, 100%);
@@ -25,7 +31,7 @@
 	background-image: -webkit-linear-gradient(top, @invisible 0%, @backgroundColor 100%); // Chrome10+,Safari5.1+
 	background-image: -o-linear-gradient(top, @invisible 0%, @backgroundColor 100%); // Opera 11.10+
 	background-image: -ms-linear-gradient(top, @invisible 0%, @backgroundColor 100%); // IE10+
-	filter: e(%("progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 )",
+	filter: e(%("progid:DXImageTransform.Microsoft.gradient( startColorstr='#%s', endColorstr='#%s',GradientType=0 )",
 		rgbahex(@invisible), rgbahex(@backgroundColor))); // IE6-9
 }
 
