@@ -25,6 +25,7 @@
 	"multimediaviewer-about-mmv": "關於媒體檢視器",
 	"multimediaviewer-discuss-mmv": "討論此功能",
 	"multimediaviewer-help-mmv": "幫助",
+	"multimediaviewer-optout-help": "點按此連結將禁用縮略圖中的媒體檢視器；這將帶你直接打開檔案描述頁。你仍能夠點按「展開」按鍵於此重新啟用；並通過同連接於條目中重啟。",
 	"multimediaviewer-geolocation": "位置：",
 	"multimediaviewer-fileusage-count": "於$1個頁面使用",
 	"multimediaviewer-fileusage-count-more": "多於$1個頁面使用",

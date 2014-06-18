@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"KuboF"
+			"KuboF",
+			"Tlustulimu"
 		]
 	},
-	"multimediaviewer-permission-viewmore": "Montri pli"
+	"multimediaviewer-permission-viewmore": "Montri pli",
+	"multimediaviewer-download-preview-link-title": "Malfermi en retumilo"
 }
