@@ -903,7 +903,7 @@ $wgExtensionFunctions[] = function () {
 	global $wgResourceModules, $wgEventLoggingSchemas;
 
 	if ( isset( $wgResourceModules['ext.eventLogging'] ) ) {
-		$wgEventLoggingSchemas[ 'MediaViewer' ] = 8572637;
+		$wgEventLoggingSchemas[ 'MediaViewer' ] = 8922098;
 		$wgEventLoggingSchemas[ 'MultimediaViewerNetworkPerformance' ] = 7917896;
 		$wgEventLoggingSchemas[ 'MultimediaViewerDuration' ] = 8572641;
 
