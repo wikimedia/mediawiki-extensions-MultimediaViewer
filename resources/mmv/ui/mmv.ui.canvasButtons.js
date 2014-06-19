@@ -46,6 +46,7 @@
 			} )
 			.addClass( 'mw-mmv-viewfile' )
 			.click( function () {
+				mw.mmv.actionLogger.log( 'view-original-file' );
 				$( document ).trigger( 'mmv-viewfile' );
 			} );
 
