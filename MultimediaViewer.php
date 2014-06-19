@@ -534,6 +534,8 @@ $wgResourceModules += array(
 			'multimediaviewer-help-mmv',
 			'multimediaviewer-optout-mmv',
 			'multimediaviewer-optin-mmv',
+			'multimediaviewer-optout-pending-mmv',
+			'multimediaviewer-optin-pending-mmv',
 			'multimediaviewer-optout-help',
 			'multimediaviewer-optin-help',
 
