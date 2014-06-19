@@ -106,7 +106,7 @@ def check_elements_in_viewer_for_image1(page)
   # Image metadata links
   page.mmv_image_metadata_links_wrapper_element.when_present.should be_visible
   # Repo link
-  page.mmv_image_metadata_repo_link_element.when_present.text.should match /Learn more on Wikimedia Commons/
+  page.mmv_image_metadata_repo_link_element.when_present.text.should match /More details about this file on Wikimedia Commons/
   page.mmv_image_metadata_repo_link_element.when_present.attribute('href').should match /boats_in_Kerala.jpg$/
   # Category links
   page.mmv_image_metadata_category_links_wrapper_element.when_present.should be_visible
@@ -150,7 +150,7 @@ def check_elements_in_viewer_for_image2(page)
   # Image metadata links
   page.mmv_image_metadata_links_wrapper_element.when_present.should be_visible
   # Repo link
-  page.mmv_image_metadata_repo_link_element.when_present.text.should match /Learn more on Wikimedia Commons/
+  page.mmv_image_metadata_repo_link_element.when_present.text.should match /More details about this file on Wikimedia Commons/
   page.mmv_image_metadata_repo_link_element.when_present.attribute('href').should match /All_Hands_Offsite.*\.jpg$/
   # Category links
   page.mmv_image_metadata_category_links_wrapper_element.when_present.should be_visible
