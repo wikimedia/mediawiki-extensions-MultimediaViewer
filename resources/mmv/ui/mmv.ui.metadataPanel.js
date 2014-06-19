@@ -425,6 +425,8 @@
 					changePreferencePromise.done( function () {
 						panel.setOptInOutLink( panel.$mmvOptOutLink, newOptInStatus );
 						panel.$mmvOptOutLink.tipsy( 'hide' );
+						mw.mmv.actionLogger.log( 'opt' + ( newOptInStatus ? 'in' : 'out' )
+							+ '-' + ( mw.user.isAnon() ? 'anon' : 'loggedin' ) );
 					} ).fail( function () {
 						mw.notify( 'Error while trying to change preference' );
 					} );

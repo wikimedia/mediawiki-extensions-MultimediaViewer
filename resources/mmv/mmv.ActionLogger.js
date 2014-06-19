@@ -77,7 +77,11 @@
 		'author-page': 'User opened the author page.',
 		'source-page': 'User opened the source page.',
 		'hash-load': 'User loaded the image via a hash on pageload.',
-		'history-navigation': 'User navigated with the browser history.'
+		'history-navigation': 'User navigated with the browser history.',
+		'optout-loggedin': 'opt-out (via quick link at bottom of metadata panel) by logged-in user',
+		'optout-anon': 'opt-out by anonymous user',
+		'optin-loggedin': 'opt-in (via quick link at bottom of metadata panel) by logged-in user',
+		'optin-anon': 'opt-in by anonymous user'
 	};
 
 	/**
