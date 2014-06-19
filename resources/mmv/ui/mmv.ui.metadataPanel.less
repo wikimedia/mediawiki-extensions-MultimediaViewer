@@ -22,15 +22,13 @@
 	position: relative;
 }
 
-.mw-mmv-license,
-.mw-mmv-title-contain {
-	vertical-align: middle;
-}
-
 .mw-mmv-title-para {
-	margin-bottom: 1px;
-	margin-top: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 10px 0 0;
+}
+.mw-mmv-credit {
+	margin: 0;
+	padding: 5px 0;
 }
 
 .mw-mmv-title {
@@ -166,7 +164,10 @@
 }
 
 .mw-mmv-title-credit {
-	height: @metadatabar-top-content-height;
+	height: @metadatabar-above-fold-height;
+	.jq-fullscreened & {
+		height: @metadatabar-above-fold-fullscreen-height;
+	}
 }
 
 .mw-mmv-license {

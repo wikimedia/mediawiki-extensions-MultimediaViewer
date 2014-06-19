@@ -22,12 +22,11 @@
 		}
 	} ) );
 
-	QUnit.test( 'empty()', 2, function ( assert ) {
+	QUnit.test( 'empty()', 1, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			scroller = new mw.mmv.ui.MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ) );
 
 		scroller.empty();
-		assert.ok( !scroller.$dragIcon.hasClass( 'pointing-down' ), 'We successfully reset the chevron' );
 		assert.ok( !scroller.$container.hasClass( 'invite' ), 'We successfully reset the invite' );
 	} );
 
@@ -76,19 +75,23 @@
 
 		scroller.scroll();
 
-		assert.ok( !scroller.savedHasOpenedMetadata, 'No localStorage, we don\'t try to save the opened flag' );
+		assert.strictEqual( scroller.hasOpenedMetadata, true, 'We store hasOpenedMetadata flag for the session' );
 	} );
 
-	QUnit.test( 'localStorage is full', 1, function( assert ) {
+	QUnit.test( 'localStorage is full', 2, function( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			scroller = new mw.mmv.ui.MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ),
-				{ getItem : $.noop, setItem : function() { throw 'I am full'; } } );
+			localStorage = { getItem : $.noop, setItem : this.sandbox.stub().throwsException( 'I am full' ) },
+			scroller = new mw.mmv.ui.MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ), localStorage );
 
 		this.sandbox.stub( $, 'scrollTo', function() { return { scrollTop : function() { return 10; } }; } );
 
 		scroller.scroll();
 
-		assert.ok( scroller.savedHasOpenedMetadata, 'Full localStorage, we don\'t try to save the opened flag more than once' );
+		assert.strictEqual( scroller.hasOpenedMetadata, true, 'We store hasOpenedMetadata flag for the session' );
+
+		scroller.scroll();
+
+		assert.ok( localStorage.setItem.calledOnce, 'localStorage only written once' );
 	} );
 
 	/**
@@ -135,7 +138,7 @@
 		} );
 	}
 
-	QUnit.test( 'Metadata scrolling', 12, function ( assert ) {
+	QUnit.test( 'Metadata scrolling', 7, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			$container = $( '<div>' ).css( 'height', 100 ).appendTo( $qf ),
 			$controlBar = $( '<div>' ).css( 'height', 50 ).appendTo( $container ),
@@ -154,8 +157,6 @@
 		scroller.attach();
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0, 'scrollTo scrollTop should be set to 0' );
-		assert.ok( !scroller.$dragIcon.hasClass( 'pointing-down' ),
-			'Chevron pointing up' );
 
 		assert.ok( !fakeLocalStorage.setItem.called, 'The metadata hasn\'t been open yet, no entry in localStorage' );
 
@@ -163,8 +164,6 @@
 		scroller.keydown( keydown );
 		this.clock.tick( scroller.toggleScrollDuration );
 
-		assert.ok( scroller.$dragIcon.hasClass( 'pointing-down' ),
-			'Chevron pointing down after pressing up arrow' );
 		assert.ok( fakeLocalStorage.setItem.calledWithExactly( 'mmv.hasOpenedMetadata', true ), 'localStorage knows that the metadata has been open' );
 
 		keydown.which = 40; // Down arrow
@@ -173,22 +172,15 @@
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0,
 			'scrollTo scrollTop should be set to 0 after pressing down arrow' );
-		assert.ok( !scroller.$dragIcon.hasClass( 'pointing-down' ),
-			'Chevron pointing up after pressing down arrow' );
 
 		scroller.$dragIcon.click();
 		this.clock.tick( scroller.toggleScrollDuration );
-
-		assert.ok( scroller.$dragIcon.hasClass( 'pointing-down' ),
-			'Chevron pointing down after clicking the chevron once' );
 
 		scroller.$dragIcon.click();
 		this.clock.tick( scroller.toggleScrollDuration );
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0,
 			'scrollTo scrollTop should be set to 0 after clicking the chevron twice' );
-		assert.ok( !scroller.$dragIcon.hasClass( 'pointing-down' ),
-			'Chevron pointing up after clicking the chevron twice' );
 
 		// Unattach lightbox from document
 		scroller.unattach();
