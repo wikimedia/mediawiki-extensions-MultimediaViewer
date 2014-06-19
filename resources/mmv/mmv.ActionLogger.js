@@ -63,6 +63,7 @@
 		'fullscreen': 'User entered fullscreen mode.',
 		'defullscreen': 'User exited fullscreen mode.',
 		'close': 'User closed Media Viewer.',
+		'view-original-file': 'User clicked on the direct link to the original file',
 		'file-description-page': 'User opened the file description page.',
 		'file-description-page-abovefold': 'User opened the file description page via the above-the-fold button.',
 		'use-this-file-open': 'User opened the dialog to use this file.',
