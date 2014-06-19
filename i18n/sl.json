@@ -10,8 +10,8 @@
 	"multimediaviewer-pref": "Predstavnostni pregledovalnik",
 	"multimediaviewer-pref-desc": "S tem orodjem lahko izboljšate svojo izkušnjo pri ogledovanju večpredstavnostnih vsebin. Orodje prikazuje slike na straneh s sličicami v večji velikosti in v lepšem okvirčku celozaslonskega vmesnika, mogoč pa je tudi celozaslonski prikaz.",
 	"multimediaviewer-file-page": "Pojdi na pripadajočo opisno stran datoteke.",
-	"multimediaviewer-repository": "Več o $1",
-	"multimediaviewer-repository-local": "Preberite več",
+	"multimediaviewer-repository": "Več podrobnosti o datoteki na $1",
+	"multimediaviewer-repository-local": "Več podrobnosti o datoteki",
 	"multimediaviewer-datetime-created": "Ustvarjeno: $1",
 	"multimediaviewer-datetime-uploaded": "Naloženo: $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Naložil|Naložila}}: $1",
@@ -53,5 +53,5 @@
 	"multimediaviewer-small-embed-dimensions": "Majhna $1",
 	"multimediaviewer-feedback-button-text": "Vaša povratna informacija o orodju",
 	"multimediaviewer-description-page-button-text": "Več podrobnosti",
-	"multimediaviewer-description-page-popup-text": "Več podrobnosti na $1"
+	"multimediaviewer-description-page-popup-text": "Več podrobnosti o datoteki na $1"
 }

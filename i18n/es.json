@@ -19,7 +19,7 @@
 	"multimediaviewer-optin-pref": "Habilitar <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Media Viewer]</span>",
 	"multimediaviewer-file-page": "Ir a la página del archivo correspondiente",
 	"multimediaviewer-repository": "Más información en $1",
-	"multimediaviewer-repository-local": "Más información",
+	"multimediaviewer-repository-local": "Más detalles acerca de este archivo",
 	"multimediaviewer-datetime-created": "Creado el: $1",
 	"multimediaviewer-datetime-uploaded": "Subido el: $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Cargado}} por $1",
