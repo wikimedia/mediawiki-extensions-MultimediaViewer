@@ -6,14 +6,15 @@
 			"Rapsar",
 			"SiLveRLeaD",
 			"Sucsuzz",
-			"Meelo"
+			"Meelo",
+			"Sayginer"
 		]
 	},
 	"multimediaviewer-pref": "Ortam Görüntüleyici",
 	"multimediaviewer-pref-desc": "Bu yeni araçla multimedya görüntüleme deneyiminizi geliştirin. Bu sayede küçük sayfaları daha büyük boyutlarda görüntüleyebilirsiniz. Ayrıca görüntüler tam ekran arayüz olarak ve tam boyutlu gösterilir.",
 	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Ortam Görüntüleyicisi]</span>ni Etkinleştir",
-	"multimediaviewer-repository": "$1 üzerinde daha fazla bilgi edinin",
-	"multimediaviewer-repository-local": "Daha fazla bilgi edin",
+	"multimediaviewer-repository": "$1 üzerinde bu dosya hakkında daha fazla bilgi",
+	"multimediaviewer-repository-local": "Bu dosya hakkında daha fazla bilgi",
 	"multimediaviewer-datetime-created": "$1 tarihinde oluşturuldu",
 	"multimediaviewer-userpage-link": "$1 tarafından {{GENDER:$2|yüklendi}}",
 	"multimediaviewer-license-cc-pd": "Kamu Malı",
@@ -51,7 +52,7 @@
 	"multimediaviewer-small-embed-dimensions": "Küçük $1",
 	"multimediaviewer-feedback-popup-text": "Bu yeni ortam görüntüleyici deneyiminizle ilgili geri bildirim bırakın",
 	"multimediaviewer-description-page-button-text": "Daha fazla ayrıntı",
-	"multimediaviewer-description-page-popup-text": "$1 üzerinde daha fazla ayrıntı",
+	"multimediaviewer-description-page-popup-text": "$1 üzerinde bu dosya hakkında daha fazla bilgi",
 	"multimediaviewer-commons-subtitle": "Özgür ortam havuzu",
 	"multimediaviewer-view-expanded": "Görünümü genişlet"
 }

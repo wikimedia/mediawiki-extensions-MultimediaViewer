@@ -20,7 +20,7 @@
 	"multimediaviewer-discuss-mmv": "Dës Funktioun diskutéieren",
 	"multimediaviewer-help-mmv": "Hëllef",
 	"multimediaviewer-optout-mmv": "Media Viewer ausschalten",
-	"multimediaviewer-optin-mmv": "Media Viewer nees aktivéieren",
+	"multimediaviewer-optin-mmv": "Media Viewer aktivéieren",
 	"multimediaviewer-geolocation": "Plaz: $1",
 	"multimediaviewer-fileusage-count": "op {{PLURAL:$1|enger Säit|$1 Säite}} benotzt",
 	"multimediaviewer-fileusage-count-more": "Op méi wéi {{PLURAL:$1|enger Säit|$1 Säite}} benotzt",

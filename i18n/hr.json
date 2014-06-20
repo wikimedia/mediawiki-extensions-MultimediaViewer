@@ -13,6 +13,14 @@
 	"multimediaviewer-about-mmv": "O pregledniku multimedijskih datoteka",
 	"multimediaviewer-discuss-mmv": "Napišite povratnu informaciju",
 	"multimediaviewer-reuse-link": "Uporaba datoteke",
+	"multimediaviewer-viewfile-link": "Pogledaj izvornu datoteku",
+	"multimediaviewer-share-explanation": "Kopirajte i slobodno dijelite poveznicu",
+	"multimediaviewer-embed-explanation": "Koristite ovaj kôd da biste ugradili datoteku",
+	"multimediaviewer-default-embed-dimensions": "Podrazumijevana veličina minijature",
 	"multimediaviewer-description-page-popup-text": "Više detalja na projektu $1",
-	"multimediaviewer-view-expanded": "Povećani prikaz"
+	"multimediaviewer-view-expanded": "Povećani prikaz",
+	"multimediaviewer-close-popup-text": "Zatvori alat (Esc)",
+	"multimediaviewer-fullscreen-popup-text": "Prikaži preko cijelog zaslona",
+	"multimediaviewer-next-image-popup-text": "Prikaži sljedeću sliku",
+	"multimediaviewer-prev-image-popup-text": "Prikaži prethodnu sliku"
 }
