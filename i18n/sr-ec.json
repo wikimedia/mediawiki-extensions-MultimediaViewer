@@ -19,6 +19,8 @@
 	"multimediaviewer-discuss-mmv": "Расправа",
 	"multimediaviewer-help-mmv": "Помоћ",
 	"multimediaviewer-optout-mmv": "Онемогући Media Viewer",
+	"multimediaviewer-optin-mmv": "Омогући Media Viewer",
+	"multimediaviewer-optout-pending-mmv": "Онемогућавање Media Viewer-а",
 	"multimediaviewer-geolocation": "Локација: $1",
 	"multimediaviewer-fileusage-count": "Користи се у $1 {{PLURAL:$1|страници|странице|страница}}",
 	"multimediaviewer-fileusage-count-more": "Користи се у више од $1 {{PLURAL:$1|страница}}",
@@ -45,7 +47,7 @@
 	"multimediaviewer-medium-embed-dimensions": "Средња $1",
 	"multimediaviewer-small-embed-dimensions": "Мала $1",
 	"multimediaviewer-description-page-button-text": "Прикажи детаље",
-	"multimediaviewer-description-page-popup-text": "Прикажи детаље на $1",
+	"multimediaviewer-description-page-popup-text": "Прикажи детаље са пројекта $1",
 	"multimediaviewer-commons-subtitle": "Ризница слободних медијских датотека",
 	"multimediaviewer-view-expanded": "Рашири",
 	"multimediaviewer-close-popup-text": "Затвори ову алатку (Esc)",
@@ -53,5 +55,7 @@
 	"multimediaviewer-defullscreen-popup-text": "Изађи из целог екрана",
 	"multimediaviewer-title-popup-text": "Назив датотеке",
 	"multimediaviewer-author-popup-text": "Аутор",
-	"multimediaviewer-source-popup-text": "Извор"
+	"multimediaviewer-source-popup-text": "Извор",
+	"multimediaviewer-panel-open-popup-text": "Више детаља",
+	"multimediaviewer-panel-close-popup-text": "Мање детаља"
 }

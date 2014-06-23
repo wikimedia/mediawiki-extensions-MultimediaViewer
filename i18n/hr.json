@@ -23,6 +23,7 @@
 	"multimediaviewer-optout-help": "Neće se više koristiti preglednik multimedijskih datoteka. Da biste ga opet omogućili, kliknite na \"Povećani prikaz\" pored slike, te na \"{{int:multimediaviewer-optin-mmv}}\".",
 	"multimediaviewer-optin-help": "Za pregledavanje slika će se koristiti preglednik multimedijskih datoteka.",
 	"multimediaviewer-fileusage-count": "U uporabi na $1 {{PLURAL:$1|stranici|stranice|stranica}}",
+	"multimediaviewer-fileusage-count-more": "U uporabi na više od $1 {{PLURAL:$1|stranice|stranice|stranica}}",
 	"multimediaviewer-fileusage-link": "Prikaži sve uporabe",
 	"multimediaviewer-fileusage-local-section": "Na ovim stranicama",
 	"multimediaviewer-fileusage-global-section": "Na drugim stranicama",
@@ -32,7 +33,7 @@
 	"multimediaviewer-embed-explanation": "Koristite ovaj kôd da biste ugradili datoteku",
 	"multimediaviewer-default-embed-dimensions": "Podrazumijevana veličina minijature",
 	"multimediaviewer-description-page-button-text": "Više detalja",
-	"multimediaviewer-description-page-popup-text": "Više detalja na projektu $1",
+	"multimediaviewer-description-page-popup-text": "Više pojedinosti o ovoj datoteci na projektu $1",
 	"multimediaviewer-commons-subtitle": "Spremište slobodnih datoteka",
 	"multimediaviewer-view-expanded": "Povećani prikaz",
 	"multimediaviewer-close-popup-text": "Zatvori alat (Esc)",
@@ -40,5 +41,8 @@
 	"multimediaviewer-next-image-popup-text": "Prikaži sljedeću sliku",
 	"multimediaviewer-prev-image-popup-text": "Prikaži prethodnu sliku",
 	"multimediaviewer-title-popup-text": "Ime datoteke",
-	"multimediaviewer-panel-open-popup-text": "Više detalja"
+	"multimediaviewer-author-popup-text": "Autor",
+	"multimediaviewer-source-popup-text": "Izvor",
+	"multimediaviewer-panel-open-popup-text": "Više pojedinosti",
+	"multimediaviewer-panel-close-popup-text": "Manje pojedinosti"
 }
