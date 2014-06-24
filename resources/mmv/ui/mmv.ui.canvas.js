@@ -287,7 +287,7 @@
 	C.getLightboxImageWidths = function ( image ) {
 		var thumb = image.thumbnail,
 			$window = $( window ),
-			$aboveFold = $( '.mw-mmv-controls' ),
+			$aboveFold = $( '.mw-mmv-above-fold' ),
 			isFullscreened = !!$aboveFold.closest( '.jq-fullscreened' ).length,
 			// Don't rely on this.$imageWrapper's sizing because it's fragile.
 			// Depending on what the wrapper contains, its size can be 0 on some browsers.
