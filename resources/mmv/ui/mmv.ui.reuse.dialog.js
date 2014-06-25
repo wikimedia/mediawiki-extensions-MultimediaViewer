@@ -25,9 +25,13 @@
 	 * @extends mw.mmv.ui.Element
 	 * @param {jQuery} $container the element to which the dialog will be appended
 	 * @param {jQuery} $openButton the button which opens the dialog. Only used for positioning.
+	 * @param {mw.mmv.Config} config
 	 */
-	function Dialog( $container, $openButton ) {
+	function Dialog( $container, $openButton, config ) {
 		mw.mmv.ui.Element.call( this, $container );
+
+		/** @property {mw.mmv.Config} config - */
+		this.config = config;
 
 		this.$openButton = $openButton;
 
@@ -44,16 +48,25 @@
 		this.isOpen = false;
 
 		/**
-		 * @property {Object.<string, mw.mmv.ui.Element>} List of tab ui objects.
+		 * @property {Object.<string, mw.mmv.ui.Element>} tabs List of tab ui objects.
 		 */
 		this.tabs = null;
+
+		/**
+		 * @property {Object.<string, OO.ui.MenuItemWidget>} ooTabs List of tab OOJS UI objects.
+		 */
+		this.ooTabs = null;
 	}
 	oo.inheritClass( Dialog, mw.mmv.ui.Element );
 	DP = Dialog.prototype;
 
 	// FIXME this should happen outside the dialog and the tabs, but we need to improve
 	DP.initTabs = function () {
-		var shareTab, embedTab, downloadTab;
+		function makeTab( type ) {
+			return new oo.ui.MenuItemWidget( type, {
+				label: mw.message( 'multimediaviewer-' + type + '-tab' ).text()
+			} );
+		}
 
 		this.reuseTabs = new oo.ui.MenuWidget( {
 			classes: [ 'mw-mmv-reuse-tabs' ]
@@ -69,22 +82,20 @@
 			embed: new mw.mmv.ui.reuse.Embed( this.$reuseDialog )
 		};
 
-		shareTab = new oo.ui.MenuItemWidget(
-			'share', { label: mw.message( 'multimediaviewer-share-tab' ).text() } );
-		downloadTab = new oo.ui.MenuItemWidget(
-			'download', { label: mw.message( 'multimediaviewer-download-tab' ).text() } );
-		embedTab = new oo.ui.MenuItemWidget(
-			'embed', { label: mw.message( 'multimediaviewer-embed-tab' ).text() } );
+		this.ooTabs = {
+			share: makeTab( 'share' ),
+			download: makeTab( 'download' ),
+			embed: makeTab( 'embed' )
+		};
 
 		this.reuseTabs.addItems( [
-			downloadTab,
-			shareTab,
-			embedTab
+			this.ooTabs.download,
+			this.ooTabs.share,
+			this.ooTabs.embed
 		] );
 
-		// Default to 'share' tab
-		this.selectedTab = 'download';
-		this.reuseTabs.selectItem( downloadTab );
+		this.selectedTab = this.getLastUsedTab() || 'download';
+		this.reuseTabs.selectItem( this.ooTabs[this.selectedTab] );
 
 		if ( this.dependenciesNeedToBeAttached ) {
 			this.attachDependencies();
@@ -137,7 +148,7 @@
 	/**
 	 * Handles tab selection.
 	 */
-	 DP.handleTabSelection = function ( option ) {
+	DP.handleTabSelection = function ( option ) {
 		var tab;
 
 		this.selectedTab = option.getData();
@@ -149,7 +160,16 @@
 				this.tabs[tab].hide();
 			}
 		}
-	 };
+
+		this.config.setInLocalStorage( 'mmv-lastUsedTab', this.selectedTab );
+	};
+
+	/**
+	 *
+	 */
+	DP.getLastUsedTab = function () {
+		return this.config.getFromLocalStorage( 'mmv-lastUsedTab' );
+	};
 
 	/**
 	 * Registers listeners.

@@ -16,22 +16,23 @@
  */
 
 ( function ( mw, $ ) {
-	function makeReuseDialog() {
-		var $fixture = $( '#qunit-fixture' );
-		return new mw.mmv.ui.reuse.Dialog( $fixture, $( '<div>' ).appendTo( $fixture ) );
+	function makeReuseDialog( sandbox ) {
+		var $fixture = $( '#qunit-fixture'),
+			config = { getFromLocalStorage: sandbox.stub(), setInLocalStorage: sandbox.stub() };
+		return new mw.mmv.ui.reuse.Dialog( $fixture, $( '<div>' ).appendTo( $fixture ), config );
 	}
 
 	QUnit.module( 'mmv.ui.reuse.Dialog', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Sanity test, object creation and UI construction', 2, function ( assert ) {
-		var reuseDialog = makeReuseDialog();
+		var reuseDialog = makeReuseDialog( this.sandbox );
 
 		assert.ok( reuseDialog, 'Reuse UI element is created.' );
 		assert.strictEqual( reuseDialog.$reuseDialog.length, 1, 'Reuse dialog div created.' );
 	} );
 
 	QUnit.test( 'handleOpenCloseClick():', 2, function ( assert ) {
-		var reuseDialog = makeReuseDialog();
+		var reuseDialog = makeReuseDialog( this.sandbox );
 
 		reuseDialog.openDialog = function () {
 			assert.ok( true, 'openDialog called.' );
@@ -55,34 +56,39 @@
 		reuseDialog.handleOpenCloseClick();
 	} );
 
-	QUnit.test( 'handleTabSelection():', 4, function ( assert ) {
-		var reuseDialog = makeReuseDialog();
+	QUnit.test( 'handleTabSelection():', 5, function ( assert ) {
+		var reuseDialog = makeReuseDialog( this.sandbox );
 
 		reuseDialog.initTabs();
 
-		reuseDialog.tabs.share.show = function () {
-			assert.ok( true, 'Share tab shown.' );
-		};
-		reuseDialog.tabs.embed.hide = function () {
-			assert.ok( true, 'Embed tab hidden.' );
-		};
-
 		// Share pane is selected
 		reuseDialog.handleTabSelection( { getData: function () { return 'share'; } } );
-
-		reuseDialog.tabs.share.hide = function () {
-			assert.ok( true, 'Share tab hidden.' );
-		};
-		reuseDialog.tabs.embed.show = function () {
-			assert.ok( true, 'Embed tab shown.' );
-		};
+		assert.ok( reuseDialog.tabs.share.$pane.hasClass( 'active' ), 'Share tab shown.' );
+		assert.ok( !reuseDialog.tabs.embed.$pane.hasClass( 'active' ), 'Embed tab hidden.' );
+		assert.ok( reuseDialog.config.setInLocalStorage.calledWith( 'mmv-lastUsedTab', 'share' ),
+			'Tab state saved in local storage.' );
 
 		// Embed pane is selected
 		reuseDialog.handleTabSelection( { getData: function () { return 'embed'; } } );
+		assert.ok( !reuseDialog.tabs.share.$pane.hasClass( 'active' ), 'Share tab hidden.' );
+		assert.ok( reuseDialog.tabs.embed.$pane.hasClass( 'active' ), 'Embed tab shown.' );
+	} );
+
+	QUnit.test( 'default tab:', 2, function ( assert ) {
+		var reuseDialog;
+
+		reuseDialog = makeReuseDialog( this.sandbox );
+		reuseDialog.initTabs();
+		assert.strictEqual( reuseDialog.selectedTab, 'download', 'Download tab is default' );
+
+		reuseDialog = makeReuseDialog( this.sandbox );
+		reuseDialog.config.getFromLocalStorage.withArgs( 'mmv-lastUsedTab' ).returns( 'share' );
+		reuseDialog.initTabs();
+		assert.strictEqual( reuseDialog.selectedTab, 'share', 'Default can be overridden' );
 	} );
 
 	QUnit.test( 'attach()/unattach():', 2, function ( assert ) {
-		var reuseDialog = makeReuseDialog();
+		var reuseDialog = makeReuseDialog( this.sandbox );
 
 		reuseDialog.initTabs();
 
@@ -126,7 +132,7 @@
 	} );
 
 	QUnit.test( 'start/stopListeningToOutsideClick():', 11, function ( assert ) {
-		var reuseDialog = makeReuseDialog(),
+		var reuseDialog = makeReuseDialog( this.sandbox ),
 			realCloseDialog = reuseDialog.closeDialog;
 
 		reuseDialog.initTabs();
@@ -172,7 +178,7 @@
 	} );
 
 	QUnit.test( 'set()/empty() sanity check:', 1, function ( assert ) {
-		var reuseDialog = makeReuseDialog(),
+		var reuseDialog = makeReuseDialog( this.sandbox ),
 		title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 		src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
 		url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
@@ -192,7 +198,7 @@
 	} );
 
 	QUnit.test( 'openDialog()/closeDialog():', 3, function ( assert ) {
-		var reuseDialog = makeReuseDialog(),
+		var reuseDialog = makeReuseDialog( this.sandbox ),
 		title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 		src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
 		url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',

@@ -246,7 +246,7 @@
 		this.initializeCategories();
 		this.initializeRepoLink();
 
-		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$container, this.buttons.buttons.$reuse );
+		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$container, this.buttons.buttons.$reuse, this.config );
 
 		this.fileUsage = new mw.mmv.ui.FileUsage(
 			$( '<div>' ).appendTo( this.$imageMetadataRight )
