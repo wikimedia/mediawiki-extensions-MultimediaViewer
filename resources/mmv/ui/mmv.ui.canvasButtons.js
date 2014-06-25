@@ -51,20 +51,10 @@
 			} );
 
 		this.$next = $( '<div>' )
-			.prop( 'title', mw.message( 'multimediaviewer-next-image-popup-text' ).text() )
-			.tipsy( {
-				delayIn: tooltipDelay,
-				gravity: this.isRTL() ? 'w' : 'e'
-			} )
 			.addClass( 'mw-mmv-next-image disabled' )
 			.html( '&nbsp;' );
 
 		this.$prev = $( '<div>' )
-			.prop( 'title', mw.message( 'multimediaviewer-prev-image-popup-text' ).text() )
-			.tipsy( {
-				delayIn: tooltipDelay,
-				gravity: this.isRTL() ? 'e' : 'w'
-			} )
 			.addClass( 'mw-mmv-prev-image disabled' )
 			.html( '&nbsp;' );
 

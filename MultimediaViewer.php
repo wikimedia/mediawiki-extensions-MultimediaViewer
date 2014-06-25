@@ -549,8 +549,6 @@ $wgResourceModules += array(
 			'multimediaviewer-source-popup-text',
 			'multimediaviewer-panel-open-popup-text',
 			'multimediaviewer-panel-close-popup-text',
-			'multimediaviewer-next-image-popup-text',
-			'multimediaviewer-prev-image-popup-text',
 		),
 	),
 
