@@ -5,7 +5,8 @@
 			"Metalhead64",
 			"Snatcher",
 			"Inkowik",
-			"Steinsplitter"
+			"Steinsplitter",
+			"Keegan"
 		]
 	},
 	"multimediaviewer-desc": "Ermöglicht die Darstellung von Vorschaubildern in einer Vollbildschnittstelle",
@@ -43,7 +44,7 @@
 	"multimediaviewer-fileusage-count-more": "Auf mehr als $1 {{PLURAL:$1|Seiten}} verwendet",
 	"multimediaviewer-fileusage-link": "Alle Verwendungen ansehen",
 	"multimediaviewer-fileusage-local-section": "Auf dieser Website",
-	"multimediaviewer-fileusage-global-section": "Auf anderen Webseiten",
+	"multimediaviewer-fileusage-global-section": "Auf anderen Websites",
 	"multimediaviewer-reuse-link": "Diese Datei verwenden",
 	"multimediaviewer-viewfile-link": "Originaldatei ansehen",
 	"multimediaviewer-reuse-loading-placeholder": "Lade …",

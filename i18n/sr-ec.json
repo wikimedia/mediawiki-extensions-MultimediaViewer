@@ -6,6 +6,7 @@
 	},
 	"multimediaviewer-desc-nil": "Опис није доступан.",
 	"multimediaviewer-optin-pref": "Омогући <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Media Viewer]</span>",
+	"multimediaviewer-repository": "Више на пројекту $1",
 	"multimediaviewer-repository-local": "Сазнајте више",
 	"multimediaviewer-datetime-created": "Направљено: $1",
 	"multimediaviewer-datetime-uploaded": "Послато: $1",
