@@ -117,22 +117,36 @@
 
 	/**
 	 * Toggles the metadata div being totally visible.
+	 * @param {string} [forceDirection] 'up' or 'down' makes the panel move on that direction (and is a noop
+	 *  if the panel is already at the upmost/bottommost position); without the parameter, the panel position
+	 *  is toggled. (Partially open counts as open.)
+	 * @return {jQuery.Deferred} a deferred which resolves after the animation has finished.
 	 */
 	MPSP.toggle = function ( forceDirection ) {
-		var scrollTopWhenOpen = this.$container.outerHeight() - this.$controlBar.outerHeight(),
+		var deferred = $.Deferred(),
+			scrollTopWhenOpen = this.$container.outerHeight() - this.$controlBar.outerHeight(),
 			scrollTopWhenClosed = 0,
 			scrollTop = $.scrollTo().scrollTop(),
 			panelIsOpen = scrollTop > scrollTopWhenClosed,
 			scrollTopTarget = panelIsOpen ? scrollTopWhenClosed : scrollTopWhenOpen,
-			wasOpen = scrollTopTarget === scrollTopWhenOpen;
+			isOpening = scrollTopTarget === scrollTopWhenOpen;
 
 		if ( forceDirection ) {
 			scrollTopTarget = forceDirection === 'down' ? scrollTopWhenClosed : scrollTopWhenOpen;
 		}
 
-		mw.mmv.actionLogger.log( wasOpen ? 'metadata-open' : 'metadata-close' );
-
-		$.scrollTo( scrollTopTarget, this.toggleScrollDuration );
+		// don't log / animate if the panel is already in the end position
+		if ( scrollTopTarget === scrollTop ) {
+			deferred.resolve();
+		} else {
+			mw.mmv.actionLogger.log( isOpening ? 'metadata-open' : 'metadata-close' );
+			$.scrollTo( scrollTopTarget, this.toggleScrollDuration, {
+				onAfter: function () {
+					deferred.resolve();
+				}
+			} );
+		}
+		return deferred;
 	};
 
 	/**

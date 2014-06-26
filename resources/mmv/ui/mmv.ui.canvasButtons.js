@@ -183,6 +183,20 @@
 	};
 
 	/**
+	 * Shows usage help when the user clicked on the image (presumably to get to the original file).
+	 */
+	CBP.showImageClickedHelp = function () {
+		var buttons = this;
+
+		this.debouncedTooltipHide = this.debouncedTooltipHide || $.debounce( 3000, function () {
+			buttons.$viewFile.tipsy( 'hide' );
+		} );
+
+		this.$viewFile.tipsy( 'show' );
+		this.debouncedTooltipHide();
+	};
+
+	/**
 	 * Removes all UI things from the DOM, or hides them
 	 */
 	CBP.unattach = function () {
