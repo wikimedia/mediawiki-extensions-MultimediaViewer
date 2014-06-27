@@ -24,7 +24,8 @@
 	 * Class for buttons which are placed on the metadata stripe (the always visible part of the
 	 * metadata panel).
 	 * @constructor
-	 * @param {jQuery} $container
+	 * @param {jQuery} $container the title block (.mw-mmv-title-contain) which wraps the buttons and all
+	 *  other title elements
 	 * @param {Object} localStorage the localStorage object, for dependency injection
 	 */
 	function StripeButtons( $container, localStorage ) {
@@ -60,18 +61,25 @@
 	 * @param {string} popupText HTML code for the popup text
 	 */
 	SBP.createButton = function ( cssClass, text, popupText ) {
-		var tooltipDelay = mw.config.get( 'wgMultimediaViewer' ).tooltipDelay;
+		var button,
+			tooltipDelay = mw.config.get( 'wgMultimediaViewer' ).tooltipDelay;
 
-		return $( '<a>' )
+		button = $( '<a>' )
 			.addClass( 'mw-mmv-stripe-button empty ' + cssClass )
-			// .text( text ) // disabled while we have 3 buttons to save space
-			.prop( 'title', popupText )
 			// elements are right-floated so we use prepend instead of append to keep the order
-			.prependTo( this.$buttonContainer )
-			.tipsy( {
+			.prependTo( this.$buttonContainer );
+
+		if ( text ) {
+			button.text( text ).addClass( 'has-label' );
+		}
+		if ( popupText ) {
+			button.prop( 'title', popupText ).tipsy( {
 				gravity: $( document.body ).hasClass( 'rtl' ) ? 'sw' : 'se',
 				delayIn: tooltipDelay
 			} );
+		}
+
+		return button;
 	};
 
 	/**
@@ -81,7 +89,6 @@
 	SBP.initReuseButton = function() {
 		this.buttons.$reuse = this.createButton(
 			'mw-mmv-stripe-button-reuse',
-			mw.message( 'multimediaviewer-reuse-link' ).text(),
 			mw.message( 'multimediaviewer-reuse-link' ).text()
 		);
 	};
@@ -91,13 +98,17 @@
 	 * Creates a button linking to the file description page.
 	 */
 	SBP.initDescriptionPageButton = function() {
-		this.buttons.$descriptionPage = this.createButton(
-			'mw-mmv-stripe-button-commons',
-			mw.message( 'multimediaviewer-description-page-button-text' ).plain()
-		).click( function () {
-			mw.mmv.actionLogger.log( 'file-description-page-abovefold' );
-		} );
+		var tooltipDelay = mw.config.get( 'wgMultimediaViewer' ).tooltipDelay;
 
+		this.buttons.$descriptionPage = $( '<a>' )
+			.addClass( 'mw-mmv-repo-button empty ' )
+			.prependTo( this.$container )
+			.tipsy( {
+				gravity: $( document.body ).hasClass( 'rtl' ) ? 'se' : 'sw',
+				delayIn: tooltipDelay
+			} ).click( function () {
+				mw.mmv.actionLogger.log( 'file-description-page-abovefold' );
+			} ).prependTo( this.$container );
 	};
 
 	/**
@@ -109,7 +120,7 @@
 
 		this.buttons.$feedback = this.createButton(
 			'mw-mmv-stripe-button-feedback',
-			mw.message( 'multimediaviewer-feedback-button-text' ).plain(),
+			null,
 			mw.message( 'multimediaviewer-feedback-popup-text' ).plain()
 		).attr( {
 			target: '_blank',
@@ -349,14 +360,16 @@
 		} );
 
 		if ( repoInfo.isCommons() ) {
-			this.buttons.$descriptionPage.addClass( 'mw-mmv-stripe-button-commons' );
+			this.buttons.$descriptionPage.addClass( 'mw-mmv-repo-button-commons' );
 		} else {
-			this.buttons.$descriptionPage.addClass( 'mw-mmv-stripe-button-dynamic' );
+			this.buttons.$descriptionPage.addClass( 'mw-mmv-repo-button-dynamic' );
 			if ( repoInfo.favIcon ) {
-				this.setInlineStyle( 'stripe-button-description-page',
+				this.setInlineStyle( 'repo-button-description-page',
 					// needs to be more specific then the fallback rule in stripeButtons.less
-					'.mw-mmv-stripe-button-container .mw-mmv-stripe-button-dynamic:before {' +
+					'html .mw-mmv-repo-button-dynamic {' +
 						'background-image: url("' + repoInfo.favIcon + '");' +
+						// If you use a 16x16 favicon, this will look weird. You shouldn't.
+						'background-size: 32px 32px;' +
 					'}'
 				);
 			}
@@ -374,9 +387,8 @@
 		this.buttons.$reuse.removeClass( 'open' );
 
 		this.buttons.$descriptionPage.attr( { href: null, title: null, 'original-title': null } )
-			.removeClass( 'mw-mmv-stripe-button-dynamic mw-mmv-stripe-button-commons' );
-		$( '.mw-mmv-stripe-button-dynamic-before' ).remove();
-		this.setInlineStyle( 'stripe-button-description-page', null );
+			.removeClass( 'mw-mmv-repo-button-dynamic mw-mmv-repo-button-commons' );
+		this.setInlineStyle( 'repo-button-description-page', null );
 	};
 
 	/**
