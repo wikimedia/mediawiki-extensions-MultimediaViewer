@@ -18,8 +18,8 @@
 			fileUsage = new mw.mmv.ui.FileUsage( $( '#qunit-fixture' ) ),
 			file = new mw.Title( 'File:Foo' ),
 			localUsage = new mw.mmv.model.FileUsage( file, 'local', [
-				{ wiki: null, page: new mw.Title( 'Bar' ) },
-				{ wiki: null, page: new mw.Title( 'Baz' ) }
+				new mw.Title( 'Bar' ),
+				new mw.Title( 'Baz' )
 			] ),
 			globalUsage = new mw.mmv.model.FileUsage( file, 'global', [] );
 
@@ -44,10 +44,10 @@
 			fileUsage = new mw.mmv.ui.FileUsage( $( '#qunit-fixture' ) ),
 			file = new mw.Title( 'File:Foo' ),
 			localUsage = new mw.mmv.model.FileUsage( file, 'local', [
-				{ wiki: null, page: new mw.Title( 'Bar' ) },
-				{ wiki: null, page: new mw.Title( 'Baz' ) },
-				{ wiki: null, page: new mw.Title( 'Boom' ) },
-				{ wiki: null, page: new mw.Title( 'Boing' ) }
+				new mw.Title( 'Bar' ),
+				new mw.Title( 'Baz' ),
+				new mw.Title( 'Boom' ),
+				new mw.Title( 'Boing' )
 			] ),
 			globalUsage = new mw.mmv.model.FileUsage( file, 'global', [] );
 
@@ -70,8 +70,8 @@
 			file = new mw.Title( 'File:Foo' ),
 			localUsage = new mw.mmv.model.FileUsage( file, 'local', [] ),
 			globalUsage = new mw.mmv.model.FileUsage( file, 'global', [
-				{ wiki: 'x.com', page: new mw.Title( 'Bar' ) },
-				{ wiki: 'y.com', page: new mw.Title( 'Baz' ) }
+				new mw.mmv.model.IwTitle( 0, 'Bar', 'x.com', 'http://x.com/wiki/Bar' ),
+				new mw.mmv.model.IwTitle( 0, 'Baz', 'y.com', 'http://x.com/wiki/Baz' )
 			] );
 
 		fileUsage.init();
@@ -98,16 +98,16 @@
 			fileUsage = new mw.mmv.ui.FileUsage( $( '#qunit-fixture' ) ),
 			file = new mw.Title( 'File:Foo' ),
 			localUsage = new mw.mmv.model.FileUsage( file, 'local', [
-				{ wiki: null, page: new mw.Title( 'Bar' ) },
-				{ wiki: null, page: new mw.Title( 'Baz' ) },
-				{ wiki: null, page: new mw.Title( 'Boom' ) },
-				{ wiki: null, page: new mw.Title( 'Boing' ) }
+				new mw.Title( 'Bar' ),
+				new mw.Title( 'Baz' ),
+				new mw.Title( 'Boom' ),
+				new mw.Title( 'Boing' )
 			], totalCount, true ),
 			globalUsage = new mw.mmv.model.FileUsage( file, 'global', [
-				{ wiki: 'x.com', page: new mw.Title( 'Bar' ) },
-				{ wiki: 'x.com', page: new mw.Title( 'Baz' ) },
-				{ wiki: 'y.com', page: new mw.Title( 'Bar' ) },
-				{ wiki: 'y.com', page: new mw.Title( 'Baz' ) }
+				new mw.mmv.model.IwTitle( 0, 'Bar', 'x.com', 'http://x.com/wiki/Bar' ),
+				new mw.mmv.model.IwTitle( 0, 'Baz', 'x.com', 'http://x.com/wiki/Baz' ),
+				new mw.mmv.model.IwTitle( 0, 'Bar', 'y.com', 'http://y.com/wiki/Bar' ),
+				new mw.mmv.model.IwTitle( 0, 'Baz', 'y.com', 'http://y.com/wiki/Baz' )
 			] );
 
 		fileUsage.init();
@@ -129,8 +129,8 @@
 			fileUsage = new mw.mmv.ui.FileUsage( $( '#qunit-fixture' ) ),
 			file = new mw.Title( 'File:Foo' ),
 			localUsage = new mw.mmv.model.FileUsage( file, 'local', [
-				{ wiki: null, page: new mw.Title( 'Bar' ) },
-				{ wiki: null, page: new mw.Title( 'Baz' ) }
+				new mw.Title( 'Bar' ),
+				new mw.Title( 'Baz' )
 			] ),
 			globalUsage = new mw.mmv.model.FileUsage( file, 'global', [] );
 

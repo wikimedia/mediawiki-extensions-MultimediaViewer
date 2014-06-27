@@ -195,6 +195,7 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv/mmv.performance.test.js',
 				'tests/qunit/mmv/mmv.ActionLogger.test.js',
 				'tests/qunit/mmv/model/mmv.model.test.js',
+				'tests/qunit/mmv/model/mmv.model.IwTitle.test.js',
 				'tests/qunit/mmv/model/mmv.model.TaskQueue.test.js',
 				'tests/qunit/mmv/model/mmv.model.License.test.js',
 				'tests/qunit/mmv/model/mmv.model.Image.test.js',
@@ -230,6 +231,7 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv/ui/mmv.ui.reuse.tab.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.reuse.utils.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.truncatableTextField.test.js',
+				'tests/qunit/mmv/globalUsage.test.js',
 				'tests/qunit/mmv/mmv.testhelpers.js',
 			),
 			'dependencies' => array(

@@ -50,8 +50,8 @@
 		imageUsageProvider.get( file ).then( function( fileUsage ) {
 			assert.strictEqual( fileUsage.file, file, 'File is set correctly' );
 			assert.strictEqual( fileUsage.scope, mw.mmv.model.FileUsage.Scope.LOCAL, 'Scope is set correctly' );
-			assert.strictEqual( fileUsage.pages[0].wiki, null, 'Wiki is not set' );
-			assert.strictEqual( fileUsage.pages[0].page.getPrefixedDb(), 'Albert_Einstein', 'Page name is set correctly' );
+			assert.ok ( fileUsage.pages[0] instanceof mw.Title, 'The page is a mw.Title instance' );
+			assert.strictEqual( fileUsage.pages[0].getPrefixedDb(), 'Albert_Einstein', 'Page name is set correctly' );
 			assert.strictEqual( fileUsage.totalCount, 1, 'Count is set correctly' );
 			assert.strictEqual( fileUsage.totalCountIsLowerBound, false, 'Count flag is set correctly' );
 		} ).then( function() {
