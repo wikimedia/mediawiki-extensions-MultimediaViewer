@@ -21,6 +21,7 @@
 	"multimediaviewer-optout-mmv": "Onemogući preglednik multimedijskih datoteka",
 	"multimediaviewer-optin-mmv": "Omogući preglednik multimedijskih datoteka",
 	"multimediaviewer-optout-pending-mmv": "Onemogućavanje preglednika multimedijskih datoteka",
+	"multimediaviewer-optin-pending-mmv": "Omogućavanje preglednika multimedijskih datoteka",
 	"multimediaviewer-optout-help": "Neće se više koristiti preglednik multimedijskih datoteka. Da biste ga opet omogućili, kliknite na \"Povećani prikaz\" pored slike, te na \"{{int:multimediaviewer-optin-mmv}}\".",
 	"multimediaviewer-optin-help": "Za pregledavanje slika će se koristiti preglednik multimedijskih datoteka.",
 	"multimediaviewer-fileusage-count": "U uporabi na $1 {{PLURAL:$1|stranici|stranice|stranica}}",
