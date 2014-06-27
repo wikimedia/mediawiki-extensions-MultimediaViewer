@@ -202,6 +202,8 @@
 
 		this.canvas.unattach();
 
+		this.buttons.unattach();
+
 		this.panel.fileReuse.closeDialog();
 
 		this.clearEvents();

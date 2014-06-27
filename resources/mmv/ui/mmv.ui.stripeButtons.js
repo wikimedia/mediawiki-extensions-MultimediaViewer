@@ -417,6 +417,10 @@
 		this.buttons.$reuse.off( 'click.mmv-stripeButtons' );
 
 		this.clearTimer( 'feedbackTooltip.show' );
+
+		$.each( this.buttons, function ( name, $button ) {
+			$button.tipsy( 'hide' );
+		} );
 	};
 
 	mw.mmv.ui.StripeButtons = StripeButtons;
