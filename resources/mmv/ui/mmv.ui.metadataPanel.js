@@ -60,6 +60,11 @@
 	};
 
 	MPP.unattach = function() {
+		this.$title.tipsy( 'hide' );
+		this.$mmvOptOutLink.tipsy( 'hide' );
+		this.$titleAndCredit.find( '.mw-mmv-author' ).tipsy( 'hide' );
+		this.$titleAndCredit.find( '.mw-mmv-source' ).tipsy( 'hide' );
+
 		this.scroller.unattach();
 		this.buttons.unattach();
 		this.fileReuse.unattach();

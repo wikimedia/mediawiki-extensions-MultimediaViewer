@@ -192,5 +192,14 @@
 		}
 	};
 
+	/**
+	 * Removes all UI things from the DOM, or hides them
+	 */
+	CBP.unattach = function () {
+		this.$viewFile.tipsy( 'hide' );
+		this.$close.tipsy( 'hide' );
+		this.$fullscreen.tipsy( 'hide' );
+	};
+
 	mw.mmv.ui.CanvasButtons = CanvasButtons;
 }( mediaWiki, jQuery, OO ) );
