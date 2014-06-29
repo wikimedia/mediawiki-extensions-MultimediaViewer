@@ -31,6 +31,7 @@
 	"multimediaviewer-optin-mmv": "Медиа қараушыны қосу",
 	"multimediaviewer-optout-pending-mmv": "Медиа қараушы өшірілуде",
 	"multimediaviewer-optin-pending-mmv": "Медиа қараушы қосылуда",
+	"multimediaviewer-optin-help": "Медиа қараушыны суреттерді көрсетуге қолданылады.",
 	"multimediaviewer-geolocation": "Мекені: $1",
 	"multimediaviewer-fileusage-count": "$1 {{PLURAL:$1|бетте|бетте}} қолданылады",
 	"multimediaviewer-fileusage-count-more": "$1 {{PLURAL:$1|беттен|беттен}} көбірек бетте қолданылады",

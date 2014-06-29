@@ -11,7 +11,7 @@
 	"multimediaviewer-optin-pref": "Латае <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Медиа-хьожург]</span>",
 	"multimediaviewer-file-page": "Йолуш йолу файлан агӀонг агӀо",
 	"multimediaviewer-repository": "Мадарра $1 сайтан чохь",
-	"multimediaviewer-repository-local": "Ма-дарра",
+	"multimediaviewer-repository-local": "ХӀокху файлах лаьцна ма-дарра",
 	"multimediaviewer-datetime-created": "Кхоьллина: $1",
 	"multimediaviewer-datetime-uploaded": "Чуяьккхина: $1",
 	"multimediaviewer-userpage-link": "Чуяьккхина {{GENDER:$2|декъашхочо}} $1",
