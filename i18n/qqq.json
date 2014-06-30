@@ -123,8 +123,8 @@
 	"multimediaviewer-source-popup-text": "Tooltip that identifies the source of a file in the media viewer.\n{{Identical|Source}}",
 	"multimediaviewer-panel-open-popup-text": "Tooltip for a button that expands more metadata in the media viewer.\n\nSee also:\n* {{msg-mw|Multimediaviewer-panel-close-popup-text}}",
 	"multimediaviewer-panel-close-popup-text": "Tooltip that closes the extra metadata view in the media viewer.\n\nSee also:\n* {{msg-mw|Multimediaviewer-panel-open-popup-text}}",
-    "multimediaviewer-download-attribution-cta-header": "Header for telling the user that the author of an image must be attributed, during a download action.",
-    "multimediaviewer-download-attribution-cta": "Call to action for a user to find out how to attribute the author of an image.",
-    "multimediaviewer-attr-plain": "Label for a button that lets the user pick plain text as an output format.",
-    "multimediaviewer-attr-html": "Label for a button that lets the user pick HTML as an output format."
+	"multimediaviewer-download-attribution-cta-header": "Header for telling the user that the author of an image must be attributed, during a download action.",
+	"multimediaviewer-download-attribution-cta": "Call to action for a user to find out how to attribute the author of an image.",
+	"multimediaviewer-attr-plain": "Label for a button that lets the user pick plain text as an output format.",
+	"multimediaviewer-attr-html": "Label for a button that lets the user pick HTML as an output format."
 }

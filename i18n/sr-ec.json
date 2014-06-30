@@ -22,6 +22,7 @@
 	"multimediaviewer-optout-mmv": "Онемогући Media Viewer",
 	"multimediaviewer-optin-mmv": "Омогући Media Viewer",
 	"multimediaviewer-optout-pending-mmv": "Онемогућавање Media Viewer-а",
+	"multimediaviewer-optin-pending-mmv": "Омогућавање Media Viewer-а",
 	"multimediaviewer-geolocation": "Локација: $1",
 	"multimediaviewer-fileusage-count": "Користи се у $1 {{PLURAL:$1|страници|странице|страница}}",
 	"multimediaviewer-fileusage-count-more": "Користи се у више од $1 {{PLURAL:$1|страница}}",
