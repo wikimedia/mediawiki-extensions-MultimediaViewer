@@ -110,8 +110,6 @@
 	"multimediaviewer-close-popup-text": "Tooltip for the button that closes the media viewer. \"Esc\" is the label of the keyboard key usually called \"[[:w:Esc key|Escape]]\".",
 	"multimediaviewer-fullscreen-popup-text": "Tooltip for a button that puts the viewer into full screen.",
 	"multimediaviewer-defullscreen-popup-text": "Tooltip for a button that exits fullscreen mode.",
-	"multimediaviewer-next-image-popup-text": "Tooltip for a button that navigates to the next image in a collection.\n\nSee also:\n* {{msg-mw|Multimediaviewer-prev-image-popup-text}}",
-	"multimediaviewer-prev-image-popup-text": "Tooltip for a button that navigates to the previous image in a collection.\n\nSee also:\n* {{msg-mw|Multimediaviewer-next-image-popup-text}}",
 	"multimediaviewer-title-popup-text": "Tooltip that identifies the title of a file in the media viewer.\n{{Identical|Filename}}",
 	"multimediaviewer-author-popup-text": "Tooltip that identifies the author of a file in the media viewer.\n{{Identical|Author}}",
 	"multimediaviewer-source-popup-text": "Tooltip that identifies the source of a file in the media viewer.\n{{Identical|Source}}",
