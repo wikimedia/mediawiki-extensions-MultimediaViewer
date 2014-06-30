@@ -78,13 +78,20 @@
 	 * Byline construction
 	 * @param {string} [author] author name (can contain HTML)
 	 * @param {string} [source] source name (can contain HTML)
-	 * @return {string} byline (can contain HTML)
+	 * @param {Function} [formatterFunction] Format function for the text - defaults to whitelisting HTML links, but all else sanitized.
+	 * @return {string} Byline (can contain HTML)
 	 */
-	EFFP.getByline = function ( author, source ) {
-		author = author && this.htmlUtils.htmlToTextWithLinks( author );
-		source = source && this.htmlUtils.htmlToTextWithLinks( source );
+	EFFP.getByline = function ( author, source, formatterFunction ) {
+		var formatter = this;
 
-		if ( author && source) {
+		formatterFunction = formatterFunction || function ( txt ) {
+			return formatter.htmlUtils.htmlToTextWithLinks( txt );
+		};
+
+		author = author && formatterFunction( author );
+		source = source && formatterFunction( source );
+
+		if ( author && source ) {
 			return mw.message(
 				'multimediaviewer-credit',
 				author,
@@ -96,31 +103,70 @@
 	};
 
 	/**
+	 * Generates the plain text embed code for the image credit line.
+	 * @param {mw.mmv.model.EmbedFileInfo} info
+	 * @return {string}
+	 */
+	EFFP.getCreditText = function ( info ) {
+		var creditText, creditParams,
+			formatter = this,
+			titleText = info.imageInfo.title.getNameText(),
+			titleUrl = this.getLinkUrl( info ),
+			byline = this.getByline( info.imageInfo.author, info.imageInfo.source, function ( txt ) {
+				return formatter.htmlUtils.htmlToText( txt );
+			} );
+
+		creditParams = [
+			'multimediaviewer-text-embed-credit-text-t',
+			titleText
+		];
+
+		if ( byline ) {
+			creditParams[0] += 'b';
+			creditParams.push( byline );
+		}
+		if ( info.imageInfo.license ) {
+			creditParams[0] += 'l';
+			creditParams.push( this.htmlUtils.htmlToText( info.imageInfo.license.longName ) );
+		}
+
+		creditParams[0] += 's';
+		creditParams.push( info.repoInfo.displayName + ' - ' + titleUrl );
+
+		creditText = mw.message.apply( mw, creditParams ).plain();
+
+		return creditText;
+	};
+
+	/**
 	 * Generates the HTML embed code for the image credit line.
 	 * @param {mw.mmv.model.EmbedFileInfo} info
 	 * @return {string}
 	 */
 	EFFP.getCreditHtml = function ( info ) {
-		var creditText, creditFormat, creditParams,
+		var creditText, creditParams,
 			titleText = info.imageInfo.title.getNameText(),
 			titleUrl = this.getLinkUrl( info ),
 			$title = $( '<a>' ).text( titleText ).prop( 'href', titleUrl ),
 			byline = this.getByline( info.imageInfo.author, info.imageInfo.source );
 
-		creditFormat = 't';
-		creditParams = [ this.htmlUtils.jqueryToHtml( $title ) ];
+		creditParams = [
+			'multimediaviewer-html-embed-credit-text-t',
+			this.htmlUtils.jqueryToHtml( $title )
+		];
+
 		if ( byline ) {
-			creditFormat += 'b';
+			creditParams[0] += 'b';
 			creditParams.push( byline );
 		}
 		if ( info.imageInfo.license ) {
-			creditFormat += 'l';
+			creditParams[0] += 'l';
 			creditParams.push( info.imageInfo.license.getShortLink() );
 		}
-		creditFormat += 's';
+
+		creditParams[0] += 's';
 		creditParams.push( this.getSiteLink( info ) );
 
-		creditParams.unshift( 'multimediaviewer-html-embed-credit-text-' + creditFormat );
 		creditText = mw.message.apply( mw, creditParams ).plain();
 
 		return creditText;

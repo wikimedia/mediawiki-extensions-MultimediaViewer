@@ -579,6 +579,14 @@ $wgResourceModules += array(
 		'messages' => array(
 			'multimediaviewer-credit',
 
+			'multimediaviewer-text-embed-credit-text-tbls',
+			'multimediaviewer-text-embed-credit-text-tls',
+			'multimediaviewer-text-embed-credit-text-tbs',
+			'multimediaviewer-text-embed-credit-text-tbl',
+			'multimediaviewer-text-embed-credit-text-tb',
+			'multimediaviewer-text-embed-credit-text-ts',
+			'multimediaviewer-text-embed-credit-text-tl',
+
 			'multimediaviewer-html-embed-credit-text-tbls',
 			'multimediaviewer-html-embed-credit-text-tls',
 			'multimediaviewer-html-embed-credit-text-tbs',
@@ -711,6 +719,7 @@ $wgResourceModules += array(
 			'mediawiki.ui.button',
 			'mmv.ui.reuse.tab',
 			'mmv.ui.reuse.utils',
+			'mmv.embedFileFormatter',
 		),
 
 		'messages' => array(
@@ -722,6 +731,10 @@ $wgResourceModules += array(
 			'multimediaviewer-download-large-button-name',
 			'multimediaviewer-embed-dimensions',
 			'multimediaviewer-embed-dimensions-with-file-format',
+			'multimediaviewer-download-attribution-cta-header',
+			'multimediaviewer-download-attribution-cta',
+			'multimediaviewer-attr-plain',
+			'multimediaviewer-attr-html',
 		),
 	),
 

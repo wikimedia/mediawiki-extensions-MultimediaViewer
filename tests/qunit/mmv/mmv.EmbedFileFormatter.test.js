@@ -179,4 +179,44 @@
 			'Wikitext generated correctly.' );
 	} );
 
+	QUnit.test( 'getCreditText():', 2, function ( assert ) {
+		var txt, formatter = new mw.mmv.EmbedFileFormatter();
+
+		this.sandbox.stub( formatter, 'getLinkUrl' ).returns( 'quuuux' );
+
+		txt = formatter.getCreditText( {
+			repoInfo: {
+				displayName: 'Localcommons'
+			},
+
+			imageInfo: {
+				author: 'Author',
+				source: 'Source',
+				title: {
+					getNameText: function () { return 'Image Title'; }
+				}
+			}
+		} );
+
+		assert.strictEqual( txt, '"Image Title" by Author - Source. Via Localcommons - quuuux.', 'Sanity check' );
+
+		txt = formatter.getCreditText( {
+			repoInfo: {
+				displayName: 'Localcommons'
+			},
+
+			imageInfo: {
+				author: 'Author',
+				source: 'Source',
+				title: {
+					getNameText: function () { return 'Image Title'; }
+				},
+				license: {
+					longName: 'Do What the Fuck You Want Public License'
+				}
+			}
+		} );
+
+		assert.strictEqual( txt, '"Image Title" by Author - Source. Licensed under Do What the Fuck You Want Public License via Localcommons - quuuux.', 'License message works' );
+	} );
 }( mediaWiki ) );
