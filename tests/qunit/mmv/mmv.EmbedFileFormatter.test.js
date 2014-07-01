@@ -198,7 +198,7 @@
 			}
 		} );
 
-		assert.strictEqual( txt, '"Image Title" by Author - Source. Via Localcommons - quuuux.', 'Sanity check' );
+		assert.strictEqual( txt, '"Image Title" by Author - Source. Via Localcommons - quuuux', 'Sanity check' );
 
 		txt = formatter.getCreditText( {
 			repoInfo: {
@@ -217,6 +217,6 @@
 			}
 		} );
 
-		assert.strictEqual( txt, '"Image Title" by Author - Source. Licensed under Do What the Fuck You Want Public License via Localcommons - quuuux.', 'License message works' );
+		assert.strictEqual( txt, '"Image Title" by Author - Source. Licensed under Do What the Fuck You Want Public License via Localcommons - quuuux', 'License message works' );
 	} );
 }( mediaWiki ) );
