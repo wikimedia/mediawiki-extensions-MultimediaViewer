@@ -1,7 +1,8 @@
 @mw-ui-constructive-button-color: #00af89;
 @pane-padding: 10px;
 @attribution-color: #f2f2f2;
-@attribution-logo-size: 64px;
+@attribution-color-highlighted: #f5f5f5;
+@attribution-logo-size: 40px;
 
 .mw-mlb-download-pane {
 	padding: 0 @pane-padding;
@@ -24,11 +25,14 @@
 		background-position: center center;
 		background-repeat: no-repeat;
 		background-color: @mw-ui-constructive-button-color;
-		border:0;
+		border: 1px solid @mw-ui-constructive-button-color;
 		border-top-left-radius: 0;
 		border-bottom-left-radius: 0;
 		border-left: 1px solid mix(#000, @mw-ui-constructive-button-color, 20%);
 		background-image: /* @embed */ url(../img/down.svg);
+		&:hover {
+			border-bottom: 1px solid mix(#000, @mw-ui-constructive-button-color, 20%);
+		}
 	}
 
 	.multimediaviewer-download-image-size-name {
@@ -86,13 +90,19 @@
 		left: 0;
 		right: 0;
 		padding: 0 @pane-padding @pane-padding;
-
 		background-color: @attribution-color;
+		color: #555;
+
+		&:hover {
+			background-color: @attribution-color-highlighted;
+			color: #333;
+		}
 
 		&-how {
 			position: relative;
 			display: block;
 			padding: 5px;
+			margin-bottom: 0;
 
 			.mw-mmv-download-attribution-close-button {
 				cursor: pointer;
@@ -112,10 +122,20 @@
 			font-weight: bold;
 		}
 
+		&-cta-header {
+			margin-bottom: 0;
+		}
+
+		&-cta-invite {
+			font-size: small;
+			margin: 0;
+			color: #777;
+		}
+
 		&-cta {
 			cursor: pointer;
 			display: none;
-			padding-left: @attribution-logo-size + 7px;
+			padding-left: @attribution-logo-size + 10px;
 
 			/* @embed */
 			background-image: url(img/user-ltr.svg);
