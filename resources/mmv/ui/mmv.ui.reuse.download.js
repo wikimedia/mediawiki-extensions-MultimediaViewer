@@ -33,7 +33,7 @@
 		/** @property {mw.mmv.ui.reuse.Utils} utils - */
 		this.utils = new mw.mmv.ui.reuse.Utils();
 
-		this.$pane.addClass( 'mw-mlb-download-pane' );
+		this.$pane.addClass( 'mw-mmv-download-pane' );
 		this.$pane.appendTo( this.$container );
 
 		this.createDownloadButton( this.$pane );
@@ -72,18 +72,18 @@
 		this.$downloadButton = $( '<a>' )
 			.attr( 'target', '_blank' )
 			.attr( 'download', '' )
-			.addClass( 'mw-ui-button mw-ui-constructive multimediaviewer-download-button' );
+			.addClass( 'mw-ui-button mw-ui-constructive mw-mmv-download-button' );
 
 		this.$selectionArrow = $( '<span>' )
-			.addClass( 'mw-ui-button mw-mlb-download-select-menu' )
+			.addClass( 'mw-ui-button mw-mmv-download-select-menu' )
 			.append(
 				$( '<span>' )
-					.addClass( 'multimediaviewer-download-image-size-name' )
+					.addClass( 'mw-mmv-download-image-size-name' )
 					.html( '&nbsp;' )
 			)
 			.append(
 				$( '<span>' )
-					.addClass( 'multimediaviewer-download-image-size' )
+					.addClass( 'mw-mmv-download-image-size' )
 					.html( '&nbsp;' )
 			);
 
@@ -100,7 +100,7 @@
 	DP.createSizePulldownMenu = function ( $container ) {
 		this.downloadSizeMenu = this.utils.createPulldownMenu(
 			[ 'original', 'small', 'medium', 'large' ],
-			[ 'mw-mlb-download-size' ],
+			[ 'mw-mmv-download-size' ],
 			'original'
 		);
 
@@ -115,7 +115,7 @@
 	DP.createPreviewLink = function ( $container ) {
 		this.$previewLink = $( '<a>' )
 			.attr( 'target', '_blank' )
-			.addClass( 'mw-mlb-download-preview-link' )
+			.addClass( 'mw-mmv-download-preview-link' )
 			.text( mw.message( 'multimediaviewer-download-preview-link-title' ).text() )
 			.appendTo( $container );
 	};
@@ -289,8 +289,8 @@
 
 		// Update button label and size strings to reflect new selected size
 		this.$downloadButton.html(
-			'<span class="multimediaviewer-download-image-size-name">' + sizeClasMessage + '</span>'
-				+ '<span class="multimediaviewer-download-image-size">' + sizeMessage + '</span>'
+			'<span class="mw-mmv-download-image-size-name">' + sizeClasMessage + '</span>'
+				+ '<span class="mw-mmv-download-image-size">' + sizeMessage + '</span>'
 		);
 	};
 
