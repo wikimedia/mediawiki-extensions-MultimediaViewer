@@ -122,6 +122,9 @@
 		 * @property {number}
 		 */
 		this.metadataDisplayedCount = 0;
+
+		/** @property {string} documentTitle base document title, MediaViewer will expand this */
+		this.documentTitle = document.title;
 	}
 
 	MMVP = MultimediaViewer.prototype;
@@ -794,8 +797,10 @@
 	 * Handles close event coming from the lightbox
 	 */
 	MMVP.close = function () {
+		var windowTitle = this.createDocumentTitle( null );
+
 		if ( comingFromHashChange === false ) {
-			$( document ).trigger( $.Event( 'mmv-hash', { hash : '#' } ) );
+			$( document ).trigger( $.Event( 'mmv-hash', { hash : '#', title: windowTitle } ) );
 		} else {
 			comingFromHashChange = false;
 		}
@@ -813,11 +818,13 @@
 		var route = this.router.parseLocation( window.location );
 
 		if ( route instanceof mw.mmv.routing.ThumbnailRoute ) {
+			document.title = this.createDocumentTitle( route.fileTitle );
 			this.loadImageByTitle( route.fileTitle );
 		} else if ( this.isOpen ) {
 			// This allows us to avoid the mmv-hash event that normally happens on close
 			comingFromHashChange = true;
 
+			document.title = this.createDocumentTitle( null );
 			if ( this.ui ) {
 				// FIXME triggers mmv-close event, which calls viewer.close()
 				this.ui.unattach();
@@ -828,11 +835,26 @@
 	};
 
 	MMVP.setHash = function() {
-		var route, hashFragment;
+		var route, windowTitle, hashFragment;
 		if ( !this.comingFromHashChange ) {
 			route = new mw.mmv.routing.ThumbnailRoute( this.currentImageFileTitle );
 			hashFragment = '#' + this.router.createHash( route );
-			$( document ).trigger( $.Event( 'mmv-hash', { hash : hashFragment } ) );
+			windowTitle = this.createDocumentTitle( this.currentImageFileTitle );
+			$( document ).trigger( $.Event( 'mmv-hash', { hash : hashFragment, title: windowTitle } ) );
+		}
+	};
+
+	/**
+	 * Creates a string which can be shown as document title (the text at the top of the browser window).
+	 * @param {mw.Title|null} imageTitle the title object for the image which is displayed; null when the
+	 *  viewer is being closed
+	 * @return {string}
+	 */
+	MMVP.createDocumentTitle = function ( imageTitle ) {
+		if ( imageTitle ) {
+			return imageTitle.getNameText() + ' - ' + this.documentTitle;
+		} else {
+			return this.documentTitle;
 		}
 	};
 

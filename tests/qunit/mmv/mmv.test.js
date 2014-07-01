@@ -596,4 +596,23 @@
 
 		mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing = oldUseThumbnailGuessing;
 	} );
+
+	QUnit.test( 'document.title', 2, function ( assert ) {
+		var viewer = new mw.mmv.MultimediaViewer(),
+			bootstrap = new mw.mmv.MultimediaViewerBootstrap(),
+			title = new mw.Title( 'File:This_should_show_up_in_document_title.png'),
+			oldDocumentTitle = document.title;
+
+		viewer.currentImageFileTitle = title;
+		bootstrap.setupEventHandlers();
+		viewer.setHash();
+
+		assert.ok( document.title.match( title.getNameText() ), 'File name is visible in title' );
+
+		viewer.close();
+		bootstrap.cleanupEventHandlers();
+
+		assert.strictEqual( document.title, oldDocumentTitle, 'Original title restored after viewer is closed'  );
+	} );
+
 }( mediaWiki, jQuery ) );

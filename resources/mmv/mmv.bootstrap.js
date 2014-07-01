@@ -334,7 +334,8 @@
 	 * @param {jQuery.Event} e Custom mmv-hash event
 	 */
 	MMVB.internalHashChange = function ( e ) {
-		var hash = e.hash;
+		var hash = e.hash,
+			title = e.title;
 
 		// The advantage of using pushState when it's available is that it has to ability to truly
 		// clear the hash, not leaving "#" in the history
@@ -345,13 +346,15 @@
 				hash = window.location.href.replace( /#.*$/, '' );
 			}
 
-			this.browserHistory.pushState( null, null, hash );
+			this.browserHistory.pushState( null, title, hash );
 		} else {
 			// Since we voluntarily changed the hash, we don't want MMVB.hash (which will trigger on hashchange event) to treat it
 			this.skipNextHashHandling = true;
 
 			window.location.hash = hash;
 		}
+
+		document.title = title;
 	};
 
 	/**
