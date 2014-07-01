@@ -3,6 +3,7 @@
 @attribution-color: #f2f2f2;
 @attribution-color-highlighted: #f5f5f5;
 @attribution-logo-size: 40px;
+@input-text-color: #333333;
 
 .mw-mmv-download-pane {
 	padding: 0 @pane-padding;
@@ -151,6 +152,16 @@
 
 			.mw-mmv-download-attribution-how {
 				display: none;
+			}
+		}
+
+		.mw-mmv-download-attr-input {
+			// override OOJS-UI fixed width
+			width: auto;
+
+			input[readonly] {
+				color: @input-text-color;
+				text-shadow: none;
 			}
 		}
 	}
