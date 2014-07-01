@@ -56,6 +56,13 @@
 	"multimediaviewer-share-explanation": "Kopeeri ja jaga vabalt seda linki.",
 	"multimediaviewer-embed-wt": "Vikitekst",
 	"multimediaviewer-embed-explanation": "Kasuta seda koodi, et fail manustada.",
+	"multimediaviewer-text-embed-credit-text-tbls": "\"$1\". $2 / $3 / $4",
+	"multimediaviewer-text-embed-credit-text-tls": "\"$1\". $2 / $3",
+	"multimediaviewer-text-embed-credit-text-tbs": "\"$1\". $2 / $3",
+	"multimediaviewer-text-embed-credit-text-tbl": "\"$1\". $2 / $3",
+	"multimediaviewer-text-embed-credit-text-tb": "\"$1\" / $2",
+	"multimediaviewer-text-embed-credit-text-ts": "\"$1\" / $2",
+	"multimediaviewer-text-embed-credit-text-tl": "\"$1\" / $2",
 	"multimediaviewer-html-embed-credit-text-tbls": "$1. Autor: $2. Avaldatud saidil $4 litsentsi $3 all.",
 	"multimediaviewer-html-embed-credit-text-tls": "$1. Avaldatud saidil $3 litsentsi $2 all.",
 	"multimediaviewer-html-embed-credit-text-tbs": "$1. Autor: $2. Avaldatud saidil $3.",
@@ -83,5 +90,8 @@
 	"multimediaviewer-author-popup-text": "Autor",
 	"multimediaviewer-source-popup-text": "Allikas",
 	"multimediaviewer-panel-open-popup-text": "Veel üksikasju",
-	"multimediaviewer-panel-close-popup-text": "Vähem üksikasju"
+	"multimediaviewer-panel-close-popup-text": "Vähem üksikasju",
+	"multimediaviewer-download-attribution-cta-header": "Sul tuleb viidata autorile",
+	"multimediaviewer-download-attribution-cta": "Näita, kuidas",
+	"multimediaviewer-attr-plain": "Lihttekst"
 }

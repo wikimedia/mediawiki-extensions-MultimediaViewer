@@ -77,11 +77,11 @@
 	"multimediaviewer-close-popup-text": "Eszköz bezárása (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Teljes képernyős megjelenítés",
 	"multimediaviewer-defullscreen-popup-text": "Kilépés a teljes képernyős módból",
-	"multimediaviewer-next-image-popup-text": "Következő kép megjelenítése",
-	"multimediaviewer-prev-image-popup-text": "Előző kép megjelenítése",
 	"multimediaviewer-title-popup-text": "Fájlnév",
 	"multimediaviewer-author-popup-text": "Szerző",
 	"multimediaviewer-source-popup-text": "Forrás",
 	"multimediaviewer-panel-open-popup-text": "További részletek",
-	"multimediaviewer-panel-close-popup-text": "Kevesebb részlet"
+	"multimediaviewer-panel-close-popup-text": "Kevesebb részlet",
+	"multimediaviewer-download-attribution-cta": "Mutasd meg, hogyan",
+	"multimediaviewer-attr-plain": "Sima"
 }

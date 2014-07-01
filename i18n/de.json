@@ -62,6 +62,13 @@
 	"multimediaviewer-embed-wt": "Wikitext",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "Diesen Code zum Einbetten der Datei verwenden",
+	"multimediaviewer-text-embed-credit-text-tbls": "„$1“ von $2. Lizenziert unter $3 über $4.",
+	"multimediaviewer-text-embed-credit-text-tls": "„$1“. Lizenziert unter $2 über $3.",
+	"multimediaviewer-text-embed-credit-text-tbs": "„$1“ von $2. Über $3.",
+	"multimediaviewer-text-embed-credit-text-tbl": "„$1“ von $2. Lizenziert unter $3.",
+	"multimediaviewer-text-embed-credit-text-tb": "„$1“ von $2.",
+	"multimediaviewer-text-embed-credit-text-ts": "„$1“. Über $2.",
+	"multimediaviewer-text-embed-credit-text-tl": "„$1“. Lizenziert unter $2.",
 	"multimediaviewer-html-embed-credit-text-tbls": "„$1“ von $2. Lizenziert unter $3 über $4.",
 	"multimediaviewer-html-embed-credit-text-tls": "„$1“. Lizenziert unter $2 über $3.",
 	"multimediaviewer-html-embed-credit-text-tbs": "„$1“ von $2. Über $3.",
@@ -90,5 +97,8 @@
 	"multimediaviewer-author-popup-text": "Urheber",
 	"multimediaviewer-source-popup-text": "Quelle",
 	"multimediaviewer-panel-open-popup-text": "Weitere Einzelheiten",
-	"multimediaviewer-panel-close-popup-text": "Weniger Einzelheiten"
+	"multimediaviewer-panel-close-popup-text": "Weniger Einzelheiten",
+	"multimediaviewer-download-attribution-cta-header": "Du musst den Urheber angeben",
+	"multimediaviewer-download-attribution-cta": "Zeig mir wie",
+	"multimediaviewer-attr-plain": "Klartext"
 }

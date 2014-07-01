@@ -54,6 +54,9 @@
 	"multimediaviewer-embed-wt": "Wikitekst",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "Gebruik deze code om het bestand ergens in te voegen",
+	"multimediaviewer-text-embed-credit-text-tbs": "\"$1\" door $2. Via $3.",
+	"multimediaviewer-text-embed-credit-text-tb": "\"$1\" door $2.",
+	"multimediaviewer-text-embed-credit-text-ts": "\"$1\". Via $2.",
 	"multimediaviewer-html-embed-credit-text-tbls": "\"$1\" door $2. Licentie $3 via $4.",
 	"multimediaviewer-html-embed-credit-text-tls": "\"$1\". Licentie $2 via $3.",
 	"multimediaviewer-html-embed-credit-text-tbs": "\"$1\" door $2. Via $3.",
@@ -77,5 +80,7 @@
 	"multimediaviewer-view-expanded": "Weergave uitbreiden",
 	"multimediaviewer-title-popup-text": "Bestandsnaam",
 	"multimediaviewer-author-popup-text": "Auteur",
-	"multimediaviewer-panel-open-popup-text": "Meer details"
+	"multimediaviewer-panel-open-popup-text": "Meer details",
+	"multimediaviewer-download-attribution-cta": "Laat mij zien hoe",
+	"multimediaviewer-attr-plain": "Zonder opmaak"
 }

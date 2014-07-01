@@ -60,6 +60,13 @@
 	"multimediaviewer-embed-wt": "Wikitext",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "K vložení tohoto souboru použijte tento kód",
+	"multimediaviewer-text-embed-credit-text-tbls": "„$1“ od $2. Licencováno pod $3 via $4.",
+	"multimediaviewer-text-embed-credit-text-tls": "„$1“. Licencováno pod $2 via $3.",
+	"multimediaviewer-text-embed-credit-text-tbs": "„$1“ od $2. Via $3.",
+	"multimediaviewer-text-embed-credit-text-tbl": "„$1“ od $2. Licencováno pod $3.",
+	"multimediaviewer-text-embed-credit-text-tb": "„$1“ od $2.",
+	"multimediaviewer-text-embed-credit-text-ts": "„$1“. Via $2.",
+	"multimediaviewer-text-embed-credit-text-tl": "„$1“. Licencováno pod $2.",
 	"multimediaviewer-html-embed-credit-text-tbls": "„$1“ od $2. Licencováno pod $3 via $4.",
 	"multimediaviewer-html-embed-credit-text-tls": "„$1“. Licencováno pod $2 via $3.",
 	"multimediaviewer-html-embed-credit-text-tbs": "„$1“ od $2. Via $3.",
@@ -88,5 +95,8 @@
 	"multimediaviewer-author-popup-text": "Autor",
 	"multimediaviewer-source-popup-text": "Zdroj",
 	"multimediaviewer-panel-open-popup-text": "Více informací",
-	"multimediaviewer-panel-close-popup-text": "Méně informací"
+	"multimediaviewer-panel-close-popup-text": "Méně informací",
+	"multimediaviewer-download-attribution-cta-header": "Musíte uvést autora",
+	"multimediaviewer-download-attribution-cta": "Ukažte mi, jak",
+	"multimediaviewer-attr-plain": "Prostý text"
 }

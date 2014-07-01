@@ -44,6 +44,7 @@
 	"multimediaviewer-link-to-file": "Link op den Originalfichier",
 	"multimediaviewer-embed-wt": "Wikitext",
 	"multimediaviewer-embed-html": "HTML",
+	"multimediaviewer-text-embed-credit-text-tb": "\"$1\" vum $2.",
 	"multimediaviewer-html-embed-credit-text-tb": "\"$1\" vum $2.",
 	"multimediaviewer-html-embed-credit-text-ts": "\"$1\". Iwwer $2.",
 	"multimediaviewer-embed-byline": "Vum $1",
@@ -62,5 +63,6 @@
 	"multimediaviewer-author-popup-text": "Auteur",
 	"multimediaviewer-source-popup-text": "Quell",
 	"multimediaviewer-panel-open-popup-text": "Méi Detailer",
-	"multimediaviewer-panel-close-popup-text": "Manner Detailer"
+	"multimediaviewer-panel-close-popup-text": "Manner Detailer",
+	"multimediaviewer-download-attribution-cta": "Weist mir wéi"
 }
