@@ -160,6 +160,7 @@
 					.addClass( 'mw-mmv-download-attribution-cta-header' )
 					.text( mw.message( 'multimediaviewer-download-attribution-cta-header' ).text() ),
 				$( '<p>' )
+					.addClass( 'mw-mmv-download-attribution-cta-invite' )
 					.text( mw.message( 'multimediaviewer-download-attribution-cta' ).text() )
 			)
 			.click( function () {
