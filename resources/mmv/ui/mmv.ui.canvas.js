@@ -56,7 +56,7 @@
 		this.$imageWrapper = $imageWrapper;
 
 		/**
-		 * Main container of image and metadata, needed to propagate resize events.
+		 * Main container of image and metadata, needed to propagate events.
 		 * @property {jQuery}
 		 * @private
 		 */
@@ -158,6 +158,10 @@
 			};
 			window.addEventListener( 'resize', this.resizeListener );
 		}
+
+		this.$imageDiv.on( 'click.mmv-canvas', 'img', function () {
+			canvas.$mainWrapper.trigger( $.Event( 'mmv-image-click' ) );
+		} );
 	};
 
 	/**
@@ -170,6 +174,8 @@
 			window.removeEventListener( 'resize', this.resizeListener );
 			this.resizeListener = null;
 		}
+
+		this.$imageDiv.off( 'click.mmv-canvas' );
 	};
 
 	/**

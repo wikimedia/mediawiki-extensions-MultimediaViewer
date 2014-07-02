@@ -384,6 +384,7 @@ $wgResourceModules += array(
 			'mmv.ui',
 			'oojs',
 			'jquery.tipsy',
+			'jquery.throttle-debounce',
 		),
 
 		'messages' => array(
