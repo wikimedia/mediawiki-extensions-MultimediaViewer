@@ -61,6 +61,12 @@
 	"multimediaviewer-embed-wt": "Wikitexto",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "Utiliza este código para incrustar el archivo",
+	"multimediaviewer-text-embed-credit-text-tbls": "«$1» de $2. Disponible bajo la licencia $3 vía $4.",
+	"multimediaviewer-text-embed-credit-text-tbs": "«$1» de $2. Vía $3.",
+	"multimediaviewer-text-embed-credit-text-tbl": "«$1» de $2. Publicado bajo la licencia $3.",
+	"multimediaviewer-text-embed-credit-text-tb": "«$1» de $2.",
+	"multimediaviewer-text-embed-credit-text-ts": "«$1». Vía $2.",
+	"multimediaviewer-text-embed-credit-text-tl": "«$1». Publicado bajo la licencia $2.",
 	"multimediaviewer-html-embed-credit-text-tbls": "«$1» por $2. Disponible bajo la licencia $3 vía $4.",
 	"multimediaviewer-html-embed-credit-text-tls": "«$1». Disponible bajo la licencia $2 vía $3.",
 	"multimediaviewer-html-embed-credit-text-tbs": "«$1» por $2. Vía $3.",
@@ -90,5 +96,7 @@
 	"multimediaviewer-author-popup-text": "Autor",
 	"multimediaviewer-source-popup-text": "Origen",
 	"multimediaviewer-panel-open-popup-text": "Más detalles",
-	"multimediaviewer-panel-close-popup-text": "Menos detalles"
+	"multimediaviewer-panel-close-popup-text": "Menos detalles",
+	"multimediaviewer-download-attribution-cta-header": "Es necesario darle crédito al autor",
+	"multimediaviewer-download-attribution-cta": "Mostrarme cómo"
 }
