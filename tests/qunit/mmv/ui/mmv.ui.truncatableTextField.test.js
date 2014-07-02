@@ -41,7 +41,8 @@
 	} );
 
 	QUnit.test( 'Truncate method', 1, function ( assert ) {
-		var $container = $( '#qunit-fixture' ).empty(),
+		var $truncatedElement,
+			$container = $( '#qunit-fixture' ).empty(),
 			$element = $( '<div>' ).appendTo( $container ),
 			textOne = ( new Array( 50 ) ).join( 'a' ),
 			textTwo = ( new Array( 100 ) ).join( 'b' ),
@@ -54,13 +55,15 @@
 
 		// We only want to test the element exclusion here
 		ttf.truncateText = function () { return ''; };
-		ttf.truncate( $element.get( 0 ), ttf.max, false );
 
-		assert.strictEqual( $container.text(), textOne, 'The too-long element is excluded.' );
+		$truncatedElement = ttf.truncate( $element.get( 0 ), ttf.max, false );
+
+		assert.strictEqual( $truncatedElement.text(), textOne, 'The too-long element is excluded.' );
 	} );
 
 	QUnit.test( 'Truncate method', 2, function ( assert ) {
-		var $container = $( '#qunit-fixture' ).empty(),
+		var $truncatedElement,
+			$container = $( '#qunit-fixture' ).empty(),
 			$element = $( '<div>' ).appendTo( $container ),
 			textOne = ( new Array( 5 ) ).join( 'a' ),
 			textTwo = ( new Array( 5 ) ).join( 'b' ),
@@ -85,12 +88,12 @@
 				)
 		);
 
-		ttf.truncate( $element.get( 0 ), ttf.max, false );
+		$truncatedElement = ttf.truncate( $element.get( 0 ), ttf.max, false );
 
-		assert.strictEqual( $container.text().length, ttf.max, 'Correctly truncated to max length' );
+		assert.strictEqual( $truncatedElement.text().length, ttf.max, 'Correctly truncated to max length' );
 
 		assert.strictEqual(
-				$container.text(),
+			$truncatedElement.text(),
 				textOne + textTwo + textThree + textFour + textFiveTruncated,
 				'Markup truncated correctly.' );
 	} );
@@ -106,19 +109,6 @@
 		assert.strictEqual( newText, ( new Array( 101 ) ).join( 'a' ), 'Text has the right content.' );
 	} );
 
-	QUnit.test( 'Shrink method', 2, function ( assert ) {
-		var $container = $( '#qunit-fixture' ).empty(),
-			$element = $( '<div>' ).appendTo( $container ),
-			ttf = new mw.mmv.ui.TruncatableTextField( $container, $element );
-
-		ttf.truncate = function ( ele, max, ell ) {
-			assert.strictEqual( max, ttf.max, 'Max length is passed in right' );
-			assert.strictEqual( ell, true, 'Ellipses are enabled on the first call' );
-		};
-
-		ttf.shrink();
-	} );
-
 	QUnit.test( 'Different max length - text truncation', 2, function ( assert ) {
 		var $container = $( '#qunit-fixture' ).empty(),
 			$element = $( '<div>' ).appendTo( $container ),
@@ -131,7 +121,8 @@
 	} );
 
 	QUnit.test( 'Different max length - DOM truncation', 1, function ( assert ) {
-		var $container = $( '#qunit-fixture' ).empty(),
+		var $truncatedElement,
+			$container = $( '#qunit-fixture' ).empty(),
 			$element = $( '<div>' ).appendTo( $container ),
 			textOne = ( new Array( 150 ) ).join( 'a' ),
 			textTwo = ( new Array( 100 ) ).join( 'b' ),
@@ -144,9 +135,9 @@
 
 		// We only want to test the element exclusion here
 		ttf.truncateText = function () { return ''; };
-		ttf.truncate( $element.get( 0 ), ttf.max, false );
+		$truncatedElement = ttf.truncate( $element.get( 0 ), ttf.max, false );
 
-		assert.strictEqual( $container.text(), textOne, 'The too-long element is removed.' );
+		assert.strictEqual( $truncatedElement.text(), textOne, 'The too-long element is removed.' );
 	} );
 
 	QUnit.test( 'Changing style for slightly too-long elements', 3, function ( assert ) {
@@ -162,5 +153,30 @@
 		ttf.$element.text( ( new Array( 300 ) ).join( 'a' ) );
 		ttf.changeStyle();
 		assert.ok( ttf.$element.hasClass( 'mw-mmv-truncate-toolong' ), 'Class re-set on too-long text.' );
+	} );
+
+	QUnit.test( 'Shrink/grow', 5, function ( assert ) {
+		var $container = $( '#qunit-fixture' ).empty(),
+			$element = $( '<div>' ).appendTo( $container ),
+			textOne = ( new Array( 50 ) ).join( 'a' ),
+			textTwo = ( new Array( 100 ) ).join( 'b' ),
+			ttf = new mw.mmv.ui.TruncatableTextField( $container, $element );
+
+		ttf.max = 50;
+
+		ttf.set( '<a>' + textOne + '</a><a>' + textTwo + '</a>' ); // calls shrink
+		assert.strictEqual( $element.text(), textOne + '…', 'The too-long element is excluded.' );
+
+		ttf.grow();
+		assert.strictEqual( $element.text(), textOne + textTwo, 'The full text is readable after calling grow().' );
+
+		ttf.grow();
+		assert.strictEqual( $element.text(), textOne + textTwo, 'grow() is idempotent.' );
+
+		ttf.shrink();
+		assert.strictEqual( $element.text(), textOne + '…', 'The text is shortened again after calling shrink().' );
+
+		ttf.shrink();
+		assert.strictEqual( $element.text(), textOne + '…', 'shrink() is idempotent.' );
 	} );
 }( mediaWiki, jQuery ) );

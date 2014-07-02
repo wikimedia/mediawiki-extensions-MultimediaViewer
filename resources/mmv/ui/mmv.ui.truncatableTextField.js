@@ -32,8 +32,17 @@
 	function TruncatableTextField( $container, $element, sizes ) {
 		mw.mmv.ui.Element.call( this, $container );
 
+		/** @property {boolean} truncated state flag */
+		this.truncated = false;
+
 		/** @property {jQuery} $element The DOM element that holds text for this element. */
 		this.$element = $element;
+
+		/** @property {string} originalHtml the original (after sanitizing) element as a HTML string */
+		this.originalHtml = null;
+
+		/** @property {string} truncatedHtml the truncated element as a HTML string */
+		this.truncatedHtml = null;
 
 		/** @property {mw.mmv.HtmlUtils} htmlUtils Our HTML utility instance. */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
@@ -73,28 +82,36 @@
 	 * @override
 	 */
 	TTFP.set = function ( value ) {
-		this.whitelistHtmlAndSet( value );
-		this.shrink();
+		this.originalHtml = this.htmlUtils.htmlToTextWithLinks( value );
 
+		this.$element.empty().append( this.originalHtml );
+		this.changeStyle();
 		this.$element.toggleClass( 'empty', !value );
-	};
+		this.truncated = false;
 
-	/**
-	 * Whitelists HTML in the DOM element. Just a shortcut because
-	 * this class has only one element member. Then sets the text.
-	 * @param {string} value Has unsafe HTML.
-	 */
-	TTFP.whitelistHtmlAndSet = function ( value ) {
-		var $newEle = $.parseHTML( this.htmlUtils.htmlToTextWithLinks( value ) );
-		this.$element.empty().append( $newEle );
+		this.truncatedHtml = this.truncate( this.$element.get( 0 ), this.max, true ).html();
+
+		this.shrink();
 	};
 
 	/**
 	 * Makes the text smaller via a few different methods.
 	 */
 	TTFP.shrink = function () {
-		this.changeStyle();
-		this.$element = this.truncate( this.$element.get( 0 ), this.max, true );
+		if ( !this.truncated ) {
+			this.$element.html( this.truncatedHtml );
+			this.truncated = true;
+		}
+	};
+
+	/**
+	 * Restores original text
+	 */
+	TTFP.grow = function () {
+		if ( this.truncated ) {
+			this.$element.html( this.originalHtml );
+			this.truncated = false;
+		}
 	};
 
 	/**
@@ -156,7 +173,6 @@
 			$result.append( '…' );
 		}
 
-		$( element ).replaceWith( $result );
 		return $result;
 	};
 
