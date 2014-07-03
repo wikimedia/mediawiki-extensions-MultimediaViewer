@@ -116,7 +116,7 @@
 		);
 	} );
 
-	QUnit.test( 'Setting image information works as expected', 19, function ( assert ) {
+	QUnit.test( 'Setting image information works as expected', 18, function ( assert ) {
 		var gender,
 			$qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
@@ -171,9 +171,8 @@
 		assert.ok( !panel.$credit.hasClass( 'empty' ), 'Credit is not empty' );
 		assert.ok( !panel.$datetimeLi.hasClass( 'empty' ), 'Date/Time is not empty' );
 		assert.strictEqual( panel.creditField.$element.find( '.mw-mmv-author' ).text(), imageData.author, 'Author text is correctly set' );
-		assert.strictEqual( panel.creditField.$element.find( '.mw-mmv-author' ).attr( 'original-title' ), 'Author', 'Author tooltip is correctly set' );
 		assert.strictEqual( panel.creditField.$element.find( '.mw-mmv-source' ).html(), 'Lost<a href="foo">Bar</a>', 'Source text is correctly set' );
-		assert.strictEqual( panel.creditField.$element.find( '.mw-mmv-source' ).attr( 'original-title' ), 'Source', 'Source tooltip is correctly set' );
+		assert.strictEqual( panel.creditField.$element.attr( 'original-title' ), 'Author and source information', 'Source tooltip is correctly set' );
 		assert.ok( panel.$datetime.text().indexOf( 'August 26 2013' ) > 0, 'Correct date is displayed' );
 		assert.strictEqual( panel.$license.text(), 'CC BY 2.0', 'License is correctly set' );
 		assert.ok( panel.$license.prop( 'target' ), 'License information opens in new window' );

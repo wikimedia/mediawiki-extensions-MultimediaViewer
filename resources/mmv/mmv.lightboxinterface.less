@@ -59,8 +59,21 @@
 .mw-mmv-above-fold {
 	width: 100%;
 	height: @metadatabar-above-fold-height;
+	// min-height is used when the height is changed to auto to display long texts, to make sure the layout
+	// is not messed up wheen the text is short and does not fill the available place. It is also used by
+	// Javascript to get the "default" height.
+	min-height: @metadatabar-above-fold-height;
 	position: relative;
 	border-bottom: 1px solid #cccccc;
+
+	.jq-fullscreened & {
+		height: @metadatabar-above-fold-fullscreen-height;
+		min-height: @metadatabar-above-fold-fullscreen-height;
+	}
+
+	.mw-mmv-untruncated & {
+		height: auto;
+	}
 }
 
 // Fullscreen styles
@@ -77,10 +90,6 @@
 	.mw-mmv-image-wrapper, // make the image occupy the whole screen
 	.mw-mmv-post-image {  // make sure the panel fits in the screen and does not cause scrollbars to appear
 		bottom: 0px;
-	}
-
-	.mw-mmv-above-fold {
-		height: @metadatabar-above-fold-fullscreen-height;
 	}
 
 	.mw-mmv-post-image {

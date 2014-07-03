@@ -34,8 +34,6 @@
 .mw-mmv-title {
 	font-size: 1.2em;
 	max-width: 60%;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 
 .mw-mmv-image-metadata {
@@ -170,9 +168,13 @@
 }
 
 .mw-mmv-title-credit {
+
 	height: @metadatabar-above-fold-height;
 	.jq-fullscreened & {
 		height: @metadatabar-above-fold-fullscreen-height;
+	}
+	.mw-mmv-untruncated & {
+		height: auto;
 	}
 }
 
@@ -203,13 +205,20 @@
 	text-align: right;
 }
 
-// These are single-line; make sure it looks sane when they are too long
+// These are single-line; make sure it looks sane when they are too long (we truncate the text by character
+// limit, but that's still no guarantee it will fit in one line)
 .mw-mmv-title-para,
 .mw-mmv-credit {
 	overflow: hidden;
 	padding-right: 20px;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+
+	// in untruncated mode, the text can be multiline
+	.mw-mmv-untruncated & {
+		overflow: visible; // needed so the stripe button floats can run into the block and the text can flow around them
+		white-space: normal;
+	}
 }
 
 .mw-mmv-title-para,

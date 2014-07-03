@@ -16,11 +16,19 @@
 	float: right;
 	height: @button-height;
 	margin-top: @metadatabar-above-fold-height - ( @button-height + 2 * @button-vertical-padding );
+	border-left: 1px solid @border-text-color;
+	padding: @button-vertical-padding 20px;
 	.jq-fullscreened & {
 		margin-top: @metadatabar-above-fold-fullscreen-height - ( @button-height + 2 * @button-vertical-padding );
 	}
-	border-left: 1px solid @border-text-color;
-	padding: @button-vertical-padding 20px;
+	.mw-mmv-untruncated & {
+		margin-top: 0;
+		border: 0;
+
+		.mw-mmv-stripe-button-text {
+		  display: none;
+		}
+	}
 
 	.unselectable;
 	font-size: 1.25em;
@@ -59,6 +67,9 @@
 	}
 	&.has-label:before {
 		margin-right: 0.25em;
+		.mw-mmv-untruncated & {
+			margin-right: 0;
+		}
 	}
 	&-reuse:before {
 		/* @embed */

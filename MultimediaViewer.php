@@ -551,8 +551,9 @@ $wgResourceModules += array(
 			'multimediaviewer-metadata-error',
 
 			'multimediaviewer-title-popup-text',
-			'multimediaviewer-author-popup-text',
-			'multimediaviewer-source-popup-text',
+			'multimediaviewer-credit-popup-text',
+			'multimediaviewer-title-popup-text-more',
+			'multimediaviewer-credit-popup-text-more',
 			'multimediaviewer-panel-open-popup-text',
 			'multimediaviewer-panel-close-popup-text',
 		),

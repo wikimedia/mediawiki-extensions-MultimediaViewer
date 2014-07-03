@@ -24,8 +24,8 @@
 	 * @class mw.mmv.ui.MetadataPanel
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
-	 * @param {jQuery} $container The container for the panel.
-	 * @param {jQuery} $controlBar The control bar element.
+	 * @param {jQuery} $container The container for the panel (.mw-mmv-post-image).
+	 * @param {jQuery} $controlBar The control bar element (.mw-mmv-above-fold).
 	 * @param {Object} localStorage the localStorage object, for dependency injection
 	 */
 	function MetadataPanel( $container, $controlBar, localStorage ) {
@@ -54,9 +54,21 @@
 	MPP = MetadataPanel.prototype;
 
 	MPP.attach = function() {
+		var panel = this;
+
 		this.scroller.attach();
 		this.buttons.attach();
 		this.fileReuse.attach();
+
+		this.$title.add( this.$authorAndSource ).on( 'click.mmv-mp', function ( e ) {
+			if (
+				$( e.target ).is( 'a' ) // ignore clicks to external links
+				|| !$( e.target ).closest( '.mw-mmv-truncate-toolong' ).length // text is not truncated
+			) {
+				return;
+			}
+			panel.toggleTruncatedText();
+		} );
 	};
 
 	MPP.unattach = function() {
@@ -67,13 +79,14 @@
 			this.$mmvOptOutLink.tipsy( 'hide' );
 		}
 
-		this.$titleAndCredit.find( '.mw-mmv-author' ).tipsy( 'hide' );
-		this.$titleAndCredit.find( '.mw-mmv-source' ).tipsy( 'hide' );
+		this.$authorAndSource.tipsy( 'hide' );
 
 		this.scroller.unattach();
 		this.buttons.unattach();
 		this.fileReuse.unattach();
 		this.fileReuse.closeDialog();
+
+		this.$title.add( this.$authorAndSource ).off( 'click.mmv-mp' );
 		this.clearEvents();
 	};
 
@@ -90,8 +103,10 @@
 		this.fileUsage.empty();
 		this.permission.empty();
 
+		this.hideTruncatedText();
 		this.$title.empty().removeClass( 'error' );
-		this.$credit.empty().addClass( 'empty' );
+		this.$authorAndSource.empty();
+		this.$credit.addClass( 'empty' );
 
 		this.$username.empty();
 		this.$usernameLi.addClass( 'empty' );
@@ -164,14 +179,17 @@
 			.appendTo( this.$titleAndCredit );
 
 		this.$title = $( '<span>' )
-			.prop( 'title', mw.message( 'multimediaviewer-title-popup-text' ) )
 			.tipsy( {
-				delayIn: mw.config.get( 'wgMultimediaViewer').tooltipDelay,
+				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
 				gravity: this.isRTL() ? 'se' : 'sw'
 			} )
 			.addClass( 'mw-mmv-title' );
 
 		this.title = new mw.mmv.ui.TruncatableTextField( this.$titlePara, this.$title );
+		this.title.setTitle(
+			mw.message( 'multimediaviewer-title-popup-text' ),
+			mw.message( 'multimediaviewer-title-popup-text-more' )
+		);
 	};
 
 	/**
@@ -179,12 +197,26 @@
 	 */
 	MPP.initializeCredit = function () {
 		this.$credit = $( '<p>' )
-			.addClass( 'mw-mmv-credit empty' );
+			.addClass( 'mw-mmv-credit empty' )
+			.appendTo( this.$titleAndCredit );
+
+		// we need an inline container for tipsy, otherwise it would be centered weirdly
+		this.$authorAndSource = $( '<span>' )
+			.addClass( 'mw-mmv-source-author' )
+			.tipsy( {
+				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
+				gravity: this.isRTL() ? 'se' : 'sw'
+			} );
 
 		this.creditField = new mw.mmv.ui.TruncatableTextField(
-			this.$titleAndCredit,
 			this.$credit,
+			this.$authorAndSource,
 			{ max: 200, small: 160 }
+		);
+
+		this.creditField.setTitle(
+			mw.message( 'multimediaviewer-credit-popup-text' ),
+			mw.message( 'multimediaviewer-credit-popup-text-more' )
 		);
 	};
 
@@ -210,6 +242,7 @@
 			.on( 'click', function() {
 				panel.permission.grow();
 				panel.scroller.scrollIntoView( panel.permission.$box, 500 );
+				return false;
 			} );
 	};
 
@@ -563,8 +596,6 @@
 	 * @param {string} author With unsafe HTML
 	 */
 	MPP.setCredit = function ( source, author ) {
-		var tooltipDelay = mw.config.get( 'wgMultimediaViewer').tooltipDelay;
-
 		this.source = source || null;
 		this.author = author || null;
 
@@ -582,19 +613,7 @@
 			this.creditField.set( this.source );
 		}
 
-		this.$titleAndCredit.find( '.mw-mmv-author' )
-			.prop( 'title', mw.message( 'multimediaviewer-author-popup-text' ).text() )
-			.tipsy( {
-				delayIn: tooltipDelay,
-				gravity: this.isRTL() ? 'se' : 'sw'
-			} );
-
-		this.$titleAndCredit.find( '.mw-mmv-source' )
-			.prop( 'title', mw.message( 'multimediaviewer-source-popup-text' ).text() )
-			.tipsy( {
-				delayIn: tooltipDelay,
-				gravity: this.isRTL() ? 'se' : 'sw'
-			} );
+		this.$credit.toggleClass( 'empty', !author && !source );
 	};
 
 	/**
@@ -833,6 +852,47 @@
 		} );
 
 		return deferred.promise();
+	};
+
+	/**
+	 * Calls #revealTruncatedText() or #hideTruncatedText() based on the current state.
+	 */
+	MPP.toggleTruncatedText = function () {
+		if ( this.$container.hasClass( 'mw-mmv-untruncated' ) ) {
+			this.hideTruncatedText();
+		} else {
+			this.revealTruncatedText();
+		}
+	};
+
+	/**
+	 * Shows truncated text in the title and credit (this also rearranges the layout a bit).
+	 * Opens the panel partially to make sure the revealed text is visible.
+	 */
+	MPP.revealTruncatedText = function () {
+		this.$container.addClass( 'mw-mmv-untruncated' );
+		this.title.grow();
+		this.creditField.grow();
+		if ( this.aboveFoldIsLargerThanNormal() ) {
+			this.scroller.scrollIntoView( this.$datetimeLi, 500 );
+		}
+	};
+
+	/**
+	 * Undoes changes made by revealTruncatedText().
+	 */
+	MPP.hideTruncatedText = function () {
+		this.title.shrink();
+		this.creditField.shrink();
+		this.$container.removeClass( 'mw-mmv-untruncated' );
+	};
+
+	/**
+	 * Returns true if the above-fold part of the metadata panel changed size (due to text overflow) after
+	 * calling revealTruncatedText().
+	 */
+	MPP.aboveFoldIsLargerThanNormal = function () {
+		return this.$controlBar.height() > parseInt( this.$controlBar.css( 'min-height' ), 10 );
 	};
 
 	mw.mmv.ui.MetadataPanel = MetadataPanel;
