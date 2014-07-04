@@ -3,6 +3,7 @@
 
 @button-vertical-padding: 15px;
 @button-height: 25px;
+@repo-button-width: 50px;
 
 // The buttons need to be positioned to the bottom right corner of .mw-mmv-title-contain, and
 // other text in that element must not overlap them. Their width is not known (depends on the
@@ -31,6 +32,7 @@
 	// when the button is a link, we need more selector specificity
 	a&, a&:visited, a&:hover {
 		color: @button-text-color;
+		text-decoration: none;
 	}
 
 	&.empty {
@@ -55,31 +57,46 @@
 		content: ' ';
 		vertical-align: baseline;
 	}
+	&.has-label:before {
+		margin-right: 0.25em;
+	}
+	&-reuse:before {
+		/* @embed */
+		background-image: url(img/use-ltr.svg);
+	}
+	&-feedback:before {
+		/* @embed */
+		background-image: url(img/horn_grey.svg);
+		background-size: 100%;
+	}
 }
 
-.mw-mmv-stripe-button-reuse:before {
+.mw-mmv-title-contain {
+	margin-left: @repo-button-width;
+	padding-left: 14px;
 	/* @embed */
-	background-image: url(img/use-ltr.svg);
+	background-image: url(img/angle-separator.svg);
+	background-repeat: no-repeat;
 }
+.mw-mmv-repo-button {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: -@repo-button-width;
+	width: @repo-button-width;
 
-.mw-mmv-stripe-button-feedback:before {
-	/* @embed */
-	background-image: url(img/horn_grey.svg);
-	background-size: 100%;
-}
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	background-size: auto 50%;
 
-.mw-mmv-stripe-button-commons:before {
-	/* @embed */
-	background-image: url(img/commons_gray.svg);
-	padding: 1px;
-	top: -1px;
-}
-
-// for othe repos than Wikimedia Commons we manipulate :before dynamically from JS
-.mw-mmv-stripe-button-dynamic:before {
-	.grayscale;
-
-	width: 0.8em;
-	height: 0.8em;
-	background-image: url(img/repo.svg);
+	&-commons {
+		/* @embed */
+		background-image: url(img/commons_gray.svg);
+		background-position: 50% 40%; // visually it looks much better when the middle of the circle is centered
+	}
+	&-dynamic {
+		// for repos other than Wikimedia Commons we manipulate :before dynamically from JS; this is a fallback
+		.grayscale();
+		background-image: url(img/repo.svg);
+	}
 }
