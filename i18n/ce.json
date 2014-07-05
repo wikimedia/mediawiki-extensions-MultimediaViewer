@@ -55,6 +55,13 @@
 	"multimediaviewer-embed-wt": "Викийоза",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "Лелае хӀара код файл агӀонг юьлуш",
+	"multimediaviewer-text-embed-credit-text-tbls": "«$1» декъашхой $2. Лицензица $3 сайтан $4.",
+	"multimediaviewer-text-embed-credit-text-tls": "«$1». Лицензица $2 сайтера $3.",
+	"multimediaviewer-text-embed-credit-text-tbs": "«$1» декъашхой $2. Сайтера $3.",
+	"multimediaviewer-text-embed-credit-text-tbl": "«$1» декъашхой $2. Лицензица $3.",
+	"multimediaviewer-text-embed-credit-text-tb": "«$1» декъашхой $2.",
+	"multimediaviewer-text-embed-credit-text-ts": "«$1». Сайтера $2.",
+	"multimediaviewer-text-embed-credit-text-tl": "«$1». Лицензица $2.",
 	"multimediaviewer-html-embed-credit-text-tbls": "«$1» декъашхой $2. Лицензица $3 сайтера $4.",
 	"multimediaviewer-html-embed-credit-text-tls": "«$1». Лицензица $2 сайтера $3.",
 	"multimediaviewer-html-embed-credit-text-tbs": "«$1» декъашхой $2. Сайтера $3.",
@@ -82,5 +89,8 @@
 	"multimediaviewer-author-popup-text": "Автор",
 	"multimediaviewer-source-popup-text": "Хьост",
 	"multimediaviewer-panel-open-popup-text": "Мадарра",
-	"multimediaviewer-panel-close-popup-text": "ДӀадахка мадарра дерг"
+	"multimediaviewer-panel-close-popup-text": "ДӀадахка мадарра дерг",
+	"multimediaviewer-download-attribution-cta-header": "ДӀаязъе авторан цӀе",
+	"multimediaviewer-download-attribution-cta": "Гайта соьга, санна",
+	"multimediaviewer-attr-plain": "Атта"
 }
