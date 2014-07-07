@@ -1,3 +1,5 @@
+@import "../mmv.mixins";
+
 @mw-ui-constructive-button-color: #00af89;
 @pane-padding: 10px;
 @attribution-color: #f2f2f2;
@@ -23,6 +25,7 @@
 
 	/* Selection size arrow element */
 	.mw-mmv-download-select-menu {
+		.unselectable();
 		background-position: center center;
 		background-repeat: no-repeat;
 		background-color: @mw-ui-constructive-button-color;
