@@ -30,7 +30,7 @@
 		def = 'large',
 		menu = utils.createPulldownMenu(
 			menuItems,
-			[ 'mw-mlb-download-size' ],
+			[ 'mw-mmv-download-size' ],
 			def
 		),
 		options = menu.getMenu().getItems(),
@@ -53,7 +53,7 @@
 		var utils = new mw.mmv.ui.reuse.Utils(),
 		menu = utils.createPulldownMenu(
 			[ 'original', 'small', 'medium', 'large' ],
-			[ 'mw-mlb-download-size' ],
+			[ 'mw-mmv-download-size' ],
 			'original'
 		),
 		options = menu.getMenu().getItems(),
