@@ -7,6 +7,9 @@
  * http://benalman.com/about/license/
  */
 
+// Forked on July 10th 2014 by Gilles Dubuc (WMF) in order to add jQuery 1.9 compatibility
+// The fork was done because upstream is currently unmaintained and not responding to merge requests
+
 // Script: jQuery hashchange event
 //
 // *Version: 1.3, Last updated: 7/21/2010*
@@ -297,7 +300,7 @@
     // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
     // vvvvvvvvvvvvvvvvvvv REMOVE IF NOT SUPPORTING IE6/7/8 vvvvvvvvvvvvvvvvvvv
     // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-    $.browser.msie && !supports_onhashchange && (function(){
+    !supports_onhashchange && (function(){
       // Not only do IE6/7 need the "magical" Iframe treatment, but so does IE8
       // when running in "IE7 compatibility" mode.
 
