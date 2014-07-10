@@ -82,12 +82,18 @@
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	left: -@repo-button-width;
+	left: -( @repo-button-width - 2 );
 	width: @repo-button-width;
+	opacity: 0.8;
+	transition: opacity 0.25s;
 
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
 	background-size: auto 50%;
+
+	&:hover {
+		opacity: 1;
+	}
 
 	&-commons {
 		/* @embed */
