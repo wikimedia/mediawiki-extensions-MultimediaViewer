@@ -45,7 +45,7 @@
     "multimediaviewer-optin-mmv": "Enable Media Viewer",
     "multimediaviewer-optout-pending-mmv": "Disabling Media Viewer",
     "multimediaviewer-optin-pending-mmv": "Enabling Media Viewer",
-    "multimediaviewer-optout-help": "Media Viewer will no longer be used to show images. To use it again, click on the \"Expand\" button next to any image. Then click on \"{{int:multimediaviewer-optin-mmv}}\".",
+    "multimediaviewer-optout-help": "Media Viewer will no longer be used to show images. To use it again, click on the \"{{int:multimediaviewer-view-expanded}}\" button next to any image. Then click on \"{{int:multimediaviewer-optin-mmv}}\".",
     "multimediaviewer-optin-help": "Media Viewer will now be used to show images.",
     "multimediaviewer-geoloc-north": "N",
     "multimediaviewer-geoloc-east": "E",
