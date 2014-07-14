@@ -61,7 +61,12 @@
 
 	MPP.unattach = function() {
 		this.$title.tipsy( 'hide' );
-		this.$mmvOptOutLink.tipsy( 'hide' );
+
+		// This is created conditionally if MMV is in beta
+		if ( this.$mmvOptOutLink ) {
+			this.$mmvOptOutLink.tipsy( 'hide' );
+		}
+
 		this.$titleAndCredit.find( '.mw-mmv-author' ).tipsy( 'hide' );
 		this.$titleAndCredit.find( '.mw-mmv-source' ).tipsy( 'hide' );
 

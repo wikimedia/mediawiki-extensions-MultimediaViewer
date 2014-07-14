@@ -431,7 +431,10 @@
 		this.clearTimer( 'feedbackTooltip.show' );
 
 		$.each( this.buttons, function ( name, $button ) {
-			$button.tipsy( 'hide' );
+			// Tipsy's not enabled on every button
+			if ( $button.data( 'tipsy' ) ) {
+				$button.tipsy( 'hide' );
+			}
 		} );
 	};
 
