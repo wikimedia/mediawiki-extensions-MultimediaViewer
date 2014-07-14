@@ -6,7 +6,8 @@
 			"Snatcher",
 			"Inkowik",
 			"Steinsplitter",
-			"Keegan"
+			"Keegan",
+			"WhatamIdoing"
 		]
 	},
 	"multimediaviewer-desc": "Ermöglicht die Darstellung von Vorschaubildern in einer Vollbildschnittstelle",
@@ -90,7 +91,7 @@
 	"multimediaviewer-commons-subtitle": "Das freie Medienarchiv",
 	"multimediaviewer-view-expanded": "Erweiterte Ansicht",
 	"multimediaviewer-close-popup-text": "Dieses Werkzeug schließen (Esc)",
-	"multimediaviewer-fullscreen-popup-text": "In Vollbild anzeigen",
+	"multimediaviewer-fullscreen-popup-text": "Vollbild anzeigen",
 	"multimediaviewer-defullscreen-popup-text": "Vollbild beenden",
 	"multimediaviewer-title-popup-text": "Dateiname",
 	"multimediaviewer-author-popup-text": "Urheber",
