@@ -265,13 +265,13 @@
 
 		if ( value === 'html' ) {
 			this.$currentMainEmbedText = this.embedTextHtml.$element;
-			this.embedSizeSwitchWikitext.getMenu().hide();
+			this.embedSizeSwitchWikitext.getMenu().toggle( false );
 
 			this.currentSizeMenu = this.embedSizeSwitchHtml.getMenu();
 			this.currentDefaultItem = this.defaultHtmlItem;
 		} else if ( value === 'wikitext' ) {
 			this.$currentMainEmbedText = this.embedTextWikitext.$element;
-			this.embedSizeSwitchHtml.getMenu().hide();
+			this.embedSizeSwitchHtml.getMenu().toggle( false );
 
 			this.currentSizeMenu = this.embedSizeSwitchWikitext.getMenu();
 			this.currentDefaultItem = this.defaultWikitextItem;
@@ -437,8 +437,8 @@
 		this.embedTextHtml.setValue( '' );
 		this.embedTextWikitext.setValue( '' );
 
-		this.embedSizeSwitchHtml.getMenu().hide();
-		this.embedSizeSwitchWikitext.getMenu().hide();
+		this.embedSizeSwitchHtml.getMenu().toggle( false );
+		this.embedSizeSwitchWikitext.getMenu().toggle( false );
 	};
 
 	/**

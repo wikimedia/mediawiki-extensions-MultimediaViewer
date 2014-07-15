@@ -344,7 +344,7 @@
 	 * @inheritdoc
 	 */
 	DP.empty = function () {
-		this.downloadSizeMenu.getMenu().hide();
+		this.downloadSizeMenu.getMenu().toggle( false );
 		this.downloadSizeMenu.$element.removeClass( 'active' );
 
 		this.$downloadButton.attr( 'href', '' );
