@@ -31,7 +31,7 @@
 	"multimediaviewer-optout-pending-mmv": "Desactivando o visor de ficheiros multimedia",
 	"multimediaviewer-optin-pending-mmv": "Activando o visor de ficheiros multimedia",
 	"multimediaviewer-optout-help": "O visor de ficheiros multimedia xa non se usará para mostrar as imaxes. Para utilizalo de novo, prema no botón \"Expandir\" que hai en cada imaxe. Logo, prema en \"{{int:multimediaviewer-optin-mmv}}\".",
-	"multimediaviewer-optin-help": "O visor de ficheiros multimedia mostrará agora as imaxes.",
+	"multimediaviewer-optin-help": "O visor de ficheiros multimedia mostrará as imaxes.",
 	"multimediaviewer-geolocation": "Localización: $1",
 	"multimediaviewer-fileusage-count": "Empregada {{PLURAL:$1|nunha páxina|en $1 páxinas}}",
 	"multimediaviewer-fileusage-count-more": "Empregada en máis de $1 {{PLURAL:$1|páxinas}}",
