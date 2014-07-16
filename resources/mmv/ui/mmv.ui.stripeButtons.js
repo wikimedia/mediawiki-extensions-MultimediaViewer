@@ -26,13 +26,9 @@
 	 * @constructor
 	 * @param {jQuery} $container the title block (.mw-mmv-title-contain) which wraps the buttons and all
 	 *  other title elements
-	 * @param {Object} localStorage the localStorage object, for dependency injection
 	 */
-	function StripeButtons( $container, localStorage ) {
+	function StripeButtons( $container ) {
 		mw.mmv.ui.Element.call( this, $container );
-
-		/** @property {Object} localStorage the window.localStorage object */
-		this.localStorage = localStorage;
 
 		this.$buttonContainer = $( '<div>' )
 			.addClass( 'mw-mmv-stripe-button-container' )
@@ -44,9 +40,6 @@
 		 */
 		this.buttons = {};
 
-		if ( this.shouldShowFeedbackSurvey() ) {
-			this.initFeedbackButton();
-		}
 		this.initReuseButton();
 		this.initDescriptionPageButton();
 	}
@@ -113,206 +106,6 @@
 
 	/**
 	 * @protected
-	 * Creates the feedback button.
-	 */
-	SBP.initFeedbackButton = function() {
-		var buttons = this;
-
-		this.buttons.$feedback = this.createButton(
-			'mw-mmv-stripe-button-feedback',
-			null,
-			mw.message( 'multimediaviewer-feedback-popup-text' ).plain()
-		).attr( {
-			target: '_blank',
-			href: this.getFeedbackSurveyUrl()
-		} ).click( function ( e ) {
-			buttons.openSurveyInNewWindow();
-			buttons.maxOutTooltipDisplayCount();
-			e.preventDefault();
-		} );
-	};
-
-	SBP.feedbackSettings = {
-		/** Show the tooltip this many seconds to get the user's attention, even when it is not hovered. */
-		tooltipDisplayDuration: 5,
-		/** Wait for this long after the viewer is opened, before showing the tooltip. */
-		tooltipDelay: 5,
-		/** Only show the tooltip this many times */
-		tooltipMaxDisplayCount: 3
-	};
-
-	/**
-	 * Returns the number of times the tooltip was shown so far. This number is set to this.feedbackSettings.tooltipMaxDisplayCount if the
-	 * user clicked on the link already, or we cannot count how many times the tooltip was shown
-	 * already.
-	 * @return {number}
-	 */
-	SBP.getTooltipDisplayCount = function () {
-		if ( !this.localStorage ) {
-			return this.feedbackSettings.tooltipMaxDisplayCount;
-		}
-		if ( this.tooltipDisplayCount === undefined ) {
-			this.tooltipDisplayCount = this.localStorage.getItem( 'mmv.tooltipDisplayCount' );
-			if ( this.tooltipDisplayCount === null ) {
-				this.tooltipDisplayCount = 0;
-				try {
-					this.localStorage.setItem( 'mmv.tooltipDisplayCount', 0 );
-				} catch ( e ) {
-					// localStorage is full or disabled
-					this.tooltipDisplayCount = this.feedbackSettings.tooltipMaxDisplayCount;
-				}
-			}
-		}
-		return this.tooltipDisplayCount;
-	};
-
-	/**
-	 * Increases tooltip display count.
-	 */
-	SBP.increaseTooltipDisplayCount = function () {
-		this.getTooltipDisplayCount();
-		if ( this.tooltipDisplayCount !== undefined && this.tooltipDisplayCount < this.feedbackSettings.tooltipMaxDisplayCount ) {
-			this.tooltipDisplayCount++;
-
-			if ( this.localStorage ) {
-				try {
-					this.localStorage.setItem( 'mmv.tooltipDisplayCount', this.tooltipDisplayCount );
-				} catch ( e ) {
-					// localStorage is full or disabled
-				}
-			}
-		}
-	};
-
-	/**
-	 * Sets tooltip display count so large that the tooltip will never be shown again.
-	 * We use this for users who already opened the form.
-	 */
-	SBP.maxOutTooltipDisplayCount = function () {
-		this.getTooltipDisplayCount();
-		if ( this.tooltipDisplayCount !== undefined ) {
-			this.tooltipDisplayCount = this.feedbackSettings.tooltipMaxDisplayCount;
-
-			if ( this.localStorage ) {
-				try {
-					this.localStorage.setItem( 'mmv.tooltipDisplayCount', this.tooltipDisplayCount );
-				} catch ( e ) {
-					// localStorage is full or disabled
-				}
-			}
-		}
-	};
-
-	/**
-	 * Show the tooltip to the user if it was not shown often enough yet.
-	 */
-	SBP.maybeDisplayTooltip = function () {
-		if (
-			this.readyToShowFeedbackTooltip &&
-			this.getTooltipDisplayCount() < this.feedbackSettings.tooltipMaxDisplayCount
-		) {
-			this.buttons.$feedback.tipsy( 'show' );
-			this.setTimer( 'feedbackTooltip.hide', function () {
-				this.buttons.$feedback.tipsy( 'hide' );
-			}, this.feedbackSettings.tooltipDisplayDuration * 1000 );
-			this.increaseTooltipDisplayCount();
-			this.readyToShowFeedbackTooltip = false;
-		} else {
-			// if the tooltip is visible already, make sure it is not hidden too quickly
-			this.resetTimer( 'feedbackTooltip.hide' );
-		}
-	};
-
-	/**
-	 * Returns a link to a survey in the given language or null if that language is not supported
-	 * @param {string|null} langcode
-	 */
-	SBP.getFeedbackSurveyBaseUrlForLanguage = function ( langcode ) {
-		var baseLangcode,
-			baseUrl = 'https://www.surveymonkey.com/s/media-viewer-1',
-			surveyTranslations = { ca: 'ca', hu: 'hu', fr: 'fr', pt: 'pt-br', 'pt-br': 'pt-br',
-				de: 'de', es: 'es', nl: 'nl' };
-
-		baseLangcode = langcode.split( /[_-]/ )[0]; // get rid of variants
-		if ( baseLangcode === 'en') {
-			return baseUrl;
-		} else if ( surveyTranslations[langcode] ) {
-			return baseUrl + '-' + surveyTranslations[langcode];
-		} else if ( surveyTranslations[baseLangcode] ) {
-			return baseUrl + '-' + surveyTranslations[baseLangcode];
-		} else {
-			return null;
-		}
-	};
-
-	/**
-	 * Returns a link to a survey in the user language, or null if not supported
-	 */
-	SBP.getFeedbackSurveyBaseUrl = function () {
-		return this.getFeedbackSurveyBaseUrlForLanguage( mw.config.get( 'wgUserLanguage' ) );
-	};
-
-	/**
-	 * Checks if it is suitable to show a survey to the current user.
-	 */
-	SBP.shouldShowFeedbackSurvey = function () {
-		return mw.config.get( 'wgMultimediaViewer' ).showSurvey &&
-			this.getFeedbackSurveyBaseUrl();
-	};
-
-	/**
-	 * Generates a survey URL (currently constant but the possibility of splitting by
-	 * editor cohort was mentioned).
-	 * @return {string}
-	 */
-	SBP.getFeedbackSurveyUrl = function () {
-		return this.getFeedbackSurveyBaseUrl() + '?c=' + mw.config.get( 'wgDBname' );
-	};
-
-	/**
-	 * Opens the survey in a new window, or brings it up if it is already opened.
-	 */
-	SBP.openSurveyInNewWindow = function () {
-		var surveyWindowWidth = screen.width * 0.85,
-			surveyWindowHeight = screen.height * 0.85,
-			feedbackSurveyWindowProperties = {
-				left: ( screen.width - surveyWindowWidth ) / 2,
-				top: ( screen.height - surveyWindowHeight ) / 2,
-				width: surveyWindowWidth,
-				height: surveyWindowHeight,
-				menubar: 0,
-				toolbar: 0,
-				location: 0,
-				personalbar: 0,
-				status: 0,
-				scrollbars: 1
-			};
-
-		if ( !this.surveyWindow || this.surveyWindow.closed ) {
-			this.surveyWindow = window.open( this.getFeedbackSurveyUrl(), 'mmv-survey',
-				this.createWindowOpenPropertyString( feedbackSurveyWindowProperties ) );
-		} else {
-			this.surveyWindow.focus();
-		}
-	};
-
-	/**
-	 * @protected
-	 * Takes a property object and turns it into a string suitable for the last parameter
-	 * of window.open.
-	 * @param {Object} properties
-	 * @return {string}
-	 */
-	SBP.createWindowOpenPropertyString = function ( properties ) {
-		var propertyArray = [];
-		$.each( properties, function ( key, value ) {
-			propertyArray.push( key + '=' + value );
-		} );
-		return propertyArray.join( ',' );
-	};
-
-	/**
-	 * @protected
 	 * Runs code for each button, similarly to $.each.
 	 * @param {function(jQuery, string)} callback a function that will be called with each button
 	 */
@@ -334,10 +127,6 @@
 		} );
 
 		this.setDescriptionPageButton( imageInfo, repoInfo );
-
-		if ( this.shouldShowFeedbackSurvey() ) {
-			this.maybeDisplayTooltip();
-		}
 	};
 
 	/**
@@ -411,14 +200,6 @@
 		this.handleEvent( 'mmv-reuse-closed', function () {
 			buttons.$reuse.removeClass( 'open' );
 		} );
-
-		if ( this.shouldShowFeedbackSurvey() ) {
-			this.readyToShowFeedbackTooltip = false;
-			this.setTimer( 'feedbackTooltip.show', function () {
-				this.readyToShowFeedbackTooltip = true;
-				this.maybeDisplayTooltip();
-			}, this.feedbackSettings.tooltipDelay * 1000 );
-		}
 	};
 
 	/**
