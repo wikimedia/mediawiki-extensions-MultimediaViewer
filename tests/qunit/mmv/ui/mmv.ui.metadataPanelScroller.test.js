@@ -83,7 +83,13 @@
 			localStorage = { getItem : $.noop, setItem : this.sandbox.stub().throwsException( 'I am full' ) },
 			scroller = new mw.mmv.ui.MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ), localStorage );
 
-		this.sandbox.stub( $, 'scrollTo', function() { return { scrollTop : function() { return 10; } }; } );
+		this.sandbox.stub( $, 'scrollTo', function() { return {
+			scrollTop : function() { return 10; },
+			on: $.noop,
+			off: $.noop
+		}; } );
+
+		scroller.attach();
 
 		scroller.scroll();
 
@@ -92,6 +98,8 @@
 		scroller.scroll();
 
 		assert.ok( localStorage.setItem.calledOnce, 'localStorage only written once' );
+
+		scroller.unattach();
 	} );
 
 	/**
@@ -141,9 +149,9 @@
 	QUnit.test( 'Metadata scrolling', 7, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			$container = $( '<div>' ).css( 'height', 100 ).appendTo( $qf ),
-			$controlBar = $( '<div>' ).css( 'height', 50 ).appendTo( $container ),
+			$aboveFold = $( '<div>' ).css( 'height', 50 ).appendTo( $container ),
 			fakeLocalStorage = { getItem : $.noop, setItem : $.noop },
-			scroller = new mw.mmv.ui.MetadataPanelScroller( $container, $controlBar, fakeLocalStorage),
+			scroller = new mw.mmv.ui.MetadataPanelScroller( $container, $aboveFold, fakeLocalStorage),
 			keydown = $.Event( 'keydown' );
 
 		stubScrollFunctions( this.sandbox, scroller );
@@ -176,7 +184,7 @@
 		scroller.$dragIcon.click();
 		this.clock.tick( scroller.toggleScrollDuration );
 
-		scroller.$dragIcon.click();
+		scroller.$dragIconBottom.click();
 		this.clock.tick( scroller.toggleScrollDuration );
 
 		assert.strictEqual( $.scrollTo().scrollTop(), 0,
@@ -209,8 +217,8 @@
 	QUnit.test( 'Metadata scroll logging', 6, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			$container = $( '<div>' ).css( 'height', 100 ).appendTo( $qf ),
-			$controlBar = $( '<div>' ).css( 'height', 50 ).appendTo( $container ),
-			scroller = new mw.mmv.ui.MetadataPanelScroller( $container, $controlBar ),
+			$aboveFold = $( '<div>' ).css( 'height', 50 ).appendTo( $container ),
+			scroller = new mw.mmv.ui.MetadataPanelScroller( $container, $aboveFold ),
 			keydown = $.Event( 'keydown' );
 
 		stubScrollFunctions( this.sandbox, scroller );
@@ -251,7 +259,7 @@
 		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-open' ), 'Opening click logged' );
 		mw.mmv.actionLogger.log.reset();
 
-		scroller.$dragIcon.click();
+		scroller.$dragIconBottom.click();
 		this.clock.tick( scroller.toggleScrollDuration );
 
 		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-close' ), 'Closing click logged' );

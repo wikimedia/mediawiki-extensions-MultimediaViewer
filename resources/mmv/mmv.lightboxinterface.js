@@ -72,7 +72,7 @@
 		this.$postDiv = $( '<div>' )
 			.addClass( 'mw-mmv-post-image' );
 
-		this.$controlBar = $( '<div>' )
+		this.$aboveFold = $( '<div>' )
 			.addClass( 'mw-mmv-above-fold' );
 
 		this.$main.append(
@@ -88,7 +88,7 @@
 
 		this.setupCanvasButtons();
 
-		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$controlBar, window.localStorage );
+		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$aboveFold, window.localStorage );
 		this.buttons = new mw.mmv.ui.CanvasButtons( this.$preDiv, this.$closeButton, this.$fullscreenButton );
 		this.canvas = new mw.mmv.ui.Canvas( this.$innerWrapper, this.$imageWrapper, this.$wrapper );
 	};

@@ -25,13 +25,13 @@
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
 	 * @param {jQuery} $container The container for the panel (.mw-mmv-post-image).
-	 * @param {jQuery} $controlBar The control bar element (.mw-mmv-above-fold).
+	 * @param {jQuery} $aboveFold The always-visible  part of the metadata panel (.mw-mmv-above-fold).
 	 * @param {Object} localStorage the localStorage object, for dependency injection
 	 */
-	function MetadataPanel( $container, $controlBar, localStorage ) {
+	function MetadataPanel( $container, $aboveFold, localStorage ) {
 		mw.mmv.ui.Element.call( this, $container );
 
-		this.$controlBar = $controlBar;
+		this.$aboveFold = $aboveFold;
 
 		/** @property {mw.mmv.Config} config - */
 		this.config = new mw.mmv.Config(
@@ -68,6 +68,16 @@
 				return;
 			}
 			panel.toggleTruncatedText();
+		} );
+
+		$( this.$container ).on( 'mmv-metadata-open', function () {
+			panel.revealTruncatedText( true );
+		} ).on( 'mmv-metadata-close', function () {
+			panel.hideTruncatedText();
+		} );
+
+		this.handleEvent( 'jq-fullscreen-change.lip', function() {
+			panel.hideTruncatedText();
 		} );
 	};
 
@@ -135,16 +145,16 @@
 	 * @param {Object} localStorage the localStorage object, for dependency injection
 	 */
 	MPP.initializeHeader = function ( localStorage ) {
-		this.progressBar = new mw.mmv.ui.ProgressBar( this.$controlBar );
+		this.progressBar = new mw.mmv.ui.ProgressBar( this.$aboveFold );
 
-		this.scroller = new mw.mmv.ui.MetadataPanelScroller( this.$container, this.$controlBar,
+		this.scroller = new mw.mmv.ui.MetadataPanelScroller( this.$container, this.$aboveFold,
 			localStorage );
 
 		this.$titleDiv = $( '<div>' )
 			.addClass( 'mw-mmv-title-contain' )
-			.appendTo( this.$controlBar );
+			.appendTo( this.$aboveFold );
 
-		this.$container.append( this.$controlBar );
+		this.$container.append( this.$aboveFold );
 
 		this.initializeButtons(); // float, needs to be on top
 		this.initializeTitleAndCredit();
@@ -868,12 +878,18 @@
 	/**
 	 * Shows truncated text in the title and credit (this also rearranges the layout a bit).
 	 * Opens the panel partially to make sure the revealed text is visible.
+	 * @param {boolean} noScroll if set, do not scroll the panel (because the function was triggered from a
+	 *  scroll event in the first place)
 	 */
-	MPP.revealTruncatedText = function () {
+	MPP.revealTruncatedText = function ( noScroll ) {
+		if ( this.$container.hasClass( 'mw-mmv-untruncated' ) ) {
+			// avoid self-triggering via reveal -> scroll -> reveal
+			return;
+		}
 		this.$container.addClass( 'mw-mmv-untruncated' );
 		this.title.grow();
 		this.creditField.grow();
-		if ( this.aboveFoldIsLargerThanNormal() ) {
+		if ( this.aboveFoldIsLargerThanNormal() && !noScroll ) {
 			this.scroller.scrollIntoView( this.$datetimeLi, 500 );
 		}
 	};
@@ -882,6 +898,10 @@
 	 * Undoes changes made by revealTruncatedText().
 	 */
 	MPP.hideTruncatedText = function () {
+		if ( !this.$container.hasClass( 'mw-mmv-untruncated' ) ) {
+			// avoid double-triggering
+			return;
+		}
 		this.title.shrink();
 		this.creditField.shrink();
 		this.$container.removeClass( 'mw-mmv-untruncated' );
@@ -892,7 +912,7 @@
 	 * calling revealTruncatedText().
 	 */
 	MPP.aboveFoldIsLargerThanNormal = function () {
-		return this.$controlBar.height() > parseInt( this.$controlBar.css( 'min-height' ), 10 );
+		return this.$aboveFold.height() > parseInt( this.$aboveFold.css( 'min-height' ), 10 );
 	};
 
 	mw.mmv.ui.MetadataPanel = MetadataPanel;

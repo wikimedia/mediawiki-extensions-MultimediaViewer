@@ -23,14 +23,20 @@
 	 * @extends mw.mmv.ui.Element
 	 * Handles scrolling behavior of the metadata panel.
 	 * @constructor
+	 * @param {jQuery} $container The container for the panel (.mw-mmv-post-image).
+	 * @param {jQuery} $aboveFold The control bar element (.mw-mmv-above-fold).
+	 * @param {Object} localStorage the localStorage object, for dependency injection
 	 */
-	function MetadataPanelScroller( $container, $controlBar, localStorage ) {
+	function MetadataPanelScroller( $container, $aboveFold, localStorage ) {
 		mw.mmv.ui.Element.call( this, $container );
 
-		this.$controlBar = $controlBar;
+		this.$aboveFold = $aboveFold;
 
 		/** @property {Object} localStorage the window.localStorage object */
 		this.localStorage = localStorage;
+
+		/** @property {boolean} panelIsOpen state flag which will be used to detect open <-> closed transitions */
+		this.panelIsOpen = null;
 
 		/**
 		 * Whether this user has ever opened the metadata panel.
@@ -64,6 +70,18 @@
 			panel.scroll();
 		} ) );
 
+		this.$container.on( 'mmv-metadata-open', function () {
+			if ( !panel.hasOpenedMetadata && panel.localStorage ) {
+				panel.hasOpenedMetadata = true;
+				panel.$dragIcon.removeClass( 'panel-never-opened' );
+				try {
+					panel.localStorage.setItem( 'mmv.hasOpenedMetadata', true );
+				} catch ( e ) {
+					// localStorage is full or disabled
+				}
+			}
+		} );
+
 		// reset animation flag when the viewer is reopened
 		this.hasAnimatedMetadata = false;
 	};
@@ -71,6 +89,7 @@
 	MPSP.unattach = function() {
 		this.clearEvents();
 		$.scrollTo().off( 'scroll.mmvp' );
+		this.$container.off( 'mmv-metadata-open' );
 	};
 
 	MPSP.empty = function () {
@@ -78,6 +97,8 @@
 
 		// need to remove this to avoid animating again when reopening lightbox on same page
 		this.$container.removeClass( 'invite' );
+
+		this.panelIsOpen = !!$.scrollTo().scrollTop();
 	};
 
 	MPSP.initialize = function () {
@@ -88,9 +109,18 @@
 			.toggleClass( 'panel-never-opened', !this.hasOpenedMetadata )
 			.prop( 'title', mw.message( 'multimediaviewer-panel-open-popup-text' ).text() )
 			.tipsy( { gravity: 's', delayIn: mw.config.get( 'wgMultimediaViewer').tooltipDelay } )
-			.appendTo( this.$controlBar )
+			.appendTo( this.$aboveFold )
 			.click( function () {
-				panel.toggle();
+				// Trigger open event and do related actions that would be normally done by the scroll handler.
+				// If we left this to the scroll handler, the size of the panel would change mid-animation
+				// and the end position would be off.
+				panel.panelIsOpen = true;
+				panel.$dragIcon.addClass( 'panel-open' );
+				// use triggerHandler instead of trigger because it is non-async; the untruncate handler
+				// must run before the toggle() call
+				panel.$container.triggerHandler( 'mmv-metadata-open' );
+
+				panel.toggle( 'up' );
 			} );
 
 		this.$dragIconBottom = $( '<div>' )
@@ -99,7 +129,7 @@
 			.tipsy( { gravity: 's', delayIn: mw.config.get( 'wgMultimediaViewer').tooltipDelay } )
 			.appendTo( this.$container )
 			.click( function () {
-				panel.toggle();
+				panel.toggle( 'down' );
 			} );
 
 		this.hasOpenedMetadata = !this.localStorage || this.localStorage.getItem( 'mmv.hasOpenedMetadata' );
@@ -124,7 +154,7 @@
 	 */
 	MPSP.toggle = function ( forceDirection ) {
 		var deferred = $.Deferred(),
-			scrollTopWhenOpen = this.$container.outerHeight() - this.$controlBar.outerHeight(),
+			scrollTopWhenOpen = this.$container.outerHeight() - parseInt( this.$aboveFold.css( 'min-height' ), 10 ),
 			scrollTopWhenClosed = 0,
 			scrollTop = $.scrollTo().scrollTop(),
 			panelIsOpen = scrollTop > scrollTopWhenClosed,
@@ -192,23 +222,16 @@
 	 * Receives the window's scroll events and flips the chevron if necessary.
 	 */
 	MPSP.scroll = function () {
-		var scrolled = !!$.scrollTo().scrollTop();
+		var panelIsOpen = !!$.scrollTo().scrollTop();
 
-		this.$dragIcon.toggleClass( 'panel-open', scrolled );
+		this.$dragIcon.toggleClass( 'panel-open', panelIsOpen );
 
-		if (
-			!this.hasOpenedMetadata
-			&& scrolled
-			&& this.localStorage
-		) {
-			this.hasOpenedMetadata = true;
-			this.$dragIcon.removeClass( 'panel-never-opened' );
-			try {
-				this.localStorage.setItem( 'mmv.hasOpenedMetadata', true );
-			} catch ( e ) {
-				// localStorage is full or disabled
-			}
+		if ( panelIsOpen && !this.panelIsOpen ) { // just opened (this is skipped in some cases, see the $dragIcon click handler)
+			this.$container.trigger( 'mmv-metadata-open' );
+		} else if ( !panelIsOpen && this.panelIsOpen ) { // just closed
+			this.$container.trigger( 'mmv-metadata-close' );
 		}
+		this.panelIsOpen = panelIsOpen;
 	};
 
 	mw.mmv.ui.MetadataPanelScroller = MetadataPanelScroller;
