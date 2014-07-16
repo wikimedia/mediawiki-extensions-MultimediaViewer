@@ -69,11 +69,6 @@ if ( !isset( $wgMediaViewerUseThumbnailGuessing ) ) {
 	$wgMediaViewerUseThumbnailGuessing = true;
 }
 
-if ( !isset( $wgMediaViewerShowSurvey ) ) {
-	/** @var bool: If set, MediaViewer might direct the user to a survey. **/
-	$wgMediaViewerShowSurvey = false;
-}
-
 if ( !isset( $wgEnableMediaViewerForLoggedInUsersOnly ) ) {
 	/**
 	 * @var bool: If set, and $wgMediaViewerIsInBeta is unset, Media Viewer will be turned on for
@@ -388,8 +383,6 @@ $wgResourceModules += array(
 		),
 
 		'messages' => array(
-			'multimediaviewer-feedback-button-text',
-			'multimediaviewer-feedback-popup-text',
 			'multimediaviewer-description-page-button-text',
 			'multimediaviewer-description-page-popup-text',
 			'multimediaviewer-description-page-popup-text-local',

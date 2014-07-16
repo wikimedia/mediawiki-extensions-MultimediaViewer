@@ -103,7 +103,6 @@
     "multimediaviewer-embed-dimensions": "$1 × $2 px",
     "multimediaviewer-embed-dimensions-separated": "- $1",
     "multimediaviewer-embed-dimensions-with-file-format": "$1 $2",
-    "multimediaviewer-feedback-popup-text": "Leave feedback about this new media viewing experience",
     "multimediaviewer-description-page-button-text": "More details about this file",
     "multimediaviewer-description-page-popup-text": "More details about this file on $1",
     "multimediaviewer-commons-subtitle": "The free media repository",
