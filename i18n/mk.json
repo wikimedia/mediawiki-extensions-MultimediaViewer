@@ -33,7 +33,7 @@
 	"multimediaviewer-optin-mmv": "Вклучи го Мултимедијалниот прегледувач",
 	"multimediaviewer-optout-pending-mmv": "Исклучување на Мултимедијалниот прегледувач",
 	"multimediaviewer-optin-pending-mmv": "Вклучување на Мултимедијалниот прегледувач",
-	"multimediaviewer-optout-help": "Мултимедијалниот прегледувач повеќе нема да се користи за прикажување на слики. Ако сакате да го користите повторно, стиснете на копчето „Прошири“ веднаш до секоја слика. Потоа стниснете на „{{int:multimediaviewer-optin-mmv}}“.",
+	"multimediaviewer-optout-help": "Мултимедијалниот прегледувач повеќе нема да се користи за прикажување на слики. Ако сакате да го користите повторно, стиснете на копчето „{{int:multimediaviewer-view-expanded}}“ веднаш до секоја слика. Потоа стниснете на „{{int:multimediaviewer-optin-mmv}}“.",
 	"multimediaviewer-optin-help": "Мултимедијалниот прегледувач сега ќе се користи за прикажување на слики.",
 	"multimediaviewer-geoloc-north": "СГШ",
 	"multimediaviewer-geoloc-east": "ИГД",
