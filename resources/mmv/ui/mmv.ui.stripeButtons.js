@@ -98,17 +98,13 @@
 	 * Creates a button linking to the file description page.
 	 */
 	SBP.initDescriptionPageButton = function() {
-		var tooltipDelay = mw.config.get( 'wgMultimediaViewer' ).tooltipDelay;
-
-		this.buttons.$descriptionPage = $( '<a>' )
-			.addClass( 'mw-mmv-repo-button empty ' )
-			.prependTo( this.$container )
-			.tipsy( {
-				gravity: $( document.body ).hasClass( 'rtl' ) ? 'se' : 'sw',
-				delayIn: tooltipDelay
-			} ).click( function () {
-				mw.mmv.actionLogger.log( 'file-description-page-abovefold' );
-			} ).prependTo( this.$container );
+		this.buttons.$descriptionPage = this.createButton(
+			'empty',
+			null,
+			mw.message( 'multimediaviewer-description-page-button-text' ).plain()
+		).click( function () {
+			mw.mmv.actionLogger.log( 'file-description-page-abovefold' );
+		} );
 	};
 
 	/**
@@ -366,10 +362,8 @@
 			if ( repoInfo.favIcon ) {
 				this.setInlineStyle( 'repo-button-description-page',
 					// needs to be more specific then the fallback rule in stripeButtons.less
-					'html .mw-mmv-repo-button-dynamic {' +
+					'html .mw-mmv-repo-button-dynamic:before {' +
 						'background-image: url("' + repoInfo.favIcon + '");' +
-						// If you use a 16x16 favicon, this will look weird. You shouldn't.
-						'background-size: 32px 32px;' +
 					'}'
 				);
 			}

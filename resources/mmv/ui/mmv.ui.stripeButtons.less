@@ -71,36 +71,13 @@
 	}
 }
 
-.mw-mmv-title-contain {
-	margin-left: @repo-button-width;
-	padding-left: 14px;
-	/* @embed */
-	background-image: url(img/angle-separator.svg);
-	background-repeat: no-repeat;
-}
 .mw-mmv-repo-button {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: -( @repo-button-width - 2 );
-	width: @repo-button-width;
-	opacity: 0.8;
-	transition: opacity 0.25s;
-
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	background-size: auto 50%;
-
-	&:hover {
-		opacity: 1;
-	}
-
-	&-commons {
+	&-commons:before {
 		/* @embed */
 		background-image: url(img/commons_gray.svg);
 		background-position: 50% 40%; // visually it looks much better when the middle of the circle is centered
 	}
-	&-dynamic {
+	&-dynamic:before {
 		// for repos other than Wikimedia Commons we manipulate :before dynamically from JS; this is a fallback
 		.grayscale();
 		background-image: url(img/repo.svg);
