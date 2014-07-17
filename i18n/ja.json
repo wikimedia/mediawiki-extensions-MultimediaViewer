@@ -45,7 +45,7 @@
 	"multimediaviewer-optin-mmv": "メディアビューアーを有効にする",
 	"multimediaviewer-optout-pending-mmv": "メディアプレーヤーを無効にしています",
 	"multimediaviewer-optin-pending-mmv": "メディアプレーヤーを有効にしています",
-	"multimediaviewer-optout-help": "今後は画像の表示にメディアビューアーを使用しません。再び使用するには、画像の隣にある「展開」ボタンをクリックしてください。さらに「{{int:multimediaviewer-optin-mmv}}」をクリックします。",
+	"multimediaviewer-optout-help": "今後は画像の表示にメディアビューアーを使用しません。再び使用するには、画像の隣にある「{{int:multimediaviewer-view-expanded}}」ボタンをクリックしてください。さらに「{{int:multimediaviewer-optin-mmv}}」をクリックします。",
 	"multimediaviewer-optin-help": "今後は画像の表示にメディアビューアーを使用します。",
 	"multimediaviewer-geoloc-north": "北緯",
 	"multimediaviewer-geoloc-east": "東経",
@@ -90,7 +90,6 @@
 	"multimediaviewer-fullscreen-popup-text": "全画面で表示",
 	"multimediaviewer-defullscreen-popup-text": "全画面表示を終了",
 	"multimediaviewer-title-popup-text": "ファイル名",
-	"multimediaviewer-author-popup-text": "作者",
 	"multimediaviewer-panel-open-popup-text": "詳細を表示",
 	"multimediaviewer-panel-close-popup-text": "詳細を非表示"
 }
