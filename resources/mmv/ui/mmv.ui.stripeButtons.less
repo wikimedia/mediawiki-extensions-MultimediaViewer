@@ -71,10 +71,15 @@
 		/* @embed */
 		background-image: url(img/commons_gray.svg);
 		background-position: 50% 40%; // visually it looks much better when the middle of the circle is centered
+		// make the Commons icon a tiny bit larger so people don't complain that the other icon is larger
+		padding: 1px;
+		top: -1px;
 	}
 	&-dynamic:before {
 		// for repos other than Wikimedia Commons we manipulate :before dynamically from JS; this is a fallback
 		.grayscale();
 		background-image: url(img/repo.svg);
+		width: 0.8em;
+		height: 0.8em;
 	}
 }
