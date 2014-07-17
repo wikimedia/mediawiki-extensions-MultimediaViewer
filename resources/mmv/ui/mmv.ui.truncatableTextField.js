@@ -20,6 +20,7 @@
 
 	/**
 	 * Represents any text field that needs to be truncated to be readable.
+	 * Depending on its length, text in that field might be truncated or its font size reduced (or neither).
 	 * @class mw.mmv.ui.TruncatableTextField
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
@@ -43,6 +44,12 @@
 
 		/** @property {string} truncatedHtml the truncated element as a HTML string */
 		this.truncatedHtml = null;
+
+		/** @property {string} normalTitle title attribute to show when the text is not truncated */
+		this.normalTitle = null;
+
+		/** @property {string} truncatedTitle title attribute to show when the text not truncated */
+		this.truncatedTitle = null;
 
 		/** @property {mw.mmv.HtmlUtils} htmlUtils Our HTML utility instance. */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
@@ -95,11 +102,23 @@
 	};
 
 	/**
+	 * Allows setting different titles for fully visible and for truncated text.
+	 * @param {string} normal
+	 * @param {string} truncated
+	 */
+	TTFP.setTitle = function ( normal, truncated ) {
+		this.normalTitle = normal;
+		this.truncatedTitle = truncated;
+		this.$element.attr( 'original-title', this.truncated ? truncated : normal );
+	};
+
+	/**
 	 * Makes the text smaller via a few different methods.
 	 */
 	TTFP.shrink = function () {
-		if ( !this.truncated ) {
+		if ( !this.truncated && this.truncatedHtml !== this.originalHtml ) {
 			this.$element.html( this.truncatedHtml );
+			this.$element.attr( 'original-title', this.truncatedTitle );
 			this.truncated = true;
 		}
 	};
@@ -110,6 +129,7 @@
 	TTFP.grow = function () {
 		if ( this.truncated ) {
 			this.$element.html( this.originalHtml );
+			this.$element.attr( 'original-title', this.normalTitle );
 			this.truncated = false;
 		}
 	};
@@ -118,7 +138,8 @@
 	 * Changes the element style if a certain length is reached.
 	 */
 	TTFP.changeStyle = function () {
-		this.$element.toggleClass( 'mw-mmv-truncate-toolong', this.$element.text().length > this.small );
+		this.$element.toggleClass( 'mw-mmv-reduce-toolong', this.$element.text().length > this.small );
+		this.$element.toggleClass( 'mw-mmv-truncate-toolong', this.$element.text().length > this.max );
 	};
 
 	/**

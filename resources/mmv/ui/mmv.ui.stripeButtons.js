@@ -54,25 +54,27 @@
 	 * @param {string} popupText HTML code for the popup text
 	 */
 	SBP.createButton = function ( cssClass, text, popupText ) {
-		var button,
+		var $button,
+			$label,
 			tooltipDelay = mw.config.get( 'wgMultimediaViewer' ).tooltipDelay;
 
-		button = $( '<a>' )
+		$button = $( '<a>' )
 			.addClass( 'mw-mmv-stripe-button empty ' + cssClass )
 			// elements are right-floated so we use prepend instead of append to keep the order
 			.prependTo( this.$buttonContainer );
 
 		if ( text ) {
-			button.text( text ).addClass( 'has-label' );
+			$label = $( '<span>' ).addClass( 'mw-mmv-stripe-button-text' ).text( text );
+			$button.append( $label ).addClass( 'has-label' );
 		}
 		if ( popupText ) {
-			button.prop( 'title', popupText ).tipsy( {
+			$button.prop( 'title', popupText ).tipsy( {
 				gravity: $( document.body ).hasClass( 'rtl' ) ? 'sw' : 'se',
 				delayIn: tooltipDelay
 			} );
 		}
 
-		return button;
+		return $button;
 	};
 
 	/**
