@@ -4,7 +4,8 @@
 			"Amire80",
 			"Neukoln",
 			"בנימין",
-			"Yona b"
+			"Yona b",
+			"Eladk"
 		]
 	},
 	"multimediaviewer-desc": "הגדלת תמונות ממוזערות למסך מלא.",
@@ -94,6 +95,8 @@
 	"multimediaviewer-defullscreen-popup-text": "יציאה ממסך מלא",
 	"multimediaviewer-title-popup-text": "שם קובץ",
 	"multimediaviewer-credit-popup-text": "מידע על המחבר והמקור",
+	"multimediaviewer-title-popup-text-more": "לחץ להצגת השם המלא של הקובץ",
+	"multimediaviewer-credit-popup-text-more": "לחץ כדי להציג את כל המחברים והמקורות",
 	"multimediaviewer-panel-open-popup-text": "פרטים נוספים",
 	"multimediaviewer-panel-close-popup-text": "פחות פרטים",
 	"multimediaviewer-download-attribution-cta-header": "חובה לתת ייחוס למחבר",
