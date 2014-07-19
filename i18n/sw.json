@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Lloffiwr"
+		]
+	},
+	"multimediaviewer-permission-viewmore": "Tazama zaidi",
+	"multimediaviewer-help-mmv": "Msaada",
+	"multimediaviewer-fileusage-count": "Inatumika katika {{PLURAL:$1|ukurasa moja tu|kurasa $1}}",
+	"multimediaviewer-reuse-link": "Tumia faili hili",
+	"multimediaviewer-embed-html": "HTML"
+}

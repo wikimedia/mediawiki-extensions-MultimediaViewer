@@ -51,8 +51,8 @@
 	"multimediaviewer-close-popup-text": "Zatvori alat (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Prikaži preko cijelog zaslona",
 	"multimediaviewer-title-popup-text": "Ime datoteke",
-	"multimediaviewer-author-popup-text": "Autor",
-	"multimediaviewer-source-popup-text": "Izvor",
 	"multimediaviewer-panel-open-popup-text": "Više pojedinosti",
-	"multimediaviewer-panel-close-popup-text": "Manje pojedinosti"
+	"multimediaviewer-panel-close-popup-text": "Manje pojedinosti",
+	"multimediaviewer-download-attribution-cta-header": "Trebate navesti autora",
+	"multimediaviewer-attr-plain": "Običan tekst"
 }
