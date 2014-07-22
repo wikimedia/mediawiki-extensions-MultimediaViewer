@@ -65,5 +65,8 @@
 	"multimediaviewer-defullscreen-popup-text": "Изађи из целог екрана",
 	"multimediaviewer-title-popup-text": "Назив датотеке",
 	"multimediaviewer-panel-open-popup-text": "Више детаља",
-	"multimediaviewer-panel-close-popup-text": "Мање детаља"
+	"multimediaviewer-panel-close-popup-text": "Мање детаља",
+	"multimediaviewer-download-attribution-cta-header": "Морате навести аутора",
+	"multimediaviewer-download-attribution-cta": "Покажи ми како",
+	"multimediaviewer-attr-plain": "Текст"
 }
