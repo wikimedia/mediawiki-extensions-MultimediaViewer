@@ -141,6 +141,7 @@ $wgResourceModules += array(
 			'mmv.ui.download.dialog',
 			'mmv.ui.metadataPanel',
 			'mmv.ui.reuse.dialog',
+			'mmv.ui.viewingOptions',
 		),
 
 		'messages' => array(
@@ -748,12 +749,50 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.ui',
+			'mmv.ui.viewingOptions',
 			'oojs',
 		),
 
 		'messages' => array(
 			'multimediaviewer-download-link',
 			'multimediaviewer-reuse-link',
+			'multimediaviewer-options-tooltip',
+		),
+	),
+
+	'mmv.ui.viewingOptions' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/ui/mmv.ui.viewingOptions.js',
+		),
+
+		'styles' => array(
+			'mmv/ui/mmv.ui.viewingOptions.less',
+		),
+
+		'dependencies' => array(
+			'mmv.ui',
+			'mmv.ui.dialog',
+			'oojs',
+		),
+
+		'messages' => array(
+			'multimediaviewer-options-dialog-header',
+			'multimediaviewer-option-header-viewer',
+			'multimediaviewer-option-header-filepage',
+			'multimediaviewer-option-desc-viewer',
+			'multimediaviewer-option-desc-filepage',
+			'multimediaviewer-option-submit-button',
+			'multimediaviewer-option-cancel-button',
+			'multimediaviewer-options-text-header',
+			'multimediaviewer-enable-alert',
+			'multimediaviewer-options-text-body',
+			'multimediaviewer-disable-confirmation-header',
+			'multimediaviewer-disable-confirmation-text',
+			'multimediaviewer-enable-dialog-header',
+			'multimediaviewer-enable-text-header',
+			'multimediaviewer-enable-submit-button',
+			'multimediaviewer-enable-confirmation-header',
+			'multimediaviewer-enable-confirmation-text',
 		),
 	),
 

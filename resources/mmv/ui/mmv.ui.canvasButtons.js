@@ -47,6 +47,11 @@
 				gravity: isRtl ? 'sw' : 'se'
 			} );
 
+		this.$options = $( '<div>' )
+			.text( ' ' )
+			.prop( 'title', mw.message( 'multimediaviewer-options-tooltip' ) )
+			.addClass( 'mw-mmv-options-button' );
+
 		this.$download = $( '<div>' )
 			.addClass( 'mw-mmv-download-button' )
 			.html( '&nbsp;' )
@@ -71,6 +76,7 @@
 			.add( this.$download )
 			.add( this.$reuse )
 			.add( this.$fullscreen )
+			.add( this.$options )
 			.add( this.$next )
 			.add( this.$prev );
 
@@ -200,7 +206,7 @@
 		var buttons = this;
 
 		this.$reuse.on( 'click.mmv-canvasButtons', function ( e ) {
-			$( document ).trigger( 'mmv-reuse-open' );
+			$( document ).trigger( 'mmv-reuse-open', e );
 			e.stopPropagation(); // the dialog would take it as an outside click and close
 		} );
 		this.handleEvent( 'mmv-reuse-opened', function () {
@@ -211,7 +217,7 @@
 		} );
 
 		this.$download.on( 'click.mmv-canvasButtons', function ( e ) {
-			$( document ).trigger( 'mmv-download-open' );
+			$( document ).trigger( 'mmv-download-open', e );
 			e.stopPropagation();
 		} );
 		this.handleEvent( 'mmv-download-opened', function () {
@@ -219,6 +225,17 @@
 		} );
 		this.handleEvent( 'mmv-download-closed', function () {
 			buttons.$download.removeClass( 'open' );
+		} );
+
+		this.$options.on( 'click.mmv-canvasButtons', function ( e ) {
+			$( document ).trigger( 'mmv-options-open', e );
+			e.stopPropagation();
+		} );
+		this.handleEvent( 'mmv-options-opened', function () {
+			buttons.$options.addClass( 'open' );
+		} );
+		this.handleEvent( 'mmv-options-closed', function () {
+			buttons.$options.removeClass( 'open' );
 		} );
 	};
 

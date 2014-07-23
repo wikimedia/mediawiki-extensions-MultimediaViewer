@@ -47,6 +47,7 @@
 		this.handleEvent( 'mmv-download-open', $.proxy( this.handleOpenCloseClick, this ) );
 
 		this.handleEvent( 'mmv-reuse-open', $.proxy( this.closeDialog, this ) );
+		this.handleEvent( 'mmv-options-open', $.proxy( this.closeDialog, this ) );
 	};
 
 	/**

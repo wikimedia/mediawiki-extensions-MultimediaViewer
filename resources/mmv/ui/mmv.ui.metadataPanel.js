@@ -43,7 +43,6 @@
 		this.initializeHeader( localStorage );
 		this.initializeImageMetadata();
 		this.initializeAboutLinks();
-		this.initializePreferenceLinks();
 	}
 	oo.inheritClass( MetadataPanel, mw.mmv.ui.Element );
 	MPP = MetadataPanel.prototype;
@@ -77,11 +76,6 @@
 
 	MPP.unattach = function() {
 		this.$title.tipsy( 'hide' );
-
-		// This is created conditionally if MMV is in beta
-		if ( this.$mmvOptOutLink ) {
-			this.$mmvOptOutLink.tipsy( 'hide' );
-		}
 
 		this.$authorAndSource.tipsy( 'hide' );
 
@@ -365,88 +359,6 @@
 				this.$mmvHelpLink
 			)
 			.appendTo( this.$imageMetadata );
-	};
-
-	/**
-	 * @private
-	 * Set text and appearance of the optin/optout link.
-	 * This is a helper function for #initializePreferenceLinks().
-	 * @param {jQuery} $link the link that needs to be changed
-	 * @param {boolean} status true if the user is currently opted in
-	 * @param {boolean} pending true if the link has been clicked already (there is a request pending)
-	 */
-	MPP.setOptInOutLink = function ( $link, status, pending ) {
-		var messageKey = ( status ? 'optout' : 'optin' ) + ( pending ? '-pending' : '' );
-
-		$link
-			.toggleClass( 'pending', !!pending )
-			.text( mw.message( 'multimediaviewer-' + messageKey + '-mmv' ).text() )
-			.attr( 'title', pending ? '' : mw.message( 'multimediaviewer-' + messageKey + '-help' ).text() )
-			.attr( 'original-title', pending ? '' : mw.message( 'multimediaviewer-' + messageKey + '-help' ).text() );
-	};
-
-	/**
-	 * Initialize the link for enabling/disabling MediaViewer.
-	 */
-	MPP.initializePreferenceLinks = function () {
-		var target,
-			panel = this,
-			separator = ' | ',
-			optInStatus = this.config.isMediaViewerEnabledOnClick();
-
-		if ( !mw.config.get( 'wgMediaViewerIsInBeta' ) && this.config.canSetMediaViewerEnabledOnClick() ) {
-			this.$mmvOptOutLink = $( '<a>' )
-				.prop( 'href', '#' )
-				.addClass( 'mw-mmv-optout-link' )
-				.tipsy( { gravity: 's' } )
-				.click( function ( e ) {
-					var changePreferencePromise,
-						newOptInStatus = !panel.config.isMediaViewerEnabledOnClick();
-
-					e.preventDefault();
-					if ( $( this).is( '.pending' ) ) {
-						return false;
-					}
-
-					changePreferencePromise = panel.config.setMediaViewerEnabledOnClick( newOptInStatus );
-
-					if ( changePreferencePromise.state() === 'pending' ) {
-						// use ! for status param because we want to show text for old state
-						// (e.g. enabled -> "Disabling...") while pending
-						panel.setOptInOutLink( panel.$mmvOptOutLink, !newOptInStatus, true );
-					}
-					changePreferencePromise.done( function () {
-						panel.setOptInOutLink( panel.$mmvOptOutLink, newOptInStatus );
-						panel.$mmvOptOutLink.tipsy( 'hide' );
-						mw.mmv.actionLogger.log( 'opt' + ( newOptInStatus ? 'in' : 'out' )
-							+ '-' + ( mw.user.isAnon() ? 'anon' : 'loggedin' ) );
-					} ).fail( function () {
-						mw.notify( 'Error while trying to change preference' );
-					} );
-				} );
-
-			this.setOptInOutLink( this.$mmvOptOutLink, optInStatus );
-
-			this.$mmvAboutLinks.append(
-				separator,
-				this.$mmvOptOutLink
-			);
-		}
-
-		if ( !mw.user.isAnon() && mw.config.get( 'wgMediaViewerIsInBeta' ) ) {
-			target = mw.Title.newFromText( 'Special:Preferences' ).getUrl();
-			target += '#mw-prefsection-betafeatures';
-
-			this.$mmvPreferenceLink = $( '<a>' )
-				.prop( 'href', target )
-				.text( mw.message( 'mypreferences' ) )
-				.addClass( 'mw-mmv-preference-link' );
-
-			this.$mmvAboutLinks.append(
-				separator,
-				this.$mmvPreferenceLink
-			);
-		}
 	};
 
 	// *********************************

@@ -188,7 +188,7 @@
 		} );
 	} );
 
-	QUnit.test( 'About links', 9, function ( assert ) {
+	QUnit.test( 'About links', 3, function ( assert ) {
 		var panel,
 			$qf = $( '#qunit-fixture'),
 			oldWgMediaViewerIsInBeta = mw.config.get( 'wgMediaViewerIsInBeta' );
@@ -200,84 +200,6 @@
 		assert.strictEqual( $qf.find( '.mw-mmv-about-link' ).length, 1, 'About link is created.' );
 		assert.strictEqual( $qf.find( '.mw-mmv-discuss-link' ).length, 1, 'Discuss link is created.' );
 		assert.strictEqual( $qf.find( '.mw-mmv-help-link' ).length, 1, 'Help link is created.' );
-		assert.strictEqual( $qf.find( '.mw-mmv-optout-link' ).length, 1, 'Opt-out link is created.' );
-		assert.strictEqual( $qf.find( '.mw-mmv-preference-link' ).length, 0, 'Preferences link is not created when not in beta.' );
-
-		mw.config.set( 'wgMediaViewerIsInBeta', true );
-
-		mw.user.isAnon.returns( false );
-		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) );
-		assert.strictEqual( $qf.find( '.mw-mmv-optout-link' ).length, 0, 'Opt-out link is not created when in beta.' );
-		assert.strictEqual( $qf.find( '.mw-mmv-preference-link' ).length, 1, 'Preferences link is created for logged-in user.' );
-
-		mw.user.isAnon.returns( true );
-		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) );
-		assert.strictEqual( $qf.find( '.mw-mmv-optout-link' ).length, 0, 'Opt-out link is not created when in beta.' );
-		assert.strictEqual( $qf.find( '.mw-mmv-preference-link' ).length, 0, 'Preferences link is not created for anon user.' );
-
-		mw.config.set( 'wgMediaViewerIsInBeta', oldWgMediaViewerIsInBeta );
-	} );
-
-	QUnit.test( 'About links', 12, function ( assert ) {
-		var panel,
-			deferred,
-			$qf = $( '#qunit-fixture' ),
-			config = {
-				isMediaViewerEnabledOnClick: this.sandbox.stub(),
-				setMediaViewerEnabledOnClick: this.sandbox.stub(),
-				canSetMediaViewerEnabledOnClick: this.sandbox.stub()
-			},
-			oldWgMediaViewerIsInBeta = mw.config.get( 'wgMediaViewerIsInBeta' );
-
-		this.sandbox.stub( mw.user, 'isAnon' );
-		this.sandbox.stub( mw.mmv.actionLogger, 'log' );
-		this.sandbox.stub( $.fn, 'tipsy' ).returnsThis(); // interferes with the fake clock in other tests
-		mw.config.set( 'wgMediaViewerIsInBeta', false );
-		panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) );
-		panel.config = config;
-
-		// FIXME should not do work in the constructor
-		panel.$mmvOptOutLink.remove();
-		panel.$mmvOptOutLink = undefined;
-		config.canSetMediaViewerEnabledOnClick.returns( false );
-		panel.initializePreferenceLinks();
-		assert.strictEqual( $qf.find( '.mw-mmv-optout-link' ).length, 0, 'Optout link is hidden when option cannot be set' );
-
-		config.canSetMediaViewerEnabledOnClick.returns( true );
-		config.isMediaViewerEnabledOnClick.returns( true );
-		panel.initializePreferenceLinks();
-		assert.ok( $qf.find( '.mw-mmv-optout-link' ).text().match( /disable/i ), 'Optout link is visible when MediaViewer can be disabled' );
-
-		deferred = $.Deferred();
-		config.setMediaViewerEnabledOnClick.returns( deferred );
-
-		mw.user.isAnon.returns( true );
-		$qf.find( '.mw-mmv-optout-link' ).click();
-		assert.ok( config.setMediaViewerEnabledOnClick.calledWith( false ), 'When MediaViewer is active, it is disabled on click' );
-		assert.ok( $qf.find( '.mw-mmv-optout-link' ).is( '.pending' ), 'Pending class is set while disabling in progress' );
-
-		config.setMediaViewerEnabledOnClick.reset();
-		$qf.find( '.mw-mmv-optout-link' ).click();
-		assert.ok( !config.setMediaViewerEnabledOnClick.called, 'click has no effect when another request is pending' );
-		deferred.resolve();
-		assert.ok( !$qf.find( '.mw-mmv-optout-link' ).is( '.pending' ), 'Pending class removed after change has finished' );
-
-		assert.ok( mw.mmv.actionLogger.log.called, 'The optout action is logged' );
-		assert.strictEqual( mw.mmv.actionLogger.log.firstCall.args[0], 'optout-anon' , 'The correct event is logged' );
-
-		config.isMediaViewerEnabledOnClick.returns( false );
-		mw.user.isAnon.returns( false );
-		panel.initializePreferenceLinks();
-		assert.ok( $qf.find( '.mw-mmv-optout-link' ).text().match( /enable/i ), 'Optin link is visible when MediaViewer can be enabled' );
-
-		mw.mmv.actionLogger.log.reset();
-		config.setMediaViewerEnabledOnClick.reset();
-		config.setMediaViewerEnabledOnClick.returns( deferred );
-		$qf.find( '.mw-mmv-optout-link' ).click();
-		assert.ok( config.setMediaViewerEnabledOnClick.calledWith( true ), 'When MediaViewer is inactive, it is enabled on click' );
-		assert.ok( mw.mmv.actionLogger.log.called, 'The optin action is logged' );
-		assert.ok( mw.mmv.actionLogger.log.firstCall.args[0], 'optin-loggedin', 'The correct event is logged' );
-
 		mw.config.set( 'wgMediaViewerIsInBeta', oldWgMediaViewerIsInBeta );
 	} );
 }( mediaWiki, jQuery ) );

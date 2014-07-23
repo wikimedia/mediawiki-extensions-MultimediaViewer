@@ -217,6 +217,7 @@
 			link = $thumb.closest( 'a' ).prop( 'href' );
 
 			$( '<p>' )
+				.addClass( 'mw-mmv-filepage-menu' )
 				.append(
 					$link = $( '<a>' )
 						// It won't matter because we catch the click event anyway, but
