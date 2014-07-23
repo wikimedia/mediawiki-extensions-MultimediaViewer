@@ -15,6 +15,17 @@
  */
 
 /**
+ * @class mw.eventLog
+ * <https://www.mediawiki.org/wiki/Extension:EventLogging>
+ */
+
+/**
+ * @class mw.Map
+ * Associative array which is used for various configuration objects, most prominently mw.config:
+ * <https://www.mediawiki.org/wiki/Manual:Interface/JavaScript#mw.config>
+ */
+
+/**
  * @class HTMLElement
  * An HTML element.
  */

@@ -144,17 +144,21 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	public static function resourceLoaderGetConfigVars( &$vars ) {
-		global $wgAPIPropModules, $wgNetworkPerformanceSamplingFactor,
-			   $wgMediaViewerShowSurvey;
+		global $wgAPIPropModules, $wgMediaViewerActionLoggingSamplingFactorMap, $wgNetworkPerformanceSamplingFactor, $wgMediaViewerDurationLoggingSamplingFactor,
+			   $wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing;
 		$vars['wgMultimediaViewer'] = array(
 			'infoLink' => self::$infoLink,
 			'discussionLink' => self::$discussionLink,
 			'helpLink' => self::$helpLink,
 			'globalUsageAvailable' => isset( $wgAPIPropModules['globalusage'] ),
-			'showSurvey' => (bool)$wgMediaViewerShowSurvey,
+			'useThumbnailGuessing' => (bool)$wgMediaViewerUseThumbnailGuessing,
+			'durationSamplingFactor' => $wgMediaViewerDurationLoggingSamplingFactor,
+			'networkPerformanceSamplingFactor' => $wgNetworkPerformanceSamplingFactor,
+			'actionLoggingSamplingFactorMap' => $wgMediaViewerActionLoggingSamplingFactorMap,
+			'tooltipDelay' => 1000,
 		);
-		$vars['wgNetworkPerformanceSamplingFactor'] = $wgNetworkPerformanceSamplingFactor;
 		$vars['wgMediaViewer'] = true;
+		$vars['wgMediaViewerIsInBeta'] = $wgMediaViewerIsInBeta;
 
 		return true;
 	}
@@ -180,14 +184,17 @@ class MultimediaViewerHooks {
 			'scripts' => array(
 				'tests/qunit/mmv/mmv.bootstrap.test.js',
 				'tests/qunit/mmv/mmv.test.js',
+				'tests/qunit/mmv/mmv.DurationLogger.test.js',
 				'tests/qunit/mmv/mmv.lightboxinterface.test.js',
 				'tests/qunit/mmv/mmv.lightboximage.test.js',
 				'tests/qunit/mmv/mmv.ThumbnailWidthCalculator.test.js',
 				'tests/qunit/mmv/mmv.EmbedFileFormatter.test.js',
+				'tests/qunit/mmv/mmv.Config.test.js',
 				'tests/qunit/mmv/mmv.HtmlUtils.test.js',
 				'tests/qunit/mmv/mmv.performance.test.js',
-				'tests/qunit/mmv/mmv.logger.test.js',
+				'tests/qunit/mmv/mmv.ActionLogger.test.js',
 				'tests/qunit/mmv/model/mmv.model.test.js',
+				'tests/qunit/mmv/model/mmv.model.IwTitle.test.js',
 				'tests/qunit/mmv/model/mmv.model.TaskQueue.test.js',
 				'tests/qunit/mmv/model/mmv.model.License.test.js',
 				'tests/qunit/mmv/model/mmv.model.Image.test.js',
@@ -199,8 +206,12 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv/provider/mmv.provider.ImageInfo.test.js',
 				'tests/qunit/mmv/provider/mmv.provider.FileRepoInfo.test.js',
 				'tests/qunit/mmv/provider/mmv.provider.ThumbnailInfo.test.js',
+				'tests/qunit/mmv/provider/mmv.provider.GuessedThumbnailInfo.test.js',
 				'tests/qunit/mmv/provider/mmv.provider.UserInfo.test.js',
 				'tests/qunit/mmv/provider/mmv.provider.Image.test.js',
+				'tests/qunit/mmv/routing/mmv.routing.MainFileRoute.test.js',
+				'tests/qunit/mmv/routing/mmv.routing.ThumbnailRoute.test.js',
+				'tests/qunit/mmv/routing/mmv.routing.Router.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.canvas.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.canvasButtons.test.js',
@@ -208,6 +219,8 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv/ui/mmv.ui.description.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.fileUsage.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.metadataPanel.test.js',
+				'tests/qunit/mmv/ui/mmv.ui.metadataPanelScroller.test.js',
+				'tests/qunit/mmv/ui/mmv.ui.progressBar.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.permission.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.stripeButtons.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.reuse.dialog.test.js',
@@ -217,6 +230,7 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv/ui/mmv.ui.reuse.tab.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.reuse.utils.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.truncatableTextField.test.js',
+				'tests/qunit/mmv/globalUsage.test.js',
 				'tests/qunit/mmv/mmv.testhelpers.js',
 			),
 			'dependencies' => array(
@@ -225,6 +239,7 @@ class MultimediaViewerHooks {
 				'mmv.ui.reuse.share',
 				'mmv.ui.reuse.embed',
 				'mmv.ui.reuse.download',
+				'moment',
 			),
 			'localBasePath' => __DIR__,
 			'remoteExtPath' => 'MultimediaViewer',

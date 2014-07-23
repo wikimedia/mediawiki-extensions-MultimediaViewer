@@ -37,12 +37,31 @@
 		// Exposed for tests
 		this.readinessCSSClass = 'mw-mmv-has-been-loaded';
 		this.readinessWaitDuration = 100;
+		this.hoverWaitDuration = 200;
+
+		// TODO lazy-load config and htmlUtils
+
+		/** @property {mw.mmv.Config} config - */
+		this.config = new mw.mmv.Config(
+			mw.config.get( 'wgMultimediaViewer', {} ),
+			mw.config,
+			mw.user,
+			new mw.Api(),
+			window.localStorage
+		);
 
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
 
+		/**
+		 * This flag is set to true when we were unable to load the viewer.
+		 * @property {boolean}
+		 */
+		this.viewerIsBroken = false;
+
 		this.thumbsReadyDeferred = $.Deferred();
 		this.thumbs = [];
+
 		this.$thumbs = $( '.gallery .image img, a.image img, #file a img' );
 		this.processThumbs();
 
@@ -83,6 +102,7 @@
 		} ).fail( function( message ) {
 			mw.log.warn( message );
 			bs.cleanupOverlay();
+			bs.viewerIsBroken = true;
 			mw.notify( 'Error loading MediaViewer: ' + message );
 		} );
 	};
@@ -96,7 +116,8 @@
 		var $dummy = $( '<div class="' + this.readinessCSSClass + '">' )
 			.appendTo( $( document.body ) ),
 			bs = this,
-			viewer;
+			viewer,
+			message;
 
 		if ( $dummy.css( 'display' ) === 'inline' ) {
 			// Let's be clean and remove the test item before resolving the deferred
@@ -104,7 +125,11 @@
 			try {
 				viewer = bs.getViewer();
 			} catch ( e ) {
-				deferred.reject( e.message );
+				message = e.message;
+				if ( e.stack ) {
+					message += '\n' + e.stack;
+				}
+				deferred.reject( message );
 				return;
 			}
 			deferred.resolve( viewer );
@@ -120,9 +145,32 @@
 	MMVB.processThumbs = function () {
 		var bs = this;
 
-		this.$thumbs.each( function ( i, thumb ) {
-			bs.processThumb( thumb );
-		} );
+		// if this breaks in IE8, see https://github.com/ebryn/backburner.js/pull/50
+		// but it probably won't since there is a catch further up the chain
+		try {
+			this.$thumbs.each( function ( i, thumb ) {
+				bs.processThumb( thumb );
+			} );
+		} finally {
+			this.thumbsReadyDeferred.resolve();
+			// now that we have set up our real click handler we can we can remove the temporary
+			// handler added in mmv.head.js which just replays clicks to the real handler
+			$( document ).off( 'click.mmv-head' );
+		}
+	};
+
+	/**
+	 * Check if this thumbnail should be handled by MediaViewer
+	 * @param {jQuery} $thumb the thumbnail (an `<img>` element) in question
+	 * @return {boolean}
+	 */
+	MMVB.isAllowedThumb = function ( $thumb ) {
+		// .metadata means this is inside an informational template like {{refimprove}} on enwiki.
+		// .noviewer means MediaViewer has been specifically disabled for this image
+		// .noarticletext means we are on an error page for a non-existing article, the image is part of some
+		//  template // FIXME this should be handled by .metadata
+		return $thumb.closest( '.metadata, .noviewer, .noarticletext' ).length === 0;
+
 	};
 
 	/**
@@ -133,6 +181,7 @@
 		var $thumbCaption,
 			caption,
 			bs = this,
+			alwaysOpen = false,
 			$thumb = $( thumb ),
 			$link = $thumb.closest( 'a.image' ),
 			$thumbContain = $link.closest( '.thumb' ),
@@ -144,21 +193,32 @@
 			return;
 		}
 
-		if (
-			// This is almost certainly an icon for an informational template like
-			// {{refimprove}} on enwiki.
-			$thumb.closest( '.metadata' ).length > 0 ||
-
-			// This is an article with no text.
-			$thumb.closest( '.noarticletext' ).length > 0
-		) {
+		if ( !bs.isAllowedThumb( $thumb ) ) {
 			return;
 		}
 
 		if ( $thumbContain.length !== 0 && $thumbContain.is( '.thumb' ) ) {
 			$thumbCaption = $thumbContain.find( '.thumbcaption' ).clone();
 			$thumbCaption.find( '.magnify' ).remove();
+			if ( !$thumbCaption.length ) { // gallery, maybe
+				$thumbCaption = $thumbContain.closest( '.gallerybox' ).find( '.gallerytext' ).clone();
+			}
 			caption = this.htmlUtils.htmlToTextWithLinks( $thumbCaption.html() || '' );
+
+			// If this is a thumb, we preload JS/CSS when the mouse cursor hovers the thumb container (thumb image + caption + border)
+			$thumbContain.mouseenter( function() {
+				// There is no point preloading if clicking the thumb won't open Media Viewer
+				if ( !bs.config.isMediaViewerEnabledOnClick() ) {
+					return;
+				}
+				bs.preloadOnHoverTimer = setTimeout( function() {
+					mw.loader.load( 'mmv' );
+				}, bs.hoverWaitDuration );
+			} ).mouseleave( function() {
+				if ( bs.preloadOnHoverTimer ) {
+					clearTimeout( bs.preloadOnHoverTimer );
+				}
+			} );
 		}
 
 		if ( $thumb.closest( '#file' ).length > 0 ) {
@@ -175,6 +235,9 @@
 						.text( mw.message( 'multimediaviewer-view-expanded' ).text() )
 				)
 				.appendTo( $( '.fullMedia' ) );
+
+			// Ignore the preference, open anyway
+			alwaysOpen = true;
 		}
 
 		// This is the data that will be passed onto the mmv
@@ -185,31 +248,21 @@
 			link : link,
 			caption : caption } );
 
-		if ( $thumbContain.length === 0 ) {
-			// This isn't a thumbnail! Just use the link.
-			$thumbContain = $link;
-		} else if ( $thumbContain.is( '.thumb' ) ) {
-			$thumbContain = $thumbContain.find( '.image' );
-		}
-
 		$link.add( $enlarge ).click( function ( e ) {
-			return bs.click( this, e, title );
+			return bs.click( this, e, title, alwaysOpen );
 		} );
-		// now that we have set up our real click handler we can we can remove the temporary
-		// handler added in mmv.head.js which just replays clicks to the real handler
-		$( document ).off( 'click.mmv-head' );
-
-		this.thumbsReadyDeferred.resolve();
 	};
 
 	/**
 	 * Handles a click event on a link
-	 * @param {Object} element Clicked element
+	 * @param {HTMLElement} element Clicked element
 	 * @param {jQuery.Event} e jQuery event object
 	 * @param {string} title File title
+	 * @param {boolean} overridePreference Whether to ignore global preferences and open
+	 * the lightbox on this click event.
 	 * @returns {boolean}
 	 */
-	MMVB.click = function ( element, e, title ) {
+	MMVB.click = function ( element, e, title, overridePreference ) {
 		var $element = $( element );
 
 		// Do not interfere with non-left clicks or if modifier keys are pressed.
@@ -218,18 +271,25 @@
 		}
 
 		// Don't load if someone has specifically stopped us from doing so
-		if ( mw.config.get( 'wgMediaViewerOnClick' ) !== true ) {
+		if ( !this.config.isMediaViewerEnabledOnClick() && overridePreference !== true ) {
 			return;
 		}
 
+		// Don't load if we already tried loading and it failed
+		if ( this.viewerIsBroken ) {
+			return;
+		}
+
+		mw.mmv.durationLogger.start( [ 'click-to-first-image', 'click-to-first-metadata' ] );
+
 		if ( $element.is( 'a.image' ) ) {
-			mw.mmv.logger.log( 'thumbnail-link-click' );
+			mw.mmv.actionLogger.log( 'thumbnail' );
 		} else if ( $element.is( '.magnify a' ) ) {
-			mw.mmv.logger.log( 'enlarge-link-click' );
+			mw.mmv.actionLogger.log( 'enlarge' );
 		}
 
 		this.loadViewer().then( function ( viewer ) {
-			viewer.loadImageByTitle( title.getPrefixedText(), true );
+			viewer.loadImageByTitle( title, true );
 		} );
 
 		e.preventDefault();
@@ -239,8 +299,9 @@
 
 	/**
 	 * Handles the browser location hash on pageload or hash change
+	 * @param {boolean} log Whether this is called for the hash that came with the pageload
 	 */
-	MMVB.hash = function () {
+	MMVB.hash = function ( initialHash ) {
 		var bootstrap = this;
 
 		// There is no point loading the mmv if it isn't loaded yet for hash changes unrelated to the mmv
@@ -260,6 +321,10 @@
 			// the page is loaded with an invalid MMV url
 			if ( !viewer.isOpen ) {
 				bootstrap.cleanupOverlay();
+			} else if ( initialHash ) {
+				mw.mmv.actionLogger.log( 'hash-load' );
+			} else {
+				mw.mmv.actionLogger.log( 'history-navigation' );
 			}
 		} );
 	};
@@ -269,23 +334,27 @@
 	 * @param {jQuery.Event} e Custom mmv-hash event
 	 */
 	MMVB.internalHashChange = function ( e ) {
-		var hash = e.hash;
+		var hash = e.hash,
+			title = e.title;
 
 		// The advantage of using pushState when it's available is that it has to ability to truly
 		// clear the hash, not leaving "#" in the history
 		// An entry with "#" in the history has the side-effect of resetting the scroll position when navigating the history
-		if ( this.browserHistory ) {
+		if ( this.browserHistory && this.browserHistory.pushState ) {
 			// In order to truly clear the hash, we need to reconstruct the hash-free URL
 			if ( hash === '#' ) {
 				hash = window.location.href.replace( /#.*$/, '' );
 			}
-			this.browserHistory.pushState( null, null, hash );
+
+			this.browserHistory.pushState( null, title, hash );
 		} else {
 			// Since we voluntarily changed the hash, we don't want MMVB.hash (which will trigger on hashchange event) to treat it
 			this.skipNextHashHandling = true;
 
 			window.location.hash = hash;
 		}
+
+		document.title = title;
 	};
 
 	/**
@@ -307,12 +376,12 @@
 	MMVB.setupEventHandlers = function () {
 		var self = this;
 
-		$( window ).on( this.browserHistory ? 'popstate.mmvb' : 'hashchange', function () {
+		$( window ).on( this.browserHistory && this.browserHistory.pushState ? 'popstate.mmvb' : 'hashchange', function () {
 			self.hash();
 		} );
 
 		// Interpret any hash that might already be in the url
-		self.hash();
+		self.hash( true );
 
 		$( document ).on( 'mmv-hash', function ( e ) {
 			self.internalHashChange( e );
@@ -357,6 +426,8 @@
 	 * Cleans up the overlay
 	 */
 	MMVB.cleanupOverlay = function () {
+		var bootstrap = this;
+
 		$( document.body ).removeClass( 'mw-mmv-lightbox-open' );
 
 		if ( this.$overlay ) {
@@ -364,8 +435,8 @@
 		}
 
 		if ( this.savedScroll ) {
-			$.scrollTo( this.savedScroll, 0 );
-			this.savedScroll = undefined;
+			// setTimeout because otherwise Chrome will scroll back to top after the popstate event handlers run
+			setTimeout( function() { $.scrollTo( bootstrap.savedScroll, 0 ); bootstrap.savedScroll = undefined; }, 0 );
 		}
 	};
 

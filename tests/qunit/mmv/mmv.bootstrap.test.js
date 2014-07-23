@@ -1,5 +1,12 @@
 ( function ( mw, $ ) {
-	QUnit.module( 'mmv.bootstrap', QUnit.newMwEnvironment() );
+	QUnit.module( 'mmv.bootstrap', QUnit.newMwEnvironment( {
+		setup: function () {
+			mw.config.set( 'wgMediaViewer', true );
+			mw.config.set( 'wgMediaViewerOnClick', true );
+			this.sandbox.stub( mw.user, 'isAnon').returns( false );
+			this.clock = this.sandbox.useFakeTimers();
+		}
+	} ) );
 
 	function createGallery( imageSrc ) {
 		var div = $( '<div>' ).addClass( 'gallery' ).appendTo( '#qunit-fixture' ),
@@ -53,15 +60,10 @@
 	}
 
 	QUnit.test( 'Promise does not hang on ResourceLoader errors', 3, function ( assert ) {
-		var oldUsing = mw.loader.using,
-			bootstrap,
+		var bootstrap,
 			errorMessage = 'loading failed';
 
-		mw.loader.using = function ( module, success, error ) {
-			if ( $.isFunction( error ) ) {
-				error( new Error( errorMessage, ['mmv'] ) );
-			}
-		};
+		this.sandbox.stub( mw.loader, 'using' ).callsArgWith( 2, new Error( errorMessage, ['mmv'] ) );
 
 		bootstrap = createBootstrap();
 
@@ -78,11 +80,27 @@
 		bootstrap.loadViewer().fail( function ( message ) {
 			assert.strictEqual( message, errorMessage, 'promise is rejected with the error message when loading fails' );
 			QUnit.start();
-			mw.loader.using = oldUsing;
 		} );
 	} );
 
-	QUnit.test( 'Check viewer invoked when clicking on legit image links', 7, function ( assert ) {
+	QUnit.test( 'Clicks are not captured once the loading fails', 4, function ( assert ) {
+		var event, returnValue,
+			bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+
+		this.sandbox.stub( mw.loader, 'using' ).callsArgWith( 2, new Error( 'loading failed', ['mmv'] ) );
+
+		event = new $.Event( 'click', { button: 0, which: 1 } );
+		returnValue = bootstrap.click( {}, event, 'foo' );
+		assert.ok( event.isDefaultPrevented(), 'First click is caught' );
+		assert.strictEqual( returnValue, false, 'First click is caught' );
+
+		event = new $.Event( 'click', { button: 0, which: 1 } );
+		returnValue = bootstrap.click( {}, event, 'foo' );
+		assert.ok( !event.isDefaultPrevented(), 'Click after loading failure is not caught' );
+		assert.notStrictEqual( returnValue, false, 'Click after loading failure is not caught' );
+	} );
+
+	QUnit.test( 'Check viewer invoked when clicking on legit image links', 9, function ( assert ) {
 		// TODO: Is <div class="gallery"><span class="image"><img/></span></div> valid ???
 		var div, link, link2, link3, link4, bootstrap,
 			viewer = { initWithThumbs : $.noop };
@@ -132,6 +150,11 @@
 		// Click on legit link
 		link4.trigger( { type: 'click', which: 1 } );
 
+		// Click on legit link even when preference says not to
+		mw.config.set( 'wgMediaViewerOnClick', false );
+		link4.trigger( { type: 'click', which: 1 } );
+		mw.config.set( 'wgMediaViewerOnClick', true );
+
 		bootstrap.setupOverlay = function () {
 			assert.ok( false, 'Overlay was not set up' );
 		};
@@ -142,6 +165,11 @@
 
 		// Click on non-legit link
 		link3.trigger( { type : 'click', which : 1 } );
+
+		// Click on legit links with preference off
+		mw.config.set( 'wgMediaViewerOnClick', false );
+		link.trigger( { type : 'click', which : 1 } );
+		link2.trigger( { type : 'click', which : 1 } );
 	} );
 
 	QUnit.test( 'Skip images with invalid extensions', 0, function ( assert ) {
@@ -167,7 +195,7 @@
 		var $div, $link, bootstrap,
 			viewer = { initWithThumbs : $.noop };
 
-		// Create gallery with image that has invalid name extension
+		// Create gallery with image that has valid name extension
 		$div = createGallery();
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
@@ -208,7 +236,7 @@
 			$link = $div.find( 'a.image' );
 
 		viewer.loadImageByTitle = function ( loadedTitle ) {
-			assert.strictEqual( loadedTitle, 'File:Foo.jpg', 'Titles are identical' );
+			assert.strictEqual( loadedTitle.getPrefixedDb(), 'File:Foo.jpg', 'Titles are identical' );
 		};
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
@@ -305,10 +333,6 @@
 				.text( '.' + CSSclass + ' { display: inline; }' );
 
 		bootstrap.readinessCSSClass = CSSclass;
-		// This speeds up the test execution
-		// It's not zero because if the test fails, the browser would get hammered indefinitely
-		bootstrap.readinessWaitDuration = 30;
-
 		bootstrap.isCSSReady( deferred );
 
 		assert.strictEqual( deferred.state(), 'pending', 'The style isn\'t on the page yet' );
@@ -323,6 +347,8 @@
 		} );
 
 		$style.appendTo( 'head' );
+
+		this.clock.tick( bootstrap.readinessWaitDuration );
 	} );
 
 	QUnit.test( 'Restoring article scroll position', 2, function ( assert ) {
@@ -351,5 +377,54 @@
 
 		assert.strictEqual( stubbedScrollTop, scrollTop, 'Scroll is correctly reset to original top position' );
 		assert.strictEqual( stubbedScrollLeft, scrollLeft, 'Scroll is correctly reset to original left position' );
+	} );
+
+	QUnit.test( 'Preload JS/CSS dependencies on thumb hover', 2, function ( assert ) {
+		var $div, bootstrap,
+			viewer = { initWithThumbs : $.noop };
+
+		// Create gallery with image that has valid name extension
+		$div = createThumb();
+
+		// Create a new bootstrap object to trigger the DOM scan, etc.
+		bootstrap = createBootstrap( viewer );
+
+		this.sandbox.stub( mw.loader, 'load' );
+
+		$div.mouseenter();
+		this.clock.tick( bootstrap.hoverWaitDuration - 50 );
+		$div.mouseleave();
+
+		assert.ok( !mw.loader.load.called, 'Dependencies should not be preloaded if the thumb is not hovered long enough' );
+
+		$div.mouseenter();
+		this.clock.tick( bootstrap.hoverWaitDuration + 50 );
+		$div.mouseleave();
+
+		assert.ok( mw.loader.load.called, 'Dependencies should be preloaded if the thumb is hovered long enough' );
+	} );
+
+	QUnit.test( 'isAllowedThumb', 5, function ( assert ) {
+		var $container = $( '<div>' ),
+			$thumb = $( '<img>' ).appendTo( $container ),
+			bootstrap = createBootstrap();
+
+
+		assert.ok( bootstrap.isAllowedThumb( $thumb ), 'Normal image in a div is allowed.' );
+
+		$container.addClass( 'metadata' );
+		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image in a metadata container is disallowed.' );
+
+		$container.prop( 'class', '' );
+		$container.addClass( 'noviewer' );
+		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image in a noviewer container is disallowed.' );
+
+		$container.prop( 'class', '' );
+		$container.addClass( 'noarticletext' );
+		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image in an empty article is disallowed.' );
+
+		$container.prop( 'class', '' );
+		$thumb.addClass( 'noviewer' );
+		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image with a noviewer class is disallowed.' );
 	} );
 }( mediaWiki, jQuery ) );

@@ -252,15 +252,6 @@
 	};
 
 	/**
-	 * Check whether the image is CC-licensed.
-	 * @returns {boolean}
-	 */
-	IP.isCcLicensed = function () {
-		return this.license && this.license.internalName &&
-			this.license.internalName.substr( 0, 2 ) === 'cc';
-	};
-
-	/**
 	 * Check whether the image has geolocation data.
 	 * @returns {boolean}
 	 */

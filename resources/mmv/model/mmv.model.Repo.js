@@ -144,6 +144,14 @@
 	};
 
 	/**
+	* @override
+	* @inheritdoc
+	*/
+	ForeignApiRepo.prototype.isCommons = function () {
+	    return /^(https?:)?\/\/commons.wikimedia.org/.test( this.server );
+	};
+
+	/**
 	 * Represents information about a foreign, shared DB repository
 	 * @class mw.mmv.model.ForeignDbRepo
 	 * @extends mw.mmv.model.Repo
@@ -171,6 +179,14 @@
 	*/
 	ForeignDbRepo.prototype.getArticlePath = function () {
 		return this.descBaseUrl.replace( /[^\/:]*:$/, '$1' );
+	};
+
+	/**
+	* @override
+	* @inheritdoc
+	*/
+	ForeignDbRepo.prototype.isCommons = function () {
+	    return /^(https?:)?\/\/commons.wikimedia.org/.test( this.descBaseUrl );
 	};
 
 	mw.mmv.model.Repo = Repo;

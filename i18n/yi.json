@@ -1,9 +1,12 @@
 {
-    "@metadata": {
-        "authors": [
-            "פוילישער"
-        ]
-    },
-    "multimediaviewer-permission-link": "באקוקן טערמינען",
-    "multimediaviewer-reuse-loading-placeholder": "לאָדנדיק…"
+	"@metadata": {
+		"authors": [
+			"פוילישער"
+		]
+	},
+	"multimediaviewer-datetime-created": "געשאפן: $1",
+	"multimediaviewer-datetime-uploaded": "ארויפגעלאדן: $1",
+	"multimediaviewer-permission-link": "באקוקן טערמינען",
+	"multimediaviewer-reuse-loading-placeholder": "לאָדנדיק…",
+	"multimediaviewer-download-attribution-cta": "ווײַז מיך וויאזוי"
 }

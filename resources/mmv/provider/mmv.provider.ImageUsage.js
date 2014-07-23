@@ -29,10 +29,11 @@
 	 *         more pages than this, we won't have an accurate count.
 	 *         (Also, influences query performance.)
 	 * @cfg {number} [dataLimit=10] number of entries to actually put into the model.
+	 * @cfg {number} [maxage] cache expiration time, in seconds
+	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
 	 */
 	function ImageUsage( api, options ) {
 		options = $.extend( {
-			namespaces: [0, 100], // article, portal
 			apiLimit: 100,
 			dataLimit: 10
 		}, options );
@@ -44,28 +45,24 @@
 	/**
 	 * Runs an API GET request to get the image usage.
 	 * @param {mw.Title} file
-	 * @return {jQuery.Promise}
+	 * @return {jQuery.Promise.<mw.mmv.model.FileUsage>}
 	 */
 	ImageUsage.prototype.get = function( file ) {
 		var provider = this;
 
 		return this.getCachedPromise( file.getPrefixedDb(), function () {
-			return provider.api.get( {
+			return provider.apiGetWithMaxAge( {
 				action: 'query',
 				list: 'imageusage',
 				iutitle: file.getPrefixedDb(),
 				iunamespace: provider.options.namespaces,
-				iulimit: provider.options.apiLimit,
-				format: 'json'
+				iulimit: provider.options.apiLimit
 			} ).then( function( data ) {
 				return provider.getQueryField( 'imageusage', data );
 			} ).then( function( imageusage, data ) {
 				var pages;
 				pages = $.map( imageusage, function( item ) {
-					return {
-						wiki: null,
-						page: new mw.Title( item.title, item.ns )
-					};
+					return new mw.Title( item.title, item.ns );
 				} );
 				return new mw.mmv.model.FileUsage(
 					file,

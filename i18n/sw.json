@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Lloffiwr"
+		]
+	},
+	"multimediaviewer-license-default": "Tazama leseni",
+	"multimediaviewer-permission-title": "Maelezo ya leseni",
+	"multimediaviewer-permission-viewmore": "Tazama zaidi",
+	"multimediaviewer-about-mmv": "Kuhusu Media Viewer",
+	"multimediaviewer-help-mmv": "Msaada",
+	"multimediaviewer-fileusage-count": "Inatumika katika {{PLURAL:$1|ukurasa moja tu|kurasa $1}}",
+	"multimediaviewer-fileusage-local-section": "Katika tovuti hii",
+	"multimediaviewer-fileusage-global-section": "Katika tovuti zingine",
+	"multimediaviewer-reuse-link": "Tumia faili hili",
+	"multimediaviewer-embed-html": "HTML"
+}

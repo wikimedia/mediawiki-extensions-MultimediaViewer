@@ -22,10 +22,10 @@
 	 * Class for storing license information about an image. For available fields, see
 	 * TemplateParser::$licenseFieldClasses in the CommonsMetadata extension.
 	 * @class mw.mmv.model.License
-	 * @param {string} shortName see {@link License#shortName}
-	 * @param {string} [internalName] see {@link License#internalName}
-	 * @param {string} [longName] see {@link License#longName}
-	 * @param {string} [deedUrl] see {@link License#deedUrl}
+	 * @param {string} shortName see {@link #shortName}
+	 * @param {string} [internalName] see {@link #internalName}
+	 * @param {string} [longName] see {@link #longName}
+	 * @param {string} [deedUrl] see {@link #deedUrl}
 	 * @constructor
 	 */
 	function License(
@@ -54,6 +54,14 @@
 		this.htmlUtils = new mw.mmv.HtmlUtils();
 	}
 	LP = License.prototype;
+
+	/**
+	 * Check whether this is a Creative Commons license.
+	 * @returns {boolean}
+	 */
+	LP.isCc = function () {
+		return this.internalName ? this.internalName.substr( 0, 2 ) === 'cc' : false;
+	};
 
 	/**
 	 * Returns the short name of the license:

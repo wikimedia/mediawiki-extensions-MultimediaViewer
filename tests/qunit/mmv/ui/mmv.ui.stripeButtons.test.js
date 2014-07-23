@@ -16,26 +16,11 @@
  */
 
 ( function( mw, $ ) {
-	var oldShowSurvey;
-
-	QUnit.module( 'mmv.ui.StripeButtons', QUnit.newMwEnvironment( {
-		setup: function () {
-			// pretend surveys are enabled for this site
-			oldShowSurvey = mw.config.get( 'wgMultimediaViewer' ).showSurvey;
-			mw.config.get( 'wgMultimediaViewer' ).showSurvey = true;
-			this.clock = this.sandbox.useFakeTimers();
-		},
-		teardown: function () {
-			mw.config.get( 'wgMultimediaViewer' ).showSurvey = oldShowSurvey;
-		}
-	} ) );
+	QUnit.module( 'mmv.ui.StripeButtons', QUnit.newMwEnvironment() );
 
 	function createStripeButtons() {
 		var fixture = $( '#qunit-fixture' );
-		return new mw.mmv.ui.StripeButtons( fixture, {
-			getItem: function () { return 999; },
-			setItem: $.noop
-		} );
+		return new mw.mmv.ui.StripeButtons( fixture );
 	}
 
 	QUnit.test( 'Sanity test, object creation and UI construction', 4, function ( assert ) {
@@ -48,7 +33,7 @@
 
 		assert.ok( buttons, 'UI element is created.' );
 		assert.strictEqual( buttons.buttons.$reuse.length, 1, 'Reuse button created.' );
-		assert.ok( !buttons.buttons.$descriptionPage, 'File page button not created for anon.' );
+		assert.ok( buttons.buttons.$descriptionPage, 'File page button created for anon.' );
 
 		// now pretend we are logged in
 		mw.user.isAnon = function () { return false; };
@@ -59,33 +44,10 @@
 		mw.user.isAnon = oldMwUserIsAnon;
 	} );
 
-	QUnit.test( 'Survey conditions', 3, function ( assert ) {
-		var buttons,
-			oldLanguage = mw.config.get( 'wgUserLanguage' );
-
-		// pretend surveys are disabled for this site
-		mw.config.get( 'wgMultimediaViewer' ).showSurvey = false;
-		mw.config.set( 'wgUserLanguage', 'en' );
-		buttons = createStripeButtons();
-		assert.ok( !buttons.buttons.$feedback, 'No survey button by default.' );
-
-		// pretend surveys are enabled for this site
-		mw.config.get( 'wgMultimediaViewer' ).showSurvey = true;
-		buttons = createStripeButtons();
-		assert.ok( buttons.buttons.$feedback, 'Survey button shown when enabled.' );
-
-		// now pretend we don't speak English
-		mw.config.set( 'wgUserLanguage', 'el' );
-		buttons = createStripeButtons();
-		assert.ok( !buttons.buttons.$feedback, 'No survey for non-english speakers.' );
-
-		mw.config.set( 'wgUserLanguage', oldLanguage );
-	} );
-
 	QUnit.test( 'set()/empty() sanity test:', 1, function ( assert ) {
 		var buttons = createStripeButtons(),
 			fakeImageInfo = { descriptionUrl: '//commons.wikimedia.org/wiki/File:Foo.jpg' },
-			fakeRepoInfo = { displayName: 'Wikimedia Commons' };
+			fakeRepoInfo = { displayName: 'Wikimedia Commons', isCommons: function () { return true; } };
 
 		buttons.set( fakeImageInfo, fakeRepoInfo );
 		buttons.empty();
@@ -113,58 +75,5 @@
 		assert.ok( !buttons.buttons.$reuse.hasClass( 'open' ), 'open event is not handled when unattached' );
 
 		$( document ).off( 'mmv-reuse-open.test' );
-	} );
-
-	QUnit.test( 'Feedback tooltip', 8, function ( assert ) {
-		var buttons = createStripeButtons(),
-			displayCount,
-			hasTooltip = function () { return !!$( '.tipsy' ).length; };
-
-		this.sandbox.stub( buttons.localStorage, 'getItem', function () { return displayCount; } );
-		this.sandbox.stub( buttons.localStorage, 'setItem', function ( _, val ) { displayCount = val; } );
-
-		displayCount = 0;
-		buttons.attach();
-
-		assert.ok( !hasTooltip(), 'No tooltip initially' );
-
-		this.clock.tick( 1000 );
-		assert.ok( !hasTooltip(), 'No tooltip after 1s' );
-
-		this.clock.tick( 5000 );
-		assert.ok( hasTooltip(), 'Tooltip visible after 6s' );
-		assert.strictEqual( displayCount, 1, 'displayCount was increased' );
-
-		this.clock.tick( 5000 );
-		assert.ok( !hasTooltip(), 'Tooltip hidden again after 11s' );
-
-		buttons.unattach();
-		delete buttons.tooltipDisplayCount;
-
-		displayCount = 3;
-		buttons.attach();
-
-		this.clock.tick( 6000 );
-		assert.ok( !hasTooltip(), 'No tooltip after 6s when display count limit reached' );
-
-		buttons.unattach();
-		delete buttons.tooltipDisplayCount;
-
-		displayCount = 0;
-		buttons.openSurveyInNewWindow = this.sandbox.stub();
-		buttons.attach();
-		buttons.buttons.$feedback.triggerHandler( 'click' );
-
-		this.clock.tick( 6000 );
-		assert.ok( !hasTooltip(), 'No tooltip if button was clicked' );
-
-		buttons.unattach();
-		delete buttons.tooltipDisplayCount;
-
-		displayCount = 0;
-		buttons.attach();
-		buttons.unattach();
-		this.clock.tick( 6000 );
-		assert.ok( !hasTooltip(), 'No tooltip when unattached' );
 	} );
 }( mediaWiki, jQuery ) );

@@ -1,0 +1,170 @@
+@import "../mmv.globals";
+@import "../mmv.mixins";
+@import "mediawiki.mixins.animation";
+
+@drag-icon-width: 64px;
+@drag-icon-height: 18px;
+@drag-icon-color: #e6e6e6;
+@drag-icon-invite-color: #347bff;
+
+.mw-mmv-post-image {
+	.animation( mw-mmv-appear-animation 0.5s ease 0s 1 normal forwards );
+	&.invite {
+		.animation( mw-mmv-invite-animation 0.9s ease 0.2s 1 normal forwards );
+	}
+
+	.jq-fullscreened & {
+		.animation(none);
+	}
+}
+
+.mw-mmv-appear-animation() {
+	0% {
+		opacity: 0.6;
+	}
+	50% {
+		opacity: 0.9;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes mw-mmv-appear-animation {
+	.mw-mmv-appear-animation;
+}
+
+@-moz-keyframes mw-mmv-appear-animation {
+	.mw-mmv-appear-animation;
+}
+
+@-o-keyframes mw-mmv-appear-animation {
+	.mw-mmv-appear-animation;
+}
+
+@keyframes mw-mmv-appear-animation {
+	.mw-mmv-appear-animation;
+}
+
+.mw-mmv-invite-animation() {
+	0% {
+		margin-top: 0px;
+	}
+	30% {
+		margin-top: -15px;
+	}
+	85% {
+		margin-top: 0;
+	}
+}
+
+@-webkit-keyframes mw-mmv-invite-animation {
+	.mw-mmv-invite-animation;
+}
+
+@-moz-keyframes mw-mmv-invite-animation {
+	.mw-mmv-invite-animation;
+}
+
+@-o-keyframes mw-mmv-invite-animation {
+	.mw-mmv-invite-animation;
+}
+
+@keyframes mw-mmv-invite-animation {
+	.mw-mmv-invite-animation;
+}
+
+.mw-mmv-drag-icon {
+	width: @drag-icon-width;
+	height: @drag-icon-height;
+
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	margin: 0 0 0 -(@drag-icon-width / 2);
+
+	/* @embed */
+	background-image: url(img/drag.svg);
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	background-color: @drag-icon-color;
+
+	cursor: pointer;
+	z-index: 1; // make sure it is above the text - the icon is visually at the bottom but in the DOM at the top
+	.opacity(0.7);
+	transition: opacity 0.25s;
+
+	&-pointing-down { // use single-class selector - chevron direction is important enough to make it IE6-compatible
+		background-position: center top;
+		.rotate(180deg);
+
+		-webkit-border-bottom-left-radius: 3px;
+		-webkit-border-bottom-right-radius: 3px;
+		-moz-border-radius-bottomleft: 3px;
+		-moz-border-radius-bottomright: 3px;
+		border-bottom-left-radius: 3px;
+		border-bottom-right-radius: 3px;
+
+		.mw-mmv-post-image:hover & {
+			.opacity(1);
+		}
+	}
+	&-pointing-up {
+		-webkit-border-top-left-radius: 3px;
+		-webkit-border-top-right-radius: 3px;
+		-moz-border-radius-topleft: 3px;
+		-moz-border-radius-topright: 3px;
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+
+		&:hover {
+			.opacity(1);
+		}
+	}
+
+	&.panel-open {
+		display: none;
+	}
+
+	&.panel-never-opened {
+		/* @embed */
+		background-image: url(img/drag-active.svg);
+		background-color: @drag-icon-invite-color;
+		.opacity(1);
+		.animation( mw-mmv-appear-chevron-animation 1.4s ease 0s 1 normal forwards );
+	}
+
+	.jq-fullscreened & {
+		display: none;
+	}
+}
+
+.mw-mmv-appear-chevron-animation() {
+	0% {
+		opacity: 0;
+	}
+	85% {
+		opacity: 0;
+		bottom: -5px;
+	}
+	100% {
+		opacity: 1;
+		bottom: 0px;
+	}
+}
+
+@-webkit-keyframes mw-mmv-appear-chevron-animation {
+	.mw-mmv-appear-chevron-animation;
+}
+
+@-moz-keyframes mw-mmv-appear-chevron-animation {
+	.mw-mmv-appear-chevron-animation;
+}
+
+@-o-keyframes mw-mmv-appear-chevron-animation {
+	.mw-mmv-appear-chevron-animation;
+}
+
+@keyframes mw-mmv-appear-chevron-animation {
+	.mw-mmv-appear-chevron-animation;
+}

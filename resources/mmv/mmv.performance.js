@@ -15,18 +15,33 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function ( mw, $, oo ) {
 	var P;
 
 	/**
 	 * Measures the network performance
 	 * See <https://meta.wikimedia.org/wiki/Schema:MultimediaViewerNetworkPerformance>
 	 * @class mw.mmv.Performance
+	 * @extends mw.mmv.Logger
 	 * @constructor
 	 */
 	function Performance() {}
 
+	oo.inheritClass( Performance, mw.mmv.Logger );
+
 	P = Performance.prototype;
+
+	/**
+	 * @override
+	 * @inheritdoc
+	 */
+	P.samplingFactor = mw.config.get( 'wgMultimediaViewer' ).networkPerformanceSamplingFactor;
+
+	/**
+	 * @override
+	 * @inheritdoc
+	 */
+	P.schema = 'MultimediaViewerNetworkPerformance';
 
 	/**
 	 * Global setup that should be done while the page loads
@@ -36,7 +51,7 @@
 
 		// by default logging is cut off after 150 resources, which is not enough in debug mode
 		// only supported by IE
-		if ( mw.config.get( 'debug' ) && performance.setResourceTimingBufferSize ) {
+		if ( mw.config.get( 'debug' ) && performance && performance.setResourceTimingBufferSize ) {
 			performance.setResourceTimingBufferSize( 500 );
 		}
 	};
@@ -105,23 +120,8 @@
 				total: total },
 			connection = this.getNavigatorConnection();
 
-		// If eventLog isn't present there is nowhere to record to
-		if ( !mw.eventLog ) {
-			return;
-		}
-
 		if ( !this.performanceChecked ) {
 			this.performanceChecked = {};
-		}
-
-		// Don't record if we're not in the sample
-		if ( !this.isInSample() ) {
-			return;
-		}
-
-		// Don't record entries that hit the browser cache
-		if ( total !== undefined && total < 1 ) {
-			return;
 		}
 
 		if ( url && url.length ) {
@@ -165,12 +165,7 @@
 			}
 		}
 
-		// Add Geo information if there's any
-		if ( $.isPlainObject( window.Geo ) && typeof window.Geo.country === 'string' ) {
-			stats.country = window.Geo.country;
-		}
-
-		mw.eventLog.logEvent( 'MultimediaViewerNetworkPerformance', stats );
+		this.log( stats );
 	};
 
 	/**
@@ -390,19 +385,6 @@
 	};
 
 	/**
-	 * Returns whether or not we should measure this request
-	 * @returns {boolean} True if this request needs to be sampled
-	 */
-	P.isInSample = function () {
-		var factor = mw.config.get( 'wgNetworkPerformanceSamplingFactor' );
-
-		if ( !$.isNumeric( factor ) || factor < 1 ) {
-			return false;
-		}
-		return Math.floor( Math.random() * factor ) === 0;
-	};
-
-	/**
 	 * Returns the navigator's Connection object
 	 * Allows us to override for unit tests
 	 * @returns {Object} The navigator's Connection object
@@ -424,4 +406,4 @@
 
 	mw.mmv.Performance = Performance;
 
-}( mediaWiki, jQuery ) );
+}( mediaWiki, jQuery, OO ) );

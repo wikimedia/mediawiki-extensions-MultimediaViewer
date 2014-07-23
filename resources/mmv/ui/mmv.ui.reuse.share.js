@@ -28,13 +28,18 @@
 	function Share( $container ) {
 		Share['super'].call( this, $container );
 
+		/**
+		 * @property {mw.mmv.routing.Router} router -
+		 */
+		this.router = new mw.mmv.routing.Router();
+
 		this.init();
 	}
 	oo.inheritClass( Share, mw.mmv.ui.reuse.Tab );
 	SP = Share.prototype;
 
 	SP.init = function () {
-		this.$pane.addClass( 'mw-mmv-share-pane active' )
+		this.$pane.addClass( 'mw-mmv-share-pane' )
 			.appendTo( this.$container );
 
 		this.pageInput = new oo.ui.TextInputWidget( {
@@ -75,8 +80,9 @@
 	 * @param {mw.mmv.model.Image} image
 	 */
 	SP.set = function ( image ) {
-		// FIXME this should be handled by mmv.js to be DRY
-		var url = image.descriptionUrl + '#mediaviewer/' + image.title.getMainText();
+		var route = new mw.mmv.routing.ThumbnailRoute( image.title ),
+			url = this.router.createHashedUrl( route, image.descriptionUrl );
+
 		this.pageInput.setValue( url );
 
 		this.select();
@@ -98,18 +104,20 @@
 	SP.attach = function() {
 		var $input = this.pageInput.$element.find( 'input' );
 
-		this.pageInput.onDOMEvent( 'focus', $.proxy( this.selectAllOnEvent, $input ) );
+		$input.on( 'focus', this.selectAllOnEvent );
 		// Disable partial text selection inside the textbox
-		this.pageInput.onDOMEvent( 'mousedown click', $.proxy( this.onlyFocus, $input ) );
+		$input.on( 'mousedown click', this.onlyFocus );
 	};
 
 	/**
 	 * @inheritdoc
 	 */
 	SP.unattach = function() {
+		var $input = this.pageInput.$element.find( 'input' );
+
 		this.constructor['super'].prototype.unattach.call( this );
 
-		this.pageInput.offDOMEvent( 'focus mousedown click' );
+		$input.off( 'focus mousedown click' );
 	};
 
 	/**

@@ -24,14 +24,11 @@
 	 * Class for buttons which are placed on the metadata stripe (the always visible part of the
 	 * metadata panel).
 	 * @constructor
-	 * @param {jQuery} $container
-	 * @param {Object} localStorage the localStorage object, for dependency injection
+	 * @param {jQuery} $container the title block (.mw-mmv-title-contain) which wraps the buttons and all
+	 *  other title elements
 	 */
-	function StripeButtons( $container, localStorage ) {
+	function StripeButtons( $container ) {
 		mw.mmv.ui.Element.call( this, $container );
-
-		/** @property {Object} localStorage the window.localStorage object */
-		this.localStorage = localStorage;
 
 		this.$buttonContainer = $( '<div>' )
 			.addClass( 'mw-mmv-stripe-button-container' )
@@ -43,13 +40,8 @@
 		 */
 		this.buttons = {};
 
-		if ( this.shouldShowFeedbackSurvey() ) {
-			this.initFeedbackButton();
-		}
 		this.initReuseButton();
-		if ( !mw.user.isAnon() ) {
-			this.initDescriptionPageButton();
-		}
+		this.initDescriptionPageButton();
 	}
 	oo.inheritClass( StripeButtons, mw.mmv.ui.Element );
 	SBP = StripeButtons.prototype;
@@ -62,13 +54,27 @@
 	 * @param {string} popupText HTML code for the popup text
 	 */
 	SBP.createButton = function ( cssClass, text, popupText ) {
-		return $( '<a>' )
+		var $button,
+			$label,
+			tooltipDelay = mw.config.get( 'wgMultimediaViewer' ).tooltipDelay;
+
+		$button = $( '<a>' )
 			.addClass( 'mw-mmv-stripe-button empty ' + cssClass )
-			// .text( text ) // disabled while we have 3 buttons to save space
-			.prop( 'title', popupText )
 			// elements are right-floated so we use prepend instead of append to keep the order
-			.prependTo( this.$buttonContainer )
-			.tipsy( { gravity: 's' } );
+			.prependTo( this.$buttonContainer );
+
+		if ( text ) {
+			$label = $( '<span>' ).addClass( 'mw-mmv-stripe-button-text' ).text( text );
+			$button.append( $label ).addClass( 'has-label' );
+		}
+		if ( popupText ) {
+			$button.prop( 'title', popupText ).tipsy( {
+				gravity: $( document.body ).hasClass( 'rtl' ) ? 'sw' : 'se',
+				delayIn: tooltipDelay
+			} );
+		}
+
+		return $button;
 	};
 
 	/**
@@ -78,7 +84,6 @@
 	SBP.initReuseButton = function() {
 		this.buttons.$reuse = this.createButton(
 			'mw-mmv-stripe-button-reuse',
-			mw.message( 'multimediaviewer-reuse-link' ).text(),
 			mw.message( 'multimediaviewer-reuse-link' ).text()
 		);
 	};
@@ -89,160 +94,12 @@
 	 */
 	SBP.initDescriptionPageButton = function() {
 		this.buttons.$descriptionPage = this.createButton(
-			'mw-mmv-stripe-button-commons',
+			'empty',
+			null,
 			mw.message( 'multimediaviewer-description-page-button-text' ).plain()
-		);
-	};
-
-	/**
-	 * @protected
-	 * Creates the feedback button.
-	 */
-	SBP.initFeedbackButton = function() {
-		var buttons = this;
-
-		this.buttons.$feedback = this.createButton(
-			'mw-mmv-stripe-button-feedback',
-			mw.message( 'multimediaviewer-feedback-button-text' ).plain(),
-			mw.message( 'multimediaviewer-feedback-popup-text' ).plain()
-		).attr( {
-			target: '_blank',
-			href: this.getFeedbackSurveyUrl()
-		} ).click( function ( e ) {
-			buttons.openSurveyInNewWindow();
-			buttons.maxOutTooltipDisplayCount();
-			e.preventDefault();
+		).click( function () {
+			mw.mmv.actionLogger.log( 'file-description-page-abovefold' );
 		} );
-	};
-
-	SBP.feedbackSettings = {
-		/** Show the tooltip this many seconds to get the user's attention, even when it is not hovered. */
-		tooltipDisplayDuration: 5,
-		/** Wait for this long after the viewer is opened, before showing the tooltip. */
-		tooltipDelay: 5,
-		/** Only show the tooltip this many times */
-		tooltipMaxDisplayCount: 3
-	};
-
-	/**
-	 * Returns the number of times the tooltip was shown so far. This number is set to 999 if the
-	 * user clicked on the link already, or we cannot count how many times the tooltip was shown
-	 * already.
-	 * @return {number}
-	 */
-	SBP.getTooltipDisplayCount = function () {
-		if ( !this.localStorage ) {
-			return 999;
-		}
-		if ( this.tooltipDisplayCount === undefined ) {
-			this.tooltipDisplayCount = this.localStorage.getItem( 'mmv.tooltipDisplayCount' );
-			if ( this.tooltipDisplayCount === null ) {
-				this.tooltipDisplayCount = 0;
-				this.localStorage.setItem( 'mmv.tooltipDisplayCount', 0 );
-			}
-		}
-		return this.tooltipDisplayCount;
-	};
-
-	/**
-	 * Increases tooltip display count.
-	 */
-	SBP.increaseTooltipDisplayCount = function () {
-		this.getTooltipDisplayCount();
-		if ( this.tooltipDisplayCount !== undefined ) {
-			this.tooltipDisplayCount++;
-			this.localStorage.setItem( 'mmv.tooltipDisplayCount', this.tooltipDisplayCount );
-		}
-	};
-
-	/**
-	 * Sets tooltip display count so large that the tooltip will never be shown again.
-	 * We use this for users who already opened the form.
-	 */
-	SBP.maxOutTooltipDisplayCount = function () {
-		this.getTooltipDisplayCount();
-		if ( this.tooltipDisplayCount !== undefined ) {
-			this.tooltipDisplayCount = 999;
-			this.localStorage.setItem( 'mmv.tooltipDisplayCount', this.tooltipDisplayCount );
-		}
-	};
-
-	/**
-	 * Show the tooltip to the user if it was not shown often enough yet.
-	 */
-	SBP.maybeDisplayTooltip = function () {
-		if (
-			this.readyToShowFeedbackTooltip &&
-			this.getTooltipDisplayCount() < this.feedbackSettings.tooltipMaxDisplayCount
-		) {
-			this.buttons.$feedback.tipsy( 'show' );
-			this.setTimer( 'feedbackTooltip.hide', function () {
-				this.buttons.$feedback.tipsy( 'hide' );
-			}, this.feedbackSettings.tooltipDisplayDuration * 1000 );
-			this.increaseTooltipDisplayCount();
-			this.readyToShowFeedbackTooltip = false;
-		} else {
-			// if the tooltip is visible already, make sure it is not hidden too quickly
-			this.resetTimer( 'feedbackTooltip.hide' );
-		}
-	};
-
-	/**
-	 * Checks if it is suitable to show a survey to the current user.
-	 */
-	SBP.shouldShowFeedbackSurvey = function () {
-		return mw.config.get( 'wgMultimediaViewer' ).showSurvey &&
-			mw.config.get( 'wgUserLanguage' ) === 'en';
-	};
-
-	/**
-	 * Generates a survey URL (currently constant but the possibility of splitting by
-	 * editor cohort was mentioned).
-	 * @return {string}
-	 */
-	SBP.getFeedbackSurveyUrl = function () {
-		return 'https://www.surveymonkey.com/s/media-viewer-1?c=' + mw.config.get( 'wgDBname' );
-	};
-
-	/**
-	 * Opens the survey in a new window, or brings it up if it is already opened.
-	 */
-	SBP.openSurveyInNewWindow = function () {
-		var surveyWindowWidth = screen.width * 0.85,
-			surveyWindowHeight = screen.height * 0.85,
-			feedbackSurveyWindowProperties = {
-				left: ( screen.width - surveyWindowWidth ) / 2,
-				top: ( screen.height - surveyWindowHeight ) / 2,
-				width: surveyWindowWidth,
-				height: surveyWindowHeight,
-				menubar: 0,
-				toolbar: 0,
-				location: 0,
-				personalbar: 0,
-				status: 0
-			};
-
-		if ( !this.surveyWindow || this.surveyWindow.closed ) {
-			this.surveyWindow = window.open( this.getFeedbackSurveyUrl(), 'mmv-survey',
-				this.createWindowOpenPropertyString( feedbackSurveyWindowProperties ) );
-		} else {
-			this.surveyWindow.focus();
-		}
-	};
-
-	/**
-	 * @protected
-	 * Takes a property object and turns it into a string suitable for the last parameter
-	 * of window.open.
-	 * @param {Object} properties
-	 * @return {string}
-	 */
-	SBP.createWindowOpenPropertyString = function ( properties ) {
-		var propertyArray = [];
-		$.each( properties, function ( key, value ) {
-			propertyArray.push( key + '=' + value );
-		} );
-		return propertyArray.join( ',' );
 	};
 
 	/**
@@ -267,13 +124,7 @@
 			$button.removeClass( 'empty' );
 		} );
 
-		if ( !mw.user.isAnon() ) {
-			this.setDescriptionPageButton( imageInfo, repoInfo );
-		}
-
-		if ( this.shouldShowFeedbackSurvey() ) {
-			this.maybeDisplayTooltip();
-		}
+		this.setDescriptionPageButton( imageInfo, repoInfo );
 	};
 
 	/**
@@ -287,7 +138,7 @@
 
 		descPagePopupMessage = repoInfo.isLocal
 			? mw.message( 'multimediaviewer-description-page-button-text' ).plain()
-			: mw.message( 'multimediaviewer-description-page-popup-text', repoInfo.displayName ).plain();
+			: mw.message( 'multimediaviewer-description-page-popup-text', repoInfo.displayName ).text();
 
 		this.buttons.$descriptionPage.attr( {
 			href: imageInfo.descriptionUrl,
@@ -295,14 +146,14 @@
 			'original-title': descPagePopupMessage // needed by jquery.tipsy
 		} );
 
-		if ( imageInfo.repo === 'wikimediacommons' ) {
-			this.buttons.$descriptionPage.addClass( 'mw-mmv-stripe-button-commons' );
+		if ( repoInfo.isCommons() ) {
+			this.buttons.$descriptionPage.addClass( 'mw-mmv-repo-button-commons' );
 		} else {
-			this.buttons.$descriptionPage.addClass( 'mw-mmv-stripe-button-dynamic' );
+			this.buttons.$descriptionPage.addClass( 'mw-mmv-repo-button-dynamic' );
 			if ( repoInfo.favIcon ) {
-				this.setInlineStyle( 'stripe-button-description-page',
+				this.setInlineStyle( 'repo-button-description-page',
 					// needs to be more specific then the fallback rule in stripeButtons.less
-					'.mw-mmv-stripe-button-container .mw-mmv-stripe-button-dynamic:before {' +
+					'html .mw-mmv-repo-button-dynamic:before {' +
 						'background-image: url("' + repoInfo.favIcon + '");' +
 					'}'
 				);
@@ -319,12 +170,10 @@
 		} );
 
 		this.buttons.$reuse.removeClass( 'open' );
-		if ( !mw.user.isAnon() ) {
-			this.buttons.$descriptionPage.attr( { href: null, title: null, 'original-title': null } )
-				.removeClass( 'mw-mmv-stripe-button-dynamic mw-mmv-stripe-button-commons' );
-			$( '.mw-mmv-stripe-button-dynamic-before' ).remove();
-			this.setInlineStyle( 'stripe-button-description-page', null );
-		}
+
+		this.buttons.$descriptionPage.attr( { href: null, title: null, 'original-title': null } )
+			.removeClass( 'mw-mmv-repo-button-dynamic mw-mmv-repo-button-commons' );
+		this.setInlineStyle( 'repo-button-description-page', null );
 	};
 
 	/**
@@ -347,14 +196,6 @@
 		this.handleEvent( 'mmv-reuse-closed', function () {
 			buttons.$reuse.removeClass( 'open' );
 		} );
-
-		if ( this.shouldShowFeedbackSurvey() ) {
-			this.readyToShowFeedbackTooltip = false;
-			this.setTimer( 'feedbackTooltip.show', function () {
-				this.readyToShowFeedbackTooltip = true;
-				this.maybeDisplayTooltip();
-			}, this.feedbackSettings.tooltipDelay * 1000 );
-		}
 	};
 
 	/**
@@ -365,6 +206,13 @@
 		this.buttons.$reuse.off( 'click.mmv-stripeButtons' );
 
 		this.clearTimer( 'feedbackTooltip.show' );
+
+		$.each( this.buttons, function ( name, $button ) {
+			// Tipsy's not enabled on every button
+			if ( $button.data( 'tipsy' ) ) {
+				$button.tipsy( 'hide' );
+			}
+		} );
 	};
 
 	mw.mmv.ui.StripeButtons = StripeButtons;

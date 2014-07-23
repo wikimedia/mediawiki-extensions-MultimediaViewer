@@ -21,8 +21,27 @@
  * @copyright Copyright © 2013, Mark Holmquist
  */
 if ( !isset( $wgNetworkPerformanceSamplingFactor ) ) {
-	/** @var int|bool: If set, records image load network performance once per this many requests. False if unset. **/
+	/** @var int|bool: If set, records image load network performance via EventLogging once per this many requests. False if unset. **/
 	$wgNetworkPerformanceSamplingFactor = false;
+}
+
+if ( !isset( $wgMediaViewerDurationLoggingSamplingFactor ) ) {
+	/**
+	 * If set, records loading times via EventLogging. A value of 1000 means there will be an
+	 * 1:1000 chance to log the duration event.
+	 * False if unset.
+	 * @var int|bool
+	 */
+	$wgMediaViewerDurationLoggingSamplingFactor = false;
+}
+
+if ( !isset( $wgMediaViewerActionLoggingSamplingFactorMap ) ) {
+	/**
+	 * If set, records user actions via EventLogging and applies a sampling factor according to the map. A "default" key in the map must be set.
+	 * False if unset.
+	 * @var array|bool
+	 */
+	$wgMediaViewerActionLoggingSamplingFactorMap = false;
 }
 
 if ( !isset( $wgMediaViewerIsInBeta ) ) {
@@ -30,9 +49,24 @@ if ( !isset( $wgMediaViewerIsInBeta ) ) {
 	$wgMediaViewerIsInBeta = false;
 }
 
-if ( !isset( $wgMediaViewerShowSurvey ) ) {
-	/** @var bool: If set, MediaViewer might direct the user to a survey. **/
-	$wgMediaViewerShowSurvey = false;
+if ( !isset( $wgMediaViewerUseThumbnailGuessing ) ) {
+	/**
+	 * When this is enabled, MediaViewer will try to guess image URLs instead of making an
+	 * imageinfo API to get them from the server. This speeds up image loading, but does not
+	 * work well with certain settings (especially $wgGenerateThumbnailOnParse == true).
+	 * If e.g. you use non-standard thumbnail URLs, you might want to override this to false.
+	 *
+	 * Note that MediaViewer will catch 404 errors and do an API request when this is enabled,
+	 * so even if it does not work with your config, there should be no visible breakage, but
+	 * there will be a small performance hit. You have to look at network logs to checks whether
+	 * it works or not.
+	 *
+	 * FIXME this should be configurable per-repo. Even if the local wiki pre-renders thumbnails,
+	 * remotes such as Commons will work (and vice versa).
+	 *
+	 * @var bool
+	 */
+	$wgMediaViewerUseThumbnailGuessing = true;
 }
 
 if ( !isset( $wgEnableMediaViewerForLoggedInUsersOnly ) ) {
@@ -77,6 +111,7 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.base',
+			'mmv.ActionLogger',
 			'mmv.ui',
 			'mmv.ui.canvas',
 			'mmv.ui.canvasButtons',
@@ -84,6 +119,12 @@ $wgResourceModules += array(
 			'mmv.ui.description',
 			'mmv.ui.fileUsage',
 			'mmv.ui.metadataPanel',
+		),
+
+		'messages' => array(
+			'multimediaviewer-close-popup-text',
+			'multimediaviewer-fullscreen-popup-text',
+			'multimediaviewer-defullscreen-popup-text',
 		),
 	),
 
@@ -117,6 +158,16 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'mmv.base',
 			'oojs',
+		),
+	),
+
+	'mmv.model.IwTitle' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/model/mmv.model.IwTitle.js',
+		),
+
+		'dependencies' => array(
+			'mmv.model',
 		),
 	),
 
@@ -221,6 +272,7 @@ $wgResourceModules += array(
 			'mmv/provider/mmv.provider.ImageInfo.js',
 			'mmv/provider/mmv.provider.FileRepoInfo.js',
 			'mmv/provider/mmv.provider.ThumbnailInfo.js',
+			'mmv/provider/mmv.provider.GuessedThumbnailInfo.js',
 			'mmv/provider/mmv.provider.UserInfo.js',
 			'mmv/provider/mmv.provider.Image.js',
 		),
@@ -228,6 +280,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'mediawiki.Title',
 			'mmv.model',
+			'mmv.model.IwTitle',
 			'mmv.model.FileUsage',
 			'mmv.model.Image',
 			'mmv.model.Repo',
@@ -238,9 +291,28 @@ $wgResourceModules += array(
 		),
 	),
 
+	'mmv.routing' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/routing/mmv.routing.js',
+			'mmv/routing/mmv.routing.Route.js',
+			'mmv/routing/mmv.routing.ThumbnailRoute.js',
+			'mmv/routing/mmv.routing.MainFileRoute.js',
+			'mmv/routing/mmv.routing.Router.js',
+		),
+
+		'dependencies' => array(
+			'mediawiki.Title',
+			'oojs',
+		),
+	),
+
 	'mmv.base' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/mmv.base.js',
+		),
+
+		'dependencies' => array(
+			'jquery.client',
 		),
 	),
 
@@ -303,14 +375,14 @@ $wgResourceModules += array(
 		),
 
 		'dependencies' => array(
+			'mediawiki.jqueryMsg',
 			'mmv.ui',
 			'oojs',
 			'jquery.tipsy',
+			'jquery.throttle-debounce',
 		),
 
 		'messages' => array(
-			'multimediaviewer-feedback-button-text',
-			'multimediaviewer-feedback-popup-text',
 			'multimediaviewer-description-page-button-text',
 			'multimediaviewer-description-page-popup-text',
 			'multimediaviewer-description-page-popup-text-local',
@@ -344,6 +416,7 @@ $wgResourceModules += array(
 			'mediawiki.Uri',
 			'mediawiki.jqueryMsg',
 			'mmv.ui',
+			'mmv.model.IwTitle',
 			'oojs',
 		),
 
@@ -373,6 +446,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'jquery.color',
 			'mediawiki.jqueryMsg',
+			'mmv.ActionLogger',
 			'mmv.ui',
 			'mmv.HtmlUtils',
 			'oojs',
@@ -395,18 +469,38 @@ $wgResourceModules += array(
 		),
 	),
 
+	'mmv.ui.progressBar' => $wgMediaViewerResourceTemplate + array(
+			'scripts' => array(
+				'mmv/ui/mmv.ui.progressBar.js',
+			),
+
+			'styles' => array(
+				'mmv/ui/mmv.ui.progressBar.less',
+			),
+
+			'dependencies' => array(
+				'mmv.ui',
+				'oojs',
+			),
+	),
+
 	'mmv.ui.metadataPanel' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/ui/mmv.ui.metadataPanel.js',
+			'mmv/ui/mmv.ui.metadataPanelScroller.js',
 		),
 
 		'styles' => array(
 			'mmv/ui/mmv.ui.metadataPanel.less',
+			'mmv/ui/mmv.ui.metadataPanelScroller.less',
 		),
 
 		'dependencies' => array(
+			'mediawiki.user',
 			'mmv.HtmlUtils',
+			'mmv.ActionLogger',
 			'mmv.ui',
+			'mmv.ui.progressBar',
 			'mmv.ui.stripeButtons',
 			'mmv.ui.categories',
 			'mmv.ui.description',
@@ -414,8 +508,8 @@ $wgResourceModules += array(
 			'mmv.ui.permission',
 			'mmv.ui.reuse.dialog',
 			'mmv.ui.truncatableTextField',
-			'moment',
 			'oojs',
+			'jquery.tipsy',
 		),
 
 		'messages' => array(
@@ -444,8 +538,24 @@ $wgResourceModules += array(
 			'multimediaviewer-about-mmv',
 			'multimediaviewer-discuss-mmv',
 			'multimediaviewer-help-mmv',
+			'multimediaviewer-optout-mmv',
+			'multimediaviewer-optin-mmv',
+			'multimediaviewer-optout-pending-mmv',
+			'multimediaviewer-optin-pending-mmv',
+			'multimediaviewer-optout-help',
+			'multimediaviewer-optin-help',
+
+			// Reuse the preferences message in the top-right menu.
+			'mypreferences',
 
 			'multimediaviewer-metadata-error',
+
+			'multimediaviewer-title-popup-text',
+			'multimediaviewer-credit-popup-text',
+			'multimediaviewer-title-popup-text-more',
+			'multimediaviewer-credit-popup-text-more',
+			'multimediaviewer-panel-open-popup-text',
+			'multimediaviewer-panel-close-popup-text',
 		),
 	),
 
@@ -456,12 +566,21 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.base',
+			'mmv.routing',
 			'oojs',
 			'mmv.HtmlUtils',
 		),
 
 		'messages' => array(
 			'multimediaviewer-credit',
+
+			'multimediaviewer-text-embed-credit-text-tbls',
+			'multimediaviewer-text-embed-credit-text-tls',
+			'multimediaviewer-text-embed-credit-text-tbs',
+			'multimediaviewer-text-embed-credit-text-tbl',
+			'multimediaviewer-text-embed-credit-text-tb',
+			'multimediaviewer-text-embed-credit-text-ts',
+			'multimediaviewer-text-embed-credit-text-tl',
 
 			'multimediaviewer-html-embed-credit-text-tbls',
 			'multimediaviewer-html-embed-credit-text-tls',
@@ -525,6 +644,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'mmv.ui.reuse.tab',
 			'mmv.ui.reuse.utils',
+			'mmv.routing',
 			'oojs',
 			'oojs-ui',
 		),
@@ -550,6 +670,7 @@ $wgResourceModules += array(
 		),
 
 		'dependencies' => array(
+			'mediawiki.user',
 			'mmv.ui.reuse.tab',
 			'mmv.ui.reuse.utils',
 			'oojs',
@@ -593,6 +714,7 @@ $wgResourceModules += array(
 			'mediawiki.ui.button',
 			'mmv.ui.reuse.tab',
 			'mmv.ui.reuse.utils',
+			'mmv.embedFileFormatter',
 		),
 
 		'messages' => array(
@@ -604,6 +726,10 @@ $wgResourceModules += array(
 			'multimediaviewer-download-large-button-name',
 			'multimediaviewer-embed-dimensions',
 			'multimediaviewer-embed-dimensions-with-file-format',
+			'multimediaviewer-download-attribution-cta-header',
+			'multimediaviewer-download-attribution-cta',
+			'multimediaviewer-attr-plain',
+			'multimediaviewer-attr-html',
 		),
 	),
 
@@ -620,11 +746,15 @@ $wgResourceModules += array(
 			'mmv.ui',
 			'oojs',
 		),
+
+		'messages' => array(
+			'multimediaviewer-viewfile-link',
+		),
 	),
 
 	'mmv.logger' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv/mmv.logger.js',
+			'mmv/mmv.Logger.js',
 		),
 
 		'dependencies' => array(
@@ -639,6 +769,8 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.base',
+			'mmv.logger',
+			'oojs',
 		),
 	),
 
@@ -651,6 +783,17 @@ $wgResourceModules += array(
 			'mediawiki.api',
 			'mmv.base',
 			'oojs',
+		),
+	),
+
+	'mmv.Config' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/mmv.Config.js',
+		),
+
+		'dependencies' => array(
+			'mmv.base',
+			'mediawiki.user',
 		),
 	),
 
@@ -668,9 +811,12 @@ $wgResourceModules += array(
 			'mmv.api',
 			'mmv.base',
 			'mmv.lightboximage',
+			'mmv.ActionLogger',
 			'mmv.model.TaskQueue',
 			'mmv.lightboxinterface',
 			'mmv.provider',
+			'mmv.routing',
+			'mmv.DurationLogger',
 			'jquery.fullscreen',
 			'jquery.hidpi',
 			'jquery.scrollTo',
@@ -681,6 +827,9 @@ $wgResourceModules += array(
 		'messages' => array(
 			'multimediaviewer-file-page',
 			'multimediaviewer-desc-nil',
+
+			// messages that are gender-dependent (we need to check if they really depend on the gender):
+			'multimediaviewer-userpage-link',
 		),
 	),
 
@@ -696,8 +845,10 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'jquery.hashchange',
 			'mediawiki.Title',
-			'mmv.logger',
+			'mmv.Config',
+			'mmv.ActionLogger',
 			'mmv.HtmlUtils',
+			'mmv.DurationLogger',
 			'jquery.scrollTo',
 		),
 
@@ -717,6 +868,31 @@ $wgResourceModules += array(
 		),
 	),
 
+	'mmv.ActionLogger' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/mmv.ActionLogger.js',
+		),
+
+		'dependencies' => array(
+			'mmv.base',
+			'mmv.logger',
+			'oojs'
+		)
+	),
+
+	'mmv.DurationLogger' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/mmv.DurationLogger.js',
+		),
+
+		'dependencies' => array(
+			'mmv.base',
+			'mmv.logger',
+			'oojs',
+			'mediawiki.user',
+		)
+	),
+
 	'mmv.head' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/mmv.head.js',
@@ -724,6 +900,7 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.base',
+			'mediawiki.user',
 		),
 
 		'position' => 'top',
@@ -743,26 +920,16 @@ $wgResourceModules += array(
 );
 
 $wgExtensionFunctions[] = function () {
-	global $wgResourceModules;
+	global $wgResourceModules, $wgEventLoggingSchemas;
 
 	if ( isset( $wgResourceModules['ext.eventLogging'] ) ) {
-		$wgResourceModules['schema.MediaViewer'] = array(
-			'class' => 'ResourceLoaderSchemaModule',
-			'schema' => 'MediaViewer',
-			'revision' => 7670440,
-		);
+		$wgEventLoggingSchemas[ 'MediaViewer' ] = 8935662;
+		$wgEventLoggingSchemas[ 'MultimediaViewerNetworkPerformance' ] = 7917896;
+		$wgEventLoggingSchemas[ 'MultimediaViewerDuration' ] = 8572641;
 
-		$wgResourceModules['schema.MultimediaViewerNetworkPerformance'] = array(
-			'class' => 'ResourceLoaderSchemaModule',
-			'schema' => 'MultimediaViewerNetworkPerformance',
-			'revision' => 7917896,
-		);
-
-		$wgResourceModules['mmv.logger']['dependencies'][] = 'ext.eventLogging';
-		$wgResourceModules['mmv.logger']['dependencies'][] = 'schema.MediaViewer';
-
+		$wgResourceModules['mmv.ActionLogger']['dependencies'][] = 'ext.eventLogging';
 		$wgResourceModules['mmv.performance']['dependencies'][] = 'ext.eventLogging';
-		$wgResourceModules['mmv.performance']['dependencies'][] = 'schema.MultimediaViewerNetworkPerformance';
+		$wgResourceModules['mmv.DurationLogger']['dependencies'][] = 'ext.eventLogging';
 	}
 };
 

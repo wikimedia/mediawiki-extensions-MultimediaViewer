@@ -54,7 +54,10 @@
 
 	QUnit.test( 'setImageAndMaxDimensions()', 8, function( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			canvas = new mw.mmv.ui.Canvas( $qf ),
+			$mainWrapper = $( '<div>' ).appendTo( $qf ),
+			$innerWrapper =$( '<div>' ).appendTo( $mainWrapper ),
+			$imageWrapper = $( '<div>' ).appendTo( $innerWrapper ),
+			canvas = new mw.mmv.ui.Canvas( $innerWrapper, $imageWrapper, $mainWrapper ),
 			imageRawMetadata = new mw.mmv.LightboxImage( 'foo.png' ),
 			image = new Image(),
 			$imageElem = $( image ),
@@ -77,8 +80,8 @@
 
 		assert.strictEqual( image.width, originalWidth, 'Image width was not modified.' );
 		assert.strictEqual( canvas.$image, $imageElem, 'Image element still set correctly.' );
+		assert.strictEqual( canvas.$image.css( 'maxWidth' ), canvas.$imageDiv.width() + 'px', 'MaxWidth set correctly.' );
 		assert.strictEqual( canvas.$image.css( 'maxHeight' ), canvas.$imageDiv.height() + 'px', 'MaxHeight set correctly.' );
-		assert.strictEqual( canvas.$image.css( 'maxWidth' ), canvas.$imageDiv.width() + 'px', 'MaxHeight set correctly.' );
 
 		$currentImage = canvas.$image;
 
@@ -92,8 +95,8 @@
 
 		assert.strictEqual( image2.width, screenWidth, 'Image width was trimmed correctly.' );
 		assert.notStrictEqual( canvas.$image, $currentImage, 'Image element switched correctly.' );
+		assert.strictEqual( canvas.$image.css( 'maxWidth' ), canvas.$imageDiv.width() + 'px', 'MaxWidth set correctly.' );
 		assert.strictEqual( canvas.$image.css( 'maxHeight' ), canvas.$imageDiv.height() + 'px', 'MaxHeight set correctly.' );
-		assert.strictEqual( canvas.$image.css( 'maxWidth' ), canvas.$imageDiv.width() + 'px', 'MaxHeight set correctly.' );
 	} );
 
 	QUnit.test( 'attach and unattach', 3, function( assert ) {
@@ -111,7 +114,7 @@
 		assert.ok( ! canvas.resizeListener, 'resize listener has been removed.' );
 	} );
 
-	QUnit.test( 'maybeDisplayPlaceholder: Max area for SVG files', 5, function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: Constrained area for SVG files', 4, function ( assert ) {
 		var $image,
 			blurredThumbnailShown,
 			$qf = $( '#qunit-fixture' ),
@@ -119,12 +122,12 @@
 			canvas = new mw.mmv.ui.Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function() { return 'svg'; },
+			getExtension: function() { return 'svg'; }
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
-			assert.ok ( true, 'Placeholder is shown');
+			assert.ok ( false, 'Placeholder is not shown');
 		};
 
 		$image = $( '<img>' ).width( 10 ).height( 5 );
@@ -135,8 +138,8 @@
 			{ cssWidth : 300, cssHeight: 150 }
 		);
 
-		assert.strictEqual( $image.width(), 300, 'Placeholder width was set to max' );
-		assert.strictEqual( $image.height(), 150, 'Placeholder height was set to max' );
+		assert.strictEqual( $image.width(), 10, 'Placeholder width was not set to max' );
+		assert.strictEqual( $image.height(), 5, 'Placeholder height was not set to max' );
 		assert.ok( ! $image.hasClass( 'blurred' ), 'Placeholder is not blurred' );
 		assert.ok( ! blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
@@ -149,7 +152,7 @@
 			canvas = new mw.mmv.ui.Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function() { return 'png'; },
+			getExtension: function() { return 'png'; }
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
@@ -179,7 +182,7 @@
 			canvas = new mw.mmv.ui.Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function() { return 'png'; },
+			getExtension: function() { return 'png'; }
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
@@ -209,7 +212,7 @@
 			canvas = new mw.mmv.ui.Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function() { return 'png'; },
+			getExtension: function() { return 'png'; }
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
@@ -239,7 +242,7 @@
 			canvas = new mw.mmv.ui.Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function() { return 'png'; },
+			getExtension: function() { return 'png'; }
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
@@ -261,7 +264,7 @@
 		assert.ok( ! blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'Unblur', 3, function ( assert ) {
+	QUnit.test( 'Unblur', 4, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			canvas = new mw.mmv.ui.Canvas( $qf ),
 			oldAnimate = $.fn.animate;
@@ -287,9 +290,11 @@
 
 		canvas.$image =  $( '<img>' );
 
-		canvas.unblur();
+		canvas.unblurWithAnimation();
 
 		assert.ok( ! canvas.$image.css( '-webkit-filter' ) || !canvas.$image.css( '-webkit-filter' ).length,
+			'Image has no -webkit-filter left' );
+		assert.ok( ! canvas.$image.css( 'filter' ) || !canvas.$image.css( 'filter' ).length || canvas.$image.css( 'filter' ) === 'none',
 			'Image has no filter left' );
 		assert.strictEqual( parseInt( canvas.$image.css( 'opacity' ), 10 ), 1,
 			'Image is fully opaque' );

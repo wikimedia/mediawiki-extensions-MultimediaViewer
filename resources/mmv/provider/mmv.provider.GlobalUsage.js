@@ -30,14 +30,16 @@
 	 * @cfg {number} [apiLimit=100] number of entries to get from the API. If there are
 	 *         more pages than this, we won't have an accurate count.
 	 *         (Also, influences query performance.)
-	 * @cfg {boolean} [doNotUseApi=false] If true, always returns an empty result immediately,
+	 * @cfg {boolean} [useApi=true] If false, always returns an empty result immediately,
 	 *         without doing an actual API call. Used when the GlobalUsage extension (and thus the
 	 *         API) is not available.
 	 * @cfg {number} [dataLimit=10] number of entries to actually put into the model.
+	 * @cfg {number} [maxage] cache expiration time, in seconds
+	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
 	 */
 	function GlobalUsage( api, options ) {
 		options = $.extend( {
-			doNotUseApi: false,
+			useApi: true,
 			apiLimit: 100,
 			dataLimit: 10
 		}, options );
@@ -49,13 +51,13 @@
 	/**
 	 * Fetches the global usage data from the API.
 	 * @param {mw.Title} file
-	 * @return {jQuery.Promise}
+	 * @return {jQuery.Promise.<mw.mmv.model.FileUsage>}
 	 */
 	GlobalUsage.prototype.get = function( file ) {
 		var provider = this,
 			fileUsage;
 
-		if ( this.options.doNotUseApi ) {
+		if ( !this.options.useApi ) {
 			fileUsage = new mw.mmv.model.FileUsage( file, mw.mmv.model.FileUsage.Scope.GLOBAL,
 				[], 0, false );
 			fileUsage.fake = true;
@@ -63,23 +65,19 @@
 		}
 
 		return this.getCachedPromise( file.getPrefixedDb(), function () {
-			return provider.api.get( {
+			return provider.apiGetWithMaxAge( {
 				action: 'query',
 				prop: 'globalusage',
 				titles: file.getPrefixedDb(),
-				guprop: ['url', 'namespace'],
+				guprop: 'url|namespace',
 				gufilterlocal: 1,
-				gulimit: provider.options.apiLimit,
-				format: 'json'
+				gulimit: provider.options.apiLimit
 			} ).then( function( data ) {
 				return provider.getQueryPage( file, data );
 			} ).then( function( pageData, data ) {
 				var pages;
 				pages = $.map( pageData.globalusage || {}, function( item ) {
-					return {
-						wiki: item.wiki,
-						page: new mw.Title( item.title, item.ns )
-					};
+					return new mw.mmv.model.IwTitle( item.ns, item.title, item.wiki, item.url );
 				} );
 				return new mw.mmv.model.FileUsage(
 					file,

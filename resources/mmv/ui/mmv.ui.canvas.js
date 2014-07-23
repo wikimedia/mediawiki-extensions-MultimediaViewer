@@ -56,7 +56,7 @@
 		this.$imageWrapper = $imageWrapper;
 
 		/**
-		 * Main container of image and metadata, needed to propagate resize events.
+		 * Main container of image and metadata, needed to propagate events.
 		 * @property {jQuery}
 		 * @private
 		 */
@@ -74,14 +74,14 @@
 
 	/**
 	 * Maximum blownup factor tolerated
-	 * @property mw.mmv.ui.Canvas.MAX_BLOWUP_FACTOR
+	 * @property MAX_BLOWUP_FACTOR
 	 * @static
 	 */
 	Canvas.MAX_BLOWUP_FACTOR = 11;
 
 	/**
 	 * Blowup factor threshold at which blurring kicks in
-	 * @property mw.mmv.ui.Canvas.BLUR_BLOWUP_FACTOR_THRESHOLD
+	 * @property BLUR_BLOWUP_FACTOR_THRESHOLD
 	 * @static
 	 */
 	Canvas.BLUR_BLOWUP_FACTOR_THRESHOLD = 2;
@@ -110,38 +110,39 @@
 	};
 
 	/**
+	 * Sets max-width and max-height of the image equal to those of its parent element.
+	 * FIXME what is this good for, actually?
+	 */
+	C.setImageMaxDimensions = function() {
+		this.$image.css( {
+			maxWidth : this.$image.parent().width(),
+			// for height, use closest ancestor which has non-content-defined height;
+			// otherwise this could be determined by the height of the image.
+			maxHeight : this.$imageWrapper.height()
+		} );
+	};
+
+	/**
 	 * Sets contained image and also the max dimensions. Called while resizing the viewer.
 	 * Assumes set function called before.
 	 * @param {mw.mmv.model.Thumbnail} thumbnail thumbnail information
-	 * @param {HTMLImageElement} imageEle
+	 * @param {HTMLImageElement} imageElement
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
 	 */
-	C.setImageAndMaxDimensions = function( thumbnail, imageEle, imageWidths ) {
-		var $image = $( imageEle );
-
-		function makeMaxMatchParent ( $image ) {
-			$image.css( {
-				maxHeight : $image.parent().height(),
-				maxWidth : $image.parent().width()
-			} );
-		}
+	C.setImageAndMaxDimensions = function( thumbnail, imageElement, imageWidths ) {
+		var $image = $( imageElement );
 
 		// we downscale larger images but do not scale up smaller ones, that would look ugly
 		if ( thumbnail.width > imageWidths.cssWidth ) {
-			imageEle.width = imageWidths.cssWidth;
+			imageElement.width = imageWidths.cssWidth;
 		}
 
-		if ( this.$image.is( imageEle ) ) { // http://bugs.jquery.com/ticket/4087
-			// We may be changing the width of the image when we resize, we should also
-			// update the max dimensions otherwise the image is not scaled properly
-			makeMaxMatchParent( this.$image );
-			return;
+		if ( !this.$image.is( imageElement ) ) { // http://bugs.jquery.com/ticket/4087
+			this.$image.replaceWith( $image );
+			this.$image = $image;
 		}
 
-		this.$image.replaceWith( $image );
-		this.$image = $image;
-
-		makeMaxMatchParent( this.$image );
+		this.setImageMaxDimensions();
 	};
 
 	/**
@@ -157,6 +158,10 @@
 			};
 			window.addEventListener( 'resize', this.resizeListener );
 		}
+
+		this.$imageDiv.on( 'click.mmv-canvas', 'img', function () {
+			canvas.$mainWrapper.trigger( $.Event( 'mmv-image-click' ) );
+		} );
 	};
 
 	/**
@@ -169,6 +174,8 @@
 			window.removeEventListener( 'resize', this.resizeListener );
 			this.resizeListener = null;
 		}
+
+		this.$imageDiv.off( 'click.mmv-canvas' );
 	};
 
 	/**
@@ -177,36 +184,23 @@
 	 * We set SVG files to the maximum screen size available.
 	 * Assumes set function called before.
 	 *
-	 * @param {mw.mmv.model.Image} imageInfo
+	 * @param {{width: number, height: number}} size
 	 * @param {jQuery} $imagePlaceholder Image placeholder to be displayed while the real image loads.
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
 	 * @returns {boolean} Whether the image was blured or not
 	 */
-	 C.maybeDisplayPlaceholder = function ( imageInfo, $imagePlaceholder, imageWidths ) {
+	 C.maybeDisplayPlaceholder = function ( size, $imagePlaceholder, imageWidths ) {
 		var targetWidth,
 			targetHeight,
 			blowupFactor,
-			blurredThumbnailShown = false,
-			maxSizeFileExtensions = {
-				'svg' : true,
-			};
-
-		// There are some file types (SVG for example) for which there is no concept
-		// of initial size. For these cases we force a max canvas resize and no bluring.
-		if ( maxSizeFileExtensions[ this.imageRawMetadata.filePageTitle.getExtension().toLowerCase() ] ) {
-			$imagePlaceholder.width( imageWidths.cssWidth );
-			$imagePlaceholder.height( imageWidths.cssHeight );
-			this.set( this.imageRawMetadata, $imagePlaceholder.show() );
-
-			return blurredThumbnailShown;
-		}
+			blurredThumbnailShown = false;
 
 		// Assume natural thumbnail size¸
-		targetWidth = imageInfo.width;
-		targetHeight = imageInfo.height;
+		targetWidth = size.width;
+		targetHeight = size.height;
 
 		// If the image is bigger than the screen we need to resize it
-		if ( imageInfo.width > imageWidths.cssWidth ) { // This assumes imageInfo.width in CSS units
+		if ( size.width > imageWidths.cssWidth ) { // This assumes imageInfo.width in CSS units
 			targetWidth = imageWidths.cssWidth;
 			targetHeight = imageWidths.cssHeight;
 		}
@@ -246,7 +240,7 @@
 	/**
 	 * Animates the image into focus
 	 */
-	C.unblur = function() {
+	C.unblurWithAnimation = function() {
 		var self = this,
 			animationLength = 300;
 
@@ -264,13 +258,17 @@
 					'filter' : 'blur(' + step + 'px)' } );
 			},
 			complete: function () {
-				// When the animation is complete, the blur value is 0
-				// We apply empty CSS values to remove the inline styles applied by jQuery
-				// so that they don't get in the way of styles defined in CSS
-				self.$image.css( { '-webkit-filter' : '', 'opacity' : '' } )
-					.removeClass( 'blurred' );
+				// When the animation is complete, the blur value is 0, clean things up
+				self.unblur();
 			}
 		} );
+	};
+
+	C.unblur = function() {
+		// We apply empty CSS values to remove the inline styles applied by jQuery
+		// so that they don't get in the way of styles defined in CSS
+		this.$image.css( { '-webkit-filter' : '', 'opacity' : '', 'filter' : '' } )
+			.removeClass( 'blurred' );
 	};
 
 	/**
@@ -293,10 +291,18 @@
 	 * @returns {mw.mmv.model.ThumbnailWidth}
 	 */
 	C.getLightboxImageWidths = function ( image ) {
-		var thumb = image.thumbnail;
+		var thumb = image.thumbnail,
+			$window = $( window ),
+			$aboveFold = $( '.mw-mmv-above-fold' ),
+			isFullscreened = !!$aboveFold.closest( '.jq-fullscreened' ).length,
+			// Don't rely on this.$imageWrapper's sizing because it's fragile.
+			// Depending on what the wrapper contains, its size can be 0 on some browsers.
+			// Therefore, we calculate the available space manually
+			availableWidth = $window.width(),
+			availableHeight =  $window.height() - ( isFullscreened ? 0 : $aboveFold.height() );
 
 		return this.thumbnailWidthCalculator.calculateWidths(
-			this.$imageWrapper.width(), this.$imageWrapper.height(), thumb.width, thumb.height );
+			availableWidth, availableHeight, thumb.width, thumb.height );
 	};
 
 	/**

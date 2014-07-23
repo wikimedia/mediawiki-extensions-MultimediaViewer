@@ -36,6 +36,7 @@
 			image = { // fake mw.mmv.model.Image
 				title: new mw.Title( 'File:Foobar.jpg' ),
 				url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
+				descriptionUrl: '//commons.wikimedia.org/wiki/File:Foobar.jpg'
 			};
 
 		assert.notStrictEqual( ! share.pageInput.getValue(), '', 'pageInput is empty.' );
@@ -58,6 +59,7 @@
 			image = {
 				title: new mw.Title( 'File:Foobar.jpg' ),
 				url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
+				descriptionUrl: '//commons.wikimedia.org/wiki/File:Foobar.jpg'
 			};
 
 		share.set( image );
@@ -67,7 +69,8 @@
 		};
 
 		// Triggering action events before attaching should do nothing
-		share.pageInput.$element.focus();
+		// use of focus() would run into jQuery bug #14740 and similar issues
+		share.pageInput.$element.find( 'input' ).triggerHandler( 'focus' );
 
 		share.selectAllOnEvent = function () {
 			assert.ok( true, 'selectAllOnEvent was called.' );
@@ -76,7 +79,7 @@
 		share.attach();
 
 		// Action events should be handled now
-		share.pageInput.$element.focus();
+		share.pageInput.$element.find( 'input' ).triggerHandler( 'focus' );
 
 		// Test the unattach part
 		share.selectAllOnEvent = function() {
@@ -86,7 +89,7 @@
 		share.unattach();
 
 		// Triggering action events now that we are unattached should do nothing
-		share.pageInput.$element.focus();
+		share.pageInput.$element.find( 'input' ).triggerHandler( 'focus' );
 	} );
 
 }( mediaWiki, jQuery ) );

@@ -28,7 +28,7 @@
 		assert.ok( globalUsageProviderWithNoOptions );
 	} );
 
-	QUnit.asyncTest( 'GlobalUsage get test', 7, function ( assert ) {
+	QUnit.asyncTest( 'GlobalUsage get test', 9, function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function() {
 				apiCallCount++;
@@ -43,6 +43,7 @@
 									{
 										title: 'User_talk:Alionnoob',
 										wiki: 'en.wikipedia.org',
+										url: 'https://en.wikipedia.org/wiki/User_talk:Alionnoob',
 										ns: 0
 									}
 								]
@@ -58,8 +59,10 @@
 		globalUsageProvider.get( file ).then( function( fileUsage ) {
 			assert.strictEqual( fileUsage.file, file, 'File is set correctly' );
 			assert.strictEqual( fileUsage.scope, mw.mmv.model.FileUsage.Scope.GLOBAL, 'Scope is set correctly' );
-			assert.strictEqual( fileUsage.pages[0].wiki, 'en.wikipedia.org', 'Wiki is set correctly' );
-			assert.strictEqual( fileUsage.pages[0].page.getPrefixedDb(), 'User_talk:Alionnoob', 'Page name is set correctly' );
+			assert.ok( fileUsage.pages[0] instanceof mw.mmv.model.IwTitle, 'Page is a mw.mmv.model.IwTitle instance' );
+			assert.strictEqual( fileUsage.pages[0].getDomain(), 'en.wikipedia.org', 'Wiki is set correctly' );
+			assert.strictEqual( fileUsage.pages[0].getPrefixedDb(), 'User_talk:Alionnoob', 'Page name is set correctly' );
+			assert.strictEqual( fileUsage.pages[0].getUrl(), 'https://en.wikipedia.org/wiki/User_talk:Alionnoob', 'Url is set correctly' );
 			assert.strictEqual( fileUsage.totalCount, 1, 'Count is set correctly' );
 			assert.strictEqual( fileUsage.totalCountIsLowerBound, false, 'Count flag is set correctly' );
 		} ).then( function() {
@@ -155,15 +158,16 @@
 		} );
 	} );
 
-	QUnit.asyncTest( 'GlobalUsage doNotUseApi test', 2, function ( assert ) {
-		var api = {},
-			options = { doNotUseApi: true },
+	QUnit.asyncTest( 'GlobalUsage useApi test', 3, function ( assert ) {
+		var api = { get: this.sandbox.stub()['throws']( 'API was invoked' ) },
+			options = { useApi: false },
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			globalUsageProvider = new mw.mmv.provider.GlobalUsage( api, options );
 
 		globalUsageProvider.get( file ).done( function( fileUsage ) {
 			assert.strictEqual( fileUsage.pages.length, 0, 'Does not return any pages' );
 			assert.ok( fileUsage.fake );
+			assert.ok( !api.get.called, 'API was not called' );
 			QUnit.start();
 		} );
 	} );

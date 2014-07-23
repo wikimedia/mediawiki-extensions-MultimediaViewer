@@ -148,4 +148,41 @@
 			QUnit.start();
 		} );
 	} );
+
+	QUnit.asyncTest( 'UserInfo fake test', 4, function ( assert ) {
+		var api = { get: this.sandbox.stub()['throws']( 'API was invoked' ) },
+			username = 'Catrope',
+			repoInfo = {},
+			userInfoProvider = new mw.mmv.provider.UserInfo( api, { useApi: false } );
+
+		userInfoProvider.get( username, repoInfo ).done( function( user ) {
+			assert.strictEqual( user.username, 'Catrope', 'username is set correctly' );
+			assert.strictEqual( user.gender, mw.mmv.model.User.Gender.UNKNOWN, 'gender is set to unknown' );
+			assert.ok( user.fake, 'fake flag is set' );
+			assert.ok( !api.get.called, 'API was not called' );
+			QUnit.start();
+		} );
+	} );
+
+	QUnit.test( 'getCallbackName()', 6, function ( assert ) {
+		var userInfoProvider = new mw.mmv.provider.UserInfo( {} );
+
+		function assertValidVariableName( username ) {
+			/*jshint evil:true */
+			var varName = userInfoProvider.getCallbackName( username );
+			try {
+				eval( 'var ' + varName + ';');
+				assert.ok( true, 'Variable name ' + varName + ' generated from ' + username + ' is valid' );
+			} catch ( e ) {
+				assert.ok( false, 'Variable name ' + varName + ' generated from ' + username + ' is invalid' );
+			}
+		}
+
+		assertValidVariableName( 'simple' );
+		assertValidVariableName( 'Help! I have spaces!' );
+		assertValidVariableName( 'oh_noes_i_has_underline' );
+		assertValidVariableName( '$\'"+!%/=()[]{}:;<>,.?|' );
+		assertValidVariableName( 'ｲﾁｶﾜ ｴﾂﾔ' );
+		assertValidVariableName( new Array( 256 ).join( 'ｲ' ) ); // longest possible name, 255*2 bytes
+	} );
 }( mediaWiki, jQuery ) );

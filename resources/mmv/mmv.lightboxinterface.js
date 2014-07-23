@@ -72,8 +72,8 @@
 		this.$postDiv = $( '<div>' )
 			.addClass( 'mw-mmv-post-image' );
 
-		this.$controlBar = $( '<div>' )
-			.addClass( 'mw-mmv-controls' );
+		this.$aboveFold = $( '<div>' )
+			.addClass( 'mw-mmv-above-fold' );
 
 		this.$main.append(
 			this.$preDiv,
@@ -88,7 +88,7 @@
 
 		this.setupCanvasButtons();
 
-		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$controlBar );
+		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$aboveFold, window.localStorage );
 		this.buttons = new mw.mmv.ui.CanvasButtons( this.$preDiv, this.$closeButton, this.$fullscreenButton );
 		this.canvas = new mw.mmv.ui.Canvas( this.$innerWrapper, this.$imageWrapper, this.$wrapper );
 	};
@@ -192,6 +192,8 @@
 	 * Detaches the interface from the DOM.
 	 */
 	LIP.unattach = function () {
+		mw.mmv.actionLogger.log( 'close' );
+
 		this.$wrapper.detach();
 
 		this.currentlyAttached = false;
@@ -199,6 +201,8 @@
 		this.panel.unattach();
 
 		this.canvas.unattach();
+
+		this.buttons.unattach();
 
 		this.panel.fileReuse.closeDialog();
 
@@ -231,11 +235,17 @@
 	 * Setup for canvas navigation buttons
 	 */
 	LIP.setupCanvasButtons = function () {
-		var ui = this;
+		var ui = this,
+			tooltipDelay = mw.config.get( 'wgMultimediaViewer').tooltipDelay;
 
 		this.$closeButton = $( '<div>' )
 			.text( ' ' )
 			.addClass( 'mw-mmv-close' )
+			.prop( 'title', mw.message( 'multimediaviewer-close-popup-text' ).text() )
+			.tipsy( {
+				delayIn: tooltipDelay,
+				gravity: this.isRTL() ? 'nw' : 'ne'
+			} )
 			.click( function () {
 				ui.unattach();
 			} );
@@ -243,6 +253,11 @@
 		this.$fullscreenButton = $( '<div>' )
 			.text( ' ' )
 			.addClass( 'mw-mmv-fullscreen' )
+			.prop( 'title', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() )
+			.tipsy( {
+				delayIn: tooltipDelay,
+				gravity: this.isRTL() ? 'nw' : 'ne'
+			} )
 			.click( function () {
 				if ( ui.isFullscreen ) {
 					ui.exitFullscreen();
@@ -265,6 +280,18 @@
 	 */
 	LIP.fullscreenChange = function ( e ) {
 		this.isFullscreen = e.fullscreen;
+
+		if ( this.isFullscreen ) {
+			mw.mmv.actionLogger.log( 'fullscreen' );
+
+			this.$fullscreenButton
+				.prop( 'title', mw.message( 'multimediaviewer-defullscreen-popup-text' ).text() );
+		} else {
+			mw.mmv.actionLogger.log( 'defullscreen' );
+
+			this.$fullscreenButton
+				.prop( 'title', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() );
+		}
 
 		if ( !this.fullscreenButtonJustPressed && !e.fullscreen ) {
 			// Close the interface all the way if the user pressed 'esc'
@@ -289,6 +316,10 @@
 			this.mousePosition = { x: 0, y: 0 };
 			this.buttons.fadeOut();
 		}
+
+		// Some browsers only send resize events before toggling fullscreen, but not once the toggling is done
+		// This makes sure that the UI is properly resized after a fullscreen change
+		this.$main.trigger( $.Event( 'mmv-resize') );
 	};
 
 	/**

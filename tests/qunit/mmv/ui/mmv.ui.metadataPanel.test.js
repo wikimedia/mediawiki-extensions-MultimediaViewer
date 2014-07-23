@@ -15,13 +15,12 @@
 			'$usernameLi',
 			'$locationLi',
 			'$repoLi',
-			'$datetimeLi',
-			'$progress'
+			'$datetimeLi'
 		];
 
 	QUnit.module( 'mmv.ui.metadataPanel', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'The panel is emptied properly when necessary', thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length + 2, function ( assert ) {
+	QUnit.test( 'The panel is emptied properly when necessary', thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length, function ( assert ) {
 		var i,
 			$qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) );
@@ -35,9 +34,6 @@
 		for ( i = 0; i < thingsShouldHaveEmptyClass.length; i++ ) {
 			assert.strictEqual( panel[thingsShouldHaveEmptyClass[i]].hasClass( 'empty' ), true, 'We successfully applied the empty class to the ' + thingsShouldHaveEmptyClass[i] + ' element' );
 		}
-
-		assert.ok( !panel.$dragIcon.hasClass( 'pointing-down' ), 'We successfully reset the chevron' );
-		assert.ok( !panel.$container.hasClass( 'invite' ), 'We successfully reset the invite' );
 	} );
 
 	QUnit.test( 'Setting repository information in the UI works as expected', 3, function ( assert ) {
@@ -46,11 +42,11 @@
 			repoInfo = new mw.mmv.model.Repo( 'Example Wiki' );
 
 		panel.setRepoDisplay( repoInfo );
-		assert.strictEqual( panel.$repo.text(), 'Learn more on Example Wiki', 'Text set to something useful for remote wiki - if this fails it might be because of localisation' );
+		assert.strictEqual( panel.$repo.text(), 'More details about this file on Example Wiki', 'Text set to something useful for remote wiki - if this fails it might be because of localisation' );
 
 		repoInfo = new mw.mmv.model.Repo();
 		panel.setRepoDisplay( repoInfo );
-		assert.strictEqual( panel.$repo.text(), 'Learn more on ' + mw.config.get( 'wgSiteName' ), 'Text set to something useful for local wiki - if this fails it might be because of localisation' );
+		assert.strictEqual( panel.$repo.text(), 'More details about this file on ' + mw.config.get( 'wgSiteName' ), 'Text set to something useful for local wiki - if this fails it might be because of localisation' );
 
 		panel.setFilePageLink( 'https://commons.wikimedia.org/wiki/File:Foobar.jpg' );
 		assert.strictEqual( panel.$repo.prop( 'href' ), 'https://commons.wikimedia.org/wiki/File:Foobar.jpg', 'The file link was set successfully.' );
@@ -120,7 +116,7 @@
 		);
 	} );
 
-	QUnit.test( 'Setting image information works as expected', 14, function ( assert ) {
+	QUnit.test( 'Setting image information works as expected', 18, function ( assert ) {
 		var gender,
 			$qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
@@ -152,7 +148,9 @@
 
 		assert.strictEqual( panel.$title.text(), title, 'Title is correctly set' );
 		assert.ok( panel.$credit.hasClass( 'empty' ), 'Credit is empty' );
-		assert.ok( panel.$license.hasClass( 'empty' ), 'License is empty' );
+		assert.strictEqual( panel.$license.prop( 'href' ), imageData.descriptionUrl,
+			'User is directed to file page for license information' );
+		assert.ok( !panel.$license.prop( 'target' ), 'License information opens in same window' );
 		assert.ok( panel.$usernameLi.hasClass( 'empty' ), 'Username is empty' );
 		assert.ok( panel.$datetimeLi.hasClass( 'empty' ), 'Date/Time is empty' );
 		assert.ok( panel.$locationLi.hasClass( 'empty' ), 'Location is empty' );
@@ -161,8 +159,9 @@
 		imageData.uploadDateTime = '2013-08-25T14:41:02Z';
 		imageData.source = '<b>Lost</b><a href="foo">Bar</a>';
 		imageData.author = 'Bob';
-		imageData.isCcLicensed = function() { return true; };
-		imageData.license = new mw.mmv.model.License( 'CC-BY-2.0', 'cc-by-2.0' );
+		imageData.license = new mw.mmv.model.License( 'CC-BY-2.0', 'cc-by-2.0',
+			'Creative Commons Attribution - Share Alike 2.0',
+			'http://creativecommons.org/licenses/by-sa/2.0/' );
 		gender = 'female';
 		imageData.lastUploader = 'Ursula';
 
@@ -171,9 +170,12 @@
 		assert.strictEqual( panel.$title.text(), title, 'Title is correctly set' );
 		assert.ok( !panel.$credit.hasClass( 'empty' ), 'Credit is not empty' );
 		assert.ok( !panel.$datetimeLi.hasClass( 'empty' ), 'Date/Time is not empty' );
-		assert.strictEqual( panel.creditField.$element.html(), '<span class="mw-mmv-author">' + imageData.author + '</span> - <span class="mw-mmv-source">Lost<a href=\"foo\">Bar</a></span>', 'Source and author are correctly set' );
+		assert.strictEqual( panel.creditField.$element.find( '.mw-mmv-author' ).text(), imageData.author, 'Author text is correctly set' );
+		assert.strictEqual( panel.creditField.$element.find( '.mw-mmv-source' ).html(), 'Lost<a href="foo">Bar</a>', 'Source text is correctly set' );
+		assert.strictEqual( panel.creditField.$element.attr( 'original-title' ), 'Author and source information', 'Source tooltip is correctly set' );
 		assert.ok( panel.$datetime.text().indexOf( 'August 26 2013' ) > 0, 'Correct date is displayed' );
 		assert.strictEqual( panel.$license.text(), 'CC BY 2.0', 'License is correctly set' );
+		assert.ok( panel.$license.prop( 'target' ), 'License information opens in new window' );
 		assert.ok( panel.$username.text().indexOf( imageData.lastUploader ) > 0, 'Correct username is displayed' );
 
 		imageData.creationDateTime = undefined;
@@ -196,89 +198,20 @@
 		var $qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
 			date1 = 'Garbage',
-			result = panel.formatDate( date1 );
+			promise = panel.formatDate( date1 );
 
-		assert.strictEqual( result, date1, 'Invalid date is correctly ignored' );
-	} );
+		QUnit.stop();
 
-	QUnit.test( 'Progress bar', 10, function ( assert ) {
-		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
-			oldAnimate = $.fn.animate;
-
-		assert.ok( panel.$progress.hasClass( 'empty' ), 'Progress bar is hidden' );
-		assert.strictEqual( panel.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
-
-		$.fn.animate = function ( target ) {
-			$( this ).css( target );
-
-			assert.strictEqual( target.width, '50%', 'Animation should go to 50%' );
-		};
-
-		panel.percent( 50 );
-
-		assert.ok( !panel.$progress.hasClass( 'empty' ), 'Progress bar is visible' );
-		assert.strictEqual( panel.$percent.width(), $qf.width() / 2, 'Progress bar\'s indicator is at half' );
-
-		$.fn.animate = function () {
-			assert.ok( false, 'Going to 0% should not animate' );
-		};
-
-		panel.percent( 0 );
-
-		assert.ok( panel.$progress.hasClass( 'empty' ), 'Progress bar is hidden' );
-		assert.strictEqual( panel.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
-
-		$.fn.animate = function ( target, duration, transition, callback ) {
-			$( this ).css( target );
-
-			assert.strictEqual( target.width, '100%', 'Animation should go to 100%' );
-
-			if ( callback !== undefined ) {
-				callback();
-			}
-		};
-
-		panel.percent( 100 );
-
-		assert.ok( panel.$progress.hasClass( 'empty' ), 'Progress bar is hidden' );
-		assert.strictEqual( panel.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
-
-		$.fn.animate = oldAnimate;
-	} );
-
-	QUnit.test( 'Metadata div is only animated once', 6, function ( assert ) {
-		localStorage.removeItem( 'mmv.hasOpenedMetadata' );
-
-		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) );
-
-		panel.animateMetadataOnce();
-
-		assert.ok( panel.hasAnimatedMetadata,
-			'The first call to animateMetadataOnce set hasAnimatedMetadata to true' );
-		assert.ok( !$qf.hasClass( 'invited' ),
-			'After the first call to animateMetadataOnce led to an animation' );
-		assert.ok( $qf.hasClass( 'invite' ),
-			'The first call to animateMetadataOnce led to an animation' );
-
-		$qf.removeClass( 'invite' );
-
-		panel.animateMetadataOnce();
-
-		assert.strictEqual( panel.hasAnimatedMetadata, true, 'The second call to animateMetadataOnce did not change the value of hasAnimatedMetadata' );
-		assert.ok( $qf.hasClass( 'invited' ),
-			'After the second call to animateMetadataOnce the div is shown right away' );
-		assert.ok( !$qf.hasClass( 'invite' ),
-			'The second call to animateMetadataOnce did not lead to an animation' );
-
-		$qf.removeClass( 'invited' );
+		promise.then( function ( result ) {
+			assert.strictEqual( result, date1, 'Invalid date is correctly ignored' );
+			QUnit.start();
+		} );
 	} );
 
 	QUnit.test( 'Repo icon', 4, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
-			favIcon = 'http://foo.com/bar',
+			favIcon = 'http://example.com/foo-fav',
 			repoData = {
 				favIcon: favIcon,
 				getArticlePath : function() { return 'Foo'; },
@@ -296,5 +229,98 @@
 
 		assert.ok( panel.$repoLi.css( 'background-image' ).indexOf( 'data:image/svg+xml' ) !== -1, 'Repo favicon is correctly replaced by svg for Commons' );
 		assert.ok( panel.$repoLi.hasClass( 'commons' ), 'Repo has commons class' );
+	} );
+
+	QUnit.test( 'About links', 9, function ( assert ) {
+		var panel,
+			$qf = $( '#qunit-fixture'),
+			oldWgMediaViewerIsInBeta = mw.config.get( 'wgMediaViewerIsInBeta' );
+
+		this.sandbox.stub( mw.user, 'isAnon' );
+		mw.config.set( 'wgMediaViewerIsInBeta', false );
+		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ) );
+
+		assert.strictEqual( $qf.find( '.mw-mmv-about-link' ).length, 1, 'About link is created.' );
+		assert.strictEqual( $qf.find( '.mw-mmv-discuss-link' ).length, 1, 'Discuss link is created.' );
+		assert.strictEqual( $qf.find( '.mw-mmv-help-link' ).length, 1, 'Help link is created.' );
+		assert.strictEqual( $qf.find( '.mw-mmv-optout-link' ).length, 1, 'Opt-out link is created.' );
+		assert.strictEqual( $qf.find( '.mw-mmv-preference-link' ).length, 0, 'Preferences link is not created when not in beta.' );
+
+		mw.config.set( 'wgMediaViewerIsInBeta', true );
+
+		mw.user.isAnon.returns( false );
+		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ) );
+		assert.strictEqual( $qf.find( '.mw-mmv-optout-link' ).length, 0, 'Opt-out link is not created when in beta.' );
+		assert.strictEqual( $qf.find( '.mw-mmv-preference-link' ).length, 1, 'Preferences link is created for logged-in user.' );
+
+		mw.user.isAnon.returns( true );
+		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ) );
+		assert.strictEqual( $qf.find( '.mw-mmv-optout-link' ).length, 0, 'Opt-out link is not created when in beta.' );
+		assert.strictEqual( $qf.find( '.mw-mmv-preference-link' ).length, 0, 'Preferences link is not created for anon user.' );
+
+		mw.config.set( 'wgMediaViewerIsInBeta', oldWgMediaViewerIsInBeta );
+	} );
+
+	QUnit.test( 'About links', 12, function ( assert ) {
+		var panel,
+			deferred,
+			$qf = $( '#qunit-fixture' ),
+			config = {
+				isMediaViewerEnabledOnClick: this.sandbox.stub(),
+				setMediaViewerEnabledOnClick: this.sandbox.stub(),
+				canSetMediaViewerEnabledOnClick: this.sandbox.stub()
+			},
+			oldWgMediaViewerIsInBeta = mw.config.get( 'wgMediaViewerIsInBeta' );
+
+		this.sandbox.stub( mw.user, 'isAnon' );
+		this.sandbox.stub( mw.mmv.actionLogger, 'log' );
+		this.sandbox.stub( $.fn, 'tipsy' ).returnsThis(); // interferes with the fake clock in other tests
+		mw.config.set( 'wgMediaViewerIsInBeta', false );
+		panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) );
+		panel.config = config;
+
+		// FIXME should not do work in the constructor
+		panel.$mmvOptOutLink.remove();
+		panel.$mmvOptOutLink = undefined;
+		config.canSetMediaViewerEnabledOnClick.returns( false );
+		panel.initializePreferenceLinks();
+		assert.strictEqual( $qf.find( '.mw-mmv-optout-link' ).length, 0, 'Optout link is hidden when option cannot be set' );
+
+		config.canSetMediaViewerEnabledOnClick.returns( true );
+		config.isMediaViewerEnabledOnClick.returns( true );
+		panel.initializePreferenceLinks();
+		assert.ok( $qf.find( '.mw-mmv-optout-link' ).text().match( /disable/i ), 'Optout link is visible when MediaViewer can be disabled' );
+
+		deferred = $.Deferred();
+		config.setMediaViewerEnabledOnClick.returns( deferred );
+
+		mw.user.isAnon.returns( true );
+		$qf.find( '.mw-mmv-optout-link' ).click();
+		assert.ok( config.setMediaViewerEnabledOnClick.calledWith( false ), 'When MediaViewer is active, it is disabled on click' );
+		assert.ok( $qf.find( '.mw-mmv-optout-link' ).is( '.pending' ), 'Pending class is set while disabling in progress' );
+
+		config.setMediaViewerEnabledOnClick.reset();
+		$qf.find( '.mw-mmv-optout-link' ).click();
+		assert.ok( !config.setMediaViewerEnabledOnClick.called, 'click has no effect when another request is pending' );
+		deferred.resolve();
+		assert.ok( !$qf.find( '.mw-mmv-optout-link' ).is( '.pending' ), 'Pending class removed after change has finished' );
+
+		assert.ok( mw.mmv.actionLogger.log.called, 'The optout action is logged' );
+		assert.strictEqual( mw.mmv.actionLogger.log.firstCall.args[0], 'optout-anon' , 'The correct event is logged' );
+
+		config.isMediaViewerEnabledOnClick.returns( false );
+		mw.user.isAnon.returns( false );
+		panel.initializePreferenceLinks();
+		assert.ok( $qf.find( '.mw-mmv-optout-link' ).text().match( /enable/i ), 'Optin link is visible when MediaViewer can be enabled' );
+
+		mw.mmv.actionLogger.log.reset();
+		config.setMediaViewerEnabledOnClick.reset();
+		config.setMediaViewerEnabledOnClick.returns( deferred );
+		$qf.find( '.mw-mmv-optout-link' ).click();
+		assert.ok( config.setMediaViewerEnabledOnClick.calledWith( true ), 'When MediaViewer is inactive, it is enabled on click' );
+		assert.ok( mw.mmv.actionLogger.log.called, 'The optin action is logged' );
+		assert.ok( mw.mmv.actionLogger.log.firstCall.args[0], 'optin-loggedin', 'The correct event is logged' );
+
+		mw.config.set( 'wgMediaViewerIsInBeta', oldWgMediaViewerIsInBeta );
 	} );
 }( mediaWiki, jQuery ) );

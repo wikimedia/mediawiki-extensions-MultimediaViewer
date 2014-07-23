@@ -29,12 +29,26 @@
 	 * @param {jQuery} $fullscreenButton The fullscreen button from the parent class.
 	 */
 	function CanvasButtons( $container, $closeButton, $fullscreenButton ) {
-		var buttons = this;
+		var buttons = this,
+			tooltipDelay = mw.config.get( 'wgMultimediaViewer').tooltipDelay;
 
 		mw.mmv.ui.Element.call( this, $container );
 
 		this.$close = $closeButton;
 		this.$fullscreen = $fullscreenButton;
+
+		this.$viewFile = $( '<div>' )
+			.text( ' ' )
+			.prop( 'title', mw.message( 'multimediaviewer-viewfile-link' ).text() )
+			.tipsy( {
+				delayIn: tooltipDelay,
+				gravity: this.isRTL() ? 'sw' : 'se'
+			} )
+			.addClass( 'mw-mmv-viewfile' )
+			.click( function () {
+				mw.mmv.actionLogger.log( 'view-original-file' );
+				$( document ).trigger( 'mmv-viewfile' );
+			} );
 
 		this.$next = $( '<div>' )
 			.addClass( 'mw-mmv-next-image disabled' )
@@ -50,28 +64,17 @@
 		this.$buttons = this.$close
 			.add( this.$fullscreen )
 			.add( this.$next )
-			.add( this.$prev );
+			.add( this.$prev )
+			.add( this.$viewFile );
 
 		this.$buttons.appendTo( this.$container );
 
 		$( document ).on( 'mmv-close', function () {
 			buttons.$nav.addClass( 'disabled' );
-		} ).on( 'jq-fullscreen-change.lip', function ( e ) {
-			if ( e.fullscreen ) {
-				mw.mmv.logger.log( 'fullscreen-link-click' );
-			} else {
-				mw.mmv.logger.log( 'defullscreen-link-click' );
-			}
 		} );
 
 		this.$close.click( function () {
-			mw.mmv.logger.log( 'close-link-click' );
-
 			$container.trigger( $.Event( 'mmv-close' ) );
-		} );
-
-		this.$fullscreen.click( function () {
-			$container.trigger( $.Event( 'mmv-fullscreen' ) );
 		} );
 
 		this.$next.click( function () {
@@ -177,6 +180,29 @@
 			|| !this.isAnyActiveButtonHovered( mousePosition.x, mousePosition.y ) ) {
 			this.fadeOut();
 		}
+	};
+
+	/**
+	 * Shows usage help when the user clicked on the image (presumably to get to the original file).
+	 */
+	CBP.showImageClickedHelp = function () {
+		var buttons = this;
+
+		this.debouncedTooltipHide = this.debouncedTooltipHide || $.debounce( 3000, function () {
+			buttons.$viewFile.tipsy( 'hide' );
+		} );
+
+		this.$viewFile.tipsy( 'show' );
+		this.debouncedTooltipHide();
+	};
+
+	/**
+	 * Removes all UI things from the DOM, or hides them
+	 */
+	CBP.unattach = function () {
+		this.$viewFile.tipsy( 'hide' );
+		this.$close.tipsy( 'hide' );
+		this.$fullscreen.tipsy( 'hide' );
 	};
 
 	mw.mmv.ui.CanvasButtons = CanvasButtons;

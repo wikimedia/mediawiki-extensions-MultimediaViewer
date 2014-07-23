@@ -202,7 +202,7 @@
 		restoreScrollTo();
 	} );
 
-	QUnit.test( 'isAnyActiveButtonHovered', 20, function ( assert ) {
+	QUnit.test( 'isAnyActiveButtonHovered', 25, function ( assert ) {
 		var lightbox = new mw.mmv.LightboxInterface();
 
 		stubScrollTo();
@@ -238,127 +238,6 @@
 		// Unattach lightbox from document
 		lightbox.unattach();
 		restoreScrollTo();
-	} );
-
-	QUnit.test( 'Metadata scrolling', 14, function ( assert ) {
-		var ui = new mw.mmv.LightboxInterface(),
-			keydown = $.Event( 'keydown' ),
-			$document = $( document ),
-			originalJQueryScrollTop = $.fn.scrollTop,
-			memorizedScrollToScroll = 0,
-			originalJQueryScrollTo = $.scrollTo;
-
-		// We need to set up a proxy on the jQuery scrollTop function
-		// that will let us pretend that the document really scrolled
-		// and that will return values as if the scroll happened
-		$.fn.scrollTop = function ( scrollTop ) {
-			// On some browsers $.scrollTo() != $document
-			if ( $.scrollTo().is( this ) ) {
-				if ( scrollTop !== undefined ) {
-					memorizedScrollToScroll = scrollTop;
-					return this;
-				} else {
-					return memorizedScrollToScroll;
-				}
-			}
-
-			return originalJQueryScrollTop.call( this, scrollTop );
-		};
-
-		// Same idea as above, for the scrollTo plugin
-		$.scrollTo = function ( scrollTo ) {
-			var $element;
-
-			if ( scrollTo !== undefined ) {
-				memorizedScrollToScroll = scrollTo;
-			}
-
-			$element = originalJQueryScrollTo.call( this, scrollTo, 0 );
-
-			if ( scrollTo !== undefined ) {
-				// Trigger event manually
-				ui.panel.scroll();
-			}
-
-			return $element;
-		};
-
-		// First phase of the test: up and down arrows
-
-		ui.panel.hasAnimatedMetadata = false;
-		localStorage.removeItem( 'mmv.hasOpenedMetadata' );
-
-		// Attach lightbox to testing fixture to avoid interference with other tests.
-		ui.attach(  '#qunit-fixture'  );
-
-		assert.strictEqual( $.scrollTo().scrollTop(), 0, 'scrollTo scrollTop should be set to 0' );
-		assert.ok( !ui.panel.$dragIcon.hasClass( 'pointing-down' ),
-			'Chevron pointing up' );
-
-		assert.ok( !localStorage.getItem( 'mmv.hasOpenedMetadata' ),
-			'The metadata hasn\'t been open yet, no entry in localStorage' );
-
-		keydown.which = 38; // Up arrow
-		$document.trigger( keydown );
-
-		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ),
-			ui.panel.$imageMetadata.outerHeight(),
-			'scrollTo scrollTop should be set to the metadata height after pressing up arrow' );
-		assert.ok( ui.panel.$dragIcon.hasClass( 'pointing-down' ),
-			'Chevron pointing down after pressing up arrow' );
-		assert.ok( localStorage.getItem( 'mmv.hasOpenedMetadata' ),
-			'localStorage knows that the metadata has been open' );
-
-		keydown.which = 40; // Down arrow
-		$document.trigger( keydown );
-
-		assert.strictEqual( $.scrollTo().scrollTop(), 0,
-			'scrollTo scrollTop should be set to 0 after pressing down arrow' );
-		assert.ok( !ui.panel.$dragIcon.hasClass( 'pointing-down' ),
-			'Chevron pointing up after pressing down arrow' );
-
-		ui.panel.$dragIcon.click();
-
-		assert.strictEqual( Math.round( $.scrollTo().scrollTop() ),
-			ui.panel.$imageMetadata.outerHeight(),
-			'scrollTo scrollTop should be set to the metadata height after clicking the chevron once' );
-		assert.ok( ui.panel.$dragIcon.hasClass( 'pointing-down' ),
-			'Chevron pointing down after clicking the chevron once' );
-
-		ui.panel.$dragIcon.click();
-
-		assert.strictEqual( $.scrollTo().scrollTop(), 0,
-			'scrollTo scrollTop should be set to 0 after clicking the chevron twice' );
-		assert.ok( !ui.panel.$dragIcon.hasClass( 'pointing-down' ),
-			'Chevron pointing up after clicking the chevron twice' );
-
-		// Unattach lightbox from document
-		ui.unattach();
-
-
-		// Second phase of the test: scroll memory
-
-		// Attach lightbox to testing fixture to avoid interference with other tests.
-		ui.attach( '#qunit-fixture' );
-
-		// To make sure that the details are out of view, the lightbox is supposed to scroll to the top when open
-		assert.strictEqual( $.scrollTo().scrollTop(), 0, 'Page scrollTop should be set to 0' );
-
-		// Scroll down to check that the scrollTop memory doesn't affect prev/next (bug 59861)
-		$.scrollTo( 20, 0 );
-
-		// This extra attach() call simulates the effect of prev/next seen in bug 59861
-		ui.attach( '#qunit-fixture' );
-
-		// The lightbox was already open at this point, the scrollTop should be left untouched
-		assert.strictEqual( $.scrollTo().scrollTop(), 20, 'Page scrollTop should be set to 20' );
-
-		// Unattach lightbox from document
-		ui.unattach();
-
-		// Let's restore all originals, to make sure this test is free of side-effect
-		$.fn.scrollTop = originalJQueryScrollTop;
-		$.scrollTo = originalJQueryScrollTo;
 	} );
 
 	QUnit.test( 'Keyboard prev/next', 2, function ( assert ) {

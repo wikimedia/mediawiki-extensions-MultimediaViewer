@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo, moment ) {
+( function ( mw, $, oo ) {
 	// Shortcut for prototype later
 	var MPP;
 
@@ -24,58 +24,85 @@
 	 * @class mw.mmv.ui.MetadataPanel
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
-	 * @param {jQuery} $container The container for the panel.
-	 * @param {jQuery} $controlBar The control bar element.
+	 * @param {jQuery} $container The container for the panel (.mw-mmv-post-image).
+	 * @param {jQuery} $aboveFold The always-visible  part of the metadata panel (.mw-mmv-above-fold).
+	 * @param {Object} localStorage the localStorage object, for dependency injection
 	 */
-	function MetadataPanel( $container, $controlBar ) {
+	function MetadataPanel( $container, $aboveFold, localStorage ) {
 		mw.mmv.ui.Element.call( this, $container );
 
-		this.$controlBar = $controlBar;
+		this.$aboveFold = $aboveFold;
 
-		/**
-		 * Whether we've fired an animation for the metadata div.
-		 * @property {boolean}
-		 * @private
-		 */
-		this.hasAnimatedMetadata = window.localStorage === undefined ||
-			localStorage.getItem( 'mmv.hasOpenedMetadata' );
+		/** @property {mw.mmv.Config} config - */
+		this.config = new mw.mmv.Config(
+			mw.config.get( 'wgMultimediaViewer', {} ),
+			mw.config,
+			mw.user,
+			new mw.Api(),
+			window.localStorage
+		);
 
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
 
-		this.initializeHeader();
+		this.initializeHeader( localStorage );
 		this.initializeImageMetadata();
 		this.initializeAboutLinks();
+		this.initializePreferenceLinks();
 	}
-
 	oo.inheritClass( MetadataPanel, mw.mmv.ui.Element );
-
 	MPP = MetadataPanel.prototype;
 
 	MPP.attach = function() {
 		var panel = this;
-		this.handleEvent( 'keydown', function ( e ) {
-			panel.keydown( e );
-		} );
 
-		$.scrollTo().on( 'scroll.mmvp', $.throttle( 250, function() {
-			panel.scroll();
-		} ) );
-
+		this.scroller.attach();
 		this.buttons.attach();
 		this.fileReuse.attach();
+
+		this.$title.add( this.$authorAndSource ).on( 'click.mmv-mp', function ( e ) {
+			if (
+				$( e.target ).is( 'a' ) // ignore clicks to external links
+				|| !$( e.target ).closest( '.mw-mmv-truncate-toolong' ).length // text is not truncated
+			) {
+				return;
+			}
+			panel.toggleTruncatedText();
+		} );
+
+		$( this.$container ).on( 'mmv-metadata-open', function () {
+			panel.revealTruncatedText( true );
+		} ).on( 'mmv-metadata-close', function () {
+			panel.hideTruncatedText();
+		} );
+
+		this.handleEvent( 'jq-fullscreen-change.lip', function() {
+			panel.hideTruncatedText();
+		} );
 	};
 
 	MPP.unattach = function() {
+		this.$title.tipsy( 'hide' );
+
+		// This is created conditionally if MMV is in beta
+		if ( this.$mmvOptOutLink ) {
+			this.$mmvOptOutLink.tipsy( 'hide' );
+		}
+
+		this.$authorAndSource.tipsy( 'hide' );
+
+		this.scroller.unattach();
 		this.buttons.unattach();
 		this.fileReuse.unattach();
 		this.fileReuse.closeDialog();
-		this.clearEvents();
 
-		$.scrollTo().off( 'scroll.mmvp' );
+		this.$title.add( this.$authorAndSource ).off( 'click.mmv-mp' );
+		this.clearEvents();
 	};
 
 	MPP.empty = function () {
+		this.scroller.empty();
+
 		this.$license.empty().addClass( 'empty' );
 		this.$permissionLink.hide();
 
@@ -86,8 +113,10 @@
 		this.fileUsage.empty();
 		this.permission.empty();
 
+		this.hideTruncatedText();
 		this.$title.empty().removeClass( 'error' );
-		this.$credit.empty().addClass( 'empty' );
+		this.$authorAndSource.empty();
+		this.$credit.addClass( 'empty' );
 
 		this.$username.empty();
 		this.$usernameLi.addClass( 'empty' );
@@ -102,12 +131,7 @@
 		this.$location.empty();
 		this.$locationLi.addClass( 'empty' );
 
-		this.$dragIcon.removeClass( 'pointing-down' );
-
-		this.$progress.addClass( 'empty' );
-
-		// need to remove this to avoid animating again when reopening lightbox on same page
-		this.$container.removeClass( 'invite' );
+		this.progressBar.empty();
 
 		this.fileReuse.empty();
 	};
@@ -118,28 +142,19 @@
 
 	/**
 	 * Initializes the header, which contains the title, credit, and license elements.
+	 * @param {Object} localStorage the localStorage object, for dependency injection
 	 */
-	MPP.initializeHeader = function () {
-		var panel = this;
+	MPP.initializeHeader = function ( localStorage ) {
+		this.progressBar = new mw.mmv.ui.ProgressBar( this.$aboveFold );
 
-		this.initializeProgress();
-
-		this.$dragBar = $( '<div>' )
-			.addClass( 'mw-mmv-drag-affordance' )
-			.appendTo( this.$controlBar )
-			.click( function () {
-				panel.toggle();
-			} );
-
-		this.$dragIcon = $( '<div>' )
-			.addClass( 'mw-mmv-drag-icon' )
-			.appendTo( this.$dragBar );
+		this.scroller = new mw.mmv.ui.MetadataPanelScroller( this.$container, this.$aboveFold,
+			localStorage );
 
 		this.$titleDiv = $( '<div>' )
 			.addClass( 'mw-mmv-title-contain' )
-			.appendTo( this.$controlBar );
+			.appendTo( this.$aboveFold );
 
-		this.$container.append( this.$controlBar );
+		this.$container.append( this.$aboveFold );
 
 		this.initializeButtons(); // float, needs to be on top
 		this.initializeTitleAndCredit();
@@ -152,6 +167,13 @@
 	MPP.initializeTitleAndCredit = function () {
 		this.$titleAndCredit = $( '<div>' )
 			.addClass( 'mw-mmv-title-credit' )
+			// Since these elements are created dynamically, we listen this way for logging purposes
+			.on( 'click', '.mw-mmv-author a', function () {
+				mw.mmv.actionLogger.log( 'author-page' );
+			} )
+			.on( 'click', '.mw-mmv-source a', function () {
+				mw.mmv.actionLogger.log( 'source-page' );
+			} )
 			.appendTo( this.$titleDiv );
 
 		this.initializeTitle();
@@ -167,9 +189,17 @@
 			.appendTo( this.$titleAndCredit );
 
 		this.$title = $( '<span>' )
+			.tipsy( {
+				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
+				gravity: this.isRTL() ? 'se' : 'sw'
+			} )
 			.addClass( 'mw-mmv-title' );
 
 		this.title = new mw.mmv.ui.TruncatableTextField( this.$titlePara, this.$title );
+		this.title.setTitle(
+			mw.message( 'multimediaviewer-title-popup-text' ),
+			mw.message( 'multimediaviewer-title-popup-text-more' )
+		);
 	};
 
 	/**
@@ -177,12 +207,26 @@
 	 */
 	MPP.initializeCredit = function () {
 		this.$credit = $( '<p>' )
-			.addClass( 'mw-mmv-credit empty' );
+			.addClass( 'mw-mmv-credit empty' )
+			.appendTo( this.$titleAndCredit );
+
+		// we need an inline container for tipsy, otherwise it would be centered weirdly
+		this.$authorAndSource = $( '<span>' )
+			.addClass( 'mw-mmv-source-author' )
+			.tipsy( {
+				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
+				gravity: this.isRTL() ? 'se' : 'sw'
+			} );
 
 		this.creditField = new mw.mmv.ui.TruncatableTextField(
-			this.$titleAndCredit,
 			this.$credit,
+			this.$authorAndSource,
 			{ max: 200, small: 160 }
+		);
+
+		this.creditField.setTitle(
+			mw.message( 'multimediaviewer-credit-popup-text' ),
+			mw.message( 'multimediaviewer-credit-popup-text-more' )
 		);
 	};
 
@@ -195,7 +239,10 @@
 		this.$license = $( '<a>' )
 			.addClass( 'mw-mmv-license empty' )
 			.prop( 'href', '#' )
-			.appendTo( this.$titlePara );
+			.appendTo( this.$titlePara )
+			.on( 'click', function() {
+				mw.mmv.actionLogger.log( 'license-page' );
+			} );
 
 		this.$permissionLink = $( '<span>' )
 			.addClass( 'mw-mmv-permission-link mw-mmv-label' )
@@ -204,12 +251,13 @@
 			.hide()
 			.on( 'click', function() {
 				panel.permission.grow();
-				panel.scrollIntoView( panel.permission.$box, 500 );
+				panel.scroller.scrollIntoView( panel.permission.$box, 500 );
+				return false;
 			} );
 	};
 
 	MPP.initializeButtons = function () {
-		this.buttons = new mw.mmv.ui.StripeButtons( this.$titleDiv, window.localStorage );
+		this.buttons = new mw.mmv.ui.StripeButtons( this.$titleDiv, this.localStorage );
 	};
 
 	/**
@@ -251,7 +299,7 @@
 		this.initializeCategories();
 		this.initializeRepoLink();
 
-		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$container, this.buttons.buttons.$reuse );
+		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$container, this.buttons.buttons.$reuse, this.config );
 
 		this.fileUsage = new mw.mmv.ui.FileUsage(
 			$( '<div>' ).appendTo( this.$imageMetadataRight )
@@ -322,12 +370,11 @@
 			.addClass( 'mw-mmv-repo' )
 			.prop( 'href', '#' )
 			.click( function ( e ) {
-				var $link = $( this ),
-					redirect;
+				var $link = $( this );
 
 				if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey || e.button === 1 ) {
 					// They are likely opening the link in a new window or tab
-					mw.mmv.logger.log( 'site-link-click' );
+					mw.mmv.actionLogger.log( 'file-description-page' );
 					return;
 				}
 
@@ -335,12 +382,10 @@
 				// be done before navigating to the desired page
 				e.preventDefault();
 
-				redirect = function () {
-					window.location.href = $link.prop( 'href' );
-				};
-
 				// We want to redirect anyway, whether logging worked or not
-				mw.mmv.logger.log( 'site-link-click' ).then( redirect, redirect );
+				mw.mmv.actionLogger.log( 'file-description-page' ).always( function () {
+					window.location.href = $link.prop( 'href' );
+				} );
 			} )
 			.appendTo( this.$repoLi );
 
@@ -383,16 +428,85 @@
 	};
 
 	/**
-	 * Initializes the progress display at the top of the panel.
+	 * @private
+	 * Set text and appearance of the optin/optout link.
+	 * This is a helper function for #initializePreferenceLinks().
+	 * @param {jQuery} $link the link that needs to be changed
+	 * @param {boolean} status true if the user is currently opted in
+	 * @param {boolean} pending true if the link has been clicked already (there is a request pending)
 	 */
-	MPP.initializeProgress = function () {
-		this.$progress = $( '<div>' )
-			.addClass( 'mw-mmv-progress empty' )
-			.appendTo( this.$controlBar );
+	MPP.setOptInOutLink = function ( $link, status, pending ) {
+		var messageKey = ( status ? 'optout' : 'optin' ) + ( pending ? '-pending' : '' );
 
-		this.$percent = $( '<div>' )
-			.addClass( 'mw-mmv-progress-percent' )
-			.appendTo( this.$progress );
+		$link
+			.toggleClass( 'pending', !!pending )
+			.text( mw.message( 'multimediaviewer-' + messageKey + '-mmv' ).text() )
+			.attr( 'title', pending ? '' : mw.message( 'multimediaviewer-' + messageKey + '-help' ).text() )
+			.attr( 'original-title', pending ? '' : mw.message( 'multimediaviewer-' + messageKey + '-help' ).text() );
+	};
+
+	/**
+	 * Initialize the link for enabling/disabling MediaViewer.
+	 */
+	MPP.initializePreferenceLinks = function () {
+		var target,
+			panel = this,
+			separator = ' | ',
+			optInStatus = this.config.isMediaViewerEnabledOnClick();
+
+		if ( !mw.config.get( 'wgMediaViewerIsInBeta' ) && this.config.canSetMediaViewerEnabledOnClick() ) {
+			this.$mmvOptOutLink = $( '<a>' )
+				.prop( 'href', '#' )
+				.addClass( 'mw-mmv-optout-link' )
+				.tipsy( { gravity: 's' } )
+				.click( function ( e ) {
+					var changePreferencePromise,
+						newOptInStatus = !panel.config.isMediaViewerEnabledOnClick();
+
+					e.preventDefault();
+					if ( $( this).is( '.pending' ) ) {
+						return false;
+					}
+
+					changePreferencePromise = panel.config.setMediaViewerEnabledOnClick( newOptInStatus );
+
+					if ( changePreferencePromise.state() === 'pending' ) {
+						// use ! for status param because we want to show text for old state
+						// (e.g. enabled -> "Disabling...") while pending
+						panel.setOptInOutLink( panel.$mmvOptOutLink, !newOptInStatus, true );
+					}
+					changePreferencePromise.done( function () {
+						panel.setOptInOutLink( panel.$mmvOptOutLink, newOptInStatus );
+						panel.$mmvOptOutLink.tipsy( 'hide' );
+						mw.mmv.actionLogger.log( 'opt' + ( newOptInStatus ? 'in' : 'out' )
+							+ '-' + ( mw.user.isAnon() ? 'anon' : 'loggedin' ) );
+					} ).fail( function () {
+						mw.notify( 'Error while trying to change preference' );
+					} );
+				} );
+
+			this.setOptInOutLink( this.$mmvOptOutLink, optInStatus );
+
+			this.$mmvAboutLinks.append(
+				separator,
+				this.$mmvOptOutLink
+			);
+		}
+
+		if ( !mw.user.isAnon() && mw.config.get( 'wgMediaViewerIsInBeta' ) ) {
+			target = mw.Title.newFromText( 'Special:Preferences' ).getUrl();
+			target += '#mw-prefsection-betafeatures';
+
+			this.$mmvPreferenceLink = $( '<a>' )
+				.prop( 'href', target )
+				.text( mw.message( 'mypreferences' ) )
+				.addClass( 'mw-mmv-preference-link' );
+
+			this.$mmvAboutLinks.append(
+				separator,
+				this.$mmvPreferenceLink
+			);
+		}
 	};
 
 	// *********************************
@@ -405,7 +519,6 @@
 	 */
 	MPP.setFilePageLink = function ( url ) {
 		this.$repo.prop( 'href', url );
-		this.$license.prop( 'href', url );
 	};
 
 	/**
@@ -509,6 +622,8 @@
 		} else if ( source ) {
 			this.creditField.set( this.source );
 		}
+
+		this.$credit.toggleClass( 'empty', !author && !source );
 	};
 
 	/**
@@ -542,22 +657,28 @@
 	};
 
 	/**
-	 * Sets the license data in the DOM
-	 * @param {string} license The license this file has.
-	 */
-	MPP.setLicenseData = function ( license ) {
-		this.$license.data( 'license', license );
-	};
-
-	/**
 	 * Sets the license display in the panel
-	 * @param {string} license The human-readable name of the license
-	 * @param {boolean} isCc Whether this is a CC license
+	 * @param {mw.mmv.model.License|null} license license data (could be missing)
+	 * @param {string} filePageUrl URL of the file description page
 	 */
-	MPP.setLicense = function ( license, isCc ) {
+	MPP.setLicense = function ( license, filePageUrl ) {
+		var shortName, url, isCc;
+
+		if ( license ) {
+			shortName = license.getShortName();
+			url = license.deedUrl || filePageUrl;
+			isCc = license.isCc();
+		} else {
+			shortName = mw.message( 'multimediaviewer-license-default' ).text();
+			url = filePageUrl;
+			isCc = false;
+		}
+
 		this.$license
-			.text( license )
-			.toggleClass( 'cc-license', isCc );
+			.text( shortName )
+			.toggleClass( 'cc-license', isCc )
+			.prop( 'href', url )
+			.prop( 'target', license && license.deedUrl ? '_blank' : '' );
 
 		this.$license.removeClass( 'empty' );
 	};
@@ -653,7 +774,7 @@
 	 * @param {mw.mmv.model.User} user
 	 */
 	MPP.setImageInfo = function ( image, imageData, repoData, localUsage, globalUsage, user ) {
-		var msgname,
+		var panel = this,
 			fileTitle = image.filePageTitle;
 
 		this.setFileTitle( fileTitle.getNameText() );
@@ -661,9 +782,19 @@
 		this.setFilePageLink( imageData.descriptionUrl );
 
 		if ( imageData.creationDateTime ) {
-			this.setDateTime( this.formatDate( imageData.creationDateTime ), true );
+			// Use the raw date until moment can try to interpret it
+			panel.setDateTime( imageData.creationDateTime );
+
+			this.formatDate( imageData.creationDateTime ).then( function ( formattedDate ) {
+				panel.setDateTime( formattedDate, true );
+			} );
 		} else if ( imageData.uploadDateTime ) {
-			this.setDateTime( this.formatDate( imageData.uploadDateTime ) );
+			// Use the raw date until moment can try to interpret it
+			panel.setDateTime( imageData.uploadDateTime );
+
+			this.formatDate( imageData.uploadDateTime ).then( function ( formattedDate ) {
+				panel.setDateTime( formattedDate );
+			} );
 		}
 
 		if ( imageData.source ) {
@@ -678,19 +809,7 @@
 		this.description.set( imageData.description, image.caption );
 		this.categories.set( repoData.getArticlePath(), imageData.categories );
 
-		msgname = 'multimediaviewer-license-' + ( imageData.license && imageData.license.internalName || '' );
-
-		if ( !mw.messages.exists( msgname ) ) {
-			// Cannot display, fallback or fail
-			msgname = 'multimediaviewer-license-default';
-		} else {
-			// License found, store the license data
-			this.setLicenseData( mw.message( msgname ).text() );
-		}
-
-		if ( imageData.license ) {
-			this.setLicense( mw.message( msgname ).text(), imageData.isCcLicensed() );
-		}
+		this.setLicense( imageData.license, imageData.descriptionUrl );
 
 		if ( imageData.permission ) {
 			this.setPermission( imageData.permission );
@@ -721,135 +840,80 @@
 	 * Transforms a date string into localized, human-readable format.
 	 * Unrecognized strings are returned unchanged.
 	 * @param {string} dateString
-	 * @return {string}
+	 * @return {jQuery.Deferred}
 	 */
 	MPP.formatDate = function ( dateString ) {
-		var date = moment( dateString );
-		if ( !date.isValid() ) {
-			return dateString;
-		}
-		return date.format( 'LL' );
-	};
+		var deferred = $.Deferred(),
+			date;
 
-	/**
-	 * Animates the metadata area when the viewer is first opened.
-	 */
-	MPP.animateMetadataOnce = function () {
-		if ( !this.hasAnimatedMetadata ) {
-			this.hasAnimatedMetadata = true;
-			this.$container.addClass( 'invite' );
-		} else {
-			this.$container.addClass( 'invited' );
-		}
-	};
+		mw.loader.using( 'moment', function () {
+			date = moment( dateString );
 
-	// ********************************
-	// ******** Action methods ********
-	// ********************************
-
-	/**
-	 * Toggles the metadata div being totally visible.
-	 */
-	MPP.toggle = function ( forceDirection ) {
-		var scrollTopWhenOpen = this.$container.outerHeight() - this.$controlBar.outerHeight(),
-			scrollTopTarget = $.scrollTo().scrollTop() > 0 ? 0 : scrollTopWhenOpen;
-
-		if ( forceDirection ) {
-			scrollTopTarget = forceDirection === 'down' ? 0 : scrollTopWhenOpen;
-		}
-
-		$.scrollTo( scrollTopTarget, 400 );
-	};
-
-	/**
-	 * Handles keydown events for this element.
-	 */
-	MPP.keydown = function ( e ) {
-		switch ( e.which ) {
-			case 40:
-				// Down arrow
-				this.toggle( 'down' );
-				e.preventDefault();
-				break;
-			case 38:
-				// Up arrow
-				this.toggle( 'up' );
-				e.preventDefault();
-				break;
-		}
-	};
-
-	/**
-	 * Makes sure that the given element (which must be a descendant of the metadata panel) is
-	 * in view. If it isn't, scrolls the panel smoothly to reveal it.
-	 * @param {HTMLElement|jQuery|string} target
-	 * @param {number} [duration] animation length
-	 * @param {Object} [settings] see jQuery.scrollTo
-	 */
-	MPP.scrollIntoView = function( target, duration, settings ) {
-		var $target = $( target ),
-			targetHeight = $target.height(),
-			targetTop = $target.offset().top,
-			targetBottom = targetTop + targetHeight,
-			viewportHeight = $(window).height(),
-			viewportTop = $.scrollTo().scrollTop(),
-			viewportBottom = viewportTop + viewportHeight;
-
-		// we omit here a bunch of cases which are logically possible but unlikely given the size
-		// of the panel, and only care about the one which will actually happen
-		if ( targetHeight <= viewportHeight ) { // target fits into screen
-			if (targetBottom > viewportBottom ) {
-				$.scrollTo( viewportTop + ( targetBottom - viewportBottom ), duration, settings );
+			if ( date.isValid() ) {
+				deferred.resolve( date.format( 'LL' ) );
+			} else {
+				deferred.resolve( dateString );
 			}
-		}
+		}, function ( error ) {
+			deferred.reject( error );
+			if ( window.console && window.console.error ) {
+				window.console.error( 'mw.loader.using error when trying to load moment', error );
+			}
+		} );
+
+		return deferred.promise();
 	};
 
 	/**
-	 * Handles the progress display when a percentage of progress is received
-	 * @param {number} percent
+	 * Calls #revealTruncatedText() or #hideTruncatedText() based on the current state.
 	 */
-	MPP.percent = function ( percent ) {
-		var panel = this;
-
-		if ( percent === 0 ) {
-			// When a 0% update comes in, we jump without animation to 0 and we hide the bar
-			this.$progress.addClass( 'empty' );
-			this.$percent.stop().css( { width : 0 } );
-		} else if ( percent === 100 ) {
-			// When a 100% update comes in, we make sure that the bar is visible, we animate
-			// fast to 100 and we hide the bar when the animation is done
-			this.$progress.removeClass( 'empty' );
-			this.$percent.stop().animate( { width : percent + '%' }, 50, 'swing',
-				function () {
-					// Reset the position for good measure
-					panel.$percent.stop().css( { width : 0 } );
-					panel.$progress.addClass( 'empty' );
-				} );
+	MPP.toggleTruncatedText = function () {
+		if ( this.$container.hasClass( 'mw-mmv-untruncated' ) ) {
+			this.hideTruncatedText();
 		} else {
-			// When any other % update comes in, we make sure the bar is visible
-			// and we animate to the right position
-			this.$progress.removeClass( 'empty' );
-			this.$percent.stop().animate( { width : percent + '%' } );
+			this.revealTruncatedText();
 		}
 	};
 
 	/**
-	 * Receives the window's scroll events and flips the chevron if necessary.
+	 * Shows truncated text in the title and credit (this also rearranges the layout a bit).
+	 * Opens the panel partially to make sure the revealed text is visible.
+	 * @param {boolean} noScroll if set, do not scroll the panel (because the function was triggered from a
+	 *  scroll event in the first place)
 	 */
-	MPP.scroll = function () {
-		var scrolled = !!$.scrollTo().scrollTop();
-
-		this.$dragIcon.toggleClass( 'pointing-down', scrolled );
-
-		if (
-			!this.savedHasOpenedMetadata &&
-			scrolled &&
-			window.localStorage !== undefined
-		) {
-			localStorage.setItem( 'mmv.hasOpenedMetadata', true );
-			this.savedHasOpenedMetadata = true;
+	MPP.revealTruncatedText = function ( noScroll ) {
+		if ( this.$container.hasClass( 'mw-mmv-untruncated' ) ) {
+			// avoid self-triggering via reveal -> scroll -> reveal
+			return;
 		}
+		this.$container.addClass( 'mw-mmv-untruncated' );
+		this.title.grow();
+		this.creditField.grow();
+		if ( this.aboveFoldIsLargerThanNormal() && !noScroll ) {
+			this.scroller.scrollIntoView( this.$datetimeLi, 500 );
+		}
+	};
+
+	/**
+	 * Undoes changes made by revealTruncatedText().
+	 */
+	MPP.hideTruncatedText = function () {
+		if ( !this.$container.hasClass( 'mw-mmv-untruncated' ) ) {
+			// avoid double-triggering
+			return;
+		}
+		this.title.shrink();
+		this.creditField.shrink();
+		this.$container.removeClass( 'mw-mmv-untruncated' );
+	};
+
+	/**
+	 * Returns true if the above-fold part of the metadata panel changed size (due to text overflow) after
+	 * calling revealTruncatedText().
+	 */
+	MPP.aboveFoldIsLargerThanNormal = function () {
+		return this.$aboveFold.height() > parseInt( this.$aboveFold.css( 'min-height' ), 10 );
 	};
 
 	mw.mmv.ui.MetadataPanel = MetadataPanel;
-}( mediaWiki, jQuery, OO, moment ) );
+}( mediaWiki, jQuery, OO ) );

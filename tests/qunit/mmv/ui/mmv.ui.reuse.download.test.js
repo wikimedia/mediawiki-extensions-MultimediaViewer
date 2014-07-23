@@ -16,14 +16,10 @@
  */
 
 ( function ( mw, $ ) {
-	function makeDownload() {
-		return new mw.mmv.ui.reuse.Download( $( '#qunit-fixture' ) );
-	}
-
 	QUnit.module( 'mmv.ui.reuse.download', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sanity test, object creation and UI construction', 6, function ( assert ) {
-		var download = makeDownload();
+	QUnit.test( 'Sanity test, object creation and UI construction', 9, function ( assert ) {
+		var download = new mw.mmv.ui.reuse.Download( $( '#qunit-fixture' ) );
 
 		assert.ok( download, 'download UI element is created.' );
 		assert.strictEqual( download.$pane.length, 1, 'Pane div created.' );
@@ -31,14 +27,18 @@
 		assert.ok( download.downloadSizeMenu, 'Image size pulldown menu created.' );
 		assert.ok( download.$previewLink, 'Preview link created.' );
 		assert.ok( download.defaultItem, 'Default item set.' );
+
+		assert.strictEqual( download.$downloadButton.html(), '', 'Button has empty content.' );
+		assert.strictEqual( download.$downloadButton.attr( 'href' ), undefined, 'Button href is empty.' );
+		assert.strictEqual( download.$previewLink.attr( 'href' ), undefined, 'Preview link href is empty.' );
 	} );
 
 	QUnit.test( 'set()/empty():', 5, function ( assert ) {
-		var download = makeDownload(),
+		var download = new mw.mmv.ui.reuse.Download( $( '#qunit-fixture' ) ),
 			src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
 			image = { // fake mw.mmv.model.Image
 				title: new mw.Title( 'File:Foobar.jpg' ),
-				url: src,
+				url: src
 			};
 
 		assert.strictEqual( download.imageExtension, undefined, 'Image extension is not set.' );
@@ -60,10 +60,10 @@
 	} );
 
 	QUnit.test( 'attach()/unattach():', 2, function ( assert ) {
-		var download = makeDownload(),
+		var download = new mw.mmv.ui.reuse.Download( $( '#qunit-fixture' ) ),
 			image = {
 				title: new mw.Title( 'File:Foobar.jpg' ),
-				url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
+				url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg'
 			};
 
 		download.set( image );
@@ -110,23 +110,58 @@
 		download.$selectionArrow.click();
 	} );
 
-	QUnit.test( 'handleSizeSwitch():', 6, function ( assert ) {
-		var download = makeDownload(),
+	QUnit.test( 'handleSizeSwitch():', 3, function ( assert ) {
+		var download = new mw.mmv.ui.reuse.Download( $( '#qunit-fixture' ) ),
 			newImageUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/NewFoobar.jpg';
 
-		assert.strictEqual( download.$downloadButton.html(), '', 'Button has empty content.' );
-		assert.strictEqual( download.$downloadButton.attr( 'href' ), undefined, 'Button href is empty.' );
-		assert.strictEqual( download.$previewLink.attr( 'href' ), undefined, 'Preview link href is empty.' );
-
-		download.utils.getThumbnailUrlPromise = function() {
+		download.utils.getThumbnailUrlPromise = function () {
 			return $.Deferred().resolve( { url: newImageUrl } ).promise();
+		};
+
+		download.setDownloadUrl = function ( url ) {
+			assert.strictEqual( url, newImageUrl, 'URL passed to setDownloadUrl is correct' );
 		};
 
 		download.handleSizeSwitch( download.downloadSizeMenu.getMenu().getSelectedItem() );
 
 		assert.ok( download.$downloadButton.html().match( /original.*/ ), 'Button message updated.' );
-		assert.strictEqual( download.$downloadButton.attr( 'href' ), newImageUrl + '?download', 'Button href updated.' );
-		assert.strictEqual( download.$previewLink.attr( 'href' ), newImageUrl, 'Preview link href updated.' );
+
+		download.image = { url: newImageUrl };
+
+		download.utils.getThumbnailUrlPromise = function () {
+			assert.ok( false, 'Should not fetch the thumbnail if the image is original size.' );
+		};
+
+		download.handleSizeSwitch( download.downloadSizeMenu.getMenu().getSelectedItem() );
 	} );
 
+	QUnit.test( 'setButtonText() sanity check:', 2, function ( assert ) {
+		var download = new mw.mmv.ui.reuse.Download( $( '#qunit-fixture' ) ),
+			message;
+
+		download.setButtonText( 'large', 'jpg', 100, 200 );
+		assert.ok( true, 'Setting the text did not cause any errors' );
+
+		message = download.$downloadButton.html();
+		download.setButtonText( 'small', 'png', 1000, 2000 );
+		assert.notStrictEqual( download.$downloadButton.html(), message, 'Button text was updated' );
+	} );
+
+	QUnit.test( 'getExtensionFromUrl():', 1, function ( assert ) {
+		var download = new mw.mmv.ui.reuse.Download( $( '#qunit-fixture' ) );
+
+		assert.strictEqual( download.getExtensionFromUrl( 'http://example.com/bing/foo.bar.png' ),
+			'png', 'Extension is parsed correctly' );
+	} );
+
+	QUnit.test( 'setDownloadUrl', 3, function ( assert ) {
+		var download = new mw.mmv.ui.reuse.Download( $( '#qunit-fixture' ) ),
+			imageUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/NewFoobar.jpg';
+
+		download.setDownloadUrl( imageUrl );
+
+		assert.strictEqual( download.$downloadButton.attr( 'href' ), imageUrl + '?download', 'Download link is set correctly.' );
+		assert.strictEqual( download.$previewLink.attr( 'href' ), imageUrl, 'Preview link is set correctly.' );
+		assert.ok( !download.$downloadButton.hasClass( 'disabledLink' ), 'Download link is enabled.' );
+	} );
 }( mediaWiki, jQuery ) );

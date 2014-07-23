@@ -1,0 +1,31 @@
+{
+	"@metadata": {
+		"authors": [
+			"Lloffiwr"
+		]
+	},
+	"multimediaviewer-datetime-created": "Gwnaethpwyd: $1",
+	"multimediaviewer-datetime-uploaded": "Uwchlwythwyd: $1",
+	"multimediaviewer-userpage-link": "{{GENDER:$2|Uwchlwythwyd}} gan $1",
+	"multimediaviewer-license-cc-pd": "Parth Cyhoeddus",
+	"multimediaviewer-license-pd": "Parth Cyhoeddus",
+	"multimediaviewer-license-default": "Gweld y drwydded",
+	"multimediaviewer-permission-title": "Manylion y drwydded",
+	"multimediaviewer-permission-link": "gweld y termau",
+	"multimediaviewer-permission-viewmore": "Gweld mwy",
+	"multimediaviewer-about-mmv": "Am Media Viewer",
+	"multimediaviewer-discuss-mmv": "Trafod y nodwedd hon",
+	"multimediaviewer-help-mmv": "Cymorth",
+	"multimediaviewer-optout-mmv": "Analluoger Media Viewer",
+	"multimediaviewer-optin-mmv": "Galluoger Media Viewer",
+	"multimediaviewer-optout-pending-mmv": "Wrthi'n analluogi Media Viewer",
+	"multimediaviewer-optin-pending-mmv": "Wrthi'n galluogi Media Viewer",
+	"multimediaviewer-geolocation": "Lleoliad: $1",
+	"multimediaviewer-fileusage-count": "Defnyddir mewn $1 {{PLURAL:$1|tudalen|dudalen|dudalen|thudalen|thudalen|tudalen}}",
+	"multimediaviewer-fileusage-local-section": "Ar y wefan hon",
+	"multimediaviewer-fileusage-global-section": "Ar wefannau eraill",
+	"multimediaviewer-viewfile-link": "Gweld y ffeil gwreiddiol",
+	"multimediaviewer-reuse-loading-placeholder": "Wrthi'n llwytho",
+	"multimediaviewer-embed-html": "HTML",
+	"multimediaviewer-view-expanded": "Chwyddo'r llun"
+}

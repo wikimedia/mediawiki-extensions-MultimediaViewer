@@ -213,11 +213,11 @@
 			$wikitextTextarea = this.embedTextWikitext.$element.find( 'textarea' );
 
 		// Select all text once element gets focus
-		this.embedTextHtml.onDOMEvent( 'focus', $.proxy( this.selectAllOnEvent, $htmlTextarea ) );
-		this.embedTextWikitext.onDOMEvent( 'focus', $.proxy( this.selectAllOnEvent, $wikitextTextarea ) );
+		$htmlTextarea.on( 'focus', this.selectAllOnEvent );
+		$wikitextTextarea.on( 'focus', this.selectAllOnEvent );
 		// Disable partial text selection inside the textboxes
-		this.embedTextHtml.onDOMEvent( 'mousedown click', $.proxy( this.onlyFocus, $htmlTextarea ) );
-		this.embedTextWikitext.onDOMEvent( 'mousedown click', $.proxy( this.onlyFocus, $wikitextTextarea ) );
+		$htmlTextarea.on( 'mousedown click', this.onlyFocus );
+		$wikitextTextarea.on( 'mousedown click', this.onlyFocus );
 
 		// Register handler for switching between wikitext/html snippets
 		this.embedSwitch.on( 'select', $.proxy( embed.handleTypeSwitch, embed ) );
@@ -231,10 +231,14 @@
 	 * Clears listeners.
 	 */
 	EP.unattach = function() {
+		var $htmlTextarea = this.embedTextHtml.$element.find( 'textarea' ),
+			$wikitextTextarea = this.embedTextWikitext.$element.find( 'textarea' );
+
+
 		this.constructor['super'].prototype.unattach.call( this );
 
-		this.embedTextHtml.offDOMEvent( 'focus mousedown click' );
-		this.embedTextWikitext.offDOMEvent( 'focus mousedown click' );
+		$htmlTextarea.off( 'focus mousedown click' );
+		$wikitextTextarea.off( 'focus mousedown click' );
 		this.embedSwitch.off( 'select' );
 		this.embedSizeSwitchHtml.getMenu().off( 'choose' );
 		this.embedSizeSwitchWikitext.getMenu().off( 'choose' );

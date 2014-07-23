@@ -23,9 +23,12 @@
 	 * @extends mw.mmv.provider.Api
 	 * @constructor
 	 * @param {mw.Api} api
+	 * @param {Object} [options]
+	 * @cfg {number} [maxage] cache expiration time, in seconds
+	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
 	 */
-	function FileRepoInfo( api ) {
-		mw.mmv.provider.Api.call( this, api );
+	function FileRepoInfo( api, options ) {
+		mw.mmv.provider.Api.call( this, api, options );
 	}
 	oo.inheritClass( FileRepoInfo, mw.mmv.provider.Api );
 
@@ -38,10 +41,9 @@
 		var provider = this;
 
 		return this.getCachedPromise( '*', function () {
-			return provider.api.get( {
+			return provider.apiGetWithMaxAge( {
 				action: 'query',
-				meta: 'filerepoinfo',
-				format: 'json'
+				meta: 'filerepoinfo'
 			} ).then( function( data ) {
 				return provider.getQueryField( 'repos', data );
 			} ).then( function( reposArray ) {

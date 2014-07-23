@@ -1,11 +1,11 @@
 {
-    "@metadata": {
-        "authors": [
-            "Mitzev",
-            "DCLXVI"
-        ]
-    },
-    "multimediaviewer-permission-title": "Информация за лиценза",
-    "multimediaviewer-permission-link": "вижте условията",
-    "multimediaviewer-permission-viewmore": "Вижте още"
+	"@metadata": {
+		"authors": [
+			"Mitzev",
+			"DCLXVI"
+		]
+	},
+	"multimediaviewer-permission-title": "Информация за лиценза",
+	"multimediaviewer-permission-link": "вижте условията",
+	"multimediaviewer-permission-viewmore": "Вижте още"
 }

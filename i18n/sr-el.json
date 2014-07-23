@@ -1,8 +1,57 @@
 {
-    "@metadata": {
-        "authors": [
-            "Milicevic01"
-        ]
-    },
-    "multimediaviewer-reuse-link": "Koristi ovu datoteku"
+	"@metadata": {
+		"authors": [
+			"Milicevic01"
+		]
+	},
+	"multimediaviewer-desc-nil": "Opis nije dostupan.",
+	"multimediaviewer-optin-pref": "Omogući <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Media Viewer]</span>",
+	"multimediaviewer-repository-local": "Saznajte više",
+	"multimediaviewer-datetime-created": "Napravljeno: $1",
+	"multimediaviewer-datetime-uploaded": "Poslato: $1",
+	"multimediaviewer-userpage-link": "Datoteku {{GENDER:$2|poslao|poslala}} $1",
+	"multimediaviewer-license-cc-pd": "Javno vlasništvo",
+	"multimediaviewer-license-pd": "Javno vlasništvo",
+	"multimediaviewer-license-default": "Vidi licencu",
+	"multimediaviewer-permission-title": "Detalji licence",
+	"multimediaviewer-permission-link": "vidi uslove",
+	"multimediaviewer-permission-viewmore": "Prikaži još",
+	"multimediaviewer-discuss-mmv": "Rasprava",
+	"multimediaviewer-help-mmv": "Pomoć",
+	"multimediaviewer-optout-mmv": "Onemogući Media Viewer",
+	"multimediaviewer-geolocation": "Lokacija: $1",
+	"multimediaviewer-fileusage-count": "Koristi se u $1 {{PLURAL:$1|stranici|stranice|stranica}}",
+	"multimediaviewer-fileusage-count-more": "Koristi se u više od $1 {{PLURAL:$1|stranica}}",
+	"multimediaviewer-fileusage-link": "Vidi sve upotrebe",
+	"multimediaviewer-fileusage-local-section": "Na ovom sajtu",
+	"multimediaviewer-fileusage-global-section": "Na drugim sajtovima",
+	"multimediaviewer-reuse-link": "Koristi ovu datoteku",
+	"multimediaviewer-viewfile-link": "Vidi originalnu datoteku",
+	"multimediaviewer-reuse-loading-placeholder": "Učitavanje...",
+	"multimediaviewer-share-tab": "Deli",
+	"multimediaviewer-embed-tab": "Ugradi",
+	"multimediaviewer-download-tab": "Preuzmi",
+	"multimediaviewer-download-preview-link-title": "Vidi u veb pregledaču",
+	"multimediaviewer-download-original-button-name": "Preuzmi originalnu datoteku",
+	"multimediaviewer-download-small-button-name": "Preuzmi u maloj veličini",
+	"multimediaviewer-download-medium-button-name": "Preuzmi u srednjoj veličini",
+	"multimediaviewer-share-explanation": "Kopirajte i slobodno delite ovu vezu",
+	"multimediaviewer-embed-wt": "Vikitekst",
+	"multimediaviewer-embed-html": "HTML",
+	"multimediaviewer-embed-explanation": "Koristite ovaj kod da ugradite datoteku",
+	"multimediaviewer-default-embed-dimensions": "Podrazumevana veličina",
+	"multimediaviewer-original-embed-dimensions": "Originalna veličina $1",
+	"multimediaviewer-large-embed-dimensions": "Velika $1",
+	"multimediaviewer-medium-embed-dimensions": "Srednja $1",
+	"multimediaviewer-small-embed-dimensions": "Mala $1",
+	"multimediaviewer-description-page-button-text": "Prikaži detalje",
+	"multimediaviewer-description-page-popup-text": "Prikaži detalje na $1",
+	"multimediaviewer-commons-subtitle": "Riznica slobodnih medijskih datoteka",
+	"multimediaviewer-view-expanded": "Raširi",
+	"multimediaviewer-close-popup-text": "Zatvori ovu alatku (Esc)",
+	"multimediaviewer-fullscreen-popup-text": "Prikaži preko celog ekrana",
+	"multimediaviewer-defullscreen-popup-text": "Izađi iz celog ekrana",
+	"multimediaviewer-title-popup-text": "Naziv datoteke",
+	"multimediaviewer-author-popup-text": "Autor",
+	"multimediaviewer-source-popup-text": "Izvor"
 }

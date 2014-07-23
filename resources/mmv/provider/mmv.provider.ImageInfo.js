@@ -26,6 +26,8 @@
 	 * @param {mw.Api} api
 	 * @param {Object} [options]
 	 * @cfg {string} [language=null] image metadata language
+	 * @cfg {number} [maxage] cache expiration time, in seconds
+	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
 	 */
 	function ImageInfo( api, options ) {
 		options = $.extend( {
@@ -79,14 +81,13 @@
 		var provider = this;
 
 		return this.getCachedPromise( file.getPrefixedDb(), function () {
-			return provider.api.get( {
+			return provider.apiGetWithMaxAge( {
 				action: 'query',
 				prop: 'imageinfo',
 				titles: file.getPrefixedDb(),
 				iiprop: provider.iiprop,
 				iiextmetadatafilter: provider.iiextmetadatafilter,
-				iiextmetadatalanguage: provider.options.language,
-				format: 'json'
+				iiextmetadatalanguage: provider.options.language
 			} ).then( function( data ) {
 				return provider.getQueryPage( file, data );
 			} ).then( function( page ) {

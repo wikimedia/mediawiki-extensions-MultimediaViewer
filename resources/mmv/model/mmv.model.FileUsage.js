@@ -22,7 +22,7 @@
 	 * @constructor
 	 * @param {mw.Title} file see {@link mw.mmv.model.FileUsage#file}
 	 * @param {mw.mmv.model.FileUsage.Scope} scope see {@link mw.mmv.model.FileUsage#scope}
-	 * @param {{wiki: (string|null), page: mw.Title}[]} pages see {@link mw.mmv.model.FileUsage#pages}
+	 * @param {Array.<mw.Title|mw.mmv.model.IwTitle>} pages see {@link mw.mmv.model.FileUsage#pages}
 	 * @param {number} [totalCount] see {@link mw.mmv.model.FileUsage#totalCount}
 	 * @param {boolean} [totalCountIsLowerBound = false] see {@link mw.mmv.model.FileUsage#totalCountIsLowerBound}
 	 */
@@ -46,10 +46,9 @@
 		this.scope = scope;
 
 		/**
-		 * A list of pages which use this file. Each page is an object with a 'page' field
-		 * containing the wiki page (a Title object) and a 'wiki' field which is a domain name,
-		 * or null for local files.
-		 * @property {{wiki: (string|null), page: mw.Title}[]}
+		 * A list of pages which use this file. Pages are mw.Title objects for a FileUsage object
+		 * with local scope and mw.mmv.model.IwTitle objects for one with global scope.
+		 * @property {Array.<mw.Title|mw.mmv.model.IwTitle>}
 		 */
 		this.pages = pages;
 

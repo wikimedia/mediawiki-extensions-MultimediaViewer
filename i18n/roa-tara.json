@@ -1,9 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "Joetaras"
-        ]
-    },
-    "multimediaviewer-license-pd": "Dominie pubbleche",
-    "multimediaviewer-geolocation": "Posizione: $1"
+	"@metadata": {
+		"authors": [
+			"Joetaras"
+		]
+	},
+	"multimediaviewer-optin-pref": "Abbilite 'u <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Media Viewer]</span>",
+	"multimediaviewer-license-pd": "Dominie pubbleche",
+	"multimediaviewer-geolocation": "Posizione: $1"
 }
