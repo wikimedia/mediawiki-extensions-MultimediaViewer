@@ -4,7 +4,7 @@
 			"John Reid"
 		]
 	},
-	"multimediaviewer-optin-pref": "Enable new media seein expereeance",
+	"multimediaviewer-optin-pref": "Enable <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Media Viewer]</span>",
 	"multimediaviewer-metadata-error": "Mistak: Coudna laid eemage data. $1",
 	"multimediaviewer-thumbnail-error": "Mistak: Coudna laid thummnail data. $1",
 	"multimediaviewer-license-pd": "Public Domain",
@@ -16,7 +16,7 @@
 	"multimediaviewer-optin-mmv": "Enable Media Viewer",
 	"multimediaviewer-optout-pending-mmv": "Disablin Media Viewer",
 	"multimediaviewer-optin-pending-mmv": "Enablin Media Viewer",
-	"multimediaviewer-optout-help": "Media Viewer will no be uised tae shaw eemages onie mair. Tae uise it again, clap oan the \"Mak muckler\" button nex tae onie eemage. Than clap oan \"{{int:multimediaviewer-optin-mmv}}\".",
+	"multimediaviewer-optout-help": "Media Viewer wil no be uised tae shaw eemages onie mair. Tae uise it again, clap oan the \"{{int:mutimediaviewer-view-expanded}}\" button nex tae onie eemage. Than clap oan \"{{int:multimediaviewer-optin-mmv}}\".",
 	"multimediaviewer-fileusage-count": "Uised in $1 {{PLURAL:$1|page|pages}}",
 	"multimediaviewer-fileusage-count-more": "Uised in mair than $1 {{PLURAL:$1|pages}}",
 	"multimediaviewer-fileusage-link": "See aw o the uisses",
@@ -26,8 +26,8 @@
 	"multimediaviewer-share-tab": "Shair",
 	"multimediaviewer-embed-tab": "Embed",
 	"multimediaviewer-download-tab": "Dounlaid",
-	"multimediaviewer-download-preview-link-title": "Luikower in the brouser",
-	"multimediaviewer-download-original-button-name": "Dounlaid the oreeginal size",
+	"multimediaviewer-download-preview-link-title": "See in the brouser",
+	"multimediaviewer-download-original-button-name": "Dounlaid the oreeginal file",
 	"multimediaviewer-download-small-button-name": "Dounlaid wee size",
 	"multimediaviewer-download-medium-button-name": "Dounlaid middlin size",
 	"multimediaviewer-download-large-button-name": "Dounlaid muckle size",
@@ -48,7 +48,7 @@
 	"multimediaviewer-embed-license": "Licensed unner $1.",
 	"multimediaviewer-embed-via": "Bi waa o $1.",
 	"multimediaviewer-default-embed-dimensions": "Defaut thummnail size",
-	"multimediaviewer-original-embed-dimensions": "Oreeginal size $1",
+	"multimediaviewer-original-embed-dimensions": "Oreeginal file $1",
 	"multimediaviewer-large-embed-dimensions": "Muckle $1",
 	"multimediaviewer-medium-embed-dimensions": "Midlin $1",
 	"multimediaviewer-small-embed-dimensions": "Smaw $1"
