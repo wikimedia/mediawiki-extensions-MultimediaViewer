@@ -310,10 +310,6 @@ $wgResourceModules += array(
 		'scripts' => array(
 			'mmv/mmv.base.js',
 		),
-
-		'dependencies' => array(
-			'jquery.client',
-		),
 	),
 
 	'mmv.ui' => $wgMediaViewerResourceTemplate + array(

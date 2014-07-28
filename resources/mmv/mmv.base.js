@@ -16,13 +16,16 @@
  */
 
 // Included on every page which has images so keep it lightweight.
-( function ( mw, $ ) {
+( function ( mw ) {
 	mw.mmv = {
-		// We have to disable support for IE < 9 until this is fixed: https://bugzilla.wikimedia.org/show_bug.cgi?id=63303
-		// This can't be done with feature detection, as the error IE triggers in that situation can't be caught
+		/**
+		 * Feature-detects OOJS support. OOJS uses es5-shim, and from the remaining ES5 additions
+		 * (the ones provided by es5-sham) the only one it uses is Object.create.
+		 * @member mw.mmv.MultimediaViewer
+		 * @return {boolean}
+		 */
 		isBrowserSupported : function () {
-			var profile = $.client.profile();
-			return ! ( profile.name === 'msie' && profile.versionNumber < 9 );
+			return !!Object.create;
 		}
 	};
-}( mediaWiki, jQuery ) );
+}( mediaWiki ) );
