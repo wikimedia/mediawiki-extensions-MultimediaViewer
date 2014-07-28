@@ -53,16 +53,12 @@
 	"multimediaviewer-large-embed-dimensions": "বড় $1",
 	"multimediaviewer-medium-embed-dimensions": "মাঝারি $1",
 	"multimediaviewer-small-embed-dimensions": "ছোট $1",
-	"multimediaviewer-feedback-button-text": "এই সরঞ্জাম সম্পর্কে আপনার প্রতিক্রিয়া",
-	"multimediaviewer-feedback-popup-text": "এই নতুন মিডিয়া দেখার অভিজ্ঞতা সম্পর্কে প্রতিক্রিয়া দিন",
-	"multimediaviewer-description-page-button-text": "আরো বিস্তারিত",
+	"multimediaviewer-description-page-button-text": "এই ফাইল সম্পর্কে আরও বিস্তারিত",
 	"multimediaviewer-description-page-popup-text": "$1-এ এই ফাইল সম্পর্কে আরো বিস্তারিত",
 	"multimediaviewer-commons-subtitle": "মুক্ত মিডিয়া ভাণ্ডার",
 	"multimediaviewer-view-expanded": "বিস্তৃতভাবে দেখুন",
 	"multimediaviewer-fullscreen-popup-text": "পূর্ণ স্ক্রিনে দেখান",
 	"multimediaviewer-defullscreen-popup-text": "পূর্ণ স্ক্রিন প্রস্থান করুন",
 	"multimediaviewer-title-popup-text": "ফাইলের নাম",
-	"multimediaviewer-author-popup-text": "লেখক",
-	"multimediaviewer-source-popup-text": "উৎস",
 	"multimediaviewer-panel-open-popup-text": "আরো বিস্তারিত"
 }
