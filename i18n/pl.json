@@ -71,7 +71,6 @@
 	"multimediaviewer-large-embed-dimensions": "Duży rozmiar $1",
 	"multimediaviewer-medium-embed-dimensions": "Średni rozmiar $1",
 	"multimediaviewer-small-embed-dimensions": "Mały rozmiar $1",
-	"multimediaviewer-feedback-popup-text": "Podziel się opinią na temat tego nowego sposobu przeglądania ilustracji",
 	"multimediaviewer-description-page-button-text": "Więcej szczegółów",
 	"multimediaviewer-description-page-popup-text": "Więcej szczegółów na temat tego pliku $1",
 	"multimediaviewer-commons-subtitle": "Repozytorium wolnych mediów",
@@ -80,8 +79,8 @@
 	"multimediaviewer-fullscreen-popup-text": "Pokaż w trybie pełnoekranowym",
 	"multimediaviewer-defullscreen-popup-text": "Wyjdź z trybu pełnoekranowego",
 	"multimediaviewer-title-popup-text": "Nazwa pliku",
-	"multimediaviewer-author-popup-text": "Autor",
-	"multimediaviewer-source-popup-text": "Źródło",
+	"multimediaviewer-credit-popup-text": "Informacje o autorze i źródle",
+	"multimediaviewer-credit-popup-text-more": "Kliknij, aby wyświetlić pełne informacje o autorze i źródle",
 	"multimediaviewer-panel-open-popup-text": "Więcej szczegółów",
 	"multimediaviewer-panel-close-popup-text": "Mniej szczegółów"
 }
