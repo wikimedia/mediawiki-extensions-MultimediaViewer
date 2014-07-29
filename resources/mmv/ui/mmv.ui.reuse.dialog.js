@@ -94,7 +94,13 @@
 			this.ooTabs.embed
 		] );
 
-		this.selectedTab = this.getLastUsedTab() || 'download';
+		this.selectedTab = this.getLastUsedTab();
+
+		// In case nothing is saved in localStorage or it contains junk
+		if ( ! this.tabs.hasOwnProperty( this.selectedTab ) ) {
+			this.selectedTab = 'download';
+		}
+
 		this.reuseTabs.selectItem( this.ooTabs[this.selectedTab] );
 
 		if ( this.dependenciesNeedToBeAttached ) {
