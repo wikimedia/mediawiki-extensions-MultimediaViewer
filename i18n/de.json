@@ -7,7 +7,8 @@
 			"Inkowik",
 			"Steinsplitter",
 			"Keegan",
-			"WhatamIdoing"
+			"WhatamIdoing",
+			"DerHexer"
 		]
 	},
 	"multimediaviewer-desc": "Ermöglicht die Darstellung von Vorschaubildern in einer Vollbildschnittstelle",
@@ -29,7 +30,7 @@
 	"multimediaviewer-license-pd": "Gemeinfrei",
 	"multimediaviewer-license-default": "Lizenz ansehen",
 	"multimediaviewer-permission-title": "Einzelheiten zur Lizenz",
-	"multimediaviewer-permission-link": "Bedingungen ansehen",
+	"multimediaviewer-permission-link": "Hinweise zur Weiternutzung",
 	"multimediaviewer-permission-viewmore": "Mehr",
 	"multimediaviewer-about-mmv": "Über den Medienbetrachter",
 	"multimediaviewer-discuss-mmv": "Diese Funktion diskutieren",
