@@ -37,7 +37,10 @@
 	"multimediaviewer-help-mmv": "Ayuda",
 	"multimediaviewer-optout-mmv": "Desactivar el visor multimedia",
 	"multimediaviewer-optin-mmv": "Activar el visor multimedia",
+	"multimediaviewer-optout-pending-mmv": "Deshabilitar el visor multimedia",
+	"multimediaviewer-optin-pending-mmv": "Habilitar el visor multimedia",
 	"multimediaviewer-optout-help": "El Visor multimedia ya no se usará para mostrar imágenes. Para volver a usarlo, haz clic en el botón «{{int:multimediaviewer-view-expanded}}» junto a cada imagen. Luego haz clic en «{{int:multimediaviewer-optin-mmv}}».",
+	"multimediaviewer-optin-help": "El Vilsor Multimedia se utilizará ahora para mostrar imágenes.",
 	"multimediaviewer-geolocation": "Ubicación: $1",
 	"multimediaviewer-fileusage-count": "Utilizado en $1 {{PLURAL:$1| page|pages}}",
 	"multimediaviewer-fileusage-count-more": "Utilizado en más de $1 {{PLURAL:$1|pages}}",
@@ -98,5 +101,6 @@
 	"multimediaviewer-panel-open-popup-text": "Más detalles",
 	"multimediaviewer-panel-close-popup-text": "Menos detalles",
 	"multimediaviewer-download-attribution-cta-header": "Es necesario darle crédito al autor",
-	"multimediaviewer-download-attribution-cta": "Mostrarme cómo"
+	"multimediaviewer-download-attribution-cta": "Mostrarme cómo",
+	"multimediaviewer-attr-plain": "Texto plano"
 }
