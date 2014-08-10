@@ -37,22 +37,17 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	protected static function shouldHandleClicks( $user ) {
-		global $wgMediaViewerIsInBeta, $wgEnableMediaViewerForLoggedInUsersOnly;
+		global $wgMediaViewerIsInBeta, $wgMediaViewerEnableByDefaultForAnonymous;
 
 		if ( $wgMediaViewerIsInBeta && class_exists( 'BetaFeatures' ) ) {
 			return BetaFeatures::isFeatureEnabled( $user, 'multimedia-viewer' );
 		}
 
-		if ( $user->getOption( 'multimediaviewer-enable' ) ) {
-			if ( $wgEnableMediaViewerForLoggedInUsersOnly ) {
-				return $user->isLoggedIn();
-			} else {
-				// Default to enabling for everyone.
-				return true;
-			}
+		if ( !$user->isLoggedIn() && isset( $wgMediaViewerEnableByDefaultForAnonymous ) ) {
+			return (bool)$wgMediaViewerEnableByDefaultForAnonymous;
+		} else {
+			return (bool)$user->getOption( 'multimediaviewer-enable' );
 		}
-
-		return false;
 	}
 
 	/**
