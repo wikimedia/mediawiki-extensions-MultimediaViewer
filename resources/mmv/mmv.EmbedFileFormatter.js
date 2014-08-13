@@ -61,7 +61,7 @@
 		widthSection = width ? '|' + width + 'px' : '';
 		captionSection = caption ? '|' + caption : '';
 
-		return '[[File:' + title.getMain() + widthSection + '|thumb' + captionSection + ']]';
+		return '[[File:' + title.getMainText() + widthSection + '|thumb' + captionSection + ']]';
 	};
 
 	/**
