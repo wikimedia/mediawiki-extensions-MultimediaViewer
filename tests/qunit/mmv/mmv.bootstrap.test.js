@@ -63,7 +63,9 @@
 		var bootstrap,
 			errorMessage = 'loading failed';
 
-		this.sandbox.stub( mw.loader, 'using' ).callsArgWith( 2, new Error( errorMessage, ['mmv'] ) );
+		this.sandbox.stub( mw.loader, 'using' )
+			.callsArgWith( 2, new Error( errorMessage, ['mmv'] ) )
+			.withArgs( 'mediawiki.notification' ).returns( $.Deferred().reject() ); // needed for mw.notify
 
 		bootstrap = createBootstrap();
 
@@ -87,7 +89,9 @@
 		var event, returnValue,
 			bootstrap = new mw.mmv.MultimediaViewerBootstrap();
 
-		this.sandbox.stub( mw.loader, 'using' ).callsArgWith( 2, new Error( 'loading failed', ['mmv'] ) );
+		this.sandbox.stub( mw.loader, 'using' )
+			.callsArgWith( 2, new Error( 'loading failed', ['mmv'] ) )
+			.withArgs( 'mediawiki.notification' ).returns( $.Deferred().reject() ); // needed for mw.notify
 
 		event = new $.Event( 'click', { button: 0, which: 1 } );
 		returnValue = bootstrap.click( {}, event, 'foo' );
