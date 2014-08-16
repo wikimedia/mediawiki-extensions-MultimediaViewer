@@ -173,7 +173,7 @@
 		assert.strictEqual( panel.creditField.$element.find( '.mw-mmv-author' ).text(), imageData.author, 'Author text is correctly set' );
 		assert.strictEqual( panel.creditField.$element.find( '.mw-mmv-source' ).html(), 'Lost<a href="foo">Bar</a>', 'Source text is correctly set' );
 		assert.strictEqual( panel.creditField.$element.attr( 'original-title' ), 'Author and source information', 'Source tooltip is correctly set' );
-		assert.ok( panel.$datetime.text().indexOf( 'August 26 2013' ) > 0, 'Correct date is displayed' );
+		assert.ok( panel.$datetime.text().indexOf( 'August 26, 2013' ) > 0, 'Correct date is displayed' );
 		assert.strictEqual( panel.$license.text(), 'CC BY 2.0', 'License is correctly set' );
 		assert.ok( panel.$license.prop( 'target' ), 'License information opens in new window' );
 		assert.ok( panel.$username.text().indexOf( imageData.lastUploader ) > 0, 'Correct username is displayed' );
@@ -181,7 +181,7 @@
 		imageData.creationDateTime = undefined;
 		panel.setImageInfo( image, imageData, repoData, localUsage, globalUsage, gender );
 
-		assert.ok( panel.$datetime.text().indexOf( 'August 25 2013' ) > 0, 'Correct date is displayed' );
+		assert.ok( panel.$datetime.text().indexOf( 'August 25, 2013' ) > 0, 'Correct date is displayed' );
 
 		window.moment = oldMoment;
 	} );
