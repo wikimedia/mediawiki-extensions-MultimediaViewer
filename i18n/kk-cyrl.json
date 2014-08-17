@@ -71,8 +71,7 @@
 	"multimediaviewer-medium-embed-dimensions": "Орташа $1",
 	"multimediaviewer-small-embed-dimensions": "Кіші $1",
 	"multimediaviewer-embed-dimensions": "$1 × $2 px",
-	"multimediaviewer-feedback-popup-text": "Бұл жаңа тәжірибелік медиа файл қараушы туралы пікіріңізді қалдырыңыз",
-	"multimediaviewer-description-page-button-text": "Толығырақ",
+	"multimediaviewer-description-page-button-text": "Бұл файл туралы толығырақ",
 	"multimediaviewer-description-page-popup-text": "$1 жобасынан көбірек егжей-тегжейін көру",
 	"multimediaviewer-commons-subtitle": "Ашық медиа қоры",
 	"multimediaviewer-view-expanded": "Кеңейтіп көру",
@@ -80,8 +79,7 @@
 	"multimediaviewer-fullscreen-popup-text": "Толық экранда көру",
 	"multimediaviewer-defullscreen-popup-text": "Толық экраннан шығу",
 	"multimediaviewer-title-popup-text": "Файл атауы",
-	"multimediaviewer-author-popup-text": "Авторы",
-	"multimediaviewer-source-popup-text": "Қайнары",
+	"multimediaviewer-credit-popup-text": "Автор және қайнар мәліметі",
 	"multimediaviewer-panel-open-popup-text": "Толығырақ",
 	"multimediaviewer-panel-close-popup-text": "Азырақ егжей-тегжейі"
 }

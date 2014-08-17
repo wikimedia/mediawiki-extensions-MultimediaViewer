@@ -35,7 +35,7 @@
 	"multimediaviewer-optout-pending-mmv": "כיבוי מציג מדיה",
 	"multimediaviewer-optin-pending-mmv": "הפעלת מציג מדיה",
 	"multimediaviewer-optout-help": "מציג המדיה לא ישמש עוד להצגת תמונות. כדי להשתמש בו שוב, יש ללחוץ על כפתור \"{{int:multimediaviewer-view-expanded}}\" ליד תמונה. אחרי־כן יש ללחוץ על \"{{int:multimediaviewer-optin-mmv}}\".",
-	"multimediaviewer-optin-help": "מציג המדיה ישמש עכשיו להצגת תמונות.",
+	"multimediaviewer-optin-help": "מציג המדיה ישמש להצגת תמונות.",
 	"multimediaviewer-geoloc-north": "צפ",
 	"multimediaviewer-geoloc-east": "מז",
 	"multimediaviewer-geoloc-south": "דר",

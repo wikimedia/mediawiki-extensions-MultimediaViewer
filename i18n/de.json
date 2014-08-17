@@ -40,7 +40,7 @@
 	"multimediaviewer-optout-pending-mmv": "Deaktiviere den Medienbetrachter …",
 	"multimediaviewer-optin-pending-mmv": "Aktiviere den Medienbetrachter …",
 	"multimediaviewer-optout-help": "Der Medienbetrachter wird nicht mehr zur Anzeige von Bildern verwendet. Um ihn wieder zu nutzen, klicke zunächst auf die Schaltfläche „{{int:multimediaviewer-view-expanded}}“ neben einem beliebigen Bild. Klicke dann auf „{{int:multimediaviewer-optin-mmv}}“.",
-	"multimediaviewer-optin-help": "Der Medienbetrachter wird jetzt zur Anzeige von Bildern verwendet.",
+	"multimediaviewer-optin-help": "Der Medienbetrachter wird zur Anzeige von Bildern verwendet.",
 	"multimediaviewer-geolocation": "Standort: $1",
 	"multimediaviewer-fileusage-count": "Auf {{PLURAL:$1|einer Seite|$1 Seiten}} verwendet",
 	"multimediaviewer-fileusage-count-more": "Auf mehr als $1 {{PLURAL:$1|Seiten}} verwendet",
