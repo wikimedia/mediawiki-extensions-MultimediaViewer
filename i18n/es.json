@@ -40,7 +40,7 @@
 	"multimediaviewer-optout-pending-mmv": "Desactivar el visor multimedia",
 	"multimediaviewer-optin-pending-mmv": "Activar el visor multimedia",
 	"multimediaviewer-optout-help": "El Visor multimedia ya no se usará para mostrar imágenes. Para volver a usarlo, haz clic en el botón «{{int:multimediaviewer-view-expanded}}» junto a cada imagen. Luego haz clic en «{{int:multimediaviewer-optin-mmv}}».",
-	"multimediaviewer-optin-help": "Las imágenes se abrirán con el visor multimedia.",
+	"multimediaviewer-optin-help": "Las imágenes se abrirán ahora con el visor multimedia.",
 	"multimediaviewer-geolocation": "Ubicación: $1",
 	"multimediaviewer-fileusage-count": "Utilizado en $1 {{PLURAL:$1| page|pages}}",
 	"multimediaviewer-fileusage-count-more": "Utilizado en más de $1 {{PLURAL:$1|pages}}",

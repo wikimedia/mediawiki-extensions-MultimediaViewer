@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Chelin"
+			"Chelin",
+			"C.R."
 		]
 	},
 	"multimediaviewer-repository-local": "Maggiure dettagle pe' chisto file",
 	"multimediaviewer-license-pd": "Pubbreco duminio",
+	"multimediaviewer-optin-help": "Media Viewer sarrà 'o visore pe' mmustà l'immaggene",
 	"multimediaviewer-fileusage-local-section": "Ncopp'â chisto sito"
 }

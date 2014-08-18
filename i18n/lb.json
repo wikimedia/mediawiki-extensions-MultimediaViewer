@@ -23,6 +23,7 @@
 	"multimediaviewer-optin-mmv": "Media Viewer aktivéieren",
 	"multimediaviewer-optout-pending-mmv": "Media Viewer desaktivéieren",
 	"multimediaviewer-optin-pending-mmv": "Media Viewer aktivéieren",
+	"multimediaviewer-optin-help": "Media Viewer gëtt benotzt fir Biller ze weisen.",
 	"multimediaviewer-geolocation": "Plaz: $1",
 	"multimediaviewer-fileusage-count": "op {{PLURAL:$1|enger Säit|$1 Säite}} benotzt",
 	"multimediaviewer-fileusage-count-more": "Op méi wéi {{PLURAL:$1|enger Säit|$1 Säite}} benotzt",
