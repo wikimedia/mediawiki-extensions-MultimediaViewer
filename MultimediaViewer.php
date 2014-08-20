@@ -63,12 +63,20 @@ if ( !isset( $wgMediaViewerUseThumbnailGuessing ) ) {
 	$wgMediaViewerUseThumbnailGuessing = false;
 }
 
-if ( !isset( $wgEnableMediaViewerForLoggedInUsersOnly ) ) {
+if ( !isset( $wgMediaViewerEnableByDefault ) ) {
 	/**
-	 * @var bool: If set, and $wgMediaViewerIsInBeta is unset, Media Viewer will be turned on for
-	 * all logged-in users. False if unset.
+	 * If trueish, and $wgMediaViewerIsInBeta is unset, Media Viewer will be turned on by default.
+	 * @var bool
 	 */
-	$wgEnableMediaViewerForLoggedInUsersOnly = false;
+	$wgMediaViewerEnableByDefault = true;
+}
+
+if ( !isset( $wgMediaViewerEnableByDefaultForAnonymous ) ) {
+	/**
+	 * If set, overrides $wgMediaViewerEnableByDefault for anonymous users.
+	 * @var bool
+	 */
+	$wgMediaViewerEnableByDefaultForAnonymous = $wgMediaViewerEnableByDefault;
 }
 
 $wgMessagesDirs['MultimediaViewer'] = __DIR__ . '/i18n';
@@ -948,7 +956,12 @@ foreach ( array(
 
 $wgAutoloadClasses['MultimediaViewerHooks'] = __DIR__ . '/MultimediaViewerHooks.php';
 
-$wgDefaultUserOptions['multimediaviewer-enable'] = true;
+$wgExtensionFunctions[] = function () {
+	global $wgMediaViewerEnableByDefault, $wgDefaultUserOptions;
+	if ( $wgMediaViewerEnableByDefault ) {
+		$wgDefaultUserOptions['multimediaviewer-enable'] = true;
+	}
+};
 
 $wgHooks['GetPreferences'][] = 'MultimediaViewerHooks::getPreferences';
 $wgHooks['GetBetaFeaturePreferences'][] = 'MultimediaViewerHooks::getBetaPreferences';
