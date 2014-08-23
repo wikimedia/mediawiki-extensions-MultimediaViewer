@@ -12,7 +12,7 @@
 	"multimediaviewer-file-page": "Ir á páxina de ficheiro correspondente",
 	"multimediaviewer-repository": "Máis detalles sobre o ficheiro en $1",
 	"multimediaviewer-repository-local": "Máis detalles sobre o ficheiro",
-	"multimediaviewer-datetime-created": "Creado o $1",
+	"multimediaviewer-datetime-created": "Creación: $1",
 	"multimediaviewer-datetime-uploaded": "Cargado o $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Cargado}} por $1",
 	"multimediaviewer-metadata-error": "Erro: Non se puideron cargar os datos da imaxe. $1",

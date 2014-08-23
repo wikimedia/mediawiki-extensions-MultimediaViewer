@@ -35,7 +35,7 @@
 	"multimediaviewer-optout-pending-mmv": "Отключение Медиа-просмотрщика",
 	"multimediaviewer-optin-pending-mmv": "Включение Медиа-просмотрщика",
 	"multimediaviewer-optout-help": "Медиа-просмотрщик больше не будет использоваться для показа изображений. Чтобы использовать его снова, нажмите на кнопку «{{int:multimediaviewer-view-expanded}}» рядом с любой образ. Затем нажмите на «{{int:multimediaviewer-optin-mmv}}».",
-	"multimediaviewer-optin-help": "Теперь Медиа-просмотрщик будет использоваться для отображения изображений.",
+	"multimediaviewer-optin-help": "Медиа-просмотрщик будет использоваться для показа изображений.",
 	"multimediaviewer-geolocation": "Географическое положение: $1",
 	"multimediaviewer-fileusage-count": "Используется на $1 {{PLURAL:$1|странице|страницах}}",
 	"multimediaviewer-fileusage-count-more": "Используются более чем на $1   {{PLURAL:$1|страницах}}",

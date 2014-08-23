@@ -36,6 +36,7 @@
 	"multimediaviewer-optin-mmv": "Mediaviewer inschakelen",
 	"multimediaviewer-optout-pending-mmv": "Mediaviewer uitschakelen",
 	"multimediaviewer-optin-pending-mmv": "Mediaviewer inschakelen",
+	"multimediaviewer-optin-help": "De Mediaviewer zal worden gebruikt voor het weergeven van afbeeldingen.",
 	"multimediaviewer-geolocation": "Locatie: $1",
 	"multimediaviewer-fileusage-count": "Gebruikt op $1 {{PLURAL:$1|pagina|pagina's}}",
 	"multimediaviewer-fileusage-count-more": "Gebruikt op meer dan $1 pagina{{PLURAL:$1||'s}}",
