@@ -136,7 +136,7 @@
 	QUnit.test( 'setMediaViewerEnabledOnClick sanity check', 3, function ( assert ) {
 		var localStorage = { setItem: this.sandbox.stub(), removeItem: this.sandbox.stub() },
 			mwUser = { isAnon: this.sandbox.stub() },
-			mwConfig = { set: this.sandbox.stub() },
+			mwConfig = new mw.Map( { wgMediaViewerEnabledByDefault: false } ),
 			api = { postWithToken: this.sandbox.stub() },
 			config = new mw.mmv.Config( {}, mwConfig, mwUser, api, localStorage );
 

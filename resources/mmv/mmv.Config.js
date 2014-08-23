@@ -140,7 +140,9 @@
 	 * @return {jQuery.Promise} a deferred which resolves/rejects on success/failure respectively
 	 */
 	CP.setMediaViewerEnabledOnClick = function ( enabled ) {
-		var config = this,
+		var newPrefValue,
+			defaultPrefValue = this.mwConfig.get( 'wgMediaViewerEnabledByDefault' ),
+			config = this,
 			success = true;
 
 		if ( this.mwUser.isAnon() ) {
@@ -150,14 +152,25 @@
 				success = this.removeFromLocalStorage( 'wgMediaViewerOnClick' );
 			}
 			if ( success ) {
+				// make the change work without a reload
 				config.mwConfig.set( 'wgMediaViewerOnClick', enabled );
 				return $.Deferred().resolve();
 			} else {
 				return $.Deferred().reject();
 			}
 		} else {
-			return this.setUserPreference( 'multimediaviewer-enable', enabled ? true : '').then( function () {  // wow our prefs API sucks
-				// make the change work without a reload
+			// Simulate changing the option in Special:Preferences. Turns out this is quite hard (bug 69942):
+			// we need to delete the user_properties row if the new setting is the same as the default,
+			// otherwise set '1' for enabled, '' for disabled. In theory the pref API will delete the row
+			// if the new value equals the default, but this does not always work.
+			if ( defaultPrefValue === true ) {
+				newPrefValue = enabled ? '1' : '';
+			} else {
+				// undefined will cause the API call to omit the optionvalue parameter
+				// which in turn will cause the options API to delete the row and revert the pref to default
+				newPrefValue = enabled ? '1' : undefined;
+			}
+			return this.setUserPreference( 'multimediaviewer-enable', newPrefValue ).then( function () {
 				config.mwConfig.set( 'wgMediaViewerOnClick', enabled );
 			} );
 		}
