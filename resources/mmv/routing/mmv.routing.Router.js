@@ -70,7 +70,7 @@
 	RP.createHash = function ( route ) {
 		if ( route instanceof mw.mmv.routing.ThumbnailRoute ) {
 			return this.applicationPrefix + '/' +
-				this.encodeRouteComponent( route.fileTitle.getPrefixedDb() );
+				this.encodeRouteComponent( 'File:' + route.fileTitle.getMain() );
 		} else if ( route instanceof mw.mmv.routing.MainFileRoute ) {
 			return this.applicationPrefix;
 		} else if ( route instanceof mw.mmv.routing.Route ) {

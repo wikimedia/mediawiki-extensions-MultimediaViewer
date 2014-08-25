@@ -173,20 +173,20 @@
 		// mw.Title does not accept % in page names
 		this.sandbox.stub( mw, 'Title', function( name ) { return {
 			name: name,
-			getPrefixedDb: function() { return name; }
+			getMain: function() { return name.replace( /^File:/, '' ); }
 		}; } );
 		title = new mw.Title( 'File:%40.png' );
 		hash = router.createHash( new mw.mmv.routing.ThumbnailRoute( title ) );
 
 		window.location.hash = hash;
 		route = router.parseLocation( window.location );
-		assert.strictEqual( route.fileTitle.getPrefixedDb(), 'File:%40.png',
+		assert.strictEqual( route.fileTitle.getMain(), '%40.png',
 			'Reading location set via location.hash works' );
 
 		if ( window.history ) {
 			window.history.pushState( null, null, '#' + hash );
 			route = router.parseLocation( window.location );
-			assert.strictEqual( route.fileTitle.getPrefixedDb(), 'File:%40.png',
+			assert.strictEqual( route.fileTitle.getMain(), '%40.png',
 				'Reading location set via pushState() works' );
 		} else {
 			assert.ok( true, 'Skipped pushState() test, not supported on this browser' );
