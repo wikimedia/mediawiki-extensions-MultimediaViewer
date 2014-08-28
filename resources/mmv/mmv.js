@@ -409,6 +409,8 @@
 			this.ui.canvas.unblur();
 		}
 
+		$( document ).trigger( $.Event( 'mmv-fullres-loaded') );
+
 		mw.mmv.actionLogger.log( 'image-view' );
 	};
 

@@ -23,9 +23,31 @@ Given /^I am using a custom user agent$/ do
   @browser = browser(test_name(@scenario), {user_agent: ENV["BROWSER_USERAGENT"]})
 end
 
+When /^I listen to the mediaviewer image load$/ do
+  @browser.execute_script("
+    $( document ).on( 'mmv-fullres-loaded', function() {
+      $( 'body' ).append( '<div class=\"mw-mmv-image-loaded-cucumber\"/>' );
+    } );
+  ")
+end
+
 Then /^the File: page image is loaded$/ do
   on(CommonsPage) do |page|
-    wait_for_image_load page, ".fullImageLink img"
+    @browser.execute_script("
+    function wait_for_image() {
+            var $img = $( '.fullImageLink img' );
+            if ( $img.length
+                && $img.attr( 'src' ).match(/Kerala/)
+                && $img.prop( 'complete' ) ) {
+                $( 'body' ).append( '<div class=\"mw-mmv-image-loaded-cucumber\"/>' );
+            } else {
+                setTimeout( wait_for_image, 10 );
+            }
+        }
+        wait_for_image();
+    ")
+
+    Watir::Wait.until { page.mmv_image_loaded_cucumber_element.exists? }
     #Has to be a global variable, otherwise it doesn't survive between scenarios
     $commons_time = Time.now.getutc - @commons_open_time
     log_performance "file-page", ( $commons_time * 1000 ).to_i.to_s, "", ""
@@ -34,32 +56,13 @@ end
 
 Then /^the MMV image is loaded in (\d+) percent of the time with a (.*) cache and an? (.*) browser window$/ do |percentage, cache, window_size|
   on(E2ETestPage) do |page|
-    wait_for_image_load page, ".mw-mmv-image img"
+    Watir::Wait.until { page.mmv_image_loaded_cucumber_element.exists? }
     mmv_time = Time.now.getutc - @image_click_time
     log_performance "mmv", (mmv_time * 1000).to_i.to_s, cache, window_size
 
     expected_time = $commons_time * ( percentage.to_f / 100.0 )
     mmv_time.should < expected_time
   end
-end
-
-def wait_for_image_load ( page, css_class )
-  @browser.execute_script("
-      function wait_for_image() {
-          var $img = $( '" + css_class + "' );
-          if ( $img.length
-              && $img.attr( 'src' ).match(/Kerala/)
-              && !$img.attr( 'src' ).match(/\\/220px-/) // Blurry placeholder
-              && $img.prop( 'complete' ) ) {
-              $( 'body' ).append( '<div class=\"mw-mmv-image-loaded-cucumber\"/>' );
-          } else {
-              setTimeout( wait_for_image, 10 );
-          }
-      }
-      wait_for_image();
-  ")
-
-  Watir::Wait.until { page.mmv_image_loaded_cucumber_element.exists? }
 end
 
 def log_performance ( type, duration, cache, window_size )
