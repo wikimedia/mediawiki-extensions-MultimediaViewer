@@ -6,7 +6,8 @@
 			"Mcuteangel",
 			"Omidh",
 			"Reza1615",
-			"Omid.koli"
+			"Omid.koli",
+			"Alirezaaa"
 		]
 	},
 	"multimediaviewer-desc": "تصاویر بندانگشتی در حجم بزرگتر داخل یک رابط کاربری تمام صفحه گسترش یابند.",
@@ -33,7 +34,7 @@
 	"multimediaviewer-permission-viewmore": "مشاهدهٔ بیشتر",
 	"multimediaviewer-about-mmv": "دربارهٔ نمایش‌دهندهٔ رسانه",
 	"multimediaviewer-discuss-mmv": "گذاشتن بازخورد",
-	"multimediaviewer-optin-help": "نمایشگر رسانه برای نمایش تصاویر استفاده می شود.",
+	"multimediaviewer-optin-help": "نمایشگر رسانه برای نمایش تصاویر استفاده خواهد شد.",
 	"multimediaviewer-geolocation": "مکان: $1",
 	"multimediaviewer-fileusage-count": "استفاده‌شده در $1 {{PLURAL:$1|صفحه}}",
 	"multimediaviewer-fileusage-count-more": "استفاده‌شده در بیش از $1 {{PLURAL:$1|صفحه}}",
