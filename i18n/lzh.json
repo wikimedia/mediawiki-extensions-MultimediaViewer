@@ -1,8 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"StephDC"
+			"StephDC",
+			"Jason924tw"
 		]
 	},
+	"multimediaviewer-help-mmv": "助",
+	"multimediaviewer-reuse-loading-placeholder": "載之…",
+	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-attr-plain": "純字"
 }

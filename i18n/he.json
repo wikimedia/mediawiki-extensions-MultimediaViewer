@@ -5,7 +5,8 @@
 			"Neukoln",
 			"בנימין",
 			"Yona b",
-			"Eladk"
+			"Eladk",
+			"ערן"
 		]
 	},
 	"multimediaviewer-desc": "הגדלת תמונות ממוזערות למסך מלא.",
@@ -99,7 +100,7 @@
 	"multimediaviewer-credit-popup-text-more": "לחץ כדי להציג את כל המחברים והמקורות",
 	"multimediaviewer-panel-open-popup-text": "פרטים נוספים",
 	"multimediaviewer-panel-close-popup-text": "פחות פרטים",
-	"multimediaviewer-download-attribution-cta-header": "חובה לתת ייחוס למחבר",
+	"multimediaviewer-download-attribution-cta-header": "חובה לתת ייחוס ליוצר",
 	"multimediaviewer-download-attribution-cta": "תראו לי איך",
 	"multimediaviewer-attr-plain": "טקסט רגיל"
 }
