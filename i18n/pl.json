@@ -16,7 +16,7 @@
 	"multimediaviewer-desc-nil": "Opis niedostępny.",
 	"multimediaviewer-pref": "Przeglądarka multimediów",
 	"multimediaviewer-pref-desc": "Popraw sposób oglądania ilustracji używając tego nowego narzędzia. Wyświetla ono ilustracje w większym rozmiarze bezpośrednio na stronach, które mają miniatury. Ilustracje te wyświetlane są w ładniejszym pełnoekranowym interfejsie, a nawet mogą być oglądane w pełnym rozmiarze.",
-	"multimediaviewer-optin-pref": "Aktywuj <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer przeglądarkę multimedów]</span>",
+	"multimediaviewer-optin-pref": "Aktywuj <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer przeglądarkę multimediów]</span>",
 	"multimediaviewer-file-page": "Przejdź na stronę opisu pliku",
 	"multimediaviewer-repository": "Więcej informacji o tym pliku na {{GRAMMAR:N.lp|$1}}",
 	"multimediaviewer-repository-local": "Więcej informacji o tym pliku",
