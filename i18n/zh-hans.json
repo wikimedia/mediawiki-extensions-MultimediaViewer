@@ -10,7 +10,8 @@
 			"Hudafu",
 			"Cwek",
 			"Duolaimi",
-			"NigelSoft"
+			"NigelSoft",
+			"Liangent"
 		]
 	},
 	"multimediaviewer-desc": "在全屏界面中以较大尺寸显示缩略图。",
@@ -108,7 +109,7 @@
 	"multimediaviewer-credit-popup-text-more": "点此显示完整的作者和来源",
 	"multimediaviewer-panel-open-popup-text": "详情",
 	"multimediaviewer-panel-close-popup-text": "更少信息",
-	"multimediaviewer-download-attribution-cta-header": "您需要联络作者",
+	"multimediaviewer-download-attribution-cta-header": "您需要为作者署名",
 	"multimediaviewer-download-attribution-cta": "告诉我如何",
 	"multimediaviewer-attr-plain": "无格式"
 }
