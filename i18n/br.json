@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Fulup",
-			"Y-M D"
+			"Y-M D",
+			"Fohanno"
 		]
 	},
 	"multimediaviewer-desc-nil": "N'eus deskrivadur ebet.",
@@ -24,15 +25,19 @@
 	"multimediaviewer-fileusage-local-section": "War al lec'hienn-mañ",
 	"multimediaviewer-fileusage-global-section": "War lec'hiennoù all",
 	"multimediaviewer-reuse-link": "Implijout ar restr-mañ",
+	"multimediaviewer-viewfile-link": "Gwelet ar restr orin",
 	"multimediaviewer-reuse-loading-placeholder": "O kargañ...",
 	"multimediaviewer-share-tab": "Rannañ",
 	"multimediaviewer-embed-tab": "Enframmañ",
 	"multimediaviewer-download-tab": "Pellgargañ",
-	"multimediaviewer-download-preview-link-title": "Rakwelet er merdeer",
-	"multimediaviewer-download-original-button-name": "Pellgargañ er ment orin",
+	"multimediaviewer-download-preview-link-title": "Gwelet er merdeer",
+	"multimediaviewer-download-original-button-name": "Pellgargañ ar restr orin",
 	"multimediaviewer-link-to-file": "Liamm war-zu ar restr orin",
 	"multimediaviewer-embed-wt": "Wikitestenn",
 	"multimediaviewer-embed-html": "HTML",
+	"multimediaviewer-text-embed-credit-text-tbs": "\"$1\" gant $2. Dre $3",
+	"multimediaviewer-text-embed-credit-text-tb": "\"$1\" gant $2",
+	"multimediaviewer-html-embed-credit-text-tbs": "\"$1\" gant $2. Dre $3",
 	"multimediaviewer-html-embed-credit-text-tb": "\"$1\" gant $2.",
 	"multimediaviewer-html-embed-credit-text-ts": "\"$1\". Eus $2.",
 	"multimediaviewer-html-embed-credit-text-tl": "\"$1\". Dindan an aotre-implijout $2.",
@@ -44,5 +49,7 @@
 	"multimediaviewer-description-page-button-text": "Muioc'h a ditouroù",
 	"multimediaviewer-description-page-popup-text": "Muioc'h a ditouroù diwar-benn $1",
 	"multimediaviewer-view-expanded": "Diskweladur astennet",
-	"multimediaviewer-source-popup-text": "Mammenn"
+	"multimediaviewer-title-popup-text": "Anv ar restr",
+	"multimediaviewer-download-attribution-cta": "Diskouez din penaos ober",
+	"multimediaviewer-attr-plain": "Plaen"
 }
