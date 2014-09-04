@@ -8,11 +8,14 @@
 		}
 	} ) );
 
-	function createGallery( imageSrc ) {
+	function createGallery( imageSrc, caption ) {
 		var div = $( '<div>' ).addClass( 'gallery' ).appendTo( '#qunit-fixture' ),
-			link = $( '<a>' ).addClass( 'image' ).appendTo( div );
+			galleryBox = $( '<div>' ).addClass( 'gallerybox' ).appendTo( div ),
+			thumbwrap = $( '<div>' ).addClass( 'thumb' ).appendTo( galleryBox ),
+			link = $( '<a>' ).addClass( 'image' ).appendTo( thumbwrap );
 
 		$( '<img>' ).attr( 'src',  ( imageSrc || 'thumb.jpg' ) ).appendTo( link );
+		$( '<div>' ).addClass( 'gallerytext' ).text( caption || 'Foobar' ).appendTo( galleryBox );
 
 		return div;
 	}
@@ -25,6 +28,12 @@
 		$( '<img>' ).attr( 'src', ( imageSrc || 'thumb.jpg' ) ).appendTo( link );
 
 		return div;
+	}
+
+	function createNormal( imageSrc, caption ) {
+		var link = $( '<a>' ).prop( 'title', caption ).addClass( 'image' ).appendTo( '#qunit-fixture' );
+		$( '<img>' ).prop( 'src', ( imageSrc || 'thumb.jpg' ) ).appendTo( link );
+		return link;
 	}
 
 	function createBootstrap( viewer ) {
@@ -430,5 +439,16 @@
 		$container.prop( 'class', '' );
 		$thumb.addClass( 'noviewer' );
 		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image with a noviewer class is disallowed.' );
+	} );
+
+	QUnit.test( 'findCaption', 3, function ( assert ) {
+		var gallery = createGallery( 'foo.jpg', 'Baz' ),
+			thumb = createThumb( 'foo.jpg', 'Quuuuux' ),
+			link = createNormal( 'foo.jpg', 'Foobar' ),
+			bootstrap = createBootstrap();
+
+		assert.strictEqual( bootstrap.findCaption( gallery.find( '.thumb' ), gallery.find( 'a.image' ) ), 'Baz', 'A gallery caption is found.' );
+		assert.strictEqual( bootstrap.findCaption( thumb, thumb.find( 'a.image' ) ), 'Quuuuux', 'A thumbnail caption is found.' );
+		assert.strictEqual( bootstrap.findCaption( $(), link ), 'Foobar', 'The caption is found even if the image is not a thumbnail.' );
 	} );
 }( mediaWiki, jQuery ) );
