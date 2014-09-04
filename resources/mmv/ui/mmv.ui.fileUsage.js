@@ -138,7 +138,7 @@
 			if ( item instanceof mw.mmv.model.IwTitle ) {
 				// external link - show the wiki name next to it
 				return $( '<li>' ).append( pageLink ).append(
-					$( '<aside>' ).text( item.getDomain() )
+					$( '<aside>', { text: item.getDomain(), dir: 'ltr' } )
 				);
 			} else {
 				return $( '<li>' ).append( pageLink );
