@@ -38,7 +38,7 @@
 		 * @property {mw.mmv.provider.ImageInfo}
 		 * @private
 		 */
-		this.imageInfoProvider = new mw.mmv.provider.ImageInfo( new mw.mmv.Api( 'imageinfo' ),
+		this.imageInfoProvider = new mw.mmv.provider.ImageInfo( new mw.mmv.logging.Api( 'imageinfo' ),
 			// Short-circuit, don't fallback, to save some tiny amount of time
 			{ language: mw.config.get( 'wgUserLanguage', false ) || mw.config.get( 'wgContentLanguage', 'en' ) }
 		);
@@ -47,14 +47,14 @@
 		 * @property {mw.mmv.provider.FileRepoInfo}
 		 * @private
 		 */
-		this.fileRepoInfoProvider = new mw.mmv.provider.FileRepoInfo( new mw.mmv.Api( 'filerepoinfo' ),
+		this.fileRepoInfoProvider = new mw.mmv.provider.FileRepoInfo( new mw.mmv.logging.Api( 'filerepoinfo' ),
 			{ maxage: apiCacheMaxAge } );
 
 		/**
 		 * @property {mw.mmv.provider.ThumbnailInfo}
 		 * @private
 		 */
-		this.thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( new mw.mmv.Api( 'thumbnailinfo' ),
+		this.thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( new mw.mmv.logging.Api( 'thumbnailinfo' ),
 			{ maxage: apiCacheMaxAge } );
 
 		/**
@@ -67,7 +67,7 @@
 		 * @property {mw.mmv.provider.UserInfo}
 		 * @private
 		 */
-		this.userInfoProvider = new mw.mmv.provider.UserInfo( new mw.mmv.Api( 'userinfo' ), {
+		this.userInfoProvider = new mw.mmv.provider.UserInfo( new mw.mmv.logging.Api( 'userinfo' ), {
 			useApi: this.needGender(),
 			maxage: apiCacheMaxAge
 		} );
@@ -76,21 +76,21 @@
 		 * @property {mw.mmv.provider.ImageUsage}
 		 * @private
 		 */
-		this.imageUsageProvider = new mw.mmv.provider.ImageUsage( new mw.mmv.Api( 'imageusage' ),
+		this.imageUsageProvider = new mw.mmv.provider.ImageUsage( new mw.mmv.logging.Api( 'imageusage' ),
 			{ maxage: apiCacheMaxAge } );
 
 		/**
 		 * @property {mw.mmv.provider.GlobalUsage}
 		 * @private
 		 */
-		this.globalUsageProvider = new mw.mmv.provider.GlobalUsage( new mw.mmv.Api( 'globalusage' ), {
+		this.globalUsageProvider = new mw.mmv.provider.GlobalUsage( new mw.mmv.logging.Api( 'globalusage' ), {
 			useApi: mw.config.get( 'wgMultimediaViewer' ).globalUsageAvailable,
 			maxage: apiCacheMaxAge
 		} );
 		// replace with this one to test global usage on a local wiki without going through all the
 		// hassle required for installing the extension:
 		//this.globalUsageProvider = new mw.mmv.provider.GlobalUsage(
-		//	new mw.mmv.Api( 'globalusage', { ajax: { url: 'http://commons.wikimedia.org/w/api.php', dataType: 'jsonp' } } )
+		//	new mw.mmv.logging.Api( 'globalusage', { ajax: { url: 'http://commons.wikimedia.org/w/api.php', dataType: 'jsonp' } } )
 		//);
 
 		/**

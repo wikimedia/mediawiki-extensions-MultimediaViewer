@@ -20,7 +20,7 @@
 
 	/**
 	 * Abstract class providing common code for EventLogging loggers
-	 * @class mw.mmv.Logger
+	 * @class mw.mmv.logging.Logger
 	 * @abstract
 	 */
 	function Logger() {
@@ -124,5 +124,6 @@
 		}
 	};
 
-	mw.mmv.Logger = Logger;
+	mw.mmv.logging = {};
+	mw.mmv.logging.Logger = Logger;
 }( mediaWiki, jQuery ) );

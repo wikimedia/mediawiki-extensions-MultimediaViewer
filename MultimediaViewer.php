@@ -113,7 +113,7 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.base',
-			'mmv.ActionLogger',
+			'mmv.logging.ActionLogger',
 			'mmv.ui',
 			'mmv.ui.canvas',
 			'mmv.ui.canvasButtons',
@@ -288,7 +288,7 @@ $wgResourceModules += array(
 			'mmv.model.Repo',
 			'mmv.model.Thumbnail',
 			'mmv.model.User',
-			'mmv.performance',
+			'mmv.logging.Performance',
 			'oojs',
 		),
 	),
@@ -444,7 +444,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'jquery.color',
 			'mediawiki.jqueryMsg',
-			'mmv.ActionLogger',
+			'mmv.logging.ActionLogger',
 			'mmv.ui',
 			'mmv.HtmlUtils',
 			'oojs',
@@ -496,7 +496,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'mediawiki.user',
 			'mmv.HtmlUtils',
-			'mmv.ActionLogger',
+			'mmv.logging.ActionLogger',
 			'mmv.ui',
 			'mmv.ui.progressBar',
 			'mmv.ui.stripeButtons',
@@ -750,9 +750,9 @@ $wgResourceModules += array(
 		),
 	),
 
-	'mmv.logger' => $wgMediaViewerResourceTemplate + array(
+	'mmv.logging.Logger' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv/mmv.Logger.js',
+			'mmv/logging/mmv.logging.Logger.js',
 		),
 
 		'dependencies' => array(
@@ -760,26 +760,27 @@ $wgResourceModules += array(
 		),
 	),
 
-	'mmv.performance' => $wgMediaViewerResourceTemplate + array(
+	'mmv.logging.Performance' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv/mmv.performance.js',
+			'mmv/logging/mmv.logging.Performance.js',
 		),
 
 		'dependencies' => array(
 			'mmv.base',
-			'mmv.logger',
+			'mmv.logging.Logger',
 			'oojs',
 		),
 	),
 
-	'mmv.api' => $wgMediaViewerResourceTemplate + array(
+	'mmv.logging.Api' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv/mmv.api.js',
+			'mmv/logging/mmv.logging.Api.js',
 		),
 
 		'dependencies' => array(
 			'mediawiki.api',
 			'mmv.base',
+			'mmv.logging.Logger',
 			'oojs',
 		),
 	),
@@ -806,15 +807,15 @@ $wgResourceModules += array(
 		),
 
 		'dependencies' => array(
-			'mmv.api',
+			'mmv.logging.Api',
 			'mmv.base',
 			'mmv.lightboximage',
-			'mmv.ActionLogger',
+			'mmv.logging.ActionLogger',
 			'mmv.model.TaskQueue',
 			'mmv.lightboxinterface',
 			'mmv.provider',
 			'mmv.routing',
-			'mmv.DurationLogger',
+			'mmv.logging.DurationLogger',
 			'jquery.fullscreen',
 			'jquery.hidpi',
 			'jquery.scrollTo',
@@ -844,9 +845,9 @@ $wgResourceModules += array(
 			'jquery.hashchange',
 			'mediawiki.Title',
 			'mmv.Config',
-			'mmv.ActionLogger',
+			'mmv.logging.ActionLogger',
 			'mmv.HtmlUtils',
-			'mmv.DurationLogger',
+			'mmv.logging.DurationLogger',
 			'jquery.scrollTo',
 		),
 
@@ -866,26 +867,26 @@ $wgResourceModules += array(
 		),
 	),
 
-	'mmv.ActionLogger' => $wgMediaViewerResourceTemplate + array(
+	'mmv.logging.ActionLogger' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv/mmv.ActionLogger.js',
+			'mmv/logging/mmv.logging.ActionLogger.js',
 		),
 
 		'dependencies' => array(
 			'mmv.base',
-			'mmv.logger',
+			'mmv.logging.Logger',
 			'oojs'
 		)
 	),
 
-	'mmv.DurationLogger' => $wgMediaViewerResourceTemplate + array(
+	'mmv.logging.DurationLogger' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv/mmv.DurationLogger.js',
+			'mmv/logging/mmv.logging.DurationLogger.js',
 		),
 
 		'dependencies' => array(
 			'mmv.base',
-			'mmv.logger',
+			'mmv.logging.Logger',
 			'oojs',
 			'mediawiki.user',
 		)
@@ -925,9 +926,9 @@ $wgExtensionFunctions[] = function () {
 		$wgEventLoggingSchemas[ 'MultimediaViewerNetworkPerformance' ] = 7917896;
 		$wgEventLoggingSchemas[ 'MultimediaViewerDuration' ] = 8572641;
 
-		$wgResourceModules['mmv.ActionLogger']['dependencies'][] = 'ext.eventLogging';
-		$wgResourceModules['mmv.performance']['dependencies'][] = 'ext.eventLogging';
-		$wgResourceModules['mmv.DurationLogger']['dependencies'][] = 'ext.eventLogging';
+		$wgResourceModules['mmv.logging.ActionLogger']['dependencies'][] = 'ext.eventLogging';
+		$wgResourceModules['mmv.logging.Performance']['dependencies'][] = 'ext.eventLogging';
+		$wgResourceModules['mmv.logging.DurationLogger']['dependencies'][] = 'ext.eventLogging';
 	}
 };
 

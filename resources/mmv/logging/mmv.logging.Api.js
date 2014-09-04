@@ -17,8 +17,8 @@
 
 ( function ( mw, $, oo ) {
 	/**
-	 * Runs performance analysis on requests via mw.mmv.Performance
-	 * @class mw.mmv.Api
+	 * Runs performance analysis on requests via mw.mmv.logging.Performance
+	 * @class mw.mmv.logging.Api
 	 * @extends mw.Api
 	 * @constructor
 	 * @param {string} type The type of the requests to be made through this API.
@@ -27,8 +27,8 @@
 	function Api( type, options ) {
 		mw.Api.call( this, options );
 
-		/** @property {mw.mmv.Performance} performance Used to record performance data. */
-		this.performance = new mw.mmv.Performance();
+		/** @property {mw.mmv.logging.Performance} performance Used to record performance data. */
+		this.performance = new mw.mmv.logging.Performance();
 
 		/** @property {string} type Type of requests being sent via this API. */
 		this.type = type;
@@ -52,5 +52,5 @@
 		} );
 	};
 
-	mw.mmv.Api = Api;
+	mw.mmv.logging.Api = Api;
 }( mediaWiki, jQuery, OO ) );

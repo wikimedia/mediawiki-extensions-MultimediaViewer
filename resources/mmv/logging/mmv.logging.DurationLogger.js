@@ -20,15 +20,15 @@
 
 	/**
 	 * Writes EventLogging entries for duration measurements
-	 * @class mw.mmv.DurationLogger
-	 * @extends mw.mmv.Logger
+	 * @class mw.mmv.logging.DurationLogger
+	 * @extends mw.mmv.logging.Logger
 	 * @constructor
 	 */
 	function DurationLogger() {
 		this.starts = {};
 	}
 
-	oo.inheritClass( DurationLogger, mw.mmv.Logger );
+	oo.inheritClass( DurationLogger, mw.mmv.logging.Logger );
 
 	L = DurationLogger.prototype;
 

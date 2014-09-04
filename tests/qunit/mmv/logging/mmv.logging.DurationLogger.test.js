@@ -1,5 +1,5 @@
 ( function ( mw, $ ) {
-	QUnit.module( 'mmv.DurationLogger', QUnit.newMwEnvironment({
+	QUnit.module( 'mmv.logging.DurationLogger', QUnit.newMwEnvironment({
 		setup: function () {
 			this.clock = this.sandbox.useFakeTimers();
 		}
