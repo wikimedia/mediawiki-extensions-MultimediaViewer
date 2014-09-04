@@ -905,10 +905,6 @@
 			viewer.imageInfoProvider.get( viewer.currentImageFileTitle ).done( function ( imageInfo ) {
 				document.location = imageInfo.url;
 			} );
-		} ).on( 'mmv-image-click', function () {
-			viewer.ui.panel.scroller.toggle( 'down' ).done( function () {
-				viewer.ui.buttons.showImageClickedHelp();
-			} );
 		} );
 	};
 
