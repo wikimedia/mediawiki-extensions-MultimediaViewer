@@ -18,7 +18,7 @@
 ( function( mw ) {
 	QUnit.module( 'mmv.model.Image', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Image model constructor sanity check', 21, function ( assert ) {
+	QUnit.test( 'Image model constructor sanity check', 19, function ( assert ) {
 		var
 			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 			size = 100,
@@ -38,12 +38,11 @@
 			license = new mw.mmv.model.License( 'cc0' ),
 			latitude = 39.12381283,
 			longitude = 100.983829,
-			categories = [ 'Foo', 'Bar', 'Baz' ],
 			imageData = new mw.mmv.model.Image(
 				title, size, width, height, mime, url,
 				descurl, repo, user, datetime, origdatetime,
 				description, source, author, license, permission,
-				latitude, longitude, categories );
+				latitude, longitude );
 
 		assert.strictEqual( imageData.title, title, 'Title is set correctly' );
 		assert.strictEqual( imageData.size, size, 'Size is set correctly' );
@@ -63,8 +62,6 @@
 		assert.strictEqual( imageData.permission, permission, 'Permission is set correctly' );
 		assert.strictEqual( imageData.latitude, latitude, 'Latitude is set correctly' );
 		assert.strictEqual( imageData.longitude, longitude, 'Longitude is set correctly' );
-		assert.strictEqual( imageData.categories[0], 'Foo', 'Categories are set to the right values' );
-		assert.strictEqual( imageData.categories.length, 3, 'Categories are all set in the model' );
 		assert.ok( imageData.thumbUrls, 'Thumb URL cache is set up properly' );
 	} );
 

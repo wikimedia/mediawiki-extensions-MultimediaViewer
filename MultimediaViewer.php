@@ -127,7 +127,6 @@ $wgResourceModules += array(
 			'mmv.ui',
 			'mmv.ui.canvas',
 			'mmv.ui.canvasButtons',
-			'mmv.ui.categories',
 			'mmv.ui.description',
 			'mmv.ui.metadataPanel',
 		),
@@ -342,25 +341,6 @@ $wgResourceModules += array(
 		),
 	),
 
-	'mmv.ui.categories' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.categories.js',
-		),
-
-		'styles' => array(
-			'mmv/ui/mmv.ui.categories.less',
-		),
-
-		'dependencies' => array(
-			'mmv.ui',
-			'oojs',
-		),
-
-		'messages' => array(
-			'comma-separator',
-		),
-	),
-
 	'mmv.ui.stripeButtons' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/ui/mmv.ui.stripeButtons.js',
@@ -472,7 +452,6 @@ $wgResourceModules += array(
 			'mmv.ui',
 			'mmv.ui.progressBar',
 			'mmv.ui.stripeButtons',
-			'mmv.ui.categories',
 			'mmv.ui.description',
 			'mmv.ui.permission',
 			'mmv.ui.reuse.dialog',

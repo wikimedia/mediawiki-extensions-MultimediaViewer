@@ -212,7 +212,6 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv/ui/mmv.ui.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.canvas.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.canvasButtons.test.js',
-				'tests/qunit/mmv/ui/mmv.ui.categories.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.description.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.metadataPanel.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.metadataPanelScroller.test.js',

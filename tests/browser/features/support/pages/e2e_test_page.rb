@@ -32,7 +32,6 @@ class E2ETestPage
 
   ul(:mmv_image_metadata_links_wrapper, class: "mw-mmv-image-links")
   a(:mmv_image_metadata_repo_link, class: "mw-mmv-repo")
-  li(:mmv_image_metadata_category_links_wrapper, class: "mw-mmv-image-category")
 
   # Controls
   div(:mmv_next_button, class: "mw-mmv-next-image")

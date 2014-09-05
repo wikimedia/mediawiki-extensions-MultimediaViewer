@@ -109,7 +109,6 @@
 		this.buttons.empty();
 
 		this.description.empty();
-		this.categories.empty();
 		this.permission.empty();
 
 		this.hideTruncatedText();
@@ -297,7 +296,6 @@
 		this.initializeUploader();
 		this.initializeDatetime();
 		this.initializeLocation();
-		this.initializeCategories();
 		this.initializeRepoLink();
 
 		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$container, this.buttons.buttons.$reuse, this.config );
@@ -347,17 +345,6 @@
 			.addClass( 'mw-mmv-location' )
 			.appendTo( this.$locationLi )
 			.click( function( e ) { self.trackLinkClick.call( this, 'location-page', e ); } );
-	};
-
-	/**
-	 * Initializes the list of categories of the image
-	 */
-	MPP.initializeCategories = function () {
-		this.categories = new mw.mmv.ui.Categories(
-			$( '<li>' )
-				.addClass( 'mw-mmv-image-category' )
-				.appendTo( this.$imageLinks )
-		);
 	};
 
 	/**
@@ -798,7 +785,6 @@
 
 		this.buttons.set( imageData, repoData );
 		this.description.set( imageData.description, image.caption );
-		this.categories.set( repoData.getArticlePath(), imageData.categories );
 
 		this.setLicense( imageData.license, imageData.descriptionUrl );
 
