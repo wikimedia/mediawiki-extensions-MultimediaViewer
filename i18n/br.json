@@ -7,8 +7,8 @@
 		]
 	},
 	"multimediaviewer-desc-nil": "N'eus deskrivadur ebet.",
-	"multimediaviewer-repository": "Gouzout hiroc'h war $1",
-	"multimediaviewer-repository-local": "Gouzout hiroc'h",
+	"multimediaviewer-repository": "Gouzout hiroc'h diwar-benn ar restr-mañ war $1",
+	"multimediaviewer-repository-local": "Gouzout hiroc'h diwar-benn ar restr-mañ",
 	"multimediaviewer-datetime-created": "Krouet d'an $1",
 	"multimediaviewer-datetime-uploaded": "Enporzhiet d'an $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Enporzhiet}} gant $1",
@@ -50,7 +50,10 @@
 	"multimediaviewer-description-page-button-text": "Muioc'h a ditouroù diwar-benn ar restr-mañ",
 	"multimediaviewer-description-page-popup-text": "Muioc'h a ditouroù diwar-benn ar restr-mañ war $1",
 	"multimediaviewer-view-expanded": "Diskweladur astennet",
+	"multimediaviewer-fullscreen-popup-text": "Diskouez er skramm leun",
+	"multimediaviewer-defullscreen-popup-text": "Kuitaat ar skramm leun",
 	"multimediaviewer-title-popup-text": "Anv ar restr",
+	"multimediaviewer-title-popup-text-more": "Klikañ da welet anv klok ar restr",
 	"multimediaviewer-download-attribution-cta": "Diskouez din penaos ober",
 	"multimediaviewer-attr-plain": "Plaen"
 }
