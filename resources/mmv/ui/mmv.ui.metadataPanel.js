@@ -110,7 +110,6 @@
 
 		this.description.empty();
 		this.categories.empty();
-		this.fileUsage.empty();
 		this.permission.empty();
 
 		this.hideTruncatedText();
@@ -300,11 +299,6 @@
 		this.initializeRepoLink();
 
 		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$container, this.buttons.buttons.$reuse, this.config );
-
-		this.fileUsage = new mw.mmv.ui.FileUsage(
-			$( '<div>' ).appendTo( this.$imageMetadataRight )
-		);
-		this.fileUsage.init();
 	};
 
 	/**
@@ -769,11 +763,9 @@
 	 * @param {mw.mmv.LightboxImage} image
 	 * @param {mw.mmv.model.Image} imageData
 	 * @param {mw.mmv.model.Repo} repoData
-	 * @param {mw.mmv.model.FileUsage} localUsage
-	 * @param {mw.mmv.model.FileUsage} globalUsage
 	 * @param {mw.mmv.model.User} user
 	 */
-	MPP.setImageInfo = function ( image, imageData, repoData, localUsage, globalUsage, user ) {
+	MPP.setImageInfo = function ( image, imageData, repoData, user ) {
 		var panel = this,
 			fileTitle = image.filePageTitle;
 
@@ -814,8 +806,6 @@
 		if ( imageData.permission ) {
 			this.setPermission( imageData.permission );
 		}
-
-		this.fileUsage.set( localUsage, globalUsage );
 
 		this.setLocationData( imageData );
 

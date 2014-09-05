@@ -34,10 +34,6 @@ class E2ETestPage
   a(:mmv_image_metadata_repo_link, class: "mw-mmv-repo")
   li(:mmv_image_metadata_category_links_wrapper, class: "mw-mmv-image-category")
 
-  # File usage
-  div(:mmv_image_metadata_fileusage_wrapper, class: "mw-mmv-fileusage-container")
-  li(:mmv_image_metadata_fileusage_local_section_title, class: "mw-mmv-fileusage-local-section")
-
   # Controls
   div(:mmv_next_button, class: "mw-mmv-next-image")
   div(:mmv_previous_button, class: "mw-mmv-prev-image")

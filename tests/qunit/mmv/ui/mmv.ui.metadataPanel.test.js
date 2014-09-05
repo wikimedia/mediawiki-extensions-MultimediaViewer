@@ -134,8 +134,6 @@
 				getArticlePath : function() { return 'Foo'; },
 				isCommons: function() { return false; }
 			},
-			localUsage = {},
-			globalUsage = {},
 			oldMoment = window.moment;
 
 		/*window.moment = function( date ) {
@@ -144,7 +142,7 @@
 			return oldMoment( date ).lang( 'fr' );
 		};*/
 
-		panel.setImageInfo( image, imageData, repoData, localUsage, globalUsage, gender );
+		panel.setImageInfo( image, imageData, repoData, gender );
 
 		assert.strictEqual( panel.$title.text(), title, 'Title is correctly set' );
 		assert.ok( panel.$credit.hasClass( 'empty' ), 'Credit is empty' );
@@ -165,7 +163,7 @@
 		gender = 'female';
 		imageData.lastUploader = 'Ursula';
 
-		panel.setImageInfo( image, imageData, repoData, localUsage, globalUsage, gender );
+		panel.setImageInfo( image, imageData, repoData, gender );
 
 		assert.strictEqual( panel.$title.text(), title, 'Title is correctly set' );
 		assert.ok( !panel.$credit.hasClass( 'empty' ), 'Credit is not empty' );
@@ -179,7 +177,7 @@
 		assert.ok( panel.$username.text().indexOf( imageData.lastUploader ) > 0, 'Correct username is displayed' );
 
 		imageData.creationDateTime = undefined;
-		panel.setImageInfo( image, imageData, repoData, localUsage, globalUsage, gender );
+		panel.setImageInfo( image, imageData, repoData, gender );
 
 		assert.ok( panel.$datetime.text().indexOf( 'August 25, 2013' ) > 0, 'Correct date is displayed' );
 

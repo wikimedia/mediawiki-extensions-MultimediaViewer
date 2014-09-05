@@ -119,7 +119,6 @@ $wgResourceModules += array(
 			'mmv.ui.canvasButtons',
 			'mmv.ui.categories',
 			'mmv.ui.description',
-			'mmv.ui.fileUsage',
 			'mmv.ui.metadataPanel',
 		),
 
@@ -194,16 +193,6 @@ $wgResourceModules += array(
 		),
 	),
 
-	'mmv.model.FileUsage' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/model/mmv.model.FileUsage.js',
-		),
-
-		'dependencies' => array(
-			'mmv.model',
-		),
-	),
-
 	'mmv.model.Image' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/model/mmv.model.Image.js',
@@ -269,8 +258,6 @@ $wgResourceModules += array(
 	'mmv.provider' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/provider/mmv.provider.Api.js',
-			'mmv/provider/mmv.provider.ImageUsage.js',
-			'mmv/provider/mmv.provider.GlobalUsage.js',
 			'mmv/provider/mmv.provider.ImageInfo.js',
 			'mmv/provider/mmv.provider.FileRepoInfo.js',
 			'mmv/provider/mmv.provider.ThumbnailInfo.js',
@@ -283,7 +270,6 @@ $wgResourceModules += array(
 			'mediawiki.Title',
 			'mmv.model',
 			'mmv.model.IwTitle',
-			'mmv.model.FileUsage',
 			'mmv.model.Image',
 			'mmv.model.Repo',
 			'mmv.model.Thumbnail',
@@ -400,33 +386,6 @@ $wgResourceModules += array(
 		),
 	),
 
-	'mmv.ui.fileUsage' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.fileUsage.js',
-		),
-
-		'styles' => array(
-			'mmv/ui/mmv.ui.fileUsage.less',
-		),
-
-		'dependencies' => array(
-			'mediawiki.language',
-			'mediawiki.Uri',
-			'mediawiki.jqueryMsg',
-			'mmv.ui',
-			'mmv.model.IwTitle',
-			'oojs',
-		),
-
-		'messages' => array(
-			'multimediaviewer-fileusage-count',
-			'multimediaviewer-fileusage-count-more',
-			'multimediaviewer-fileusage-link',
-			'multimediaviewer-fileusage-local-section',
-			'multimediaviewer-fileusage-global-section',
-		),
-	),
-
 	'mmv.ui.permission' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/ui/mmv.ui.permission.js',
@@ -502,7 +461,6 @@ $wgResourceModules += array(
 			'mmv.ui.stripeButtons',
 			'mmv.ui.categories',
 			'mmv.ui.description',
-			'mmv.ui.fileUsage',
 			'mmv.ui.permission',
 			'mmv.ui.reuse.dialog',
 			'mmv.ui.truncatableTextField',

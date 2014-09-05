@@ -73,27 +73,6 @@
 		} );
 
 		/**
-		 * @property {mw.mmv.provider.ImageUsage}
-		 * @private
-		 */
-		this.imageUsageProvider = new mw.mmv.provider.ImageUsage( new mw.mmv.logging.Api( 'imageusage' ),
-			{ maxage: apiCacheMaxAge } );
-
-		/**
-		 * @property {mw.mmv.provider.GlobalUsage}
-		 * @private
-		 */
-		this.globalUsageProvider = new mw.mmv.provider.GlobalUsage( new mw.mmv.logging.Api( 'globalusage' ), {
-			useApi: mw.config.get( 'wgMultimediaViewer' ).globalUsageAvailable,
-			maxage: apiCacheMaxAge
-		} );
-		// replace with this one to test global usage on a local wiki without going through all the
-		// hassle required for installing the extension:
-		//this.globalUsageProvider = new mw.mmv.provider.GlobalUsage(
-		//	new mw.mmv.logging.Api( 'globalusage', { ajax: { url: 'http://commons.wikimedia.org/w/api.php', dataType: 'jsonp' } } )
-		//);
-
-		/**
 		 * Image index on page.
 		 * @property {number}
 		 */
@@ -308,7 +287,7 @@
 
 		metadataPromise = this.fetchSizeIndependentLightboxInfo(
 			image.filePageTitle
-		).done( function ( imageInfo, repoInfo, localUsage, globalUsage, userInfo ) {
+		).done( function ( imageInfo, repoInfo, userInfo ) {
 			if ( viewer.currentIndex !== image.index ) {
 				return;
 			}
@@ -316,7 +295,7 @@
 			if ( viewer.metadataDisplayedCount++ === 0 ) {
 				mw.mmv.durationLogger.stop( 'click-to-first-metadata' );
 			}
-			viewer.ui.panel.setImageInfo( image, imageInfo, repoInfo, localUsage, globalUsage, userInfo );
+			viewer.ui.panel.setImageInfo( image, imageInfo, repoInfo, userInfo );
 		} ).fail( function ( error ) {
 			if ( viewer.currentIndex !== image.index ) {
 				return;
@@ -662,17 +641,14 @@
 
 	/**
 	 * Loads all the size-independent information needed by the lightbox (image metadata, repo
-	 * information, file usage, uploader data).
+	 * information, uploader data).
 	 * @param {mw.Title} fileTitle Title of the file page for the image.
-	 * @returns {jQuery.Promise.<mw.mmv.model.Image, mw.mmv.model.Repo, mw.mmv.model.FileUsage,
-	 *     mw.mmv.model.FileUsage, mw.mmv.model.User>}
+	 * @returns {jQuery.Promise.<mw.mmv.model.Image, mw.mmv.model.Repo, mw.mmv.model.User>}
 	 */
 	MMVP.fetchSizeIndependentLightboxInfo = function ( fileTitle ) {
 		var viewer = this,
 			imageInfoPromise = this.imageInfoProvider.get( fileTitle ),
 			repoInfoPromise = this.fileRepoInfoProvider.get( fileTitle ),
-			imageUsagePromise = this.imageUsageProvider.get( fileTitle ),
-			globalUsagePromise = this.globalUsageProvider.get( fileTitle ),
 			userInfoPromise;
 
 		userInfoPromise = $.when(
@@ -686,9 +662,9 @@
 		} );
 
 		return $.when(
-			imageInfoPromise, repoInfoPromise, imageUsagePromise, globalUsagePromise, userInfoPromise
-		).then( function( imageInfo, repoInfoHash, imageUsage, globalUsage, userInfo ) {
-			return $.Deferred().resolve( imageInfo, repoInfoHash[imageInfo.repo], imageUsage, globalUsage, userInfo );
+			imageInfoPromise, repoInfoPromise, userInfoPromise
+		).then( function( imageInfo, repoInfoHash, userInfo ) {
+			return $.Deferred().resolve( imageInfo, repoInfoHash[imageInfo.repo], userInfo );
 		} );
 	};
 

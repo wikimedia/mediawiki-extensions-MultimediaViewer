@@ -110,10 +110,6 @@ def check_elements_in_viewer_for_image1(page)
   page.mmv_image_metadata_repo_link_element.when_present.attribute('href').should match /boats_in_Kerala.jpg$/
   # Category links
   page.mmv_image_metadata_category_links_wrapper_element.when_present.should be_visible
-  # File usage
-  page.mmv_image_metadata_fileusage_wrapper_element.when_present.should be_visible
-  page.mmv_image_metadata_fileusage_wrapper_element.when_present.h3_element.text.should match /Used in [0-9] page/
-  page.mmv_image_metadata_fileusage_local_section_title_element.when_present.text.should match /On this site/
 end
 
 # Helper function that verifies the presence of various elements in viewer
@@ -154,8 +150,4 @@ def check_elements_in_viewer_for_image2(page)
   page.mmv_image_metadata_repo_link_element.when_present.attribute('href').should match /All_Hands_Offsite.*\.jpg$/
   # Category links
   page.mmv_image_metadata_category_links_wrapper_element.when_present.should be_visible
-  # File usage
-  page.mmv_image_metadata_fileusage_wrapper_element.when_present.should be_visible
-  page.mmv_image_metadata_fileusage_wrapper_element.when_present.h3_element.text.should match /Used in [0-9] page/
-  page.mmv_image_metadata_fileusage_local_section_title_element.when_present.text.should match /On this site/
 end
