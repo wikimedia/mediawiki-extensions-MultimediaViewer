@@ -140,7 +140,7 @@ class MultimediaViewerHooks {
 	 */
 	public static function resourceLoaderGetConfigVars( &$vars ) {
 		global $wgAPIPropModules, $wgMediaViewerActionLoggingSamplingFactorMap, $wgNetworkPerformanceSamplingFactor, $wgMediaViewerDurationLoggingSamplingFactor,
-			   $wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing;
+			$wgMediaViewerAttributionLoggingSamplingFactor, $wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing;
 		$vars['wgMultimediaViewer'] = array(
 			'infoLink' => self::$infoLink,
 			'discussionLink' => self::$discussionLink,
@@ -150,6 +150,7 @@ class MultimediaViewerHooks {
 			'durationSamplingFactor' => $wgMediaViewerDurationLoggingSamplingFactor,
 			'networkPerformanceSamplingFactor' => $wgNetworkPerformanceSamplingFactor,
 			'actionLoggingSamplingFactorMap' => $wgMediaViewerActionLoggingSamplingFactorMap,
+			'attributionSamplingFactor' => $wgMediaViewerAttributionLoggingSamplingFactor,
 			'tooltipDelay' => 1000,
 		);
 		$vars['wgMediaViewer'] = true;
