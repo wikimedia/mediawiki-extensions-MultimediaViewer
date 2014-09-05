@@ -35,6 +35,16 @@ if ( !isset( $wgMediaViewerDurationLoggingSamplingFactor ) ) {
 	$wgMediaViewerDurationLoggingSamplingFactor = false;
 }
 
+if ( !isset( $wgMediaViewerAttributionLoggingSamplingFactor ) ) {
+	/**
+	 * If set, records whether image attribution data was available. A value of 1000 means there will be an
+	 * 1:1000 chance to log the attribution event.
+	 * False if unset.
+	 * @var int|bool
+	 */
+	$wgMediaViewerAttributionLoggingSamplingFactor = false;
+}
+
 if ( !isset( $wgMediaViewerActionLoggingSamplingFactorMap ) ) {
 	/**
 	 * If set, records user actions via EventLogging and applies a sampling factor according to the map. A "default" key in the map must be set.
@@ -497,6 +507,7 @@ $wgResourceModules += array(
 			'mediawiki.user',
 			'mmv.HtmlUtils',
 			'mmv.logging.ActionLogger',
+			'mmv.logging.AttributionLogger',
 			'mmv.ui',
 			'mmv.ui.progressBar',
 			'mmv.ui.stripeButtons',
@@ -876,7 +887,7 @@ $wgResourceModules += array(
 			'mmv.base',
 			'mmv.logging.Logger',
 			'oojs'
-		)
+		),
 	),
 
 	'mmv.logging.DurationLogger' => $wgMediaViewerResourceTemplate + array(
@@ -889,7 +900,20 @@ $wgResourceModules += array(
 			'mmv.logging.Logger',
 			'oojs',
 			'mediawiki.user',
-		)
+		),
+	),
+
+	'mmv.logging.AttributionLogger' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/logging/mmv.logging.AttributionLogger.js',
+		),
+
+		'dependencies' => array(
+			'mmv.base',
+			'mmv.logging.Logger',
+			'oojs',
+			'mediawiki.user',
+		),
 	),
 
 	'mmv.head' => $wgMediaViewerResourceTemplate + array(
@@ -925,6 +949,7 @@ $wgExtensionFunctions[] = function () {
 		$wgEventLoggingSchemas[ 'MediaViewer' ] = 8935662;
 		$wgEventLoggingSchemas[ 'MultimediaViewerNetworkPerformance' ] = 7917896;
 		$wgEventLoggingSchemas[ 'MultimediaViewerDuration' ] = 8572641;
+		$wgEventLoggingSchemas[ 'MultimediaViewerAttribution' ] = 9758179;
 
 		$wgResourceModules['mmv.logging.ActionLogger']['dependencies'][] = 'ext.eventLogging';
 		$wgResourceModules['mmv.logging.Performance']['dependencies'][] = 'ext.eventLogging';

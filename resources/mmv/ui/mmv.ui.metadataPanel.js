@@ -777,6 +777,8 @@
 		var panel = this,
 			fileTitle = image.filePageTitle;
 
+		mw.mmv.attributionLogger.logAttribution( imageData );
+
 		this.setFileTitle( fileTitle.getNameText() );
 		this.setRepoDisplay( repoData );
 		this.setFilePageLink( imageData.descriptionUrl );
