@@ -11,13 +11,9 @@
 // full height.
 .mw-mmv-stripe-button {
 	@button-text-color: rgb(136, 136, 136);
-	@border-text-color: #cccccc;
 
 	float: right;
-	height: @button-height;
 	margin-top: @metadatabar-above-fold-height - ( @button-height + 2 * @button-vertical-padding );
-	border-left: 1px solid @border-text-color;
-	padding: @button-vertical-padding 20px;
 	.jq-fullscreened & {
 		margin-top: @metadatabar-above-fold-fullscreen-height - ( @button-height + 2 * @button-vertical-padding );
 	}
@@ -36,12 +32,6 @@
 	cursor: pointer;
 	.opacity(0.8);
 	transition: opacity 0.25s;
-
-	// when the button is a link, we need more selector specificity
-	a&, a&:visited, a&:hover {
-		color: @button-text-color;
-		text-decoration: none;
-	}
 
 	&.empty {
 		display: none;
@@ -64,6 +54,11 @@
 		background-size: 100% 100%;
 		content: ' ';
 		vertical-align: baseline;
+
+		/* @embed */
+		background-image: url(img/page.svg);
+
+		margin-right: 0.7em;
 	}
 	&.has-label:before {
 		margin-right: 0.25em;
@@ -71,22 +66,22 @@
 			margin-right: 0;
 		}
 	}
-}
 
-.mw-mmv-repo-button {
-	&-commons:before {
-		/* @embed */
-		background-image: url(img/commons_gray.svg);
-		background-position: 50% 40%; // visually it looks much better when the middle of the circle is centered
-		// make the Commons icon a tiny bit larger so people don't complain that the other icon is larger
-		padding: 1px;
-		top: -1px;
+	&.mw-mmv-description-page-button,
+	&.mw-mmv-description-page-button:active,
+	&.mw-mmv-description-page-button:visited {
+		border-radius: 4px;
+		color: white;
+		margin: 0.7em 1em;
 	}
-	&-dynamic:before {
-		// for repos other than Wikimedia Commons we manipulate :before dynamically from JS; this is a fallback
-		.grayscale();
-		background-image: url(img/repo.svg);
-		width: 0.8em;
-		height: 0.8em;
+
+	&.mw-mmv-description-page-button.mw-mmv-repo-button-commons:before {
+		/* @embed */
+		background-image: url(img/commons_white.svg);
+		width: 1.3em;
+		height: 1.3em;
+		position: relative;
+		top: 0.15em;
+		margin: -0.3em 0.4em 0 0;
 	}
 }
