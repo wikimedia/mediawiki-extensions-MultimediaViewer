@@ -123,8 +123,6 @@
 		var dialog = this,
 			$deferred = $.Deferred();
 
-		mw.mmv.actionLogger.log( 'use-this-file-open' );
-
 		if ( this.tabs === null ) {
 			// initTabs() needs to have these dependencies loaded in order to run
 			mw.loader.using( [ 'mmv.ui.reuse.share', 'mmv.ui.reuse.embed', 'mmv.ui.reuse.download' ], function () {
@@ -269,6 +267,8 @@
 	 * Opens a dialog with information about file reuse.
 	 */
 	DP.openDialog = function () {
+		mw.mmv.actionLogger.log( 'use-this-file-open' );
+
 		this.startListeningToOutsideClick();
 		this.$reuseDialog.show();
 		this.fixDownArrowPosition();
@@ -285,6 +285,8 @@
 	 * Closes the reuse dialog.
 	 */
 	DP.closeDialog = function () {
+		mw.mmv.actionLogger.log( 'use-this-file-close' );
+
 		this.stopListeningToOutsideClick();
 		this.$reuseDialog.hide();
 		$( document ).trigger( 'mmv-reuse-closed' );

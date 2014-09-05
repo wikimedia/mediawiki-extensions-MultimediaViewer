@@ -195,6 +195,30 @@
 		}
 	};
 
+	/**
+	 * Tracks a click on a link and lets the user navigate to it
+	 * @param {string} action The action label to log.
+	 * @param {jQuery.Event} e Click event object
+	 */
+	EP.trackLinkClick = function ( action, e ) {
+		var $link = $( this );
+
+		if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey || e.button === 1 ) {
+			// They are likely opening the link in a new window or tab
+			mw.mmv.actionLogger.log( action );
+			return;
+		}
+
+		// If it's a plain click, we need to wait for the logging to
+		// be done before navigating to the desired page
+		e.preventDefault();
+
+		// We want to redirect anyway, whether logging worked or not
+		mw.mmv.actionLogger.log( action ).always( function () {
+			window.location.href = $link.prop( 'href' );
+		} );
+	};
+
 	mw.mmv.ui = {};
 	mw.mmv.ui.reuse = {};
 	mw.mmv.ui.Element = Element;

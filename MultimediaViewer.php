@@ -331,6 +331,7 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.base',
+			'mmv.logging.ActionLogger',
 		),
 	),
 
@@ -657,6 +658,7 @@ $wgResourceModules += array(
 			'mmv.routing',
 			'oojs',
 			'oojs-ui',
+			'mmv.logging.ActionLogger',
 		),
 
 		'messages' => array(
@@ -687,6 +689,7 @@ $wgResourceModules += array(
 			'oojs-ui',
 			'mmv.model.EmbedFileInfo',
 			'mmv.embedFileFormatter',
+			'mmv.logging.ActionLogger',
 		),
 
 		'messages' => array(
@@ -725,6 +728,7 @@ $wgResourceModules += array(
 			'mmv.ui.reuse.tab',
 			'mmv.ui.reuse.utils',
 			'mmv.embedFileFormatter',
+			'mmv.logging.ActionLogger',
 		),
 
 		'messages' => array(
@@ -943,7 +947,7 @@ $wgExtensionFunctions[] = function () {
 	global $wgResourceModules, $wgEventLoggingSchemas;
 
 	if ( isset( $wgResourceModules['ext.eventLogging'] ) ) {
-		$wgEventLoggingSchemas[ 'MediaViewer' ] = 8935662;
+		$wgEventLoggingSchemas[ 'MediaViewer' ] = 9792855;
 		$wgEventLoggingSchemas[ 'MultimediaViewerNetworkPerformance' ] = 7917896;
 		$wgEventLoggingSchemas[ 'MultimediaViewerDuration' ] = 8572641;
 		$wgEventLoggingSchemas[ 'MultimediaViewerAttribution' ] = 9758179;

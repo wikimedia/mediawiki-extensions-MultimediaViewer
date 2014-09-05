@@ -39,6 +39,8 @@
 	SP = Share.prototype;
 
 	SP.init = function () {
+		var self = this;
+
 		this.$pane.addClass( 'mw-mmv-share-pane' )
 			.appendTo( this.$container );
 
@@ -50,12 +52,20 @@
 		this.pageInput.$element.find( 'input' )
 			.prop( 'placeholder', mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text() );
 
+		this.pageInput.$input.on( 'copy', function() {
+			mw.mmv.actionLogger.log( 'share-link-copied' );
+		} );
+
+
 		this.$pageLink = $( '<a>' )
 			.addClass( 'mw-mmv-share-page-link' )
 			.prop( 'alt', mw.message( 'multimediaviewer-link-to-page' ).text() )
 			.prop( 'target', '_blank' )
 			.html( '&nbsp;' )
-			.appendTo( this.$pane );
+			.appendTo( this.$pane )
+			.click( function ( e ) {
+				self.trackLinkClick.call( this, 'share-page', e );
+			} );
 
 		this.pageInput.$element.appendTo( this.$pane );
 

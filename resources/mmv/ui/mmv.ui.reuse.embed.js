@@ -120,6 +120,10 @@
 		this.embedTextHtml.$element.find( 'textarea' )
 			.prop( 'placeholder', mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text() );
 
+		this.embedTextHtml.$input.on( 'copy', function() {
+			mw.mmv.actionLogger.log( 'embed-html-copied' );
+		} );
+
 		this.embedTextWikitext = new oo.ui.TextInputWidget( {
 			classes: wikitextClasses,
 			multiline: true,
@@ -128,6 +132,10 @@
 
 		this.embedTextWikitext.$element.find( 'textarea' )
 			.prop( 'placeholder', mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text() );
+
+		this.embedTextWikitext.$input.on( 'copy', function() {
+			mw.mmv.actionLogger.log( 'embed-wikitext-copied' );
+		} );
 
 		$( '<p>' )
 			.append(
@@ -188,6 +196,10 @@
 			'default'
 		);
 
+		this.embedSizeSwitchWikitext.onMenuSelect = function( item ) {
+			mw.mmv.actionLogger.log( 'embed-select-menu-wikitext-' + item.data.name );
+		};
+
 		// Html sizes pulldown menu
 		this.embedSizeSwitchHtml = this.utils.createPulldownMenu(
 			[ 'small', 'medium', 'large', 'original' ],
@@ -195,6 +207,9 @@
 			'original'
 		);
 
+		this.embedSizeSwitchHtml.onMenuSelect = function( item ) {
+			mw.mmv.actionLogger.log( 'embed-select-menu-html-' + item.data.name );
+		};
 
 		$( '<p>' )
 			.append(
@@ -262,6 +277,8 @@
 	 */
 	EP.handleTypeSwitch = function ( item ) {
 		var value = item.getData();
+
+		mw.mmv.actionLogger.log( 'embed-switched-to-' + value );
 
 		if ( value === 'html' ) {
 			this.$currentMainEmbedText = this.embedTextHtml.$element;

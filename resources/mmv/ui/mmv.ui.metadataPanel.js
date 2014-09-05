@@ -165,14 +165,16 @@
 	 * Initializes the title and credit elements.
 	 */
 	MPP.initializeTitleAndCredit = function () {
+		var self = this;
+
 		this.$titleAndCredit = $( '<div>' )
 			.addClass( 'mw-mmv-title-credit' )
 			// Since these elements are created dynamically, we listen this way for logging purposes
-			.on( 'click', '.mw-mmv-author a', function () {
-				mw.mmv.actionLogger.log( 'author-page' );
+			.on( 'click', '.mw-mmv-author a', function ( e ) {
+				self.trackLinkClick.call( this, 'author-page', e );
 			} )
-			.on( 'click', '.mw-mmv-source a', function () {
-				mw.mmv.actionLogger.log( 'source-page' );
+			.on( 'click', '.mw-mmv-source a', function ( e ) {
+				self.trackLinkClick.call( this, 'source-page', e );
 			} )
 			.appendTo( this.$titleDiv );
 
@@ -240,8 +242,8 @@
 			.addClass( 'mw-mmv-license empty' )
 			.prop( 'href', '#' )
 			.appendTo( this.$titlePara )
-			.on( 'click', function() {
-				mw.mmv.actionLogger.log( 'license-page' );
+			.on( 'click', function( e ) {
+				panel.trackLinkClick.call( this, 'license-page', e );
 			} );
 
 		this.$permissionLink = $( '<span>' )
@@ -324,6 +326,8 @@
 	 * Initializes the link to the uploader's file page.
 	 */
 	MPP.initializeUploader = function () {
+		var self = this;
+
 		this.$usernameLi = $( '<li>' )
 			.addClass( 'mw-mmv-username-li empty' )
 			.appendTo( this.$imageLinks );
@@ -331,20 +335,24 @@
 		this.$username = $( '<a>' )
 			.addClass( 'mw-mmv-username' )
 			.prop( 'href', '#' )
-			.appendTo( this.$usernameLi );
+			.appendTo( this.$usernameLi )
+			.click( function( e ) { self.trackLinkClick.call( this, 'uploader-page', e ); } );
 	};
 
 	/**
 	 * Initializes the geolocation element.
 	 */
 	MPP.initializeLocation = function () {
+		var self = this;
+
 		this.$locationLi = $( '<li>' )
 			.addClass( 'mw-mmv-location-li empty' )
 			.appendTo( this.$imageLinks );
 
 		this.$location = $( '<a>' )
 			.addClass( 'mw-mmv-location' )
-			.appendTo( this.$locationLi );
+			.appendTo( this.$locationLi )
+			.click( function( e ) { self.trackLinkClick.call( this, 'location-page', e ); } );
 	};
 
 	/**
@@ -362,6 +370,8 @@
 	 * Initializes the link to the file page on the (maybe remote) repository.
 	 */
 	MPP.initializeRepoLink = function () {
+		var self = this;
+
 		this.$repoLi = $( '<li>' )
 			.addClass( 'mw-mmv-repo-li empty' )
 			.appendTo( this.$imageLinks );
@@ -369,24 +379,7 @@
 		this.$repo = $( '<a>' )
 			.addClass( 'mw-mmv-repo' )
 			.prop( 'href', '#' )
-			.click( function ( e ) {
-				var $link = $( this );
-
-				if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey || e.button === 1 ) {
-					// They are likely opening the link in a new window or tab
-					mw.mmv.actionLogger.log( 'file-description-page' );
-					return;
-				}
-
-				// If it's a plain click, we need to wait for the logging to
-				// be done before navigating to the desired page
-				e.preventDefault();
-
-				// We want to redirect anyway, whether logging worked or not
-				mw.mmv.actionLogger.log( 'file-description-page' ).always( function () {
-					window.location.href = $link.prop( 'href' );
-				} );
-			} )
+			.click( function( e ) { self.trackLinkClick.call( this, 'file-description-page', e ); } )
 			.appendTo( this.$repoLi );
 
 		this.$repoSubtitle = $( '<span>' )
@@ -398,22 +391,26 @@
 	 * Initializes two about links at the bottom of the panel.
 	 */
 	MPP.initializeAboutLinks = function () {
-		var separator = ' | ';
+		var separator = ' | ',
+			self = this;
 
 		this.$mmvAboutLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).infoLink )
 			.text( mw.message( 'multimediaviewer-about-mmv' ).text() )
-			.addClass( 'mw-mmv-about-link' );
+			.addClass( 'mw-mmv-about-link' )
+			.click( function( e ) { self.trackLinkClick.call( this, 'about-page', e ); } );
 
 		this.$mmvDiscussLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).discussionLink )
 			.text( mw.message( 'multimediaviewer-discuss-mmv' ).text() )
-			.addClass( 'mw-mmv-discuss-link' );
+			.addClass( 'mw-mmv-discuss-link' )
+			.click( function( e ) { self.trackLinkClick.call( this, 'discuss-page', e ); } );
 
 		this.$mmvHelpLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).helpLink )
 			.text( mw.message( 'multimediaviewer-help-mmv' ).text() )
-			.addClass( 'mw-mmv-help-link' );
+			.addClass( 'mw-mmv-help-link' )
+			.click( function( e ) { self.trackLinkClick.call( this, 'help-page', e ); } );
 
 		this.$mmvAboutLinks = $( '<div>' )
 			.addClass( 'mw-mmv-about-links' )

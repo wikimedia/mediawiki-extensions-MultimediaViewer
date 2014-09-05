@@ -160,8 +160,9 @@
 				delayIn: tooltipDelay
 			} )
 			.on( 'click.mmv-view-original', function () {
-				mw.mmv.actionLogger.log( 'view-original-file' );
-				$( document ).trigger( 'mmv-viewfile' );
+				mw.mmv.actionLogger.log( 'view-original-file' ).always( function() {
+					$( document ).trigger( 'mmv-viewfile' );
+				} );
 			} );
 	};
 
