@@ -21,13 +21,13 @@
 	/**
 	 * Measures the network performance
 	 * See <https://meta.wikimedia.org/wiki/Schema:MultimediaViewerNetworkPerformance>
-	 * @class mw.mmv.Performance
-	 * @extends mw.mmv.Logger
+	 * @class mw.mmv.logging.Performance
+	 * @extends mw.mmv.logging.Logger
 	 * @constructor
 	 */
 	function Performance() {}
 
-	oo.inheritClass( Performance, mw.mmv.Logger );
+	oo.inheritClass( Performance, mw.mmv.logging.Logger );
 
 	P = Performance.prototype;
 
@@ -404,6 +404,6 @@
 
 	new Performance().init();
 
-	mw.mmv.Performance = Performance;
+	mw.mmv.logging.Performance = Performance;
 
 }( mediaWiki, jQuery, OO ) );

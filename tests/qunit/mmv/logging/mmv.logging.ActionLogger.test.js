@@ -1,9 +1,9 @@
 ( function ( mw, $ ) {
-	QUnit.module( 'mmv.ActionLogger', QUnit.newMwEnvironment() );
+	QUnit.module( 'mmv.logging.ActionLogger', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'log()', 8, function ( assert ) {
 		var fakeEventLog = { logEvent : this.sandbox.stub() },
-			logger = new mw.mmv.ActionLogger(),
+			logger = new mw.mmv.logging.ActionLogger(),
 			action1key = 'test-1',
 			action1value = 'Test',
 			action2key = 'test-2',

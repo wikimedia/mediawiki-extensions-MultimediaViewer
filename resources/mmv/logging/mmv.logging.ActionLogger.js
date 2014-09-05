@@ -20,13 +20,13 @@
 
 	/**
 	 * Writes log entries
-	 * @class mw.mmv.ActionLogger
-	 * @extends mw.mmv.Logger
+	 * @class mw.mmv.logging.ActionLogger
+	 * @extends mw.mmv.logging.Logger
 	 * @constructor
 	 */
 	function ActionLogger() {}
 
-	oo.inheritClass( ActionLogger, mw.mmv.Logger );
+	oo.inheritClass( ActionLogger, mw.mmv.logging.Logger );
 
 	L = ActionLogger.prototype;
 
@@ -138,6 +138,6 @@
 		return Math.floor( Math.random() * factor ) === 0;
 	};
 
-	mw.mmv.ActionLogger = ActionLogger;
-	mw.mmv.actionLogger = new mw.mmv.ActionLogger();
+	mw.mmv.logging.ActionLogger = ActionLogger;
+	mw.mmv.actionLogger = new ActionLogger();
 }( mediaWiki, jQuery, OO ) );

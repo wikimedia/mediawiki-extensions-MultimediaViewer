@@ -5,19 +5,20 @@
 			{
 				"name": "Base",
 				"classes": [
-					"mw.mmv.Api",
-					"mw.mmv.ActionLogger",
 					"mw.mmv.Config",
-					"mw.mmv.DurationLogger",
 					"mw.mmv.EmbedFileFormatter",
 					"mw.mmv.HtmlUtils",
 					"mw.mmv.LightboxImage",
 					"mw.mmv.LightboxInterface",
-					"mw.mmv.Logger",
 					"mw.mmv.MultimediaViewer",
 					"mw.mmv.MultimediaViewerBootstrap",
-					"mw.mmv.Performance",
 					"mw.mmv.ThumbnailWidthCalculator"
+				]
+			},
+			{
+				"name": "Loggers",
+				"classes": [
+					"mw.mmv.logging.*"
 				]
 			},
 			{
