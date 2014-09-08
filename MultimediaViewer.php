@@ -344,6 +344,7 @@ $wgResourceModules += array(
 		),
 
 		'messages' => array(
+			'multimediaviewer-viewfile-link',
 			'multimediaviewer-thumbnail-error',
 		),
 
@@ -754,10 +755,6 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'mmv.ui',
 			'oojs',
-		),
-
-		'messages' => array(
-			'multimediaviewer-viewfile-link',
 		),
 	),
 

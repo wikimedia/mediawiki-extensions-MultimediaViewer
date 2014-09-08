@@ -6,7 +6,6 @@
 
 .mw-mmv-close,
 .mw-mmv-fullscreen,
-.mw-mmv-viewfile,
 .mw-mmv-next-image,
 .mw-mmv-prev-image {
 	cursor: pointer;
@@ -25,7 +24,6 @@
 
 .mw-mmv-close.hidden,
 .mw-mmv-fullscreen.hidden,
-.mw-mmv-viewfile.hidden,
 .mw-mmv-next-image.hidden,
 .mw-mmv-prev-image.hidden {
 	display: none;
@@ -34,14 +32,12 @@
 .cursor-hidden {
 	.mw-mmv-close,
 	.mw-mmv-fullscreen,
-	.mw-mmv-viewfile,
 	.mw-mmv-next-image,
 	.mw-mmv-prev-image {
 		cursor: none;
 	}
 }
 
-.mw-mmv-viewfile,
 .mw-mmv-close,
 .mw-mmv-fullscreen {
 	right: @buttons-offset;
@@ -81,24 +77,10 @@
 	height: 22px;
 }
 
-.mw-mmv-viewfile {
-	bottom: (@buttons-offset + @metadatabar-above-fold-height);
-	/* @embed */
-	background-image: url(img/mw-open-control-ltr.svg);
-	width: 23px;
-	height: 23px;
-	margin-bottom: 14px;
-}
-
-
 .jq-fullscreened {
 	.mw-mmv-fullscreen {
 		/* @embed */
 		background-image: url(img/mw-defullscreen-ltr.svg);
-	}
-
-	.mw-mmv-viewfile {
-		display: none;
 	}
 }
 

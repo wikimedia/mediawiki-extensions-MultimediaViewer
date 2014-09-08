@@ -105,6 +105,7 @@
 
 		this.imageRawMetadata = imageRawMetadata;
 		this.$image = $imageElement;
+		this.setUpImageClick();
 
 		this.$imageDiv.html( this.$image );
 	};
@@ -140,9 +141,28 @@
 		if ( !this.$image.is( imageElement ) ) { // http://bugs.jquery.com/ticket/4087
 			this.$image.replaceWith( $image );
 			this.$image = $image;
+
+			this.setUpImageClick();
 		}
 
 		this.setImageMaxDimensions();
+	};
+
+	/**
+	 * Registers click listener on the image, and a tooltip.
+	 */
+	C.setUpImageClick = function () {
+		var tooltipDelay = mw.config.get( 'wgMultimediaViewer').tooltipDelay;
+
+		this.$image
+			.prop( 'title', mw.message( 'multimediaviewer-viewfile-link' ) )
+			.tipsy( {
+				delayIn: tooltipDelay
+			} )
+			.on( 'click.mmv-view-original', function () {
+				mw.mmv.actionLogger.log( 'view-original-file' );
+				$( document ).trigger( 'mmv-viewfile' );
+			} );
 	};
 
 	/**
@@ -176,6 +196,10 @@
 		}
 
 		this.$imageDiv.off( 'click.mmv-canvas' );
+
+		if ( this.$image ) {
+			this.$image.tipsy( 'hide' );
+		}
 	};
 
 	/**

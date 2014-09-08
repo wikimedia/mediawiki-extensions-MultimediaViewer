@@ -43,31 +43,4 @@
 		buttons.$next.click();
 		buttons.$prev.click();
 	} );
-
-	QUnit.test( 'View original tooltip', 5, function( assert ) {
-		var clock = this.sandbox.useFakeTimers(),
-			$qf = $( '#qunit-fixture' ),
-			buttons = new mw.mmv.ui.CanvasButtons( $qf, $( '<div>' ), $( '<div>' ) );
-
-		function isViewOriginalTooltipVisible( buttons ) {
-			var tipsy = buttons.$viewFile.tipsy( true ); // returns the tipsy object
-			return tipsy.$tip && tipsy.$tip[0] && $.contains( document, tipsy.$tip[0] );
-		}
-
-		assert.ok( !isViewOriginalTooltipVisible( buttons ), 'The help tooltip is not visible initially' );
-		buttons.showImageClickedHelp();
-		clock.tick( 100 );
-		assert.ok( isViewOriginalTooltipVisible( buttons ), 'The tooltip is visible after the image was clicked' );
-		clock.tick( 5000 );
-		assert.ok( !isViewOriginalTooltipVisible( buttons ), 'The tooltip disappears eventually' );
-
-		buttons.showImageClickedHelp();
-		clock.tick( 2000 );
-		buttons.showImageClickedHelp();
-		clock.tick( 2000 );
-		assert.ok( isViewOriginalTooltipVisible( buttons ), 'The tooltip stays visible for longer when the image is clicked while it is visible' );
-		clock.tick( 2000 );
-		assert.ok( !isViewOriginalTooltipVisible( buttons ), 'The tooltip still disappears eventually' );
-
-	} );
 }( mediaWiki, jQuery ) );
