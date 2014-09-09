@@ -172,13 +172,9 @@
 	C.attach = function() {
 		var canvas = this;
 
-		// TODO: Try to use Element.handleEvent() instead !
-		if ( !this.resizeListener ) {
-			this.resizeListener = function () {
-				canvas.$mainWrapper.trigger( $.Event( 'mmv-resize') );
-			};
-			window.addEventListener( 'resize', this.resizeListener );
-		}
+		$( window ).on( 'resize.mmv-canvas', function () {
+			canvas.$mainWrapper.trigger( $.Event( 'mmv-resize' ) );
+		} );
 
 		this.$imageDiv.on( 'click.mmv-canvas', 'img', function () {
 			canvas.$mainWrapper.trigger( $.Event( 'mmv-image-click' ) );
@@ -191,10 +187,7 @@
 	C.unattach = function() {
 		this.clearEvents();
 
-		if ( this.resizeListener ) {
-			window.removeEventListener( 'resize', this.resizeListener );
-			this.resizeListener = null;
-		}
+		$( window ).off( 'resize.mmv-canvas' );
 
 		this.$imageDiv.off( 'click.mmv-canvas' );
 

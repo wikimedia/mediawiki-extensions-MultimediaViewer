@@ -99,21 +99,6 @@
 		assert.strictEqual( canvas.$image.css( 'maxHeight' ), canvas.$imageDiv.height() + 'px', 'MaxHeight set correctly.' );
 	} );
 
-	QUnit.test( 'attach and unattach', 3, function( assert ) {
-		var $qf = $( '#qunit-fixture' ),
-			canvas = new mw.mmv.ui.Canvas( $qf );
-
-		assert.ok( ! canvas.resizeListener, 'resize listener has not been set yet.' );
-
-		canvas.attach();
-
-		assert.ok( canvas.resizeListener, 'resize listener is set.' );
-
-		canvas.unattach();
-
-		assert.ok( ! canvas.resizeListener, 'resize listener has been removed.' );
-	} );
-
 	QUnit.test( 'maybeDisplayPlaceholder: Constrained area for SVG files', 4, function ( assert ) {
 		var $image,
 			blurredThumbnailShown,
