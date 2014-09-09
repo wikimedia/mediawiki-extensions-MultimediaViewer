@@ -423,7 +423,6 @@
 		viewer.imageProvider.get = function() { return $.Deferred().reject(); };
 		viewer.imageInfoProvider.get = function() { return $.Deferred().reject(); };
 		viewer.thumbnailInfoProvider.get = function() { return $.Deferred().reject(); };
-		viewer.imageUsageProvider.get = function() { return $.Deferred().reject(); };
 		viewer.fileRepoInfoProvider.get = function() { return $.Deferred().reject(); };
 
 		viewer.preloadFullscreenThumbnail = $.noop;

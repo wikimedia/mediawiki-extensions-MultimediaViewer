@@ -18,24 +18,6 @@
 ( function ( mw ) {
 	QUnit.module( 'mmv.model', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'File usage constructor sanity check', 5, function ( assert ) {
-		var file = new mw.Title( 'File:Foo' ),
-			scope = 'local',
-			pages = [
-				{ wiki: null, page: new mw.Title( 'Project:Bar' ) },
-				{ wiki: null, page: new mw.Title( 'Baz' ) }
-			],
-			totalCount = 23,
-			totalCountIsLowerBound = false,
-			fileUsage = new mw.mmv.model.FileUsage( file, scope, pages, totalCount, totalCountIsLowerBound );
-
-		assert.strictEqual( fileUsage.file, file, 'File is set correctly' );
-		assert.strictEqual( fileUsage.scope, scope, 'Scope is set correctly' );
-		assert.strictEqual( fileUsage.pages, pages, 'Pages are set correctly' );
-		assert.strictEqual( fileUsage.totalCount, totalCount, 'Total count is set correctly' );
-		assert.strictEqual( fileUsage.totalCountIsLowerBound, totalCountIsLowerBound, 'Count flag is set correctly' );
-	} );
-
 	QUnit.test( 'Thumbnail constructor sanity check', 4, function ( assert ) {
 		var width = 23,
 			height = 42,
