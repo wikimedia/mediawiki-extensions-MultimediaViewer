@@ -61,7 +61,6 @@
 	"multimediaviewer-geoloc-coords": "Format for sets of geolocation coordinates. Parameters:\n* $1 - the latitude\n* $2 - the longitude\nBoth are formatted according to {{msg-mw|Multimediaviewer-geoloc-coord}}.",
 	"multimediaviewer-geolocation": "Message for displaying a location. Parameters:\n* $1 - a location which is formatted by {{msg-mw|Multimediaviewer-geoloc-coords}}\n{{Identical|Location}}",
 	"multimediaviewer-reuse-link": "Text of the link on the metadata panel which opens the reuse panel",
-	"multimediaviewer-viewfile-link": "Used as tooltip for the button.",
 	"multimediaviewer-reuse-loading-placeholder": "Text that appears in all reuse text boxes as a placeholder while the data loads.\n{{Identical|Loading}}",
 	"multimediaviewer-share-tab": "Tab title text for the file reuse panel - used for the section with shareable URLs.\n{{Identical|Share}}",
 	"multimediaviewer-embed-tab": "Tab title text for the file reuse panel - used for the section with embeddable HTML and wikitext.",

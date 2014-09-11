@@ -50,7 +50,6 @@
 	"multimediaviewer-optin-help": "媒体查看器将会用于展示图像。",
 	"multimediaviewer-geolocation": "位置：$1",
 	"multimediaviewer-reuse-link": "使用该文件",
-	"multimediaviewer-viewfile-link": "查看原始文件",
 	"multimediaviewer-reuse-loading-placeholder": "正在载入…",
 	"multimediaviewer-share-tab": "分享",
 	"multimediaviewer-embed-tab": "嵌入",
