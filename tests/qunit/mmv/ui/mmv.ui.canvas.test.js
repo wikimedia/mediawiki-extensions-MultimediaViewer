@@ -43,7 +43,7 @@
 
 		assert.strictEqual( canvas.$image, $imageElem, 'Image element set correctly.' );
 		assert.strictEqual( canvas.imageRawMetadata, imageRawMetadata, 'Raw metadata set correctly.' );
-		assert.strictEqual( canvas.$imageDiv.html(), '<img original-title="View original file">', 'Image added to container.' );
+		assert.strictEqual( canvas.$imageDiv.html(), '<img>', 'Image added to container.' );
 		assert.ok( !canvas.$imageDiv.hasClass( 'empty' ), 'Canvas is visible.' );
 
 		canvas.empty();

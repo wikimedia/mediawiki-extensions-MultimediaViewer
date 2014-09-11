@@ -149,16 +149,10 @@
 	};
 
 	/**
-	 * Registers click listener on the image, and a tooltip.
+	 * Registers click listener on the image.
 	 */
 	C.setUpImageClick = function () {
-		var tooltipDelay = mw.config.get( 'wgMultimediaViewer').tooltipDelay;
-
 		this.$image
-			.prop( 'title', mw.message( 'multimediaviewer-viewfile-link' ) )
-			.tipsy( {
-				delayIn: tooltipDelay
-			} )
 			.on( 'click.mmv-view-original', function () {
 				mw.mmv.actionLogger.log( 'view-original-file' ).always( function() {
 					$( document ).trigger( 'mmv-viewfile' );

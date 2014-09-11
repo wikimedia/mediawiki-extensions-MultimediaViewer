@@ -330,7 +330,6 @@ $wgResourceModules += array(
 		),
 
 		'messages' => array(
-			'multimediaviewer-viewfile-link',
 			'multimediaviewer-thumbnail-error',
 		),
 
