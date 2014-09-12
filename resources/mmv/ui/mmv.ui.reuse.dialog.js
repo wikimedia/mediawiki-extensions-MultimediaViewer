@@ -285,7 +285,9 @@
 	 * Closes the reuse dialog.
 	 */
 	DP.closeDialog = function () {
-		mw.mmv.actionLogger.log( 'use-this-file-close' );
+		if ( this.isOpen ) {
+			mw.mmv.actionLogger.log( 'use-this-file-close' );
+		}
 
 		this.stopListeningToOutsideClick();
 		this.$reuseDialog.hide();
