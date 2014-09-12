@@ -307,6 +307,8 @@
 			mw.mmv.actionLogger.log( 'enlarge' );
 		}
 
+		this.ensureEventHandlersAreSetUp();
+
 		this.loadViewer().then( function ( viewer ) {
 			viewer.loadImageByTitle( title, true );
 		} );
@@ -395,6 +397,9 @@
 	MMVB.setupEventHandlers = function () {
 		var self = this;
 
+		/** @property {boolean} eventHandlersHaveBeenSetUp tracks domready event handler state */
+		this.eventHandlersHaveBeenSetUp = true;
+
 		$( window ).on( this.browserHistory && this.browserHistory.pushState ? 'popstate.mmvb' : 'hashchange', function () {
 			self.hash();
 		} );
@@ -415,6 +420,19 @@
 	MMVB.cleanupEventHandlers = function () {
 		$( window ).off( 'hashchange popstate.mmvb' );
 		$( document ).off( 'mmv-hash' );
+		this.eventHandlersHaveBeenSetUp = false;
+	};
+
+	/**
+	 * Makes sure event handlers are set up properly via MultimediaViewerBootstrap.setupEventHandlers().
+	 * Called before loading the main mmv module. At this point, event handers for MultimediaViewerBootstrap
+	 * should have been set up, but due to bug 70756 it cannot be guaranteed.
+	 */
+	MMVB.ensureEventHandlersAreSetUp = function () {
+		if ( !this.eventHandlersHaveBeenSetUp ) {
+			this.setupEventHandlers();
+			this.eventHandlersHaveBeenSetUp = true;
+		}
 	};
 
 	/**
