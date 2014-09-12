@@ -36,6 +36,15 @@
 		this.$close = $closeButton;
 		this.$fullscreen = $fullscreenButton;
 
+		this.$reuse = $( '<div>' )
+			.addClass( 'mw-mmv-reuse-button' )
+			.html( '&nbsp' )
+			.prop( 'title', mw.message( 'multimediaviewer-reuse-link' ).text() )
+			.tipsy( {
+				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
+				gravity: $( document.body ).hasClass( 'rtl' ) ? 'sw' : 'se'
+			} );
+
 		this.$next = $( '<div>' )
 			.addClass( 'mw-mmv-next-image disabled' )
 			.html( '&nbsp;' );
@@ -48,6 +57,7 @@
 			.add( this.$prev );
 
 		this.$buttons = this.$close
+			.add( this.$reuse )
 			.add( this.$fullscreen )
 			.add( this.$next )
 			.add( this.$prev );
@@ -168,11 +178,38 @@
 	};
 
 	/**
+	 * @event mmv-reuse-open
+	 * Fired when the button to open the reuse dialog is clicked.
+	 */
+	/**
+	 * Registers listeners.
+	 */
+	CBP.attach = function () {
+		var buttons = this;
+
+		this.$reuse.on( 'click.mmv-canvasButtons', function ( e ) {
+			$( document ).trigger( 'mmv-reuse-open' );
+			e.stopPropagation(); // the dialog would take it as an outside click and close
+		} );
+		this.handleEvent( 'mmv-reuse-opened', function () {
+			buttons.$reuse.addClass( 'open' );
+		} );
+		this.handleEvent( 'mmv-reuse-closed', function () {
+			buttons.$reuse.removeClass( 'open' );
+		} );
+	};
+
+	/**
 	 * Removes all UI things from the DOM, or hides them
 	 */
 	CBP.unattach = function () {
+		this.$reuse.off( 'click.mmv-canvasButtons' ).tipsy( 'hide' );
 		this.$close.tipsy( 'hide' );
 		this.$fullscreen.tipsy( 'hide' );
+	};
+
+	CBP.empty = function () {
+		this.$reuse.removeClass( 'open' );
 	};
 
 	mw.mmv.ui.CanvasButtons = CanvasButtons;

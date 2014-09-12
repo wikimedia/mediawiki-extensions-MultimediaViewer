@@ -4,6 +4,7 @@
 @navbutton-width: 18px;
 @buttons-offset: 5px;
 
+.mw-mmv-reuse-button,
 .mw-mmv-close,
 .mw-mmv-fullscreen,
 .mw-mmv-next-image,
@@ -15,6 +16,7 @@
 	border: none;
 	z-index: 1003;
 
+	&.mw-mmv-dialog-open,
 	&:hover {
 		.opacity(1);
 	}
@@ -22,6 +24,7 @@
 	.unselectable;
 }
 
+.mw-mmv-reuse-button.hidden,
 .mw-mmv-close.hidden,
 .mw-mmv-fullscreen.hidden,
 .mw-mmv-next-image.hidden,
@@ -30,6 +33,7 @@
 }
 
 .cursor-hidden {
+	.mw-mmv-reuse-button,
 	.mw-mmv-close,
 	.mw-mmv-fullscreen,
 	.mw-mmv-next-image,
@@ -38,6 +42,7 @@
 	}
 }
 
+.mw-mmv-reuse-button,
 .mw-mmv-close,
 .mw-mmv-fullscreen {
 	right: @buttons-offset;
@@ -104,4 +109,12 @@
 	&:hover {
 		margin-left: -4px;
 	}
+}
+
+.mw-mmv-reuse-button {
+	bottom: @buttons-offset + @metadatabar-above-fold-height + @progress-bar-height;
+	/* @embed */
+	background-image: url(img/use-ltr.svg);
+	height: 24px;
+	width: 24px;
 }

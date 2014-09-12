@@ -1,4 +1,5 @@
 @import "../mmv.mixins";
+@import "../mmv.globals";
 
 .mw-mmv-reuse-dialog {
 	@background-color: rgb(255, 255, 255);
@@ -8,10 +9,10 @@
 	@dialog-width: 450px;
 	@dialog-height: 350px;
 
-	// positioned relative to the metadata panel
-	position: absolute;
+	// positioned relative to the reuse button
+	position: fixed;
 	right: 5px;
-	top: -1 * (@dialog-height + 5px);
+	bottom: @metadatabar-above-fold-height + @progress-bar-height + 38px + 5px;
 	width: @dialog-width;
 	height: @dialog-height;
 	background-color: @background-color;
@@ -57,7 +58,7 @@
 
 	.mw-mmv-reuse-pane {
 		display: none;
-		padding: 10px 20px;
+		padding: 20px;
 
 		&.active {
 			display: block;
@@ -76,8 +77,8 @@
 		border-right: @arrow-border-size solid @arrow-border-color;
 		border-bottom: @arrow-border-size solid @arrow-border-color;
 		.rotate(45deg);
-		position: absolute;
+		position: fixed;
 		// horizontal positioning will be done in JS
-		bottom: -1 * ( @arrow-size / 2 ) - @arrow-border-size;
+		bottom: @metadatabar-above-fold-height + 37px + ( @arrow-size / 2 ) - @arrow-border-size;
 	}
 }

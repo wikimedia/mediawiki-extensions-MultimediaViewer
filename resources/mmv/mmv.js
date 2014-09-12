@@ -296,6 +296,9 @@
 				mw.mmv.durationLogger.stop( 'click-to-first-metadata' );
 			}
 			viewer.ui.panel.setImageInfo( image, imageInfo, repoInfo, userInfo );
+
+			// File reuse steals a bunch of information from the DOM, so do it last
+			viewer.ui.setFileReuseData( imageInfo, repoInfo, image.caption );
 		} ).fail( function ( error ) {
 			if ( viewer.currentIndex !== image.index ) {
 				return;

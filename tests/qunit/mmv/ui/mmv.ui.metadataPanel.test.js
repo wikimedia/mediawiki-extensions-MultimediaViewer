@@ -23,7 +23,7 @@
 	QUnit.test( 'The panel is emptied properly when necessary', thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length, function ( assert ) {
 		var i,
 			$qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) );
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) );
 
 		panel.empty();
 
@@ -38,7 +38,7 @@
 
 	QUnit.test( 'Setting repository information in the UI works as expected', 3, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) ),
 			repoInfo = new mw.mmv.model.Repo( 'Example Wiki' );
 
 		panel.setRepoDisplay( repoInfo );
@@ -54,7 +54,7 @@
 
 	QUnit.test( 'Setting location information works as expected', 6, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) ),
 			fileName = 'Foobar.jpg',
 			latitude = 12.3456789,
 			longitude = 98.7654321,
@@ -119,7 +119,7 @@
 	QUnit.test( 'Setting image information works as expected', 18, function ( assert ) {
 		var gender,
 			$qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) ),
 			title = 'Foo bar',
 			image = {
 				filePageTitle : mw.Title.newFromText( 'File:' + title + '.jpg' )
@@ -186,7 +186,7 @@
 
 	QUnit.test( 'Setting permission information works as expected', 1, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) );
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) );
 
 		panel.setPermission( 'Look at me, I am a permission!' );
 		assert.ok( panel.$permissionLink.is( ':visible' ) );
@@ -194,7 +194,7 @@
 
 	QUnit.test( 'Date formatting', 1, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) ),
 			date1 = 'Garbage',
 			promise = panel.formatDate( date1 );
 
@@ -208,7 +208,7 @@
 
 	QUnit.test( 'Repo icon', 4, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) ),
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) ),
 			favIcon = 'http://example.com/foo-fav',
 			repoData = {
 				favIcon: favIcon,
@@ -236,7 +236,7 @@
 
 		this.sandbox.stub( mw.user, 'isAnon' );
 		mw.config.set( 'wgMediaViewerIsInBeta', false );
-		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ) );
+		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) );
 
 		assert.strictEqual( $qf.find( '.mw-mmv-about-link' ).length, 1, 'About link is created.' );
 		assert.strictEqual( $qf.find( '.mw-mmv-discuss-link' ).length, 1, 'Discuss link is created.' );
@@ -247,12 +247,12 @@
 		mw.config.set( 'wgMediaViewerIsInBeta', true );
 
 		mw.user.isAnon.returns( false );
-		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ) );
+		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) );
 		assert.strictEqual( $qf.find( '.mw-mmv-optout-link' ).length, 0, 'Opt-out link is not created when in beta.' );
 		assert.strictEqual( $qf.find( '.mw-mmv-preference-link' ).length, 1, 'Preferences link is created for logged-in user.' );
 
 		mw.user.isAnon.returns( true );
-		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ) );
+		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) );
 		assert.strictEqual( $qf.find( '.mw-mmv-optout-link' ).length, 0, 'Opt-out link is not created when in beta.' );
 		assert.strictEqual( $qf.find( '.mw-mmv-preference-link' ).length, 0, 'Preferences link is not created for anon user.' );
 
@@ -274,7 +274,7 @@
 		this.sandbox.stub( mw.mmv.actionLogger, 'log' );
 		this.sandbox.stub( $.fn, 'tipsy' ).returnsThis(); // interferes with the fake clock in other tests
 		mw.config.set( 'wgMediaViewerIsInBeta', false );
-		panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ) );
+		panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) );
 		panel.config = config;
 
 		// FIXME should not do work in the constructor

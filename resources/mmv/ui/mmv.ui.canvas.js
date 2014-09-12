@@ -149,14 +149,37 @@
 	};
 
 	/**
+	 * Handles a "dialog open" event from dialogs on the page.
+	 */
+	C.handleDialogOpen = function () {
+		this.dialogOpen = true;
+		this.$image.addClass( 'mw-mmv-dialog-is-open' );
+	};
+
+	/**
+	 * Handles a "dialog close" event from dialogs on the page.
+	 */
+	C.handleDialogClose = function () {
+		this.dialogOpen = false;
+		this.$image.removeClass( 'mw-mmv-dialog-is-open' );
+	};
+
+	/**
 	 * Registers click listener on the image.
 	 */
 	C.setUpImageClick = function () {
+		var canvas = this;
+
+		this.handleEvent( 'mmv-reuse-opened', $.proxy( this.handleDialogOpen, this ) );
+		this.handleEvent( 'mmv-reuse-closed', $.proxy( this.handleDialogClose, this ) );
+
 		this.$image
 			.on( 'click.mmv-view-original', function () {
-				mw.mmv.actionLogger.log( 'view-original-file' ).always( function() {
-					$( document ).trigger( 'mmv-viewfile' );
-				} );
+				if ( !canvas.dialogOpen ) {
+					mw.mmv.actionLogger.log( 'view-original-file' ).always( function() {
+						$( document ).trigger( 'mmv-viewfile' );
+					} );
+				}
 			} );
 	};
 
