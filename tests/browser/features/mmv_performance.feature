@@ -14,13 +14,11 @@ Feature: Multimedia Viewer performance
     Given I have a small browser window
     When I click on an unrelated image in the article to warm up the browser cache
     When I close MMV
-    When I listen to the mediaviewer image load
     When I click on the first image in the article
     Then the MMV image is loaded in 125 percent of the time with a warm cache and an average browser window
 
   Scenario: MMV with cold cache and average browser window
     Given I have an average browser window
-    When I listen to the mediaviewer image load
     When I click on the first image in the article
     Then the MMV image is loaded in 210 percent of the time with a cold cache and an average browser window
 
@@ -28,13 +26,11 @@ Feature: Multimedia Viewer performance
     Given I have an average browser window
     When I click on an unrelated image in the article to warm up the browser cache
     When I close MMV
-    When I listen to the mediaviewer image load
     When I click on the first image in the article
     Then the MMV image is loaded in 125 percent of the time with a warm cache and an average browser window
 
   Scenario: MMV with cold cache and large browser window
     Given I have a large browser window
-    When I listen to the mediaviewer image load
     When I click on the first image in the article
     Then the MMV image is loaded in 240 percent of the time with a cold cache and a large browser window
 
@@ -42,6 +38,5 @@ Feature: Multimedia Viewer performance
     Given I have a large browser window
     When I click on an unrelated image in the article to warm up the browser cache
     When I close MMV
-    When I listen to the mediaviewer image load
     When I click on the first image in the article
     Then the MMV image is loaded in 125 percent of the time with a warm cache and a large browser window
