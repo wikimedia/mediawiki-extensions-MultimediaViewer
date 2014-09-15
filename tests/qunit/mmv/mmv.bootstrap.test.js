@@ -38,6 +38,11 @@
 
 	function createBootstrap( viewer ) {
 		var bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+
+		// MultimediaViewerBootstrap.ensureEventHandlersAreSetUp() is a weird workaround for gadget bugs.
+		// MediaViewer should work without it, and so should the tests.
+		bootstrap.ensureEventHandlersAreSetUp = $.noop;
+
 		bootstrap.getViewer = function() { return viewer ? viewer : { initWithThumbs : $.noop }; };
 
 		return bootstrap;
@@ -101,6 +106,7 @@
 		this.sandbox.stub( mw.loader, 'using' )
 			.callsArgWith( 2, new Error( 'loading failed', ['mmv'] ) )
 			.withArgs( 'mediawiki.notification' ).returns( $.Deferred().reject() ); // needed for mw.notify
+		bootstrap.ensureEventHandlersAreSetUp = $.noop;
 
 		event = new $.Event( 'click', { button: 0, which: 1 } );
 		returnValue = bootstrap.click( {}, event, 'foo' );
