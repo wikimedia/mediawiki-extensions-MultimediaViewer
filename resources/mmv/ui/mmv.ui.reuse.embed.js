@@ -29,7 +29,7 @@
 	 * @param {jQuery} $container
 	 */
 	function Embed( $container ) {
-		Embed['super'].call( this, $container );
+		mw.mmv.ui.reuse.Tab.call( this, $container );
 
 		/**
 		 * Formatter converting image data into formats needed for output
@@ -37,8 +37,8 @@
 		 */
 		this.formatter = new mw.mmv.EmbedFileFormatter();
 
-		/** @property {mw.mmv.ui.reuse.Utils} utils - */
-		this.utils = new mw.mmv.ui.reuse.Utils();
+		/** @property {mw.mmv.ui.Utils} utils - */
+		this.utils = new mw.mmv.ui.Utils();
 
 		/**
 		 * Indicates whether or not the default option has been reset for both size menus.
@@ -250,7 +250,7 @@
 			$wikitextTextarea = this.embedTextWikitext.$element.find( 'textarea' );
 
 
-		this.constructor['super'].prototype.unattach.call( this );
+		mw.mmv.ui.reuse.Tab.prototype.unattach.call( this );
 
 		$htmlTextarea.off( 'focus mousedown click' );
 		$wikitextTextarea.off( 'focus mousedown click' );
@@ -394,7 +394,7 @@
 	 * Shows the pane.
 	 */
 	EP.show = function () {
-		this.constructor['super'].prototype.show.call( this );
+		mw.mmv.ui.reuse.Tab.prototype.show.call( this );
 		this.select();
 	};
 

@@ -1,0 +1,30 @@
+@import "../mmv.mixins";
+@import "../mmv.globals";
+
+.mw-mmv-dialog {
+	@background-color: rgb(255, 255, 255);
+	@shadow-color: #aaaaaa;
+	@dialog-width: 450px;
+
+	position: fixed;
+	display: none;
+	width: @dialog-width;
+	height: @dialog-height;
+	background-color: @background-color;
+	box-shadow: 0 2px 0 @shadow-color;
+	.box-round(@border-radius);
+	z-index: 1004;
+
+	.mw-mmv-dialog-down-arrow {
+		@arrow-border-color: #aaaaaa;
+
+		background-color: @background-color;
+		width: @arrow-size;
+		height: @arrow-size;
+		/* @noflip */
+		border-right: @arrow-border-size solid @arrow-border-color;
+		border-bottom: @arrow-border-size solid @arrow-border-color;
+		.rotate(45deg);
+		position: fixed;
+	}
+}

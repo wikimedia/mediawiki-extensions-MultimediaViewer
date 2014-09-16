@@ -16,16 +16,16 @@
  */
 
  ( function ( mw, $ ) {
-	QUnit.module( 'mw.mmv.ui.reuse.Utils', QUnit.newMwEnvironment() );
+	QUnit.module( 'mw.mmv.ui.utils', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Sanity test, object creation and UI construction', 1, function ( assert ) {
-		var utils = new mw.mmv.ui.reuse.Utils();
+		var utils = new mw.mmv.ui.Utils();
 
 		assert.ok( utils, 'ReuseUtils object is created.' );
 	} );
 
 	QUnit.test( 'createPulldownMenu():', 14, function ( assert ) {
-		var utils = new mw.mmv.ui.reuse.Utils(),
+		var utils = new mw.mmv.ui.Utils(),
 		menuItems = [ 'original', 'small', 'medium', 'large' ],
 		def = 'large',
 		menu = utils.createPulldownMenu(
@@ -50,7 +50,7 @@
 	} );
 
 	QUnit.test( 'updateMenuOptions():', 9, function ( assert ) {
-		var utils = new mw.mmv.ui.reuse.Utils(),
+		var utils = new mw.mmv.ui.Utils(),
 		menu = utils.createPulldownMenu(
 			[ 'original', 'small', 'medium', 'large' ],
 			[ 'mw-mmv-download-size' ],
@@ -74,7 +74,7 @@
 	} );
 
 	QUnit.test( 'getPossibleImageSizesForHtml()', 3, function ( assert ) {
-		var utils = new mw.mmv.ui.reuse.Utils(),
+		var utils = new mw.mmv.ui.Utils(),
 		exampleSizes = [
 			// Big wide image
 			{
