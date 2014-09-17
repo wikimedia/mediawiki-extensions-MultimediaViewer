@@ -109,7 +109,7 @@
 			'original'
 		);
 
-		this.downloadSizeMenu.on( 'select', function( item ) {
+		this.downloadSizeMenu.getMenu().on( 'select', function( item ) {
 			mw.mmv.actionLogger.log( 'download-select-menu-' + item.data.name );
 		} );
 

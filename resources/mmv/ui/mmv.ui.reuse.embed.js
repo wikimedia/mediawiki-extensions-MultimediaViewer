@@ -196,7 +196,7 @@
 			'default'
 		);
 
-		this.embedSizeSwitchWikitext.on( 'select', function( item ) {
+		this.embedSizeSwitchWikitext.getMenu().on( 'select', function( item ) {
 			mw.mmv.actionLogger.log( 'embed-select-menu-wikitext-' + item.data.name );
 		} );
 
@@ -207,7 +207,7 @@
 			'original'
 		);
 
-		this.embedSizeSwitchHtml.on( 'select', function( item ) {
+		this.embedSizeSwitchHtml.getMenu().on( 'select', function( item ) {
 			mw.mmv.actionLogger.log( 'embed-select-menu-html-' + item.data.name );
 		} );
 
