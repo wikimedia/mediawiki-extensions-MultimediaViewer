@@ -1,6 +1,5 @@
-class E2ETestPage
+class E2ETestPage < CommonsPage
   include PageObject
-  include URL
 
   page_url URL.url("MediaViewerE2ETest")
 
