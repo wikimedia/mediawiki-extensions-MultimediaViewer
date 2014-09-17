@@ -196,9 +196,9 @@
 			'default'
 		);
 
-		this.embedSizeSwitchWikitext.onMenuSelect = function( item ) {
+		this.embedSizeSwitchWikitext.on( 'select', function( item ) {
 			mw.mmv.actionLogger.log( 'embed-select-menu-wikitext-' + item.data.name );
-		};
+		} );
 
 		// Html sizes pulldown menu
 		this.embedSizeSwitchHtml = this.utils.createPulldownMenu(
@@ -207,9 +207,9 @@
 			'original'
 		);
 
-		this.embedSizeSwitchHtml.onMenuSelect = function( item ) {
+		this.embedSizeSwitchHtml.on( 'select', function( item ) {
 			mw.mmv.actionLogger.log( 'embed-select-menu-html-' + item.data.name );
-		};
+		} );
 
 		$( '<p>' )
 			.append(

@@ -109,9 +109,9 @@
 			'original'
 		);
 
-		this.downloadSizeMenu.onMenuSelect = function( item ) {
+		this.downloadSizeMenu.on( 'select', function( item ) {
 			mw.mmv.actionLogger.log( 'download-select-menu-' + item.data.name );
-		};
+		} );
 
 		$container.append( this.downloadSizeMenu.$element );
 	};
