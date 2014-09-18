@@ -1,7 +1,7 @@
 @import "mmv.globals";
 @import "mmv.mixins";
 
-@metadata-background: rgb(251, 251, 251);
+@metadata-background: rgb(248, 248, 248);
 
 .mw-mmv-wrapper {
 	top: 0px;
@@ -50,7 +50,7 @@
 	bottom: auto;
 	height: auto;
 	color: #333333;
-	background-color: @metadata-background;
+	background-color: #ffffff;
 	min-height: (@metadatabar-above-fold-height + 1);
 	z-index: 2;
 }
@@ -64,7 +64,7 @@
 	// Javascript to get the "default" height.
 	min-height: @metadatabar-above-fold-height;
 	position: relative;
-	border-bottom: 1px solid #cccccc;
+	border-bottom: 1px solid #dddddd;
 
 	.jq-fullscreened & {
 		height: @metadatabar-above-fold-fullscreen-height;
