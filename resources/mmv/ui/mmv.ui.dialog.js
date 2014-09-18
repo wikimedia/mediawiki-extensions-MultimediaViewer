@@ -98,7 +98,6 @@
 
 		this.startListeningToOutsideClick();
 		this.$dialog.show();
-		this.fixDownArrowPosition();
 		this.isOpen = true;
 		this.$openButton.addClass( 'mw-mmv-dialog-open' );
 	};
@@ -144,28 +143,6 @@
 	 */
 	DP.stopListeningToOutsideClick = function () {
 		$( document ).off( 'click.mmv.' + this.eventPrefix, this.outsideClickHandler );
-	};
-
-	/**
-	 * Fixes the tip of the container to point to the icon which opens it.
-	 */
-	DP.fixDownArrowPosition = function() {
-		var buttonPosition,
-			arrowPositionBase,
-			buttonWidth,
-			arrowWidth,
-			offset;
-
-		buttonPosition = this.$openButton.offset().left;
-		arrowPositionBase = this.$downArrow.offsetParent().offset().left;
-		buttonWidth = this.$openButton.outerWidth();
-		arrowWidth = this.$downArrow.outerWidth();
-
-		// this is the correct position of the arrow relative to the viewport - we want
-		// the middle of the arrow to be positioned over the middle of the button
-		offset = buttonPosition + ( buttonWidth - arrowWidth ) / 2;
-
-		this.$downArrow.css( 'left', ( offset - arrowPositionBase ) + 'px' );
 	};
 
 	/**
