@@ -149,19 +149,26 @@
 	};
 
 	/**
-	 * Handles a "dialog open" event from dialogs on the page.
+	 * Handles a "dialog open/close" event from dialogs on the page.
 	 */
-	C.handleDialogOpen = function () {
-		this.dialogOpen = true;
-		this.$image.addClass( 'mw-mmv-dialog-is-open' );
-	};
+	C.handleDialogEvent = function ( e ) {
+		switch ( e.type ) {
+			case 'mmv-download-opened':
+				this.downloadOpen = true;
+				break;
+			case 'mmv-download-closed':
+				this.downloadOpen = false;
+				break;
+			case 'mmv-reuse-opened':
+				this.reuseOpen = true;
+				break;
+			case 'mmv-reuse-closed':
+				this.reuseOpen = false;
+				break;
+		}
 
-	/**
-	 * Handles a "dialog close" event from dialogs on the page.
-	 */
-	C.handleDialogClose = function () {
-		this.dialogOpen = false;
-		this.$image.removeClass( 'mw-mmv-dialog-is-open' );
+		this.dialogOpen = this.reuseOpen || this.downloadOpen;
+		this.$image.toggleClass( 'mw-mmv-dialog-is-open', this.dialogOpen );
 	};
 
 	/**
@@ -170,10 +177,10 @@
 	C.setUpImageClick = function () {
 		var canvas = this;
 
-		this.handleEvent( 'mmv-reuse-opened', $.proxy( this.handleDialogOpen, this ) );
-		this.handleEvent( 'mmv-reuse-closed', $.proxy( this.handleDialogClose, this ) );
-		this.handleEvent( 'mmv-download-opened', $.proxy( this.handleDialogOpen, this ) );
-		this.handleEvent( 'mmv-download-closed', $.proxy( this.handleDialogClose, this ) );
+		this.handleEvent( 'mmv-reuse-opened', $.proxy( this.handleDialogEvent, this ) );
+		this.handleEvent( 'mmv-reuse-closed', $.proxy( this.handleDialogEvent, this ) );
+		this.handleEvent( 'mmv-download-opened', $.proxy( this.handleDialogEvent, this ) );
+		this.handleEvent( 'mmv-download-closed', $.proxy( this.handleDialogEvent, this ) );
 
 		this.$image
 			.on( 'click.mmv-view-original', function () {

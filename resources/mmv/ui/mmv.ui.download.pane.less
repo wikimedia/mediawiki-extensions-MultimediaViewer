@@ -20,6 +20,7 @@
 
 	.mw-mmv-download-area {
 		padding-top: 20px;
+		padding-left: 10px;
 		width: 100%;
 
 		.mw-mmv-download-go-button {
@@ -41,6 +42,8 @@
 			&:hover {
 				border-bottom: 1px solid mix(#000, @mw-ui-constructive-button-color, 20%);
 			}
+
+			min-width: 10px;
 		}
 
 		.mw-mmv-download-image-size-name {
@@ -79,9 +82,19 @@
 			text-align: start;
 			display: none;
 			margin-top: 0;
+			margin-right: 20px;
 			width: auto;
 
 			&.active {
+				display: block;
+			}
+
+			/* Changes to pulldown menu */
+			.oo-ui-inlineMenuWidget-handle {
+				display: none;
+			}
+
+			.oo-ui-menuItemWidget {
 				display: block;
 			}
 
@@ -89,14 +102,8 @@
 				display: none;
 			}
 
-			/* Changes to pulldown menu */
-			.oo-ui-icon-check,
-			.oo-ui-inlineMenuWidget-handle {
-				display: none;
-			}
-
-			.oo-ui-menuItemWidget {
-				width: 100%;
+			.oo-ui-labelElement-label {
+				margin-left: 20px;
 			}
 		}
 	}
