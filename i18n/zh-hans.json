@@ -72,6 +72,7 @@
 	"multimediaviewer-text-embed-credit-text-tb": "“$1”作者$2",
 	"multimediaviewer-text-embed-credit-text-ts": "“$1”。来自$2",
 	"multimediaviewer-text-embed-credit-text-tl": "“$1”。根据$2授权",
+	"multimediaviewer-text-embed-credit-text-t": "“$1”",
 	"multimediaviewer-html-embed-credit-text-tbls": "“$1”，作者$2。采用$3授权，来自$4。",
 	"multimediaviewer-html-embed-credit-text-tls": "“$1”。采用$2授权，来自$3。",
 	"multimediaviewer-html-embed-credit-text-tbs": "“$1”，作者$2。来自$3。",
