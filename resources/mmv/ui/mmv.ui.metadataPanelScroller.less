@@ -9,12 +9,18 @@
 
 .mw-mmv-post-image {
 	.animation( mw-mmv-appear-animation 0.5s ease 0s 1 normal forwards );
+	transition: box-shadow 0.25s;
+
 	&.invite {
 		.animation( mw-mmv-invite-animation 0.9s ease 0.2s 1 normal forwards );
 	}
 
 	.jq-fullscreened & {
 		.animation(none);
+	}
+
+	&.panel-open {
+		box-shadow: 0 -4px 0px rgba(0,0,0,0.2);
 	}
 }
 

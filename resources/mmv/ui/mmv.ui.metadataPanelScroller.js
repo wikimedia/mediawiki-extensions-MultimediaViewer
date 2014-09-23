@@ -225,6 +225,7 @@
 		var panelIsOpen = !!$.scrollTo().scrollTop();
 
 		this.$dragIcon.toggleClass( 'panel-open', panelIsOpen );
+		this.$container.toggleClass( 'panel-open', panelIsOpen );
 
 		if ( panelIsOpen && !this.panelIsOpen ) { // just opened (this is skipped in some cases, see the $dragIcon click handler)
 			this.$container.trigger( 'mmv-metadata-open' );
