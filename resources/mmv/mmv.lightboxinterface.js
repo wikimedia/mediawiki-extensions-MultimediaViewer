@@ -124,8 +124,6 @@
 		this.canvas.empty();
 
 		this.buttons.empty();
-
-		this.fileReuse.empty();
 	};
 
 	/**
