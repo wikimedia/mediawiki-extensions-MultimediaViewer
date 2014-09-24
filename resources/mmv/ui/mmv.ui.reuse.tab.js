@@ -52,28 +52,5 @@
 		this.$pane.removeClass( 'active' );
 	};
 
-	/**
-	 * Makes the entire input/textarea selected when focused.
-	 * Invoked with that input/textarea as context.
-	 */
-	TP.selectAllOnEvent = function () {
-		try {
-			this.select();
-		} catch ( e ) {
-			// IE doesn't like when select() is called during the onfocus handler
-		}
-	};
-
-	/**
-	 * Reduces the action of clicks to solely focusing the input/textarea.
-	 * Essentialy disables clicking inside the text to select a portion of it.
-	 * Invoked with that input/textarea as context.
-	 */
-	TP.onlyFocus = function ( e ) {
-		this.focus();
-		e.preventDefault();
-		return false;
-	};
-
 	mw.mmv.ui.reuse.Tab = Tab;
 }( mediaWiki, jQuery, OO ) );
