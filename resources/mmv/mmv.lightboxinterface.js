@@ -101,6 +101,7 @@
 		this.canvas = new mw.mmv.ui.Canvas( this.$innerWrapper, this.$imageWrapper, this.$wrapper );
 
 		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$innerWrapper, this.buttons.$reuse, this.config );
+		this.downloadDialog = new mw.mmv.ui.download.Dialog( this.$innerWrapper, this.buttons.$download, this.config );
 	};
 
 	/**
@@ -111,6 +112,7 @@
 	 */
 	LIP.setFileReuseData = function ( image, repo, caption ) {
 		this.fileReuse.set( image, repo, caption );
+		this.downloadDialog.set( image, repo );
 	};
 
 	/**
@@ -208,6 +210,7 @@
 		this.buttons.attach();
 
 		this.fileReuse.attach();
+		this.downloadDialog.attach();
 
 		// Reset the cursor fading
 		this.fadeStopped();

@@ -26,7 +26,7 @@
 	 * @param {jQuery} $container
 	 */
 	function Share( $container ) {
-		Share['super'].call( this, $container );
+		mw.mmv.ui.reuse.Tab.call( this, $container );
 
 		/**
 		 * @property {mw.mmv.routing.Router} router -
@@ -81,7 +81,7 @@
 	 * Shows the pane.
 	 */
 	SP.show = function () {
-		this.constructor['super'].prototype.show.call( this );
+		mw.mmv.ui.reuse.Tab.prototype.show.call( this );
 		this.select();
 	};
 
@@ -125,7 +125,7 @@
 	SP.unattach = function() {
 		var $input = this.pageInput.$element.find( 'input' );
 
-		this.constructor['super'].prototype.unattach.call( this );
+		mw.mmv.ui.reuse.Tab.prototype.unattach.call( this );
 
 		$input.off( 'focus mousedown click' );
 	};

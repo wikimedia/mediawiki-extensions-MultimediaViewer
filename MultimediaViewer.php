@@ -128,6 +128,7 @@ $wgResourceModules += array(
 			'mmv.ui.canvas',
 			'mmv.ui.canvasButtons',
 			'mmv.ui.description',
+			'mmv.ui.download.dialog',
 			'mmv.ui.metadataPanel',
 			'mmv.ui.reuse.dialog',
 		),
@@ -341,6 +342,85 @@ $wgResourceModules += array(
 		),
 	),
 
+	'mmv.ui.dialog' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/ui/mmv.ui.dialog.js',
+		),
+
+		'styles' => array(
+			'mmv/ui/mmv.ui.dialog.less',
+		),
+
+		'dependencies' => array(
+			'mmv.ui',
+			'oojs',
+		),
+	),
+
+	'mmv.ui.download' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/ui/mmv.ui.download.js',
+		),
+
+		'dependencies' => array(
+			'mmv.ui',
+		),
+	),
+
+	'mmv.ui.download.dialog' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/ui/mmv.ui.download.dialog.js',
+		),
+
+		'styles' => array(
+			'mmv/ui/mmv.ui.download.dialog.less',
+		),
+
+		'dependencies' => array(
+			'mmv.logging.ActionLogger',
+			'mmv.ui.dialog',
+			'mmv.ui.download',
+			'oojs',
+		),
+	),
+
+	'mmv.ui.download.pane' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/ui/mmv.ui.download.pane.js',
+		),
+
+		'styles' => array(
+			'mmv/ui/mmv.ui.download.pane.less',
+		),
+
+		'dependencies' => array(
+			'mediawiki.ui',
+			'mediawiki.ui.button',
+			'mmv.ui',
+			'mmv.ui.download',
+			'mmv.ui.utils',
+			'mmv.embedFileFormatter',
+			'mmv.logging.ActionLogger',
+			'mmv.model.EmbedFileInfo',
+			'oojs',
+			'oojs-ui',
+		),
+
+		'messages' => array(
+			'multimediaviewer-download-preview-link-title',
+			'multimediaviewer-download-original-button-name',
+			'multimediaviewer-download-small-button-name',
+			'multimediaviewer-download-medium-button-name',
+			'multimediaviewer-download-large-button-name',
+			'multimediaviewer-embed-dimensions',
+			'multimediaviewer-embed-dimensions-with-file-format',
+			'multimediaviewer-download-attribution-cta-header',
+			'multimediaviewer-download-attribution-cta',
+			'multimediaviewer-attr-plain',
+			'multimediaviewer-attr-html',
+		),
+	),
+
 	'mmv.ui.stripeButtons' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/ui/mmv.ui.stripeButtons.js',
@@ -548,21 +628,9 @@ $wgResourceModules += array(
 		),
 
 		'dependencies' => array(
-			'mmv.ui',
+			'mmv.logging.ActionLogger',
+			'mmv.ui.dialog',
 			'oojs',
-		),
-	),
-
-	'mmv.ui.reuse.utils' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.reuse.utils.js',
-		),
-
-		'dependencies' => array(
-			'mmv.HtmlUtils',
-			'mmv.ui',
-			'oojs',
-			'oojs-ui',
 		),
 	),
 
@@ -589,7 +657,6 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mmv.ui.reuse.tab',
-			'mmv.ui.reuse.utils',
 			'mmv.routing',
 			'oojs',
 			'oojs-ui',
@@ -619,7 +686,7 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'mediawiki.user',
 			'mmv.ui.reuse.tab',
-			'mmv.ui.reuse.utils',
+			'mmv.ui.utils',
 			'oojs',
 			'oojs-ui',
 			'mmv.model.EmbedFileInfo',
@@ -648,37 +715,16 @@ $wgResourceModules += array(
 		),
 	),
 
-	'mmv.ui.reuse.download' => $wgMediaViewerResourceTemplate + array(
+	'mmv.ui.utils' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv/ui/mmv.ui.reuse.download.js',
-		),
-
-		'styles' => array(
-			'mmv/ui/mmv.ui.reuse.download.less',
+			'mmv/ui/mmv.ui.utils.js',
 		),
 
 		'dependencies' => array(
-			'mediawiki.ui',
-			'mediawiki.ui.button',
-			'mmv.ui.reuse.tab',
-			'mmv.ui.reuse.utils',
-			'mmv.embedFileFormatter',
-			'mmv.logging.ActionLogger',
-		),
-
-		'messages' => array(
-			'multimediaviewer-download-tab',
-			'multimediaviewer-download-preview-link-title',
-			'multimediaviewer-download-original-button-name',
-			'multimediaviewer-download-small-button-name',
-			'multimediaviewer-download-medium-button-name',
-			'multimediaviewer-download-large-button-name',
-			'multimediaviewer-embed-dimensions',
-			'multimediaviewer-embed-dimensions-with-file-format',
-			'multimediaviewer-download-attribution-cta-header',
-			'multimediaviewer-download-attribution-cta',
-			'multimediaviewer-attr-plain',
-			'multimediaviewer-attr-html',
+			'mmv.HtmlUtils',
+			'mmv.ui',
+			'oojs',
+			'oojs-ui',
 		),
 	),
 
@@ -697,6 +743,7 @@ $wgResourceModules += array(
 		),
 
 		'messages' => array(
+			'multimediaviewer-download-link',
 			'multimediaviewer-reuse-link',
 		),
 	),
@@ -886,7 +933,7 @@ $wgExtensionFunctions[] = function () {
 	global $wgResourceModules, $wgEventLoggingSchemas;
 
 	if ( isset( $wgResourceModules['ext.eventLogging'] ) ) {
-		$wgEventLoggingSchemas[ 'MediaViewer' ] = 9792855;
+		$wgEventLoggingSchemas[ 'MediaViewer' ] = 9989959;
 		$wgEventLoggingSchemas[ 'MultimediaViewerNetworkPerformance' ] = 7917896;
 		$wgEventLoggingSchemas[ 'MultimediaViewerDuration' ] = 8572641;
 		$wgEventLoggingSchemas[ 'MultimediaViewerAttribution' ] = 9758179;

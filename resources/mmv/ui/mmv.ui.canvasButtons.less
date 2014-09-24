@@ -4,6 +4,7 @@
 @navbutton-width: 18px;
 @buttons-offset: 5px;
 
+.mw-mmv-download-button,
 .mw-mmv-reuse-button,
 .mw-mmv-close,
 .mw-mmv-fullscreen,
@@ -24,6 +25,7 @@
 	.unselectable;
 }
 
+.mw-mmv-download-button.hidden,
 .mw-mmv-reuse-button.hidden,
 .mw-mmv-close.hidden,
 .mw-mmv-fullscreen.hidden,
@@ -33,6 +35,7 @@
 }
 
 .cursor-hidden {
+	.mw-mmv-download-button,
 	.mw-mmv-reuse-button,
 	.mw-mmv-close,
 	.mw-mmv-fullscreen,
@@ -42,6 +45,7 @@
 	}
 }
 
+.mw-mmv-download-button,
 .mw-mmv-reuse-button,
 .mw-mmv-close,
 .mw-mmv-fullscreen {
@@ -115,6 +119,14 @@
 	bottom: @buttons-offset + @metadatabar-above-fold-height + @progress-bar-height;
 	/* @embed */
 	background-image: url(img/use-ltr.svg);
+	height: 24px;
+	width: 24px;
+}
+
+.mw-mmv-download-button {
+	bottom: @buttons-offset + @metadatabar-above-fold-height + @progress-bar-height + 37px;
+	/* @embed */
+	background-image: url(img/mw-download.svg);
 	height: 24px;
 	width: 24px;
 }

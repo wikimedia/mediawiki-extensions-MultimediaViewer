@@ -107,7 +107,9 @@
 		'embed-select-menu-html-small': 'User switched to the small thumbnail size on html.',
 		'embed-select-menu-html-medium': 'User switched to the medium thumbnail size on html.',
 		'embed-select-menu-html-large': 'User switched to the large thumbnail size on html.',
-		'use-this-file-close': 'User closed the dialog to use this file.'
+		'use-this-file-close': 'User closed the dialog to use this file.',
+		'download-open': 'User opened the dialog to download this file.',
+		'download-close': 'User closed the dialog to download this file.'
 	};
 
 	/**

@@ -144,7 +144,7 @@
 	 * Clears listeners.
 	 */
 	SBP.unattach = function () {
-		this.constructor['super'].prototype.unattach.call( this );
+		mw.mmv.ui.Element.prototype.unattach.call( this );
 
 		this.clearTimer( 'feedbackTooltip.show' );
 

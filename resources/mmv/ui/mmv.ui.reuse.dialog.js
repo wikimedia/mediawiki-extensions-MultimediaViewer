@@ -28,24 +28,7 @@
 	 * @param {mw.mmv.Config} config
 	 */
 	function Dialog( $container, $openButton, config ) {
-		mw.mmv.ui.Element.call( this, $container );
-
-		/** @property {mw.mmv.Config} config - */
-		this.config = config;
-
-		this.$openButton = $openButton;
-
-		this.$reuseDialog = $( '<div>' )
-			.addClass( 'mw-mmv-reuse-dialog' );
-
-		this.$downArrow = $( '<div>' )
-			.addClass( 'mw-mmv-reuse-down-arrow' )
-			.appendTo( this.$reuseDialog );
-
-		this.$reuseDialog.appendTo( this.$container );
-
-		/** @property {boolean} Whether or not the dialog is open. */
-		this.isOpen = false;
+		mw.mmv.ui.Dialog.call( this, $container, $openButton, config );
 
 		/**
 		 * @property {Object.<string, mw.mmv.ui.Element>} tabs List of tab ui objects.
@@ -56,8 +39,16 @@
 		 * @property {Object.<string, OO.ui.MenuItemWidget>} ooTabs List of tab OOJS UI objects.
 		 */
 		this.ooTabs = null;
+
+		this.loadDependencies.push( 'mmv.ui.reuse.share' );
+		this.loadDependencies.push( 'mmv.ui.reuse.embed' );
+
+		this.$dialog.addClass( 'mw-mmv-reuse-dialog' );
+
+		this.eventPrefix = 'use-this-file';
 	}
-	oo.inheritClass( Dialog, mw.mmv.ui.Element );
+
+	oo.inheritClass( Dialog, mw.mmv.ui.Dialog );
 	DP = Dialog.prototype;
 
 	// FIXME this should happen outside the dialog and the tabs, but we need to improve
@@ -74,22 +65,19 @@
 
 		// MenuWidget has a nasty tendency to hide itself, maybe we're not using it right?
 		this.reuseTabs.hide = $.noop;
-		this.reuseTabs.$element.show().appendTo( this.$reuseDialog );
+		this.reuseTabs.$element.show().appendTo( this.$dialog );
 
 		this.tabs = {
-			download: new mw.mmv.ui.reuse.Download( this.$reuseDialog ),
-			share: new mw.mmv.ui.reuse.Share( this.$reuseDialog ),
-			embed: new mw.mmv.ui.reuse.Embed( this.$reuseDialog )
+			share: new mw.mmv.ui.reuse.Share( this.$dialog ),
+			embed: new mw.mmv.ui.reuse.Embed( this.$dialog )
 		};
 
 		this.ooTabs = {
 			share: makeTab( 'share' ),
-			download: makeTab( 'download' ),
 			embed: makeTab( 'embed' )
 		};
 
 		this.reuseTabs.addItems( [
-			this.ooTabs.download,
 			this.ooTabs.share,
 			this.ooTabs.embed
 		] );
@@ -98,7 +86,7 @@
 
 		// In case nothing is saved in localStorage or it contains junk
 		if ( ! this.tabs.hasOwnProperty( this.selectedTab ) ) {
-			this.selectedTab = 'download';
+			this.selectedTab = 'share';
 		}
 
 		this.reuseTabs.selectItem( this.ooTabs[this.selectedTab] );
@@ -110,44 +98,18 @@
 		if ( this.tabsSetValues ) {
 			// This is a delayed set() for the elements we've just created on demand
 			this.tabs.share.set.apply( this.tabs.share, this.tabsSetValues.share );
-			this.tabs.download.set.apply( this.tabs.download, this.tabsSetValues.download );
 			this.tabs.embed.set.apply( this.tabs.embed, this.tabsSetValues.embed );
 			this.tabsSetValues = undefined;
 		}
 	};
 
-	/**
-	 * Handles click on link that opens/closes the dialog.
-	 */
-	 DP.handleOpenCloseClick = function () {
-		var dialog = this,
-			$deferred = $.Deferred();
-
+	DP.toggleDialog = function () {
 		if ( this.tabs === null ) {
-			// initTabs() needs to have these dependencies loaded in order to run
-			mw.loader.using( [ 'mmv.ui.reuse.share', 'mmv.ui.reuse.embed', 'mmv.ui.reuse.download' ], function () {
-				dialog.initTabs();
-				$deferred.resolve();
-			}, function (error) {
-				$deferred.reject( error );
-				if ( window.console && window.console.error ) {
-					window.console.error( 'mw.loader.using error when trying to load reuse dependencies', error );
-				}
-			} );
-		} else {
-			$deferred.resolve();
+			this.initTabs();
 		}
 
-		$deferred.then( function() {
-			if ( dialog.isOpen ) {
-				dialog.closeDialog();
-			} else {
-				dialog.openDialog();
-			}
-		} );
-
-		return false;
-	 };
+		mw.mmv.ui.Dialog.prototype.toggleDialog.call( this );
+	};
 
 	/**
 	 * Handles tab selection.
@@ -179,9 +141,9 @@
 	 * Registers listeners.
 	 */
 	DP.attach = function () {
-		var dialog = this;
+		this.handleEvent( 'mmv-reuse-open', $.proxy( this.handleOpenCloseClick, this ) );
 
-		this.handleEvent( 'mmv-reuse-open', $.proxy( dialog.handleOpenCloseClick, dialog ) );
+		this.handleEvent( 'mmv-download-open', $.proxy( this.closeDialog, this ) );
 
 		this.attachDependencies();
 	};
@@ -212,9 +174,7 @@
 	DP.unattach = function () {
 		var tab;
 
-		this.constructor['super'].prototype.unattach.call( this );
-
-		this.stopListeningToOutsideClick();
+		mw.mmv.ui.Dialog.prototype.unattach.call( this );
 
 		if ( this.reuseTabs ) {
 			this.reuseTabs.off( 'select' );
@@ -237,12 +197,10 @@
 	DP.set = function ( image, repo, caption ) {
 		if ( this.tabs !== null ) {
 			this.tabs.share.set( image );
-			this.tabs.download.set( image, repo );
 			this.tabs.embed.set( image, repo, caption );
 		} else {
 			this.tabsSetValues = {
 				share : [ image ],
-				download : [ image, repo ],
 				embed : [ image, repo, caption ]
 			};
 		}
@@ -252,7 +210,7 @@
 	 * @inheritdoc
 	 */
 	DP.empty = function () {
-		this.closeDialog();
+		mw.mmv.ui.Dialog.prototype.empty.call( this );
 
 		for ( var tab in this.tabs ) {
 			this.tabs[tab].empty();
@@ -267,16 +225,11 @@
 	 * Opens a dialog with information about file reuse.
 	 */
 	DP.openDialog = function () {
-		mw.mmv.actionLogger.log( 'use-this-file-open' );
+		mw.mmv.ui.Dialog.prototype.openDialog.call( this );
 
-		this.startListeningToOutsideClick();
-		this.$reuseDialog.show();
-		this.fixDownArrowPosition();
-		$( document ).trigger( 'mmv-reuse-opened' );
-		this.isOpen = true;
 		this.tabs[this.selectedTab].show();
 
-		this.$openButton.addClass( 'mw-mmv-dialog-open' );
+		$( document ).trigger( 'mmv-reuse-opened' );
 	};
 
 	/**
@@ -287,64 +240,9 @@
 	 * Closes the reuse dialog.
 	 */
 	DP.closeDialog = function () {
-		if ( this.isOpen ) {
-			mw.mmv.actionLogger.log( 'use-this-file-close' );
-		}
+		mw.mmv.ui.Dialog.prototype.closeDialog.call( this );
 
-		this.stopListeningToOutsideClick();
-		this.$reuseDialog.hide();
 		$( document ).trigger( 'mmv-reuse-closed' );
-		this.isOpen = false;
-
-		this.$openButton.removeClass( 'mw-mmv-dialog-open' );
-	};
-
-	/**
-	 * Sets up the event handler which closes the dialog when the user clicks outside.
-	 */
-	DP.startListeningToOutsideClick = function () {
-		var dialog = this;
-
-		this.outsideClickHandler = this.outsideClickHandler || function ( e ) {
-			var $clickTarget = $( e.target );
-
-			if ( $clickTarget.closest( dialog.$reuseDialog ).length ) {
-				return;
-			}
-
-			dialog.closeDialog();
-			return false;
-		};
-		$( document ).on( 'click.mmv', this.outsideClickHandler );
-	};
-
-	/**
-	 * Removes the event handler set up by startListeningToOutsideClick().
-	 */
-	DP.stopListeningToOutsideClick = function () {
-		$( document ).off( 'click.mmv', this.outsideClickHandler );
-	};
-
-	/**
-	 * Fixes the tip of the container to point to the icon which opens it.
-	 */
-	DP.fixDownArrowPosition = function() {
-		var buttonPosition,
-			arrowPositionBase,
-			buttonWidth,
-			arrowWidth,
-			offset;
-
-		buttonPosition = this.$openButton.offset().left;
-		arrowPositionBase = this.$downArrow.offsetParent().offset().left;
-		buttonWidth = this.$openButton.outerWidth();
-		arrowWidth = this.$downArrow.outerWidth();
-
-		// this is the correct position of the arrow relative to the viewport - we want
-		// the middle of the arrow to be positioned over the middle of the button
-		offset = buttonPosition + ( buttonWidth - arrowWidth ) / 2;
-
-		this.$downArrow.css( 'left', ( offset - arrowPositionBase ) + 'px' );
 	};
 
 	mw.mmv.ui.reuse.Dialog = Dialog;

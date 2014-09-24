@@ -2,22 +2,11 @@
 @import "../mmv.globals";
 
 .mw-mmv-reuse-dialog {
-	@background-color: rgb(255, 255, 255);
-	@shadow-color: #aaaaaa;
-	@border-radius: 3px;
 	@divider-border-height: 1px;
-	@dialog-width: 450px;
-	@dialog-height: 350px;
 
 	// positioned relative to the reuse button
-	position: fixed;
 	right: 5px;
 	bottom: @metadatabar-above-fold-height + @progress-bar-height + 38px + 5px;
-	width: @dialog-width;
-	height: @dialog-height;
-	background-color: @background-color;
-	box-shadow: 0 2px 0 @shadow-color;
-	.box-round(@border-radius);
 
 	.mw-mmv-reuse-tabs {
 		@divider-color: rgb(204, 204, 204);
@@ -65,20 +54,7 @@
 		}
 	}
 
-	.mw-mmv-reuse-down-arrow {
-		@arrow-size: 20px;
-		@arrow-border-color: #aaaaaa;
-		@arrow-border-size: 2px;
-
-		background-color: @background-color;
-		width: @arrow-size;
-		height: @arrow-size;
-		/* @noflip */
-		border-right: @arrow-border-size solid @arrow-border-color;
-		border-bottom: @arrow-border-size solid @arrow-border-color;
-		.rotate(45deg);
-		position: fixed;
-		// horizontal positioning will be done in JS
-		bottom: @metadatabar-above-fold-height + 37px + ( @arrow-size / 2 ) - @arrow-border-size;
+	.mw-mmv-dialog-down-arrow {
+		bottom: @metadatabar-above-fold-height + 38px + ( @arrow-size / 2 ) - @arrow-border-size;
 	}
 }

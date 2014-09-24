@@ -19,7 +19,7 @@
 	var RUP;
 
 	/**
-	 * @class mw.mmv.ui.reuse.Utils
+	 * @class mw.mmv.ui.Utils
 	 * A helper class for reuse logic.
 	 * @constructor
 	 */
@@ -206,5 +206,5 @@
 		).text();
 	};
 
-	mw.mmv.ui.reuse.Utils = Utils;
+	mw.mmv.ui.Utils = Utils;
 }( mediaWiki, jQuery, OO ) );

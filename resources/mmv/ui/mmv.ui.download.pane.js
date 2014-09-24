@@ -22,23 +22,28 @@
 	/**
 	 * UI component that provides functionality to download the media asset displayed.
 	 *
-	 * @class mw.mmv.ui.reuse.Download
-	 * @extends mw.mmv.ui.reuse.Tab
+	 * @class mw.mmv.ui.download.Pane
+	 * @extends mw.mmv.ui.Element
 	 * @constructor
 	 * @param {jQuery} $container
 	 */
-	function Download( $container ) {
-		Download['super'].call( this, $container );
+	function Pane( $container ) {
+		mw.mmv.ui.Element.call( this, $container );
 
-		/** @property {mw.mmv.ui.reuse.Utils} utils - */
-		this.utils = new mw.mmv.ui.reuse.Utils();
+		/** @property {mw.mmv.ui.Utils} utils - */
+		this.utils = new mw.mmv.ui.Utils();
 
-		this.$pane.addClass( 'mw-mmv-download-pane' );
-		this.$pane.appendTo( this.$container );
+		this.$pane = $( '<div>' )
+			.addClass( 'mw-mmv-download-pane' )
+			.appendTo( this.$container );
 
-		this.createDownloadButton( this.$pane );
-		this.createSizePulldownMenu( this.$pane );
-		this.createPreviewLink( this.$pane );
+		this.$downloadArea = $( '<div>' )
+			.addClass( 'mw-mmv-download-area' )
+			.appendTo( this.$pane );
+
+		this.createDownloadButton( this.$downloadArea );
+		this.createSizePulldownMenu( this.$downloadArea );
+		this.createPreviewLink( this.$downloadArea );
 
 		this.formatter = new mw.mmv.EmbedFileFormatter();
 		this.currentAttrView = 'plain';
@@ -53,8 +58,8 @@
 		/** @property {mw.mmv.model.Image|null} Image the download button currently points to. */
 		this.image = null;
 	}
-	oo.inheritClass( Download, mw.mmv.ui.reuse.Tab );
-	DP = Download.prototype;
+	oo.inheritClass( Pane, mw.mmv.ui.Element );
+	DP = Pane.prototype;
 
 
 	/**
@@ -74,7 +79,7 @@
 		this.$downloadButton = $( '<a>' )
 			.attr( 'target', '_blank' )
 			.attr( 'download', '' )
-			.addClass( 'mw-ui-button mw-ui-constructive mw-mmv-download-button' )
+			.addClass( 'mw-ui-button mw-ui-constructive mw-mmv-download-go-button' )
 			.click( function ( e ) {
 				self.trackLinkClick.call( this, 'download', e );
 			} );
@@ -104,10 +109,10 @@
 	 */
 	DP.createSizePulldownMenu = function ( $container ) {
 		this.downloadSizeMenu = this.utils.createPulldownMenu(
-			[ 'original', 'small', 'medium', 'large' ],
-			[ 'mw-mmv-download-size' ],
-			'original'
-		);
+				[ 'original', 'small', 'medium', 'large' ],
+				[ 'mw-mmv-download-size' ],
+				'original'
+				);
 
 		this.downloadSizeMenu.getMenu().on( 'select', function( item ) {
 			mw.mmv.actionLogger.log( 'download-select-menu-' + item.data.name );
@@ -138,7 +143,7 @@
 		var dl = this,
 			attributionInput = new oo.ui.TextInputWidget( {
 				classes: [ 'mw-mmv-download-attr-input' ],
-				readOnly: true
+			readOnly: true
 			} ),
 			attributionSwitch = new oo.ui.ButtonSelectWidget( {
 				classes: [ 'mw-mmv-download-attr-select' ]
@@ -151,9 +156,9 @@
 			} );
 
 		attributionSwitch.addItems( [
-			plainOption,
-			htmlOption
-		] );
+				plainOption,
+				htmlOption
+				] );
 
 		attributionSwitch.selectItem( plainOption );
 
@@ -170,34 +175,34 @@
 		this.$attributionCta = $( '<div>' )
 			.addClass( 'mw-mmv-download-attribution-cta' )
 			.append(
-				$( '<p>' )
+					$( '<p>' )
 					.addClass( 'mw-mmv-download-attribution-cta-header' )
 					.text( mw.message( 'multimediaviewer-download-attribution-cta-header' ).text() ),
-				$( '<p>' )
+					$( '<p>' )
 					.addClass( 'mw-mmv-download-attribution-cta-invite' )
 					.text( mw.message( 'multimediaviewer-download-attribution-cta' ).text() )
-			)
+				   )
 			.click( function () {
 				dl.$attributionSection.removeClass( 'mw-mmv-download-attribution-collapsed' );
 				dl.attributionInput.$element.find( 'input' ).focus();
 			} )
-			.appendTo( this.$attributionSection );
+		.appendTo( this.$attributionSection );
 
 		this.$attributionHow = $( '<div>' )
 			.addClass( 'mw-mmv-download-attribution-how' )
 			.append(
-				$( '<p>' )
+					$( '<p>' )
 					.addClass( 'mw-mmv-download-attribution-how-header' )
 					.text( mw.message( 'multimediaviewer-download-attribution-cta-header' ).text() ),
-				attributionInput.$element,
-				attributionSwitch.$element,
-				$( '<p>' )
+					attributionInput.$element,
+					attributionSwitch.$element,
+					$( '<p>' )
 					.addClass( 'mw-mmv-download-attribution-close-button' )
 					.click( function () {
 						dl.$attributionSection.addClass( 'mw-mmv-download-attribution-collapsed' );
 					} )
 					.text( ' ' )
-			)
+				   )
 			.appendTo( this.$attributionSection );
 
 		this.attributionInput = attributionInput;
@@ -224,7 +229,9 @@
 		var download = this;
 
 		// Register handlers for switching between file sizes
-		this.downloadSizeMenu.getMenu().on( 'choose', $.proxy( download.handleSizeSwitch, download ) );
+		this.downloadSizeMenu.getMenu().on( 'choose', function ( item ) {
+			download.handleSizeSwitch( item );
+		} );
 		this.$selectionArrow.on( 'click', function () {
 			download.downloadSizeMenu.$element.click();
 		} );
@@ -238,7 +245,7 @@
 	 * Clears listeners.
 	 */
 	DP.unattach = function () {
-		this.constructor['super'].prototype.unattach.call( this );
+		mw.mmv.ui.Element.prototype.unattach.call( this );
 
 		this.downloadSizeMenu.getMenu().off( 'choose' );
 		this.$selectionArrow.off( 'click' );
@@ -368,15 +375,5 @@
 		this.image = null;
 	};
 
-	DP.show = function () {
-		mw.mmv.ui.reuse.Tab.prototype.show.call( this );
-		this.$container.addClass( 'mw-mmv-reuse-download-active' );
-	};
-
-	DP.hide = function () {
-		mw.mmv.ui.reuse.Tab.prototype.hide.call( this );
-		this.$container.removeClass( 'mw-mmv-reuse-download-active' );
-	};
-
-	mw.mmv.ui.reuse.Download = Download;
+	mw.mmv.ui.download.Pane = Pane;
 }( mediaWiki, jQuery, OO ) );

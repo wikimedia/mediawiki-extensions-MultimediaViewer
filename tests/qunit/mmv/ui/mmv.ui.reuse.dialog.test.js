@@ -28,7 +28,7 @@
 		var reuseDialog = makeReuseDialog( this.sandbox );
 
 		assert.ok( reuseDialog, 'Reuse UI element is created.' );
-		assert.strictEqual( reuseDialog.$reuseDialog.length, 1, 'Reuse dialog div created.' );
+		assert.strictEqual( reuseDialog.$dialog.length, 1, 'Reuse dialog div created.' );
 	} );
 
 	QUnit.test( 'handleOpenCloseClick():', 2, function ( assert ) {
@@ -79,7 +79,7 @@
 
 		reuseDialog = makeReuseDialog( this.sandbox );
 		reuseDialog.initTabs();
-		assert.strictEqual( reuseDialog.selectedTab, 'download', 'Download tab is default' );
+		assert.strictEqual( reuseDialog.selectedTab, 'share', 'Share tab is default' );
 
 		reuseDialog = makeReuseDialog( this.sandbox );
 		reuseDialog.config.getFromLocalStorage.withArgs( 'mmv-lastUsedTab' ).returns( 'share' );
@@ -143,8 +143,8 @@
 			return event;
 		}
 		function clickInsideDialog() {
-			var event = new $.Event( 'click', { target: reuseDialog.$reuseDialog[0] } );
-			reuseDialog.$reuseDialog.trigger( event );
+			var event = new $.Event( 'click', { target: reuseDialog.$dialog[0] } );
+			reuseDialog.$dialog.trigger( event );
 			return event;
 		}
 

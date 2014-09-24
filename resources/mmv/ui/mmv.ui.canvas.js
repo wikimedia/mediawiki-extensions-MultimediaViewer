@@ -172,6 +172,8 @@
 
 		this.handleEvent( 'mmv-reuse-opened', $.proxy( this.handleDialogOpen, this ) );
 		this.handleEvent( 'mmv-reuse-closed', $.proxy( this.handleDialogClose, this ) );
+		this.handleEvent( 'mmv-download-opened', $.proxy( this.handleDialogOpen, this ) );
+		this.handleEvent( 'mmv-download-closed', $.proxy( this.handleDialogClose, this ) );
 
 		this.$image
 			.on( 'click.mmv-view-original', function () {

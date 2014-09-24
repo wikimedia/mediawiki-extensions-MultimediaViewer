@@ -29,7 +29,9 @@
 	 * @param {jQuery} $fullscreenButton The fullscreen button from the parent class.
 	 */
 	function CanvasButtons( $container, $closeButton, $fullscreenButton ) {
-		var buttons = this;
+		var buttons = this,
+			isRtl = $( document.body ).hasClass( 'rtl' ),
+			tooltipDelay = mw.config.get( 'wgMultimediaViewer' ).tooltipDelay;
 
 		mw.mmv.ui.Element.call( this, $container );
 
@@ -38,11 +40,20 @@
 
 		this.$reuse = $( '<div>' )
 			.addClass( 'mw-mmv-reuse-button' )
-			.html( '&nbsp' )
+			.html( '&nbsp;' )
 			.prop( 'title', mw.message( 'multimediaviewer-reuse-link' ).text() )
 			.tipsy( {
-				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
-				gravity: $( document.body ).hasClass( 'rtl' ) ? 'sw' : 'se'
+				delayIn: tooltipDelay,
+				gravity: isRtl ? 'sw' : 'se'
+			} );
+
+		this.$download = $( '<div>' )
+			.addClass( 'mw-mmv-download-button' )
+			.html( '&nbsp;' )
+			.prop( 'title', mw.message( 'multimediaviewer-download-link' ).text() )
+			.tipsy( {
+				delayIn: tooltipDelay,
+				gravity: isRtl ? 'sw' : 'se'
 			} );
 
 		this.$next = $( '<div>' )
@@ -57,6 +68,7 @@
 			.add( this.$prev );
 
 		this.$buttons = this.$close
+			.add( this.$download )
 			.add( this.$reuse )
 			.add( this.$fullscreen )
 			.add( this.$next )
@@ -197,12 +209,24 @@
 		this.handleEvent( 'mmv-reuse-closed', function () {
 			buttons.$reuse.removeClass( 'open' );
 		} );
+
+		this.$download.on( 'click.mmv-canvasButtons', function ( e ) {
+			$( document ).trigger( 'mmv-download-open' );
+			e.stopPropagation();
+		} );
+		this.handleEvent( 'mmv-download-opened', function () {
+			buttons.$download.addClass( 'open' );
+		} );
+		this.handleEvent( 'mmv-download-closed', function () {
+			buttons.$download.removeClass( 'open' );
+		} );
 	};
 
 	/**
 	 * Removes all UI things from the DOM, or hides them
 	 */
 	CBP.unattach = function () {
+		this.$download.off( 'click.mmv-canvasButtons' ).tipsy( 'hide' );
 		this.$reuse.off( 'click.mmv-canvasButtons' ).tipsy( 'hide' );
 		this.$close.tipsy( 'hide' );
 		this.$fullscreen.tipsy( 'hide' );
