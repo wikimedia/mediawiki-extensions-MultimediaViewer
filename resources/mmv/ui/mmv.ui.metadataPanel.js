@@ -27,20 +27,15 @@
 	 * @param {jQuery} $container The container for the panel (.mw-mmv-post-image).
 	 * @param {jQuery} $aboveFold The always-visible  part of the metadata panel (.mw-mmv-above-fold).
 	 * @param {Object} localStorage the localStorage object, for dependency injection
+	 * @param {mw.mmv.Config} config A configuration object.
 	 */
-	function MetadataPanel( $container, $aboveFold, localStorage ) {
+	function MetadataPanel( $container, $aboveFold, localStorage, config ) {
 		mw.mmv.ui.Element.call( this, $container );
 
 		this.$aboveFold = $aboveFold;
 
 		/** @property {mw.mmv.Config} config - */
-		this.config = new mw.mmv.Config(
-			mw.config.get( 'wgMultimediaViewer', {} ),
-			mw.config,
-			mw.user,
-			new mw.Api(),
-			window.localStorage
-		);
+		this.config = config;
 
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
@@ -58,7 +53,6 @@
 
 		this.scroller.attach();
 		this.buttons.attach();
-		this.fileReuse.attach();
 
 		this.$title.add( this.$authorAndSource ).on( 'click.mmv-mp', function ( e ) {
 			if (
@@ -93,8 +87,6 @@
 
 		this.scroller.unattach();
 		this.buttons.unattach();
-		this.fileReuse.unattach();
-		this.fileReuse.closeDialog();
 
 		this.$title.add( this.$authorAndSource ).off( 'click.mmv-mp' );
 		this.clearEvents();
@@ -130,8 +122,6 @@
 		this.$locationLi.addClass( 'empty' );
 
 		this.progressBar.empty();
-
-		this.fileReuse.empty();
 	};
 
 	// **********************************************
@@ -297,8 +287,6 @@
 		this.initializeDatetime();
 		this.initializeLocation();
 		this.initializeRepoLink();
-
-		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$container, this.buttons.buttons.$reuse, this.config );
 	};
 
 	/**
@@ -552,16 +540,6 @@
 	};
 
 	/**
-	 * Sets up the file reuse data in the DOM
-	 * @param {mw.mmv.model.Image} image
-	 * @param {mw.mmv.model.Repo} repo
-	 * @param {string} caption
-	 */
-	MPP.setFileReuseData = function ( image, repo, caption ) {
-		this.fileReuse.set( image, repo, caption );
-	};
-
-	/**
 	 * Sets the upload or creation date and time in the panel
 	 * @param {string} date The formatted date to set.
 	 * @param {boolean} created Whether this is the creation date
@@ -797,9 +775,6 @@
 		if ( user ) {
 			this.setUserPageLink( repoData, imageData.lastUploader, user.gender );
 		}
-
-		// File reuse steals a bunch of information from the DOM, so do it last
-		this.setFileReuseData( imageData, repoData, image.caption );
 	};
 
 	/**

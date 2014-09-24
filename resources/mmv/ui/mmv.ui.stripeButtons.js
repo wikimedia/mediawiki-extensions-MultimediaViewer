@@ -40,7 +40,6 @@
 		 */
 		this.buttons = {};
 
-		this.initReuseButton();
 		this.initDescriptionPageButton();
 	}
 	oo.inheritClass( StripeButtons, mw.mmv.ui.Element );
@@ -75,17 +74,6 @@
 		}
 
 		return $button;
-	};
-
-	/**
-	 * @protected
-	 * Creates the reuse button.
-	 */
-	SBP.initReuseButton = function() {
-		this.buttons.$reuse = this.createButton(
-			'mw-mmv-stripe-button-reuse',
-			mw.message( 'multimediaviewer-reuse-link' ).text()
-		);
 	};
 
 	/**
@@ -169,33 +157,9 @@
 			$button.addClass( 'empty' );
 		} );
 
-		this.buttons.$reuse.removeClass( 'open' );
-
 		this.buttons.$descriptionPage.attr( { href: null, title: null, 'original-title': null } )
 			.removeClass( 'mw-mmv-repo-button-dynamic mw-mmv-repo-button-commons' );
 		this.setInlineStyle( 'repo-button-description-page', null );
-	};
-
-	/**
-	 * @event mmv-reuse-open
-	 * Fired when the buttonto open the reuse dialog is clicked.
-	 */
-	/**
-	 * Registers listeners.
-	 */
-	SBP.attach = function () {
-		var buttons = this.buttons;
-
-		buttons.$reuse.on( 'click.mmv-stripeButtons', function ( e ) {
-			$( document ).trigger( 'mmv-reuse-open' );
-			e.stopPropagation(); // the dialog would take it as an outside click and close
-		} );
-		this.handleEvent( 'mmv-reuse-opened', function () {
-			buttons.$reuse.addClass( 'open' );
-		} );
-		this.handleEvent( 'mmv-reuse-closed', function () {
-			buttons.$reuse.removeClass( 'open' );
-		} );
 	};
 
 	/**
@@ -203,7 +167,6 @@
 	 */
 	SBP.unattach = function () {
 		this.constructor['super'].prototype.unattach.call( this );
-		this.buttons.$reuse.off( 'click.mmv-stripeButtons' );
 
 		this.clearTimer( 'feedbackTooltip.show' );
 

@@ -275,6 +275,8 @@
 		$( document ).trigger( 'mmv-reuse-opened' );
 		this.isOpen = true;
 		this.tabs[this.selectedTab].show();
+
+		this.$openButton.addClass( 'mw-mmv-dialog-open' );
 	};
 
 	/**
@@ -293,6 +295,8 @@
 		this.$reuseDialog.hide();
 		$( document ).trigger( 'mmv-reuse-closed' );
 		this.isOpen = false;
+
+		this.$openButton.removeClass( 'mw-mmv-dialog-open' );
 	};
 
 	/**

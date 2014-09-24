@@ -111,22 +111,23 @@
 		viewer.preloadFullscreenThumbnail = $.noop;
 		viewer.fetchSizeIndependentLightboxInfo = function () { return $.Deferred().resolve(); };
 		viewer.ui = {
-			setupForLoad : $.noop,
-			canvas : { set : $.noop,
+			setFileReuseData: $.noop,
+			setupForLoad: $.noop,
+			canvas: { set : $.noop,
 				unblurWithAnimation: $.noop,
 				unblur: $.noop,
-				getCurrentImageWidths : function () { return { real : 0 }; } },
-			panel : {
-				setImageInfo : $.noop,
+				getCurrentImageWidths: function () { return { real : 0 }; } },
+			panel: {
+				setImageInfo: $.noop,
 				scroller: {
-					animateMetadataOnce : $.noop
+					animateMetadataOnce: $.noop
 				},
 				progressBar: {
 					animateTo: this.sandbox.stub(),
 					jumpTo: this.sandbox.stub()
 				}
 			},
-			open : $.noop };
+			open: $.noop };
 
 		viewer.imageProvider.get = function() { return imageDeferred.promise(); };
 		viewer.imageInfoProvider.get = function() { return $.Deferred().resolve(); };
@@ -166,6 +167,7 @@
 		viewer.preloadThumbnails = $.noop;
 		viewer.fetchSizeIndependentLightboxInfo = function () { return $.Deferred().resolve(); };
 		viewer.ui = {
+			setFileReuseData: $.noop,
 			setupForLoad : $.noop,
 			canvas : { set : $.noop,
 				unblurWithAnimation: $.noop,
@@ -360,6 +362,7 @@
 		viewer.preloadFullscreenThumbnail = $.noop;
 		viewer.fetchSizeIndependentLightboxInfo = this.sandbox.stub();
 		viewer.ui = {
+			setFileReuseData: $.noop,
 			setupForLoad : $.noop,
 			canvas : { set : $.noop,
 				getCurrentImageWidths : function () { return { real : 0 }; } },

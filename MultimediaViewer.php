@@ -129,6 +129,7 @@ $wgResourceModules += array(
 			'mmv.ui.canvasButtons',
 			'mmv.ui.description',
 			'mmv.ui.metadataPanel',
+			'mmv.ui.reuse.dialog',
 		),
 
 		'messages' => array(
@@ -361,7 +362,6 @@ $wgResourceModules += array(
 			'multimediaviewer-description-page-button-text',
 			'multimediaviewer-description-page-popup-text',
 			'multimediaviewer-description-page-popup-text-local',
-			'multimediaviewer-reuse-link',
 		),
 	),
 
@@ -453,7 +453,6 @@ $wgResourceModules += array(
 			'mmv.ui.stripeButtons',
 			'mmv.ui.description',
 			'mmv.ui.permission',
-			'mmv.ui.reuse.dialog',
 			'mmv.ui.truncatableTextField',
 			'oojs',
 			'jquery.tipsy',
@@ -695,6 +694,10 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'mmv.ui',
 			'oojs',
+		),
+
+		'messages' => array(
+			'multimediaviewer-reuse-link',
 		),
 	),
 

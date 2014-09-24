@@ -25,6 +25,14 @@
 	 * @constructor
 	 */
 	function LightboxInterface() {
+		/** @property {mw.mmv.Config} config - */
+		this.config = new mw.mmv.Config(
+			mw.config.get( 'wgMultimediaViewer', {} ),
+			mw.config,
+			mw.user,
+			new mw.Api(),
+			window.localStorage
+		);
 
 		/**
 		 * @property {mw.mmv.ThumbnailWidthCalculator}
@@ -88,9 +96,21 @@
 
 		this.setupCanvasButtons();
 
-		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$aboveFold, window.localStorage );
+		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$aboveFold, window.localStorage, this.config );
 		this.buttons = new mw.mmv.ui.CanvasButtons( this.$preDiv, this.$closeButton, this.$fullscreenButton );
 		this.canvas = new mw.mmv.ui.Canvas( this.$innerWrapper, this.$imageWrapper, this.$wrapper );
+
+		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$innerWrapper, this.buttons.$reuse, this.config );
+	};
+
+	/**
+	 * Sets up the file reuse data in the DOM
+	 * @param {mw.mmv.model.Image} image
+	 * @param {mw.mmv.model.Repo} repo
+	 * @param {string} caption
+	 */
+	LIP.setFileReuseData = function ( image, repo, caption ) {
+		this.fileReuse.set( image, repo, caption );
 	};
 
 	/**
@@ -100,6 +120,10 @@
 		this.panel.empty();
 
 		this.canvas.empty();
+
+		this.buttons.empty();
+
+		this.fileReuse.empty();
 	};
 
 	/**
@@ -181,6 +205,9 @@
 		// This needs to happen after the parent attach() because the buttons need to be attached
 		// to the DOM for $.fn.stop() to work
 		this.buttons.stopFade();
+		this.buttons.attach();
+
+		this.fileReuse.attach();
 
 		// Reset the cursor fading
 		this.fadeStopped();
@@ -204,7 +231,8 @@
 
 		this.buttons.unattach();
 
-		this.panel.fileReuse.closeDialog();
+		this.fileReuse.unattach();
+		this.fileReuse.closeDialog();
 
 		this.clearEvents();
 
