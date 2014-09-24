@@ -142,6 +142,9 @@
 			this.$image.replaceWith( $image );
 			this.$image = $image;
 
+			// Since the image element got replaced, we need to rescue the dialog-open class.
+			this.$image.toggleClass( 'mw-mmv-dialog-is-open', this.dialogOpen );
+
 			this.setUpImageClick();
 		}
 
