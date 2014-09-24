@@ -235,6 +235,9 @@
 		this.fileReuse.unattach();
 		this.fileReuse.closeDialog();
 
+		this.downloadDialog.unattach();
+		this.downloadDialog.closeDialog();
+
 		this.clearEvents();
 
 		// We trigger this event on the document because unattach() can run
