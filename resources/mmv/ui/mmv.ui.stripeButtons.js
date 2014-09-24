@@ -82,9 +82,7 @@
 	 */
 	SBP.initDescriptionPageButton = function() {
 		this.buttons.$descriptionPage = this.createButton(
-			'empty',
-			null,
-			mw.message( 'multimediaviewer-description-page-button-text' ).plain()
+			'empty mw-mmv-description-page-button mw-ui-big mw-ui-button mw-ui-progressive'
 		).click( function () {
 			mw.mmv.actionLogger.log( 'file-description-page-abovefold' );
 		} );
@@ -122,31 +120,12 @@
 	 * @param {mw.mmv.model.Repo} repoInfo
 	 */
 	SBP.setDescriptionPageButton = function ( imageInfo, repoInfo ) {
-		var descPagePopupMessage;
+		var $button = this.buttons.$descriptionPage;
 
-		descPagePopupMessage = repoInfo.isLocal
-			? mw.message( 'multimediaviewer-description-page-button-text' ).plain()
-			: mw.message( 'multimediaviewer-description-page-popup-text', repoInfo.displayName ).text();
+		$button.text( mw.message( 'multimediaviewer-repository-local' ).text() )
+			.attr( 'href', imageInfo.descriptionUrl );
 
-		this.buttons.$descriptionPage.attr( {
-			href: imageInfo.descriptionUrl,
-			title: descPagePopupMessage,
-			'original-title': descPagePopupMessage // needed by jquery.tipsy
-		} );
-
-		if ( repoInfo.isCommons() ) {
-			this.buttons.$descriptionPage.addClass( 'mw-mmv-repo-button-commons' );
-		} else {
-			this.buttons.$descriptionPage.addClass( 'mw-mmv-repo-button-dynamic' );
-			if ( repoInfo.favIcon ) {
-				this.setInlineStyle( 'repo-button-description-page',
-					// needs to be more specific then the fallback rule in stripeButtons.less
-					'html .mw-mmv-repo-button-dynamic:before {' +
-						'background-image: url("' + repoInfo.favIcon + '");' +
-					'}'
-				);
-			}
-		}
+		$button.toggleClass( 'mw-mmv-repo-button-commons', repoInfo.isCommons() );
 	};
 
 	/**
@@ -158,8 +137,7 @@
 		} );
 
 		this.buttons.$descriptionPage.attr( { href: null, title: null, 'original-title': null } )
-			.removeClass( 'mw-mmv-repo-button-dynamic mw-mmv-repo-button-commons' );
-		this.setInlineStyle( 'repo-button-description-page', null );
+			.removeClass( 'mw-mmv-repo-button-commons' );
 	};
 
 	/**
