@@ -7,6 +7,7 @@
 	@dialog-width: 450px;
 
 	position: fixed;
+	right: 58px;
 	display: none;
 	width: @dialog-width;
 	height: @dialog-height;
@@ -18,13 +19,11 @@
 	.mw-mmv-dialog-down-arrow {
 		@arrow-border-color: #aaaaaa;
 
+		right: 48px;
 		background-color: @background-color;
 		width: @arrow-size;
 		height: @arrow-size;
-		/* @noflip */
-		border-right: @arrow-border-size solid @arrow-border-color;
-		border-bottom: @arrow-border-size solid @arrow-border-color;
-		.rotate(45deg);
+		.rotate(-45deg);
 		position: fixed;
 	}
 }

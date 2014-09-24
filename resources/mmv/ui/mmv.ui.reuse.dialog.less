@@ -5,8 +5,7 @@
 	@divider-border-height: 1px;
 
 	// positioned relative to the reuse button
-	right: 5px;
-	bottom: @metadatabar-above-fold-height + @progress-bar-height + 38px + 5px;
+	bottom: @metadatabar-above-fold-height + @progress-bar-height - 5px;
 
 	.mw-mmv-reuse-tabs {
 		@divider-color: rgb(204, 204, 204);
@@ -55,6 +54,6 @@
 	}
 
 	.mw-mmv-dialog-down-arrow {
-		bottom: @metadatabar-above-fold-height + 38px + ( @arrow-size / 2 ) - @arrow-border-size;
+		bottom: @metadatabar-above-fold-height + @progress-bar-height + 5px;
 	}
 }
