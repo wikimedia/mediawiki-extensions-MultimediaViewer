@@ -442,6 +442,7 @@ $wgResourceModules += array(
 			'multimediaviewer-description-page-button-text',
 			'multimediaviewer-description-page-popup-text',
 			'multimediaviewer-description-page-popup-text-local',
+			'multimediaviewer-repository-local',
 		),
 	),
 
@@ -539,8 +540,6 @@ $wgResourceModules += array(
 		),
 
 		'messages' => array(
-			'multimediaviewer-repository',
-			'multimediaviewer-repository-local',
 			'multimediaviewer-commons-subtitle',
 
 			'multimediaviewer-credit',

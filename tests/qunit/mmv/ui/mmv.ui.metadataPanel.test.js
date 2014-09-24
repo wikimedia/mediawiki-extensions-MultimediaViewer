@@ -5,7 +5,6 @@
 			'$credit',
 			'$username',
 			'$location',
-			'$repo',
 			'$datetime'
 		],
 
@@ -14,7 +13,6 @@
 			'$credit',
 			'$usernameLi',
 			'$locationLi',
-			'$repoLi',
 			'$datetimeLi'
 		];
 
@@ -34,22 +32,6 @@
 		for ( i = 0; i < thingsShouldHaveEmptyClass.length; i++ ) {
 			assert.strictEqual( panel[thingsShouldHaveEmptyClass[i]].hasClass( 'empty' ), true, 'We successfully applied the empty class to the ' + thingsShouldHaveEmptyClass[i] + ' element' );
 		}
-	} );
-
-	QUnit.test( 'Setting repository information in the UI works as expected', 3, function ( assert ) {
-		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) ),
-			repoInfo = new mw.mmv.model.Repo( 'Example Wiki' );
-
-		panel.setRepoDisplay( repoInfo );
-		assert.strictEqual( panel.$repo.text(), 'More details about this file on Example Wiki', 'Text set to something useful for remote wiki - if this fails it might be because of localisation' );
-
-		repoInfo = new mw.mmv.model.Repo();
-		panel.setRepoDisplay( repoInfo );
-		assert.strictEqual( panel.$repo.text(), 'More details about this file on ' + mw.config.get( 'wgSiteName' ), 'Text set to something useful for local wiki - if this fails it might be because of localisation' );
-
-		panel.setFilePageLink( 'https://commons.wikimedia.org/wiki/File:Foobar.jpg' );
-		assert.strictEqual( panel.$repo.prop( 'href' ), 'https://commons.wikimedia.org/wiki/File:Foobar.jpg', 'The file link was set successfully.' );
 	} );
 
 	QUnit.test( 'Setting location information works as expected', 6, function ( assert ) {
@@ -204,29 +186,6 @@
 			assert.strictEqual( result, date1, 'Invalid date is correctly ignored' );
 			QUnit.start();
 		} );
-	} );
-
-	QUnit.test( 'Repo icon', 4, function ( assert ) {
-		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) ),
-			favIcon = 'http://example.com/foo-fav',
-			repoData = {
-				favIcon: favIcon,
-				getArticlePath : function() { return 'Foo'; },
-				isCommons: function() { return false; }
-			};
-
-		panel.setRepoDisplay( repoData );
-
-		assert.ok( panel.$repoLi.css( 'background-image' ).indexOf( favIcon ) !== -1, 'Repo favicon is correctly applied' );
-		assert.ok( !panel.$repoLi.hasClass( 'commons' ), 'Repo does not have commons class' );
-
-		repoData.isCommons = function() { return true; };
-
-		panel.setRepoDisplay( repoData );
-
-		assert.ok( panel.$repoLi.css( 'background-image' ).indexOf( 'data:image/svg+xml' ) !== -1, 'Repo favicon is correctly replaced by svg for Commons' );
-		assert.ok( panel.$repoLi.hasClass( 'commons' ), 'Repo has commons class' );
 	} );
 
 	QUnit.test( 'About links', 9, function ( assert ) {

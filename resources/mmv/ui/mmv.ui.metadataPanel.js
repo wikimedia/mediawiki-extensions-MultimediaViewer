@@ -111,10 +111,6 @@
 		this.$username.empty();
 		this.$usernameLi.addClass( 'empty' );
 
-		this.$repo.empty();
-		this.$repoSubtitle.empty();
-		this.$repoLi.addClass( 'empty' ).removeClass( 'remote local' );
-
 		this.$datetime.empty();
 		this.$datetimeLi.addClass( 'empty' );
 
@@ -286,7 +282,6 @@
 		this.initializeUploader();
 		this.initializeDatetime();
 		this.initializeLocation();
-		this.initializeRepoLink();
 	};
 
 	/**
@@ -333,27 +328,6 @@
 			.addClass( 'mw-mmv-location' )
 			.appendTo( this.$locationLi )
 			.click( function( e ) { self.trackLinkClick.call( this, 'location-page', e ); } );
-	};
-
-	/**
-	 * Initializes the link to the file page on the (maybe remote) repository.
-	 */
-	MPP.initializeRepoLink = function () {
-		var self = this;
-
-		this.$repoLi = $( '<li>' )
-			.addClass( 'mw-mmv-repo-li empty' )
-			.appendTo( this.$imageLinks );
-
-		this.$repo = $( '<a>' )
-			.addClass( 'mw-mmv-repo' )
-			.prop( 'href', '#' )
-			.click( function( e ) { self.trackLinkClick.call( this, 'file-description-page', e ); } )
-			.appendTo( this.$repoLi );
-
-		this.$repoSubtitle = $( '<span>' )
-			.addClass( 'mw-mmv-repo-subtitle' )
-			.appendTo( this.$repoLi );
 	};
 
 	/**
@@ -478,38 +452,6 @@
 	// *********************************
 	// ******** Setting methods ********
 	// *********************************
-
-	/**
-	 * Sets the URL for the File: page of the image
-	 * @param {string} url
-	 */
-	MPP.setFilePageLink = function ( url ) {
-		this.$repo.prop( 'href', url );
-	};
-
-	/**
-	 * Sets the display name of the repository
-	 * @param {mw.mmv.model.Repo} repoInfo
-	 */
-	MPP.setRepoDisplay = function ( repoInfo ) {
-		var repositoryMessage,
-			displayName = repoInfo.displayName || mw.config.get( 'wgSiteName' ),
-			isCommons = repoInfo.isCommons();
-
-		repositoryMessage = repoInfo.isLocal ?
-			mw.message( 'multimediaviewer-repository-local' ).text() :
-			mw.message( 'multimediaviewer-repository', displayName ).text();
-		this.$repo.text( repositoryMessage );
-
-		this.$repoLi.css( 'background-image',
-			( repoInfo.favIcon && !isCommons ) ? 'url("' + repoInfo.favIcon + '")' : '' );
-
-		this.$repoLi.toggleClass( 'commons', isCommons );
-		this.$repoSubtitle.text(
-			isCommons ? mw.message( 'multimediaviewer-commons-subtitle' ).text() : '' );
-
-		this.$repoLi.removeClass( 'empty' );
-	};
 
 	/**
 	 * Sets the link to the user page where possible
@@ -734,8 +676,6 @@
 		mw.mmv.attributionLogger.logAttribution( imageData );
 
 		this.setFileTitle( fileTitle.getNameText() );
-		this.setRepoDisplay( repoData );
-		this.setFilePageLink( imageData.descriptionUrl );
 
 		if ( imageData.creationDateTime ) {
 			// Use the raw date until moment can try to interpret it
