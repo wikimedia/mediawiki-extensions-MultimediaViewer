@@ -1,1 +1,4 @@
-require "mediawiki_selenium"
+require "rubygems"
+require "bundler/setup"
+
+Bundler.require
