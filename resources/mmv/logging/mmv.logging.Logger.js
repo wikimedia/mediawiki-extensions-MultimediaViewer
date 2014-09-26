@@ -103,6 +103,16 @@
 	};
 
 	/**
+	 * True if the schema has a country field. Broken out in a separate function so it's easy to mock.
+	 * @returns {boolean}
+	 */
+	L.schemaSupportsCountry = function () {
+		return this.eventLog && this.eventLog.schemas && // don't die if eventLog is a mock
+			this.schema in this.eventLog.schemas && // don't die if schema is not loaded
+			'country' in this.eventLog.schemas[this.schema].schema.properties;
+	};
+
+	/**
 	 * Logs EventLogging data while including Geo data if any
 	 * @param {Object} data
 	 * @returns {jQuery.Promise}
@@ -113,7 +123,10 @@
 		if ( self.isInSample() ) {
 			return this.loadDependencies().then( function() {
 				// Add Geo information if there's any
-				if ( self.Geo && self.Geo.country !== undefined ) {
+				if (
+					self.Geo && self.Geo.country !== undefined &&
+					self.schemaSupportsCountry()
+				) {
 					data.country = self.Geo.country;
 				}
 

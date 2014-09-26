@@ -39,6 +39,7 @@
 			durationLogger = new mw.mmv.durationLogger.constructor();
 
 		durationLogger.samplingFactor = 1;
+		durationLogger.schemaSupportsCountry = this.sandbox.stub().returns( true );
 
 		this.sandbox.stub( mw.user, 'isAnon' ).returns( false );
 		this.sandbox.stub( durationLogger, 'loadDependencies' ).returns( dependenciesDeferred.promise() );

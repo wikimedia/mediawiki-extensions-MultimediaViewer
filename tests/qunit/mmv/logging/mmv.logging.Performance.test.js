@@ -118,6 +118,7 @@
 
 		this.sandbox.stub( performance, 'loadDependencies' ).returns( $.Deferred().resolve() );
 		performance.setEventLog( fakeEventLog );
+		performance.schemaSupportsCountry = this.sandbox.stub().returns( true );
 
 		this.sandbox.stub( performance, 'getWindowPerformance' ).returns( {
 			getEntriesByName: function () {
