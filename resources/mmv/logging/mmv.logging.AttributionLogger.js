@@ -24,9 +24,7 @@
 	 * @extends mw.mmv.logging.Logger
 	 * @constructor
 	 */
-	function AttributionLogger() {
-		this.starts = {};
-	}
+	function AttributionLogger() {}
 
 	oo.inheritClass( AttributionLogger, mw.mmv.logging.Logger );
 
