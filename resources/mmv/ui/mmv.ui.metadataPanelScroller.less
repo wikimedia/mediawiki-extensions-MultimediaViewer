@@ -3,7 +3,7 @@
 @import "mediawiki.mixins.animation";
 
 @drag-icon-width: 64px;
-@drag-icon-height: 16px;
+@drag-icon-height: 18px;
 @drag-icon-color: #e6e6e6;
 @drag-icon-invite-color: #347bff;
 
@@ -97,7 +97,7 @@
 
 	cursor: pointer;
 	z-index: 1; // make sure it is above the text - the icon is visually at the bottom but in the DOM at the top
-	.opacity(0.6);
+	.opacity(0.7);
 	transition: opacity 0.25s;
 
 	&-pointing-down { // use single-class selector - chevron direction is important enough to make it IE6-compatible
