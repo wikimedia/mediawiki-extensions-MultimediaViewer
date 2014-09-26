@@ -63,5 +63,6 @@
 		this.log( data );
 	};
 
+	mw.mmv.logging.AttributionLogger = AttributionLogger;
 	mw.mmv.attributionLogger = new AttributionLogger();
 }( mediaWiki, jQuery, OO ) );

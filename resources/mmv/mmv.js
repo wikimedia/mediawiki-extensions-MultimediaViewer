@@ -179,14 +179,18 @@
 	 * @param {mw.mmv.LightboxInterface} ui lightbox that got resized
 	 */
 	MMVP.resize = function ( ui ) {
-		var viewer = this,
-			image = this.thumbs[ this.currentIndex ].image,
-			imageWidths;
+		var imageWidths, canvasDimensions,
+			viewer = this,
+			image = this.thumbs[ this.currentIndex ].image;
 
 		this.preloadThumbnails();
 
 		if ( image ) {
 			imageWidths = ui.canvas.getCurrentImageWidths();
+			canvasDimensions = ui.canvas.getDimensions();
+
+			mw.mmv.dimensionLogger.logDimensions( imageWidths, canvasDimensions, 'resize' );
+
 			this.fetchThumbnailForLightboxImage(
 				image, imageWidths.real
 			).then( function( thumbnail, image ) {
@@ -229,6 +233,7 @@
 	 */
 	MMVP.loadImage = function ( image, initialImage ) {
 		var imageWidths,
+			canvasDimensions,
 			imagePromise,
 			metadataPromise,
 			start,
@@ -259,10 +264,11 @@
 		// this.preloadFullscreenThumbnail( image ); // disabled - #474
 
 		imageWidths = this.ui.canvas.getCurrentImageWidths();
-
+		canvasDimensions = this.ui.canvas.getDimensions();
 
 		start = $.now();
 
+		mw.mmv.dimensionLogger.logDimensions( imageWidths, canvasDimensions, 'show' );
 		imagePromise = this.fetchThumbnailForLightboxImage( image, imageWidths.real );
 
 		this.resetBlurredThumbnailStates();
@@ -614,16 +620,20 @@
 
 		this.thumbnailPreloadQueue = this.pushLightboxImagesIntoQueue( function( lightboxImage ) {
 			return function() {
+				var imageWidths, canvasDimensions;
+
 				// viewer.ui.canvas.getLightboxImageWidths needs the viewer to be open
 				// because it needs to read the size of visible elements
 				if ( !viewer.isOpen ) {
 					return;
 				}
 
-				return viewer.fetchThumbnailForLightboxImage(
-					lightboxImage,
-					viewer.ui.canvas.getLightboxImageWidths( lightboxImage ).real
-				);
+				imageWidths = viewer.ui.canvas.getLightboxImageWidths( lightboxImage );
+				canvasDimensions = viewer.ui.canvas.getDimensions();
+
+				mw.mmv.dimensionLogger.logDimensions( imageWidths, canvasDimensions, 'preload' );
+
+				return viewer.fetchThumbnailForLightboxImage( lightboxImage, imageWidths.real );
 			};
 		} );
 
@@ -634,10 +644,11 @@
 	 * Preload the fullscreen size of the current image.
 	 */
 	MMVP.preloadFullscreenThumbnail = function( image ) {
-		this.fetchThumbnailForLightboxImage(
-			image,
-			this.ui.canvas.getLightboxImageWidthsForFullscreen( image ).real
-		);
+		var imageWidths = this.ui.canvas.getLightboxImageWidthsForFullscreen( image),
+			canvasDimensions = this.ui.canvas.getDimensions( true );
+
+		mw.mmv.dimensionLogger.logDimensions( imageWidths, canvasDimensions, 'preload' );
+		this.fetchThumbnailForLightboxImage( image, imageWidths.real );
 	};
 
 	/**
@@ -716,7 +727,7 @@
 			thumbnailPromise = this.guessedThumbnailInfoProvider.get(
 				fileTitle, sampleUrl, width, originalWidth, originalHeight
 			).then( null, function () { // catch rejection, use fallback
-					return viewer.thumbnailInfoProvider.get( fileTitle, width );
+				return viewer.thumbnailInfoProvider.get( fileTitle, width );
 			} );
 		} else {
 			thumbnailPromise = this.thumbnailInfoProvider.get( fileTitle, width );

@@ -45,6 +45,16 @@ if ( !isset( $wgMediaViewerAttributionLoggingSamplingFactor ) ) {
 	$wgMediaViewerAttributionLoggingSamplingFactor = false;
 }
 
+if ( !isset( $wgMediaViewerDimensionLoggingSamplingFactor ) ) {
+	/**
+	 * If set, records whether image dimension data was available. A value of 1000 means there will be an
+	 * 1:1000 chance to log the dimension event.
+	 * False if unset.
+	 * @var int|bool
+	 */
+	$wgMediaViewerDimensionLoggingSamplingFactor = false;
+}
+
 if ( !isset( $wgMediaViewerActionLoggingSamplingFactorMap ) ) {
 	/**
 	 * If set, records user actions via EventLogging and applies a sampling factor according to the map. A "default" key in the map must be set.
@@ -814,6 +824,7 @@ $wgResourceModules += array(
 			'mmv.provider',
 			'mmv.routing',
 			'mmv.logging.DurationLogger',
+			'mmv.logging.DimensionLogger',
 			'jquery.fullscreen',
 			'jquery.hidpi',
 			'jquery.scrollTo',
@@ -903,6 +914,19 @@ $wgResourceModules += array(
 		),
 	),
 
+	'mmv.logging.DimensionLogger' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/logging/mmv.logging.DimensionLogger.js',
+		),
+
+		'dependencies' => array(
+			'mmv.base',
+			'mmv.logging.Logger',
+			'oojs',
+			'jquery.hidpi',
+		),
+	),
+
 	'mmv.head' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/mmv.head.js',
@@ -937,10 +961,13 @@ $wgExtensionFunctions[] = function () {
 		$wgEventLoggingSchemas[ 'MultimediaViewerNetworkPerformance' ] = 7917896;
 		$wgEventLoggingSchemas[ 'MultimediaViewerDuration' ] = 8572641;
 		$wgEventLoggingSchemas[ 'MultimediaViewerAttribution' ] = 9758179;
+		$wgEventLoggingSchemas[ 'MultimediaViewerDimensions' ] = 10014238;
 
 		$wgResourceModules['mmv.logging.ActionLogger']['dependencies'][] = 'ext.eventLogging';
 		$wgResourceModules['mmv.logging.Performance']['dependencies'][] = 'ext.eventLogging';
 		$wgResourceModules['mmv.logging.DurationLogger']['dependencies'][] = 'ext.eventLogging';
+		$wgResourceModules['mmv.logging.AttributionLogger']['dependencies'][] = 'ext.eventLogging';
+		$wgResourceModules['mmv.logging.DimensionLogger']['dependencies'][] = 'ext.eventLogging';
 	}
 };
 
