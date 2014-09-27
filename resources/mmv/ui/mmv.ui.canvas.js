@@ -34,6 +34,12 @@
 		mw.mmv.ui.Element.call( this, $container );
 
 		/**
+		 * @property {boolean}
+		 * @private
+		 */
+		this.dialogOpen = false;
+
+		/**
 		 * @property {mw.mmv.ThumbnailWidthCalculator}
 		 * @private
 		 */
