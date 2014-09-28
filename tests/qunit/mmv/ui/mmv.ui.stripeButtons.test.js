@@ -53,4 +53,24 @@
 
 		assert.ok( true, 'No error on set()/empty().' );
 	} );
+
+	QUnit.test( 'Description page button', 3, function ( assert ) {
+		var $qf = $( '#qunit-fixture' ),
+			buttons = new mw.mmv.ui.StripeButtons( $qf ),
+			button = buttons.buttons.$descriptionPage,
+			descriptionUrl = 'http://example.com/desc',
+			imageInfo = { descriptionUrl: descriptionUrl },
+			repoInfo = { isCommons: function() { return false; } };
+
+		buttons.setDescriptionPageButton( imageInfo, repoInfo );
+
+		assert.ok( !button.hasClass( 'mw-mmv-repo-button-commons' ), 'Button does not have commons class non-Commons files' );
+		assert.strictEqual( button.find( 'a' ).andSelf().filter( 'a').attr( 'href' ), descriptionUrl, 'Description page link is correct' );
+
+		repoInfo.isCommons = function() { return true; };
+		buttons.setDescriptionPageButton( imageInfo, repoInfo );
+
+		assert.ok( button.hasClass( 'mw-mmv-repo-button-commons' ), 'Button commons class for Commons files' );
+	} );
+
 }( mediaWiki, jQuery ) );
