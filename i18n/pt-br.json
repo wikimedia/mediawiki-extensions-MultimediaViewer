@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Oona"
+			"Oona",
+			"Jefersonmoraes"
 		]
 	},
 	"multimediaviewer-desc": "Expandir miniaturas em tamanho maior numa interface em tela cheia.",
@@ -11,7 +12,7 @@
 	"multimediaviewer-optin-pref": "Habilitar nova experiência de visualização multimídia",
 	"multimediaviewer-file-page": "Ir para a página do arquivo correspondente",
 	"multimediaviewer-repository": "Saiba mais em $1",
-	"multimediaviewer-repository-local": "Saiba mais",
+	"multimediaviewer-repository-local": "Mais detalhes",
 	"multimediaviewer-datetime-created": "Criado em $1",
 	"multimediaviewer-datetime-uploaded": "Carregado em $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Carregado}} por $1",
@@ -27,16 +28,11 @@
 	"multimediaviewer-discuss-mmv": "Discutir esta funcionalidade",
 	"multimediaviewer-help-mmv": "Ajuda",
 	"multimediaviewer-geolocation": "Localização: $1",
-	"multimediaviewer-fileusage-count": "Utilizado em $1 {{PLURAL:$1|página|páginas}}",
-	"multimediaviewer-fileusage-count-more": "Utilizado em mais de $1 {{PLURAL:$1|páginas}}",
-	"multimediaviewer-fileusage-link": "Ver todas as utilizações",
-	"multimediaviewer-fileusage-local-section": "Neste sítio",
-	"multimediaviewer-fileusage-global-section": "Em outros sítios",
 	"multimediaviewer-reuse-link": "Usar este arquivo",
 	"multimediaviewer-reuse-loading-placeholder": "Carregando…",
 	"multimediaviewer-share-tab": "Compartilhar",
 	"multimediaviewer-embed-tab": "Incorporar",
-	"multimediaviewer-download-tab": "Baixar",
+	"multimediaviewer-download-link": "Baixar este arquivo",
 	"multimediaviewer-download-preview-link-title": "Pré-visualizar no navegador",
 	"multimediaviewer-download-original-button-name": "Baixar em tamanho original",
 	"multimediaviewer-download-small-button-name": "Baixar em tamanho pequeno",
@@ -63,10 +59,8 @@
 	"multimediaviewer-large-embed-dimensions": "Grande $1",
 	"multimediaviewer-medium-embed-dimensions": "Médio $1",
 	"multimediaviewer-small-embed-dimensions": "Pequeno $1",
-	"multimediaviewer-feedback-button-text": "A sua opinião sobre esta ferramenta",
-	"multimediaviewer-feedback-popup-text": "Comente sobre esta nova experiência de visualização multimídia",
 	"multimediaviewer-description-page-button-text": "Mais detalhes",
 	"multimediaviewer-description-page-popup-text": "Mais detalhes em $1",
 	"multimediaviewer-commons-subtitle": "O repositório de mídias livres",
-	"multimediaviewer-view-expanded": "Expandir visualização"
+	"multimediaviewer-view-expanded": "Abrir no Visualizador de Mídia"
 }
