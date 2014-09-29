@@ -16,7 +16,6 @@
 	"multimediaviewer-pref-desc": "Améliorez votre expérience de visualisation multimédia avec ce nouvel outil. Il affiche les images en grande taille sur les pages qui ont des vignettes. Les images sont affichées dans un joli cadre d’interface en plein écran, et peuvent aussi être affichées en taille maximale.",
 	"multimediaviewer-optin-pref": "Activer <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer la visionneuse de médias]</span>",
 	"multimediaviewer-file-page": "Aller à la page du fichier correspondant",
-	"multimediaviewer-repository": "Plus de détails sur ce fichier en $1",
 	"multimediaviewer-repository-local": "Plus de détails",
 	"multimediaviewer-datetime-created": "Création : $1",
 	"multimediaviewer-datetime-uploaded": "Téléchargé : $1",

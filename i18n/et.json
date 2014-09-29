@@ -12,7 +12,6 @@
 	"multimediaviewer-pref-desc": "Täienda meediafailide vaatamise võimalusi selle uue tööriistaga. See võimaldab kuvada pisipiltidega lehekülgedel pildid suuremana. Pilte saab näidata kenamas täisekraaniliideses ja ka täissuuruses.",
 	"multimediaviewer-optin-pref": "Kasuta <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer failivaaturit]</span>",
 	"multimediaviewer-file-page": "Mine failileheküljele",
-	"multimediaviewer-repository": "Rohkem üksikasju selle faili kohta asukohas $1",
 	"multimediaviewer-repository-local": "Rohkem üksikasju",
 	"multimediaviewer-datetime-created": "Valmistatud: $1",
 	"multimediaviewer-datetime-uploaded": "Üles laaditud: $1",

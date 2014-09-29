@@ -14,7 +14,6 @@
 	"multimediaviewer-pref-desc": "Pomocí tohoto nástroje si můžete zpříjemnit prohlížení multimédií. Na stránkách, na kterých se používají náhledy obrázků, umožňuje prohlížení těchto obrázků ve větší velikosti. Obrázky se zobrazí v hezčím celoobrazovkovém rozhraní a lze si je prohlédnout také v plné velikosti.",
 	"multimediaviewer-optin-pref": "Aktivovat <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Prohlížeč médií]</span>",
 	"multimediaviewer-file-page": "Přejít na stránku s popisem souboru",
-	"multimediaviewer-repository": "Více podrobností o tomto souboru na {{grammar:6sg|$1}}",
 	"multimediaviewer-repository-local": "Více podrobností",
 	"multimediaviewer-datetime-created": "Vytvořeno: $1",
 	"multimediaviewer-datetime-uploaded": "Načteno: $1",

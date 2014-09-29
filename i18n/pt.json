@@ -13,7 +13,6 @@
 	"multimediaviewer-pref-desc": "Melhore a sua experiência de visualização multimédia com esta nova ferramenta. Ela exibe imagens em tamanho maior nas páginas que possuam miniaturas. As imagens são mostradas em uma agradável sobreposição em ecrã cheio, e também podem ser visualizadas em tamanho real.",
 	"multimediaviewer-optin-pref": "Activar <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Visualizador Multimédia]</span>",
 	"multimediaviewer-file-page": "Ir para a página correspondente ao arquivo",
-	"multimediaviewer-repository": "Mais detalhes sobre este ficheiro em $1",
 	"multimediaviewer-repository-local": "Mais detalhes",
 	"multimediaviewer-datetime-created": "Criação: $1",
 	"multimediaviewer-datetime-uploaded": "Carregamento: $1",

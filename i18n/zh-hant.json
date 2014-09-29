@@ -14,7 +14,6 @@
 	"multimediaviewer-pref-desc": "這個新的工具可以改善您的多媒體瀏覽體驗。它會在有縮圖的網頁中以更大的尺寸顯示影像；影像將以浮動視窗呈現，您也可以選擇檢視原始大小的圖片。",
 	"multimediaviewer-optin-pref": "開啟 <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer 媒體檢視器]</span>",
 	"multimediaviewer-file-page": "前往相關的檔案頁面",
-	"multimediaviewer-repository": "更多 $1 上有關此檔案的詳細資訊",
 	"multimediaviewer-repository-local": "更多有關此檔案的詳細資訊",
 	"multimediaviewer-datetime-created": "建立於：$1",
 	"multimediaviewer-datetime-uploaded": "上傳於：$1",

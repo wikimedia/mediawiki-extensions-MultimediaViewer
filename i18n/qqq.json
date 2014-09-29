@@ -16,7 +16,6 @@
 	"multimediaviewer-pref-desc": "Description of preference",
 	"multimediaviewer-optin-pref": "Label for non-beta preference.",
 	"multimediaviewer-file-page": "Text for a link to the file page for an image.",
-	"multimediaviewer-repository": "{{doc-important|\"On\" here means \"at\" and not \"about\".}}\nLink to the repository where the image is hosted. Parameters:\n* $1 - the display name of that site\nSee also:\n* {{msg-mw|multimediaviewer-repository-local}}",
 	"multimediaviewer-repository-local": "Link to repository where the image is locally hosted.\nSee also:\n* {{msg-mw|multimediaviewer-repository}}",
 	"multimediaviewer-datetime-created": "Used in JavaScript code. Parameters:\n* $1 - time and date\nSee also:\n* {{msg-mw|Multimediaviewer-datetime-uploaded}}\n\nNote that the date comes from the description page and can have various forms (e.g. \"2000-01-01\", \"1st January 2000\", \"1492\", \"16th century\"...)\n\nAlso, this might refer to the date when the picture was taken, or the date when the depcited work was made - the usage is not consistent. You should choose a translation that works in all cases.\n{{Identical|Created}}",
 	"multimediaviewer-datetime-uploaded": "Used in JavaScript code. Parameters:\n* $1 - time and date (formatted)\nSee also:\n* {{msg-mw|Multimediaviewer-datetime-created}}\n{{Identical|Uploaded}}",

@@ -11,7 +11,6 @@
 	"multimediaviewer-pref-desc": "この新しいツールは、マルチメディアの表示体験を改善します。縮小画像があるページで、その画像をより大きなサイズで表示します。画像は全画面表示インターフェイスのオーバーレイ内に表示され、完全なサイズで表示させることもできます。",
 	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer メディアビューアー]</span>を有効にする",
 	"multimediaviewer-file-page": "対応するファイル ページに移動",
-	"multimediaviewer-repository": "このファイルについての詳細を$1で見る",
 	"multimediaviewer-repository-local": "このファイルについての詳細",
 	"multimediaviewer-datetime-created": "作成: $1",
 	"multimediaviewer-datetime-uploaded": "アップロード: $1",
