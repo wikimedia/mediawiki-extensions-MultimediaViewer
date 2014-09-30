@@ -105,9 +105,9 @@ def check_elements_in_viewer_for_image1(page)
   page.mmv_image_metadata_desc_element.when_present.text.should match /Sunrise over fishing boats on the beach south of Kovalam/
   # Image metadata links
   page.mmv_image_metadata_links_wrapper_element.when_present.should be_visible
-  # Repo link
-  page.mmv_image_metadata_repo_link_element.when_present.text.should match /More details about this file on Wikimedia Commons/
-  page.mmv_image_metadata_repo_link_element.when_present.attribute('href').should match /boats_in_Kerala.jpg$/
+  # Details link
+  page.mmv_details_page_link_element.when_present.text.should match /More details/
+  page.mmv_details_page_link_element.when_present.attribute('href').should match /boats_in_Kerala.jpg$/
 end
 
 # Helper function that verifies the presence of various elements in viewer
@@ -143,7 +143,7 @@ def check_elements_in_viewer_for_image2(page)
   page.mmv_image_metadata_desc_element.when_present.text.should match /Photo from Wikimedia Foundation/
   # Image metadata links
   page.mmv_image_metadata_links_wrapper_element.when_present.should be_visible
-  # Repo link
-  page.mmv_image_metadata_repo_link_element.when_present.text.should match /More details about this file on Wikimedia Commons/
-  page.mmv_image_metadata_repo_link_element.when_present.attribute('href').should match /All_Hands_Offsite.*\.jpg$/
+  # Details link
+  page.mmv_details_page_link_element.when_present.text.should match /More details/
+  page.mmv_details_page_link_element.when_present.attribute('href').should match /All_Hands_Offsite.*\.jpg$/
 end
