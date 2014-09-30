@@ -953,7 +953,8 @@ $wgResourceModules += array(
 );
 
 $wgExtensionFunctions[] = function () {
-	global $wgResourceModules, $wgEventLoggingSchemas;
+	global $wgResourceModules, $wgEventLoggingSchemas,
+		$wgMediaViewerEnableByDefault, $wgDefaultUserOptions;
 
 	if ( isset( $wgResourceModules['ext.eventLogging'] ) ) {
 		$wgEventLoggingSchemas[ 'MediaViewer' ] = 9989959;
@@ -968,6 +969,11 @@ $wgExtensionFunctions[] = function () {
 		$wgResourceModules['mmv.logging.AttributionLogger']['dependencies'][] = 'ext.eventLogging';
 		$wgResourceModules['mmv.logging.DimensionLogger']['dependencies'][] = 'ext.eventLogging';
 	}
+
+	if ( $wgMediaViewerEnableByDefault ) {
+		$wgDefaultUserOptions['multimediaviewer-enable'] = true;
+	}
+
 };
 
 foreach ( array(
@@ -994,13 +1000,6 @@ foreach ( array(
 }
 
 $wgAutoloadClasses['MultimediaViewerHooks'] = __DIR__ . '/MultimediaViewerHooks.php';
-
-$wgExtensionFunctions[] = function () {
-	global $wgMediaViewerEnableByDefault, $wgDefaultUserOptions;
-	if ( $wgMediaViewerEnableByDefault ) {
-		$wgDefaultUserOptions['multimediaviewer-enable'] = true;
-	}
-};
 
 $wgHooks['GetPreferences'][] = 'MultimediaViewerHooks::getPreferences';
 $wgHooks['GetBetaFeaturePreferences'][] = 'MultimediaViewerHooks::getBetaPreferences';
