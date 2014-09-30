@@ -201,9 +201,9 @@
 	C.attach = function() {
 		var canvas = this;
 
-		$( window ).on( 'resize.mmv-canvas', function () {
-			canvas.$mainWrapper.trigger( $.Event( 'mmv-resize' ) );
-		} );
+		$( window ).on( 'resize.mmv-canvas', $.debounce( 100, function () {
+			canvas.$mainWrapper.trigger( $.Event( 'mmv-resize-end' ) );
+		} ) );
 
 		this.$imageDiv.on( 'click.mmv-canvas', 'img', function () {
 			canvas.$mainWrapper.trigger( $.Event( 'mmv-image-click' ) );
