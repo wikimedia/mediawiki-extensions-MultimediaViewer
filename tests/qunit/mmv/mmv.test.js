@@ -116,7 +116,9 @@
 			canvas: { set : $.noop,
 				unblurWithAnimation: $.noop,
 				unblur: $.noop,
-				getCurrentImageWidths: function () { return { real : 0 }; } },
+				getCurrentImageWidths: function () { return { real : 0 }; },
+				getDimensions: function () { return {}; }
+			},
 			panel: {
 				setImageInfo: $.noop,
 				scroller: {
@@ -172,7 +174,9 @@
 			canvas : { set : $.noop,
 				unblurWithAnimation: $.noop,
 				unblur: $.noop,
-				getCurrentImageWidths : function () { return { real : 0 }; } },
+				getCurrentImageWidths : function () { return { real : 0 }; },
+				getDimensions: function () { return {}; }
+			},
 			panel : {
 				setImageInfo : $.noop,
 				scroller: {
@@ -364,8 +368,11 @@
 		viewer.ui = {
 			setFileReuseData: $.noop,
 			setupForLoad : $.noop,
-			canvas : { set : $.noop,
-				getCurrentImageWidths : function () { return { real : 0 }; } },
+			canvas : {
+				set : $.noop,
+				getCurrentImageWidths : function () { return { real : 0 }; },
+				getDimensions: function () { return {}; }
+			},
 			panel : {
 				setImageInfo : this.sandbox.stub(),
 				scroller: {

@@ -339,13 +339,13 @@
 	};
 
 	/**
-	 * Gets the widths for a given lightbox image.
-	 * @param {mw.mmv.LightboxImage} image
-	 * @returns {mw.mmv.model.ThumbnailWidth}
+	 * Returns width and height of the canvas area (i.e. the space available for the image).
+	 * @param {boolean} forFullscreen if true, return size in fullscreen mode; otherwise, return current size
+	 *  (which might still be fullscreen mode).
+	 * @return {{width: Number, height: Number}} width and height in CSS pixels
 	 */
-	C.getLightboxImageWidths = function ( image ) {
-		var thumb = image.thumbnail,
-			$window = $( window ),
+	C.getDimensions = function ( forFullscreen ) {
+		var $window = $( window ),
 			$aboveFold = $( '.mw-mmv-above-fold' ),
 			isFullscreened = !!$aboveFold.closest( '.jq-fullscreened' ).length,
 			// Don't rely on this.$imageWrapper's sizing because it's fragile.
@@ -354,8 +354,30 @@
 			availableWidth = $window.width(),
 			availableHeight =  $window.height() - ( isFullscreened ? 0 : $aboveFold.height() );
 
+		if ( forFullscreen ) {
+			return {
+				width: screen.width,
+				height: screen.height
+			};
+		} else {
+			return {
+				width: availableWidth,
+				height: availableHeight
+			};
+		}
+	};
+
+	/**
+	 * Gets the widths for a given lightbox image.
+	 * @param {mw.mmv.LightboxImage} image
+	 * @returns {mw.mmv.model.ThumbnailWidth}
+	 */
+	C.getLightboxImageWidths = function ( image ) {
+		var thumb = image.thumbnail,
+			canvasDimensions = this.getDimensions();
+
 		return this.thumbnailWidthCalculator.calculateWidths(
-			availableWidth, availableHeight, thumb.width, thumb.height );
+			canvasDimensions.width, canvasDimensions.height, thumb.width, thumb.height );
 	};
 
 	/**
@@ -366,10 +388,11 @@
 	 * @returns {mw.mmv.model.ThumbnailWidth}
 	 */
 	C.getLightboxImageWidthsForFullscreen = function ( image ) {
-		var thumb = image.thumbnail;
+		var thumb = image.thumbnail,
+			canvasDimensions = this.getDimensions( true );
 
 		return this.thumbnailWidthCalculator.calculateWidths(
-			screen.width, screen.height, thumb.width, thumb.height );
+			canvasDimensions.width, canvasDimensions.height, thumb.width, thumb.height );
 	};
 
 	/**

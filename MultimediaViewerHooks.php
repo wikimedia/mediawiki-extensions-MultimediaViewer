@@ -139,8 +139,9 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	public static function resourceLoaderGetConfigVars( &$vars ) {
-		global $wgAPIPropModules, $wgMediaViewerActionLoggingSamplingFactorMap, $wgNetworkPerformanceSamplingFactor, $wgMediaViewerDurationLoggingSamplingFactor,
-			$wgMediaViewerAttributionLoggingSamplingFactor, $wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing;
+		global $wgMediaViewerActionLoggingSamplingFactorMap, $wgNetworkPerformanceSamplingFactor,
+		       $wgMediaViewerDurationLoggingSamplingFactor, $wgMediaViewerAttributionLoggingSamplingFactor,
+		       $wgMediaViewerDimensionLoggingSamplingFactor, $wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing;
 		$vars['wgMultimediaViewer'] = array(
 			'infoLink' => self::$infoLink,
 			'discussionLink' => self::$discussionLink,
@@ -150,6 +151,7 @@ class MultimediaViewerHooks {
 			'networkPerformanceSamplingFactor' => $wgNetworkPerformanceSamplingFactor,
 			'actionLoggingSamplingFactorMap' => $wgMediaViewerActionLoggingSamplingFactorMap,
 			'attributionSamplingFactor' => $wgMediaViewerAttributionLoggingSamplingFactor,
+			'dimensionSamplingFactor' => $wgMediaViewerDimensionLoggingSamplingFactor,
 			'tooltipDelay' => 1000,
 		);
 		$vars['wgMediaViewer'] = true;
@@ -192,6 +194,8 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv/logging/mmv.logging.DurationLogger.test.js',
 				'tests/qunit/mmv/logging/mmv.logging.Performance.test.js',
 				'tests/qunit/mmv/logging/mmv.logging.ActionLogger.test.js',
+				'tests/qunit/mmv/logging/mmv.logging.AttributionLogger.test.js',
+				'tests/qunit/mmv/logging/mmv.logging.DimensionLogger.test.js',
 				'tests/qunit/mmv/model/mmv.model.test.js',
 				'tests/qunit/mmv/model/mmv.model.IwTitle.test.js',
 				'tests/qunit/mmv/model/mmv.model.TaskQueue.test.js',
