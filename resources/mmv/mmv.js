@@ -850,8 +850,8 @@
 	 * Fired when the user requests the previous image.
 	 */
 	/**
-	 * @event mmv-resize
-	 * Fired when the screen size changes.
+	 * @event mmv-resize-end
+	 * Fired when the screen size changes. Debounced to avoid continous triggering while resizing with a mouse.
 	 */
 	/**
 	 * @event mmv-request-thumbnail
@@ -870,7 +870,7 @@
 			viewer.nextImage();
 		} ).on( 'mmv-prev.mmvp', function () {
 			viewer.prevImage();
-		} ).on( 'mmv-resize.mmvp', function () {
+		} ).on( 'mmv-resize-end.mmvp', function () {
 			viewer.resize( viewer.ui );
 		} ).on( 'mmv-request-thumbnail.mmvp', function ( e, size ) {
 			if ( viewer.currentImageFileTitle ) {
@@ -889,7 +889,7 @@
 	* Unregisters all event handlers. Currently only used in tests.
 	*/
 	MMVP.cleanupEventHandlers = function () {
-		$( document ).off( 'mmv-close.mmvp mmv-next.mmvp mmv-prev.mmvp mmv-resize.mmvp' );
+		$( document ).off( 'mmv-close.mmvp mmv-next.mmvp mmv-prev.mmvp mmv-resize-end.mmvp' );
 	};
 
 	/**
