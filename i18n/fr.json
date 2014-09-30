@@ -39,7 +39,7 @@
 	"multimediaviewer-optout-help": "La visionneuse de média ne sera plus utilisée pour afficher les images. Pour l’utiliser de nouveau, cliquez sur le bouton « {{int:multimediaviewer-view-expanded}} » près d’une image. Puis cliquez sur « {{int:multimediaviewer-optin-mmv}} ».",
 	"multimediaviewer-optin-help": "La visionneuse de média sera utilisée pour afficher les images.",
 	"multimediaviewer-geolocation": "Emplacement : $1",
-	"multimediaviewer-reuse-link": "Utiliser ce fichier",
+	"multimediaviewer-reuse-link": "Partager ou inclure ce fichier",
 	"multimediaviewer-reuse-loading-placeholder": "Chargement en cours…",
 	"multimediaviewer-share-tab": "Partager",
 	"multimediaviewer-embed-tab": "Intégrer",

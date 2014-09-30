@@ -41,7 +41,7 @@
 	"multimediaviewer-optout-help": "Der Medienbetrachter wird nicht mehr zur Anzeige von Bildern verwendet. Um ihn wieder zu nutzen, klicke zunächst auf die Schaltfläche „{{int:multimediaviewer-view-expanded}}“ neben einem beliebigen Bild. Klicke dann auf „{{int:multimediaviewer-optin-mmv}}“.",
 	"multimediaviewer-optin-help": "Der Medienbetrachter wird zur Anzeige von Bildern verwendet.",
 	"multimediaviewer-geolocation": "Standort: $1",
-	"multimediaviewer-reuse-link": "Diese Datei verwenden",
+	"multimediaviewer-reuse-link": "Diese Datei teilen oder einbetten",
 	"multimediaviewer-reuse-loading-placeholder": "Lade …",
 	"multimediaviewer-share-tab": "Teilen",
 	"multimediaviewer-embed-tab": "Einbetten",

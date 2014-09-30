@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Oona",
-			"Jefersonmoraes"
+			"Jefersonmoraes",
+			"Ptrke"
 		]
 	},
 	"multimediaviewer-desc": "Expandir miniaturas em tamanho maior numa interface em tela cheia.",
@@ -27,7 +28,7 @@
 	"multimediaviewer-discuss-mmv": "Discutir esta funcionalidade",
 	"multimediaviewer-help-mmv": "Ajuda",
 	"multimediaviewer-geolocation": "Localização: $1",
-	"multimediaviewer-reuse-link": "Usar este arquivo",
+	"multimediaviewer-reuse-link": "Compartilhar ou anexar este arquivo",
 	"multimediaviewer-reuse-loading-placeholder": "Carregando…",
 	"multimediaviewer-share-tab": "Compartilhar",
 	"multimediaviewer-embed-tab": "Incorporar",

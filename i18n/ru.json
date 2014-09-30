@@ -36,7 +36,7 @@
 	"multimediaviewer-optout-help": "Медиа-просмотрщик больше не будет использоваться для показа изображений. Чтобы использовать его снова, нажмите на кнопку «{{int:multimediaviewer-view-expanded}}» рядом с любой образ. Затем нажмите на «{{int:multimediaviewer-optin-mmv}}».",
 	"multimediaviewer-optin-help": "Медиа-просмотрщик будет использоваться для показа изображений.",
 	"multimediaviewer-geolocation": "Географическое положение: $1",
-	"multimediaviewer-reuse-link": "Использовать этот файл",
+	"multimediaviewer-reuse-link": "Поделиться или встроить этот файл",
 	"multimediaviewer-reuse-loading-placeholder": "Загрузка…",
 	"multimediaviewer-share-tab": "Поделиться",
 	"multimediaviewer-embed-tab": "Вставить на страницу",

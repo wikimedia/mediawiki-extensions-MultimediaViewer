@@ -32,7 +32,7 @@
 	"multimediaviewer-optout-help": "Vizualizatorul multimedia nu va mai fi utilizat pentru afișarea imaginilor. Pentru a-l folosi din nou, apăsați butonul „{{int:multimediaviewer-view-expanded}}”, care se găsește în dreptul oricărei imagini. Apoi faceți clic pe „{{int:multimediaviewer-optin-mmv}}”.",
 	"multimediaviewer-optin-help": "Vizualizatorul multimedia va fi folosit pentru afișarea imaginilor.",
 	"multimediaviewer-geolocation": "Poziție: $1",
-	"multimediaviewer-reuse-link": "Utilizează acest fișier",
+	"multimediaviewer-reuse-link": "Distribuie sau încorporează acest fișier",
 	"multimediaviewer-reuse-loading-placeholder": "Se încarcă...",
 	"multimediaviewer-share-tab": "Distribuire",
 	"multimediaviewer-embed-tab": "Încorporare",

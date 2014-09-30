@@ -39,7 +39,7 @@
 	"multimediaviewer-optout-help": "Media Viewer non verrà più utilizzato per mostrare immagini. Per riusarlo, clicca sul pulsante \"{{int:multimediaviewer-view-expanded}}\" accanto ad ogni immagine. Poi clicca su \"{{int:multimediaviewer-optin-mmv}}\".",
 	"multimediaviewer-optin-help": "Sarà usato Media Viewer per mostrare le immagini.",
 	"multimediaviewer-geolocation": "Posizione: $1",
-	"multimediaviewer-reuse-link": "Usa questo file",
+	"multimediaviewer-reuse-link": "Condividi o incorpora questo file",
 	"multimediaviewer-reuse-loading-placeholder": "Caricamento in corso…",
 	"multimediaviewer-share-tab": "Condividi",
 	"multimediaviewer-embed-tab": "Incorpora",
