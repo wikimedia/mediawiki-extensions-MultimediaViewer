@@ -35,7 +35,7 @@
 	"multimediaviewer-optout-help": "O Visualizador Multimédia não será mais utilizado para exibir imagens. Para o ativar novamente, clique no botão \"{{int:multimediaviewer-view-expanded}}\" em qualquer imagem. Depois, clique em \"{{int:multimediaviewer-optin-mmv}}\".",
 	"multimediaviewer-optin-help": "O Visualizador Multimédia será utilizado para exibir imagens.",
 	"multimediaviewer-geolocation": "Localização: $1",
-	"multimediaviewer-reuse-link": "Usar este ficheiro",
+	"multimediaviewer-reuse-link": "Partilhar ou incorporar este ficheiro",
 	"multimediaviewer-reuse-loading-placeholder": "A carregar...",
 	"multimediaviewer-share-tab": "Partilhar",
 	"multimediaviewer-embed-tab": "Incorporar",
