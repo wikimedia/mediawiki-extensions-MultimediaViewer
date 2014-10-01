@@ -30,7 +30,7 @@ class E2ETestPage < CommonsPage
   p(:mmv_image_metadata_desc, class: "mw-mmv-image-desc")
 
   ul(:mmv_image_metadata_links_wrapper, class: "mw-mmv-image-links")
-  a(:mmv_image_metadata_repo_link, class: "mw-mmv-repo")
+  a(:mmv_details_page_link, class: "mw-mmv-description-page-button")
 
   # Controls
   div(:mmv_next_button, class: "mw-mmv-next-image")
