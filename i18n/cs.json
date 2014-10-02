@@ -37,7 +37,7 @@
 	"multimediaviewer-optout-help": "K zobrazování obrázků se již nebude používat Prohlížeč médií. Pokud ho budete chtít znovu použít, klikněte na tlačítko „{{int:multimediaviewer-view-expanded}}“ u libovolného obrázku. Poté klikněte na „{{int:multimediaviewer-optin-mmv}}“.",
 	"multimediaviewer-optin-help": "K zobrazování obrázků se bude používat Prohlížeč médií.",
 	"multimediaviewer-geolocation": "Místo: $1",
-	"multimediaviewer-reuse-link": "Použít tento soubor",
+	"multimediaviewer-reuse-link": "Sdílet nebo vložit tento soubor",
 	"multimediaviewer-reuse-loading-placeholder": "Načítám…",
 	"multimediaviewer-share-tab": "Sdílet",
 	"multimediaviewer-embed-tab": "Vložit",
