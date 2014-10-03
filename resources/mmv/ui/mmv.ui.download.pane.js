@@ -170,7 +170,13 @@
 
 		this.$attributionSection = $( '<div>' )
 			.addClass( 'mw-mmv-download-attribution mw-mmv-download-attribution-collapsed' )
-			.appendTo( $container );
+			.appendTo( $container )
+			.click( function () {
+				if ( dl.$attributionSection.hasClass( 'mw-mmv-download-attribution-collapsed' ) ) {
+					dl.$attributionSection.removeClass( 'mw-mmv-download-attribution-collapsed' );
+					dl.attributionInput.$element.find( 'input' ).focus();
+				}
+			} );
 
 		this.$attributionCta = $( '<div>' )
 			.addClass( 'mw-mmv-download-attribution-cta' )
@@ -182,10 +188,6 @@
 					.addClass( 'mw-mmv-download-attribution-cta-invite' )
 					.text( mw.message( 'multimediaviewer-download-attribution-cta' ).text() )
 				   )
-			.click( function () {
-				dl.$attributionSection.removeClass( 'mw-mmv-download-attribution-collapsed' );
-				dl.attributionInput.$element.find( 'input' ).focus();
-			} )
 		.appendTo( this.$attributionSection );
 
 		this.$attributionHow = $( '<div>' )
@@ -198,8 +200,9 @@
 					attributionSwitch.$element,
 					$( '<p>' )
 					.addClass( 'mw-mmv-download-attribution-close-button' )
-					.click( function () {
+					.click( function ( e ) {
 						dl.$attributionSection.addClass( 'mw-mmv-download-attribution-collapsed' );
+						e.stopPropagation();
 					} )
 					.text( ' ' )
 				   )
