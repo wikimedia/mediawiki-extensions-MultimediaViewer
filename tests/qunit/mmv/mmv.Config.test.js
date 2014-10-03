@@ -134,10 +134,10 @@
 	} );
 
 	QUnit.test( 'setMediaViewerEnabledOnClick sanity check', 3, function ( assert ) {
-		var localStorage = { setItem: this.sandbox.stub(), removeItem: this.sandbox.stub() },
+		var localStorage = { getItem: this.sandbox.stub(), setItem: this.sandbox.stub(), removeItem: this.sandbox.stub() },
 			mwUser = { isAnon: this.sandbox.stub() },
 			mwConfig = new mw.Map( { wgMediaViewerEnabledByDefault: false } ),
-			api = { postWithToken: this.sandbox.stub() },
+			api = { postWithToken: this.sandbox.stub().returns( $.Deferred().resolve() ) },
 			config = new mw.mmv.Config( {}, mwConfig, mwUser, api, localStorage );
 
 		mwUser.isAnon.returns( false );
@@ -172,5 +172,50 @@
 		mwUser.isAnon.returns( true );
 		config = new mw.mmv.Config( {}, {}, mwUser, {}, undefined );
 		assert.strictEqual( config.canSetMediaViewerEnabledOnClick(), false, 'Anons cannot disable when disabled localStorage' );
+	} );
+
+	QUnit.test( 'shouldShowStatusInfo', 12, function ( assert ) {
+		var config,
+			mwConfig = new mw.Map( {
+				wgMediaViewer: true,
+				wgMediaViewerOnClick: true,
+				wgMediaViewerEnabledByDefault: true
+			} ),
+			fakeLocalStorage = mw.mmv.testHelpers.getFakeLocalStorage(),
+			mwUser = { isAnon: this.sandbox.stub() },
+			api = { postWithToken: this.sandbox.stub().returns( $.Deferred().resolve() ) };
+
+		config = new mw.mmv.Config( {}, mwConfig, mwUser, api, fakeLocalStorage );
+		mwUser.isAnon.returns( false );
+
+		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default' );
+		config.setMediaViewerEnabledOnClick( false );
+		assert.strictEqual( config.shouldShowStatusInfo(), true, 'Status info is shown after MMV is disabled the first time' );
+		config.setMediaViewerEnabledOnClick( true );
+		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown when MMV is enabled' );
+		config.setMediaViewerEnabledOnClick( false );
+		assert.strictEqual( config.shouldShowStatusInfo(), true, 'Status info is shown after MMV is disabled the first time' );
+		config.disableStatusInfo();
+		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown when already displayed once' );
+		config.setMediaViewerEnabledOnClick( true );
+		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Further status changes have no effect' );
+		config.setMediaViewerEnabledOnClick( false );
+		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Further status changes have no effect' );
+
+		// make sure disabling calls maybeEnableStatusInfo() for logged-in as well
+		config.localStorage = mw.mmv.testHelpers.getFakeLocalStorage();
+		mwUser.isAnon.returns( true );
+		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default for logged-in users' );
+		config.setMediaViewerEnabledOnClick( false );
+		assert.strictEqual( config.shouldShowStatusInfo(), true, 'Status info is shown after MMV is disabled the first time for logged-in users' );
+
+		// make sure popup is not shown immediately on disabled-by-default sites, but still works otherwise
+		config.localStorage = mw.mmv.testHelpers.getFakeLocalStorage();
+		mwConfig.set( 'wgMediaViewerEnabledByDefault', false );
+		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default' );
+		config.setMediaViewerEnabledOnClick( true );
+		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown when MMV is enabled' );
+		config.setMediaViewerEnabledOnClick( false );
+		assert.strictEqual( config.shouldShowStatusInfo(), true, 'Status info is shown after MMV is disabled the first time' );
 	} );
 } ( mediaWiki, jQuery ) );

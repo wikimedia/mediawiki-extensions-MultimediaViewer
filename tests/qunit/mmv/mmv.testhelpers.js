@@ -13,6 +13,11 @@
 		$( document ).trigger( $.Event( 'jq-fullscreen-change', { element: this, fullscreen: false } ) );
 	};
 
+	/**
+	 * Returns the exception thrown by callback, or undefined if no exception was thrown.
+	 * @param {Function} callback
+	 * @returns {*}
+	 */
 	MTH.getException = function ( callback ) {
 		var ex;
 		try {
@@ -21,6 +26,20 @@
 			ex = e;
 		}
 		return ex;
+	};
+
+	/**
+	 * Returns a fake local storage which is not saved between reloads.
+	 * @param {object} [initialData]
+	 */
+	MTH.getFakeLocalStorage = function ( initialData ) {
+		var bag = new mw.Map( initialData );
+
+		return {
+			getItem: function ( key ) { return bag.get( key ); },
+			setItem: function ( key, value ) { bag.set( key, value ); },
+			removeItem: function ( key ) { bag.set( key, null ); }
+		};
 	};
 
 	mw.mmv.testHelpers = MTH;

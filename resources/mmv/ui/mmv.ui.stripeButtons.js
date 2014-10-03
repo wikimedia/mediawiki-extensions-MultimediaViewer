@@ -68,7 +68,7 @@
 		}
 		if ( popupText ) {
 			$button.prop( 'title', popupText ).tipsy( {
-				gravity: $( document.body ).hasClass( 'rtl' ) ? 'sw' : 'se',
+				gravity: this.correctEW( 'se' ),
 				delayIn: tooltipDelay
 			} );
 		}

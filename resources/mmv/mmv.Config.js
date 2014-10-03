@@ -140,7 +140,8 @@
 	 * @return {jQuery.Promise} a deferred which resolves/rejects on success/failure respectively
 	 */
 	CP.setMediaViewerEnabledOnClick = function ( enabled ) {
-		var newPrefValue,
+		var deferred,
+			newPrefValue,
 			defaultPrefValue = this.mwConfig.get( 'wgMediaViewerEnabledByDefault' ),
 			config = this,
 			success = true;
@@ -152,11 +153,9 @@
 				success = this.removeFromLocalStorage( 'wgMediaViewerOnClick' );
 			}
 			if ( success ) {
-				// make the change work without a reload
-				config.mwConfig.set( 'wgMediaViewerOnClick', enabled );
-				return $.Deferred().resolve();
+				deferred = $.Deferred().resolve();
 			} else {
-				return $.Deferred().reject();
+				deferred = $.Deferred().reject();
 			}
 		} else {
 			// Simulate changing the option in Special:Preferences. Turns out this is quite hard (bug 69942):
@@ -170,11 +169,17 @@
 				// which in turn will cause the options API to delete the row and revert the pref to default
 				newPrefValue = enabled ? '1' : undefined;
 			}
-
-			return this.setUserPreference( 'multimediaviewer-enable', newPrefValue ).done( function () {
-				config.mwConfig.set( 'wgMediaViewerOnClick', enabled );
-			} );
+			deferred = this.setUserPreference( 'multimediaviewer-enable', newPrefValue );
 		}
+
+		return deferred.done( function () {
+			// make the change work without a reload
+			config.mwConfig.set( 'wgMediaViewerOnClick', enabled );
+			if ( !enabled ) {
+				// set flag for showing a popup if this was a first-time disable
+				config.maybeEnableStatusInfo();
+			}
+		} );
 	};
 
 	/**
@@ -183,6 +188,34 @@
 	 */
 	CP.canSetMediaViewerEnabledOnClick = function () {
 		return !this.mwUser.isAnon() || !!this.localStorage;
+	};
+
+
+	/**
+	 * True if info about enable/disable status should be displayed (mingle #719).
+	 * @returns {boolean}
+	 */
+	CP.shouldShowStatusInfo = function () {
+		return !this.isMediaViewerEnabledOnClick() && this.getFromLocalStorage( 'mmv-showStatusInfo' ) === '1';
+	};
+
+	/**
+	 * @private
+	 * Called when MediaViewer is disabled. If status info was never displayed before, future
+	 * shouldShowStatusInfo() calls will return true.
+	 */
+	CP.maybeEnableStatusInfo = function ( ) {
+		var currentShowStatusInfo = this.getFromLocalStorage( 'mmv-showStatusInfo' );
+		if ( currentShowStatusInfo === null ) {
+			this.setInLocalStorage( 'mmv-showStatusInfo', '1' );
+		}
+	};
+
+	/**
+	 * Called when status info is displayed. Future shouldShowStatusInfo() calls will retrurn false.
+	 */
+	CP.disableStatusInfo = function ( ) {
+		this.setInLocalStorage( 'mmv-showStatusInfo', '0' );
 	};
 
 	mw.mmv.Config = Config;

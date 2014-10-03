@@ -242,6 +242,29 @@
 		return false;
 	};
 
+	/**
+	 * Flips E (east) and W (west) directions in RTL documents.
+	 * @param {string} keyword a keyword where the first 'e' or 'w' character means a direction (such as a
+	 *  tipsy gravity parameter)
+	 * @return {string}
+	 */
+	EP.correctEW = function ( keyword ) {
+		if ( this.isRTL() ) {
+			keyword = keyword.replace( /[ew]/i, function ( dir ) {
+				if ( dir === 'e' ) {
+					return 'w';
+				} else if ( dir === 'E' ) {
+					return 'W';
+				} else if ( dir === 'w' ) {
+					return 'e';
+				} else if ( dir === 'W' ) {
+					return 'E';
+				}
+			} );
+		}
+		return keyword;
+	};
+
 	mw.mmv.ui = {};
 	mw.mmv.ui.reuse = {};
 	mw.mmv.ui.Element = Element;

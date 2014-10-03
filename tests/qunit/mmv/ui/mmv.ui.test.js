@@ -91,4 +91,19 @@
 		this.clock.tick( 80 );
 		assert.ok( spy.called, 'Timeout works after changing the delay' );
 	} );
+
+	QUnit.test( 'correctEW()', 5, function ( assert ) {
+		var element = new mw.mmv.ui.Element( $( '<div>' ) );
+
+		element.isRTL = this.sandbox.stub().returns( true );
+
+		assert.strictEqual( element.correctEW( 'e' ), 'w', 'e (east) is flipped' );
+		assert.strictEqual( element.correctEW( 'ne' ), 'nw', 'ne (northeast) is flipped' );
+		assert.strictEqual( element.correctEW( 'W' ), 'E', 'uppercase is flipped' );
+		assert.strictEqual( element.correctEW( 's' ), 's', 'non-horizontal directions are ignored' );
+
+		element.isRTL.returns( false );
+
+		assert.strictEqual( element.correctEW( 'e' ), 'e', 'no flipping in LTR documents' );
+	} );
 }( mediaWiki, jQuery ) );

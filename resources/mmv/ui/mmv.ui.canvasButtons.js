@@ -30,7 +30,6 @@
 	 */
 	function CanvasButtons( $container, $closeButton, $fullscreenButton ) {
 		var buttons = this,
-			isRtl = $( document.body ).hasClass( 'rtl' ),
 			tooltipDelay = mw.config.get( 'wgMultimediaViewer' ).tooltipDelay;
 
 		mw.mmv.ui.Element.call( this, $container );
@@ -44,7 +43,7 @@
 			.prop( 'title', mw.message( 'multimediaviewer-reuse-link' ).text() )
 			.tipsy( {
 				delayIn: tooltipDelay,
-				gravity: isRtl ? 'sw' : 'se'
+				gravity: this.correctEW( 'se' )
 			} );
 
 		this.$options = $( '<div>' )
@@ -58,7 +57,7 @@
 			.prop( 'title', mw.message( 'multimediaviewer-download-link' ).text() )
 			.tipsy( {
 				delayIn: tooltipDelay,
-				gravity: isRtl ? 'sw' : 'se'
+				gravity: this.correctEW( 'se' )
 			} );
 
 		this.$next = $( '<div>' )

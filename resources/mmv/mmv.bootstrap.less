@@ -46,8 +46,13 @@ body.mw-mmv-lightbox-open > .mw-mmv-wrapper {
 		background-image: url('img/expand.svg');
 	}
 
-	.mw-mmv-view-config:before {
+	.mw-mmv-view-config.mw-ui-icon:before {
 		/* @embed */
 		background-image: url('img/gear_gray.svg');
+		opacity: 0.75;
+
+		&:hover {
+			opacity: 1;
+		}
 	}
 }

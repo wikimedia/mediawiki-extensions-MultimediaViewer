@@ -238,6 +238,7 @@
 	MMVB.processFilePageThumb = function ( $thumb, title ) {
 		var $link,
 			$configLink,
+			$filepageButtons,
 			bs = this,
 			link = $thumb.closest( 'a' ).prop( 'href' );
 
@@ -253,11 +254,12 @@
 			.addClass( 'mw-mmv-view-config mw-ui-button mw-ui-icon mw-ui-icon-element' )
 			.text( mw.message( 'multimediaviewer-view-config' ).text() );
 
+		$filepageButtons = $( '<div>' )
+			.addClass( 'mw-ui-button-group mw-mmv-filepage-buttons' )
+			.append( $link, $configLink );
 
 		$( '.fullMedia' ).append(
-			$( '<div>' )
-				.addClass( 'mw-ui-button-group mw-mmv-filepage-buttons' )
-				.append( $link, $configLink ),
+			$filepageButtons,
 			$( '<div>' )
 				.css( 'clear', 'both' )
 		);
@@ -270,15 +272,47 @@
 		} );
 
 		$link.click( function () {
+			if ( bs.statusInfoDialog ) {
+				bs.statusInfoDialog.close();
+			}
 			bs.openImage( this, title );
 			return false;
 		} );
 
 		$configLink.click( function () {
+			if ( bs.statusInfoDialog ) {
+				bs.statusInfoDialog.close();
+			}
 			bs.openImage( this, title ).then( function () {
 				$( document ).trigger( 'mmv-options-open' );
 			} );
 			return false;
+		} );
+
+		if ( this.config.shouldShowStatusInfo() ) {
+			this.config.disableStatusInfo();
+			this.showStatusInfo();
+		}
+	};
+
+	/**
+	 * Shows a popup notifying the user
+	 */
+	MMVB.showStatusInfo = function () {
+		var bs = this;
+
+		mw.loader.using( 'mmv.ui.tipsyDialog' ).done( function () {
+			/** @property {mw.mmv.ui.TipsyDialog} statusInfoDialog popup on the file page explaining how to re-enable */
+			bs.statusInfoDialog = new mw.mmv.ui.TipsyDialog( $( '.mw-mmv-view-expanded' ), { gravity: 'sw' } );
+			bs.statusInfoDialog.setContent(
+				mw.message( 'multimediaviewer-disable-info-title' ).plain(),
+				mw.message( 'multimediaviewer-disable-info').escaped()
+			);
+			// tipsy mispositions the tooltip, probably because it does the positioning before the buttons are
+			// displayed and the page is reflown. Adding some delay seems to help.
+			window.setTimeout( function () {
+				bs.statusInfoDialog.open();
+			}, 1000 );
 		} );
 	};
 

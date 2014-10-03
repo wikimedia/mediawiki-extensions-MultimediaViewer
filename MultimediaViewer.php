@@ -796,6 +796,22 @@ $wgResourceModules += array(
 		),
 	),
 
+	'mmv.ui.tipsyDialog' => $wgMediaViewerResourceTemplate + array(
+			'scripts' => array(
+				'mmv/ui/mmv.ui.tipsyDialog.js',
+			),
+
+			'styles' => array(
+				'mmv/ui/mmv.ui.tipsyDialog.less',
+			),
+
+			'dependencies' => array(
+				'mmv.ui',
+				'oojs',
+				'jquery.tipsy',
+			),
+	),
+
 	'mmv.logging.Logger' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/logging/mmv.logging.Logger.js',
@@ -889,19 +905,21 @@ $wgResourceModules += array(
 		),
 
 		'dependencies' => array(
-			'jquery.hashchange',
 			'mediawiki.ui.icon',
 			'mediawiki.Title',
 			'mmv.Config',
 			'mmv.logging.ActionLogger',
 			'mmv.HtmlUtils',
 			'mmv.logging.DurationLogger',
+			'jquery.hashchange',
 			'jquery.scrollTo',
 		),
 
 		'messages' => array(
 			'multimediaviewer-view-expanded',
 			'multimediaviewer-view-config',
+			'multimediaviewer-disable-info-title',
+			'multimediaviewer-disable-info',
 		),
 	),
 

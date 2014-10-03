@@ -171,7 +171,7 @@
 		this.$title = $( '<span>' )
 			.tipsy( {
 				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
-				gravity: this.isRTL() ? 'se' : 'sw'
+				gravity: this.correctEW( 'sw' )
 			} )
 			.addClass( 'mw-mmv-title' );
 
@@ -195,7 +195,7 @@
 			.addClass( 'mw-mmv-source-author' )
 			.tipsy( {
 				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
-				gravity: this.isRTL() ? 'se' : 'sw'
+				gravity: this.correctEW( 'sw' )
 			} );
 
 		this.creditField = new mw.mmv.ui.TruncatableTextField(
