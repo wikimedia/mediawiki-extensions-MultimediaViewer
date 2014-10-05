@@ -5,7 +5,8 @@
 			"Okras",
 			"Tucvbif",
 			"Meshkov.a",
-			"Wizardist"
+			"Wizardist",
+			"Striking Blue"
 		]
 	},
 	"multimediaviewer-desc": "Раскрывает эскизы в большие изображения на весь экран.",
@@ -40,7 +41,7 @@
 	"multimediaviewer-reuse-loading-placeholder": "Загрузка…",
 	"multimediaviewer-share-tab": "Поделиться",
 	"multimediaviewer-embed-tab": "Вставить на страницу",
-	"multimediaviewer-download-link": "Скачать этот файл",
+	"multimediaviewer-download-link": "Загрузить этот файл",
 	"multimediaviewer-download-preview-link-title": "Просмотр в браузере",
 	"multimediaviewer-download-original-button-name": "Скачать исходный файл",
 	"multimediaviewer-download-small-button-name": "Скачать в маленьком размере",
@@ -77,7 +78,7 @@
 	"multimediaviewer-description-page-button-text": "Подробнее об этом файле",
 	"multimediaviewer-description-page-popup-text": "Подробнее об этом файле на сайте $1",
 	"multimediaviewer-commons-subtitle": "Хранилище свободных медиа-файлов",
-	"multimediaviewer-view-expanded": "Открыть в Медиа-просмотрщике",
+	"multimediaviewer-view-expanded": "Открыть в Просмотрщике медиа",
 	"multimediaviewer-close-popup-text": "Закрыть этот инструмент (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Показать в полноэкранном режиме",
 	"multimediaviewer-defullscreen-popup-text": "Выход из полноэкранного режима",
