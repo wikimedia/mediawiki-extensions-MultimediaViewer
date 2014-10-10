@@ -35,7 +35,7 @@
 	"multimediaviewer-optout-help": "Piltide näitamiseks ei kasutata enam failivaaturit. Et seda uuesti kasutada, klõpsa ükskõik millise pildi juures nuppu \"{{int:Multimediaviewer-view-expanded}}\". Seejärel klõpsa \"{{int:Multimediaviewer-optin-mmv}}\".",
 	"multimediaviewer-optin-help": "Piltide näitamiseks kasutatakse edaspidi failivaaturit.",
 	"multimediaviewer-geolocation": "Asukoht: $1",
-	"multimediaviewer-reuse-link": "Kasuta seda faili",
+	"multimediaviewer-reuse-link": "Jaga või kasuta seda faili",
 	"multimediaviewer-reuse-loading-placeholder": "Laadimine...",
 	"multimediaviewer-share-tab": "Jagamine",
 	"multimediaviewer-embed-tab": "Manustamine",

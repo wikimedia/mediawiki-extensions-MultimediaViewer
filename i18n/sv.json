@@ -40,7 +40,7 @@
 	"multimediaviewer-optout-help": "Mediavisaren kommer inte längre att användas för att visa bilder. För att använda den igen, klicka på \"{{int:multimediaviewer-view-expanded}}\"-knappen bredvid valfri bild. Klicka sedan på \"{{int:multimediaviewer-optin-mmv}}\".",
 	"multimediaviewer-optin-help": "Mediavisaren kommer att användas för att visa bilder.",
 	"multimediaviewer-geolocation": "Plats: $1",
-	"multimediaviewer-reuse-link": "Använd denna fil",
+	"multimediaviewer-reuse-link": "Använd eller bädda in denna fil",
 	"multimediaviewer-reuse-loading-placeholder": "Läser in...",
 	"multimediaviewer-share-tab": "Dela",
 	"multimediaviewer-embed-tab": "Bädda in",
