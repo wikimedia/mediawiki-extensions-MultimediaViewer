@@ -952,17 +952,21 @@ $wgResourceModules += array(
 	),
 );
 
+$wgHooks['EventLoggingRegisterSchemas'][] = function( array &$schemas ) {
+	$schemas += array(
+		'MediaViewer' => 9989959,
+		'MultimediaViewerNetworkPerformance' => 7917896,
+		'MultimediaViewerDuration' => 8572641,
+		'MultimediaViewerAttribution' => 9758179,
+		'MultimediaViewerDimensions' => 10014238,
+	);
+};
+
 $wgExtensionFunctions[] = function () {
-	global $wgResourceModules, $wgEventLoggingSchemas,
-		$wgMediaViewerEnableByDefault, $wgDefaultUserOptions;
+	global $wgResourceModules, $wgDefaultUserOptions,
+		$wgMediaViewerEnableByDefault;
 
 	if ( isset( $wgResourceModules['ext.eventLogging'] ) ) {
-		$wgEventLoggingSchemas[ 'MediaViewer' ] = 9989959;
-		$wgEventLoggingSchemas[ 'MultimediaViewerNetworkPerformance' ] = 7917896;
-		$wgEventLoggingSchemas[ 'MultimediaViewerDuration' ] = 8572641;
-		$wgEventLoggingSchemas[ 'MultimediaViewerAttribution' ] = 9758179;
-		$wgEventLoggingSchemas[ 'MultimediaViewerDimensions' ] = 10014238;
-
 		$wgResourceModules['mmv.logging.ActionLogger']['dependencies'][] = 'ext.eventLogging';
 		$wgResourceModules['mmv.logging.Performance']['dependencies'][] = 'ext.eventLogging';
 		$wgResourceModules['mmv.logging.DurationLogger']['dependencies'][] = 'ext.eventLogging';
