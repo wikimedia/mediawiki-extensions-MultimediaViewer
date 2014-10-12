@@ -41,7 +41,7 @@
 	"multimediaviewer-optout-help": "El Visor multimedia ya no se usará para mostrar imágenes. Para volver a usarlo, haz clic en el botón «{{int:multimediaviewer-view-expanded}}» junto a cada imagen. Luego haz clic en «{{int:multimediaviewer-optin-mmv}}».",
 	"multimediaviewer-optin-help": "Las imágenes se abrirán ahora con el visor multimedia.",
 	"multimediaviewer-geolocation": "Ubicación: $1",
-	"multimediaviewer-reuse-link": "Usar este archivo",
+	"multimediaviewer-reuse-link": "Compartir o incrustar este archivo",
 	"multimediaviewer-reuse-loading-placeholder": "Cargando…",
 	"multimediaviewer-share-tab": "Compartir",
 	"multimediaviewer-embed-tab": "Incrustar",
