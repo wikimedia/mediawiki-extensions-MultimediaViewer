@@ -45,12 +45,41 @@ class E2ETestPage < CommonsPage
   span(:mmv_download_size_label, class: "mw-mmv-download-image-size")
   span(:mmv_download_down_arrow_icon, class: "mw-mmv-download-select-menu")
   div(:mmv_download_size_menu_container, class: "mw-mmv-download-size")
-  div(:mmv_download_size_menu) { |page| page.mmv_download_size_menu_container_element.div_element(class: "oo-ui-selectWidget") }
+  div(:mmv_download_size_menu) {
+    |page| page.mmv_download_size_menu_container_element.div_element(class: "oo-ui-selectWidget")
+  }
   divs(:mmv_download_size_options, class: "oo-ui-menuItemWidget")
   a(:mmv_download_link, class: "mw-mmv-download-go-button")
   a(:mmv_download_preview_link, class: "mw-mmv-download-preview-link")
   div(:mmv_download_attribution_area, class: "mw-mmv-download-attribution")
   p(:mmv_download_attribution_area_close_icon, class: "mw-mmv-download-attribution-close-button")
   div(:mmv_download_attribution_area_input_container, class: "mw-mmv-download-attr-input")
-  text_field(:mmv_download_attribution_area_input)  { |page| page.mmv_download_attribution_area_input_container_element.text_field_element }
+  text_field(:mmv_download_attribution_area_input)  {
+    |page| page.mmv_download_attribution_area_input_container_element.text_field_element
+  }
+
+  # Options
+  div(:mmv_options_icon, class: "mw-mmv-options-button")
+  div(:mmv_options_menu_disable, class: "mw-mmv-options-disable")
+  div(:mmv_options_menu_enable, class: "mw-mmv-options-enable")
+  button(:mmv_options_enable_button) {
+    |page| page.mmv_options_menu_enable_element.div_element(class: "mw-mmv-options-submit").button_element(class: "mw-mmv-options-submit-button")
+  }
+  button(:mmv_options_disable_button) {
+    |page| page.mmv_options_menu_disable_element.div_element(class: "mw-mmv-options-submit").button_element(class: "mw-mmv-options-submit-button")
+  }
+  button(:mmv_options_enable_cancel_button) {
+    |page| page.mmv_options_menu_enable_element.div_element(class: "mw-mmv-options-submit").button_element(class: "mw-mmv-options-cancel-button")
+  }
+  button(:mmv_options_disable_cancel_button) {
+    |page| page.mmv_options_menu_disable_element.div_element(class: "mw-mmv-options-submit").button_element(class: "mw-mmv-options-cancel-button")
+  }
+  div(:mmv_options_disable_confirmation, class: "mw-mmv-disable-confirmation")
+  div(:mmv_options_disable_x_icon) {
+    |page| page.mmv_options_disable_confirmation_element.div_element(class: "mw-mmv-confirmation-close")
+  }
+  div(:mmv_options_enable_confirmation, class: "mw-mmv-enable-confirmation")
+  div(:mmv_options_enable_x_icon) {
+    |page| page.mmv_options_enable_confirmation_element.div_element(class: "mw-mmv-confirmation-close")
+  }
 end
