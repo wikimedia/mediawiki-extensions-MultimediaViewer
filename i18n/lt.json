@@ -2,10 +2,26 @@
 	"@metadata": {
 		"authors": [
 			"Mantak111",
-			"Robotukas11"
+			"Robotukas11",
+			"Hugo.arg"
 		]
 	},
 	"multimediaviewer-desc-nil": "Aprašymas neprieinamas.",
+	"multimediaviewer-optin-pref": "Įjungti <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer nuotraukų peržvalgos programą]</span>",
+	"multimediaviewer-repository-local": "Plačiau",
+	"multimediaviewer-datetime-created": "Sukurta: $1",
+	"multimediaviewer-userpage-link": "Nuotraukos {{GENDER:$2|įkėlėjas|įkėlėja}} $1",
 	"multimediaviewer-permission-title": "Licencijos informacija",
-	"multimediaviewer-permission-viewmore": "Rodyti daugiau"
+	"multimediaviewer-permission-viewmore": "Rodyti daugiau",
+	"multimediaviewer-about-mmv": "Apie nuotraukų peržvalgos įrankį",
+	"multimediaviewer-discuss-mmv": "Aptarti šią priemonę",
+	"multimediaviewer-help-mmv": "Pagalba",
+	"multimediaviewer-optin-mmv": "Įjungti nuotraukų peržvalgos programą",
+	"multimediaviewer-geolocation": "Padėtis:",
+	"multimediaviewer-reuse-link": "Dalintis arba įterpti šią nuotrauką",
+	"multimediaviewer-download-link": "Atsisiųsti šią nuotrauką",
+	"multimediaviewer-view-expanded": "Atverti su nuotraukų peržvalgos įrankiu",
+	"multimediaviewer-close-popup-text": "Užverti šį įrankį (Esc)",
+	"multimediaviewer-fullscreen-popup-text": "Rodyti per visą ekraną",
+	"multimediaviewer-panel-close-popup-text": "Nerodyti aprašymo"
 }
