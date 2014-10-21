@@ -73,7 +73,6 @@
 		this.$container.on( 'mmv-metadata-open', function () {
 			if ( !panel.hasOpenedMetadata && panel.localStorage ) {
 				panel.hasOpenedMetadata = true;
-				panel.$dragIcon.removeClass( 'panel-never-opened' );
 				try {
 					panel.localStorage.setItem( 'mmv.hasOpenedMetadata', true );
 				} catch ( e ) {
@@ -93,8 +92,6 @@
 	};
 
 	MPSP.empty = function () {
-		this.$dragIcon.toggleClass( 'panel-never-opened', !this.hasOpenedMetadata );
-
 		// need to remove this to avoid animating again when reopening lightbox on same page
 		this.$container.removeClass( 'invite' );
 
@@ -102,36 +99,6 @@
 	};
 
 	MPSP.initialize = function () {
-		var panel = this;
-
-		this.$dragIcon = $( '<div>' )
-			.addClass( 'mw-mmv-drag-icon mw-mmv-drag-icon-pointing-down' )
-			.toggleClass( 'panel-never-opened', !this.hasOpenedMetadata )
-			.prop( 'title', mw.message( 'multimediaviewer-panel-open-popup-text' ).text() )
-			.tipsy( { gravity: 's', delayIn: mw.config.get( 'wgMultimediaViewer').tooltipDelay } )
-			.appendTo( this.$aboveFold )
-			.click( function () {
-				// Trigger open event and do related actions that would be normally done by the scroll handler.
-				// If we left this to the scroll handler, the size of the panel would change mid-animation
-				// and the end position would be off.
-				panel.panelIsOpen = true;
-				panel.$dragIcon.addClass( 'panel-open' );
-				// use triggerHandler instead of trigger because it is non-async; the untruncate handler
-				// must run before the toggle() call
-				panel.$container.triggerHandler( 'mmv-metadata-open' );
-
-				panel.toggle( 'up' );
-			} );
-
-		this.$dragIconBottom = $( '<div>' )
-			.addClass( 'mw-mmv-drag-icon mw-mmv-drag-icon-pointing-up' )
-			.prop( 'title', mw.message( 'multimediaviewer-panel-close-popup-text' ).text() )
-			.tipsy( { gravity: 's', delayIn: mw.config.get( 'wgMultimediaViewer').tooltipDelay } )
-			.appendTo( this.$container )
-			.click( function () {
-				panel.toggle( 'down' );
-			} );
-
 		this.hasOpenedMetadata = !this.localStorage || this.localStorage.getItem( 'mmv.hasOpenedMetadata' );
 	};
 
@@ -219,15 +186,16 @@
 	};
 
 	/**
-	 * Receives the window's scroll events and flips the chevron if necessary.
+	 * Receives the window's scroll events and and turns them into business logic events
+	 * @fires mmv-metadata-open
+	 * @fires mmv-metadata-close
 	 */
 	MPSP.scroll = function () {
 		var panelIsOpen = !!$.scrollTo().scrollTop();
 
-		this.$dragIcon.toggleClass( 'panel-open', panelIsOpen );
 		this.$container.toggleClass( 'panel-open', panelIsOpen );
 
-		if ( panelIsOpen && !this.panelIsOpen ) { // just opened (this is skipped in some cases, see the $dragIcon click handler)
+		if ( panelIsOpen && !this.panelIsOpen ) { // just opened
 			this.$container.trigger( 'mmv-metadata-open' );
 		} else if ( !panelIsOpen && this.panelIsOpen ) { // just closed
 			this.$container.trigger( 'mmv-metadata-close' );
