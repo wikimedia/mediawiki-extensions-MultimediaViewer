@@ -179,7 +179,6 @@
 	 */
 	MMVB.processThumb = function ( thumb ) {
 		var bs = this,
-			alwaysOpen = false,
 			$thumb = $( thumb ),
 			$link = $thumb.closest( 'a.image' ),
 			$thumbContain = $link.closest( '.thumb' ),
@@ -213,23 +212,9 @@
 		}
 
 		if ( $thumb.closest( '#file' ).length > 0 ) {
-			// This is a file page. Make adjustments.
-			link = $thumb.closest( 'a' ).prop( 'href' );
-
-			$( '<p>' )
-				.addClass( 'mw-mmv-filepage-menu' )
-				.append(
-					$link = $( '<a>' )
-						// It won't matter because we catch the click event anyway, but
-						// give the user some URL to see.
-						.prop( 'href', $thumb.closest( 'a' ).prop( 'href' ) )
-						.addClass( 'mw-mmv-view-expanded' )
-						.text( mw.message( 'multimediaviewer-view-expanded' ).text() )
-				)
-				.appendTo( $( '.fullMedia' ) );
-
-			// Ignore the preference, open anyway
-			alwaysOpen = true;
+			// main thumbnail of a file page
+			this.processFilePageThumb( $thumb, title );
+			return;
 		}
 
 		// This is the data that will be passed onto the mmv
@@ -241,7 +226,59 @@
 			caption : this.findCaption( $thumbContain, $link ) } );
 
 		$link.add( $enlarge ).click( function ( e ) {
-			return bs.click( this, e, title, alwaysOpen );
+			return bs.click( this, e, title );
+		} );
+	};
+
+	/**
+	 * Processes the main thumbnail of a file page.
+	 * @param {jQuery} $thumb
+	 * @param {mw.Title} title
+	 */
+	MMVB.processFilePageThumb = function ( $thumb, title ) {
+		var $link,
+			$configLink,
+			bs = this,
+			link = $thumb.closest( 'a' ).prop( 'href' );
+
+		$link = $( '<a>' )
+			// It won't matter because we catch the click event anyway, but
+			// give the user some URL to see.
+			.prop( 'href', link )
+			.addClass( 'mw-mmv-view-expanded mw-ui-button mw-ui-icon mw-ui-icon-before' )
+			.text( mw.message( 'multimediaviewer-view-expanded' ).text() );
+
+		$configLink = $( '<a>' )
+			.prop( 'href', $thumb.closest( 'a' ).prop( 'href' ) )
+			.addClass( 'mw-mmv-view-config mw-ui-button mw-ui-icon mw-ui-icon-element' )
+			.text( mw.message( 'multimediaviewer-view-config' ).text() );
+
+
+		$( '.fullMedia' ).append(
+			$( '<div>' )
+				.addClass( 'mw-ui-button-group mw-mmv-filepage-buttons' )
+				.append( $link, $configLink ),
+			$( '<div>' )
+				.css( 'clear', 'both' )
+		);
+
+		this.thumbs.push( {
+			thumb : $thumb.get( 0 ),
+			$thumb : $thumb,
+			title : title,
+			link : link
+		} );
+
+		$link.click( function () {
+			bs.openImage( this, title );
+			return false;
+		} );
+
+		$configLink.click( function () {
+			bs.openImage( this, title ).then( function () {
+				$( document ).trigger( 'mmv-options-open' );
+			} );
+			return false;
 		} );
 	};
 
@@ -274,31 +311,12 @@
 	};
 
 	/**
-	 * Handles a click event on a link
+	 * Opens MediaViewer and loads the given thumbnail. Requires processThumb() to be called first.
 	 * @param {HTMLElement} element Clicked element
-	 * @param {jQuery.Event} e jQuery event object
 	 * @param {string} title File title
-	 * @param {boolean} overridePreference Whether to ignore global preferences and open
-	 * the lightbox on this click event.
-	 * @returns {boolean}
 	 */
-	MMVB.click = function ( element, e, title, overridePreference ) {
+	MMVB.openImage = function ( element, title ) {
 		var $element = $( element );
-
-		// Do not interfere with non-left clicks or if modifier keys are pressed.
-		if ( ( e.button !== 0 && e.which !== 1 ) || e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) {
-			return;
-		}
-
-		// Don't load if someone has specifically stopped us from doing so
-		if ( !this.config.isMediaViewerEnabledOnClick() && overridePreference !== true ) {
-			return;
-		}
-
-		// Don't load if we already tried loading and it failed
-		if ( this.viewerIsBroken ) {
-			return;
-		}
 
 		mw.mmv.durationLogger.start( [ 'click-to-first-image', 'click-to-first-metadata' ] );
 
@@ -310,14 +328,44 @@
 
 		this.ensureEventHandlersAreSetUp();
 
-		this.loadViewer().then( function ( viewer ) {
+		return this.loadViewer().then( function ( viewer ) {
 			viewer.loadImageByTitle( title, true );
 		} );
+	};
 
+	/**
+	 * Handles a click event on a link
+	 * @param {HTMLElement} element Clicked element
+	 * @param {jQuery.Event} e jQuery event object
+	 * @param {string} title File title
+	 * @returns {boolean} a value suitable for an event handler (ie. true if the click should be handled
+	 *  by the browser).
+	 */
+	MMVB.click = function ( element, e, title ) {
+		// Do not interfere with non-left clicks or if modifier keys are pressed.
+		if ( ( e.button !== 0 && e.which !== 1 ) || e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) {
+			return true;
+		}
+
+		// Don't load if someone has specifically stopped us from doing so
+		if ( !this.config.isMediaViewerEnabledOnClick() ) {
+			return true;
+		}
+
+		// Don't load if we already tried loading and it failed
+		if ( this.viewerIsBroken ) {
+			return true;
+		}
+
+		this.openImage( element, title );
+
+		// calling this late so that in case of errors users at least get to the file page
 		e.preventDefault();
 
 		return false;
 	};
+
+
 
 	/**
 	 * Handles the browser location hash on pageload or hash change

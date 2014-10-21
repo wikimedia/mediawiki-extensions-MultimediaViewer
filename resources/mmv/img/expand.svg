@@ -1,16 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 17.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1"
-	 id="Layer_1" xmlns:cc="http://creativecommons.org/ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 900.4 768"
-	 enable-background="new 0 0 900.4 768" xml:space="preserve">
-<g>
-	<polygon fill="#777777" points="599.9,186.4 631.1,217.6 545.5,303.2 524.1,281.7 519,369.6 606.9,364.6 585.4,343.1 671,257.5 
-		702.2,288.7 709.2,179.4 	"/>
-	<polygon fill="#777777" points="545.5,268.8 587.6,227 503.5,227 541.3,264.8 	"/>
-	<path fill="#777777" d="M520.4,393.9l-27.3,1.6l1.6-27.3l5-87.7l3.1-53.5H191.2v362h471V385.8l-53.8,3.1L520.4,393.9z M611.2,541
-		H237.7l110.5-144.1L365,390l104.4,109.3l56.5-33.7l85.2,75.1L611.2,541L611.2,541z"/>
-	<polygon fill="#777777" points="624.2,347.3 662.2,385.3 662.2,301 620,343.1 	"/>
-</g>
-</svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="100%"
+   height="100%"
+   viewBox="0 0 1024 768"
+   id="Layer_1"
+   xml:space="preserve"><metadata
+     id="metadata17"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+     id="defs15" /><g
+     id="g3"><polygon
+       points="851.2,71.6 690.7,232.1 650.6,191.8 641,356.6 805.8,347.3 765.5,306.9 926,146.4 984.5,204.9 997.6,0 792.7,13.1 "
+       id="polygon5"
+       style="fill:#777777" /><polygon
+       points="769.6,89.3 611.9,89.3 682.8,160.1 690.7,167.6 "
+       id="polygon7"
+       style="fill:#777777" /><path
+       d="m 643.6,402.2 -51.2,3 3,-51.2 9.4,-164.4 5.8,-100.3 H 26.4 V 768 H 909.5 V 387 l -100.9,5.8 -165,9.4 z M 813.9,678 H 113.6 l 207.2,-270.2 31.5,-12.9 195.7,204.9 105.9,-63.2 159.8,140.8 0.2,0.6 0,0 z"
+       id="path9"
+       style="fill:#777777" /><polygon
+       points="909.5,386.1 909.5,228 830.4,306.9 838.2,314.8 "
+       id="polygon11"
+       style="fill:#777777" /></g></svg>

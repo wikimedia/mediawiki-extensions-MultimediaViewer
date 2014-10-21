@@ -890,6 +890,7 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'jquery.hashchange',
+			'mediawiki.ui.icon',
 			'mediawiki.Title',
 			'mmv.Config',
 			'mmv.logging.ActionLogger',
@@ -900,6 +901,7 @@ $wgResourceModules += array(
 
 		'messages' => array(
 			'multimediaviewer-view-expanded',
+			'multimediaviewer-view-config',
 		),
 	),
 

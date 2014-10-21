@@ -34,13 +34,20 @@ body.mw-mmv-lightbox-open > .mw-mmv-wrapper {
 	display: block;
 }
 
-.mw-mmv-view-expanded {
-	display: inline-block;
-	border: 1px solid @expand-link-border-color;
-	padding: 5px 10px;
-	padding-left: 35px;
-	/* @embed */
-	background-image: url('img/expand.svg');
-	background-position: left;
-	background-repeat: no-repeat;
+.mw-mmv-filepage-buttons {
+	margin-top: 5px;
+
+	.mw-mmv-view-expanded, .mw-mmv-view-config {
+		display: block;
+	}
+
+	.mw-mmv-view-expanded.mw-ui-icon:before {
+		/* @embed */
+		background-image: url('img/expand.svg');
+	}
+
+	.mw-mmv-view-config:before {
+		/* @embed */
+		background-image: url('img/gear_gray.svg');
+	}
 }
