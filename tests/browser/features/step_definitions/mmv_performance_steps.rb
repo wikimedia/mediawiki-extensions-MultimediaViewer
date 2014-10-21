@@ -1,3 +1,7 @@
+When /^I click on an unrelated image in the article to warm up the browser cache$/ do
+  on(E2ETestPage).other_image_in_article
+end
+
 Given /^I visit the Commons page$/ do
   @commons_open_time = Time.now.getutc
   @browser.goto "https://commons.wikimedia.org/wiki/File:Sunrise_over_fishing_boats_in_Kerala.jpg"
