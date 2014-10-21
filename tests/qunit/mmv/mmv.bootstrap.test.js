@@ -119,9 +119,9 @@
 		assert.notStrictEqual( returnValue, false, 'Click after loading failure is not caught' );
 	} );
 
-	QUnit.test( 'Check viewer invoked when clicking on legit image links', 9, function ( assert ) {
+	QUnit.test( 'Check viewer invoked when clicking on legit image links', 10, function ( assert ) {
 		// TODO: Is <div class="gallery"><span class="image"><img/></span></div> valid ???
-		var div, link, link2, link3, link4, bootstrap,
+		var div, link, link2, link3, link4, link5, bootstrap,
 			viewer = { initWithThumbs : $.noop };
 
 		// Create gallery with legit link image
@@ -151,6 +151,9 @@
 
 		link4 = $( '.fullMedia .mw-mmv-view-expanded' );
 		assert.ok( link4.length, 'Link for viewing expanded file was set up.' );
+
+		link5 = $( '.fullMedia .mw-mmv-view-config' );
+		assert.ok( link5.length, 'Link for opening enable/disable configuration was set up.' );
 
 		bootstrap.setupOverlay = function () {
 			assert.ok( true, 'Overlay was set up' );

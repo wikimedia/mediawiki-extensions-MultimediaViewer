@@ -281,7 +281,7 @@
 			.prop( 'title', mw.message( 'multimediaviewer-close-popup-text' ).text() )
 			.tipsy( {
 				delayIn: tooltipDelay,
-				gravity: this.isRTL() ? 'nw' : 'ne'
+				gravity: this.correctEW( 'ne' )
 			} )
 			.click( function () {
 				ui.unattach();
@@ -293,7 +293,7 @@
 			.prop( 'title', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() )
 			.tipsy( {
 				delayIn: tooltipDelay,
-				gravity: this.isRTL() ? 'nw' : 'ne'
+				gravity: this.correctEW( 'ne' )
 			} )
 			.click( function () {
 				if ( ui.isFullscreen ) {
