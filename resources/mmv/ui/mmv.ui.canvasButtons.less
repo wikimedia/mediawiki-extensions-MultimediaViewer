@@ -1,11 +1,9 @@
 @import "../mmv.globals";
 @import "../mmv.mixins";
 
-@navbutton-width: 18px;
-@buttons-offset: 5px;
-
 .mw-mmv-download-button,
 .mw-mmv-reuse-button,
+.mw-mmv-options-button,
 .mw-mmv-close,
 .mw-mmv-fullscreen,
 .mw-mmv-next-image,
@@ -27,6 +25,7 @@
 
 .mw-mmv-download-button.hidden,
 .mw-mmv-reuse-button.hidden,
+.mw-mmv-options-button.hidden,
 .mw-mmv-close.hidden,
 .mw-mmv-fullscreen.hidden,
 .mw-mmv-next-image.hidden,
@@ -47,9 +46,10 @@
 
 .mw-mmv-download-button,
 .mw-mmv-reuse-button,
+.mw-mmv-options-button,
 .mw-mmv-close,
 .mw-mmv-fullscreen {
-	right: @buttons-offset;
+	right: @buttons-offset-right;
 	left: auto;
 	transition: opacity 0.25s;
 	background-position: center;
@@ -71,7 +71,7 @@
 }
 
 .mw-mmv-close {
-	top: @buttons-offset;
+	top: @buttons-offset-right;
 	/* @embed */
 	background-image: url(img/mw-close.svg);
 	height: 23px;
@@ -79,11 +79,19 @@
 }
 
 .mw-mmv-fullscreen {
-	top: (@buttons-offset + 37px);
+	top: (@buttons-offset-right + (@buttons-offset-each-top));
 	/* @embed */
 	background-image: url(img/mw-fullscreen-ltr.svg);
 	width: 21px;
 	height: 22px;
+}
+
+.mw-mmv-options-button {
+	top: (@buttons-offset-right + (2 * @buttons-offset-each-top));
+	/* @embed */
+	background-image: url(img/gear.svg);
+	height: 23px;
+	width: 23px;
 }
 
 .jq-fullscreened {
@@ -116,8 +124,8 @@
 }
 
 .mw-mmv-reuse-button {
-	right: @buttons-offset - 2px;
-	bottom: @buttons-offset + @metadatabar-above-fold-height + @progress-bar-height;
+	right: @buttons-offset-right - 2px;
+	bottom: @buttons-offset-right + @metadatabar-above-fold-height + @progress-bar-height;
 	/* @embed */
 	background-image: url(img/use-ltr.svg);
 	height: 24px;
@@ -125,7 +133,7 @@
 }
 
 .mw-mmv-download-button {
-	bottom: @buttons-offset + @metadatabar-above-fold-height + @progress-bar-height + 37px;
+	bottom: @buttons-offset-right + @metadatabar-above-fold-height + @progress-bar-height + 37px;
 	/* @embed */
 	background-image: url(img/mw-download.svg);
 	height: 24px;

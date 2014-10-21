@@ -102,6 +102,7 @@
 
 		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$innerWrapper, this.buttons.$reuse, this.config );
 		this.downloadDialog = new mw.mmv.ui.download.Dialog( this.$innerWrapper, this.buttons.$download, this.config );
+		this.optionsDialog = new mw.mmv.ui.OptionsDialog( this.$innerWrapper, this.buttons.$options, this.config );
 	};
 
 	/**
@@ -209,6 +210,7 @@
 
 		this.fileReuse.attach();
 		this.downloadDialog.attach();
+		this.optionsDialog.attach();
 
 		// Reset the cursor fading
 		this.fadeStopped();
@@ -237,6 +239,9 @@
 
 		this.downloadDialog.unattach();
 		this.downloadDialog.closeDialog();
+
+		this.optionsDialog.unattach();
+		this.optionsDialog.closeDialog();
 
 		this.clearEvents();
 

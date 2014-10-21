@@ -170,7 +170,8 @@
 				// which in turn will cause the options API to delete the row and revert the pref to default
 				newPrefValue = enabled ? '1' : undefined;
 			}
-			return this.setUserPreference( 'multimediaviewer-enable', newPrefValue ).then( function () {
+
+			return this.setUserPreference( 'multimediaviewer-enable', newPrefValue ).done( function () {
 				config.mwConfig.set( 'wgMediaViewerOnClick', enabled );
 			} );
 		}

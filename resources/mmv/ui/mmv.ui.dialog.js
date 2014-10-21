@@ -63,13 +63,15 @@
 
 	/**
 	 * Handles click on link that opens/closes the dialog.
+	 * @param {Event} openEvent Event object for the mmv-$dialog-open event.
+	 * @param {Event} e Event object for the click event.
 	 */
-	 DP.handleOpenCloseClick = function () {
+	 DP.handleOpenCloseClick = function ( openEvent, e ) {
 		var dialog = this;
 
 		mw.loader.using( this.loadDependencies, function () {
 			dialog.dependenciesLoaded = true;
-			dialog.toggleDialog();
+			dialog.toggleDialog( e );
 		}, function (error) {
 			if ( window.console && window.console.error ) {
 				window.console.error( 'mw.loader.using error when trying to load dialog dependencies', error );
@@ -79,12 +81,14 @@
 		return false;
 	 };
 
-	 /**
-	  * Toggles the open state on the dialog.
-	  */
-	 DP.toggleDialog = function () {
+	/**
+	 * Toggles the open state on the dialog.
+	 * @param {Event} [e] Event object when the close action is caused by a user
+	 *   action, as opposed to closing the window or something.
+	 */
+	 DP.toggleDialog = function ( e ) {
 		if ( this.isOpen ) {
-			this.closeDialog();
+			this.closeDialog( e );
 		} else {
 			this.openDialog();
 		}

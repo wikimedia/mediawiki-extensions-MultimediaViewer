@@ -118,5 +118,22 @@
 	"multimediaviewer-download-attribution-cta-header": "Header for telling the user that the author of an image must be attributed, during a download action.",
 	"multimediaviewer-download-attribution-cta": "Call to action for a user to find out how to attribute the author of an image.",
 	"multimediaviewer-attr-plain": "Label for a button that lets the user pick plain text as an output format.",
-	"multimediaviewer-attr-html": "Label for a button that lets the user pick HTML as an output format."
+	"multimediaviewer-attr-html": "Label for a button that lets the user pick HTML as an output format.",
+    "multimediaviewer-options-dialog-header": "Header for a dialog that gives the user the option to disable the media viewer.",
+    "multimediaviewer-option-header-filepage": "Header for the viewing option that gives the user the file page when they click on image thumbnails.",
+    "multimediaviewer-option-desc-filepage": "Longer form description for the viewing option that gives the user the file page when they click on image thumbnails.",
+    "multimediaviewer-option-submit-button": "Button for submitting a preference change that modifies the default behaviour for image clicks - disables the viewer.",
+    "multimediaviewer-option-cancel-button": "Button for canceling an action on a preference change that modifies the default behaviour for image clicks - closes the dialog with no action.",
+	"multimediaviewer-options-tooltip": "Tooltip for a button that opens a panel for enabling or disabling the media viewer.",
+	"multimediaviewer-options-text-header": "Text explaining the changes that happen when a user disables media viewer.",
+	"multimediaviewer-options-text-body": "Text explaining how to re-enable the media viewer after disabling.",
+	"multimediaviewer-options-learn-more": "Text for a link to more information about the media viewer.",
+	"multimediaviewer-disable-confirmation-header": "Header on a dialog that informs the user they've successfully disabled the media viewer.",
+	"multimediaviewer-disable-confirmation-text": "Text informing the user that they've successfully disabled the media viewer. $1 is the wiki's name.",
+	"multimediaviewer-enable-dialog-header": "Header for a dialog that allows users to re-enable media viewer.",
+	"multimediaviewer-enable-text-header": "Text for a dialog that allows users to re-enable media viewer.",
+	"multimediaviewer-enable-submit-button": "Text for a button that re-enables media viewer.",
+	"multimediaviewer-enable-confirmation-header": "Header for a dialog that confirms that the user successfully re-enabled the media viewer.",
+	"multimediaviewer-enable-confirmation-text": "Text confirming that the user successfully re-enabled the media viewer. $1 is the wiki's name.",
+	"multimediaviewer-enable-alert": "Text shown in the enable panel to alert the user that the media viewer is currently disabled."
 }

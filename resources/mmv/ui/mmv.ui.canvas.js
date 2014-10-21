@@ -174,9 +174,15 @@
 			case 'mmv-reuse-closed':
 				this.reuseOpen = false;
 				break;
+			case 'mmv-options-opened':
+				this.optionsOpen = true;
+				break;
+			case 'mmv-options-closed':
+				this.optionsOpen = false;
+				break;
 		}
 
-		this.dialogOpen = this.reuseOpen || this.downloadOpen;
+		this.dialogOpen = this.reuseOpen || this.downloadOpen || this.optionsOpen;
 		this.$image.toggleClass( 'mw-mmv-dialog-is-open', this.dialogOpen );
 	};
 
@@ -190,6 +196,8 @@
 		this.handleEvent( 'mmv-reuse-closed', $.proxy( this.handleDialogEvent, this ) );
 		this.handleEvent( 'mmv-download-opened', $.proxy( this.handleDialogEvent, this ) );
 		this.handleEvent( 'mmv-download-closed', $.proxy( this.handleDialogEvent, this ) );
+		this.handleEvent( 'mmv-options-opened', $.proxy( this.handleDialogEvent, this ) );
+		this.handleEvent( 'mmv-options-closed', $.proxy( this.handleDialogEvent, this ) );
 
 		this.$image
 			.on( 'click.mmv-view-original', function () {
