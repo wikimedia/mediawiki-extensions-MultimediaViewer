@@ -23,13 +23,13 @@
 
 class MultimediaViewerHooks {
 	/** Link to more information about this module */
-	protected static $infoLink = '//mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer';
+	protected static $infoLink = '//mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About';
 
 	/** Link to a page where this module can be discussed */
-	protected static $discussionLink = '//mediawiki.org/wiki/Special:MyLanguage/Talk:Multimedia/About_Media_Viewer';
+	protected static $discussionLink = '//mediawiki.org/wiki/Special:MyLanguage/Extension_talk:Media_Viewer/About';
 
 	/** Link to help about this module */
-	protected static $helpLink = '//mediawiki.org/wiki/Special:MyLanguage/Multimedia/Media_Viewer/Help';
+	protected static $helpLink = '//mediawiki.org/wiki/Special:MyLanguage/Help:Extension:Media_Viewer';
 
 	/**
 	 * Checks the context for whether to load the viewer.
