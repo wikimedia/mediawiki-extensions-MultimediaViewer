@@ -8,7 +8,7 @@
 	"multimediaviewer-desc-nil": "Нема опис.",
 	"multimediaviewer-pref": "Прегледувач на слики и снимки",
 	"multimediaviewer-pref-desc": "Дава поубаво прегледување на слики на страници. Ги прикажува поголеми на страниците со минијатури. Можат да се прегледуваат и на цел екран.",
-	"multimediaviewer-optin-pref": "Enable <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Мултимедијален изведувач]</span>",
+	"multimediaviewer-optin-pref": "Enable <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Мултимедијален изведувач]</span>",
 	"multimediaviewer-file-page": "Оди на соодветната податотечна страница",
 	"multimediaviewer-repository-local": "Поподробно",
 	"multimediaviewer-datetime-created": "Создадено: $1",

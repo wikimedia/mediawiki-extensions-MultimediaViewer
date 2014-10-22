@@ -134,5 +134,7 @@
 	"multimediaviewer-enable-submit-button": "Text for a button that re-enables media viewer.",
 	"multimediaviewer-enable-confirmation-header": "Header for a dialog that confirms that the user successfully re-enabled the media viewer.",
 	"multimediaviewer-enable-confirmation-text": "Text confirming that the user successfully re-enabled the media viewer. $1 is the wiki's name.",
-	"multimediaviewer-enable-alert": "Text shown in the enable panel to alert the user that the media viewer is currently disabled."
+	"multimediaviewer-enable-alert": "Text shown in the enable panel to alert the user that the media viewer is currently disabled.",
+	"multimediaviewer-disable-info-title": "Used as title for {{msg-mw|Multimediaviewer-disable-info}}.",
+	"multimediaviewer-disable-info": "The title for this message is {{msg-mw|Multimediaviewer-disable-info-title}}."
 }

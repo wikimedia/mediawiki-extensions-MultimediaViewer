@@ -63,5 +63,10 @@
 	"multimediaviewer-panel-open-popup-text": "Méi Detailer",
 	"multimediaviewer-panel-close-popup-text": "Manner Detailer",
 	"multimediaviewer-download-attribution-cta-header": "Dir musst eng Referenz op den Auteur maachen",
-	"multimediaviewer-download-attribution-cta": "Weist mir wéi"
+	"multimediaviewer-download-attribution-cta": "Weist mir wéi",
+	"multimediaviewer-options-dialog-header": "Media Viewer ausschalten?",
+	"multimediaviewer-options-learn-more": "Fir méi ze wëssen",
+	"multimediaviewer-disable-confirmation-header": "Dir hutt de Media Viewer ausgeschalt",
+	"multimediaviewer-enable-dialog-header": "Media Viewer aschalten?",
+	"multimediaviewer-disable-info-title": "Dir hutt de MediaViewer ausgeschalt"
 }

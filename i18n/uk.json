@@ -11,7 +11,7 @@
 	"multimediaviewer-desc-nil": "Немає доступного опису.",
 	"multimediaviewer-pref": "Медіа переглядач",
 	"multimediaviewer-pref-desc": "Поліпшити ваші враження від перегляду мультимедіа з цим новим інструментом. Він відображає зображення у більшому розмірі на сторінках, які мають ескізи. Зображення показані у кращому накладенні і також відображаються в натуральну величину.",
-	"multimediaviewer-optin-pref": "Увімкнути <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Медіапереглядач]</span>",
+	"multimediaviewer-optin-pref": "Увімкнути <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Медіапереглядач]</span>",
 	"multimediaviewer-file-page": "Перейти на сторінку відповідного файлу",
 	"multimediaviewer-repository-local": "Докладніше",
 	"multimediaviewer-datetime-created": "Створено $1",

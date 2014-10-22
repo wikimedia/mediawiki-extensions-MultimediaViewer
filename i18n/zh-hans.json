@@ -11,14 +11,15 @@
 			"Cwek",
 			"Duolaimi",
 			"NigelSoft",
-			"Liangent"
+			"Liangent",
+			"Papapasan"
 		]
 	},
 	"multimediaviewer-desc": "在全屏界面中以较大尺寸显示缩略图。",
 	"multimediaviewer-desc-nil": "没有可用的说明。",
 	"multimediaviewer-pref": "媒体文件查看器",
 	"multimediaviewer-pref-desc": "使用这个新工具改善你的多媒体浏览体验。它能以更大的尺寸显示页面中的缩略图。图像将显示于一个漂亮的全屏界面浮层中，并能以完整尺寸查看。",
-	"multimediaviewer-optin-pref": "启用<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer 媒体文件查看器]</span>",
+	"multimediaviewer-optin-pref": "启用<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About 媒体文件查看器]</span>",
 	"multimediaviewer-file-page": "前往对应的文件页面",
 	"multimediaviewer-repository-local": "更多细节",
 	"multimediaviewer-datetime-created": "创作：$1",
@@ -94,6 +95,7 @@
 	"multimediaviewer-description-page-popup-text": "在$1了解该文件详情",
 	"multimediaviewer-commons-subtitle": "自由的媒体文件存储库",
 	"multimediaviewer-view-expanded": "在媒体查看器中打开",
+	"multimediaviewer-view-config": "配置",
 	"multimediaviewer-close-popup-text": "关闭此工具（或按“Esc”键退出）",
 	"multimediaviewer-fullscreen-popup-text": "全屏显示",
 	"multimediaviewer-defullscreen-popup-text": "退出全屏",
@@ -105,5 +107,8 @@
 	"multimediaviewer-panel-close-popup-text": "更少信息",
 	"multimediaviewer-download-attribution-cta-header": "您需要为作者署名",
 	"multimediaviewer-download-attribution-cta": "告诉我如何",
-	"multimediaviewer-attr-plain": "无格式"
+	"multimediaviewer-attr-plain": "无格式",
+	"multimediaviewer-options-text-header": "对所有文件跳过查看功能",
+	"multimediaviewer-option-submit-button": "禁用媒体文件查看器",
+	"multimediaviewer-option-cancel-button": "取消"
 }

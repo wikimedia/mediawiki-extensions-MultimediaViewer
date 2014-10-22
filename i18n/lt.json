@@ -7,7 +7,7 @@
 		]
 	},
 	"multimediaviewer-desc-nil": "Aprašymas neprieinamas.",
-	"multimediaviewer-optin-pref": "Įjungti <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer nuotraukų peržvalgos programą]</span>",
+	"multimediaviewer-optin-pref": "Įjungti <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About nuotraukų peržvalgos programą]</span>",
 	"multimediaviewer-repository-local": "Plačiau",
 	"multimediaviewer-datetime-created": "Sukurta: $1",
 	"multimediaviewer-userpage-link": "Nuotraukos {{GENDER:$2|įkėlėjas|įkėlėja}} $1",

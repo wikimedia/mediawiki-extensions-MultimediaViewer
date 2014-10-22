@@ -15,7 +15,7 @@
 	"multimediaviewer-desc-nil": "Açıklama yok.",
 	"multimediaviewer-pref": "Ortam Görüntüleyici",
 	"multimediaviewer-pref-desc": "Bu yeni araçla multimedya görüntüleme deneyiminizi geliştirin. Bu sayede küçük sayfaları daha büyük boyutlarda görüntüleyebilirsiniz. Ayrıca görüntüler tam ekran arayüzle ve tam boyutlu görüntülebeilir.",
-	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Ortam Görüntüleyici]</span>'yi etkinleştir",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Ortam Görüntüleyici]</span>'yi etkinleştir",
 	"multimediaviewer-file-page": "İlgili dosya sayfasına git",
 	"multimediaviewer-repository-local": "Bu dosya hakkında daha fazla bilgi",
 	"multimediaviewer-datetime-created": "Oluşturulma tarihi: $1",

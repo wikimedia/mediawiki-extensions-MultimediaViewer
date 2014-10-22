@@ -14,7 +14,7 @@
 	"multimediaviewer-desc-nil": "Geen omschrijving beschikbaar.",
 	"multimediaviewer-pref": "Mediaviewer",
 	"multimediaviewer-pref-desc": "Verbeter je kijkervaring met deze nieuwe tool. Afbeeldingen worden groter weergegeven op pagina's met thumbnails. Afbeeldingen worden op een prettigere manier schermvullend weergegeven en kunnen ook op ware grootte worden bekeken.",
-	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Mediaviewer]</span> inschakelen",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Mediaviewer]</span> inschakelen",
 	"multimediaviewer-file-page": "Naar de bestandspagina gaan",
 	"multimediaviewer-repository-local": "Meer informatie",
 	"multimediaviewer-datetime-created": "Aangemaakt: $1",

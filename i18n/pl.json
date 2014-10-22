@@ -17,7 +17,7 @@
 	"multimediaviewer-desc-nil": "Opis niedostępny.",
 	"multimediaviewer-pref": "Przeglądarka multimediów",
 	"multimediaviewer-pref-desc": "Popraw sposób oglądania ilustracji używając tego nowego narzędzia. Wyświetla ono ilustracje w większym rozmiarze bezpośrednio na stronach, które mają miniatury. Ilustracje te wyświetlane są w ładniejszym pełnoekranowym interfejsie, a nawet mogą być oglądane w pełnym rozmiarze.",
-	"multimediaviewer-optin-pref": "Aktywuj <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer przeglądarkę multimediów]</span>",
+	"multimediaviewer-optin-pref": "Aktywuj <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About przeglądarkę multimediów]</span>",
 	"multimediaviewer-file-page": "Przejdź na stronę opisu pliku",
 	"multimediaviewer-repository-local": "Więcej szczegółów",
 	"multimediaviewer-datetime-created": "Utworzony: $1",
@@ -83,6 +83,7 @@
 	"multimediaviewer-description-page-popup-text": "Więcej szczegółów na temat tego pliku $1",
 	"multimediaviewer-commons-subtitle": "Repozytorium wolnych mediów",
 	"multimediaviewer-view-expanded": "Otwórz w Media Viewer",
+	"multimediaviewer-view-config": "Konfiguracja",
 	"multimediaviewer-close-popup-text": "Zamknij narzędzie (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Pokaż w trybie pełnoekranowym",
 	"multimediaviewer-defullscreen-popup-text": "Wyjdź z trybu pełnoekranowego",
@@ -91,5 +92,7 @@
 	"multimediaviewer-title-popup-text-more": "Kliknij, aby zobaczyć całą nazwę pliku",
 	"multimediaviewer-credit-popup-text-more": "Kliknij, aby wyświetlić pełne informacje o autorze i źródle",
 	"multimediaviewer-panel-open-popup-text": "Więcej szczegółów",
-	"multimediaviewer-panel-close-popup-text": "Mniej szczegółów"
+	"multimediaviewer-panel-close-popup-text": "Mniej szczegółów",
+	"multimediaviewer-options-learn-more": "Dowiedz się więcej",
+	"multimediaviewer-option-cancel-button": "Anuluj"
 }

@@ -15,7 +15,7 @@
 	"multimediaviewer-desc-nil": "Es ist keine Beschreibung verfügbar.",
 	"multimediaviewer-pref": "Medienbetrachter",
 	"multimediaviewer-pref-desc": "Dieses neue Werkzeug ändert die Ansicht von Multimediadateien. Es zeigt Bilder auf Seiten größer an, die Vorschaubilder haben. Die Bilder werden in einem den Artikel überlagernden Kasten angezeigt und können auch als Vollbild dargestellt werden.",
-	"multimediaviewer-optin-pref": "Den <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Medienbetrachter]</span> aktivieren",
+	"multimediaviewer-optin-pref": "Den <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Medienbetrachter]</span> aktivieren",
 	"multimediaviewer-file-page": "Gehe zur zugehörigen Dateiseite",
 	"multimediaviewer-repository-local": "Weitere Einzelheiten",
 	"multimediaviewer-datetime-created": "Erstellt: $1",
@@ -110,5 +110,7 @@
 	"multimediaviewer-enable-submit-button": "Medienbetrachter aktivieren",
 	"multimediaviewer-enable-confirmation-header": "Du hast den Medienbetrachter für alle Dateien aktiviert",
 	"multimediaviewer-enable-confirmation-text": "Wenn du das nächste Mal auf ein Vorschaubild auf $1 klickst, wird der Medienbetrachter verwendet.",
-	"multimediaviewer-enable-alert": "Der Medienbetrachter ist jetzt deaktiviert"
+	"multimediaviewer-enable-alert": "Der Medienbetrachter ist jetzt deaktiviert",
+	"multimediaviewer-disable-info-title": "Du hast den Medienbetrachter deaktiviert",
+	"multimediaviewer-disable-info": "Du kannst dennoch einzelne Dateien mit dem Medienbetrachter ansehen."
 }

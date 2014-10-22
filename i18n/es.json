@@ -17,7 +17,7 @@
 	"multimediaviewer-desc-nil": "Sin descripción disponible.",
 	"multimediaviewer-pref": "Visor multimedia",
 	"multimediaviewer-pref-desc": "Mejora tu experiencia de visualización multimedia con esta herramienta. Las imágenes se muestran en una vista a pantalla completa que incluye información relevante de las mismas.",
-	"multimediaviewer-optin-pref": "Activar el <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer visor multimedia]</span>",
+	"multimediaviewer-optin-pref": "Activar el <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visor multimedia]</span>",
 	"multimediaviewer-file-page": "Ir a la página del archivo correspondiente",
 	"multimediaviewer-repository-local": "Más detalles",
 	"multimediaviewer-datetime-created": "Creado el: $1",

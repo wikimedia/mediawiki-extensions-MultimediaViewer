@@ -8,7 +8,7 @@
 	"multimediaviewer-desc-nil": "Цунах лаьцна хӀума дац.",
 	"multimediaviewer-pref": "Медиа-хьожург",
 	"multimediaviewer-pref-desc": "Мультимедиа-файлашка хьажар хаза кечдина гойту.",
-	"multimediaviewer-optin-pref": "Латае <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer Медиа-хьожург]</span>",
+	"multimediaviewer-optin-pref": "Латае <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Медиа-хьожург]</span>",
 	"multimediaviewer-file-page": "Йолуш йолу файлан агӀонг агӀо",
 	"multimediaviewer-repository-local": "ХӀокху файлах лаьцна ма-дарра",
 	"multimediaviewer-datetime-created": "Кхоьллина: $1",

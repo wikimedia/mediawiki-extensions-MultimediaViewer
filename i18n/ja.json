@@ -9,7 +9,7 @@
 	"multimediaviewer-desc-nil": "解説はありません。",
 	"multimediaviewer-pref": "メディア ビューアー",
 	"multimediaviewer-pref-desc": "この新しいツールは、マルチメディアの表示体験を改善します。縮小画像があるページで、その画像をより大きなサイズで表示します。画像は全画面表示インターフェイスのオーバーレイ内に表示され、完全なサイズで表示させることもできます。",
-	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Multimedia/About_Media_Viewer メディアビューアー]</span>を有効にする",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About メディアビューアー]</span>を有効にする",
 	"multimediaviewer-file-page": "対応するファイル ページに移動",
 	"multimediaviewer-repository-local": "詳細",
 	"multimediaviewer-datetime-created": "作成: $1",
@@ -91,5 +91,6 @@
 	"multimediaviewer-defullscreen-popup-text": "全画面表示を終了",
 	"multimediaviewer-title-popup-text": "ファイル名",
 	"multimediaviewer-panel-open-popup-text": "詳細を表示",
-	"multimediaviewer-panel-close-popup-text": "詳細を非表示"
+	"multimediaviewer-panel-close-popup-text": "詳細を非表示",
+	"multimediaviewer-disable-info-title": "メディアビューアーを無効にしました"
 }
