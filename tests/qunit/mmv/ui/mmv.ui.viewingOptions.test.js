@@ -27,9 +27,9 @@
 		assert.ok( dialog.$enableConfirmation, 'Enable confirmation is created.' );
 	} );
 
-	QUnit.test( 'Disable', 17, function ( assert ) {
+	QUnit.test( 'Disable', 20, function ( assert ) {
 		var $header, $icon, $text, $textHeader, $textBody,
-			$submitButton, $cancelButton,
+			$submitButton, $cancelButton, $aboutLink,
 			dialog = makeDialog(),
 			deferred = $.Deferred();
 
@@ -45,6 +45,7 @@
 		$text = dialog.$disableDiv.find( 'div.mw-mmv-options-text' );
 		$textHeader = $text.find( 'p.mw-mmv-options-text-header' );
 		$textBody = $text.find( 'p.mw-mmv-options-text-body' );
+		$aboutLink = $text.find( 'a.mw-mmv-project-info-link' );
 		$submitButton = dialog.$disableDiv.find( 'button.mw-mmv-options-submit-button' );
 		$cancelButton = dialog.$disableDiv.find( 'button.mw-mmv-options-cancel-button' );
 
@@ -60,6 +61,10 @@
 
 		assert.strictEqual( $textBody.length, 1, 'Text body created successfully.' );
 		assert.strictEqual( $textBody.text(), 'You can enable it later through the file details page.', 'Text body has correct text (if this fails, it may be due to i18n differences)' );
+
+		assert.strictEqual( $aboutLink.length, 1, 'About link created successfully.' );
+		assert.strictEqual( $aboutLink.text(), 'Learn more', 'About link has correct text (if this fails, it may be due to i18n differences)' );
+		assert.strictEqual( $aboutLink.prop( 'href' ), 'http://mediawiki.org/wiki/Special:MyLanguage/Help:Extension:Media_Viewer', 'About link has correct href (depends on your current protocol, so if you are on https, this will fail).' );
 
 		assert.strictEqual( $submitButton.length, 1, 'Disable button created successfully.' );
 		assert.strictEqual( $submitButton.text(), 'Disable Media Viewer', 'Disable button has correct text (if this fails, it may be due to i18n differences)' );
@@ -80,8 +85,8 @@
 		assert.ok( dialog.$dialog.hasClass( 'mw-mmv-disable-confirmation-shown' ), 'Disable confirmation shown' );
 	} );
 
-	QUnit.test( 'Enable', 15, function ( assert ) {
-		var $header, $icon, $text, $textHeader,
+	QUnit.test( 'Enable', 18, function ( assert ) {
+		var $header, $icon, $text, $textHeader, $aboutLink,
 			$submitButton, $cancelButton,
 			dialog = makeDialog(),
 			deferred = $.Deferred();
@@ -97,6 +102,7 @@
 
 		$text = dialog.$enableDiv.find( 'div.mw-mmv-options-text' );
 		$textHeader = $text.find( 'p.mw-mmv-options-text-header' );
+		$aboutLink = $text.find( 'a.mw-mmv-project-info-link' );
 		$submitButton = dialog.$enableDiv.find( 'button.mw-mmv-options-submit-button' );
 		$cancelButton = dialog.$enableDiv.find( 'button.mw-mmv-options-cancel-button' );
 
@@ -109,6 +115,10 @@
 		assert.ok( $text, 'Text div created successfully.' );
 		assert.strictEqual( $textHeader.length, 1, 'Text header created successfully.' );
 		assert.strictEqual( $textHeader.text(), 'Enable this media viewing feature for all files by default.', 'Text header has correct text (if this fails, it may be due to i18n differences)' );
+
+		assert.strictEqual( $aboutLink.length, 1, 'About link created successfully.' );
+		assert.strictEqual( $aboutLink.text(), 'Learn more', 'About link has correct text (if this fails, it may be due to i18n differences)' );
+		assert.strictEqual( $aboutLink.prop( 'href' ), 'http://mediawiki.org/wiki/Special:MyLanguage/Help:Extension:Media_Viewer', 'About link has correct href (depends on your current protocol, so if you are on https, this will fail).' );
 
 		assert.strictEqual( $submitButton.length, 1, 'Enable button created successfully.' );
 		assert.strictEqual( $submitButton.text(), 'Enable Media Viewer', 'Enable button has correct text (if this fails, it may be due to i18n differences)' );
