@@ -150,7 +150,7 @@
 	} );
 
 	QUnit.asyncTest( 'UserInfo fake test', 4, function ( assert ) {
-		var api = { get: this.sandbox.stub()['throws']( 'API was invoked' ) },
+		var api = { get: this.sandbox.stub().throwsException( 'API was invoked' ) },
 			username = 'Catrope',
 			repoInfo = {},
 			userInfoProvider = new mw.mmv.provider.UserInfo( api, { useApi: false } );

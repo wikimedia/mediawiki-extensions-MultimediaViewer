@@ -114,7 +114,7 @@
 	"multimediaviewer-download-attribution-cta": "Show me how",
 	"multimediaviewer-attr-plain": "Plain",
 	"multimediaviewer-attr-html": "HTML",
-	"multimediaviewer-options-tooltip": "Settings: Disable or enable previews",
+	"multimediaviewer-options-tooltip": "Enable or disable Media Viewer",
 	"multimediaviewer-options-dialog-header": "Disable Media Viewer?",
 	"multimediaviewer-options-text-header": "Skip this viewing feature for all files.",
 	"multimediaviewer-options-text-body": "You can enable it later through the file details page.",

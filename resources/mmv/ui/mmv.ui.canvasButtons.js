@@ -48,8 +48,12 @@
 
 		this.$options = $( '<div>' )
 			.text( ' ' )
-			.prop( 'title', mw.message( 'multimediaviewer-options-tooltip' ) )
-			.addClass( 'mw-mmv-options-button' );
+			.prop( 'title', mw.message( 'multimediaviewer-options-tooltip' ).text() )
+			.addClass( 'mw-mmv-options-button' )
+			.tipsy( {
+				delayIn: tooltipDelay,
+				gravity: this.correctEW( 'se' )
+			} );
 
 		this.$download = $( '<div>' )
 			.addClass( 'mw-mmv-download-button' )
@@ -244,6 +248,7 @@
 	CBP.unattach = function () {
 		this.$download.off( 'click.mmv-canvasButtons' ).tipsy( 'hide' );
 		this.$reuse.off( 'click.mmv-canvasButtons' ).tipsy( 'hide' );
+		this.$options.off( 'click.mmv-canvasButtons' ).tipsy( 'hide' );
 		this.$close.tipsy( 'hide' );
 		this.$fullscreen.tipsy( 'hide' );
 	};
