@@ -119,7 +119,7 @@
 
 		this.sandbox.stub( mw.loader, 'using' );
 
-		mw.loader.using.withArgs( [ 'ext.eventLogging', 'schema.MultimediaViewerDuration' ] )['throws']( 'EventLogging is missing' );
+		mw.loader.using.withArgs( [ 'ext.eventLogging', 'schema.MultimediaViewerDuration' ] ).throwsException( 'EventLogging is missing' );
 
 		promise = durationLogger.loadDependencies();
 
@@ -129,7 +129,7 @@
 		mw.loader.using.restore();
 		this.sandbox.stub( mw.loader, 'using' );
 
-		mw.loader.using.withArgs( [ 'ext.eventLogging', 'schema.MultimediaViewerDuration' ] )['throws']( 'EventLogging is missing' );
+		mw.loader.using.withArgs( [ 'ext.eventLogging', 'schema.MultimediaViewerDuration' ] ).throwsException( 'EventLogging is missing' );
 
 		promise = durationLogger.loadDependencies();
 
