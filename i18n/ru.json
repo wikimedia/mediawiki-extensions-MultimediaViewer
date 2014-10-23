@@ -92,14 +92,19 @@
 	"multimediaviewer-download-attribution-cta-header": "Вам нужно указать автора",
 	"multimediaviewer-download-attribution-cta": "Показать мне, как",
 	"multimediaviewer-attr-plain": "Простой",
+	"multimediaviewer-options-tooltip": "Включение или отключение Медиа-просмотрщика",
 	"multimediaviewer-options-dialog-header": "Отключить Медиа-просмотрщик?",
+	"multimediaviewer-options-text-header": "Выключить эту функцию просмотра для всех файлов.",
+	"multimediaviewer-options-text-body": "Вы можете включить его позже на странице сведений о файле.",
 	"multimediaviewer-options-learn-more": "Узнать больше",
 	"multimediaviewer-option-submit-button": "Отключить Медиа-просмотрщик",
 	"multimediaviewer-option-cancel-button": "Отмена",
 	"multimediaviewer-disable-confirmation-header": "Вы отключили Медиа-просмотрщик",
 	"multimediaviewer-enable-dialog-header": "Включить Медиа-просмотрщик?",
+	"multimediaviewer-enable-text-header": "Включить эту функцию медиа-просмотра по умолчанию для всех файлов.",
 	"multimediaviewer-enable-submit-button": "Включить Медиа-просмотрщик",
 	"multimediaviewer-enable-confirmation-header": "Вы включили Медиа-просмотрщик для всех файлов",
 	"multimediaviewer-enable-alert": "Медиа-просмотрщик теперь отключен",
-	"multimediaviewer-disable-info-title": "Вы отключили Медиа-просмотрщик"
+	"multimediaviewer-disable-info-title": "Вы отключили Медиа-просмотрщик",
+	"multimediaviewer-disable-info": "Вы всё ещё можете просматривать отдельные файлы через Медиа-просмотрщик."
 }

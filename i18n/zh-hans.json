@@ -19,7 +19,7 @@
 	"multimediaviewer-desc-nil": "没有可用的说明。",
 	"multimediaviewer-pref": "媒体文件查看器",
 	"multimediaviewer-pref-desc": "使用这个新工具改善你的多媒体浏览体验。它能以更大的尺寸显示页面中的缩略图。图像将显示于一个漂亮的全屏界面浮层中，并能以完整尺寸查看。",
-	"multimediaviewer-optin-pref": "启用<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About 媒体文件查看器]</span>",
+	"multimediaviewer-optin-pref": "启用<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About 媒体查看器]</span>",
 	"multimediaviewer-file-page": "前往对应的文件页面",
 	"multimediaviewer-repository-local": "更多细节",
 	"multimediaviewer-datetime-created": "创作：$1",
@@ -108,7 +108,15 @@
 	"multimediaviewer-download-attribution-cta-header": "您需要为作者署名",
 	"multimediaviewer-download-attribution-cta": "告诉我如何",
 	"multimediaviewer-attr-plain": "无格式",
+	"multimediaviewer-options-dialog-header": "禁用媒体查看器？",
 	"multimediaviewer-options-text-header": "对所有文件跳过查看功能",
+	"multimediaviewer-options-learn-more": "了解更多",
 	"multimediaviewer-option-submit-button": "禁用媒体文件查看器",
-	"multimediaviewer-option-cancel-button": "取消"
+	"multimediaviewer-option-cancel-button": "取消",
+	"multimediaviewer-disable-confirmation-header": "您已禁用媒体查看器",
+	"multimediaviewer-enable-dialog-header": "启用媒体查看器？",
+	"multimediaviewer-enable-submit-button": "启用媒体查看器",
+	"multimediaviewer-enable-confirmation-header": "您已对所有文件启用媒体查看器",
+	"multimediaviewer-enable-alert": "媒体查看器已禁用",
+	"multimediaviewer-disable-info-title": "您已禁用媒体查看器"
 }
