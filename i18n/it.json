@@ -81,6 +81,7 @@
 	"multimediaviewer-description-page-popup-text": "Maggiori dettagli per questo file su $1",
 	"multimediaviewer-commons-subtitle": "L'archivio di file multimediali liberi",
 	"multimediaviewer-view-expanded": "Apri in Media Viewer",
+	"multimediaviewer-view-config": "Configurazione",
 	"multimediaviewer-close-popup-text": "Chiudi questo strumento (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Visualizza a schermo intero",
 	"multimediaviewer-defullscreen-popup-text": "Esci da schermo intero",
@@ -92,5 +93,6 @@
 	"multimediaviewer-panel-close-popup-text": "Meno dettagli",
 	"multimediaviewer-download-attribution-cta-header": "Devi attribuire l'autore",
 	"multimediaviewer-download-attribution-cta": "Fammi vedere come",
-	"multimediaviewer-attr-plain": "Normale"
+	"multimediaviewer-attr-plain": "Normale",
+	"multimediaviewer-option-cancel-button": "Annulla"
 }

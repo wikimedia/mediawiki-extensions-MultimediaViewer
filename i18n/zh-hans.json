@@ -108,6 +108,7 @@
 	"multimediaviewer-download-attribution-cta-header": "您需要为作者署名",
 	"multimediaviewer-download-attribution-cta": "告诉我如何",
 	"multimediaviewer-attr-plain": "无格式",
+	"multimediaviewer-options-tooltip": "启用或禁用媒体查看器",
 	"multimediaviewer-options-dialog-header": "禁用媒体查看器？",
 	"multimediaviewer-options-text-header": "对所有文件跳过查看功能",
 	"multimediaviewer-options-learn-more": "了解更多",
@@ -115,8 +116,10 @@
 	"multimediaviewer-option-cancel-button": "取消",
 	"multimediaviewer-disable-confirmation-header": "您已禁用媒体查看器",
 	"multimediaviewer-enable-dialog-header": "启用媒体查看器？",
+	"multimediaviewer-enable-text-header": "默认对所有文件启用此媒体查看功能。",
 	"multimediaviewer-enable-submit-button": "启用媒体查看器",
 	"multimediaviewer-enable-confirmation-header": "您已对所有文件启用媒体查看器",
+	"multimediaviewer-enable-confirmation-text": "下次当您在$1点击一个缩略图时，媒体查看器将被使用。",
 	"multimediaviewer-enable-alert": "媒体查看器已禁用",
 	"multimediaviewer-disable-info-title": "您已禁用媒体查看器"
 }

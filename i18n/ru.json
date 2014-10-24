@@ -100,10 +100,12 @@
 	"multimediaviewer-option-submit-button": "Отключить Медиа-просмотрщик",
 	"multimediaviewer-option-cancel-button": "Отмена",
 	"multimediaviewer-disable-confirmation-header": "Вы отключили Медиа-просмотрщик",
+	"multimediaviewer-disable-confirmation-text": "Следующий раз, когда вы щёлкните на миниатюре файла на сайте $1, вы напрямую сможете просматривать все сведения о файле.",
 	"multimediaviewer-enable-dialog-header": "Включить Медиа-просмотрщик?",
 	"multimediaviewer-enable-text-header": "Включить эту функцию медиа-просмотра по умолчанию для всех файлов.",
 	"multimediaviewer-enable-submit-button": "Включить Медиа-просмотрщик",
 	"multimediaviewer-enable-confirmation-header": "Вы включили Медиа-просмотрщик для всех файлов",
+	"multimediaviewer-enable-confirmation-text": "Следующий раз, когда вы щёлкните на миниатюре файла на сайте $1, будет использован Медиа-просмотрщик.",
 	"multimediaviewer-enable-alert": "Медиа-просмотрщик теперь отключен",
 	"multimediaviewer-disable-info-title": "Вы отключили Медиа-просмотрщик",
 	"multimediaviewer-disable-info": "Вы всё ещё можете просматривать отдельные файлы через Медиа-просмотрщик."

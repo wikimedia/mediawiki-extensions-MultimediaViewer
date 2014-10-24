@@ -92,5 +92,6 @@
 	"multimediaviewer-title-popup-text": "ファイル名",
 	"multimediaviewer-panel-open-popup-text": "詳細を表示",
 	"multimediaviewer-panel-close-popup-text": "詳細を非表示",
+	"multimediaviewer-options-tooltip": "メディアビューアーの有効/無効を切り替える",
 	"multimediaviewer-disable-info-title": "メディアビューアーを無効にしました"
 }
