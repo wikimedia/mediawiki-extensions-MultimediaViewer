@@ -121,5 +121,6 @@
 	"multimediaviewer-enable-confirmation-header": "您已对所有文件启用媒体查看器",
 	"multimediaviewer-enable-confirmation-text": "下次当您在$1点击一个缩略图时，媒体查看器将被使用。",
 	"multimediaviewer-enable-alert": "媒体查看器已禁用",
-	"multimediaviewer-disable-info-title": "您已禁用媒体查看器"
+	"multimediaviewer-disable-info-title": "您已禁用媒体查看器",
+	"multimediaviewer-disable-info": "您仍可通过媒体查看器查看个别文件。"
 }
