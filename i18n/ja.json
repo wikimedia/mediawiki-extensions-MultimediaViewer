@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Shirayuki",
-			"Whym"
+			"Whym",
+			"SkyDaisy9"
 		]
 	},
 	"multimediaviewer-desc": "縮小画像を全画面表示インターフェイス内に拡大表示する",
@@ -86,6 +87,7 @@
 	"multimediaviewer-description-page-popup-text": "このファイルについての詳細を$1で見る",
 	"multimediaviewer-commons-subtitle": "フリーなマルチメディアの保管庫",
 	"multimediaviewer-view-expanded": "メディアビューアーで開く",
+	"multimediaviewer-view-config": "配列図",
 	"multimediaviewer-close-popup-text": "このツールを閉じる (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "全画面で表示",
 	"multimediaviewer-defullscreen-popup-text": "全画面表示を終了",
@@ -93,5 +95,19 @@
 	"multimediaviewer-panel-open-popup-text": "詳細を表示",
 	"multimediaviewer-panel-close-popup-text": "詳細を非表示",
 	"multimediaviewer-options-tooltip": "メディアビューアーの有効/無効を切り替える",
-	"multimediaviewer-disable-info-title": "メディアビューアーを無効にしました"
+	"multimediaviewer-options-dialog-header": "メディアビューワーを無効にしますか？",
+	"multimediaviewer-options-text-header": "全てのファイルでこの表示機能をスキップします。",
+	"multimediaviewer-options-text-body": "後にファイルの詳細のページでそれを有効にすることができます。",
+	"multimediaviewer-option-submit-button": "メディアビューアーを無効にする",
+	"multimediaviewer-option-cancel-button": "キャンセル",
+	"multimediaviewer-disable-confirmation-header": "メディアビューアーは無効になりました。",
+	"multimediaviewer-disable-confirmation-text": "次回はサムネイルの$1をクリックすると全てのファイルの詳細を直接閲覧できます。",
+	"multimediaviewer-enable-dialog-header": "メディアビューアーを有効にしますか？",
+	"multimediaviewer-enable-text-header": "初期化によりこのメディアの表示機能を全てのファイルで有効にする。",
+	"multimediaviewer-enable-submit-button": " メディアビューアーを有効にする",
+	"multimediaviewer-enable-confirmation-header": "メディアビューアーはすべてのファイルについ有効になりました。",
+	"multimediaviewer-enable-confirmation-text": "次回サムネイルの$1をクリック し, メディアヴューアーを使用します。",
+	"multimediaviewer-enable-alert": "メディアビューアーは現在使用できません。",
+	"multimediaviewer-disable-info-title": "メディアビューアーを無効にしました",
+	"multimediaviewer-disable-info": "メディアビューワーで個々のファイルをみることも可能です。"
 }
