@@ -22,7 +22,7 @@ class E2ETestPage < CommonsPage
 
   # Metadata elements
   span(:mmv_metadata_title, class: "mw-mmv-title")
-  a(:mmv_metadata_license, class: "mw-mmv-license cc-license")
+  a(:mmv_metadata_license, class: "mw-mmv-license")
   p(:mmv_metadata_credit, class: "mw-mmv-credit")
   span(:mmv_metadata_source, class: "mw-mmv-source")
 

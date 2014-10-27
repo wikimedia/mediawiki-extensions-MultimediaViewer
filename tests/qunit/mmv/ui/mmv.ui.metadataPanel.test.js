@@ -9,7 +9,7 @@
 		],
 
 		thingsShouldHaveEmptyClass = [
-			'$license',
+			'$licenseLi',
 			'$credit',
 			'$usernameLi',
 			'$locationLi',
@@ -170,6 +170,7 @@
 		var $qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) );
 
+		panel.setLicense( null, 'http://example.com' ); // make sure license is visible as it contains the permission
 		panel.setPermission( 'Look at me, I am a permission!' );
 		assert.ok( panel.$permissionLink.is( ':visible' ) );
 	} );

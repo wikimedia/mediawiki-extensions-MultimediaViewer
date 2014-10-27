@@ -89,9 +89,6 @@
 	MPP.empty = function () {
 		this.scroller.empty();
 
-		this.$license.empty().addClass( 'empty' );
-		this.$permissionLink.hide();
-
 		this.buttons.empty();
 
 		this.description.empty();
@@ -101,6 +98,10 @@
 		this.$title.empty().removeClass( 'error' );
 		this.$authorAndSource.empty();
 		this.$credit.addClass( 'empty' );
+
+		this.$license.empty().prop( 'href', '#' );
+		this.$licenseLi.addClass( 'empty' );
+		this.$permissionLink.hide();
 
 		this.$username.empty();
 		this.$usernameLi.addClass( 'empty' );
@@ -135,29 +136,7 @@
 		this.$container.append( this.$aboveFold );
 
 		this.initializeButtons(); // float, needs to be on top
-		this.initializeTitleAndCredit();
-		this.initializeLicense();
-	};
-
-	/**
-	 * Initializes the title and credit elements.
-	 */
-	MPP.initializeTitleAndCredit = function () {
-		var self = this;
-
-		this.$titleAndCredit = $( '<div>' )
-			.addClass( 'mw-mmv-title-credit' )
-			// Since these elements are created dynamically, we listen this way for logging purposes
-			.on( 'click', '.mw-mmv-author a', function ( e ) {
-				self.trackLinkClick.call( this, 'author-page', e );
-			} )
-			.on( 'click', '.mw-mmv-source a', function ( e ) {
-				self.trackLinkClick.call( this, 'source-page', e );
-			} )
-			.appendTo( this.$titleDiv );
-
 		this.initializeTitle();
-		this.initializeCredit();
 	};
 
 	/**
@@ -166,7 +145,7 @@
 	MPP.initializeTitle = function () {
 		this.$titlePara = $( '<p>' )
 			.addClass( 'mw-mmv-title-para' )
-			.appendTo( this.$titleAndCredit );
+			.appendTo( this.$aboveFold );
 
 		this.$title = $( '<span>' )
 			.tipsy( {
@@ -182,62 +161,8 @@
 		);
 	};
 
-	/**
-	 * Initializes the credit elements.
-	 */
-	MPP.initializeCredit = function () {
-		this.$credit = $( '<p>' )
-			.addClass( 'mw-mmv-credit empty' )
-			.appendTo( this.$titleAndCredit );
-
-		// we need an inline container for tipsy, otherwise it would be centered weirdly
-		this.$authorAndSource = $( '<span>' )
-			.addClass( 'mw-mmv-source-author' )
-			.tipsy( {
-				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
-				gravity: this.correctEW( 'sw' )
-			} );
-
-		this.creditField = new mw.mmv.ui.TruncatableTextField(
-			this.$credit,
-			this.$authorAndSource,
-			{ max: 200, small: 160 }
-		);
-
-		this.creditField.setTitle(
-			mw.message( 'multimediaviewer-credit-popup-text' ),
-			mw.message( 'multimediaviewer-credit-popup-text-more' )
-		);
-	};
-
-	/**
-	 * Initializes the license elements.
-	 */
-	MPP.initializeLicense = function () {
-		var panel = this;
-
-		this.$license = $( '<a>' )
-			.addClass( 'mw-mmv-license empty' )
-			.prop( 'href', '#' )
-			.appendTo( this.$titlePara )
-			.on( 'click', function( e ) {
-				panel.trackLinkClick.call( this, 'license-page', e );
-			} );
-
-		this.$permissionLink = $( '<span>' )
-			.addClass( 'mw-mmv-permission-link mw-mmv-label' )
-			.text( mw.message( 'multimediaviewer-permission-link' ).text() )
-			.appendTo( this.$titlePara )
-			.hide()
-			.on( 'click', function() {
-				panel.permission.grow();
-				panel.scroller.scrollIntoView( panel.permission.$box, 500 );
-				return false;
-			} );
-	};
-
 	MPP.initializeButtons = function () {
-		this.buttons = new mw.mmv.ui.StripeButtons( this.$titleDiv, this.localStorage );
+		this.buttons = new mw.mmv.ui.StripeButtons( this.$titleDiv );
 	};
 
 	/**
@@ -256,9 +181,47 @@
 			.addClass( 'mw-mmv-image-metadata-column mw-mmv-image-metadata-links-column' )
 			.appendTo( this.$imageMetadata );
 
+		this.initializeCredit();
 		this.description = new mw.mmv.ui.Description( this.$imageMetadataLeft );
 		this.permission = new mw.mmv.ui.Permission( this.$imageMetadataLeft );
 		this.initializeImageLinks();
+	};
+
+	/**
+	 * Initializes the credit elements.
+	 */
+	MPP.initializeCredit = function () {
+		var panel = this;
+
+		this.$credit = $( '<p>' )
+			.addClass( 'mw-mmv-credit empty' )
+			.appendTo( this.$imageMetadataLeft );
+
+		// we need an inline container for tipsy, otherwise it would be centered weirdly
+		this.$authorAndSource = $( '<span>' )
+			.addClass( 'mw-mmv-source-author' )
+			.tipsy( {
+				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
+				gravity: this.correctEW( 'sw' )
+			} )
+			.on( 'click', '.mw-mmv-author a', function ( e ) {
+				panel.trackLinkClick.call( this, 'author-page', e );
+			} )
+			.on( 'click', '.mw-mmv-source a', function ( e ) {
+				panel.trackLinkClick.call( this, 'source-page', e );
+			} );
+
+
+		this.creditField = new mw.mmv.ui.TruncatableTextField(
+			this.$credit,
+			this.$authorAndSource,
+			{ max: 200, small: 160 }
+		);
+
+		this.creditField.setTitle(
+			mw.message( 'multimediaviewer-credit-popup-text' ),
+			mw.message( 'multimediaviewer-credit-popup-text-more' )
+		);
 	};
 
 	/**
@@ -273,9 +236,40 @@
 			.addClass( 'mw-mmv-image-links' )
 			.appendTo( this.$imageLinkDiv );
 
+		this.initializeLicense();
 		this.initializeUploader();
 		this.initializeDatetime();
 		this.initializeLocation();
+	};
+
+	/**
+	 * Initializes the license elements.
+	 */
+	MPP.initializeLicense = function () {
+		var panel = this;
+
+		this.$licenseLi = $( '<li>' )
+			.addClass( 'mw-mmv-license-li empty')
+			.appendTo( this.$imageLinks );
+
+		this.$license = $( '<a>' )
+			.addClass( 'mw-mmv-license' )
+			.prop( 'href', '#' )
+			.appendTo( this.$licenseLi )
+			.on( 'click', function( e ) {
+				panel.trackLinkClick.call( this, 'license-page', e );
+			} );
+
+		this.$permissionLink = $( '<span>' )
+			.addClass( 'mw-mmv-permission-link mw-mmv-label' )
+			.text( mw.message( 'multimediaviewer-permission-link' ).text() )
+			.appendTo( this.$licenseLi )
+			.hide()
+			.on( 'click', function() {
+				panel.permission.grow();
+				panel.scroller.scrollIntoView( panel.permission.$box, 500 );
+				return false;
+			} );
 	};
 
 	/**
@@ -486,11 +480,12 @@
 
 		this.$license
 			.text( shortName )
-			.toggleClass( 'cc-license', isCc )
 			.prop( 'href', url )
 			.prop( 'target', license && license.deedUrl ? '_blank' : '' );
 
-		this.$license.removeClass( 'empty' );
+		this.$licenseLi
+			.toggleClass( 'cc-license', isCc )
+			.removeClass( 'empty' );
 	};
 
 	/**

@@ -37,7 +37,6 @@
 }
 
 
-
 .mw-mmv-image-metadata {
 	width: 100%;
 	background-color: #f5f5f5;
@@ -96,6 +95,11 @@
 			background-repeat: no-repeat;
 		}
 
+		&.mw-mmv-license-li.cc-license:before {
+			/* @embed */
+			background-image: url(img/cc.svg);
+		}
+
 		&.mw-mmv-datetime-li:before {
 			/* @embed */
 			background-image: url(img/time.svg);
@@ -111,94 +115,9 @@
 			background-image: url(img/location.svg);
 		}
 
-		&.mw-mmv-repo-li:before {
-			display: none;
-		}
-
 		&.empty:before {
 			background-image: none !important;
 		}
-	}
-}
-
-.mw-mmv-repo-li {
-	@padding: 5px;
-	@icon-size: 16px;
-
-	display: block;
-	min-height: @icon-size;
-	border: 1px solid @info-box-border-color;
-	.box-round(5px);
-	padding: @padding;
-	padding-left: @icon-size + 2 * @padding;
-	margin-top: 10px;
-
-	/* @embed */
-	background-image: url(img/repo.svg);
-	background-repeat: no-repeat;
-	background-size: auto @icon-size;
-	// icon should be positioned with consistent padding, but using absolute lengths is not RTL-compatible
-	// so we use percentages (looks a bit off) for older browsers and four-value syntax for newer ones;
-	// MediaWiki flips 'left' keywords automatically
-	background-position: 2% center;
-	background-position: left @padding center;
-
-	background-color: @info-box-color;
-
-	line-height: 1.3;
-
-	&.commons { // there is an extra subtitle for Commons images, box should be larger
-		/* @embed */
-		background-image: url(img/commons.svg);
-		@icon-size: 32px;
-		min-height: @icon-size;
-		padding-left: @icon-size + 2 * @padding;
-		background-size: auto @icon-size;
-		background-position: 3% center;
-		background-position: left @padding+4px center;
-	}
-
-	.mw-mmv-repo,
-	.mw-mmv-repo-subtitle {
-		display: block;
-	}
-
-	.mw-mmv-repo-subtitle {
-		color: @secondary-text-color;
-		font-size: small;
-	}
-}
-
-.mw-mmv-title-credit {
-
-	height: @metadatabar-above-fold-height;
-	.jq-fullscreened & {
-		height: @metadatabar-above-fold-fullscreen-height;
-	}
-	.mw-mmv-untruncated & {
-		height: auto;
-	}
-}
-
-.mw-mmv-license {
-	color: #888888;
-	font-size: 0.9em;
-	padding: 0 10px; // pad both sides; depending on the language of the image name, this might end up on either side
-
-	&.empty {
-		display: none;
-	}
-
-	&.cc-license:before {
-		background-size: contain;
-		/* @embed */
-		background-image: url(img/cc.svg);
-		display: inline-block;
-		vertical-align: text-bottom;
-		height: 20px;
-		width: 20px;
-		content: ' ';
-		/* @noflip */ margin-right: 5px; // :before is not flipped either
 	}
 }
 
