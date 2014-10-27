@@ -4,11 +4,7 @@
 			"Jewel457"
 		]
 	},
-	"multimediaviewer-repository": "More details about this file on $1",
 	"multimediaviewer-repository-local": "Iba pang detalye tungkol sa file",
 	"multimediaviewer-optin-mmv": "Pinapagana ang Media Viewer",
-	"multimediaviewer-optout-pending-mmv": "Isinasara ang Media Viewer",
-	"multimediaviewer-fileusage-count": "Gamit sa",
-	"multimediaviewer-fileusage-link": "Tingnan ang mga iba pang gamit",
-	"multimediaviewer-fileusage-global-section": "Sa ibang mga sites"
+	"multimediaviewer-optout-pending-mmv": "Isinasara ang Media Viewer"
 }

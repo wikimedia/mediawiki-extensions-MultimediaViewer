@@ -7,7 +7,6 @@
 		]
 	},
 	"multimediaviewer-desc-nil": "N'eus deskrivadur ebet.",
-	"multimediaviewer-repository": "Gouzout hiroc'h diwar-benn ar restr-mañ war $1",
 	"multimediaviewer-repository-local": "Gouzout hiroc'h diwar-benn ar restr-mañ",
 	"multimediaviewer-datetime-created": "Krouet d'an $1",
 	"multimediaviewer-datetime-uploaded": "Enporzhiet d'an $1",
@@ -23,7 +22,7 @@
 	"multimediaviewer-reuse-loading-placeholder": "O kargañ...",
 	"multimediaviewer-share-tab": "Rannañ",
 	"multimediaviewer-embed-tab": "Enframmañ",
-	"multimediaviewer-download-tab": "Pellgargañ",
+	"multimediaviewer-download-link": "Pellgargañ",
 	"multimediaviewer-download-preview-link-title": "Gwelet er merdeer",
 	"multimediaviewer-download-original-button-name": "Pellgargañ ar restr orin",
 	"multimediaviewer-link-to-file": "Liamm war-zu ar restr orin",

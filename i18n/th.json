@@ -11,7 +11,6 @@
 	"multimediaviewer-pref": "Media Viewer",
 	"multimediaviewer-pref-desc": "ด้วยเครื่องมือใหม่นี้ คุณสามารถดูสื่อได้ดีไปกว่าเดิม เครื่องมือจะแสดงภาพขนาดใหญ่ขึ้นบนหน้าที่มีรูปขนาดย่อ คุณยังสามารถดูภาพแบบในอินเตอร์เฟซเต็มหน้าจอและดูภาพในขนาดเต็มได้ด้วย",
 	"multimediaviewer-file-page": "ไปยังหน้าไฟล์ที่ตรงกัน",
-	"multimediaviewer-repository": "ดูรายละเอียดเพิ่มเติมเกี่ยวกับไฟล์นี้ที่ $1",
 	"multimediaviewer-repository-local": "ดูรายละเอียดเพิ่มเติมเกี่ยวกับไฟล์นี้",
 	"multimediaviewer-datetime-created": "สร้าง: $1",
 	"multimediaviewer-datetime-uploaded": "อัปโหลด: $1",
@@ -25,10 +24,5 @@
 	"multimediaviewer-about-mmv": "เกี่ยวกับ Media Viewer",
 	"multimediaviewer-discuss-mmv": "อธิบายคุณลักษณะนี้",
 	"multimediaviewer-geolocation": "สถานที่: $1",
-	"multimediaviewer-fileusage-count": "มีการใช้ใน $1 หน้า",
-	"multimediaviewer-fileusage-count-more": "มีการใช้มากกว่า $1 หน้า",
-	"multimediaviewer-fileusage-link": "ดูการใช้ทั้งหมด",
-	"multimediaviewer-fileusage-local-section": "บนไซต์นี้",
-	"multimediaviewer-fileusage-global-section": "บนไซต์อื่น ๆ",
 	"multimediaviewer-reuse-link": "ใช้ไฟล์นี้"
 }

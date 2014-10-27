@@ -111,5 +111,9 @@
 	"multimediaviewer-enable-dialog-header": "Да го вклучам Прегледувачот?",
 	"multimediaviewer-enable-text-header": "Вклучи ја можноста за преглед на сите податотеки по основно.",
 	"multimediaviewer-enable-submit-button": "Вклучи во Прегледувачот",
-	"multimediaviewer-enable-confirmation-header": "Го вклучивте Прегледувачот за сите податотеки"
+	"multimediaviewer-enable-confirmation-header": "Го вклучивте Прегледувачот за сите податотеки",
+	"multimediaviewer-enable-confirmation-text": "Следен пат кога ќе стиснете на минијатура на $1, податотеката ќе ви се отвори во Прегледувачот.",
+	"multimediaviewer-enable-alert": "Прегледувачот сега ви е исклучен",
+	"multimediaviewer-disable-info-title": "Прегледувачот ви е исклучен",
+	"multimediaviewer-disable-info": "Сè уште можете да прегледувате поединечни податотеки со Прегледувачот."
 }

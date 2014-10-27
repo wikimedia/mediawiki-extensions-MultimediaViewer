@@ -5,10 +5,5 @@
 		]
 	},
 	"multimediaviewer-desc-nil": "वर्णन उपलब्ध नाही",
-	"multimediaviewer-license-pd": "सार्वजनिक अधिक्षेत्र",
-	"multimediaviewer-fileusage-count": "Used in $1  {{PLURAL:$1|पाना|पानां}}मध्ये वापरल्या गेले",
-	"multimediaviewer-fileusage-count-more": "$1 पेक्षा अधिक {{PLURAL:$1|पानांमध्ये}} वापरल्या गेले",
-	"multimediaviewer-fileusage-link": "सर्व वापर बघा",
-	"multimediaviewer-fileusage-local-section": "या संकेतस्थळावर",
-	"multimediaviewer-fileusage-global-section": "दुसऱ्या संकेतस्थळांवर"
+	"multimediaviewer-license-pd": "सार्वजनिक अधिक्षेत्र"
 }

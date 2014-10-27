@@ -21,10 +21,6 @@
 	"multimediaviewer-optout-pending-mmv": "Wrthi'n analluogi Media Viewer",
 	"multimediaviewer-optin-pending-mmv": "Wrthi'n galluogi Media Viewer",
 	"multimediaviewer-geolocation": "Lleoliad: $1",
-	"multimediaviewer-fileusage-count": "Defnyddir mewn $1 {{PLURAL:$1|tudalen|dudalen|dudalen|thudalen|thudalen|tudalen}}",
-	"multimediaviewer-fileusage-local-section": "Ar y wefan hon",
-	"multimediaviewer-fileusage-global-section": "Ar wefannau eraill",
-	"multimediaviewer-viewfile-link": "Gweld y ffeil gwreiddiol",
 	"multimediaviewer-reuse-loading-placeholder": "Wrthi'n llwytho",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-view-expanded": "Chwyddo'r llun"
