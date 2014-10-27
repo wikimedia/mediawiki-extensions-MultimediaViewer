@@ -111,7 +111,9 @@
 		'download-open': 'User opened the dialog to download this file.',
 		'download-close': 'User closed the dialog to download this file.',
 		'options-open': 'User opened the enable/disable dialog.',
-		'options-close': 'User either canceled an enable/disable action or closed a confirmation window.'
+		'options-close': 'User either canceled an enable/disable action or closed a confirmation window.',
+		'disable-about-link': 'User clicked on the "Learn more" link in the disable window.',
+		'enable-about-link': 'User clicked on the "Learn more" link in the enable window.'
 	};
 
 	/**

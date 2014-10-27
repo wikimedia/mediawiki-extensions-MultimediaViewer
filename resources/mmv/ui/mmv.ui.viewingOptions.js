@@ -67,7 +67,6 @@
 				mw.message( 'multimediaviewer-enable-confirmation-header' ).text(),
 				mw.message( 'multimediaviewer-enable-confirmation-text', mw.config.get( 'wgSiteName' ) ).text()
 			] );
-
 	};
 
 	/**
@@ -233,6 +232,7 @@
 			.appendTo( $div );
 
 		this.addText( $div, msgs );
+		this.addInfoLink( $div, ( enabled ? 'enable' : 'disable' ) + '-about-link' );
 		this.makeButtons( $div, smsg, enabled );
 
 		this[propName] = $div;
@@ -347,6 +347,21 @@
 		for ( i = 0; i < msgs.length && i < adders.length; i++ ) {
 			adders[i]( msgs[i] );
 		}
+	};
+
+	/**
+	 * Adds the info link to the panel.
+	 * @param {jQuery} $div The panel to which we're adding the link.
+	 */
+	ODP.addInfoLink = function ( $div, eventName ) {
+		var self = this;
+
+		$( '<a>' )
+			.addClass( 'mw-mmv-project-info-link' )
+			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).helpLink )
+			.text( mw.message( 'multimediaviewer-options-learn-more' ) )
+			.click( function ( e ) { self.trackLinkClick.call( this, eventName, e ); } )
+			.appendTo( $div.find( '.mw-mmv-options-text' ) );
 	};
 
 	/**

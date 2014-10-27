@@ -776,6 +776,7 @@ $wgResourceModules += array(
 		),
 
 		'messages' => array(
+			'multimediaviewer-options-learn-more',
 			'multimediaviewer-options-dialog-header',
 			'multimediaviewer-option-header-viewer',
 			'multimediaviewer-option-header-filepage',
@@ -1013,7 +1014,7 @@ $wgResourceModules += array(
 
 $wgHooks['EventLoggingRegisterSchemas'][] = function( array &$schemas ) {
 	$schemas += array(
-		'MediaViewer' => 10277480,
+		'MediaViewer' => 10308479,
 		'MultimediaViewerNetworkPerformance' => 7917896,
 		'MultimediaViewerDuration' => 8572641,
 		'MultimediaViewerAttribution' => 9758179,
