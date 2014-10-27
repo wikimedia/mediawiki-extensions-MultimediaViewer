@@ -133,12 +133,12 @@
 	} );
 
 	QUnit.test( 'Fullscreen mode', 8, function ( assert ) {
-		var lightbox = new mw.mmv.LightboxInterface(),
+		var buttonOffset, panelBottom,
+			oldRevealButtonsAndFadeIfNeeded,
+			lightbox = new mw.mmv.LightboxInterface(),
 			viewer = new mw.mmv.MultimediaViewer(),
 			oldFnEnterFullscreen = $.fn.enterFullscreen,
-			oldFnExitFullscreen = $.fn.exitFullscreen,
-			oldRevealButtonsAndFadeIfNeeded,
-			buttonOffset;
+			oldFnExitFullscreen = $.fn.exitFullscreen;
 
 		stubScrollTo();
 
@@ -186,12 +186,16 @@
 
 		lightbox.buttons.revealAndFadeIfNeeded = $.noop;
 
-		assert.ok( !lightbox.panel.$imageMetadata.is( ':visible' ), 'Image metadata is hidden' );
+		panelBottom = $('.mw-mmv-post-image').position().top + $('.mw-mmv-post-image').height();
+
+		assert.ok( panelBottom === $(window).height(), 'Image metadata does not extend beyond the viewport' );
 
 		// Exiting fullscreen
 		lightbox.buttons.$fullscreen.click();
 
-		assert.ok( lightbox.panel.$imageMetadata.is( ':visible' ), 'Image metadata is visible' );
+		panelBottom = $('.mw-mmv-post-image').position().top + $('.mw-mmv-post-image').height();
+
+		assert.ok( panelBottom > $(window).height(), 'Image metadata extends beyond the viewport' );
 		assert.ok( !lightbox.isFullscreen, 'Lightbox knows that it\'s not in fullscreen mode' );
 
 		// Unattach lightbox from document

@@ -4,8 +4,9 @@
 @info-box-color: #FFFFFF;
 @info-box-border-color: #DDDDDD;
 @info-box-border-shadow-color: #C9C9C9;
-
 @secondary-text-color: rgb(136, 136, 136);
+
+@fold-separator-border-width: 1px;
 
 .mw-mmv-info-box {
 	display: inline-block;
@@ -28,7 +29,12 @@
 }
 .mw-mmv-credit {
 	margin: 0;
-	padding: 5px 0;
+	color: #555;
+	padding: 0 0 5px;
+	font-size: 0.85em;
+	&.empty {
+		height: 0.85em;
+	}
 }
 
 .mw-mmv-title {
@@ -36,16 +42,35 @@
 	max-width: 60%;
 }
 
-
 .mw-mmv-image-metadata {
 	width: 100%;
-	background-color: #f5f5f5;
 	position: relative;
-	padding-top: 10px;
+	margin-top: -@metadatabar-below-fold-pushup-height;
+	border-top: @fold-separator-border-width solid #ddd;
+	background-color: #f5f5f5;
+	padding-top: 4px;
+
+	.jq-fullscreened & {
+		// Make sure content fits into the screen. This assumes no paddings.
+		height: @metadatabar-below-fold-pushup-height - @fold-separator-border-width;
+		overflow: hidden;
+	}
+	.jq-fullscreened .mw-mmv-untruncated & {
+		height: auto;
+	}
 }
 
-.jq-fullscreened .mw-mmv-image-metadata {
-	display: none;
+.mw-mmv-author:before {
+	display: inline-block;
+	vertical-align: middle;
+	height: 16px;
+	width: 16px;
+	content: ' ';
+	margin-right: 5px;
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-image: url(img/user-ltr.svg);
 }
 
 .mw-mmv-image-desc-div {
@@ -64,7 +89,7 @@
 }
 
 @littlefont: 0.85em;
-@mediumfont: 1em;
+@mediumfont: 0.95em;
 
 .mw-mmv-caption,
 .mw-mmv-image-desc {
@@ -107,7 +132,9 @@
 
 		&.mw-mmv-username-li:before {
 			/* @embed */
-			background-image: url(img/user-ltr.svg);
+			background-image: url(img/uploader-ltr.svg);
+			width: 18px;
+			margin-right: 8px;
 		}
 
 		&.mw-mmv-location-li:before {
