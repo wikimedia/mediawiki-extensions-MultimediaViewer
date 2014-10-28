@@ -146,7 +146,7 @@
 		} );
 	}
 
-	QUnit.test( 'Metadata scrolling', 7, function ( assert ) {
+	QUnit.test( 'Metadata scrolling', 6, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			$container = $( '<div>' ).css( 'height', 100 ).appendTo( $qf ),
 			$aboveFold = $( '<div>' ).css( 'height', 50 ).appendTo( $container ),
@@ -181,15 +181,6 @@
 		assert.strictEqual( $.scrollTo().scrollTop(), 0,
 			'scrollTo scrollTop should be set to 0 after pressing down arrow' );
 
-		scroller.$dragIcon.click();
-		this.clock.tick( scroller.toggleScrollDuration );
-
-		scroller.$dragIconBottom.click();
-		this.clock.tick( scroller.toggleScrollDuration );
-
-		assert.strictEqual( $.scrollTo().scrollTop(), 0,
-			'scrollTo scrollTop should be set to 0 after clicking the chevron twice' );
-
 		// Unattach lightbox from document
 		scroller.unattach();
 
@@ -214,7 +205,7 @@
 		scroller.unattach();
 	} );
 
-	QUnit.test( 'Metadata scroll logging', 6, function ( assert ) {
+	QUnit.test( 'Metadata scroll logging', 4, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			$container = $( '<div>' ).css( 'height', 100 ).appendTo( $qf ),
 			$aboveFold = $( '<div>' ).css( 'height', 50 ).appendTo( $container ),
@@ -251,18 +242,6 @@
 		this.clock.tick( scroller.toggleScrollDuration );
 
 		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-close' ), 'Closing keypress logged' );
-		mw.mmv.actionLogger.log.reset();
-
-		scroller.$dragIcon.click();
-		this.clock.tick( scroller.toggleScrollDuration );
-
-		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-open' ), 'Opening click logged' );
-		mw.mmv.actionLogger.log.reset();
-
-		scroller.$dragIconBottom.click();
-		this.clock.tick( scroller.toggleScrollDuration );
-
-		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-close' ), 'Closing click logged' );
 		mw.mmv.actionLogger.log.reset();
 	} );
 }( mediaWiki, jQuery ) );

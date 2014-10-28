@@ -590,8 +590,6 @@ $wgResourceModules += array(
 			'multimediaviewer-credit-popup-text',
 			'multimediaviewer-title-popup-text-more',
 			'multimediaviewer-credit-popup-text-more',
-			'multimediaviewer-panel-open-popup-text',
-			'multimediaviewer-panel-close-popup-text',
 		),
 	),
 

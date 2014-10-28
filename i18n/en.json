@@ -1,8 +1,8 @@
 {
 	"@metadata": {
-	    "authors": [
-	        "Mark Holmquist <mtraceur@member.fsf.org>"
-	    ]
+		"authors": [
+			"Mark Holmquist <mtraceur@member.fsf.org>"
+		]
 	},
 	"multimediaviewer-desc": "Expand thumbnails in a larger size in a fullscreen interface.",
 	"multimediaviewer-desc-nil": "No description available.",
@@ -108,8 +108,6 @@
 	"multimediaviewer-credit-popup-text": "Author and source information",
 	"multimediaviewer-title-popup-text-more": "Click to show full file name",
 	"multimediaviewer-credit-popup-text-more": "Click to show full author and source",
-	"multimediaviewer-panel-open-popup-text": "More details",
-	"multimediaviewer-panel-close-popup-text": "Fewer details",
 	"multimediaviewer-download-attribution-cta-header": "You need to attribute the author",
 	"multimediaviewer-download-attribution-cta": "Show me how",
 	"multimediaviewer-attr-plain": "Plain",
