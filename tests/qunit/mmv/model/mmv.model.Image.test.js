@@ -18,9 +18,10 @@
 ( function( mw ) {
 	QUnit.module( 'mmv.model.Image', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Image model constructor sanity check', 19, function ( assert ) {
+	QUnit.test( 'Image model constructor sanity check', 20, function ( assert ) {
 		var
 			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
+			name = 'Foo bar',
 			size = 100,
 			width = 10,
 			height = 15,
@@ -39,12 +40,13 @@
 			latitude = 39.12381283,
 			longitude = 100.983829,
 			imageData = new mw.mmv.model.Image(
-				title, size, width, height, mime, url,
+				title, name, size, width, height, mime, url,
 				descurl, repo, user, datetime, origdatetime,
 				description, source, author, license, permission,
 				latitude, longitude );
 
 		assert.strictEqual( imageData.title, title, 'Title is set correctly' );
+		assert.strictEqual( imageData.name, name, 'Name is set correctly' );
 		assert.strictEqual( imageData.size, size, 'Size is set correctly' );
 		assert.strictEqual( imageData.width, width, 'Width is set correctly' );
 		assert.strictEqual( imageData.height, height, 'Height is set correctly' );
@@ -68,13 +70,13 @@
 	QUnit.test( 'hasCoords()', 2, function ( assert ) {
 		var
 			firstImageData = new mw.mmv.model.Image(
-				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ),
+				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ), 'Foo bar',
 				10, 10, 10, 'image/jpeg', 'http://example.org', 'http://example.com',
 				'example', 'tester', '2013-11-10', '2013-11-09', 'Blah blah blah',
 				'A person', 'Another person', 'CC-BY-SA-3.0', 'Permitted'
 			),
 			secondImageData = new mw.mmv.model.Image(
-				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ),
+				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ), 'Foo bar',
 				10, 10, 10, 'image/jpeg', 'http://example.org', 'http://example.com',
 				'example', 'tester', '2013-11-10', '2013-11-09', 'Blah blah blah',
 				'A person', 'Another person', 'CC-BY-SA-3.0', 'Permitted',
@@ -85,9 +87,10 @@
 		assert.strictEqual( secondImageData.hasCoords(), true, 'Coordinates present means hasCoords returns true.' );
 	} );
 
-	QUnit.test( 'parseExtmeta()', 8, function ( assert ) {
+	QUnit.test( 'parseExtmeta()', 9, function ( assert ) {
 		var Image = mw.mmv.model.Image,
 			stringData = { value: 'foo' },
+			plaintextData = { value: 'fo<b>o</b>' },
 			floatData = { value: 1.23 },
 			floatStringData = { value: '1.23' },
 			listDataEmpty = {value: '' },
@@ -97,6 +100,8 @@
 
 		assert.strictEqual( Image.parseExtmeta( stringData, 'string' ), 'foo',
 			'Extmeta string parsed correctly.' );
+		assert.strictEqual( Image.parseExtmeta( plaintextData, 'plaintext' ), 'foo',
+			'Extmeta plaintext parsed correctly.' );
 		assert.strictEqual( Image.parseExtmeta( floatData, 'float' ), 1.23,
 			'Extmeta float parsed correctly.' );
 		assert.strictEqual( Image.parseExtmeta( floatStringData, 'float' ), 1.23,

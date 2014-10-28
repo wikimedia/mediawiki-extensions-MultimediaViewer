@@ -4,9 +4,9 @@
 	function createEmbedFileInfo( options ) {
 		var license = options.licenseShortName ? new mw.mmv.model.License( options.licenseShortName,
 				options.licenseInternalName, options.licenseLongName, options.licenseUrl ) : undefined,
-			imageInfo = new mw.mmv.model.Image( options.title, undefined, undefined, undefined,
-				undefined, options.imgUrl, options.filePageUrl, 'repo', undefined, undefined,
-				undefined, undefined, options.source, options.author, license ),
+			imageInfo = new mw.mmv.model.Image( options.title, options.title.getNameText(), undefined,
+				undefined, undefined, undefined, options.imgUrl, options.filePageUrl, 'repo', undefined,
+				undefined, undefined, undefined, options.source, options.author, license ),
 			repoInfo = { displayName: options.siteName, getSiteLink:
 				function () { return options.siteUrl; } };
 

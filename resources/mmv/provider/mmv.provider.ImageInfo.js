@@ -59,6 +59,7 @@
 	ImageInfo.prototype.iiextmetadatafilter = [
 		'DateTime',
 		'DateTimeOriginal',
+		'ObjectName',
 		'ImageDescription',
 		'License',
 		'LicenseShortName',

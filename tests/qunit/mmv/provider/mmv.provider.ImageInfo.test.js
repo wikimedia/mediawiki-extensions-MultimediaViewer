@@ -25,7 +25,7 @@
 		assert.ok( imageInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'ImageInfo get test', 22, function ( assert ) {
+	QUnit.asyncTest( 'ImageInfo get test', 23, function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function() {
 				apiCallCount++;
@@ -51,6 +51,10 @@
 										sha1: 'a1ba23d471f4dad208b71c143e2e105a0e3032db',
 										metadata: [],
 										extmetadata: {
+											ObjectName: {
+												value: 'Some stuff',
+												source: 'commons-templates'
+											},
 											License: {
 												value: 'cc0',
 												source: 'commons-templates',
@@ -116,6 +120,7 @@
 
 		imageInfoProvider.get( file ).then( function( image ) {
 			assert.strictEqual( image.title.getPrefixedDb(), 'File:Stuff.jpg', 'title is set correctly' );
+			assert.strictEqual( image.name, 'Some stuff', 'name is set correctly' );
 			assert.strictEqual( image.size, 346684, 'size is set correctly' );
 			assert.strictEqual( image.width, 720, 'width is set correctly' );
 			assert.strictEqual( image.height, 1412, 'height is set correctly' );
