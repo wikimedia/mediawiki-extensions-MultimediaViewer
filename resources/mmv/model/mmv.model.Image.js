@@ -23,6 +23,7 @@
 	 * @class mw.mmv.model.Image
 	 * @constructor
 	 * @param {mw.Title} title
+	 * @param {string} name Image name (e.g. title of the artwork) or human-readable file if there is no better title
 	 * @param {number} size Filesize in bytes of the original image
 	 * @param {number} width Width of the original image
 	 * @param {number} height Height of the original image
@@ -43,6 +44,7 @@
 	 */
 	function Image(
 			title,
+			name,
 			size,
 			width,
 			height,
@@ -63,6 +65,9 @@
 	) {
 		/** @property {mw.Title} title The title of the image file */
 		this.title = title;
+
+		/** @property {string} name Image name (e.g. title of the artwork) or human-readable file if there is no better title */
+		this.name = name;
 
 		/** @property {number} size The filesize, in bytes, of the original image */
 		this.size = size;
@@ -133,23 +138,16 @@
 	 * @returns {mw.mmv.model.Image}
 	 */
 	Image.newFromImageInfo = function ( title, imageInfo ) {
-		var uploadDateTime, creationDateTime, imageData,
+		var name, uploadDateTime, creationDateTime, imageData,
 			description, source, author, license, permission,
 			latitude, longitude,
 			innerInfo = imageInfo.imageinfo[0],
 			extmeta = innerInfo.extmetadata;
 
 		if ( extmeta ) {
-			creationDateTime = extmeta.DateTimeOriginal;
-			uploadDateTime = extmeta.DateTime;
-
-			if ( uploadDateTime ) {
-				uploadDateTime = uploadDateTime.value.replace( /<.*?>/g, '' );
-			}
-
-			if ( creationDateTime ) {
-				creationDateTime = creationDateTime.value.replace( /<.*?>/g, '' );
-			}
+			creationDateTime = this.parseExtmeta( extmeta.DateTimeOriginal, 'plaintext' );
+			uploadDateTime = this.parseExtmeta( extmeta.DateTime, 'plaintext' );
+			name = this.parseExtmeta( extmeta.ObjectName, 'plaintext' );
 
 			description = this.parseExtmeta( extmeta.ImageDescription, 'string' );
 			source = this.parseExtmeta( extmeta.Credit, 'string' );
@@ -170,8 +168,13 @@
 			longitude = this.parseExtmeta( extmeta.GPSLongitude, 'float' );
 		}
 
+		if ( !name ) {
+			name = title.getNameText();
+		}
+
 		imageData = new Image(
 			title,
+			name,
 			innerInfo.size,
 			innerInfo.width,
 			innerInfo.height,
@@ -204,13 +207,15 @@
 	/**
 	 * Reads and parses a value from the imageinfo API extmetadata field.
 	 * @param {Array} data
-	 * @param {string} type one of 'string', 'float', 'list'
+	 * @param {string} type one of 'plaintext', 'string', 'float', 'list'
 	 * @return {string|number|Array} value or undefined if it is missing
 	 */
 	Image.parseExtmeta = function ( data, type ) {
 		var value = data && data.value;
 		if ( value === null || value === undefined ) {
 			return undefined;
+		} else if ( type === 'plaintext' ) {
+			return value.toString().replace( /<.*?>/g, '' );
 		} else if ( type === 'string' ) {
 			return value.toString();
 		} else if ( type === 'float' ) {
