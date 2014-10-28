@@ -84,5 +84,6 @@
 	"multimediaviewer-panel-close-popup-text": "Minder details",
 	"multimediaviewer-download-attribution-cta-header": "U moet aan naamsvermelding doen",
 	"multimediaviewer-download-attribution-cta": "Laat mij zien hoe",
-	"multimediaviewer-attr-plain": "Zonder opmaak"
+	"multimediaviewer-attr-plain": "Zonder opmaak",
+	"multimediaviewer-options-tooltip": "Mediaviewer in- of uitschakelen"
 }
