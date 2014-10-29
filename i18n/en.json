@@ -15,6 +15,7 @@
 	"multimediaviewer-datetime-uploaded": "Uploaded: $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Uploaded}} by $1",
 	"multimediaviewer-credit": "$1 - $2",
+	"multimediaviewer-credit-fallback": "View author information",
 	"multimediaviewer-metadata-error": "Error: Could not load image data. $1",
 	"multimediaviewer-thumbnail-error": "Error: Could not load thumbnail data. $1",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",

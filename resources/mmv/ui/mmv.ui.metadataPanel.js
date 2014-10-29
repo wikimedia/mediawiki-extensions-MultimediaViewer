@@ -197,7 +197,10 @@
 
 		this.$credit = $( '<p>' )
 			.addClass( 'mw-mmv-credit empty' )
-			.appendTo( this.$imageMetadataLeft );
+			.appendTo( this.$imageMetadataLeft )
+			.on( 'click.mmv-mp', '.mw-mmv-credit-fallback', function ( e ) {
+				panel.trackLinkClick( this, 'author-page', e );
+			} );
 
 		// we need an inline container for tipsy, otherwise it would be centered weirdly
 		this.$authorAndSource = $( '<span>' )
@@ -406,60 +409,59 @@
 	};
 
 	/**
-	 * Bignasty function for setting source and author. Both #setAuthor and
-	 * #setSource use this with some shortcuts.
+	 * Set source and author.
 	 * @param {string} source With unsafe HTML
 	 * @param {string} author With unsafe HTML
+	 * @param {string} filepageUrl URL of the file page (used when other data is not available)
 	 */
-	MPP.setCredit = function ( source, author ) {
-		this.source = source || null;
-		this.author = author || null;
-
+	MPP.setCredit = function ( source, author, filepageUrl ) {
+		// sanitization will be done by TruncatableTextField.set()
 		if ( author && source ) {
 			this.creditField.set(
 				mw.message(
 					'multimediaviewer-credit',
-					this.author,
-					this.source
+					this.wrapAuthor( author ),
+					this.wrapSource( source )
 				).plain()
 			);
 		} else if ( author ) {
-			this.creditField.set( this.author );
+			this.creditField.set( this.wrapAuthor( author ) );
 		} else if ( source ) {
-			this.creditField.set( this.source );
+			this.creditField.set( this.wrapSource( source ) );
+		} else {
+			this.creditField.set(
+				$( '<a>' )
+					.addClass( 'mw-mmv-credit-fallback' )
+					.prop( 'href', filepageUrl )
+					.text( mw.message( 'multimediaviewer-credit-fallback' ).plain() )
+			);
 		}
 
-		this.$credit.toggleClass( 'empty', !author && !source );
+		this.$credit.removeClass( 'empty' );
 	};
 
 	/**
-	 * Sets the source in the panel
+	 * Wraps a source string it with MediaViewer styles
 	 * @param {string} source Warning - unsafe HTML sometimes goes here
+	 * @return {string} unsafe HTML
 	 */
-	MPP.setSource = function ( source ) {
-		if ( source ) {
-			source = $( '<span>' )
-				.addClass( 'mw-mmv-source' )
-				.append( $.parseHTML( source ) )
-				.get( 0 ).outerHTML;
-		}
-
-		this.setCredit( source, this.author );
+	MPP.wrapSource = function ( source ) {
+		return $( '<span>' )
+			.addClass( 'mw-mmv-source' )
+			.append( $.parseHTML( source ) )
+			.get( 0 ).outerHTML;
 	};
 
 	/**
-	 * Sets the author in the panel
+	 * Wraps an author string with MediaViewer styles
 	 * @param {string} author Warning - unsafe HTML sometimes goes here
+	 * @return {string} unsafe HTML
 	 */
-	MPP.setAuthor = function ( author ) {
-		if ( author ) {
-			author = $( '<span>' )
-				.addClass( 'mw-mmv-author' )
-				.append( $.parseHTML( author ) )
-				.get( 0 ).outerHTML;
-		}
-
-		this.setCredit( this.source, author );
+	MPP.wrapAuthor = function ( author ) {
+		return $( '<span>' )
+			.addClass( 'mw-mmv-author' )
+			.append( $.parseHTML( author ) )
+			.get( 0 ).outerHTML;
 	};
 
 	/**
@@ -602,13 +604,7 @@
 			} );
 		}
 
-		if ( imageData.source ) {
-			this.setSource( imageData.source );
-		}
-
-		if ( imageData.author ) {
-			this.setAuthor( imageData.author );
-		}
+		this.setCredit( imageData.source, imageData.author, imageData.descriptionUrl );
 
 		this.buttons.set( imageData, repoData );
 		this.description.set( imageData.description, image.caption );
