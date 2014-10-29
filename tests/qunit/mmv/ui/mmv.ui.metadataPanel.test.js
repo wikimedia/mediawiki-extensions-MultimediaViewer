@@ -2,7 +2,6 @@
 	var thingsShouldBeEmptied = [
 			'$license',
 			'$title',
-			'$credit',
 			'$username',
 			'$location',
 			'$datetime'

@@ -54,16 +54,22 @@
 
 		this.scroller.attach();
 		this.buttons.attach();
+		this.title.attach();
+		this.creditField.attach();
 
-		this.$title.add( this.$authorAndSource ).on( 'click.mmv-mp', function ( e ) {
-			if (
-				$( e.target ).is( 'a' ) // ignore clicks to external links
-				|| !$( e.target ).closest( '.mw-mmv-truncate-toolong' ).length // text is not truncated
-			) {
-				return;
-			}
-			panel.toggleTruncatedText();
-		} );
+		this.$title
+			.add( this.$authorAndSource )
+			.add( this.title.$ellipsis )
+			.add( this.creditField.$ellipsis )
+			.on( 'click.mmv-mp', function ( e ) {
+				if (
+					$( e.target ).is( 'a' ) // ignore clicks to external links
+					|| !$( e.target ).closest( '.mw-mmv-ttf-truncated' ).length // text is not truncated
+				) {
+					return;
+				}
+				panel.toggleTruncatedText();
+			} );
 
 		$( this.$container ).on( 'mmv-metadata-open', function () {
 			panel.revealTruncatedText( true );
@@ -77,9 +83,8 @@
 	};
 
 	MPP.unattach = function() {
-		this.$title.tipsy( 'hide' );
-
-		this.$authorAndSource.tipsy( 'hide' );
+		this.$title.add( this.title.$ellipsis ).tipsy( 'hide' );
+		this.$authorAndSource.add( this.creditField.$ellipsis ).tipsy( 'hide' );
 
 		this.scroller.unattach();
 		this.buttons.unattach();
@@ -97,9 +102,9 @@
 		this.permission.empty();
 
 		this.hideTruncatedText();
-		this.$title.empty().removeClass( 'error' );
-		this.$authorAndSource.empty();
-		this.$credit.addClass( 'empty' );
+		this.$title.removeClass( 'error' );
+		this.title.empty();
+		this.creditField.empty();
 
 		this.$license.empty().prop( 'href', '#' );
 		this.$licenseLi.addClass( 'empty' );
@@ -150,17 +155,20 @@
 			.appendTo( this.$aboveFold );
 
 		this.$title = $( '<span>' )
-			.tipsy( {
-				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
-				gravity: this.correctEW( 'sw' )
-			} )
 			.addClass( 'mw-mmv-title' );
 
-		this.title = new mw.mmv.ui.TruncatableTextField( this.$titlePara, this.$title, { max: 180, small: 140 } );
+		this.title = new mw.mmv.ui.TruncatableTextField( this.$titlePara, this.$title, {
+			styles: ['mw-mmv-title-small', 'mw-mmv-title-smaller']
+		} );
 		this.title.setTitle(
 			mw.message( 'multimediaviewer-title-popup-text' ),
 			mw.message( 'multimediaviewer-title-popup-text-more' )
 		);
+
+		this.$title.add( this.title.$ellipsis ).tipsy( {
+			delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
+			gravity: this.correctEW( 'sw' )
+		} );
 	};
 
 	MPP.initializeButtons = function () {
@@ -171,6 +179,8 @@
 	 * Initializes the main body of metadata elements.
 	 */
 	MPP.initializeImageMetadata = function () {
+		this.$container.addClass( 'mw-mmv-ttf-ellipsis-container' );
+
 		this.$imageMetadata = $( '<div>' )
 			.addClass( 'mw-mmv-image-metadata' )
 			.appendTo( this.$container );
@@ -205,10 +215,6 @@
 		// we need an inline container for tipsy, otherwise it would be centered weirdly
 		this.$authorAndSource = $( '<span>' )
 			.addClass( 'mw-mmv-source-author' )
-			.tipsy( {
-				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
-				gravity: this.correctEW( 'sw' )
-			} )
 			.on( 'click', '.mw-mmv-author a', function ( e ) {
 				panel.trackLinkClick.call( this, 'author-page', e );
 			} )
@@ -220,13 +226,18 @@
 		this.creditField = new mw.mmv.ui.TruncatableTextField(
 			this.$credit,
 			this.$authorAndSource,
-			{ max: 200, small: 160 }
+			{ styles: [] }
 		);
 
 		this.creditField.setTitle(
 			mw.message( 'multimediaviewer-credit-popup-text' ),
 			mw.message( 'multimediaviewer-credit-popup-text-more' )
 		);
+
+		this.$authorAndSource.add( this.creditField.$ellipsis).tipsy( {
+			delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
+			gravity: this.correctEW( 'sw' )
+		} );
 	};
 
 	/**
@@ -602,8 +613,6 @@
 
 		mw.mmv.attributionLogger.logAttribution( imageData );
 
-		this.setTitle( image, imageData );
-
 		if ( imageData.creationDateTime ) {
 			// Use the raw date until moment can try to interpret it
 			panel.setDateTime( imageData.creationDateTime );
@@ -620,12 +629,15 @@
 			} );
 		}
 
-		this.setCredit( imageData.source, imageData.author, imageData.descriptionUrl );
-
 		this.buttons.set( imageData, repoData );
 		this.description.set( imageData.description, image.caption );
 
 		this.setLicense( imageData.license, imageData.descriptionUrl );
+
+		// these handle text truncation and should be called when everything that can push text down
+		// (e.g. floated buttons) has already been laid out
+		this.setTitle( image, imageData );
+		this.setCredit( imageData.source, imageData.author, imageData.descriptionUrl );
 
 		if ( imageData.permission ) {
 			this.setPermission( imageData.permission );
@@ -701,7 +713,7 @@
 		this.title.grow();
 		this.creditField.grow();
 		if ( this.aboveFoldIsLargerThanNormal() && !noScroll ) {
-			this.scroller.scrollIntoView( this.description.$imageDescDiv, 500 );
+			this.scroller.scrollIntoView( this.$mmvAboutLinks, 500 );
 		}
 	};
 

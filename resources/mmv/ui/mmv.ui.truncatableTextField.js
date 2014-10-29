@@ -21,50 +21,51 @@
 	/**
 	 * Represents any text field that needs to be truncated to be readable.
 	 * Depending on its length, text in that field might be truncated or its font size reduced (or neither).
+	 *
+	 * More specifically, TruncatableTextField should be invoked with a fixed-width container as the first
+	 * parameter and a flexible-width element (which gets its size from the text it contains) as the second
+	 * one. The first element gets overflow: hidden; if the second element overflows, TruncatableTextField
+	 * will go through the following:
+	 * - decrease size to 80%
+	 * - decrease size to 50%, use two lines (if the multiline flag is enabled)
+	 * - append an ellipse to the end, make the container flexible-width (in effect, untruncate the text)
+	 *   on click
+	 *
 	 * @class mw.mmv.ui.TruncatableTextField
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
 	 * @param {jQuery} $container The container for the element.
 	 * @param {jQuery} $element The element where we should put the text.
-	 * @param {Object} [sizes] Overrides for the max and small properties.
-	 * @param {number} [sizes.max=100] Override the max property.
-	 * @param {number} [sizes.small=80] Override the small property.
+	 * @param {Object} [options]
+	 * @param {string[]} [options.styles] a list of styles to try if the text does not fit into the container.
+	 *  Will stop at the first which makes the text fit; the last one will be used even if it does not make
+	 *  the text fit.
 	 */
-	function TruncatableTextField( $container, $element, sizes ) {
+	function TruncatableTextField( $container, $element, options ) {
 		mw.mmv.ui.Element.call( this, $container );
-
-		/** @property {boolean} truncated state flag */
-		this.truncated = false;
 
 		/** @property {jQuery} $element The DOM element that holds text for this element. */
 		this.$element = $element;
 
-		/** @property {string} originalHtml the original (after sanitizing) element as a HTML string */
-		this.originalHtml = null;
+		/** @property {Object} options - */
+		this.options = $.extend( {}, this.defaultOptions, options );
 
-		/** @property {string} truncatedHtml the truncated element as a HTML string */
-		this.truncatedHtml = null;
+		/** @property {boolean} expanded true if the text is long enough to be truncated but the full text is shown */
+		this.expanded = false;
+
+		/** @property {jQuery} ellipsis the element which marks that the text was truncated */
+		this.$ellipsis = null;
 
 		/** @property {string} normalTitle title attribute to show when the text is not truncated */
 		this.normalTitle = null;
 
-		/** @property {string} truncatedTitle title attribute to show when the text not truncated */
+		/** @property {string} truncatedTitle title attribute to show when the text is not truncated */
 		this.truncatedTitle = null;
 
 		/** @property {mw.mmv.HtmlUtils} htmlUtils Our HTML utility instance. */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
 
-		this.$container.append( this.$element );
-
-		if ( sizes ) {
-			if ( sizes.max ) {
-				this.max = sizes.max;
-			}
-
-			if ( sizes.small ) {
-				this.small = sizes.small;
-			}
-		}
+		this.init();
 	}
 
 	oo.inheritClass( TruncatableTextField, mw.mmv.ui.Element );
@@ -72,32 +73,65 @@
 	TTFP = TruncatableTextField.prototype;
 
 	/**
-	 * Maximum length of the field - we'll cut out the rest of the text.
-	 * @property {number} max
+	 * Default options
+	 * @property {Object} defaultOptions
 	 */
-	TTFP.max = 100;
+	TTFP.defaultOptions = {
+		styles: ['mw-mmv-ttf-small', 'mw-mmv-ttf-smaller', 'mw-mmv-ttf-smallest']
+	};
 
 	/**
-	 * Maximum ideal length of the field - we'll make the font smaller after this.
-	 * @property {number} small
+	 * @private
+	 * Initializes the DOM.
 	 */
-	TTFP.small = 80;
+	TTFP.init = function () {
+		this.$ellipsis = $( '<span>' )
+			.text( '…' )
+			.hide()
+			.addClass( 'mw-mmv-ttf-ellipsis');
+
+		this.$container
+			.addClass( 'mw-mmv-ttf-container empty' )
+			.append( this.$element, this.$ellipsis );
+	};
+
+	TTFP.attach = function () {
+		$( window ).on( 'resize.mmv-ttf', $.debounce( 100, $.proxy( this.repaint, this ) ) );
+	};
+
+	TTFP.unattach = function () {
+		$( window ).off( 'resize.mmv-ttf' );
+	};
 
 	/**
 	 * Sets the string for the element.
 	 * @param {string} value Warning - unsafe HTML is allowed here.
-	 * @override
 	 */
 	TTFP.set = function ( value ) {
-		this.originalHtml = this.htmlUtils.htmlToTextWithLinks( value );
-
-		this.$element.empty().append( this.originalHtml );
+		this.$element.empty().append( this.htmlUtils.htmlToTextWithLinks( value ) );
 		this.changeStyle();
-		this.$element.toggleClass( 'empty', !value );
-		this.truncated = false;
+		this.$container.toggleClass( 'empty', !value );
+		this.$ellipsis.hide();
+		this.shrink();
+	};
 
-		this.truncatedHtml = this.truncate( this.$element.get( 0 ), this.max, true ).html();
+	TTFP.empty = function () {
+		this.$element.empty();
+		this.$container
+			.removeClass( this.options.styles.join( ' ' ) )
+			.removeClass( 'mw-mmv-ttf-untruncated mw-mmv-ttf-truncated' )
+			.addClass( 'empty' );
+		this.$ellipsis.hide();
+		this.setTitle( '', '' );
+		this.expanded = false;
+	};
 
+	/**
+	 * Recalculate truncation after layout changes (such as resize)
+	 */
+	TTFP.repaint = function () {
+		this.changeStyle();
+		this.$ellipsis.hide();
 		this.shrink();
 	};
 
@@ -109,28 +143,58 @@
 	TTFP.setTitle = function ( normal, truncated ) {
 		this.normalTitle = normal;
 		this.truncatedTitle = truncated;
-		this.$element.attr( 'original-title', this.truncated ? truncated : normal );
+		this.updateTitle();
 	};
 
 	/**
-	 * Makes the text smaller via a few different methods.
+	 * Selects the right title to use (for full or for truncated version). The title can be set with setTitle().
+	 */
+	TTFP.updateTitle = function () {
+		var $elementsWithTitle = this.$element.add( this.$ellipsis );
+		$elementsWithTitle.attr( 'original-title', this.isTruncated() ? this.truncatedTitle : this.normalTitle );
+	};
+
+	/**
+	 * Returns true if the text is long enough that it needs to be truncated.
+	 * @return {boolean}
+	 */
+	TTFP.isTruncatable = function () {
+		// height calculation logic does not work for expanded state since the container expands
+		// to envelop the element, but we never go into expanded state for non-truncatable elements anyway
+		return this.$container.height() < this.$element.height() || this.expanded;
+	};
+
+	/**
+	 * Returns true if the text is truncated at the moment.
+	 * @return {boolean}
+	 */
+	TTFP.isTruncated = function () {
+		return this.isTruncatable() && !this.expanded;
+	};
+
+	/**
+	 * Makes the container fixed-width, clipping the text.
+	 * This will only add a .mw-mmv-ttf-truncated class; it's the caller's responsibility to define the fixed
+	 * height for that class.
 	 */
 	TTFP.shrink = function () {
-		if ( !this.truncated && this.truncatedHtml !== this.originalHtml ) {
-			this.$element.html( this.truncatedHtml );
-			this.$element.attr( 'original-title', this.truncatedTitle );
-			this.truncated = true;
+		if ( this.isTruncatable() ) {
+			this.expanded = false;
+			this.$container.addClass( 'mw-mmv-ttf-truncated' ).removeClass( 'mw-mmv-ttf-untruncated' );
+			this.$ellipsis.show();
+			this.updateTitle();
 		}
 	};
 
 	/**
-	 * Restores original text
+	 * Makes the container flexible-width, thereby restoring the full text.
 	 */
 	TTFP.grow = function () {
-		if ( this.truncated ) {
-			this.$element.html( this.originalHtml );
-			this.$element.attr( 'original-title', this.normalTitle );
-			this.truncated = false;
+		if ( this.isTruncatable() ) {
+			this.expanded = true;
+			this.$container.removeClass( 'mw-mmv-ttf-truncated' ).addClass( 'mw-mmv-ttf-untruncated' );
+			this.$ellipsis.hide();
+			this.updateTitle();
 		}
 	};
 
@@ -138,73 +202,25 @@
 	 * Changes the element style if a certain length is reached.
 	 */
 	TTFP.changeStyle = function () {
-		this.$element.toggleClass( 'mw-mmv-reduce-toolong', this.$element.text().length > this.small );
-		this.$element.toggleClass( 'mw-mmv-truncate-toolong', this.$element.text().length > this.max );
-	};
+		var oldClass,
+			newClass = 'mw-mmv-ttf-normal',
+			field = this;
 
-	/**
-	 * Truncate the text in the DOM element according to a few different rules.
-	 * @param {HTMLElement} element
-	 * @param {number} maxlen Maximum text length for the element.
-	 * @param {number} [appendEllipsis=true] Whether to stick an ellipsis at the end.
-	 * @returns {jQuery}
-	 */
-	TTFP.truncate = function ( element, maxlen, appendEllipsis ) {
-		var $result, curEle,
-			curlen = ( element.textContent || { length: 0 } ).length;
+		this.$container
+			.removeClass( this.options.styles.join( ' ' ) )
+			.removeClass( 'mw-mmv-ttf-untruncated mw-mmv-ttf-truncated' )
+			.addClass( newClass );
+		this.expanded = false;
 
-		if ( appendEllipsis === undefined ) {
-			appendEllipsis = true;
-		}
-
-		if ( curlen <= maxlen ) {
-			// Easy case
-			return $( element );
-		}
-
-		// Make room for the ellipsis
-		maxlen -= appendEllipsis ? 1 : 0;
-
-		// We're going to build up rather than remove until ready
-		curlen = 0;
-
-		// Create an empty element to dump things into
-		$result = $( element ).clone().empty();
-
-		// Fetch the first child.
-		curEle = element.firstChild;
-
-		while ( curEle !== null && curlen < maxlen ) {
-			if ( curEle.nodeType === curEle.TEXT_NODE ) {
-				if ( curEle.textContent.length < ( maxlen - curlen ) ) {
-					$result.append( curEle.cloneNode( true ) );
-				} else {
-					$result.append( this.truncateText( curEle.textContent, maxlen - curlen ) );
-					break;
-				}
-			} else {
-				$result.append( this.truncate( curEle.cloneNode( true ), maxlen - curlen, false ) );
+		$.each( this.options.styles, function ( k, v ) {
+			if ( !field.isTruncatable() ) {
+				return false;
 			}
 
-			curlen = $result.text().length;
-			curEle = curEle.nextSibling;
-		}
-
-		if ( appendEllipsis ) {
-			$result.append( '…' );
-		}
-
-		return $result;
-	};
-
-	/**
-	 * Truncate text to a maximum width.
-	 * @param {string} text
-	 * @param {number} maxlen
-	 */
-	TTFP.truncateText = function ( text, maxlen ) {
-		// Just return the substr for now.
-		return text.substr( 0, maxlen );
+			oldClass = newClass;
+			newClass = v;
+			field.$container.removeClass( oldClass).addClass( newClass );
+		} );
 	};
 
 	mw.mmv.ui.TruncatableTextField = TruncatableTextField;

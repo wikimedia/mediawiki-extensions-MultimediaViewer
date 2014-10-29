@@ -5,8 +5,12 @@
 @info-box-border-color: #DDDDDD;
 @info-box-border-shadow-color: #C9C9C9;
 @secondary-text-color: rgb(136, 136, 136);
+@panel-below-fold-background-color: #f5f5f5;
 
 @fold-separator-border-width: 1px;
+@vertical-padding: 10px;
+@horizontal-padding: 20px;
+@space-above-credit: 2px;
 
 .mw-mmv-info-box {
 	display: inline-block;
@@ -24,16 +28,67 @@
 }
 
 .mw-mmv-title-para {
-	margin: 0;
-	padding: 10px 0 0;
+	@height: @metadatabar-above-fold-inner-height - 2 * @vertical-padding; // needs explicit height for text truncation logic
+
+	margin: 0 0 @horizontal-padding; // use margin instead of padding for bottom so text is not visible
+	padding: @vertical-padding @horizontal-padding 0 @horizontal-padding;
+	height: @height;
+	line-height: @height;
+
+	&.mw-mmv-ttf-normal {
+		font-size: 20px;
+	}
+	&.mw-mmv-title-small {
+		font-size: 18px;
+	}
+	&.mw-mmv-title-smaller {
+		@vertical-padding: 6px;
+		@height: @metadatabar-above-fold-inner-height - 2 * @vertical-padding;
+		height: @height;
+		margin: 0 0 @horizontal-padding;
+		padding: @vertical-padding @horizontal-padding 0 @horizontal-padding ;
+		line-height: floor(@height / 2);  // two lines
+		font-size: 16px;
+	}
+
+	// this should be after the size-specific styles so it can override any height set there
+	&.mw-mmv-ttf-untruncated {
+		height: auto;
+	}
+
+	.mw-mmv-ttf-ellipsis {
+		right: @horizontal-padding;
+		bottom: 6px;
+		background-color: @panel-above-fold-background-color; // clip text
+		&:before {
+			.fade-out-horizontal(@panel-above-fold-background-color);
+		}
+	}
 }
+
 .mw-mmv-credit {
+	@padding-right: 5px;
 	margin: 0;
 	color: #555;
-	padding: 0 0 5px;
+	padding: 0 0 @padding-right;
 	font-size: 0.85em;
+	height: @metadatabar-below-fold-pushup-height - @space-above-credit - @fold-separator-border-width; // needs explicit height for text truncation logic
+
+	&.mw-mmv-ttf-untruncated {
+		height: auto;
+	}
+
 	&.empty {
 		height: 0.85em;
+	}
+
+	.mw-mmv-ttf-ellipsis {
+		right: @padding-right;
+		bottom: 13px;
+		background-color: @panel-below-fold-background-color; // clip text
+		&:before {
+			.fade-out-horizontal(@panel-below-fold-background-color);
+		}
 	}
 }
 
@@ -42,7 +97,6 @@
 }
 
 .mw-mmv-title {
-	font-size: 1.2em;
 	max-width: 60%;
 }
 
@@ -51,12 +105,12 @@
 	position: relative;
 	margin-top: -@metadatabar-below-fold-pushup-height;
 	border-top: @fold-separator-border-width solid #ddd;
-	background-color: #f5f5f5;
-	padding-top: 2px;
+	background-color: @panel-below-fold-background-color;
+	padding-top: @space-above-credit;
 
 	.jq-fullscreened & {
 		// Make sure content fits into the screen. This assumes no paddings.
-		height: @metadatabar-below-fold-pushup-height - @fold-separator-border-width;
+		height: @metadatabar-below-fold-pushup-height - @fold-separator-border-width - @space-above-credit;
 		overflow: hidden;
 	}
 	.jq-fullscreened .mw-mmv-untruncated & {
@@ -75,6 +129,7 @@
 	background-size: contain;
 	background-position: center center;
 	background-repeat: no-repeat;
+	/* @embed */
 	background-image: url(img/user-ltr.svg);
 }
 
@@ -167,31 +222,15 @@
 	text-align: right;
 }
 
-// These are single-line; make sure it looks sane when they are too long (we truncate the text by character
-// limit, but that's still no guarantee it will fit in one line)
-.mw-mmv-title-para,
-.mw-mmv-credit {
-	overflow: hidden;
-	padding-right: 20px;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-
-	// in untruncated mode, the text can be multiline
-	.mw-mmv-untruncated & {
-		overflow: visible; // needed so the stripe button floats can run into the block and the text can flow around them
-		white-space: normal;
-	}
-}
-
 .mw-mmv-title-para,
 .mw-mmv-credit,
 .mw-mmv-image-desc {
-	padding-left: 20px;
+	padding-left: @horizontal-padding;
 }
 
 .mw-mmv-about-links {
 	font-size: @littlefont;
-	padding: 20px;
+	padding: @horizontal-padding;
 	width: 50%;
 }
 
