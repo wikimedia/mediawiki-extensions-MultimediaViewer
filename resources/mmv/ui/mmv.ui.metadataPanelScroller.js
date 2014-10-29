@@ -191,7 +191,7 @@
 	 * @fires mmv-metadata-close
 	 */
 	MPSP.scroll = function () {
-		var panelIsOpen = !!$.scrollTo().scrollTop();
+		var panelIsOpen = $.scrollTo().scrollTop() > 0;
 
 		this.$container.toggleClass( 'panel-open', panelIsOpen );
 
