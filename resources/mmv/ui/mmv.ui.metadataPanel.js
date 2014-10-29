@@ -25,7 +25,9 @@
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
 	 * @param {jQuery} $container The container for the panel (.mw-mmv-post-image).
-	 * @param {jQuery} $aboveFold The always-visible  part of the metadata panel (.mw-mmv-above-fold).
+	 * @param {jQuery} $aboveFold The brighter headline of the metadata panel (.mw-mmv-above-fold).
+	 *  Called "aboveFold" for historical reasons, but actually a part of the next sibling of the element
+	 *  is also above the fold (bottom of the screen).
 	 * @param {Object} localStorage the localStorage object, for dependency injection
 	 * @param {mw.mmv.Config} config A configuration object.
 	 */
@@ -154,7 +156,7 @@
 			} )
 			.addClass( 'mw-mmv-title' );
 
-		this.title = new mw.mmv.ui.TruncatableTextField( this.$titlePara, this.$title );
+		this.title = new mw.mmv.ui.TruncatableTextField( this.$titlePara, this.$title, { max: 180, small: 140 } );
 		this.title.setTitle(
 			mw.message( 'multimediaviewer-title-popup-text' ),
 			mw.message( 'multimediaviewer-title-popup-text-more' )
@@ -687,7 +689,7 @@
 		this.title.grow();
 		this.creditField.grow();
 		if ( this.aboveFoldIsLargerThanNormal() && !noScroll ) {
-			this.scroller.scrollIntoView( this.$datetimeLi, 500 );
+			this.scroller.scrollIntoView( this.description.$imageDescDiv, 500 );
 		}
 	};
 
@@ -709,7 +711,8 @@
 	 * calling revealTruncatedText().
 	 */
 	MPP.aboveFoldIsLargerThanNormal = function () {
-		return this.$aboveFold.height() > parseInt( this.$aboveFold.css( 'min-height' ), 10 );
+		return this.$aboveFold.height() > parseInt( this.$aboveFold.css( 'min-height' ), 10 ) ||
+			this.$credit.height() > parseInt( this.$aboveFold.css( 'padding-bottom' ), 10 );
 	};
 
 	mw.mmv.ui.MetadataPanel = MetadataPanel;
