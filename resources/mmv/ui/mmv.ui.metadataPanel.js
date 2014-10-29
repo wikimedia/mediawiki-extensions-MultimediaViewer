@@ -468,16 +468,17 @@
 	 * @param {string} filePageUrl URL of the file description page
 	 */
 	MPP.setLicense = function ( license, filePageUrl ) {
-		var shortName, url, isCc;
+		var shortName, url, isCc, isPd;
 
 		if ( license ) {
 			shortName = license.getShortName();
 			url = license.deedUrl || filePageUrl;
 			isCc = license.isCc();
+			isPd = license.isPd();
 		} else {
 			shortName = mw.message( 'multimediaviewer-license-default' ).text();
 			url = filePageUrl;
-			isCc = false;
+			isCc = isPd = false;
 		}
 
 		this.$license
@@ -487,6 +488,7 @@
 
 		this.$licenseLi
 			.toggleClass( 'cc-license', isCc )
+			.toggleClass( 'pd-license', isPd )
 			.removeClass( 'empty' );
 	};
 

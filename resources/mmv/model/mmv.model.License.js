@@ -64,6 +64,14 @@
 	};
 
 	/**
+	 * Check whether this is a public domain "license".
+	 * @returns {boolean}
+	 */
+	LP.isPd = function () {
+		return this.internalName === 'pd';
+	};
+
+	/**
 	 * Returns the short name of the license:
 	 * - if we have interface messages for this license (basically just CC and PD), use those
 	 * - otherwise use the short name from the license template (might or might not be translated
