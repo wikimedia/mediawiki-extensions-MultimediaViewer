@@ -92,8 +92,6 @@
 	"multimediaviewer-fullscreen-popup-text": "全画面で表示",
 	"multimediaviewer-defullscreen-popup-text": "全画面表示を終了",
 	"multimediaviewer-title-popup-text": "ファイル名",
-	"multimediaviewer-panel-open-popup-text": "詳細を表示",
-	"multimediaviewer-panel-close-popup-text": "詳細を非表示",
 	"multimediaviewer-options-tooltip": "メディアビューアーの有効/無効を切り替える",
 	"multimediaviewer-options-dialog-header": "メディアビューワーを無効にしますか？",
 	"multimediaviewer-options-text-header": "全てのファイルでこの表示機能をスキップします。",

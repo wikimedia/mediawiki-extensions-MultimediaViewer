@@ -74,7 +74,5 @@
 	"multimediaviewer-close-popup-text": "إغلاق هذه الأداة (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "إظهار ملء كاملة",
 	"multimediaviewer-defullscreen-popup-text": "إغلاق ملء الشاشة",
-	"multimediaviewer-title-popup-text": "اسم الملف",
-	"multimediaviewer-panel-open-popup-text": "تفاصيل أكثر",
-	"multimediaviewer-panel-close-popup-text": "تفاصيل أقل"
+	"multimediaviewer-title-popup-text": "اسم الملف"
 }

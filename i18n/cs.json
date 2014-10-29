@@ -79,6 +79,7 @@
 	"multimediaviewer-description-page-popup-text": "Více podrobností o tomto souboru na {{grammar:6sg|$1}}",
 	"multimediaviewer-commons-subtitle": "Úložiště volných médií",
 	"multimediaviewer-view-expanded": "Otevřít v prohlížeči médií",
+	"multimediaviewer-view-config": "Konfigurace",
 	"multimediaviewer-close-popup-text": "Zavřít tento nástroj (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Zobrazit přes celou obrazovku",
 	"multimediaviewer-defullscreen-popup-text": "Ukončit celou obrazovku",
@@ -86,9 +87,9 @@
 	"multimediaviewer-credit-popup-text": "Informace o autorovi a zdroji",
 	"multimediaviewer-title-popup-text-more": "Kliknutím zobrazíte úplné jméno souboru",
 	"multimediaviewer-credit-popup-text-more": "Kliknutím zobrazíte úplné údaje o autorovi a zdroji",
-	"multimediaviewer-panel-open-popup-text": "Více informací",
-	"multimediaviewer-panel-close-popup-text": "Méně informací",
 	"multimediaviewer-download-attribution-cta-header": "Musíte uvést autora",
 	"multimediaviewer-download-attribution-cta": "Ukažte mi, jak",
-	"multimediaviewer-attr-plain": "Prostý text"
+	"multimediaviewer-attr-plain": "Prostý text",
+	"multimediaviewer-options-tooltip": "Zapnout nebo vypnout Prohlížeč médií",
+	"multimediaviewer-options-dialog-header": "Vypnout Prohlížeč médií?"
 }
