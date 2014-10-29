@@ -385,10 +385,25 @@
 	};
 
 	/**
-	 * Sets the file title in the panel
-	 * @param {string} title
+	 * Sets the image title at the top of the metadata panel.
+	 * The title will be the first one available form the options below:
+	 * - the image caption
+	 * - the description from the filepage
+	 * - the filename (without extension)
+	 * @param {mw.mmv.LightboxImage} image
+	 * @param {mw.mmv.model.Image} imageData
 	 */
-	MPP.setFileTitle = function ( title ) {
+	MPP.setTitle = function ( image, imageData ) {
+		var title;
+
+		if ( image.caption ) {
+			title = image.caption;
+		} else if ( imageData.description ) {
+			title = imageData.description;
+		} else {
+			title = image.filePageTitle.getNameText();
+		}
+
 		this.title.set( title );
 	};
 
@@ -583,12 +598,11 @@
 	 * @param {mw.mmv.model.User} user
 	 */
 	MPP.setImageInfo = function ( image, imageData, repoData, user ) {
-		var panel = this,
-			fileTitle = image.filePageTitle;
+		var panel = this;
 
 		mw.mmv.attributionLogger.logAttribution( imageData );
 
-		this.setFileTitle( fileTitle.getNameText() );
+		this.setTitle( image, imageData );
 
 		if ( imageData.creationDateTime ) {
 			// Use the raw date until moment can try to interpret it

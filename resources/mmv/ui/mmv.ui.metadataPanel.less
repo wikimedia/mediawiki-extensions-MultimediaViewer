@@ -80,6 +80,10 @@
 
 .mw-mmv-image-desc-div {
 	overflow-y: auto;
+
+	&.empty {
+		display: none;
+	}
 }
 
 .mw-mmv-image-desc-div,
@@ -96,7 +100,6 @@
 @littlefont: 0.85em;
 @mediumfont: 0.95em;
 
-.mw-mmv-caption,
 .mw-mmv-image-desc {
 	font-size: @mediumfont;
 	color: #555555;
@@ -182,18 +185,8 @@
 
 .mw-mmv-title-para,
 .mw-mmv-credit,
-.mw-mmv-image-desc,
-.mw-mmv-caption {
+.mw-mmv-image-desc {
 	padding-left: 20px;
-}
-
-.mw-mmv-image-desc-div.empty .mw-mmv-image-desc {
-	color: @secondary-text-color;
-	font-style: italic;
-}
-
-.mw-mmv-caption.empty {
-	display: none;
 }
 
 .mw-mmv-about-links {

@@ -33,10 +33,6 @@
 			.addClass( 'mw-mmv-image-desc-div empty' )
 			.appendTo( this.$container );
 
-		this.$imageCaption = $( '<p>' )
-			.addClass( 'mw-mmv-caption empty' )
-			.appendTo( this.$imageDescDiv );
-
 		this.$imageDesc = $( '<p>' )
 			.addClass( 'mw-mmv-image-desc' )
 			.appendTo( this.$imageDescDiv );
@@ -46,22 +42,16 @@
 
 	/**
 	 * Sets data on the element.
-	 * @param {string} text The text of the description
-	 * @param {string} [caption] The text of the caption
+	 * This complements MetadataPanel.setTitle() - information shown there will not be shown here.
+	 * @param {string|null} description The text of the description
+	 * @param {string|null} caption The text of the caption
 	 */
-	Description.prototype.set = function ( text, caption ) {
-		this.$imageDescDiv.toggleClass( 'empty', !text && !caption );
-		this.$imageCaption.toggleClass( 'empty', !caption );
-		this.$imageDesc.toggleClass( 'empty', !text );
-
-		if ( caption ) {
-			this.$imageCaption.html( this.htmlUtils.htmlToTextWithLinks( caption ) );
-		}
-
-		if ( text ) {
-			this.$imageDesc.html( this.htmlUtils.htmlToTextWithLinks( text ) );
-		} else {
-			this.$imageDesc.empty().append( mw.message( 'multimediaviewer-desc-nil' ).text() );
+	Description.prototype.set = function ( description, caption ) {
+		if ( caption && description ) { // panel header shows the caption - show description here
+			this.$imageDesc.html( this.htmlUtils.htmlToTextWithLinks( description ) );
+			this.$imageDescDiv.removeClass( 'empty' );
+		} else { // either there is no description or the paner header already shows it - nothing to do here
+			this.empty();
 		}
 	};
 
@@ -71,7 +61,6 @@
 	Description.prototype.empty = function () {
 		this.$imageDesc.empty();
 		this.$imageDescDiv.addClass( 'empty' );
-		this.$imageCaption.empty().addClass( 'empty' );
 	};
 
 	mw.mmv.ui.Description = Description;

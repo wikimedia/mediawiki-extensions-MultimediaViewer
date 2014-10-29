@@ -27,7 +27,6 @@ class E2ETestPage < CommonsPage
   span(:mmv_metadata_source, class: "mw-mmv-source")
 
   div(:mmv_image_metadata_wrapper, class: "mw-mmv-image-metadata")
-  p(:mmv_image_metadata_caption, class: "mw-mmv-caption")
   p(:mmv_image_metadata_desc, class: "mw-mmv-image-desc")
 
   ul(:mmv_image_metadata_links_wrapper, class: "mw-mmv-image-links")

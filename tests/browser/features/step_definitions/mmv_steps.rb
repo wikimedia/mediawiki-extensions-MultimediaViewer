@@ -65,7 +65,7 @@ def check_elements_in_viewer_for_image1(page)
   # Check basic metadata is present
 
   # Title
-  page.mmv_metadata_title_element.when_present.text.should match /Sunrise over fishing boats in Kerala/
+  page.mmv_metadata_title_element.when_present.text.should match /^Sunrise over fishing boats$/
   # License
   page.mmv_metadata_license_element.when_present.attribute('href').should match /^http:\/\/creativecommons\.org\/licenses\/by-sa\/3\.0$/
   page.mmv_metadata_license_element.when_present.text.should match /CC BY-SA 3.0/
@@ -75,8 +75,6 @@ def check_elements_in_viewer_for_image1(page)
 
   # Image metadata
   page.mmv_image_metadata_wrapper_element.when_present.should be_visible
-  # Caption
-  page.mmv_image_metadata_caption_element.when_present.text.should match /Sunrise over fishing boats/
   # Description
   page.mmv_image_metadata_desc_element.when_present.text.should match /Sunrise over fishing boats on the beach south of Kovalam/
   # Image metadata links
@@ -100,7 +98,7 @@ def check_elements_in_viewer_for_image2(page)
   # Check basic metadata is present
 
   # Title
-  page.mmv_metadata_title_element.when_present.text.should match /All Hands Offsite/
+  page.mmv_metadata_title_element.when_present.text.should match /^Tropical Fish Aquarium$/
   # License
   page.mmv_metadata_license_element.when_present.attribute('href').should match /^http:\/\/creativecommons\.org\/licenses\/by-sa\/3\.0$/
   page.mmv_metadata_license_element.when_present.text.should match /CC BY-SA 3.0/
@@ -110,8 +108,6 @@ def check_elements_in_viewer_for_image2(page)
 
   # Image metadata
   page.mmv_image_metadata_wrapper_element.when_present.should be_visible
-  # Caption
-  page.mmv_image_metadata_caption_element.when_present.text.should match /Tropical Fish Aquarium/
   # Description
   page.mmv_image_metadata_desc_element.when_present.text.should match /Photo from Wikimedia Foundation/
   # Image metadata links
@@ -135,7 +131,7 @@ def check_elements_in_viewer_for_image3(page)
   # Check basic metadata is present
 
   # Title
-  page.mmv_metadata_title_element.when_present.text.should match /Wikimania 2013 - Hong Kong - Photo 090/
+  page.mmv_metadata_title_element.when_present.text.should match /^Hong Kong Harbor at night$/
   # License
   page.mmv_metadata_license_element.when_present.attribute('href').should match /^http:\/\/creativecommons\.org\/licenses\/by-sa\/3\.0$/
   page.mmv_metadata_license_element.when_present.text.should match /CC BY-SA 3.0/
@@ -145,8 +141,6 @@ def check_elements_in_viewer_for_image3(page)
 
   # Image metadata
   page.mmv_image_metadata_wrapper_element.when_present.should be_visible
-  # Caption
-  page.mmv_image_metadata_caption_element.when_present.text.should match /Hong Kong Harbor at night/
   # Description
   page.mmv_image_metadata_desc_element.when_present.text.should match /Photos from our product team's talks at Wikimania 2013 in Hong Kong./
   # Image metadata links
