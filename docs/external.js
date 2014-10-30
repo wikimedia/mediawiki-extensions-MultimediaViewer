@@ -47,8 +47,8 @@
  */
 
 /**
- * @class OO.ui.InlineMenuWidget
- * <https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/OO.ui.InlineMenuWidget>
+ * @class OO.ui.DropdownWidget
+ * <https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/OO.ui.DropdownWidget>
  */
 
 /**

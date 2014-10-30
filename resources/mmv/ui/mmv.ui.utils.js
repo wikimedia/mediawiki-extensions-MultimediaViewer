@@ -36,14 +36,14 @@
 	 * @param {string[]} options
 	 * @param {string[]} classes
 	 * @param {string} def
-	 * @returns {OO.ui.InlineMenuWidget}
+	 * @returns {OO.ui.DropdownWidget}
 	 */
 	RUP.createPulldownMenu = function( options, classes, def ) {
-		var menu, i, option,
+		var dropdown, i, option,
 			items = [],
 			choices = {};
 
-		menu = new oo.ui.InlineMenuWidget( {
+		dropdown = new oo.ui.DropdownWidget( {
 			classes: classes
 		} );
 
@@ -65,10 +65,11 @@
 			items.push( choices[option] );
 		}
 
-		menu.getMenu().addItems( items );
-		menu.getMenu().chooseItem( choices[ def ] );
+		dropdown.getMenu()
+			.addItems( items )
+			.chooseItem( choices[ def ] );
 
-		return menu;
+		return dropdown;
 	};
 
 	/**
