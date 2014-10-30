@@ -217,7 +217,17 @@
 }
 
 .mw-mmv-image-metadata-links-column {
-	width: 33.5%;
+	max-width: 33.5%;
+	width: 25%;
+	text-align: right;
+	float: right;
+	transition: width 0.2s ease-out;
+
+	.panel-open & {
+		width: 33.5%;
+		text-align: left;
+	}
+
 }
 
 .mw-mmv-permission-link {
