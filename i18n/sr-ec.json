@@ -6,7 +6,7 @@
 	},
 	"multimediaviewer-desc-nil": "Опис није доступан.",
 	"multimediaviewer-optin-pref": "Омогући <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
-	"multimediaviewer-repository-local": "Сазнајте више",
+	"multimediaviewer-repository-local": "Више детаља",
 	"multimediaviewer-datetime-created": "Направљено: $1",
 	"multimediaviewer-datetime-uploaded": "Послато: $1",
 	"multimediaviewer-userpage-link": "Датотеку {{GENDER:$2|послао|послала}} $1",
@@ -60,5 +60,15 @@
 	"multimediaviewer-title-popup-text": "Назив датотеке",
 	"multimediaviewer-download-attribution-cta-header": "Морате навести аутора",
 	"multimediaviewer-download-attribution-cta": "Покажи ми како",
-	"multimediaviewer-attr-plain": "Текст"
+	"multimediaviewer-attr-plain": "Текст",
+	"multimediaviewer-options-tooltip": "Омогући или онемогући Media Viewer",
+	"multimediaviewer-options-dialog-header": "Онемогући Media Viewer?",
+	"multimediaviewer-option-submit-button": "Онемогући Media Viewer",
+	"multimediaviewer-option-cancel-button": "Откажи",
+	"multimediaviewer-disable-confirmation-header": "Онемогућили сте Media Viewer",
+	"multimediaviewer-enable-dialog-header": "Омогући Media Viewer?",
+	"multimediaviewer-enable-submit-button": "Омогући Media Viewer",
+	"multimediaviewer-enable-confirmation-header": "Омогућили сте Media Viewer за све датотеке",
+	"multimediaviewer-enable-alert": "Media Viewer је тренутно онемогућен",
+	"multimediaviewer-disable-info-title": "Онемогућили сте Media Viewer"
 }

@@ -91,7 +91,7 @@
 	"multimediaviewer-attr-plain": "Lihttekst",
 	"multimediaviewer-options-tooltip": "Sätted: keela või luba piltide eelvaade",
 	"multimediaviewer-options-dialog-header": "Kas keelad failivaaturi?",
-	"multimediaviewer-options-text-header": "Seda vaaturit ei kasutata ühegi faili juures.",
+	"multimediaviewer-options-text-header": "Seda vaaturit ei kasutata siis ühegi faili juures.",
 	"multimediaviewer-options-text-body": "Saad faili üksikasjade leheküljel selle hiljem lubada.",
 	"multimediaviewer-options-learn-more": "Lisateave",
 	"multimediaviewer-option-submit-button": "Keela failivaatur",
@@ -103,7 +103,7 @@
 	"multimediaviewer-enable-submit-button": "Luba failivaatur",
 	"multimediaviewer-enable-confirmation-header": "Oled failivaaturi kõigi failide jaoks sisse lülitanud.",
 	"multimediaviewer-enable-confirmation-text": "Järgmine kord, kui võrgukohas $1 pisipildil klõpsad, kasutatakse failivaaturit.",
-	"multimediaviewer-enable-alert": "Failivaatur on nüüd keelatud",
+	"multimediaviewer-enable-alert": "Failivaatur on praegu keelatud",
 	"multimediaviewer-disable-info-title": "Oled failivaaturi keelanud",
 	"multimediaviewer-disable-info": "Saad endiselt iga üksikut pilti failivaaturiga vaadata."
 }
