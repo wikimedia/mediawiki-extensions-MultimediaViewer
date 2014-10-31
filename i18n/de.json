@@ -21,6 +21,7 @@
 	"multimediaviewer-datetime-created": "Erstellt: $1",
 	"multimediaviewer-datetime-uploaded": "Hochgeladen: $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Hochgeladen}} von $1",
+	"multimediaviewer-credit-fallback": "Autoreninformationen ansehen",
 	"multimediaviewer-metadata-error": "Fehler: Die Daten des Bildes konnten nicht geladen werden. ($1)",
 	"multimediaviewer-thumbnail-error": "Fehler: Die Daten des Vorschaubildes konnten nicht geladen werden. ($1)",
 	"multimediaviewer-license-cc-by-4.0": "CC-BY 4.0",
