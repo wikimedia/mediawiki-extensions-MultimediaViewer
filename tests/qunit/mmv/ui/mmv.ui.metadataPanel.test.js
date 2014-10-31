@@ -127,7 +127,7 @@
 		panel.setImageInfo( image, imageData, repoData, gender );
 
 		assert.strictEqual( panel.$title.text(), title, 'Title is correctly set' );
-		assert.ok( panel.$credit.hasClass( 'empty' ), 'Credit is empty' );
+		assert.ok( panel.$credit.text(), 'Default credit is shown' );
 		assert.strictEqual( panel.$license.prop( 'href' ), imageData.descriptionUrl,
 			'User is directed to file page for license information' );
 		assert.ok( !panel.$license.prop( 'target' ), 'License information opens in same window' );
