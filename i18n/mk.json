@@ -15,6 +15,7 @@
 	"multimediaviewer-datetime-uploaded": "Подигнато: $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Подигнато}} од $1",
 	"multimediaviewer-credit": "$1 — $2",
+	"multimediaviewer-credit-fallback": "Погледнете авторски информации",
 	"multimediaviewer-metadata-error": "Грешка: Не можев да ги вчитам податоците за сликата. $1",
 	"multimediaviewer-thumbnail-error": "Грешка: Не можев да ги вчитам податоците за минијатурата. $1",
 	"multimediaviewer-license-cc-by-4.0": "CC BY 4.0",

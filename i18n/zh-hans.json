@@ -12,7 +12,8 @@
 			"Duolaimi",
 			"NigelSoft",
 			"Liangent",
-			"Papapasan"
+			"Papapasan",
+			"Linforest"
 		]
 	},
 	"multimediaviewer-desc": "在全屏界面中以较大尺寸显示缩略图。",
@@ -25,6 +26,7 @@
 	"multimediaviewer-datetime-created": "创作：$1",
 	"multimediaviewer-datetime-uploaded": "上传：$1",
 	"multimediaviewer-userpage-link": "由$1{{GENDER:$2|上传}}",
+	"multimediaviewer-credit-fallback": "查看作者信息",
 	"multimediaviewer-metadata-error": "错误: 无法加载图像数据。$1",
 	"multimediaviewer-thumbnail-error": "错误: 无法加载缩略图数据。$1",
 	"multimediaviewer-license-cc-by-1.0": "知识共享 署名 1.0",

@@ -93,7 +93,7 @@
 	"multimediaviewer-defullscreen-popup-text": "全画面表示を終了",
 	"multimediaviewer-title-popup-text": "ファイル名",
 	"multimediaviewer-options-tooltip": "メディアビューアーの有効/無効を切り替える",
-	"multimediaviewer-options-dialog-header": "メディアビューワーを無効にしますか？",
+	"multimediaviewer-options-dialog-header": "メディアビューアーを無効にしますか?",
 	"multimediaviewer-options-text-header": "全てのファイルでこの表示機能をスキップします。",
 	"multimediaviewer-options-text-body": "後にファイルの詳細のページでそれを有効にすることができます。",
 	"multimediaviewer-option-submit-button": "メディアビューアーを無効にする",
@@ -107,5 +107,5 @@
 	"multimediaviewer-enable-confirmation-text": "次回サムネイルの$1をクリック し, メディアヴューアーを使用します。",
 	"multimediaviewer-enable-alert": "メディアビューアーは現在使用できません。",
 	"multimediaviewer-disable-info-title": "メディアビューアーを無効にしました",
-	"multimediaviewer-disable-info": "メディアビューワーで個々のファイルをみることも可能です。"
+	"multimediaviewer-disable-info": "各ファイルをメディアビューアーで閲覧することもできます。"
 }

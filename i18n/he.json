@@ -19,6 +19,7 @@
 	"multimediaviewer-datetime-created": "נוצר: $1",
 	"multimediaviewer-datetime-uploaded": "הועלה: $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|הועלה}} על־ידי $1",
+	"multimediaviewer-credit-fallback": "הצגת מידע על היוצר",
 	"multimediaviewer-metadata-error": "שגיאה: לא היה ניתן לטעון את נתוני התמונה. $1",
 	"multimediaviewer-thumbnail-error": "שגיאה: לא היה ניתן לטעון את נתוני התמונה הממוזערת. $1",
 	"multimediaviewer-license-cc-pd": "נחלת הכלל",
