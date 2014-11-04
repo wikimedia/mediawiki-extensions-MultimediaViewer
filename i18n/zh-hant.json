@@ -18,6 +18,7 @@
 	"multimediaviewer-datetime-created": "建立於：$1",
 	"multimediaviewer-datetime-uploaded": "上傳於：$1",
 	"multimediaviewer-userpage-link": "由 $1 {{GENDER:$2|上傳}}",
+	"multimediaviewer-credit-fallback": "檢視作者資訊",
 	"multimediaviewer-metadata-error": "錯誤：無法讀取圖片資料。$1",
 	"multimediaviewer-thumbnail-error": "錯誤：無法讀取縮圖資料。$1",
 	"multimediaviewer-license-cc-by-sa-1.0": "創用CC 姓名標示-相同方式分享 1.0",

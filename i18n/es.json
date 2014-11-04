@@ -95,7 +95,7 @@
 	"multimediaviewer-download-attribution-cta-header": "Es necesario darle crédito al autor",
 	"multimediaviewer-download-attribution-cta": "Mostrarme cómo",
 	"multimediaviewer-attr-plain": "Texto plano",
-	"multimediaviewer-options-tooltip": "Ajustes: desactivar o activar las vistas previas",
+	"multimediaviewer-options-tooltip": "Activar o desactivar el Visor multimedia",
 	"multimediaviewer-options-dialog-header": "¿Desactivar el visor multimedia?",
 	"multimediaviewer-options-text-header": "Omitir esta función de visualización para todos los archivos.",
 	"multimediaviewer-options-text-body": "Puedes activarlo más tarde mediante la página de detalles de archivos.",
