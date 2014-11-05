@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robin0van0der0vliet"
+		]
+	},
+	"multimediaviewer-help-mmv": "Help",
+	"multimediaviewer-embed-html": "HTML",
+	"multimediaviewer-large-embed-dimensions": "Grut $1",
+	"multimediaviewer-small-embed-dimensions": "Lyts $1"
+}
