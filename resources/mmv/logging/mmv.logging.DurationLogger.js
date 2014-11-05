@@ -26,6 +26,7 @@
 	 */
 	function DurationLogger() {
 		this.starts = {};
+		this.stops = {};
 	}
 
 	oo.inheritClass( DurationLogger, mw.mmv.logging.Logger );
@@ -66,42 +67,78 @@
 				this.starts[ typeOrTypes[ i ] ] = start;
 			}
 		}
+
+		return this;
 	};
 
 	/**
-	 * Logs a duration if a start was recorded first
+	 * Saves the stop of a duration
 	 * @param {string} type Type of duration being measured.
-	 * @param {number} start Start timestamp that to substitute the one coming from start()
+	 * @param {number} start Start timestamp to substitute the one coming from start()
 	 */
 	L.stop = function ( type, start ) {
-		var e, duration, message, startTimestamp;
+		var stop = $.now();
 
 		if ( !type ) {
 			throw 'Must specify type';
 		}
 
-		startTimestamp = this.starts.hasOwnProperty( type ) ? this.starts[ type ] : start;
-
-		if ( startTimestamp !== undefined ) {
-			duration = $.now() - startTimestamp;
-
-			e = {
-				type : type,
-				duration : duration,
-				loggedIn : !mw.user.isAnon(),
-				samplingFactor : this.samplingFactor
-			};
-
-			message = type + ': ' + duration + 'ms';
-
-			mw.log( message );
-
-			this.log( e );
+		// Don't overwrite an existing value
+		if ( !this.stops.hasOwnProperty( type ) ) {
+			this.stops[ type ] = stop;
 		}
 
-		if ( this.starts.hasOwnProperty( type ) ) {
-			delete this.starts[ type ];
+		// Don't overwrite an existing value
+		if ( start !== undefined && !this.starts.hasOwnProperty( type ) ) {
+			this.starts[ type ] = start;
 		}
+
+		return this;
+	};
+
+	/**
+	 * Records the duration log event
+	 * @param {string} type Type of duration being measured.
+	 * @param {Object} extraData Extra information to add to the log event data
+	 */
+	L.record = function ( type, extraData ) {
+		var e, duration;
+
+		if ( !type ) {
+			throw 'Must specify type';
+		}
+
+		if ( !this.starts.hasOwnProperty( type ) || this.starts[ type ] === undefined ) {
+			return;
+		}
+
+		if ( !this.stops.hasOwnProperty( type ) || this.stops[ type ] === undefined ) {
+			return;
+		}
+
+		duration = this.stops[ type ] - this.starts[ type ];
+
+		e = {
+			type : type,
+			duration : duration,
+			loggedIn : !mw.user.isAnon(),
+			samplingFactor : this.samplingFactor
+		};
+
+		if ( extraData ) {
+			$.each( extraData, function ( key, value ) {
+				e[ key ] = value;
+			} );
+		}
+
+		mw.log( 'mw.mmw.logger.DurationLogger', e );
+
+		this.log( e );
+
+		delete this.starts[ type ];
+		delete this.stops[ type ];
+
+		return this;
 	};
 
 	mw.mmv.durationLogger = new DurationLogger();

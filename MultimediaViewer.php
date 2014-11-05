@@ -1015,7 +1015,7 @@ $wgHooks['EventLoggingRegisterSchemas'][] = function( array &$schemas ) {
 	$schemas += array(
 		'MediaViewer' => 10308479,
 		'MultimediaViewerNetworkPerformance' => 7917896,
-		'MultimediaViewerDuration' => 8572641,
+		'MultimediaViewerDuration' => 10427980,
 		'MultimediaViewerAttribution' => 9758179,
 		'MultimediaViewerDimensions' => 10014238,
 	);

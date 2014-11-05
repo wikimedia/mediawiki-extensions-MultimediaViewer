@@ -33,7 +33,34 @@
 		assert.strictEqual( durationLogger.starts.bar, 1000, 'Third simultaneous event start not overwritten' );
 	} );
 
-	QUnit.test( 'stop()', 17, function ( assert ) {
+	QUnit.test( 'stop()', 5, function ( assert ) {
+		var durationLogger = new mw.mmv.durationLogger.constructor();
+
+		try {
+			durationLogger.stop();
+		} catch ( e ) {
+			assert.ok( true, 'Exception raised when calling stop() without parameters' );
+		}
+
+		durationLogger.stop( 'foo' );
+
+		assert.strictEqual( durationLogger.stops.foo, 0, 'Event stop saved' );
+
+		this.clock.tick( 1000 );
+		durationLogger.stop( 'foo' );
+
+		assert.strictEqual( durationLogger.stops.foo, 0, 'Event stop not overwritten' );
+
+		durationLogger.stop( 'foo', 1 );
+
+		assert.strictEqual( durationLogger.starts.foo, 1, 'Event start saved' );
+
+		durationLogger.stop( 'foo', 2 );
+
+		assert.strictEqual( durationLogger.starts.foo, 1, 'Event start not overwritten' );
+	} );
+
+	QUnit.test( 'record()', 21, function ( assert ) {
 		var dependenciesDeferred = $.Deferred(),
 			fakeEventLog = { logEvent : this.sandbox.stub() },
 			durationLogger = new mw.mmv.durationLogger.constructor();
@@ -45,9 +72,9 @@
 		this.sandbox.stub( durationLogger, 'loadDependencies' ).returns( dependenciesDeferred.promise() );
 
 		try {
-			durationLogger.stop();
+			durationLogger.record();
 		} catch ( e ) {
-			assert.ok( true, 'Exception raised when calling stop() without parameters' );
+			assert.ok( true, 'Exception raised when calling record() without parameters' );
 		}
 
 		durationLogger.setEventLog( fakeEventLog );
@@ -55,6 +82,7 @@
 		durationLogger.start( 'bar' );
 		this.clock.tick( 1000 );
 		durationLogger.stop( 'bar' );
+		durationLogger.record( 'bar' );
 
 		assert.ok( !fakeEventLog.logEvent.called, 'Event queued if dependencies not loaded' );
 
@@ -63,6 +91,7 @@
 		durationLogger.start( 'bob' );
 		this.clock.tick( 4000 );
 		durationLogger.stop( 'bob' );
+		durationLogger.record( 'bob' );
 
 		assert.ok( !fakeEventLog.logEvent.called, 'Event queued if dependencies not loaded' );
 
@@ -81,12 +110,14 @@
 		durationLogger.start( 'foo' );
 		this.clock.tick( 3000 );
 		durationLogger.stop( 'foo' );
+		durationLogger.record( 'foo' );
 
 		assert.strictEqual( fakeEventLog.logEvent.getCall( 2 ).args[ 0 ], 'MultimediaViewerDuration', 'EventLogging schema is correct' );
 		assert.deepEqual( fakeEventLog.logEvent.getCall( 2 ).args[ 1 ], { type : 'foo', duration : 3000, loggedIn : true, samplingFactor : 1 },
 			'EventLogging data is correct' );
 
-		assert.strictEqual( durationLogger.starts.bar, undefined, 'Start value deleted after stop' );
+		assert.strictEqual( durationLogger.starts.bar, undefined, 'Start value deleted after record' );
+		assert.strictEqual( durationLogger.stops.bar, undefined, 'Stop value deleted after record' );
 
 		durationLogger.setGeo( { country : 'FR' } );
 		mw.user.isAnon.returns( true );
@@ -94,14 +125,17 @@
 		durationLogger.start( 'baz' );
 		this.clock.tick( 2000 );
 		durationLogger.stop( 'baz' );
+		durationLogger.record( 'baz' );
 
 		assert.strictEqual( fakeEventLog.logEvent.getCall( 3 ).args[ 0 ], 'MultimediaViewerDuration', 'EventLogging schema is correct' );
 		assert.deepEqual( fakeEventLog.logEvent.getCall( 3 ).args[ 1 ], { type : 'baz', duration : 2000, loggedIn : false, country : 'FR', samplingFactor : 1 },
 			'EventLogging data is correct' );
 
-		assert.strictEqual( durationLogger.starts.bar, undefined, 'Start value deleted after stop' );
+		assert.strictEqual( durationLogger.starts.bar, undefined, 'Start value deleted after record' );
+		assert.strictEqual( durationLogger.stops.bar, undefined, 'Stop value deleted after record' );
 
 		durationLogger.stop( 'fooz', $.now() - 9000 );
+		durationLogger.record( 'fooz' );
 
 		assert.deepEqual( fakeEventLog.logEvent.getCall( 4 ).args[ 1 ], { type : 'fooz', duration : 9000, loggedIn : false, country : 'FR', samplingFactor : 1 },
 			'EventLogging data is correct' );
@@ -109,8 +143,22 @@
 		assert.strictEqual( fakeEventLog.logEvent.callCount, 5, 'logEvent has been called fives times at this point in the test' );
 
 		durationLogger.stop( 'foo' );
+		durationLogger.record( 'foo' );
 
-		assert.strictEqual( fakeEventLog.logEvent.callCount, 5, 'Stop without a start doesn\'t get logged' );
+		assert.strictEqual( fakeEventLog.logEvent.callCount, 5, 'Record without a start doesn\'t get logged' );
+
+		durationLogger.start( 'foofoo' );
+		durationLogger.record( 'foofoo' );
+
+		assert.strictEqual( fakeEventLog.logEvent.callCount, 5, 'Record without a stop doesn\'t get logged' );
+
+		durationLogger.start( 'extra' );
+		this.clock.tick( 5000 );
+		durationLogger.stop( 'extra' );
+		durationLogger.record( 'extra', { bim: 'bam' } );
+
+		assert.deepEqual( fakeEventLog.logEvent.getCall( 5 ).args[ 1 ], { type : 'extra', duration : 5000, loggedIn : false, country : 'FR', samplingFactor : 1, bim : 'bam' },
+			'EventLogging data is correct' );
 	} );
 
 	QUnit.test( 'loadDependencies()', 3, function ( assert ) {
