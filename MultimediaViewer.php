@@ -35,6 +35,16 @@ if ( !isset( $wgMediaViewerDurationLoggingSamplingFactor ) ) {
 	$wgMediaViewerDurationLoggingSamplingFactor = false;
 }
 
+if ( !isset( $wgMediaViewerDurationLoggingLoggedinSamplingFactor ) ) {
+	/**
+	 * If set, records loading times via EventLogging with factor specific to loggedin users.
+	 * A value of 1000 means there will be an 1:1000 chance to log the duration event.
+	 * False if unset.
+	 * @var int|bool
+	 */
+	$wgMediaViewerDurationLoggingLoggedinSamplingFactor = false;
+}
+
 if ( !isset( $wgMediaViewerAttributionLoggingSamplingFactor ) ) {
 	/**
 	 * If set, records whether image attribution data was available. A value of 1000 means there will be an

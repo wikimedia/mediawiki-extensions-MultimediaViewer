@@ -38,6 +38,11 @@
 	 */
 	L.samplingFactor = mw.config.get( 'wgMultimediaViewer' ).durationSamplingFactor;
 
+	// If a sampling factor specific to loggedin users is set and we're logged in, apply it
+	if ( mw.config.get( 'wgMultimediaViewer' ).durationSamplingFactorLoggedin && !mw.user.isAnon() ) {
+		L.samplingFactor = mw.config.get( 'wgMultimediaViewer' ).durationSamplingFactorLoggedin;
+	}
+
 	/**
 	 * @override
 	 * @inheritdoc
