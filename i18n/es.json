@@ -14,7 +14,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Expande las miniaturas a un tamaño mayor en una vista de pantalla completa.",
-	"multimediaviewer-desc-nil": "Sin descripción disponible.",
 	"multimediaviewer-pref": "Visor multimedia",
 	"multimediaviewer-pref-desc": "Mejora tu experiencia de visualización multimedia con esta herramienta. Las imágenes se muestran en una vista a pantalla completa que incluye información relevante de las mismas.",
 	"multimediaviewer-optin-pref": "Activar el <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visor multimedia]</span>",

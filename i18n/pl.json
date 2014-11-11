@@ -14,7 +14,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Powiększ miniatury ilustracji do wielkości ekranu.",
-	"multimediaviewer-desc-nil": "Opis niedostępny.",
 	"multimediaviewer-pref": "Przeglądarka multimediów",
 	"multimediaviewer-pref-desc": "Popraw sposób oglądania ilustracji używając tego nowego narzędzia. Wyświetla ono ilustracje w większym rozmiarze bezpośrednio na stronach, które mają miniatury. Ilustracje te wyświetlane są w ładniejszym pełnoekranowym interfejsie, a nawet mogą być oglądane w pełnym rozmiarze.",
 	"multimediaviewer-optin-pref": "Aktywuj <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About przeglądarkę multimediów]</span>",

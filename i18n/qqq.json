@@ -11,7 +11,6 @@
 		]
 	},
 	"multimediaviewer-desc": "{{desc|name=Multimedia Viewer|url=https://www.mediawiki.org/wiki/Extension:MultimediaViewer}}",
-	"multimediaviewer-desc-nil": "Text to be used when no description is available.",
 	"multimediaviewer-pref": "Preference title",
 	"multimediaviewer-pref-desc": "Description of preference",
 	"multimediaviewer-optin-pref": "Label for non-beta preference.",
