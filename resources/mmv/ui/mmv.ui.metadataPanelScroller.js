@@ -98,6 +98,37 @@
 		this.panelIsOpen = !!$.scrollTo().scrollTop();
 	};
 
+	/**
+	 * Returns scroll top position when the panel is fully open.
+	 * (In other words, the height of the area that is outside the screen, in pixels.)
+	 * @return {number}
+	 */
+	MPSP.getScrollTopWhenOpen = function () {
+		return this.$container.outerHeight() - parseInt( this.$aboveFold.css( 'min-height' ), 10 )
+			- parseInt( this.$aboveFold.css( 'padding-bottom' ), 10 );
+	};
+
+	/**
+	 * Makes sure the panel does not contract when it is emptied and thus keeps its position as much as possible.
+	 * This should be called when switching images, before the panel is emptied, and should be undone with
+	 * unfreezeHeight after the panel has been populeted with the new metadata.
+	 */
+	MPSP.freezeHeight = function () {
+		var scrollTop = $.scrollTo().scrollTop(),
+			scrollTopWhenOpen = this.getScrollTopWhenOpen();
+
+		this.panelWasFullyOpen = ( scrollTop === scrollTopWhenOpen );
+		this.$container.css( 'min-height', this.$container.height() );
+	};
+
+	MPSP.unfreezeHeight = function () {
+		this.$container.css( 'min-height', '' );
+		if ( this.panelWasFullyOpen ) {
+			$.scrollTo( this.getScrollTopWhenOpen() );
+		}
+	};
+
+
 	MPSP.initialize = function () {
 		this.hasOpenedMetadata = !this.localStorage || this.localStorage.getItem( 'mmv.hasOpenedMetadata' );
 	};
@@ -121,7 +152,7 @@
 	 */
 	MPSP.toggle = function ( forceDirection ) {
 		var deferred = $.Deferred(),
-			scrollTopWhenOpen = this.$container.outerHeight() - parseInt( this.$aboveFold.css( 'min-height' ), 10 ),
+			scrollTopWhenOpen = this.getScrollTopWhenOpen(),
 			scrollTopWhenClosed = 0,
 			scrollTop = $.scrollTo().scrollTop(),
 			panelIsOpen = scrollTop > scrollTopWhenClosed,

@@ -94,6 +94,7 @@
 	};
 
 	MPP.empty = function () {
+		this.scroller.freezeHeight();
 		this.scroller.empty();
 
 		this.buttons.empty();
@@ -648,6 +649,8 @@
 		if ( user ) {
 			this.setUserPageLink( repoData, imageData.lastUploader, user.gender );
 		}
+
+		this.scroller.unfreezeHeight();
 	};
 
 	/**
