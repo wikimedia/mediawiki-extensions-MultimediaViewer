@@ -62,17 +62,22 @@
 			.add( this.title.$ellipsis )
 			.add( this.creditField.$ellipsis )
 			.on( 'click.mmv-mp', function ( e ) {
+				var clickTargetIsLink = $( e.target ).is( 'a' ),
+					clickTargetIsTruncated = !!$( e.target ).closest( '.mw-mmv-ttf-truncated' ).length,
+					someTextisExpanded = !!$( e.target ).closest( '.mw-mmv-untruncated' ).length;
+
 				if (
-					$( e.target ).is( 'a' ) // ignore clicks to external links
-					|| !$( e.target ).closest( '.mw-mmv-ttf-truncated' ).length // text is not truncated
+					clickTargetIsLink // don't interfere with clicks on links in the text
+					|| !clickTargetIsTruncated // don't expand when non-truncated text is clicked
+					|| someTextisExpanded // ignore clicks if text is already expanded
 				) {
 					return;
 				}
-				panel.toggleTruncatedText();
+				panel.scroller.toggle( 'up' );
 			} );
 
 		$( this.$container ).on( 'mmv-metadata-open', function () {
-			panel.revealTruncatedText( true );
+			panel.revealTruncatedText();
 		} ).on( 'mmv-metadata-close', function () {
 			panel.hideTruncatedText();
 		} );
@@ -117,7 +122,6 @@
 		this.description.empty();
 		this.permission.empty();
 
-		this.hideTruncatedText();
 		this.$title.removeClass( 'error' );
 		this.title.empty();
 		this.creditField.empty();
@@ -136,6 +140,8 @@
 		this.$locationLi.addClass( 'empty' );
 
 		this.progressBar.empty();
+
+		this.$container.removeClass( 'mw-mmv-untruncated' );
 	};
 
 	// **********************************************
@@ -666,6 +672,7 @@
 		}
 
 		this.scroller.unfreezeHeight();
+		this.resetTruncatedText();
 	};
 
 	/**
@@ -706,33 +713,15 @@
 	};
 
 	/**
-	 * Calls #revealTruncatedText() or #hideTruncatedText() based on the current state.
-	 */
-	MPP.toggleTruncatedText = function () {
-		if ( this.$container.hasClass( 'mw-mmv-untruncated' ) ) {
-			this.hideTruncatedText();
-		} else {
-			this.revealTruncatedText();
-		}
-	};
-
-	/**
 	 * Shows truncated text in the title and credit (this also rearranges the layout a bit).
-	 * Opens the panel partially to make sure the revealed text is visible.
-	 * @param {boolean} noScroll if set, do not scroll the panel (because the function was triggered from a
-	 *  scroll event in the first place)
 	 */
-	MPP.revealTruncatedText = function ( noScroll ) {
+	MPP.revealTruncatedText = function () {
 		if ( this.$container.hasClass( 'mw-mmv-untruncated' ) ) {
-			// avoid self-triggering via reveal -> scroll -> reveal
 			return;
 		}
 		this.$container.addClass( 'mw-mmv-untruncated' );
 		this.title.grow();
 		this.creditField.grow();
-		if ( this.aboveFoldIsLargerThanNormal() && !noScroll ) {
-			this.scroller.scrollIntoView( this.$mmvAboutLinks, 500 );
-		}
 	};
 
 	/**
@@ -740,7 +729,6 @@
 	 */
 	MPP.hideTruncatedText = function () {
 		if ( !this.$container.hasClass( 'mw-mmv-untruncated' ) ) {
-			// avoid double-triggering
 			return;
 		}
 		this.title.shrink();
@@ -749,12 +737,16 @@
 	};
 
 	/**
-	 * Returns true if the above-fold part of the metadata panel changed size (due to text overflow) after
-	 * calling revealTruncatedText().
+	 * Hide or reveal truncated text based on whether the panel is open. This is normally handled by
+	 * MetadataPanelScroller, but when the panel is reset (e.g. on a prev/next event) sometimes the panel position can change without a panel , such as on a
+	 * prev/next event; in such cases this function has to be called.
 	 */
-	MPP.aboveFoldIsLargerThanNormal = function () {
-		return this.$aboveFold.height() > parseInt( this.$aboveFold.css( 'min-height' ), 10 ) ||
-			this.$credit.height() > parseInt( this.$aboveFold.css( 'padding-bottom' ), 10 );
+	MPP.resetTruncatedText = function () {
+		if ( this.scroller.panelIsOpen() ) {
+			this.revealTruncatedText();
+		} else {
+			this.hideTruncatedText();
+		}
 	};
 
 	mw.mmv.ui.MetadataPanel = MetadataPanel;

@@ -30,7 +30,7 @@
 .mw-mmv-title-para {
 	@height: @metadatabar-above-fold-inner-height - 2 * @vertical-padding; // needs explicit height for text truncation logic
 
-	margin: 0 0 @horizontal-padding; // use margin instead of padding for bottom so text is not visible
+	margin: 0 0 @vertical-padding; // use margin instead of padding for bottom so text is not visible
 	padding: @vertical-padding @horizontal-padding 0 @horizontal-padding;
 	height: @height;
 	line-height: @height;
@@ -58,7 +58,7 @@
 
 	.mw-mmv-ttf-ellipsis {
 		right: @horizontal-padding;
-		bottom: 6px;
+		bottom: 3px;
 		background-color: @panel-above-fold-background-color; // clip text
 		&:before {
 			.fade-out-horizontal(@panel-above-fold-background-color);
@@ -97,7 +97,9 @@
 }
 
 .mw-mmv-title {
-	max-width: 60%;
+	// this element is the click target for text untruncation; with the default display:inline it would be an
+	// inline box which can have "gaps" between the lines, making clicks seem to have no effect
+	display: inline-block;
 }
 
 .mw-mmv-image-metadata {

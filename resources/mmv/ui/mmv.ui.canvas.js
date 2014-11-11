@@ -199,14 +199,14 @@
 		this.handleEvent( 'mmv-options-opened', $.proxy( this.handleDialogEvent, this ) );
 		this.handleEvent( 'mmv-options-closed', $.proxy( this.handleDialogEvent, this ) );
 
-		this.$image
-			.on( 'click.mmv-view-original', function () {
-				if ( !canvas.dialogOpen ) {
-					mw.mmv.actionLogger.log( 'view-original-file' ).always( function() {
-						$( document ).trigger( 'mmv-viewfile' );
-					} );
-				}
-			} );
+		this.$image.on( 'click.mmv-canvas', function ( e ) {
+			if ( !canvas.dialogOpen ) {
+				e.stopPropagation(); // don't let $imageWrapper handle this
+				mw.mmv.actionLogger.log( 'view-original-file' ).always( function() {
+					$( document ).trigger( 'mmv-viewfile' );
+				} );
+			}
+		} );
 	};
 
 	/**
