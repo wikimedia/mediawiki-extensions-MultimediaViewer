@@ -140,14 +140,16 @@ class MultimediaViewerHooks {
 	 */
 	public static function resourceLoaderGetConfigVars( &$vars ) {
 		global $wgMediaViewerActionLoggingSamplingFactorMap, $wgNetworkPerformanceSamplingFactor,
-		       $wgMediaViewerDurationLoggingSamplingFactor, $wgMediaViewerAttributionLoggingSamplingFactor,
-		       $wgMediaViewerDimensionLoggingSamplingFactor, $wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing;
+		       $wgMediaViewerDurationLoggingSamplingFactor, $wgMediaViewerDurationLoggingLoggedinSamplingFactor,
+		       $wgMediaViewerAttributionLoggingSamplingFactor, $wgMediaViewerDimensionLoggingSamplingFactor,
+		       $wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing;
 		$vars['wgMultimediaViewer'] = array(
 			'infoLink' => self::$infoLink,
 			'discussionLink' => self::$discussionLink,
 			'helpLink' => self::$helpLink,
 			'useThumbnailGuessing' => (bool)$wgMediaViewerUseThumbnailGuessing,
 			'durationSamplingFactor' => $wgMediaViewerDurationLoggingSamplingFactor,
+			'durationSamplingFactorLoggedin' => $wgMediaViewerDurationLoggingLoggedinSamplingFactor,
 			'networkPerformanceSamplingFactor' => $wgNetworkPerformanceSamplingFactor,
 			'actionLoggingSamplingFactorMap' => $wgMediaViewerActionLoggingSamplingFactorMap,
 			'attributionSamplingFactor' => $wgMediaViewerAttributionLoggingSamplingFactor,
