@@ -44,19 +44,6 @@
 		top: (@offset-top + (@arrow-size / 2 ));
 	}
 
-	.mw-mmv-options-enable {
-		height: 180px;
-	}
-
-	.mw-mmv-options-disable {
-		height: 160px;
-	}
-
-	.mw-mmv-enable-confirmation,
-	.mw-mmv-disable-confirmation {
-		height: 100px;
-	}
-
 	.mw-mmv-enable-confirmation,
 	.mw-mmv-disable-confirmation,
 	.mw-mmv-options-enable,
@@ -128,18 +115,13 @@
 
 .mw-mmv-options-text,
 .mw-mmv-options-icon {
-	position: absolute;
-	top: 35px;
-
 	.mw-mmv-options-enable & {
 		top: 70px;
 	}
 }
 
 .mw-mmv-options-submit {
-	position: absolute;
-	bottom: 0;
-	right: 0;
+	margin-top: 10px;
 }
 
 .mw-mmv-options-text {
@@ -147,8 +129,12 @@
 	right: 0;
 }
 
+.mw-mmv-options-subcontainer .mw-mmv-options-text {
+	margin-left: 68px;
+}
+
 .mw-mmv-options-icon {
-	left: 0;
+	float: left;
 	width: 58px;
 	height: 52px;
 
@@ -166,9 +152,6 @@
 	font-weight: normal;
 	font-size: 1.25em;
 	color: #333;
-
-	position: absolute;
-	top: 0;
 
 	.mw-mmv-options-enable & {
 		top: 35px;

@@ -226,12 +226,7 @@
 				.appendTo( $div );
 		}
 
-		$( '<div>' )
-			.html( '&nbsp;' )
-			.addClass( 'mw-mmv-options-icon' )
-			.appendTo( $div );
-
-		this.addText( $div, msgs );
+		this.addText( $div, msgs, true );
 		this.addInfoLink( $div, ( enabled ? 'enable' : 'disable' ) + '-about-link' );
 		this.makeButtons( $div, smsg, enabled );
 
@@ -314,9 +309,10 @@
 	 * Adds text to a dialog.
 	 * @param {jQuery} $container
 	 * @param {string[]} msgs The messages to be added.
+	 * @param {boolean} icon Whether to display an icon next to the text or not
 	 */
-	ODP.addText = function ( $container, msgs ) {
-		var i, $text,
+	ODP.addText = function ( $container, msgs, icon ) {
+		var i, $text, $subContainer,
 			adders = [
 				function ( msg ) {
 					$( '<h3>' )
@@ -341,11 +337,24 @@
 			];
 
 		$text = $( '<div>' )
-			.addClass( 'mw-mmv-options-text' )
-			.appendTo( $container );
+			.addClass( 'mw-mmv-options-text' );
 
 		for ( i = 0; i < msgs.length && i < adders.length; i++ ) {
 			adders[i]( msgs[i] );
+		}
+
+		if ( icon ) {
+			$subContainer = $( '<div>' ).addClass( 'mw-mmv-options-subcontainer' );
+
+			$( '<div>' )
+				.html( '&nbsp;' )
+				.addClass( 'mw-mmv-options-icon' )
+				.appendTo( $subContainer );
+
+			$text.appendTo( $subContainer );
+			$subContainer.appendTo( $container );
+		} else {
+			$text.appendTo( $container );
 		}
 	};
 
