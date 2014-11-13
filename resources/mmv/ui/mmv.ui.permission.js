@@ -27,8 +27,9 @@
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
 	 * @param {jQuery} $container
+	 * @param {mw.mmv.ui.MetadataPanelScroller} scroller
 	 */
-	function Permission( $container ) {
+	function Permission( $container, scroller ) {
 		var permission = this;
 
 		mw.mmv.ui.Element.call( this, $container );
@@ -64,6 +65,7 @@
 			.on( 'click', '.mw-mmv-permission-text-viewmore', function( e ) {
 				e.preventDefault();
 				permission.grow();
+				permission.scroller.toggle( 'up' );
 			} )
 		;
 
@@ -99,6 +101,12 @@
 				permission.shrink();
 			} )
 			.appendTo( this.$box );
+
+		/**
+		 * Panel scroller from the metadata panel object.
+		 * @property {mw.mmv.ui.MetadataPanelScroller}
+		 */
+		this.scroller = scroller;
 	}
 	oo.inheritClass( Permission, mw.mmv.ui.Element );
 	P = Permission.prototype;
