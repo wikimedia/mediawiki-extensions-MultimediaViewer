@@ -114,6 +114,10 @@
 	 * unfreezeHeight after the panel has been populeted with the new metadata.
 	 */
 	MPSP.freezeHeight = function () {
+		if ( !this.$container.is( ':visible' ) ) {
+			return;
+		}
+
 		var scrollTop = $.scrollTo().scrollTop(),
 			scrollTopWhenOpen = this.getScrollTopWhenOpen();
 
@@ -122,6 +126,10 @@
 	};
 
 	MPSP.unfreezeHeight = function () {
+		if ( !this.$container.is( ':visible' ) ) {
+			return;
+		}
+
 		this.$container.css( 'min-height', '' );
 		if ( this.panelWasFullyOpen ) {
 			$.scrollTo( this.getScrollTopWhenOpen() );

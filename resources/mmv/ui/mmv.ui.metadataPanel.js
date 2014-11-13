@@ -91,6 +91,8 @@
 	};
 
 	MPP.unattach = function() {
+		this.scroller.freezeHeight();
+
 		this.$title
 			.add( this.title.$ellipsis )
 			.add( this.$authorAndSource )

@@ -224,11 +224,12 @@
 	LIP.unattach = function () {
 		mw.mmv.actionLogger.log( 'close' );
 
+		// Has to happen first so that the scroller can freeze with visible elements
+		this.panel.unattach();
+
 		this.$wrapper.detach();
 
 		this.currentlyAttached = false;
-
-		this.panel.unattach();
 
 		this.canvas.unattach();
 
