@@ -2,10 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Mitzev",
-			"DCLXVI"
+			"DCLXVI",
+			"Vodnokon4e"
 		]
 	},
 	"multimediaviewer-permission-title": "Информация за лиценза",
 	"multimediaviewer-permission-link": "вижте условията",
-	"multimediaviewer-permission-viewmore": "Вижте още"
+	"multimediaviewer-permission-viewmore": "Вижте още",
+	"multimediaviewer-title-popup-text": "Описание",
+	"multimediaviewer-title-popup-text-more": "Разгледай пълно описание",
+	"multimediaviewer-credit-popup-text-more": "Покажи пълна информация за автора и източника"
 }

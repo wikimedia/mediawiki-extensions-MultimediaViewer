@@ -7,11 +7,11 @@
 			"NH",
 			"WikiPhoenix",
 			"Stens51",
-			"Abbedabb"
+			"Abbedabb",
+			"Warrakkk"
 		]
 	},
 	"multimediaviewer-desc": "Expandera miniatyrer i en större storlek i fulkskärmsgränssnitt.",
-	"multimediaviewer-desc-nil": "Ingen beskrivning tillgänglig.",
 	"multimediaviewer-pref": "Mediavisare",
 	"multimediaviewer-pref-desc": "Förbättra din multimediaupplevelse med detta nya verktyg. Det visar bilder i större storlek på sidor som har miniatyrer. Bilder visas i ett trevligare fullskärmsöverlägg, och kan också ses i full storlek.",
 	"multimediaviewer-optin-pref": "Aktivera <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Mediavisaren]</span>",
@@ -86,10 +86,10 @@
 	"multimediaviewer-close-popup-text": "Stäng detta verktyg (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Visa i helskärmsläge",
 	"multimediaviewer-defullscreen-popup-text": "Lämnar helskärmsläge",
-	"multimediaviewer-title-popup-text": "Filnamn",
+	"multimediaviewer-title-popup-text": "Beskrivning",
 	"multimediaviewer-credit-popup-text": "Information om skapare och källa",
-	"multimediaviewer-title-popup-text-more": "Klicka för att visa hela filnamnet",
-	"multimediaviewer-credit-popup-text-more": "Klicka för att visa all information om skapare och källa",
+	"multimediaviewer-title-popup-text-more": "Visa full beskrivning",
+	"multimediaviewer-credit-popup-text-more": "Visa all information om skapare och källa",
 	"multimediaviewer-download-attribution-cta-header": "Du måste ge skaparen erkännande",
 	"multimediaviewer-download-attribution-cta": "Visa mig hur",
 	"multimediaviewer-attr-plain": "Klartext",
