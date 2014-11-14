@@ -196,7 +196,7 @@
 
 		this.initializeCredit();
 		this.description = new mw.mmv.ui.Description( this.$imageMetadataLeft );
-		this.permission = new mw.mmv.ui.Permission( this.$imageMetadataLeft );
+		this.permission = new mw.mmv.ui.Permission( this.$imageMetadataLeft, this.scroller );
 		this.initializeImageLinks();
 	};
 
