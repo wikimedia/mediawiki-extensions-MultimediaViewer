@@ -8,7 +8,6 @@
 		]
 	},
 	"multimediaviewer-desc": "A teljes képernyőre kinagyíthatóvá teszi a beágyazott képeket.",
-	"multimediaviewer-desc-nil": "Nincs leírás.",
 	"multimediaviewer-pref": "Képnézegető",
 	"multimediaviewer-pref-desc": "A multimédiás tartalmak megnézését könnyebbé tevő eszköz. Az oldalak szövegébe beágyazott bélyegképeket kattintásra nagyobb méretben jeleníti meg, és számos egyéb adatot is mutat róluk.",
 	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Képnézegető]</span> engedélyezése",
@@ -68,7 +67,8 @@
 	"multimediaviewer-close-popup-text": "Eszköz bezárása (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Teljes képernyős megjelenítés",
 	"multimediaviewer-defullscreen-popup-text": "Kilépés a teljes képernyős módból",
-	"multimediaviewer-title-popup-text": "Fájlnév",
+	"multimediaviewer-title-popup-text": "Leírás",
+	"multimediaviewer-title-popup-text-more": "Teljes leírás megtekintése",
 	"multimediaviewer-download-attribution-cta": "Mutasd meg, hogyan",
 	"multimediaviewer-attr-plain": "Sima"
 }

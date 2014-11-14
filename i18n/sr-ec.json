@@ -4,7 +4,6 @@
 			"Milicevic01"
 		]
 	},
-	"multimediaviewer-desc-nil": "Опис није доступан.",
 	"multimediaviewer-optin-pref": "Омогући <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
 	"multimediaviewer-repository-local": "Више детаља",
 	"multimediaviewer-datetime-created": "Направљено: $1",
@@ -54,6 +53,7 @@
 	"multimediaviewer-description-page-popup-text": "Прикажи детаље са пројекта $1",
 	"multimediaviewer-commons-subtitle": "Ризница слободних медијских датотека",
 	"multimediaviewer-view-expanded": "Рашири",
+	"multimediaviewer-view-config": "Подешавања",
 	"multimediaviewer-close-popup-text": "Затвори ову алатку (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Прикажи преко целог екрана",
 	"multimediaviewer-defullscreen-popup-text": "Изађи из целог екрана",
@@ -63,12 +63,15 @@
 	"multimediaviewer-attr-plain": "Текст",
 	"multimediaviewer-options-tooltip": "Омогући или онемогући Media Viewer",
 	"multimediaviewer-options-dialog-header": "Онемогући Media Viewer?",
+	"multimediaviewer-options-learn-more": "Сазнајте више",
 	"multimediaviewer-option-submit-button": "Онемогући Media Viewer",
 	"multimediaviewer-option-cancel-button": "Откажи",
 	"multimediaviewer-disable-confirmation-header": "Онемогућили сте Media Viewer",
 	"multimediaviewer-enable-dialog-header": "Омогући Media Viewer?",
+	"multimediaviewer-enable-text-header": "Омогући ову могућност као подразумевану за све датотеке.",
 	"multimediaviewer-enable-submit-button": "Омогући Media Viewer",
 	"multimediaviewer-enable-confirmation-header": "Омогућили сте Media Viewer за све датотеке",
 	"multimediaviewer-enable-alert": "Media Viewer је тренутно онемогућен",
-	"multimediaviewer-disable-info-title": "Онемогућили сте Media Viewer"
+	"multimediaviewer-disable-info-title": "Онемогућили сте Media Viewer",
+	"multimediaviewer-disable-info": "И даље можете користити Media Viewer за појединачне датотеке."
 }

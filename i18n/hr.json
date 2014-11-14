@@ -73,5 +73,6 @@
 	"multimediaviewer-enable-confirmation-header": "Omogućili ste preglednik za sve datoteke",
 	"multimediaviewer-enable-confirmation-text": "Sljedeći put kad kliknete na minijaturu slike na projektu $1, u uporabi će biti preglednik.",
 	"multimediaviewer-enable-alert": "Preglednik multimedijskih datoteka trenutačno je onemogućen.",
-	"multimediaviewer-disable-info-title": "Onemogućili ste preglednik"
+	"multimediaviewer-disable-info-title": "Onemogućili ste preglednik",
+	"multimediaviewer-disable-info": "Još uvijek možete pregledavati pojedinačne datoteke u pregledniku."
 }
