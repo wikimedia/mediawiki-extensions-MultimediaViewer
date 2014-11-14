@@ -284,7 +284,7 @@
 			.hide()
 			.on( 'click', function() {
 				panel.permission.grow();
-				panel.scroller.scrollIntoView( panel.permission.$box, 500 );
+				panel.scroller.toggle( 'up' );
 				return false;
 			} );
 	};
