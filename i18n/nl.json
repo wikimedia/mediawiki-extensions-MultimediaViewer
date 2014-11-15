@@ -11,10 +11,9 @@
 		]
 	},
 	"multimediaviewer-desc": "Miniatuurafbeeldingen schermvullend weergeven.",
-	"multimediaviewer-desc-nil": "Geen omschrijving beschikbaar.",
 	"multimediaviewer-pref": "Mediaviewer",
 	"multimediaviewer-pref-desc": "Verbeter je kijkervaring met deze nieuwe tool. Afbeeldingen worden groter weergegeven op pagina's met thumbnails. Afbeeldingen worden op een prettigere manier schermvullend weergegeven en kunnen ook op ware grootte worden bekeken.",
-	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Mediaviewer]</span> inschakelen",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About MediaViewer]</span> inschakelen",
 	"multimediaviewer-file-page": "Naar de bestandspagina gaan",
 	"multimediaviewer-repository-local": "Meer informatie",
 	"multimediaviewer-datetime-created": "Aangemaakt: $1",
@@ -83,5 +82,5 @@
 	"multimediaviewer-download-attribution-cta-header": "U moet aan naamsvermelding doen",
 	"multimediaviewer-download-attribution-cta": "Laat mij zien hoe",
 	"multimediaviewer-attr-plain": "Zonder opmaak",
-	"multimediaviewer-options-tooltip": "Mediaviewer in- of uitschakelen"
+	"multimediaviewer-options-tooltip": "MediaViewer in- of uitschakelen"
 }
