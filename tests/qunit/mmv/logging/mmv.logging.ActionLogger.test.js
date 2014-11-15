@@ -1,7 +1,7 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.logging.ActionLogger', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'log()', 8, function ( assert ) {
+	QUnit.test( 'log()', 6, function ( assert ) {
 		var fakeEventLog = { logEvent : this.sandbox.stub() },
 			logger = new mw.mmv.logging.ActionLogger(),
 			action1key = 'test-1',
@@ -29,15 +29,10 @@
 		assert.strictEqual( mw.log.getCall( 1 ).args[ 0 ], action1value, 'Log message is translated to its text' );
 		assert.strictEqual( fakeEventLog.logEvent.callCount, 2, 'event log has been recorded' );
 
+		logger.samplingFactorMap = { 'default' : 0 };
 		logger.log( action1key, true );
 
 		assert.strictEqual( mw.log.getCall( 2 ).args[ 0 ], action1value, 'Log message is translated to its text' );
-		assert.strictEqual( fakeEventLog.logEvent.callCount, 2, 'event log has been skipped' );
-
-		logger.log( action2key, false, { '$1' : 'X', '$2' : 'Y' } );
-
-		assert.strictEqual( mw.log.getCall( 3 ).args[ 0 ], 'Foo X Y bar',
-			'Log message is translated to its text with substitutions' );
 		assert.strictEqual( fakeEventLog.logEvent.callCount, 3, 'event log has been recorded' );
 	} );
 }( mediaWiki, jQuery ) );

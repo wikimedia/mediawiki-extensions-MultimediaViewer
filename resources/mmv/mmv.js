@@ -104,6 +104,12 @@
 
 		/** @property {string} documentTitle base document title, MediaViewer will expand this */
 		this.documentTitle = document.title;
+
+		/**
+		 * Was the last image view logged or was logging skipped?
+		 * @property {boolean}
+		 */
+		this.wasLastViewLogged = false;
 	}
 
 	MMVP = MultimediaViewer.prototype;
@@ -404,6 +410,8 @@
 	 * @param {number} loadTime Time it took to load the thumbnail
 	 */
 	MMVP.displayRealThumbnail = function ( thumbnail, imageElement, imageWidths, loadTime ) {
+		var viewer = this;
+
 		this.realThumbnailShown = true;
 
 		this.setImage( this.ui, thumbnail, imageElement, imageWidths );
@@ -416,7 +424,15 @@
 			this.ui.canvas.unblur();
 		}
 
-		mw.mmv.actionLogger.log( 'image-view' );
+		mw.mmv.actionLogger.log( 'image-view' ).then( function ( wasEventLogged ) {
+			viewer.wasLastViewLogged = wasEventLogged;
+
+			if ( viewer.wasLastViewLogged ) {
+				$( window ).on( 'beforeunload.unview', function() { viewer.unview(); } );
+			} else {
+				$( window ).off( 'beforeunload.unview' );
+			}
+		} );
 	};
 
 	/**
@@ -790,6 +806,7 @@
 	 * Opens the next image
 	 */
 	MMVP.nextImage = function () {
+		this.unview();
 		mw.mmv.actionLogger.log( 'next-image' );
 		this.loadIndex( this.currentIndex + 1 );
 	};
@@ -798,6 +815,7 @@
 	 * Opens the previous image
 	 */
 	MMVP.prevImage = function () {
+		this.unview();
 		mw.mmv.actionLogger.log( 'prev-image' );
 		this.loadIndex( this.currentIndex - 1 );
 	};
@@ -806,7 +824,11 @@
 	 * Handles close event coming from the lightbox
 	 */
 	MMVP.close = function () {
-		var windowTitle = this.createDocumentTitle( null );
+		var windowTitle;
+
+		this.unview();
+
+		windowTitle = this.createDocumentTitle( null );
 
 		if ( comingFromHashChange === false ) {
 			$( document ).trigger( $.Event( 'mmv-hash', { hash : '#', title: windowTitle } ) );
@@ -927,6 +949,18 @@
 	 */
 	MMVP.preloadDependencies = function () {
 		mw.loader.load( [ 'mmv.ui.reuse.share', 'mmv.ui.reuse.embed', 'mmv.ui.reuse.download', 'moment' ] );
+	};
+
+	/**
+	 * Tracks the unview event of the current image if appropriate
+	 */
+	MMVP.unview = function () {
+		if ( !this.wasLastViewLogged ) {
+			return;
+		}
+
+		this.wasLastViewLogged = false;
+		mw.mmv.actionLogger.log( 'image-unview', true );
 	};
 
 	mw.mmv.MultimediaViewer = MultimediaViewer;

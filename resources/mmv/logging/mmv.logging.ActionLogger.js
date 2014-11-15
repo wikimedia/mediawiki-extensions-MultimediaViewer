@@ -113,37 +113,33 @@
 		'options-open': 'User opened the enable/disable dialog.',
 		'options-close': 'User either canceled an enable/disable action or closed a confirmation window.',
 		'disable-about-link': 'User clicked on the "Learn more" link in the disable window.',
-		'enable-about-link': 'User clicked on the "Learn more" link in the enable window.'
+		'enable-about-link': 'User clicked on the "Learn more" link in the enable window.',
+		'image-unview': 'User stopped looking at the current image.'
 	};
 
 	/**
 	 * Logs an action
 	 * @param {string} action The key representing the action
-	 * @param {boolean} skipEventLog True if we don't want the action to be recorded in the event log
-	 * @param {Object} substitutions A list of variable subtitutions for parametrized action texts
+	 * @param {boolean} forceEventLog True if we want the action to be logged regardless of the sampling factor
 	 * @returns {jQuery.Promise}
 	 */
-	L.log = function ( action, skipEventLog, substitutions ) {
-		var translatedAction = this.logActions[action] || action,
+	L.log = function ( action, forceEventLog ) {
+		var actionText = this.logActions[action] || action,
 			self = this;
 
-		if ( $.isPlainObject( substitutions ) ) {
-			$.each( substitutions, function( key, value ) {
-				translatedAction = translatedAction.replace( key, value );
-			} );
-		}
+		mw.log( actionText );
 
-		mw.log( translatedAction );
-
-		if ( !skipEventLog && self.isInSample( action ) ) {
+		if ( forceEventLog || self.isInSample( action ) ) {
 			return this.loadDependencies().then( function () {
 				self.eventLog.logEvent( self.schema, {
 					action : action,
 					samplingFactor : self.getActionFactor( action )
 				} );
+
+				return true;
 			} );
 		} else {
-			return $.Deferred().resolve();
+			return $.Deferred().resolve( false );
 		}
 	};
 
