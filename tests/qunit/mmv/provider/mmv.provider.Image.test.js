@@ -200,4 +200,17 @@
 			QUnit.start();
 		} );
 	} );
+
+	QUnit.test( 'imageQueryParameter', 1, function ( assert ) {
+		var imageProvider = new mw.mmv.provider.Image( 'foo' );
+
+		imageProvider.imagePreloadingSupported = function () { return false; };
+		imageProvider.rawGet = function () { return $.Deferred().resolve(); };
+
+		imageProvider.performance.recordEntry = function ( type, total, url ) {
+			assert.strictEqual( url, 'http://www.wikipedia.org/?foo', 'Extra parameter added' );
+		};
+
+		imageProvider.get( 'http://www.wikipedia.org/' );
+	} );
 }( mediaWiki, jQuery ) );

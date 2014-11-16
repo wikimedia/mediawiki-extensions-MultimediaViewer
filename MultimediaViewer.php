@@ -109,6 +109,14 @@ if ( !isset( $wgMediaViewerEnableByDefaultForAnonymous ) ) {
 	$wgMediaViewerEnableByDefaultForAnonymous = $wgMediaViewerEnableByDefault;
 }
 
+if ( !isset( $wgMediaViewerImageQueryParameter ) ) {
+	/**
+	 * If set, adds a query parameter to image requests made by Media Viewer
+	 * @var string|bool
+	 */
+	$wgMediaViewerImageQueryParameter = false;
+}
+
 $wgMessagesDirs['MultimediaViewer'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['MultimediaViewer'] = __DIR__ . '/MultimediaViewer.i18n.php';
 
@@ -300,6 +308,7 @@ $wgResourceModules += array(
 
 		'dependencies' => array(
 			'mediawiki.Title',
+			'mediawiki.Uri',
 			'mmv.model',
 			'mmv.model.IwTitle',
 			'mmv.model.Image',
