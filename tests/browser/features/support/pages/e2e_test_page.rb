@@ -47,7 +47,7 @@ class E2ETestPage < CommonsPage
   div(:mmv_download_size_menu) do |page|
     page.mmv_download_size_menu_container_element.div_element(class: "oo-ui-selectWidget")
   end
-  divs(:mmv_download_size_options, class: "oo-ui-menuItemWidget")
+  divs(:mmv_download_size_options, class: "oo-ui-menuOptionWidget")
   a(:mmv_download_link, class: "mw-mmv-download-go-button")
   a(:mmv_download_preview_link, class: "mw-mmv-download-preview-link")
   div(:mmv_download_attribution_area, class: "mw-mmv-download-attribution")

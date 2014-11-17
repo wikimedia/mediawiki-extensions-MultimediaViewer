@@ -50,7 +50,7 @@
 		for ( i = 0; i < options.length; i++ ) {
 			option = options[ i ];
 
-			choices[option] = new oo.ui.MenuItemWidget(
+			choices[option] = new oo.ui.MenuOptionWidget(
 				{ // Customized data injected in each item
 					name: option,
 					height: null,
@@ -94,7 +94,7 @@
 	 * Updates the menu options based on calculated sizes.
 	 *
 	 * @param {Object} sizes
-	 * @param {OO.ui.MenuItemWidget[]} options
+	 * @param {OO.ui.MenuOptionWidget[]} options
 	 */
 	 RUP.updateMenuOptions = function ( sizes, options ) {
 		var i, option, data, $label;

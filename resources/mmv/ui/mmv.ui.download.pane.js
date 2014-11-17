@@ -51,7 +51,7 @@
 
 		/**
 		 * Default item for the size menu.
-		 * @property {OO.ui.MenuItemWidget}
+		 * @property {OO.ui.MenuOptionWidget}
 		 */
 		this.defaultItem = this.downloadSizeMenu.getMenu().getSelectedItem();
 
@@ -260,7 +260,7 @@
 	/**
 	 * Handles size menu change events.
 	 *
-	 * @param {OO.ui.MenuItemWidget} item
+	 * @param {OO.ui.MenuOptionWidget} item
 	 */
 	DP.handleSizeSwitch = function ( item ) {
 		var download = this,

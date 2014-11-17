@@ -36,7 +36,7 @@
 		this.tabs = null;
 
 		/**
-		 * @property {Object.<string, OO.ui.MenuItemWidget>} ooTabs List of tab OOJS UI objects.
+		 * @property {Object.<string, OO.ui.MenuOptionWidget>} ooTabs List of tab OOJS UI objects.
 		 */
 		this.ooTabs = null;
 
@@ -54,16 +54,16 @@
 	// FIXME this should happen outside the dialog and the tabs, but we need to improve
 	DP.initTabs = function () {
 		function makeTab( type ) {
-			return new oo.ui.MenuItemWidget( type, {
+			return new oo.ui.MenuOptionWidget( type, {
 				label: mw.message( 'multimediaviewer-' + type + '-tab' ).text()
 			} );
 		}
 
-		this.reuseTabs = new oo.ui.MenuWidget( {
+		this.reuseTabs = new oo.ui.MenuSelectWidget( {
 			classes: [ 'mw-mmv-reuse-tabs' ]
 		} );
 
-		// MenuWidget has a nasty tendency to hide itself, maybe we're not using it right?
+		// MenuSelectWidget has a nasty tendency to hide itself, maybe we're not using it right?
 		this.reuseTabs.hide = $.noop;
 		this.reuseTabs.$element.show().appendTo( this.$dialog );
 

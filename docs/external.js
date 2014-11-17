@@ -37,13 +37,13 @@
  */
 
 /**
- * @class OO.ui.MenuItemWidget
- * <https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/OO.ui.MenuItemWidget>
+ * @class OO.ui.MenuOptionWidget
+ * <https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/OO.ui.MenuOptionWidget>
  */
 
 /**
- * @class OO.ui.MenuWidget
- * <https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/OO.ui.MenuWidget>
+ * @class OO.ui.MenuSelectWidget
+ * <https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/OO.ui.MenuSelectWidget>
  */
 
 /**

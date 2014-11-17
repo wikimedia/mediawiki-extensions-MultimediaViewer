@@ -68,25 +68,25 @@
 
 		/**
 		 * Default item for the html size menu.
-		 * @property {OO.ui.MenuItemWidget}
+		 * @property {OO.ui.MenuOptionWidget}
 		 */
 		this.defaultHtmlItem = this.embedSizeSwitchHtml.getMenu().getSelectedItem();
 
 		/**
 		 * Default item for the wikitext size menu.
-		 * @property {OO.ui.MenuItemWidget}
+		 * @property {OO.ui.MenuOptionWidget}
 		 */
 		this.defaultWikitextItem = this.embedSizeSwitchWikitext.getMenu().getSelectedItem();
 
 		/**
 		 * Currently selected size menu.
-		 * @property {OO.ui.MenuWidget}
+		 * @property {OO.ui.MenuSelectWidget}
 		 */
 		this.currentSizeMenu = mw.user.isAnon() ? this.embedSizeSwitchHtml.getMenu() : this.embedSizeSwitchWikitext.getMenu();
 
 		/**
 		 * Current default item.
-		 * @property {OO.ui.MenuItemWidget}
+		 * @property {OO.ui.MenuOptionWidget}
 		 */
 		this.currentDefaultItem = mw.user.isAnon() ? this.defaultHtmlItem : this.defaultWikitextItem;
 	}
@@ -262,7 +262,7 @@
 	/**
 	 * Handles size menu change events.
 	 *
-	 * @param {OO.ui.MenuItemWidget} item
+	 * @param {OO.ui.MenuOptionWidget} item
 	 */
 	EP.handleSizeSwitch = function ( item ) {
 		var value = item.getData();
@@ -273,7 +273,7 @@
 	/**
 	 * Handles snippet type switch.
 	 *
-	 * @param {OO.ui.MenuItemWidget} item
+	 * @param {OO.ui.MenuOptionWidget} item
 	 */
 	EP.handleTypeSwitch = function ( item ) {
 		var value = item.getData();
