@@ -395,6 +395,16 @@
 	 * @param {jQuery.Event} e The mousemove event object
 	 */
 	LIP.mousemove = function ( e ) {
+		// This is a fake mousemove event triggered by Chrome, ignore it
+		if (
+			e
+			&& e.originalEvent
+			&& e.originalEvent.webkitMovementX === 0
+			&& e.originalEvent.webkitMovementY === 0
+		) {
+			return;
+		}
+
 		if ( e ) {
 			// Saving the mouse position is useful whenever we need to
 			// run LIP.mousemove manually, such as when going to the next/prev
