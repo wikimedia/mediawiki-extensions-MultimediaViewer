@@ -80,11 +80,24 @@
 		this.handleEvent( 'jq-fullscreen-change.lip', function() {
 			panel.hideTruncatedText();
 		} );
+
+		this.$title
+			.add( this.title.$ellipsis )
+			.add( this.$authorAndSource )
+			.add( this.creditField.$ellipsis )
+			.each( function () {
+				$( this ).tipsy( 'enable' );
+			} );
 	};
 
 	MPP.unattach = function() {
-		this.$title.add( this.title.$ellipsis ).tipsy( 'hide' );
-		this.$authorAndSource.add( this.creditField.$ellipsis ).tipsy( 'hide' );
+		this.$title
+			.add( this.title.$ellipsis )
+			.add( this.$authorAndSource )
+			.add( this.creditField.$ellipsis )
+			.each( function () {
+				$( this ).tipsy( 'hide' ).tipsy( 'disable' );
+			} );
 
 		this.scroller.unattach();
 		this.buttons.unattach();

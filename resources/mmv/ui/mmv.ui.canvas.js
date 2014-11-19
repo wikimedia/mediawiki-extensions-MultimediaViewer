@@ -233,10 +233,6 @@
 		$( window ).off( 'resize.mmv-canvas' );
 
 		this.$imageDiv.off( 'click.mmv-canvas' );
-
-		if ( this.$image ) {
-			this.$image.tipsy( 'hide' );
-		}
 	};
 
 	/**
