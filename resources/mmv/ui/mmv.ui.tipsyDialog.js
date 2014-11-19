@@ -129,7 +129,7 @@
 	 */
 	TDP.open = function () {
 		this.init();
-		this.$anchor.tipsy( 'show' );
+		this.$anchor.tipsy( 'enable' ).tipsy( 'show' );
 	};
 
 	/**
@@ -137,7 +137,7 @@
 	 */
 	TDP.close = function () {
 		if ( this.isInitialized() ) {
-			this.$anchor.tipsy( 'hide' );
+			this.$anchor.tipsy( 'hide' ).tipsy( 'disable' );
 		}
 	};
 

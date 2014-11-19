@@ -240,17 +240,30 @@
 		this.handleEvent( 'mmv-options-closed', function () {
 			buttons.$options.removeClass( 'open' );
 		} );
+
+		this.$download
+			.add( this.$reuse )
+			.add( this.$options )
+			.add( this.$close )
+			.add( this.$fullscreen )
+			.each( function () {
+				$( this ).tipsy( 'enable' );
+			} );
 	};
 
 	/**
 	 * Removes all UI things from the DOM, or hides them
 	 */
 	CBP.unattach = function () {
-		this.$download.off( 'click.mmv-canvasButtons' ).tipsy( 'hide' );
-		this.$reuse.off( 'click.mmv-canvasButtons' ).tipsy( 'hide' );
-		this.$options.off( 'click.mmv-canvasButtons' ).tipsy( 'hide' );
-		this.$close.tipsy( 'hide' );
-		this.$fullscreen.tipsy( 'hide' );
+		this.$download
+			.add( this.$reuse )
+			.add( this.$options )
+			.add( this.$close )
+			.add( this.$fullscreen )
+			.off( 'click.mmv-canvasButtons' )
+			.each( function () {
+				$( this ).tipsy( 'hide' ).tipsy( 'disable' );
+			} );
 	};
 
 	CBP.empty = function () {

@@ -49,29 +49,14 @@
 	 * @protected
 	 * Creates a new button on the metadata stripe.
 	 * @param {string} cssClass CSS class name for the button
-	 * @param {string} text HTML code for the button text
-	 * @param {string} popupText HTML code for the popup text
 	 */
-	SBP.createButton = function ( cssClass, text, popupText ) {
-		var $button,
-			$label,
-			tooltipDelay = mw.config.get( 'wgMultimediaViewer' ).tooltipDelay;
+	SBP.createButton = function ( cssClass ) {
+		var $button;
 
 		$button = $( '<a>' )
 			.addClass( 'mw-mmv-stripe-button empty ' + cssClass )
 			// elements are right-floated so we use prepend instead of append to keep the order
 			.prependTo( this.$buttonContainer );
-
-		if ( text ) {
-			$label = $( '<span>' ).addClass( 'mw-mmv-stripe-button-text' ).text( text );
-			$button.append( $label ).addClass( 'has-label' );
-		}
-		if ( popupText ) {
-			$button.prop( 'title', popupText ).tipsy( {
-				gravity: this.correctEW( 'se' ),
-				delayIn: tooltipDelay
-			} );
-		}
 
 		return $button;
 	};
@@ -138,22 +123,6 @@
 
 		this.buttons.$descriptionPage.attr( { href: null, title: null, 'original-title': null } )
 			.removeClass( 'mw-mmv-repo-button-commons' );
-	};
-
-	/**
-	 * Clears listeners.
-	 */
-	SBP.unattach = function () {
-		mw.mmv.ui.Element.prototype.unattach.call( this );
-
-		this.clearTimer( 'feedbackTooltip.show' );
-
-		$.each( this.buttons, function ( name, $button ) {
-			// Tipsy's not enabled on every button
-			if ( $button.data( 'tipsy' ) ) {
-				$button.tipsy( 'hide' );
-			}
-		} );
 	};
 
 	mw.mmv.ui.StripeButtons = StripeButtons;
