@@ -237,6 +237,7 @@
 			imagePromise,
 			metadataPromise,
 			start,
+			uploadTimestamp,
 			viewer = this,
 			$initialImage = $( initialImage );
 
@@ -278,6 +279,8 @@
 
 		this.setupProgressBar( image, imagePromise, imageWidths.real );
 
+		metadataPromise = this.fetchSizeIndependentLightboxInfo( image.filePageTitle );
+
 		imagePromise.done( function ( thumbnail, imageElement ) {
 			if ( viewer.currentIndex !== image.index ) {
 				return;
@@ -285,22 +288,38 @@
 
 			if ( viewer.imageDisplayedCount++ === 0 ) {
 				mw.mmv.durationLogger.stop( 'click-to-first-image' );
+
+				metadataPromise.done( function ( imageInfo ) {
+					if ( !imageInfo || !imageInfo.uploadDateTime ) {
+						return;
+					}
+
+					uploadTimestamp = imageInfo.uploadDateTime.toString();
+					// Convert to "timestamp" format commonly used in EventLogging
+					uploadTimestamp = uploadTimestamp.replace( /[:\s]/g, '' );
+					// Anonymise the timestamp to avoid making the file identifiable
+					// We only need to know the day
+					uploadTimestamp = uploadTimestamp.substr( 0, uploadTimestamp.length - 6 ) + '000000';
+
+					mw.mmv.durationLogger.record( 'click-to-first-image', {
+						uploadTimestamp: uploadTimestamp
+					} );
+				} );
 			}
 			viewer.displayRealThumbnail( thumbnail, imageElement, imageWidths, $.now() - start );
 		} ).fail( function ( error ) {
 			viewer.ui.canvas.showError( error );
 		} );
 
-		metadataPromise = this.fetchSizeIndependentLightboxInfo(
-			image.filePageTitle
-		).done( function ( imageInfo, repoInfo, userInfo ) {
+		metadataPromise.done( function ( imageInfo, repoInfo, userInfo ) {
 			if ( viewer.currentIndex !== image.index ) {
 				return;
 			}
 
 			if ( viewer.metadataDisplayedCount++ === 0 ) {
-				mw.mmv.durationLogger.stop( 'click-to-first-metadata' );
+				mw.mmv.durationLogger.stop( 'click-to-first-metadata' ).record( 'click-to-first-metadata' );
 			}
+
 			viewer.ui.panel.setImageInfo( image, imageInfo, repoInfo, userInfo );
 
 			// File reuse steals a bunch of information from the DOM, so do it last

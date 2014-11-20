@@ -46,7 +46,7 @@
 		$document.ready( function () {
 			mw.loader.using( [ 'mmv.bootstrap.autostart', 'mmv.logging.DurationLogger' ] , function() {
 				mw.mmv.bootstrap.whenThumbsReady().then( function () {
-					mw.mmv.durationLogger.stop( 'early-click-to-replay-click', start );
+					mw.mmv.durationLogger.stop( 'early-click-to-replay-click', start ).record( 'early-click-to-replay-click' );
 
 					// We have to copy the properties, passing e doesn't work. Probably because of preventDefault()
 					$( e.target ).trigger( { type : 'click', which: 1, replayed: true } );
