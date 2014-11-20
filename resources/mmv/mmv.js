@@ -24,9 +24,16 @@
 	 * to manage the viewing experience of such content.
 	 * @class mw.mmv.MultimediaViewer
 	 * @constructor
+	 * @param {mw.Map} mwConfig mw.config
 	 */
-	function MultimediaViewer() {
+	function MultimediaViewer( mwConfig ) {
 		var apiCacheMaxAge = 86400; // one day
+
+		/**
+		 * @property {mw.Map}
+		 * @private
+		 */
+		this.mwConfig = mwConfig;
 
 		/**
 		 * @property {mw.mmv.provider.Image}
@@ -40,7 +47,7 @@
 		 */
 		this.imageInfoProvider = new mw.mmv.provider.ImageInfo( new mw.mmv.logging.Api( 'imageinfo' ),
 			// Short-circuit, don't fallback, to save some tiny amount of time
-			{ language: mw.config.get( 'wgUserLanguage', false ) || mw.config.get( 'wgContentLanguage', 'en' ) }
+			{ language: this.mwConfig.get( 'wgUserLanguage', false ) || this.mwConfig.get( 'wgContentLanguage', 'en' ) }
 		);
 
 		/**
@@ -106,10 +113,9 @@
 		this.documentTitle = document.title;
 
 		/**
-		 * Was the last image view logged or was logging skipped?
-		 * @property {boolean}
+		 * @property {mw.mmv.logging.ViewLogger} view -
 		 */
-		this.wasLastViewLogged = false;
+		this.viewLogger = new mw.mmv.logging.ViewLogger( this.mwConfig, window, mw.mmv.actionLogger );
 	}
 
 	MMVP = MultimediaViewer.prototype;
@@ -424,14 +430,10 @@
 			this.ui.canvas.unblur();
 		}
 
-		mw.mmv.actionLogger.log( 'image-view' ).then( function ( wasEventLogged ) {
-			viewer.wasLastViewLogged = wasEventLogged;
+		this.viewLogger.attach( thumbnail.url );
 
-			if ( viewer.wasLastViewLogged ) {
-				$( window ).on( 'beforeunload.unview', function() { viewer.unview(); } );
-			} else {
-				$( window ).off( 'beforeunload.unview' );
-			}
+		mw.mmv.actionLogger.log( 'image-view' ).then( function ( wasEventLogged ) {
+			viewer.viewLogger.setLastViewLogged( wasEventLogged );
 		} );
 	};
 
@@ -797,6 +799,8 @@
 		var thumb;
 
 		if ( index < this.thumbs.length && index >= 0 ) {
+			this.viewLogger.recordViewDuration();
+
 			thumb = this.thumbs[ index ];
 			this.loadImage( thumb.image, thumb.$thumb.clone()[0] );
 		}
@@ -806,7 +810,6 @@
 	 * Opens the next image
 	 */
 	MMVP.nextImage = function () {
-		this.unview();
 		mw.mmv.actionLogger.log( 'next-image' );
 		this.loadIndex( this.currentIndex + 1 );
 	};
@@ -815,7 +818,6 @@
 	 * Opens the previous image
 	 */
 	MMVP.prevImage = function () {
-		this.unview();
 		mw.mmv.actionLogger.log( 'prev-image' );
 		this.loadIndex( this.currentIndex - 1 );
 	};
@@ -826,7 +828,8 @@
 	MMVP.close = function () {
 		var windowTitle;
 
-		this.unview();
+		this.viewLogger.recordViewDuration();
+		this.viewLogger.unattach();
 
 		windowTitle = this.createDocumentTitle( null );
 
@@ -949,18 +952,6 @@
 	 */
 	MMVP.preloadDependencies = function () {
 		mw.loader.load( [ 'mmv.ui.reuse.share', 'mmv.ui.reuse.embed', 'mmv.ui.reuse.download', 'moment' ] );
-	};
-
-	/**
-	 * Tracks the unview event of the current image if appropriate
-	 */
-	MMVP.unview = function () {
-		if ( !this.wasLastViewLogged ) {
-			return;
-		}
-
-		this.wasLastViewLogged = false;
-		mw.mmv.actionLogger.log( 'image-unview', true );
 	};
 
 	mw.mmv.MultimediaViewer = MultimediaViewer;

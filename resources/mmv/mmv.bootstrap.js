@@ -467,7 +467,7 @@
 	 */
 	MMVB.getViewer = function () {
 		if ( this.viewer === undefined ) {
-			this.viewer = new mw.mmv.MultimediaViewer();
+			this.viewer = new mw.mmv.MultimediaViewer( mw.config );
 			this.viewer.setupEventHandlers();
 		}
 

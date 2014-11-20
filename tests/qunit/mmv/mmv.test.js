@@ -2,7 +2,7 @@
 	QUnit.module( 'mmv', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'eachPrealoadableLightboxIndex()', 11, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer(),
+		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
 			expectedIndices,
 			i;
 
@@ -31,7 +31,7 @@
 
 	QUnit.test( 'Hash handling', 7, function ( assert ) {
 		var oldUnattach,
-			viewer = new mw.mmv.MultimediaViewer(),
+			viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
 			ui = new mw.mmv.LightboxInterface(),
 			imageSrc = 'Foo bar.jpg',
 			image = { filePageTitle: new mw.Title( 'File:' + imageSrc ) };
@@ -102,7 +102,7 @@
 
 	QUnit.test( 'Progress', 4, function ( assert ) {
 		var imageDeferred = $.Deferred(),
-			viewer = new mw.mmv.MultimediaViewer();
+			viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
 
 		viewer.thumbs = [];
 		viewer.displayPlaceholderThumbnail = $.noop;
@@ -158,7 +158,7 @@
 			secondImageDeferred = $.Deferred(),
 			firstImage = { index: 1, filePageTitle : new mw.Title( 'File:First.jpg' ) },
 			secondImage = { index: 2, filePageTitle : new mw.Title( 'File:Second.jpg' ) },
-			viewer = new mw.mmv.MultimediaViewer();
+			viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
 
 		viewer.thumbs = [];
 		viewer.displayPlaceholderThumbnail = $.noop;
@@ -256,7 +256,7 @@
 	} );
 
 	QUnit.test( 'resetBlurredThumbnailStates', 4, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer();
+		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
 
 		assert.ok( !viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
@@ -271,7 +271,7 @@
 	} );
 
 	QUnit.test( 'Placeholder first, then real thumbnail', 4, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer();
+		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
 
 		viewer.setImage = $.noop;
 		viewer.ui = { canvas : {
@@ -286,14 +286,14 @@
 		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 		assert.ok( !viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 
-		viewer.displayRealThumbnail();
+		viewer.displayRealThumbnail( { url : undefined } );
 
 		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
 	QUnit.test( 'Placeholder first, then real thumbnail - missing size', 4, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer();
+		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
 
 		viewer.currentIndex = 1;
 		viewer.setImage = $.noop;
@@ -309,14 +309,14 @@
 		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 		assert.ok( !viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 
-		viewer.displayRealThumbnail();
+		viewer.displayRealThumbnail( { url : undefined } );
 
 		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
 	QUnit.test( 'Real thumbnail first, then placeholder', 4, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer();
+		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
 
 		viewer.setImage = $.noop;
 		viewer.ui = {
@@ -326,7 +326,7 @@
 				unblur: $.noop
 		} };
 
-		viewer.displayRealThumbnail();
+		viewer.displayRealThumbnail( { url : undefined } );
 
 		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
@@ -338,7 +338,7 @@
 	} );
 
 	QUnit.test( 'displayRealThumbnail', 2, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer();
+		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
 
 		viewer.setImage = $.noop;
 		viewer.ui = { canvas : {
@@ -348,16 +348,16 @@
 		viewer.blurredThumbnailShown = true;
 
 		// Should not result in an unblurWithAnimation animation (image cache from cache)
-		viewer.displayRealThumbnail( undefined, undefined, undefined, 5 );
+		viewer.displayRealThumbnail( { url : undefined }, undefined, undefined, 5 );
 		assert.ok( !viewer.ui.canvas.unblurWithAnimation.called, 'There should not be an unblurWithAnimation animation' );
 
 		// Should result in an unblurWithAnimation (image didn't come from cache)
-		viewer.displayRealThumbnail( undefined, undefined, undefined, 1000 );
+		viewer.displayRealThumbnail( { url : undefined }, undefined, undefined, 1000 );
 		assert.ok( viewer.ui.canvas.unblurWithAnimation.called, 'There should be an unblurWithAnimation animation' );
 	} );
 
 	QUnit.test( 'New image loaded while another one is loading', 5, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer(),
+		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
 			firstImageDeferred = $.Deferred(),
 			secondImageDeferred = $.Deferred(),
 			firstLigthboxInfoDeferred = $.Deferred(),
@@ -419,7 +419,7 @@
 
 	QUnit.test( 'Events are not trapped after the viewer is closed', 0, function( assert ) {
 		var i, j, k, eventParameters,
-			viewer = new mw.mmv.MultimediaViewer(),
+			viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
 			$document = $( document ),
 			$qf = $( '#qunit-fixture' ),
 			eventTypes = [ 'keydown', 'keyup', 'keypress', 'click', 'mousedown', 'mouseup' ],
@@ -490,7 +490,7 @@
 	} );
 
 	QUnit.test( 'Refuse to load too-big thumbnails', 1, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer(),
+		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
 			intendedWidth = 50,
 			title = mw.Title.newFromText( 'File:Foobar.svg' );
 
@@ -507,7 +507,7 @@
 			thumbnailInfoStub,
 			imageStub,
 			promise,
-			viewer = new mw.mmv.MultimediaViewer(),
+			viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
 			sandbox = this.sandbox,
 			oldUseThumbnailGuessing = mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing,
 			file = new mw.Title( 'File:Copyleft.svg' ),
@@ -607,7 +607,7 @@
 	} );
 
 	QUnit.test( 'document.title', 2, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer(),
+		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
 			bootstrap = new mw.mmv.MultimediaViewerBootstrap(),
 			title = new mw.Title( 'File:This_should_show_up_in_document_title.png'),
 			oldDocumentTitle = document.title;

@@ -117,6 +117,14 @@ if ( !isset( $wgMediaViewerImageQueryParameter ) ) {
 	$wgMediaViewerImageQueryParameter = false;
 }
 
+if ( !isset( $wgMediaViewerRecordViewDuration ) ) {
+	/**
+	 * If set, record the view duration via a HEAD request.
+	 * @var bool
+	 */
+	$wgMediaViewerRecordViewDuration = false;
+}
+
 $wgMessagesDirs['MultimediaViewer'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['MultimediaViewer'] = __DIR__ . '/MultimediaViewer.i18n.php';
 
@@ -898,6 +906,7 @@ $wgResourceModules += array(
 			'mmv.routing',
 			'mmv.logging.DurationLogger',
 			'mmv.logging.DimensionLogger',
+			'mmv.logging.ViewLogger',
 			'jquery.fullscreen',
 			'jquery.hidpi',
 			'jquery.scrollTo',
@@ -1000,6 +1009,17 @@ $wgResourceModules += array(
 			'mmv.logging.Logger',
 			'oojs',
 			'jquery.hidpi',
+		),
+	),
+
+	'mmv.logging.ViewLogger' => $wgMediaViewerResourceTemplate + array(
+		'scripts' => array(
+			'mmv/logging/mmv.logging.ViewLogger.js',
+		),
+
+		'dependencies' => array(
+			'mediawiki.Uri',
+			'mmv.base',
 		),
 	),
 

@@ -22,7 +22,7 @@
 		var i = 0,
 			$qf = $( '#qunit-fixture' ),
 			buttons = new mw.mmv.ui.CanvasButtons( $qf, $( '<div>' ), $( '<div>' ) ),
-			viewer = new mw.mmv.MultimediaViewer();
+			viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
 
 		viewer.ui = {};
 
