@@ -46,7 +46,7 @@ When /^I click the (.*) download size$/ do |size_option|
       @index = 0
     end
 
-    page.mmv_download_size_options_elements[@index].click
+    page.mmv_download_size_options_elements[@index].when_present.click
   end
 end
 
