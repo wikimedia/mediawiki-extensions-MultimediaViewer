@@ -169,7 +169,7 @@
 		// .noviewer means MediaViewer has been specifically disabled for this image
 		// .noarticletext means we are on an error page for a non-existing article, the image is part of some
 		//  template // FIXME this should be handled by .metadata
-		return $thumb.closest( '.metadata, .noviewer, .noarticletext' ).length === 0;
+		return $thumb.closest( '.metadata, .noviewer, .noarticletext, #siteNotice' ).length === 0;
 
 	};
 
