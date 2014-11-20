@@ -32,7 +32,7 @@
 		 * @property {mw.mmv.provider.Image}
 		 * @private
 		 */
-		this.imageProvider = new mw.mmv.provider.Image();
+		this.imageProvider = new mw.mmv.provider.Image( mw.config.get( 'wgMultimediaViewer' ).imageQueryParameter );
 
 		/**
 		 * @property {mw.mmv.provider.ImageInfo}

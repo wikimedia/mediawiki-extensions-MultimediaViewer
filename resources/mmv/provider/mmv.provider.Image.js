@@ -20,13 +20,17 @@
 	/**
 	 * Loads an image.
 	 * @class mw.mmv.provider.Image
+	 * @constructor
+	 * @param {string} imageQueryParameter When defined, is a query parameter to add to every image request
 	 */
-	function Image() {
+	function Image( imageQueryParameter ) {
 		/**
 		 * @property {mw.mmv.logging.Performance}
 		 * @private
 		 */
 		this.performance = new mw.mmv.logging.Performance();
+
+		this.imageQueryParameter = imageQueryParameter;
 
 		/**
 		 * AJAX call cache.
@@ -47,8 +51,16 @@
 	Image.prototype.get = function ( url ) {
 		var provider = this,
 			cacheKey = url,
+			extraParam = {},
 			start,
-			rawGet;
+			rawGet,
+			uri;
+
+		if ( this.imageQueryParameter ) {
+			uri = new mw.Uri( url );
+			extraParam[ this.imageQueryParameter ] = null;
+			url = uri.extend( extraParam ).toString();
+		}
 
 		if ( !this.cache[cacheKey] ) {
 			if ( this.imagePreloadingSupported() ) {

@@ -142,7 +142,7 @@ class MultimediaViewerHooks {
 		global $wgMediaViewerActionLoggingSamplingFactorMap, $wgNetworkPerformanceSamplingFactor,
 		       $wgMediaViewerDurationLoggingSamplingFactor, $wgMediaViewerDurationLoggingLoggedinSamplingFactor,
 		       $wgMediaViewerAttributionLoggingSamplingFactor, $wgMediaViewerDimensionLoggingSamplingFactor,
-		       $wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing;
+		       $wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing, $wgMediaViewerImageQueryParameter;
 		$vars['wgMultimediaViewer'] = array(
 			'infoLink' => self::$infoLink,
 			'discussionLink' => self::$discussionLink,
@@ -154,6 +154,7 @@ class MultimediaViewerHooks {
 			'actionLoggingSamplingFactorMap' => $wgMediaViewerActionLoggingSamplingFactorMap,
 			'attributionSamplingFactor' => $wgMediaViewerAttributionLoggingSamplingFactor,
 			'dimensionSamplingFactor' => $wgMediaViewerDimensionLoggingSamplingFactor,
+			'imageQueryParameter' => $wgMediaViewerImageQueryParameter,
 			'tooltipDelay' => 1000,
 		);
 		$vars['wgMediaViewer'] = true;
