@@ -17,7 +17,7 @@
 
 ( function ( mw, $, oo ) {
 	/**
-	 * Runs performance analysis on requests via mw.mmv.logging.Performance
+	 * Runs performance analysis on requests via mw.mmv.logging.PerformanceLogger
 	 * @class mw.mmv.logging.Api
 	 * @extends mw.Api
 	 * @constructor
@@ -27,8 +27,8 @@
 	function Api( type, options ) {
 		mw.Api.call( this, options );
 
-		/** @property {mw.mmv.logging.Performance} performance Used to record performance data. */
-		this.performance = new mw.mmv.logging.Performance();
+		/** @property {mw.mmv.logging.PerformanceLogger} performance Used to record performance data. */
+		this.performance = new mw.mmv.logging.PerformanceLogger();
 
 		/** @property {string} type Type of requests being sent via this API. */
 		this.type = type;

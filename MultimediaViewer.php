@@ -323,7 +323,7 @@ $wgResourceModules += array(
 			'mmv.model.Repo',
 			'mmv.model.Thumbnail',
 			'mmv.model.User',
-			'mmv.logging.Performance',
+			'mmv.logging.PerformanceLogger',
 			'oojs',
 		),
 	),
@@ -849,9 +849,9 @@ $wgResourceModules += array(
 		),
 	),
 
-	'mmv.logging.Performance' => $wgMediaViewerResourceTemplate + array(
+	'mmv.logging.PerformanceLogger' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv/logging/mmv.logging.Performance.js',
+			'mmv/logging/mmv.logging.PerformanceLogger.js',
 		),
 
 		'dependencies' => array(
@@ -1065,7 +1065,7 @@ $wgExtensionFunctions[] = function () {
 
 	if ( isset( $wgResourceModules['ext.eventLogging'] ) ) {
 		$wgResourceModules['mmv.logging.ActionLogger']['dependencies'][] = 'ext.eventLogging';
-		$wgResourceModules['mmv.logging.Performance']['dependencies'][] = 'ext.eventLogging';
+		$wgResourceModules['mmv.logging.PerformanceLogger']['dependencies'][] = 'ext.eventLogging';
 		$wgResourceModules['mmv.logging.DurationLogger']['dependencies'][] = 'ext.eventLogging';
 		$wgResourceModules['mmv.logging.AttributionLogger']['dependencies'][] = 'ext.eventLogging';
 		$wgResourceModules['mmv.logging.DimensionLogger']['dependencies'][] = 'ext.eventLogging';

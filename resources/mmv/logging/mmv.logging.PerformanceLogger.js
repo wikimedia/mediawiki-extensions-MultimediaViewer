@@ -16,37 +16,37 @@
  */
 
 ( function ( mw, $, oo ) {
-	var P;
+	var PL;
 
 	/**
 	 * Measures the network performance
 	 * See <https://meta.wikimedia.org/wiki/Schema:MultimediaViewerNetworkPerformance>
-	 * @class mw.mmv.logging.Performance
+	 * @class mw.mmv.logging.PerformanceLogger
 	 * @extends mw.mmv.logging.Logger
 	 * @constructor
 	 */
-	function Performance() {}
+	function PerformanceLogger() {}
 
-	oo.inheritClass( Performance, mw.mmv.logging.Logger );
+	oo.inheritClass( PerformanceLogger, mw.mmv.logging.Logger );
 
-	P = Performance.prototype;
-
-	/**
-	 * @override
-	 * @inheritdoc
-	 */
-	P.samplingFactor = mw.config.get( 'wgMultimediaViewer' ).networkPerformanceSamplingFactor;
+	PL = PerformanceLogger.prototype;
 
 	/**
 	 * @override
 	 * @inheritdoc
 	 */
-	P.schema = 'MultimediaViewerNetworkPerformance';
+	PL.samplingFactor = mw.config.get( 'wgMultimediaViewer' ).networkPerformanceSamplingFactor;
+
+	/**
+	 * @override
+	 * @inheritdoc
+	 */
+	PL.schema = 'MultimediaViewerNetworkPerformance';
 
 	/**
 	 * Global setup that should be done while the page loads
 	 */
-	P.init = function () {
+	PL.init = function () {
 		var performance = this.getWindowPerformance();
 
 		// by default logging is cut off after 150 resources, which is not enough in debug mode
@@ -64,7 +64,7 @@
 	 * @param {string} url URL to be measured
 	 * @returns {jQuery.Promise} A promise that resolves when the contents of the URL have been fetched
 	 */
-	P.record = function ( type, url ) {
+	PL.record = function ( type, url ) {
 		var deferred = $.Deferred(),
 			request,
 			perf = this,
@@ -112,7 +112,7 @@
 	 * @param {string} url URL of that was measured
 	 * @param {XMLHttpRequest} request HTTP request that just completed
 	 */
-	P.recordEntry = function ( type, total, url, request ) {
+	PL.recordEntry = function ( type, total, url, request ) {
 		var matches,
 			stats = { type: type,
 				contentHost: window.location.host,
@@ -173,7 +173,7 @@
 	 * @param {Object} stats stats object to extend with additional statistics fields
 	 * @param {XMLHttpRequest} request
 	 */
-	P.populateStatsFromXhr = function ( stats, request ) {
+	PL.populateStatsFromXhr = function ( stats, request ) {
 		var age,
 			contentLength,
 			xcache,
@@ -223,7 +223,7 @@
 	 * @param {Object} stats
 	 * @param {string} url
 	 */
-	P.populateStatsFromPerformance = function( stats, url ) {
+	PL.populateStatsFromPerformance = function( stats, url ) {
 		var performance = this.getWindowPerformance(),
 			timingEntries, timingEntry;
 
@@ -265,7 +265,7 @@
 	 * @param {number} total the total load time tracked with a basic technique
 	 * @param {jqXHR} jqxhr
 	 */
-	P.recordJQueryEntry = function ( type, total, jqxhr ) {
+	PL.recordJQueryEntry = function ( type, total, jqxhr ) {
 		var perf = this;
 
 		// We take advantage of the fact that the context of the jqXHR deferred is the AJAX
@@ -306,7 +306,7 @@
 	 * @param {string} url URL of that was measured
 	 * @param {XMLHttpRequest} request HTTP request that just completed
 	 */
-	P.recordEntryDelayed = function ( type, total, url, request ) {
+	PL.recordEntryDelayed = function ( type, total, url, request ) {
 		var perf = this;
 
 		// The timeout is necessary because if there's an entry in window.performance,
@@ -322,7 +322,7 @@
 	 * @param {number} total the total load time tracked with a basic technique
 	 * @param {jqXHR} jqxhr
 	 */
-	P.recordJQueryEntryDelayed = function ( type, total, jqxhr ) {
+	PL.recordJQueryEntryDelayed = function ( type, total, jqxhr ) {
 		var perf = this;
 
 		// The timeout is necessary because if there's an entry in window.performance,
@@ -337,7 +337,7 @@
 	 * @param {string} header The X-Cache header from the request
 	 * @returns {Object} The parsed X-Cache data
 	 */
-	P.parseVarnishXCacheHeader = function ( header ) {
+	PL.parseVarnishXCacheHeader = function ( header ) {
 		var parts,
 			part,
 			subparts,
@@ -380,7 +380,7 @@
 	 * Allows us to override for unit tests
 	 * @returns {Object} The window's Performance object
 	 */
-	P.getWindowPerformance = function () {
+	PL.getWindowPerformance = function () {
 		return window.performance;
 	};
 
@@ -389,7 +389,7 @@
 	 * Allows us to override for unit tests
 	 * @returns {Object} The navigator's Connection object
 	 */
-	P.getNavigatorConnection = function () {
+	PL.getNavigatorConnection = function () {
 		return navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 	};
 
@@ -398,12 +398,12 @@
 	 * Allows us to override for unit tests
 	 * @returns {XMLHttpRequest} New XMLHttpRequest
 	 */
-	P.newXHR = function () {
+	PL.newXHR = function () {
 		return new XMLHttpRequest();
 	};
 
-	new Performance().init();
+	new PerformanceLogger().init();
 
-	mw.mmv.logging.Performance = Performance;
+	mw.mmv.logging.PerformanceLogger = PerformanceLogger;
 
 }( mediaWiki, jQuery, OO ) );

@@ -198,7 +198,7 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv/mmv.Config.test.js',
 				'tests/qunit/mmv/mmv.HtmlUtils.test.js',
 				'tests/qunit/mmv/logging/mmv.logging.DurationLogger.test.js',
-				'tests/qunit/mmv/logging/mmv.logging.Performance.test.js',
+				'tests/qunit/mmv/logging/mmv.logging.PerformanceLogger.test.js',
 				'tests/qunit/mmv/logging/mmv.logging.ActionLogger.test.js',
 				'tests/qunit/mmv/logging/mmv.logging.AttributionLogger.test.js',
 				'tests/qunit/mmv/logging/mmv.logging.DimensionLogger.test.js',

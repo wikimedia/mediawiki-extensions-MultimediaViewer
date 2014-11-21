@@ -16,7 +16,7 @@
  */
 
 ( function ( mw, $ ) {
-	QUnit.module( 'mmv.logging.Performance', QUnit.newMwEnvironment() );
+	QUnit.module( 'mmv.logging.PerformanceLogger', QUnit.newMwEnvironment() );
 
 	function createFakeXHR( response )  {
 		return {
@@ -37,7 +37,7 @@
 	}
 
 	QUnit.test( 'recordEntry: basic', 7, function ( assert ) {
-		var performance = new mw.mmv.logging.Performance(),
+		var performance = new mw.mmv.logging.PerformanceLogger(),
 			fakeEventLog = { logEvent : this.sandbox.stub() },
 			type = 'gender',
 			total = 100;
@@ -110,7 +110,7 @@
 			},
 			country = 'FR',
 			type = 'image',
-			performance = new mw.mmv.logging.Performance(),
+			performance = new mw.mmv.logging.PerformanceLogger(),
 			status = 200,
 			metered = true,
 			bandwidth = 45.67,
@@ -191,7 +191,7 @@
 			varnish2 = 'cp3006',
 			varnish3 = 'cp3005',
 			testString = varnish1 + ' miss (0), ' + varnish2  + ' miss (0), ' + varnish3 + ' frontend hit (1)',
-			performance = new mw.mmv.logging.Performance(),
+			performance = new mw.mmv.logging.PerformanceLogger(),
 			varnishXCache = performance.parseVarnishXCacheHeader( testString );
 
 		assert.strictEqual( varnishXCache.varnish1, varnish1, 'First varnish server name extracted' );
@@ -221,7 +221,7 @@
 		var type = 'foo',
 			url = 'http://example.com/',
 			response = {},
-			performance = new mw.mmv.logging.Performance();
+			performance = new mw.mmv.logging.PerformanceLogger();
 
 		performance.newXHR = function () { return createFakeXHR( response ); };
 
@@ -243,7 +243,7 @@
 	QUnit.asyncTest( 'record() with old browser', 1, function ( assert ) {
 		var type = 'foo',
 			url = 'http://example.com/',
-			performance = new mw.mmv.logging.Performance();
+			performance = new mw.mmv.logging.PerformanceLogger();
 
 		performance.newXHR = function () { throw 'XMLHttpRequest? What\'s that?'; };
 
@@ -255,7 +255,7 @@
 
 	QUnit.test( 'mw.mmv.logging.Api', 3, function ( assert ) {
 		var api,
-			oldRecord = mw.mmv.logging.Performance.prototype.recordJQueryEntryDelayed,
+			oldRecord = mw.mmv.logging.PerformanceLogger.prototype.recordJQueryEntryDelayed,
 			oldAjax = mw.Api.prototype.ajax,
 			ajaxCalled = false,
 			fakeJqxhr = {};
@@ -265,7 +265,7 @@
 			return $.Deferred().resolve( {}, fakeJqxhr );
 		};
 
-		mw.mmv.logging.Performance.prototype.recordJQueryEntryDelayed = function ( type, total, jqxhr ) {
+		mw.mmv.logging.PerformanceLogger.prototype.recordJQueryEntryDelayed = function ( type, total, jqxhr ) {
 			assert.strictEqual( type, 'foo', 'type was passed correctly' );
 			assert.strictEqual( jqxhr, fakeJqxhr, 'jqXHR was passed correctly' );
 		};
@@ -276,7 +276,7 @@
 
 		assert.ok( ajaxCalled, 'parent ajax() function was called' );
 
-		mw.mmv.logging.Performance.prototype.recordJQueryEntryDelayed = oldRecord;
+		mw.mmv.logging.PerformanceLogger.prototype.recordJQueryEntryDelayed = oldRecord;
 		mw.Api.prototype.ajax = oldAjax;
 	} );
 }( mediaWiki, jQuery ) );

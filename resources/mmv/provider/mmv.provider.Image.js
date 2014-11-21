@@ -25,10 +25,10 @@
 	 */
 	function Image( imageQueryParameter ) {
 		/**
-		 * @property {mw.mmv.logging.Performance}
+		 * @property {mw.mmv.logging.PerformanceLogger}
 		 * @private
 		 */
-		this.performance = new mw.mmv.logging.Performance();
+		this.performance = new mw.mmv.logging.PerformanceLogger();
 
 		this.imageQueryParameter = imageQueryParameter;
 
@@ -41,7 +41,7 @@
 	}
 
 	/**
-	 * Loads an image and returns it. Includes performance metrics via mw.mmv.logging.Performance.
+	 * Loads an image and returns it. Includes performance metrics via mw.mmv.logging.PerformanceLogger.
 	 * When the browser supports it, the image is loaded as an AJAX request.
 	 * @param {string} url
 	 * @return {jQuery.Promise.<HTMLImageElement>} A promise which resolves to the image object.
