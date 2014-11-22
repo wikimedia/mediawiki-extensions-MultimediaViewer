@@ -61,6 +61,9 @@
 			.add( this.$authorAndSource )
 			.add( this.title.$ellipsis )
 			.add( this.creditField.$ellipsis )
+			.each( function () {
+				$( this ).tipsy( 'enable' );
+			} )
 			.on( 'click.mmv-mp', function ( e ) {
 				var clickTargetIsLink = $( e.target ).is( 'a' ),
 					clickTargetIsTruncated = !!$( e.target ).closest( '.mw-mmv-ttf-truncated' ).length,
@@ -76,23 +79,15 @@
 				panel.scroller.toggle( 'up' );
 			} );
 
-		$( this.$container ).on( 'mmv-metadata-open', function () {
+		$( this.$container ).on( 'mmv-metadata-open.mmv-mp mmv-metadata-reveal-truncated-text.mmv-mp', function () {
 			panel.revealTruncatedText();
-		} ).on( 'mmv-metadata-close', function () {
+		} ).on( 'mmv-metadata-close.mmv-mp', function () {
 			panel.hideTruncatedText();
 		} );
 
 		this.handleEvent( 'jq-fullscreen-change.lip', function() {
 			panel.hideTruncatedText();
 		} );
-
-		this.$title
-			.add( this.title.$ellipsis )
-			.add( this.$authorAndSource )
-			.add( this.creditField.$ellipsis )
-			.each( function () {
-				$( this ).tipsy( 'enable' );
-			} );
 	};
 
 	MPP.unattach = function() {
@@ -104,12 +99,13 @@
 			.add( this.creditField.$ellipsis )
 			.each( function () {
 				$( this ).tipsy( 'hide' ).tipsy( 'disable' );
-			} );
+			} )
+			.off( 'click.mmv-mp' );
+
+		$( this.$container ).off( '.mmv-mp' );
 
 		this.scroller.unattach();
 		this.buttons.unattach();
-
-		this.$title.add( this.$authorAndSource ).off( 'click.mmv-mp' );
 		this.clearEvents();
 	};
 
@@ -671,8 +667,8 @@
 			this.setUserPageLink( repoData, imageData.lastUploader, user.gender );
 		}
 
-		this.scroller.unfreezeHeight();
 		this.resetTruncatedText();
+		this.scroller.unfreezeHeight();
 	};
 
 	/**

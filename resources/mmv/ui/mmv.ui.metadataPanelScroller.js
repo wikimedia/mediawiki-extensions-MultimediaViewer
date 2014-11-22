@@ -156,34 +156,32 @@
 	 * @param {string} [forceDirection] 'up' or 'down' makes the panel move on that direction (and is a noop
 	 *  if the panel is already at the upmost/bottommost position); without the parameter, the panel position
 	 *  is toggled. (Partially open counts as open.)
-	 * @param {number} [duration] duration of the scroll animation; defaults to #toggleScrollDuration.
-	 *  Use 0 to avoid animating altogether.
 	 * @return {jQuery.Deferred} a deferred which resolves after the animation has finished.
 	 */
-	MPSP.toggle = function ( forceDirection, duration ) {
+	MPSP.toggle = function ( forceDirection ) {
 		var deferred = $.Deferred(),
 			scrollTopWhenOpen = this.getScrollTopWhenOpen(),
 			scrollTopWhenClosed = 0,
 			scrollTop = $.scrollTo().scrollTop(),
 			panelIsOpen = scrollTop > scrollTopWhenClosed,
-			scrollTopTarget = panelIsOpen ? scrollTopWhenClosed : scrollTopWhenOpen,
-			isOpening = scrollTopTarget === scrollTopWhenOpen;
-
-
-		if ( duration === null || duration === undefined ) {
-			duration = this.toggleScrollDuration;
-		}
-
-		if ( forceDirection ) {
-			scrollTopTarget = forceDirection === 'down' ? scrollTopWhenClosed : scrollTopWhenOpen;
-		}
+			direction = forceDirection || ( panelIsOpen ? 'down' : 'up' ),
+			scrollTopTarget = ( direction === 'up' ) ? scrollTopWhenOpen : scrollTopWhenClosed;
 
 		// don't log / animate if the panel is already in the end position
 		if ( scrollTopTarget === scrollTop ) {
 			deferred.resolve();
 		} else {
-			mw.mmv.actionLogger.log( isOpening ? 'metadata-open' : 'metadata-close' );
-			$.scrollTo( scrollTopTarget, duration, {
+			mw.mmv.actionLogger.log( direction === 'up' ? 'metadata-open' : 'metadata-close' );
+			if ( direction === 'up' && !panelIsOpen ) {
+				// FIXME nasty. This is not really an event but a command sent to the metadata panel;
+				// child UI elements should not send commands to their parents. However, there is no way
+				// to calculate the target scrollTop accurately without revealing the text, and the event
+				// which does that (metadata-open) is only triggered later in the process, when the panel
+				// actually scrolled, so we cannot use it here without risking triggering it multiple times.
+				this.$container.trigger( 'mmv-metadata-reveal-truncated-text' );
+				scrollTopTarget = this.getScrollTopWhenOpen();
+			}
+			$.scrollTo( scrollTopTarget, this.toggleScrollDuration, {
 				onAfter: function () {
 					deferred.resolve();
 				}
