@@ -202,6 +202,16 @@
 
 		this.canvas.attach();
 
+		// cross-communication between panel and canvas, sort of
+		this.$postDiv.on( 'mmv-metadata-open.lip', function () {
+			ui.$main.addClass( 'metadata-panel-is-open' );
+		} ).on( 'mmv-metadata-close.lip', function () {
+			ui.$main.removeClass( 'metadata-panel-is-open' );
+		} );
+		this.$wrapper.on( 'mmv-panel-close-area-click.lip', function () {
+			ui.panel.scroller.toggle( 'down' );
+		} );
+
 		// Buttons fading might not had been reset properly after a hard fullscreen exit
 		// This needs to happen after the parent attach() because the buttons need to be attached
 		// to the DOM for $.fn.stop() to work
@@ -234,6 +244,9 @@
 		this.canvas.unattach();
 
 		this.buttons.unattach();
+
+		this.$postDiv.off( '.lip' );
+		this.$wrapper.off( 'mmv-panel-close-area-click.lip' );
 
 		this.fileReuse.unattach();
 		this.fileReuse.closeDialog();
