@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Otogi"
+			"Otogi",
+			"David1010"
 		]
 	},
-	"multimediaviewer-pref": "მედია დამთვალიერებელი"
+	"multimediaviewer-pref": "მედია დამთვალიერებელი",
+	"multimediaviewer-userpage-link": "{{GENDER:$2|ატვირთა}} მომხმარებელმა $1"
 }

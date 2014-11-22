@@ -7,7 +7,8 @@
 			"Sjoerddebruin",
 			"Southparkfan",
 			"Romaine",
-			"Mathonius"
+			"Mathonius",
+			"Macofe"
 		]
 	},
 	"multimediaviewer-desc": "Miniatuurafbeeldingen schermvullend weergeven.",
@@ -77,7 +78,7 @@
 	"multimediaviewer-close-popup-text": "Hulpmiddel sluiten (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "In volledig scherm bekijken",
 	"multimediaviewer-defullscreen-popup-text": "Volledig schermmodus verlaten",
-	"multimediaviewer-title-popup-text": "Bestandsnaam",
+	"multimediaviewer-title-popup-text": "Beschrijving",
 	"multimediaviewer-credit-popup-text": "Auteur- en broninformatie",
 	"multimediaviewer-download-attribution-cta-header": "U moet aan naamsvermelding doen",
 	"multimediaviewer-download-attribution-cta": "Laat mij zien hoe",

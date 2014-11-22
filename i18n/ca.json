@@ -4,11 +4,11 @@
 			"Fitoschido",
 			"QuimGil",
 			"Vriullop",
-			"Ssola"
+			"Ssola",
+			"Macofe"
 		]
 	},
 	"multimediaviewer-desc": "Amplia les miniatures en una interfície a pantalla completa.",
-	"multimediaviewer-desc-nil": "Sense descripció disponible.",
 	"multimediaviewer-pref": "Visualitzador multimèdia",
 	"multimediaviewer-pref-desc": "Milloreu la vostra experiència de visualització multimèdia amb aquesta nova eina. Mostra imatges a mida més gran en les pàgines que tenen miniatures. Les imatges es mostren en una pantalla completa més agradable, i també es poden veure a mida completa.",
 	"multimediaviewer-optin-pref": "Activa el <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visor multimèdia]</span>",
@@ -73,5 +73,5 @@
 	"multimediaviewer-close-popup-text": "Tanca aquesta eina (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Mostra a pantalla completa",
 	"multimediaviewer-defullscreen-popup-text": "Surt del mode de pantalla completa",
-	"multimediaviewer-title-popup-text": "Nom del fitxer"
+	"multimediaviewer-title-popup-text": "Descripció"
 }

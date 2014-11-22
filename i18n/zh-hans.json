@@ -116,6 +116,7 @@
 	"multimediaviewer-options-tooltip": "启用或禁用媒体查看器",
 	"multimediaviewer-options-dialog-header": "禁用媒体查看器？",
 	"multimediaviewer-options-text-header": "对所有文件跳过查看功能",
+	"multimediaviewer-options-text-body": "您可以稍后通过文件详细说明页面启用它。",
 	"multimediaviewer-options-learn-more": "了解更多",
 	"multimediaviewer-option-submit-button": "禁用媒体文件查看器",
 	"multimediaviewer-option-cancel-button": "取消",
