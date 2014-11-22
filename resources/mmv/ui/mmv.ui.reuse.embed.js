@@ -158,12 +158,14 @@
 			classes: [ 'mw-mmv-embed-select' ]
 		} );
 
-		wikitextButtonOption = new oo.ui.ButtonOptionWidget( 'wikitext', {
-				label: mw.message( 'multimediaviewer-embed-wt' ).text()
-			} );
-		htmlButtonOption = new oo.ui.ButtonOptionWidget( 'html', {
-				label: mw.message( 'multimediaviewer-embed-html' ).text()
-			} );
+		wikitextButtonOption = new oo.ui.ButtonOptionWidget( {
+			data: 'wikitext',
+			label: mw.message( 'multimediaviewer-embed-wt' ).text()
+		} );
+		htmlButtonOption = new oo.ui.ButtonOptionWidget( {
+			data: 'html',
+			label: mw.message( 'multimediaviewer-embed-html' ).text()
+		} );
 
 		this.embedSwitch.addItems( [
 			wikitextButtonOption,

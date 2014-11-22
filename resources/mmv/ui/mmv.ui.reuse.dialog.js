@@ -54,7 +54,8 @@
 	// FIXME this should happen outside the dialog and the tabs, but we need to improve
 	DP.initTabs = function () {
 		function makeTab( type ) {
-			return new oo.ui.MenuOptionWidget( type, {
+			return new oo.ui.MenuOptionWidget( {
+				data: type,
 				label: mw.message( 'multimediaviewer-' + type + '-tab' ).text()
 			} );
 		}

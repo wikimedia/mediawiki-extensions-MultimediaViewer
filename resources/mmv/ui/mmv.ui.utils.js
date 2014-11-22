@@ -50,17 +50,15 @@
 		for ( i = 0; i < options.length; i++ ) {
 			option = options[ i ];
 
-			choices[option] = new oo.ui.MenuOptionWidget(
-				{ // Customized data injected in each item
+			choices[option] = new oo.ui.MenuOptionWidget( {
+				data: {
 					name: option,
 					height: null,
 					width: null
 				},
-				{
-					label: this.getDimensionsMessageHtml( option, 0, 0 ),
-					autoFitLabel: false
-				}
-			);
+				label: this.getDimensionsMessageHtml( option, 0, 0 ),
+				autoFitLabel: false
+			} );
 
 			items.push( choices[option] );
 		}

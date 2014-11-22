@@ -148,17 +148,19 @@
 			attributionSwitch = new oo.ui.ButtonSelectWidget( {
 				classes: [ 'mw-mmv-download-attr-select' ]
 			} ),
-			plainOption = new oo.ui.ButtonOptionWidget( 'plain', {
+			plainOption = new oo.ui.ButtonOptionWidget( {
+				data: 'plain',
 				label: mw.message( 'multimediaviewer-attr-plain' ).text()
 			} ),
-			htmlOption = new oo.ui.ButtonOptionWidget( 'html', {
+			htmlOption = new oo.ui.ButtonOptionWidget( {
+				data: 'html',
 				label: mw.message( 'multimediaviewer-attr-html' ).text()
 			} );
 
 		attributionSwitch.addItems( [
-				plainOption,
-				htmlOption
-				] );
+			plainOption,
+			htmlOption
+		] );
 
 		attributionSwitch.selectItem( plainOption );
 
