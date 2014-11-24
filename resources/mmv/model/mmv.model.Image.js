@@ -153,15 +153,7 @@
 			source = this.parseExtmeta( extmeta.Credit, 'string' );
 			author = this.parseExtmeta( extmeta.Artist, 'string' );
 
-			if ( extmeta.LicenseShortName ) {
-				license = new mw.mmv.model.License(
-					this.parseExtmeta( extmeta.LicenseShortName, 'string' ),
-					this.parseExtmeta( extmeta.License, 'string' ),
-					this.parseExtmeta( extmeta.UsageTerms, 'string' ),
-					this.parseExtmeta( extmeta.LicenseUrl, 'string' )
-				);
-			}
-
+			license = this.newLicenseFromImageInfo( extmeta );
 			permission = this.parseExtmeta( extmeta.Permission, 'string' );
 
 			latitude = this.parseExtmeta( extmeta.GPSLatitude, 'float' );
@@ -205,10 +197,34 @@
 	};
 
 	/**
+	 * Constructs a new License object out of an object containing
+	 * imageinfo data from an API response.
+	 * @static
+	 * @param {Object} extmeta the extmeta array of the imageinfo data
+	 * @returns {mw.mmv.model.License|undefined}
+	 */
+	Image.newLicenseFromImageInfo = function ( extmeta ) {
+		var license;
+
+		if ( extmeta.LicenseShortName ) {
+			license = new mw.mmv.model.License(
+				this.parseExtmeta( extmeta.LicenseShortName, 'string' ),
+				this.parseExtmeta( extmeta.License, 'string' ),
+				this.parseExtmeta( extmeta.UsageTerms, 'string' ),
+				this.parseExtmeta( extmeta.LicenseUrl, 'string' ),
+				this.parseExtmeta( extmeta.AttributionRequired, 'boolean' ),
+				this.parseExtmeta( extmeta.NonFree, 'boolean' )
+			);
+		}
+
+		return license;
+	};
+
+	/**
 	 * Reads and parses a value from the imageinfo API extmetadata field.
 	 * @param {Array} data
-	 * @param {string} type one of 'plaintext', 'string', 'float', 'list'
-	 * @return {string|number|Array} value or undefined if it is missing
+	 * @param {string} type one of 'plaintext', 'string', 'float', 'boolean', 'list'
+	 * @return {string|number|boolean|Array} value or undefined if it is missing
 	 */
 	Image.parseExtmeta = function ( data, type ) {
 		var value = data && data.value;
@@ -220,6 +236,15 @@
 			return value.toString();
 		} else if ( type === 'float' ) {
 			return parseFloat( value );
+		} else if ( type === 'boolean' ) {
+			value = value.toString().toLowerCase().replace( /^\s+|\s+$/g, '' );
+			if ( value in { '1': null, 'yes': null, 'true': null } ) {
+				return true;
+			} else if ( value in { '0': null, 'no': null, 'false': null } ) {
+				return false;
+			} else {
+				return undefined;
+			}
 		} else if ( type === 'list' ) {
 			return value === '' ? [] : value.split( '|' );
 		} else {

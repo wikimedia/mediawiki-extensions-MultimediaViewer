@@ -127,11 +127,15 @@
 		}
 		if ( info.imageInfo.license ) {
 			creditParams[0] += 'l';
-			creditParams.push( this.htmlUtils.htmlToText( info.imageInfo.license.longName ) );
+			creditParams.push( this.htmlUtils.htmlToText( info.imageInfo.license.longName || '' ) );
 		}
 
 		creditParams[0] += 's';
 		creditParams.push( info.repoInfo.displayName + ' - ' + titleUrl );
+
+		if ( info.imageInfo.license && !info.imageInfo.license.isFree() ) {
+			creditParams[0] += '-nonfree';
+		}
 
 		creditText = mw.message.apply( mw, creditParams ).plain();
 
@@ -166,6 +170,10 @@
 
 		creditParams[0] += 's';
 		creditParams.push( this.getSiteLink( info ) );
+
+		if ( info.imageInfo.license && !info.imageInfo.license.isFree() ) {
+			creditParams[0] += '-nonfree';
+		}
 
 		creditText = mw.message.apply( mw, creditParams ).plain();
 

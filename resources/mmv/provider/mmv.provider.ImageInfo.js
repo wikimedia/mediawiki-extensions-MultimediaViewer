@@ -69,7 +69,9 @@
 		'Artist',
 		'GPSLatitude',
 		'GPSLongitude',
-		'Permission'
+		'Permission',
+		'AttributionRequired',
+		'NonFree'
 	].join('|');
 
 	/**

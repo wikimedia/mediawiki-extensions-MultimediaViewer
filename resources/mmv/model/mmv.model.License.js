@@ -26,13 +26,17 @@
 	 * @param {string} [internalName] see {@link #internalName}
 	 * @param {string} [longName] see {@link #longName}
 	 * @param {string} [deedUrl] see {@link #deedUrl}
+	 * @param {boolean} [attributionRequired] see {@link #attributionRequired}
+	 * @param {boolean} [nonFree] see {@link #nonFree}
 	 * @constructor
 	 */
 	function License(
 		shortName,
 		internalName,
 		longName,
-		deedUrl
+		deedUrl,
+		attributionRequired,
+		nonFree
 	) {
 		if ( !shortName ) {
 			throw 'mw.mmv.model.License: shortName is required';
@@ -49,6 +53,12 @@
 
 		/** @property {string} deedUrl URL to the description of the license (e.g. the CC deed) */
 		this.deedUrl = deedUrl;
+
+		/** @property {boolean} attributionRequired does the author need to be attributed on reuse? */
+		this.attributionRequired = attributionRequired;
+
+		/** @property {boolean} nonFree is this a non-free license? */
+		this.nonFree = nonFree;
 
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
@@ -69,6 +79,24 @@
 	 */
 	LP.isPd = function () {
 		return this.internalName === 'pd';
+	};
+
+	/**
+	 * Check whether this is a free license.
+	 * @return {boolean}
+	 */
+	LP.isFree = function () {
+		// licenses with missing nonfree information are assumed free
+		return !this.nonFree;
+	};
+
+	/**
+	 * Check whether reusers need to attribute the author
+	 * @return {boolean}
+	 */
+	LP.needsAttribution = function () {
+		// to be on the safe side, if the attribution required flag is not set, it is assumed to be true
+		return !this.isPd() && this.attributionRequired !== false;
 	};
 
 	/**

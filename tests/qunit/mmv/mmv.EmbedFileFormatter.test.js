@@ -212,7 +212,8 @@
 					getNameText: function () { return 'Image Title'; }
 				},
 				license: {
-					longName: 'Do What the Fuck You Want Public License'
+					longName: 'Do What the Fuck You Want Public License',
+					isFree: this.sandbox.stub().returns( true )
 				}
 			}
 		} );
