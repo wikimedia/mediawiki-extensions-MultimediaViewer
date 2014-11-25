@@ -246,7 +246,7 @@
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
 	 * @returns {boolean} Whether the image was blured or not
 	 */
-	 C.maybeDisplayPlaceholder = function ( size, $imagePlaceholder, imageWidths ) {
+	C.maybeDisplayPlaceholder = function ( size, $imagePlaceholder, imageWidths ) {
 		var targetWidth,
 			targetHeight,
 			blowupFactor,
