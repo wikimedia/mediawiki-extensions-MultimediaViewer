@@ -1062,7 +1062,7 @@ $wgResourceModules += array(
 
 $wgHooks['EventLoggingRegisterSchemas'][] = function( array &$schemas ) {
 	$schemas += array(
-		'MediaViewer' => 10536413,
+		'MediaViewer' => 10606177,
 		'MultimediaViewerNetworkPerformance' => 10596581,
 		'MultimediaViewerDuration' => 10427980,
 		'MultimediaViewerAttribution' => 9758179,
