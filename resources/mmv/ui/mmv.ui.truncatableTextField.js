@@ -19,17 +19,25 @@
 	var TTFP;
 
 	/**
-	 * Represents any text field that needs to be truncated to be readable.
-	 * Depending on its length, text in that field might be truncated or its font size reduced (or neither).
+	 * Represents any text field that might need to be truncated to be readable. Text will be adjusted to
+	 * fit into its container.
 	 *
-	 * More specifically, TruncatableTextField should be invoked with a fixed-width container as the first
-	 * parameter and a flexible-width element (which gets its size from the text it contains) as the second
-	 * one. The first element gets overflow: hidden; if the second element overflows, TruncatableTextField
-	 * will go through the following:
-	 * - decrease size to 80%
-	 * - decrease size to 50%, use two lines (if the multiline flag is enabled)
-	 * - append an ellipse to the end, make the container flexible-width (in effect, untruncate the text)
-	 *   on click
+	 * More specifically, TruncatableTextField should be invoked with a fixed-height container as the first
+	 * parameter and a flexible-width content (which gets its size from the text inside it) as the second
+	 * one. The container gets overflow: hidden, and the content is placed inside it; if the content
+	 * overflows the container, TruncatableTextField will cycle through a set of styles and apply to the
+	 * container the first one that makes the content not overflow anymore. If none of the styles do that,
+	 * the last one is applied anyway.
+	 *
+	 * The list of styles can be customized; by default, they set progressively smaller font size, and the
+	 * last one adds an ellipsis to the end. (An ellipsis element is automatically appended to the end of
+	 * the container to help with this, but it is hidden unless made visible by one of the styles.)
+	 *
+	 * grow() and shrink() can be used to show full text (by making the container flexible-height) and hiding
+	 * them again; TruncatableTextField will not call them automatically (the caller class should e.g. set up
+	 * a click handler on the ellipsis).
+	 *
+	 * repaint() should be called after layout changes to keep the truncation accurate.
 	 *
 	 * @class mw.mmv.ui.TruncatableTextField
 	 * @extends mw.mmv.ui.Element

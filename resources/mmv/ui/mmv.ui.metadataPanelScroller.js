@@ -35,8 +35,8 @@
 		/** @property {Object} localStorage the window.localStorage object */
 		this.localStorage = localStorage;
 
-		/** @property {boolean} panelIsOpen state flag which will be used to detect open <-> closed transitions */
-		this.panelIsOpen = null;
+		/** @property {boolean} panelWasOpen state flag which will be used to detect open <-> closed transitions */
+		this.panelWasOpen = null;
 
 		/**
 		 * Whether this user has ever opened the metadata panel.
@@ -95,7 +95,7 @@
 		// need to remove this to avoid animating again when reopening lightbox on same page
 		this.$container.removeClass( 'invite' );
 
-		this.panelIsOpen = !!$.scrollTo().scrollTop();
+		this.panelWasOpen = this.panelIsOpen();
 	};
 
 	/**
@@ -156,9 +156,11 @@
 	 * @param {string} [forceDirection] 'up' or 'down' makes the panel move on that direction (and is a noop
 	 *  if the panel is already at the upmost/bottommost position); without the parameter, the panel position
 	 *  is toggled. (Partially open counts as open.)
+	 * @param {number} [duration] duration of the scroll animation; defaults to #toggleScrollDuration.
+	 *  Use 0 to avoid animating altogether.
 	 * @return {jQuery.Deferred} a deferred which resolves after the animation has finished.
 	 */
-	MPSP.toggle = function ( forceDirection ) {
+	MPSP.toggle = function ( forceDirection, duration ) {
 		var deferred = $.Deferred(),
 			scrollTopWhenOpen = this.getScrollTopWhenOpen(),
 			scrollTopWhenClosed = 0,
@@ -166,6 +168,11 @@
 			panelIsOpen = scrollTop > scrollTopWhenClosed,
 			scrollTopTarget = panelIsOpen ? scrollTopWhenClosed : scrollTopWhenOpen,
 			isOpening = scrollTopTarget === scrollTopWhenOpen;
+
+
+		if ( duration === null || duration === undefined ) {
+			duration = this.toggleScrollDuration;
+		}
 
 		if ( forceDirection ) {
 			scrollTopTarget = forceDirection === 'down' ? scrollTopWhenClosed : scrollTopWhenOpen;
@@ -176,38 +183,13 @@
 			deferred.resolve();
 		} else {
 			mw.mmv.actionLogger.log( isOpening ? 'metadata-open' : 'metadata-close' );
-			$.scrollTo( scrollTopTarget, this.toggleScrollDuration, {
+			$.scrollTo( scrollTopTarget, duration, {
 				onAfter: function () {
 					deferred.resolve();
 				}
 			} );
 		}
 		return deferred;
-	};
-
-	/**
-	 * Makes sure that the given element (which must be a descendant of the metadata panel) is
-	 * in view. If it isn't, scrolls the panel smoothly to reveal it.
-	 * @param {HTMLElement|jQuery|string} target
-	 * @param {number} [duration] animation length
-	 * @param {Object} [settings] see jQuery.scrollTo
-	 */
-	MPSP.scrollIntoView = function( target, duration, settings ) {
-		var $target = $( target ),
-			targetHeight = $target.height(),
-			targetTop = $target.offset().top,
-			targetBottom = targetTop + targetHeight,
-			viewportHeight = $( window ).height(),
-			viewportTop = $.scrollTo().scrollTop(),
-			viewportBottom = viewportTop + viewportHeight;
-
-		// we omit here a bunch of cases which are logically possible but unlikely given the size
-		// of the panel, and only care about the one which will actually happen
-		if ( targetHeight <= viewportHeight ) { // target fits into screen
-			if (targetBottom > viewportBottom ) {
-				$.scrollTo( viewportTop + ( targetBottom - viewportBottom ), duration, settings );
-			}
-		}
 	};
 
 	/**
@@ -225,21 +207,29 @@
 	};
 
 	/**
+	 * Returns whether the metadata panel is open. (Partially open is considered to be open.)
+	 * @return {boolean}
+	 */
+	MPSP.panelIsOpen = function () {
+		return $.scrollTo().scrollTop() > 0;
+	};
+
+	/**
 	 * Receives the window's scroll events and and turns them into business logic events
 	 * @fires mmv-metadata-open
 	 * @fires mmv-metadata-close
 	 */
 	MPSP.scroll = function () {
-		var panelIsOpen = $.scrollTo().scrollTop() > 0;
+		var panelIsOpen = this.panelIsOpen();
 
 		this.$container.toggleClass( 'panel-open', panelIsOpen );
 
-		if ( panelIsOpen && !this.panelIsOpen ) { // just opened
+		if ( panelIsOpen && !this.panelWasOpen ) { // just opened
 			this.$container.trigger( 'mmv-metadata-open' );
-		} else if ( !panelIsOpen && this.panelIsOpen ) { // just closed
+		} else if ( !panelIsOpen && this.panelWasOpen ) { // just closed
 			this.$container.trigger( 'mmv-metadata-close' );
 		}
-		this.panelIsOpen = panelIsOpen;
+		this.panelWasOpen = panelIsOpen;
 	};
 
 	mw.mmv.ui.MetadataPanelScroller = MetadataPanelScroller;
