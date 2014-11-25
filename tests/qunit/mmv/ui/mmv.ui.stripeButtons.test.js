@@ -65,7 +65,7 @@
 		buttons.setDescriptionPageButton( imageInfo, repoInfo );
 
 		assert.ok( !button.hasClass( 'mw-mmv-repo-button-commons' ), 'Button does not have commons class non-Commons files' );
-		assert.strictEqual( button.find( 'a' ).andSelf().filter( 'a').attr( 'href' ), descriptionUrl, 'Description page link is correct' );
+		assert.strictEqual( button.find( 'a' ).addBack().filter( 'a').attr( 'href' ), descriptionUrl, 'Description page link is correct' );
 
 		repoInfo.isCommons = function() { return true; };
 		buttons.setDescriptionPageButton( imageInfo, repoInfo );
