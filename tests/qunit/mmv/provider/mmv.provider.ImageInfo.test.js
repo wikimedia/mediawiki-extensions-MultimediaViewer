@@ -25,7 +25,7 @@
 		assert.ok( imageInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'ImageInfo get test', 23, function ( assert ) {
+	QUnit.asyncTest( 'ImageInfo get test', 25, function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function() {
 				apiCallCount++;
@@ -104,6 +104,14 @@
 											Permission: {
 												value: 'Do not use. Ever.',
 												source: 'commons-desc-page'
+											},
+											AttributionRequired: {
+												value: 'no',
+												source: 'commons-desc-page'
+											},
+											NonFree: {
+												value: 'yes',
+												source: 'commons-desc-page'
 											}
 										},
 										mime: 'image/jpeg',
@@ -138,6 +146,8 @@
 			assert.strictEqual( image.license.internalName, 'cc0', 'license internal name is set correctly' );
 			assert.strictEqual( image.license.longName, 'Creative Commons Public Domain Dedication', 'license long name is set correctly' );
 			assert.strictEqual( image.license.deedUrl, 'http://creativecommons.org/publicdomain/zero/1.0/', 'license URL is set correctly' );
+			assert.strictEqual( image.license.attributionRequired, false, 'Attribution required flag is honored' );
+			assert.strictEqual( image.license.nonFree, true, 'Non-free flag is honored' );
 			assert.strictEqual( image.permission, 'Do not use. Ever.', 'permission is set correctly' );
 			assert.strictEqual( image.latitude, 90, 'latitude is set correctly' );
 			assert.strictEqual( image.longitude, 180, 'longitude is set correctly' );

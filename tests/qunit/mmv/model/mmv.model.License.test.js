@@ -132,4 +132,30 @@
 		license = new mw.mmv.model.License( 'MIT' );
 		assert.strictEqual( license.isPd(), false, 'Non-PD license with no internal name not recognized' );
 	} );
+
+	QUnit.test( 'isFree()', 2, function( assert ) {
+		var license;
+
+		license = new mw.mmv.model.License( 'CC-BY-SA-2.0', 'cc-by-sa-2.0',
+			'Creative Commons Attribution - ShareAlike 2.0',
+			'http://creativecommons.org/licenses/by-sa/2.0/' );
+		assert.strictEqual( license.isFree(), true, 'Licenses default to free' );
+
+		license = new mw.mmv.model.License( 'Fair use', 'fairuse',
+			'Fair use', undefined, undefined, true );
+		assert.strictEqual( license.isFree(), false, 'Non-free flag handled correctly' );
+	} );
+
+	QUnit.test( 'needsAttribution()', 2, function( assert ) {
+		var license;
+
+		license = new mw.mmv.model.License( 'CC-BY-SA-2.0', 'cc-by-sa-2.0',
+			'Creative Commons Attribution - ShareAlike 2.0',
+			'http://creativecommons.org/licenses/by-sa/2.0/' );
+		assert.strictEqual( license.needsAttribution(), true, 'Licenses assumed to need attribution by default' );
+
+		license = new mw.mmv.model.License( 'Public Domain', 'pd',
+			'Public Domain for lack of originality', false );
+		assert.strictEqual( license.needsAttribution(), false, 'Attribution required flag handled correctly' );
+	} );
 }( mediaWiki, jQuery ) );

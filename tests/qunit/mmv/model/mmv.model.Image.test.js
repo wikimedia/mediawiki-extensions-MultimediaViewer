@@ -87,12 +87,14 @@
 		assert.strictEqual( secondImageData.hasCoords(), true, 'Coordinates present means hasCoords returns true.' );
 	} );
 
-	QUnit.test( 'parseExtmeta()', 9, function ( assert ) {
+	QUnit.test( 'parseExtmeta()', 11, function ( assert ) {
 		var Image = mw.mmv.model.Image,
 			stringData = { value: 'foo' },
 			plaintextData = { value: 'fo<b>o</b>' },
 			floatData = { value: 1.23 },
 			floatStringData = { value: '1.23' },
+			booleanData = { value: 'yes' },
+			wrongBooleanData = { value: 'blah' },
 			listDataEmpty = {value: '' },
 			listDataSingle = {value: 'foo' },
 			listDataMultiple = {value: 'foo|bar|baz' },
@@ -106,6 +108,10 @@
 			'Extmeta float parsed correctly.' );
 		assert.strictEqual( Image.parseExtmeta( floatStringData, 'float' ), 1.23,
 			'Extmeta float string parsed correctly.' );
+		assert.strictEqual( Image.parseExtmeta( booleanData, 'boolean' ), true,
+			'Extmeta boolean string parsed correctly.' );
+		assert.strictEqual( Image.parseExtmeta( wrongBooleanData, 'boolean' ), undefined,
+			'Extmeta boolean string with error ignored.' );
 		assert.deepEqual( Image.parseExtmeta( listDataEmpty, 'list' ), [],
 			'Extmeta empty list parsed correctly.' );
 		assert.deepEqual( Image.parseExtmeta( listDataSingle, 'list' ), ['foo'],

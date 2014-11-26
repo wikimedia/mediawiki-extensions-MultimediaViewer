@@ -180,34 +180,36 @@
 				}
 			} );
 
+		this.$attributionCtaHeader = $( '<p>' )
+			.addClass( 'mw-mmv-download-attribution-cta-header' )
+			.text( mw.message( 'multimediaviewer-download-attribution-cta-header' ).text() );
 		this.$attributionCta = $( '<div>' )
 			.addClass( 'mw-mmv-download-attribution-cta' )
 			.append(
-					$( '<p>' )
-					.addClass( 'mw-mmv-download-attribution-cta-header' )
-					.text( mw.message( 'multimediaviewer-download-attribution-cta-header' ).text() ),
-					$( '<p>' )
+				this.$attributionCtaHeader,
+				$( '<p>' )
 					.addClass( 'mw-mmv-download-attribution-cta-invite' )
 					.text( mw.message( 'multimediaviewer-download-attribution-cta' ).text() )
-				   )
-		.appendTo( this.$attributionSection );
+			)
+			.appendTo( this.$attributionSection );
 
+		this.$attributionHowHeader = $( '<p>' )
+			.addClass( 'mw-mmv-download-attribution-how-header' )
+			.text( mw.message( 'multimediaviewer-download-attribution-cta-header' ).text() );
 		this.$attributionHow = $( '<div>' )
 			.addClass( 'mw-mmv-download-attribution-how' )
 			.append(
-					$( '<p>' )
-					.addClass( 'mw-mmv-download-attribution-how-header' )
-					.text( mw.message( 'multimediaviewer-download-attribution-cta-header' ).text() ),
-					attributionInput.$element,
-					attributionSwitch.$element,
-					$( '<p>' )
-					.addClass( 'mw-mmv-download-attribution-close-button' )
-					.click( function ( e ) {
-						dl.$attributionSection.addClass( 'mw-mmv-download-attribution-collapsed' );
-						e.stopPropagation();
-					} )
-					.text( ' ' )
-				   )
+				this.$attributionHowHeader,
+				attributionInput.$element,
+				attributionSwitch.$element,
+				$( '<p>' )
+				.addClass( 'mw-mmv-download-attribution-close-button' )
+				.click( function ( e ) {
+					dl.$attributionSection.addClass( 'mw-mmv-download-attribution-collapsed' );
+					e.stopPropagation();
+				} )
+				.text( ' ' )
+			)
 			.appendTo( this.$attributionSection );
 
 		this.attributionInput = attributionInput;
@@ -346,7 +348,9 @@
 	 * @param {mw.mmv.model.Repo} repo
 	 */
 	DP.set = function ( image, repo ) {
-		var sizeOptions = this.downloadSizeMenu.getMenu().getItems(),
+		var attributionCtaMessage,
+			license = image && image.license,
+			sizeOptions = this.downloadSizeMenu.getMenu().getItems(),
 			sizes = this.utils.getPossibleImageSizesForHtml( image.width, image.height );
 
 		this.image = image;
@@ -364,6 +368,12 @@
 		if ( image && repo ) {
 			this.setAttributionText( new mw.mmv.model.EmbedFileInfo( image, repo ) );
 		}
+
+		attributionCtaMessage = ( license && license.needsAttribution() ) ?
+			'multimediaviewer-download-attribution-cta-header'
+			: 'multimediaviewer-download-optional-attribution-cta-header';
+		this.$attributionCtaHeader.text( mw.message( attributionCtaMessage ).text() );
+		this.$attributionHowHeader.text( mw.message( attributionCtaMessage ).text() );
 	};
 
 	/**
