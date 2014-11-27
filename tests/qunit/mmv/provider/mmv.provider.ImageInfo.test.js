@@ -25,7 +25,7 @@
 		assert.ok( imageInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'ImageInfo get test', 25, function ( assert ) {
+	QUnit.asyncTest( 'ImageInfo get test', 26, function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function() {
 				apiCallCount++;
@@ -101,6 +101,10 @@
 												value: 'Wikimeda',
 												source: 'commons-desc-page'
 											},
+											AuthorCount: {
+												value: '2',
+												source: 'commons-desc-page'
+											},
 											Permission: {
 												value: 'Do not use. Ever.',
 												source: 'commons-desc-page'
@@ -142,6 +146,7 @@
 			assert.strictEqual( image.description, 'Wikis stuff', 'description is set correctly' );
 			assert.strictEqual( image.source, 'Wikipedia', 'source is set correctly' );
 			assert.strictEqual( image.author, 'Wikimeda', 'author is set correctly' );
+			assert.strictEqual( image.authorCount, 2, 'author count is set correctly' );
 			assert.strictEqual( image.license.shortName, 'CC0', 'license short name is set correctly' );
 			assert.strictEqual( image.license.internalName, 'cc0', 'license internal name is set correctly' );
 			assert.strictEqual( image.license.longName, 'Creative Commons Public Domain Dedication', 'license long name is set correctly' );

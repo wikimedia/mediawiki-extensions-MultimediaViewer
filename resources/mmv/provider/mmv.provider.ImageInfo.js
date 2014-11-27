@@ -67,6 +67,7 @@
 		'LicenseUrl',
 		'Credit',
 		'Artist',
+		'AuthorCount',
 		'GPSLatitude',
 		'GPSLongitude',
 		'Permission',

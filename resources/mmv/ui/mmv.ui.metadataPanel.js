@@ -456,20 +456,21 @@
 	 * Set source and author.
 	 * @param {string} source With unsafe HTML
 	 * @param {string} author With unsafe HTML
+	 * @param {number} authorCount
 	 * @param {string} filepageUrl URL of the file page (used when other data is not available)
 	 */
-	MPP.setCredit = function ( source, author, filepageUrl ) {
+	MPP.setCredit = function ( source, author, authorCount, filepageUrl ) {
 		// sanitization will be done by TruncatableTextField.set()
 		if ( author && source ) {
 			this.creditField.set(
 				mw.message(
 					'multimediaviewer-credit',
-					this.wrapAuthor( author ),
+					this.wrapAuthor( author, authorCount, filepageUrl ),
 					this.wrapSource( source )
 				).plain()
 			);
 		} else if ( author ) {
-			this.creditField.set( this.wrapAuthor( author ) );
+			this.creditField.set( this.wrapAuthor( author, authorCount, filepageUrl ) );
 		} else if ( source ) {
 			this.creditField.set( this.wrapSource( source ) );
 		} else {
@@ -499,13 +500,27 @@
 	/**
 	 * Wraps an author string with MediaViewer styles
 	 * @param {string} author Warning - unsafe HTML sometimes goes here
+	 * @param {number} authorCount
+	 * @param {string} filepageUrl URL of the file page (used when some author data is not available)
 	 * @return {string} unsafe HTML
 	 */
-	MPP.wrapAuthor = function ( author ) {
-		return $( '<span>' )
+	MPP.wrapAuthor = function ( author, authorCount, filepageUrl ) {
+		var $wrapper = $( '<span>' );
+
+		$wrapper
 			.addClass( 'mw-mmv-author' )
-			.append( $.parseHTML( author ) )
-			.get( 0 ).outerHTML;
+			.append( $.parseHTML( author ) );
+
+		if ( authorCount > 1 ) {
+			$wrapper.append( ' ',
+				$( '<a>' )
+					.addClass( 'mw-mmv-more-authors' )
+					.text( mw.message( 'multimediaviewer-multiple-authors', authorCount - 1 ).text() )
+					.attr( 'href', filepageUrl )
+			);
+		}
+
+		return $wrapper.get( 0 ).outerHTML;
 	};
 
 	/**
@@ -655,7 +670,7 @@
 		// these handle text truncation and should be called when everything that can push text down
 		// (e.g. floated buttons) has already been laid out
 		this.setTitle( image, imageData );
-		this.setCredit( imageData.source, imageData.author, imageData.descriptionUrl );
+		this.setCredit( imageData.source, imageData.author, imageData.authorCount, imageData.descriptionUrl );
 
 		if ( imageData.permission ) {
 			this.setPermission( imageData.permission );

@@ -18,7 +18,7 @@
 ( function( mw ) {
 	QUnit.module( 'mmv.model.Image', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Image model constructor sanity check', 20, function ( assert ) {
+	QUnit.test( 'Image model constructor sanity check', 21, function ( assert ) {
 		var
 			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 			name = 'Foo bar',
@@ -35,6 +35,7 @@
 			description = 'This is a test file.',
 			source = 'WMF',
 			author = 'Ryan Kaldari',
+			authorCount = 1,
 			permission = 'only use for good, not evil',
 			license = new mw.mmv.model.License( 'cc0' ),
 			latitude = 39.12381283,
@@ -42,7 +43,7 @@
 			imageData = new mw.mmv.model.Image(
 				title, name, size, width, height, mime, url,
 				descurl, repo, user, datetime, origdatetime,
-				description, source, author, license, permission,
+				description, source, author, authorCount, license, permission,
 				latitude, longitude );
 
 		assert.strictEqual( imageData.title, title, 'Title is set correctly' );
@@ -60,6 +61,7 @@
 		assert.strictEqual( imageData.description, description, 'Description is set correctly' );
 		assert.strictEqual( imageData.source, source, 'Source is set correctly' );
 		assert.strictEqual( imageData.author, author, 'Author is set correctly' );
+		assert.strictEqual( imageData.authorCount, authorCount, 'Author is set correctly' );
 		assert.strictEqual( imageData.license, license, 'License is set correctly' );
 		assert.strictEqual( imageData.permission, permission, 'Permission is set correctly' );
 		assert.strictEqual( imageData.latitude, latitude, 'Latitude is set correctly' );
@@ -73,13 +75,13 @@
 				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ), 'Foo bar',
 				10, 10, 10, 'image/jpeg', 'http://example.org', 'http://example.com',
 				'example', 'tester', '2013-11-10', '2013-11-09', 'Blah blah blah',
-				'A person', 'Another person', 'CC-BY-SA-3.0', 'Permitted'
+				'A person', 'Another person', 1, 'CC-BY-SA-3.0', 'Permitted'
 			),
 			secondImageData = new mw.mmv.model.Image(
 				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ), 'Foo bar',
 				10, 10, 10, 'image/jpeg', 'http://example.org', 'http://example.com',
 				'example', 'tester', '2013-11-10', '2013-11-09', 'Blah blah blah',
-				'A person', 'Another person', 'CC-BY-SA-3.0', 'Permitted',
+				'A person', 'Another person', 1, 'CC-BY-SA-3.0', 'Permitted',
 				'39.91820938', '78.09812938'
 			);
 
@@ -87,10 +89,13 @@
 		assert.strictEqual( secondImageData.hasCoords(), true, 'Coordinates present means hasCoords returns true.' );
 	} );
 
-	QUnit.test( 'parseExtmeta()', 11, function ( assert ) {
+	QUnit.test( 'parseExtmeta()', 14, function ( assert ) {
 		var Image = mw.mmv.model.Image,
 			stringData = { value: 'foo' },
 			plaintextData = { value: 'fo<b>o</b>' },
+			integerData = { value: 3 },
+			integerStringData = { value: '3' },
+			zeroPrefixedIntegerStringData = { value: '03' },
 			floatData = { value: 1.23 },
 			floatStringData = { value: '1.23' },
 			booleanData = { value: 'yes' },
@@ -112,6 +117,12 @@
 			'Extmeta boolean string parsed correctly.' );
 		assert.strictEqual( Image.parseExtmeta( wrongBooleanData, 'boolean' ), undefined,
 			'Extmeta boolean string with error ignored.' );
+		assert.strictEqual( Image.parseExtmeta( integerData, 'integer' ), 3,
+			'Extmeta integer parsed correctly.' );
+		assert.strictEqual( Image.parseExtmeta( integerStringData, 'integer' ), 3,
+			'Extmeta integer string parsed correctly.' );
+		assert.strictEqual( Image.parseExtmeta( zeroPrefixedIntegerStringData, 'integer' ), 3,
+			'Extmeta zero-prefixed integer string parsed correctly.' );
 		assert.deepEqual( Image.parseExtmeta( listDataEmpty, 'list' ), [],
 			'Extmeta empty list parsed correctly.' );
 		assert.deepEqual( Image.parseExtmeta( listDataSingle, 'list' ), ['foo'],

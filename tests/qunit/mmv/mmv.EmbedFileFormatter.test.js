@@ -6,7 +6,7 @@
 				options.licenseInternalName, options.licenseLongName, options.licenseUrl ) : undefined,
 			imageInfo = new mw.mmv.model.Image( options.title, options.title.getNameText(), undefined,
 				undefined, undefined, undefined, options.imgUrl, options.filePageUrl, 'repo', undefined,
-				undefined, undefined, undefined, options.source, options.author, license ),
+				undefined, undefined, undefined, options.source, options.author, options.authorCount, license ),
 			repoInfo = { displayName: options.siteName, getSiteLink:
 				function () { return options.siteUrl; } };
 

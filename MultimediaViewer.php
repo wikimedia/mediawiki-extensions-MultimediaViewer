@@ -576,6 +576,7 @@ $wgResourceModules += array(
 			'mmv.ui.truncatableTextField',
 			'oojs',
 			'jquery.tipsy',
+			'mediawiki.jqueryMsg',
 		),
 
 		'messages' => array(
@@ -583,6 +584,7 @@ $wgResourceModules += array(
 
 			'multimediaviewer-credit',
 			'multimediaviewer-credit-fallback',
+			'multimediaviewer-multiple-authors',
 
 			'multimediaviewer-userpage-link',
 
