@@ -212,12 +212,58 @@
 					getNameText: function () { return 'Image Title'; }
 				},
 				license: {
+					getShortName: function () { return 'DWTFYWPL'; },
 					longName: 'Do What the Fuck You Want Public License',
 					isFree: this.sandbox.stub().returns( true )
 				}
 			}
 		} );
 
-		assert.strictEqual( txt, '"Image Title" by Author - Source. Licensed under Do What the Fuck You Want Public License via Localcommons - quuuux', 'License message works' );
+		assert.strictEqual( txt, '"Image Title" by Author - Source. Licensed under DWTFYWPL via Localcommons - quuuux', 'License message works' );
+	} );
+
+	QUnit.test( 'getCreditHtml():', 2, function ( assert ) {
+		var html, formatter = new mw.mmv.EmbedFileFormatter();
+
+		this.sandbox.stub( formatter, 'getLinkUrl' ).returns( 'quuuux' );
+
+		html = formatter.getCreditHtml( {
+			repoInfo: {
+				displayName: 'Localcommons',
+				getSiteLink: function () { return 'quux'; }
+			},
+
+			imageInfo: {
+				author: 'Author',
+				source: 'Source',
+				title: {
+					getNameText: function () { return 'Image Title'; }
+				}
+			}
+		} );
+
+		assert.strictEqual( html, '"<a href="quuuux">Image Title</a>" by Author - Source. Via <a href="quux">Localcommons</a>.', 'Sanity check' );
+
+		html = formatter.getCreditHtml( {
+			repoInfo: {
+				displayName: 'Localcommons',
+				getSiteLink: function () { return 'quux'; }
+			},
+
+			imageInfo: {
+				author: 'Author',
+				source: 'Source',
+				title: {
+					getNameText: function () { return 'Image Title'; }
+				},
+				license: {
+					getShortLink: function () { return '<a href="http://dwtfywpl.net/">DWTFYWPL</a>'; },
+					longName: 'Do What the Fuck You Want Public License',
+					isFree: this.sandbox.stub().returns( true )
+				}
+			}
+		} );
+
+		assert.strictEqual( html, '"<a href="quuuux">Image Title</a>" by Author - Source. Licensed under <a href="http://dwtfywpl.net/">DWTFYWPL</a> via <a href="quux">Localcommons</a>.', 'Sanity check' );
 	} );
 }( mediaWiki ) );

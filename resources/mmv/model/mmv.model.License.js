@@ -122,15 +122,17 @@
 	 * @return {string}
 	 */
 	LP.getShortLink = function () {
+		var shortName = this.getShortName();
+
 		if ( this.deedUrl ) {
 			return this.htmlUtils.jqueryToHtml(
 				$( '<a>' ).prop( {
 					href: this.deedUrl,
-					title: this.longName
-				} ).text( this.getShortName() )
+					title: this.longName || shortName
+				} ).text( shortName )
 			);
 		} else {
-			return this.shortName;
+			return shortName;
 		}
 	};
 

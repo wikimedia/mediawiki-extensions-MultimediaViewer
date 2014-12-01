@@ -127,7 +127,7 @@
 		}
 		if ( info.imageInfo.license ) {
 			creditParams[0] += 'l';
-			creditParams.push( this.htmlUtils.htmlToText( info.imageInfo.license.longName || '' ) );
+			creditParams.push( this.htmlUtils.htmlToText( info.imageInfo.license.getShortName() ) );
 		}
 
 		creditParams[0] += 's';
