@@ -37,6 +37,7 @@
 	 * @param {string} description
 	 * @param {string} source
 	 * @param {string} author
+	 * @param {number} authorCount
 	 * @param {mw.mmv.model.License} license
 	 * @param {string} permission
 	 * @param {number} latitude
@@ -58,6 +59,7 @@
 			description,
 			source,
 			author,
+			authorCount,
 			license,
 			permission,
 			latitude,
@@ -108,6 +110,10 @@
 		/** @property {string} author The author of the image - unsafe HTML sometimes goes here */
 		this.author = author;
 
+		/** @property {number} authorCount The number of different authors of the image. This is guessed by the
+		 *   number of templates with author fields, so might be less than the number of actual authors. */
+		this.authorCount = authorCount;
+
 		/** @property {mw.mmv.model.License} license The license under which the image is distributed */
 		this.license = license;
 
@@ -139,7 +145,7 @@
 	 */
 	Image.newFromImageInfo = function ( title, imageInfo ) {
 		var name, uploadDateTime, creationDateTime, imageData,
-			description, source, author, license, permission,
+			description, source, author, authorCount, license, permission,
 			latitude, longitude,
 			innerInfo = imageInfo.imageinfo[0],
 			extmeta = innerInfo.extmetadata;
@@ -152,6 +158,8 @@
 			description = this.parseExtmeta( extmeta.ImageDescription, 'string' );
 			source = this.parseExtmeta( extmeta.Credit, 'string' );
 			author = this.parseExtmeta( extmeta.Artist, 'string' );
+			authorCount = this.parseExtmeta( extmeta.AuthorCount, 'integer' );
+
 
 			license = this.newLicenseFromImageInfo( extmeta );
 			permission = this.parseExtmeta( extmeta.Permission, 'string' );
@@ -180,6 +188,7 @@
 			description,
 			source,
 			author,
+			authorCount,
 			license,
 			permission,
 			latitude,
@@ -234,6 +243,8 @@
 			return value.toString().replace( /<.*?>/g, '' );
 		} else if ( type === 'string' ) {
 			return value.toString();
+		} else if ( type === 'integer' ) {
+			return parseInt( value, 10 );
 		} else if ( type === 'float' ) {
 			return parseFloat( value );
 		} else if ( type === 'boolean' ) {
