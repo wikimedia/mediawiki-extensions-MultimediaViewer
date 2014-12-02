@@ -585,6 +585,7 @@ $wgResourceModules += array(
 			'multimediaviewer-credit',
 			'multimediaviewer-credit-fallback',
 			'multimediaviewer-multiple-authors',
+			'multimediaviewer-multiple-authors-combine',
 
 			'multimediaviewer-userpage-link',
 

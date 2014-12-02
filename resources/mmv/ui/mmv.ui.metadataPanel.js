@@ -505,19 +505,21 @@
 	 * @return {string} unsafe HTML
 	 */
 	MPP.wrapAuthor = function ( author, authorCount, filepageUrl ) {
-		var $wrapper = $( '<span>' );
+		var moreText,
+			$wrapper = $( '<span>' );
 
-		$wrapper
-			.addClass( 'mw-mmv-author' )
-			.append( $.parseHTML( author ) );
+		$wrapper.addClass( 'mw-mmv-author' );
 
 		if ( authorCount > 1 ) {
-			$wrapper.append( ' ',
+			moreText = this.htmlUtils.jqueryToHtml(
 				$( '<a>' )
 					.addClass( 'mw-mmv-more-authors' )
 					.text( mw.message( 'multimediaviewer-multiple-authors', authorCount - 1 ).text() )
 					.attr( 'href', filepageUrl )
 			);
+			$wrapper.append( mw.message( 'multimediaviewer-multiple-authors-combine', author, moreText ).text() );
+		} else {
+			$wrapper.append( author );
 		}
 
 		return $wrapper.get( 0 ).outerHTML;
