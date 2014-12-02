@@ -18,7 +18,7 @@
 ( function( mw ) {
 	QUnit.module( 'mmv.model.Image', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Image model constructor sanity check', 21, function ( assert ) {
+	QUnit.test( 'Image model constructor sanity check', 22, function ( assert ) {
 		var
 			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 			name = 'Foo bar',
@@ -31,6 +31,7 @@
 			repo = 'wikimediacommons',
 			user = 'Kaldari',
 			datetime = '2011-07-04T23:31:14Z',
+			anondatetime = '20110704000000',
 			origdatetime = '2010-07-04T23:31:14Z',
 			description = 'This is a test file.',
 			source = 'WMF',
@@ -42,7 +43,7 @@
 			longitude = 100.983829,
 			imageData = new mw.mmv.model.Image(
 				title, name, size, width, height, mime, url,
-				descurl, repo, user, datetime, origdatetime,
+				descurl, repo, user, datetime, anondatetime, origdatetime,
 				description, source, author, authorCount, license, permission,
 				latitude, longitude );
 
@@ -57,6 +58,7 @@
 		assert.strictEqual( imageData.repo, repo, 'Repository name is set correctly' );
 		assert.strictEqual( imageData.lastUploader, user, 'Name of last uploader is set correctly' );
 		assert.strictEqual( imageData.uploadDateTime, datetime, 'Date and time of last upload is set correctly' );
+		assert.strictEqual( imageData.anonymizedUploadDateTime, anondatetime, 'Anonymized date and time of last upload is set correctly' );
 		assert.strictEqual( imageData.creationDateTime, origdatetime, 'Date and time of original upload is set correctly' );
 		assert.strictEqual( imageData.description, description, 'Description is set correctly' );
 		assert.strictEqual( imageData.source, source, 'Source is set correctly' );
@@ -74,13 +76,13 @@
 			firstImageData = new mw.mmv.model.Image(
 				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ), 'Foo bar',
 				10, 10, 10, 'image/jpeg', 'http://example.org', 'http://example.com',
-				'example', 'tester', '2013-11-10', '2013-11-09', 'Blah blah blah',
+				'example', 'tester', '2013-11-10', '20131110', '2013-11-09', 'Blah blah blah',
 				'A person', 'Another person', 1, 'CC-BY-SA-3.0', 'Permitted'
 			),
 			secondImageData = new mw.mmv.model.Image(
 				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ), 'Foo bar',
 				10, 10, 10, 'image/jpeg', 'http://example.org', 'http://example.com',
-				'example', 'tester', '2013-11-10', '2013-11-09', 'Blah blah blah',
+				'example', 'tester', '2013-11-10', '20131110', '2013-11-09', 'Blah blah blah',
 				'A person', 'Another person', 1, 'CC-BY-SA-3.0', 'Permitted',
 				'39.91820938', '78.09812938'
 			);

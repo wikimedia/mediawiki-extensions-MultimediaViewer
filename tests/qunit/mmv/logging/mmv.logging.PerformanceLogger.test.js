@@ -186,6 +186,49 @@
 		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].bandwidth, Math.round( bandwidth ), 'bandwidth is correct' );
 	} );
 
+	QUnit.test( 'recordEntry: with async extra stats', 11, function ( assert ) {
+		var performance = new mw.mmv.logging.PerformanceLogger(),
+			fakeEventLog = { logEvent: this.sandbox.stub() },
+			type = 'gender',
+			total = 100,
+			overriddenType = 'image',
+			foo = 'bar',
+			extraStatsPromise = $.Deferred();
+
+		this.sandbox.stub( performance, 'loadDependencies' ).returns( $.Deferred().resolve() );
+		this.sandbox.stub( performance, 'isInSample' );
+		performance.setEventLog( fakeEventLog );
+
+		performance.isInSample.returns( true );
+
+		performance.recordEntry( type, total, 'URL1', undefined, extraStatsPromise );
+
+		assert.strictEqual( fakeEventLog.logEvent.callCount, 0, 'Stats should not be logged if the promise hasn\'t completed yet' );
+
+		extraStatsPromise.reject();
+
+		assert.strictEqual( fakeEventLog.logEvent.callCount, 1, 'Stats should be logged' );
+
+		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 0 ], 'MultimediaViewerNetworkPerformance', 'EventLogging schema is correct' );
+		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].type, type, 'type is correct' );
+		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].total, total, 'total is correct' );
+
+		extraStatsPromise = $.Deferred();
+
+		performance.recordEntry( type, total, 'URL2', undefined, extraStatsPromise );
+
+		assert.strictEqual( fakeEventLog.logEvent.callCount, 1, 'Stats should not be logged if the promise hasn\'t been resolved yet' );
+
+		extraStatsPromise.resolve( { type: overriddenType, foo: foo } );
+
+		assert.strictEqual( fakeEventLog.logEvent.callCount, 2, 'Stats should be logged' );
+
+		assert.strictEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 0 ], 'MultimediaViewerNetworkPerformance', 'EventLogging schema is correct' );
+		assert.strictEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 1 ].type, overriddenType, 'type is correct' );
+		assert.strictEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 1 ].total, total, 'total is correct' );
+		assert.strictEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 1 ].foo, foo, 'extra stat is correct' );
+	} );
+
 	QUnit.test( 'parseVarnishXCacheHeader', 15, function ( assert ) {
 		var varnish1 = 'cp1061',
 			varnish2 = 'cp3006',

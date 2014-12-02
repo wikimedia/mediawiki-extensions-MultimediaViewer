@@ -62,9 +62,10 @@
 	 * cached by the browser, as it will consume unnecessary bandwidth for the user.
 	 * @param {string} type the type of request to be measured
 	 * @param {string} url URL to be measured
+	 * @param {jQuery.Deferred.<string>} [extraStatsDeferred] A promise which resolves to the extra stats.
 	 * @returns {jQuery.Promise} A promise that resolves when the contents of the URL have been fetched
 	 */
-	PL.record = function ( type, url ) {
+	PL.record = function ( type, url, extraStatsDeferred ) {
 		var deferred = $.Deferred(),
 			request,
 			perf = this,
@@ -89,7 +90,7 @@
 				if ( request.readyState === 4 ) {
 					deferred.notify( request.response, 100 );
 					deferred.resolve( request.response );
-					perf.recordEntryDelayed( type, total, url, request );
+					perf.recordEntryDelayed( type, total, url, request, extraStatsDeferred );
 				}
 			};
 
@@ -111,9 +112,11 @@
 	 * @param {number} total the total load time tracked with a basic technique
 	 * @param {string} url URL of that was measured
 	 * @param {XMLHttpRequest} request HTTP request that just completed
+	 * @param {jQuery.Deferred.<string>} [extraStatsDeferred] A promise which resolves to extra stats to be included.
 	 */
-	PL.recordEntry = function ( type, total, url, request ) {
+	PL.recordEntry = function ( type, total, url, request, extraStatsDeferred ) {
 		var matches,
+			logger = this,
 			stats = { type: type,
 				contentHost: window.location.host,
 				isHttps: window.location.protocol === 'https:',
@@ -165,7 +168,11 @@
 			}
 		}
 
-		this.log( stats );
+		( extraStatsDeferred || $.Deferred().reject() ).done( function ( extraStats ) {
+			stats = $.extend( stats, extraStats );
+		} ).always( function () {
+			logger.log( stats );
+		} );
 	};
 
 	/**
@@ -305,14 +312,15 @@
 	 * @param {number} total the total load time tracked with a basic technique
 	 * @param {string} url URL of that was measured
 	 * @param {XMLHttpRequest} request HTTP request that just completed
+	 * @param {jQuery.Promise.<string>} extraStatsDeferred A promise which resolves to extra stats.
 	 */
-	PL.recordEntryDelayed = function ( type, total, url, request ) {
+	PL.recordEntryDelayed = function ( type, total, url, request, extraStatsDeferred ) {
 		var perf = this;
 
 		// The timeout is necessary because if there's an entry in window.performance,
 		// it hasn't been added yet at this point
 		setTimeout( function() {
-			perf.recordEntry( type, total, url, request );
+			perf.recordEntry( type, total, url, request, extraStatsDeferred );
 		}, 0 );
 	};
 
@@ -400,6 +408,15 @@
 	 */
 	PL.newXHR = function () {
 		return new XMLHttpRequest();
+	};
+
+	/**
+	 * @override
+	 * @inheritdoc
+	 */
+	PL.log = function ( data ) {
+		mw.log( 'mw.mmv.logging.PerformanceLogger', data );
+		return mw.mmv.logging.Logger.prototype.log.call( this, data );
 	};
 
 	new PerformanceLogger().init();

@@ -157,6 +157,8 @@
 				thumb.thumb,
 				thumb.caption
 			);
+
+			thumb.extraStatsDeferred = $.Deferred();
 		}
 	};
 
@@ -249,9 +251,9 @@
 			imagePromise,
 			metadataPromise,
 			start,
-			uploadTimestamp,
 			viewer = this,
-			$initialImage = $( initialImage );
+			$initialImage = $( initialImage ),
+			extraStatsDeferred = $.Deferred();
 
 		this.currentIndex = image.index;
 
@@ -282,7 +284,8 @@
 		start = $.now();
 
 		mw.mmv.dimensionLogger.logDimensions( imageWidths, canvasDimensions, 'show' );
-		imagePromise = this.fetchThumbnailForLightboxImage( image, imageWidths.real );
+
+		imagePromise = this.fetchThumbnailForLightboxImage( image, imageWidths.real, extraStatsDeferred );
 
 		this.resetBlurredThumbnailStates();
 		if ( imagePromise.state() === 'pending' ) {
@@ -302,19 +305,12 @@
 				mw.mmv.durationLogger.stop( 'click-to-first-image' );
 
 				metadataPromise.done( function ( imageInfo ) {
-					if ( !imageInfo || !imageInfo.uploadDateTime ) {
+					if ( !imageInfo || !imageInfo.anonymizedUploadDateTime ) {
 						return;
 					}
 
-					uploadTimestamp = imageInfo.uploadDateTime.toString();
-					// Convert to "timestamp" format commonly used in EventLogging
-					uploadTimestamp = uploadTimestamp.replace( /[:\s]/g, '' );
-					// Anonymise the timestamp to avoid making the file identifiable
-					// We only need to know the day
-					uploadTimestamp = uploadTimestamp.substr( 0, uploadTimestamp.length - 6 ) + '000000';
-
 					mw.mmv.durationLogger.record( 'click-to-first-image', {
-						uploadTimestamp: uploadTimestamp
+						uploadTimestamp: imageInfo.anonymizedUploadDateTime
 					} );
 				} );
 			}
@@ -324,6 +320,8 @@
 		} );
 
 		metadataPromise.done( function ( imageInfo, repoInfo, userInfo ) {
+			extraStatsDeferred.resolve( { uploadTimestamp: imageInfo.anonymizedUploadDateTime } );
+
 			if ( viewer.currentIndex !== image.index ) {
 				return;
 			}
@@ -337,6 +335,8 @@
 			// File reuse steals a bunch of information from the DOM, so do it last
 			viewer.ui.setFileReuseData( imageInfo, repoInfo, image.caption );
 		} ).fail( function ( error ) {
+			extraStatsDeferred.reject();
+
 			if ( viewer.currentIndex !== image.index ) {
 				return;
 			}
@@ -579,13 +579,15 @@
 			if ( this.currentIndex + i < this.thumbs.length ) {
 				callback(
 					this.currentIndex + i,
-					this.thumbs[ this.currentIndex + i ].image
+					this.thumbs[ this.currentIndex + i ].image,
+					this.thumbs[ this.currentIndex + i ].extraStatsDeferred
 				);
 			}
 			if ( i && this.currentIndex - i >= 0 ) { // skip duplicate for i==0
 				callback(
 					this.currentIndex - i,
-					this.thumbs[ this.currentIndex - i ].image
+					this.thumbs[ this.currentIndex - i ].image,
+					this.thumbs[ this.currentIndex - i ].extraStatsDeferred
 				);
 			}
 		}
@@ -601,8 +603,8 @@
 	MMVP.pushLightboxImagesIntoQueue = function( taskFactory ) {
 		var queue = new mw.mmv.model.TaskQueue();
 
-		this.eachPrealoadableLightboxIndex( function( i, lightboxImage ) {
-			queue.push( taskFactory( lightboxImage ) );
+		this.eachPrealoadableLightboxIndex( function( i, lightboxImage, extraStatsDeferred ) {
+			queue.push( taskFactory( lightboxImage, extraStatsDeferred ) );
 		} );
 
 		return queue;
@@ -636,9 +638,15 @@
 
 		this.cancelImageMetadataPreloading();
 
-		this.metadataPreloadQueue = this.pushLightboxImagesIntoQueue( function( lightboxImage ) {
+		this.metadataPreloadQueue = this.pushLightboxImagesIntoQueue( function( lightboxImage, extraStatsDeferred ) {
 			return function() {
-				return viewer.fetchSizeIndependentLightboxInfo( lightboxImage.filePageTitle );
+				var metadatapromise = viewer.fetchSizeIndependentLightboxInfo( lightboxImage.filePageTitle );
+				metadatapromise.done( function ( imageInfo ) {
+					extraStatsDeferred.resolve( { uploadTimestamp: imageInfo.anonymizedUploadDateTime } );
+				} ).fail( function () {
+					extraStatsDeferred.reject();
+				} );
+				return metadatapromise;
 			};
 		} );
 
@@ -655,7 +663,7 @@
 
 		this.cancelThumbnailsPreloading();
 
-		this.thumbnailPreloadQueue = this.pushLightboxImagesIntoQueue( function( lightboxImage ) {
+		this.thumbnailPreloadQueue = this.pushLightboxImagesIntoQueue( function( lightboxImage, extraStatsDeferred ) {
 			return function() {
 				var imageWidths, canvasDimensions;
 
@@ -670,7 +678,7 @@
 
 				mw.mmv.dimensionLogger.logDimensions( imageWidths, canvasDimensions, 'preload' );
 
-				return viewer.fetchThumbnailForLightboxImage( lightboxImage, imageWidths.real );
+				return viewer.fetchThumbnailForLightboxImage( lightboxImage, imageWidths.real, extraStatsDeferred );
 			};
 		} );
 
@@ -721,15 +729,17 @@
 	 * Loads size-dependent components of a lightbox - the thumbnail model and the image itself.
 	 * @param {mw.mmv.LightboxImage} image
 	 * @param {number} width the width of the requested thumbnail
+	 * @param {jQuery.Deferred.<string>} [extraStatsDeferred] Promise that resolves to the image's upload timestamp when the metadata is loaded
 	 * @returns {jQuery.Promise.<mw.mmv.model.Thumbnail, HTMLImageElement>}
 	 */
-	MMVP.fetchThumbnailForLightboxImage = function ( image, width ) {
+	MMVP.fetchThumbnailForLightboxImage = function ( image, width, extraStatsDeferred ) {
 		return this.fetchThumbnail(
 			image.filePageTitle,
 			width,
 			image.src,
 			image.originalWidth,
-			image.originalHeight
+			image.originalHeight,
+			extraStatsDeferred
 		);
 	};
 
@@ -740,11 +750,12 @@
 	 * @param {string} [sampleUrl] a thumbnail URL for the same file (but with different size) (might be missing)
 	 * @param {number} [originalWidth] the width of the original, full-sized file (might be missing)
 	 * @param {number} [originalHeight] the height of the original, full-sized file (might be missing)
+	 * @param {jQuery.Deferred.<string>} [extraStatsDeferred] Promise that resolves to the image's upload timestamp when the metadata is loaded
 	 * @returns {jQuery.Promise.<mw.mmv.model.Thumbnail, HTMLImageElement>} A promise resolving to
 	 *  a thumbnail model and an <img> element. It might or might not have progress events which
 	 *  return a single number.
 	 */
-	MMVP.fetchThumbnail = function ( fileTitle, width, sampleUrl, originalWidth, originalHeight ) {
+	MMVP.fetchThumbnail = function ( fileTitle, width, sampleUrl, originalWidth, originalHeight, extraStatsDeferred ) {
 		var viewer = this,
 			guessing = false,
 			thumbnailPromise,
@@ -771,7 +782,7 @@
 		}
 
 		imagePromise = thumbnailPromise.then( function ( thumbnail ) {
-			return viewer.imageProvider.get( thumbnail.url );
+			return viewer.imageProvider.get( thumbnail.url, extraStatsDeferred );
 		} );
 
 		if ( guessing ) {
@@ -780,7 +791,7 @@
 			// because thumbnailInfoProvider.get is already called above when guessedThumbnailInfoProvider.get fails.
 			imagePromise = imagePromise.then( null, function () {
 				return viewer.thumbnailInfoProvider.get( fileTitle, width ).then( function ( thumbnail ) {
-					return viewer.imageProvider.get( thumbnail.url );
+					return viewer.imageProvider.get( thumbnail.url, extraStatsDeferred );
 				} );
 			} );
 		}

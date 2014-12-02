@@ -54,23 +54,5 @@
 		this.originalHeight = undefined;
 	}
 
-	var LIP = LightboxImage.prototype;
-
-	/**
-	 * The URL of the image (in the size we intend use to display the it in the lightbox)
-	 * @type {String}
-	 * @protected
-	 */
-	LIP.src = null;
-
-	/**
-	 * The URL of a placeholder while the image loads. Typically a smaller version of the image, which is already
-	 * loaded in the browser.
-	 * @type {String}
-	 * @return {jQuery.Promise.<mw.mmv.LightboxImage, HTMLImageElement>}
-	 * @protected
-	 */
-	LIP.initialSrc = null;
-
 	mw.mmv.LightboxImage = LightboxImage;
 }( mediaWiki, jQuery ) );
