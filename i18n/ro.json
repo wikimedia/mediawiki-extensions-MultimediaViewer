@@ -14,6 +14,7 @@
 	"multimediaviewer-datetime-uploaded": "Încărcată: $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Încărcată}} de $1",
 	"multimediaviewer-credit-fallback": "Vezi informații despre autor",
+	"multimediaviewer-multiple-authors": "și încă {{PLURAL:$1|un autor|$1 autori|$1 de autori}}",
 	"multimediaviewer-metadata-error": "Eroare: Nu s-au putut încărca datele imaginii. $1",
 	"multimediaviewer-thumbnail-error": "Eroare: Nu s-au putut încărca datele miniaturii. $1",
 	"multimediaviewer-license-cc-pd": "Domeniu public",
