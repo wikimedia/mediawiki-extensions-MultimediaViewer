@@ -33,6 +33,7 @@
 	 * @param {string} repo The repository this image belongs to
 	 * @param {string} lastUploader The last person to upload a version of this image.
 	 * @param {string} uploadDateTime The time and date the last upload occurred
+	 * @param {string} anonymizedUploadDateTime Anonymized and EL-friendly version of uploadDateTime
 	 * @param {string} creationDateTime The time and date the original upload occurred
 	 * @param {string} description
 	 * @param {string} source
@@ -55,6 +56,7 @@
 			repo,
 			lastUploader,
 			uploadDateTime,
+			anonymizedUploadDateTime,
 			creationDateTime,
 			description,
 			source,
@@ -97,6 +99,9 @@
 
 		/** @property {string} uploadDateTime The date and time of the last upload */
 		this.uploadDateTime = uploadDateTime;
+
+		/** @property {string} anonymizedUploadDateTime The anonymized date and time of the last upload */
+		this.anonymizedUploadDateTime = anonymizedUploadDateTime;
 
 		/** @property {string} creationDateTime The date and time that the image was created */
 		this.creationDateTime = creationDateTime;
@@ -144,7 +149,7 @@
 	 * @returns {mw.mmv.model.Image}
 	 */
 	Image.newFromImageInfo = function ( title, imageInfo ) {
-		var name, uploadDateTime, creationDateTime, imageData,
+		var name, uploadDateTime, anonymizedUploadDateTime, creationDateTime, imageData,
 			description, source, author, authorCount, license, permission,
 			latitude, longitude,
 			innerInfo = imageInfo.imageinfo[0],
@@ -152,7 +157,15 @@
 
 		if ( extmeta ) {
 			creationDateTime = this.parseExtmeta( extmeta.DateTimeOriginal, 'plaintext' );
-			uploadDateTime = this.parseExtmeta( extmeta.DateTime, 'plaintext' );
+			uploadDateTime = this.parseExtmeta( extmeta.DateTime, 'plaintext' ).toString();
+
+			// Convert to "timestamp" format commonly used in EventLogging
+			anonymizedUploadDateTime = uploadDateTime.replace( /[^\d]/g, '' );
+
+			// Anonymise the timestamp to avoid making the file identifiable
+			// We only need to know the day
+			anonymizedUploadDateTime = anonymizedUploadDateTime.substr( 0, anonymizedUploadDateTime.length - 6 ) + '000000';
+
 			name = this.parseExtmeta( extmeta.ObjectName, 'plaintext' );
 
 			description = this.parseExtmeta( extmeta.ImageDescription, 'string' );
@@ -172,6 +185,7 @@
 			name = title.getNameText();
 		}
 
+
 		imageData = new Image(
 			title,
 			name,
@@ -184,6 +198,7 @@
 			imageInfo.imagerepository,
 			innerInfo.user,
 			uploadDateTime,
+			anonymizedUploadDateTime,
 			creationDateTime,
 			description,
 			source,

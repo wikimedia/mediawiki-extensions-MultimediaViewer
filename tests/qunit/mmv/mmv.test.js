@@ -102,21 +102,25 @@
 
 	QUnit.test( 'Progress', 4, function ( assert ) {
 		var imageDeferred = $.Deferred(),
-			viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
+			viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
+			fakeImage = {
+				filePageTitle: new mw.Title( 'File:Stuff.jpg' ),
+				extraStatsDeferred: $.Deferred().reject()
+			};
 
 		viewer.thumbs = [];
 		viewer.displayPlaceholderThumbnail = $.noop;
 		viewer.setImage = $.noop;
 		viewer.scroll = $.noop;
 		viewer.preloadFullscreenThumbnail = $.noop;
-		viewer.fetchSizeIndependentLightboxInfo = function () { return $.Deferred().resolve(); };
+		viewer.fetchSizeIndependentLightboxInfo = function () { return $.Deferred().resolve( {} ); };
 		viewer.ui = {
 			setFileReuseData: $.noop,
 			setupForLoad: $.noop,
-			canvas: { set : $.noop,
+			canvas: { set: $.noop,
 				unblurWithAnimation: $.noop,
 				unblur: $.noop,
-				getCurrentImageWidths: function () { return { real : 0 }; },
+				getCurrentImageWidths: function () { return { real: 0 }; },
 				getDimensions: function () { return {}; }
 			},
 			panel: {
@@ -132,10 +136,10 @@
 			open: $.noop };
 
 		viewer.imageProvider.get = function() { return imageDeferred.promise(); };
-		viewer.imageInfoProvider.get = function() { return $.Deferred().resolve(); };
+		viewer.imageInfoProvider.get = function() { return $.Deferred().resolve( {} ); };
 		viewer.thumbnailInfoProvider.get = function() { return $.Deferred().resolve( {} ); };
 
-		viewer.loadImage( { filePageTitle : new mw.Title( 'File:Stuff.jpg' ) }, new Image() );
+		viewer.loadImage( fakeImage, new Image() );
 		assert.ok( viewer.ui.panel.progressBar.jumpTo.lastCall.calledWith( 0 ),
 			'Percentage correctly reset by loadImage' );
 
@@ -156,8 +160,16 @@
 	QUnit.test( 'Progress when switching images', 11, function ( assert ) {
 		var firstImageDeferred = $.Deferred(),
 			secondImageDeferred = $.Deferred(),
-			firstImage = { index: 1, filePageTitle : new mw.Title( 'File:First.jpg' ) },
-			secondImage = { index: 2, filePageTitle : new mw.Title( 'File:Second.jpg' ) },
+			firstImage = {
+				index: 1,
+				filePageTitle: new mw.Title( 'File:First.jpg' ),
+				extraStatsDeferred: $.Deferred().reject()
+			},
+			secondImage = {
+				index: 2,
+				filePageTitle: new mw.Title( 'File:Second.jpg' ),
+				extraStatsDeferred: $.Deferred().reject()
+			},
 			viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
 
 		viewer.thumbs = [];
@@ -167,7 +179,7 @@
 		viewer.preloadFullscreenThumbnail = $.noop;
 		viewer.preloadImagesMetadata = $.noop;
 		viewer.preloadThumbnails = $.noop;
-		viewer.fetchSizeIndependentLightboxInfo = function () { return $.Deferred().resolve(); };
+		viewer.fetchSizeIndependentLightboxInfo = function () { return $.Deferred().resolve( {} ); };
 		viewer.ui = {
 			setFileReuseData: $.noop,
 			setupForLoad : $.noop,
@@ -191,7 +203,7 @@
 			open : $.noop,
 			empty: $.noop };
 
-		viewer.imageInfoProvider.get = function() { return $.Deferred().resolve(); };
+		viewer.imageInfoProvider.get = function() { return $.Deferred().resolve( {} ); };
 		viewer.thumbnailInfoProvider.get = function() { return $.Deferred().resolve( {} ); };
 
 		// load some image
@@ -361,7 +373,17 @@
 			firstImageDeferred = $.Deferred(),
 			secondImageDeferred = $.Deferred(),
 			firstLigthboxInfoDeferred = $.Deferred(),
-			secondLigthboxInfoDeferred = $.Deferred();
+			secondLigthboxInfoDeferred = $.Deferred(),
+			firstImage = {
+				filePageTitle: new mw.Title( 'File:Foo.jpg' ),
+				index: 0,
+				extraStatsDeferred: $.Deferred().reject()
+			},
+			secondImage = {
+				filePageTitle: new mw.Title( 'File:Bar.jpg' ),
+				index: 1,
+				extraStatsDeferred: $.Deferred().reject()
+			};
 
 		viewer.preloadFullscreenThumbnail = $.noop;
 		viewer.fetchSizeIndependentLightboxInfo = this.sandbox.stub();
@@ -395,25 +417,25 @@
 
 		viewer.imageProvider.get.returns( firstImageDeferred.promise() );
 		viewer.fetchSizeIndependentLightboxInfo.returns( firstLigthboxInfoDeferred.promise() );
-		viewer.loadImage( { filePageTitle : new mw.Title( 'File:Foo.jpg' ), index : 0 }, new Image() );
+		viewer.loadImage( firstImage, new Image() );
 		assert.ok( !viewer.animateMetadataDivOnce.called, 'Metadata of the first image should not be animated' );
 		assert.ok( !viewer.ui.panel.setImageInfo.called, 'Metadata of the first image should not be shown' );
 
 		viewer.imageProvider.get.returns( secondImageDeferred.promise() );
 		viewer.fetchSizeIndependentLightboxInfo.returns( secondLigthboxInfoDeferred.promise() );
-		viewer.loadImage( { filePageTitle : new mw.Title( 'File:Bar.jpg' ), index : 1 }, new Image() );
+		viewer.loadImage( secondImage, new Image() );
 
 		viewer.ui.panel.progressBar.animateTo.reset();
 		firstImageDeferred.notify( undefined, 45 );
 		assert.ok( !viewer.ui.panel.progressBar.animateTo.reset.called, 'Progress of the first image should not be shown' );
 
 		firstImageDeferred.resolve();
-		firstLigthboxInfoDeferred.resolve();
+		firstLigthboxInfoDeferred.resolve( {} );
 		assert.ok( !viewer.displayRealThumbnail.called, 'The first image being done loading should have no effect');
 
 		viewer.displayRealThumbnail = this.sandbox.spy( function () { viewer.close(); } );
 		secondImageDeferred.resolve();
-		secondLigthboxInfoDeferred.resolve();
+		secondLigthboxInfoDeferred.resolve( {} );
 		assert.ok( viewer.displayRealThumbnail.called, 'The second image being done loading should result in the image being shown');
 	} );
 
@@ -438,8 +460,9 @@
 		viewer.preloadFullscreenThumbnail = $.noop;
 		viewer.initWithThumbs( [] );
 
-		viewer.loadImage( { filePageTitle : new mw.Title( 'File:Stuff.jpg' ),
-			thumbnail : new mw.mmv.model.Thumbnail( 'foo', 10, 10 ) },
+		viewer.loadImage( { filePageTitle: new mw.Title( 'File:Stuff.jpg' ),
+			thumbnail: new mw.mmv.model.Thumbnail( 'foo', 10, 10 ),
+			extraStatsDeferred: $.Deferred().reject() },
 			new Image() );
 
 		viewer.ui.$closeButton.click();
@@ -534,7 +557,7 @@
 		assert.ok( !guessedThumbnailInfoStub.called, 'When we lack sample URL and original dimensions, GuessedThumbnailInfoProvider is not called' );
 		assert.ok( thumbnailInfoStub.calledOnce, 'When we lack sample URL and original dimensions, ThumbnailInfoProvider is called once' );
 		assert.ok( imageStub.calledOnce, 'When we lack sample URL and original dimensions, ImageProvider is called once' );
-		assert.ok( imageStub.calledWithExactly( 'apiURL' ), 'When we lack sample URL and original dimensions, ImageProvider is called with the API url' );
+		assert.ok( imageStub.calledWithExactly( 'apiURL', undefined ), 'When we lack sample URL and original dimensions, ImageProvider is called with the API url' );
 		assert.strictEqual( promise.state(), 'resolved', 'When we lack sample URL and original dimensions, fetchThumbnail resolves' );
 
 		// When the guesser bails out, the classic provider should be used
@@ -546,7 +569,7 @@
 		assert.ok( guessedThumbnailInfoStub.calledOnce, 'When the guesser bails out, GuessedThumbnailInfoProvider is called once' );
 		assert.ok( thumbnailInfoStub.calledOnce, 'When the guesser bails out, ThumbnailInfoProvider is called once' );
 		assert.ok( imageStub.calledOnce, 'When the guesser bails out, ImageProvider is called once' );
-		assert.ok( imageStub.calledWithExactly( 'apiURL' ), 'When the guesser bails out, ImageProvider is called with the API url' );
+		assert.ok( imageStub.calledWithExactly( 'apiURL', undefined ), 'When the guesser bails out, ImageProvider is called with the API url' );
 		assert.strictEqual( promise.state(), 'resolved', 'When the guesser bails out, fetchThumbnail resolves' );
 
 		// When the guesser returns an URL, that should be used
@@ -558,7 +581,7 @@
 		assert.ok( guessedThumbnailInfoStub.calledOnce, 'When the guesser returns an URL, GuessedThumbnailInfoProvider is called once' );
 		assert.ok( !thumbnailInfoStub.called, 'When the guesser returns an URL, ThumbnailInfoProvider is not called' );
 		assert.ok( imageStub.calledOnce, 'When the guesser returns an URL, ImageProvider is called once' );
-		assert.ok( imageStub.calledWithExactly( 'guessedURL' ), 'When the guesser returns an URL, ImageProvider is called with the guessed url' );
+		assert.ok( imageStub.calledWithExactly( 'guessedURL', undefined ), 'When the guesser returns an URL, ImageProvider is called with the guessed url' );
 		assert.strictEqual( promise.state(), 'resolved', 'When the guesser returns an URL, fetchThumbnail resolves' );
 
 		// When the guesser returns an URL, but that returns 404, image loading should be retried with the classic provider
@@ -571,8 +594,8 @@
 		assert.ok( guessedThumbnailInfoStub.calledOnce, 'When the guesser returns an URL, but that returns 404, GuessedThumbnailInfoProvider is called once' );
 		assert.ok( thumbnailInfoStub.calledOnce, 'When the guesser returns an URL, but that returns 404, ThumbnailInfoProvider is called once' );
 		assert.ok( imageStub.calledTwice, 'When the guesser returns an URL, but that returns 404, ImageProvider is called twice' );
-		assert.ok( imageStub.getCall( 0 ).calledWithExactly( 'guessedURL' ), 'When the guesser returns an URL, but that returns 404, ImageProvider is called first with the guessed url' );
-		assert.ok( imageStub.getCall( 1 ).calledWithExactly( 'apiURL' ), 'When the guesser returns an URL, but that returns 404, ImageProvider is called second with the guessed url' );
+		assert.ok( imageStub.getCall( 0 ).calledWithExactly( 'guessedURL', undefined ), 'When the guesser returns an URL, but that returns 404, ImageProvider is called first with the guessed url' );
+		assert.ok( imageStub.getCall( 1 ).calledWithExactly( 'apiURL', undefined ), 'When the guesser returns an URL, but that returns 404, ImageProvider is called second with the guessed url' );
 		assert.strictEqual( promise.state(), 'resolved', 'When the guesser returns an URL, but that returns 404, fetchThumbnail resolves' );
 
 		// When even the retry fails, fetchThumbnail() should reject
@@ -585,8 +608,8 @@
 		assert.ok( guessedThumbnailInfoStub.calledOnce, 'When even the retry fails, GuessedThumbnailInfoProvider is called once' );
 		assert.ok( thumbnailInfoStub.calledOnce, 'When even the retry fails, ThumbnailInfoProvider is called once' );
 		assert.ok( imageStub.calledTwice, 'When even the retry fails, ImageProvider is called twice' );
-		assert.ok( imageStub.getCall( 0 ).calledWithExactly( 'guessedURL' ), 'When even the retry fails, ImageProvider is called first with the guessed url' );
-		assert.ok( imageStub.getCall( 1 ).calledWithExactly( 'apiURL' ), 'When even the retry fails, ImageProvider is called second with the guessed url' );
+		assert.ok( imageStub.getCall( 0 ).calledWithExactly( 'guessedURL', undefined ), 'When even the retry fails, ImageProvider is called first with the guessed url' );
+		assert.ok( imageStub.getCall( 1 ).calledWithExactly( 'apiURL', undefined ), 'When even the retry fails, ImageProvider is called second with the guessed url' );
 		assert.strictEqual( promise.state(), 'rejected', 'When even the retry fails, fetchThumbnail rejects' );
 
 		mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing = false;
@@ -600,7 +623,7 @@
 		assert.ok( !guessedThumbnailInfoStub.called, 'When guessing is disabled, GuessedThumbnailInfoProvider is not called' );
 		assert.ok( thumbnailInfoStub.calledOnce, 'When guessing is disabled, ThumbnailInfoProvider is called once' );
 		assert.ok( imageStub.calledOnce, 'When guessing is disabled, ImageProvider is called once' );
-		assert.ok( imageStub.calledWithExactly( 'apiURL' ), 'When guessing is disabled, ImageProvider is called with the API url' );
+		assert.ok( imageStub.calledWithExactly( 'apiURL', undefined ), 'When guessing is disabled, ImageProvider is called with the API url' );
 		assert.strictEqual( promise.state(), 'resolved', 'When guessing is disabled, fetchThumbnail resolves' );
 
 		mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing = oldUseThumbnailGuessing;
