@@ -23,6 +23,7 @@
 	"multimediaviewer-datetime-uploaded": "Przesłany: $1",
 	"multimediaviewer-userpage-link": "Przesłany przez {{GENDER:$2|użytkownika|użytkowniczkę}} $1",
 	"multimediaviewer-credit-fallback": "Pokaż informacje o autorze",
+	"multimediaviewer-multiple-authors": "i {{PLURAL:$1|jeden inny autor|$1 innych autorów}}",
 	"multimediaviewer-metadata-error": "Błąd: Nie udało się pobrać danych pliku. $1",
 	"multimediaviewer-thumbnail-error": "Błąd: Nie udało się pobrać danych miniatury. $1",
 	"multimediaviewer-license-cc-pd": "Domena publiczna",
