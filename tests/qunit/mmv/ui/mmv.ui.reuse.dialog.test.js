@@ -226,4 +226,25 @@
 		assert.ok( !reuseDialog.isOpen, 'Dialog closed now.' );
 	} );
 
+	QUnit.test( 'getImageWarnings():', function ( assert ) {
+		var reuseDialog = makeReuseDialog( this.sandbox ),
+			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
+			src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
+			url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
+			image = { // fake mw.mmv.model.Image
+				title: title,
+				url: src,
+				descriptionUrl: url,
+				width: 100,
+				height: 80
+			},
+			imageDeleted = $.extend( { deletionReason: 'deleted file test' }, image );
+
+		// Test that the lack of license is picked up
+		assert.equal( 1, reuseDialog.getImageWarnings( image ).length, 'Lack of license detected' );
+
+		// Test that deletion supersedes other warnings and only that one is reported
+		assert.equal( 1, reuseDialog.getImageWarnings( imageDeleted ).length, 'Deletion detected' );
+	} );
+
 }( mediaWiki, jQuery ) );

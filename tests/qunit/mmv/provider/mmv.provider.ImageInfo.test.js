@@ -97,11 +97,15 @@
 												hidden: ''
 											},
 											Artist: {
-												value: 'Wikimeda',
+												value: 'John Smith',
 												source: 'commons-desc-page'
 											},
 											AuthorCount: {
 												value: '2',
+												source: 'commons-desc-page'
+											},
+											Attribution: {
+												value: 'By John Smith',
 												source: 'commons-desc-page'
 											},
 											Permission: {
@@ -118,6 +122,10 @@
 											},
 											Restrictions: {
 												value: 'trademarked|insignia',
+												source: 'commons-desc-page'
+											},
+											DeletionReason: {
+												value: 'copyvio',
 												source: 'commons-desc-page'
 											}
 										},
@@ -148,8 +156,9 @@
 			assert.strictEqual( image.creationDateTime, '18 February 2009\u00a0(according to EXIF data)', 'creationDateTime is set correctly' );
 			assert.strictEqual( image.description, 'Wikis stuff', 'description is set correctly' );
 			assert.strictEqual( image.source, 'Wikipedia', 'source is set correctly' );
-			assert.strictEqual( image.author, 'Wikimeda', 'author is set correctly' );
+			assert.strictEqual( image.author, 'John Smith', 'author is set correctly' );
 			assert.strictEqual( image.authorCount, 2, 'author count is set correctly' );
+			assert.strictEqual( image.attribution, 'By John Smith', 'attribution is set correctly' );
 			assert.strictEqual( image.license.shortName, 'CC0', 'license short name is set correctly' );
 			assert.strictEqual( image.license.internalName, 'cc0', 'license internal name is set correctly' );
 			assert.strictEqual( image.license.longName, 'Creative Commons Public Domain Dedication', 'license long name is set correctly' );
@@ -157,6 +166,7 @@
 			assert.strictEqual( image.license.attributionRequired, false, 'Attribution required flag is honored' );
 			assert.strictEqual( image.license.nonFree, true, 'Non-free flag is honored' );
 			assert.strictEqual( image.permission, 'Do not use. Ever.', 'permission is set correctly' );
+			assert.strictEqual( image.deletionReason, 'copyvio', 'permission is set correctly' );
 			assert.strictEqual( image.latitude, 90, 'latitude is set correctly' );
 			assert.strictEqual( image.longitude, 180, 'longitude is set correctly' );
 			assert.deepEqual( image.restrictions, [ 'trademarked', 'insignia' ], 'restrictions is set correctly' );

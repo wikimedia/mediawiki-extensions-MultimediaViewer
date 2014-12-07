@@ -39,6 +39,7 @@
 			author = 'Ryan Kaldari',
 			authorCount = 1,
 			permission = 'only use for good, not evil',
+			deletionReason = 'poor quality',
 			license = new mw.mmv.model.License( 'cc0' ),
 			attribution = 'Created by my cats on a winter morning',
 			latitude = 39.12381283,
@@ -48,7 +49,7 @@
 				title, name, size, width, height, mime, url,
 				descurl, descShortUrl, pageID, repo, datetime, anondatetime, origdatetime,
 				description, source, author, authorCount, license, permission, attribution,
-				latitude, longitude, restrictions );
+				deletionReason, latitude, longitude, restrictions );
 
 		assert.strictEqual( imageData.title, title, 'Title is set correctly' );
 		assert.strictEqual( imageData.name, name, 'Name is set correctly' );
@@ -70,6 +71,7 @@
 		assert.strictEqual( imageData.license, license, 'License is set correctly' );
 		assert.strictEqual( imageData.permission, permission, 'Permission is set correctly' );
 		assert.strictEqual( imageData.attribution, attribution, 'Attribution is set correctly' );
+		assert.strictEqual( imageData.deletionReason, deletionReason, 'Deletion reason is set correctly' );
 		assert.strictEqual( imageData.latitude, latitude, 'Latitude is set correctly' );
 		assert.strictEqual( imageData.longitude, longitude, 'Longitude is set correctly' );
 		assert.deepEqual( imageData.restrictions, restrictions, 'Restrictions is set correctly' );
@@ -89,7 +91,7 @@
 				10, 10, 10, 'image/jpeg', 'http://example.org', 'http://example.com', 42,
 				'example', 'tester', '2013-11-10', '20131110', '2013-11-09', 'Blah blah blah',
 				'A person', 'Another person', 1, 'CC-BY-SA-3.0', 'Permitted', 'My cat',
-				'39.91820938', '78.09812938'
+				undefined, '39.91820938', '78.09812938'
 			);
 
 		assert.strictEqual( firstImageData.hasCoords(), false, 'No coordinates present means hasCoords returns false.' );

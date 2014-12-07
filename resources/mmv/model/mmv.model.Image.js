@@ -44,6 +44,7 @@
 	 * @param {mw.mmv.model.License} license
 	 * @param {string} permission
 	 * @param {string} attribution Custom attribution string that replaces credit line when set
+	 * @param {string} deletionReason
 	 * @param {number} latitude
 	 * @param {number} longitude
 	 * @param {string[]} restrictions
@@ -70,6 +71,7 @@
 			license,
 			permission,
 			attribution,
+			deletionReason,
 			latitude,
 			longitude,
 			restrictions
@@ -138,6 +140,9 @@
 		/** @property {string} attribution custom attribution string set by uploader that replaces credit line */
 		this.attribution = attribution;
 
+		/** @property {string|null} reason for pending deletion, null if image is not about to be deleted */
+		this.deletionReason = deletionReason;
+
 		/** @property {number} latitude The latitude of the place where the image was created */
 		this.latitude = latitude;
 
@@ -169,7 +174,7 @@
 	Image.newFromImageInfo = function ( title, imageInfo ) {
 		var name, uploadDateTime, anonymizedUploadDateTime, creationDateTime, imageData,
 			description, source, author, authorCount, license, permission, attribution,
-			latitude, longitude, restrictions,
+			deletionReason, latitude, longitude, restrictions,
 			innerInfo = imageInfo.imageinfo[ 0 ],
 			extmeta = innerInfo.extmetadata;
 
@@ -194,6 +199,7 @@
 			license = this.newLicenseFromImageInfo( extmeta );
 			permission = this.parseExtmeta( extmeta.Permission, 'string' );
 			attribution = this.parseExtmeta( extmeta.Attribution, 'string' );
+			deletionReason = this.parseExtmeta( extmeta.DeletionReason, 'string' );
 			restrictions = this.parseExtmeta( extmeta.Restrictions, 'list' );
 
 			latitude = this.parseExtmeta( extmeta.GPSLatitude, 'float' );
@@ -226,6 +232,7 @@
 			license,
 			permission,
 			attribution,
+			deletionReason,
 			latitude,
 			longitude,
 			restrictions

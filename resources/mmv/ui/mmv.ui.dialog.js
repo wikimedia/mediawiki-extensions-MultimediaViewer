@@ -77,6 +77,10 @@
 		this.$warning = $( '<div>' )
 			.addClass( 'mw-mmv-dialog-warning' )
 			.hide()
+			.click( function ( e ) {
+				// prevent other click handlers such as the download CTA from intercepting clicks at the warning
+				e.stopPropagation();
+			} )
 			.appendTo( this.$dialog );
 	};
 
@@ -210,6 +214,44 @@
 	DP.clearWarning = function () {
 		this.$warning.hide();
 		this.$dialog.removeClass( 'mw-mmv-warning-visible' );
+	};
+
+	/**
+	 * @param {mw.mmv.model.Image} image
+	 * @return {string[]}
+	 */
+	DP.getImageWarnings = function ( image ) {
+		var warnings = [];
+
+		if ( image.deletionReason ) {
+			warnings.push( mw.message( 'multimediaviewer-reuse-warning-deletion' ).plain() );
+			// Don't inform about other warnings (they may be the cause of the deletion)
+			return warnings;
+		}
+
+		if ( !image.license || image.license.needsAttribution() && !image.author && !image.attribution ) {
+			warnings.push( mw.message( 'multimediaviewer-reuse-warning-noattribution' ).plain() );
+		}
+
+		if ( image.license && !image.license.isFree() ) {
+			warnings.push( mw.message( 'multimediaviewer-reuse-warning-nonfree' ).plain() );
+		}
+
+		return warnings;
+	};
+
+	/**
+	 * @param {mw.mmv.model.Image} image
+	 */
+	DP.showImageWarnings = function ( image ) {
+		var warnings = this.getImageWarnings( image );
+
+		if ( warnings.length > 0 ) {
+			warnings.push( mw.message( 'multimediaviewer-reuse-warning-generic', image.descriptionUrl ).parse() );
+			this.setWarning( warnings.join( '<br />' ) );
+		} else {
+			this.clearWarning();
+		}
 	};
 
 	mw.mmv.ui.Dialog = Dialog;

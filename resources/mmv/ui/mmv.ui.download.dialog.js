@@ -78,7 +78,7 @@
 	DP.set = function ( image, repo ) {
 		if ( this.download ) {
 			this.download.set( image, repo );
-			this.clearWarning();
+			this.showImageWarnings( image );
 		} else {
 			this.setValues = {
 				image: image,
@@ -102,7 +102,7 @@
 
 		if ( this.setValues ) {
 			this.download.set( this.setValues.image, this.setValues.repo );
-			this.clearWarning();
+			this.showImageWarnings( this.setValues.image );
 			this.setValues = undefined;
 		}
 

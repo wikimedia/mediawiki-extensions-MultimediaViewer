@@ -102,8 +102,8 @@
 			// This is a delayed set() for the elements we've just created on demand
 			this.tabs.share.set.apply( this.tabs.share, this.tabsSetValues.share );
 			this.tabs.embed.set.apply( this.tabs.embed, this.tabsSetValues.embed );
+			this.showImageWarnings( this.tabsSetValues.share[ 0 ] );
 			this.tabsSetValues = undefined;
-			this.clearWarning();
 		}
 	};
 
@@ -207,7 +207,7 @@
 			this.tabs.share.set( image );
 			this.tabs.embed.set( image, repo, caption, alt );
 			this.tabs.embed.set( image, repo, caption );
-			this.clearWarning();
+			this.showImageWarnings( image );
 		} else {
 			this.tabsSetValues = {
 				share: [ image ],

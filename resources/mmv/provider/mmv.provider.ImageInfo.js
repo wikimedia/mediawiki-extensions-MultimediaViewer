@@ -77,7 +77,8 @@
 		'Attribution',
 		'AttributionRequired',
 		'NonFree',
-		'Restrictions'
+		'Restrictions',
+		'DeletionReason'
 	].join( '|' );
 
 	/**
