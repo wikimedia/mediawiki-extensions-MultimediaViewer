@@ -62,6 +62,15 @@
 	DP = Pane.prototype;
 
 	/**
+	 * @event mmv-download-cta-open
+	 * Fired when the attribution call to action panel is clicked.
+	 */
+	/**
+	 * @event mmv-download-cta-close
+	 * Fired when the attribution area is closed.
+	 */
+
+	/**
 	 * Creates download split button. It is a link with the "download" property set plus an
 	 * arrow that allows the user to select the image size desired. The "download" property
 	 * triggers native browser downloading in browsers that support it. The fallback is the
@@ -170,6 +179,7 @@
 			.appendTo( $container )
 			.click( function () {
 				if ( dl.$attributionSection.hasClass( 'mw-mmv-download-attribution-collapsed' ) ) {
+					dl.$container.trigger( 'mmv-download-cta-open' );
 					dl.$attributionSection.removeClass( 'mw-mmv-download-attribution-collapsed' );
 					dl.attributionInput.$element.find( 'input' ).focus();
 				}
@@ -224,6 +234,7 @@
 				$( '<p>' )
 				.addClass( 'mw-mmv-download-attribution-close-button' )
 				.click( function ( e ) {
+					dl.$container.trigger( 'mmv-download-cta-close' );
 					dl.$attributionSection.addClass( 'mw-mmv-download-attribution-collapsed' );
 					e.stopPropagation();
 				} )

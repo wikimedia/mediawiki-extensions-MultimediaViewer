@@ -4,6 +4,13 @@
 .mw-mmv-reuse-dialog {
 	@divider-border-height: 1px;
 
+	// resetting height (to overwrite .mw-mmv-dialog's bigger height), since the
+	// height may have to change for warnings being added
+	height: initial;
+	// set a standard min-height that should be larger than both panels in
+	// normal circumstances (without warnings) so that the height of the dialog
+	// doesn't change when switching tabs
+	min-height: 300px;
 	// positioned relative to the reuse button
 	bottom: @metadatabar-above-fold-height + @progress-bar-height - 5px;
 
@@ -57,5 +64,9 @@
 
 	.mw-mmv-dialog-down-arrow {
 		bottom: @metadatabar-above-fold-height + @progress-bar-height + 5px;
+	}
+
+	.mw-mmv-dialog-warning {
+		padding: 15px 30px;
 	}
 }

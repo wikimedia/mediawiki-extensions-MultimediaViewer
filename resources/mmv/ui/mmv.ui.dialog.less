@@ -3,7 +3,7 @@
 
 @background-color: #fff;
 @dialog-width: 450px;
-@box-shadow-dialog: 0 2px 2px 0 rgba( 0, 0, 0, 0.25 );
+@box-shadow-dialog: 0 2px 2px 0 darken( @background-color, 33.3% );
 
 .mw-mmv-dialog {
 	position: fixed;
@@ -37,5 +37,9 @@
 			background-image: url( img/pasting-hover.svg );
 			text-decoration: none;
 		}
+	}
+
+	.mw-mmv-dialog-warning {
+		background-color: @dialog-warning-color;
 	}
 }

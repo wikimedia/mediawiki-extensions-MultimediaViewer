@@ -31,21 +31,7 @@
 	function Dialog( $container, $openButton, config ) {
 		mw.mmv.ui.Element.call( this, $container );
 
-		/** @property {mw.mmv.Config} config - */
-		this.config = config;
-
-		this.$openButton = $openButton;
-
-		this.$dialog = $( '<div>' )
-			.addClass( 'mw-mmv-dialog' );
-
-		this.$downArrow = $( '<div>' )
-			.addClass( 'mw-mmv-dialog-down-arrow' )
-			.appendTo( this.$dialog );
-
-		this.$dialog.appendTo( this.$container );
-
-		/** @property {boolean} Whether or not the dialog is open. */
+		/** @property {boolean} isOpen Whether or not the dialog is open. */
 		this.isOpen = false;
 
 		/**
@@ -57,10 +43,42 @@
 		 * @property {string} eventPrefix Prefix specific to the class to be applied to events.
 		 */
 		this.eventPrefix = '';
+		/** @property {mw.mmv.Config} config - */
+		this.config = config;
+
+		/** @property {jQuery} $openButton The click target which opens the dialog. */
+		this.$openButton = $openButton;
+
+		/** @type {jQuery} $dialog The main dialog container */
+		this.$dialog = $( '<div>' )
+			.addClass( 'mw-mmv-dialog' );
+
+		/**
+		 * @property {jQuery} $downArrow Tip of the dialog pointing to $openButton. Called
+		 * downArrow for historical reasons although it does not point down anymore.
+		 */
+		this.$downArrow = $( '<div>' )
+			.addClass( 'mw-mmv-dialog-down-arrow' )
+			.appendTo( this.$dialog );
+
+		this.initWarning();
+
+		this.$dialog.appendTo( this.$container );
 	}
 
 	oo.inheritClass( Dialog, mw.mmv.ui.Element );
 	DP = Dialog.prototype;
+
+	/**
+	 * Creates the DOM element that setWarning()/clearWarning() will operate on.
+	 * @private
+	 */
+	DP.initWarning = function () {
+		this.$warning = $( '<div>' )
+			.addClass( 'mw-mmv-dialog-warning' )
+			.hide()
+			.appendTo( this.$dialog );
+	};
 
 	/**
 	 * Handles click on link that opens/closes the dialog.
@@ -170,6 +188,28 @@
 	 */
 	DP.empty = function () {
 		this.closeDialog();
+		this.clearWarning();
+	};
+
+	/**
+	 * Displays a warning ribbon.
+	 * @param {string} content Content of the warning (can be HTML,
+	 *   setWarning does no escaping).
+	 */
+	DP.setWarning = function ( content ) {
+		this.$warning
+			.empty()
+			.append( content )
+			.show();
+		this.$dialog.addClass( 'mw-mmv-warning-visible' );
+	};
+
+	/**
+	 * Removes the warning ribbon.
+	 */
+	DP.clearWarning = function () {
+		this.$warning.hide();
+		this.$dialog.removeClass( 'mw-mmv-warning-visible' );
 	};
 
 	mw.mmv.ui.Dialog = Dialog;

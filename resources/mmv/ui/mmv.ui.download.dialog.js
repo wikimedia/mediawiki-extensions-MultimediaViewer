@@ -45,10 +45,28 @@
 	 * Registers listeners.
 	 */
 	DP.attach = function () {
+		var dialog = this;
+
 		this.handleEvent( 'mmv-download-open', $.proxy( this.handleOpenCloseClick, this ) );
 
 		this.handleEvent( 'mmv-reuse-open', $.proxy( this.closeDialog, this ) );
 		this.handleEvent( 'mmv-options-open', $.proxy( this.closeDialog, this ) );
+
+		this.$container.on( 'mmv-download-cta-open', function () {
+			dialog.$warning.hide();
+		} );
+		this.$container.on( 'mmv-download-cta-close', function () {
+			if ( dialog.$dialog.hasClass( 'mw-mmv-warning-visible' ) ) {
+				dialog.$warning.show();
+			}
+		} );
+	};
+
+	/**
+	 * Clears listeners.
+	 */
+	DP.unattach = function () {
+		this.$container.off( 'mmv-download-cta-open mmv-download-cta-close' );
 	};
 
 	/**
@@ -60,6 +78,7 @@
 	DP.set = function ( image, repo ) {
 		if ( this.download ) {
 			this.download.set( image, repo );
+			this.clearWarning();
 		} else {
 			this.setValues = {
 				image: image,
@@ -83,6 +102,7 @@
 
 		if ( this.setValues ) {
 			this.download.set( this.setValues.image, this.setValues.repo );
+			this.clearWarning();
 			this.setValues = undefined;
 		}
 

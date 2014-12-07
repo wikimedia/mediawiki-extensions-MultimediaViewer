@@ -103,6 +103,7 @@
 			this.tabs.share.set.apply( this.tabs.share, this.tabsSetValues.share );
 			this.tabs.embed.set.apply( this.tabs.embed, this.tabsSetValues.embed );
 			this.tabsSetValues = undefined;
+			this.clearWarning();
 		}
 	};
 
@@ -205,6 +206,8 @@
 		if ( this.tabs !== null ) {
 			this.tabs.share.set( image );
 			this.tabs.embed.set( image, repo, caption, alt );
+			this.tabs.embed.set( image, repo, caption );
+			this.clearWarning();
 		} else {
 			this.tabsSetValues = {
 				share: [ image ],
@@ -235,6 +238,9 @@
 	 */
 	DP.openDialog = function () {
 		mw.mmv.ui.Dialog.prototype.openDialog.call( this );
+
+		// move warnings after the tabs
+		this.$warning.insertAfter( this.reuseTabs.$element );
 
 		this.tabs[ this.selectedTab ].show();
 
