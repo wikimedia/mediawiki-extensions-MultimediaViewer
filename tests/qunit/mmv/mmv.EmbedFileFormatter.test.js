@@ -49,7 +49,7 @@
 			siteLink = formatter.getSiteLink( info );
 
 		assert.ok( siteLink.match( 'Wikipedia' ), 'Site name is present in site link' );
-		assert.ok( siteLink.match( siteUrl ), 'Site URL is present in site link' );
+		assert.ok( siteLink.indexOf( siteUrl ) !== -1, 'Site URL is present in site link' );
 	} );
 
 
