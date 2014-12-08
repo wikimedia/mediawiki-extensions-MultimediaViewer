@@ -49,6 +49,13 @@
 	oo.inheritClass( MetadataPanel, mw.mmv.ui.Element );
 	MPP = MetadataPanel.prototype;
 
+	/**
+	 * FIXME this should be in the jquery.fullscreen plugin.
+	 */
+	MPP.isFullscreened = function() {
+		return $( this.$container ).closest( '.jq-fullscreened' ).length > 0;
+	};
+
 	MPP.attach = function() {
 		var panel = this;
 
@@ -67,22 +74,36 @@
 			.on( 'click.mmv-mp', function ( e ) {
 				var clickTargetIsLink = $( e.target ).is( 'a' ),
 					clickTargetIsTruncated = !!$( e.target ).closest( '.mw-mmv-ttf-truncated' ).length,
-					someTextisExpanded = !!$( e.target ).closest( '.mw-mmv-untruncated' ).length;
+					someTextIsExpanded = !!$( e.target ).closest( '.mw-mmv-untruncated' ).length;
 
 				if (
-					clickTargetIsLink // don't interfere with clicks on links in the text
-					|| !clickTargetIsTruncated // don't expand when non-truncated text is clicked
-					|| someTextisExpanded // ignore clicks if text is already expanded
+					!clickTargetIsLink // don't interfere with clicks on links in the text
+					&& clickTargetIsTruncated // don't expand when non-truncated text is clicked
+					&& !someTextIsExpanded // ignore clicks if text is already expanded
 				) {
-					return;
+					if ( panel.isFullscreened() ) {
+						panel.revealTruncatedText();
+					} else {
+						panel.scroller.toggle( 'up' );
+					}
 				}
-				panel.scroller.toggle( 'up' );
 			} );
 
 		$( this.$container ).on( 'mmv-metadata-open.mmv-mp mmv-metadata-reveal-truncated-text.mmv-mp', function () {
 			panel.revealTruncatedText();
 		} ).on( 'mmv-metadata-close.mmv-mp', function () {
 			panel.hideTruncatedText();
+		} ).on( 'mouseleave.mmv-mp', function () {
+			var duration;
+
+			if ( panel.isFullscreened() ) {
+				duration = parseFloat( panel.$container.css( 'transition-duration' ) ) * 1000 || 0;
+				panel.panelShrinkTimeout = setTimeout( function () {
+					panel.hideTruncatedText();
+				}, duration );
+			}
+		} ).on( 'mouseenter.mmv-mp', function () {
+			clearTimeout( panel.panelShrinkTimeout );
 		} );
 
 		this.handleEvent( 'jq-fullscreen-change.lip', function() {

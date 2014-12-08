@@ -220,8 +220,6 @@
 	MPSP.scroll = function () {
 		var panelIsOpen = this.panelIsOpen();
 
-		this.$container.toggleClass( 'panel-open', panelIsOpen );
-
 		if ( panelIsOpen && !this.panelWasOpen ) { // just opened
 			this.$container.trigger( 'mmv-metadata-open' );
 		} else if ( !panelIsOpen && this.panelWasOpen ) { // just closed

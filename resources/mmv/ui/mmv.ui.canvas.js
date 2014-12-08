@@ -200,7 +200,13 @@
 		this.handleEvent( 'mmv-options-closed', $.proxy( this.handleDialogEvent, this ) );
 
 		this.$image.on( 'click.mmv-canvas', function ( e ) {
-			if ( !canvas.dialogOpen ) {
+			// ignore clicks if the metadata panel or one of the dialogs is open - assume the intent is to
+			// close it in this case; that will be handled elsewhere
+			if (
+				!canvas.dialogOpen
+				// FIXME a UI component should not know about its parents
+				&& canvas.$container.closest( '.metadata-panel-is-open').length === 0
+			) {
 				e.stopPropagation(); // don't let $imageWrapper handle this
 				mw.mmv.actionLogger.log( 'view-original-file' ).always( function() {
 					$( document ).trigger( 'mmv-viewfile' );
@@ -219,8 +225,10 @@
 			canvas.$mainWrapper.trigger( $.Event( 'mmv-resize-end' ) );
 		} ) );
 
-		this.$imageDiv.on( 'click.mmv-canvas', 'img', function () {
-			canvas.$mainWrapper.trigger( $.Event( 'mmv-image-click' ) );
+		this.$imageWrapper.on( 'click.mmv-canvas', function () {
+			if ( canvas.$container.closest( '.metadata-panel-is-open').length > 0 ) {
+				canvas.$mainWrapper.trigger( 'mmv-panel-close-area-click' );
+			}
 		} );
 	};
 
@@ -232,7 +240,7 @@
 
 		$( window ).off( 'resize.mmv-canvas' );
 
-		this.$imageDiv.off( 'click.mmv-canvas' );
+		this.$imageWrapper.off( 'click.mmv-canvas' );
 	};
 
 	/**
