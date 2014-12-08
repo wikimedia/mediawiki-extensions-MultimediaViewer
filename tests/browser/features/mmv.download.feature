@@ -9,47 +9,47 @@ Feature: Download menu
     Then the download menu should appear
 
   Scenario: Clicking the image closes the download menu
-    Given I open the download menu
-    When I click the image
+    When I click the download icon
+      And I click the image
     Then the download menu should disappear
 
   Scenario: Image size defaults to original
-    When I open the download menu
-    Then the download image size label should match the original
+    When I click the download icon
+    Then the original beginning download image size label should be "4000 × 3000 px jpg"
       And the download links should be the original image
 
   Scenario: Attribution area is collapsed by default
-    When I open the download menu
+    When I click the download icon
     Then the attribution area should be collapsed
 
   Scenario: Attribution area can be opened
-    Given I open the download menu
-    When I click on the attribution area
+    When I click the download icon
+      And I click on the attribution area
     Then the attribution area should be open
 
   Scenario: Attribution area can be closed
-    Given I open the download menu
-      And the attribution area is open
-    When I click on the attribution area close icon
+    When I click the download icon
+      And I click on the attribution area
+      And I click on the attribution area close icon
     Then the attribution area should be collapsed
 
   Scenario: The small download option has the correct information
-    Given I open the download dropdown
-    When I click the small download size
-    Then the download size options should disappear
-      And the download image size label should match the small size
-      And the download links should be the small thumbnail
+    When I open the download dropdown
+      And I click the small download size
+      And the download size options disappears
+    Then the download image size label should be "193 × 145 px jpg"
+      And the download links should be the 193 thumbnail
 
   Scenario: The medium download option has the correct information
-    Given I open the download dropdown
-    When I click the medium download size
-    Then the download size options should disappear
-      And the download image size label should match the medium size
-      And the download links should be the medium thumbnail
+    When I open the download dropdown
+      And I click the medium download size
+      And the download size options disappears
+    Then the download image size label should be "640 × 480 px jpg"
+      And the download links should be the 640 thumbnail
 
   Scenario: The large download option has the correct information
-    Given I open the download dropdown
-    When I click the large download size
-    Then the download size options should disappear
-      And the download image size label should match the large size
-      And the download links should be the large thumbnail
+    When I open the download dropdown
+      And I click the large download size
+      And the download size options disappears
+    Then the download image size label should be "1200 × 900 px jpg"
+      And the download links should be the 1200 thumbnail
