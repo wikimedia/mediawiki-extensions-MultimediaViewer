@@ -70,6 +70,8 @@
 		'image-view': 'User viewed an image.',
 		'metadata-open': 'User opened the metadata panel.',
 		'metadata-close': 'User closed the metadata panel.',
+		'metadata-scroll-open': 'User opened the metadata panel by scrolling.',
+		'metadata-scroll-close': 'User closed the metadata panel by scrolling.',
 		'next-image': 'User viewed the next image.',
 		'prev-image': 'User viewed the previous image.',
 		'terms-open': 'User opened the usage terms.',

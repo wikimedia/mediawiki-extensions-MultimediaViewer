@@ -222,8 +222,13 @@
 
 		if ( panelIsOpen && !this.panelWasOpen ) { // just opened
 			this.$container.trigger( 'mmv-metadata-open' );
+			// This will include keyboard- and mouseclick-initiated open events as well,
+			// since the panel is anomated, which counts as scrolling.
+			// Filtering these seems too much trouble to be worth it.
+			mw.mmv.actionLogger.log( 'metadata-scroll-open' );
 		} else if ( !panelIsOpen && this.panelWasOpen ) { // just closed
 			this.$container.trigger( 'mmv-metadata-close' );
+			mw.mmv.actionLogger.log( 'metadata-scroll-close' );
 		}
 		this.panelWasOpen = panelIsOpen;
 	};
