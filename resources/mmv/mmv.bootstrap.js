@@ -514,7 +514,6 @@
 	MMVB.ensureEventHandlersAreSetUp = function () {
 		if ( !this.eventHandlersHaveBeenSetUp ) {
 			this.setupEventHandlers();
-			this.eventHandlersHaveBeenSetUp = true;
 		}
 	};
 
