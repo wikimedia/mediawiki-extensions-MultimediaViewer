@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Otogi",
-			"David1010"
+			"David1010",
+			"MIKHEIL"
 		]
 	},
 	"multimediaviewer-pref": "მედია დამთვალიერებელი",
-	"multimediaviewer-userpage-link": "{{GENDER:$2|ატვირთა}} მომხმარებელმა $1"
+	"multimediaviewer-userpage-link": "{{GENDER:$2|ატვირთა}} მომხმარებელმა $1",
+	"multimediaviewer-download-optional-attribution-cta-header": "შეგიძლიათ მიუთითოთ ავტორი"
 }
