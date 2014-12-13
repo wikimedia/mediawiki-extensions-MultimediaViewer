@@ -8,5 +8,8 @@
 	},
 	"multimediaviewer-pref": "მედია დამთვალიერებელი",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|ატვირთა}} მომხმარებელმა $1",
+	"multimediaviewer-text-embed-credit-text-tbls-nonfree": "$2 „$1“-ის მიერ. $3 $4-დან",
+	"multimediaviewer-text-embed-credit-text-tls-nonfree": "„$1“. $2  $3-დან",
+	"multimediaviewer-html-embed-credit-text-tbl-nonfree": "$2 „$1“-ის მიერ. $3.",
 	"multimediaviewer-download-optional-attribution-cta-header": "შეგიძლიათ მიუთითოთ ავტორი"
 }
