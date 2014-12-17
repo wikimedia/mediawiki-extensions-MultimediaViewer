@@ -55,97 +55,97 @@ end
 # while looking at image1 (Kerala)
 def check_elements_in_viewer_for_image1(page)
   # Check basic MMV elements are present
-  page.mmv_overlay_element.when_present.should be_visible
-  page.mmv_wrapper_element.when_present.should be_visible
-  page.mmv_image_div_element.should be_visible
+  expect(page.mmv_overlay_element.when_present).to be_visible
+  expect(page.mmv_wrapper_element.when_present).to be_visible
+  expect(page.mmv_image_div_element).to be_visible
 
   # Check image content
-  page.mmv_image_div_element.image_element.attribute('src').should match /Kerala/
+  expect(page.mmv_image_div_element.image_element.attribute('src')).to match /Kerala/
 
   # Check basic metadata is present
 
   # Title
-  page.mmv_metadata_title_element.when_present.text.should match /^Sunrise over fishing boats$/
+  expect(page.mmv_metadata_title_element.when_present.text).to match /^Sunrise over fishing boats$/
   # License
-  page.mmv_metadata_license_element.when_present.attribute('href').should match /^http:\/\/creativecommons\.org\/licenses\/by-sa\/3\.0$/
-  page.mmv_metadata_license_element.when_present.text.should match /CC BY-SA 3.0/
+  expect(page.mmv_metadata_license_element.when_present.attribute('href')).to match /^http:\/\/creativecommons\.org\/licenses\/by-sa\/3\.0$/
+  expect(page.mmv_metadata_license_element.when_present.text).to match 'CC BY-SA 3.0'
   # Credit
-  page.mmv_metadata_credit_element.when_present.should be_visible
-  page.mmv_metadata_source_element.when_present.text.should match /Own work/
+  expect(page.mmv_metadata_credit_element.when_present).to be_visible
+  expect(page.mmv_metadata_source_element.when_present.text).to match 'Own work'
 
   # Image metadata
-  page.mmv_image_metadata_wrapper_element.when_present.should be_visible
+  expect(page.mmv_image_metadata_wrapper_element.when_present).to be_visible
   # Description
-  page.mmv_image_metadata_desc_element.when_present.text.should match /Sunrise over fishing boats on the beach south of Kovalam/
+  expect(page.mmv_image_metadata_desc_element.when_present.text).to match 'Sunrise over fishing boats on the beach south of Kovalam'
   # Image metadata links
-  page.mmv_image_metadata_links_wrapper_element.when_present.should be_visible
+  expect(page.mmv_image_metadata_links_wrapper_element.when_present).to be_visible
   # Details link
-  page.mmv_details_page_link_element.when_present.text.should match /More details/
-  page.mmv_details_page_link_element.when_present.attribute('href').should match /boats_in_Kerala.jpg$/
+  expect(page.mmv_details_page_link_element.when_present.text).to match 'More details'
+  expect(page.mmv_details_page_link_element.when_present.attribute('href')).to match /boats_in_Kerala.jpg$/
 end
 
 # Helper function that verifies the presence of various elements in viewer
 # while looking at image2 (Aquarium)
 def check_elements_in_viewer_for_image2(page)
   # Check basic MMV elements are present
-  page.mmv_overlay_element.when_present.should be_visible
-  page.mmv_wrapper_element.when_present.should be_visible
-  page.mmv_image_div_element.should be_visible
+  expect(page.mmv_overlay_element.when_present).to be_visible
+  expect(page.mmv_wrapper_element.when_present).to be_visible
+  expect(page.mmv_image_div_element).to be_visible
 
   # Check image content
-  page.mmv_image_div_element.image_element.attribute('src').should match /Offsite/
+  expect(page.mmv_image_div_element.image_element.attribute('src')).to match 'Offsite'
 
   # Check basic metadata is present
 
   # Title
-  page.mmv_metadata_title_element.when_present.text.should match /^Tropical Fish Aquarium$/
+  expect(page.mmv_metadata_title_element.when_present.text).to match /^Tropical Fish Aquarium$/
   # License
-  page.mmv_metadata_license_element.when_present.attribute('href').should match /^http:\/\/creativecommons\.org\/licenses\/by-sa\/3\.0$/
-  page.mmv_metadata_license_element.when_present.text.should match /CC BY-SA 3.0/
+  expect(page.mmv_metadata_license_element.when_present.attribute('href')).to match /^http:\/\/creativecommons\.org\/licenses\/by-sa\/3\.0$/
+  expect(page.mmv_metadata_license_element.when_present.text).to match 'CC BY-SA 3.0'
   # Credit
-  page.mmv_metadata_credit_element.when_present.should be_visible
-  page.mmv_metadata_source_element.when_present.text.should match /Wikimedia Foundation/
+  expect(page.mmv_metadata_credit_element.when_present).to be_visible
+  expect(page.mmv_metadata_source_element.when_present.text).to match 'Wikimedia Foundation'
 
   # Image metadata
-  page.mmv_image_metadata_wrapper_element.when_present.should be_visible
+  expect(page.mmv_image_metadata_wrapper_element.when_present).to be_visible
   # Description
-  page.mmv_image_metadata_desc_element.when_present.text.should match /Photo from Wikimedia Foundation/
+  expect(page.mmv_image_metadata_desc_element.when_present.text).to match 'Photo from Wikimedia Foundation'
   # Image metadata links
-  page.mmv_image_metadata_links_wrapper_element.when_present.should be_visible
+  expect(page.mmv_image_metadata_links_wrapper_element.when_present).to be_visible
   # Details link
-  page.mmv_details_page_link_element.when_present.text.should match /More details/
-  page.mmv_details_page_link_element.when_present.attribute('href').should match /All_Hands_Offsite.*\.jpg$/
+  expect(page.mmv_details_page_link_element.when_present.text).to match 'More details'
+  expect(page.mmv_details_page_link_element.when_present.attribute('href')).to match /All_Hands_Offsite.*\.jpg$/
 end
 
 # Helper function that verifies the presence of various elements in viewer
 # while looking at image3 (Hong Kong)
 def check_elements_in_viewer_for_image3(page)
   # Check basic MMV elements are present
-  page.mmv_overlay_element.when_present.should be_visible
-  page.mmv_wrapper_element.when_present.should be_visible
-  page.mmv_image_div_element.should be_visible
+  expect(page.mmv_overlay_element.when_present).to be_visible
+  expect(page.mmv_wrapper_element.when_present).to be_visible
+  expect(page.mmv_image_div_element).to be_visible
 
   # Check image content
-  page.mmv_image_div_element.image_element.attribute('src').should match /Hong_Kong/
+  expect(page.mmv_image_div_element.image_element.attribute('src')).to match 'Hong_Kong'
 
   # Check basic metadata is present
 
   # Title
-  page.mmv_metadata_title_element.when_present.text.should match /^Hong Kong Harbor at night$/
+  expect(page.mmv_metadata_title_element.when_present.text).to match /^Hong Kong Harbor at night$/
   # License
-  page.mmv_metadata_license_element.when_present.attribute('href').should match /^http:\/\/creativecommons\.org\/licenses\/by-sa\/3\.0$/
-  page.mmv_metadata_license_element.when_present.text.should match /CC BY-SA 3.0/
+  expect(page.mmv_metadata_license_element.when_present.attribute('href')).to match /^http:\/\/creativecommons\.org\/licenses\/by-sa\/3\.0$/
+  expect(page.mmv_metadata_license_element.when_present.text).to match 'CC BY-SA 3.0'
   # Credit
-  page.mmv_metadata_credit_element.when_present.should be_visible
-  page.mmv_metadata_source_element.when_present.text.should match /Wikimedia Foundation/
+  expect(page.mmv_metadata_credit_element.when_present).to be_visible
+  expect(page.mmv_metadata_source_element.when_present.text).to match 'Wikimedia Foundation'
 
   # Image metadata
-  page.mmv_image_metadata_wrapper_element.when_present.should be_visible
+  expect(page.mmv_image_metadata_wrapper_element.when_present).to be_visible
   # Description
-  page.mmv_image_metadata_desc_element.when_present.text.should match /Photos from our product team's talks at Wikimania 2013 in Hong Kong./
+  expect(page.mmv_image_metadata_desc_element.when_present.text).to match /Photos from our product team's talks at Wikimania 2013 in Hong Kong./
   # Image metadata links
-  page.mmv_image_metadata_links_wrapper_element.when_present.should be_visible
+  expect(page.mmv_image_metadata_links_wrapper_element.when_present).to be_visible
   # Details link
-  page.mmv_details_page_link_element.when_present.text.should match /More details/
-  page.mmv_details_page_link_element.when_present.attribute('href').should match /Wikimania_2013_-_Hong_Kong_-_Photo_090\.jpg$/
+  expect(page.mmv_details_page_link_element.when_present.text).to match 'More details'
+  expect(page.mmv_details_page_link_element.when_present.attribute('href')).to match /Wikimania_2013_-_Hong_Kong_-_Photo_090\.jpg$/
 end
