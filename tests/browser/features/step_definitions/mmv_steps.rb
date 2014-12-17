@@ -40,7 +40,7 @@ When /^I close MMV$/ do
 end
 
 When /^I click the image$/  do
-  on(E2ETestPage).mmv_image_div_element.click
+  on(E2ETestPage).mmv_image_div_element.when_present.click
 end
 
 Then /^the image metadata and the image itself should be there$/ do
