@@ -185,7 +185,8 @@
 			contentLength,
 			xcache,
 			xvarnish,
-			varnishXCache;
+			varnishXCache,
+			lastModified;
 
 		if ( !request ) {
 			return;
@@ -223,6 +224,11 @@
 		}
 
 		stats.timestamp = new Date( request.getResponseHeader( 'Date' ) ).getTime() / 1000;
+
+		lastModified = request.getResponseHeader( 'Last-Modified' );
+		if ( lastModified ) {
+			stats.lastModified = new Date( lastModified ).getTime() / 1000;
+		}
 	};
 
 	/**
