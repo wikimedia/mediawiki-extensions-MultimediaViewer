@@ -17,6 +17,8 @@
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Üleslaadija:}} $1",
 	"multimediaviewer-credit": "$1 – $2",
 	"multimediaviewer-credit-fallback": "Vaata autoriteavet",
+	"multimediaviewer-multiple-authors": "{{PLURAL:$1|veel üks autor|veel $1 autorit}}",
+	"multimediaviewer-multiple-authors-combine": "$1 ja $2",
 	"multimediaviewer-metadata-error": "Tõrge: Pildi andmeid ei õnnestunud laadida. $1",
 	"multimediaviewer-thumbnail-error": "Tõrge: Pisipildi andmeid ei õnnestunud laadida. $1",
 	"multimediaviewer-license-cc-pd": "Avalik omand",
