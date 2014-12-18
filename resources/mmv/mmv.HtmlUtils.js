@@ -164,7 +164,7 @@
 		// There are two possible implementations for this:
 		// 1) load innto a wrapper element and get its innerHTML;
 		// 2) use outerHTML.
-		// We go with 2) because it handles the case when a jQuery object contains something
+		// We go with 1) because it handles the case when a jQuery object contains something
 		// that is not an element (this can happen with e.g. $x.children() which returns text
 		// nodes as well).
 		return $( '<div>' ).append( $el ).html();
