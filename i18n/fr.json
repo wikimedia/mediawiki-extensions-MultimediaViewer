@@ -21,6 +21,7 @@
 	"multimediaviewer-datetime-uploaded": "Téléchargé : $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Téléversé}} par $1",
 	"multimediaviewer-credit": "$1 — $2",
+	"multimediaviewer-multiple-authors-combine": "$1 et $2",
 	"multimediaviewer-metadata-error": "Erreur : Impossible de charger les données de l’image. $1",
 	"multimediaviewer-thumbnail-error": "Erreur : Impossible de charger les données de la vignette. $1",
 	"multimediaviewer-license-cc-pd": "Domaine public",

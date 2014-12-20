@@ -8,7 +8,8 @@
 			"Rosh",
 			"Melos",
 			"PeppeAeco",
-			"Toadino2"
+			"Toadino2",
+			"Macofe"
 		]
 	},
 	"multimediaviewer-desc": "Espande le miniature in dimensioni maggiori in un'interfaccia a schermo intero.",
@@ -21,6 +22,7 @@
 	"multimediaviewer-datetime-uploaded": "Caricato: $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Caricato}} da $1",
 	"multimediaviewer-credit-fallback": "Vedi informazioni sull'autore",
+	"multimediaviewer-multiple-authors-combine": "$1 e $2",
 	"multimediaviewer-metadata-error": "Errore: impossibile caricare i dati dell'immagine. $1",
 	"multimediaviewer-thumbnail-error": "Errore: impossibile caricare i dati della miniatura. $1",
 	"multimediaviewer-license-cc-pd": "Pubblico dominio",

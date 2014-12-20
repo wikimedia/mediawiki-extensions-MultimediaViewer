@@ -4,7 +4,8 @@
 			"Fúlvio",
 			"Imperadeiro98",
 			"SandroHc",
-			"Vitorvicentevalente"
+			"Vitorvicentevalente",
+			"Macofe"
 		]
 	},
 	"multimediaviewer-desc": "Expandir miniaturas num tamanho maior numa interface em ecrã cheio.",
@@ -18,6 +19,7 @@
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Carregado}} por $1",
 	"multimediaviewer-credit-fallback": "Ver informação do autor",
 	"multimediaviewer-multiple-authors": "e {{PLURAL:$1|mais um autor|mais $1 autores}}",
+	"multimediaviewer-multiple-authors-combine": "$1 e $2",
 	"multimediaviewer-metadata-error": "Erro: Não foi possível carregar os dados da imagem. $1",
 	"multimediaviewer-thumbnail-error": "Erro: Não foi possível carregar os dados da miniatura. $1",
 	"multimediaviewer-license-cc-pd": "Domínio Público",
