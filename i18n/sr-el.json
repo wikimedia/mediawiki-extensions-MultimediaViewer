@@ -4,7 +4,6 @@
 			"Milicevic01"
 		]
 	},
-	"multimediaviewer-desc-nil": "Opis nije dostupan.",
 	"multimediaviewer-optin-pref": "Omogući <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
 	"multimediaviewer-repository-local": "Saznajte više",
 	"multimediaviewer-datetime-created": "Napravljeno: $1",
@@ -46,7 +45,7 @@
 	"multimediaviewer-text-embed-credit-text-tl": "„$1“. Pod licencom $2",
 	"multimediaviewer-text-embed-credit-text-t": "„$1“",
 	"multimediaviewer-default-embed-dimensions": "Podrazumevana veličina",
-	"multimediaviewer-original-embed-dimensions": "Originalna veličina $1",
+	"multimediaviewer-original-embed-dimensions": "Originalna datoteka $1",
 	"multimediaviewer-large-embed-dimensions": "Velika $1",
 	"multimediaviewer-medium-embed-dimensions": "Srednja $1",
 	"multimediaviewer-small-embed-dimensions": "Mala $1",
