@@ -71,7 +71,14 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	public static function getModulesForArticle( &$out, &$skin ) {
-		if ( count( $out->getFileSearchOptions() ) > 0 || $out->getTitle()->inNamespace( NS_FILE ) ) {
+		$pageHasThumbnails = count( $out->getFileSearchOptions() ) > 0;
+		$pageIsFilePage = $out->getTitle()->inNamespace( NS_FILE );
+		$fileRelatedSpecialPages = array( 'NewFiles', 'ListFiles', 'MostLinkedFiles',
+			'MostGloballyLinkedFiles', 'UncategorizedFiles', 'UnusedFiles' );
+		$pageIsFileRelatedSpecialPage = $out->getTitle()->inNamespace( NS_SPECIAL )
+			&& in_array( $out->getTitle()->getText(), $fileRelatedSpecialPages );
+
+		if ( $pageHasThumbnails || $pageIsFilePage || $pageIsFileRelatedSpecialPage ) {
 			return self::getModules( $out );
 		}
 
