@@ -14,6 +14,7 @@
 	"multimediaviewer-datetime-uploaded": "Чуяьккхина: $1",
 	"multimediaviewer-userpage-link": "Чуяьккхина {{GENDER:$2|декъашхочо}} $1",
 	"multimediaviewer-credit-fallback": "Авторах лаьцна хьажа",
+	"multimediaviewer-multiple-authors-combine": "$1 $2 тӀе",
 	"multimediaviewer-metadata-error": "ГӀалат: Суьртан хаамаш гайта цабелира. $1",
 	"multimediaviewer-thumbnail-error": "ГӀалат: Эскизан хаамаш гайта цабелира. $1",
 	"multimediaviewer-license-cc-pd": "Юкъараллин рицӀкъ",
