@@ -5,7 +5,8 @@
 			"Paxt",
 			"Rosnicka.kacka",
 			"Utar",
-			"Dominikmatus"
+			"Dominikmatus",
+			"Littledogboy"
 		]
 	},
 	"multimediaviewer-desc": "Zvětší náhledy obrázků do celoobrazovkového rozhraní.",
@@ -13,7 +14,7 @@
 	"multimediaviewer-pref-desc": "Pomocí tohoto nástroje si můžete zpříjemnit prohlížení multimédií. Na stránkách, na kterých se používají náhledy obrázků, umožňuje prohlížení těchto obrázků ve větší velikosti. Obrázky se zobrazí v hezčím celoobrazovkovém rozhraní a lze si je prohlédnout také v plné velikosti.",
 	"multimediaviewer-optin-pref": "Aktivovat <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Prohlížeč médií]</span>",
 	"multimediaviewer-file-page": "Přejít na stránku s popisem souboru",
-	"multimediaviewer-repository-local": "Více podrobností",
+	"multimediaviewer-repository-local": "Více informací",
 	"multimediaviewer-datetime-created": "Vytvořeno: $1",
 	"multimediaviewer-datetime-uploaded": "Načteno: $1",
 	"multimediaviewer-userpage-link": "Načteno {{GENDER:$2|uživatelem|uživatelkou}} $1",
@@ -83,7 +84,7 @@
 	"multimediaviewer-medium-embed-dimensions": "Střední $1",
 	"multimediaviewer-small-embed-dimensions": "Malý $1",
 	"multimediaviewer-description-page-button-text": "Více informací o tomto souboru",
-	"multimediaviewer-description-page-popup-text": "Více podrobností o tomto souboru na {{grammar:6sg|$1}}",
+	"multimediaviewer-description-page-popup-text": "Více informací o tomto souboru na {{grammar:6sg|$1}}",
 	"multimediaviewer-commons-subtitle": "Úložiště volných médií",
 	"multimediaviewer-view-expanded": "Otevřít v prohlížeči médií",
 	"multimediaviewer-view-config": "Konfigurace",

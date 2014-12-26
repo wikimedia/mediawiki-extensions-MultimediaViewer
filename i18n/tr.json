@@ -12,7 +12,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Küçük resimleri daha büyük boyutlara genişleterek, tam ekran arayüzde gösterir.",
-	"multimediaviewer-desc-nil": "Açıklama yok.",
 	"multimediaviewer-pref": "Ortam Görüntüleyici",
 	"multimediaviewer-pref-desc": "Bu yeni araçla multimedya görüntüleme deneyiminizi geliştirin. Bu sayede küçük sayfaları daha büyük boyutlarda görüntüleyebilirsiniz. Ayrıca görüntüler tam ekran arayüzle ve tam boyutlu görüntülebeilir.",
 	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Ortam Görüntüleyici]</span>'yi etkinleştir",
@@ -80,5 +79,9 @@
 	"multimediaviewer-title-popup-text": "Dosya adı",
 	"multimediaviewer-title-popup-text-more": "Tam dosya adını görüntülemek için tıklayın",
 	"multimediaviewer-download-attribution-cta-header": "Oluşturana atıf yapmanız gerekiyor",
-	"multimediaviewer-download-attribution-cta": "Nasıl yapıldığını göster"
+	"multimediaviewer-download-attribution-cta": "Nasıl yapıldığını göster",
+	"multimediaviewer-options-tooltip": "Ortam Görüntüleyici'yi etkinleştir veya devre dışı bırak",
+	"multimediaviewer-options-dialog-header": "Ortam Görüntüleyici devre dışı bırakılsın mı?",
+	"multimediaviewer-options-text-header": "Bu görüntüleme özelliğini tüm dosyalar için devre dışı bırak.",
+	"multimediaviewer-options-text-body": "Daha sonra dosya ayrıntıları sayfasından etkinleştirebilirsiniz."
 }
