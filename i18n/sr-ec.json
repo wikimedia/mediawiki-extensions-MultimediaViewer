@@ -10,6 +10,7 @@
 	"multimediaviewer-datetime-created": "Направљено: $1",
 	"multimediaviewer-datetime-uploaded": "Послато: $1",
 	"multimediaviewer-userpage-link": "Датотеку {{GENDER:$2|послао|послала}} $1",
+	"multimediaviewer-credit-fallback": "Види информације о аутору",
 	"multimediaviewer-license-cc-pd": "Јавно власништво",
 	"multimediaviewer-license-pd": "Јавно власништво",
 	"multimediaviewer-license-default": "Види лиценцу",
