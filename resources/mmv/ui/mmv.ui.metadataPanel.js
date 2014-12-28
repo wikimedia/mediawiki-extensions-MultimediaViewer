@@ -104,6 +104,12 @@
 			}
 		} ).on( 'mouseenter.mmv-mp', function () {
 			clearTimeout( panel.panelShrinkTimeout );
+		} ).on( 'mmv-permission-grow.mmv-mp', function() {
+			panel.$permissionLink
+				.text( mw.message( 'multimediaviewer-permission-link-hide' ).text() );
+		} ).on( 'mmv-permission-shrink.mmv-mp', function() {
+			panel.$permissionLink
+				.text( mw.message( 'multimediaviewer-permission-link' ).text() );
 		} );
 
 		this.handleEvent( 'jq-fullscreen-change.lip', function() {
@@ -321,8 +327,12 @@
 			.appendTo( this.$licenseLi )
 			.hide()
 			.on( 'click', function() {
-				panel.permission.grow();
-				panel.scroller.toggle( 'up' );
+				if ( panel.permission.isFullSize() ) {
+					panel.permission.shrink();
+				} else {
+					panel.permission.grow();
+					panel.scroller.toggle( 'up' );
+				}
 				return false;
 			} );
 	};

@@ -594,6 +594,7 @@ $wgResourceModules += array(
 
 			// for license messages see end of file
 			'multimediaviewer-permission-link',
+			'multimediaviewer-permission-link-hide',
 
 			'multimediaviewer-geoloc-north',
 			'multimediaviewer-geoloc-east',

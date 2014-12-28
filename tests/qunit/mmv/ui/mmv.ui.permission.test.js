@@ -101,4 +101,19 @@
 
 		$.fn.animate = oldAnimate;
 	} );
+
+	QUnit.test( 'isFullSize()', 3, function( assert ) {
+		var $qf = $( '#qunit-fixture' ),
+			permission = new mw.mmv.ui.Permission( $qf ),
+			text = 'Nothing to see here.';
+		// animation would keep running, conflict with other tests
+		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
+
+		permission.set( text );
+		assert.ok( !permission.isFullSize(), 'permission is not full-size' );
+		permission.grow();
+		assert.ok( permission.isFullSize(), 'permission is full-size' );
+		permission.shrink();
+		assert.ok( !permission.isFullSize(), 'permission is not full-size again' );
+	} );
 }( mediaWiki, jQuery ) );
