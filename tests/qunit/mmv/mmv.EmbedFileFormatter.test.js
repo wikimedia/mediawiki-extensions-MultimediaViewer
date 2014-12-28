@@ -18,15 +18,21 @@
 		assert.ok( formatter, 'constructor with no argument works');
 	} );
 
-	QUnit.test( 'getByline():', 4, function ( assert ) {
+	QUnit.test( 'getByline():', 5, function ( assert ) {
 		var formatter = new mw.mmv.EmbedFileFormatter(),
 			author = '<span class="mw-mmv-author">Homer</span>',
 			source = '<span class="mw-mmv-source">Iliad</span>',
+			attribution = '<span class="mw-mmv-attr">Cat</span>',
 			byline;
 
 		// Works with no arguments
 		byline = formatter.getByline();
 		assert.strictEqual( byline, undefined, 'No argument case handled correctly.' );
+
+
+		// Attribution present
+		byline = formatter.getByline( author, source, attribution );
+		assert.ok( byline.match ( /Cat/ ), 'Attribution found in bylines' );
 
 		// Author and source present
 		byline = formatter.getByline( author, source );

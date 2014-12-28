@@ -475,14 +475,17 @@
 
 	/**
 	 * Set source and author.
+	 * @param {string} attribution Custom attribution string
 	 * @param {string} source With unsafe HTML
 	 * @param {string} author With unsafe HTML
 	 * @param {number} authorCount
 	 * @param {string} filepageUrl URL of the file page (used when other data is not available)
 	 */
-	MPP.setCredit = function ( source, author, authorCount, filepageUrl ) {
+	MPP.setCredit = function ( attribution, source, author, authorCount, filepageUrl ) {
 		// sanitization will be done by TruncatableTextField.set()
-		if ( author && source ) {
+		if ( attribution && ( authorCount <= 1 || !authorCount ) ) {
+			this.creditField.set( this.wrapAttribution( attribution ) );
+		} else if ( author && source ) {
 			this.creditField.set(
 				mw.message(
 					'multimediaviewer-credit',
@@ -544,6 +547,19 @@
 		}
 
 		return $wrapper.get( 0 ).outerHTML;
+	};
+
+	/**
+	 * Wraps an attribution string with MediaViewer styles
+	 * @param {string} attribution Warning - unsafe HTML sometimes goes here
+	 * @return {string} unsafe HTML
+	 */
+	MPP.wrapAttribution = function ( attribution ) {
+		return $( '<span>' )
+			.addClass( 'mw-mmv-author' )
+			.addClass( 'mw-mmv-source' )
+			.append( $.parseHTML( attribution ) )
+			.get( 0 ).outerHTML;
 	};
 
 	/**
@@ -693,7 +709,7 @@
 		// these handle text truncation and should be called when everything that can push text down
 		// (e.g. floated buttons) has already been laid out
 		this.setTitle( image, imageData );
-		this.setCredit( imageData.source, imageData.author, imageData.authorCount, imageData.descriptionUrl );
+		this.setCredit( imageData.attribution, imageData.source, imageData.author, imageData.authorCount, imageData.descriptionUrl );
 
 		if ( imageData.permission ) {
 			this.setPermission( imageData.permission );

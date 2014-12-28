@@ -18,7 +18,7 @@
 ( function( mw ) {
 	QUnit.module( 'mmv.model.Image', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Image model constructor sanity check', 22, function ( assert ) {
+	QUnit.test( 'Image model constructor sanity check', 23, function ( assert ) {
 		var
 			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 			name = 'Foo bar',
@@ -39,12 +39,13 @@
 			authorCount = 1,
 			permission = 'only use for good, not evil',
 			license = new mw.mmv.model.License( 'cc0' ),
+			attribution = 'Created by my cats on a winter morning',
 			latitude = 39.12381283,
 			longitude = 100.983829,
 			imageData = new mw.mmv.model.Image(
 				title, name, size, width, height, mime, url,
 				descurl, repo, user, datetime, anondatetime, origdatetime,
-				description, source, author, authorCount, license, permission,
+				description, source, author, authorCount, license, permission, attribution,
 				latitude, longitude );
 
 		assert.strictEqual( imageData.title, title, 'Title is set correctly' );
@@ -66,6 +67,7 @@
 		assert.strictEqual( imageData.authorCount, authorCount, 'Author is set correctly' );
 		assert.strictEqual( imageData.license, license, 'License is set correctly' );
 		assert.strictEqual( imageData.permission, permission, 'Permission is set correctly' );
+		assert.strictEqual( imageData.attribution, attribution, 'Attribution is set correctly' );
 		assert.strictEqual( imageData.latitude, latitude, 'Latitude is set correctly' );
 		assert.strictEqual( imageData.longitude, longitude, 'Longitude is set correctly' );
 		assert.ok( imageData.thumbUrls, 'Thumb URL cache is set up properly' );
@@ -77,13 +79,13 @@
 				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ), 'Foo bar',
 				10, 10, 10, 'image/jpeg', 'http://example.org', 'http://example.com',
 				'example', 'tester', '2013-11-10', '20131110', '2013-11-09', 'Blah blah blah',
-				'A person', 'Another person', 1, 'CC-BY-SA-3.0', 'Permitted'
+				'A person', 'Another person', 1, 'CC-BY-SA-3.0', 'Permitted', 'My cat'
 			),
 			secondImageData = new mw.mmv.model.Image(
 				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ), 'Foo bar',
 				10, 10, 10, 'image/jpeg', 'http://example.org', 'http://example.com',
 				'example', 'tester', '2013-11-10', '20131110', '2013-11-09', 'Blah blah blah',
-				'A person', 'Another person', 1, 'CC-BY-SA-3.0', 'Permitted',
+				'A person', 'Another person', 1, 'CC-BY-SA-3.0', 'Permitted', 'My cat',
 				'39.91820938', '78.09812938'
 			);
 
