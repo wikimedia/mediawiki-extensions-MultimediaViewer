@@ -194,6 +194,9 @@
 	 * Handles keydown events for this element.
 	 */
 	MPSP.keydown = function ( e ) {
+		if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey ) {
+			return;
+		}
 		switch ( e.which ) {
 			case 40: // Down arrow
 				// fall through
