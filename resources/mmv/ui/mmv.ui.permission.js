@@ -135,6 +135,7 @@
 
 	/**
 	 * Enlarge the box, show HTML instead of text.
+	 * @fires mmv-permission-grow
 	 */
 	P.grow = function() {
 		mw.mmv.actionLogger.log( 'terms-open' );
@@ -143,13 +144,24 @@
 			.stop( true )
 			.animate( { backgroundColor: '#FFFFA0' }, 500)
 			.animate( { backgroundColor: '#FFFFFF' }, 500);
+		this.$container.trigger( 'mmv-permission-grow' );
 	};
 
 	/**
 	 * Limit the size of the box, show text only.
+	 * @fires mmv-permission-shrink
 	 */
 	P.shrink = function() {
 		this.$box.removeClass( 'full-size' );
+		this.$container.trigger( 'mmv-permission-shrink' );
+	};
+
+	/**
+	 * Returns whether the box is full-size.
+	 * @returns boolean
+	 */
+	P.isFullSize = function() {
+		return this.$box.hasClass( 'full-size' );
 	};
 
 	mw.mmv.ui.Permission = Permission;
