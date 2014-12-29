@@ -71,6 +71,7 @@
 		'GPSLatitude',
 		'GPSLongitude',
 		'Permission',
+		'Attribution',
 		'AttributionRequired',
 		'NonFree'
 	].join('|');

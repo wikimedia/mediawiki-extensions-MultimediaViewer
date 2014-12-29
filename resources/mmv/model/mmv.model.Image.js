@@ -41,6 +41,7 @@
 	 * @param {number} authorCount
 	 * @param {mw.mmv.model.License} license
 	 * @param {string} permission
+	 * @param {string} attribution Custom attribution string that replaces credit line when set
 	 * @param {number} latitude
 	 * @param {number} longitude
 	 */
@@ -64,6 +65,7 @@
 			authorCount,
 			license,
 			permission,
+			attribution,
 			latitude,
 			longitude
 	) {
@@ -125,6 +127,9 @@
 		/** @property {string} additional license conditions by the author (note that this is usually a big ugly HTML blob) */
 		this.permission = permission;
 
+		/** @property {string} attribution custom attribution string set by uploader that replaces credit line */
+		this.attribution = attribution;
+
 		/** @property {number} latitude The latitude of the place where the image was created */
 		this.latitude = latitude;
 
@@ -150,7 +155,7 @@
 	 */
 	Image.newFromImageInfo = function ( title, imageInfo ) {
 		var name, uploadDateTime, anonymizedUploadDateTime, creationDateTime, imageData,
-			description, source, author, authorCount, license, permission,
+			description, source, author, authorCount, license, permission, attribution,
 			latitude, longitude,
 			innerInfo = imageInfo.imageinfo[0],
 			extmeta = innerInfo.extmetadata;
@@ -176,6 +181,7 @@
 
 			license = this.newLicenseFromImageInfo( extmeta );
 			permission = this.parseExtmeta( extmeta.Permission, 'string' );
+			attribution = this.parseExtmeta( extmeta.Attribution, 'string' );
 
 			latitude = this.parseExtmeta( extmeta.GPSLatitude, 'float' );
 			longitude = this.parseExtmeta( extmeta.GPSLongitude, 'float' );
@@ -206,6 +212,7 @@
 			authorCount,
 			license,
 			permission,
+			attribution,
 			latitude,
 			longitude
 		);
