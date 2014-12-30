@@ -36,6 +36,19 @@
 		return link;
 	}
 
+	function createMultipleImage( images ) {
+		var contain = $( '<div>' ).addClass( 'thumb' ),
+			thumbinner = $( '<div>' ).addClass( 'thumbinner' ).appendTo( contain );
+		for ( var i = 0; i < images.length; ++i ) {
+			var div = $( '<div>' ).appendTo( thumbinner );
+			var thumbimage = $( '<div>' ).addClass( 'thumbimage' ).appendTo( div );
+			var link = $( '<a>' ).addClass( 'image' ).appendTo( thumbimage );
+			$( '<img>' ).prop( 'src', images[i][0] ).appendTo( link );
+			$( '<div>' ).addClass( 'thumbcaption' ).text( images[i][1] ).appendTo( div );
+		}
+		return contain;
+	}
+
 	function createBootstrap( viewer ) {
 		var bootstrap = new mw.mmv.MultimediaViewerBootstrap();
 
@@ -450,14 +463,17 @@
 		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image with a noviewer class is disallowed.' );
 	} );
 
-	QUnit.test( 'findCaption', 3, function ( assert ) {
+	QUnit.test( 'findCaption', 4, function ( assert ) {
 		var gallery = createGallery( 'foo.jpg', 'Baz' ),
 			thumb = createThumb( 'foo.jpg', 'Quuuuux' ),
 			link = createNormal( 'foo.jpg', 'Foobar' ),
+			multiple = createMultipleImage( [ [ 'foo.jpg', 'Image #1' ], [ 'bar.jpg', 'Image #2' ],
+				[ 'foobar.jpg', 'Image #3' ] ] ),
 			bootstrap = createBootstrap();
 
 		assert.strictEqual( bootstrap.findCaption( gallery.find( '.thumb' ), gallery.find( 'a.image' ) ), 'Baz', 'A gallery caption is found.' );
 		assert.strictEqual( bootstrap.findCaption( thumb, thumb.find( 'a.image' ) ), 'Quuuuux', 'A thumbnail caption is found.' );
 		assert.strictEqual( bootstrap.findCaption( $(), link ), 'Foobar', 'The caption is found even if the image is not a thumbnail.' );
+		assert.strictEqual( bootstrap.findCaption( multiple, multiple.find( 'img[src="bar.jpg"]' ).closest( 'a' ) ), 'Image #2', 'The caption is found in {{Multiple image}}.' );
 	} );
 }( mediaWiki, jQuery ) );

@@ -326,7 +326,14 @@
 		var $thumbCaption;
 
 		if ( $thumbContain.length !== 0 && $thumbContain.is( '.thumb' ) ) {
-			$thumbCaption = $thumbContain.find( '.thumbcaption' ).clone();
+			// try to find closest caption to the image
+			$thumbCaption = $link.closest( ':has(> .thumbcaption)', $thumbContain )
+				.find( '> .thumbcaption' )
+				.clone();
+			if ( !$thumbCaption.length ) {
+				// if nothing is found, look for the caption in whole container
+				$thumbCaption = $thumbContain.find( '.thumbcaption' ).clone();
+			}
 			$thumbCaption.find( '.magnify' ).remove();
 			if ( !$thumbCaption.length ) { // gallery, maybe
 				$thumbCaption = $thumbContain
