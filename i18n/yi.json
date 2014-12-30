@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"פוילישער"
+			"פוילישער",
+			"Har-wradim"
 		]
 	},
+	"multimediaviewer-repository-local": "מער פּרטים",
 	"multimediaviewer-datetime-created": "געשאפן: $1",
 	"multimediaviewer-datetime-uploaded": "ארויפגעלאדן: $1",
 	"multimediaviewer-permission-link": "באקוקן טערמינען",
