@@ -184,7 +184,8 @@
 			$thumbContain = $link.closest( '.thumb' ),
 			$enlarge = $thumbContain.find( '.magnify a' ),
 			title = mw.Title.newFromImg( $thumb ),
-			link = $link.prop( 'href' );
+			link = $link.prop( 'href' ),
+			alt = $thumb.attr( 'alt' );
 
 		if ( !bs.validExtensions[ title.getExtension().toLowerCase() ] ) {
 			return;
@@ -223,6 +224,7 @@
 			$thumb : $thumb,
 			title : title,
 			link : link,
+			alt : alt,
 			caption : this.findCaption( $thumbContain, $link ) } );
 
 		$link.add( $enlarge ).click( function ( e ) {

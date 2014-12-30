@@ -28,7 +28,7 @@
 	 * @param {HTMLImageElement} thumb The thumbnail that represents this image on the page
 	 * @param {string} [caption] The caption, if any.
 	 */
-	function LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption ) {
+	function LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption, alt ) {
 		/** @property {string} Link to the file - generally a thumb URL */
 		this.src = fileLink;
 
@@ -46,6 +46,9 @@
 
 		/** @property {string} caption The caption of the image, if any */
 		this.caption = caption;
+
+		/** @property {string} alt The alt text of the image */
+		this.alt = alt;
 
 		/** @property {number|undefined} originalWidth Width of the full-sized file (read from HTML data attribute, might be missing) */
 		this.originalWidth = undefined;

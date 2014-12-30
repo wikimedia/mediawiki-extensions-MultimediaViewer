@@ -20,12 +20,12 @@
 		return div;
 	}
 
-	function createThumb( imageSrc, caption ) {
+	function createThumb( imageSrc, caption, alt ) {
 		var div = $( '<div>' ).addClass( 'thumb' ).appendTo( '#qunit-fixture' ),
 			link = $( '<a>' ).addClass( 'image' ).appendTo( div );
 
 		$( '<div>' ).addClass( 'thumbcaption' ).appendTo( div ).text( caption );
-		$( '<img>' ).attr( 'src', ( imageSrc || 'thumb.jpg' ) ).appendTo( link );
+		$( '<img>' ).attr( 'src', ( imageSrc || 'thumb.jpg' ) ).attr( 'alt', alt ).appendTo( link );
 
 		return div;
 	}
@@ -284,7 +284,7 @@
 		$link.trigger( { type : 'click', which : 1 } );
 	} );
 
-	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 7, function ( assert ) {
+	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 8, function ( assert ) {
 		var bootstrap,
 			$div,
 			$link,
@@ -293,18 +293,19 @@
 			imgSrc = '/' + fname + '.jpg/300px-' + fname + '.jpg',
 			imgRegex = new RegExp( imgSrc + '$' );
 
-		$div = createThumb( imgSrc, 'Blah blah' );
+		$div = createThumb( imgSrc, 'Blah blah', 'meow');
 		$link = $div.find( 'a.image' );
 
 		viewer.loadImage = $.noop;
 
-		viewer.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption ) {
+		viewer.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption, alt ) {
 			assert.ok( fileLink.match( imgRegex ), 'Thumbnail URL used in creating new image object' );
 			assert.strictEqual( filePageLink, '', 'File page link is sane when creating new image object' );
 			assert.strictEqual( fileTitle.title, fname, 'Filename is correct when passed into new image constructor' );
 			assert.strictEqual( index, 0, 'The only image we created in the gallery is set at index 0 in the images array' );
-			assert.strictEqual( thumb.outerHTML, '<img src="' + imgSrc + '">', 'The image element passed in is the thumbnail we want.' );
+			assert.strictEqual( thumb.outerHTML, '<img src="' + imgSrc + '" alt="meow">', 'The image element passed in is the thumbnail we want.' );
 			assert.strictEqual( caption, 'Blah blah', 'The caption passed in is correct' );
+			assert.strictEqual( alt, 'meow', 'The alt text passed in is correct' );
 		};
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
