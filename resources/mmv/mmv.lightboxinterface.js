@@ -110,9 +110,10 @@
 	 * @param {mw.mmv.model.Image} image
 	 * @param {mw.mmv.model.Repo} repo
 	 * @param {string} caption
+	 * @param {string} alt
 	 */
-	LIP.setFileReuseData = function ( image, repo, caption ) {
-		this.fileReuse.set( image, repo, caption );
+	LIP.setFileReuseData = function ( image, repo, caption, alt ) {
+		this.fileReuse.set( image, repo, caption, alt );
 		this.downloadDialog.set( image, repo );
 	};
 

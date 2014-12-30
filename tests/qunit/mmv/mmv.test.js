@@ -150,7 +150,7 @@
 		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 45 ),
 			'Percentage correctly funneled to panel UI' );
 
-		imageDeferred.resolve();
+		imageDeferred.resolve( {}, {} );
 		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 100 ),
 			'Percentage correctly funneled to panel UI' );
 
@@ -253,7 +253,7 @@
 		assert.ok( viewer.ui.panel.progressBar.jumpTo.lastCall.calledWith( 40 ),
 			'Percentage jumps to right value when changing images' );
 
-		secondImageDeferred.resolve();
+		secondImageDeferred.resolve( {}, {} );
 		assert.ok( !viewer.ui.panel.progressBar.hide.called,
 			'Progress bar not hidden when something finishes in the background' );
 
@@ -429,12 +429,12 @@
 		firstImageDeferred.notify( undefined, 45 );
 		assert.ok( !viewer.ui.panel.progressBar.animateTo.reset.called, 'Progress of the first image should not be shown' );
 
-		firstImageDeferred.resolve();
+		firstImageDeferred.resolve( {}, {} );
 		firstLigthboxInfoDeferred.resolve( {} );
 		assert.ok( !viewer.displayRealThumbnail.called, 'The first image being done loading should have no effect');
 
 		viewer.displayRealThumbnail = this.sandbox.spy( function () { viewer.close(); } );
-		secondImageDeferred.resolve();
+		secondImageDeferred.resolve( {}, {} );
 		secondLigthboxInfoDeferred.resolve( {} );
 		assert.ok( viewer.displayRealThumbnail.called, 'The second image being done loading should result in the image being shown');
 	} );

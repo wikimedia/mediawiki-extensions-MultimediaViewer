@@ -18,15 +18,17 @@
 ( function( mw ) {
 	QUnit.module( 'mmv.model.EmbedFileInfo', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'EmbedFileInfo constructor sanity check', 4, function ( assert ) {
+	QUnit.test( 'EmbedFileInfo constructor sanity check', 5, function ( assert ) {
 		var imageInfo = {},
 			repoInfo = {},
 			caption = 'Foo',
-			embedFileInfo = new mw.mmv.model.EmbedFileInfo( imageInfo, repoInfo, caption );
+			alt = 'Bar',
+			embedFileInfo = new mw.mmv.model.EmbedFileInfo( imageInfo, repoInfo, caption, alt );
 
 		assert.strictEqual( embedFileInfo.imageInfo, imageInfo, 'ImageInfo is set correctly' );
 		assert.strictEqual( embedFileInfo.repoInfo, repoInfo, 'ImageInfo is set correctly' );
 		assert.strictEqual( embedFileInfo.caption, caption, 'Caption is set correctly' );
+		assert.strictEqual( embedFileInfo.alt, alt, 'Alt text is set correctly' );
 
 		try {
 			embedFileInfo = new mw.mmv.model.EmbedFileInfo( {} );

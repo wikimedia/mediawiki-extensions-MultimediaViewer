@@ -195,15 +195,16 @@
 	 * @param {mw.mmv.model.Image} image
 	 * @param {mw.mmv.model.Repo} repo
 	 * @param {string} caption
+	 * @param {string} alt
 	 */
-	DP.set = function ( image, repo, caption ) {
+	DP.set = function ( image, repo, caption, alt ) {
 		if ( this.tabs !== null ) {
 			this.tabs.share.set( image );
-			this.tabs.embed.set( image, repo, caption );
+			this.tabs.embed.set( image, repo, caption, alt );
 		} else {
 			this.tabsSetValues = {
 				share : [ image ],
-				embed : [ image, repo, caption ]
+				embed : [ image, repo, caption, alt ]
 			};
 		}
 	};

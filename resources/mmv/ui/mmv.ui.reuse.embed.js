@@ -424,8 +424,9 @@
 	 * @param {mw.mmv.model.Image} image
 	 * @param {mw.mmv.model.Repo} repo
 	 * @param {string} caption
+	 * @param {string} alt
 	 */
-	EP.set = function ( image, repo, caption ) {
+	EP.set = function ( image, repo, caption, alt ) {
 		var embed = this,
 			htmlSizeSwitch = this.embedSizeSwitchHtml.getMenu(),
 			htmlSizeOptions = htmlSizeSwitch.getItems(),
@@ -433,7 +434,7 @@
 			wikitextSizeOptions = wikitextSizeSwitch.getItems(),
 			sizes = this.getSizeOptions( image.width, image.height );
 
-		this.embedFileInfo = new mw.mmv.model.EmbedFileInfo( image, repo, caption );
+		this.embedFileInfo = new mw.mmv.model.EmbedFileInfo( image, repo, caption, alt );
 
 		this.utils.updateMenuOptions( sizes.html, htmlSizeOptions );
 		this.utils.updateMenuOptions( sizes.wikitext, wikitextSizeOptions );

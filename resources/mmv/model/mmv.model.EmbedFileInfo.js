@@ -23,11 +23,13 @@
 	 * @param {mw.mmv.model.Image} imageInfo
 	 * @param {mw.mmv.model.Repo} repoInfo
 	 * @param {string} [caption]
+	 * @param {string} [alt]
 	 */
 	function EmbedFileInfo(
 		imageInfo,
 		repoInfo,
-		caption
+		caption,
+		alt
 	) {
 		if ( !imageInfo || !repoInfo ) {
 			throw 'imageInfo and repoInfo are required and must have a value';
@@ -41,6 +43,9 @@
 
 		/** @property {Object} [caption] Image caption, if any */
 		this.caption = caption;
+
+		/** @property {string} [alt] Alt text for image */
+		this.alt = alt;
 	}
 
 	mw.mmv.model.EmbedFileInfo = EmbedFileInfo;

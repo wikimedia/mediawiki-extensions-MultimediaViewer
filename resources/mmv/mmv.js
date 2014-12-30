@@ -155,7 +155,8 @@
 				thumb.title,
 				i,
 				thumb.thumb,
-				thumb.caption
+				thumb.caption,
+				thumb.alt
 			);
 
 			thumb.extraStatsDeferred = $.Deferred();
@@ -171,10 +172,11 @@
 	 * @param {number} index Which number file this is
 	 * @param {HTMLImageElement} thumb The thumbnail that represents this image on the page
 	 * @param {string} [caption] The caption, if any.
+	 * @param {string} [alt] The alt text of the image
 	 * @returns {mw.mmv.LightboxImage}
 	 */
-	MMVP.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption ) {
-		var thisImage = new mw.mmv.LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption ),
+	MMVP.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption, alt ) {
+		var thisImage = new mw.mmv.LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption, alt ),
 			$thumb = $( thumb );
 
 		thisImage.filePageLink = filePageLink;
@@ -314,6 +316,8 @@
 					} );
 				} );
 			}
+
+			imageElement.alt = image.alt;
 			viewer.displayRealThumbnail( thumbnail, imageElement, imageWidths, $.now() - start );
 		} ).fail( function ( error ) {
 			viewer.ui.canvas.showError( error );
@@ -333,7 +337,7 @@
 			viewer.ui.panel.setImageInfo( image, imageInfo, repoInfo, userInfo );
 
 			// File reuse steals a bunch of information from the DOM, so do it last
-			viewer.ui.setFileReuseData( imageInfo, repoInfo, image.caption );
+			viewer.ui.setFileReuseData( imageInfo, repoInfo, image.caption, image.alt );
 		} ).fail( function ( error ) {
 			extraStatsDeferred.reject();
 

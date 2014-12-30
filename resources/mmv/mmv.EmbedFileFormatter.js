@@ -52,16 +52,18 @@
 	 * @param {mw.Title} title
 	 * @param {number} [width]
 	 * @param {string} [caption]
+	 * @param {string} [alt]
 	 * @return {string}
 	 */
-	EFFP.getThumbnailWikitext = function ( title, width, caption ) {
-		var widthSection, captionSection;
+	EFFP.getThumbnailWikitext = function ( title, width, caption, alt ) {
+		var widthSection, captionSection, altSection;
 
 
 		widthSection = width ? '|' + width + 'px' : '';
 		captionSection = caption ? '|' + caption : '';
+		altSection = alt ? '|alt=' + alt : '';
 
-		return '[[File:' + title.getMainText() + widthSection + '|thumb' + captionSection + ']]';
+		return '[[File:' + title.getMainText() + widthSection + '|thumb' + captionSection + altSection + ']]';
 	};
 
 	/**
@@ -71,7 +73,7 @@
 	 * @return {string}
 	 */
 	EFFP.getThumbnailWikitextFromEmbedFileInfo = function ( info, width ) {
-		return this.getThumbnailWikitext( info.imageInfo.title, width, this.getCaption( info ) );
+		return this.getThumbnailWikitext( info.imageInfo.title, width, this.getCaption( info ), info.alt );
 	};
 
 	/**
@@ -221,7 +223,7 @@
 					.append(
 						$( '<img>' )
 							.attr( 'src', imgUrl )
-							.attr( 'alt', info.imageInfo.title.getMainText() )
+							.attr( 'alt', info.alt || info.imageInfo.title.getMainText() )
 							.attr( 'height', height )
 							.attr( 'width', width )
 					),
