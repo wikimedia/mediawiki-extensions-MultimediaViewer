@@ -116,7 +116,7 @@
 	 * @param {string} value Warning - unsafe HTML is allowed here.
 	 */
 	TTFP.set = function ( value ) {
-		this.$element.empty().append( this.htmlUtils.htmlToTextWithLinks( value ) );
+		this.$element.empty().append( this.htmlUtils.htmlToTextWithTags( value ) );
 		this.changeStyle();
 		this.$container.toggleClass( 'empty', !value );
 		this.$ellipsis.hide();

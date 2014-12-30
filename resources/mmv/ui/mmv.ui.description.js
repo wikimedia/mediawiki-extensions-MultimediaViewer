@@ -48,7 +48,7 @@
 	 */
 	Description.prototype.set = function ( description, caption ) {
 		if ( caption && description ) { // panel header shows the caption - show description here
-			this.$imageDesc.html( this.htmlUtils.htmlToTextWithLinks( description ) );
+			this.$imageDesc.html( this.htmlUtils.htmlToTextWithTags( description ) );
 			this.$imageDescDiv.removeClass( 'empty' );
 		} else { // either there is no description or the paner header already shows it - nothing to do here
 			this.empty();

@@ -161,9 +161,16 @@
 
 	QUnit.test( 'htmlToTextWithLinks()', 1, function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils(),
-			html = '<table><tr><td>Foo</td><td><a>bar</a></td><td style="display: none">baz</td></tr></table>';
+			html = '<table><tr><td><b>F</b>o<i>o</i></td><td><a>bar</a></td><td style="display: none">baz</td></tr></table>';
 
 		assert.strictEqual( utils.htmlToTextWithLinks( html ), 'Foo <a>bar</a>', 'works' );
+	} );
+
+	QUnit.test( 'htmlToTextWithTags()', 1, function ( assert ) {
+		var utils = new mw.mmv.HtmlUtils(),
+			html = '<table><tr><td><b>F</b>o<i>o</i></td><td><a>bar</a></td><td style="display: none">baz</td></tr></table>';
+
+		assert.strictEqual( utils.htmlToTextWithTags( html ), '<b>F</b>o<i>o</i> <a>bar</a>', 'works' );
 	} );
 
 	QUnit.test( 'isJQueryOrHTMLElement()', 3, function ( assert ) {

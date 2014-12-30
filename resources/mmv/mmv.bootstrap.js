@@ -355,7 +355,7 @@
 					.find( '.gallerytext' )
 					.clone();
 			}
-			return this.htmlUtils.htmlToTextWithLinks( $thumbCaption.html() || '' );
+			return this.htmlUtils.htmlToTextWithTags( $thumbCaption.html() || '' );
 		} else if ( $link.prop( 'title' ) ) {
 			return $link.prop( 'title' );
 		}

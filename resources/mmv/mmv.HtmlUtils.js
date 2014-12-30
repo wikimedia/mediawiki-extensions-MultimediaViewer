@@ -23,11 +23,12 @@
 	 * @private
 	 * @static
 	 * Shared cache between HtmlUtils instances to store the results of expensive text operations.
-	 * @type {{text: Object.<string, string>, textWithLinks: Object.<string, string>}}
+	 * @type {{text: Object.<string, string>, textWithLinks: Object.<string, string>, textWithTags: Object.<string, string>}}
 	 */
 	cache = {
 		text: {},
-		textWithLinks: {}
+		textWithLinks: {},
+		textWithTags: {}
 	};
 
 	/**
@@ -200,6 +201,24 @@
 			cache.text[html] = this.mergeWhitespace( $html.text() );
 		}
 		return cache.text[html];
+	};
+
+	/**
+	 * Returns the text content of a html string, with the `<a>`, `<i>`, `<b>` tags left intact.
+	 * Tries to give an approximation of what would be visible if the HTML would be displayed.
+	 * @param {string} html
+	 * @return {string}
+	 */
+	HUP.htmlToTextWithTags = function ( html ) {
+		var $html;
+		if ( !cache.textWithTags[html] ) {
+			$html = this.wrapAndJquerify( html );
+			this.filterInvisible( $html );
+			this.appendWhitespaceToBlockElements( $html );
+			this.whitelistHtml( $html, 'a, span, i, b' );
+			cache.textWithTags[html] = this.mergeWhitespace( $html.html() );
+		}
+		return cache.textWithTags[html];
 	};
 
 	/**
