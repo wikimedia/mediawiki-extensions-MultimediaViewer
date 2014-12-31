@@ -486,6 +486,7 @@
 		if ( this.viewer === undefined ) {
 			this.viewer = new mw.mmv.MultimediaViewer( mw.config );
 			this.viewer.setupEventHandlers();
+			mw.mmv.viewer = this.viewer;
 		}
 
 		return this.viewer;
