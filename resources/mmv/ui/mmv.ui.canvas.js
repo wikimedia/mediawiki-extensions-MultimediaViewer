@@ -213,6 +213,12 @@
 				} );
 			}
 		} );
+
+		this.$image.on( 'mousedown.mmv-canvas', function ( e ) {
+			if ( e.which === 3 ) {
+				mw.mmv.actionLogger.log( 'right-click-image' );
+			}
+		} );
 	};
 
 	/**

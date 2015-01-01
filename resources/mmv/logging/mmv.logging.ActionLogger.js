@@ -95,6 +95,7 @@
 		'download-select-menu-large': 'User selected the large size in the download dropdown menu.',
 		'download': 'User clicked on the button to download a file.',
 		'download-view-in-browser': 'User clicked on the link to view the image in the browser in the download tab.',
+		'right-click-image': 'User right-clicked on the image.',
 		'share-page': 'User opened the link to the current image.',
 		'share-link-copied': 'User copied the share link.',
 		'embed-html-copied': 'User copied the HTML embed code.',
