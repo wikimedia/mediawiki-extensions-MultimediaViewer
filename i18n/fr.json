@@ -8,7 +8,8 @@
 			"Verdy p",
 			"Sherbrooke",
 			"Seb35",
-			"Macofe"
+			"Macofe",
+			"Windes"
 		]
 	},
 	"multimediaviewer-desc": "Agrandit les vignettes dans une interface en plein écran.",
@@ -29,6 +30,7 @@
 	"multimediaviewer-license-default": "Afficher la licence",
 	"multimediaviewer-permission-title": "Détails de la licence",
 	"multimediaviewer-permission-link": "afficher les conditions",
+	"multimediaviewer-permission-link-hide": "masquer les conditions",
 	"multimediaviewer-permission-viewmore": "Voir plus",
 	"multimediaviewer-about-mmv": "À propos de la visionneuse de médias",
 	"multimediaviewer-discuss-mmv": "Discuter de cette fonctionnalité",
