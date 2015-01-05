@@ -9,7 +9,8 @@ When /^I click the previous arrow$/ do
 end
 
 When /^I press the browser back button$/ do
-  $browser.back
+  # $browser.back doesn't work for Safari. This is a workaround for https://code.google.com/p/selenium/issues/detail?id=3771
+  on(E2ETestPage).execute_script("window.history.back();");
 end
 
 Then /^the image and metadata of the next image should appear$/ do
