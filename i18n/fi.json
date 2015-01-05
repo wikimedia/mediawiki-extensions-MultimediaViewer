@@ -5,7 +5,8 @@
 			"Nike",
 			"Stryn",
 			"ElmA",
-			"Pxos"
+			"Pxos",
+			"MrTapsa"
 		]
 	},
 	"multimediaviewer-desc": "Näytä pienoiskuvat suuremmassa koossa kokoruututilassa.",
@@ -25,6 +26,7 @@
 	"multimediaviewer-license-default": "Näytä lisenssi",
 	"multimediaviewer-permission-title": "Lisenssitiedot",
 	"multimediaviewer-permission-link": "katso käyttöehdot",
+	"multimediaviewer-permission-link-hide": "piilota termit",
 	"multimediaviewer-permission-viewmore": "Näytä lisää",
 	"multimediaviewer-about-mmv": "Tietoa Media Vieweristä",
 	"multimediaviewer-discuss-mmv": "Keskustele tästä ominaisuudesta",

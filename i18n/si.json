@@ -1,13 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Sahan.ssw"
+			"Sahan.ssw",
+			"Susith Chandira Gts"
 		]
 	},
 	"multimediaviewer-metadata-error": "දෝෂය:පින්තූරයෙහි විස්තර  පෙන්විය නොහැකිය.$1",
 	"multimediaviewer-thumbnail-error": "දෝෂය:පින්තූරය පෙන්විය නොහැකිය.$1",
 	"multimediaviewer-permission-title": "බලපත්‍ර විස්තර",
 	"multimediaviewer-permission-link": "කොන්දේසි පෙන්වන්න",
+	"multimediaviewer-permission-link-hide": "කොන්දේසි සඟවන්න",
 	"multimediaviewer-permission-viewmore": "තවත් බලන්න",
 	"multimediaviewer-embed-html": "HTML"
 }
