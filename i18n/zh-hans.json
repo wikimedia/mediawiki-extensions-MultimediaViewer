@@ -131,6 +131,7 @@
 	"multimediaviewer-option-submit-button": "禁用媒体文件查看器",
 	"multimediaviewer-option-cancel-button": "取消",
 	"multimediaviewer-disable-confirmation-header": "您已禁用媒体查看器",
+	"multimediaviewer-disable-confirmation-text": "下一次在您点击$1上的缩略图时，您将直接查看文件的详细信息。",
 	"multimediaviewer-enable-dialog-header": "启用媒体查看器？",
 	"multimediaviewer-enable-text-header": "默认对所有文件启用此媒体查看功能。",
 	"multimediaviewer-enable-submit-button": "启用媒体查看器",
