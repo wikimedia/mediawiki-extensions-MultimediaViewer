@@ -132,7 +132,8 @@
 			// Don't close the dialog if the click inside a dialog or on an navigation arrow
 			if ( $clickTarget.closest( dialog.$dialog ).length
 			|| $clickTarget.closest( '.mw-mmv-next-image' ).length
-			|| $clickTarget.closest( '.mw-mmv-prev-image' ).length ) {
+			|| $clickTarget.closest( '.mw-mmv-prev-image' ).length 
+			|| e.which === 3 ) {
 				return;
 			}
 
