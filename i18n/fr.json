@@ -9,7 +9,8 @@
 			"Sherbrooke",
 			"Seb35",
 			"Macofe",
-			"Windes"
+			"Windes",
+			"0x010C"
 		]
 	},
 	"multimediaviewer-desc": "Agrandit les vignettes dans une interface en plein écran.",
@@ -22,6 +23,8 @@
 	"multimediaviewer-datetime-uploaded": "Téléchargé : $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Téléversé}} par $1",
 	"multimediaviewer-credit": "$1 — $2",
+	"multimediaviewer-credit-fallback": "Voir les informations sur l’auteur",
+	"multimediaviewer-multiple-authors": "{{PLURAL:$1|un auteur supplémentaire|$1 auteurs supplémentaire}}",
 	"multimediaviewer-multiple-authors-combine": "$1 et $2",
 	"multimediaviewer-metadata-error": "Erreur : Impossible de charger les données de l’image. $1",
 	"multimediaviewer-thumbnail-error": "Erreur : Impossible de charger les données de la vignette. $1",
@@ -59,16 +62,22 @@
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "Utiliser ce code pour intégrer le fichier",
 	"multimediaviewer-text-embed-credit-text-tbls": "« $1 » par $2. Sous licence $3 via $4",
+	"multimediaviewer-text-embed-credit-text-tbls-nonfree": "\"$1\" par $2. $3 via $4",
 	"multimediaviewer-text-embed-credit-text-tls": "« $1 ». Sous licence $2 via $3",
+	"multimediaviewer-text-embed-credit-text-tls-nonfree": "\"$1\". $2 via $3",
 	"multimediaviewer-text-embed-credit-text-tbs": "« $1 » par $2. Via $3",
 	"multimediaviewer-text-embed-credit-text-tbl": "« $1 » par $2. Sous licence $3.",
+	"multimediaviewer-text-embed-credit-text-tbl-nonfree": "\"$1\" par $2. $3",
 	"multimediaviewer-text-embed-credit-text-tb": "« $1 » par $2",
 	"multimediaviewer-text-embed-credit-text-ts": "« $1 ». Via $2",
 	"multimediaviewer-text-embed-credit-text-tl": "« $1 ». Sous licence $2",
 	"multimediaviewer-html-embed-credit-text-tbls": "« $1 » par $2. Sous licence $3 via $4.",
+	"multimediaviewer-html-embed-credit-text-tbls-nonfree": "\"$1\" par $2. $3 via $4.",
 	"multimediaviewer-html-embed-credit-text-tls": "« $1 ». Sous licence $2 via $3.",
+	"multimediaviewer-html-embed-credit-text-tls-nonfree": "\"$1\". $2 via $3.",
 	"multimediaviewer-html-embed-credit-text-tbs": "« $1 » par $2. Via $3.",
 	"multimediaviewer-html-embed-credit-text-tbl": "« $1 » par $2. Sous licence $3.",
+	"multimediaviewer-html-embed-credit-text-tbl-nonfree": "\"$1\" par $2. $3.",
 	"multimediaviewer-html-embed-credit-text-tb": "« $1 » par $2.",
 	"multimediaviewer-html-embed-credit-text-ts": "« $1 ». Via $2.",
 	"multimediaviewer-html-embed-credit-text-tl": "« $1 ». Sous licence $2.",
@@ -85,6 +94,7 @@
 	"multimediaviewer-description-page-popup-text": "Plus de détails sur ce fichier en $1",
 	"multimediaviewer-commons-subtitle": "La médiathèque libre",
 	"multimediaviewer-view-expanded": "Ouvrir dans le Visualiseur de médias",
+	"multimediaviewer-view-config": "Configuration",
 	"multimediaviewer-close-popup-text": "Fermer cet outil (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Afficher en plein écran",
 	"multimediaviewer-defullscreen-popup-text": "Sortir du plein écran",
@@ -94,5 +104,7 @@
 	"multimediaviewer-credit-popup-text-more": "Afficher au complet l’auteur et la source",
 	"multimediaviewer-download-attribution-cta-header": "Vous devez attribuer l’auteur",
 	"multimediaviewer-download-attribution-cta": "Me montrer comment",
-	"multimediaviewer-attr-plain": "Simple"
+	"multimediaviewer-attr-plain": "Simple",
+	"multimediaviewer-options-learn-more": "En savoir plus",
+	"multimediaviewer-option-cancel-button": "Annuler"
 }
