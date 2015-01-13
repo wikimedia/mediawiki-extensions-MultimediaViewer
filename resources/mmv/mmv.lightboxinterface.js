@@ -242,8 +242,6 @@
 
 		this.currentlyAttached = false;
 
-		this.canvas.unattach();
-
 		this.buttons.unattach();
 
 		this.$postDiv.off( '.lip' );
@@ -257,6 +255,9 @@
 
 		this.optionsDialog.unattach();
 		this.optionsDialog.closeDialog();
+
+		// Canvas listens for events from dialogs, so should be unattached at the end
+		this.canvas.unattach();
 
 		this.clearEvents();
 
