@@ -772,11 +772,12 @@
 
 	/**
 	 * Show an error message, in case the data could not be loaded
-	 * @param {string} error
+	 * @param {string} title image title
+	 * @param {string} error error message
 	 */
-	MPP.showError = function ( error ) {
-		this.$title.addClass( 'error' )
-			.text( mw.message( 'multimediaviewer-metadata-error', error ).text() );
+	MPP.showError = function ( title, error ) {
+		this.$credit.text( mw.message( 'multimediaviewer-metadata-error', error ).text() );
+		this.$title.html( title );
 	};
 
 	/**

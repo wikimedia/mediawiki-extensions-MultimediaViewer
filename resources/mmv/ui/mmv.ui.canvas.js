@@ -351,14 +351,26 @@
 	 * Displays a message and error icon when loading the image fails.
 	 * @param {string} error error message
 	 */
-	C.showError = function ( error ) {
+	C.showError = function( error ) {
 		this.$imageDiv.empty()
 			.addClass( 'error' )
 			.append(
-				$( '<div>' ).addClass( 'mw-mmv-error-text' ).text(
-					mw.message( 'multimediaviewer-thumbnail-error', error ).text()
+				$( '<div>' ).addClass( 'error-box' ).append(
+					$( '<div>' ).addClass( 'mw-mmv-error-text' ).text(
+						mw.message( 'multimediaviewer-thumbnail-error' ).text()
+					)
+				).append(
+					$( '<div>' ).addClass( 'mw-mmv-error-description' ).append(
+						mw.message( 'multimediaviewer-thumbnail-error-description',
+							$( '<a>' ).addClass( 'mw-mmv-retry-link' ).text(
+								mw.message( 'multimediaviewer-thumbnail-error-retry' ).text() ),
+							error ).parse()
+					)
 				)
 			);
+		this.$imageDiv.find( '.mw-mmv-retry-link' ).click( function () {
+			location.reload();
+		} );
 	};
 
 	/**

@@ -371,6 +371,9 @@ $wgResourceModules += array(
 
 		'messages' => array(
 			'multimediaviewer-thumbnail-error',
+			'multimediaviewer-thumbnail-error-description',
+			'multimediaviewer-thumbnail-error-retry',
+			'multimediaviewer-report-issue-url',
 		),
 
 		'dependencies' => array(

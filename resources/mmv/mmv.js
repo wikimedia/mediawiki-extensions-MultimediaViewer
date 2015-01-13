@@ -345,7 +345,9 @@
 				return;
 			}
 
-			viewer.ui.panel.showError( error );
+			// Set title to caption or file name if caption is not available;
+			// see setTitle() in mmv.ui.metadataPanel for extended caption fallback
+			viewer.ui.panel.showError( image.caption || image.filePageTitle.getNameText(), error );
 		} );
 
 		$.when( imagePromise, metadataPromise ).then( function() {
