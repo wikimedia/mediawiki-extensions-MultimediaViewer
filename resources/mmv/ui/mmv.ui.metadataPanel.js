@@ -153,6 +153,10 @@
 		this.$licenseLi.addClass( 'empty' );
 		this.$permissionLink.hide();
 
+		this.$filename.empty();
+		this.$filenamePrefix.empty();
+		this.$filenameLi.addClass( 'empty' );
+
 		this.$username.empty();
 		this.$usernameLi.addClass( 'empty' );
 
@@ -298,6 +302,7 @@
 			.appendTo( this.$imageLinkDiv );
 
 		this.initializeLicense();
+		this.initializeFilename();
 		this.initializeUploader();
 		this.initializeDatetime();
 		this.initializeLocation();
@@ -335,6 +340,23 @@
 				}
 				return false;
 			} );
+	};
+
+	/**
+	 * Initializes the filename element.
+	 */
+	MPP.initializeFilename = function () {
+		this.$filenameLi = $( '<li>' )
+			.addClass( 'mw-mmv-filename-li empty' )
+			.appendTo( this.$imageLinks );
+
+		this.$filenamePrefix = $( '<span>' )
+			.addClass( 'mw-mmv-filename-prefix' )
+			.appendTo( this.$filenameLi );
+
+		this.$filename = $( '<span>' )
+			.addClass( 'mw-mmv-filename' )
+			.appendTo( this.$filenameLi );
 	};
 
 	/**
@@ -481,6 +503,17 @@
 		);
 
 		this.$datetimeLi.removeClass( 'empty' );
+	};
+
+	/**
+	 * Sets the file name in the panel.
+	 * @param {string} filename The file name to set, without prefix
+	 */
+	MPP.setFileName = function ( filename ) {
+		this.$filenamePrefix.text( 'File:' );
+		this.$filename.text( filename );
+
+		this.$filenameLi.removeClass( 'empty' );
 	};
 
 	/**
@@ -715,6 +748,8 @@
 		this.description.set( imageData.description, image.caption );
 
 		this.setLicense( imageData.license, imageData.descriptionUrl );
+
+		this.setFileName( imageData.title.getMainText() );
 
 		// these handle text truncation and should be called when everything that can push text down
 		// (e.g. floated buttons) has already been laid out
