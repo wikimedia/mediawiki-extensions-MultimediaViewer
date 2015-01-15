@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"عثمان خان شاہ"
+		]
+	},
+	"multimediaviewer-metadata-error": "تصویر کے تفصیلات دکھانے میں ناکام ہوگے (error: $1)",
+	"multimediaviewer-thumbnail-error": "معذرت کے ساتھ، یہ ملف نہیں دکھایا جاسکتا",
+	"multimediaviewer-thumbnail-error-retry": "دوبارہ کوشش کریں"
+}

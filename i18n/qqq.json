@@ -27,7 +27,7 @@
 	"multimediaviewer-metadata-error": "Text shown when the information on the metadata panel could not be loaded. Parameters:\n* $1 - the error message (not localized)\nSee also:\n* {{msg-mw|multimediaviewer-thumbnail-error}}",
 	"multimediaviewer-thumbnail-error": "Text shown when the image could not be loaded. Followed by {{msg-mw|multimediaviewer-thumbnail-error-description}}.\nSee also:\n* {{msg-mw|multimediaviewer-thumbnail-error-description}}\n* {{msg-mw|multimediaviewer-metadata-error}}",
 	"multimediaviewer-thumbnail-error-description": "Text shown when the image could not be loaded. Follows {{msg-mw|multimediaviewer-thumbnail-error}}. Parameters:\n* $1 - \"retry\" link (see {{msg-wm|multimediaviewer-thumbnail-error-retry}})\n* $2 - the error message (not localized)\nSee also:\n* {{msg-mw|multimediaviewer-thumbnail-error}}",
-	"multimediaviewer-thumbnail-error-retry": "Used as a part of {{msg-mw|multimediaviewer-thumbnail-error-description}} (as a link text).",
+	"multimediaviewer-thumbnail-error-retry": "Used as a part of {{msg-mw|multimediaviewer-thumbnail-error-description}} (as a link text).\n{{Identical|Retry}}",
 	"multimediaviewer-report-issue-url": "{{ignored}}URL to the report issue website",
 	"multimediaviewer-license-cc-by-1.0": "Very short label for the Creative Commons Attribution license, version 1.0, used in a link to the file information page that has more licensing information.\n{{Identical|CC BY}}",
 	"multimediaviewer-license-cc-sa-1.0": "Very short label for the Creative Commons ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.",
