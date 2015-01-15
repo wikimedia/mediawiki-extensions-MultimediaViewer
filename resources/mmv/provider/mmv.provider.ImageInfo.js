@@ -73,7 +73,8 @@
 		'Permission',
 		'Attribution',
 		'AttributionRequired',
-		'NonFree'
+		'NonFree',
+		'Restrictions'
 	].join('|');
 
 	/**

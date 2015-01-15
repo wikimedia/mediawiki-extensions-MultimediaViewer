@@ -25,7 +25,7 @@
 		assert.ok( imageInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'ImageInfo get test', 27, function ( assert ) {
+	QUnit.asyncTest( 'ImageInfo get test', 28, function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function() {
 				apiCallCount++;
@@ -116,6 +116,10 @@
 											NonFree: {
 												value: 'yes',
 												source: 'commons-desc-page'
+											},
+											Restrictions: {
+												value: 'trademarked|insignia',
+												source: 'commons-desc-page'
 											}
 										},
 										mime: 'image/jpeg',
@@ -157,6 +161,7 @@
 			assert.strictEqual( image.permission, 'Do not use. Ever.', 'permission is set correctly' );
 			assert.strictEqual( image.latitude, 90, 'latitude is set correctly' );
 			assert.strictEqual( image.longitude, 180, 'longitude is set correctly' );
+			assert.deepEqual( image.restrictions, ['trademarked', 'insignia'], 'restrictions is set correctly' );
 		} ).then( function() {
 			// call the data provider a second time to check caching
 			return imageInfoProvider.get( file );

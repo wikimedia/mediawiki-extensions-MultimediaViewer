@@ -152,6 +152,7 @@
 		this.$license.empty().prop( 'href', '#' );
 		this.$licenseLi.addClass( 'empty' );
 		this.$permissionLink.hide();
+		this.$restrictions.children().hide();
 
 		this.$filename.empty();
 		this.$filenamePrefix.empty();
@@ -325,6 +326,20 @@
 			.on( 'click', function( e ) {
 				panel.trackLinkClick.call( this, 'license-page', e );
 			} );
+
+		this.$restrictions = $( '<span>' )
+			.appendTo( this.$licenseLi );
+
+		this.$restrictionTrademarked = $( '<span>' )
+			.addClass( 'mw-mmv-label mw-mmv-restriction-label' )
+			.html( '&#8482;' ) // trademark sign
+			.prop( 'title', mw.message( 'multimediaviewer-restriction-trademarked' ).text() )
+			.tipsy( {
+				delay: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
+				gravity: this.correctEW( 'se' )
+			} )
+			.appendTo( this.$restrictions )
+			.hide();
 
 		this.$permissionLink = $( '<span>' )
 			.addClass( 'mw-mmv-permission-link mw-mmv-label' )
@@ -645,6 +660,16 @@
 	};
 
 	/**
+	 * Sets any special restrictions that should be displayed.
+	 * @param {string[]} restrictions Array of restrictions
+	 */
+	MPP.setRestrictions = function ( restrictions ) {
+		if ( restrictions.indexOf( 'trademarked' ) !== -1 ) {
+			this.$restrictionTrademarked.show();
+		}
+	};
+
+	/**
 	 * Sets location data in the interface.
 	 * @param {mw.mmv.model.Image} imageData
 	 */
@@ -758,6 +783,10 @@
 
 		if ( imageData.permission ) {
 			this.setPermission( imageData.permission );
+		}
+
+		if ( imageData.restrictions ) {
+			this.setRestrictions( imageData.restrictions );
 		}
 
 		this.setLocationData( imageData );

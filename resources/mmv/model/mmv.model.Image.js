@@ -44,6 +44,7 @@
 	 * @param {string} attribution Custom attribution string that replaces credit line when set
 	 * @param {number} latitude
 	 * @param {number} longitude
+	 * @param {string[]} restrictions
 	 */
 	function Image(
 			title,
@@ -67,7 +68,8 @@
 			permission,
 			attribution,
 			latitude,
-			longitude
+			longitude,
+			restrictions
 	) {
 		/** @property {mw.Title} title The title of the image file */
 		this.title = title;
@@ -136,6 +138,9 @@
 		/** @property {number} longitude The longitude of the place where the image was created */
 		this.longitude = longitude;
 
+		/** @property {string[]} restrictions Any re-use restrictions for the image, eg trademarked */
+		this.restrictions = restrictions;
+
 		/**
 		 * @property {Object} thumbUrls
 		 * An object indexed by image widths
@@ -156,7 +161,7 @@
 	Image.newFromImageInfo = function ( title, imageInfo ) {
 		var name, uploadDateTime, anonymizedUploadDateTime, creationDateTime, imageData,
 			description, source, author, authorCount, license, permission, attribution,
-			latitude, longitude,
+			latitude, longitude, restrictions,
 			innerInfo = imageInfo.imageinfo[0],
 			extmeta = innerInfo.extmetadata;
 
@@ -182,6 +187,7 @@
 			license = this.newLicenseFromImageInfo( extmeta );
 			permission = this.parseExtmeta( extmeta.Permission, 'string' );
 			attribution = this.parseExtmeta( extmeta.Attribution, 'string' );
+			restrictions = this.parseExtmeta( extmeta.Restrictions, 'list' );
 
 			latitude = this.parseExtmeta( extmeta.GPSLatitude, 'float' );
 			longitude = this.parseExtmeta( extmeta.GPSLongitude, 'float' );
@@ -214,7 +220,8 @@
 			permission,
 			attribution,
 			latitude,
-			longitude
+			longitude,
+			restrictions
 		);
 
 		if ( innerInfo.thumburl ) {

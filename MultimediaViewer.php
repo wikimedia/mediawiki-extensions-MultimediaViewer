@@ -599,6 +599,8 @@ $wgResourceModules += array(
 			'multimediaviewer-permission-link',
 			'multimediaviewer-permission-link-hide',
 
+			'multimediaviewer-restriction-trademarked',
+
 			'multimediaviewer-geoloc-north',
 			'multimediaviewer-geoloc-east',
 			'multimediaviewer-geoloc-south',
