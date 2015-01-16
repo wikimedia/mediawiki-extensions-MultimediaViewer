@@ -2,11 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Sahan.ssw",
-			"Susith Chandira Gts"
+			"Susith Chandira Gts",
+			"Thirsty"
 		]
 	},
-	"multimediaviewer-metadata-error": "දෝෂය:පින්තූරයෙහි විස්තර  පෙන්විය නොහැකිය.$1",
-	"multimediaviewer-thumbnail-error": "දෝෂය:පින්තූරය පෙන්විය නොහැකිය.$1",
+	"multimediaviewer-metadata-error": "පින්තූරයේ විස්තර වලට ප්‍රෙව්ශනය විය නොහැක(දෝෂය:$1)",
+	"multimediaviewer-thumbnail-error": "සමාවන්න, ගොනුව පෙන්විය නොහැක.",
+	"multimediaviewer-thumbnail-error-retry": "නැවත උත්සහ කරන්න",
 	"multimediaviewer-permission-title": "බලපත්‍ර විස්තර",
 	"multimediaviewer-permission-link": "කොන්දේසි පෙන්වන්න",
 	"multimediaviewer-permission-link-hide": "කොන්දේසි සඟවන්න",
