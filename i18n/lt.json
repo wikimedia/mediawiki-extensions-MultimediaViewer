@@ -4,7 +4,8 @@
 			"Mantak111",
 			"Robotukas11",
 			"Hugo.arg",
-			"Gediminas"
+			"Gediminas",
+			"Eitvys200"
 		]
 	},
 	"multimediaviewer-desc": "Išplėsti labiau miniatiūras esant pilno dydžio vartotojo aplinkai.",
@@ -19,6 +20,7 @@
 	"multimediaviewer-multiple-authors": "ir {{PLURAL:$1|dar vienas autorius|dar $1 autoriai|dar $1 autorių}}",
 	"multimediaviewer-metadata-error": "Klaida: nepavyksta pakrauti vaizdo duomenų. $1",
 	"multimediaviewer-thumbnail-error": "Klaida: nepavyksta pakrauti miniatiūros duomenų. $1",
+	"multimediaviewer-thumbnail-error-retry": "bandyti dar kartą",
 	"multimediaviewer-license-cc-pd": "Viešo naudojimo",
 	"multimediaviewer-license-pd": "Viešo naudojimo",
 	"multimediaviewer-license-default": "Žiūrėti licenciją",
