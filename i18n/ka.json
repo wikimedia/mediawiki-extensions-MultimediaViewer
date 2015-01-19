@@ -3,12 +3,13 @@
 		"authors": [
 			"Otogi",
 			"David1010",
-			"MIKHEIL"
+			"MIKHEIL",
+			"Chavch"
 		]
 	},
 	"multimediaviewer-pref": "მედია დამთვალიერებელი",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|ატვირთა}} მომხმარებელმა $1",
-	"multimediaviewer-metadata-error": "სურათის დეტალების ჩვენება ვერ მოხერხდა (შეცდომა: $1)",
+	"multimediaviewer-metadata-error": "სურათის ჩატვირთვა ვერ მოხერხდა (შეცდომა: $1)",
 	"multimediaviewer-thumbnail-error": "სამწუხაროდ, ამ ფაილის ჩვენება შეუძლებელია",
 	"multimediaviewer-thumbnail-error-retry": "ხელახლა ცდა",
 	"multimediaviewer-permission-link-hide": "პირობების დამალვა",
