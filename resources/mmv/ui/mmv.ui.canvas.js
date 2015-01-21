@@ -117,19 +117,6 @@
 	};
 
 	/**
-	 * Sets max-width and max-height of the image equal to those of its parent element.
-	 * FIXME what is this good for, actually?
-	 */
-	C.setImageMaxDimensions = function () {
-		this.$image.css( {
-			maxWidth : this.$image.parent().width(),
-			// for height, use closest ancestor which has non-content-defined height;
-			// otherwise this could be determined by the height of the image.
-			maxHeight : this.$imageWrapper.height()
-		} );
-	};
-
-	/**
 	 * Sets contained image and also the max dimensions. Called while resizing the viewer.
 	 * Assumes set function called before.
 	 * @param {mw.mmv.model.Thumbnail} thumbnail thumbnail information
@@ -153,8 +140,6 @@
 
 			this.setUpImageClick();
 		}
-
-		this.setImageMaxDimensions();
 	};
 
 	/**
