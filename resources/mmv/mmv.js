@@ -787,6 +787,12 @@
 			thumbnailPromise = this.thumbnailInfoProvider.get( fileTitle, width );
 		}
 
+		// Add thumbnail width to the extra stats passed to the performance log
+		extraStatsDeferred = $.when( extraStatsDeferred || {} ).then( function ( extraStats ) {
+			extraStats.imageWidth = width;
+			return extraStats;
+		} );
+
 		imagePromise = thumbnailPromise.then( function ( thumbnail ) {
 			return viewer.imageProvider.get( thumbnail.url, extraStatsDeferred );
 		} );

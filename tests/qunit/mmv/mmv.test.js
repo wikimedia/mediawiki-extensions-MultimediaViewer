@@ -557,7 +557,7 @@
 		assert.ok( !guessedThumbnailInfoStub.called, 'When we lack sample URL and original dimensions, GuessedThumbnailInfoProvider is not called' );
 		assert.ok( thumbnailInfoStub.calledOnce, 'When we lack sample URL and original dimensions, ThumbnailInfoProvider is called once' );
 		assert.ok( imageStub.calledOnce, 'When we lack sample URL and original dimensions, ImageProvider is called once' );
-		assert.ok( imageStub.calledWithExactly( 'apiURL', undefined ), 'When we lack sample URL and original dimensions, ImageProvider is called with the API url' );
+		assert.ok( imageStub.calledWith( 'apiURL' ), 'When we lack sample URL and original dimensions, ImageProvider is called with the API url' );
 		assert.strictEqual( promise.state(), 'resolved', 'When we lack sample URL and original dimensions, fetchThumbnail resolves' );
 
 		// When the guesser bails out, the classic provider should be used
@@ -569,7 +569,7 @@
 		assert.ok( guessedThumbnailInfoStub.calledOnce, 'When the guesser bails out, GuessedThumbnailInfoProvider is called once' );
 		assert.ok( thumbnailInfoStub.calledOnce, 'When the guesser bails out, ThumbnailInfoProvider is called once' );
 		assert.ok( imageStub.calledOnce, 'When the guesser bails out, ImageProvider is called once' );
-		assert.ok( imageStub.calledWithExactly( 'apiURL', undefined ), 'When the guesser bails out, ImageProvider is called with the API url' );
+		assert.ok( imageStub.calledWith( 'apiURL' ), 'When the guesser bails out, ImageProvider is called with the API url' );
 		assert.strictEqual( promise.state(), 'resolved', 'When the guesser bails out, fetchThumbnail resolves' );
 
 		// When the guesser returns an URL, that should be used
@@ -581,7 +581,7 @@
 		assert.ok( guessedThumbnailInfoStub.calledOnce, 'When the guesser returns an URL, GuessedThumbnailInfoProvider is called once' );
 		assert.ok( !thumbnailInfoStub.called, 'When the guesser returns an URL, ThumbnailInfoProvider is not called' );
 		assert.ok( imageStub.calledOnce, 'When the guesser returns an URL, ImageProvider is called once' );
-		assert.ok( imageStub.calledWithExactly( 'guessedURL', undefined ), 'When the guesser returns an URL, ImageProvider is called with the guessed url' );
+		assert.ok( imageStub.calledWith( 'guessedURL' ), 'When the guesser returns an URL, ImageProvider is called with the guessed url' );
 		assert.strictEqual( promise.state(), 'resolved', 'When the guesser returns an URL, fetchThumbnail resolves' );
 
 		// When the guesser returns an URL, but that returns 404, image loading should be retried with the classic provider
@@ -594,8 +594,8 @@
 		assert.ok( guessedThumbnailInfoStub.calledOnce, 'When the guesser returns an URL, but that returns 404, GuessedThumbnailInfoProvider is called once' );
 		assert.ok( thumbnailInfoStub.calledOnce, 'When the guesser returns an URL, but that returns 404, ThumbnailInfoProvider is called once' );
 		assert.ok( imageStub.calledTwice, 'When the guesser returns an URL, but that returns 404, ImageProvider is called twice' );
-		assert.ok( imageStub.getCall( 0 ).calledWithExactly( 'guessedURL', undefined ), 'When the guesser returns an URL, but that returns 404, ImageProvider is called first with the guessed url' );
-		assert.ok( imageStub.getCall( 1 ).calledWithExactly( 'apiURL', undefined ), 'When the guesser returns an URL, but that returns 404, ImageProvider is called second with the guessed url' );
+		assert.ok( imageStub.getCall( 0 ).calledWith( 'guessedURL' ), 'When the guesser returns an URL, but that returns 404, ImageProvider is called first with the guessed url' );
+		assert.ok( imageStub.getCall( 1 ).calledWith( 'apiURL' ), 'When the guesser returns an URL, but that returns 404, ImageProvider is called second with the guessed url' );
 		assert.strictEqual( promise.state(), 'resolved', 'When the guesser returns an URL, but that returns 404, fetchThumbnail resolves' );
 
 		// When even the retry fails, fetchThumbnail() should reject
@@ -608,8 +608,8 @@
 		assert.ok( guessedThumbnailInfoStub.calledOnce, 'When even the retry fails, GuessedThumbnailInfoProvider is called once' );
 		assert.ok( thumbnailInfoStub.calledOnce, 'When even the retry fails, ThumbnailInfoProvider is called once' );
 		assert.ok( imageStub.calledTwice, 'When even the retry fails, ImageProvider is called twice' );
-		assert.ok( imageStub.getCall( 0 ).calledWithExactly( 'guessedURL', undefined ), 'When even the retry fails, ImageProvider is called first with the guessed url' );
-		assert.ok( imageStub.getCall( 1 ).calledWithExactly( 'apiURL', undefined ), 'When even the retry fails, ImageProvider is called second with the guessed url' );
+		assert.ok( imageStub.getCall( 0 ).calledWith( 'guessedURL' ), 'When even the retry fails, ImageProvider is called first with the guessed url' );
+		assert.ok( imageStub.getCall( 1 ).calledWith( 'apiURL' ), 'When even the retry fails, ImageProvider is called second with the guessed url' );
 		assert.strictEqual( promise.state(), 'rejected', 'When even the retry fails, fetchThumbnail rejects' );
 
 		mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing = false;
@@ -623,7 +623,7 @@
 		assert.ok( !guessedThumbnailInfoStub.called, 'When guessing is disabled, GuessedThumbnailInfoProvider is not called' );
 		assert.ok( thumbnailInfoStub.calledOnce, 'When guessing is disabled, ThumbnailInfoProvider is called once' );
 		assert.ok( imageStub.calledOnce, 'When guessing is disabled, ImageProvider is called once' );
-		assert.ok( imageStub.calledWithExactly( 'apiURL', undefined ), 'When guessing is disabled, ImageProvider is called with the API url' );
+		assert.ok( imageStub.calledWith( 'apiURL' ), 'When guessing is disabled, ImageProvider is called with the API url' );
 		assert.strictEqual( promise.state(), 'resolved', 'When guessing is disabled, fetchThumbnail resolves' );
 
 		mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing = oldUseThumbnailGuessing;
