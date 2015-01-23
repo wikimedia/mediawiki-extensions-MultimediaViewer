@@ -52,7 +52,7 @@
 		assert.ok( canvas.$imageDiv.hasClass( 'empty' ), 'Canvas is not visible.' );
 	} );
 
-	QUnit.test( 'setImageAndMaxDimensions()', 8, function ( assert ) {
+	QUnit.test( 'setImageAndMaxDimensions()', 4, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			$mainWrapper = $( '<div>' ).appendTo( $qf ),
 			$innerWrapper =$( '<div>' ).appendTo( $mainWrapper ),
@@ -80,8 +80,6 @@
 
 		assert.strictEqual( image.width, originalWidth, 'Image width was not modified.' );
 		assert.strictEqual( canvas.$image, $imageElem, 'Image element still set correctly.' );
-		assert.strictEqual( canvas.$image.css( 'maxWidth' ), canvas.$imageDiv.width() + 'px', 'MaxWidth set correctly.' );
-		assert.strictEqual( canvas.$image.css( 'maxHeight' ), canvas.$imageDiv.height() + 'px', 'MaxHeight set correctly.' );
 
 		$currentImage = canvas.$image;
 
@@ -95,8 +93,6 @@
 
 		assert.strictEqual( image2.width, screenWidth, 'Image width was trimmed correctly.' );
 		assert.notStrictEqual( canvas.$image, $currentImage, 'Image element switched correctly.' );
-		assert.strictEqual( canvas.$image.css( 'maxWidth' ), canvas.$imageDiv.width() + 'px', 'MaxWidth set correctly.' );
-		assert.strictEqual( canvas.$image.css( 'maxHeight' ), canvas.$imageDiv.height() + 'px', 'MaxHeight set correctly.' );
 	} );
 
 	QUnit.test( 'maybeDisplayPlaceholder: Constrained area for SVG files', 4, function ( assert ) {
