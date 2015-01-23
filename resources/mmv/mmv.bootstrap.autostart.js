@@ -18,7 +18,7 @@
 // This file is used to do the global initialization that we want on the real pages,
 // but do not want in the tests.
 ( function ( mw, $ ) {
-	if ( ! mw.mmv.isBrowserSupported() ) {
+	if ( !mw.mmv.isBrowserSupported() ) {
 		return;
 	}
 

@@ -123,13 +123,13 @@
 		mwUser.isAnon.returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		localStorage.getItem.withArgs( 'wgMediaViewerOnClick').returns( null );
+		localStorage.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( null );
 		assert.strictEqual( config.isMediaViewerEnabledOnClick(), true, 'Returns true for anon with standard settings' );
 
 		mwUser.isAnon.returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		localStorage.getItem.withArgs( 'wgMediaViewerOnClick').returns( '0' );
+		localStorage.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( '0' );
 		assert.strictEqual( config.isMediaViewerEnabledOnClick(), false, 'Returns true for anon opted out via localSettings' );
 	} );
 

@@ -165,20 +165,20 @@
 		}
 
 		this.handleEvent( 'keyup', function ( e ) {
-			if ( e.keyCode === 27 && !( e.altKey || e.ctrlKey || e.shiftKey || e.metaKey) ) {
+			if ( e.keyCode === 27 && !( e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) ) {
 				// Escape button pressed
 				ui.unattach();
 			}
 		} );
 
-		this.handleEvent( 'jq-fullscreen-change.lip', function( e ) {
+		this.handleEvent( 'jq-fullscreen-change.lip', function ( e ) {
 			ui.fullscreenChange( e );
 		} );
 
 		this.handleEvent( 'keydown', function ( e ) { ui.keydown( e ); } );
 
 		// mousemove generates a ton of events, which is why we throttle it
-		this.handleEvent( 'mousemove.lip', $.throttle( 250, function( e ) {
+		this.handleEvent( 'mousemove.lip', $.throttle( 250, function ( e ) {
 			ui.mousemove( e );
 		} ) );
 
@@ -289,7 +289,7 @@
 	 */
 	LIP.setupCanvasButtons = function () {
 		var ui = this,
-			tooltipDelay = mw.config.get( 'wgMultimediaViewer').tooltipDelay;
+			tooltipDelay = mw.config.get( 'wgMultimediaViewer' ).tooltipDelay;
 
 		this.$closeButton = $( '<div>' )
 			.text( ' ' )

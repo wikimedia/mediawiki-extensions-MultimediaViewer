@@ -50,7 +50,7 @@
 		'mime',
 		'mediatype',
 		'extmetadata'
-	].join('|');
+	].join( '|' );
 
 	/**
 	 * List of imageinfo extmetadata fields which are needed to construct an Image model.
@@ -75,14 +75,14 @@
 		'AttributionRequired',
 		'NonFree',
 		'Restrictions'
-	].join('|');
+	].join( '|' );
 
 	/**
 	 * Runs an API GET request to get the image info.
 	 * @param {mw.Title} file
 	 * @return {jQuery.Promise} a promise which resolves to an mw.mmv.model.Image object.
 	 */
-	ImageInfo.prototype.get = function( file ) {
+	ImageInfo.prototype.get = function ( file ) {
 		var provider = this;
 
 		return this.getCachedPromise( file.getPrefixedDb(), function () {
@@ -93,9 +93,9 @@
 				iiprop: provider.iiprop,
 				iiextmetadatafilter: provider.iiextmetadatafilter,
 				iiextmetadatalanguage: provider.options.language
-			} ).then( function( data ) {
+			} ).then( function ( data ) {
 				return provider.getQueryPage( file, data );
-			} ).then( function( page ) {
+			} ).then( function ( page ) {
 				if ( page.imageinfo && page.imageinfo.length ) {
 					return mw.mmv.model.Image.newFromImageInfo( file, page );
 				} else if ( page.missing === '' && page.imagerepository === '' ) {

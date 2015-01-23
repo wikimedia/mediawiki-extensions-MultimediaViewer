@@ -30,8 +30,8 @@
 
 		try {
 			thumbnail = new mw.mmv.model.Thumbnail( url, width );
-		} catch (e) {
-			assert.ok( e, 'Exception is thrown when parameters are missing');
+		} catch ( e ) {
+			assert.ok( e, 'Exception is thrown when parameters are missing' );
 		}
 	} );
 
@@ -50,8 +50,8 @@
 
 		try {
 			thumbnailWidth = new mw.mmv.model.ThumbnailWidth( cssWidth, screenWidth );
-		} catch (e) {
-			assert.ok( e, 'Exception is thrown when parameters are missing');
+		} catch ( e ) {
+			assert.ok( e, 'Exception is thrown when parameters are missing' );
 		}
 	} );
 
@@ -65,8 +65,8 @@
 
 		try {
 			user = new mw.mmv.model.User();
-		} catch (e) {
-			assert.ok( e, 'Exception is thrown when parameters are missing');
+		} catch ( e ) {
+			assert.ok( e, 'Exception is thrown when parameters are missing' );
 		}
 	} );
 
@@ -80,8 +80,8 @@
 
 		try {
 			user = new mw.mmv.model.User( username, '???' );
-		} catch (e) {
-			assert.ok( e, 'Exception is thrown when gender parameter is not understood');
+		} catch ( e ) {
+			assert.ok( e, 'Exception is thrown when gender parameter is not understood' );
 		}
 	} );
 

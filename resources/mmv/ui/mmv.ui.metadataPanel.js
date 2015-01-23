@@ -52,11 +52,11 @@
 	/**
 	 * FIXME this should be in the jquery.fullscreen plugin.
 	 */
-	MPP.isFullscreened = function() {
+	MPP.isFullscreened = function () {
 		return $( this.$container ).closest( '.jq-fullscreened' ).length > 0;
 	};
 
-	MPP.attach = function() {
+	MPP.attach = function () {
 		var panel = this;
 
 		this.scroller.attach();
@@ -104,20 +104,20 @@
 			}
 		} ).on( 'mouseenter.mmv-mp', function () {
 			clearTimeout( panel.panelShrinkTimeout );
-		} ).on( 'mmv-permission-grow.mmv-mp', function() {
+		} ).on( 'mmv-permission-grow.mmv-mp', function () {
 			panel.$permissionLink
 				.text( mw.message( 'multimediaviewer-permission-link-hide' ).text() );
-		} ).on( 'mmv-permission-shrink.mmv-mp', function() {
+		} ).on( 'mmv-permission-shrink.mmv-mp', function () {
 			panel.$permissionLink
 				.text( mw.message( 'multimediaviewer-permission-link' ).text() );
 		} );
 
-		this.handleEvent( 'jq-fullscreen-change.lip', function() {
+		this.handleEvent( 'jq-fullscreen-change.lip', function () {
 			panel.hideTruncatedText();
 		} );
 	};
 
-	MPP.unattach = function() {
+	MPP.unattach = function () {
 		this.scroller.freezeHeight();
 
 		this.$title
@@ -284,7 +284,7 @@
 			mw.message( 'multimediaviewer-credit-popup-text-more' )
 		);
 
-		this.$authorAndSource.add( this.creditField.$ellipsis).tipsy( {
+		this.$authorAndSource.add( this.creditField.$ellipsis ).tipsy( {
 			delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
 			gravity: this.correctEW( 'sw' )
 		} );
@@ -316,14 +316,14 @@
 		var panel = this;
 
 		this.$licenseLi = $( '<li>' )
-			.addClass( 'mw-mmv-license-li empty')
+			.addClass( 'mw-mmv-license-li empty' )
 			.appendTo( this.$imageLinks );
 
 		this.$license = $( '<a>' )
 			.addClass( 'mw-mmv-license' )
 			.prop( 'href', '#' )
 			.appendTo( this.$licenseLi )
-			.on( 'click', function( e ) {
+			.on( 'click', function ( e ) {
 				panel.trackLinkClick.call( this, 'license-page', e );
 			} );
 
@@ -346,7 +346,7 @@
 			.text( mw.message( 'multimediaviewer-permission-link' ).text() )
 			.appendTo( this.$licenseLi )
 			.hide()
-			.on( 'click', function() {
+			.on( 'click', function () {
 				if ( panel.permission.isFullSize() ) {
 					panel.permission.shrink();
 				} else {
@@ -401,7 +401,7 @@
 			.addClass( 'mw-mmv-username' )
 			.prop( 'href', '#' )
 			.appendTo( this.$usernameLi )
-			.click( function( e ) { self.trackLinkClick.call( this, 'uploader-page', e ); } );
+			.click( function ( e ) { self.trackLinkClick.call( this, 'uploader-page', e ); } );
 	};
 
 	/**
@@ -417,7 +417,7 @@
 		this.$location = $( '<a>' )
 			.addClass( 'mw-mmv-location' )
 			.appendTo( this.$locationLi )
-			.click( function( e ) { self.trackLinkClick.call( this, 'location-page', e ); } );
+			.click( function ( e ) { self.trackLinkClick.call( this, 'location-page', e ); } );
 	};
 
 	/**
@@ -431,19 +431,19 @@
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).infoLink )
 			.text( mw.message( 'multimediaviewer-about-mmv' ).text() )
 			.addClass( 'mw-mmv-about-link' )
-			.click( function( e ) { self.trackLinkClick.call( this, 'about-page', e ); } );
+			.click( function ( e ) { self.trackLinkClick.call( this, 'about-page', e ); } );
 
 		this.$mmvDiscussLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).discussionLink )
 			.text( mw.message( 'multimediaviewer-discuss-mmv' ).text() )
 			.addClass( 'mw-mmv-discuss-link' )
-			.click( function( e ) { self.trackLinkClick.call( this, 'discuss-page', e ); } );
+			.click( function ( e ) { self.trackLinkClick.call( this, 'discuss-page', e ); } );
 
 		this.$mmvHelpLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).helpLink )
 			.text( mw.message( 'multimediaviewer-help-mmv' ).text() )
 			.addClass( 'mw-mmv-help-link' )
-			.click( function( e ) { self.trackLinkClick.call( this, 'help-page', e ); } );
+			.click( function ( e ) { self.trackLinkClick.call( this, 'help-page', e ); } );
 
 		this.$mmvAboutLinks = $( '<div>' )
 			.addClass( 'mw-mmv-about-links' )
@@ -723,7 +723,7 @@
 			).text()
 		);
 
-		$.each(  mw.language.data, function( key, value ) {
+		$.each( mw.language.data, function ( key, value ) {
 			value = 'go away jshint';
 			language = key;
 			return false;

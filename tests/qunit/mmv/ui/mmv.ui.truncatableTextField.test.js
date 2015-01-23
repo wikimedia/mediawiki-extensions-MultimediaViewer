@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw, $ ) {
+( function ( mw, $ ) {
 	QUnit.module( 'mmv.ui.TruncatableTextField', QUnit.newMwEnvironment() );
 
 	/**
@@ -54,7 +54,7 @@
 
 	QUnit.test( 'Set method', 1, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			ttf = getField( 3, 2, $qf, this.sandbox);
+			ttf = getField( 3, 2, $qf, this.sandbox );
 
 		ttf.shrink = this.sandbox.stub();
 		ttf.set( 'abc' );

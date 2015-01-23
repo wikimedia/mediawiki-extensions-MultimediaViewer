@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw ) {
+( function ( mw ) {
 	QUnit.module( 'mmv.model.EmbedFileInfo', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'EmbedFileInfo constructor sanity check', 5, function ( assert ) {
@@ -32,7 +32,7 @@
 
 		try {
 			embedFileInfo = new mw.mmv.model.EmbedFileInfo( {} );
-		} catch (e) {
+		} catch ( e ) {
 			assert.ok( e, 'Exception is thrown when parameters are missing' );
 		}
 	} );

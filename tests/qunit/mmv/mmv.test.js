@@ -2,7 +2,7 @@
 	QUnit.module( 'mmv', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'eachPrealoadableLightboxIndex()', 11, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
+		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
 			expectedIndices,
 			i;
 
@@ -11,27 +11,27 @@
 
 		// 0..10
 		for ( i = 0; i < 11; i++ ) {
-			viewer.thumbs.push( { image : false } );
+			viewer.thumbs.push( { image: false } );
 		}
 
 		viewer.currentIndex = 2;
 		i = 0;
 		expectedIndices = [2, 3, 1, 4, 0, 5];
-		viewer.eachPrealoadableLightboxIndex( function( index ) {
-			assert.strictEqual( index, expectedIndices[i++], 'preload on left edge');
+		viewer.eachPrealoadableLightboxIndex( function ( index ) {
+			assert.strictEqual( index, expectedIndices[i++], 'preload on left edge' );
 		} );
 
 		viewer.currentIndex = 9;
 		i = 0;
 		expectedIndices = [9, 10, 8, 7, 6];
-		viewer.eachPrealoadableLightboxIndex( function( index ) {
-			assert.strictEqual( index, expectedIndices[i++], 'preload on right edge');
+		viewer.eachPrealoadableLightboxIndex( function ( index ) {
+			assert.strictEqual( index, expectedIndices[i++], 'preload on right edge' );
 		} );
 	} );
 
 	QUnit.test( 'Hash handling', 7, function ( assert ) {
 		var oldUnattach,
-			viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
+			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
 			ui = new mw.mmv.LightboxInterface(),
 			imageSrc = 'Foo bar.jpg',
 			image = { filePageTitle: new mw.Title( 'File:' + imageSrc ) };
@@ -66,7 +66,7 @@
 			oldUnattach.call( this );
 		};
 
-		// Verify that passing an invalid mmv hash  when the mmv is closed doesn't trigger unattach()
+		// Verify that passing an invalid mmv hash when the mmv is closed doesn't trigger unattach()
 		window.location.hash = 'Bar';
 		viewer.hash();
 
@@ -77,7 +77,7 @@
 
 		$( '#qunit-fixture' ).append( '<a class="image"><img src="' + imageSrc + '"></a>' );
 
-		viewer.loadImageByTitle = function( title ) {
+		viewer.loadImageByTitle = function ( title ) {
 			assert.strictEqual( title.getPrefixedText(), 'File:' + imageSrc, 'The title matches' );
 		};
 
@@ -102,7 +102,7 @@
 
 	QUnit.test( 'Progress', 4, function ( assert ) {
 		var imageDeferred = $.Deferred(),
-			viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
+			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
 			fakeImage = {
 				filePageTitle: new mw.Title( 'File:Stuff.jpg' ),
 				extraStatsDeferred: $.Deferred().reject()
@@ -135,9 +135,9 @@
 			},
 			open: $.noop };
 
-		viewer.imageProvider.get = function() { return imageDeferred.promise(); };
-		viewer.imageInfoProvider.get = function() { return $.Deferred().resolve( {} ); };
-		viewer.thumbnailInfoProvider.get = function() { return $.Deferred().resolve( {} ); };
+		viewer.imageProvider.get = function () { return imageDeferred.promise(); };
+		viewer.imageInfoProvider.get = function () { return $.Deferred().resolve( {} ); };
+		viewer.thumbnailInfoProvider.get = function () { return $.Deferred().resolve( {} ); };
 
 		viewer.loadImage( fakeImage, new Image() );
 		assert.ok( viewer.ui.panel.progressBar.jumpTo.lastCall.calledWith( 0 ),
@@ -170,7 +170,7 @@
 				filePageTitle: new mw.Title( 'File:Second.jpg' ),
 				extraStatsDeferred: $.Deferred().reject()
 			},
-			viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
+			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } );
 
 		viewer.thumbs = [];
 		viewer.displayPlaceholderThumbnail = $.noop;
@@ -182,17 +182,17 @@
 		viewer.fetchSizeIndependentLightboxInfo = function () { return $.Deferred().resolve( {} ); };
 		viewer.ui = {
 			setFileReuseData: $.noop,
-			setupForLoad : $.noop,
-			canvas : { set : $.noop,
+			setupForLoad: $.noop,
+			canvas: { set: $.noop,
 				unblurWithAnimation: $.noop,
 				unblur: $.noop,
-				getCurrentImageWidths : function () { return { real : 0 }; },
+				getCurrentImageWidths: function () { return { real: 0 }; },
 				getDimensions: function () { return {}; }
 			},
-			panel : {
-				setImageInfo : $.noop,
+			panel: {
+				setImageInfo: $.noop,
 				scroller: {
-					animateMetadataOnce : $.noop
+					animateMetadataOnce: $.noop
 				},
 				progressBar: {
 					hide: this.sandbox.stub(),
@@ -200,11 +200,11 @@
 					jumpTo: this.sandbox.stub()
 				}
 			},
-			open : $.noop,
+			open: $.noop,
 			empty: $.noop };
 
-		viewer.imageInfoProvider.get = function() { return $.Deferred().resolve( {} ); };
-		viewer.thumbnailInfoProvider.get = function() { return $.Deferred().resolve( {} ); };
+		viewer.imageInfoProvider.get = function () { return $.Deferred().resolve( {} ); };
+		viewer.thumbnailInfoProvider.get = function () { return $.Deferred().resolve( {} ); };
 
 		// load some image
 		viewer.imageProvider.get = this.sandbox.stub().returns( firstImageDeferred );
@@ -268,7 +268,7 @@
 	} );
 
 	QUnit.test( 'resetBlurredThumbnailStates', 4, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
+		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } );
 
 		assert.ok( !viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
@@ -283,93 +283,93 @@
 	} );
 
 	QUnit.test( 'Placeholder first, then real thumbnail', 4, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
+		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } );
 
 		viewer.setImage = $.noop;
-		viewer.ui = { canvas : {
+		viewer.ui = { canvas: {
 			unblurWithAnimation: $.noop,
 			unblur: $.noop,
-			maybeDisplayPlaceholder : function() { return true; }
+			maybeDisplayPlaceholder: function () { return true; }
 		} };
 		viewer.imageInfoProvider.get = this.sandbox.stub();
 
-		viewer.displayPlaceholderThumbnail( { originalWidth: 100, originalHeight: 100 }, undefined, undefined);
+		viewer.displayPlaceholderThumbnail( { originalWidth: 100, originalHeight: 100 }, undefined, undefined );
 
 		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 		assert.ok( !viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 
-		viewer.displayRealThumbnail( { url : undefined } );
+		viewer.displayRealThumbnail( { url: undefined } );
 
 		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
 	QUnit.test( 'Placeholder first, then real thumbnail - missing size', 4, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
+		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } );
 
 		viewer.currentIndex = 1;
 		viewer.setImage = $.noop;
-		viewer.ui = { canvas : {
+		viewer.ui = { canvas: {
 			unblurWithAnimation: $.noop,
 			unblur: $.noop,
-			maybeDisplayPlaceholder : function() { return true; }
+			maybeDisplayPlaceholder: function () { return true; }
 		} };
-		viewer.imageInfoProvider.get = this.sandbox.stub().returns( $.Deferred().resolve( {width: 100, height: 100 } ) );
+		viewer.imageInfoProvider.get = this.sandbox.stub().returns( $.Deferred().resolve( { width: 100, height: 100 } ) );
 
-		viewer.displayPlaceholderThumbnail( { index: 1 }, undefined, undefined);
+		viewer.displayPlaceholderThumbnail( { index: 1 }, undefined, undefined );
 
 		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 		assert.ok( !viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 
-		viewer.displayRealThumbnail( { url : undefined } );
+		viewer.displayRealThumbnail( { url: undefined } );
 
 		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
 	QUnit.test( 'Real thumbnail first, then placeholder', 4, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
+		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } );
 
 		viewer.setImage = $.noop;
 		viewer.ui = {
-			showImage : $.noop,
-			canvas : {
+			showImage: $.noop,
+			canvas: {
 				unblurWithAnimation: $.noop,
 				unblur: $.noop
 		} };
 
-		viewer.displayRealThumbnail( { url : undefined } );
+		viewer.displayRealThumbnail( { url: undefined } );
 
 		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 
-		viewer.displayPlaceholderThumbnail( {}, undefined, undefined);
+		viewer.displayPlaceholderThumbnail( {}, undefined, undefined );
 
 		assert.ok( viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
 	QUnit.test( 'displayRealThumbnail', 2, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } );
+		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } );
 
 		viewer.setImage = $.noop;
-		viewer.ui = { canvas : {
-			unblurWithAnimation : this.sandbox.stub(),
+		viewer.ui = { canvas: {
+			unblurWithAnimation: this.sandbox.stub(),
 			unblur: $.noop
 		} };
 		viewer.blurredThumbnailShown = true;
 
 		// Should not result in an unblurWithAnimation animation (image cache from cache)
-		viewer.displayRealThumbnail( { url : undefined }, undefined, undefined, 5 );
+		viewer.displayRealThumbnail( { url: undefined }, undefined, undefined, 5 );
 		assert.ok( !viewer.ui.canvas.unblurWithAnimation.called, 'There should not be an unblurWithAnimation animation' );
 
 		// Should result in an unblurWithAnimation (image didn't come from cache)
-		viewer.displayRealThumbnail( { url : undefined }, undefined, undefined, 1000 );
+		viewer.displayRealThumbnail( { url: undefined }, undefined, undefined, 1000 );
 		assert.ok( viewer.ui.canvas.unblurWithAnimation.called, 'There should be an unblurWithAnimation animation' );
 	} );
 
 	QUnit.test( 'New image loaded while another one is loading', 5, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
+		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
 			firstImageDeferred = $.Deferred(),
 			secondImageDeferred = $.Deferred(),
 			firstLigthboxInfoDeferred = $.Deferred(),
@@ -389,31 +389,31 @@
 		viewer.fetchSizeIndependentLightboxInfo = this.sandbox.stub();
 		viewer.ui = {
 			setFileReuseData: $.noop,
-			setupForLoad : $.noop,
-			canvas : {
-				set : $.noop,
-				getCurrentImageWidths : function () { return { real : 0 }; },
+			setupForLoad: $.noop,
+			canvas: {
+				set: $.noop,
+				getCurrentImageWidths: function () { return { real: 0 }; },
 				getDimensions: function () { return {}; }
 			},
-			panel : {
-				setImageInfo : this.sandbox.stub(),
+			panel: {
+				setImageInfo: this.sandbox.stub(),
 				scroller: {
-					animateMetadataOnce : $.noop
+					animateMetadataOnce: $.noop
 				},
 				progressBar: {
-					animateTo : this.sandbox.stub(),
-					jumpTo : this.sandbox.stub()
+					animateTo: this.sandbox.stub(),
+					jumpTo: this.sandbox.stub()
 				},
 				empty: $.noop
 			},
-			open : $.noop,
+			open: $.noop,
 			empty: $.noop };
 		viewer.displayRealThumbnail = this.sandbox.stub();
 		viewer.eachPrealoadableLightboxIndex = $.noop;
 		viewer.animateMetadataDivOnce = this.sandbox.stub().returns( $.Deferred().reject() );
 		viewer.imageProvider.get = this.sandbox.stub();
-		viewer.imageInfoProvider.get = function() { return $.Deferred().reject(); };
-		viewer.thumbnailInfoProvider.get = function() { return $.Deferred().resolve( {} ); };
+		viewer.imageInfoProvider.get = function () { return $.Deferred().reject(); };
+		viewer.thumbnailInfoProvider.get = function () { return $.Deferred().resolve( {} ); };
 
 		viewer.imageProvider.get.returns( firstImageDeferred.promise() );
 		viewer.fetchSizeIndependentLightboxInfo.returns( firstLigthboxInfoDeferred.promise() );
@@ -431,31 +431,31 @@
 
 		firstImageDeferred.resolve( {}, {} );
 		firstLigthboxInfoDeferred.resolve( {} );
-		assert.ok( !viewer.displayRealThumbnail.called, 'The first image being done loading should have no effect');
+		assert.ok( !viewer.displayRealThumbnail.called, 'The first image being done loading should have no effect' );
 
 		viewer.displayRealThumbnail = this.sandbox.spy( function () { viewer.close(); } );
 		secondImageDeferred.resolve( {}, {} );
 		secondLigthboxInfoDeferred.resolve( {} );
-		assert.ok( viewer.displayRealThumbnail.called, 'The second image being done loading should result in the image being shown');
+		assert.ok( viewer.displayRealThumbnail.called, 'The second image being done loading should result in the image being shown' );
 	} );
 
-	QUnit.test( 'Events are not trapped after the viewer is closed', 0, function( assert ) {
+	QUnit.test( 'Events are not trapped after the viewer is closed', 0, function ( assert ) {
 		var i, j, k, eventParameters,
-			viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
+			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
 			$document = $( document ),
 			$qf = $( '#qunit-fixture' ),
 			eventTypes = [ 'keydown', 'keyup', 'keypress', 'click', 'mousedown', 'mouseup' ],
 			modifiers = [ undefined, 'altKey', 'ctrlKey', 'shiftKey', 'metaKey' ],
 			oldScrollTo = $.scrollTo;
 
-		$.scrollTo = function () { return { scrollTop : $.noop, on : $.noop, off : $.noop }; };
+		$.scrollTo = function () { return { scrollTop: $.noop, on: $.noop, off: $.noop }; };
 
 		viewer.setupEventHandlers();
 
-		viewer.imageProvider.get = function() { return $.Deferred().reject(); };
-		viewer.imageInfoProvider.get = function() { return $.Deferred().reject(); };
-		viewer.thumbnailInfoProvider.get = function() { return $.Deferred().reject(); };
-		viewer.fileRepoInfoProvider.get = function() { return $.Deferred().reject(); };
+		viewer.imageProvider.get = function () { return $.Deferred().reject(); };
+		viewer.imageInfoProvider.get = function () { return $.Deferred().reject(); };
+		viewer.thumbnailInfoProvider.get = function () { return $.Deferred().reject(); };
+		viewer.fileRepoInfoProvider.get = function () { return $.Deferred().reject(); };
 
 		viewer.preloadFullscreenThumbnail = $.noop;
 		viewer.initWithThumbs( [] );
@@ -469,7 +469,7 @@
 
 		function eventHandler ( e ) {
 			if ( e.isDefaultPrevented() ) {
-				assert.ok( false, 'Event was incorrectly trapped : ' + e.which );
+				assert.ok( false, 'Event was incorrectly trapped: ' + e.which );
 			}
 
 			e.preventDefault();
@@ -502,7 +502,7 @@
 				}
 
 				for ( k = 0; k < modifiers.length; k++ ) {
-					eventParameters = { which : i };
+					eventParameters = { which: i };
 					if ( modifiers[ k ] !== undefined ) {
 						eventParameters[ modifiers[ k ] ] = true;
 					}
@@ -513,7 +513,7 @@
 	} );
 
 	QUnit.test( 'Refuse to load too-big thumbnails', 1, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
+		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
 			intendedWidth = 50,
 			title = mw.Title.newFromText( 'File:Foobar.svg' );
 
@@ -530,7 +530,7 @@
 			thumbnailInfoStub,
 			imageStub,
 			promise,
-			viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
+			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
 			sandbox = this.sandbox,
 			oldUseThumbnailGuessing = mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing,
 			file = new mw.Title( 'File:Copyleft.svg' ),
@@ -630,9 +630,9 @@
 	} );
 
 	QUnit.test( 'document.title', 2, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
+		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
 			bootstrap = new mw.mmv.MultimediaViewerBootstrap(),
-			title = new mw.Title( 'File:This_should_show_up_in_document_title.png'),
+			title = new mw.Title( 'File:This_should_show_up_in_document_title.png' ),
 			oldDocumentTitle = document.title;
 
 		viewer.currentImageFileTitle = title;
@@ -644,7 +644,7 @@
 		viewer.close();
 		bootstrap.cleanupEventHandlers();
 
-		assert.strictEqual( document.title, oldDocumentTitle, 'Original title restored after viewer is closed'  );
+		assert.strictEqual( document.title, oldDocumentTitle, 'Original title restored after viewer is closed' );
 	} );
 
 }( mediaWiki, jQuery ) );

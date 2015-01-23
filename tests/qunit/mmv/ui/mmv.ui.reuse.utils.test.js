@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- ( function ( mw, $ ) {
+( function ( mw, $ ) {
 	QUnit.module( 'mw.mmv.ui.reuse.utils', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Sanity test, object creation and UI construction', 1, function ( assert ) {
@@ -62,7 +62,7 @@
 		sizes = utils.getPossibleImageSizesForHtml( width, height ),
 		oldMessage = mw.message;
 
-		mw.message = function( messageKey ) {
+		mw.message = function ( messageKey ) {
 			assert.ok( messageKey.match(/^multimediaviewer-(small|medium|original|embed-dimensions)/), 'messageKey passed correctly.' );
 
 			return { text: $.noop };

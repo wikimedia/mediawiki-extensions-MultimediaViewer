@@ -17,7 +17,7 @@
 
 ( function ( mw, $ ) {
 	function makeReuseDialog( sandbox ) {
-		var $fixture = $( '#qunit-fixture'),
+		var $fixture = $( '#qunit-fixture' ),
 			config = { getFromLocalStorage: sandbox.stub(), setInLocalStorage: sandbox.stub() };
 		return new mw.mmv.ui.reuse.Dialog( $fixture, $( '<div>' ).appendTo( $fixture ), config );
 	}
@@ -92,10 +92,10 @@
 
 		reuseDialog.initTabs();
 
-		reuseDialog.handleOpenCloseClick = function() {
+		reuseDialog.handleOpenCloseClick = function () {
 			assert.ok( false, 'handleOpenCloseClick should not have been called.' );
 		};
-		reuseDialog.handleTabSelection = function() {
+		reuseDialog.handleTabSelection = function () {
 			assert.ok( false, 'handleTabSelection should not have been called.' );
 		};
 
@@ -103,10 +103,10 @@
 		$( document ).trigger( 'mmv-reuse-open' );
 		reuseDialog.reuseTabs.emit( 'select' );
 
-		reuseDialog.handleOpenCloseClick = function() {
+		reuseDialog.handleOpenCloseClick = function () {
 			assert.ok( true, 'handleOpenCloseClick called.' );
 		};
-		reuseDialog.handleTabSelection = function() {
+		reuseDialog.handleTabSelection = function () {
 			assert.ok( true, 'handleTabSelection called.' );
 		};
 
@@ -117,10 +117,10 @@
 		reuseDialog.reuseTabs.emit( 'select' );
 
 		// Test the unattach part
-		reuseDialog.handleOpenCloseClick = function() {
+		reuseDialog.handleOpenCloseClick = function () {
 			assert.ok( false, 'handleOpenCloseClick should not have been called.' );
 		};
-		reuseDialog.handleTabSelection = function() {
+		reuseDialog.handleTabSelection = function () {
 			assert.ok( false, 'handleTabSelection should not have been called.' );
 		};
 
@@ -150,18 +150,18 @@
 
 		function assertDialogDoesNotCatchClicks() {
 			var event;
-			reuseDialog.closeDialog = function() { assert.ok( false, 'Dialog is not affected by click' ); };
+			reuseDialog.closeDialog = function () { assert.ok( false, 'Dialog is not affected by click' ); };
 			event = clickOutsideDialog();
 			assert.ok( !event.isDefaultPrevented(), 'Dialog does not affect click' );
 			assert.ok( !event.isPropagationStopped(), 'Dialog does not affect click propagation' );
 		}
 		function assertDialogCatchesOutsideClicksOnly() {
 			var event;
-			reuseDialog.closeDialog = function() { assert.ok( false, 'Dialog is not affected by inside click' ); };
+			reuseDialog.closeDialog = function () { assert.ok( false, 'Dialog is not affected by inside click' ); };
 			event = clickInsideDialog();
 			assert.ok( !event.isDefaultPrevented(), 'Dialog does not affect inside click' );
 			assert.ok( !event.isPropagationStopped(), 'Dialog does not affect inside click propagation' );
-			reuseDialog.closeDialog = function() { assert.ok( true, 'Dialog is closed by outside click' ); };
+			reuseDialog.closeDialog = function () { assert.ok( true, 'Dialog is closed by outside click' ); };
 			event = clickOutsideDialog();
 			assert.ok( event.isDefaultPrevented(), 'Dialog catches outside click' );
 			assert.ok( event.isPropagationStopped(), 'Dialog stops outside click propagation' );
@@ -215,7 +215,7 @@
 
 		reuseDialog.set( image, repoInfo );
 
-		assert.ok( ! reuseDialog.isOpen, 'Dialog closed by default.' );
+		assert.ok( !reuseDialog.isOpen, 'Dialog closed by default.' );
 
 		reuseDialog.openDialog();
 
@@ -223,7 +223,7 @@
 
 		reuseDialog.closeDialog();
 
-		assert.ok( ! reuseDialog.isOpen, 'Dialog closed now.' );
+		assert.ok( !reuseDialog.isOpen, 'Dialog closed now.' );
 	} );
 
 }( mediaWiki, jQuery ) );

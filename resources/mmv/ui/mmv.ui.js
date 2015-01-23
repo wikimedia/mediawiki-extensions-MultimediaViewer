@@ -76,13 +76,13 @@
 	 * @abstract
 	 * Registers listeners.
 	 */
-	EP.attach = function() {};
+	EP.attach = function () {};
 
 	/**
 	 * @abstract
 	 * Clears listeners.
 	 */
-	EP.unattach = function() {
+	EP.unattach = function () {
 		this.clearEvents();
 	};
 
@@ -171,7 +171,7 @@
 	 * Clears a timer. See setTimer().
 	 * @param {string} name
 	 */
-	EP.clearTimer = function( name ) {
+	EP.clearTimer = function ( name ) {
 		if ( name in this.timers ) {
 			clearTimeout( this.timers[name].timeout );
 			delete this.timers[name];
@@ -186,7 +186,7 @@
 	 * @param {string} name
 	 * @param {number} [delay] delay in milliseconds
 	 */
-	EP.resetTimer = function( name, delay ) {
+	EP.resetTimer = function ( name, delay ) {
 		if ( name in this.timers ) {
 			if ( delay === undefined ) {
 				delay = this.timers[name].delay;

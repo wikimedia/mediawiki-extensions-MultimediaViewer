@@ -141,13 +141,13 @@
 
 		$( this.window )
 			.off( '.mmv-view-logger' )
-			.on( 'beforeunload.mmv-view-logger', function() {
+			.on( 'beforeunload.mmv-view-logger', function () {
 				view.recordViewDuration();
 			} )
-			.on( 'focus.mmv-view-logger', function() {
+			.on( 'focus.mmv-view-logger', function () {
 				view.startViewDuration();
 			} )
-			.on( 'blur.mmv-view-logger', function() {
+			.on( 'blur.mmv-view-logger', function () {
 				view.stopViewDuration();
 			} );
 	};
@@ -155,7 +155,7 @@
 	/*
 	 * Stops listening to events
 	 */
-	VL.unattach = function() {
+	VL.unattach = function () {
 		$( this.window ).off( '.mmv-view-logger' );
 		this.stopViewDuration();
 	};

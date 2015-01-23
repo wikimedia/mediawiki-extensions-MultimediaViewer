@@ -15,10 +15,10 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw ) {
+( function ( mw ) {
 	QUnit.module( 'mmv.model.IwTitle', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'constructor sanity test', 1, function( assert ) {
+	QUnit.test( 'constructor sanity test', 1, function ( assert ) {
 		var namespace = 4,
 			fullPageName = 'User_talk:John_Doe',
 			domain = 'en.wikipedia.org',
@@ -28,7 +28,7 @@
 		assert.ok( title );
 	} );
 
-	QUnit.test( 'getters', 4, function( assert ) {
+	QUnit.test( 'getters', 4, function ( assert ) {
 		var namespace = 4,
 			fullPageName = 'User_talk:John_Doe',
 			domain = 'en.wikipedia.org',

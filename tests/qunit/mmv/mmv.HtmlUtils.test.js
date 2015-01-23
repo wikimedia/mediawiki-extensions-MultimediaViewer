@@ -15,13 +15,13 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw, $ ) {
+( function ( mw, $ ) {
 	QUnit.module( 'mmv.HtmlUtils', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'wrapAndJquerify() for single node', 4, function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils(),
 			$el = $( '<span>' ),
-			el = $( '<span>' ).get(0 ),
+			el = $( '<span>' ).get( 0 ),
 			html = '<span></span>',
 			invalid = {};
 
@@ -57,7 +57,7 @@
 	QUnit.test( 'wrapAndJquerify() does not change original', 2, function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils(),
 			$el = $( '<span>' ),
-			el = $( '<span>' ).get(0 );
+			el = $( '<span>' ).get( 0 );
 
 		utils.wrapAndJquerify( $el ).find( 'span' ).prop( 'data-x', 1 );
 		utils.wrapAndJquerify( el ).find( 'span' ).prop( 'data-x', 1 );
@@ -97,13 +97,13 @@
 			$nonWhitelisted = $( '<div>abc<span>def</span>ghi</div>' ),
 			$nonWhitelistedInWhitelisted = $( '<div>abc<a>d<span>e</span>f</a>ghi</div>' ),
 			$whitelistedInNonWhitelisted = $( '<div>abc<span>d<a>e</a>f</span>ghi</div>' ),
-			$siblings = $('<div>ab<span>c</span>d<a>e</a>f<span>g</span>hi</div>' );
+			$siblings = $( '<div>ab<span>c</span>d<a>e</a>f<span>g</span>hi</div>' );
 
 		utils.whitelistHtml( $whitelisted, 'a' );
-		utils.whitelistHtml( $nonWhitelisted, 'a'  );
-		utils.whitelistHtml( $nonWhitelistedInWhitelisted, 'a'  );
-		utils.whitelistHtml( $whitelistedInNonWhitelisted, 'a'  );
-		utils.whitelistHtml( $siblings, 'a'  );
+		utils.whitelistHtml( $nonWhitelisted, 'a' );
+		utils.whitelistHtml( $nonWhitelistedInWhitelisted, 'a' );
+		utils.whitelistHtml( $whitelistedInNonWhitelisted, 'a' );
+		utils.whitelistHtml( $siblings, 'a' );
 
 		assert.ok( $whitelisted.has( 'a' ).length, 'Whitelisted elements are kept.' );
 		assert.ok( !$nonWhitelisted.has( 'span' ).length, 'Non-whitelisted elements are removed.' );
@@ -130,7 +130,7 @@
 		assert.ok( $linebreak.text().match( /abc\s+def/ ), 'Linebreaks are whitespaced.' );
 	} );
 
-	QUnit.test( 'jqueryToHtml()', 3, function( assert ) {
+	QUnit.test( 'jqueryToHtml()', 3, function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils();
 
 		assert.strictEqual( utils.jqueryToHtml( $( '<a>' ) ), '<a></a>',
@@ -141,7 +141,7 @@
 			'works for text nodes' );
 	} );
 
-	QUnit.test( 'mergeWhitespace()', 3, function( assert ) {
+	QUnit.test( 'mergeWhitespace()', 3, function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils();
 
 		assert.strictEqual( utils.mergeWhitespace( ' x \n' ), 'x',

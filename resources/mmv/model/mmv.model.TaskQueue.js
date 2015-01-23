@@ -57,7 +57,7 @@
 	 * Tasks can only be added before the queue is first executed.
 	 * @param {function()} task
 	 */
-	tqp.push = function( task ) {
+	tqp.push = function ( task ) {
 		if ( this.state !== TaskQueue.State.NOT_STARTED ) {
 			throw 'Task queue already started!';
 		}
@@ -70,7 +70,7 @@
 	 * @return {jQuery.Promise} a promise which will resolve when the queue execution is finished,
 	 *     or reject when it is cancelled.
 	 */
-	tqp.execute = function() {
+	tqp.execute = function () {
 		if ( this.state === TaskQueue.State.NOT_STARTED ) {
 			this.state = TaskQueue.State.RUNNING;
 			this.runNextTask( 0, $.Deferred().resolve() );
@@ -84,7 +84,7 @@
 	 * @param {number} index
 	 * @param {jQuery.Promise} currentTask
 	 */
-	tqp.runNextTask = function( index, currentTask ) {
+	tqp.runNextTask = function ( index, currentTask ) {
 		var taskQueue = this;
 
 		function handleThen() {
@@ -108,7 +108,7 @@
 	/**
 	 * Cancel the queue. No more tasks will be executed.
 	 */
-	tqp.cancel = function() {
+	tqp.cancel = function () {
 		this.state = TaskQueue.State.CANCELLED;
 		this.queue = []; // just to be sure there are no memory leaks
 		this.deferred.reject();

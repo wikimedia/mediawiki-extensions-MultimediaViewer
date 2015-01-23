@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw, $, oo ) {
+( function ( mw, $, oo ) {
 	var MPSP;
 
 	/**
@@ -59,14 +59,14 @@
 
 	MPSP.toggleScrollDuration = 400;
 
-	MPSP.attach = function() {
+	MPSP.attach = function () {
 		var panel = this;
 
 		this.handleEvent( 'keydown', function ( e ) {
 			panel.keydown( e );
 		} );
 
-		$.scrollTo().on( 'scroll.mmvp', $.throttle( 250, function() {
+		$.scrollTo().on( 'scroll.mmvp', $.throttle( 250, function () {
 			panel.scroll();
 		} ) );
 
@@ -85,7 +85,7 @@
 		this.hasAnimatedMetadata = false;
 	};
 
-	MPSP.unattach = function() {
+	MPSP.unattach = function () {
 		this.clearEvents();
 		$.scrollTo().off( 'scroll.mmvp' );
 		this.$container.off( 'mmv-metadata-open' );

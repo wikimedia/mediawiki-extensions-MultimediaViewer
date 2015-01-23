@@ -86,7 +86,7 @@
 		this.selectedTab = this.getLastUsedTab();
 
 		// In case nothing is saved in localStorage or it contains junk
-		if ( ! this.tabs.hasOwnProperty( this.selectedTab ) ) {
+		if ( !this.tabs.hasOwnProperty( this.selectedTab ) ) {
 			this.selectedTab = 'share';
 		}
 

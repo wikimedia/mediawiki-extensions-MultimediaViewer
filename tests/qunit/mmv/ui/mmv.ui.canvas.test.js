@@ -15,10 +15,10 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw, $ ) {
+( function ( mw, $ ) {
 	QUnit.module( 'mmv.ui.Canvas', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Constructor sanity check', 3, function( assert ) {
+	QUnit.test( 'Constructor sanity check', 3, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			canvas = new mw.mmv.ui.Canvas( $qf, $qf, $qf );
 
@@ -27,7 +27,7 @@
 		assert.strictEqual( canvas.$mainWrapper, $qf, '$mainWrapper is set correctly.' );
 	} );
 
-	QUnit.test( 'empty() and set()', 8, function( assert ) {
+	QUnit.test( 'empty() and set()', 8, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			canvas = new mw.mmv.ui.Canvas( $qf ),
 			image = new Image(),
@@ -52,7 +52,7 @@
 		assert.ok( canvas.$imageDiv.hasClass( 'empty' ), 'Canvas is not visible.' );
 	} );
 
-	QUnit.test( 'setImageAndMaxDimensions()', 8, function( assert ) {
+	QUnit.test( 'setImageAndMaxDimensions()', 8, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			$mainWrapper = $( '<div>' ).appendTo( $qf ),
 			$innerWrapper =$( '<div>' ).appendTo( $mainWrapper ),
@@ -107,26 +107,26 @@
 			canvas = new mw.mmv.ui.Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function() { return 'svg'; }
+			getExtension: function () { return 'svg'; }
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
-			assert.ok ( false, 'Placeholder is not shown');
+			assert.ok ( false, 'Placeholder is not shown' );
 		};
 
 		$image = $( '<img>' ).width( 10 ).height( 5 );
 
 		blurredThumbnailShown = canvas.maybeDisplayPlaceholder(
-			{ width : 200, height : 100 },
+			{ width: 200, height: 100 },
 			$image,
-			{ cssWidth : 300, cssHeight: 150 }
+			{ cssWidth: 300, cssHeight: 150 }
 		);
 
 		assert.strictEqual( $image.width(), 10, 'Placeholder width was not set to max' );
 		assert.strictEqual( $image.height(), 5, 'Placeholder height was not set to max' );
-		assert.ok( ! $image.hasClass( 'blurred' ), 'Placeholder is not blurred' );
-		assert.ok( ! blurredThumbnailShown, 'Placeholder state is correct' );
+		assert.ok( !$image.hasClass( 'blurred' ), 'Placeholder is not blurred' );
+		assert.ok( !blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
 	QUnit.test( 'maybeDisplayPlaceholder: placeholder big enough that it doesn\'t need blurring, actual image bigger than the lightbox', 5, function ( assert ) {
@@ -137,26 +137,26 @@
 			canvas = new mw.mmv.ui.Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function() { return 'png'; }
+			getExtension: function () { return 'png'; }
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
-			assert.ok ( true, 'Placeholder shown');
+			assert.ok ( true, 'Placeholder shown' );
 		};
 
 		$image = $( '<img>' ).width( 200 ).height( 100 );
 
 		blurredThumbnailShown = canvas.maybeDisplayPlaceholder(
-			{ width : 1000, height : 500 },
+			{ width: 1000, height: 500 },
 			$image,
-			{ cssWidth : 300, cssHeight: 150 }
+			{ cssWidth: 300, cssHeight: 150 }
 		);
 
 		assert.strictEqual( $image.width(), 300, 'Placeholder has the right width' );
 		assert.strictEqual( $image.height(), 150, 'Placeholder has the right height' );
-		assert.ok( ! $image.hasClass( 'blurred' ), 'Placeholder is not blurred' );
-		assert.ok( ! blurredThumbnailShown, 'Placeholder state is correct' );
+		assert.ok( !$image.hasClass( 'blurred' ), 'Placeholder is not blurred' );
+		assert.ok( !blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
 	QUnit.test( 'maybeDisplayPlaceholder: big-enough placeholder that needs blurring, actual image bigger than the lightbox', 5, function ( assert ) {
@@ -167,20 +167,20 @@
 			canvas = new mw.mmv.ui.Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function() { return 'png'; }
+			getExtension: function () { return 'png'; }
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
-			assert.ok ( true, 'Placeholder shown');
+			assert.ok ( true, 'Placeholder shown' );
 		};
 
 		$image = $( '<img>' ).width( 100 ).height( 50 );
 
 		blurredThumbnailShown = canvas.maybeDisplayPlaceholder(
-			{ width : 1000, height : 500 },
+			{ width: 1000, height: 500 },
 			$image,
-			{ cssWidth : 300, cssHeight : 150 }
+			{ cssWidth: 300, cssHeight: 150 }
 		);
 
 		assert.strictEqual( $image.width(), 300, 'Placeholder has the right width' );
@@ -197,20 +197,20 @@
 			canvas = new mw.mmv.ui.Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function() { return 'png'; }
+			getExtension: function () { return 'png'; }
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
-			assert.ok ( true, 'Placeholder shown');
+			assert.ok ( true, 'Placeholder shown' );
 		};
 
 		$image = $( '<img>' ).width( 100 ).height( 50 );
 
 		blurredThumbnailShown = canvas.maybeDisplayPlaceholder(
-			{ width : 1000, height : 500 },
+			{ width: 1000, height: 500 },
 			$image,
-			{ cssWidth : 1200, cssHeight : 600 }
+			{ cssWidth: 1200, cssHeight: 600 }
 		);
 
 		assert.strictEqual( $image.width(), 1000, 'Placeholder has the right width' );
@@ -227,26 +227,26 @@
 			canvas = new mw.mmv.ui.Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function() { return 'png'; }
+			getExtension: function () { return 'png'; }
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
-			assert.ok ( false, 'Placeholder shown when it should not');
+			assert.ok ( false, 'Placeholder shown when it should not' );
 		};
 
 		$image = $( '<img>' ).width( 10 ).height( 5 );
 
 		blurredThumbnailShown = canvas.maybeDisplayPlaceholder(
-			{ width : 1000, height : 500 },
+			{ width: 1000, height: 500 },
 			$image,
-			{ cssWidth : 300, cssHeight : 150 }
+			{ cssWidth: 300, cssHeight: 150 }
 		);
 
 		assert.strictEqual( $image.width(), 10, 'Placeholder has the right width' );
 		assert.strictEqual( $image.height(), 5, 'Placeholder has the right height' );
-		assert.ok( ! $image.hasClass( 'blurred' ), 'Placeholder is not blurred' );
-		assert.ok( ! blurredThumbnailShown, 'Placeholder state is correct' );
+		assert.ok( !$image.hasClass( 'blurred' ), 'Placeholder is not blurred' );
+		assert.ok( !blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
 	QUnit.test( 'Unblur', 4, function ( assert ) {
@@ -273,17 +273,17 @@
 			}
 		};
 
-		canvas.$image =  $( '<img>' );
+		canvas.$image = $( '<img>' );
 
 		canvas.unblurWithAnimation();
 
-		assert.ok( ! canvas.$image.css( '-webkit-filter' ) || !canvas.$image.css( '-webkit-filter' ).length,
+		assert.ok( !canvas.$image.css( '-webkit-filter' ) || !canvas.$image.css( '-webkit-filter' ).length,
 			'Image has no -webkit-filter left' );
-		assert.ok( ! canvas.$image.css( 'filter' ) || !canvas.$image.css( 'filter' ).length || canvas.$image.css( 'filter' ) === 'none',
+		assert.ok( !canvas.$image.css( 'filter' ) || !canvas.$image.css( 'filter' ).length || canvas.$image.css( 'filter' ) === 'none',
 			'Image has no filter left' );
 		assert.strictEqual( parseInt( canvas.$image.css( 'opacity' ), 10 ), 1,
 			'Image is fully opaque' );
-		assert.ok( ! canvas.$image.hasClass( 'blurred' ), 'Image has no "blurred" class' );
+		assert.ok( !canvas.$image.hasClass( 'blurred' ), 'Image has no "blurred" class' );
 
 		$.fn.animate = oldAnimate;
 	} );

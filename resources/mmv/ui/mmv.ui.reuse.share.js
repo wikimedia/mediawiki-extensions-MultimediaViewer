@@ -52,7 +52,7 @@
 		this.pageInput.$element.find( 'input' )
 			.prop( 'placeholder', mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text() );
 
-		this.pageInput.$input.on( 'copy', function() {
+		this.pageInput.$input.on( 'copy', function () {
 			mw.mmv.actionLogger.log( 'share-link-copied' );
 		} );
 
@@ -111,7 +111,7 @@
 	/**
 	 * @inheritdoc
 	 */
-	SP.attach = function() {
+	SP.attach = function () {
 		var $input = this.pageInput.$element.find( 'input' );
 
 		$input.on( 'focus', this.selectAllOnEvent );
@@ -122,7 +122,7 @@
 	/**
 	 * @inheritdoc
 	 */
-	SP.unattach = function() {
+	SP.unattach = function () {
 		var $input = this.pageInput.$element.find( 'input' );
 
 		mw.mmv.ui.reuse.Tab.prototype.unattach.call( this );

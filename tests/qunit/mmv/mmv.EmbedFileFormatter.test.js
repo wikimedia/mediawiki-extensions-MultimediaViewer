@@ -15,7 +15,7 @@
 
 	QUnit.test( 'EmbedFileFormatter constructor sanity check', 1, function ( assert ) {
 		var formatter = new mw.mmv.EmbedFileFormatter();
-		assert.ok( formatter, 'constructor with no argument works');
+		assert.ok( formatter, 'constructor with no argument works' );
 	} );
 
 	QUnit.test( 'getByline():', 5, function ( assert ) {
@@ -84,7 +84,7 @@
 			siteName: siteName, siteUrl: siteUrl, licenseShortName: licenseShortName,
 			licenseInternalName: licenseInternalName, licenseLongName: licenseLongName,
 			licenseUrl: licenseUrl, author: author, source: source } );
-		generatedHtml = formatter.getThumbnailHtml( info, thumbUrl, width, height);
+		generatedHtml = formatter.getThumbnailHtml( info, thumbUrl, width, height );
 
 		assert.ok( generatedHtml.match( titleText ), 'Title appears in generated HTML.' );
 		assert.ok( generatedHtml.match( filePageUrl ), 'Page url appears in generated HTML.' );
@@ -100,13 +100,13 @@
 		info = createEmbedFileInfo( { title: title, imgUrl: imgUrl, filePageUrl: filePageUrl,
 			siteName: siteName, siteUrl: siteUrl,
 			author: author, source: source } );
-		generatedHtml = formatter.getThumbnailHtml( info, thumbUrl, width, height);
+		generatedHtml = formatter.getThumbnailHtml( info, thumbUrl, width, height );
 
 		assert.ok( generatedHtml.match( titleText ), 'Title appears in generated HTML.' );
 		assert.ok( generatedHtml.match( filePageUrl ), 'Page url appears in generated HTML.' );
 		assert.ok( generatedHtml.match( thumbUrl ), 'Thumbnail url appears in generated HTML' );
 		assert.ok( generatedHtml.match( siteName ), 'Site name appears in generated HTML' );
-		assert.ok( ! generatedHtml.match( 'Public License' ), 'License should not appear in generated HTML' );
+		assert.ok( !generatedHtml.match( 'Public License' ), 'License should not appear in generated HTML' );
 		assert.ok( generatedHtml.match( 'Homer' ), 'Author appears in generated HTML' );
 		assert.ok( generatedHtml.match( 'Iliad' ), 'Source appears in generated HTML' );
 		assert.ok( generatedHtml.match( width ), 'Width appears in generated HTML' );
@@ -117,30 +117,30 @@
 			siteName: siteName, siteUrl: siteUrl, licenseShortName: licenseShortName,
 			licenseInternalName: licenseInternalName, licenseLongName: licenseLongName,
 			licenseUrl: licenseUrl } );
-		generatedHtml = formatter.getThumbnailHtml( info, thumbUrl, width, height);
+		generatedHtml = formatter.getThumbnailHtml( info, thumbUrl, width, height );
 
-		assert.ok( generatedHtml.match( titleText ), 'Title appears in generated HTML.');
+		assert.ok( generatedHtml.match( titleText ), 'Title appears in generated HTML.' );
 		assert.ok( generatedHtml.match( filePageUrl ), 'Page url appears in generated HTML.' );
 		assert.ok( generatedHtml.match( thumbUrl ), 'Thumbnail url appears in generated HTML' );
 		assert.ok( generatedHtml.match( siteName ), 'Site name appears in generated HTML' );
 		assert.ok( generatedHtml.match( 'Public License' ), 'License appears in generated HTML' );
-		assert.ok( ! generatedHtml.match( 'Homer' ), 'Author should not appear in generated HTML' );
-		assert.ok( ! generatedHtml.match( 'Iliad' ), 'Source should not appear in generated HTML' );
+		assert.ok( !generatedHtml.match( 'Homer' ), 'Author should not appear in generated HTML' );
+		assert.ok( !generatedHtml.match( 'Iliad' ), 'Source should not appear in generated HTML' );
 		assert.ok( generatedHtml.match( width ), 'Width appears in generated HTML' );
 		assert.ok( generatedHtml.match( height ), 'Height appears in generated HTML' );
 
 		// No bylines, no license and site
 		info = createEmbedFileInfo( { title: title, imgUrl: imgUrl, filePageUrl: filePageUrl,
 			siteName: siteName, siteUrl: siteUrl } );
-		generatedHtml = formatter.getThumbnailHtml( info, thumbUrl, width, height);
+		generatedHtml = formatter.getThumbnailHtml( info, thumbUrl, width, height );
 
-		assert.ok( generatedHtml.match( titleText ), 'Title appears in generated HTML.');
+		assert.ok( generatedHtml.match( titleText ), 'Title appears in generated HTML.' );
 		assert.ok( generatedHtml.match( filePageUrl ), 'Page url appears in generated HTML.' );
 		assert.ok( generatedHtml.match( thumbUrl ), 'Thumbnail url appears in generated HTML' );
 		assert.ok( generatedHtml.match( siteName ), 'Site name should appear in generated HTML' );
-		assert.ok( ! generatedHtml.match( 'Public License' ), 'License should not appear in generated HTML' );
-		assert.ok( ! generatedHtml.match( 'Homer' ), 'Author should not appear in generated HTML' );
-		assert.ok( ! generatedHtml.match( 'Iliad' ), 'Source should not appear in generated HTML' );
+		assert.ok( !generatedHtml.match( 'Public License' ), 'License should not appear in generated HTML' );
+		assert.ok( !generatedHtml.match( 'Homer' ), 'Author should not appear in generated HTML' );
+		assert.ok( !generatedHtml.match( 'Iliad' ), 'Source should not appear in generated HTML' );
 		assert.ok( generatedHtml.match( width ), 'Width appears in generated HTML' );
 		assert.ok( generatedHtml.match( height ), 'Height appears in generated HTML' );
 

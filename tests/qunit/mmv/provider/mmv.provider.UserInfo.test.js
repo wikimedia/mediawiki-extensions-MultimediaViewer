@@ -19,7 +19,7 @@
 	QUnit.module( 'mmv.provider.UserInfo', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'UserInfo constructor sanity check', 1, function ( assert ) {
-		var api = { get: function() {} },
+		var api = { get: function () {} },
 			userInfoProvider = new mw.mmv.provider.UserInfo( api );
 
 		assert.ok( userInfoProvider );
@@ -27,7 +27,7 @@
 
 	QUnit.asyncTest( 'UserInfo get test', 6, function ( assert ) {
 		var apiCallCount = 0,
-			api = { get: function() {
+			api = { get: function () {
 				apiCallCount++;
 				return $.Deferred().resolve( {
 					query: {
@@ -46,43 +46,43 @@
 			foreignRepoInfo = { apiUrl: 'http://example.com/api.php' },
 			userInfoProvider = new mw.mmv.provider.UserInfo( api );
 
-		userInfoProvider.get( username, repoInfo ).then( function( user ) {
+		userInfoProvider.get( username, repoInfo ).then( function ( user ) {
 			assert.strictEqual( user.username, 'Catrope', 'username is set correctly' );
 			assert.strictEqual( user.gender, mw.mmv.model.User.Gender.MALE, 'gender is set correctly' );
-		} ).then( function() {
+		} ).then( function () {
 			assert.strictEqual( apiCallCount, 1 );
 			// call the data provider a second time to check caching
 			return userInfoProvider.get( username, repoInfo );
-		} ).then( function() {
+		} ).then( function () {
 			assert.strictEqual( apiCallCount, 1 );
 			// call a third time with a different user to check caching
 			return userInfoProvider.get( 'OtherUser', repoInfo );
-		} ).then( function() {
+		} ).then( function () {
 			assert.strictEqual( apiCallCount, 2 );
 			// call again with a different repo to check caching
 			return userInfoProvider.get( username, foreignRepoInfo );
-		} ).then( function() {
+		} ).then( function () {
 			assert.strictEqual( apiCallCount, 3 );
 			QUnit.start();
 		} );
 	} );
 
 	QUnit.asyncTest( 'UserInfo missing data test', 1, function ( assert ) {
-		var api = { get: function() {
+		var api = { get: function () {
 				return $.Deferred().resolve( {} );
 			} },
 			username = 'Catrope',
 			repoInfo = {},
 			userInfoProvider = new mw.mmv.provider.UserInfo( api );
 
-		userInfoProvider.get( username, repoInfo ).fail( function() {
+		userInfoProvider.get( username, repoInfo ).fail( function () {
 			assert.ok( true, 'promise rejected when no data is returned' );
 			QUnit.start();
 		} );
 	} );
 
 	QUnit.asyncTest( 'UserInfo missing user test', 2, function ( assert ) {
-		var api = { get: function() {
+		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {
 						users: []
@@ -93,7 +93,7 @@
 			repoInfo = {},
 			userInfoProvider = new mw.mmv.provider.UserInfo( api );
 
-		userInfoProvider.get( username, repoInfo ).done( function( user ) {
+		userInfoProvider.get( username, repoInfo ).done( function ( user ) {
 			assert.strictEqual( user.username, 'Catrope', 'username is set correctly' );
 			assert.strictEqual( user.gender, mw.mmv.model.User.Gender.UNKNOWN, 'gender is set to unknown' );
 			QUnit.start();
@@ -101,7 +101,7 @@
 	} );
 
 	QUnit.asyncTest( 'UserInfo missing gender test', 2, function ( assert ) {
-		var api = { get: function() {
+		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {
 						users: [
@@ -117,7 +117,7 @@
 			repoInfo = {},
 			userInfoProvider = new mw.mmv.provider.UserInfo( api );
 
-		userInfoProvider.get( username, repoInfo ).done( function( user ) {
+		userInfoProvider.get( username, repoInfo ).done( function ( user ) {
 			assert.strictEqual( user.username, 'Catrope', 'username is set correctly' );
 			assert.strictEqual( user.gender, mw.mmv.model.User.Gender.UNKNOWN, 'gender is set to unknown' );
 			QUnit.start();
@@ -126,7 +126,7 @@
 
 	// this can happen when we get the image from a ForeignDBRepo
 	QUnit.asyncTest( 'UserInfo non-existant user test', 2, function ( assert ) {
-		var api = { get: function() {
+		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {
 						users: [
@@ -142,7 +142,7 @@
 			repoInfo = {},
 			userInfoProvider = new mw.mmv.provider.UserInfo( api );
 
-		userInfoProvider.get( username, repoInfo ).done( function( user ) {
+		userInfoProvider.get( username, repoInfo ).done( function ( user ) {
 			assert.strictEqual( user.username, 'Catrope', 'username is set correctly' );
 			assert.strictEqual( user.gender, mw.mmv.model.User.Gender.UNKNOWN, 'gender is set to unknown' );
 			QUnit.start();
@@ -155,7 +155,7 @@
 			repoInfo = {},
 			userInfoProvider = new mw.mmv.provider.UserInfo( api, { useApi: false } );
 
-		userInfoProvider.get( username, repoInfo ).done( function( user ) {
+		userInfoProvider.get( username, repoInfo ).done( function ( user ) {
 			assert.strictEqual( user.username, 'Catrope', 'username is set correctly' );
 			assert.strictEqual( user.gender, mw.mmv.model.User.Gender.UNKNOWN, 'gender is set to unknown' );
 			assert.ok( user.fake, 'fake flag is set' );
@@ -171,7 +171,7 @@
 			/*jshint evil:true */
 			var varName = userInfoProvider.getCallbackName( username );
 			try {
-				eval( 'var ' + varName + ';');
+				eval( 'var ' + varName + ';' );
 				assert.ok( true, 'Variable name ' + varName + ' generated from ' + username + ' is valid' );
 			} catch ( e ) {
 				assert.ok( false, 'Variable name ' + varName + ' generated from ' + username + ' is invalid' );

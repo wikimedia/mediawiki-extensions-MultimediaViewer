@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw, $ ) {
+( function ( mw, $ ) {
 	/**
 	 * @class mw.mmv.provider.GuessedThumbnailInfo
 	 * This provider is similar to mw.mmv.provider.ThumbnailInfo, but instead of making an API call

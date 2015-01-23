@@ -19,7 +19,7 @@
 	QUnit.module( 'mmv.provider.ThumbnailInfo', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'ThumbnailInfo constructor sanity check', 1, function ( assert ) {
-		var api = { get: function() {} },
+		var api = { get: function () {} },
 			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
 
 		assert.ok( thumbnailInfoProvider );
@@ -27,7 +27,7 @@
 
 	QUnit.asyncTest( 'ThumbnailInfo get test', 7, function ( assert ) {
 		var apiCallCount = 0,
-			api = { get: function() {
+			api = { get: function () {
 				apiCallCount++;
 				return $.Deferred().resolve( {
 					query: {
@@ -54,45 +54,45 @@
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
 
-		thumbnailInfoProvider.get( file, 100 ).then( function( thumbnail ) {
+		thumbnailInfoProvider.get( file, 100 ).then( function ( thumbnail ) {
 			assert.strictEqual( thumbnail.url,
 				'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Stuff.jpg/51px-Stuff.jpg',
 				'URL is set correctly' );
 			assert.strictEqual( thumbnail.width, 95, 'actual width is set correctly' );
 			assert.strictEqual( thumbnail.height, 200, 'actual height is set correctly' );
-		} ).then( function() {
+		} ).then( function () {
 			assert.strictEqual( apiCallCount, 1 );
 			// call the data provider a second time to check caching
 			return thumbnailInfoProvider.get( file, 100 );
-		} ).then( function() {
+		} ).then( function () {
 			assert.strictEqual( apiCallCount, 1 );
 			// call a third time with different size to check caching
 			return thumbnailInfoProvider.get( file, 110 );
-		} ).then( function() {
+		} ).then( function () {
 			assert.strictEqual( apiCallCount, 2 );
 			// call it again, with a height specified, to check caching
 			return thumbnailInfoProvider.get( file, 110, 100 );
-		} ).then( function() {
+		} ).then( function () {
 			assert.strictEqual( apiCallCount, 3 );
 			QUnit.start();
 		} );
 	} );
 
 	QUnit.asyncTest( 'ThumbnailInfo fail test', 1, function ( assert ) {
-		var api = { get: function() {
+		var api = { get: function () {
 				return $.Deferred().resolve( {} );
 			} },
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
 
-		thumbnailInfoProvider.get( file, 100 ).fail( function() {
+		thumbnailInfoProvider.get( file, 100 ).fail( function () {
 			assert.ok( true, 'promise rejected when no data is returned' );
 			QUnit.start();
 		} );
 	} );
 
 	QUnit.asyncTest( 'ThumbnailInfo fail test 2', 1, function ( assert ) {
-		var api = { get: function() {
+		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {
 						pages: {
@@ -106,14 +106,14 @@
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
 
-		thumbnailInfoProvider.get( file, 100 ).fail( function() {
+		thumbnailInfoProvider.get( file, 100 ).fail( function () {
 			assert.ok( true, 'promise rejected when imageinfo is missing' );
 			QUnit.start();
 		} );
 	} );
 
 	QUnit.asyncTest( 'ThumbnailInfo missing page test', 1, function ( assert ) {
-		var api = { get: function() {
+		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {
 						pages: {
@@ -129,15 +129,15 @@
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
 
-		thumbnailInfoProvider.get( file ).fail( function( errorMessage ) {
-			assert.strictEqual(errorMessage, 'file does not exist: File:Stuff.jpg',
-				'error message is set correctly for missing file');
+		thumbnailInfoProvider.get( file ).fail( function ( errorMessage ) {
+			assert.strictEqual( errorMessage, 'file does not exist: File:Stuff.jpg',
+				'error message is set correctly for missing file' );
 			QUnit.start();
 		} );
 	} );
 
 	QUnit.asyncTest( 'ThumbnailInfo fail test 3', 1, function ( assert ) {
-		var api = { get: function() {
+		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {
 						pages: {
@@ -154,7 +154,7 @@
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
 
-		thumbnailInfoProvider.get( file, 100 ).fail( function() {
+		thumbnailInfoProvider.get( file, 100 ).fail( function () {
 			assert.ok( true, 'promise rejected when thumbnail info is missing' );
 			QUnit.start();
 		} );

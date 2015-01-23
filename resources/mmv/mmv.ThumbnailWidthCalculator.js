@@ -48,7 +48,7 @@
 		 * @property {number[]}
 		 */
 		this.widthBuckets = options.widthBuckets;
-		this.widthBuckets.sort( function( a, b ) { return a - b; } );
+		this.widthBuckets.sort( function ( a, b ) { return a - b; } );
 
 		/**
 		 * Screen pixel count per CSS pixel.
@@ -119,7 +119,7 @@
 	 * @return {number} the largest width so that the scaled version of the sample image fits
 	 *     into the bounding box (either horizontal or vertical edges touch on both sides).
 	 */
-	TWCP.calculateFittingWidth = function( boundingWidth, boundingHeight, sampleWidth, sampleHeight ) {
+	TWCP.calculateFittingWidth = function ( boundingWidth, boundingHeight, sampleWidth, sampleHeight ) {
 		if ( ( boundingWidth / boundingHeight ) > ( sampleWidth / sampleHeight ) ) {
 			// we are limited by height; we need to calculate the max width that fits
 			return Math.round( ( sampleWidth / sampleHeight ) * boundingHeight );
@@ -151,7 +151,7 @@
 	 * @return {mw.mmv.model.ThumbnailWidth}
 	 */
 
-	TWCP.calculateWidths = function( boundingWidth, boundingHeight, sampleWidth, sampleHeight ) {
+	TWCP.calculateWidths = function ( boundingWidth, boundingHeight, sampleWidth, sampleHeight ) {
 		var cssWidth,
 			cssHeight,
 			screenPixelWidth,

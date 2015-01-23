@@ -15,10 +15,10 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw ) {
+( function ( mw ) {
 	QUnit.module( 'mmv.routing.ThumbnailRoute', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Constructor sanity checks', 2, function( assert ) {
+	QUnit.test( 'Constructor sanity checks', 2, function ( assert ) {
 		var route,
 			title = new mw.Title( 'File:Foo.png' );
 

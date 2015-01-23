@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw, $ ) {
+( function ( mw, $ ) {
 	var HUP, cache;
 
 	/**
@@ -95,7 +95,7 @@
 		//    document, possibly a different site, that would probably have unexpected results.
 		$jq
 			.find( '[style]' )
-			.filter( function() { return this.style.display === 'none'; } )
+			.filter( function () { return this.style.display === 'none'; } )
 			.remove();
 	};
 

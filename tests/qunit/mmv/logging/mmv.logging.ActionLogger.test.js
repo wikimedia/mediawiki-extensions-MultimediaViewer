@@ -2,7 +2,7 @@
 	QUnit.module( 'mmv.logging.ActionLogger', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'log()', 6, function ( assert ) {
-		var fakeEventLog = { logEvent : this.sandbox.stub() },
+		var fakeEventLog = { logEvent: this.sandbox.stub() },
 			logger = new mw.mmv.logging.ActionLogger(),
 			action1key = 'test-1',
 			action1value = 'Test',
@@ -13,7 +13,7 @@
 		this.sandbox.stub( logger, 'loadDependencies' ).returns( $.Deferred().resolve() );
 		this.sandbox.stub( mw, 'log' );
 
-		logger.samplingFactorMap = { 'default' : 1 };
+		logger.samplingFactorMap = { 'default': 1 };
 		logger.setEventLog( fakeEventLog );
 		logger.logActions = {};
 		logger.logActions[ action1key ] = action1value;
@@ -29,7 +29,7 @@
 		assert.strictEqual( mw.log.getCall( 1 ).args[ 0 ], action1value, 'Log message is translated to its text' );
 		assert.strictEqual( fakeEventLog.logEvent.callCount, 2, 'event log has been recorded' );
 
-		logger.samplingFactorMap = { 'default' : 0 };
+		logger.samplingFactorMap = { 'default': 0 };
 		logger.log( action1key, true );
 
 		assert.strictEqual( mw.log.getCall( 2 ).args[ 0 ], action1value, 'Log message is translated to its text' );

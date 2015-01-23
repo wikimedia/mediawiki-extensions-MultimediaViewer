@@ -34,7 +34,7 @@
 		assert.ok( $testDiv.is( ':visible' ), 'Test div is visible again' );
 	} );
 
-	QUnit.test( 'setTimer()/clearTimer()/resetTimer()', 12, function( assert ) {
+	QUnit.test( 'setTimer()/clearTimer()/resetTimer()', 12, function ( assert ) {
 		var element = new mw.mmv.ui.Element( $( '<div>' ) ),
 			element2 = new mw.mmv.ui.Element( $( '<div>' ) ),
 			spy = this.sandbox.spy(),

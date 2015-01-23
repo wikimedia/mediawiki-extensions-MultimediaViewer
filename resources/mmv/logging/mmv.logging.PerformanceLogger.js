@@ -206,7 +206,7 @@
 			stats.XCache = xcache;
 			varnishXCache = this.parseVarnishXCacheHeader( xcache );
 
-			$.each( varnishXCache, function( key, value ) {
+			$.each( varnishXCache, function ( key, value ) {
 				stats[ key ] = value;
 			} );
 		}
@@ -236,7 +236,7 @@
 	 * @param {Object} stats
 	 * @param {string} url
 	 */
-	PL.populateStatsFromPerformance = function( stats, url ) {
+	PL.populateStatsFromPerformance = function ( stats, url ) {
 		var performance = this.getWindowPerformance(),
 			timingEntries, timingEntry;
 
@@ -325,7 +325,7 @@
 
 		// The timeout is necessary because if there's an entry in window.performance,
 		// it hasn't been added yet at this point
-		setTimeout( function() {
+		setTimeout( function () {
 			perf.recordEntry( type, total, url, request, extraStatsDeferred );
 		}, 0 );
 	};
@@ -341,7 +341,7 @@
 
 		// The timeout is necessary because if there's an entry in window.performance,
 		// it hasn't been added yet at this point
-		setTimeout( function() {
+		setTimeout( function () {
 			perf.recordJQueryEntry( type, total, jqxhr );
 		}, 0 );
 	};

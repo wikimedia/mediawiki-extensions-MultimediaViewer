@@ -105,7 +105,7 @@
 	 *
 	 * @param {jQuery} $container
 	 */
-	EP.createSnippetTextAreas = function( $container ) {
+	EP.createSnippetTextAreas = function ( $container ) {
 		var wikitextClasses = [ 'mw-mmv-embed-text-wikitext' ],
 			htmlClasses = [ 'mw-mmv-embed-text-html' ];
 
@@ -120,7 +120,7 @@
 		this.embedTextHtml.$element.find( 'textarea' )
 			.prop( 'placeholder', mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text() );
 
-		this.embedTextHtml.$input.on( 'copy', function() {
+		this.embedTextHtml.$input.on( 'copy', function () {
 			mw.mmv.actionLogger.log( 'embed-html-copied' );
 		} );
 
@@ -133,7 +133,7 @@
 		this.embedTextWikitext.$element.find( 'textarea' )
 			.prop( 'placeholder', mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text() );
 
-		this.embedTextWikitext.$input.on( 'copy', function() {
+		this.embedTextWikitext.$input.on( 'copy', function () {
 			mw.mmv.actionLogger.log( 'embed-wikitext-copied' );
 		} );
 
@@ -150,7 +150,7 @@
 	 *
 	 * @param {jQuery} $container
 	 */
-	EP.createSnippetSelectionButtons = function( $container ) {
+	EP.createSnippetSelectionButtons = function ( $container ) {
 		var wikitextButtonOption,
 			htmlButtonOption;
 
@@ -185,7 +185,7 @@
 	 *
 	 * @param {jQuery} $container
 	 */
-	EP.createSizePulldownMenus = function( $container ) {
+	EP.createSizePulldownMenus = function ( $container ) {
 		var wikitextClasses = [ 'mw-mmv-embed-size' ],
 			htmlClasses = [ 'mw-mmv-embed-size' ];
 
@@ -198,7 +198,7 @@
 			'default'
 		);
 
-		this.embedSizeSwitchWikitext.getMenu().on( 'select', function( item ) {
+		this.embedSizeSwitchWikitext.getMenu().on( 'select', function ( item ) {
 			mw.mmv.actionLogger.log( 'embed-select-menu-wikitext-' + item.data.name );
 		} );
 
@@ -209,7 +209,7 @@
 			'original'
 		);
 
-		this.embedSizeSwitchHtml.getMenu().on( 'select', function( item ) {
+		this.embedSizeSwitchHtml.getMenu().on( 'select', function ( item ) {
 			mw.mmv.actionLogger.log( 'embed-select-menu-html-' + item.data.name );
 		} );
 
@@ -224,7 +224,7 @@
 	/**
 	 * Registers listeners.
 	 */
-	EP.attach = function() {
+	EP.attach = function () {
 		var embed = this,
 			$htmlTextarea = this.embedTextHtml.$element.find( 'textarea' ),
 			$wikitextTextarea = this.embedTextWikitext.$element.find( 'textarea' );
@@ -247,7 +247,7 @@
 	/**
 	 * Clears listeners.
 	 */
-	EP.unattach = function() {
+	EP.unattach = function () {
 		var $htmlTextarea = this.embedTextHtml.$element.find( 'textarea' ),
 			$wikitextTextarea = this.embedTextWikitext.$element.find( 'textarea' );
 
@@ -305,7 +305,7 @@
 			.toggleClass( 'active', value === 'wikitext' );
 
 		// Reset current selection to default when switching the first time
-		if ( ! this.isSizeMenuDefaultReset ) {
+		if ( !this.isSizeMenuDefaultReset ) {
 			this.resetCurrentSizeMenuToDefault();
 			this.isSizeMenuDefaultReset = true;
 		}

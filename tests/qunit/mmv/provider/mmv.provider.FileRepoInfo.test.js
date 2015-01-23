@@ -19,7 +19,7 @@
 	QUnit.module( 'mmv.provider.FileRepoInfo', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'FileRepoInfo constructor sanity check', 1, function ( assert ) {
-		var api = { get: function() {} },
+		var api = { get: function () {} },
 			fileRepoInfoProvider = new mw.mmv.provider.FileRepoInfo( api );
 
 		assert.ok( fileRepoInfoProvider );
@@ -27,7 +27,7 @@
 
 	QUnit.asyncTest( 'FileRepoInfo get test', 14, function ( assert ) {
 		var apiCallCount = 0,
-			api = { get: function() {
+			api = { get: function () {
 				apiCallCount++;
 				return $.Deferred().resolve( {
 					'query': {
@@ -78,7 +78,7 @@
 			} },
 			fileRepoInfoProvider = new mw.mmv.provider.FileRepoInfo( api );
 
-		fileRepoInfoProvider.get().then( function( repos ) {
+		fileRepoInfoProvider.get().then( function ( repos ) {
 			assert.strictEqual( repos.shared.displayName,
 				'Wikimedia Commons', 'displayName is set correctly' );
 			assert.strictEqual( repos.shared.favIcon,
@@ -103,22 +103,22 @@
 			assert.strictEqual( repos.local.favIcon,
 				'http://bits.wikimedia.org/favicon/wikipedia.ico', 'favIcon is set correctly' );
 			assert.strictEqual( repos.local.isLocal, true, 'isLocal is set correctly' );
-		} ).then( function() {
+		} ).then( function () {
 			// call the data provider a second time to check caching
 			return fileRepoInfoProvider.get();
-		} ).then( function() {
+		} ).then( function () {
 			assert.strictEqual( apiCallCount, 1 );
 			QUnit.start();
 		} );
 	} );
 
 	QUnit.asyncTest( 'FileRepoInfo fail test', 1, function ( assert ) {
-		var api = { get: function() {
+		var api = { get: function () {
 				return $.Deferred().resolve( {} );
 			} },
 			fileRepoInfoProvider = new mw.mmv.provider.FileRepoInfo( api );
 
-		fileRepoInfoProvider.get().fail( function() {
+		fileRepoInfoProvider.get().fail( function () {
 			assert.ok( true, 'promise rejected when no data is returned' );
 			QUnit.start();
 		} );

@@ -1,5 +1,5 @@
 ( function ( mw, $ ) {
-	QUnit.module( 'mmv.logging.DurationLogger', QUnit.newMwEnvironment({
+	QUnit.module( 'mmv.logging.DurationLogger', QUnit.newMwEnvironment( {
 		setup: function () {
 			this.clock = this.sandbox.useFakeTimers();
 		}
@@ -62,7 +62,7 @@
 
 	QUnit.test( 'record()', 21, function ( assert ) {
 		var dependenciesDeferred = $.Deferred(),
-			fakeEventLog = { logEvent : this.sandbox.stub() },
+			fakeEventLog = { logEvent: this.sandbox.stub() },
 			durationLogger = new mw.mmv.durationLogger.constructor();
 
 		durationLogger.samplingFactor = 1;
@@ -98,11 +98,11 @@
 		dependenciesDeferred.resolve();
 
 		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 0 ], 'MultimediaViewerDuration', 'EventLogging schema is correct' );
-		assert.deepEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ], { type : 'bar', duration : 1000, loggedIn : true, samplingFactor : 1 },
+		assert.deepEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ], { type: 'bar', duration: 1000, loggedIn: true, samplingFactor: 1 },
 			'EventLogging data is correct' );
 
 		assert.strictEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 0 ], 'MultimediaViewerDuration', 'EventLogging schema is correct' );
-		assert.deepEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 1 ], { type : 'bob', duration : 4000, loggedIn : true, samplingFactor : 1 },
+		assert.deepEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 1 ], { type: 'bob', duration: 4000, loggedIn: true, samplingFactor: 1 },
 			'EventLogging data is correct' );
 
 		assert.strictEqual( fakeEventLog.logEvent.callCount, 2, 'logEvent called when processing the queue' );
@@ -113,13 +113,13 @@
 		durationLogger.record( 'foo' );
 
 		assert.strictEqual( fakeEventLog.logEvent.getCall( 2 ).args[ 0 ], 'MultimediaViewerDuration', 'EventLogging schema is correct' );
-		assert.deepEqual( fakeEventLog.logEvent.getCall( 2 ).args[ 1 ], { type : 'foo', duration : 3000, loggedIn : true, samplingFactor : 1 },
+		assert.deepEqual( fakeEventLog.logEvent.getCall( 2 ).args[ 1 ], { type: 'foo', duration: 3000, loggedIn: true, samplingFactor: 1 },
 			'EventLogging data is correct' );
 
 		assert.strictEqual( durationLogger.starts.bar, undefined, 'Start value deleted after record' );
 		assert.strictEqual( durationLogger.stops.bar, undefined, 'Stop value deleted after record' );
 
-		durationLogger.setGeo( { country : 'FR' } );
+		durationLogger.setGeo( { country: 'FR' } );
 		mw.user.isAnon.returns( true );
 
 		durationLogger.start( 'baz' );
@@ -128,7 +128,7 @@
 		durationLogger.record( 'baz' );
 
 		assert.strictEqual( fakeEventLog.logEvent.getCall( 3 ).args[ 0 ], 'MultimediaViewerDuration', 'EventLogging schema is correct' );
-		assert.deepEqual( fakeEventLog.logEvent.getCall( 3 ).args[ 1 ], { type : 'baz', duration : 2000, loggedIn : false, country : 'FR', samplingFactor : 1 },
+		assert.deepEqual( fakeEventLog.logEvent.getCall( 3 ).args[ 1 ], { type: 'baz', duration: 2000, loggedIn: false, country: 'FR', samplingFactor: 1 },
 			'EventLogging data is correct' );
 
 		assert.strictEqual( durationLogger.starts.bar, undefined, 'Start value deleted after record' );
@@ -137,7 +137,7 @@
 		durationLogger.stop( 'fooz', $.now() - 9000 );
 		durationLogger.record( 'fooz' );
 
-		assert.deepEqual( fakeEventLog.logEvent.getCall( 4 ).args[ 1 ], { type : 'fooz', duration : 9000, loggedIn : false, country : 'FR', samplingFactor : 1 },
+		assert.deepEqual( fakeEventLog.logEvent.getCall( 4 ).args[ 1 ], { type: 'fooz', duration: 9000, loggedIn: false, country: 'FR', samplingFactor: 1 },
 			'EventLogging data is correct' );
 
 		assert.strictEqual( fakeEventLog.logEvent.callCount, 5, 'logEvent has been called fives times at this point in the test' );
@@ -157,7 +157,7 @@
 		durationLogger.stop( 'extra' );
 		durationLogger.record( 'extra', { bim: 'bam' } );
 
-		assert.deepEqual( fakeEventLog.logEvent.getCall( 5 ).args[ 1 ], { type : 'extra', duration : 5000, loggedIn : false, country : 'FR', samplingFactor : 1, bim : 'bam' },
+		assert.deepEqual( fakeEventLog.logEvent.getCall( 5 ).args[ 1 ], { type: 'extra', duration: 5000, loggedIn: false, country: 'FR', samplingFactor: 1, bim: 'bam' },
 			'EventLogging data is correct' );
 	} );
 

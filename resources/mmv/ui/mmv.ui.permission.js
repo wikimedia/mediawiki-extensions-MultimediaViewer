@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw, $, oo ) {
+( function ( mw, $, oo ) {
 	var P;
 
 	/**
@@ -42,7 +42,7 @@
 		 * @property {jQuery}
 		 */
 		this.$box = $( '<div>' )
-			.addClass( 'mw-mmv-permission-box mw-mmv-info-box empty')
+			.addClass( 'mw-mmv-permission-box mw-mmv-info-box empty' )
 			.appendTo( this.$container );
 
 		/**
@@ -62,7 +62,7 @@
 		this.$text = $( '<div>' )
 			.addClass( 'mw-mmv-permission-text' )
 			.appendTo( this.$box )
-			.on( 'click', '.mw-mmv-permission-text-viewmore', function( e ) {
+			.on( 'click', '.mw-mmv-permission-text-viewmore', function ( e ) {
 				e.preventDefault();
 				permission.grow();
 				permission.scroller.toggle( 'up' );
@@ -97,7 +97,7 @@
 		 */
 		this.$close = $( '<div>' )
 			.addClass( 'mw-mmv-permission-close' )
-			.on( 'click', function() {
+			.on( 'click', function () {
 				permission.shrink();
 			} )
 			.appendTo( this.$box );
@@ -114,7 +114,7 @@
 	/**
 	 * Clear everything
 	 */
-	P.empty = function() {
+	P.empty = function () {
 		this.$box.addClass( 'empty' );
 		this.$text.empty();
 		this.$html.empty();
@@ -124,7 +124,7 @@
 	 * Set permission text/html
 	 * @param {string} permission the text or HTML code written by the image author
 	 */
-	P.set = function( permission ) {
+	P.set = function ( permission ) {
 		this.$box.removeClass( 'empty' );
 
 		this.$text.html( this.htmlUtils.htmlToTextWithLinks( permission ) );
@@ -137,13 +137,13 @@
 	 * Enlarge the box, show HTML instead of text.
 	 * @fires mmv-permission-grow
 	 */
-	P.grow = function() {
+	P.grow = function () {
 		mw.mmv.actionLogger.log( 'terms-open' );
 
 		this.$box.addClass( 'full-size' )
 			.stop( true )
-			.animate( { backgroundColor: '#FFFFA0' }, 500)
-			.animate( { backgroundColor: '#FFFFFF' }, 500);
+			.animate( { backgroundColor: '#FFFFA0' }, 500 )
+			.animate( { backgroundColor: '#FFFFFF' }, 500 );
 		this.$container.trigger( 'mmv-permission-grow' );
 	};
 
@@ -151,7 +151,7 @@
 	 * Limit the size of the box, show text only.
 	 * @fires mmv-permission-shrink
 	 */
-	P.shrink = function() {
+	P.shrink = function () {
 		this.$box.removeClass( 'full-size' );
 		this.$container.trigger( 'mmv-permission-shrink' );
 	};
@@ -160,7 +160,7 @@
 	 * Returns whether the box is full-size.
 	 * @returns boolean
 	 */
-	P.isFullSize = function() {
+	P.isFullSize = function () {
 		return this.$box.hasClass( 'full-size' );
 	};
 

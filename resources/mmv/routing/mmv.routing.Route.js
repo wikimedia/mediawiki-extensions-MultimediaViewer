@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw ) {
+( function ( mw ) {
 	/**
 	 * @class mw.mmv.routing.Route
 	 * The base class for routes. Route classes don't really do anything, they are just simple

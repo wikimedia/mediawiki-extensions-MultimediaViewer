@@ -34,10 +34,10 @@
 		imageProvider.performance.recordEntry = $.noop;
 
 		QUnit.stop();
-		imageProvider.get( url ).then( function( image ) {
+		imageProvider.get( url ).then( function ( image ) {
 			assert.ok( image instanceof HTMLImageElement,
-				'success handler was called with the image element');
-                        assert.strictEqual( image.src, url, 'image src is correct');
+				'success handler was called with the image element' );
+			assert.strictEqual( image.src, url, 'image src is correct' );
 			QUnit.start();
 		} );
 	} );
@@ -54,25 +54,25 @@
 		imageProvider.performance.recordEntry = $.noop;
 
 		QUnit.stop();
-		imageProvider.get( url ).then( function( image ) {
+		imageProvider.get( url ).then( function ( image ) {
 			result = image;
 			assert.ok( image instanceof HTMLImageElement,
-				'success handler was called with the image element');
-			assert.strictEqual( image.src, url, 'image src is correct');
+				'success handler was called with the image element' );
+			assert.strictEqual( image.src, url, 'image src is correct' );
 			QUnit.start();
 		} );
 
 		QUnit.stop();
-		imageProvider.get( url ).then( function( image ) {
+		imageProvider.get( url ).then( function ( image ) {
 			assert.strictEqual( image, result, 'image element is cached and not regenerated' );
-			assert.strictEqual( image.src, url, 'image src is correct');
+			assert.strictEqual( image.src, url, 'image src is correct' );
 			QUnit.start();
 		} );
 
 		QUnit.stop();
-		imageProvider.get( url2 ).then( function( image ) {
+		imageProvider.get( url2 ).then( function ( image ) {
 			assert.notStrictEqual( image, result, 'image element for different url is not cached' );
-			assert.strictEqual( image.src, url2, 'image src is correct');
+			assert.strictEqual( image.src, url2, 'image src is correct' );
 			QUnit.start();
 		} );
 	} );
@@ -97,7 +97,7 @@
 					// The timeout is necessary because without it notify() happens before
 					// the imageProvider has time to chain its progress() to the returned deferred
 					setTimeout( function () {
-						self.onprogress( { lengthComputable: true, loaded : 10, total : 20 } );
+						self.onprogress( { lengthComputable: true, loaded: 10, total: 20 } );
 						self.onreadystatechange();
 					} );
 				},
@@ -155,7 +155,7 @@
 		imageProvider.performance.recordEntry = $.noop;
 		mw.log = function () { mwLogCalled = true; };
 
-		imageProvider.get( 'doesntexist.png' ).fail( function() {
+		imageProvider.get( 'doesntexist.png' ).fail( function () {
 			assert.ok( true, 'fail handler was called' );
 			assert.ok( mwLogCalled, 'mw.log was called' );
 			mw.log = oldMwLog;
@@ -170,13 +170,13 @@
 
 		imageProvider.imagePreloadingSupported = function () { return true; };
 		imageProvider.performance = {
-			record: function() { return $.Deferred().resolve(); }
+			record: function () { return $.Deferred().resolve(); }
 		};
 
 		QUnit.stop();
-		imageProvider.get( url ).done( function( image ) {
+		imageProvider.get( url ).done( function ( image ) {
 			// can't test equality as browsers transform this to a full URL
-			assert.ok( endsWith( image.src, url ), 'local image loaded with correct source');
+			assert.ok( endsWith( image.src, url ), 'local image loaded with correct source' );
 			QUnit.start();
 		} ).fail( function () {
 			// do not hold up the tests if the image failed to load
@@ -191,7 +191,7 @@
 
 		imageProvider.imagePreloadingSupported = function () { return true; };
 		imageProvider.performance = {
-			record: function() { return $.Deferred().resolve(); }
+			record: function () { return $.Deferred().resolve(); }
 		};
 
 		QUnit.stop();

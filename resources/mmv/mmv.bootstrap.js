@@ -85,7 +85,7 @@
 
 		bs.setupOverlay();
 
-		mw.loader.using( 'mmv', function() {
+		mw.loader.using( 'mmv', function () {
 			bs.isCSSReady( deferred );
 		}, function ( error ) {
 			deferred.reject( error.message );
@@ -99,7 +99,7 @@
 
 				bs.viewerInitialized = true;
 			}
-		} ).fail( function( message ) {
+		} ).fail( function ( message ) {
 			mw.log.warn( message );
 			bs.cleanupOverlay();
 			bs.viewerIsBroken = true;
@@ -197,15 +197,15 @@
 
 		if ( $thumbContain.length !== 0 && $thumbContain.is( '.thumb' ) ) {
 			// If this is a thumb, we preload JS/CSS when the mouse cursor hovers the thumb container (thumb image + caption + border)
-			$thumbContain.mouseenter( function() {
+			$thumbContain.mouseenter( function () {
 				// There is no point preloading if clicking the thumb won't open Media Viewer
 				if ( !bs.config.isMediaViewerEnabledOnClick() ) {
 					return;
 				}
-				bs.preloadOnHoverTimer = setTimeout( function() {
+				bs.preloadOnHoverTimer = setTimeout( function () {
 					mw.loader.load( 'mmv' );
 				}, bs.hoverWaitDuration );
-			} ).mouseleave( function() {
+			} ).mouseleave( function () {
 				if ( bs.preloadOnHoverTimer ) {
 					clearTimeout( bs.preloadOnHoverTimer );
 				}
@@ -308,7 +308,7 @@
 			bs.statusInfoDialog = new mw.mmv.ui.TipsyDialog( $( '.mw-mmv-view-expanded' ), { gravity: 'sw' } );
 			bs.statusInfoDialog.setContent(
 				mw.message( 'multimediaviewer-disable-info-title' ).plain(),
-				mw.message( 'multimediaviewer-disable-info').escaped()
+				mw.message( 'multimediaviewer-disable-info' ).escaped()
 			);
 			// tipsy mispositions the tooltip, probably because it does the positioning before the buttons are
 			// displayed and the page is reflown. Adding some delay seems to help.
@@ -427,7 +427,7 @@
 
 		// There is no point loading the mmv if it isn't loaded yet for hash changes unrelated to the mmv
 		// Such as anchor links on the page
-		if ( !this.viewerInitialized && window.location.hash.indexOf( '#mediaviewer/') !== 0 ) {
+		if ( !this.viewerInitialized && window.location.hash.indexOf( '#mediaviewer/' ) !== 0 ) {
 			return;
 		}
 
@@ -573,7 +573,7 @@
 
 		if ( this.savedScroll ) {
 			// setTimeout because otherwise Chrome will scroll back to top after the popstate event handlers run
-			setTimeout( function() { $.scrollTo( bootstrap.savedScroll, 0 ); bootstrap.savedScroll = undefined; }, 0 );
+			setTimeout( function () { $.scrollTo( bootstrap.savedScroll, 0 ); bootstrap.savedScroll = undefined; }, 0 );
 		}
 	};
 

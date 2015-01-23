@@ -102,10 +102,10 @@
 			img.crossOrigin = 'anonymous';
 		}
 
-		img.onload = function() {
+		img.onload = function () {
 			deferred.resolve( img );
 		};
-		img.onerror = function() {
+		img.onerror = function () {
 			deferred.reject( 'could not load image from ' + url );
 		};
 

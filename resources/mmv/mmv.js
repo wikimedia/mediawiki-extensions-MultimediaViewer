@@ -209,7 +209,7 @@
 
 			this.fetchThumbnailForLightboxImage(
 				image, imageWidths.real
-			).then( function( thumbnail, image ) {
+			).then( function ( thumbnail, image ) {
 				viewer.setImage( ui, thumbnail, image, imageWidths );
 			}, function ( error ) {
 				viewer.ui.canvas.showError( error );
@@ -224,7 +224,7 @@
 	 */
 	MMVP.updateControls = function () {
 		var numImages = this.thumbs ? this.thumbs.length : 0,
-			showNextButton = this.currentIndex < (numImages - 1),
+			showNextButton = this.currentIndex < ( numImages - 1 ),
 			showPreviousButton = this.currentIndex > 0;
 
 		this.ui.updateControls( showNextButton, showPreviousButton );
@@ -350,7 +350,7 @@
 			viewer.ui.panel.showError( image.caption || image.filePageTitle.getNameText(), error );
 		} );
 
-		$.when( imagePromise, metadataPromise ).then( function() {
+		$.when( imagePromise, metadataPromise ).then( function () {
 			if ( viewer.currentIndex !== image.index ) {
 				return;
 			}
@@ -580,7 +580,7 @@
 	 * @private
 	 * @param {function(number, mw.mmv.LightboxImage)} callback
 	 */
-	MMVP.eachPrealoadableLightboxIndex = function( callback ) {
+	MMVP.eachPrealoadableLightboxIndex = function ( callback ) {
 		for ( var i = 0; i <= this.preloadDistance; i++ ) {
 			if ( this.currentIndex + i < this.thumbs.length ) {
 				callback(
@@ -606,10 +606,10 @@
 	 * @param {function(mw.mmv.LightboxImage): function()} taskFactory
 	 * @return {mw.mmv.model.TaskQueue}
 	 */
-	MMVP.pushLightboxImagesIntoQueue = function( taskFactory ) {
+	MMVP.pushLightboxImagesIntoQueue = function ( taskFactory ) {
 		var queue = new mw.mmv.model.TaskQueue();
 
-		this.eachPrealoadableLightboxIndex( function( i, lightboxImage, extraStatsDeferred ) {
+		this.eachPrealoadableLightboxIndex( function ( i, lightboxImage, extraStatsDeferred ) {
 			queue.push( taskFactory( lightboxImage, extraStatsDeferred ) );
 		} );
 
@@ -619,7 +619,7 @@
 	/**
 	 * Cancels in-progress image metadata preloading.
 	 */
-	MMVP.cancelImageMetadataPreloading = function() {
+	MMVP.cancelImageMetadataPreloading = function () {
 		if ( this.metadataPreloadQueue ) {
 			this.metadataPreloadQueue.cancel();
 		}
@@ -628,7 +628,7 @@
 	/**
 	 * Cancels in-progress image thumbnail preloading.
 	 */
-	MMVP.cancelThumbnailsPreloading = function() {
+	MMVP.cancelThumbnailsPreloading = function () {
 		if ( this.thumbnailPreloadQueue ) {
 			this.thumbnailPreloadQueue.cancel();
 		}
@@ -639,13 +639,13 @@
 	 * Two images will be loaded at a time (one forward, one backward), with closer images
 	 * being loaded sooner.
 	 */
-	MMVP.preloadImagesMetadata = function() {
+	MMVP.preloadImagesMetadata = function () {
 		var viewer = this;
 
 		this.cancelImageMetadataPreloading();
 
-		this.metadataPreloadQueue = this.pushLightboxImagesIntoQueue( function( lightboxImage, extraStatsDeferred ) {
-			return function() {
+		this.metadataPreloadQueue = this.pushLightboxImagesIntoQueue( function ( lightboxImage, extraStatsDeferred ) {
+			return function () {
 				var metadatapromise = viewer.fetchSizeIndependentLightboxInfo( lightboxImage.filePageTitle );
 				metadatapromise.done( function ( imageInfo ) {
 					extraStatsDeferred.resolve( { uploadTimestamp: imageInfo.anonymizedUploadDateTime } );
@@ -664,13 +664,13 @@
 	 * Two images will be loaded at a time (one forward, one backward), with closer images
 	 * being loaded sooner.
 	 */
-	MMVP.preloadThumbnails = function() {
+	MMVP.preloadThumbnails = function () {
 		var viewer = this;
 
 		this.cancelThumbnailsPreloading();
 
-		this.thumbnailPreloadQueue = this.pushLightboxImagesIntoQueue( function( lightboxImage, extraStatsDeferred ) {
-			return function() {
+		this.thumbnailPreloadQueue = this.pushLightboxImagesIntoQueue( function ( lightboxImage, extraStatsDeferred ) {
+			return function () {
 				var imageWidths, canvasDimensions;
 
 				// viewer.ui.canvas.getLightboxImageWidths needs the viewer to be open
@@ -694,7 +694,7 @@
 	/**
 	 * Preload the fullscreen size of the current image.
 	 */
-	MMVP.preloadFullscreenThumbnail = function( image ) {
+	MMVP.preloadFullscreenThumbnail = function ( image ) {
 		var imageWidths = this.ui.canvas.getLightboxImageWidthsForFullscreen( image),
 			canvasDimensions = this.ui.canvas.getDimensions( true );
 
@@ -716,7 +716,7 @@
 
 		userInfoPromise = $.when(
 			imageInfoPromise, repoInfoPromise
-		).then( function( imageInfo, repoInfoHash ) {
+		).then( function ( imageInfo, repoInfoHash ) {
 			if ( imageInfo.lastUploader ) {
 				return viewer.userInfoProvider.get( imageInfo.lastUploader, repoInfoHash[imageInfo.repo] );
 			} else {
@@ -726,7 +726,7 @@
 
 		return $.when(
 			imageInfoPromise, repoInfoPromise, userInfoPromise
-		).then( function( imageInfo, repoInfoHash, userInfo ) {
+		).then( function ( imageInfo, repoInfoHash, userInfo ) {
 			return $.Deferred().resolve( imageInfo, repoInfoHash[imageInfo.repo], userInfo );
 		} );
 	};
@@ -885,7 +885,7 @@
 		}
 	};
 
-	MMVP.setHash = function() {
+	MMVP.setHash = function () {
 		var route, windowTitle, hashFragment;
 		if ( !this.comingFromHashChange ) {
 			route = new mw.mmv.routing.ThumbnailRoute( this.currentImageFileTitle );

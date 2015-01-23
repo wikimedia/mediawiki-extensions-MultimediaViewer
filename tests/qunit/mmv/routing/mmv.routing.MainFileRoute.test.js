@@ -15,10 +15,10 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw ) {
+( function ( mw ) {
 	QUnit.module( 'mmv.routing.MainFileRoute', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Constructor sanity checks', 1, function( assert ) {
+	QUnit.test( 'Constructor sanity checks', 1, function ( assert ) {
 		assert.ok( new mw.mmv.routing.MainFileRoute(), 'MainFileRoute created successfully' );
 	} );
 }( mediaWiki ) );

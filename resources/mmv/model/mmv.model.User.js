@@ -39,7 +39,7 @@
 				genderIsValid = true;
 			}
 		}
-		if ( ! genderIsValid ) {
+		if ( !genderIsValid ) {
 			throw 'invalid gender: ' + gender;
 		}
 

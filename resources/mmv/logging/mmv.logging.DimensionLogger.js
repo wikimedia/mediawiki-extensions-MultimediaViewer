@@ -55,8 +55,8 @@
 		data = {
 			screenWidth: screen.width,
 			screenHeight: screen.height,
-			viewportWidth: $( window).width(),
-			viewportHeight: $( window).height(),
+			viewportWidth: $( window ).width(),
+			viewportHeight: $( window ).height(),
 			canvasWidth: canvasDimensions.width,
 			canvasHeight: canvasDimensions.height,
 			devicePixelRatio: $.devicePixelRatio(),

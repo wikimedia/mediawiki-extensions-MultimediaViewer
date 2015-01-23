@@ -42,7 +42,7 @@
 			imageData = {
 				latitude: latitude,
 				longitude: longitude,
-				hasCoords: function() { return true; },
+				hasCoords: function () { return true; },
 				title: mw.Title.newFromText( 'File:Foobar.jpg' )
 			};
 
@@ -74,7 +74,7 @@
 
 		assert.strictEqual(
 			panel.$location.prop( 'href' ),
-			'http://tools.wmflabs.org/geohack/geohack.php?pagename=File:' + fileName + '&params=' + ( - latitude) + '_S_' + ( - longitude ) + '_W_&language=en',
+			'http://tools.wmflabs.org/geohack/geohack.php?pagename=File:' + fileName + '&params=' + ( - latitude ) + '_S_' + ( - longitude ) + '_W_&language=en',
 			'Location URL is set as expected'
 		);
 
@@ -103,21 +103,21 @@
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) ),
 			title = 'Foo bar',
 			image = {
-				filePageTitle : mw.Title.newFromText( 'File:' + title + '.jpg' )
+				filePageTitle: mw.Title.newFromText( 'File:' + title + '.jpg' )
 			},
 			imageData = {
 				title: image.filePageTitle,
 				url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
 				descriptionUrl: 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
-				hasCoords: function() { return false; }
+				hasCoords: function () { return false; }
 			},
 			repoData = {
-				getArticlePath : function() { return 'Foo'; },
-				isCommons: function() { return false; }
+				getArticlePath: function () { return 'Foo'; },
+				isCommons: function () { return false; }
 			},
 			oldMoment = window.moment;
 
-		/*window.moment = function( date ) {
+		/*window.moment = function ( date ) {
 			// This has no effect for now, since writing this test revealed that our moment.js
 			// doesn't have any language configuration
 			return oldMoment( date ).lang( 'fr' );
@@ -190,7 +190,7 @@
 
 	QUnit.test( 'About links', 3, function ( assert ) {
 		var panel,
-			$qf = $( '#qunit-fixture'),
+			$qf = $( '#qunit-fixture' ),
 			oldWgMediaViewerIsInBeta = mw.config.get( 'wgMediaViewerIsInBeta' );
 
 		this.sandbox.stub( mw.user, 'isAnon' );

@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw, $ ) {
+( function ( mw, $ ) {
 	var LP;
 
 	/**
@@ -107,7 +107,7 @@
 	 * @return {string}
 	 * FIXME a model should not depend on an i18n class. We should probably use view models.
 	 */
-	LP.getShortName = function() {
+	LP.getShortName = function () {
 		var message = 'multimediaviewer-license-' + ( this.internalName || '' );
 		if ( mw.messages.exists( message ) ) {
 			return mw.message( message ).text();

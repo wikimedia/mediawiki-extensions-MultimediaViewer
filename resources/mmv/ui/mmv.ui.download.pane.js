@@ -114,7 +114,7 @@
 				'original'
 				);
 
-		this.downloadSizeMenu.getMenu().on( 'select', function( item ) {
+		this.downloadSizeMenu.getMenu().on( 'select', function ( item ) {
 			mw.mmv.actionLogger.log( 'download-select-menu-' + item.data.name );
 		} );
 
@@ -307,7 +307,7 @@
 	 * @param {number} width
 	 * @param {number} height
 	 */
-	DP.setButtonText = function( sizeClass, extension, width, height ) {
+	DP.setButtonText = function ( sizeClass, extension, width, height ) {
 		var sizeClasMessage, sizeMessage, dimensionMessage;
 
 		sizeClasMessage = mw.message( 'multimediaviewer-download-' + sizeClass + '-button-name' ).text();
@@ -336,7 +336,7 @@
 	 * Chops off the extension part of an URL.
 	 * @param {string} url
 	 */
-	DP.getExtensionFromUrl = function( url ) {
+	DP.getExtensionFromUrl = function ( url ) {
 		var urlParts = url.split( '.' );
 		return urlParts[urlParts.length - 1];
 	};

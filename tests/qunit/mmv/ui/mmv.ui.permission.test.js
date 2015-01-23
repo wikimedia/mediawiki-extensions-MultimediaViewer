@@ -15,17 +15,17 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw, $ ) {
+( function ( mw, $ ) {
 	QUnit.module( 'mw.mmv.ui.Permission', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Constructor sanity check', 1, function( assert ) {
+	QUnit.test( 'Constructor sanity check', 1, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			permission = new mw.mmv.ui.Permission( $qf );
 
 		assert.ok( permission, 'constructor does not throw error' );
 	} );
 
-	QUnit.test( 'set()', 5, function( assert ) {
+	QUnit.test( 'set()', 5, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			permission = new mw.mmv.ui.Permission( $qf ),
 			text = 'Nothing to see here.';
@@ -41,7 +41,7 @@
 		assert.ok( !permission.$close.is( ':visible' ), 'close button is not visible' );
 	} );
 
-	QUnit.test( 'set() with html', 2, function( assert ) {
+	QUnit.test( 'set() with html', 2, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			permission = new mw.mmv.ui.Permission( $qf ),
 			text = '<b>Nothing</b> to see here.';
@@ -52,7 +52,7 @@
 		assert.ok( permission.$html.find( 'b' ), 'permission html has html' );
 	} );
 
-	QUnit.test( 'empty()', 3, function( assert ) {
+	QUnit.test( 'empty()', 3, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			permission = new mw.mmv.ui.Permission( $qf ),
 			text = 'Nothing to see here.';
@@ -65,7 +65,7 @@
 		assert.ok( !permission.$close.is( ':visible' ), 'close button is not visible' );
 	} );
 
-	QUnit.test( 'grow()', 3, function( assert ) {
+	QUnit.test( 'grow()', 3, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			permission = new mw.mmv.ui.Permission( $qf ),
 			text = 'Nothing to see here.',
@@ -83,7 +83,7 @@
 		$.fn.animate = oldAnimate;
 	} );
 
-	QUnit.test( 'shrink()', 3, function( assert ) {
+	QUnit.test( 'shrink()', 3, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			permission = new mw.mmv.ui.Permission( $qf ),
 			text = 'Nothing to see here.',
@@ -102,7 +102,7 @@
 		$.fn.animate = oldAnimate;
 	} );
 
-	QUnit.test( 'isFullSize()', 3, function( assert ) {
+	QUnit.test( 'isFullSize()', 3, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			permission = new mw.mmv.ui.Permission( $qf ),
 			text = 'Nothing to see here.';

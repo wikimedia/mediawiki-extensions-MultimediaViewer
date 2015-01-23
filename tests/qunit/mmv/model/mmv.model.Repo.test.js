@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw ) {
+( function ( mw ) {
 	QUnit.module( 'mmv.model.Repo', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Repo constructor sanity check', 3, function ( assert ) {

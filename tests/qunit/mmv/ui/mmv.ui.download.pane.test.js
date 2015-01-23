@@ -43,10 +43,10 @@
 
 		assert.strictEqual( download.imageExtension, undefined, 'Image extension is not set.' );
 
-		download.utils.updateMenuOptions = function() {
+		download.utils.updateMenuOptions = function () {
 			assert.ok( true, 'Menu options updated.' );
 		};
-		download.downloadSizeMenu.getMenu().selectItem = function() {
+		download.downloadSizeMenu.getMenu().selectItem = function () {
 			assert.ok( true, 'Default item selected to update the labels.' );
 		};
 
@@ -68,10 +68,10 @@
 
 		download.set( image );
 
-		download.handleSizeSwitch = function() {
+		download.handleSizeSwitch = function () {
 			assert.ok( false, 'handleSizeSwitch should not have been called.' );
 		};
-		download.downloadSizeMenu.$element.click = function() {
+		download.downloadSizeMenu.$element.click = function () {
 			assert.ok( false, 'Menu selection should not have happened.' );
 		};
 
@@ -80,10 +80,10 @@
 			'choose', download.downloadSizeMenu.getMenu().getSelectedItem() );
 		download.$selectionArrow.click();
 
-		download.handleSizeSwitch = function() {
+		download.handleSizeSwitch = function () {
 			assert.ok( true, 'handleSizeSwitch was called.' );
 		};
-		download.downloadSizeMenu.$element.click = function() {
+		download.downloadSizeMenu.$element.click = function () {
 			assert.ok( true, 'Menu selection happened.' );
 		};
 
@@ -95,10 +95,10 @@
 		download.$selectionArrow.click();
 
 		// Test the unattach part
-		download.handleSizeSwitch = function() {
+		download.handleSizeSwitch = function () {
 			assert.ok( false, 'handleSizeSwitch should not have been called.' );
 		};
-		download.downloadSizeMenu.$element.click = function() {
+		download.downloadSizeMenu.$element.click = function () {
 			assert.ok( false, 'Menu selection should not have happened.' );
 		};
 

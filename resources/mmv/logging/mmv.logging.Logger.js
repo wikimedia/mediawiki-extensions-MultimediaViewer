@@ -69,7 +69,7 @@
 			waitForEventLog = $.Deferred();
 
 		// Waits for dom readiness because we don't want to have these dependencies loaded in the head
-		$( document ).ready( function() {
+		$( document ).ready( function () {
 			// window.Geo is currently defined in components that are loaded independently, there is no cheap
 			// way to load just that information. Either we piggy-back on something that already loaded it
 			// or we just don't have it
@@ -78,7 +78,7 @@
 			}
 
 			try {
-				mw.loader.using( [ 'ext.eventLogging', 'schema.' + self.schema ], function() {
+				mw.loader.using( [ 'ext.eventLogging', 'schema.' + self.schema ], function () {
 					self.setEventLog( mw.eventLog );
 					waitForEventLog.resolve();
 				} );
@@ -121,7 +121,7 @@
 		var self = this;
 
 		if ( self.isInSample() ) {
-			return this.loadDependencies().then( function() {
+			return this.loadDependencies().then( function () {
 				// Add Geo information if there's any
 				if (
 					self.Geo && self.Geo.country !== undefined &&

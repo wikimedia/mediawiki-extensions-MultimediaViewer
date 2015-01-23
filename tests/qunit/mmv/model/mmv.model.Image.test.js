@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw ) {
+( function ( mw ) {
 	QUnit.module( 'mmv.model.Image', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Image model constructor sanity check', 24, function ( assert ) {
@@ -106,9 +106,9 @@
 			floatStringData = { value: '1.23' },
 			booleanData = { value: 'yes' },
 			wrongBooleanData = { value: 'blah' },
-			listDataEmpty = {value: '' },
-			listDataSingle = {value: 'foo' },
-			listDataMultiple = {value: 'foo|bar|baz' },
+			listDataEmpty = { value: '' },
+			listDataSingle = { value: 'foo' },
+			listDataMultiple = { value: 'foo|bar|baz' },
 			missingData;
 
 		assert.strictEqual( Image.parseExtmeta( stringData, 'string' ), 'foo',

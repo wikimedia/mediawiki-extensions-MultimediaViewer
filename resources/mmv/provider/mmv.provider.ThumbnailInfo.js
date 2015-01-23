@@ -44,7 +44,7 @@
 	 * @param {number} height thumbnail height in pixels
 	 * @return {jQuery.Promise.<mw.mmv.model.Thumbnail>}
 	 */
-	ThumbnailInfo.prototype.get = function( file, width, height ) {
+	ThumbnailInfo.prototype.get = function ( file, width, height ) {
 		var provider = this,
 			cacheKey = file.getPrefixedDb() + '|' + ( width || '' ) + '|' + ( height || '' );
 
@@ -56,9 +56,9 @@
 				iiprop: 'url',
 				iiurlwidth: width, // mw.Api will omit null/undefined parameters
 				iiurlheight: height
-			} ).then( function( data ) {
+			} ).then( function ( data ) {
 				return provider.getQueryPage( file, data );
-			} ).then( function( page ) {
+			} ).then( function ( page ) {
 				if ( page.imageinfo && page.imageinfo[0] ) {
 					var imageInfo = page.imageinfo[0];
 					if ( imageInfo.thumburl && imageInfo.thumbwidth && imageInfo.thumbheight ) {

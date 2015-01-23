@@ -96,7 +96,7 @@
 		this.$ellipsis = $( '<span>' )
 			.text( '…' )
 			.hide()
-			.addClass( 'mw-mmv-ttf-ellipsis');
+			.addClass( 'mw-mmv-ttf-ellipsis' );
 
 		this.$container
 			.addClass( 'mw-mmv-ttf-container empty' )
@@ -227,7 +227,7 @@
 
 			oldClass = newClass;
 			newClass = v;
-			field.$container.removeClass( oldClass).addClass( newClass );
+			field.$container.removeClass( oldClass ).addClass( newClass );
 		} );
 	};
 

@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- ( function ( mw, $ ) {
+( function ( mw, $ ) {
 	var $qf = $( '#qunit-fixture' );
 
 	QUnit.module( 'mmv.ui.reuse.Embed', QUnit.newMwEnvironment() );
@@ -46,10 +46,10 @@
 		// deselect items
 		embed.embedSwitch.selectItem();
 
-		embed.updateEmbedHtml = function() {
+		embed.updateEmbedHtml = function () {
 			assert.ok( false, 'No item selected, this should not have been called.' );
 		};
-		embed.updateEmbedWikitext = function() {
+		embed.updateEmbedWikitext = function () {
 			assert.ok( false, 'No item selected, this should not have been called.' );
 		};
 
@@ -61,10 +61,10 @@
 		width = 10,
 		height = 20;
 
-		embed.embedSwitch.getSelectedItem = function() {
-			return { getData: function() { return 'html'; } };
+		embed.embedSwitch.getSelectedItem = function () {
+			return { getData: function () { return 'html'; } };
 		};
-		embed.updateEmbedHtml = function( thumb, w, h ) {
+		embed.updateEmbedHtml = function ( thumb, w, h ) {
 			assert.strictEqual( thumb.url, undefined, 'Empty thumbnail passed.' );
 			assert.strictEqual( w, width, 'Correct width passed.' );
 			assert.strictEqual( h, height, 'Correct height passed.' );
@@ -72,7 +72,7 @@
 		embed.updateEmbedWikitext = function () {
 			assert.ok( false, 'Dealing with HTML menu, this should not have been called.' );
 		};
-		embed.select = function( ) {
+		embed.select = function () {
 			assert.ok( true, 'Item selected after update.' );
 		};
 
@@ -84,16 +84,16 @@
 		width = 10,
 		height = 20;
 
-		embed.embedSwitch.getSelectedItem = function() {
-			return { getData: function() { return 'wikitext'; } };
+		embed.embedSwitch.getSelectedItem = function () {
+			return { getData: function () { return 'wikitext'; } };
 		};
-		embed.updateEmbedHtml = function() {
+		embed.updateEmbedHtml = function () {
 			assert.ok( false, 'Dealing with wikitext menu, this should not have been called.' );
 		};
-		embed.updateEmbedWikitext = function( w ) {
+		embed.updateEmbedWikitext = function ( w ) {
 			assert.strictEqual( w, width, 'Correct width passed.' );
 		};
-		embed.select = function( ) {
+		embed.select = function () {
 			assert.ok( true, 'Item selected after update.' );
 		};
 
@@ -105,7 +105,7 @@
 		width = 10,
 		height = 20;
 
-		embed.formatter.getThumbnailHtml = function() {
+		embed.formatter.getThumbnailHtml = function () {
 			assert.ok( false, 'formatter.getThumbnailHtml() should not have been called.' );
 		};
 		embed.updateEmbedHtml( {}, width, height );
@@ -125,7 +125,7 @@
 		embed.set( imageInfo, repoInfo, caption );
 
 		// Small image, no thumbnail info is passed
-		embed.formatter.getThumbnailHtml = function( i, u, w, h ) {
+		embed.formatter.getThumbnailHtml = function ( i, u, w, h ) {
 			assert.deepEqual( i, info, 'Info passed correctly.' );
 			assert.strictEqual( u, url, 'Image URL passed correctly.' );
 			assert.strictEqual( w, width, 'Correct width passed.' );
@@ -134,13 +134,13 @@
 		embed.updateEmbedHtml( {}, width, height );
 
 		// Small image, thumbnail info present
-		embed.formatter.getThumbnailHtml = function( i, u ) {
+		embed.formatter.getThumbnailHtml = function ( i, u ) {
 			assert.strictEqual( u, thumbUrl, 'Image src passed correctly.' );
 		};
 		embed.updateEmbedHtml( { url: thumbUrl }, width, height );
 
 		// Big image, thumbnail info present
-		embed.formatter.getThumbnailHtml = function( i, u ) {
+		embed.formatter.getThumbnailHtml = function ( i, u ) {
 			assert.strictEqual( u, url, 'Image src passed correctly.' );
 		};
 		width = 1300;
@@ -151,8 +151,8 @@
 		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
 		width = 10;
 
-		embed.formatter.getThumbnailWikitext = function() {
-			assert.ok( false, 'formatter.getThumbnailWikitext() should not have been called.');
+		embed.formatter.getThumbnailWikitext = function () {
+			assert.ok( false, 'formatter.getThumbnailWikitext() should not have been called.' );
 		};
 		embed.updateEmbedWikitext( width );
 	} );
@@ -167,9 +167,9 @@
 
 		embed.set( imageInfo, repoInfo, caption );
 
-		embed.formatter.getThumbnailWikitextFromEmbedFileInfo = function( i, w ) {
-			assert.deepEqual( i, info, 'EmbedFileInfo passed correctly.');
-			assert.strictEqual( w, width, 'Width passed correctly.');
+		embed.formatter.getThumbnailWikitextFromEmbedFileInfo = function ( i, w ) {
+			assert.deepEqual( i, info, 'EmbedFileInfo passed correctly.' );
+			assert.strictEqual( w, width, 'Width passed correctly.' );
 		};
 		embed.updateEmbedWikitext( width );
 	} );
@@ -223,10 +223,10 @@
 
 		QUnit.stop();
 
-		embed.utils.updateMenuOptions = function( sizes, options ) {
+		embed.utils.updateMenuOptions = function ( sizes, options ) {
 			assert.strictEqual( options.length, 4, 'Options passed correctly.' );
 		};
-		embed.resetCurrentSizeMenuToDefault = function() {
+		embed.resetCurrentSizeMenuToDefault = function () {
 			assert.ok( true, 'resetCurrentSizeMenuToDefault() is called.' );
 		};
 		embed.utils.getThumbnailUrlPromise = function () {
@@ -269,8 +269,8 @@
 
 		assert.strictEqual( embed.embedTextHtml.getValue(), '', 'embedTextHtml is empty.' );
 		assert.strictEqual( embed.embedTextWikitext.getValue(), '', 'embedTextWikitext is empty.' );
-		assert.ok( ! embed.embedSizeSwitchHtml.getMenu().isVisible(), 'Html size menu should be hidden.' );
-		assert.ok( ! embed.embedSizeSwitchWikitext.getMenu().isVisible(), 'Wikitext size menu should be hidden.' );
+		assert.ok( !embed.embedSizeSwitchHtml.getMenu().isVisible(), 'Html size menu should be hidden.' );
+		assert.ok( !embed.embedSizeSwitchWikitext.getMenu().isVisible(), 'Wikitext size menu should be hidden.' );
 	} );
 
 	QUnit.test( 'attach()/unattach():', 5, function ( assert ) {
@@ -284,13 +284,13 @@
 
 		embed.set( { width: width, height: height }, embedFileInfo );
 
-		embed.selectAllOnEvent = function() {
+		embed.selectAllOnEvent = function () {
 			assert.ok( false, 'selectAllOnEvent should not have been called.' );
 		};
-		embed.handleTypeSwitch = function() {
+		embed.handleTypeSwitch = function () {
 			assert.ok( false, 'handleTypeSwitch should not have been called.' );
 		};
-		embed.handleSizeSwitch = function() {
+		embed.handleSizeSwitch = function () {
 			assert.ok( false, 'handleTypeSwitch should not have been called.' );
 		};
 
@@ -304,13 +304,13 @@
 		embed.embedSizeSwitchWikitext.getMenu().emit(
 			'choose', embed.embedSizeSwitchWikitext.getMenu().getSelectedItem() );
 
-		embed.selectAllOnEvent = function() {
+		embed.selectAllOnEvent = function () {
 			assert.ok( true, 'selectAllOnEvent was called.' );
 		};
-		embed.handleTypeSwitch = function() {
+		embed.handleTypeSwitch = function () {
 			assert.ok( true, 'handleTypeSwitch was called.' );
 		};
-		embed.handleSizeSwitch = function() {
+		embed.handleSizeSwitch = function () {
 			assert.ok( true, 'handleTypeSwitch was called.' );
 		};
 
@@ -326,13 +326,13 @@
 			'choose', embed.embedSizeSwitchWikitext.getMenu().getSelectedItem() );
 
 		// Test the unattach part
-		embed.selectAllOnEvent = function() {
+		embed.selectAllOnEvent = function () {
 			assert.ok( false, 'selectAllOnEvent should not have been called.' );
 		};
-		embed.handleTypeSwitch = function() {
+		embed.handleTypeSwitch = function () {
 			assert.ok( false, 'handleTypeSwitch should not have been called.' );
 		};
-		embed.handleSizeSwitch = function() {
+		embed.handleSizeSwitch = function () {
 			assert.ok( false, 'handleTypeSwitch should not have been called.' );
 		};
 
@@ -358,10 +358,10 @@
 		};
 
 		// HTML selected
-		embed.handleTypeSwitch( { getData: function() { return 'html'; } } );
+		embed.handleTypeSwitch( { getData: function () { return 'html'; } } );
 
 		assert.strictEqual( embed.isSizeMenuDefaultReset, true, 'Reset flag updated correctly.' );
-		assert.ok( ! embed.embedSizeSwitchWikitext.getMenu().isVisible(), 'Wikitext size menu should be hidden.' );
+		assert.ok( !embed.embedSizeSwitchWikitext.getMenu().isVisible(), 'Wikitext size menu should be hidden.' );
 
 		embed.resetCurrentSizeMenuToDefault = function () {
 			assert.ok( false, 'resetCurrentSizeMenuToDefault() should not have been called.' );
@@ -371,7 +371,7 @@
 		embed.handleTypeSwitch( { getData: function () { return 'wikitext'; } } );
 
 		assert.strictEqual( embed.isSizeMenuDefaultReset, true, 'Reset flag updated correctly.' );
-		assert.ok( ! embed.embedSizeSwitchHtml.getMenu().isVisible(), 'HTML size menu should be hidden.' );
+		assert.ok( !embed.embedSizeSwitchHtml.getMenu().isVisible(), 'HTML size menu should be hidden.' );
 	} );
 
 	QUnit.test( 'Logged out', 4, function ( assert ) {
@@ -382,9 +382,9 @@
 
 		embed = new mw.mmv.ui.reuse.Embed( $qf );
 
-		assert.ok( ! embed.embedSizeSwitchWikitext.$element.hasClass( 'active' ), 'Wikitext widget should be hidden.' );
+		assert.ok( !embed.embedSizeSwitchWikitext.$element.hasClass( 'active' ), 'Wikitext widget should be hidden.' );
 		assert.ok( embed.embedSizeSwitchHtml.$element.hasClass( 'active' ), 'HTML widget should be visible.' );
-		assert.ok( ! embed.embedTextWikitext.$element.hasClass( 'active' ), 'Wikitext input should be hidden.' );
+		assert.ok( !embed.embedTextWikitext.$element.hasClass( 'active' ), 'Wikitext input should be hidden.' );
 		assert.ok( embed.embedTextHtml.$element.hasClass( 'active' ), 'HTML input should be visible.' );
 
 		mw.user.isAnon = oldUserIsAnon;

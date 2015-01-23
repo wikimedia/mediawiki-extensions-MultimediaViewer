@@ -3,7 +3,7 @@
 		setup: function () {
 			mw.config.set( 'wgMediaViewer', true );
 			mw.config.set( 'wgMediaViewerOnClick', true );
-			this.sandbox.stub( mw.user, 'isAnon').returns( false );
+			this.sandbox.stub( mw.user, 'isAnon' ).returns( false );
 			this.clock = this.sandbox.useFakeTimers();
 		}
 	} ) );
@@ -14,7 +14,7 @@
 			thumbwrap = $( '<div>' ).addClass( 'thumb' ).appendTo( galleryBox ),
 			link = $( '<a>' ).addClass( 'image' ).appendTo( thumbwrap );
 
-		$( '<img>' ).attr( 'src',  ( imageSrc || 'thumb.jpg' ) ).appendTo( link );
+		$( '<img>' ).attr( 'src', ( imageSrc || 'thumb.jpg' ) ).appendTo( link );
 		$( '<div>' ).addClass( 'gallerytext' ).text( caption || 'Foobar' ).appendTo( galleryBox );
 
 		return div;
@@ -56,7 +56,7 @@
 		// MediaViewer should work without it, and so should the tests.
 		bootstrap.ensureEventHandlersAreSetUp = $.noop;
 
-		bootstrap.getViewer = function() { return viewer ? viewer : { initWithThumbs : $.noop }; };
+		bootstrap.getViewer = function () { return viewer ? viewer : { initWithThumbs: $.noop }; };
 
 		return bootstrap;
 	}
@@ -135,7 +135,7 @@
 	QUnit.test( 'Check viewer invoked when clicking on legit image links', 10, function ( assert ) {
 		// TODO: Is <div class="gallery"><span class="image"><img/></span></div> valid ???
 		var div, link, link2, link3, link4, link5, bootstrap,
-			viewer = { initWithThumbs : $.noop };
+			viewer = { initWithThumbs: $.noop };
 
 		// Create gallery with legit link image
 		div = createGallery();
@@ -143,11 +143,11 @@
 
 		// Legit isolated thumbnail
 		link2 = $( '<a>' ).addClass( 'image' ).appendTo( '#qunit-fixture' );
-		$( '<img>' ).attr( 'src',  'thumb2.jpg' ).appendTo( link2 );
+		$( '<img>' ).attr( 'src', 'thumb2.jpg' ).appendTo( link2 );
 
 		// Non-legit fragment
 		link3 = $( '<a>' ).addClass( 'noImage' ).appendTo( div );
-		$( '<img>' ).attr( 'src',  'thumb3.jpg' ).appendTo( link3 );
+		$( '<img>' ).attr( 'src', 'thumb3.jpg' ).appendTo( link3 );
 
 		$( '<div>' ).addClass( 'fullMedia' ).appendTo( div );
 		$( '<img>' ).attr( 'src', 'thumb4.jpg' ).appendTo(
@@ -172,15 +172,15 @@
 			assert.ok( true, 'Overlay was set up' );
 		};
 
-		viewer.loadImageByTitle = function() {
+		viewer.loadImageByTitle = function () {
 			assert.ok( true, 'Image loaded' );
 		};
 
 		// Click on legit link
-		link.trigger( { type : 'click', which : 1 } );
+		link.trigger( { type: 'click', which: 1 } );
 
 		// Click on legit link
-		link2.trigger( { type : 'click', which : 1 } );
+		link2.trigger( { type: 'click', which: 1 } );
 
 		// Click on legit link
 		link4.trigger( { type: 'click', which: 1 } );
@@ -194,22 +194,22 @@
 			assert.ok( false, 'Overlay was not set up' );
 		};
 
-		viewer.loadImageByTitle = function() {
+		viewer.loadImageByTitle = function () {
 			assert.ok( false, 'Image should not be loaded' );
 		};
 
 		// Click on non-legit link
-		link3.trigger( { type : 'click', which : 1 } );
+		link3.trigger( { type: 'click', which: 1 } );
 
 		// Click on legit links with preference off
 		mw.config.set( 'wgMediaViewerOnClick', false );
-		link.trigger( { type : 'click', which : 1 } );
-		link2.trigger( { type : 'click', which : 1 } );
+		link.trigger( { type: 'click', which: 1 } );
+		link2.trigger( { type: 'click', which: 1 } );
 	} );
 
 	QUnit.test( 'Skip images with invalid extensions', 0, function ( assert ) {
 		var div, link, bootstrap,
-			viewer = { initWithThumbs : $.noop };
+			viewer = { initWithThumbs: $.noop };
 
 		// Create gallery with image that has invalid name extension
 		div = createGallery( 'thumb.badext' );
@@ -218,17 +218,17 @@
 		// Create a new bootstrap object to trigger the DOM scan, etc.
 		bootstrap = createBootstrap( viewer );
 
-		viewer.loadImageByTitle = function() {
+		viewer.loadImageByTitle = function () {
 			assert.ok( false, 'Image should not be loaded' );
 		};
 
 		// Click on legit link with wrong image extension
-		link.trigger( { type : 'click', which : 1 } );
+		link.trigger( { type: 'click', which: 1 } );
 	} );
 
 	QUnit.test( 'Accept only left clicks without modifier keys, skip the rest', 2, function ( assert ) {
 		var $div, $link, bootstrap,
-			viewer = { initWithThumbs : $.noop };
+			viewer = { initWithThumbs: $.noop };
 
 		// Create gallery with image that has valid name extension
 		$div = createGallery();
@@ -242,31 +242,31 @@
 			assert.ok( true, 'Overlay was set up' );
 		};
 
-		viewer.loadImageByTitle = function() {
+		viewer.loadImageByTitle = function () {
 			assert.ok( true, 'Image loaded' );
 		};
 
 		// Handle valid left click, it should try to load the image
-		$link.trigger( { type : 'click', which : 1 } );
+		$link.trigger( { type: 'click', which: 1 } );
 
 		bootstrap.setupOverlay = function () {
 			assert.ok( false, 'Overlay was not set up' );
 		};
 
-		viewer.loadImageByTitle = function() {
+		viewer.loadImageByTitle = function () {
 			assert.ok( false, 'Image should not be loaded' );
 		};
 
 		// Skip Ctrl-left-click, no image is loaded
-		$link.trigger( { type : 'click', which : 1, ctrlKey : true } );
+		$link.trigger( { type: 'click', which: 1, ctrlKey: true } );
 
 		// Skip invalid right click, no image is loaded
-		$link.trigger( { type : 'click', which : 2 } );
+		$link.trigger( { type: 'click', which: 2 } );
 	} );
 
 	QUnit.test( 'Ensure that the correct title is loaded when clicking', 2, function ( assert ) {
 		var bootstrap,
-			viewer = { initWithThumbs : $.noop },
+			viewer = { initWithThumbs: $.noop },
 			$div = createGallery( 'foo.jpg' ),
 			$link = $div.find( 'a.image' );
 
@@ -281,19 +281,19 @@
 			assert.ok( true, 'Overlay was set up' );
 		};
 
-		$link.trigger( { type : 'click', which : 1 } );
+		$link.trigger( { type: 'click', which: 1 } );
 	} );
 
 	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 8, function ( assert ) {
 		var bootstrap,
 			$div,
 			$link,
-			viewer = new mw.mmv.MultimediaViewer( { get : $.noop } ),
+			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
 			fname = 'valid',
 			imgSrc = '/' + fname + '.jpg/300px-' + fname + '.jpg',
 			imgRegex = new RegExp( imgSrc + '$' );
 
-		$div = createThumb( imgSrc, 'Blah blah', 'meow');
+		$div = createThumb( imgSrc, 'Blah blah', 'meow' );
 		$link = $div.find( 'a.image' );
 
 		viewer.loadImage = $.noop;
@@ -315,7 +315,7 @@
 			assert.ok( true, 'Overlay was set up' );
 		};
 
-		$link.trigger( { type : 'click', which : 1 } );
+		$link.trigger( { type: 'click', which: 1 } );
 	} );
 
 	QUnit.test( 'Only load the viewer on a valid hash (modern browsers)', 1, function ( assert ) {
@@ -375,7 +375,7 @@
 
 		QUnit.stop();
 
-		deferred.then( function() {
+		deferred.then( function () {
 			QUnit.start();
 			assert.ok( true, 'The style is on the page' );
 			assert.strictEqual( $( '.' + CSSclass ).length, 0, 'There are no leftover test elements' );
@@ -400,8 +400,8 @@
 				stubbedScrollLeft = target.left;
 			} else {
 				return {
-					scrollTop : function () { return stubbedScrollTop; },
-					scrollLeft : function () { return stubbedScrollLeft; }
+					scrollTop: function () { return stubbedScrollTop; },
+					scrollLeft: function () { return stubbedScrollLeft; }
 				};
 			}
 		} );
@@ -417,7 +417,7 @@
 
 	QUnit.test( 'Preload JS/CSS dependencies on thumb hover', 2, function ( assert ) {
 		var $div, bootstrap,
-			viewer = { initWithThumbs : $.noop };
+			viewer = { initWithThumbs: $.noop };
 
 		// Create gallery with image that has valid name extension
 		$div = createThumb();

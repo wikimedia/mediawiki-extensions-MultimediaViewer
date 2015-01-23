@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw, $, oo ) {
+( function ( mw, $, oo ) {
 	var SBP;
 
 	/**
@@ -65,7 +65,7 @@
 	 * @protected
 	 * Creates a button linking to the file description page.
 	 */
-	SBP.initDescriptionPageButton = function() {
+	SBP.initDescriptionPageButton = function () {
 		this.buttons.$descriptionPage = this.createButton(
 			'empty mw-mmv-description-page-button mw-ui-big mw-ui-button mw-ui-progressive'
 		).click( function () {
@@ -78,7 +78,7 @@
 	 * Runs code for each button, similarly to $.each.
 	 * @param {function(jQuery, string)} callback a function that will be called with each button
 	 */
-	SBP.eachButton = function ( callback )  {
+	SBP.eachButton = function ( callback ) {
 		var buttonName;
 		for ( buttonName in this.buttons ) {
 			callback( this.buttons[buttonName], buttonName );

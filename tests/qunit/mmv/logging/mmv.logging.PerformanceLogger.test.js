@@ -18,7 +18,7 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.logging.PerformanceLogger', QUnit.newMwEnvironment() );
 
-	function createFakeXHR( response )  {
+	function createFakeXHR( response ) {
 		return {
 			readyState: 0,
 			open: $.noop,
@@ -38,7 +38,7 @@
 
 	QUnit.test( 'recordEntry: basic', 7, function ( assert ) {
 		var performance = new mw.mmv.logging.PerformanceLogger(),
-			fakeEventLog = { logEvent : this.sandbox.stub() },
+			fakeEventLog = { logEvent: this.sandbox.stub() },
 			type = 'gender',
 			total = 100;
 
@@ -80,7 +80,7 @@
 			varnish2hits = 2,
 			varnish3hits = 1,
 			xvarnish = '1754811951 1283049064, 1511828531, 1511828573 1511828528',
-			xcache = varnish1 + ' miss (0), ' + varnish2  + ' miss (2), ' + varnish3 + ' frontend hit (1), malformed(5)',
+			xcache = varnish1 + ' miss (0), ' + varnish2 + ' miss (2), ' + varnish3 + ' frontend hit (1), malformed(5)',
 			age = '12345',
 			contentLength = '23456',
 			urlHost = 'fail',
@@ -114,7 +114,7 @@
 			status = 200,
 			metered = true,
 			bandwidth = 45.67,
-			fakeEventLog = { logEvent : this.sandbox.stub() };
+			fakeEventLog = { logEvent: this.sandbox.stub() };
 
 		this.sandbox.stub( performance, 'loadDependencies' ).returns( $.Deferred().resolve() );
 		performance.setEventLog( fakeEventLog );
@@ -130,7 +130,7 @@
 			}
 		} );
 
-		this.sandbox.stub( performance, 'getNavigatorConnection' ).returns( { metered : metered, bandwidth : bandwidth } );
+		this.sandbox.stub( performance, 'getNavigatorConnection' ).returns( { metered: metered, bandwidth: bandwidth } );
 		this.sandbox.stub( performance, 'isInSample' ).returns( true );
 
 		fakeRequest = {
@@ -151,7 +151,7 @@
 			status: status
 		};
 
-		performance.setGeo( { country : country } );
+		performance.setGeo( { country: country } );
 
 		performance.recordEntry( type, 100, url, fakeRequest );
 
@@ -233,7 +233,7 @@
 		var varnish1 = 'cp1061',
 			varnish2 = 'cp3006',
 			varnish3 = 'cp3005',
-			testString = varnish1 + ' miss (0), ' + varnish2  + ' miss (0), ' + varnish3 + ' frontend hit (1)',
+			testString = varnish1 + ' miss (0), ' + varnish2 + ' miss (0), ' + varnish3 + ' frontend hit (1)',
 			performance = new mw.mmv.logging.PerformanceLogger(),
 			varnishXCache = performance.parseVarnishXCacheHeader( testString );
 
@@ -246,7 +246,7 @@
 		assert.strictEqual( varnishXCache.varnish3hits, 1, 'Third varnish hit count extracted' );
 		assert.strictEqual( varnishXCache.varnish4hits, undefined, 'Fourth varnish hit count is undefined' );
 
-		testString = varnish1 + ' miss (36), ' + varnish2  + ' miss (2)';
+		testString = varnish1 + ' miss (36), ' + varnish2 + ' miss (2)';
 		varnishXCache = performance.parseVarnishXCacheHeader( testString );
 
 		assert.strictEqual( varnishXCache.varnish1, varnish1, 'First varnish server name extracted' );
@@ -303,7 +303,7 @@
 			ajaxCalled = false,
 			fakeJqxhr = {};
 
-		mw.Api.prototype.ajax = function() {
+		mw.Api.prototype.ajax = function () {
 			ajaxCalled = true;
 			return $.Deferred().resolve( {}, fakeJqxhr );
 		};

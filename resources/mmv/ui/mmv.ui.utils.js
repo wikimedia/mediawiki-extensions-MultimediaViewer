@@ -38,7 +38,7 @@
 	 * @param {string} def
 	 * @returns {OO.ui.DropdownWidget}
 	 */
-	RUP.createPulldownMenu = function( options, classes, def ) {
+	RUP.createPulldownMenu = function ( options, classes, def ) {
 		var dropdown, i, option,
 			items = [],
 			choices = {};
@@ -94,7 +94,7 @@
 	 * @param {Object} sizes
 	 * @param {OO.ui.MenuOptionWidget[]} options
 	 */
-	 RUP.updateMenuOptions = function ( sizes, options ) {
+	RUP.updateMenuOptions = function ( sizes, options ) {
 		var i, option, data, $label;
 
 		for ( i = 0; i < options.length; i++ ) {

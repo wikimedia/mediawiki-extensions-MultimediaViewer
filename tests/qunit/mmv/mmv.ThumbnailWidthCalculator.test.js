@@ -7,22 +7,22 @@
 			thumbnailWidthCalculator;
 
 		thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator();
-		assert.ok( thumbnailWidthCalculator, 'constructor with no argument works');
+		assert.ok( thumbnailWidthCalculator, 'constructor with no argument works' );
 
 		thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator( {} );
-		assert.ok( thumbnailWidthCalculator, 'constructor with empty option argument works');
+		assert.ok( thumbnailWidthCalculator, 'constructor with empty option argument works' );
 
 		thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator( {
 			widthBuckets: goodWidthBuckets
 		} );
-		assert.ok( thumbnailWidthCalculator, 'constructor with non-default buckets works');
+		assert.ok( thumbnailWidthCalculator, 'constructor with non-default buckets works' );
 
 		try {
 			thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator( {
 				widthBuckets: badWidthBuckets
 			} );
-		} catch (e) {
-			assert.ok( e, 'constructor with empty bucket list throws exception');
+		} catch ( e ) {
+			assert.ok( e, 'constructor with empty bucket list throws exception' );
 		}
 	} );
 

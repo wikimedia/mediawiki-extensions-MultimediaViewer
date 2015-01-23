@@ -143,7 +143,7 @@
 		var buttons = this;
 
 		// We don't use animation chaining because delay() can't be stop()ed
-		this.buttonsFadeTimeout = setTimeout( function() {
+		this.buttonsFadeTimeout = setTimeout( function () {
 			buttons.$buttons.not( '.disabled' ).animate( { opacity: 0 }, 1000, 'swing',
 				function () {
 					buttons.$buttons.addClass( 'hidden' );
@@ -164,7 +164,7 @@
 		// when going prev/next (the button can disappear when reaching ends)
 		var hovered = false;
 
-		this.$buttons.not( '.disabled' ).each( function( idx, e ) {
+		this.$buttons.not( '.disabled' ).each( function ( idx, e ) {
 			var $e = $( e ),
 				offset = $e.offset();
 

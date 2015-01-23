@@ -15,10 +15,10 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw, $ ) {
+( function ( mw, $ ) {
 	QUnit.module( 'mmv.ui.ProgressBar', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Constructor sanity check', 2, function( assert ) {
+	QUnit.test( 'Constructor sanity check', 2, function ( assert ) {
 		var progressBar = new mw.mmv.ui.ProgressBar( $( '<div>' ) );
 		assert.ok( progressBar, 'ProgressBar created sccessfully' );
 		assert.ok( progressBar.$progress.hasClass( 'empty' ), 'ProgressBar starts empty' );

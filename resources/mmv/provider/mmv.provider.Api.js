@@ -62,7 +62,7 @@
 	 * @param {string} key cache key
 	 * @param {function(): jQuery.Promise} getPromise a function to get the promise on cache miss
 	 */
-	Api.prototype.getCachedPromise = function( key, getPromise ) {
+	Api.prototype.getCachedPromise = function ( key, getPromise ) {
 		var provider = this;
 
 		if ( !this.cache[key] ) {
@@ -103,7 +103,7 @@
 	 * @param {string} data.error.info
 	 * @returns {string} From data.error.code + ': ' + data.error.info, or 'unknown error'
 	 */
-	Api.prototype.getErrorMessage = function( data ) {
+	Api.prototype.getErrorMessage = function ( data ) {
 		var errorCode, errorMessage;
 		errorCode = data.error && data.error.code;
 		errorMessage = data.error && data.error.info || 'unknown error';
@@ -122,7 +122,7 @@
 	 * @param {Object} data
 	 * @return {mw.Title}
 	 */
-	Api.prototype.getNormalizedTitle = function( title, data ) {
+	Api.prototype.getNormalizedTitle = function ( title, data ) {
 		if ( data && data.query && data.query.normalized ) {
 			for ( var normalized = data.query.normalized, length = normalized.length, i = 0; i < length; i++ ) {
 				if ( normalized[i].from === title.getPrefixedText() ) {
@@ -143,7 +143,7 @@
 	 *     when unsuccessful, it will be an error message. The second argument is always
 	 *     the full API response.
 	 */
-	Api.prototype.getQueryField = function( field, data ) {
+	Api.prototype.getQueryField = function ( field, data ) {
 		if ( data && data.query && data.query[field] ) {
 			return $.Deferred().resolve( data.query[field], data );
 		} else {
@@ -160,7 +160,7 @@
 	 *     when unsuccessful, it will be an error message. The second argument is always
 	 *     the full API response.
 	 */
-	Api.prototype.getQueryPage = function( title, data ) {
+	Api.prototype.getQueryPage = function ( title, data ) {
 		var pageName, pageData = null;
 		if ( data && data.query && data.query.pages ) {
 			title = this.getNormalizedTitle( title, data );

@@ -43,7 +43,7 @@
 	 * @param {mw.mmv.model.Repo} repoInfo
 	 * @return {jQuery.Promise.<mw.mmv.model.User>} user
 	 */
-	UserInfo.prototype.get = function( username, repoInfo ) {
+	UserInfo.prototype.get = function ( username, repoInfo ) {
 		var user,
 			provider = this,
 			ajaxOptions = {},
@@ -69,7 +69,7 @@
 			ajaxOptions.url = repoInfo.apiUrl;
 			ajaxOptions.dataType = 'jsonp';
 			ajaxOptions.cache = true; // do not append `_=<timestamp>` to the URL
-			ajaxOptions.jsonpCallback = this.getCallbackName( username  );
+			ajaxOptions.jsonpCallback = this.getCallbackName( username );
 			cacheKey = cacheKey + '|' + repoInfo.apiUrl; // local and remote user names could conflict
 		}
 
@@ -79,13 +79,13 @@
 				list: 'users',
 				ususers: username,
 				usprop: 'gender'
-			}, ajaxOptions ).then( function( data ) {
+			}, ajaxOptions ).then( function ( data ) {
 				return provider.getQueryField( 'users', data );
-			} ).then( function( users ) {
+			} ).then( function ( users ) {
 				if ( users[0] && users[0].name && users[0].gender ) {
 					return new mw.mmv.model.User( users[0].name, users[0].gender );
 				} else {
-					mw.log( 'user info not found for ' + username + ' at ' + repoInfo.name);
+					mw.log( 'user info not found for ' + username + ' at ' + repoInfo.name );
 					return new mw.mmv.model.User( username, mw.mmv.model.User.Gender.UNKNOWN );
 				}
 			} );

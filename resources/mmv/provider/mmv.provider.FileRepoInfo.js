@@ -37,16 +37,16 @@
 	 * @return {jQuery.Promise.<Object.<string, mw.mmv.model.Repo>>} a promise which resolves to
 	 *     a hash of mw.mmv.model.Repo objects, indexed by repo names.
 	 */
-	FileRepoInfo.prototype.get = function() {
+	FileRepoInfo.prototype.get = function () {
 		var provider = this;
 
 		return this.getCachedPromise( '*', function () {
 			return provider.apiGetWithMaxAge( {
 				action: 'query',
 				meta: 'filerepoinfo'
-			} ).then( function( data ) {
+			} ).then( function ( data ) {
 				return provider.getQueryField( 'repos', data );
-			} ).then( function( reposArray ) {
+			} ).then( function ( reposArray ) {
 				var reposHash = {};
 				$.each( reposArray, function ( i, repo ) {
 					reposHash[repo.name] = mw.mmv.model.Repo.newFromRepoInfo( repo );

@@ -72,7 +72,7 @@
 	 * (This depends some
 	 * @return {boolean}
 	 */
-	Repo.prototype.isCommons = function() {
+	Repo.prototype.isCommons = function () {
 		// there does not seem to be a sane way to do this
 		return this.displayName === 'Wikimedia Commons';
 	};
@@ -140,7 +140,7 @@
 	* @inheritdoc
 	*/
 	ForeignApiRepo.prototype.getArticlePath = function () {
-	    return this.absoluteArticlePath;
+		return this.absoluteArticlePath;
 	};
 
 	/**
@@ -148,7 +148,7 @@
 	* @inheritdoc
 	*/
 	ForeignApiRepo.prototype.isCommons = function () {
-	    return /^(https?:)?\/\/commons.wikimedia.org/.test( this.server );
+		return /^(https?:)?\/\/commons.wikimedia.org/.test( this.server );
 	};
 
 	/**
@@ -186,7 +186,7 @@
 	* @inheritdoc
 	*/
 	ForeignDbRepo.prototype.isCommons = function () {
-	    return /^(https?:)?\/\/commons.wikimedia.org/.test( this.descBaseUrl );
+		return /^(https?:)?\/\/commons.wikimedia.org/.test( this.descBaseUrl );
 	};
 
 	mw.mmv.model.Repo = Repo;

@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw, $, oo ) {
+( function ( mw, $, oo ) {
 	var C;
 
 	/**
@@ -95,7 +95,7 @@
 	/**
 	 * Clears everything.
 	 */
-	C.empty = function() {
+	C.empty = function () {
 		this.$imageDiv.addClass( 'empty' ).removeClass( 'error' );
 
 		this.$imageDiv.empty();
@@ -106,7 +106,7 @@
 	 * @param {mw.mmv.LightboxImage} imageRawMetadata
 	 * @param {jQuery} $imageElement
 	 */
-	C.set = function( imageRawMetadata, $imageElement ) {
+	C.set = function ( imageRawMetadata, $imageElement ) {
 		this.$imageDiv.removeClass( 'empty' );
 
 		this.imageRawMetadata = imageRawMetadata;
@@ -120,7 +120,7 @@
 	 * Sets max-width and max-height of the image equal to those of its parent element.
 	 * FIXME what is this good for, actually?
 	 */
-	C.setImageMaxDimensions = function() {
+	C.setImageMaxDimensions = function () {
 		this.$image.css( {
 			maxWidth : this.$image.parent().width(),
 			// for height, use closest ancestor which has non-content-defined height;
@@ -136,7 +136,7 @@
 	 * @param {HTMLImageElement} imageElement
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
 	 */
-	C.setImageAndMaxDimensions = function( thumbnail, imageElement, imageWidths ) {
+	C.setImageAndMaxDimensions = function ( thumbnail, imageElement, imageWidths ) {
 		var $image = $( imageElement );
 
 		// we downscale larger images but do not scale up smaller ones, that would look ugly
@@ -205,10 +205,10 @@
 			if (
 				!canvas.dialogOpen
 				// FIXME a UI component should not know about its parents
-				&& canvas.$container.closest( '.metadata-panel-is-open').length === 0
+				&& canvas.$container.closest( '.metadata-panel-is-open' ).length === 0
 			) {
 				e.stopPropagation(); // don't let $imageWrapper handle this
-				mw.mmv.actionLogger.log( 'view-original-file' ).always( function() {
+				mw.mmv.actionLogger.log( 'view-original-file' ).always( function () {
 					$( document ).trigger( 'mmv-viewfile' );
 				} );
 			}
@@ -229,7 +229,7 @@
 	/**
 	 * Registers listeners.
 	 */
-	C.attach = function() {
+	C.attach = function () {
 		var canvas = this;
 
 		$( window ).on( 'resize.mmv-canvas', $.debounce( 100, function () {
@@ -237,7 +237,7 @@
 		} ) );
 
 		this.$imageWrapper.on( 'click.mmv-canvas', function () {
-			if ( canvas.$container.closest( '.metadata-panel-is-open').length > 0 ) {
+			if ( canvas.$container.closest( '.metadata-panel-is-open' ).length > 0 ) {
 				canvas.$mainWrapper.trigger( 'mmv-panel-close-area-click' );
 			}
 		} );
@@ -246,7 +246,7 @@
 	/**
 	 * Clears listeners.
 	 */
-	C.unattach = function() {
+	C.unattach = function () {
 		this.clearEvents();
 
 		$( window ).off( 'resize.mmv-canvas' );
@@ -306,7 +306,7 @@
 	 * Blur image
 	 * @param {jQuery} $image Image to be blurred.
 	 */
-	C.blur = function( $image ) {
+	C.blur = function ( $image ) {
 		// We have to apply the SVG filter here, it doesn't work when defined in the .less file
 		// We can't use an external SVG file because filters can't be accessed cross-domain
 		// We can't embed the SVG file because accessing the filter inside of it doesn't work
@@ -316,7 +316,7 @@
 	/**
 	 * Animates the image into focus
 	 */
-	C.unblurWithAnimation = function() {
+	C.unblurWithAnimation = function () {
 		var self = this,
 			animationLength = 300;
 
@@ -340,7 +340,7 @@
 		} );
 	};
 
-	C.unblur = function() {
+	C.unblur = function () {
 		// We apply empty CSS values to remove the inline styles applied by jQuery
 		// so that they don't get in the way of styles defined in CSS
 		this.$image.css( { '-webkit-filter' : '', 'opacity' : '', 'filter' : '' } )
@@ -351,7 +351,7 @@
 	 * Displays a message and error icon when loading the image fails.
 	 * @param {string} error error message
 	 */
-	C.showError = function( error ) {
+	C.showError = function ( error ) {
 		this.$imageDiv.empty()
 			.addClass( 'error' )
 			.append(
@@ -387,7 +387,7 @@
 			// Depending on what the wrapper contains, its size can be 0 on some browsers.
 			// Therefore, we calculate the available space manually
 			availableWidth = $window.width(),
-			availableHeight =  $window.height() - ( isFullscreened ? 0 : $aboveFold.height() );
+			availableHeight = $window.height() - ( isFullscreened ? 0 : $aboveFold.height() );
 
 		if ( forFullscreen ) {
 			return {

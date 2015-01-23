@@ -2,7 +2,7 @@
 	function makeDialog( initialise ) {
 		var $qf = $( '#qunit-fixture' ),
 			$button = $( '<div>' ).appendTo( $qf ),
-			dialog = new mw.mmv.ui.OptionsDialog( $qf, $button, { setMediaViewerEnabledOnClick : $.noop } );
+			dialog = new mw.mmv.ui.OptionsDialog( $qf, $button, { setMediaViewerEnabledOnClick: $.noop } );
 
 		if ( initialise ) {
 			dialog.initPanel();
@@ -33,7 +33,7 @@
 			dialog = makeDialog(),
 			deferred = $.Deferred();
 
-		this.sandbox.stub( dialog.config, 'setMediaViewerEnabledOnClick', function() {
+		this.sandbox.stub( dialog.config, 'setMediaViewerEnabledOnClick', function () {
 			return deferred;
 		} );
 
@@ -91,7 +91,7 @@
 			dialog = makeDialog(),
 			deferred = $.Deferred();
 
-		this.sandbox.stub( dialog.config, 'setMediaViewerEnabledOnClick', function() {
+		this.sandbox.stub( dialog.config, 'setMediaViewerEnabledOnClick', function () {
 			return deferred;
 		} );
 

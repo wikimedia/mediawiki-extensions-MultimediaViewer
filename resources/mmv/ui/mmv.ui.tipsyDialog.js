@@ -116,7 +116,7 @@
 
 			// add click handler to close the popup when clicking on X or outside
 			// off is to make sure we won't end up with more then one - init() can be called multiple times
-			this.$anchor.find( '.mw-mmv-tipsy-dialog-disable').add( document )
+			this.$anchor.find( '.mw-mmv-tipsy-dialog-disable' ).add( document )
 				.off( 'click.mmv-tipsy-dialog', this.closeProxy )
 				.on( 'click.mmv-tipsy-dialog', this.closeProxy );
 
@@ -183,8 +183,8 @@
 		var $clickTarget = $( event.target );
 
 		if (
-			$clickTarget.closest( this.getPopup()).length === 0 // click was outside the dialog
-			|| $clickTarget.closest( '.mw-mmv-tipsy-dialog-disable').length > 0 // click was on the close icon
+			$clickTarget.closest( this.getPopup() ).length === 0 // click was outside the dialog
+			|| $clickTarget.closest( '.mw-mmv-tipsy-dialog-disable' ).length > 0 // click was on the close icon
 		) {
 			this.close();
 		}

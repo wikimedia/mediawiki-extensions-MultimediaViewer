@@ -19,7 +19,7 @@
 	QUnit.module( 'mmv.provider.Api', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Api constructor sanity check', 2, function ( assert ) {
-		var api = { get: function() {} },
+		var api = { get: function () {} },
 			options = {},
 			apiProvider = new mw.mmv.provider.Api( api, options ),
 			ApiProviderWithNoOptions = new mw.mmv.provider.Api( api );
@@ -58,7 +58,7 @@
 	} );
 
 	QUnit.test( 'getCachedPromise success', 5, function ( assert ) {
-		var api = { get: function() {} },
+		var api = { get: function () {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			oldMwLog = mw.log,
 			promiseSource,
@@ -92,7 +92,7 @@
 	} );
 
 	QUnit.test( 'getCachedPromise failure', 7, function ( assert ) {
-		var api = { get: function() {} },
+		var api = { get: function () {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			oldMwLog = mw.log,
 			promiseSource,
@@ -126,7 +126,7 @@
 	} );
 
 	QUnit.test( 'getErrorMessage', 2, function ( assert ) {
-		var api = { get: function() {} },
+		var api = { get: function () {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			errorMessage;
 
@@ -139,13 +139,13 @@
 		} );
 		assert.strictEqual( errorMessage,
 			'unknown_action: Unrecognized value for parameter \'action\': FOO',
-			'error message is parsed correctly');
+			'error message is parsed correctly' );
 
-		assert.strictEqual( apiProvider.getErrorMessage( {} ), 'unknown error', 'missing error message is handled');
+		assert.strictEqual( apiProvider.getErrorMessage( {} ), 'unknown error', 'missing error message is handled' );
 	} );
 
 	QUnit.test( 'getNormalizedTitle', 3, function ( assert ) {
-		var api = { get: function() {} },
+		var api = { get: function () {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			title = new mw.Title( 'Image:Stuff.jpg' ),
 			normalizedTitle;
@@ -179,7 +179,7 @@
 	} );
 
 	QUnit.test( 'getQueryField', 3, function ( assert ) {
-		var api = { get: function() {} },
+		var api = { get: function () {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			data;
 
@@ -196,25 +196,25 @@
 		};
 		QUnit.stop();
 		apiProvider.getQueryField( 'imageusage', data ).then( function ( field ) {
-			assert.strictEqual( field, data.query.imageusage, 'specified field is found');
+			assert.strictEqual( field, data.query.imageusage, 'specified field is found' );
 			QUnit.start();
 		} );
 
 		QUnit.stop();
 		apiProvider.getQueryField( 'imageusage', {} ).fail( function () {
-			assert.ok( true, 'promise rejected when data is missing');
+			assert.ok( true, 'promise rejected when data is missing' );
 			QUnit.start();
 		} );
 
 		QUnit.stop();
 		apiProvider.getQueryField( 'imageusage', { data: { query: {} } } ).fail( function () {
-			assert.ok( true, 'promise rejected when field is missing');
+			assert.ok( true, 'promise rejected when field is missing' );
 			QUnit.start();
 		} );
 	} );
 
 	QUnit.test( 'getQueryPage', 6, function ( assert ) {
-		var api = { get: function() {} },
+		var api = { get: function () {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			title = new mw.Title( 'File:Stuff.jpg' ),
 			titleWithNamespaceAlias = new mw.Title( 'Image:Stuff.jpg' ),
@@ -238,36 +238,36 @@
 		};
 		QUnit.stop();
 		apiProvider.getQueryPage( title, data ).then( function ( field ) {
-			assert.strictEqual( field, data.query.pages['-1'], 'specified page is found');
+			assert.strictEqual( field, data.query.pages['-1'], 'specified page is found' );
 			QUnit.start();
 		} );
 		QUnit.stop();
 		apiProvider.getQueryPage( titleWithNamespaceAlias, data ).then( function ( field ) {
 			assert.strictEqual( field, data.query.pages['-1'],
-				'specified page is found even if its title was normalized');
+				'specified page is found even if its title was normalized' );
 			QUnit.start();
 		} );
 		QUnit.stop();
 		apiProvider.getQueryPage( otherTitle, {} ).fail( function () {
-			assert.ok( true, 'promise rejected when page has different title');
+			assert.ok( true, 'promise rejected when page has different title' );
 			QUnit.start();
 		} );
 
 		QUnit.stop();
 		apiProvider.getQueryPage( title, {} ).fail( function () {
-			assert.ok( true, 'promise rejected when data is missing');
+			assert.ok( true, 'promise rejected when data is missing' );
 			QUnit.start();
 		} );
 
 		QUnit.stop();
 		apiProvider.getQueryPage( title, { data: { query: {} } } ).fail( function () {
-			assert.ok( true, 'promise rejected when pages are missing');
+			assert.ok( true, 'promise rejected when pages are missing' );
 			QUnit.start();
 		} );
 
 		QUnit.stop();
 		apiProvider.getQueryPage( title, { data: { query: { pages: {} } } } ).fail( function () {
-			assert.ok( true, 'promise rejected when pages are empty');
+			assert.ok( true, 'promise rejected when pages are empty' );
 			QUnit.start();
 		} );
 	} );

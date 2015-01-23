@@ -39,7 +39,7 @@
 				descriptionUrl: '//commons.wikimedia.org/wiki/File:Foobar.jpg'
 			};
 
-		assert.notStrictEqual( ! share.pageInput.getValue(), '', 'pageInput is empty.' );
+		assert.notStrictEqual( !share.pageInput.getValue(), '', 'pageInput is empty.' );
 
 		share.select = function () {
 			assert.ok( true, 'Text has been selected after data is set.' );
@@ -51,7 +51,7 @@
 
 		share.empty();
 
-		assert.notStrictEqual( ! share.pageInput.getValue(), '', 'pageInput is empty.' );
+		assert.notStrictEqual( !share.pageInput.getValue(), '', 'pageInput is empty.' );
 	} );
 
 	QUnit.test( 'attach()/unattach():', 1, function ( assert ) {
@@ -64,7 +64,7 @@
 
 		share.set( image );
 
-		share.selectAllOnEvent = function() {
+		share.selectAllOnEvent = function () {
 			assert.ok( false, 'selectAllOnEvent should not have been called.' );
 		};
 
@@ -82,7 +82,7 @@
 		share.pageInput.$element.find( 'input' ).triggerHandler( 'focus' );
 
 		// Test the unattach part
-		share.selectAllOnEvent = function() {
+		share.selectAllOnEvent = function () {
 			assert.ok( false, 'selectAllOnEvent should not have been called.' );
 		};
 

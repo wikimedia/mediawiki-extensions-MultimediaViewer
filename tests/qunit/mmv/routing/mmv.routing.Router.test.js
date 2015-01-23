@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw ) {
+( function ( mw ) {
 	QUnit.module( 'mmv.routing.Router', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Constructor sanity checks', 1, function ( assert ) {
@@ -86,7 +86,7 @@
 		assert.ok( !hash.match( 'Foo bar' ), 'space is replaced...' );
 		assert.ok( hash.match( 'Foo_bar' ), '...with underscore' );
 
-		title = new mw.Title('File:看門狗 (遊戲).jpg');
+		title = new mw.Title( 'File:看門狗 (遊戲).jpg' );
 		route = new mw.mmv.routing.ThumbnailRoute( title );
 		hash = router.createHash( route );
 		parsedRoute = router.parseHash( hash );
@@ -109,12 +109,12 @@
 	QUnit.test( 'createHash() error handling', 3, function ( assert ) {
 		var router = new mw.mmv.routing.Router();
 
-		assert.ok( mw.mmv.testHelpers.getException( function() { return new mw.mmv.routing.ThumbnailRoute(); } ),
+		assert.ok( mw.mmv.testHelpers.getException( function () { return new mw.mmv.routing.ThumbnailRoute(); } ),
 			'Exception thrown then ThumbnailRoute has no title' );
-		assert.ok( mw.mmv.testHelpers.getException( function() {
+		assert.ok( mw.mmv.testHelpers.getException( function () {
 			router.createHash( this.sandbox.createStubInstance( mw.mmv.routing.Route ) );
 		} ), 'Exception thrown for unknown Route subclass' );
-		assert.ok( mw.mmv.testHelpers.getException( function() {
+		assert.ok( mw.mmv.testHelpers.getException( function () {
 			router.createHash( {} );
 		} ), 'Exception thrown for non-Route class' );
 	} );
@@ -171,9 +171,9 @@
 			router = new mw.mmv.routing.Router();
 
 		// mw.Title does not accept % in page names
-		this.sandbox.stub( mw, 'Title', function( name ) { return {
+		this.sandbox.stub( mw, 'Title', function ( name ) { return {
 			name: name,
-			getMain: function() { return name.replace( /^File:/, '' ); }
+			getMain: function () { return name.replace( /^File:/, '' ); }
 		}; } );
 		title = new mw.Title( 'File:%40.png' );
 		hash = router.createHash( new mw.mmv.routing.ThumbnailRoute( title ) );

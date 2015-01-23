@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function( mw, $ ) {
+( function ( mw, $ ) {
 	QUnit.module( 'mmv.ui.metadataPanelScroller', QUnit.newMwEnvironment( {
 		setup: function () {
 			this.clock = this.sandbox.useFakeTimers();
@@ -67,24 +67,24 @@
 		scroller.unattach();
 	} );
 
-	QUnit.test( 'No localStorage', 1, function( assert ) {
+	QUnit.test( 'No localStorage', 1, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			scroller = new mw.mmv.ui.MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ) );
 
-		this.sandbox.stub( $, 'scrollTo', function() { return { scrollTop : function() { return 10; } }; } );
+		this.sandbox.stub( $, 'scrollTo', function () { return { scrollTop: function () { return 10; } }; } );
 
 		scroller.scroll();
 
 		assert.strictEqual( scroller.hasOpenedMetadata, true, 'We store hasOpenedMetadata flag for the session' );
 	} );
 
-	QUnit.test( 'localStorage is full', 2, function( assert ) {
+	QUnit.test( 'localStorage is full', 2, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			localStorage = { getItem : $.noop, setItem : this.sandbox.stub().throwsException( 'I am full' ) },
+			localStorage = { getItem: $.noop, setItem: this.sandbox.stub().throwsException( 'I am full' ) },
 			scroller = new mw.mmv.ui.MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ), localStorage );
 
-		this.sandbox.stub( $, 'scrollTo', function() { return {
-			scrollTop : function() { return 10; },
+		this.sandbox.stub( $, 'scrollTo', function () { return {
+			scrollTop: function () { return 10; },
 			on: $.noop,
 			off: $.noop
 		}; } );
@@ -150,8 +150,8 @@
 		var $qf = $( '#qunit-fixture' ),
 			$container = $( '<div>' ).css( 'height', 100 ).appendTo( $qf ),
 			$aboveFold = $( '<div>' ).css( 'height', 50 ).appendTo( $container ),
-			fakeLocalStorage = { getItem : $.noop, setItem : $.noop },
-			scroller = new mw.mmv.ui.MetadataPanelScroller( $container, $aboveFold, fakeLocalStorage),
+			fakeLocalStorage = { getItem: $.noop, setItem: $.noop },
+			scroller = new mw.mmv.ui.MetadataPanelScroller( $container, $aboveFold, fakeLocalStorage ),
 			keydown = $.Event( 'keydown' );
 
 		stubScrollFunctions( this.sandbox, scroller );
