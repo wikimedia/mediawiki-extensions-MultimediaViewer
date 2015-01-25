@@ -8,7 +8,8 @@
 			"Southparkfan",
 			"Romaine",
 			"Mathonius",
-			"Macofe"
+			"Macofe",
+			"Robin0van0der0vliet"
 		]
 	},
 	"multimediaviewer-desc": "Miniatuurafbeeldingen schermvullend weergeven.",
@@ -22,6 +23,7 @@
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Geüpload}} door $1",
 	"multimediaviewer-metadata-error": "Fout: de afbeeldingsgegevens konden niet geladen worden. $1",
 	"multimediaviewer-thumbnail-error": "Fout: de miniatuurgegevens konden niet geladen worden. $1",
+	"multimediaviewer-thumbnail-error-retry": "opnieuw proberen",
 	"multimediaviewer-license-cc-pd": "Publiek domein",
 	"multimediaviewer-license-pd": "Publiek domein",
 	"multimediaviewer-license-default": "Licentie weergeven",

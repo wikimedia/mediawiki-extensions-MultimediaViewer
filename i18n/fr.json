@@ -10,7 +10,8 @@
 			"Seb35",
 			"Macofe",
 			"Windes",
-			"0x010C"
+			"0x010C",
+			"Orikrin1998"
 		]
 	},
 	"multimediaviewer-desc": "Agrandit les vignettes dans une interface en plein écran.",
@@ -28,6 +29,7 @@
 	"multimediaviewer-multiple-authors-combine": "$1 et $2",
 	"multimediaviewer-metadata-error": "Erreur : Impossible de charger les données de l’image. $1",
 	"multimediaviewer-thumbnail-error": "Erreur : Impossible de charger les données de la vignette. $1",
+	"multimediaviewer-thumbnail-error-retry": "réessayer",
 	"multimediaviewer-license-cc-pd": "Domaine public",
 	"multimediaviewer-license-pd": "Domaine public",
 	"multimediaviewer-license-default": "Afficher la licence",
