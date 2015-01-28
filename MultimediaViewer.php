@@ -1158,4 +1158,5 @@ $wgExtensionCredits['other'][] = array(
 		'Amir E. Aharoni',
 	),
 	'url' => 'https://mediawiki.org/wiki/Extension:MultimediaViewer',
+	'license-name' => 'GPL-2.0+',
 );
