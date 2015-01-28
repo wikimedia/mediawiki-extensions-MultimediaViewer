@@ -11,7 +11,8 @@
 			"Macofe",
 			"Windes",
 			"0x010C",
-			"Orikrin1998"
+			"Orikrin1998",
+			"Weft"
 		]
 	},
 	"multimediaviewer-desc": "Agrandit les vignettes dans une interface en plein écran.",
@@ -27,8 +28,8 @@
 	"multimediaviewer-credit-fallback": "Voir les informations sur l’auteur",
 	"multimediaviewer-multiple-authors": "{{PLURAL:$1|un auteur supplémentaire|$1 auteurs supplémentaire}}",
 	"multimediaviewer-multiple-authors-combine": "$1 et $2",
-	"multimediaviewer-metadata-error": "Erreur : Impossible de charger les données de l’image. $1",
-	"multimediaviewer-thumbnail-error": "Erreur : Impossible de charger les données de la vignette. $1",
+	"multimediaviewer-metadata-error": "Impossible de charger les données de l’image. (erreur : $1)",
+	"multimediaviewer-thumbnail-error": "Désolé, le fichier ne peut être chargé.",
 	"multimediaviewer-thumbnail-error-retry": "réessayer",
 	"multimediaviewer-license-cc-pd": "Domaine public",
 	"multimediaviewer-license-pd": "Domaine public",

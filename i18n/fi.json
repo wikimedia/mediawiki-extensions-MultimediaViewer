@@ -6,7 +6,8 @@
 			"Stryn",
 			"ElmA",
 			"Pxos",
-			"MrTapsa"
+			"MrTapsa",
+			"McSalama"
 		]
 	},
 	"multimediaviewer-desc": "Näytä pienoiskuvat suuremmassa koossa kokoruututilassa.",
@@ -19,8 +20,8 @@
 	"multimediaviewer-datetime-uploaded": "Tallennettu: $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Tallentanut}} $1",
 	"multimediaviewer-credit-fallback": "Näytä tekijätiedot",
-	"multimediaviewer-metadata-error": "Virhe: Ei voitu ladata kuvan tietoja. $1",
-	"multimediaviewer-thumbnail-error": "Virhe: Ei voitu ladata pienoiskuvan tietoja. $1",
+	"multimediaviewer-metadata-error": "Kuvan tietoja ei voitu ladata (virhe: $1)",
+	"multimediaviewer-thumbnail-error": "Pahoittelut, tiedostoa ei voi näyttää",
 	"multimediaviewer-license-cc-pd": "Public Domain",
 	"multimediaviewer-license-pd": "Public Domain",
 	"multimediaviewer-license-default": "Näytä lisenssi",
