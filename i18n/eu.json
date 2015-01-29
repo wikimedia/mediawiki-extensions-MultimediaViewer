@@ -4,5 +4,11 @@
 			"Subi"
 		]
 	},
-	"multimediaviewer-thumbnail-error-retry": "saiatu berriro"
+	"multimediaviewer-repository-local": "Xehetasun gehiago",
+	"multimediaviewer-thumbnail-error-retry": "saiatu berriro",
+	"multimediaviewer-permission-viewmore": "Ikusi gehiago",
+	"multimediaviewer-help-mmv": "Laguntza",
+	"multimediaviewer-reuse-loading-placeholder": "Kargatzen...",
+	"multimediaviewer-options-learn-more": "Gehiago ikasi",
+	"multimediaviewer-option-cancel-button": "Utzi"
 }
