@@ -146,12 +146,7 @@
 		}
 
 		this.populateStatsFromXhr( stats, request );
-
 		this.populateStatsFromPerformance( stats, url );
-		// Don't record entries that hit the browser cache
-		if ( stats.request === 0 ) {
-			return;
-		}
 
 		// Add connection information if there's any
 		if ( connection ) {
