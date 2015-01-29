@@ -2,7 +2,7 @@
 
 Given /^I am at a wiki article with at least two embedded pictures$/ do
   visit(E2ETestPage)
-  on(E2ETestPage).image1_in_article_element.should be_visible
+  on(E2ETestPage).image1_in_article_element.when_present.should be_visible
 end
 
 Given /^I am viewing an image using MMV$/ do
@@ -60,7 +60,7 @@ def check_elements_in_viewer_for_image1(page)
   expect(page.mmv_image_div_element).to be_visible
 
   # Check image content
-  expect(page.mmv_image_div_element.image_element.attribute('src')).to match /Kerala/
+  expect(page.mmv_image_div_element.image_element.when_present.attribute('src')).to match /Kerala/
 
   # Check basic metadata is present
 
@@ -93,7 +93,7 @@ def check_elements_in_viewer_for_image2(page)
   expect(page.mmv_image_div_element).to be_visible
 
   # Check image content
-  expect(page.mmv_image_div_element.image_element.attribute('src')).to match 'Offsite'
+  expect(page.mmv_image_div_element.image_element.when_present.attribute('src')).to match 'Offsite'
 
   # Check basic metadata is present
 
