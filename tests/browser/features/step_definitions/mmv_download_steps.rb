@@ -43,6 +43,10 @@ When /^the download size options disappears$/ do
   on(E2ETestPage).mmv_download_size_menu_element.when_not_present
 end
 
+When /^the download menu appears$/ do
+  on(E2ETestPage).mmv_download_menu_element.when_present
+end
+
 Then /^the download menu should appear$/ do
   expect(on(E2ETestPage).mmv_download_menu_element.when_present).to be_visible
 end

@@ -10,6 +10,7 @@ Feature: Download menu
 
   Scenario: Clicking the image closes the download menu
     When I click the download icon
+      And the download menu appears
       And I click the image
     Then the download menu should disappear
 
