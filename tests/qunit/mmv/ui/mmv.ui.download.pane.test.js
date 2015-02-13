@@ -59,8 +59,9 @@
 		assert.strictEqual( download.imageExtension, undefined, 'Image extension is not set.' );
 	} );
 
-	QUnit.test( 'attach()/unattach():', 2, function ( assert ) {
-		var download = new mw.mmv.ui.download.Pane( $( '#qunit-fixture' ) ),
+	QUnit.test( 'attach()/unattach():', 6, function ( assert ) {
+		var hsstub, tstub,
+			download = new mw.mmv.ui.download.Pane( $( '#qunit-fixture' ) ),
 			image = {
 				title: new mw.Title( 'File:Foobar.jpg' ),
 				url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg'
@@ -68,24 +69,19 @@
 
 		download.set( image );
 
-		download.handleSizeSwitch = function () {
-			assert.ok( false, 'handleSizeSwitch should not have been called.' );
-		};
-		download.downloadSizeMenu.$element.click = function () {
-			assert.ok( false, 'Menu selection should not have happened.' );
-		};
+		hsstub = this.sandbox.stub( download, 'handleSizeSwitch' );
+		tstub = this.sandbox.stub( download.downloadSizeMenu.getMenu(), 'toggle' );
 
 		// Triggering action events before attaching should do nothing
 		download.downloadSizeMenu.getMenu().emit(
 			'choose', download.downloadSizeMenu.getMenu().getSelectedItem() );
 		download.$selectionArrow.click();
 
-		download.handleSizeSwitch = function () {
-			assert.ok( true, 'handleSizeSwitch was called.' );
-		};
-		download.downloadSizeMenu.$element.click = function () {
-			assert.ok( true, 'Menu selection happened.' );
-		};
+		assert.ok( !hsstub.called, 'handleSizeSwitch not called' );
+		assert.ok( !tstub.called, 'Menu selection did not happen' );
+
+		hsstub.reset();
+		tstub.reset();
 
 		download.attach();
 
@@ -94,13 +90,11 @@
 			'choose', download.downloadSizeMenu.getMenu().getSelectedItem() );
 		download.$selectionArrow.click();
 
-		// Test the unattach part
-		download.handleSizeSwitch = function () {
-			assert.ok( false, 'handleSizeSwitch should not have been called.' );
-		};
-		download.downloadSizeMenu.$element.click = function () {
-			assert.ok( false, 'Menu selection should not have happened.' );
-		};
+		assert.ok( hsstub.called, 'handleSizeSwitch was called' );
+		assert.ok( tstub.called, 'Menu selection happened' );
+
+		hsstub.reset();
+		tstub.reset();
 
 		download.unattach();
 
@@ -108,6 +102,9 @@
 		download.downloadSizeMenu.getMenu().emit(
 			'choose', download.downloadSizeMenu.getMenu().getSelectedItem() );
 		download.$selectionArrow.click();
+
+		assert.ok( !hsstub.called, 'handleSizeSwitch not called' );
+		assert.ok( !tstub.called, 'Menu selection did not happen' );
 	} );
 
 	QUnit.test( 'handleSizeSwitch():', 3, function ( assert ) {

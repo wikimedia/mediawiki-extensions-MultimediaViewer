@@ -240,7 +240,7 @@
 			download.handleSizeSwitch( item );
 		} );
 		this.$selectionArrow.on( 'click', function () {
-			download.downloadSizeMenu.$element.click();
+			download.downloadSizeMenu.getMenu().toggle();
 		} );
 
 		this.attributionInput.$element.find( 'input' )
