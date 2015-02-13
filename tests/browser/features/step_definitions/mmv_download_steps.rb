@@ -35,8 +35,12 @@ When /^I click the (.*) download size$/ do |size_option|
       @index = 0
     end
 
-    page.mmv_download_size_options_elements[@index].when_present.click
+    page.mmv_download_size_options_elements[@index].click
   end
+end
+
+When /^the download size options appear$/ do
+  on(E2ETestPage).mmv_download_size_menu_element.when_present
 end
 
 When /^the download size options disappears$/ do
