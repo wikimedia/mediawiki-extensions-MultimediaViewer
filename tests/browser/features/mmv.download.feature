@@ -36,6 +36,7 @@ Feature: Download menu
 
   Scenario: The small download option has the correct information
     When I open the download dropdown
+      And the download size options appear
       And I click the small download size
       And the download size options disappears
     Then the download image size label should be "193 × 145 px jpg"
@@ -43,6 +44,7 @@ Feature: Download menu
 
   Scenario: The medium download option has the correct information
     When I open the download dropdown
+    And the download size options appear
       And I click the medium download size
       And the download size options disappears
     Then the download image size label should be "640 × 480 px jpg"
@@ -50,6 +52,7 @@ Feature: Download menu
 
   Scenario: The large download option has the correct information
     When I open the download dropdown
+    And the download size options appear
       And I click the large download size
       And the download size options disappears
     Then the download image size label should be "1200 × 900 px jpg"

@@ -40,7 +40,11 @@ When /^I close MMV$/ do
 end
 
 When /^I click the image$/  do
-  on(E2ETestPage).mmv_image_div_element.when_present.click
+  on(E2ETestPage) do |page|
+    # Clicking the top-left corner of the image is necessary for the test to work on IE
+    # A plain click on the image element ends up hitting the dialog, which means it won't close
+    @browser.driver.action.move_to(@browser.driver.find_element(:class, 'mw-mmv-image'), 10, 10).click.perform
+  end
 end
 
 Then /^the image metadata and the image itself should be there$/ do
