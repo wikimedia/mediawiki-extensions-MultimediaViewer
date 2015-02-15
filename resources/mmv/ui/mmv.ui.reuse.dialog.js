@@ -61,12 +61,10 @@
 		}
 
 		this.reuseTabs = new oo.ui.MenuSelectWidget( {
+			autoHide: false,
 			classes: [ 'mw-mmv-reuse-tabs' ]
 		} );
-
-		// MenuSelectWidget has a nasty tendency to hide itself, maybe we're not using it right?
-		this.reuseTabs.hide = $.noop;
-		this.reuseTabs.$element.show().appendTo( this.$dialog );
+		this.reuseTabs.$element.appendTo( this.$dialog );
 
 		this.tabs = {
 			share: new mw.mmv.ui.reuse.Share( this.$dialog ),
@@ -82,6 +80,10 @@
 			this.ooTabs.share,
 			this.ooTabs.embed
 		] );
+
+		// MenuSelectWidget has a nasty tendency to hide itself, maybe we're not using it right?
+		this.reuseTabs.toggle( true );
+		this.reuseTabs.toggle = $.noop;
 
 		this.selectedTab = this.getLastUsedTab();
 
