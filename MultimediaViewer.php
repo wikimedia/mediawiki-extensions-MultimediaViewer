@@ -117,12 +117,12 @@ if ( !isset( $wgMediaViewerImageQueryParameter ) ) {
 	$wgMediaViewerImageQueryParameter = false;
 }
 
-if ( !isset( $wgMediaViewerRecordViewDuration ) ) {
+if ( !isset( $wgMediaViewerRecordVirtualViewBeaconURI ) ) {
 	/**
-	 * If set, record the view duration via a HEAD request.
-	 * @var bool
+	 * If set, records a virtual view via the provided beacon URI.
+	 * @var string|bool
 	 */
-	$wgMediaViewerRecordViewDuration = false;
+	$wgMediaViewerRecordVirtualViewBeaconURI = false;
 }
 
 $wgMessagesDirs['MultimediaViewer'] = __DIR__ . '/i18n';
