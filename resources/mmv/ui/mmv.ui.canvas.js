@@ -372,7 +372,7 @@
 			// Depending on what the wrapper contains, its size can be 0 on some browsers.
 			// Therefore, we calculate the available space manually
 			availableWidth = $window.width(),
-			availableHeight = $window.height() - ( isFullscreened ? 0 : $aboveFold.height() );
+			availableHeight = $window.height() - ( isFullscreened ? 0 : $aboveFold.outerHeight() );
 
 		if ( forFullscreen ) {
 			return {
