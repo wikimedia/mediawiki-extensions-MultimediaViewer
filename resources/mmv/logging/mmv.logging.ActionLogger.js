@@ -130,7 +130,9 @@
 		var actionText = this.logActions[action] || action,
 			self = this;
 
-		mw.log( actionText );
+		if ( this.isEnabled( action ) ) {
+			mw.log( actionText );
+		}
 
 		if ( forceEventLog || self.isInSample( action ) ) {
 			return this.loadDependencies().then( function () {
@@ -167,6 +169,18 @@
 			return false;
 		}
 		return Math.floor( Math.random() * factor ) === 0;
+	};
+
+	/**
+	 * Returns whether logging this event is enabled. This is intended for console logging, which
+	 * (in debug mode) should be done even if the request is not being sampled, as long as logging
+	 * is enabled for some sample.
+	 * @param {string} action The key representing the action
+	 * @returns {boolean} True if this logging is enabled
+	 */
+	L.isEnabled = function ( action ) {
+		var factor = this.getActionFactor( action );
+		return $.isNumeric( factor ) && factor >= 1;
 	};
 
 	mw.mmv.logging.ActionLogger = ActionLogger;

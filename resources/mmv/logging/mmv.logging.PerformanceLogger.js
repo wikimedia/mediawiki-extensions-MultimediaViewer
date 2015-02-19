@@ -258,7 +258,7 @@
 				stats.request = Math.round( timingEntry.responseStart - timingEntry.requestStart );
 				stats.response = Math.round( timingEntry.responseEnd - timingEntry.responseStart );
 				stats.cache = Math.round( timingEntry.domainLookupStart - timingEntry.fetchStart );
-			} else if ( performance.getEntriesByType( 'resource' ).length === 150 ) {
+			} else if ( performance.getEntriesByType( 'resource' ).length === 150 && this.isEnabled() ) {
 				// browser stops logging after 150 entries
 				mw.log( 'performance buffer full, results are probably incorrect' );
 			}
@@ -416,7 +416,9 @@
 	 * @inheritdoc
 	 */
 	PL.log = function ( data ) {
-		mw.log( 'mw.mmv.logging.PerformanceLogger', data );
+		if ( this.isEnabled() ) {
+			mw.log( 'mw.mmv.logging.PerformanceLogger', data );
+		}
 		return mw.mmv.logging.Logger.prototype.log.call( this, data );
 	};
 

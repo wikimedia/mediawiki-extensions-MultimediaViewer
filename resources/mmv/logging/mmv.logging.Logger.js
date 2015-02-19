@@ -103,6 +103,16 @@
 	};
 
 	/**
+	 * Returns whether logging this event is enabled. This is intended for console logging, which
+	 * (in debug mode) should be done even if the request is not being sampled, as long as logging
+	 * is enabled for some sample.
+	 * @returns {boolean} True if this logging is enabled
+	 */
+	L.isEnabled = function () {
+		return $.isNumeric( this.samplingFactor ) && this.samplingFactor >= 1;
+	};
+
+	/**
 	 * True if the schema has a country field. Broken out in a separate function so it's easy to mock.
 	 * @returns {boolean}
 	 */

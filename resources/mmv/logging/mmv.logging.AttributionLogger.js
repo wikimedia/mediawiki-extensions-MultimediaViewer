@@ -56,9 +56,12 @@
 			loggedIn: !mw.user.isAnon(),
 			samplingFactor: this.samplingFactor
 		};
-		mw.log( 'author: ' + ( data.authorPresent ? 'present' : 'absent' ) +
-			', source: ' + ( data.sourcePresent ? 'present' : 'absent' ) +
-			', license: ' + ( data.licensePresent ? 'present' : 'absent' ) );
+
+		if ( this.isEnabled() ) {
+			mw.log( 'author: ' + ( data.authorPresent ? 'present' : 'absent' ) +
+				', source: ' + ( data.sourcePresent ? 'present' : 'absent' ) +
+				', license: ' + ( data.licensePresent ? 'present' : 'absent' ) );
+		}
 
 		this.log( data );
 	};
