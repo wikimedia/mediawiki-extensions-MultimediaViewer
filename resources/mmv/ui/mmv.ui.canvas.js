@@ -102,7 +102,10 @@
 	};
 
 	/**
-	 * Sets contained image.
+	 * Sets image on the canvas; does not resize it to fit. This is used to make the placeholder
+	 * image available; it will be resized and displayed by #maybeDisplayPlaceholder().
+	 * FIXME maybeDisplayPlaceholder() receives the placeholder so it is very unclear why this
+	 * is necessary at all (apart from setting the LightboxImage, which is used in size calculations).
 	 * @param {mw.mmv.LightboxImage} imageRawMetadata
 	 * @param {jQuery} $imageElement
 	 */
@@ -117,8 +120,8 @@
 	};
 
 	/**
-	 * Sets contained image and also the max dimensions. Called while resizing the viewer.
-	 * Assumes set function called before.
+	 * Resizes image to the given dimensions and displays it on the canvas.
+	 * This is used to display the actual image; it assumes set function was already called before.
 	 * @param {mw.mmv.model.Thumbnail} thumbnail thumbnail information
 	 * @param {HTMLImageElement} imageElement
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
@@ -129,6 +132,7 @@
 		// we downscale larger images but do not scale up smaller ones, that would look ugly
 		if ( thumbnail.width > imageWidths.cssWidth ) {
 			imageElement.width = imageWidths.cssWidth;
+			imageElement.height = imageWidths.cssHeight;
 		}
 
 		if ( !this.$image.is( imageElement ) ) { // http://bugs.jquery.com/ticket/4087
