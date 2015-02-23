@@ -21,18 +21,22 @@
 
 		logger.log( unknownAction );
 
-		assert.strictEqual( mw.log.getCall( 0 ).args[ 0 ], unknownAction , 'Log message defaults to unknown key' );
-		assert.strictEqual( fakeEventLog.logEvent.callCount, 1, 'event log has been recorded' );
+		assert.strictEqual( mw.log.lastCall.args[ 0 ], unknownAction , 'Log message defaults to unknown key' );
+		assert.ok( fakeEventLog.logEvent.called, 'event log has been recorded' );
 
+		mw.log.reset();
+		fakeEventLog.logEvent.reset();
 		logger.log( action1key );
 
-		assert.strictEqual( mw.log.getCall( 1 ).args[ 0 ], action1value, 'Log message is translated to its text' );
-		assert.strictEqual( fakeEventLog.logEvent.callCount, 2, 'event log has been recorded' );
+		assert.strictEqual( mw.log.lastCall.args[ 0 ], action1value, 'Log message is translated to its text' );
+		assert.ok( fakeEventLog.logEvent.called, 'event log has been recorded' );
 
+		mw.log.reset();
+		fakeEventLog.logEvent.reset();
 		logger.samplingFactorMap = { 'default': 0 };
 		logger.log( action1key, true );
 
-		assert.strictEqual( mw.log.getCall( 2 ).args[ 0 ], action1value, 'Log message is translated to its text' );
-		assert.strictEqual( fakeEventLog.logEvent.callCount, 3, 'event log has been recorded' );
+		assert.ok( !mw.log.called, 'No logging when disabled' );
+		assert.ok( fakeEventLog.logEvent.called, 'event log has been recorded' );
 	} );
 }( mediaWiki, jQuery ) );

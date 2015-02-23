@@ -66,7 +66,10 @@
 			context: context,
 			samplingFactor: this.samplingFactor
 		};
-		mw.log( 'mw.mmw.logger.DimensionLogger', data );
+
+		if ( this.isEnabled() ) {
+			mw.log( 'mw.mmw.logger.DimensionLogger', data );
+		}
 
 		this.log( data );
 	};

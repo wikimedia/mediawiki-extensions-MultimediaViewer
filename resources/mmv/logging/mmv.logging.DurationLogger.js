@@ -136,7 +136,9 @@
 			} );
 		}
 
-		mw.log( 'mw.mmw.logger.DurationLogger', e );
+		if ( this.isEnabled() ) {
+			mw.log( 'mw.mmw.logger.DurationLogger', e );
+		}
 
 		this.log( e );
 
