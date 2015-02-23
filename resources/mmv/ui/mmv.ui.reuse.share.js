@@ -39,8 +39,6 @@
 	SP = Share.prototype;
 
 	SP.init = function () {
-		var self = this;
-
 		this.$pane.addClass( 'mw-mmv-share-pane' )
 			.appendTo( this.$container );
 
@@ -63,8 +61,8 @@
 			.prop( 'target', '_blank' )
 			.html( '&nbsp;' )
 			.appendTo( this.$pane )
-			.click( function ( e ) {
-				self.trackLinkClick.call( this, 'share-page', e );
+			.click( function () {
+				mw.mmv.actionLogger.log( 'share-page' );
 			} );
 
 		this.pageInput.$element.appendTo( this.$pane );

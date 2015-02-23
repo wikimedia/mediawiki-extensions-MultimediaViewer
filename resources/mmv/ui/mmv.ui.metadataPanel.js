@@ -253,23 +253,21 @@
 	 * Initializes the credit elements.
 	 */
 	MPP.initializeCredit = function () {
-		var panel = this;
-
 		this.$credit = $( '<p>' )
 			.addClass( 'mw-mmv-credit empty' )
 			.appendTo( this.$imageMetadataLeft )
-			.on( 'click.mmv-mp', '.mw-mmv-credit-fallback', function ( e ) {
-				panel.trackLinkClick( this, 'author-page', e );
+			.on( 'click.mmv-mp', '.mw-mmv-credit-fallback', function () {
+				mw.mmv.actionLogger.log( 'author-page' );
 			} );
 
 		// we need an inline container for tipsy, otherwise it would be centered weirdly
 		this.$authorAndSource = $( '<span>' )
 			.addClass( 'mw-mmv-source-author' )
-			.on( 'click', '.mw-mmv-author a', function ( e ) {
-				panel.trackLinkClick.call( this, 'author-page', e );
+			.on( 'click', '.mw-mmv-author a', function () {
+				mw.mmv.actionLogger.log( 'author-page' );
 			} )
-			.on( 'click', '.mw-mmv-source a', function ( e ) {
-				panel.trackLinkClick.call( this, 'source-page', e );
+			.on( 'click', '.mw-mmv-source a', function () {
+				mw.mmv.actionLogger.log( 'source-page' );
 			} );
 
 
@@ -323,8 +321,8 @@
 			.addClass( 'mw-mmv-license' )
 			.prop( 'href', '#' )
 			.appendTo( this.$licenseLi )
-			.on( 'click', function ( e ) {
-				panel.trackLinkClick.call( this, 'license-page', e );
+			.on( 'click', function () {
+				mw.mmv.actionLogger.log( 'license-page' );
 			} );
 
 		this.$restrictions = $( '<span>' )
@@ -391,8 +389,6 @@
 	 * Initializes the link to the uploader's file page.
 	 */
 	MPP.initializeUploader = function () {
-		var self = this;
-
 		this.$usernameLi = $( '<li>' )
 			.addClass( 'mw-mmv-username-li empty' )
 			.appendTo( this.$imageLinks );
@@ -401,15 +397,13 @@
 			.addClass( 'mw-mmv-username' )
 			.prop( 'href', '#' )
 			.appendTo( this.$usernameLi )
-			.click( function ( e ) { self.trackLinkClick.call( this, 'uploader-page', e ); } );
+			.click( function () { mw.mmv.actionLogger.log( 'uploader-page' ); } );
 	};
 
 	/**
 	 * Initializes the geolocation element.
 	 */
 	MPP.initializeLocation = function () {
-		var self = this;
-
 		this.$locationLi = $( '<li>' )
 			.addClass( 'mw-mmv-location-li empty' )
 			.appendTo( this.$imageLinks );
@@ -417,33 +411,32 @@
 		this.$location = $( '<a>' )
 			.addClass( 'mw-mmv-location' )
 			.appendTo( this.$locationLi )
-			.click( function ( e ) { self.trackLinkClick.call( this, 'location-page', e ); } );
+			.click( function () { mw.mmv.actionLogger.log( 'location-page' ); } );
 	};
 
 	/**
 	 * Initializes two about links at the bottom of the panel.
 	 */
 	MPP.initializeAboutLinks = function () {
-		var separator = ' | ',
-			self = this;
+		var separator = ' | ';
 
 		this.$mmvAboutLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).infoLink )
 			.text( mw.message( 'multimediaviewer-about-mmv' ).text() )
 			.addClass( 'mw-mmv-about-link' )
-			.click( function ( e ) { self.trackLinkClick.call( this, 'about-page', e ); } );
+			.click( function () { mw.mmv.actionLogger.log( 'about-page' ); } );
 
 		this.$mmvDiscussLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).discussionLink )
 			.text( mw.message( 'multimediaviewer-discuss-mmv' ).text() )
 			.addClass( 'mw-mmv-discuss-link' )
-			.click( function ( e ) { self.trackLinkClick.call( this, 'discuss-page', e ); } );
+			.click( function () { mw.mmv.actionLogger.log( 'discuss-page' ); } );
 
 		this.$mmvHelpLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).helpLink )
 			.text( mw.message( 'multimediaviewer-help-mmv' ).text() )
 			.addClass( 'mw-mmv-help-link' )
-			.click( function ( e ) { self.trackLinkClick.call( this, 'help-page', e ); } );
+			.click( function () { mw.mmv.actionLogger.log( 'help-page' ); } );
 
 		this.$mmvAboutLinks = $( '<div>' )
 			.addClass( 'mw-mmv-about-links' )

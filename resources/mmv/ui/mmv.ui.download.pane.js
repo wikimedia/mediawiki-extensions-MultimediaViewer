@@ -73,15 +73,13 @@
 	 * @param {jQuery} $container
 	 */
 	DP.createDownloadButton = function ( $container ) {
-		var self = this;
-
 		// TODO:  Use oojs-ui constructive button widget instead
 		this.$downloadButton = $( '<a>' )
 			.attr( 'target', '_blank' )
 			.attr( 'download', '' )
 			.addClass( 'mw-ui-button mw-ui-constructive mw-mmv-download-go-button' )
-			.click( function ( e ) {
-				self.trackLinkClick.call( this, 'download', e );
+			.click( function () {
+				mw.mmv.actionLogger.log( 'download' );
 			} );
 
 		this.$selectionArrow = $( '<span>' )
@@ -127,15 +125,13 @@
 	 * @param {jQuery} $container
 	 */
 	DP.createPreviewLink = function ( $container ) {
-		var self = this;
-
 		this.$previewLink = $( '<a>' )
 			.attr( 'target', '_blank' )
 			.addClass( 'mw-mmv-download-preview-link' )
 			.text( mw.message( 'multimediaviewer-download-preview-link-title' ).text() )
 			.appendTo( $container )
-			.click( function ( e ) {
-				self.trackLinkClick.call( this, 'download-view-in-browser', e );
+			.click( function () {
+				mw.mmv.actionLogger.log( 'download-view-in-browser' );
 			} );
 	};
 

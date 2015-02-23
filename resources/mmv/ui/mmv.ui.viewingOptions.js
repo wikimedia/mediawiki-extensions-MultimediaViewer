@@ -363,13 +363,11 @@
 	 * @param {jQuery} $div The panel to which we're adding the link.
 	 */
 	ODP.addInfoLink = function ( $div, eventName ) {
-		var self = this;
-
 		$( '<a>' )
 			.addClass( 'mw-mmv-project-info-link' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).helpLink )
 			.text( mw.message( 'multimediaviewer-options-learn-more' ) )
-			.click( function ( e ) { self.trackLinkClick.call( this, eventName, e ); } )
+			.click( function () { mw.mmv.actionLogger.log( eventName ); } )
 			.appendTo( $div.find( '.mw-mmv-options-text' ) );
 	};
 
