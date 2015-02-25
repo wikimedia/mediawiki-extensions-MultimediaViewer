@@ -5,11 +5,11 @@
 			"Tarawneh",
 			"مشعل الحربي",
 			"زكريا",
-			"OsamaK"
+			"OsamaK",
+			"محمد أحمد عبد الفتاح"
 		]
 	},
 	"multimediaviewer-desc": "زيادة حجم الصور المصغرة في واجهة ملء الشاشة.",
-	"multimediaviewer-desc-nil": "ما من وصف.",
 	"multimediaviewer-pref": "عارض الوسائط",
 	"multimediaviewer-pref-desc": "حسن تجربة مشاهدة الوسائط المتعددة بهذه الأداة الجديدة، حيث تعمل على عرض الصور بحجم أكبر على الصفحات التي تحتوي صورا مصغرة. وتظهر الصور في صندوق منبثق أجمل، ويمكن أيضا عرضها بالحجم الكامل.",
 	"multimediaviewer-optin-pref": "تمكين <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About عارض الوسائط]</span>",
@@ -18,13 +18,16 @@
 	"multimediaviewer-datetime-created": "الإنشاء: $1",
 	"multimediaviewer-datetime-uploaded": "الرفع: $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|رفع}} بواسطة $1",
+	"multimediaviewer-credit-fallback": "اعرض معلومات المؤلف",
 	"multimediaviewer-metadata-error": "خطأ: تعذر تحميل بيانات الصورة. $1",
 	"multimediaviewer-thumbnail-error": "خطأ: تعذر تحميل بيانات الصورة المصغرة. $1",
+	"multimediaviewer-thumbnail-error-retry": "أعد المحاولة",
 	"multimediaviewer-license-cc-pd": "ملكية عامة",
 	"multimediaviewer-license-pd": "ملكية عامة",
 	"multimediaviewer-license-default": "عرض الترخيص",
 	"multimediaviewer-permission-title": "تفاصيل الترخيص",
 	"multimediaviewer-permission-link": "راجع الشروط",
+	"multimediaviewer-permission-link-hide": "أخف الشروط",
 	"multimediaviewer-permission-viewmore": "عرض المزيد",
 	"multimediaviewer-about-mmv": "حول عارض الوسائط",
 	"multimediaviewer-discuss-mmv": "إعطاء رأيك",
@@ -40,7 +43,7 @@
 	"multimediaviewer-reuse-loading-placeholder": "تحميل...",
 	"multimediaviewer-share-tab": "شارك",
 	"multimediaviewer-embed-tab": "ضمّن",
-	"multimediaviewer-download-link": "نزّل",
+	"multimediaviewer-download-link": "نزّل هذا الملف",
 	"multimediaviewer-download-preview-link-title": "اعرض في المتصفح",
 	"multimediaviewer-download-original-button-name": "نزّل الملف الأصلي",
 	"multimediaviewer-download-small-button-name": "نزّل بحجم صغير",
@@ -74,5 +77,8 @@
 	"multimediaviewer-close-popup-text": "إغلاق هذه الأداة (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "إظهار ملء كاملة",
 	"multimediaviewer-defullscreen-popup-text": "إغلاق ملء الشاشة",
-	"multimediaviewer-title-popup-text": "اسم الملف"
+	"multimediaviewer-title-popup-text": "الوصف",
+	"multimediaviewer-title-popup-text-more": "اعرض الوصف الكامل",
+	"multimediaviewer-download-attribution-cta": "أرني كيف",
+	"multimediaviewer-option-cancel-button": "ألغ"
 }
