@@ -61,8 +61,8 @@
 		return bootstrap;
 	}
 
-	function hashTest( bootstrap, assert ) {
-		var hash = 'mediaviewer/foo';
+	function hashTest( prefix, bootstrap, assert ) {
+		var hash = prefix + '/foo';
 
 		bootstrap.setupEventHandlers();
 
@@ -325,7 +325,7 @@
 
 		bootstrap = createBootstrap();
 
-		hashTest( bootstrap, assert );
+		hashTest( '/media', bootstrap, assert );
 	} );
 
 	QUnit.test( 'Only load the viewer on a valid hash (old browsers)', 1, function ( assert ) {
@@ -336,10 +336,54 @@
 		bootstrap = createBootstrap();
 		bootstrap.browserHistory = undefined;
 
-		hashTest( bootstrap, assert );
+		hashTest( '/media', bootstrap, assert );
 	} );
 
+	QUnit.test( 'Load the viewer on a legacy hash (modern browsers)', 1, function ( assert ) {
+		var bootstrap;
+
+		window.location.hash = '';
+
+		bootstrap = createBootstrap();
+
+		hashTest( 'mediaviewer', bootstrap, assert );
+	} );
+
+	QUnit.test( 'Load the viewer on a legacy hash (old browsers)', 1, function ( assert ) {
+		var bootstrap;
+
+		window.location.hash = '';
+
+		bootstrap = createBootstrap();
+		bootstrap.browserHistory = undefined;
+
+		hashTest( 'mediaviewer', bootstrap, assert );
+	} );
+
+
 	QUnit.test( 'internalHashChange', 1, function ( assert ) {
+		var bootstrap = createBootstrap(),
+			hash = '#/media/foo';
+
+		window.location.hash = '';
+
+		bootstrap.setupEventHandlers();
+
+		bootstrap.loadViewer = function () {
+			assert.ok( false, 'Viewer should not be loaded' );
+			return $.Deferred().reject();
+		};
+
+		bootstrap.internalHashChange( { hash: hash } );
+
+		assert.strictEqual( window.location.hash, hash, 'Window\'s hash has been updated correctly' );
+
+		bootstrap.cleanupEventHandlers();
+
+		window.location.hash = '';
+	} );
+
+	QUnit.test( 'internalHashChange (legacy)', 1, function ( assert ) {
 		var bootstrap = createBootstrap(),
 			hash = '#mediaviewer/foo';
 
