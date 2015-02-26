@@ -29,7 +29,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Hash handling', 7, function ( assert ) {
+	QUnit.test( 'Hash handling', 8, function ( assert ) {
 		var oldUnattach,
 			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
 			ui = new mw.mmv.LightboxInterface(),
@@ -83,7 +83,7 @@
 
 		// Open a valid mmv hash link and check that the right image is requested.
 		// imageSrc contains a space without any encoding on purpose
-		window.location.hash = 'mediaviewer/File:' + imageSrc;
+		window.location.hash = '/media/File:' + imageSrc;
 		viewer.hash();
 
 		// Reset the hash, because for some browsers switching from the non-URI-encoded to
@@ -92,7 +92,15 @@
 		viewer.hash();
 
 		// Try again with an URI-encoded imageSrc containing a space
-		window.location.hash = 'mediaviewer/File:' + encodeURIComponent( imageSrc );
+		window.location.hash = '/media/File:' + encodeURIComponent( imageSrc );
+		viewer.hash();
+
+		// Reset the hash
+		window.location.hash = '';
+		viewer.hash();
+
+		// Try again with a legacy hash
+		window.location.hash = 'mediaviewer/File:' + imageSrc;
 		viewer.hash();
 
 		viewer.cleanupEventHandlers();

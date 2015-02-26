@@ -427,7 +427,9 @@
 
 		// There is no point loading the mmv if it isn't loaded yet for hash changes unrelated to the mmv
 		// Such as anchor links on the page
-		if ( !this.viewerInitialized && window.location.hash.indexOf( '#mediaviewer/' ) !== 0 ) {
+		if ( !this.viewerInitialized
+			&& window.location.hash.indexOf( '#mediaviewer/' ) !== 0
+			&& window.location.hash.indexOf( '#/media/' ) !== 0 ) {
 			return;
 		}
 

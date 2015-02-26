@@ -27,11 +27,19 @@
 	RP = Router.prototype;
 
 	/**
+	 * The prefix originally used to namespace MediaViewer routing hashes. Since there are many links
+	 * out there pointing to those URLs, we should keep them working.
+	 * @protected
+	 * @property {string}
+	 */
+	RP.legacyPrefix = 'mediaviewer';
+
+	/**
 	 * The prefix used to namespace MediaViewer routing hashes
 	 * @protected
 	 * @property {string}
 	 */
-	RP.applicationPrefix = 'mediaviewer';
+	RP.applicationPrefix = '/media';
 
 	/**
 	 * Takes an URL hash and returns a route (or null if it could not be parsed).
@@ -124,15 +132,30 @@
 	 * @return {string[]}
 	 */
 	RP.tokenizeHash = function ( hash ) {
-		var hashParts;
+		var prefix,
+			hashParts;
 
 		if ( hash[0] === '#' ) {
 			hash = hash.slice( 1 );
 		}
-		hashParts = hash.split( '/' );
-		if ( hashParts[0] !== this.applicationPrefix ) {
+
+		if ( hash.indexOf( this.legacyPrefix ) === 0 ) {
+			prefix = this.legacyPrefix;
+		}
+
+		if ( hash.indexOf( this.applicationPrefix ) === 0 ) {
+			prefix = this.applicationPrefix;
+		}
+
+		if ( prefix === undefined ) {
 			return [];
 		}
+
+		hash = hash.slice( prefix.length );
+
+		hashParts = hash.split( '/' );
+		hashParts[0] = prefix;
+
 		return hashParts;
 	};
 

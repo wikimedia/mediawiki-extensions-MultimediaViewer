@@ -25,14 +25,18 @@
 		assert.ok( router, 'Router created successfully' );
 	} );
 
-	QUnit.test( 'isMediaViewerHash()', 6, function ( assert ) {
+	QUnit.test( 'isMediaViewerHash()', 10, function ( assert ) {
 		var router = new mw.mmv.routing.Router();
 
-		assert.ok( router.isMediaViewerHash( 'mediaviewer/foo' ), 'Normal hash' );
-		assert.ok( router.isMediaViewerHash( '#mediaviewer/foo' ), 'Normal hash with #' );
-		assert.ok( router.isMediaViewerHash( 'mediaviewer' ), 'Bare hash' );
-		assert.ok( router.isMediaViewerHash( '#mediaviewer' ), 'Bare hash with #' );
-		assert.ok( !router.isMediaViewerHash( 'foo/mediaviewer' ), 'Foreign hash' );
+		assert.ok( router.isMediaViewerHash( 'mediaviewer/foo' ), 'Legacy hash' );
+		assert.ok( router.isMediaViewerHash( '#mediaviewer/foo' ), 'Legacy hash with #' );
+		assert.ok( router.isMediaViewerHash( 'mediaviewer' ), 'Bare legacy hash' );
+		assert.ok( router.isMediaViewerHash( '#mediaviewer' ), 'Bare legacy hash with #' );
+		assert.ok( router.isMediaViewerHash( '/media/foo' ), 'Normal hash' );
+		assert.ok( router.isMediaViewerHash( '#/media/foo' ), 'Normal hash with #' );
+		assert.ok( router.isMediaViewerHash( '/media' ), 'Bare hash' );
+		assert.ok( router.isMediaViewerHash( '#/media' ), 'Bare hash with #' );
+		assert.ok( !router.isMediaViewerHash( 'foo/media' ), 'Foreign hash' );
 		assert.ok( !router.isMediaViewerHash( '' ), 'Empty hash' );
 	} );
 
@@ -124,8 +128,8 @@
 
 		assert.ok( !router.parseHash( 'foo' ), 'Non-MMV hash is rejected.' );
 		assert.ok( !router.parseHash( '#foo' ), 'Non-MMV hash is rejected (with #).' );
-		assert.ok( !router.parseHash( 'mediaviewer/foo/bar' ), 'Invalid MMV hash is rejected.' );
-		assert.ok( !router.parseHash( '#mediaviewer/foo/bar' ), 'Invalid MMV hash is rejected (with #).' );
+		assert.ok( !router.parseHash( '/media/foo/bar' ), 'Invalid MMV hash is rejected.' );
+		assert.ok( !router.parseHash( '#/media/foo/bar' ), 'Invalid MMV hash is rejected (with #).' );
 	} );
 
 	QUnit.test( 'parseHash() backwards compatibility', 2, function ( assert ) {
@@ -147,19 +151,24 @@
 			router = new mw.mmv.routing.Router();
 
 		url = router.createHashedUrl( route, 'http://example.com/' );
-		assert.strictEqual( url, 'http://example.com/#mediaviewer', 'Url generation works' );
+		assert.strictEqual( url, 'http://example.com/#/media', 'Url generation works' );
 
 		url = router.createHashedUrl( route, 'http://example.com/#foo' );
-		assert.strictEqual( url, 'http://example.com/#mediaviewer', 'Urls with fragments are handled' );
+		assert.strictEqual( url, 'http://example.com/#/media', 'Urls with fragments are handled' );
 	} );
 
-	QUnit.test( 'parseLocation()', 2, function ( assert ) {
+	QUnit.test( 'parseLocation()', 3, function ( assert ) {
 		var location, route,
 			router = new mw.mmv.routing.Router();
 
 		location = { href: 'http://example.com/foo#mediaviewer/File:Foo.png' };
 		route = router.parseLocation( location );
 		assert.strictEqual( route.fileTitle.getPrefixedDb(), 'File:Foo.png', 'Reading location works' );
+
+		location = { href: 'http://example.com/foo#/media/File:Foo.png' };
+		route = router.parseLocation( location );
+		assert.strictEqual( route.fileTitle.getPrefixedDb(), 'File:Foo.png', 'Reading location works' );
+
 
 		location = { href: 'http://example.com/foo' };
 		route = router.parseLocation( location );
@@ -194,5 +203,29 @@
 
 		// reset location, might interfere with other tests
 		window.location.hash = '#';
+	} );
+
+	QUnit.test( 'tokenizeHash()', 13, function ( assert ) {
+		var router = new mw.mmv.routing.Router();
+
+		router.legacyPrefix = 'legacy';
+		router.applicationPrefix = 'prefix';
+
+		assert.deepEqual( router.tokenizeHash( '#foo/bar' ), [], 'No known prefix' );
+
+		assert.deepEqual( router.tokenizeHash( '#prefix' ), [ 'prefix' ], 'Current prefix, with #' );
+		assert.deepEqual( router.tokenizeHash( 'prefix' ), [ 'prefix' ], 'Current prefix, without #' );
+		assert.deepEqual( router.tokenizeHash( '#prefix/bar' ), [ 'prefix', 'bar' ], 'Current prefix, with # and element' );
+		assert.deepEqual( router.tokenizeHash( 'prefix/bar' ), [ 'prefix', 'bar' ], 'Current prefix, with element without #' );
+		assert.deepEqual( router.tokenizeHash( '#prefix/bar/baz' ), [ 'prefix', 'bar', 'baz' ], 'Current prefix, with # and 2 elements' );
+		assert.deepEqual( router.tokenizeHash( 'prefix/bar/baz' ), [ 'prefix', 'bar', 'baz' ], 'Current prefix, with 2 elements without #' );
+
+		assert.deepEqual( router.tokenizeHash( '#legacy' ), [ 'legacy' ], 'Legacy prefix, with #' );
+		assert.deepEqual( router.tokenizeHash( 'legacy' ), [ 'legacy' ], 'Legacy prefix, without #' );
+		assert.deepEqual( router.tokenizeHash( '#legacy/bar' ), [ 'legacy', 'bar' ], 'Legacy prefix, with # and element' );
+		assert.deepEqual( router.tokenizeHash( 'legacy/bar' ), [ 'legacy', 'bar' ], 'Legacy prefix, with element without #' );
+		assert.deepEqual( router.tokenizeHash( '#legacy/bar/baz' ), [ 'legacy', 'bar', 'baz' ], 'Legacy prefix, with # and 2 elements' );
+		assert.deepEqual( router.tokenizeHash( 'legacy/bar/baz' ), [ 'legacy', 'bar', 'baz' ], 'Legacy prefix, with 2 elements without #' );
+
 	} );
 }( mediaWiki ) );

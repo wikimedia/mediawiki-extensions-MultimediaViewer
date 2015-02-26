@@ -64,6 +64,6 @@ end
 Then /^I am taken to the file page$/ do
   on(E2ETestPage) do |page|
     page.current_url.should match /\/wiki\/File:/
-    page.current_url.should_not match /#mediaviewer/
+    page.current_url.should_not match /#\/media/
   end
 end
