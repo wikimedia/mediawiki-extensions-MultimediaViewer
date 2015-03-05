@@ -1,0 +1,12 @@
+{
+	"--title": "MultimediaViewer - Documentation",
+	"--categories": "docs/categories.json",
+	"--builtin-classes": true,
+	"--processes": "0",
+	"--warnings-exit-nonzero": true,
+	"--output": "docs/js",
+	"--": [
+		"docs/external.js",
+		"resources/mmv"
+	]
+}

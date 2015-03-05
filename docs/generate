@@ -1,19 +1,4 @@
 #!/usr/bin/env bash
-
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-pushd $SCRIPT_DIR > /dev/null
-
-! jsduck \
-    --color \
-    --config=./jsduck-config.json \
-    -- \
-        `find ../resources/mmv -name '*.js'` \
-|& grep -v "^Warning:" \
-&& echo "JSDuck execution finished without errors."
-
-STATUS=$?
-
-popd > /dev/null
-
-exit $STATUS
-
+set -e
+cd $(dirname $0)/..
+jsduck
