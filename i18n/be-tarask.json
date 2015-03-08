@@ -5,5 +5,7 @@
 		]
 	},
 	"multimediaviewer-repository-local": "Падрабязьней",
-	"multimediaviewer-permission-link": "паказаць умовы"
+	"multimediaviewer-permission-link": "паказаць умовы",
+	"multimediaviewer-view-expanded": "Адкрыць у мэдыяпраглядальніку",
+	"multimediaviewer-options-dialog-header": "Адключыць мэдыяпраглядальнік?"
 }
