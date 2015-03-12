@@ -49,16 +49,16 @@
 		this.viewDuration = 0;
 
 		/**
-		 * The image URL to hit with a HEAD request
+		 * The image URL to record a virtual view for
 		 * @property {string}
 		 */
 		this.url = '';
 
 		/**
-		 * Should the view duration be recorded through a HEAD request
-		 * @property {boolean}
+		 * If set, URI to send the beacon request to in order to record the virtual view
+		 * @property {string}
 		 */
-		this.shouldRecordViewDuration = config ? config.recordViewDuration : false;
+		this.recordVirtualViewBeaconURI = config ? config.recordVirtualViewBeaconURI : false;
 
 		/**
 		 * Browser window
@@ -112,14 +112,19 @@
 
 		this.stopViewDuration();
 
-		if ( this.shouldRecordViewDuration && this.viewDuration > 0 ) {
-			uri = new mw.Uri( this.url );
-			uri.extend( { viewDuration: this.viewDuration } );
+		if ( this.recordVirtualViewBeaconURI ) {
+			uri = new mw.Uri( this.recordVirtualViewBeaconURI );
+			uri.extend( { duration: this.viewDuration,
+				uri: this.url } );
 
-			$.ajax( {
-				type: 'HEAD',
-				url: uri.toString()
-			} );
+			try {
+				navigator.sendBeacon( uri.toString() );
+			} catch ( e ) {
+				$.ajax( {
+					type: 'HEAD',
+					url: uri.toString()
+				} );
+			}
 
 			mw.log( 'Image has been viewed for ', this.viewDuration );
 		}
@@ -131,7 +136,7 @@
 
 	/**
 	 * Sets up the view tracking for the current image
-	 * @param {string} url URL of the image to send a HEAD request to
+	 * @param {string} url URL of the image to record a virtual view for
 	 */
 	VL.attach = function ( url ) {
 		var view = this;
