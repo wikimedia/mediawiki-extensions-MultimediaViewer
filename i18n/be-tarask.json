@@ -5,6 +5,7 @@
 		]
 	},
 	"multimediaviewer-repository-local": "Падрабязьней",
+	"multimediaviewer-userpage-link": "{{GENDER:$2|Загрузіў|Загрузіла}} $1",
 	"multimediaviewer-permission-link": "паказаць умовы",
 	"multimediaviewer-view-expanded": "Адкрыць у мэдыяпраглядальніку",
 	"multimediaviewer-options-dialog-header": "Адключыць мэдыяпраглядальнік?",
