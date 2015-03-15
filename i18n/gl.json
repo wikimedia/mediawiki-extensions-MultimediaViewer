@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Toliño"
+			"Toliño",
+			"Vivaelcelta"
 		]
 	},
 	"multimediaviewer-desc": "Expande as miniaturas ata un tamaño maior dentro dunha interface a pantalla completa.",
@@ -11,7 +12,7 @@
 	"multimediaviewer-file-page": "Ir á páxina de ficheiro correspondente",
 	"multimediaviewer-repository-local": "Máis detalles",
 	"multimediaviewer-datetime-created": "Creación: $1",
-	"multimediaviewer-datetime-uploaded": "Cargado o $1",
+	"multimediaviewer-datetime-uploaded": "Subido o $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Cargado}} por $1",
 	"multimediaviewer-credit-fallback": "Ver a información do autor",
 	"multimediaviewer-multiple-authors": "{{PLURAL:$1|un autor máis|$1 autores máis}}",
