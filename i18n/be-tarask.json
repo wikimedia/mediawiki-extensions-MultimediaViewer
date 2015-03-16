@@ -8,6 +8,7 @@
 	"multimediaviewer-datetime-created": "Створаны: $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Загрузіў|Загрузіла}} $1",
 	"multimediaviewer-permission-link": "паказаць умовы",
+	"multimediaviewer-about-mmv": "Пра мэдыяпраглядальнік",
 	"multimediaviewer-view-expanded": "Адкрыць у мэдыяпраглядальніку",
 	"multimediaviewer-options-dialog-header": "Адключыць мэдыяпраглядальнік?",
 	"multimediaviewer-options-text-header": "Адключыць гэтую функцыю прагляду для ўсіх файлаў.",
