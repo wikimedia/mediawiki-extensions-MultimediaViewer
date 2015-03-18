@@ -20,6 +20,9 @@ class E2ETestPage < CommonsPage
   # Wrapper div for image
   div(:mmv_image_div, class: "mw-mmv-image")
 
+  # Actual image
+  image(:mmv_final_image, class: "mw-mmv-final-image")
+
   # Metadata elements
   span(:mmv_metadata_title, class: "mw-mmv-title")
   a(:mmv_metadata_license, class: "mw-mmv-license")

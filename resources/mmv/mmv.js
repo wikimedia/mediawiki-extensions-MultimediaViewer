@@ -274,6 +274,7 @@
 		// size calculations in getCurrentImageWidths, which needs to know
 		// the aspect ratio
 		$initialImage.hide();
+		$initialImage.addClass( 'mw-mmv-placeholder-image' );
 		this.ui.canvas.set( image, $initialImage );
 
 		this.preloadImagesMetadata();
@@ -317,6 +318,7 @@
 				} );
 			}
 
+			imageElement.className = 'mw-mmv-final-image';
 			imageElement.alt = image.alt;
 			viewer.displayRealThumbnail( thumbnail, imageElement, imageWidths, $.now() - start );
 		} ).fail( function ( error ) {

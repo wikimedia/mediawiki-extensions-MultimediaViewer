@@ -14,6 +14,10 @@ Lint/AmbiguousRegexpLiteral:
 Lint/UnusedBlockArgument:
   Enabled: false
 
+# Offense count: 3
+Metrics/AbcSize:
+  Max: 77
+
 # Offense count: 61
 # Configuration parameters: AllowURI, URISchemes.
 Metrics/LineLength:

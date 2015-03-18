@@ -69,7 +69,7 @@ def check_elements_in_viewer_for_image1(page)
   expect(page.mmv_image_div_element).to be_visible
 
   # Check image content
-  expect(page.mmv_image_div_element.image_element.when_present.attribute('src')).to match /Kerala/
+  expect(page.mmv_final_image_element.when_present.attribute('src')).to match /Kerala/
 
   # Check basic metadata is present
 
@@ -102,7 +102,7 @@ def check_elements_in_viewer_for_image2(page)
   expect(page.mmv_image_div_element).to be_visible
 
   # Check image content
-  expect(page.mmv_image_div_element.image_element.when_present.attribute('src')).to match 'Offsite'
+  expect(page.mmv_final_image_element.when_present.attribute('src')).to match 'Offsite'
 
   # Check basic metadata is present
 
