@@ -86,5 +86,10 @@
 	"multimediaviewer-options-learn-more": "Көбірек білу",
 	"multimediaviewer-option-submit-button": "Медиа қараушыны сөндіру",
 	"multimediaviewer-option-cancel-button": "Қажет емес",
-	"multimediaviewer-disable-confirmation-header": "Медиа қараушыны өшірдіңіз"
+	"multimediaviewer-disable-confirmation-header": "Медиа қараушыны өшірдіңіз",
+	"multimediaviewer-enable-dialog-header": "Медиа қараушыны іске қосасыз ба?",
+	"multimediaviewer-enable-submit-button": "Медиа қараушыны қосу",
+	"multimediaviewer-enable-confirmation-header": "Барлық файлдар үшін Медиа қараушыны іске қосқансыз",
+	"multimediaviewer-enable-alert": "Медиа қараушы қаізр өшірілген",
+	"multimediaviewer-disable-info-title": "Медиа қараушыны өшіргенсіз"
 }
