@@ -26,7 +26,8 @@
 
 	QUnit.test( 'animateTo()', 8, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			progress = new mw.mmv.ui.ProgressBar( $qf );
+			$div = $( '<div>' ).css( { width: 250, position: 'relative' } ).appendTo( $qf ),
+			progress = new mw.mmv.ui.ProgressBar( $div );
 
 		assert.ok( progress.$progress.hasClass( 'empty' ), 'Progress bar is hidden' );
 		assert.strictEqual( progress.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
@@ -37,7 +38,8 @@
 		} );
 		progress.animateTo( 50 );
 		assert.ok( !progress.$progress.hasClass( 'empty' ), 'Progress bar is visible' );
-		assert.strictEqual( progress.$percent.width(), $qf.width() / 2, 'Progress bar\'s indicator is at half' );
+
+		assert.strictEqual( progress.$percent.width(), 125, 'Progress bar\'s indicator is at half' );
 
 		$.fn.animate.restore();
 		this.sandbox.stub( $.fn, 'animate', function ( target, duration, transition, callback ) {
@@ -56,7 +58,8 @@
 
 	QUnit.test( 'jumpTo()/hide()', 6, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			progress = new mw.mmv.ui.ProgressBar( $qf );
+			$div = $( '<div>' ).css( { width: 250, position: 'relative' } ).appendTo( $qf ),
+			progress = new mw.mmv.ui.ProgressBar( $div );
 
 		assert.ok( progress.$progress.hasClass( 'empty' ), 'Progress bar is hidden' );
 		assert.strictEqual( progress.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
@@ -64,7 +67,7 @@
 		progress.jumpTo( 50 );
 
 		assert.ok( !progress.$progress.hasClass( 'empty' ), 'Progress bar is visible' );
-		assert.strictEqual( progress.$percent.width(), $qf.width() / 2, 'Progress bar\'s indicator is at half' );
+		assert.strictEqual( progress.$percent.width(), 125, 'Progress bar\'s indicator is at half' );
 
 		progress.hide();
 
