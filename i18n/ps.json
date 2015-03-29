@@ -7,7 +7,21 @@
 	"multimediaviewer-pref": "رسنۍ ښکاره کوونکی",
 	"multimediaviewer-datetime-created": "په $1 جوړ شو",
 	"multimediaviewer-datetime-uploaded": "په $1 پورته شو",
+	"multimediaviewer-userpage-link": "$1 {{GENDER:$2|پورته کړی}}",
+	"multimediaviewer-credit-fallback": "د ليکوال مالومات کتل",
 	"multimediaviewer-license-cc-pd": "ټولگړی شپول",
 	"multimediaviewer-license-default": "د منښتليک مالومات",
-	"multimediaviewer-reuse-link": "دا دوتنه کارول"
+	"multimediaviewer-optout-mmv": "رسنۍ کتونکی ناچارنول",
+	"multimediaviewer-optout-pending-mmv": "رسنۍ کتونکی ناچارنول",
+	"multimediaviewer-reuse-link": "دا دوتنه کارول",
+	"multimediaviewer-download-preview-link-title": "په کتنمل کې کتل",
+	"multimediaviewer-download-original-button-name": "اصلي دوتنه ښکته کول",
+	"multimediaviewer-link-to-file": "اصلي دوتنې ته تړنه",
+	"multimediaviewer-original-embed-dimensions": "اصلي دوتنه $1",
+	"multimediaviewer-view-expanded": "په رسنۍ کتونکي کې پرانيستل",
+	"multimediaviewer-options-tooltip": "رسنۍ کتونکی چارنول يا ناچارنول",
+	"multimediaviewer-options-dialog-header": "آيا رسنۍ کتونکی ناچارنوې؟",
+	"multimediaviewer-option-submit-button": "رسنۍ کتونکی ناچارنول",
+	"multimediaviewer-disable-info-title": "تاسې رسنۍ کتونکی ناچارن کړ",
+	"multimediaviewer-disable-info": "تاسې لا تر اوسه پورې د رسنۍ کتونکي په مرسته ځانگړې دوتنې کتلی شی."
 }

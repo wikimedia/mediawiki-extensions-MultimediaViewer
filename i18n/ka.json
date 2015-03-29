@@ -8,6 +8,7 @@
 		]
 	},
 	"multimediaviewer-pref": "მედია დამთვალიერებელი",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About მედია-მაყურებლის]</span> ჩართვა",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|ატვირთა}} მომხმარებელმა $1",
 	"multimediaviewer-metadata-error": "სურათის ჩატვირთვა ვერ მოხერხდა (შეცდომა: $1)",
 	"multimediaviewer-thumbnail-error": "სამწუხაროდ, ამ ფაილის ჩვენება შეუძლებელია",
