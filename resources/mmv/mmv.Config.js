@@ -65,7 +65,11 @@
 	CP.getFromLocalStorage = function ( key, fallback ) {
 		var value = null;
 		if ( this.localStorage ) {
-			value = this.localStorage.getItem( key );
+			try {
+				value = this.localStorage.getItem( key );
+			} catch ( e ) {
+				mw.log( 'Failed to fetch item ' + key + ' from localStorage', e );
+			}
 		}
 		if ( value === null && fallback !== undefined ) {
 			value = fallback;

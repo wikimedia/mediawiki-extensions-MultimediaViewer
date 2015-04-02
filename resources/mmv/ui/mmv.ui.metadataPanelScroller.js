@@ -138,7 +138,11 @@
 
 
 	MPSP.initialize = function () {
-		this.hasOpenedMetadata = !this.localStorage || this.localStorage.getItem( 'mmv.hasOpenedMetadata' );
+		try {
+			this.hasOpenedMetadata = !this.localStorage || this.localStorage.getItem( 'mmv.hasOpenedMetadata' );
+		} catch ( e ) { // localStorage.getItem can throw exceptions
+			this.hasOpenedMetadata = true;
+		}
 	};
 
 	/**

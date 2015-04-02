@@ -25,11 +25,15 @@
 
 	// If the user disabled MediaViewer in his preferences, we do not set up click handling.
 	// This is loaded before user JS so we cannot check wgMediaViewer.
-	if (
-		mw.config.get( 'wgMediaViewerOnClick' ) !== true
-		|| mw.user.isAnon() && window.localStorage && localStorage.getItem( 'wgMediaViewerOnClick' ) === false
-	) {
-		return;
+	try {
+		if (
+			mw.config.get( 'wgMediaViewerOnClick' ) !== true
+			|| mw.user.isAnon() && window.localStorage && localStorage.getItem( 'wgMediaViewerOnClick' ) === false
+		) {
+			return;
+		}
+	} catch ( e ) { // localStorage.getItem can throw exceptions
+		mw.log( 'Could not check value of wgMediaViewerOnClick in localStorage' );
 	}
 
 	$document.on( 'click.mmv-head', 'a.image', function ( e ) {
