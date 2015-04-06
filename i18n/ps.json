@@ -22,6 +22,7 @@
 	"multimediaviewer-options-tooltip": "رسنۍ کتونکی چارنول يا ناچارنول",
 	"multimediaviewer-options-dialog-header": "آيا رسنۍ کتونکی ناچارنوې؟",
 	"multimediaviewer-option-submit-button": "رسنۍ کتونکی ناچارنول",
+	"multimediaviewer-enable-confirmation-header": "تاسې د ټولو دوتنو لپاره رسنۍ کتونکی چارن کړی",
 	"multimediaviewer-disable-info-title": "تاسې رسنۍ کتونکی ناچارن کړ",
 	"multimediaviewer-disable-info": "تاسې لا تر اوسه پورې د رسنۍ کتونکي په مرسته ځانگړې دوتنې کتلی شی."
 }
