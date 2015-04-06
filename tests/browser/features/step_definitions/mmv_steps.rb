@@ -102,14 +102,14 @@ def check_elements_in_viewer_for_image2(page)
   expect(page.mmv_image_div_element).to be_visible
 
   # Check image content
-  expect(page.mmv_final_image_element.when_present.attribute('src')).to match 'Offsite'
+  expect(page.mmv_final_image_element.when_present(30).attribute('src')).to match 'Offsite'
 
   # Check basic metadata is present
 
   # Title
   expect(page.mmv_metadata_title_element.when_present.text).to match /^Tropical Fish Aquarium$/
   # License
-  expect(page.mmv_metadata_license_element.when_present.attribute('href')).to match /^http:\/\/creativecommons\.org\/licenses\/by-sa\/3\.0$/
+  expect(page.mmv_metadata_license_element.when_present(10).attribute('href')).to match /^http:\/\/creativecommons\.org\/licenses\/by-sa\/3\.0$/
   expect(page.mmv_metadata_license_element.when_present.text).to match 'CC BY-SA 3.0'
   # Credit
   expect(page.mmv_metadata_credit_element.when_present).to be_visible

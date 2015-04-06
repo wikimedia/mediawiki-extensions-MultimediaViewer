@@ -11,11 +11,11 @@ end
 
 When /^I click the download down arrow icon$/  do
   sleep 1
-  on(E2ETestPage).mmv_download_down_arrow_icon_element.when_present.click
+  on(E2ETestPage).mmv_download_down_arrow_icon_element.when_present(10).click
 end
 
 When /^I click on the attribution area$/ do
-  on(E2ETestPage).mmv_download_attribution_area_element.when_present.click
+  on(E2ETestPage).mmv_download_attribution_area_element.when_present(10).click
 end
 
 When /^I click on the attribution area close icon$/ do
@@ -48,11 +48,11 @@ When /^the download size options disappears$/ do
 end
 
 When /^the download menu appears$/ do
-  on(E2ETestPage).mmv_download_menu_element.when_present
+  on(E2ETestPage).mmv_download_menu_element.when_present(10)
 end
 
 Then /^the download menu should appear$/ do
-  expect(on(E2ETestPage).mmv_download_menu_element.when_present).to be_visible
+  expect(on(E2ETestPage).mmv_download_menu_element.when_present(10)).to be_visible
 end
 
 Then /^the download menu should disappear$/ do
@@ -60,7 +60,7 @@ Then /^the download menu should disappear$/ do
 end
 
 Then /^the original beginning download image size label should be "(.*)"$/ do |size_in_pixels|
-  expect(on(E2ETestPage).mmv_download_size_label_element.when_present.text).to eq size_in_pixels
+  expect(on(E2ETestPage).mmv_download_size_label_element.when_present(10).text).to eq size_in_pixels
 end
 
 Then /^the download image size label should be "(.*)"$/ do |size_in_pixels|
@@ -93,7 +93,7 @@ Then /^the download links should be the (\d+) thumbnail$/ do |thumb_size|
 end
 
 Then /^the attribution area should be collapsed$/ do
-  expect(on(E2ETestPage).mmv_download_attribution_area_element.when_present.attribute('class')).to match 'mw-mmv-download-attribution-collapsed'
+  expect(on(E2ETestPage).mmv_download_attribution_area_element.when_present(10).attribute('class')).to match 'mw-mmv-download-attribution-collapsed'
 end
 
 Then /^the attribution area should be open$/ do
