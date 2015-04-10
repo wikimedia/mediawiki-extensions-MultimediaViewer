@@ -35,5 +35,7 @@
 	"multimediaviewer-options-learn-more": "Даведацца болей",
 	"multimediaviewer-option-submit-button": "Адключыць мэдыяпраглядальнік",
 	"multimediaviewer-option-cancel-button": "Адмяніць",
-	"multimediaviewer-disable-confirmation-header": "Вы адключылі мэдыяпраглядальнік"
+	"multimediaviewer-disable-confirmation-header": "Вы адключылі мэдыяпраглядальнік",
+	"multimediaviewer-disable-confirmation-text": "Наступны раз, калі вы націсьніце на мініятуру на сайце $1, вы наўпрост пабачыце ўсе зьвесткі пра файл.",
+	"multimediaviewer-enable-alert": "Мэдыяпраглядальнік цяпер адключаны"
 }
