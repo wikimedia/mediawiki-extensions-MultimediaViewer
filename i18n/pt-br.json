@@ -3,11 +3,11 @@
 		"authors": [
 			"Oona",
 			"Jefersonmoraes",
-			"Ptrke"
+			"Ptrke",
+			"TheEduGobi"
 		]
 	},
 	"multimediaviewer-desc": "Expandir miniaturas em tamanho maior numa interface em tela cheia.",
-	"multimediaviewer-desc-nil": "Nenhuma descrição disponível.",
 	"multimediaviewer-pref": "Visualizador multimídia",
 	"multimediaviewer-pref-desc": "Melhore a sua experiência de visualização multimídia com esta nova ferramenta. Ela exibe imagens em tamanho maior nas páginas que possuam miniaturas. As imagens são exibidas em uma agradável sobreposição em tela cheia, e também podem ser visualizadas em tamanho real.",
 	"multimediaviewer-optin-pref": "Habilitar nova experiência de visualização multimídia",
@@ -55,12 +55,12 @@
 	"multimediaviewer-embed-license": "Licenciado sob $1.",
 	"multimediaviewer-embed-via": "Via $1.",
 	"multimediaviewer-default-embed-dimensions": "Tamanho de miniatura padrão",
-	"multimediaviewer-original-embed-dimensions": "Tamanho original $1",
+	"multimediaviewer-original-embed-dimensions": "Arquivo original $1",
 	"multimediaviewer-large-embed-dimensions": "Grande $1",
 	"multimediaviewer-medium-embed-dimensions": "Médio $1",
 	"multimediaviewer-small-embed-dimensions": "Pequeno $1",
-	"multimediaviewer-description-page-button-text": "Mais detalhes",
-	"multimediaviewer-description-page-popup-text": "Mais detalhes em $1",
+	"multimediaviewer-description-page-button-text": "Mais detalhes sobre este arquivo",
+	"multimediaviewer-description-page-popup-text": "Mais detalhes sobre este arquivo em $1",
 	"multimediaviewer-commons-subtitle": "O repositório de mídias livres",
 	"multimediaviewer-view-expanded": "Abrir no Visualizador de Mídia"
 }
