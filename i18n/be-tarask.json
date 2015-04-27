@@ -41,5 +41,6 @@
 	"multimediaviewer-enable-text-header": "Уключыць гэтую функцыю мэдыяпрагляду па змоўчаньні для ўсіх файлаў.",
 	"multimediaviewer-enable-submit-button": "Уключыць мэдыяпраглядальнік",
 	"multimediaviewer-enable-confirmation-header": "Вы ўключылі мэдыяпраглядальнік для ўсіх файлаў",
+	"multimediaviewer-enable-confirmation-text": "Наступны раз, калі вы націсьніце на мініятуру на сайце $1, будзе выкарыстаны мэдыяпраглядальнік.",
 	"multimediaviewer-enable-alert": "Мэдыяпраглядальнік цяпер адключаны"
 }
