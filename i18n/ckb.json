@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Asoxor"
+		]
+	},
+	"multimediaviewer-repository-local": "وردەکاریی زیاتر",
+	"multimediaviewer-datetime-created": "دروست کراوە لە: $1",
+	"multimediaviewer-datetime-uploaded": "بارکراوە لە: $1",
+	"multimediaviewer-userpage-link": "$1 {{GENDER:$2|باری کردووە}}",
+	"multimediaviewer-credit-fallback": "زانیاری سەبارەت بە بەرھەمھێنەر",
+	"multimediaviewer-multiple-authors-combine": "$1 و $2",
+	"multimediaviewer-license-cc-pd": "پاوانی گشتی",
+	"multimediaviewer-license-pd": "پاوانی گشتی",
+	"multimediaviewer-license-default": "مۆڵەتنامەکەی ببینە",
+	"multimediaviewer-permission-viewmore": "زیاتر ببینە",
+	"multimediaviewer-help-mmv": "یارمەتی",
+	"multimediaviewer-geolocation": "شوێن: $1",
+	"multimediaviewer-reuse-loading-placeholder": "بارکردن..."
+}
