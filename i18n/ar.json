@@ -80,5 +80,7 @@
 	"multimediaviewer-title-popup-text": "الوصف",
 	"multimediaviewer-title-popup-text-more": "اعرض الوصف الكامل",
 	"multimediaviewer-download-attribution-cta": "أرني كيف",
+	"multimediaviewer-options-tooltip": "فعل أو عطل عارض الوسائط",
+	"multimediaviewer-option-submit-button": "عطل عارض الوسائط",
 	"multimediaviewer-option-cancel-button": "ألغ"
 }
