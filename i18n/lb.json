@@ -5,6 +5,7 @@
 		]
 	},
 	"multimediaviewer-pref": "Media Viewer",
+	"multimediaviewer-optin-pref": "De <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span> aktivéieren",
 	"multimediaviewer-repository-local": "Méi Detailer",
 	"multimediaviewer-datetime-uploaded": "Eropgelueden: $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Eropgeluede}} vum $1",
