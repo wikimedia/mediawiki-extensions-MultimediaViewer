@@ -284,7 +284,7 @@
 		$link.trigger( { type: 'click', which: 1 } );
 	} );
 
-	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 8, function ( assert ) {
+	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 9, function ( assert ) {
 		var bootstrap,
 			$div,
 			$link,
@@ -299,11 +299,14 @@
 		viewer.loadImage = $.noop;
 
 		viewer.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption, alt ) {
+			var html = thumb.outerHTML;
+
 			assert.ok( fileLink.match( imgRegex ), 'Thumbnail URL used in creating new image object' );
 			assert.strictEqual( filePageLink, '', 'File page link is sane when creating new image object' );
 			assert.strictEqual( fileTitle.title, fname, 'Filename is correct when passed into new image constructor' );
 			assert.strictEqual( index, 0, 'The only image we created in the gallery is set at index 0 in the images array' );
-			assert.strictEqual( thumb.outerHTML, '<img src="' + imgSrc + '" alt="meow">', 'The image element passed in is the thumbnail we want.' );
+			assert.ok( html.indexOf( ' src="' + imgSrc + '"' ) > 0, 'The image element passed in contains the src=... we want.' );
+			assert.ok( html.indexOf( ' alt="meow"' ) > 0, 'The image element passed in contains the alt=... we want.' );
 			assert.strictEqual( caption, 'Blah blah', 'The caption passed in is correct' );
 			assert.strictEqual( alt, 'meow', 'The alt text passed in is correct' );
 		};
