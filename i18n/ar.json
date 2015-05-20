@@ -19,6 +19,7 @@
 	"multimediaviewer-datetime-uploaded": "الرفع: $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|رفع}} بواسطة $1",
 	"multimediaviewer-credit-fallback": "اعرض معلومات المؤلف",
+	"multimediaviewer-multiple-authors-combine": "$1 و$2",
 	"multimediaviewer-metadata-error": "خطأ: تعذر تحميل بيانات الصورة. $1",
 	"multimediaviewer-thumbnail-error": "خطأ: تعذر تحميل بيانات الصورة المصغرة. $1",
 	"multimediaviewer-thumbnail-error-retry": "أعد المحاولة",
