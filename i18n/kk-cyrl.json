@@ -19,7 +19,7 @@
 	"multimediaviewer-multiple-authors-combine": "$1 және $2",
 	"multimediaviewer-metadata-error": "Сурет деректері жүктелмеді (қате: $1)",
 	"multimediaviewer-thumbnail-error": "Кешіріңіз, файл көрсетілмеді",
-	"multimediaviewer-thumbnail-error-retry": "қайта байкап көріңіз",
+	"multimediaviewer-thumbnail-error-retry": "Қайталау",
 	"multimediaviewer-license-cc-pd": "Қоғамдық қазына",
 	"multimediaviewer-license-pd": "Қоғамдық қазына",
 	"multimediaviewer-license-default": "Лицензиясын қарау",
@@ -81,8 +81,11 @@
 	"multimediaviewer-title-popup-text-more": "Толық сипаттамасын қарау",
 	"multimediaviewer-credit-popup-text-more": "Авторын және қайнарын толық қарау",
 	"multimediaviewer-download-optional-attribution-cta-header": "Авторын анықтай аласыз",
+	"multimediaviewer-download-attribution-cta": "Қалай екенін маған көрсет",
+	"multimediaviewer-attr-plain": "Жәй мәтін",
 	"multimediaviewer-options-tooltip": "Медиа қараушыны қосу не өшіру",
 	"multimediaviewer-options-dialog-header": "Медиа қараушыны өшіресіз бе?",
+	"multimediaviewer-options-text-header": "Барлық файлдар үшін бұл қарапшығу функциясын өшіру",
 	"multimediaviewer-options-learn-more": "Көбірек білу",
 	"multimediaviewer-option-submit-button": "Медиа қараушыны сөндіру",
 	"multimediaviewer-option-cancel-button": "Қажет емес",
@@ -91,5 +94,6 @@
 	"multimediaviewer-enable-submit-button": "Медиа қараушыны қосу",
 	"multimediaviewer-enable-confirmation-header": "Барлық файлдар үшін Медиа қараушыны іске қосқансыз",
 	"multimediaviewer-enable-alert": "Медиа қараушы қаізр өшірілген",
-	"multimediaviewer-disable-info-title": "Медиа қараушыны өшіргенсіз"
+	"multimediaviewer-disable-info-title": "Медиа қараушыны өшіргенсіз",
+	"multimediaviewer-disable-info": "Медиа қарап шығушымен жеке файлдарды қарай аласыз"
 }

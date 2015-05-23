@@ -35,6 +35,10 @@
 	"multimediaviewer-help-mmv": "Ajuda",
 	"multimediaviewer-optout-mmv": "Desativar visualizador multimídia",
 	"multimediaviewer-optin-mmv": "Ativar visualizador multimídia",
+	"multimediaviewer-optout-pending-mmv": "Desativar visualizador multimídia",
+	"multimediaviewer-optin-pending-mmv": "Ativar visualizador multimídia",
+	"multimediaviewer-optout-help": "O visualizador multimídia não será mais utilizado para exibir imagens. Para ativá-lo novamente, clique no botão \"{{int:multimediaviewer-view-expanded}}\" próximo a qualquer imagem. Depois, clique em \"{{int:multimediaviewer-optin-mmv}}\".",
+	"multimediaviewer-optin-help": "O visualizador multimídia será utilizado para exibir imagens.",
 	"multimediaviewer-geolocation": "Localização: $1",
 	"multimediaviewer-reuse-link": "Compartilhar ou anexar este arquivo",
 	"multimediaviewer-reuse-loading-placeholder": "Carregando…",
@@ -96,6 +100,7 @@
 	"multimediaviewer-download-optional-attribution-cta-header": "Você pode indicar o autor",
 	"multimediaviewer-download-attribution-cta": "Mostre-me como",
 	"multimediaviewer-attr-plain": "Simples",
+	"multimediaviewer-options-tooltip": "Ativar ou desativar visualizador multimídia",
 	"multimediaviewer-options-dialog-header": "Desativar visualizador multimídia?",
 	"multimediaviewer-options-text-header": "Ignorar este recurso de visualização para todos os arquivos.",
 	"multimediaviewer-options-text-body": "Você pode reativá-lo mais tarde através da página de detalhes dos arquivos.",
@@ -103,8 +108,13 @@
 	"multimediaviewer-option-submit-button": "Desativar visualizador multimídia",
 	"multimediaviewer-option-cancel-button": "Cancelar",
 	"multimediaviewer-disable-confirmation-header": "Você desativou o visualizador multimídia",
+	"multimediaviewer-disable-confirmation-text": "Da próxima vez que você clicar numa miniatura em $1, terá acesso direto aos detalhes do arquivo.",
 	"multimediaviewer-enable-dialog-header": "Ativar visualizador multimídia",
+	"multimediaviewer-enable-text-header": "Ativar este recurso de visualização multimídia para todos os arquivos por padrão.",
 	"multimediaviewer-enable-submit-button": "Ativar visualizador multimídia",
+	"multimediaviewer-enable-confirmation-header": "Você ativou o visualizador multimídia para todos os arquivos",
+	"multimediaviewer-enable-confirmation-text": "Da próxima vez que você clicar numa miniatura em $1, o visualizador multimídia será usado.",
 	"multimediaviewer-enable-alert": "O visualizador multimídia agora está desativado",
-	"multimediaviewer-disable-info-title": "Você desativou o visualizador multimídia"
+	"multimediaviewer-disable-info-title": "Você desativou o visualizador multimídia",
+	"multimediaviewer-disable-info": "Você pode ainda ver os arquivos individuais com o visualizador multimídia."
 }
