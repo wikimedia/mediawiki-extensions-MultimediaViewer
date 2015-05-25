@@ -1,0 +1,19 @@
+{
+	"@metadata": {
+		"authors": [
+			"NehalDaveND"
+		]
+	},
+	"multimediaviewer-help-mmv": "सहायता",
+	"multimediaviewer-reuse-loading-placeholder": "लोड हुदैछ...",
+	"multimediaviewer-share-tab": "बाड्ने",
+	"multimediaviewer-embed-html": "HTML",
+	"multimediaviewer-text-embed-credit-text-tbls-nonfree": "\"$1\" by $2. $3 via $4",
+	"multimediaviewer-text-embed-credit-text-tls-nonfree": "\"$1\". $2 via $3",
+	"multimediaviewer-text-embed-credit-text-tbl-nonfree": "\"$1\" by $2. $3",
+	"multimediaviewer-text-embed-credit-text-tb": "\"$1\" by $2",
+	"multimediaviewer-html-embed-credit-text-tls-nonfree": "\"$1\". $2 via $3.",
+	"multimediaviewer-title-popup-text": "वर्णन",
+	"multimediaviewer-options-learn-more": "जाने थप",
+	"multimediaviewer-option-cancel-button": "रद्द गर्ने"
+}
