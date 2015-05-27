@@ -25,25 +25,23 @@
 // from http://stackoverflow.com/a/12178019/323407
 .fade-out-vertical(@backgroundColor: white) {
 	@invisible: fadeout(@backgroundColor, 100%);
-	background-image: linear-gradient(to bottom, @invisible 0%, @backgroundColor 100%); // W3C
 	background-image: -moz-linear-gradient(top, @invisible 0%, @backgroundColor 100%); // FF3.6+
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @invisible),
 		color-stop(100%, @backgroundColor)); // Chrome,Safari4+
 	background-image: -webkit-linear-gradient(top, @invisible 0%, @backgroundColor 100%); // Chrome10+,Safari5.1+
 	background-image: -o-linear-gradient(top, @invisible 0%, @backgroundColor 100%); // Opera 11.10+
-	background-image: -ms-linear-gradient(top, @invisible 0%, @backgroundColor 100%); // IE10+
+	background-image: linear-gradient(to bottom, @invisible 0%, @backgroundColor 100%); // W3C
 	filter: e(%("progid:DXImageTransform.Microsoft.gradient( startColorstr='#%s', endColorstr='#%s',GradientType=0 )",
 		rgbahex(@invisible), rgbahex(@backgroundColor))); // IE6-9
 }
 .fade-out-horizontal(@backgroundColor: white) {
 	@invisible: fadeout(@backgroundColor, 100%);
-	background-image: linear-gradient(to right, @invisible 0%, @backgroundColor 100%); // W3C
 	background-image: -moz-linear-gradient(left, @invisible 0%, @backgroundColor 100%); // FF3.6+
 	background-image: -webkit-gradient(linear, left top, right top, color-stop(0%, @invisible),
 		color-stop(100%, @backgroundColor)); // Chrome,Safari4+
 	background-image: -webkit-linear-gradient(left, @invisible 0%, @backgroundColor 100%); // Chrome10+,Safari5.1+
 	background-image: -o-linear-gradient(left, @invisible 0%, @backgroundColor 100%); // Opera 11.10+
-	background-image: -ms-linear-gradient(left, @invisible 0%, @backgroundColor 100%); // IE10+
+	background-image: linear-gradient(to right, @invisible 0%, @backgroundColor 100%); // W3C
 	filter: e(%("progid:DXImageTransform.Microsoft.gradient( startColorstr='#%s', endColorstr='#%s',GradientType=1 )",
 		rgbahex(@invisible), rgbahex(@backgroundColor))); // IE6-9
 }
