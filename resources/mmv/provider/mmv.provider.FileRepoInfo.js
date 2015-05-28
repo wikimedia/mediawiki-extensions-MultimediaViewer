@@ -43,7 +43,8 @@
 		return this.getCachedPromise( '*', function () {
 			return provider.apiGetWithMaxAge( {
 				action: 'query',
-				meta: 'filerepoinfo'
+				meta: 'filerepoinfo',
+				uselang: 'content'
 			} ).then( function ( data ) {
 				return provider.getQueryField( 'repos', data );
 			} ).then( function ( reposArray ) {
