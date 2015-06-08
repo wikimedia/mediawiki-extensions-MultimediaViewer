@@ -91,9 +91,11 @@
 	"multimediaviewer-options-learn-more": "تعرف على المزيد",
 	"multimediaviewer-option-submit-button": "عطل عارض الوسائط",
 	"multimediaviewer-option-cancel-button": "ألغ",
+	"multimediaviewer-disable-confirmation-header": "لقد عطلت عارض الوسائط",
 	"multimediaviewer-enable-dialog-header": "تفعيل عارض الوسائط؟",
 	"multimediaviewer-enable-submit-button": "تفعيل عارض الوسائط",
 	"multimediaviewer-enable-confirmation-header": "لقد فعلت عارض الوسائط لكل الملفات",
 	"multimediaviewer-enable-alert": "عارض الوسائط غير مفعل الآن",
+	"multimediaviewer-disable-info-title": "لقد عطلت عارض الوسائط",
 	"multimediaviewer-disable-info": "ما زال بإمكانك عرض الملفات المنفردة بعارض الوسائط."
 }
