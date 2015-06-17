@@ -68,7 +68,6 @@
 		// default image widths
 		widthBuckets: [
 			320,
-			640,
 			800,
 			1024,
 			1280,
