@@ -50,7 +50,7 @@
 
 		assert.strictEqual( twc.findNextBucket( 200 ), 320, 'Low target size gives us lowest possible size bucket' );
 		assert.strictEqual( twc.findNextBucket( 320 ), 320, 'Asking for a bucket size gives us exactly that bucket size' );
-		assert.strictEqual( twc.findNextBucket( 320.00001 ), 640, 'Asking for greater than an image bucket definitely gives us the next size up' );
+		assert.strictEqual( twc.findNextBucket( 320.00001 ), 800, 'Asking for greater than an image bucket definitely gives us the next size up' );
 		assert.strictEqual( twc.findNextBucket( 2000 ), 2560, 'The image bucketing also works on big screens' );
 		assert.strictEqual( twc.findNextBucket( 3000 ), 2880, 'The image bucketing also works on REALLY big screens' );
 	} );
