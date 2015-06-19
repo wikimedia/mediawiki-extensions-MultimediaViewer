@@ -72,10 +72,10 @@
 	color: #555;
 	padding: 0 0 @padding-right;
 	font-size: 0.85em;
-	height: @metadatabar-below-fold-pushup-height - @space-above-credit - @fold-separator-border-width; // needs explicit height for text truncation logic
 
-	&.mw-mmv-ttf-untruncated {
-		height: auto;
+	.metadata-panel-is-closed {
+		height: @metadatabar-below-fold-pushup-height - @space-above-credit - @fold-separator-border-width; // needs explicit height for text truncation logic
+		line-height: @metadatabar-below-fold-pushup-height - @space-above-credit - @fold-separator-border-width;
 	}
 
 	&.empty {
@@ -171,6 +171,13 @@
 
 		&.empty {
 			display: none;
+		}
+
+		// Make sure the next list item is not visible when the
+		// metadata panel is closed
+		.metadata-panel-is-closed &.mw-mmv-license-li {
+			height: @metadatabar-below-fold-pushup-height - @space-above-credit;
+			line-height: @metadatabar-below-fold-pushup-height - @space-above-credit;
 		}
 
 		&:before {
