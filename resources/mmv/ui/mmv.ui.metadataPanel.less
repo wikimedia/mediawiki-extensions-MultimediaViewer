@@ -261,6 +261,7 @@
 .mw-mmv-label {
 	color: #333333;
 	margin-left: 6px;
+	margin-top: 1px;
 	.box-round(3px);
 	padding: 2px 5px;
 	background-color: #dddddd;
@@ -292,11 +293,100 @@
 
 }
 
+.mw-mmv-restrictions {
+	display: inline-block;
+	line-height: 14px;
+}
+
 .mw-mmv-restriction-label {
 	&, &:hover {
 		background-color: #ffcc66;
 	}
 	cursor: default;
+	display: inline-block;
+	height: 16px;
+}
+
+.mw-mmv-restriction-label-inner {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	text-indent: -9999px;
+	text-align: left;
+	background-size: contain;
+	&:after {
+		float: right;
+		text-indent: 0;
+	}
+}
+
+.mw-mmv-restriction-2257 {
+	/* @embed */
+	background-image: url(img/restrict-2257.svg);
+}
+
+.mw-mmv-restriction-aus-reserve {
+	/* @embed */
+	background-image: url(img/restrict-aus-reserve.svg);
+}
+
+.mw-mmv-restriction-communist {
+	/* @embed */
+	background-image: url(img/restrict-communist.svg);
+}
+
+.mw-mmv-restriction-costume {
+	/* @embed */
+	background-image: url(img/restrict-costume.svg);
+}
+
+.mw-mmv-restriction-currency {
+	/* @embed */
+	background-image: url(img/restrict-currency.svg);
+}
+
+.mw-mmv-restriction-design {
+	/* @embed */
+	background-image: url(img/restrict-design.svg);
+}
+
+.mw-mmv-restriction-fan-art {
+	/* @embed */
+	background-image: url(img/restrict-fan-art.svg);
+}
+
+.mw-mmv-restriction-ihl {
+	/* @embed */
+	background-image: url(img/restrict-ihl.svg);
+}
+
+.mw-mmv-restriction-insignia {
+	/* @embed */
+	background-image: url(img/restrict-insignia.svg);
+}
+
+.mw-mmv-restriction-ita-mibac {
+	/* @embed */
+	background-image: url(img/restrict-ita-mibac.svg);
+}
+
+.mw-mmv-restriction-nazi {
+	/* @embed */
+	background-image: url(img/restrict-nazi.svg);
+}
+
+.mw-mmv-restriction-personality {
+	/* @embed */
+	background-image: url(img/restrict-personality.svg);
+}
+
+.mw-mmv-restriction-trademarked:after {
+	content: '\002122';
+}
+
+.mw-mmv-restriction-default {
+	/* @embed */
+	background-image: url(img/restrict-default.svg);
 }
 
 .mw-mmv-permission-link {

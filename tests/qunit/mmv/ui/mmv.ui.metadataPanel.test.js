@@ -97,7 +97,7 @@
 		);
 	} );
 
-	QUnit.test( 'Setting image information works as expected', 18, function ( assert ) {
+	QUnit.test( 'Setting image information works as expected', 19, function ( assert ) {
 		var creditPopupText,
 			gender,
 			$qf = $( '#qunit-fixture' ),
@@ -144,6 +144,7 @@
 			'http://creativecommons.org/licenses/by-sa/2.0/' );
 		gender = 'female';
 		imageData.lastUploader = 'Ursula';
+		imageData.restrictions = [ 'trademarked', 'default', 'insignia' ];
 
 		panel.setImageInfo( image, imageData, repoData, gender );
 		creditPopupText = panel.creditField.$element.attr( 'original-title' );
@@ -159,6 +160,7 @@
 		assert.strictEqual( panel.$license.text(), 'CC BY 2.0', 'License is correctly set' );
 		assert.ok( panel.$license.prop( 'target' ), 'License information opens in new window' );
 		assert.ok( panel.$username.text().indexOf( imageData.lastUploader ) > 0, 'Correct username is displayed' );
+		assert.ok( panel.$restrictions.children().last().children().hasClass( 'mw-mmv-restriction-default' ), 'Default restriction is correctly displayed last' );
 
 		imageData.creationDateTime = undefined;
 		panel.setImageInfo( image, imageData, repoData, gender );

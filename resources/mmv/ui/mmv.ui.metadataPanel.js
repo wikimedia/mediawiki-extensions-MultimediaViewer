@@ -49,6 +49,13 @@
 	oo.inheritClass( MetadataPanel, mw.mmv.ui.Element );
 	MPP = MetadataPanel.prototype;
 
+    /**
+     * Maximum number of restriction icons before default icon is used
+     * @property MAX_RESTRICT
+     * @static
+     */
+	MetadataPanel.MAX_RESTRICT = 4;
+
 	/**
 	 * FIXME this should be in the jquery.fullscreen plugin.
 	 */
@@ -326,18 +333,8 @@
 			} );
 
 		this.$restrictions = $( '<span>' )
+			.addClass( 'mw-mmv-restrictions' )
 			.appendTo( this.$licenseLi );
-
-		this.$restrictionTrademarked = $( '<span>' )
-			.addClass( 'mw-mmv-label mw-mmv-restriction-label' )
-			.html( '&#8482;' ) // trademark sign
-			.prop( 'title', mw.message( 'multimediaviewer-restriction-trademarked' ).text() )
-			.tipsy( {
-				delay: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
-				gravity: this.correctEW( 'se' )
-			} )
-			.appendTo( this.$restrictions )
-			.hide();
 
 		this.$permissionLink = $( '<span>' )
 			.addClass( 'mw-mmv-permission-link mw-mmv-label' )
@@ -657,9 +654,55 @@
 	 * @param {string[]} restrictions Array of restrictions
 	 */
 	MPP.setRestrictions = function ( restrictions ) {
-		if ( restrictions.indexOf( 'trademarked' ) !== -1 ) {
-			this.$restrictionTrademarked.show();
+		var panel = this; // Access this inside $.each()
+		var restrictionsSet = {};
+		var showDefault = false;
+		var validRestrictions = 0;
+		$.each( restrictions, function( index, value ) {
+			if ( !mw.message( 'multimediaviewer-restriction-' + value ).exists() || value === 'default' || index + 1 > MetadataPanel.MAX_RESTRICT ) {
+				showDefault = true; // If the restriction isn't defined or there are more than MAX_RESTRICT of them, show a generic symbol at the end
+				return;
+			}
+			if( restrictionsSet[value] ) {
+				return; // Only show one of each symbol
+			} else {
+				restrictionsSet[value] = true;
+			}
+
+			panel.$restrictions.append( panel.createRestriction( value ) );
+			validRestrictions++; // See how many defined restrictions are added so we know which default i18n msg to use
+		} );
+
+		if ( showDefault ) {
+			if ( validRestrictions ) {
+				panel.$restrictions.append( panel.createRestriction( 'default-and-others' ) );
+			} else {
+				panel.$restrictions.append( panel.createRestriction( 'default' ) );
+			}
 		}
+	};
+
+	/**
+	 * Helper function that generates restriction labels
+	 * @param {string} type Restriction type
+	 * @return {jQuery} jQuery object of label
+	 */
+	MPP.createRestriction = function ( type ) {
+		var $label = $( '<span>' )
+			.addClass( 'mw-mmv-label mw-mmv-restriction-label' )
+			.prop( 'title', mw.message( 'multimediaviewer-restriction-' + type ).text() )
+			.tipsy( {
+				delay: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
+				gravity: this.correctEW( 'se' )
+			} );
+
+		$( '<span>' )
+			.addClass( 'mw-mmv-restriction-label-inner mw-mmv-restriction-' +
+				( type === 'default-and-others' ? 'default' : type ) )
+			.text( mw.message( 'multimediaviewer-restriction-' + type ).text() )
+			.appendTo( $label );
+
+		return $label;
 	};
 
 	/**

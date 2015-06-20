@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.91 r13725"
+   width="64"
+   height="64"
+   version="1.0"
+   sodipodi:docname="restrict-design.svg">
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs5" />
+  <sodipodi:namedview
+     inkscape:window-height="1018"
+     inkscape:window-width="1920"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     guidetolerance="10.0"
+     gridtolerance="10.0"
+     objecttolerance="10.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="14.262728"
+     inkscape:cy="19.025524"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:current-layer="svg2"
+     showgrid="false"
+     inkscape:window-maximized="1"
+     inkscape:snap-page="true"
+     inkscape:snap-bbox="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:object-nodes="true" />
+  <path
+     style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+     d="M 15.375 0 L 15.375 15.375 L 0 15.375 L 0 16.375 L 15.375 16.375 L 15.375 31.5 L 0 31.5 L 0 32.5 L 15.375 32.5 L 15.375 47.625 L 0 47.625 L 0 48.625 L 15.375 48.625 L 0 64 L 15.375 64 L 16.375 64 L 31.5 64 L 32.5 64 L 47.625 64 L 48.625 64 L 64 64 L 64 48.625 L 64 47.625 L 64 32.5 L 64 31.5 L 64 16.375 L 64 15.375 L 64 0 L 52.869141 11.132812 L 48.626953 15.375 L 48.625 15.375 L 48.625 0 L 47.625 0 L 47.625 15.375 L 32.5 15.375 L 32.5 0 L 31.5 0 L 31.5 15.375 L 16.375 15.375 L 16.375 0 L 15.375 0 z M 16.375 16.375 L 31.5 16.375 L 31.5 31.5 L 16.375 31.5 L 16.375 16.375 z M 32.5 16.375 L 47.625 16.375 L 47.625 16.376953 L 32.501953 31.5 L 32.5 31.5 L 32.5 16.375 z M 50.957031 31.486328 L 50.957031 31.5 L 50.943359 31.5 L 50.957031 31.486328 z M 16.375 32.5 L 31.5 32.5 L 31.5 32.501953 L 16.375 47.625 L 16.375 32.5 z M 49.943359 32.5 L 50.957031 32.5 L 50.957031 47.625 L 48.625 47.625 L 48.625 33.818359 L 49.943359 32.5 z M 47.625 34.818359 L 47.625 47.625 L 34.818359 47.625 L 47.625 34.818359 z M 33.818359 48.625 L 47.625 48.625 L 47.625 50.957031 L 32.5 50.957031 L 32.5 49.943359 L 33.818359 48.625 z M 48.625 48.625 L 50.957031 48.625 L 50.957031 50.957031 L 48.625 50.957031 L 48.625 48.625 z M 31.5 50.943359 L 31.5 50.957031 L 31.486328 50.957031 L 31.5 50.943359 z "
+     id="rect4189" />
+</svg>

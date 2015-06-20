@@ -271,7 +271,23 @@ $wgResourceModules += array(
 			// for license messages see end of file
 			'multimediaviewer-permission-link',
 			'multimediaviewer-permission-link-hide',
+
+			'multimediaviewer-restriction-2257',
+			'multimediaviewer-restriction-aus-reserve',
+			'multimediaviewer-restriction-communist',
+			'multimediaviewer-restriction-costume',
+			'multimediaviewer-restriction-currency',
+			'multimediaviewer-restriction-design',
+			'multimediaviewer-restriction-fan-art',
+			'multimediaviewer-restriction-ihl',
+			'multimediaviewer-restriction-insignia',
+			'multimediaviewer-restriction-ita-mibac',
+			'multimediaviewer-restriction-nazi',
+			'multimediaviewer-restriction-personality',
 			'multimediaviewer-restriction-trademarked',
+			'multimediaviewer-restriction-default',
+			'multimediaviewer-restriction-default-and-others',
+
 			'multimediaviewer-geoloc-north',
 			'multimediaviewer-geoloc-east',
 			'multimediaviewer-geoloc-south',
