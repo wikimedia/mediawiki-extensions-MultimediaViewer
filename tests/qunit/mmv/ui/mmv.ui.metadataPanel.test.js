@@ -98,7 +98,8 @@
 	} );
 
 	QUnit.test( 'Setting image information works as expected', 18, function ( assert ) {
-		var gender,
+		var creditPopupText,
+			gender,
 			$qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) ),
 			title = 'Foo bar',
@@ -145,13 +146,15 @@
 		imageData.lastUploader = 'Ursula';
 
 		panel.setImageInfo( image, imageData, repoData, gender );
+		creditPopupText = panel.creditField.$element.attr( 'original-title' );
 
 		assert.strictEqual( panel.$title.text(), title, 'Title is correctly set' );
 		assert.ok( !panel.$credit.hasClass( 'empty' ), 'Credit is not empty' );
 		assert.ok( !panel.$datetimeLi.hasClass( 'empty' ), 'Date/Time is not empty' );
 		assert.strictEqual( panel.creditField.$element.find( '.mw-mmv-author' ).text(), imageData.author, 'Author text is correctly set' );
 		assert.strictEqual( panel.creditField.$element.find( '.mw-mmv-source' ).html(), '<b>Lost</b><a href="foo">Bar</a>', 'Source text is correctly set' );
-		assert.strictEqual( panel.creditField.$element.attr( 'original-title' ), 'Author and source information', 'Source tooltip is correctly set' );
+		// Either multimediaviewer-credit-popup-text or multimediaviewer-credit-popup-text-more.
+		assert.ok( creditPopupText === 'Author and source information' || creditPopupText === 'View full author and source', 'Source tooltip is correctly set' );
 		assert.ok( panel.$datetime.text().indexOf( 'August 26, 2013' ) > 0, 'Correct date is displayed' );
 		assert.strictEqual( panel.$license.text(), 'CC BY 2.0', 'License is correctly set' );
 		assert.ok( panel.$license.prop( 'target' ), 'License information opens in new window' );
