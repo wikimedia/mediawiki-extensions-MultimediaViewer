@@ -126,6 +126,9 @@
 		this.canvas.empty();
 
 		this.buttons.empty();
+
+		this.$main.addClass( 'metadata-panel-is-closed' )
+			.removeClass( 'metadata-panel-is-open' );
 	};
 
 	/**
@@ -205,9 +208,11 @@
 
 		// cross-communication between panel and canvas, sort of
 		this.$postDiv.on( 'mmv-metadata-open.lip', function () {
-			ui.$main.addClass( 'metadata-panel-is-open' );
+			ui.$main.addClass( 'metadata-panel-is-open' )
+				.removeClass( 'metadata-panel-is-closed' );
 		} ).on( 'mmv-metadata-close.lip', function () {
-			ui.$main.removeClass( 'metadata-panel-is-open' );
+			ui.$main.removeClass( 'metadata-panel-is-open' )
+				.addClass( 'metadata-panel-is-closed' );
 		} );
 		this.$wrapper.on( 'mmv-panel-close-area-click.lip', function () {
 			ui.panel.scroller.toggle( 'down' );
