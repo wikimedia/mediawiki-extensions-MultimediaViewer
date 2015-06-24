@@ -16,7 +16,12 @@
  */
 
 ( function ( mw, $ ) {
-	QUnit.module( 'mw.mmv.ui.Permission', QUnit.newMwEnvironment() );
+	QUnit.module( 'mw.mmv.ui.Permission', QUnit.newMwEnvironment( {
+		setup: function () {
+			// animation would keep running, conflict with other tests
+			this.sandbox.stub( $.fn, 'animate' ).returnsThis();
+		}
+	} ) );
 
 	QUnit.test( 'Constructor sanity check', 1, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
@@ -68,10 +73,7 @@
 	QUnit.test( 'grow()', 3, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			permission = new mw.mmv.ui.Permission( $qf ),
-			text = 'Nothing to see here.',
-			oldAnimate = $.fn.animate; // animation would keep running, conflict with other tests
-
-		$.fn.animate = function () { return this; };
+			text = 'Nothing to see here.';
 
 		permission.set( text );
 		permission.grow();
@@ -79,17 +81,12 @@
 		assert.ok( !permission.$text.is( ':visible' ), 'permission text is not visible' );
 		assert.ok( permission.$html.is( ':visible' ), 'permission html is visible' );
 		assert.ok( permission.$close.is( ':visible' ), 'close button is visible' );
-
-		$.fn.animate = oldAnimate;
 	} );
 
 	QUnit.test( 'shrink()', 3, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			permission = new mw.mmv.ui.Permission( $qf ),
-			text = 'Nothing to see here.',
-			oldAnimate = $.fn.animate; // animation would keep running, conflict with other tests
-
-		$.fn.animate = function () { return this; };
+			text = 'Nothing to see here.';
 
 		permission.set( text );
 		permission.grow();
@@ -98,16 +95,12 @@
 		assert.ok( permission.$text.is( ':visible' ), 'permission text is visible' );
 		assert.ok( !permission.$html.is( ':visible' ), 'permission html is not visible' );
 		assert.ok( !permission.$close.is( ':visible' ), 'close button is not visible' );
-
-		$.fn.animate = oldAnimate;
 	} );
 
 	QUnit.test( 'isFullSize()', 3, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			permission = new mw.mmv.ui.Permission( $qf ),
 			text = 'Nothing to see here.';
-		// animation would keep running, conflict with other tests
-		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
 
 		permission.set( text );
 		assert.ok( !permission.isFullSize(), 'permission is not full-size' );

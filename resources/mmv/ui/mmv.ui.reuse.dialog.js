@@ -40,8 +40,7 @@
 		 */
 		this.ooTabs = null;
 
-		this.loadDependencies.push( 'mmv.ui.reuse.share' );
-		this.loadDependencies.push( 'mmv.ui.reuse.embed' );
+		this.loadDependencies.push( 'mmv.ui.reuse.shareembed' );
 
 		this.$dialog.addClass( 'mw-mmv-reuse-dialog' );
 

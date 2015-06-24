@@ -36,6 +36,9 @@
 			imageSrc = 'Foo bar.jpg',
 			image = { filePageTitle: new mw.Title( 'File:' + imageSrc ) };
 
+		// animation would keep running, conflict with other tests
+		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
+
 		window.location.hash = '';
 
 		viewer.setupEventHandlers();
@@ -180,6 +183,9 @@
 			},
 			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } );
 
+		// animation would keep running, conflict with other tests
+		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
+
 		viewer.thumbs = [];
 		viewer.displayPlaceholderThumbnail = $.noop;
 		viewer.setImage = $.noop;
@@ -277,6 +283,9 @@
 
 	QUnit.test( 'resetBlurredThumbnailStates', 4, function ( assert ) {
 		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } );
+
+		// animation would keep running, conflict with other tests
+		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
 
 		assert.ok( !viewer.realThumbnailShown, 'Real thumbnail state is correct' );
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
@@ -455,6 +464,9 @@
 			eventTypes = [ 'keydown', 'keyup', 'keypress', 'click', 'mousedown', 'mouseup' ],
 			modifiers = [ undefined, 'altKey', 'ctrlKey', 'shiftKey', 'metaKey' ],
 			oldScrollTo = $.scrollTo;
+
+		// animation would keep running, conflict with other tests
+		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
 
 		$.scrollTo = function () { return { scrollTop: $.noop, on: $.noop, off: $.noop }; };
 

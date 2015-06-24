@@ -138,173 +138,29 @@ $wgMediaViewerResourceTemplate = array(
 );
 
 $wgResourceModules += array(
-	'mmv.lightboximage' => $wgMediaViewerResourceTemplate + array(
+	// Loaded on demand by mmv.bootstrap.js
+	'mmv' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv/mmv.lightboximage.js',
-		),
-
-		'dependencies' => array(
-			'mmv.base',
-		),
-	),
-
-	'mmv.lightboxinterface' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/mmv.lightboxinterface.js',
-		),
-
-		'styles' => array(
-			'mmv/mmv.lightboxinterface.less',
-		),
-
-		'dependencies' => array(
-			'mmv.base',
-			'mmv.logging.ActionLogger',
-			'mmv.ui',
-			'mmv.ui.canvas',
-			'mmv.ui.canvasButtons',
-			'mmv.ui.description',
-			'mmv.ui.download.dialog',
-			'mmv.ui.metadataPanel',
-			'mmv.ui.reuse.dialog',
-			'mmv.ui.viewingOptions',
-		),
-
-		'messages' => array(
-			'multimediaviewer-close-popup-text',
-			'multimediaviewer-fullscreen-popup-text',
-			'multimediaviewer-defullscreen-popup-text',
-		),
-	),
-
-	'mmv.ThumbnailWidthCalculator' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/mmv.ThumbnailWidthCalculator.js',
-		),
-
-		'dependencies' => array(
-			'jquery.hidpi',
-			'mmv.base',
-			'mmv.model.ThumbnailWidth',
-		),
-	),
-
-	'mmv.HtmlUtils' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/mmv.HtmlUtils.js',
-		),
-
-		'dependencies' => array(
-			'mmv.base',
-		),
-	),
-
-	'mmv.model' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
+			'mmv/logging/mmv.logging.Api.js',
+			'mmv/logging/mmv.logging.AttributionLogger.js',
+			'mmv/logging/mmv.logging.DimensionLogger.js',
+			'mmv/logging/mmv.logging.ViewLogger.js',
+			'mmv/logging/mmv.logging.PerformanceLogger.js',
+			'mmv/routing/mmv.routing.js',
+			'mmv/routing/mmv.routing.Route.js',
+			'mmv/routing/mmv.routing.ThumbnailRoute.js',
+			'mmv/routing/mmv.routing.MainFileRoute.js',
+			'mmv/routing/mmv.routing.Router.js',
 			'mmv/model/mmv.model.js',
-		),
-
-		'dependencies' => array(
-			'mmv.base',
-			'oojs',
-		),
-	),
-
-	'mmv.model.IwTitle' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
 			'mmv/model/mmv.model.IwTitle.js',
-		),
-
-		'dependencies' => array(
-			'mmv.model',
-		),
-	),
-
-	'mmv.model.EmbedFileInfo' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/model/mmv.model.EmbedFileInfo.js',
-		),
-
-		'dependencies' => array(
-			'mmv.model',
-		),
-	),
-
-	'mmv.model.License' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
 			'mmv/model/mmv.model.License.js',
-		),
-
-		'dependencies' => array(
-			'mmv.model',
-			'mmv.HtmlUtils',
-		),
-	),
-
-	'mmv.model.Image' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
 			'mmv/model/mmv.model.Image.js',
-		),
-
-		'dependencies' => array(
-			'mmv.model',
-			'mmv.model.License',
-		),
-	),
-
-	'mmv.model.Repo' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
 			'mmv/model/mmv.model.Repo.js',
-		),
-
-		'dependencies' => array(
-			'mmv.model',
-			'oojs',
-		),
-	),
-
-	'mmv.model.Thumbnail' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
 			'mmv/model/mmv.model.Thumbnail.js',
-		),
-
-		'dependencies' => array(
-			'mmv.model',
-		),
-	),
-
-	'mmv.model.ThumbnailWidth' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/model/mmv.model.ThumbnailWidth.js',
-		),
-
-		'dependencies' => array(
-			'mmv.model',
-		),
-	),
-
-	'mmv.model.User' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
 			'mmv/model/mmv.model.User.js',
-		),
-
-		'dependencies' => array(
-			'mmv.model',
-		),
-	),
-
-	'mmv.model.TaskQueue' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
 			'mmv/model/mmv.model.TaskQueue.js',
-		),
-
-		'dependencies' => array(
-			'mmv.model',
-		),
-	),
-
-	'mmv.provider' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
+			'mmv/model/mmv.model.ThumbnailWidth.js',
+			'mmv/mmv.lightboximage.js',
 			'mmv/provider/mmv.provider.Api.js',
 			'mmv/provider/mmv.provider.ImageInfo.js',
 			'mmv/provider/mmv.provider.FileRepoInfo.js',
@@ -312,295 +168,111 @@ $wgResourceModules += array(
 			'mmv/provider/mmv.provider.GuessedThumbnailInfo.js',
 			'mmv/provider/mmv.provider.UserInfo.js',
 			'mmv/provider/mmv.provider.Image.js',
-		),
-
-		'dependencies' => array(
-			'mediawiki.Title',
-			'mediawiki.Uri',
-			'mmv.model',
-			'mmv.model.IwTitle',
-			'mmv.model.Image',
-			'mmv.model.Repo',
-			'mmv.model.Thumbnail',
-			'mmv.model.User',
-			'mmv.logging.PerformanceLogger',
-			'oojs',
-		),
-	),
-
-	'mmv.routing' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/routing/mmv.routing.js',
-			'mmv/routing/mmv.routing.Route.js',
-			'mmv/routing/mmv.routing.ThumbnailRoute.js',
-			'mmv/routing/mmv.routing.MainFileRoute.js',
-			'mmv/routing/mmv.routing.Router.js',
-		),
-
-		'dependencies' => array(
-			'mediawiki.Title',
-			'oojs',
-		),
-	),
-
-	'mmv.base' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/mmv.base.js',
-		),
-	),
-
-	'mmv.ui' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
+			'mmv/mmv.ThumbnailWidthCalculator.js',
 			'mmv/ui/mmv.ui.js',
-		),
-
-		'dependencies' => array(
-			'mmv.base',
-			'mmv.logging.ActionLogger',
-		),
-	),
-
-	'mmv.ui.canvas' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.canvas.js',
-		),
-
-		'styles' => array(
-			'mmv/ui/mmv.ui.canvas.less',
-		),
-
-		'messages' => array(
-			'multimediaviewer-thumbnail-error',
-			'multimediaviewer-thumbnail-error-description',
-			'multimediaviewer-thumbnail-error-retry',
-			'multimediaviewer-report-issue-url',
-		),
-
-		'dependencies' => array(
-			'mmv.ui',
-			'mmv.ThumbnailWidthCalculator',
-			'oojs',
-		),
-	),
-
-	'mmv.ui.dialog' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
 			'mmv/ui/mmv.ui.dialog.js',
+			'mmv/ui/mmv.ui.reuse.dialog.js',
+			'mmv/ui/mmv.ui.download.js',
+			'mmv/ui/mmv.ui.download.dialog.js',
+			'mmv/ui/mmv.ui.description.js',
+			'mmv/ui/mmv.ui.viewingOptions.js',
+			'mmv/ui/mmv.ui.canvas.js',
+			'mmv/ui/mmv.ui.canvasButtons.js',
+			'mmv/ui/mmv.ui.permission.js',
+			'mmv/ui/mmv.ui.progressBar.js',
+			'mmv/ui/mmv.ui.stripeButtons.js',
+			'mmv/ui/mmv.ui.truncatableTextField.js',
+			'mmv/ui/mmv.ui.metadataPanel.js',
+			'mmv/ui/mmv.ui.metadataPanelScroller.js',
+			'mmv/mmv.lightboxinterface.js',
+			'mmv/mmv.js',
 		),
 
 		'styles' => array(
 			'mmv/ui/mmv.ui.dialog.less',
-		),
-
-		'dependencies' => array(
-			'mmv.ui',
-			'oojs',
-		),
-	),
-
-	'mmv.ui.download' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.download.js',
-		),
-
-		'dependencies' => array(
-			'mmv.ui',
-		),
-	),
-
-	'mmv.ui.download.dialog' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.download.dialog.js',
-		),
-
-		'styles' => array(
+			'mmv/ui/mmv.ui.reuse.dialog.less',
 			'mmv/ui/mmv.ui.download.dialog.less',
-		),
-
-		'dependencies' => array(
-			'mmv.logging.ActionLogger',
-			'mmv.ui.dialog',
-			'mmv.ui.download',
-			'oojs',
-		),
-	),
-
-	'mmv.ui.download.pane' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.download.pane.js',
-		),
-
-		'styles' => array(
-			'mmv/ui/mmv.ui.download.pane.less',
-		),
-
-		'dependencies' => array(
-			'mediawiki.ui',
-			'mediawiki.ui.button',
-			'mmv.ui',
-			'mmv.ui.download',
-			'mmv.ui.utils',
-			'mmv.embedFileFormatter',
-			'mmv.logging.ActionLogger',
-			'mmv.model.EmbedFileInfo',
-			'oojs',
-			'oojs-ui',
-		),
-
-		'messages' => array(
-			'multimediaviewer-download-preview-link-title',
-			'multimediaviewer-download-original-button-name',
-			'multimediaviewer-download-small-button-name',
-			'multimediaviewer-download-medium-button-name',
-			'multimediaviewer-download-large-button-name',
-			'multimediaviewer-embed-dimensions',
-			'multimediaviewer-embed-dimensions-with-file-format',
-			'multimediaviewer-download-attribution-cta-header',
-			'multimediaviewer-download-optional-attribution-cta-header',
-			'multimediaviewer-download-attribution-cta',
-			'multimediaviewer-attr-plain',
-			'multimediaviewer-attr-html',
-		),
-	),
-
-	'mmv.ui.stripeButtons' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.stripeButtons.js',
-		),
-
-		'styles' => array(
-			'mmv/ui/mmv.ui.stripeButtons.less',
-		),
-
-		'dependencies' => array(
-			'mediawiki.jqueryMsg',
-			'mmv.ui',
-			'oojs',
-			'jquery.tipsy',
-			'jquery.throttle-debounce',
-		),
-
-		'messages' => array(
-			'multimediaviewer-description-page-button-text',
-			'multimediaviewer-description-page-popup-text',
-			'multimediaviewer-description-page-popup-text-local',
-			'multimediaviewer-repository-local',
-		),
-	),
-
-	'mmv.ui.description' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.description.js',
-		),
-
-		'dependencies' => array(
-			'mmv.ui',
-			'mmv.HtmlUtils',
-			'oojs',
-		),
-	),
-
-	'mmv.ui.permission' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.permission.js',
-		),
-
-		'styles' => array(
+			'mmv/ui/mmv.ui.viewingOptions.less',
+			'mmv/ui/mmv.ui.canvas.less',
+			'mmv/ui/mmv.ui.canvasButtons.less',
 			'mmv/ui/mmv.ui.permission.less',
-		),
-
-		'messages' => array(
-			'multimediaviewer-permission-title',
-			'multimediaviewer-permission-viewmore',
-		),
-
-		'dependencies' => array(
-			'jquery.color',
-			'mediawiki.jqueryMsg',
-			'mmv.logging.ActionLogger',
-			'mmv.ui',
-			'mmv.HtmlUtils',
-			'oojs',
-		),
-	),
-
-	'mmv.ui.truncatableTextField' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.truncatableTextField.js',
-		),
-
-		'styles' => array(
+			'mmv/ui/mmv.ui.progressBar.less',
+			'mmv/ui/mmv.ui.stripeButtons.less',
 			'mmv/ui/mmv.ui.truncatableTextField.less',
-		),
-
-		'dependencies' => array(
-			'mmv.HtmlUtils',
-			'mmv.ui',
-			'oojs',
-		),
-	),
-
-	'mmv.ui.progressBar' => $wgMediaViewerResourceTemplate + array(
-			'scripts' => array(
-				'mmv/ui/mmv.ui.progressBar.js',
-			),
-
-			'styles' => array(
-				'mmv/ui/mmv.ui.progressBar.less',
-			),
-
-			'dependencies' => array(
-				'mmv.ui',
-				'oojs',
-			),
-	),
-
-	'mmv.ui.metadataPanel' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.metadataPanel.js',
-			'mmv/ui/mmv.ui.metadataPanelScroller.js',
-		),
-
-		'styles' => array(
 			'mmv/ui/mmv.ui.metadataPanel.less',
 			'mmv/ui/mmv.ui.metadataPanelScroller.less',
+			'mmv/mmv.lightboxinterface.less',
+			// Always make this one the last of the list (Bug 61852)
+			'mmv/mmv.loaded.css',
 		),
 
 		'dependencies' => array(
-			'mediawiki.user',
-			'mmv.HtmlUtils',
-			'mmv.logging.ActionLogger',
-			'mmv.logging.AttributionLogger',
-			'mmv.ui',
-			'mmv.ui.progressBar',
-			'mmv.ui.stripeButtons',
-			'mmv.ui.description',
-			'mmv.ui.permission',
-			'mmv.ui.truncatableTextField',
-			'oojs',
-			'jquery.tipsy',
+			'mediawiki.api',
+			'mediawiki.Title',
+			'mediawiki.Uri',
 			'mediawiki.jqueryMsg',
+			'mediawiki.user',
+			'oojs',
+			'jquery.fullscreen',
+			'jquery.hidpi',
+			'jquery.throttle-debounce',
+			'jquery.color',
+			'jquery.tipsy',
+			'mmv.bootstrap', // mmv.logging.Logger.js
+			'mmv.head', // mmv.base.js
 		),
 
 		'messages' => array(
-			'multimediaviewer-commons-subtitle',
+			'multimediaviewer-file-page',
 
+			// messages that are gender-dependent (we need to check if they really depend on the gender):
+			'multimediaviewer-userpage-link',
+
+			// mmv.ui.viewingOptions.js
+			'multimediaviewer-options-learn-more',
+			'multimediaviewer-options-dialog-header',
+			'multimediaviewer-option-header-viewer',
+			'multimediaviewer-option-header-filepage',
+			'multimediaviewer-option-desc-viewer',
+			'multimediaviewer-option-desc-filepage',
+			'multimediaviewer-option-submit-button',
+			'multimediaviewer-option-cancel-button',
+			'multimediaviewer-options-text-header',
+			'multimediaviewer-enable-alert',
+			'multimediaviewer-options-text-body',
+			'multimediaviewer-disable-confirmation-header',
+			'multimediaviewer-disable-confirmation-text',
+			'multimediaviewer-enable-dialog-header',
+			'multimediaviewer-enable-text-header',
+			'multimediaviewer-enable-submit-button',
+			'multimediaviewer-enable-confirmation-header',
+			'multimediaviewer-enable-confirmation-text',
+			// mmv.ui.canvas.js
+			'multimediaviewer-thumbnail-error',
+			'multimediaviewer-thumbnail-error-description',
+			'multimediaviewer-thumbnail-error-retry',
+			'multimediaviewer-report-issue-url',
+			// mmv.ui.canvasButtons.js
+			'multimediaviewer-download-link',
+			'multimediaviewer-reuse-link',
+			'multimediaviewer-options-tooltip',
+			// mmv.lightboxinterface.js
+			'multimediaviewer-close-popup-text',
+			'multimediaviewer-fullscreen-popup-text',
+			'multimediaviewer-defullscreen-popup-text',
+			// mmv.ui.metadataPanel.js
+			'multimediaviewer-commons-subtitle',
 			'multimediaviewer-credit',
 			'multimediaviewer-credit-fallback',
 			'multimediaviewer-multiple-authors',
 			'multimediaviewer-multiple-authors-combine',
-
 			'multimediaviewer-userpage-link',
-
 			'multimediaviewer-datetime-created',
 			'multimediaviewer-datetime-uploaded',
-
 			// for license messages see end of file
 			'multimediaviewer-permission-link',
 			'multimediaviewer-permission-link-hide',
-
 			'multimediaviewer-restriction-trademarked',
-
 			'multimediaviewer-geoloc-north',
 			'multimediaviewer-geoloc-east',
 			'multimediaviewer-geoloc-south',
@@ -608,7 +280,6 @@ $wgResourceModules += array(
 			'multimediaviewer-geoloc-coord',
 			'multimediaviewer-geoloc-coords',
 			'multimediaviewer-geolocation',
-
 			'multimediaviewer-about-mmv',
 			'multimediaviewer-discuss-mmv',
 			'multimediaviewer-help-mmv',
@@ -618,29 +289,38 @@ $wgResourceModules += array(
 			'multimediaviewer-optin-pending-mmv',
 			'multimediaviewer-optout-help',
 			'multimediaviewer-optin-help',
-
 			// Reuse the preferences message in the top-right menu.
 			'mypreferences',
-
 			'multimediaviewer-metadata-error',
-
 			'multimediaviewer-title-popup-text',
 			'multimediaviewer-credit-popup-text',
 			'multimediaviewer-title-popup-text-more',
 			'multimediaviewer-credit-popup-text-more',
+			// mmv.ui.permission.js
+			'multimediaviewer-permission-title',
+			'multimediaviewer-permission-viewmore',
+			// mmv.ui.stripeButtons.js
+			'multimediaviewer-description-page-button-text',
+			'multimediaviewer-description-page-popup-text',
+			'multimediaviewer-description-page-popup-text-local',
+			'multimediaviewer-repository-local',
 		),
 	),
 
-	'mmv.embedFileFormatter' => $wgMediaViewerResourceTemplate + array(
+	// Dependencies shared by mmv.ui.reuse.shareembed and mmv.ui.download.pane
+	// Both of which are loaded on demand
+	'mmv.ui.ondemandshareddependencies' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
+			'mmv/model/mmv.model.EmbedFileInfo.js',
 			'mmv/mmv.EmbedFileFormatter.js',
+			'mmv/ui/mmv.ui.utils.js',
 		),
 
 		'dependencies' => array(
-			'mmv.base',
-			'mmv.routing',
+			'mmv.head', // mmv/mmv.base.js
+			'mmv', // mmv/ui/mmv.ui.js
 			'oojs',
-			'mmv.HtmlUtils',
+			'oojs-ui',
 		),
 
 		'messages' => array(
@@ -672,49 +352,60 @@ $wgResourceModules += array(
 		),
 	),
 
-	'mmv.ui.reuse.dialog' => $wgMediaViewerResourceTemplate + array(
+	// Loaded on demand by mmv.ui.download.dialog.js
+	'mmv.ui.download.pane' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv/ui/mmv.ui.reuse.dialog.js',
+			'mmv/ui/mmv.ui.download.pane.js',
 		),
 
 		'styles' => array(
-			'mmv/ui/mmv.ui.reuse.dialog.less',
+			'mmv/ui/mmv.ui.download.pane.less',
 		),
 
 		'dependencies' => array(
-			'mmv.logging.ActionLogger',
-			'mmv.ui.dialog',
+			'mediawiki.ui',
+			'mediawiki.ui.button',
+			'mmv', // mmv/ui/mmv.ui.download.js
+			'mmv.ui.ondemandshareddependencies',
 			'oojs',
+			'oojs-ui',
+		),
+
+		'messages' => array(
+			'multimediaviewer-download-preview-link-title',
+			'multimediaviewer-download-original-button-name',
+			'multimediaviewer-download-small-button-name',
+			'multimediaviewer-download-medium-button-name',
+			'multimediaviewer-download-large-button-name',
+			'multimediaviewer-embed-dimensions',
+			'multimediaviewer-embed-dimensions-with-file-format',
+			'multimediaviewer-download-attribution-cta-header',
+			'multimediaviewer-download-optional-attribution-cta-header',
+			'multimediaviewer-download-attribution-cta',
+			'multimediaviewer-attr-plain',
+			'multimediaviewer-attr-html',
 		),
 	),
 
-	'mmv.ui.reuse.tab' => $wgMediaViewerResourceTemplate + array(
+	// Preloaded by mmv.js and loaded on demand by mmv.ui.reuse.dialog.js
+	'mmv.ui.reuse.shareembed' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/ui/mmv.ui.reuse.tab.js',
-		),
-
-		'dependencies' => array(
-			'mmv.ui',
-			'oojs',
-		),
-	),
-
-	'mmv.ui.reuse.share' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
 			'mmv/ui/mmv.ui.reuse.share.js',
+			'mmv/ui/mmv.ui.reuse.embed.js',
 		),
 
 		'styles' => array(
 			'mmv/ui/mmv.ui.reuse.share.less',
+			'mmv/ui/mmv.ui.reuse.embed.less',
 			'mmv/ui/mmv.ui.reuse.shareembed.less',
 		),
 
 		'dependencies' => array(
-			'mmv.ui.reuse.tab',
-			'mmv.routing',
 			'oojs',
 			'oojs-ui',
-			'mmv.logging.ActionLogger',
+			'mediawiki.user',
+			'mmv.ui.ondemandshareddependencies',
 		),
 
 		'messages' => array(
@@ -724,31 +415,7 @@ $wgResourceModules += array(
 
 			'multimediaviewer-link-to-file',
 			'multimediaviewer-link-to-page',
-		),
-	),
 
-	'mmv.ui.reuse.embed' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.reuse.embed.js',
-		),
-
-		'styles' => array(
-			'mmv/ui/mmv.ui.reuse.embed.less',
-			'mmv/ui/mmv.ui.reuse.shareembed.less',
-		),
-
-		'dependencies' => array(
-			'mediawiki.user',
-			'mmv.ui.reuse.tab',
-			'mmv.ui.utils',
-			'oojs',
-			'oojs-ui',
-			'mmv.model.EmbedFileInfo',
-			'mmv.embedFileFormatter',
-			'mmv.logging.ActionLogger',
-		),
-
-		'messages' => array(
 			'multimediaviewer-reuse-loading-placeholder',
 			'multimediaviewer-embed-tab',
 			'multimediaviewer-embed-html',
@@ -769,180 +436,35 @@ $wgResourceModules += array(
 		),
 	),
 
-	'mmv.ui.utils' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.utils.js',
-		),
-
-		'dependencies' => array(
-			'mmv.HtmlUtils',
-			'mmv.ui',
-			'oojs',
-			'oojs-ui',
-		),
-	),
-
-	'mmv.ui.canvasButtons' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.canvasButtons.js',
-		),
-
-		'styles' => array(
-			'mmv/ui/mmv.ui.canvasButtons.less',
-		),
-
-		'dependencies' => array(
-			'mmv.ui',
-			'mmv.ui.viewingOptions',
-			'oojs',
-		),
-
-		'messages' => array(
-			'multimediaviewer-download-link',
-			'multimediaviewer-reuse-link',
-			'multimediaviewer-options-tooltip',
-		),
-	),
-
-	'mmv.ui.viewingOptions' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/ui/mmv.ui.viewingOptions.js',
-		),
-
-		'styles' => array(
-			'mmv/ui/mmv.ui.viewingOptions.less',
-		),
-
-		'dependencies' => array(
-			'mmv.ui',
-			'mmv.ui.dialog',
-			'oojs',
-		),
-
-		'messages' => array(
-			'multimediaviewer-options-learn-more',
-			'multimediaviewer-options-dialog-header',
-			'multimediaviewer-option-header-viewer',
-			'multimediaviewer-option-header-filepage',
-			'multimediaviewer-option-desc-viewer',
-			'multimediaviewer-option-desc-filepage',
-			'multimediaviewer-option-submit-button',
-			'multimediaviewer-option-cancel-button',
-			'multimediaviewer-options-text-header',
-			'multimediaviewer-enable-alert',
-			'multimediaviewer-options-text-body',
-			'multimediaviewer-disable-confirmation-header',
-			'multimediaviewer-disable-confirmation-text',
-			'multimediaviewer-enable-dialog-header',
-			'multimediaviewer-enable-text-header',
-			'multimediaviewer-enable-submit-button',
-			'multimediaviewer-enable-confirmation-header',
-			'multimediaviewer-enable-confirmation-text',
-		),
-	),
-
+	// Loaded on demand in mmv.bootstrap.js
 	'mmv.ui.tipsyDialog' => $wgMediaViewerResourceTemplate + array(
-			'scripts' => array(
-				'mmv/ui/mmv.ui.tipsyDialog.js',
-			),
-
-			'styles' => array(
-				'mmv/ui/mmv.ui.tipsyDialog.less',
-			),
-
-			'dependencies' => array(
-				'mmv.ui',
-				'oojs',
-				'jquery.tipsy',
-			),
-	),
-
-	'mmv.logging.Logger' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
-			'mmv/logging/mmv.logging.Logger.js',
-		),
-
-		'dependencies' => array(
-			'mmv.base',
-		),
-	),
-
-	'mmv.logging.PerformanceLogger' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/logging/mmv.logging.PerformanceLogger.js',
-		),
-
-		'dependencies' => array(
-			'mmv.base',
-			'mmv.logging.Logger',
-			'oojs',
-		),
-	),
-
-	'mmv.logging.Api' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/logging/mmv.logging.Api.js',
-		),
-
-		'dependencies' => array(
-			'mediawiki.api',
-			'mmv.base',
-			'mmv.logging.Logger',
-			'oojs',
-		),
-	),
-
-	'mmv.Config' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/mmv.Config.js',
-		),
-
-		'dependencies' => array(
-			'mmv.base',
-			'mediawiki.user',
-		),
-	),
-
-	'mmv' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/mmv.js',
+			'mmv/ui/mmv.ui.tipsyDialog.js',
 		),
 
 		'styles' => array(
-			// Always make this one the last of the list (Bug 61852)
-			'mmv/mmv.loaded.css',
+			'mmv/ui/mmv.ui.tipsyDialog.less',
 		),
 
 		'dependencies' => array(
-			'mmv.logging.Api',
-			'mmv.base',
-			'mmv.lightboximage',
-			'mmv.logging.ActionLogger',
-			'mmv.model.TaskQueue',
-			'mmv.lightboxinterface',
-			'mmv.provider',
-			'mmv.routing',
-			'mmv.logging.DurationLogger',
-			'mmv.logging.DimensionLogger',
-			'mmv.logging.ViewLogger',
-			'jquery.fullscreen',
-			'jquery.hidpi',
-			'jquery.scrollTo',
-			'jquery.throttle-debounce',
-			'jquery.hidpi',
-		),
-
-		'messages' => array(
-			'multimediaviewer-file-page',
-
-			// messages that are gender-dependent (we need to check if they really depend on the gender):
-			'multimediaviewer-userpage-link',
+			'mmv', // mmv/ui/mmv.ui.js
+			'oojs',
+			'jquery.tipsy',
 		),
 	),
 
+	// Isolated from mmv.bootstrap.autostart to allow tests running without an MMV instance
+	// being autostarted in the background
 	'mmv.bootstrap' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
+			'mmv/mmv.Config.js',
+			'mmv/mmv.HtmlUtils.js',
 			'mmv/mmv.bootstrap.js',
+			'mmv/logging/mmv.logging.Logger.js',
+			'mmv/logging/mmv.logging.ActionLogger.js',
+			'mmv/logging/mmv.logging.DurationLogger.js',
+			'jquery.hashchange/jquery.hashchange.js',
+			'jquery.scrollTo/jquery.scrollTo.js',
 		),
 
 		'styles' => array(
@@ -952,12 +474,9 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'mediawiki.ui.icon',
 			'mediawiki.Title',
-			'mmv.Config',
-			'mmv.logging.ActionLogger',
-			'mmv.HtmlUtils',
-			'mmv.logging.DurationLogger',
-			'jquery.hashchange',
-			'jquery.scrollTo',
+			'mediawiki.user',
+			'mmv.head', // mmv/mmv.base.js
+			'oojs',
 		),
 
 		'messages' => array(
@@ -968,102 +487,30 @@ $wgResourceModules += array(
 		),
 	),
 
+	// Loaded on demand by mmv.head.js on DOM readiness
 	'mmv.bootstrap.autostart' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
 			'mmv/mmv.bootstrap.autostart.js',
 		),
 
 		'dependencies' => array(
-			'mmv.base',
+			'mmv.head', // mmv/mmv.base.js
 			'mmv.bootstrap',
 		),
 	),
 
-	'mmv.logging.ActionLogger' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/logging/mmv.logging.ActionLogger.js',
-		),
-
-		'dependencies' => array(
-			'mmv.base',
-			'mmv.logging.Logger',
-			'oojs'
-		),
-	),
-
-	'mmv.logging.DurationLogger' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/logging/mmv.logging.DurationLogger.js',
-		),
-
-		'dependencies' => array(
-			'mmv.base',
-			'mmv.logging.Logger',
-			'oojs',
-			'mediawiki.user',
-		),
-	),
-
-	'mmv.logging.AttributionLogger' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/logging/mmv.logging.AttributionLogger.js',
-		),
-
-		'dependencies' => array(
-			'mmv.base',
-			'mmv.logging.Logger',
-			'oojs',
-			'mediawiki.user',
-		),
-	),
-
-	'mmv.logging.DimensionLogger' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/logging/mmv.logging.DimensionLogger.js',
-		),
-
-		'dependencies' => array(
-			'mmv.base',
-			'mmv.logging.Logger',
-			'oojs',
-			'jquery.hidpi',
-		),
-	),
-
-	'mmv.logging.ViewLogger' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'mmv/logging/mmv.logging.ViewLogger.js',
-		),
-
-		'dependencies' => array(
-			'mediawiki.Uri',
-			'mmv.base',
-		),
-	),
-
+	// Loaded in the head
 	'mmv.head' => $wgMediaViewerResourceTemplate + array(
 		'scripts' => array(
+			'mmv/mmv.base.js',
 			'mmv/mmv.head.js',
 		),
 
 		'dependencies' => array(
-			'mmv.base',
 			'mediawiki.user',
 		),
 
 		'position' => 'top',
-	),
-
-	'jquery.scrollTo' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'jquery.scrollTo/jquery.scrollTo.js',
-		),
-	),
-
-	'jquery.hashchange' => $wgMediaViewerResourceTemplate + array(
-		'scripts' => array(
-			'jquery.hashchange/jquery.hashchange.js',
-		),
 	),
 );
 
@@ -1082,11 +529,9 @@ $wgExtensionFunctions[] = function () {
 		$wgMediaViewerEnableByDefault;
 
 	if ( isset( $wgResourceModules['ext.eventLogging'] ) ) {
-		$wgResourceModules['mmv.logging.ActionLogger']['dependencies'][] = 'ext.eventLogging';
-		$wgResourceModules['mmv.logging.PerformanceLogger']['dependencies'][] = 'ext.eventLogging';
-		$wgResourceModules['mmv.logging.DurationLogger']['dependencies'][] = 'ext.eventLogging';
-		$wgResourceModules['mmv.logging.AttributionLogger']['dependencies'][] = 'ext.eventLogging';
-		$wgResourceModules['mmv.logging.DimensionLogger']['dependencies'][] = 'ext.eventLogging';
+		$wgResourceModules['mmv.lightboxinterface']['dependencies'][] = 'ext.eventLogging';
+		$wgResourceModules['mmv']['dependencies'][] = 'ext.eventLogging';
+		$wgResourceModules['mmv.bootstrap.autostart']['dependencies'][] = 'ext.eventLogging';
 	}
 
 	if ( $wgMediaViewerEnableByDefault ) {

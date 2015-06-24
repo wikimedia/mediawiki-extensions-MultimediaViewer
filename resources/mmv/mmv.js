@@ -976,7 +976,7 @@
 	 * Preloads JS and CSS dependencies that aren't needed to display the first image, but could be needed later
 	 */
 	MMVP.preloadDependencies = function () {
-		mw.loader.load( [ 'mmv.ui.reuse.share', 'mmv.ui.reuse.embed', 'mmv.ui.reuse.download', 'moment' ] );
+		mw.loader.load( [ 'mmv.ui.reuse.shareembed', 'moment' ] );
 	};
 
 	mw.mmv.MultimediaViewer = MultimediaViewer;
