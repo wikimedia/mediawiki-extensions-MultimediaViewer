@@ -469,7 +469,12 @@
 				hash = window.location.href.replace( /#.*$/, '' );
 			}
 
-			this.browserHistory.pushState( null, title, hash );
+			try {
+				window.history.pushState( null, title, hash );
+			} catch ( ex ) {
+				// Workaround for Edge bug -- https://phabricator.wikimedia.org/T104381
+				window.history.pushState( null, title, hash + '#' );
+			}
 		} else {
 			// Since we voluntarily changed the hash, we don't want MMVB.hash (which will trigger on hashchange event) to treat it
 			this.skipNextHashHandling = true;
