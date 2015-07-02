@@ -126,7 +126,6 @@ if ( !isset( $wgMediaViewerRecordVirtualViewBeaconURI ) ) {
 }
 
 $wgMessagesDirs['MultimediaViewer'] = __DIR__ . '/i18n';
-$wgExtensionMessagesFiles['MultimediaViewer'] = __DIR__ . '/MultimediaViewer.i18n.php';
 
 /**
  * @param string $path
