@@ -416,12 +416,12 @@
 	 * @param {jQuery.Event} e The mousemove event object
 	 */
 	LIP.mousemove = function ( e ) {
-		// This is a fake mousemove event triggered by Chrome, ignore it
+		// T77869 ignore fake mousemove events triggered by Chrome
 		if (
 			e
 			&& e.originalEvent
-			&& e.originalEvent.webkitMovementX === 0
-			&& e.originalEvent.webkitMovementY === 0
+			&& e.originalEvent.movementX === 0
+			&& e.originalEvent.movementY === 0
 		) {
 			return;
 		}
