@@ -10,7 +10,13 @@
 		$.scrollTo = oldScrollTo;
 	}
 
-	QUnit.module( 'mmv.lightboxInterface', QUnit.newMwEnvironment() );
+	QUnit.module( 'mmv.lightboxInterface', QUnit.newMwEnvironment( {
+		setup: function () {
+			// animation would keep running, conflict with other tests
+			this.sandbox.stub( $.fn, 'animate' ).returnsThis();
+		}
+	} ) );
+
 
 	QUnit.test( 'Sanity test, object creation and ui construction', 20, function ( assert ) {
 		var lightbox = new mw.mmv.LightboxInterface();
