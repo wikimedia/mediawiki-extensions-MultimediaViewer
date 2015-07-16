@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Toliño",
-			"Vivaelcelta"
+			"Vivaelcelta",
+			"Elisardojm"
 		]
 	},
 	"multimediaviewer-desc": "Expande as miniaturas ata un tamaño maior dentro dunha interface a pantalla completa.",
@@ -28,7 +29,21 @@
 	"multimediaviewer-permission-link": "ver os termos",
 	"multimediaviewer-permission-link-hide": "agochar os termos",
 	"multimediaviewer-permission-viewmore": "Ollar máis",
+	"multimediaviewer-restriction-2257": "Esta imaxe contén contido sexual explícito que pode ser obxecto da ''Child Protection and Obscenity Enforcement Act'' nos Estados Unidos de América.",
+	"multimediaviewer-restriction-aus-reserve": "Esta imaxe foi realizada nunha reserva da Commonwealth Australiana e non pode ser usada con fins comerciais sen autorización previa.",
+	"multimediaviewer-restriction-communist": "Esta imaxe contén a insignia Comunista que pode estar prohibida nalgúns países.",
+	"multimediaviewer-restriction-costume": "Esta imaxe mostra disfraces, uniformes ou traxes e pode ser obxecto de restricións legais.",
+	"multimediaviewer-restriction-currency": "Esta imaxe mostra unha unidade de moeda e pode ser obxecto de restricións legais.",
+	"multimediaviewer-restriction-design": "O deseño do obxecto desta imaxe pode ter copyright e estar suxeito a restricións legais.",
+	"multimediaviewer-restriction-fan-art": "Esta imaxe é un traballo artístico dun fan, e o reuso pode estar suxeito a restricións legais.",
+	"multimediaviewer-restriction-ihl": "Esta imaxe contén símbolos restrinxidos pola Lei Internacional Humanitaria.",
+	"multimediaviewer-restriction-insignia": "Esta imaxe contén unha insignia oficial que pode estar suxeita a restricións legais.",
+	"multimediaviewer-restriction-ita-mibac": "Esta imaxe reproduce unha propiedade pertencente ó patrimonio cultural Italiano e está restrinxida pola lei Italiana.",
+	"multimediaviewer-restriction-nazi": "Esta imaxe contén a insignia Nazi ou doutras asociacións fascistas, que poden estar prohibidas nalgúns países.",
+	"multimediaviewer-restriction-personality": "Esta imaxe contén persoas que poden ter dereitos que legalmente restrinxen certas reutilizacións da imaxe sen o seu consentimento.",
 	"multimediaviewer-restriction-trademarked": "Esta imaxe inclúe contido que pode estar suxeito ás leis de marcas.",
+	"multimediaviewer-restriction-default": "Esta imaxe pode estar restrinxida por disposicións legais externas ós dereitos de autor. Consulte a páxina de descrición do ficheiro para obter máis detalles.",
+	"multimediaviewer-restriction-default-and-others": "Esta imaxe pode ter máis restricións por outras disposicións legais externas ós dereitos de autor. Consulte a páxina de descrición do ficheiro para obter máis detalles.",
 	"multimediaviewer-about-mmv": "Acerca do visor de ficheiros multimedia",
 	"multimediaviewer-discuss-mmv": "Conversar sobre esta característica",
 	"multimediaviewer-help-mmv": "Axuda",

@@ -8,7 +8,8 @@
 			"Robby",
 			"Mormegil",
 			"Amire80",
-			"Tacsipacsi"
+			"Tacsipacsi",
+			"Wladek92"
 		]
 	},
 	"multimediaviewer-desc": "{{desc|name=Multimedia Viewer|url=https://www.mediawiki.org/wiki/Extension:MultimediaViewer}}",
@@ -53,7 +54,7 @@
 	"multimediaviewer-restriction-2257": "Text of the tooltip for the Child Protection and Obscenity Enforcement Act restriction label, that is displayed when hovered over.",
 	"multimediaviewer-restriction-aus-reserve": "Text of the tooltip for the Australian reserve restriction label, that is displayed when hovered over.",
 	"multimediaviewer-restriction-communist": "Text of the tooltip for the communist symbol restriction label, that is displayed when hovered over.",
-	"multimediaviewer-restriction-costume": "Text of the tooltip for the costuming restricitno label, that is displayed when hovered over.",
+	"multimediaviewer-restriction-costume": "Text of the tooltip for the costuming restriction label, that is displayed when hovered over.",
 	"multimediaviewer-restriction-currency": "Text of the tooltip for the currency restriction label, that is displayed when hovered over.",
 	"multimediaviewer-restriction-design": "Text of the tooltip for the copyrighted design restriction label, that is displayed when hovered over.",
 	"multimediaviewer-restriction-fan-art": "Text of the tooltip for the fan art restriction label, that is displayed when hovered over.",
