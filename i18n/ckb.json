@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Asoxor"
+			"Asoxor",
+			"Pirehelokan"
 		]
 	},
 	"multimediaviewer-repository-local": "وردەکاریی زیاتر",
@@ -14,6 +15,14 @@
 	"multimediaviewer-license-pd": "پاوانی گشتی",
 	"multimediaviewer-license-default": "مۆڵەتنامەکەی ببینە",
 	"multimediaviewer-permission-viewmore": "زیاتر ببینە",
+	"multimediaviewer-restriction-communist": "ئەم وێنەیە ئاڵای کۆمۆنیستی تێدایە کە ڕەنگە لە بڕێک وڵاتەکاندا قەدەغەکراو بێت.",
+	"multimediaviewer-restriction-costume": "ئەم وێنەیە کاستومینگ پیشان دەدات و ڕەنگە کێشەی یاسایی ھەبێت.",
+	"multimediaviewer-restriction-currency": "ئەم پەڕەیە یەکینەی پارەیەک پیشان دەدات کە ڕەنگە قەدەغەکراو بێت.",
+	"multimediaviewer-restriction-design": " ڕەنگە داڕشتنی ناوەرۆکی ئەم وێنەیە لە ژێر مافی کۆپیدا بێت و کێشەی یاسایی ھەبێت.",
+	"multimediaviewer-restriction-fan-art": "ئەم وێنەیە کاری ھۆگرێکی ھونەرە و ڕەنگە بەکارھێنانەوەی کێشەی یاسایی ھەبێت.",
+	"multimediaviewer-restriction-ihl": "ئەم وێنەیە بڕێک نیشانەی تێدایە کە لە لایەن یاسای نێودەوڵەتیی مرۆڤایەتییەوە قەدەغە کراوە.",
+	"multimediaviewer-restriction-nazi": "ئەم وێنەیە ئاڵای نازی یان ناوەرۆکی فاشیستیی تری تێدایە کە ڕەنگە لە بڕێک وڵاتەکاندا قەدەغەکراو بێت.",
+	"multimediaviewer-restriction-default": "ڕەنگە ئەم وێنەیە کێشەی یاسایی ببێت سەبارەت بە مافی کۆپی کردنەوە. بۆ زانیاریی زیاتر پەڕەی وەسفی فایلەکە ببینە.",
 	"multimediaviewer-help-mmv": "یارمەتی",
 	"multimediaviewer-geolocation": "شوێن: $1",
 	"multimediaviewer-reuse-loading-placeholder": "بارکردن..."
