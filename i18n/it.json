@@ -9,7 +9,8 @@
 			"Melos",
 			"PeppeAeco",
 			"Toadino2",
-			"Macofe"
+			"Macofe",
+			"Alexmar983"
 		]
 	},
 	"multimediaviewer-desc": "Espande le miniature in dimensioni maggiori in un'interfaccia a schermo intero.",
@@ -31,6 +32,9 @@
 	"multimediaviewer-permission-title": "Dettagli dell'autorizzazione",
 	"multimediaviewer-permission-link": "vedi termini",
 	"multimediaviewer-permission-viewmore": "Mostra altro",
+	"multimediaviewer-restriction-aus-reserve": "Questa immagine è stata fotografata in una riserva dello Stato dell'Australia e non può essere utilizzata per scopo commerciali senza autorizzazione.",
+	"multimediaviewer-restriction-currency": "Questa immagine rappresenta una raffigurazione di una unità di valuta e può essere soggetta a restrizioni legali.",
+	"multimediaviewer-restriction-nazi": "Questa immagine contiene simboli nazisti o fascisti che potrebbero essere vietati in alcuni paesi.",
 	"multimediaviewer-about-mmv": "Su Media Viewer",
 	"multimediaviewer-discuss-mmv": "Discuti su questa funzione",
 	"multimediaviewer-help-mmv": "Aiuto",
