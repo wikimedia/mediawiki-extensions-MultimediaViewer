@@ -416,6 +416,14 @@
 	 * @inheritdoc
 	 */
 	PL.log = function ( data ) {
+		// Track thumbnail load time with statsv, unsampled
+		if ( data.type === 'image'
+			&& data.imageWidth > 0
+			&& data.total > 20
+			&& $.inArray( data.imageWidth, mw.mmv.ThumbnailWidthCalculator.prototype.defaultOptions.widthBuckets ) !== -1 ) {
+			mw.track( 'timing.media.thumbnail.client.' + data.imageWidth , data.total );
+		}
+
 		if ( this.isEnabled() ) {
 			mw.log( 'mw.mmv.logging.PerformanceLogger', data );
 		}
