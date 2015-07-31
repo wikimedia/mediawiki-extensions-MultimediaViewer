@@ -1,0 +1,41 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ильнар"
+		]
+	},
+	"multimediaviewer-pref": "Медиа гизгеч",
+	"multimediaviewer-credit": "$1 - $2",
+	"multimediaviewer-credit-fallback": "Автор турында мәгълүмат",
+	"multimediaviewer-multiple-authors-combine": "$1 һәм $2",
+	"multimediaviewer-thumbnail-error": "Гафу итегез, файлны ачу мөмкин түгел",
+	"multimediaviewer-thumbnail-error-retry": "кабатлау",
+	"multimediaviewer-permission-link": "хокукларны карау",
+	"multimediaviewer-permission-link-hide": "хокукларны яшерү",
+	"multimediaviewer-permission-viewmore": "Тулырак мәгълүмат",
+	"multimediaviewer-about-mmv": "Медиа гизгеч турында",
+	"multimediaviewer-discuss-mmv": "Мөмкинлекләр турында фикер алышу",
+	"multimediaviewer-help-mmv": "Ярдәм",
+	"multimediaviewer-optout-mmv": "Медиа гизгечне ябу",
+	"multimediaviewer-optin-mmv": "Медиа гизгечне ачу",
+	"multimediaviewer-optout-pending-mmv": "Медиа гизгечне ябу",
+	"multimediaviewer-optin-pending-mmv": "Медиа гизгечне ачу",
+	"multimediaviewer-optin-help": "Рәсемнәрне курсәтү өчен медиа гизгеч кулланылачак",
+	"multimediaviewer-geolocation": "Географик урыны: $1",
+	"multimediaviewer-reuse-link": "Файлны өлү яисә бүлешү",
+	"multimediaviewer-reuse-loading-placeholder": "Йөкләү...",
+	"multimediaviewer-share-tab": "Бүлешү",
+	"multimediaviewer-embed-tab": "Кую",
+	"multimediaviewer-download-link": "Файлны йөкләү",
+	"multimediaviewer-download-preview-link-title": "Гизгечтә карау",
+	"multimediaviewer-download-original-button-name": "Төп файлны алу",
+	"multimediaviewer-download-small-button-name": "Кече зурлыкта алу",
+	"multimediaviewer-download-medium-button-name": "Уртача зурлыкта алу",
+	"multimediaviewer-download-large-button-name": "Зур зурлыкта алу",
+	"multimediaviewer-view-expanded": "Медиа гизгечтә ачу",
+	"multimediaviewer-credit-popup-text-more": "Автор һәм чыганак турында тулырак мәгълүмат",
+	"multimediaviewer-options-dialog-header": "Медиа гизгечне ябаргамы?",
+	"multimediaviewer-options-text-header": "Әлеге мөмкинлекне бөтен файллар өчен дә сүндерергә.",
+	"multimediaviewer-options-text-body": "Кирәк чакта, сез аны файл турындагы мәгълүмат битендә куша аласыз.",
+	"multimediaviewer-option-submit-button": "Медиа гизгечне ябу"
+}
