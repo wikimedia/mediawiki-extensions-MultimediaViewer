@@ -416,11 +416,14 @@
 	 * @inheritdoc
 	 */
 	PL.log = function ( data ) {
+		var trackedWidths = mw.mmv.ThumbnailWidthCalculator.prototype.defaultOptions.widthBuckets.slice(0);
+		trackedWidths.push( 600 ); // Most common non-bucket size
+
 		// Track thumbnail load time with statsv, unsampled
 		if ( data.type === 'image'
 			&& data.imageWidth > 0
 			&& data.total > 20
-			&& $.inArray( data.imageWidth, mw.mmv.ThumbnailWidthCalculator.prototype.defaultOptions.widthBuckets ) !== -1 ) {
+			&& $.inArray( data.imageWidth, trackedWidths ) !== -1 ) {
 			mw.track( 'timing.media.thumbnail.client.' + data.imageWidth , data.total );
 		}
 
