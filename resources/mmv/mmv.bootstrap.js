@@ -61,9 +61,13 @@
 
 		this.thumbsReadyDeferred = $.Deferred();
 		this.thumbs = [];
+		this.$thumbs = null; // will be set by processThumbs
 
-		this.$thumbs = $( '.gallery .image img, a.image img, #file a img' );
+		// find and setup all thumbs on this page
 		this.processThumbs();
+		// repeat this, if the page has changed, e.g. because of a
+		// finished VisualEditor edit.
+		mw.hook( 'postEdit' ).add( $.proxy( this, 'processThumbs' ) );
 
 		this.browserHistory = window.history;
 	}
@@ -144,6 +148,8 @@
 	 */
 	MMVB.processThumbs = function () {
 		var bs = this;
+
+		this.$thumbs = $( '.gallery .image img, a.image img, #file a img' );
 
 		// if this breaks in IE8, see https://github.com/ebryn/backburner.js/pull/50
 		// but it probably won't since there is a catch further up the chain
