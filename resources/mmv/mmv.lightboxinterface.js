@@ -25,13 +25,18 @@
 	 * @constructor
 	 */
 	function LightboxInterface() {
+		this.localStorage = false;
+		try {
+			this.localStorage = window.localStorage || false;
+		} catch ( e ) {}
+
 		/** @property {mw.mmv.Config} config - */
 		this.config = new mw.mmv.Config(
 			mw.config.get( 'wgMultimediaViewer', {} ),
 			mw.config,
 			mw.user,
 			new mw.Api(),
-			window.localStorage
+			this.localStorage
 		);
 
 		/**
@@ -96,7 +101,7 @@
 
 		this.setupCanvasButtons();
 
-		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$aboveFold, window.localStorage, this.config );
+		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$aboveFold, this.localStorage, this.config );
 		this.buttons = new mw.mmv.ui.CanvasButtons( this.$preDiv, this.$closeButton, this.$fullscreenButton );
 		this.canvas = new mw.mmv.ui.Canvas( this.$innerWrapper, this.$imageWrapper, this.$wrapper );
 

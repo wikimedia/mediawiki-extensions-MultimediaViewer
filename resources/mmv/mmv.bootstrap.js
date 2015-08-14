@@ -24,6 +24,12 @@
 	 * @class mw.mmv.MultimediaViewerBootstrap
 	 */
 	function MultimediaViewerBootstrap () {
+		var localStorage = false;
+
+		try {
+			localStorage = window.localStorage || false;
+		} catch ( e ) { }
+
 		this.validExtensions = {
 			'jpg' : true,
 			'jpeg' : true,
@@ -47,7 +53,7 @@
 			mw.config,
 			mw.user,
 			new mw.Api(),
-			window.localStorage
+			localStorage
 		);
 
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
