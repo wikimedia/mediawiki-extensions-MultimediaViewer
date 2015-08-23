@@ -13,7 +13,8 @@
 			"0x010C",
 			"Orikrin1998",
 			"Weft",
-			"Wladek92"
+			"Wladek92",
+			"Urhixidur"
 		]
 	},
 	"multimediaviewer-desc": "Agrandit les vignettes dans une interface en plein écran.",
@@ -23,7 +24,7 @@
 	"multimediaviewer-file-page": "Aller à la page du fichier correspondant",
 	"multimediaviewer-repository-local": "Plus de détails",
 	"multimediaviewer-datetime-created": "Création : $1",
-	"multimediaviewer-datetime-uploaded": "Téléchargé : $1",
+	"multimediaviewer-datetime-uploaded": "Téléversé : $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Téléversé}} par $1",
 	"multimediaviewer-credit": "$1 — $2",
 	"multimediaviewer-credit-fallback": "Voir les informations sur l’auteur",
