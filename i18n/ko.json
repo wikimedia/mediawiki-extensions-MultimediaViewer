@@ -8,7 +8,8 @@
 			"아라",
 			"Keysuck",
 			"Revi",
-			"IRTC1015"
+			"IRTC1015",
+			"Hwangjy9"
 		]
 	},
 	"multimediaviewer-desc": "섬네일을 전체 화면 인터페이스에서 더 큰 크기로 확장합니다.",
@@ -17,8 +18,8 @@
 	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About 미디어 뷰어]</span> 사용",
 	"multimediaviewer-file-page": "해당 파일 문서로 가기",
 	"multimediaviewer-repository-local": "더 알아보기",
-	"multimediaviewer-datetime-created": "$1에 만듦",
-	"multimediaviewer-datetime-uploaded": "$1에 올림",
+	"multimediaviewer-datetime-created": "만듦: $1",
+	"multimediaviewer-datetime-uploaded": "올림: $1",
 	"multimediaviewer-userpage-link": "$1 사용자가 {{GENDER:$2|올림}}",
 	"multimediaviewer-metadata-error": "오류: 그림 데이터를 불러오지 못했습니다. $1",
 	"multimediaviewer-thumbnail-error": "오류: 섬네일 데이터를 불러오지 못했습니다. $1",
@@ -63,7 +64,7 @@
 	"multimediaviewer-embed-license": "$1로 라이선스됨.",
 	"multimediaviewer-embed-via": "$1(을)를 통해.",
 	"multimediaviewer-default-embed-dimensions": "기본 섬네일 크기",
-	"multimediaviewer-original-embed-dimensions": "원래 크기 $1",
+	"multimediaviewer-original-embed-dimensions": "원본 파일 $1",
 	"multimediaviewer-large-embed-dimensions": "큰 크기 $1",
 	"multimediaviewer-medium-embed-dimensions": "중간 크기 $1",
 	"multimediaviewer-small-embed-dimensions": "작은 크기 $1",
