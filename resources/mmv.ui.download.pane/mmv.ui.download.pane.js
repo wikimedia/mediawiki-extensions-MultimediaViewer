@@ -274,8 +274,7 @@
 		} );
 
 		this.attributionInput.$element.find( 'input' )
-			.on( 'focus', this.selectAllOnEvent )
-			.on( 'mousedown click', this.onlyFocus );
+			.on( 'focus', this.selectAllOnEvent );
 	};
 
 	/**
@@ -288,7 +287,7 @@
 		this.$selectionArrow.off( 'click' );
 
 		this.attributionInput.$element.find( 'input' )
-			.off( 'focus mousedown click' );
+			.off( 'focus' );
 	};
 
 	/**
