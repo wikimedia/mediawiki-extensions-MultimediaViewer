@@ -70,10 +70,9 @@
 		this.$thumbs = null; // will be set by processThumbs
 
 		// find and setup all thumbs on this page
-		this.processThumbs();
-		// repeat this, if the page has changed, e.g. because of a
-		// finished VisualEditor edit.
-		mw.hook( 'postEdit' ).add( $.proxy( this, 'processThumbs' ) );
+		// this will run initially and then every time the content changes,
+		// e.g. via a VE edit or pagination in a multipage file
+		mw.hook( 'wikipage.content' ).add( $.proxy( this, 'processThumbs' ) );
 
 		this.browserHistory = window.history;
 	}
@@ -245,7 +244,8 @@
 	};
 
 	/**
-	 * Processes the main thumbnail of a file page.
+	 * Processes the main thumbnail of a file page by adding some buttons
+	 * below to open MediaViewer.
 	 * @param {jQuery} $thumb
 	 * @param {mw.Title} title
 	 */
@@ -255,6 +255,10 @@
 			$filepageButtons,
 			bs = this,
 			link = $thumb.closest( 'a' ).prop( 'href' );
+
+		// remove the buttons (and the clearing element) if they are already there
+		// this should not happen (at least until we support paged media) but just in case
+		$( '.mw-mmv-filepage-buttons' ).next().addBack().remove();
 
 		$link = $( '<a>' )
 			// It won't matter because we catch the click event anyway, but
