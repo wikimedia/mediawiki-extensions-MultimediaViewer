@@ -487,6 +487,7 @@ $wgResourceModules += array(
 		),
 
 		'dependencies' => array(
+			'mediawiki.ui.button',
 			'mediawiki.ui.icon',
 			'mediawiki.Title',
 			'mediawiki.user',
