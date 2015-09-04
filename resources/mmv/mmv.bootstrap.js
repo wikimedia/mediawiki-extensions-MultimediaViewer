@@ -41,8 +41,6 @@
 		};
 
 		// Exposed for tests
-		this.readinessCSSClass = 'mw-mmv-has-been-loaded';
-		this.readinessWaitDuration = 100;
 		this.hoverWaitDuration = 200;
 
 		// TODO lazy-load config and htmlUtils
@@ -85,7 +83,9 @@
 	 */
 	MMVB.loadViewer = function () {
 		var deferred = $.Deferred(),
-			bs = this;
+			bs = this,
+			viewer,
+			message;
 
 		// Don't load if someone has specifically stopped us from doing so
 		if ( mw.config.get( 'wgMediaViewer' ) !== true ) {
@@ -95,7 +95,17 @@
 		bs.setupOverlay();
 
 		mw.loader.using( 'mmv', function () {
-			bs.isCSSReady( deferred );
+			try {
+				viewer = bs.getViewer();
+			} catch ( e ) {
+				message = e.message;
+				if ( e.stack ) {
+					message += '\n' + e.stack;
+				}
+				deferred.reject( message );
+				return;
+			}
+			deferred.resolve( viewer );
 		}, function ( error ) {
 			deferred.reject( error.message );
 		} );
@@ -114,38 +124,6 @@
 			bs.viewerIsBroken = true;
 			mw.notify( 'Error loading MediaViewer: ' + message );
 		} );
-	};
-
-	/**
-	 * Checks if the mmv CSS has been correctly added to the page
-	 * This is a workaround for core bug 61852
-	 * @param {jQuery.Promise.<mw.mmv.MultimediaViewer>} deferred
-	 */
-	MMVB.isCSSReady = function ( deferred ) {
-		var $dummy = $( '<div class="' + this.readinessCSSClass + '">' )
-			.appendTo( $( document.body ) ),
-			bs = this,
-			viewer,
-			message;
-
-		if ( $dummy.css( 'display' ) === 'inline' ) {
-			// Let's be clean and remove the test item before resolving the deferred
-			$dummy.remove();
-			try {
-				viewer = bs.getViewer();
-			} catch ( e ) {
-				message = e.message;
-				if ( e.stack ) {
-					message += '\n' + e.stack;
-				}
-				deferred.reject( message );
-				return;
-			}
-			deferred.resolve( viewer );
-		} else {
-			$dummy.remove();
-			setTimeout( function () { bs.isCSSReady( deferred ); }, this.readinessWaitDuration );
-		}
 	};
 
 	/**

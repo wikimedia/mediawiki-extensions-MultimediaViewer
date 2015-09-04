@@ -1,8 +1,0 @@
-.mw-mmv-has-been-loaded {
-	display: inline;
-}
-/* Makes sure this has more specificity than the display: none in mmv.bootstrap.less; keep separate from previous
-   block for maximum browser compatibility */
-body.mw-mmv-lightbox-open > .mw-mmv-has-been-loaded {
-    display: inline;
-}

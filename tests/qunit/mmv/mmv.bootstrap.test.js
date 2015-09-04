@@ -408,32 +408,6 @@
 		window.location.hash = '';
 	} );
 
-	QUnit.test( 'isCSSReady', 3, function ( assert ) {
-		var bootstrap = createBootstrap(),
-			deferred = $.Deferred(),
-			CSSclass = 'foo-' + $.now(),
-			$style = $( '<style type="text/css" />' )
-				.text( '.' + CSSclass + ' { display: inline; }' );
-
-		bootstrap.readinessCSSClass = CSSclass;
-		bootstrap.isCSSReady( deferred );
-
-		assert.strictEqual( deferred.state(), 'pending', 'The style isn\'t on the page yet' );
-
-		QUnit.stop();
-
-		deferred.then( function () {
-			QUnit.start();
-			assert.ok( true, 'The style is on the page' );
-			assert.strictEqual( $( '.' + CSSclass ).length, 0, 'There are no leftover test elements' );
-			$style.remove();
-		} );
-
-		$style.appendTo( 'head' );
-
-		this.clock.tick( bootstrap.readinessWaitDuration );
-	} );
-
 	QUnit.test( 'Restoring article scroll position', 2, function ( assert ) {
 		var bootstrap = createBootstrap(),
 			scrollTop = 50,

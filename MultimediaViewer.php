@@ -201,8 +201,6 @@ $wgResourceModules += array(
 			'mmv/ui/mmv.ui.metadataPanel.less',
 			'mmv/ui/mmv.ui.metadataPanelScroller.less',
 			'mmv/mmv.lightboxinterface.less',
-			// Always make this one the last of the list (Bug 61852)
-			'mmv/mmv.loaded.css',
 		),
 
 		'dependencies' => array(
