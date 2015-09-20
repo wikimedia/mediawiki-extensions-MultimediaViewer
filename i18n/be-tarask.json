@@ -4,6 +4,7 @@
 			"Red Winged Duck"
 		]
 	},
+	"multimediaviewer-optin-pref": "Уключыць <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About мэдыяпраглядальнік]</span>",
 	"multimediaviewer-repository-local": "Падрабязьней",
 	"multimediaviewer-datetime-created": "Створаны: $1",
 	"multimediaviewer-userpage-link": "{{GENDER:$2|Загрузіў|Загрузіла}} $1",
