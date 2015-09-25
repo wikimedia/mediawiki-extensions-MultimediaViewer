@@ -193,6 +193,11 @@
 		this.handleEvent( 'mmv-faded-out', function ( e ) { ui.fadedOut( e ); } );
 		this.handleEvent( 'mmv-fade-stopped', function ( e ) { ui.fadeStopped( e ); } );
 
+		this.buttons.connect( this, {
+			'next': [ 'emit', 'next' ],
+			'prev': [ 'emit', 'prev' ]
+		} );
+
 		$parent = $( parentId || document.body );
 
 		// Clean up fullscreen data because hard-existing fullscreen might have left
@@ -407,10 +412,11 @@
 				}
 
 				if ( forward ) {
-					$( document ).trigger( $.Event( 'mmv-next' ) );
+					this.emit( 'next' );
 				} else {
-					$( document ).trigger( $.Event( 'mmv-prev' ) );
+					this.emit( 'prev' );
 				}
+
 				e.preventDefault();
 				break;
 		}

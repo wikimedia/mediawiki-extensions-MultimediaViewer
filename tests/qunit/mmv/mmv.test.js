@@ -76,7 +76,7 @@
 		// Verify that mmv doesn't reset a foreign hash
 		assert.strictEqual( window.location.hash, '#Bar', 'Foreign hash remains intact' );
 
-		viewer.ui = { images: [ image ] };
+		viewer.ui = { images: [ image ], disconnect: $.noop };
 
 		$( '#qunit-fixture' ).append( '<a class="image"><img src="' + imageSrc + '"></a>' );
 

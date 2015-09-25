@@ -94,11 +94,11 @@
 		} );
 
 		this.$next.click( function () {
-			$container.trigger( $.Event( 'mmv-next' ) );
+			buttons.emit( 'next' );
 		} );
 
 		this.$prev.click( function () {
-			$container.trigger( $.Event( 'mmv-prev' ) );
+			buttons.emit( 'prev' );
 		} );
 	}
 	oo.inheritClass( CanvasButtons, mw.mmv.ui.Element );
