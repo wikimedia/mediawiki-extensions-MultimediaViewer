@@ -944,12 +944,13 @@
 	MMVP.setupEventHandlers = function () {
 		var viewer = this;
 
+		this.ui.connect( this, {
+			'next': 'nextImage',
+			'prev': 'prevImage'
+		} );
+
 		$( document ).on( 'mmv-close.mmvp', function () {
 			viewer.close();
-		} ).on( 'mmv-next.mmvp', function () {
-			viewer.nextImage();
-		} ).on( 'mmv-prev.mmvp', function () {
-			viewer.prevImage();
 		} ).on( 'mmv-resize-end.mmvp', function () {
 			viewer.resize( viewer.ui );
 		} ).on( 'mmv-request-thumbnail.mmvp', function ( e, size ) {
@@ -969,7 +970,9 @@
 	* Unregisters all event handlers. Currently only used in tests.
 	*/
 	MMVP.cleanupEventHandlers = function () {
-		$( document ).off( 'mmv-close.mmvp mmv-next.mmvp mmv-prev.mmvp mmv-resize-end.mmvp' );
+		$( document ).off( 'mmv-close.mmvp mmv-resize-end.mmvp' );
+
+		this.ui.disconnect( this );
 	};
 
 	/**

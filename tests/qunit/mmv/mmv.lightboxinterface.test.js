@@ -257,25 +257,25 @@
 		viewer.setupEventHandlers();
 
 		// Since we define both, the test works regardless of RTL settings
-		viewer.nextImage = function () {
+		lightbox.on( 'next', function () {
 			assert.ok( true, 'Next image was open' );
-		};
+		} );
 
-		viewer.prevImage = function () {
+		lightbox.on( 'prev', function () {
 			assert.ok( true, 'Prev image was open' );
-		};
+		} );
 
 		// 37 is left arrow, 39 is right arrow
 		lightbox.keydown( $.Event( 'keydown', { which: 37 } ) );
 		lightbox.keydown( $.Event( 'keydown', { which: 39 } ) );
 
-		viewer.nextImage = function () {
+		lightbox.off( 'next' ).on( 'next', function () {
 			assert.ok( false, 'Next image should not have been open' );
-		};
+		} );
 
-		viewer.prevImage = function () {
+		lightbox.off( 'prev' ).on( 'prev', function () {
 			assert.ok( false, 'Prev image should not have been open' );
-		};
+		} );
 
 		lightbox.keydown( $.Event( 'keydown', { which: 37, altKey: true } ) );
 		lightbox.keydown( $.Event( 'keydown', { which: 39, altKey: true } ) );

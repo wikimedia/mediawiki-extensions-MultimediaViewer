@@ -18,27 +18,17 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.ui.CanvasButtons', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Prev/Next', 2, function ( assert ) {
-		var i = 0,
-			$qf = $( '#qunit-fixture' ),
-			buttons = new mw.mmv.ui.CanvasButtons( $qf, $( '<div>' ), $( '<div>' ) ),
-			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } );
+	QUnit.test( 'Prev/Next', 2, function( assert ) {
+		var $qf = $( '#qunit-fixture' ),
+			buttons = new mw.mmv.ui.CanvasButtons( $qf, $( '<div>' ), $( '<div>' ) );
 
-		viewer.ui = {};
+		buttons.on( 'next', function() {
+			assert.ok( true, 'Switched to next image' );
+		} );
 
-		viewer.loadIndex = function () {
-			assert.ok( true, 'Switched to next/prev image' );
-			i++;
-
-			if ( i === 2 ) {
-				QUnit.start();
-				viewer.cleanupEventHandlers();
-			}
-		};
-
-		viewer.setupEventHandlers();
-
-		QUnit.stop();
+		buttons.on( 'prev', function() {
+			assert.ok( true, 'Switched to prev image' );
+		} );
 
 		buttons.$next.click();
 		buttons.$prev.click();
