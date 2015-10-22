@@ -460,7 +460,9 @@
 	MPP.setUserPageLink = function ( repoData, username, gender ) {
 		var userpage = 'User:' + username,
 			articlePath = repoData.getArticlePath(),
-			userlink = articlePath.replace( '$1', userpage );
+			// articlePath is null when the imageinfo API query fails
+			userlink = ( typeof articlePath === 'string' )
+				? articlePath.replace( '$1', userpage ) : undefined;
 
 		this.$username
 			.text(

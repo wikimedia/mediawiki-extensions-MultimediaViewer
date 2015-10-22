@@ -341,19 +341,45 @@
 	 * @param {string} error error message
 	 */
 	C.showError = function ( error ) {
+		var errorDetails, description, errorUri, retryLink, reportLink,
+			canvasDimensions = this.getDimensions(),
+			thumbnailDimensions = this.getCurrentImageWidths(),
+			htmlUtils = new mw.mmv.HtmlUtils();
+
+		errorDetails = [
+			'error: ' + error,
+			'URL: ' + location.href,
+			'user agent: ' + navigator.userAgent,
+			'screen size: ' + screen.width + 'x' + screen.height,
+			'canvas size: ' + canvasDimensions.width + 'x' + canvasDimensions.height,
+			'image size: ' + this.imageRawMetadata.originalWidth + 'x' + this.imageRawMetadata.originalHeight,
+			'thumbnail size: CSS: ' + thumbnailDimensions.cssWidth + 'x' + thumbnailDimensions.cssHeight
+				+ ', screen width: ' + thumbnailDimensions.screen + ', real width: ' + thumbnailDimensions.real
+		];
+		// ** is bolding in Phabricator
+		description = '**' + mw.message( 'multimediaviewer-errorreport-privacywarning' ).text() + '**\n\n\n'
+			+ 'Error details:\n\n' + errorDetails.join( '\n' );
+		errorUri = mw.msg( 'multimediaviewer-report-issue-url', encodeURIComponent( description ) );
+
+		retryLink = $( '<a>' ).addClass( 'mw-mmv-retry-link' ).text(
+			mw.msg( 'multimediaviewer-thumbnail-error-retry' ) );
+		reportLink = $( '<a>' ).attr( 'href', errorUri ).text(
+			mw.msg( 'multimediaviewer-thumbnail-error-report' ) );
+
 		this.$imageDiv.empty()
 			.addClass( 'error' )
 			.append(
 				$( '<div>' ).addClass( 'error-box' ).append(
 					$( '<div>' ).addClass( 'mw-mmv-error-text' ).text(
-						mw.message( 'multimediaviewer-thumbnail-error' ).text()
+						mw.msg( 'multimediaviewer-thumbnail-error' )
 					)
 				).append(
 					$( '<div>' ).addClass( 'mw-mmv-error-description' ).append(
-						mw.message( 'multimediaviewer-thumbnail-error-description',
-							$( '<a>' ).addClass( 'mw-mmv-retry-link' ).text(
-								mw.message( 'multimediaviewer-thumbnail-error-retry' ).text() ),
-							error ).parse()
+						mw.msg( 'multimediaviewer-thumbnail-error-description',
+							htmlUtils.jqueryToHtml( retryLink ),
+							error,
+							htmlUtils.jqueryToHtml( reportLink )
+						)
 					)
 				)
 			);
