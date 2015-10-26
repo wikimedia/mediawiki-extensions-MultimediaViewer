@@ -175,7 +175,7 @@
 	 * @return {boolean}
 	 */
 	GuessedThumbnailInfo.prototype.canHaveLargerThumbnailThanOriginal = function ( file ) {
-		return ( file.getExtension() in this.vectorExtensions );
+		return ( file.getExtension().toLowerCase() in this.vectorExtensions );
 	};
 
 	/**
@@ -185,7 +185,7 @@
 	 * @return {boolean}
 	 */
 	GuessedThumbnailInfo.prototype.canBeDisplayedInBrowser = function ( file ) {
-		return ( file.getExtension() in this.displayableExtensions );
+		return ( file.getExtension().toLowerCase() in this.displayableExtensions );
 	};
 
 	/**
