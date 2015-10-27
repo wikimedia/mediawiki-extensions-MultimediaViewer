@@ -27,9 +27,10 @@
 	"multimediaviewer-multiple-authors-combine": "Combines the author name and the message about other authors.\n* $1 - author name, parsed from the file page\n* $2 - {{msg-mw|multimediaviewer-multiple-authors}} wrapped in a link.",
 	"multimediaviewer-metadata-error": "Text shown when the information on the metadata panel could not be loaded. Parameters:\n* $1 - the error message (not localized)\nSee also:\n* {{msg-mw|multimediaviewer-thumbnail-error}}",
 	"multimediaviewer-thumbnail-error": "Text shown when the image could not be loaded. Followed by {{msg-mw|multimediaviewer-thumbnail-error-description}}.\nSee also:\n* {{msg-mw|multimediaviewer-thumbnail-error-description}}\n* {{msg-mw|multimediaviewer-metadata-error}}",
-	"multimediaviewer-thumbnail-error-description": "Text shown when the image could not be loaded. Follows {{msg-mw|multimediaviewer-thumbnail-error}}. Parameters:\n* $1 - \"retry\" link (see {{msg-wm|multimediaviewer-thumbnail-error-retry}})\n* $2 - the error message (not localized)\nSee also:\n* {{msg-mw|multimediaviewer-thumbnail-error}}",
+	"multimediaviewer-thumbnail-error-description": "Text shown when the image could not be loaded. Follows {{msg-mw|multimediaviewer-thumbnail-error}}. Parameters:\n* $1 - \"retry\" link (see {{msg-wm|multimediaviewer-thumbnail-error-retry}})\n* $2 - the error message (not localized)\n* $3 - report link (creates a Phabricator task; see {{msg-mw|multimediaviewer-thumbnail-error-report}})\nSee also:\n* {{msg-mw|multimediaviewer-thumbnail-error}}",
 	"multimediaviewer-thumbnail-error-retry": "Used as a part of {{msg-mw|multimediaviewer-thumbnail-error-description}} (as a link text).\n{{Identical|Retry}}",
 	"multimediaviewer-report-issue-url": "{{ignored}}URL to the report issue website",
+	"multimediaviewer-thumbnail-error-report": "Used as a part of {{msg-mw|multimediaviewer-thumbnail-error-description}} (as a link text).",
 	"multimediaviewer-license-cc-by-1.0": "Very short label for the Creative Commons Attribution license, version 1.0, used in a link to the file information page that has more licensing information.\n{{Identical|CC BY}}",
 	"multimediaviewer-license-cc-sa-1.0": "Very short label for the Creative Commons ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.",
 	"multimediaviewer-license-cc-by-sa-1.0": "Very short label for the Creative Commons Attribution ShareAlike license, version 1.0, used in a link to the file information page that has more licensing information.\n{{Identical|CC BY-SA}}",
@@ -167,5 +168,6 @@
 	"multimediaviewer-enable-confirmation-text": "Text confirming that the user successfully re-enabled the media viewer. $1 is the wiki's name.",
 	"multimediaviewer-enable-alert": "Text shown in the enable panel to alert the user that the media viewer is currently disabled.",
 	"multimediaviewer-disable-info-title": "Used as title for {{msg-mw|Multimediaviewer-disable-info}}.",
-	"multimediaviewer-disable-info": "The title for this message is {{msg-mw|Multimediaviewer-disable-info-title}}."
+	"multimediaviewer-disable-info": "The title for this message is {{msg-mw|Multimediaviewer-disable-info-title}}.",
+	"multimediaviewer-errorreport-privacywarning": "A warning that is included in the Phabricator error report that's generated when the user clicks on the report link on an error page."
 }
