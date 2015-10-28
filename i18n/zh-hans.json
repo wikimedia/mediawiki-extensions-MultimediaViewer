@@ -30,8 +30,9 @@
 	"multimediaviewer-multiple-authors-combine": "$1和$2",
 	"multimediaviewer-metadata-error": "无法加载图片的详细信息（错误：$1）",
 	"multimediaviewer-thumbnail-error": "抱歉，文件不能被显示",
-	"multimediaviewer-thumbnail-error-description": "看起来发生了技术问题。您可以$1，或如果仍然发生，可[{{int:multimediaviewer-report-issue-url}} 报告问题]。错误：$2",
+	"multimediaviewer-thumbnail-error-description": "看起来发生了技术问题。您可以$1，或如果仍然发生，可$3。错误：$2",
 	"multimediaviewer-thumbnail-error-retry": "重试",
+	"multimediaviewer-thumbnail-error-report": "报告问题",
 	"multimediaviewer-license-cc-by-1.0": "知识共享 署名 1.0",
 	"multimediaviewer-license-cc-by-sa-1.0": "CC BY-SA 1.0",
 	"multimediaviewer-license-cc-by-2.0": "知识共享 署名 2.0",
@@ -160,5 +161,6 @@
 	"multimediaviewer-enable-confirmation-text": "下次当您在$1点击一个缩略图时，媒体查看器将被使用。",
 	"multimediaviewer-enable-alert": "媒体查看器已禁用",
 	"multimediaviewer-disable-info-title": "您已禁用媒体查看器",
-	"multimediaviewer-disable-info": "您仍可通过媒体查看器查看个别文件。"
+	"multimediaviewer-disable-info": "您仍可通过媒体查看器查看个别文件。",
+	"multimediaviewer-errorreport-privacywarning": "错误的详细信息已附加于报告中，它将公开可见。如果您对此感到不适，您可以编辑下方的报告并移除所有您不希望分享的数据。"
 }

@@ -23,8 +23,9 @@
 	"multimediaviewer-multiple-authors-combine": "$1 $2",
 	"multimediaviewer-metadata-error": "לא היה ניתן לטעון את פרטי התמונה. (שגיאה: $1)",
 	"multimediaviewer-thumbnail-error": "סליחה, לא ניתן להציג את הקובץ",
-	"multimediaviewer-thumbnail-error-description": "נראה שיש בעיה טכנית. באפשרותך $1 או [{{int:multimediaviewer-report-issue-url}} לדווח את הבעיה] אם היא ממשיכה. שגיאה: $2",
+	"multimediaviewer-thumbnail-error-description": "נראה שיש בעיה טכנית. באפשרותך $1 או $3 אם היא ממשיכה. שגיאה: $2",
 	"multimediaviewer-thumbnail-error-retry": "לנסות שוב",
+	"multimediaviewer-thumbnail-error-report": "לדווח את הבעיה",
 	"multimediaviewer-license-cc-pd": "נחלת הכלל",
 	"multimediaviewer-license-pd": "נחלת הכלל",
 	"multimediaviewer-license-default": "הצגת הרישיון",
@@ -138,5 +139,6 @@
 	"multimediaviewer-enable-confirmation-text": "בלחיצה הבאה על תמונה ממוזערת ב{{GRAMMAR:תחילית|$1}} ישמש מציג המדיה.",
 	"multimediaviewer-enable-alert": "מציג המדיה כבוי עכשיו",
 	"multimediaviewer-disable-info-title": "כיבית את מציג המדיה",
-	"multimediaviewer-disable-info": "היכולת עדיין להציג קבצים בודדים עם מציג המדיה."
+	"multimediaviewer-disable-info": "היכולת עדיין להציג קבצים בודדים עם מציג המדיה.",
+	"multimediaviewer-errorreport-privacywarning": "פרטי השגיאה מצורפים לדו\"ח, שיהיה זמין לצפייה באופן ציבורי. אם זה לא מתאים לך, באפשרותך לערוך את הדו\"ח להלן ולמחוק את כל הנתונים שאין ברצונך לשתף."
 }

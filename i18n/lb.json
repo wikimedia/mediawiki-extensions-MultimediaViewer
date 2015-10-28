@@ -13,6 +13,7 @@
 	"multimediaviewer-multiple-authors": "{{PLURAL:$1|ee weideren Auteur|$1 weider Auteuren}}",
 	"multimediaviewer-multiple-authors-combine": "$1 a(n) $2",
 	"multimediaviewer-metadata-error": "Detailer vum Bild konten net geluede ginn (Feeler: $1)",
+	"multimediaviewer-thumbnail-error-report": "de Problem mellen",
 	"multimediaviewer-license-cc-by-4.0": "CC BY 4.0",
 	"multimediaviewer-license-cc-by-sa-4.0": "CC BY-SA 4.0",
 	"multimediaviewer-license-pd": "Ëffentlechen Domaine",
