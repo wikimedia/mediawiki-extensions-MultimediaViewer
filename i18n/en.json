@@ -161,5 +161,5 @@
 	"multimediaviewer-enable-alert": "Media Viewer is now disabled",
 	"multimediaviewer-disable-info-title": "You have disabled Media Viewer",
 	"multimediaviewer-disable-info": "You can still view individual files with Media Viewer.",
-	"multimediaviewer-errorreport-privacywarning": "Details of the error are atteched to the report, which will be publicly viewable. If you are not comfortable with that, you can edit the report below and remove all data you don't want to share."
+	"multimediaviewer-errorreport-privacywarning": "Details of the error are attached to the report, which will be publicly viewable. If you are not comfortable with that, you can edit the report below and remove all the data you don't want to share."
 }
