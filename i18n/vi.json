@@ -3,7 +3,8 @@
 		"authors": [
 			"Minh Nguyen",
 			"Withoutaname",
-			"Max20091"
+			"Max20091",
+			"Macofe"
 		]
 	},
 	"multimediaviewer-desc": "Mở các hình nhỏ lớn hơn trong giao diện toàn màn hình.",
@@ -21,8 +22,9 @@
 	"multimediaviewer-multiple-authors-combine": "$1 và $2",
 	"multimediaviewer-metadata-error": "Không thể tải chi tiết hình ảnh (lỗi: $1)",
 	"multimediaviewer-thumbnail-error": "Rất tiếc, không thể hiển thị tập tin",
-	"multimediaviewer-thumbnail-error-description": "Hình như đã gặp vấn đề về kỹ thuật. Bạn có thể $1 hoặc [{{int:multimediaviewer-report-issue-url}} báo cáo về vấn đề] nếu tiếp tục xảy ra. Lỗi: $2",
+	"multimediaviewer-thumbnail-error-description": "Hình như đã gặp vấn đề về kỹ thuật. Bạn có thể $1 hoặc $3 nếu tiếp tục xảy ra. Lỗi: $2",
 	"multimediaviewer-thumbnail-error-retry": "thử lại",
+	"multimediaviewer-thumbnail-error-report": "báo cáo về vấn đề",
 	"multimediaviewer-license-cc-by-4.0": "CC-BY 4.0",
 	"multimediaviewer-license-cc-by-sa-4.0": "CC-BY-SA 4.0",
 	"multimediaviewer-license-cc-pd": "Phạm vi công cộng",

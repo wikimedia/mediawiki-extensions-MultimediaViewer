@@ -5,7 +5,8 @@
 			"Ата",
 			"Sergento",
 			"Olion",
-			"Piramidion"
+			"Piramidion",
+			"Macofe"
 		]
 	},
 	"multimediaviewer-desc": "Розгорнути мініатюри в більшому розмірі у лайтбоксі.",
@@ -22,8 +23,9 @@
 	"multimediaviewer-multiple-authors-combine": "$1 і $2",
 	"multimediaviewer-metadata-error": "Не вдалося завантажити дані зображення (помилка: $1)",
 	"multimediaviewer-thumbnail-error": "Вибачте, файл не можна відобразити",
-	"multimediaviewer-thumbnail-error-description": "Схоже, виникла технічна проблема. Ви можете $1 або [{{int:multimediaviewer-report-issue-url}} повідомити про проблему], якщо вона збережеться. Помилка: $2",
+	"multimediaviewer-thumbnail-error-description": "Схоже, виникла технічна проблема. Ви можете $1 або $3, якщо вона збережеться. Помилка: $2",
 	"multimediaviewer-thumbnail-error-retry": "повторити",
+	"multimediaviewer-thumbnail-error-report": "повідомити про проблему",
 	"multimediaviewer-license-cc-pd": "Суспільне надбання",
 	"multimediaviewer-license-pd": "Суспільне надбання (Public Domain)",
 	"multimediaviewer-license-default": "Перегляд ліцензії",

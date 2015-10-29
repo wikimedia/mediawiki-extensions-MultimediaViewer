@@ -19,8 +19,9 @@
 	"multimediaviewer-multiple-authors-combine": "$1 и $2",
 	"multimediaviewer-metadata-error": "Не можев да ги вчитам податоците за сликата. (грешка: $1)",
 	"multimediaviewer-thumbnail-error": "За жал, не можев да ја прикажам податотеката",
-	"multimediaviewer-thumbnail-error-description": "Имаме технички проблем. Можете да $1 или [{{int:multimediaviewer-report-issue-url}} да го пријавите проблемот] ако упрно се јавува. Грешка: $2",
+	"multimediaviewer-thumbnail-error-description": "Имаме технички проблем. Можете да $1 или $3 ако упрно се јавува. Грешка: $2",
 	"multimediaviewer-thumbnail-error-retry": "пробај пак",
+	"multimediaviewer-thumbnail-error-report": "го пријавите проблемот",
 	"multimediaviewer-license-cc-by-4.0": "CC BY 4.0",
 	"multimediaviewer-license-cc-by-sa-4.0": "CC BY-SA 4.0",
 	"multimediaviewer-license-cc-pd": "Јавна сопственост",
@@ -142,5 +143,6 @@
 	"multimediaviewer-enable-confirmation-text": "Следен пат кога ќе стиснете на минијатура на $1, податотеката ќе ви се отвори во Прегледувачот.",
 	"multimediaviewer-enable-alert": "Прегледувачот сега ви е исклучен",
 	"multimediaviewer-disable-info-title": "Прегледувачот ви е исклучен",
-	"multimediaviewer-disable-info": "Сè уште можете да прегледувате поединечни податотеки со Прегледувачот."
+	"multimediaviewer-disable-info": "Сè уште можете да прегледувате поединечни податотеки со Прегледувачот.",
+	"multimediaviewer-errorreport-privacywarning": "Во извештајот се приложени подровности за грешката, кои ќе бидат јавно видливи. Доколку тоа ви пречи, можете да го измените извештајот подолу, отстранувајќи ги податоците што не сакате да се знаат."
 }

@@ -7,7 +7,8 @@
 			"Meshkov.a",
 			"Wizardist",
 			"Striking Blue",
-			"Dağlı95"
+			"Dağlı95",
+			"Macofe"
 		]
 	},
 	"multimediaviewer-desc": "Раскрывает эскизы в большие изображения на весь экран.",
@@ -24,8 +25,9 @@
 	"multimediaviewer-multiple-authors-combine": "$1 и $2",
 	"multimediaviewer-metadata-error": "Не удалось загрузить данные изображения (ошибка: $1)",
 	"multimediaviewer-thumbnail-error": "Извините, файл не может быть отображён",
-	"multimediaviewer-thumbnail-error-description": "Похоже, возникла какая-то техническая проблема. Вы можете $1 или [{{int:multimediaviewer-report-issue-url}} сообщить о проблеме], если он будет повторяться. Ошибка: $2",
+	"multimediaviewer-thumbnail-error-description": "Похоже, возникла какая-то техническая проблема. Вы можете $1 или $3, если он будет повторяться. Ошибка: $2",
 	"multimediaviewer-thumbnail-error-retry": "повторить",
+	"multimediaviewer-thumbnail-error-report": "сообщить о проблеме",
 	"multimediaviewer-license-cc-pd": "Общественное достояние",
 	"multimediaviewer-license-pd": "Общественное достояние",
 	"multimediaviewer-license-default": "Просмотр лицензии",

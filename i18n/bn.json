@@ -3,7 +3,8 @@
 		"authors": [
 			"Aftab1995",
 			"Tauhid16",
-			"Aftabuzzaman"
+			"Aftabuzzaman",
+			"Macofe"
 		]
 	},
 	"multimediaviewer-desc": "একটি পূর্ণস্ক্রিন ইন্টারফেসের মধ্যে একটি বড় মাপের থাম্বনেল প্রসারিত করে।",
@@ -20,8 +21,9 @@
 	"multimediaviewer-multiple-authors-combine": "$1 এবং $2",
 	"multimediaviewer-metadata-error": "চিত্রের বিস্তারিত লোড করা যায়নি (ত্রুটি: $1)",
 	"multimediaviewer-thumbnail-error": "দুঃখিত, ফাইলটি প্রদর্শন করা যাবে না",
-	"multimediaviewer-thumbnail-error-description": "এখানে একটি প্রযুক্তিগত সমস্যা আছে বলে মনে হচ্ছে। যদি এটি চলতেই থাকে তাহলে আপনি $1 করতে বা [{{int:multimediaviewer-report-issue-url}} সমস্যা প্রতিবেদন করতে] পারেন। ত্রুটি: $2",
+	"multimediaviewer-thumbnail-error-description": "এখানে একটি প্রযুক্তিগত সমস্যা আছে বলে মনে হচ্ছে। যদি এটি চলতেই থাকে তাহলে আপনি $1 করতে বা $3 পারেন। ত্রুটি: $2",
 	"multimediaviewer-thumbnail-error-retry": "পুনঃচেষ্টা",
+	"multimediaviewer-thumbnail-error-report": "সমস্যা প্রতিবেদন করতে",
 	"multimediaviewer-license-cc-pd": "পাবলিক ডোমেইন",
 	"multimediaviewer-license-pd": "পাবলিক ডোমেইন",
 	"multimediaviewer-license-default": "লাইসেন্স দেখুন",

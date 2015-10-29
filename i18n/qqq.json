@@ -9,7 +9,8 @@
 			"Mormegil",
 			"Amire80",
 			"Tacsipacsi",
-			"Wladek92"
+			"Wladek92",
+			"Pikne"
 		]
 	},
 	"multimediaviewer-desc": "{{desc|name=Multimedia Viewer|url=https://www.mediawiki.org/wiki/Extension:MultimediaViewer}}",
@@ -27,7 +28,7 @@
 	"multimediaviewer-multiple-authors-combine": "Combines the author name and the message about other authors.\n* $1 - author name, parsed from the file page\n* $2 - {{msg-mw|multimediaviewer-multiple-authors}} wrapped in a link.",
 	"multimediaviewer-metadata-error": "Text shown when the information on the metadata panel could not be loaded. Parameters:\n* $1 - the error message (not localized)\nSee also:\n* {{msg-mw|multimediaviewer-thumbnail-error}}",
 	"multimediaviewer-thumbnail-error": "Text shown when the image could not be loaded. Followed by {{msg-mw|multimediaviewer-thumbnail-error-description}}.\nSee also:\n* {{msg-mw|multimediaviewer-thumbnail-error-description}}\n* {{msg-mw|multimediaviewer-metadata-error}}",
-	"multimediaviewer-thumbnail-error-description": "Text shown when the image could not be loaded. Follows {{msg-mw|multimediaviewer-thumbnail-error}}. Parameters:\n* $1 - \"retry\" link (see {{msg-wm|multimediaviewer-thumbnail-error-retry}})\n* $2 - the error message (not localized)\n* $3 - report link (creates a Phabricator task; see {{msg-mw|multimediaviewer-thumbnail-error-report}})\nSee also:\n* {{msg-mw|multimediaviewer-thumbnail-error}}",
+	"multimediaviewer-thumbnail-error-description": "Text shown when the image could not be loaded. Follows {{msg-mw|multimediaviewer-thumbnail-error}}. Parameters:\n* $1 - \"retry\" link (see {{msg-mw|multimediaviewer-thumbnail-error-retry}})\n* $2 - the error message (not localized)\n* $3 - report link (creates a Phabricator task; see {{msg-mw|multimediaviewer-thumbnail-error-report}})\nSee also:\n* {{msg-mw|multimediaviewer-thumbnail-error}}",
 	"multimediaviewer-thumbnail-error-retry": "Used as a part of {{msg-mw|multimediaviewer-thumbnail-error-description}} (as a link text).\n{{Identical|Retry}}",
 	"multimediaviewer-thumbnail-error-report": "Used as a part of {{msg-mw|multimediaviewer-thumbnail-error-description}} (as a link text).",
 	"multimediaviewer-report-issue-url": "{{ignored}}URL to the report issue website",

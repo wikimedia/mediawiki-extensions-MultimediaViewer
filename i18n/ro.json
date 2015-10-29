@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Minisarm"
+			"Minisarm",
+			"Macofe"
 		]
 	},
 	"multimediaviewer-desc": "Extinde miniaturile la o dimensiune mai mare într-o interfață pe tot ecranul.",
@@ -18,8 +19,9 @@
 	"multimediaviewer-multiple-authors-combine": "$1 și $2",
 	"multimediaviewer-metadata-error": "Nu s-au putut încărca detaliile imaginii (eroare: $1).",
 	"multimediaviewer-thumbnail-error": "Din păcate fișierul nu poate fi afișat",
-	"multimediaviewer-thumbnail-error-description": "Se pare că a apărut o eroare tehnică. Puteți să $1 sau [{{int:multimediaviewer-report-issue-url}} să raportați problema] dacă aceasta persistă. Eroare: $2",
+	"multimediaviewer-thumbnail-error-description": "Se pare că a apărut o eroare tehnică. Puteți să $1 sau $3 dacă aceasta persistă. Eroare: $2",
 	"multimediaviewer-thumbnail-error-retry": "reîncercați",
+	"multimediaviewer-thumbnail-error-report": "să raportați problema",
 	"multimediaviewer-license-cc-pd": "Domeniu public",
 	"multimediaviewer-license-pd": "Domeniu public",
 	"multimediaviewer-license-default": "Vezi licența",

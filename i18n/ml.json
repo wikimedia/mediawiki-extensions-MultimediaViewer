@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Clockery",
-			"Praveenp"
+			"Praveenp",
+			"Macofe"
 		]
 	},
 	"multimediaviewer-desc": "ലഘുചിത്രങ്ങൾ ഫുൾസ്ക്രീനായി വികസിപ്പിക്കുക",
@@ -19,8 +20,9 @@
 	"multimediaviewer-multiple-authors-combine": "$1 ഒപ്പം $2",
 	"multimediaviewer-metadata-error": "ചിത്രത്തിന്റെ വിവരങ്ങൾ എടുക്കാൻ കഴിഞ്ഞില്ല (പിഴവ്: $1)",
 	"multimediaviewer-thumbnail-error": "ക്ഷമിക്കണം, പ്രമാണം പ്രദർശിപ്പിക്കാനാവില്ല",
-	"multimediaviewer-thumbnail-error-description": "എന്തോ ഒരു സാങ്കേതിക പ്രശ്നമുണ്ടെന്ന് തോന്നുന്നു. താങ്കൾ ഒന്നെങ്കിൽ $1 അല്ലെങ്കിൽ ഇത് സ്ഥിരമായിട്ട് ഉണ്ടെങ്കിൽ [{{int:multimediaviewer-report-issue-url}} പ്രശ്നമാണെന്ന് അറിയിക്കുക].\nപിഴവ്: $2",
+	"multimediaviewer-thumbnail-error-description": "എന്തോ ഒരു സാങ്കേതിക പ്രശ്നമുണ്ടെന്ന് തോന്നുന്നു. താങ്കൾ ഒന്നെങ്കിൽ $1 അല്ലെങ്കിൽ ഇത് സ്ഥിരമായിട്ട് ഉണ്ടെങ്കിൽ $3.\nപിഴവ്: $2",
 	"multimediaviewer-thumbnail-error-retry": "വീണ്ടും ശ്രമിക്കുക",
+	"multimediaviewer-thumbnail-error-report": "പ്രശ്നമാണെന്ന് അറിയിക്കുക",
 	"multimediaviewer-license-cc-by-1.0": "സി.സി. ബൈ 1.0",
 	"multimediaviewer-license-cc-sa-1.0": "സി.സി. എസ്.എ. 1.0",
 	"multimediaviewer-license-cc-by-sa-1.0": "സി.സി. ബൈ-എസ്.എ. 1.0",

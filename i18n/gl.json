@@ -3,7 +3,8 @@
 		"authors": [
 			"Toliño",
 			"Vivaelcelta",
-			"Elisardojm"
+			"Elisardojm",
+			"Macofe"
 		]
 	},
 	"multimediaviewer-desc": "Expande as miniaturas ata un tamaño maior dentro dunha interface a pantalla completa.",
@@ -20,8 +21,9 @@
 	"multimediaviewer-multiple-authors-combine": "$1 e $2",
 	"multimediaviewer-metadata-error": "Non se puideron cargar os detalles da imaxe (erro: $1)",
 	"multimediaviewer-thumbnail-error": "Sentímolo, non se pode mostrar o ficheiro",
-	"multimediaviewer-thumbnail-error-description": "Semella haber un problema técnico. Pode $1 ou [{{int:multimediaviewer-report-issue-url}} informar sobre o problema] se persiste. Erro: $2",
+	"multimediaviewer-thumbnail-error-description": "Semella haber un problema técnico. Pode $1 ou $3 se persiste. Erro: $2",
 	"multimediaviewer-thumbnail-error-retry": "reintentar",
+	"multimediaviewer-thumbnail-error-report": "informar sobre o problema",
 	"multimediaviewer-license-cc-pd": "Dominio público",
 	"multimediaviewer-license-pd": "Dominio público",
 	"multimediaviewer-license-default": "Ver a licenza",

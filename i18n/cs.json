@@ -6,7 +6,8 @@
 			"Rosnicka.kacka",
 			"Utar",
 			"Dominikmatus",
-			"Littledogboy"
+			"Littledogboy",
+			"Macofe"
 		]
 	},
 	"multimediaviewer-desc": "Zvětší náhledy obrázků do celoobrazovkového rozhraní.",
@@ -24,8 +25,9 @@
 	"multimediaviewer-multiple-authors-combine": "$1 a $2",
 	"multimediaviewer-metadata-error": "Nelze načíst podrobnosti k obrázku (chyba: $1)",
 	"multimediaviewer-thumbnail-error": "Je nám líto, soubor nelze zobrazit",
-	"multimediaviewer-thumbnail-error-description": "Vypadá to na technické potíže. Můžete to $1 nebo [{{int:multimediaviewer-report-issue-url}} problém nahlásit], pokud se to nezlepší. Chyba: $2",
+	"multimediaviewer-thumbnail-error-description": "Vypadá to na technické potíže. Můžete to $1 nebo $3, pokud se to nezlepší. Chyba: $2",
 	"multimediaviewer-thumbnail-error-retry": "zkusit znovu",
+	"multimediaviewer-thumbnail-error-report": "problém nahlásit",
 	"multimediaviewer-license-cc-pd": "Volné dílo",
 	"multimediaviewer-license-pd": "Volné dílo",
 	"multimediaviewer-license-default": "Zobrazit licenci",

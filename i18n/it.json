@@ -26,6 +26,7 @@
 	"multimediaviewer-multiple-authors-combine": "$1 e $2",
 	"multimediaviewer-metadata-error": "Impossibile caricare i dettagli dell'immagine (errore: $1)",
 	"multimediaviewer-thumbnail-error": "Spiacenti, il file non può essere visualizzato",
+	"multimediaviewer-thumbnail-error-report": "segnalare il problema",
 	"multimediaviewer-license-cc-pd": "Pubblico dominio",
 	"multimediaviewer-license-pd": "Pubblico dominio",
 	"multimediaviewer-license-default": "Vedi la licenza",
