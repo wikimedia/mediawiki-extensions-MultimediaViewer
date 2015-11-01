@@ -27,6 +27,7 @@
 	"multimediaviewer-metadata-error": "Kunde inte läsa in bilddetaljer. (Fel: $1)",
 	"multimediaviewer-thumbnail-error": "Tyvärr, filen kan inte visas",
 	"multimediaviewer-thumbnail-error-retry": "försök igen",
+	"multimediaviewer-thumbnail-error-report": "rapportera problemet",
 	"multimediaviewer-license-cc-by-4.0": "CC BY 4.0",
 	"multimediaviewer-license-cc-by-sa-4.0": "CC BY-SA 4.0",
 	"multimediaviewer-license-cc-pd": "Public Domain",

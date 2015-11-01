@@ -6,7 +6,8 @@
 			"Ptrke",
 			"TheEduGobi",
 			"Araceletorres",
-			"Macofe"
+			"Macofe",
+			"Eduardo Addad de Oliveira"
 		]
 	},
 	"multimediaviewer-desc": "Expandir miniaturas em tamanho maior numa interface em tela cheia.",
@@ -120,5 +121,6 @@
 	"multimediaviewer-enable-confirmation-text": "Da próxima vez que você clicar numa miniatura em $1, o visualizador multimídia será usado.",
 	"multimediaviewer-enable-alert": "O visualizador multimídia agora está desativado",
 	"multimediaviewer-disable-info-title": "Você desativou o visualizador multimídia",
-	"multimediaviewer-disable-info": "Você pode ainda ver os arquivos individuais com o visualizador multimídia."
+	"multimediaviewer-disable-info": "Você pode ainda ver os arquivos individuais com o visualizador multimídia.",
+	"multimediaviewer-errorreport-privacywarning": "Os detalhes do erro são anexados ao relatório, que será visível publicamente. Se você não está confortável com isso, você pode editar o relatório abaixo e remover todos os dados que você não deseja compartilhar."
 }
