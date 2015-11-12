@@ -17,7 +17,7 @@
 	"multimediaviewer-credit-fallback": "Vis info om opphavsperson",
 	"multimediaviewer-multiple-authors": "{{PLURAL:$1|én annen forfatter|$1 andre forfattere}}",
 	"multimediaviewer-multiple-authors-combine": "$1 og $2",
-	"multimediaviewer-metadata-error": "Kunne ikke hente bildedata (feil: $1)",
+	"multimediaviewer-metadata-error": "Klarte ikke laste bildedetaljer (feil: $1)",
 	"multimediaviewer-thumbnail-error": "Beklager, filen kunne ikke vises",
 	"multimediaviewer-thumbnail-error-retry": "prøv igjen",
 	"multimediaviewer-license-cc-pd": "Offentlig eiendom",
