@@ -146,5 +146,6 @@
 	"multimediaviewer-enable-confirmation-text": "Lần sau khi bạn nhấn chuột vào một hình nhỏ trên $1, nó sẽ xuất hiện trong cửa sổ phương tiện.",
 	"multimediaviewer-enable-alert": "Cửa sổ phương tiện đã tắt",
 	"multimediaviewer-disable-info-title": "Đã tắt cửa sổ phương tiện",
-	"multimediaviewer-disable-info": "Bạn vẫn có thể xem tập tin riêng trong cửa sổ phương tiện."
+	"multimediaviewer-disable-info": "Bạn vẫn có thể xem tập tin riêng trong cửa sổ phương tiện.",
+	"multimediaviewer-errorreport-privacywarning": "Các chi tiết lỗi được đính kèm vào bản báo cáo công khai. Nếu bạn không đồng ý với điều này, bạn có thể sửa đổi bản báo cáo bên dưới và xóa tất cả dữ liệu mà bạn không muốn chia sẻ."
 }
