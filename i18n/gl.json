@@ -132,5 +132,6 @@
 	"multimediaviewer-enable-confirmation-text": "A vindeira vez que prema nunha miniatura en $1 usarase o visor de ficheiros multimedia.",
 	"multimediaviewer-enable-alert": "O visor de ficheiros multimedia está agora desactivado",
 	"multimediaviewer-disable-info-title": "Desactivou o visor de ficheiros multimedia",
-	"multimediaviewer-disable-info": "Pode seguir vendo algúns ficheiros co visor de ficheiros multimedia."
+	"multimediaviewer-disable-info": "Pode seguir vendo algúns ficheiros co visor de ficheiros multimedia.",
+	"multimediaviewer-errorreport-privacywarning": "Os detalles do erro achegáronse no informe, que será visible publicamente. Se non concorda con isto, pode editar o informe de abaixo e eliminar todos os datos que non queira compartir."
 }
