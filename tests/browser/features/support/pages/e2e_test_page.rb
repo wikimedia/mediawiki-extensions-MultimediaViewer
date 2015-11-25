@@ -1,7 +1,7 @@
 class E2ETestPage < CommonsPage
   include PageObject
 
-  page_url URL.url("MediaViewerE2ETest")
+  page_url "MediaViewerE2ETest"
 
   # Tag page elements that we will need.
 

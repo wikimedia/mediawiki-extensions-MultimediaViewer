@@ -4,27 +4,27 @@ end
 
 Given /^I visit the Commons page$/ do
   @commons_open_time = Time.now.getutc
-  @browser.goto "https://commons.wikimedia.org/wiki/File:Sunrise_over_fishing_boats_in_Kerala.jpg"
+  browser.goto "https://commons.wikimedia.org/wiki/File:Sunrise_over_fishing_boats_in_Kerala.jpg"
 end
 
 Given /^I visit an unrelated Commons page to warm up the browser cache$/ do
-  @browser.goto "https://commons.wikimedia.org/wiki/File:Wikimedia_Foundation_2013_All_Hands_Offsite_-_Day_2_-_Photo_16.jpg"
+  browser.goto "https://commons.wikimedia.org/wiki/File:Wikimedia_Foundation_2013_All_Hands_Offsite_-_Day_2_-_Photo_16.jpg"
 end
 
 Given /^I have a small browser window$/ do
-  @browser.window.resize_to 900, 700
+  browser.window.resize_to 900, 700
 end
 
 Given /^I have an average browser window$/ do
-  @browser.window.resize_to 1366, 768
+  browser.window.resize_to 1366, 768
 end
 
 Given /^I have a large browser window$/ do
-  @browser.window.resize_to 1920, 1080
+  browser.window.resize_to 1920, 1080
 end
 
 Given /^I am using a custom user agent$/ do
-  @browser = browser(test_name(@scenario), user_agent: ENV["BROWSER_USERAGENT"])
+  browser(test_name(@scenario), user_agent: env[:browser_useragent])
 end
 
 Then /^the File: page image is loaded$/ do
