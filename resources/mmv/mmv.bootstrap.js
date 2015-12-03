@@ -79,9 +79,10 @@
 
 	/**
 	 * Loads the mmv module asynchronously and passes the thumb data to it
+	 * @param {boolean} [setupOverlay]
 	 * @returns {jQuery.Promise}
 	 */
-	MMVB.loadViewer = function () {
+	MMVB.loadViewer = function ( setupOverlay ) {
 		var deferred = $.Deferred(),
 			bs = this,
 			viewer,
@@ -92,7 +93,14 @@
 			return deferred.reject();
 		}
 
-		bs.setupOverlay();
+		// FIXME setupOverlay is a quick hack to avoid setting up and immediately
+		// removing the overlay on a not-MMV -> not-MMV hash change.
+		// loadViewer is called on every click and hash change and setting up
+		// the overlay is not needed on all of those; this logic really should
+		// not be here.
+		if ( setupOverlay ) {
+			bs.setupOverlay();
+		}
 
 		mw.loader.using( 'mmv', function () {
 			try {
@@ -373,7 +381,7 @@
 
 		this.ensureEventHandlersAreSetUp();
 
-		return this.loadViewer().then( function ( viewer ) {
+		return this.loadViewer( true ).then( function ( viewer ) {
 			viewer.loadImageByTitle( title, true );
 		} );
 	};
@@ -410,7 +418,15 @@
 		return false;
 	};
 
-
+	/**
+	 * Returns true if the hash part of the current URL is one that's owned by MMV.
+	 * @returns {boolean}
+	 * @private
+	 */
+	MMVB.isViewerHash = function () {
+		return window.location.hash.indexOf( '#mediaviewer/' ) === 0 ||
+			window.location.hash.indexOf( '#/media/' ) === 0;
+	};
 
 	/**
 	 * Handles the browser location hash on pageload or hash change
@@ -421,9 +437,7 @@
 
 		// There is no point loading the mmv if it isn't loaded yet for hash changes unrelated to the mmv
 		// Such as anchor links on the page
-		if ( !this.viewerInitialized
-			&& window.location.hash.indexOf( '#mediaviewer/' ) !== 0
-			&& window.location.hash.indexOf( '#/media/' ) !== 0 ) {
+		if ( !this.viewerInitialized && !this.isViewerHash() ) {
 			return;
 		}
 
@@ -432,7 +446,7 @@
 			return;
 		}
 
-		this.loadViewer().then( function ( viewer ) {
+		this.loadViewer( this.isViewerHash() ).then( function ( viewer ) {
 			viewer.hash();
 			// this is an ugly temporary fix to avoid a black screen of death when
 			// the page is loaded with an invalid MMV url

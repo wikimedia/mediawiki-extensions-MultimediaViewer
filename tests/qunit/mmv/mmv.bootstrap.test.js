@@ -56,7 +56,7 @@
 		// MediaViewer should work without it, and so should the tests.
 		bootstrap.ensureEventHandlersAreSetUp = $.noop;
 
-		bootstrap.getViewer = function () { return viewer ? viewer : { initWithThumbs: $.noop }; };
+		bootstrap.getViewer = function () { return viewer ? viewer : { initWithThumbs: $.noop, hash: $.noop }; };
 
 		return bootstrap;
 	}
@@ -106,7 +106,7 @@
 
 		QUnit.stop();
 
-		bootstrap.loadViewer().fail( function ( message ) {
+		bootstrap.loadViewer( true ).fail( function ( message ) {
 			assert.strictEqual( message, errorMessage, 'promise is rejected with the error message when loading fails' );
 			QUnit.start();
 		} );
@@ -363,6 +363,33 @@
 		hashTest( 'mediaviewer', bootstrap, assert );
 	} );
 
+	QUnit.test( 'Overlay is set up on hash change', 1, function( assert ) {
+		var bootstrap;
+
+		window.location.hash = '#/media/foo';
+
+		bootstrap = createBootstrap();
+		this.sandbox.stub( bootstrap, 'setupOverlay' );
+
+		bootstrap.hash();
+
+		assert.ok( bootstrap.setupOverlay.called, 'Overlay is set up' );
+	} );
+
+	QUnit.test( 'Overlay is not set up on an irrelevant hash change', 1, function( assert ) {
+		var bootstrap;
+
+		window.location.hash = '#foo';
+
+		bootstrap = createBootstrap();
+		this.sandbox.stub( bootstrap, 'setupOverlay' );
+		bootstrap.loadViewer();
+		bootstrap.setupOverlay.reset();
+
+		bootstrap.hash();
+
+		assert.ok( !bootstrap.setupOverlay.called, 'Overlay is not set up' );
+	} );
 
 	QUnit.test( 'internalHashChange', 1, function ( assert ) {
 		var bootstrap = createBootstrap(),
