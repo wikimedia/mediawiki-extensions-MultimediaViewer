@@ -15,7 +15,7 @@ When /^I click on the first image in the article$/ do
   on(E2ETestPage) do |page|
     # We store the offset of the image as the scroll position and scroll to it, because cucumber/selenium
     # sometimes automatically scrolls to it when we ask it to click on it (seems to depend on timing)
-    @articleScrollTop = page.execute_script("var scrollTop = Math.round($('a[href=\"/wiki/File:Sunrise_over_fishing_boats_in_Kerala.jpg\"]').first().find('img').offset().top); window.scrollTo(0, scrollTop); return scrollTop;")
+    @article_scroll_top = page.execute_script("var scrollTop = Math.round($('a[href=\"/wiki/File:Sunrise_over_fishing_boats_in_Kerala.jpg\"]').first().find('img').offset().top); window.scrollTo(0, scrollTop); return scrollTop;")
     # Scrolls to the image and clicks on it
     page.image1_in_article
     # This is a global variable that can be used to measure performance
@@ -27,7 +27,7 @@ When /^I click on the second image in the article$/ do
   on(E2ETestPage) do |page|
     # We store the offset of the image as the scroll position and scroll to it, because cucumber/selenium
     # sometimes automatically scrolls to it when we ask it to click on it (seems to depend on timing)
-    @articleScrollTop = page.execute_script("var scrollTop = Math.round($('a[href=\"/wiki/File:Wikimedia_Foundation_2013_All_Hands_Offsite_-_Day_2_-_Photo_24.jpg\"]').first().find('img').offset().top); window.scrollTo(0, scrollTop); return scrollTop;")
+    @article_scroll_top = page.execute_script("var scrollTop = Math.round($('a[href=\"/wiki/File:Wikimedia_Foundation_2013_All_Hands_Offsite_-_Day_2_-_Photo_24.jpg\"]').first().find('img').offset().top); window.scrollTo(0, scrollTop); return scrollTop;")
     # Scrolls to the image and clicks on it
     page.image2_in_article
     # This is a global variable that can be used to measure performance

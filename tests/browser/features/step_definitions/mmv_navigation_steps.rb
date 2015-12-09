@@ -31,8 +31,8 @@ end
 
 Then /^the wiki article should be scrolled to the same position as before opening MMV$/ do
   on(E2ETestPage) do |page|
-    @scrollDifference = page.execute_script("return $(window).scrollTop();") - @articleScrollTop
-    expect(@scrollDifference.abs).to be < 2
+    scroll_difference = page.execute_script("return $(window).scrollTop();") - @article_scroll_top
+    expect(scroll_difference.abs).to be < 2
   end
 end
 
