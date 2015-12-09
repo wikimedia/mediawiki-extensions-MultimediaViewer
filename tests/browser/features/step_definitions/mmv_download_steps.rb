@@ -78,8 +78,8 @@ Then /^the download links should be the original image$/ do
   on(E2ETestPage) do |page|
     expect(page.mmv_download_link_element.attribute('href')).to match /^?download$/
     expect(page.mmv_download_preview_link_element.attribute('href')).not_to match /^?download$/
-    expect(page.mmv_download_link_element.attribute('href')).not_to match /\/thumb\//
-    expect(page.mmv_download_preview_link_element.attribute('href')).not_to match /\/thumb\//
+    expect(page.mmv_download_link_element.attribute('href')).not_to match %r{/thumb/}
+    expect(page.mmv_download_preview_link_element.attribute('href')).not_to match %r{/thumb/}
   end
 end
 
