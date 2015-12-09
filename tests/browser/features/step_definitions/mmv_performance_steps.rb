@@ -30,7 +30,7 @@ end
 Then /^the File: page image is loaded$/ do
   on(CommonsPage) do |page|
     page.wait_for_image_load ".fullImageLink img"
-    #Has to be a global variable, otherwise it doesn't survive between scenarios
+    # Has to be a global variable, otherwise it doesn't survive between scenarios
     $commons_time = Time.now.getutc - @commons_open_time
     page.log_performance type: "file-page", duration: $commons_time * 1000
   end
