@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 When /^I open the download dropdown$/ do
-  step "I click the download icon"
-  step "I click the download down arrow icon"
+  step 'I click the download icon'
+  step 'I click the download down arrow icon'
 end
 
 When /^I click the download icon$/ do
@@ -25,11 +25,11 @@ end
 When /^I click the (.*) download size$/ do |size_option|
   on(E2ETestPage) do |page|
     case size_option
-    when "small"
+    when 'small'
       @index = 1
-    when "medium"
+    when 'medium'
       @index = 2
-    when "large"
+    when 'large'
       @index = 3
     else
       @index = 0

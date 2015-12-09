@@ -33,24 +33,24 @@ When /^I click the disable X icon$/ do
 end
 
 When /^I disable MMV$/ do
-  step "I click the options icon"
-  step "I click the disable button"
+  step 'I click the options icon'
+  step 'I click the disable button'
 end
 
 When /^I reenable MMV$/ do
-  step "I disable MMV"
-  step "I click the options icon"
-  step "I click the enable button"
+  step 'I disable MMV'
+  step 'I click the options icon'
+  step 'I click the enable button'
 end
 
 When /^I click the options icon with MMV disabled$/ do
-  step "I disable MMV"
-  step "I click the options icon"
+  step 'I disable MMV'
+  step 'I click the options icon'
 end
 
 When /^I disable and close MMV$/ do
-  step "I disable MMV"
-  step "I close MMV"
+  step 'I disable MMV'
+  step 'I close MMV'
 end
 
 Then /^the disable confirmation should appear$/ do

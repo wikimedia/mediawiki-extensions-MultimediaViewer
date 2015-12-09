@@ -16,9 +16,3 @@ Metrics/LineLength:
 Style/GlobalVars:
   Exclude:
     - 'tests/browser/features/step_definitions/mmv_performance_steps.rb'
-
-# Offense count: 79
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/StringLiterals:
-  Enabled: false

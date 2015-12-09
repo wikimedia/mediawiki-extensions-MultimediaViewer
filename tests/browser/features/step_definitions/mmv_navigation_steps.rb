@@ -10,7 +10,7 @@ end
 
 When /^I press the browser back button$/ do
   # $browser.back doesn't work for Safari. This is a workaround for https://code.google.com/p/selenium/issues/detail?id=3771
-  on(E2ETestPage).execute_script("window.history.back();")
+  on(E2ETestPage).execute_script('window.history.back();')
 end
 
 Then /^the image and metadata of the next image should appear$/ do
@@ -31,7 +31,7 @@ end
 
 Then /^the wiki article should be scrolled to the same position as before opening MMV$/ do
   on(E2ETestPage) do |page|
-    scroll_difference = page.execute_script("return $(window).scrollTop();") - @article_scroll_top
+    scroll_difference = page.execute_script('return $(window).scrollTop();') - @article_scroll_top
     expect(scroll_difference.abs).to be < 2
   end
 end

@@ -1,12 +1,12 @@
-require "json"
+require 'json'
 
 class CommonsPage
   include PageObject
 
-  page_url "File:Sunrise_over_fishing_boats_in_Kerala.jpg"
+  page_url 'File:Sunrise_over_fishing_boats_in_Kerala.jpg'
 
   img(:commons_image, src: /Kerala\.jpg$/)
-  div(:mmv_image_loaded_cucumber, class: "mw-mmv-image-loaded-cucumber")
+  div(:mmv_image_loaded_cucumber, class: 'mw-mmv-image-loaded-cucumber')
 
   def wait_for_image_load(selector)
     browser.execute_script <<-end_script

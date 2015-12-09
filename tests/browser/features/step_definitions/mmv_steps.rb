@@ -6,9 +6,9 @@ Given /^I am at a wiki article with at least two embedded pictures$/ do
 end
 
 Given /^I am viewing an image using MMV$/ do
-  step "I am at a wiki article with at least two embedded pictures"
-  step "I click on the second image in the article"
-  step "the image metadata and the image itself should be there"
+  step 'I am at a wiki article with at least two embedded pictures'
+  step 'I click on the second image in the article'
+  step 'the image metadata and the image itself should be there'
 end
 
 When /^I click on the first image in the article$/ do
