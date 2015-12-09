@@ -17,13 +17,6 @@ Style/GlobalVars:
   Exclude:
     - 'tests/browser/features/step_definitions/mmv_performance_steps.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'tests/browser/features/step_definitions/mmv_navigation_steps.rb'
-
 # Offense count: 79
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
