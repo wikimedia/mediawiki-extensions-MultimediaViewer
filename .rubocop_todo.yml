@@ -23,16 +23,6 @@ Style/GlobalVars:
 Style/StringLiterals:
   Enabled: false
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/TrailingBlankLines:
-  Exclude:
-    - 'tests/browser/features/step_definitions/mmv_download_steps.rb'
-    - 'tests/browser/features/step_definitions/mmv_navigation_steps.rb'
-    - 'tests/browser/features/step_definitions/mmv_options_steps.rb'
-    - 'tests/browser/features/step_definitions/mmv_performance_steps.rb'
-
 # Offense count: 3
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/VariableName:

@@ -46,4 +46,3 @@ Then /^the MMV image is loaded in (\d+) percent of the time with a (.*) cache an
     expect(mmv_time).to be < expected_time
   end
 end
-
