@@ -28,7 +28,7 @@ class CommonsPage
   end
 
   def log_performance(stats)
-    stats = stats.reject { |name, value| value.nil? || value.to_s.empty? }
+    stats = stats.reject { |_name, value| value.nil? || value.to_s.empty? }
     stats[:duration] = stats[:duration].floor
 
     browser.execute_script <<-end_script

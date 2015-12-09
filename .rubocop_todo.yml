@@ -6,14 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoreEmptyBlocks.
-Lint/UnusedBlockArgument:
-  Exclude:
-    - 'tests/browser/features/step_definitions/mmv_steps.rb'
-    - 'tests/browser/features/support/pages/commons_page.rb'
-
 # Offense count: 26
 # Configuration parameters: AllowURI, URISchemes.
 Metrics/LineLength:

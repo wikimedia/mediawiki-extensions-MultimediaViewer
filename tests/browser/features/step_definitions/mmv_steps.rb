@@ -40,7 +40,7 @@ When /^I close MMV$/ do
 end
 
 When /^I click the image$/  do
-  on(E2ETestPage) do |page|
+  on(E2ETestPage) do
     # Clicking the top-left corner of the image is necessary for the test to work on IE
     # A plain click on the image element ends up hitting the dialog, which means it won't close
     begin
