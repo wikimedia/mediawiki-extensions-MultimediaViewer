@@ -1,12 +1,26 @@
 # encoding: utf-8
 
 Given /^I am at a wiki article with at least two embedded pictures$/ do
+  api.create_page 'MediaViewerE2ETest', File.read('samples/MediaViewerE2ETest.wikitext')
   visit(E2ETestPage)
   on(E2ETestPage).image1_in_article_element.when_present.should be_visible
 end
 
+Given /^the MMV has loaded$/ do
+  on(E2ETestPage) do |page|
+    page.wait_until do
+      # Wait for JS to hijack standard link
+      # TODO: If this approach works well, we should implement general
+      # `wait_for_resource` and `resource_ready?` helper methods in
+      # mw-selenium, and document this pattern on mw.org
+      browser.execute_script("return mw.loader.getState('mmv.bootstrap') === 'ready'")
+    end
+  end
+end
+
 Given /^I am viewing an image using MMV$/ do
   step 'I am at a wiki article with at least two embedded pictures'
+  step 'the MMV has loaded'
   step 'I click on the second image in the article'
   step 'the image metadata and the image itself should be there'
 end
@@ -15,7 +29,7 @@ When /^I click on the first image in the article$/ do
   on(E2ETestPage) do |page|
     # We store the offset of the image as the scroll position and scroll to it, because cucumber/selenium
     # sometimes automatically scrolls to it when we ask it to click on it (seems to depend on timing)
-    @article_scroll_top = page.execute_script("var scrollTop = Math.round($('a[href=\"/wiki/File:Sunrise_over_fishing_boats_in_Kerala.jpg\"]').first().find('img').offset().top); window.scrollTo(0, scrollTop); return scrollTop;")
+    @article_scroll_top = page.execute_script("var scrollTop = Math.round($('a[href$=\"File:Sunrise_over_fishing_boats_in_Kerala.jpg\"]').first().find('img').offset().top); window.scrollTo(0, scrollTop); return scrollTop;")
     # Scrolls to the image and clicks on it
     page.image1_in_article
     # This is a global variable that can be used to measure performance
@@ -27,7 +41,7 @@ When /^I click on the second image in the article$/ do
   on(E2ETestPage) do |page|
     # We store the offset of the image as the scroll position and scroll to it, because cucumber/selenium
     # sometimes automatically scrolls to it when we ask it to click on it (seems to depend on timing)
-    @article_scroll_top = page.execute_script("var scrollTop = Math.round($('a[href=\"/wiki/File:Wikimedia_Foundation_2013_All_Hands_Offsite_-_Day_2_-_Photo_24.jpg\"]').first().find('img').offset().top); window.scrollTo(0, scrollTop); return scrollTop;")
+    @article_scroll_top = page.execute_script("var scrollTop = Math.round($('a[href$=\"File:Wikimedia_Foundation_2013_All_Hands_Offsite_-_Day_2_-_Photo_24.jpg\"]').first().find('img').offset().top); window.scrollTo(0, scrollTop); return scrollTop;")
     # Scrolls to the image and clicks on it
     page.image2_in_article
     # This is a global variable that can be used to measure performance

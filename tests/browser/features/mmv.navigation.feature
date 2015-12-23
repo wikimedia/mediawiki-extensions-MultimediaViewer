@@ -1,4 +1,4 @@
-@en.wikipedia.beta.wmflabs.org @firefox @chrome @internet_explorer_9 @internet_explorer_10 @internet_explorer_11 @safari @test2.wikipedia.org
+@integration @en.wikipedia.beta.wmflabs.org @firefox @chrome @internet_explorer_9 @internet_explorer_10 @internet_explorer_11 @safari @test2.wikipedia.org
 Feature: Navigation
 
   Background:
