@@ -12,7 +12,6 @@
 	"multimediaviewer-repository-local": "More details",
 	"multimediaviewer-datetime-created": "Created: $1",
 	"multimediaviewer-datetime-uploaded": "Uploaded: $1",
-	"multimediaviewer-userpage-link": "{{GENDER:$2|Uploaded}} by $1",
 	"multimediaviewer-credit": "$1 - $2",
 	"multimediaviewer-credit-fallback": "View author information",
 	"multimediaviewer-multiple-authors": "{{PLURAL:$1|one more author|$1 more authors}}",

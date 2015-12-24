@@ -31,7 +31,6 @@
 	 * @param {string} url URL to the image itself (original version)
 	 * @param {string} descriptionUrl URL to the image description page
 	 * @param {string} repo The repository this image belongs to
-	 * @param {string} lastUploader The last person to upload a version of this image.
 	 * @param {string} uploadDateTime The time and date the last upload occurred
 	 * @param {string} anonymizedUploadDateTime Anonymized and EL-friendly version of uploadDateTime
 	 * @param {string} creationDateTime The time and date the original upload occurred
@@ -56,7 +55,6 @@
 			url,
 			descriptionUrl,
 			repo,
-			lastUploader,
 			uploadDateTime,
 			anonymizedUploadDateTime,
 			creationDateTime,
@@ -97,9 +95,6 @@
 
 		/** @property {string} repo The name of the repository where this image is stored */
 		this.repo = repo;
-
-		/** @property {string} lastUploader The person who uploaded the last version of the file */
-		this.lastUploader = lastUploader;
 
 		/** @property {string} uploadDateTime The date and time of the last upload */
 		this.uploadDateTime = uploadDateTime;
@@ -208,7 +203,6 @@
 			innerInfo.url,
 			innerInfo.descriptionurl,
 			imageInfo.imagerepository,
-			innerInfo.user,
 			uploadDateTime,
 			anonymizedUploadDateTime,
 			creationDateTime,

@@ -18,7 +18,7 @@
 ( function ( mw ) {
 	QUnit.module( 'mmv.model.Image', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Image model constructor sanity check', 24, function ( assert ) {
+	QUnit.test( 'Image model constructor sanity check', 23, function ( assert ) {
 		var
 			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 			name = 'Foo bar',
@@ -29,7 +29,6 @@
 			url = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
 			descurl = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
 			repo = 'wikimediacommons',
-			user = 'Kaldari',
 			datetime = '2011-07-04T23:31:14Z',
 			anondatetime = '20110704000000',
 			origdatetime = '2010-07-04T23:31:14Z',
@@ -45,7 +44,7 @@
 			restrictions = ['trademarked'],
 			imageData = new mw.mmv.model.Image(
 				title, name, size, width, height, mime, url,
-				descurl, repo, user, datetime, anondatetime, origdatetime,
+				descurl, repo, datetime, anondatetime, origdatetime,
 				description, source, author, authorCount, license, permission, attribution,
 				latitude, longitude, restrictions );
 
@@ -58,7 +57,6 @@
 		assert.strictEqual( imageData.url, url, 'URL for original image is set correctly' );
 		assert.strictEqual( imageData.descriptionUrl, descurl, 'URL for image description page is set correctly' );
 		assert.strictEqual( imageData.repo, repo, 'Repository name is set correctly' );
-		assert.strictEqual( imageData.lastUploader, user, 'Name of last uploader is set correctly' );
 		assert.strictEqual( imageData.uploadDateTime, datetime, 'Date and time of last upload is set correctly' );
 		assert.strictEqual( imageData.anonymizedUploadDateTime, anondatetime, 'Anonymized date and time of last upload is set correctly' );
 		assert.strictEqual( imageData.creationDateTime, origdatetime, 'Date and time of original upload is set correctly' );

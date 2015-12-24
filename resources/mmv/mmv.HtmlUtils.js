@@ -107,7 +107,8 @@
 	 * @param {string} whitelist a jQuery selector string such as 'a, span, br'
 	 */
 	HUP.whitelistHtml = function ( $el, whitelist ) {
-		var child, $prev, $child = $el.children().first();
+		var child, $prev,
+		    $child = $el.children().first();
 
 		while ( $child && $child.length ) {
 			child = $child.get( 0 );
