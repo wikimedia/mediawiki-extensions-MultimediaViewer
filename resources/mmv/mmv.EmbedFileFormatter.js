@@ -118,33 +118,32 @@
 	EFFP.getCreditText = function ( info ) {
 		var creditText, creditParams,
 			formatter = this,
-			titleText = info.imageInfo.title.getNameText(),
-			titleUrl = this.getLinkUrl( info ),
+			shortURL = info.imageInfo.descriptionShortUrl,
+			license = info.imageInfo.license,
 			byline = this.getByline( info.imageInfo.author, info.imageInfo.source, info.imageInfo.attribution, function ( txt ) {
 				return formatter.htmlUtils.htmlToText( txt );
 			} );
 
+		// If both the byline and licence are missing, the credit text is simply the URL
+		if ( !byline && !license ) {
+			return shortURL;
+		}
+
 		creditParams = [
-			'multimediaviewer-text-embed-credit-text-t',
-			titleText
+			'multimediaviewer-text-embed-credit-text-'
 		];
 
 		if ( byline ) {
 			creditParams[0] += 'b';
 			creditParams.push( byline );
 		}
-		if ( info.imageInfo.license ) {
+
+		if ( license ) {
 			creditParams[0] += 'l';
-			creditParams.push( this.htmlUtils.htmlToText( info.imageInfo.license.getShortName() ) );
+			creditParams.push( this.htmlUtils.htmlToText( license.getShortName() ) );
 		}
 
-		creditParams[0] += 's';
-		creditParams.push( info.repoInfo.displayName + ' - ' + titleUrl );
-
-		if ( info.imageInfo.license && !info.imageInfo.license.isFree() ) {
-			creditParams[0] += '-nonfree';
-		}
-
+		creditParams.push( shortURL );
 		creditText = mw.message.apply( mw, creditParams ).plain();
 
 		return creditText;
@@ -157,32 +156,28 @@
 	 */
 	EFFP.getCreditHtml = function ( info ) {
 		var creditText, creditParams,
-			titleText = info.imageInfo.title.getNameText(),
-			titleUrl = this.getLinkUrl( info ),
-			$title = $( '<a>' ).text( titleText ).prop( 'href', titleUrl ),
+			shortURL = info.imageInfo.descriptionShortUrl,
+			license = info.imageInfo.license,
 			byline = this.getByline( info.imageInfo.author, info.imageInfo.source, info.imageInfo.attribution );
 
+		if ( !byline && !license ) {
+			return shortURL;
+		}
+
 		creditParams = [
-			'multimediaviewer-html-embed-credit-text-t',
-			this.htmlUtils.jqueryToHtml( $title )
+			'multimediaviewer-html-embed-credit-text-'
 		];
 
 		if ( byline ) {
 			creditParams[0] += 'b';
 			creditParams.push( byline );
 		}
-		if ( info.imageInfo.license ) {
+		if ( license ) {
 			creditParams[0] += 'l';
-			creditParams.push( info.imageInfo.license.getShortLink() );
+			creditParams.push( license.getShortLink() );
 		}
 
-		creditParams[0] += 's';
-		creditParams.push( this.getSiteLink( info ) );
-
-		if ( info.imageInfo.license && !info.imageInfo.license.isFree() ) {
-			creditParams[0] += '-nonfree';
-		}
-
+		creditParams.push( shortURL );
 		creditText = mw.message.apply( mw, creditParams ).plain();
 
 		return creditText;

@@ -54,6 +54,8 @@
 			mimeType,
 			url,
 			descriptionUrl,
+			descriptionShortUrl,
+			pageID,
 			repo,
 			uploadDateTime,
 			anonymizedUploadDateTime,
@@ -92,6 +94,12 @@
 
 		/** @property {string} descriptionUrl The URL to the description page for the image */
 		this.descriptionUrl = descriptionUrl;
+
+		/** @property {string} descriptionShortUrl A short URL to the description page for the image, using curid=... */
+		this.descriptionShortUrl = descriptionShortUrl;
+
+		/** @property {number} pageId of the description page for the image */
+		this.pageID = pageID;
 
 		/** @property {string} repo The name of the repository where this image is stored */
 		this.repo = repo;
@@ -202,6 +210,8 @@
 			innerInfo.mime,
 			innerInfo.url,
 			innerInfo.descriptionurl,
+			innerInfo.descriptionshorturl,
+			imageInfo.pageid,
 			imageInfo.imagerepository,
 			uploadDateTime,
 			anonymizedUploadDateTime,

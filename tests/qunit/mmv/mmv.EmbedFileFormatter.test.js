@@ -14,6 +14,8 @@
 				undefined,
 				options.imgUrl,
 				options.filePageUrl,
+				options.shortFilePageUrl,
+				42,
 				'repo',
 				undefined,
 				undefined,
@@ -81,6 +83,7 @@
 			title = mw.Title.newFromText( titleText ),
 			imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
 			filePageUrl = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
+			filePageShortUrl = 'https://commons.wikimedia.org/wiki/index.php?curid=42',
 			siteName = 'Site Name',
 			siteUrl = '//site.url/',
 			licenseShortName = 'Public License',
@@ -97,68 +100,69 @@
 
 		// Bylines, license and site
 		info = createEmbedFileInfo( { title: title, imgUrl: imgUrl, filePageUrl: filePageUrl,
-			siteName: siteName, siteUrl: siteUrl, licenseShortName: licenseShortName,
-			licenseInternalName: licenseInternalName, licenseLongName: licenseLongName,
-			licenseUrl: licenseUrl, author: author, source: source } );
-		generatedHtml = formatter.getThumbnailHtml( info, thumbUrl, width, height );
+			shortFilePageUrl: filePageShortUrl, siteName: siteName, siteUrl: siteUrl,
+			licenseShortName: licenseShortName, licenseInternalName: licenseInternalName,
+			licenseLongName: licenseLongName, licenseUrl: licenseUrl, author: author, source: source } );
 
+		generatedHtml = formatter.getThumbnailHtml( info, thumbUrl, width, height );
 		assert.ok( generatedHtml.match( titleText ), 'Title appears in generated HTML.' );
 		assert.ok( generatedHtml.match( filePageUrl ), 'Page url appears in generated HTML.' );
 		assert.ok( generatedHtml.match( thumbUrl ), 'Thumbnail url appears in generated HTML' );
-		assert.ok( generatedHtml.match( siteName ), 'Site name appears in generated HTML' );
 		assert.ok( generatedHtml.match( 'Public License' ), 'License appears in generated HTML' );
 		assert.ok( generatedHtml.match( 'Homer' ), 'Author appears in generated HTML' );
 		assert.ok( generatedHtml.match( 'Iliad' ), 'Source appears in generated HTML' );
 		assert.ok( generatedHtml.match( width ), 'Width appears in generated HTML' );
 		assert.ok( generatedHtml.match( height ), 'Height appears in generated HTML' );
+		// .includes() for checking the short url since it contains a ? (bad for regex). Could escape instead.
+		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML');
 
 		// Bylines, no license and site
 		info = createEmbedFileInfo( { title: title, imgUrl: imgUrl, filePageUrl: filePageUrl,
-			siteName: siteName, siteUrl: siteUrl,
+			shortFilePageUrl: filePageShortUrl, siteName: siteName, siteUrl: siteUrl,
 			author: author, source: source } );
 		generatedHtml = formatter.getThumbnailHtml( info, thumbUrl, width, height );
 
 		assert.ok( generatedHtml.match( titleText ), 'Title appears in generated HTML.' );
 		assert.ok( generatedHtml.match( filePageUrl ), 'Page url appears in generated HTML.' );
 		assert.ok( generatedHtml.match( thumbUrl ), 'Thumbnail url appears in generated HTML' );
-		assert.ok( generatedHtml.match( siteName ), 'Site name appears in generated HTML' );
 		assert.ok( !generatedHtml.match( 'Public License' ), 'License should not appear in generated HTML' );
 		assert.ok( generatedHtml.match( 'Homer' ), 'Author appears in generated HTML' );
 		assert.ok( generatedHtml.match( 'Iliad' ), 'Source appears in generated HTML' );
 		assert.ok( generatedHtml.match( width ), 'Width appears in generated HTML' );
 		assert.ok( generatedHtml.match( height ), 'Height appears in generated HTML' );
+		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML');
 
 		// No bylines, license and site
 		info = createEmbedFileInfo( { title: title, imgUrl: imgUrl, filePageUrl: filePageUrl,
 			siteName: siteName, siteUrl: siteUrl, licenseShortName: licenseShortName,
 			licenseInternalName: licenseInternalName, licenseLongName: licenseLongName,
-			licenseUrl: licenseUrl } );
+			licenseUrl: licenseUrl, shortFilePageUrl: filePageShortUrl } );
 		generatedHtml = formatter.getThumbnailHtml( info, thumbUrl, width, height );
 
 		assert.ok( generatedHtml.match( titleText ), 'Title appears in generated HTML.' );
 		assert.ok( generatedHtml.match( filePageUrl ), 'Page url appears in generated HTML.' );
 		assert.ok( generatedHtml.match( thumbUrl ), 'Thumbnail url appears in generated HTML' );
-		assert.ok( generatedHtml.match( siteName ), 'Site name appears in generated HTML' );
 		assert.ok( generatedHtml.match( 'Public License' ), 'License appears in generated HTML' );
 		assert.ok( !generatedHtml.match( 'Homer' ), 'Author should not appear in generated HTML' );
 		assert.ok( !generatedHtml.match( 'Iliad' ), 'Source should not appear in generated HTML' );
 		assert.ok( generatedHtml.match( width ), 'Width appears in generated HTML' );
 		assert.ok( generatedHtml.match( height ), 'Height appears in generated HTML' );
+		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML');
 
 		// No bylines, no license and site
 		info = createEmbedFileInfo( { title: title, imgUrl: imgUrl, filePageUrl: filePageUrl,
-			siteName: siteName, siteUrl: siteUrl } );
+			siteName: siteName, siteUrl: siteUrl, shortFilePageUrl: filePageShortUrl } );
 		generatedHtml = formatter.getThumbnailHtml( info, thumbUrl, width, height );
 
 		assert.ok( generatedHtml.match( titleText ), 'Title appears in generated HTML.' );
 		assert.ok( generatedHtml.match( filePageUrl ), 'Page url appears in generated HTML.' );
 		assert.ok( generatedHtml.match( thumbUrl ), 'Thumbnail url appears in generated HTML' );
-		assert.ok( generatedHtml.match( siteName ), 'Site name should appear in generated HTML' );
 		assert.ok( !generatedHtml.match( 'Public License' ), 'License should not appear in generated HTML' );
 		assert.ok( !generatedHtml.match( 'Homer' ), 'Author should not appear in generated HTML' );
 		assert.ok( !generatedHtml.match( 'Iliad' ), 'Source should not appear in generated HTML' );
 		assert.ok( generatedHtml.match( width ), 'Width appears in generated HTML' );
 		assert.ok( generatedHtml.match( height ), 'Height appears in generated HTML' );
+		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML');
 
 	} );
 
@@ -204,8 +208,6 @@
 	QUnit.test( 'getCreditText():', 2, function ( assert ) {
 		var txt, formatter = new mw.mmv.EmbedFileFormatter();
 
-		this.sandbox.stub( formatter, 'getLinkUrl' ).returns( 'quuuux' );
-
 		txt = formatter.getCreditText( {
 			repoInfo: {
 				displayName: 'Localcommons'
@@ -214,13 +216,14 @@
 			imageInfo: {
 				author: 'Author',
 				source: 'Source',
+				descriptionShortUrl: 'link',
 				title: {
 					getNameText: function () { return 'Image Title'; }
 				}
 			}
 		} );
 
-		assert.strictEqual( txt, '"Image Title" by Author - Source. Via Localcommons - quuuux', 'Sanity check' );
+		assert.strictEqual( txt, 'By Author - Source, link', 'Sanity check' );
 
 		txt = formatter.getCreditText( {
 			repoInfo: {
@@ -230,25 +233,24 @@
 			imageInfo: {
 				author: 'Author',
 				source: 'Source',
+				descriptionShortUrl: 'link',
 				title: {
 					getNameText: function () { return 'Image Title'; }
 				},
 				license: {
-					getShortName: function () { return 'DWTFYWPL'; },
-					longName: 'Do What the Fuck You Want Public License',
+					getShortName: function () { return 'WTFPL v2'; },
+					longName: 'Do What the Fuck You Want Public License Version 2',
 					isFree: this.sandbox.stub().returns( true )
 				}
 			}
 		} );
 
-		assert.strictEqual( txt, '"Image Title" by Author - Source. Licensed under DWTFYWPL via Localcommons - quuuux', 'License message works' );
+		assert.strictEqual( txt, 'By Author - Source, WTFPL v2, link', 'License message works' );
 	} );
 
 	QUnit.test( 'getCreditHtml():', 2, function ( assert ) {
 		var html, formatter = new mw.mmv.EmbedFileFormatter();
 
-		this.sandbox.stub( formatter, 'getLinkUrl' ).returns( 'quuuux' );
-
 		html = formatter.getCreditHtml( {
 			repoInfo: {
 				displayName: 'Localcommons',
@@ -258,13 +260,14 @@
 			imageInfo: {
 				author: 'Author',
 				source: 'Source',
+				descriptionShortUrl: 'link',
 				title: {
 					getNameText: function () { return 'Image Title'; }
 				}
 			}
 		} );
 
-		assert.strictEqual( html, '"<a href="quuuux">Image Title</a>" by Author - Source. Via <a href="quux">Localcommons</a>.', 'Sanity check' );
+		assert.strictEqual( html, 'By Author - Source, link', 'Sanity check' );
 
 		html = formatter.getCreditHtml( {
 			repoInfo: {
@@ -275,17 +278,18 @@
 			imageInfo: {
 				author: 'Author',
 				source: 'Source',
+				descriptionShortUrl: 'link',
 				title: {
 					getNameText: function () { return 'Image Title'; }
 				},
 				license: {
-					getShortLink: function () { return '<a href="http://dwtfywpl.net/">DWTFYWPL</a>'; },
-					longName: 'Do What the Fuck You Want Public License',
+					getShortLink: function () { return '<a href="http://www.wtfpl.net/">WTFPL v2</a>'; },
+					longName: 'Do What the Fuck You Want Public License Version 2',
 					isFree: this.sandbox.stub().returns( true )
 				}
 			}
 		} );
 
-		assert.strictEqual( html, '"<a href="quuuux">Image Title</a>" by Author - Source. Licensed under <a href="http://dwtfywpl.net/">DWTFYWPL</a> via <a href="quux">Localcommons</a>.', 'Sanity check' );
+		assert.strictEqual( html, 'By Author - Source, <a href="http://www.wtfpl.net/">WTFPL v2</a>, link', 'Sanity check' );
 	} );
 }( mediaWiki ) );
