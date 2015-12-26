@@ -20,6 +20,7 @@
 	"multimediaviewer-metadata-error": "Klarte ikke laste bildedetaljer (feil: $1)",
 	"multimediaviewer-thumbnail-error": "Beklager, filen kunne ikke vises",
 	"multimediaviewer-thumbnail-error-retry": "prøv igjen",
+	"multimediaviewer-thumbnail-error-report": "meld fra om et problem",
 	"multimediaviewer-license-cc-pd": "Offentlig eiendom",
 	"multimediaviewer-license-pd": "Offentlig eiendom",
 	"multimediaviewer-license-default": "Vis lisens",
