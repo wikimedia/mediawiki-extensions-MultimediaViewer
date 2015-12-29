@@ -165,9 +165,6 @@
 		this.$filenamePrefix.empty();
 		this.$filenameLi.addClass( 'empty' );
 
-		this.$username.empty();
-		this.$usernameLi.addClass( 'empty' );
-
 		this.$datetime.empty();
 		this.$datetimeLi.addClass( 'empty' );
 
@@ -309,7 +306,6 @@
 
 		this.initializeLicense();
 		this.initializeFilename();
-		this.initializeUploader();
 		this.initializeDatetime();
 		this.initializeLocation();
 	};
@@ -383,21 +379,6 @@
 	};
 
 	/**
-	 * Initializes the link to the uploader's file page.
-	 */
-	MPP.initializeUploader = function () {
-		this.$usernameLi = $( '<li>' )
-			.addClass( 'mw-mmv-username-li empty' )
-			.appendTo( this.$imageLinks );
-
-		this.$username = $( '<a>' )
-			.addClass( 'mw-mmv-username' )
-			.prop( 'href', '#' )
-			.appendTo( this.$usernameLi )
-			.click( function () { mw.mmv.actionLogger.log( 'uploader-page' ); } );
-	};
-
-	/**
 	 * Initializes the geolocation element.
 	 */
 	MPP.initializeLocation = function () {
@@ -450,28 +431,6 @@
 	// *********************************
 	// ******** Setting methods ********
 	// *********************************
-
-	/**
-	 * Sets the link to the user page where possible
-	 * @param {mw.mmv.model.Repo} repoData
-	 * @param {string} username
-	 * @param {string} gender
-	 */
-	MPP.setUserPageLink = function ( repoData, username, gender ) {
-		var userpage = 'User:' + username,
-			articlePath = repoData.getArticlePath(),
-			// articlePath is null when the imageinfo API query fails
-			userlink = ( typeof articlePath === 'string' )
-				? articlePath.replace( '$1', userpage ) : undefined;
-
-		this.$username
-			.text(
-				mw.message( 'multimediaviewer-userpage-link', username, gender ).text()
-			)
-			.prop( 'href', userlink );
-
-		this.$usernameLi.toggleClass( 'empty', !username );
-	};
 
 	/**
 	 * Sets the image title at the top of the metadata panel.
@@ -784,9 +743,8 @@
 	 * @param {mw.mmv.LightboxImage} image
 	 * @param {mw.mmv.model.Image} imageData
 	 * @param {mw.mmv.model.Repo} repoData
-	 * @param {mw.mmv.model.User} user
 	 */
-	MPP.setImageInfo = function ( image, imageData, repoData, user ) {
+	MPP.setImageInfo = function ( image, imageData, repoData ) {
 		var panel = this;
 
 		mw.mmv.attributionLogger.logAttribution( imageData );
@@ -828,10 +786,6 @@
 		}
 
 		this.setLocationData( imageData );
-
-		if ( user ) {
-			this.setUserPageLink( repoData, imageData.lastUploader, user.gender );
-		}
 
 		this.resetTruncatedText();
 		this.scroller.unfreezeHeight();

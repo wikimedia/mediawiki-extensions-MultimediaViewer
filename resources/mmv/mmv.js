@@ -27,7 +27,7 @@
 	 * @param {mw.Map} mwConfig mw.config
 	 */
 	function MultimediaViewer( mwConfig ) {
-		var apiCacheMaxAge = 86400; // one day
+		var apiCacheMaxAge = 86400; // one day (24 hours * 60 min * 60 sec)
 
 		/**
 		 * @property {mw.Map}
@@ -71,15 +71,6 @@
 		this.guessedThumbnailInfoProvider = new mw.mmv.provider.GuessedThumbnailInfo();
 
 		/**
-		 * @property {mw.mmv.provider.UserInfo}
-		 * @private
-		 */
-		this.userInfoProvider = new mw.mmv.provider.UserInfo( new mw.mmv.logging.Api( 'userinfo' ), {
-			useApi: this.needGender(),
-			maxage: apiCacheMaxAge
-		} );
-
-		/**
 		 * Image index on page.
 		 * @property {number}
 		 */
@@ -119,22 +110,6 @@
 	}
 
 	MMVP = MultimediaViewer.prototype;
-
-	/**
-	 * Check if we need to fetch gender information. This relies on the fact that
-	 * multimediaviewer-userpage-link is the only message which takes a gender parameter.
-	 * @return {boolean}
-	 * FIXME there has to be a better way than this
-	 */
-	MMVP.needGender = function () {
-		var male, female, unknown;
-
-		male = mw.message( 'multimediaviewer-userpage-link', '_', 'male' ).text();
-		female = mw.message( 'multimediaviewer-userpage-link', '_', 'female' ).text();
-		unknown = mw.message( 'multimediaviewer-userpage-link', '_', 'unknown' ).text();
-
-		return male !== female || male !== unknown || female !== unknown;
-	};
 
 	/**
 	 * Initialize the lightbox interface given an array of thumbnail
@@ -325,7 +300,7 @@
 			viewer.ui.canvas.showError( error );
 		} );
 
-		metadataPromise.done( function ( imageInfo, repoInfo, userInfo ) {
+		metadataPromise.done( function ( imageInfo, repoInfo ) {
 			extraStatsDeferred.resolve( { uploadTimestamp: imageInfo.anonymizedUploadDateTime } );
 
 			if ( viewer.currentIndex !== image.index ) {
@@ -336,7 +311,7 @@
 				mw.mmv.durationLogger.stop( 'click-to-first-metadata' ).record( 'click-to-first-metadata' );
 			}
 
-			viewer.ui.panel.setImageInfo( image, imageInfo, repoInfo, userInfo );
+			viewer.ui.panel.setImageInfo( image, imageInfo, repoInfo );
 
 			// File reuse steals a bunch of information from the DOM, so do it last
 			viewer.ui.setFileReuseData( imageInfo, repoInfo, image.caption, image.alt );
@@ -706,30 +681,18 @@
 
 	/**
 	 * Loads all the size-independent information needed by the lightbox (image metadata, repo
-	 * information, uploader data).
+	 * information).
 	 * @param {mw.Title} fileTitle Title of the file page for the image.
-	 * @returns {jQuery.Promise.<mw.mmv.model.Image, mw.mmv.model.Repo, mw.mmv.model.User>}
+	 * @returns {jQuery.Promise.<mw.mmv.model.Image, mw.mmv.model.Repo>}
 	 */
 	MMVP.fetchSizeIndependentLightboxInfo = function ( fileTitle ) {
-		var viewer = this,
-			imageInfoPromise = this.imageInfoProvider.get( fileTitle ),
-			repoInfoPromise = this.fileRepoInfoProvider.get( fileTitle ),
-			userInfoPromise;
-
-		userInfoPromise = $.when(
-			imageInfoPromise, repoInfoPromise
-		).then( function ( imageInfo, repoInfoHash ) {
-			if ( imageInfo.lastUploader ) {
-				return viewer.userInfoProvider.get( imageInfo.lastUploader, repoInfoHash[imageInfo.repo] );
-			} else {
-				return null;
-			}
-		} );
+		var imageInfoPromise = this.imageInfoProvider.get( fileTitle ),
+			repoInfoPromise = this.fileRepoInfoProvider.get( fileTitle );
 
 		return $.when(
-			imageInfoPromise, repoInfoPromise, userInfoPromise
-		).then( function ( imageInfo, repoInfoHash, userInfo ) {
-			return $.Deferred().resolve( imageInfo, repoInfoHash[imageInfo.repo], userInfo );
+			imageInfoPromise, repoInfoPromise
+		).then( function ( imageInfo, repoInfoHash ) {
+			return $.Deferred().resolve( imageInfo, repoInfoHash[imageInfo.repo] );
 		} );
 	};
 

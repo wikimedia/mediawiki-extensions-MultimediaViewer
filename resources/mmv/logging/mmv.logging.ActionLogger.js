@@ -88,7 +88,6 @@
 		'discuss-page': 'User opened the discuss page.',
 		'help-page': 'User opened the help page.',
 		'location-page': 'User opened the location page.',
-		'uploader-page': 'User opened the uploader page.',
 		'download-select-menu-original': 'User selected the original size in the download dropdown menu.',
 		'download-select-menu-small': 'User selected the small size in the download dropdown menu.',
 		'download-select-menu-medium': 'User selected the medium size in the download dropdown menu.',

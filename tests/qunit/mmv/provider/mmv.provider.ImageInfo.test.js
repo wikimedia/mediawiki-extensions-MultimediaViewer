@@ -25,7 +25,7 @@
 		assert.ok( imageInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'ImageInfo get test', 28, function ( assert ) {
+	QUnit.asyncTest( 'ImageInfo get test', 27, function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function () {
 				apiCallCount++;
@@ -40,7 +40,6 @@
 								imageinfo: [
 									{
 										timestamp: '2013-08-25T14:41:02Z',
-										user: 'Dylanbot11',
 										userid: '3053121',
 										size: 346684,
 										width: 720,
@@ -144,7 +143,6 @@
 			assert.strictEqual( image.url, 'https://upload.wikimedia.org/wikipedia/commons/1/19/Stuff.jpg', 'url is set correctly' );
 			assert.strictEqual( image.descriptionUrl, 'https://commons.wikimedia.org/wiki/File:Stuff.jpg', 'descriptionUrl is set correctly' );
 			assert.strictEqual( image.repo, 'shared', 'repo is set correctly' );
-			assert.strictEqual( image.lastUploader, 'Dylanbot11', 'lastUploader is set correctly' );
 			assert.strictEqual( image.uploadDateTime, '2013-08-25T14:41:02Z', 'uploadDateTime is set correctly' );
 			assert.strictEqual( image.anonymizedUploadDateTime, '20130825000000', 'anonymizedUploadDateTime is set correctly' );
 			assert.strictEqual( image.creationDateTime, '18 February 2009\u00a0(according to EXIF data)', 'creationDateTime is set correctly' );

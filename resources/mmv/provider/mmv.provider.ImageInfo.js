@@ -44,7 +44,6 @@
 	 */
 	ImageInfo.prototype.iiprop = [
 		'timestamp',
-		'user',
 		'url',
 		'size',
 		'mime',

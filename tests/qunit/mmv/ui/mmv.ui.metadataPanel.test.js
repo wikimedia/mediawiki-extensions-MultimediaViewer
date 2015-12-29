@@ -2,7 +2,6 @@
 	var thingsShouldBeEmptied = [
 			'$license',
 			'$title',
-			'$username',
 			'$location',
 			'$datetime'
 		],
@@ -10,7 +9,6 @@
 		thingsShouldHaveEmptyClass = [
 			'$licenseLi',
 			'$credit',
-			'$usernameLi',
 			'$locationLi',
 			'$datetimeLi'
 		];
@@ -97,9 +95,8 @@
 		);
 	} );
 
-	QUnit.test( 'Setting image information works as expected', 19, function ( assert ) {
+	QUnit.test( 'Setting image information works as expected', 17, function ( assert ) {
 		var creditPopupText,
-			gender,
 			$qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) ),
 			title = 'Foo bar',
@@ -124,14 +121,13 @@
 			return oldMoment( date ).lang( 'fr' );
 		};*/
 
-		panel.setImageInfo( image, imageData, repoData, gender );
+		panel.setImageInfo( image, imageData, repoData );
 
 		assert.strictEqual( panel.$title.text(), title, 'Title is correctly set' );
 		assert.ok( panel.$credit.text(), 'Default credit is shown' );
 		assert.strictEqual( panel.$license.prop( 'href' ), imageData.descriptionUrl,
 			'User is directed to file page for license information' );
 		assert.ok( !panel.$license.prop( 'target' ), 'License information opens in same window' );
-		assert.ok( panel.$usernameLi.hasClass( 'empty' ), 'Username is empty' );
 		assert.ok( panel.$datetimeLi.hasClass( 'empty' ), 'Date/Time is empty' );
 		assert.ok( panel.$locationLi.hasClass( 'empty' ), 'Location is empty' );
 
@@ -142,11 +138,9 @@
 		imageData.license = new mw.mmv.model.License( 'CC-BY-2.0', 'cc-by-2.0',
 			'Creative Commons Attribution - Share Alike 2.0',
 			'http://creativecommons.org/licenses/by-sa/2.0/' );
-		gender = 'female';
-		imageData.lastUploader = 'Ursula';
 		imageData.restrictions = [ 'trademarked', 'default', 'insignia' ];
 
-		panel.setImageInfo( image, imageData, repoData, gender );
+		panel.setImageInfo( image, imageData, repoData );
 		creditPopupText = panel.creditField.$element.attr( 'original-title' );
 
 		assert.strictEqual( panel.$title.text(), title, 'Title is correctly set' );
@@ -159,11 +153,10 @@
 		assert.ok( panel.$datetime.text().indexOf( '26 August 2013' ) > 0, 'Correct date is displayed' );
 		assert.strictEqual( panel.$license.text(), 'CC BY 2.0', 'License is correctly set' );
 		assert.ok( panel.$license.prop( 'target' ), 'License information opens in new window' );
-		assert.ok( panel.$username.text().indexOf( imageData.lastUploader ) > 0, 'Correct username is displayed' );
 		assert.ok( panel.$restrictions.children().last().children().hasClass( 'mw-mmv-restriction-default' ), 'Default restriction is correctly displayed last' );
 
 		imageData.creationDateTime = undefined;
-		panel.setImageInfo( image, imageData, repoData, gender );
+		panel.setImageInfo( image, imageData, repoData );
 
 		assert.ok( panel.$datetime.text().indexOf( '25 August 2013' ) > 0, 'Correct date is displayed' );
 
