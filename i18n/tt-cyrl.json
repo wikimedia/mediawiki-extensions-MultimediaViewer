@@ -5,6 +5,7 @@
 		]
 	},
 	"multimediaviewer-pref": "Медиа гизгеч",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Медиа гизгечне]</span> куллану",
 	"multimediaviewer-credit": "$1 - $2",
 	"multimediaviewer-credit-fallback": "Автор турында мәгълүмат",
 	"multimediaviewer-multiple-authors-combine": "$1 һәм $2",
@@ -37,5 +38,7 @@
 	"multimediaviewer-options-dialog-header": "Медиа гизгечне ябаргамы?",
 	"multimediaviewer-options-text-header": "Әлеге мөмкинлекне бөтен файллар өчен дә сүндерергә.",
 	"multimediaviewer-options-text-body": "Кирәк чакта, сез аны файл турындагы мәгълүмат битендә куша аласыз.",
-	"multimediaviewer-option-submit-button": "Медиа гизгечне ябу"
+	"multimediaviewer-option-submit-button": "Медиа гизгечне ябу",
+	"multimediaviewer-enable-dialog-header": "Медиа гизгечне ачу?",
+	"multimediaviewer-enable-submit-button": "Медиа гизгечне ачу"
 }
