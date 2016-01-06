@@ -33,12 +33,17 @@
 	"multimediaviewer-download-small-button-name": "Кече зурлыкта алу",
 	"multimediaviewer-download-medium-button-name": "Уртача зурлыкта алу",
 	"multimediaviewer-download-large-button-name": "Зур зурлыкта алу",
+	"multimediaviewer-embed-wt": "Викитекст",
+	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-view-expanded": "Медиа гизгечтә ачу",
 	"multimediaviewer-credit-popup-text-more": "Автор һәм чыганак турында тулырак мәгълүмат",
+	"multimediaviewer-attr-plain": "Гади",
 	"multimediaviewer-options-dialog-header": "Медиа гизгечне ябаргамы?",
 	"multimediaviewer-options-text-header": "Әлеге мөмкинлекне бөтен файллар өчен дә сүндерергә.",
 	"multimediaviewer-options-text-body": "Кирәк чакта, сез аны файл турындагы мәгълүмат битендә куша аласыз.",
+	"multimediaviewer-options-learn-more": "Күбрәк белү",
 	"multimediaviewer-option-submit-button": "Медиа гизгечне ябу",
+	"multimediaviewer-option-cancel-button": "Баш тарту",
 	"multimediaviewer-enable-dialog-header": "Медиа гизгечне ачу?",
 	"multimediaviewer-enable-submit-button": "Медиа гизгечне ачу"
 }
