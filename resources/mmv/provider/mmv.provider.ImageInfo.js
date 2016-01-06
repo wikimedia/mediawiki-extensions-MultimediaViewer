@@ -91,7 +91,8 @@
 				titles: file.getPrefixedDb(),
 				iiprop: provider.iiprop,
 				iiextmetadatafilter: provider.iiextmetadatafilter,
-				iiextmetadatalanguage: provider.options.language
+				iiextmetadatalanguage: provider.options.language,
+				uselang: 'content'
 			} ).then( function ( data ) {
 				return provider.getQueryPage( file, data );
 			} ).then( function ( page ) {

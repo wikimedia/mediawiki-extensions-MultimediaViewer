@@ -28,6 +28,7 @@
 	 */
 	function MultimediaViewer( mwConfig ) {
 		var apiCacheMaxAge = 86400; // one day (24 hours * 60 min * 60 sec)
+		var apiCacheFiveMinutes = 300; // 5 min * 60 sec
 
 		/**
 		 * @property {mw.Map}
@@ -45,10 +46,10 @@
 		 * @property {mw.mmv.provider.ImageInfo}
 		 * @private
 		 */
-		this.imageInfoProvider = new mw.mmv.provider.ImageInfo( new mw.mmv.logging.Api( 'imageinfo' ),
-			// Short-circuit, don't fallback, to save some tiny amount of time
-			{ language: this.mwConfig.get( 'wgUserLanguage', false ) || this.mwConfig.get( 'wgContentLanguage', 'en' ) }
-		);
+		this.imageInfoProvider = new mw.mmv.provider.ImageInfo( new mw.mmv.logging.Api( 'imageinfo' ), {
+			language: this.mwConfig.get( 'wgUserLanguage', false ) || this.mwConfig.get( 'wgContentLanguage', 'en' ),
+			maxage: apiCacheFiveMinutes
+		});
 
 		/**
 		 * @property {mw.mmv.provider.FileRepoInfo}
