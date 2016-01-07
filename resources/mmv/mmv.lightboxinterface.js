@@ -276,6 +276,11 @@
 
 		this.clearEvents();
 
+		this.buttons.disconnect( this, {
+			'next': [ 'emit', 'next' ],
+			'prev': [ 'emit', 'prev' ]
+		} );
+
 		// We trigger this event on the document because unattach() can run
 		// when the interface is unattached
 		$( document ).trigger( $.Event( 'mmv-close' ) )
