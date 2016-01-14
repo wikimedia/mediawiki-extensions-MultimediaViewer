@@ -32,15 +32,15 @@ class MultimediaViewerHooks {
 	protected static $helpLink = '//mediawiki.org/wiki/Special:MyLanguage/Help:Extension:Media_Viewer';
 
 	public static function registerExtension() {
-		global $wgNetworkPerformanceSamplingFactor, $wgMediaViewerDurationLoggingSamplingFactor,
+		global $wgMediaViewerNetworkPerformanceSamplingFactor, $wgMediaViewerDurationLoggingSamplingFactor,
 		$wgMediaViewerDurationLoggingLoggedinSamplingFactor, $wgMediaViewerAttributionLoggingSamplingFactor,
 		$wgMediaViewerDimensionLoggingSamplingFactor, $wgMediaViewerActionLoggingSamplingFactorMap,
 		$wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing, $wgMediaViewerEnableByDefault,
 		$wgMediaViewerEnableByDefaultForAnonymous, $wgMediaViewerImageQueryParameter,
 		$wgMediaViewerRecordVirtualViewBeaconURI;
-		if ( !isset( $wgNetworkPerformanceSamplingFactor ) ) {
+		if ( !isset( $wgMediaViewerNetworkPerformanceSamplingFactor ) ) {
 			/** @var int|bool: If set, records image load network performance via EventLogging once per this many requests. False if unset. **/
-			$wgNetworkPerformanceSamplingFactor = false;
+			$wgMediaViewerNetworkPerformanceSamplingFactor = false;
 		}
 
 		if ( !isset( $wgMediaViewerDurationLoggingSamplingFactor ) ) {
@@ -283,7 +283,7 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	public static function resourceLoaderGetConfigVars( &$vars ) {
-		global $wgMediaViewerActionLoggingSamplingFactorMap, $wgNetworkPerformanceSamplingFactor,
+		global $wgMediaViewerActionLoggingSamplingFactorMap, $wgMediaViewerNetworkPerformanceSamplingFactor,
 		       $wgMediaViewerDurationLoggingSamplingFactor, $wgMediaViewerDurationLoggingLoggedinSamplingFactor,
 		       $wgMediaViewerAttributionLoggingSamplingFactor, $wgMediaViewerDimensionLoggingSamplingFactor,
 		       $wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing, $wgMediaViewerImageQueryParameter,
@@ -296,7 +296,7 @@ class MultimediaViewerHooks {
 			'useThumbnailGuessing' => (bool)$wgMediaViewerUseThumbnailGuessing,
 			'durationSamplingFactor' => $wgMediaViewerDurationLoggingSamplingFactor,
 			'durationSamplingFactorLoggedin' => $wgMediaViewerDurationLoggingLoggedinSamplingFactor,
-			'networkPerformanceSamplingFactor' => $wgNetworkPerformanceSamplingFactor,
+			'networkPerformanceSamplingFactor' => $wgMediaViewerNetworkPerformanceSamplingFactor,
 			'actionLoggingSamplingFactorMap' => $wgMediaViewerActionLoggingSamplingFactorMap,
 			'attributionSamplingFactor' => $wgMediaViewerAttributionLoggingSamplingFactor,
 			'dimensionSamplingFactor' => $wgMediaViewerDimensionLoggingSamplingFactor,
