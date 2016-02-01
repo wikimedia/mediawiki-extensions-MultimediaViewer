@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Wisdom"
+			"Wisdom",
+			"Munkhzaya.E"
 		]
 	},
+	"multimediaviewer-discuss-mmv": "Хэлэлцэх",
 	"multimediaviewer-optin-help": "Зураг харуулахдаа Media Viewer -ыг ашиглана"
 }
