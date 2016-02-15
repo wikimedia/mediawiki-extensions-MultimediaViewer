@@ -4,7 +4,7 @@
 	"--builtin-classes": true,
 	"--processes": "0",
 	"--warnings-exit-nonzero": true,
-	"--output": "docs/js",
+	"--output": "docs",
 	"--": [
 		"docs/external.js",
 		"resources/mmv"
