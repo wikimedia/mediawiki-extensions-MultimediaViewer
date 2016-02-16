@@ -39,6 +39,8 @@ body.mw-mmv-lightbox-open > .mw-mmv-wrapper {
 
 	.mw-mmv-view-expanded, .mw-mmv-view-config {
 		display: block;
+		// Work around some weirdness of MW-UI buttons. T127052
+		line-height: inherit;
 	}
 
 	.mw-mmv-view-expanded.mw-ui-icon:before {
