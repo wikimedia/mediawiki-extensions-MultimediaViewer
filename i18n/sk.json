@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Teslaton"
+		]
+	},
+	"multimediaviewer-desc": "Zobrazí náhľady obrázkov na celú obrazovku.",
+	"multimediaviewer-pref": "Prehliadač médií",
+	"multimediaviewer-optout-mmv": "Vypnúť Prehliadač médií",
+	"multimediaviewer-optin-mmv": "Zapnúť Prehliadač médií",
+	"multimediaviewer-optout-pending-mmv": "Prehliadač médií sa vypína",
+	"multimediaviewer-optin-pending-mmv": "Prehliadač médií sa zapína",
+	"multimediaviewer-view-expanded": "Zobraziť v prehliadači médií"
+}
