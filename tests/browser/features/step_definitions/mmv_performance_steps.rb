@@ -24,7 +24,7 @@ Given /^I have a large browser window$/ do
 end
 
 Given /^I am using a custom user agent$/ do
-  browser(test_name(@scenario), user_agent: env[:browser_useragent])
+  browser_factory.override(browser_user_agent: env[:browser_useragent])
 end
 
 Then /^the File: page image is loaded$/ do
