@@ -15,6 +15,7 @@
 #   bundle exec cucumber
 #
 mw-vagrant-host: &default
+  browser_useragent: test-user-agent
   user_factory: true
   mediawiki_url: http://127.0.0.1:8080/wiki/
 
@@ -23,12 +24,14 @@ mw-vagrant-guest:
   mediawiki_url: http://127.0.0.1/wiki/
 
 beta:
+  browser_useragent: test-user-agent
   mediawiki_url: http://en.wikipedia.beta.wmflabs.org/wiki/
   mediawiki_user: Selenium_user
   # mediawiki_password: SET THIS IN THE ENVIRONMENT!
 
-test2:
-  mediawiki_url: http://test2.wikipedia.org/wiki/
+mediawiki-org:
+  browser_useragent: test-user-agent
+  mediawiki_url: http://mediawiki.org/wiki/
   mediawiki_user: Selenium_user
   # mediawiki_password: SET THIS IN THE ENVIRONMENT!
 
