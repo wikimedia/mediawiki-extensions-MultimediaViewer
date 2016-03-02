@@ -320,6 +320,9 @@
 				gravity: this.correctEW( 'ne' )
 			} )
 			.click( function () {
+				if ( ui.isFullscreen ) {
+					ui.$main.trigger( $.Event( 'jq-fullscreen-change.lip' ) );
+				}
 				ui.unattach();
 			} );
 
