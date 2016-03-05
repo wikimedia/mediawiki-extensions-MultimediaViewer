@@ -140,7 +140,7 @@
 	"multimediaviewer-options-text-body": "Text explaining how to re-enable the media viewer after disabling.",
 	"multimediaviewer-options-learn-more": "Text for a link to more information about the media viewer.",
 	"multimediaviewer-option-submit-button": "Button for submitting a preference change that modifies the default behavior for image clicks - disables the viewer.",
-	"multimediaviewer-option-cancel-button": "Button for canceling an action on a preference change that modifies the default behavior for image clicks - closes the dialog with no action.",
+	"multimediaviewer-option-cancel-button": "Button for canceling an action on a preference change that modifies the default behavior for image clicks - closes the dialog with no action.\n{{Identical|Cancel}}",
 	"multimediaviewer-disable-confirmation-header": "Header on a dialog that informs the user they've successfully disabled the media viewer.",
 	"multimediaviewer-disable-confirmation-text": "Text informing the user that they've successfully disabled the media viewer. $1 is the wiki's name.",
 	"multimediaviewer-enable-dialog-header": "Header for a dialog that allows users to re-enable media viewer.",
