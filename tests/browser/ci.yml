@@ -1,0 +1,86 @@
+BROWSER:
+  - chrome
+  - firefox
+  - internet_explorer 9.0
+  - internet_explorer 10.0
+  - internet_explorer 11.0
+  - safari
+
+MEDIAWIKI_ENVIRONMENT:
+  - beta
+  - mediawiki
+
+PLATFORM:
+  - Linux
+  - OS X 10.9
+  - Windows 7
+  - Windows 8
+  - Windows 8.1
+
+exclude:
+  - BROWSER: chrome
+    MEDIAWIKI_ENVIRONMENT: mediawiki
+
+  - BROWSER: chrome
+    PLATFORM: Linux
+  - BROWSER: chrome
+    PLATFORM: Windows 7
+  - BROWSER: chrome
+    PLATFORM: Windows 8
+  - BROWSER: chrome
+    PLATFORM: Windows 8.1
+
+  - BROWSER: firefox
+    PLATFORM: OS X 10.9
+  - BROWSER: firefox
+    PLATFORM: Windows 7
+  - BROWSER: firefox
+    PLATFORM: Windows 8
+  - BROWSER: firefox
+    PLATFORM: Windows 8.1
+
+  - BROWSER: internet_explorer 9.0
+    MEDIAWIKI_ENVIRONMENT: mediawiki
+
+  - BROWSER: internet_explorer 9.0
+    PLATFORM: Linux
+  - BROWSER: internet_explorer 9.0
+    PLATFORM: OS X 10.9
+  - BROWSER: internet_explorer 9.0
+    PLATFORM: Windows 8
+  - BROWSER: internet_explorer 9.0
+    PLATFORM: Windows 8.1
+
+  - BROWSER: internet_explorer 10.0
+    MEDIAWIKI_ENVIRONMENT: mediawiki
+
+  - BROWSER: internet_explorer 10.0
+    PLATFORM: Linux
+  - BROWSER: internet_explorer 10.0
+    PLATFORM: OS X 10.9
+  - BROWSER: internet_explorer 10.0
+    PLATFORM: Windows 7
+  - BROWSER: internet_explorer 10.0
+    PLATFORM: Windows 8.1
+
+  - BROWSER: internet_explorer 11.0
+    MEDIAWIKI_ENVIRONMENT: mediawiki
+
+  - BROWSER: internet_explorer 11.0
+    PLATFORM: Linux
+  - BROWSER: internet_explorer 11.0
+    PLATFORM: OS X 10.9
+  - BROWSER: internet_explorer 11.0
+    PLATFORM: Windows 8
+
+  - BROWSER: safari
+    MEDIAWIKI_ENVIRONMENT: mediawiki
+
+  - BROWSER: safari
+    PLATFORM: Linux
+  - BROWSER: safari
+    PLATFORM: Windows 7
+  - BROWSER: safari
+    PLATFORM: Windows 8
+  - BROWSER: safari
+    PLATFORM: Windows 8.1

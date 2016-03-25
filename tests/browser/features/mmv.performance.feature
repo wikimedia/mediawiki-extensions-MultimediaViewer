@@ -1,4 +1,4 @@
-@en.wikipedia.beta.wmflabs.org @custom-browser @www.mediawiki.org @firefox @internet_explorer_9 @internet_explorer_10 @internet_explorer_11 @test2.wikipedia.org
+@chrome @en.wikipedia.beta.wmflabs.org @firefox @internet_explorer @www.mediawiki.org @safari @test2.wikipedia.org
 Feature: Multimedia Viewer performance
 
   Background:

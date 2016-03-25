@@ -29,7 +29,7 @@ beta:
   mediawiki_user: Selenium_user
   # mediawiki_password: SET THIS IN THE ENVIRONMENT!
 
-mediawiki-org:
+mediawiki:
   browser_useragent: test-user-agent
   mediawiki_url: https://www.mediawiki.org/wiki/
   mediawiki_user: Selenium_user

@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 Given /^I am at a wiki article with at least two embedded pictures$/ do
-  api.create_page 'MediaViewerE2ETest', File.read('samples/MediaViewerE2ETest.wikitext')
+  api.create_page 'MediaViewerE2ETest', File.read(File.join(__dir__, '../../samples/MediaViewerE2ETest.wikitext'))
   visit(E2ETestPage)
   on(E2ETestPage).image1_in_article_element.when_present.should be_visible
 end
