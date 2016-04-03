@@ -23,13 +23,11 @@
 	 * @class mw.mmv.logging.ViewLogger
 	 * @extends mw.Api
 	 * @constructor
-	 * @param {mw.Map} mwConfig mw.config
+	 * @param {mw.mmv.Config} config mw.mmv.Config object
 	 * @param {Object} window Browser window object
 	 * @param {mw.mmv.logging.ActionLogger} actionLogger ActionLogger object
 	 */
-	function ViewLogger( mwConfig, windowObject, actionLogger ) {
-		var config = mwConfig && mwConfig.get ? mwConfig.get( 'wgMultimediaViewer' ) : false;
-
+	function ViewLogger( config, windowObject, actionLogger ) {
 		/**
 		 * Was the last image view logged or was logging skipped?
 		 * @property {boolean}
@@ -58,7 +56,7 @@
 		 * If set, URI to send the beacon request to in order to record the virtual view
 		 * @property {string}
 		 */
-		this.recordVirtualViewBeaconURI = config ? config.recordVirtualViewBeaconURI : false;
+		this.recordVirtualViewBeaconURI = config.recordVirtualViewBeaconURI();
 
 		/**
 		 * Browser window

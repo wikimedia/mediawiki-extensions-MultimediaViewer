@@ -24,30 +24,30 @@
 	 * to manage the viewing experience of such content.
 	 * @class mw.mmv.MultimediaViewer
 	 * @constructor
-	 * @param {mw.Map} mwConfig mw.config
+	 * @param {mw.mmv.Config} config mw.mmv.Config object
 	 */
-	function MultimediaViewer( mwConfig ) {
+	function MultimediaViewer( config ) {
 		var apiCacheMaxAge = 86400; // one day (24 hours * 60 min * 60 sec)
 		var apiCacheFiveMinutes = 300; // 5 min * 60 sec
 
 		/**
-		 * @property {mw.Map}
+		 * @property {mw.mmv.Config}
 		 * @private
 		 */
-		this.mwConfig = mwConfig;
+		this.config = config;
 
 		/**
 		 * @property {mw.mmv.provider.Image}
 		 * @private
 		 */
-		this.imageProvider = new mw.mmv.provider.Image( mw.config.get( 'wgMultimediaViewer' ).imageQueryParameter );
+		this.imageProvider = new mw.mmv.provider.Image( this.config.imageQueryParameter() );
 
 		/**
 		 * @property {mw.mmv.provider.ImageInfo}
 		 * @private
 		 */
 		this.imageInfoProvider = new mw.mmv.provider.ImageInfo( new mw.mmv.logging.Api( 'imageinfo' ), {
-			language: this.mwConfig.get( 'wgUserLanguage', false ) || this.mwConfig.get( 'wgContentLanguage', 'en' ),
+			language: this.config.language(),
 			maxage: apiCacheFiveMinutes
 		});
 
@@ -107,7 +107,7 @@
 		/**
 		 * @property {mw.mmv.logging.ViewLogger} view -
 		 */
-		this.viewLogger = new mw.mmv.logging.ViewLogger( this.mwConfig, window, mw.mmv.actionLogger );
+		this.viewLogger = new mw.mmv.logging.ViewLogger( this.config, window, mw.mmv.actionLogger );
 	}
 
 	MMVP = MultimediaViewer.prototype;
@@ -228,10 +228,13 @@
 			canvasDimensions,
 			imagePromise,
 			metadataPromise,
+			pluginsPromise,
 			start,
 			viewer = this,
 			$initialImage = $( initialImage ),
 			extraStatsDeferred = $.Deferred();
+
+		pluginsPromise = this.loadExtensionPlugins( image.filePageTitle.ext );
 
 		this.currentIndex = image.index;
 
@@ -251,6 +254,8 @@
 		// the aspect ratio
 		$initialImage.hide();
 		$initialImage.addClass( 'mw-mmv-placeholder-image' );
+		$initialImage.addClass( image.filePageTitle.ext );
+
 		this.ui.canvas.set( image, $initialImage );
 
 		this.preloadImagesMetadata();
@@ -294,8 +299,13 @@
 				} );
 			}
 
-			imageElement.className = 'mw-mmv-final-image';
+			imageElement.className = 'mw-mmv-final-image ' + image.filePageTitle.ext;
 			imageElement.alt = image.alt;
+
+			$.when( metadataPromise, pluginsPromise ).done( function ( metadata ) {
+				$( document ).trigger( $.Event( 'mmv-metadata', { viewer : viewer, image : image, imageInfo: metadata[ 0 ] } ) );
+			} );
+
 			viewer.displayRealThumbnail( thumbnail, imageElement, imageWidths, $.now() - start );
 		} ).fail( function ( error ) {
 			viewer.ui.canvas.showError( error );
@@ -741,7 +751,7 @@
 
 		if (
 			sampleUrl && originalWidth && originalHeight &&
-			mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing
+			this.config.useThumbnailGuessing()
 		) {
 			guessing = true;
 			thumbnailPromise = this.guessedThumbnailInfoProvider.get(
@@ -944,6 +954,26 @@
 	 */
 	MMVP.preloadDependencies = function () {
 		mw.loader.load( [ 'mmv.ui.reuse.shareembed', 'moment' ] );
+	};
+
+	/**
+	 * Loads the RL module defined for a given file extension, if any
+	 * @param {string} extension File extension
+	 * @returns {jQuery.Promise}
+	 */
+	MMVP.loadExtensionPlugins = function ( extension ) {
+		var deferred = $.Deferred(),
+			config = this.config.extensions();
+
+		if ( !( extension in config ) || config[ extension ] === 'default' ) {
+			return deferred.resolve();
+		}
+
+		mw.loader.using( config[ extension ], function() {
+			deferred.resolve();
+		} );
+
+		return deferred;
 	};
 
 	mw.mmv.MultimediaViewer = MultimediaViewer;

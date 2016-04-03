@@ -60,13 +60,20 @@
 	display: block;
 	margin-right: auto;
 	margin-left: auto;
-	background: url( checker.png ) repeat;
 	cursor: pointer;
 	cursor: zoom-in;
+
+	/* Whitelist file types that are potentially transparent.
+	   We don't set it for other file types because Media Viewer plugins
+	   can find that undesirable (eg. 3d) */
+	&.gif, &.png, &.svg, &.tiff, &.tif {
+		background: url( checker.png ) repeat;
+	}
 
 	&.mw-mmv-dialog-is-open {
 		cursor: default;
 	}
+
 	.metadata-panel-is-open & {
 		cursor: pointer;
 	}

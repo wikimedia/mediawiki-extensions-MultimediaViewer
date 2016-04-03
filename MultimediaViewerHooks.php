@@ -287,7 +287,7 @@ class MultimediaViewerHooks {
 		       $wgMediaViewerDurationLoggingSamplingFactor, $wgMediaViewerDurationLoggingLoggedinSamplingFactor,
 		       $wgMediaViewerAttributionLoggingSamplingFactor, $wgMediaViewerDimensionLoggingSamplingFactor,
 		       $wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing, $wgMediaViewerImageQueryParameter,
-		       $wgMediaViewerRecordVirtualViewBeaconURI;
+		       $wgMediaViewerRecordVirtualViewBeaconURI, $wgMediaViewerExtensions;
 
 		$vars['wgMultimediaViewer'] = array(
 			'infoLink' => self::$infoLink,
@@ -303,6 +303,7 @@ class MultimediaViewerHooks {
 			'imageQueryParameter' => $wgMediaViewerImageQueryParameter,
 			'recordVirtualViewBeaconURI' => $wgMediaViewerRecordVirtualViewBeaconURI,
 			'tooltipDelay' => 1000,
+			'extensions' => $wgMediaViewerExtensions,
 		);
 		$vars['wgMediaViewer'] = true;
 		$vars['wgMediaViewerIsInBeta'] = $wgMediaViewerIsInBeta;

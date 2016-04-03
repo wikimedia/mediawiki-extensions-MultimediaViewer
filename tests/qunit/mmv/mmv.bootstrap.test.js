@@ -288,7 +288,7 @@
 		var bootstrap,
 			$div,
 			$link,
-			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
+			viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			fname = 'valid',
 			imgSrc = '/' + fname + '.jpg/300px-' + fname + '.jpg',
 			imgRegex = new RegExp( imgSrc + '$' );

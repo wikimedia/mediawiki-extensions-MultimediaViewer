@@ -2,7 +2,7 @@
 	QUnit.module( 'mmv', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'eachPrealoadableLightboxIndex()', 11, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
+		var viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			expectedIndices,
 			i;
 
@@ -31,7 +31,7 @@
 
 	QUnit.test( 'Hash handling', 8, function ( assert ) {
 		var oldUnattach,
-			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
+			viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			ui = new mw.mmv.LightboxInterface(),
 			imageSrc = 'Foo bar.jpg',
 			image = { filePageTitle: new mw.Title( 'File:' + imageSrc ) };
@@ -113,7 +113,7 @@
 
 	QUnit.test( 'Progress', 4, function ( assert ) {
 		var imageDeferred = $.Deferred(),
-			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
+			viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			fakeImage = {
 				filePageTitle: new mw.Title( 'File:Stuff.jpg' ),
 				extraStatsDeferred: $.Deferred().reject()
@@ -181,7 +181,7 @@
 				filePageTitle: new mw.Title( 'File:Second.jpg' ),
 				extraStatsDeferred: $.Deferred().reject()
 			},
-			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } );
+			viewer = mw.mmv.testHelpers.getMultimediaViewer();
 
 		// animation would keep running, conflict with other tests
 		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
@@ -282,7 +282,7 @@
 	} );
 
 	QUnit.test( 'resetBlurredThumbnailStates', 4, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } );
+		var viewer = mw.mmv.testHelpers.getMultimediaViewer();
 
 		// animation would keep running, conflict with other tests
 		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
@@ -300,7 +300,7 @@
 	} );
 
 	QUnit.test( 'Placeholder first, then real thumbnail', 4, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } );
+		var viewer = mw.mmv.testHelpers.getMultimediaViewer();
 
 		viewer.setImage = $.noop;
 		viewer.ui = { canvas: {
@@ -322,7 +322,7 @@
 	} );
 
 	QUnit.test( 'Placeholder first, then real thumbnail - missing size', 4, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } );
+		var viewer = mw.mmv.testHelpers.getMultimediaViewer();
 
 		viewer.currentIndex = 1;
 		viewer.setImage = $.noop;
@@ -345,7 +345,7 @@
 	} );
 
 	QUnit.test( 'Real thumbnail first, then placeholder', 4, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } );
+		var viewer = mw.mmv.testHelpers.getMultimediaViewer();
 
 		viewer.setImage = $.noop;
 		viewer.ui = {
@@ -367,7 +367,7 @@
 	} );
 
 	QUnit.test( 'displayRealThumbnail', 2, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } );
+		var viewer = mw.mmv.testHelpers.getMultimediaViewer();
 
 		viewer.setImage = $.noop;
 		viewer.ui = { canvas: {
@@ -386,7 +386,7 @@
 	} );
 
 	QUnit.test( 'New image loaded while another one is loading', 5, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
+		var viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			firstImageDeferred = $.Deferred(),
 			secondImageDeferred = $.Deferred(),
 			firstLigthboxInfoDeferred = $.Deferred(),
@@ -458,7 +458,7 @@
 
 	QUnit.test( 'Events are not trapped after the viewer is closed', 0, function ( assert ) {
 		var i, j, k, eventParameters,
-			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
+			viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			$document = $( document ),
 			$qf = $( '#qunit-fixture' ),
 			eventTypes = [ 'keydown', 'keyup', 'keypress', 'click', 'mousedown', 'mouseup' ],
@@ -533,7 +533,7 @@
 	} );
 
 	QUnit.test( 'Refuse to load too-big thumbnails', 1, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
+		var viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			intendedWidth = 50,
 			title = mw.Title.newFromText( 'File:Foobar.svg' );
 
@@ -550,9 +550,9 @@
 			thumbnailInfoStub,
 			imageStub,
 			promise,
-			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
+			useThumbnailGuessing,
+			viewer = new mw.mmv.MultimediaViewer( { imageQueryParameter: $.noop, language: $.noop, recordVirtualViewBeaconURI: $.noop, extensions: function () { return { 'jpg' : 'default' }; }, useThumbnailGuessing : function () { return useThumbnailGuessing; } } ),
 			sandbox = this.sandbox,
-			oldUseThumbnailGuessing = mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing,
 			file = new mw.Title( 'File:Copyleft.svg' ),
 			sampleURL = 'http://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Copyleft.svg/300px-Copyleft.svg.png',
 			width = 100,
@@ -566,7 +566,7 @@
 			imageStub = viewer.imageProvider.get = sandbox.stub();
 		}
 
-		mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing = true;
+		useThumbnailGuessing = true;
 
 		// When we lack sample URL and original dimensions, the classic provider should be used
 		setupStubs();
@@ -632,7 +632,7 @@
 		assert.ok( imageStub.getCall( 1 ).calledWith( 'apiURL' ), 'When even the retry fails, ImageProvider is called second with the guessed url' );
 		assert.strictEqual( promise.state(), 'rejected', 'When even the retry fails, fetchThumbnail rejects' );
 
-		mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing = false;
+		useThumbnailGuessing = false;
 
 		// When guessing is disabled, the classic provider is used
 		setupStubs();
@@ -645,12 +645,10 @@
 		assert.ok( imageStub.calledOnce, 'When guessing is disabled, ImageProvider is called once' );
 		assert.ok( imageStub.calledWith( 'apiURL' ), 'When guessing is disabled, ImageProvider is called with the API url' );
 		assert.strictEqual( promise.state(), 'resolved', 'When guessing is disabled, fetchThumbnail resolves' );
-
-		mw.config.get( 'wgMultimediaViewer' ).useThumbnailGuessing = oldUseThumbnailGuessing;
 	} );
 
 	QUnit.test( 'document.title', 2, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
+		var viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			bootstrap = new mw.mmv.MultimediaViewerBootstrap(),
 			title = new mw.Title( 'File:This_should_show_up_in_document_title.png' ),
 			oldDocumentTitle = document.title;
