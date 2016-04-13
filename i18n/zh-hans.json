@@ -21,7 +21,7 @@
 	"multimediaviewer-pref-desc": "使用这个新工具改善你的多媒体浏览体验。它能以更大的尺寸显示页面中的缩略图。图像将显示于一个漂亮的全屏界面浮层中，并能以完整尺寸查看。",
 	"multimediaviewer-optin-pref": "启用<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About 媒体查看器]</span>",
 	"multimediaviewer-file-page": "前往对应的文件页面",
-	"multimediaviewer-repository-local": "更多细节",
+	"multimediaviewer-repository-local": "更多详情",
 	"multimediaviewer-datetime-created": "创建于：$1",
 	"multimediaviewer-datetime-uploaded": "上传于：$1",
 	"multimediaviewer-credit-fallback": "查看作者信息",
