@@ -1,4 +1,4 @@
-@chrome @en.wikipedia.beta.wmflabs.org @firefox @integration @internet_explorer @safari @test2.wikipedia.org
+@chrome @en.wikipedia.beta.wmflabs.org @firefox @integration @safari @test2.wikipedia.org
 Feature: Download menu
 
   Background:
