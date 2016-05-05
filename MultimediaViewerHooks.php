@@ -161,7 +161,7 @@ class MultimediaViewerHooks {
 	public static function onEventLoggingRegisterSchemas( array &$schemas ) {
 		 $schemas += array(
 			'MediaViewer' => 10867062,
-			'MultimediaViewerNetworkPerformance' => 12458951,
+			'MultimediaViewerNetworkPerformance' => 15573630,
 			'MultimediaViewerDuration' => 10427980,
 			'MultimediaViewerAttribution' => 9758179,
 			'MultimediaViewerDimensions' => 10014238,
