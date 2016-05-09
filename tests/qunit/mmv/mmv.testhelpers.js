@@ -42,5 +42,20 @@
 		};
 	};
 
+	/**
+	 * Returns a viewer object with all the appropriate placeholder functions.
+	 * @returns {[type]} [description]
+	 */
+	MTH.getMultimediaViewer = function () {
+		return new mw.mmv.MultimediaViewer( {
+			imageQueryParameter: $.noop,
+			language: $.noop,
+			recordVirtualViewBeaconURI: $.noop,
+			extensions: function () {
+				return { 'jpg' : 'default' };
+			}
+		} );
+	};
+
 	mw.mmv.testHelpers = MTH;
 } )( mediaWiki, jQuery );

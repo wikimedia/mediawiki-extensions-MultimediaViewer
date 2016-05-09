@@ -30,16 +30,6 @@
 			localStorage = window.localStorage || false;
 		} catch ( e ) { }
 
-		this.validExtensions = {
-			'jpg' : true,
-			'jpeg' : true,
-			'gif' : true,
-			'svg' : true,
-			'png' : true,
-			'tiff' : true,
-			'tif' : true
-		};
-
 		// Exposed for tests
 		this.hoverWaitDuration = 200;
 
@@ -53,6 +43,8 @@
 			new mw.Api(),
 			localStorage
 		);
+
+		this.validExtensions = this.config.extensions();
 
 		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
 		this.htmlUtils = new mw.mmv.HtmlUtils();
@@ -184,7 +176,7 @@
 			link = $link.prop( 'href' ),
 			alt = $thumb.attr( 'alt' );
 
-		if ( !bs.validExtensions[ title.getExtension().toLowerCase() ] ) {
+		if ( !( title.getExtension().toLowerCase() in bs.validExtensions ) ) {
 			return;
 		}
 
@@ -494,7 +486,7 @@
 	 */
 	MMVB.getViewer = function () {
 		if ( this.viewer === undefined ) {
-			this.viewer = new mw.mmv.MultimediaViewer( mw.config );
+			this.viewer = new mw.mmv.MultimediaViewer( this.config );
 			this.viewer.setupEventHandlers();
 			mw.mmv.viewer = this.viewer;
 		}

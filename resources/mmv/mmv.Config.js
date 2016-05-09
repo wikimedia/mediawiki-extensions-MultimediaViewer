@@ -222,5 +222,50 @@
 		this.setInLocalStorage( 'mmv-showStatusInfo', '0' );
 	};
 
+	/**
+	 * Returns file extensions handled by Media Viewer.
+	 *
+	 * The object's keys are the file extensions.
+	 * The object's values are either 'default' when Media Viewer handles that file extension
+	 * directly or the name of a ResourceLoader module to load when such a file is opened.
+	 *
+	 * @returns {Object}
+	 */
+	CP.extensions = function ( ) {
+		return this.viewerConfig.extensions;
+	};
+
+	/**
+	 * Returns UI language
+	 * @returns {string} Language code
+	 */
+	CP.language = function ( ) {
+		return this.mwConfig.get( 'wgUserLanguage', false ) || this.mwConfig.get( 'wgContentLanguage', 'en' );
+	};
+
+	/**
+	 * Returns URI of virtual view beacon or false if not set
+	 * @returns {string|boolean} URI
+	 */
+	CP.recordVirtualViewBeaconURI = function ( ) {
+		return this.viewerConfig.recordVirtualViewBeaconURI;
+	};
+
+	/**
+	 * Returns useThumbnailGuessing flag
+	 * @returns {boolean}
+	 */
+	CP.useThumbnailGuessing = function ( ) {
+		return this.viewerConfig.useThumbnailGuessing;
+	};
+
+	/**
+	 * Returns imageQueryParameter, if set
+	 * @returns {string|boolean}
+	 */
+	CP.imageQueryParameter = function ( ) {
+		return this.viewerConfig.imageQueryParameter;
+	};
+
 	mw.mmv.Config = Config;
 } ( mediaWiki, jQuery ) );

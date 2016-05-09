@@ -401,6 +401,16 @@
 			"MultimediaViewerHooks::thumbnailBeforeProduceHTML"
 		]
 	},
-	"config": {},
+	"config": {
+		"MediaViewerExtensions": {
+			"jpg": "default",
+			"jpeg": "default",
+			"gif": "default",
+			"svg": "default",
+			"png": "default",
+			"tiff": "default",
+			"tif": "default"
+		}
+	},
 	"manifest_version": 1
 }

@@ -142,7 +142,7 @@
 		var buttonOffset, panelBottom,
 			oldRevealButtonsAndFadeIfNeeded,
 			lightbox = new mw.mmv.LightboxInterface(),
-			viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
+			viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			oldFnEnterFullscreen = $.fn.enterFullscreen,
 			oldFnExitFullscreen = $.fn.exitFullscreen;
 
@@ -251,7 +251,7 @@
 	} );
 
 	QUnit.test( 'Keyboard prev/next', 2, function ( assert ) {
-		var viewer = new mw.mmv.MultimediaViewer( { get: $.noop } ),
+		var viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			lightbox = new mw.mmv.LightboxInterface();
 
 		viewer.setupEventHandlers();
