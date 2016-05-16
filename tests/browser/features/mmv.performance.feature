@@ -1,4 +1,4 @@
-@chrome @en.wikipedia.beta.wmflabs.org @firefox @www.mediawiki.org @test2.wikipedia.org
+@en.wikipedia.beta.wmflabs.org @firefox @www.mediawiki.org @test2.wikipedia.org
 Feature: Multimedia Viewer performance
 
   Background:
