@@ -77,13 +77,13 @@
 		this.$downloadButton = $( '<a>' )
 			.attr( 'target', '_blank' )
 			.attr( 'download', '' )
-			.addClass( 'mw-ui-button mw-ui-constructive mw-mmv-download-go-button' )
+			.addClass( 'mw-ui-button mw-ui-progressive mw-mmv-download-go-button' )
 			.click( function () {
 				mw.mmv.actionLogger.log( 'download' );
 			} );
 
 		this.$selectionArrow = $( '<span>' )
-			.addClass( 'mw-ui-button mw-mmv-download-select-menu' )
+			.addClass( 'mw-ui-button mw-ui-progressive mw-mmv-download-select-menu' )
 			.append(
 				$( '<span>' )
 					.addClass( 'mw-mmv-download-image-size-name' )
