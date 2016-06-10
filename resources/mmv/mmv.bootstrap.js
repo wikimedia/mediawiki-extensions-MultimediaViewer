@@ -180,16 +180,29 @@
 	 * @param {Object} thumb
 	 */
 	MMVB.processThumb = function ( thumb ) {
-		var bs = this,
+		var title,
+			bs = this,
 			$thumb = $( thumb ),
 			$link = $thumb.closest( 'a.image, [typeof*="mw:Image"] > a' ),
 			$thumbContain = $link.closest( '.thumb, [typeof*="mw:Image"]' ),
 			$enlarge = $thumbContain.find( '.magnify a' ),
-			title = mw.Title.newFromImg( $thumb ),
 			link = $link.prop( 'href' ),
-			alt = $thumb.attr( 'alt' );
+			alt = $thumb.attr( 'alt' ),
+			isFilePageMainThumb = $thumb.closest( '#file' ).length > 0;
+
+		if ( isFilePageMainThumb ) {
+			// main thumbnail (file preview area) of a file page
+			// if this is a PDF filetype thumbnail, it can trick us,
+			// so we short-circuit that logic and use the file page title
+			// instead of the thumbnail logic.
+			title = mw.Title.newFromText( mw.config.get( 'wgTitle' ), mw.config.get( 'wgNamespaceNumber' ) );
+		} else {
+			title = mw.Title.newFromImg( $thumb );
+		}
 
 		if ( !title || !title.getExtension() || !( title.getExtension().toLowerCase() in bs.validExtensions ) ) {
+			// Short-circuit event handler and interface setup, because
+			// we can't do anything for this filetype
 			return;
 		}
 
@@ -214,8 +227,7 @@
 			} );
 		}
 
-		if ( $thumb.closest( '#file' ).length > 0 ) {
-			// main thumbnail of a file page
+		if ( isFilePageMainThumb ) {
 			this.processFilePageThumb( $thumb, title );
 			return;
 		}

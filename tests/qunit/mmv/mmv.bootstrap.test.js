@@ -166,6 +166,8 @@
 		link3 = $( '<a>' ).addClass( 'noImage' ).appendTo( div );
 		$( '<img>' ).attr( 'src', 'thumb3.jpg' ).appendTo( link3 );
 
+		mw.config.set( 'wgTitle', 'Thumb4.jpg' );
+		mw.config.set( 'wgNamespaceNumber', 6 );
 		$( '<div>' ).addClass( 'fullMedia' ).appendTo( div );
 		$( '<img>' ).attr( 'src', 'thumb4.jpg' ).appendTo(
 			$( '<a>' )
