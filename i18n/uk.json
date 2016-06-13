@@ -6,7 +6,8 @@
 			"Sergento",
 			"Olion",
 			"Piramidion",
-			"Macofe"
+			"Macofe",
+			"Base"
 		]
 	},
 	"multimediaviewer-desc": "Розгорнути мініатюри в більшому розмірі у лайтбоксі.",
@@ -109,7 +110,7 @@
 	"multimediaviewer-option-submit-button": "Вимкнути Медіапереглядач",
 	"multimediaviewer-option-cancel-button": "Скасувати",
 	"multimediaviewer-disable-confirmation-header": "Ви вимкнули Медіапереглядач",
-	"multimediaviewer-disable-confirmation-text": "Наступного разу при клацанні на мініатюру файлу на сайті $1, ви потрапите безпосередньо на сторінку опису файлу.",
+	"multimediaviewer-disable-confirmation-text": "Наступного разу при клацанні на мініатюру файлу на сайті $1, Ви потрапите безпосередньо на сторінку опису файлу.",
 	"multimediaviewer-enable-dialog-header": "Увімкнути Медіапереглядач?",
 	"multimediaviewer-enable-text-header": "Увімкнути цю функцію перегляду для всіх медіа-файлів за замовчуванням.",
 	"multimediaviewer-enable-submit-button": "Увімкнути Медіапереглядач",
