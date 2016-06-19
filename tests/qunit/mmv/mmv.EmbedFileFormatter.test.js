@@ -265,7 +265,7 @@
 			}
 		} );
 
-		assert.strictEqual( html, 'By Author - Source, link', 'Sanity check' );
+		assert.strictEqual( html, 'By Author - Source, <a href="link">link</a>', 'Sanity check' );
 
 		html = formatter.getCreditHtml( {
 			repoInfo: {
@@ -288,6 +288,6 @@
 			}
 		} );
 
-		assert.strictEqual( html, 'By Author - Source, <a href="http://www.wtfpl.net/">WTFPL v2</a>, link', 'Sanity check' );
+		assert.strictEqual( html, 'By Author - Source, <a href="http://www.wtfpl.net/">WTFPL v2</a>, <a href="link">link</a>', 'Sanity check' );
 	} );
 }( mediaWiki ) );

@@ -163,11 +163,12 @@
 	EFFP.getCreditHtml = function ( info ) {
 		var creditText, creditParams,
 			shortURL = info.imageInfo.descriptionShortUrl,
+			shortLink = this.htmlUtils.makeLinkText( shortURL, { href: shortURL } ),
 			license = info.imageInfo.license,
 			byline = this.getByline( info.imageInfo.author, info.imageInfo.source, info.imageInfo.attribution );
 
 		if ( !byline && !license ) {
-			return shortURL;
+			return shortLink;
 		}
 
 		creditParams = [
@@ -183,7 +184,7 @@
 			creditParams.push( license.getShortLink() );
 		}
 
-		creditParams.push( shortURL );
+		creditParams.push( shortLink );
 		creditText = mw.message.apply( mw, creditParams ).plain();
 
 		return creditText;
