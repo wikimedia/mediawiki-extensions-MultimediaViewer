@@ -240,5 +240,22 @@
 		return cache.textWithLinks[html];
 	};
 
+	/**
+	 * Generates HTML code for a link.
+	 * @param {string} text Link text (plain text; will be sanitized)
+	 * @param {Object} props Link attributes (should at a minumum include href; will be sanitized)
+	 * @return {string}
+	 */
+	HUP.makeLinkText = function ( text, props ) {
+		var key;
+		for ( key in props ) {
+			if ( !props.hasOwnProperty( key ) ) {
+				continue;
+			}
+			props[key] = this.htmlToText( props[key] );
+		}
+		return this.jqueryToHtml( $( '<a>' ).prop( props ).text( text ) );
+	};
+
 	mw.mmv.HtmlUtils = HtmlUtils;
 }( mediaWiki, jQuery ) );

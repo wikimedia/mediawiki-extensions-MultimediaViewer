@@ -181,4 +181,12 @@
 		assert.ok( !utils.isJQueryOrHTMLElement( '<span></span>' ), 'Recognizes jQuery objects correctly' );
 	} );
 
+	QUnit.test( 'makeLinkText()', 1, function ( assert ) {
+		var utils = new mw.mmv.HtmlUtils();
+
+		assert.strictEqual( utils.makeLinkText( 'foo', {
+			href: 'http://example.com',
+			title: 'h<b>t</b><i>m</i>l'
+		} ), '<a href="http://example.com" title="html">foo</a>', 'works' );
+	} );
 }( mediaWiki, jQuery ) );
