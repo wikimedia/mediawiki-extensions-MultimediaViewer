@@ -134,8 +134,6 @@
 
 		this.$thumbs = $( '.gallery .image img, a.image img, #file a img' );
 
-		// if this breaks in IE8, see https://github.com/ebryn/backburner.js/pull/50
-		// but it probably won't since there is a catch further up the chain
 		try {
 			this.$thumbs.each( function ( i, thumb ) {
 				bs.processThumb( thumb );

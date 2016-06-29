@@ -70,11 +70,6 @@
 			if ( html instanceof HTMLElement ) {
 				return true;
 			}
-		} else {
-			// For IE < 9
-			if ( html.nodeType && html.nodeType === 1 ) {
-				return true;
-			}
 		}
 
 		return false;
