@@ -132,7 +132,13 @@
 	MMVB.processThumbs = function () {
 		var bs = this;
 
-		this.$thumbs = $( '.gallery .image img, a.image img, #file a img' );
+		this.$thumbs = $(
+			'.gallery .image img, ' +
+			'a.image img, ' +
+			'#file a img, ' +
+			'figure[typeof*="mw:Image"] img, ' +
+			'span[typeof*="mw:Image"] img'
+		);
 
 		// if this breaks in IE8, see https://github.com/ebryn/backburner.js/pull/50
 		// but it probably won't since there is a catch further up the chain
@@ -169,8 +175,8 @@
 	MMVB.processThumb = function ( thumb ) {
 		var bs = this,
 			$thumb = $( thumb ),
-			$link = $thumb.closest( 'a.image' ),
-			$thumbContain = $link.closest( '.thumb' ),
+			$link = $thumb.closest( 'a.image, [typeof*="mw:Image"] > a' ),
+			$thumbContain = $link.closest( '.thumb, [typeof*="mw:Image"]' ),
 			$enlarge = $thumbContain.find( '.magnify a' ),
 			title = mw.Title.newFromImg( $thumb ),
 			link = $link.prop( 'href' ),
@@ -184,7 +190,7 @@
 			return;
 		}
 
-		if ( $thumbContain.length !== 0 && $thumbContain.is( '.thumb' ) ) {
+		if ( $thumbContain.length ) {
 			// If this is a thumb, we preload JS/CSS when the mouse cursor hovers the thumb container (thumb image + caption + border)
 			$thumbContain.mouseenter( function () {
 				// There is no point preloading if clicking the thumb won't open Media Viewer
@@ -321,14 +327,14 @@
 	MMVB.findCaption = function ( $thumbContain, $link ) {
 		var $thumbCaption;
 
-		if ( $thumbContain.length !== 0 && $thumbContain.is( '.thumb' ) ) {
+		if ( $thumbContain.length ) {
 			// try to find closest caption to the image
 			$thumbCaption = $link.closest( ':has(> .thumbcaption)', $thumbContain )
 				.find( '> .thumbcaption' )
 				.clone();
 			if ( !$thumbCaption.length ) {
 				// if nothing is found, look for the caption in whole container
-				$thumbCaption = $thumbContain.find( '.thumbcaption' ).clone();
+				$thumbCaption = $thumbContain.find( '.thumbcaption, figcaption' ).clone();
 			}
 			$thumbCaption.find( '.magnify' ).remove();
 			if ( !$thumbCaption.length ) { // gallery, maybe
@@ -365,7 +371,7 @@
 
 		mw.mmv.durationLogger.start( [ 'click-to-first-image', 'click-to-first-metadata' ] );
 
-		if ( $element.is( 'a.image' ) ) {
+		if ( $element.is( 'a.image, [typeof*="mw:Image"] > a' ) ) {
 			mw.mmv.actionLogger.log( 'thumbnail' );
 		} else if ( $element.is( '.magnify a' ) ) {
 			mw.mmv.actionLogger.log( 'enlarge' );
