@@ -87,7 +87,7 @@
 	"multimediaviewer-reuse-loading-placeholder": "Text that appears in all reuse text boxes as a placeholder while the data loads.\n{{Identical|Loading}}",
 	"multimediaviewer-share-tab": "Tab title text for the file reuse panel - used for the section with shareable URLs.\n{{Identical|Share}}",
 	"multimediaviewer-embed-tab": "Tab title text for the file reuse panel - used for the section with embeddable HTML and wikitext.",
-	"multimediaviewer-download-link": "Tooltip text for file download dialog open button.",
+	"multimediaviewer-download-link": "Tooltip text for file download dialog open button.\n{{Identical|Download}}",
 	"multimediaviewer-download-preview-link-title": "Text in the link that allows the user to preview the image of the selected size - used for file download functionality.",
 	"multimediaviewer-download-original-button-name": "Text inside the button that lets the user download the original image - used for file download functionality.",
 	"multimediaviewer-download-small-button-name": "Text inside the button that lets the user download a small version of the original image - used for file download functionality.",
