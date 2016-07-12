@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function ( mw ) {
 	var LP;
 
 	/**
@@ -125,16 +125,14 @@
 		var shortName = this.getShortName();
 
 		if ( this.deedUrl ) {
-			return this.htmlUtils.jqueryToHtml(
-				$( '<a>' ).prop( {
-					href: this.deedUrl,
-					title: this.longName || shortName
-				} ).text( shortName )
-			);
+			return this.htmlUtils.makeLinkText( shortName, {
+				href: this.deedUrl,
+				title: this.longName || shortName
+			} );
 		} else {
 			return shortName;
 		}
 	};
 
 	mw.mmv.model.License = License;
-}( mediaWiki, jQuery ) );
+}( mediaWiki ) );
