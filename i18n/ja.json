@@ -16,6 +16,7 @@
 	"multimediaviewer-repository-local": "詳細",
 	"multimediaviewer-datetime-created": "作成: $1",
 	"multimediaviewer-datetime-uploaded": "アップロード: $1",
+	"multimediaviewer-credit-fallback": "著者情報を閲覧",
 	"multimediaviewer-metadata-error": "画像の詳細を読み込めませんでした。(エラー: $1)",
 	"multimediaviewer-thumbnail-error": "すみません、ファイルを表示できません",
 	"multimediaviewer-thumbnail-error-report": "問題を報告",
