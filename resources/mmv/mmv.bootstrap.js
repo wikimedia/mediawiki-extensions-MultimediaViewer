@@ -129,10 +129,10 @@
 	/**
 	 * Processes all thumbs found on the page
 	 */
-	MMVB.processThumbs = function () {
+	MMVB.processThumbs = function ( $content ) {
 		var bs = this;
 
-		this.$thumbs = $(
+		this.$thumbs = $content.find(
 			'.gallery .image img, ' +
 			'a.image img, ' +
 			'#file a img, ' +
