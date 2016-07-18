@@ -180,7 +180,7 @@
 			link = $link.prop( 'href' ),
 			alt = $thumb.attr( 'alt' );
 
-		if ( !( title.getExtension().toLowerCase() in bs.validExtensions ) ) {
+		if ( !title || !title.getExtension() || !( title.getExtension().toLowerCase() in bs.validExtensions ) ) {
 			return;
 		}
 
