@@ -132,20 +132,20 @@
 		assert.notStrictEqual( returnValue, false, 'Click after loading failure is not caught' );
 	} );
 
-	QUnit.test( 'Check viewer invoked when clicking on legit image links', 10, function ( assert ) {
+	QUnit.test( 'Check viewer invoked when clicking on valid image links', 10, function ( assert ) {
 		// TODO: Is <div class="gallery"><span class="image"><img/></span></div> valid ???
 		var div, link, link2, link3, link4, link5, bootstrap,
 			viewer = { initWithThumbs: $.noop };
 
-		// Create gallery with legit link image
+		// Create gallery with valid link image
 		div = createGallery();
 		link = div.find( 'a.image' );
 
-		// Legit isolated thumbnail
+		// Valid isolated thumbnail
 		link2 = $( '<a>' ).addClass( 'image' ).appendTo( '#qunit-fixture' );
 		$( '<img>' ).attr( 'src', 'thumb2.jpg' ).appendTo( link2 );
 
-		// Non-legit fragment
+		// Non-valid fragment
 		link3 = $( '<a>' ).addClass( 'noImage' ).appendTo( div );
 		$( '<img>' ).attr( 'src', 'thumb3.jpg' ).appendTo( link3 );
 
@@ -176,16 +176,16 @@
 			assert.ok( true, 'Image loaded' );
 		};
 
-		// Click on legit link
+		// Click on valid link
 		link.trigger( { type: 'click', which: 1 } );
 
-		// Click on legit link
+		// Click on valid link
 		link2.trigger( { type: 'click', which: 1 } );
 
-		// Click on legit link
+		// Click on valid link
 		link4.trigger( { type: 'click', which: 1 } );
 
-		// Click on legit link even when preference says not to
+		// Click on valid link even when preference says not to
 		mw.config.set( 'wgMediaViewerOnClick', false );
 		link4.trigger( { type: 'click', which: 1 } );
 		mw.config.set( 'wgMediaViewerOnClick', true );
@@ -198,10 +198,10 @@
 			assert.ok( false, 'Image should not be loaded' );
 		};
 
-		// Click on non-legit link
+		// Click on non-valid link
 		link3.trigger( { type: 'click', which: 1 } );
 
-		// Click on legit links with preference off
+		// Click on valid links with preference off
 		mw.config.set( 'wgMediaViewerOnClick', false );
 		link.trigger( { type: 'click', which: 1 } );
 		link2.trigger( { type: 'click', which: 1 } );
@@ -222,7 +222,7 @@
 			assert.ok( false, 'Image should not be loaded' );
 		};
 
-		// Click on legit link with wrong image extension
+		// Click on valid link with wrong image extension
 		link.trigger( { type: 'click', which: 1 } );
 	} );
 
