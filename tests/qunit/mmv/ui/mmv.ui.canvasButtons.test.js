@@ -18,15 +18,15 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.ui.CanvasButtons', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Prev/Next', 2, function( assert ) {
+	QUnit.test( 'Prev/Next', 2, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			buttons = new mw.mmv.ui.CanvasButtons( $qf, $( '<div>' ), $( '<div>' ) );
 
-		buttons.on( 'next', function() {
+		buttons.on( 'next', function () {
 			assert.ok( true, 'Switched to next image' );
 		} );
 
-		buttons.on( 'prev', function() {
+		buttons.on( 'prev', function () {
 			assert.ok( true, 'Switched to prev image' );
 		} );
 

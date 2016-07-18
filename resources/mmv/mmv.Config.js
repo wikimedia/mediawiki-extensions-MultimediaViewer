@@ -58,9 +58,10 @@
 
 	/**
 	 * Get value from local storage or fail gracefully.
+	 *
 	 * @param {string} key
 	 * @param {*} [fallback] value to return when key is not set or localStorage is not supported
-	 * @returns {*} stored value or fallback or null if neither exists
+	 * @return {*} stored value or fallback or null if neither exists
 	 */
 	CP.getFromLocalStorage = function ( key, fallback ) {
 		var value = null;
@@ -79,6 +80,7 @@
 
 	/**
 	 * Set item in local storage or fail gracefully.
+	 *
 	 * @param {string} key
 	 * @param {*} value
 	 * @return {boolean} whether storing the item was successful
@@ -96,6 +98,7 @@
 
 	/**
 	 * Remove item from local storage or fail gracefully.
+	 *
 	 * @param {string} key
 	 * @return {boolean} whether storing the item was successful
 	 */
@@ -113,9 +116,10 @@
 
 	/**
 	 * Set user preference via AJAX
+	 *
 	 * @param {string} key
 	 * @param {string} value
-	 * @returns {jQuery.Promise} a deferred which resolves/rejects on success/failure respectively
+	 * @return {jQuery.Promise} a deferred which resolves/rejects on success/failure respectively
 	 */
 	CP.setUserPreference = function ( key, value ) {
 		return this.api.postWithToken( 'options', {
@@ -130,9 +134,9 @@
 	 */
 	CP.isMediaViewerEnabledOnClick = function () {
 		// IMPORTANT: mmv.head.js uses the same logic but does not use this class to be lightweight. Make sure to keep it in sync.
-		return this.mwConfig.get( 'wgMediaViewer' ) // global opt-out switch, can be set in user JS
-			&& this.mwConfig.get( 'wgMediaViewerOnClick' ) // thumbnail opt-out, can be set in preferences
-			&& ( !this.mwUser.isAnon() || this.getFromLocalStorage( 'wgMediaViewerOnClick', 1 ) === 1 ); // thumbnail opt-out for anons
+		return this.mwConfig.get( 'wgMediaViewer' ) && // global opt-out switch, can be set in user JS
+			this.mwConfig.get( 'wgMediaViewerOnClick' ) && // thumbnail opt-out, can be set in preferences
+			( !this.mwUser.isAnon() || this.getFromLocalStorage( 'wgMediaViewerOnClick', 1 ) === 1 ); // thumbnail opt-out for anons
 	};
 
 	/**
@@ -140,6 +144,7 @@
 	 * - for logged-in users, we use preferences
 	 * - for anons, we use localStorage
 	 * - for anons with old browsers, we don't do anything
+	 *
 	 * @param {boolean} enabled
 	 * @return {jQuery.Promise} a deferred which resolves/rejects on success/failure respectively
 	 */
@@ -188,25 +193,27 @@
 
 	/**
 	 * Returns true if #setMediaViewerEnabledOnClick() is supported.
+	 *
 	 * @return {boolean}
 	 */
 	CP.canSetMediaViewerEnabledOnClick = function () {
 		return !this.mwUser.isAnon() || !!this.localStorage;
 	};
 
-
 	/**
 	 * True if info about enable/disable status should be displayed (mingle #719).
-	 * @returns {boolean}
+	 *
+	 * @return {boolean}
 	 */
 	CP.shouldShowStatusInfo = function () {
 		return !this.isMediaViewerEnabledOnClick() && this.getFromLocalStorage( 'mmv-showStatusInfo' ) === '1';
 	};
 
 	/**
-	 * @private
 	 * Called when MediaViewer is disabled. If status info was never displayed before, future
 	 * shouldShowStatusInfo() calls will return true.
+	 *
+	 * @private
 	 */
 	CP.maybeEnableStatusInfo = function ( ) {
 		var currentShowStatusInfo = this.getFromLocalStorage( 'mmv-showStatusInfo' );
@@ -229,7 +236,7 @@
 	 * The object's values are either 'default' when Media Viewer handles that file extension
 	 * directly or the name of a ResourceLoader module to load when such a file is opened.
 	 *
-	 * @returns {Object}
+	 * @return {Object}
 	 */
 	CP.extensions = function ( ) {
 		return this.viewerConfig.extensions;
@@ -237,7 +244,8 @@
 
 	/**
 	 * Returns UI language
-	 * @returns {string} Language code
+	 *
+	 * @return {string} Language code
 	 */
 	CP.language = function ( ) {
 		return this.mwConfig.get( 'wgUserLanguage', false ) || this.mwConfig.get( 'wgContentLanguage', 'en' );
@@ -245,7 +253,8 @@
 
 	/**
 	 * Returns URI of virtual view beacon or false if not set
-	 * @returns {string|boolean} URI
+	 *
+	 * @return {string|boolean} URI
 	 */
 	CP.recordVirtualViewBeaconURI = function ( ) {
 		return this.viewerConfig.recordVirtualViewBeaconURI;
@@ -253,7 +262,8 @@
 
 	/**
 	 * Returns useThumbnailGuessing flag
-	 * @returns {boolean}
+	 *
+	 * @return {boolean}
 	 */
 	CP.useThumbnailGuessing = function ( ) {
 		return this.viewerConfig.useThumbnailGuessing;
@@ -261,11 +271,12 @@
 
 	/**
 	 * Returns imageQueryParameter, if set
-	 * @returns {string|boolean}
+	 *
+	 * @return {string|boolean}
 	 */
 	CP.imageQueryParameter = function ( ) {
 		return this.viewerConfig.imageQueryParameter;
 	};
 
 	mw.mmv.Config = Config;
-} ( mediaWiki, jQuery ) );
+}( mediaWiki, jQuery ) );

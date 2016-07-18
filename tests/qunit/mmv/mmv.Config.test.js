@@ -78,7 +78,7 @@
 
 		localStorage = null; // browser supports it but disabled
 		config = new mw.mmv.Config( {}, {}, {}, {}, localStorage );
-		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), true , 'Returns true when disabled' );
+		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), true, 'Returns true when disabled' );
 
 		localStorage = { removeItem: this.sandbox.stub() };
 		config = new mw.mmv.Config( {}, {}, {}, {}, localStorage );
@@ -218,4 +218,4 @@
 		config.setMediaViewerEnabledOnClick( false );
 		assert.strictEqual( config.shouldShowStatusInfo(), true, 'Status info is shown after MMV is disabled the first time' );
 	} );
-} ( mediaWiki, jQuery ) );
+}( mediaWiki, jQuery ) );

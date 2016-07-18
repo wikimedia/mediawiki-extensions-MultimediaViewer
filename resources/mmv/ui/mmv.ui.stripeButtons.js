@@ -46,8 +46,9 @@
 	SBP = StripeButtons.prototype;
 
 	/**
-	 * @protected
 	 * Creates a new button on the metadata stripe.
+	 *
+	 * @protected
 	 * @param {string} cssClass CSS class name for the button
 	 */
 	SBP.createButton = function ( cssClass ) {
@@ -62,8 +63,9 @@
 	};
 
 	/**
-	 * @protected
 	 * Creates a button linking to the file description page.
+	 *
+	 * @protected
 	 */
 	SBP.initDescriptionPageButton = function () {
 		this.buttons.$descriptionPage = this.createButton(
@@ -74,14 +76,15 @@
 	};
 
 	/**
-	 * @protected
 	 * Runs code for each button, similarly to $.each.
+	 *
+	 * @protected
 	 * @param {function(jQuery, string)} callback a function that will be called with each button
 	 */
 	SBP.eachButton = function ( callback ) {
 		var buttonName;
 		for ( buttonName in this.buttons ) {
-			callback( this.buttons[buttonName], buttonName );
+			callback( this.buttons[ buttonName ], buttonName );
 		}
 	};
 
@@ -99,8 +102,9 @@
 	};
 
 	/**
-	 * @protected
 	 * Updates the button linking to the file page.
+	 *
+	 * @protected
 	 * @param {mw.mmv.model.Image} imageInfo
 	 * @param {mw.mmv.model.Repo} repoInfo
 	 */

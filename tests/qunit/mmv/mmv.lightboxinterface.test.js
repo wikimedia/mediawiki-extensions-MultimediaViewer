@@ -17,7 +17,6 @@
 		}
 	} ) );
 
-
 	QUnit.test( 'Sanity test, object creation and ui construction', 20, function ( assert ) {
 		var lightbox = new mw.mmv.LightboxInterface();
 
@@ -105,16 +104,16 @@
 		// Entering fullscreen
 		lightbox.$fullscreenButton.click();
 
-		assert.strictEqual( lightbox.$main.hasClass( 'jq-fullscreened' ) , true,
+		assert.strictEqual( lightbox.$main.hasClass( 'jq-fullscreened' ), true,
 			'Fullscreened area has the fullscreen class' );
-		assert.strictEqual( lightbox.isFullscreen , true, 'Lightbox knows it\'s in fullscreen mode' );
+		assert.strictEqual( lightbox.isFullscreen, true, 'Lightbox knows it\'s in fullscreen mode' );
 
 		// Exiting fullscreen
 		lightbox.$fullscreenButton.click();
 
-		assert.strictEqual( lightbox.$main.hasClass( 'jq-fullscreened' ) , false,
+		assert.strictEqual( lightbox.$main.hasClass( 'jq-fullscreened' ), false,
 			'Fullscreened area doesn\'t have the fullscreen class anymore' );
-		assert.strictEqual( lightbox.isFullscreen , false, 'Lightbox knows it\'s not in fullscreen mode' );
+		assert.strictEqual( lightbox.isFullscreen, false, 'Lightbox knows it\'s not in fullscreen mode' );
 
 		// Entering fullscreen
 		lightbox.$fullscreenButton.click();
@@ -125,9 +124,9 @@
 		// Re-attach after hard-exit
 		lightbox.attach( '#qunit-fixture' );
 
-		assert.strictEqual( lightbox.$main.hasClass( 'jq-fullscreened' ) , false,
+		assert.strictEqual( lightbox.$main.hasClass( 'jq-fullscreened' ), false,
 			'Fullscreened area doesn\'t have the fullscreen class anymore' );
-		assert.strictEqual( lightbox.isFullscreen , false, 'Lightbox knows it\'s not in fullscreen mode' );
+		assert.strictEqual( lightbox.isFullscreen, false, 'Lightbox knows it\'s not in fullscreen mode' );
 
 		// Unattach lightbox from document
 		lightbox.unattach();
@@ -220,7 +219,7 @@
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
 
-		$.each ( lightbox.buttons.$buttons, function ( idx, e ) {
+		$.each( lightbox.buttons.$buttons, function ( idx, e ) {
 			var $e = $( e ),
 				offset = $e.show().offset(),
 				width = $e.width(),

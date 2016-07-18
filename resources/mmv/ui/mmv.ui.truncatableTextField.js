@@ -85,12 +85,13 @@
 	 * @property {Object} defaultOptions
 	 */
 	TTFP.defaultOptions = {
-		styles: ['mw-mmv-ttf-small', 'mw-mmv-ttf-smaller', 'mw-mmv-ttf-smallest']
+		styles: [ 'mw-mmv-ttf-small', 'mw-mmv-ttf-smaller', 'mw-mmv-ttf-smallest' ]
 	};
 
 	/**
-	 * @private
 	 * Initializes the DOM.
+	 *
+	 * @private
 	 */
 	TTFP.init = function () {
 		this.$ellipsis = $( '<span>' )
@@ -113,6 +114,7 @@
 
 	/**
 	 * Sets the string for the element.
+	 *
 	 * @param {string} value Warning - unsafe HTML is allowed here.
 	 */
 	TTFP.set = function ( value ) {
@@ -145,6 +147,7 @@
 
 	/**
 	 * Allows setting different titles for fully visible and for truncated text.
+	 *
 	 * @param {string} normal
 	 * @param {string} truncated
 	 */
@@ -164,6 +167,7 @@
 
 	/**
 	 * Returns true if the text is long enough that it needs to be truncated.
+	 *
 	 * @return {boolean}
 	 */
 	TTFP.isTruncatable = function () {
@@ -174,6 +178,7 @@
 
 	/**
 	 * Returns true if the text is truncated at the moment.
+	 *
 	 * @return {boolean}
 	 */
 	TTFP.isTruncated = function () {

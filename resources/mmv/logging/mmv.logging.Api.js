@@ -18,6 +18,7 @@
 ( function ( mw, $, oo ) {
 	/**
 	 * Runs performance analysis on requests via mw.mmv.logging.PerformanceLogger
+	 *
 	 * @class mw.mmv.logging.Api
 	 * @extends mw.Api
 	 * @constructor
@@ -38,10 +39,11 @@
 
 	/**
 	 * Runs an AJAX call to the server.
+	 *
 	 * @override
 	 * @param {Object} parameters
 	 * @param {Object} [ajaxOptions]
-	 * @returns {jQuery.Promise.<Object, jqXHR>} Done: API response data. Fail: Error code.
+	 * @return {jQuery.Promise.<Object, jqXHR>} Done: API response data. Fail: Error code.
 	 */
 	Api.prototype.ajax = function ( parameters, ajaxOptions ) {
 		var start = $.now(),

@@ -21,6 +21,7 @@
 	/**
 	 * Class for storing license information about an image. For available fields, see
 	 * TemplateParser::$licenseFieldClasses in the CommonsMetadata extension.
+	 *
 	 * @class mw.mmv.model.License
 	 * @param {string} shortName see {@link #shortName}
 	 * @param {string} [internalName] see {@link #internalName}
@@ -67,7 +68,8 @@
 
 	/**
 	 * Check whether this is a Creative Commons license.
-	 * @returns {boolean}
+	 *
+	 * @return {boolean}
 	 */
 	LP.isCc = function () {
 		return this.internalName ? this.internalName.substr( 0, 2 ) === 'cc' : false;
@@ -75,7 +77,8 @@
 
 	/**
 	 * Check whether this is a public domain "license".
-	 * @returns {boolean}
+	 *
+	 * @return {boolean}
 	 */
 	LP.isPd = function () {
 		return this.internalName === 'pd';
@@ -83,6 +86,7 @@
 
 	/**
 	 * Check whether this is a free license.
+	 *
 	 * @return {boolean}
 	 */
 	LP.isFree = function () {
@@ -92,6 +96,7 @@
 
 	/**
 	 * Check whether reusers need to attribute the author
+	 *
 	 * @return {boolean}
 	 */
 	LP.needsAttribution = function () {
@@ -104,6 +109,7 @@
 	 * - if we have interface messages for this license (basically just CC and PD), use those
 	 * - otherwise use the short name from the license template (might or might not be translated
 	 *   still, depending on how the template is set up)
+	 *
 	 * @return {string}
 	 * FIXME a model should not depend on an i18n class. We should probably use view models.
 	 */
@@ -116,9 +122,9 @@
 		}
 	};
 
-
 	/**
 	 * Returns a short HTML representation of the license.
+	 *
 	 * @return {string}
 	 */
 	LP.getShortLink = function () {

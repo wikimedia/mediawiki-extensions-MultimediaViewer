@@ -138,12 +138,12 @@
 		reuseDialog.initTabs();
 
 		function clickOutsideDialog() {
-			var event = new $.Event( 'click', { target: reuseDialog.$container[0] } );
+			var event = new $.Event( 'click', { target: reuseDialog.$container[ 0 ] } );
 			reuseDialog.$container.trigger( event );
 			return event;
 		}
 		function clickInsideDialog() {
-			var event = new $.Event( 'click', { target: reuseDialog.$dialog[0] } );
+			var event = new $.Event( 'click', { target: reuseDialog.$dialog[ 0 ] } );
 			reuseDialog.$dialog.trigger( event );
 			return event;
 		}

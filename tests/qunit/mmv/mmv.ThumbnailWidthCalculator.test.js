@@ -3,7 +3,7 @@
 
 	QUnit.test( 'ThumbnailWidthCalculator constructor sanity check', 4, function ( assert ) {
 		var badWidthBuckets = [],
-			goodWidthBuckets = [1],
+			goodWidthBuckets = [ 1 ],
 			thumbnailWidthCalculator;
 
 		thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator();

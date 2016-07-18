@@ -21,6 +21,7 @@
 	/**
 	 * Represents the buttons which are displayed over the image - next, previous, close
 	 * and fullscreen.
+	 *
 	 * @class mw.mmv.ui.CanvasButtons
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
@@ -106,6 +107,7 @@
 
 	/**
 	 * Sets the top offset for the navigation buttons.
+	 *
 	 * @param {number} offset
 	 */
 	CBP.setOffset = function ( offset ) {
@@ -128,6 +130,7 @@
 
 	/**
 	 * Toggles buttons being disabled or not
+	 *
 	 * @param {boolean} showPrevButton
 	 * @param {boolean} showNextButton
 	 */
@@ -154,9 +157,10 @@
 
 	/**
 	 * Checks if any active buttons are currently hovered, given a position
+	 *
 	 * @param {number} x The horizontal coordinate of the position
 	 * @param {number} y The vertical coordinate of the position
-	 * @return bool
+	 * @return {boolean}
 	 */
 	CBP.isAnyActiveButtonHovered = function ( x, y ) {
 		// We don't use mouseenter/mouseleave events because content is subject
@@ -168,10 +172,10 @@
 			var $e = $( e ),
 				offset = $e.offset();
 
-			if ( y >= offset.top
-				&& y <= offset.top + $e.height()
-				&& x >= offset.left
-				&& x <= offset.left + $e.width() ) {
+			if ( y >= offset.top &&
+				y <= offset.top + $e.height() &&
+				x >= offset.left &&
+				x <= offset.left + $e.width() ) {
 				hovered = true;
 			}
 		} );
@@ -192,8 +196,8 @@
 
 		// mousePosition can be empty, for instance when we enter fullscreen and haven't
 		// recorded a real mousemove event yet
-		if ( !mousePosition
-			|| !this.isAnyActiveButtonHovered( mousePosition.x, mousePosition.y ) ) {
+		if ( !mousePosition ||
+			!this.isAnyActiveButtonHovered( mousePosition.x, mousePosition.y ) ) {
 			this.fadeOut();
 		}
 	};

@@ -19,8 +19,9 @@
 	var RUP;
 
 	/**
-	 * @class mw.mmv.ui.Utils
 	 * A helper class for reuse logic.
+	 *
+	 * @class mw.mmv.ui.Utils
 	 * @constructor
 	 */
 	function Utils() {
@@ -36,7 +37,7 @@
 	 * @param {string[]} options
 	 * @param {string[]} classes
 	 * @param {string} def
-	 * @returns {OO.ui.DropdownWidget}
+	 * @return {OO.ui.DropdownWidget}
 	 */
 	RUP.createPulldownMenu = function ( options, classes, def ) {
 		var dropdown, i, option,
@@ -50,7 +51,7 @@
 		for ( i = 0; i < options.length; i++ ) {
 			option = options[ i ];
 
-			choices[option] = new oo.ui.MenuOptionWidget( {
+			choices[ option ] = new oo.ui.MenuOptionWidget( {
 				data: {
 					name: option,
 					height: null,
@@ -60,7 +61,7 @@
 				autoFitLabel: false
 			} );
 
-			items.push( choices[option] );
+			items.push( choices[ option ] );
 		}
 
 		dropdown.getMenu()
@@ -87,10 +88,9 @@
 	};
 
 	/**
-	 * @private
-	 *
 	 * Updates the menu options based on calculated sizes.
 	 *
+	 * @private
 	 * @param {Object} sizes
 	 * @param {OO.ui.MenuOptionWidget[]} options
 	 */
@@ -98,15 +98,15 @@
 		var i, option, data, $label;
 
 		for ( i = 0; i < options.length; i++ ) {
-			option = options[i];
+			option = options[ i ];
 			data = option.getData();
 
-			if ( sizes[data.name] ) {
+			if ( sizes[ data.name ] ) {
 				option.setDisabled( false );
 
 				// These values are later used when the item is selected
-				data.width = sizes[data.name].width;
-				data.height = sizes[data.name].height;
+				data.width = sizes[ data.name ].width;
+				data.height = sizes[ data.name ].height;
 
 				$label = $( '<span>' ).html( this.getDimensionsMessageHtml( data.name, data.width, data.height ) );
 
@@ -124,11 +124,11 @@
 	 *
 	 * @param {number} width
 	 * @param {number} height
-	 * @returns {Object}
-	 * @returns { {width: number, height: number} } return.small
-	 * @returns { {width: number, height: number} } return.medium
-	 * @returns { {width: number, height: number} } return.large
-	 * @returns { {width: number, height: number} } return.original
+	 * @return {Object}
+	 * @return {Object} return.small
+	 * @return {Object} return.medium
+	 * @return {Object} return.large
+	 * @return {Object} return.original
 	 */
 	RUP.getPossibleImageSizesForHtml = function ( width, height ) {
 		var i, bucketName,
@@ -145,8 +145,8 @@
 			heightToWidth = width / height;
 
 		for ( i = 0; i < bucketNames.length; i++ ) {
-			bucketName = bucketNames[i];
-			dimensions = buckets[bucketName];
+			bucketName = bucketNames[ i ];
+			dimensions = buckets[ bucketName ];
 			bucketWidth = dimensions.width;
 			bucketHeight = dimensions.height;
 
@@ -156,19 +156,19 @@
 
 				if ( currentGuess * widthToHeight > bucketHeight ) {
 					// Constrain in height, resize width accordingly
-					sizes[bucketName] = {
+					sizes[ bucketName ] = {
 						width: Math.round( bucketHeight * heightToWidth ),
 						height: bucketHeight
 					};
 				} else {
-					sizes[bucketName] = {
+					sizes[ bucketName ] = {
 						width: currentGuess,
 						height: Math.round( currentGuess * widthToHeight )
 					};
 				}
 			} else if ( height > bucketHeight ) {
 				// Height fits in the current bucket, resize width accordingly
-				sizes[bucketName] = {
+				sizes[ bucketName ] = {
 					width: Math.round( bucketHeight * heightToWidth ),
 					height: bucketHeight
 				};
@@ -182,10 +182,11 @@
 
 	/**
 	 * Generates an i18n message for a label, given a size label and image dimensions
+	 *
 	 * @param {string} sizeLabel
 	 * @param {number} width
 	 * @param {number} height
-	 * @returns {string} i18n label html
+	 * @return {string} i18n label html
 	 */
 	RUP.getDimensionsMessageHtml = function ( sizeLabel, width, height ) {
 		var dimensions = this.htmlUtils.jqueryToHtml( $( '<span>' )

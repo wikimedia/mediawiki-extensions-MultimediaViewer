@@ -18,6 +18,7 @@
 ( function ( mw, $, oo ) {
 	/**
 	 * Description element in the UI.
+	 *
 	 * @class mw.mmv.ui.Description
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
@@ -43,6 +44,7 @@
 	/**
 	 * Sets data on the element.
 	 * This complements MetadataPanel.setTitle() - information shown there will not be shown here.
+	 *
 	 * @param {string|null} description The text of the description
 	 * @param {string|null} caption The text of the caption
 	 */

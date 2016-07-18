@@ -106,6 +106,7 @@
 	 * image available; it will be resized and displayed by #maybeDisplayPlaceholder().
 	 * FIXME maybeDisplayPlaceholder() receives the placeholder so it is very unclear why this
 	 * is necessary at all (apart from setting the LightboxImage, which is used in size calculations).
+	 *
 	 * @param {mw.mmv.LightboxImage} imageRawMetadata
 	 * @param {jQuery} $imageElement
 	 */
@@ -122,6 +123,7 @@
 	/**
 	 * Resizes image to the given dimensions and displays it on the canvas.
 	 * This is used to display the actual image; it assumes set function was already called before.
+	 *
 	 * @param {mw.mmv.model.Thumbnail} thumbnail thumbnail information
 	 * @param {HTMLImageElement} imageElement
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
@@ -192,9 +194,9 @@
 			// ignore clicks if the metadata panel or one of the dialogs is open - assume the intent is to
 			// close it in this case; that will be handled elsewhere
 			if (
-				!canvas.dialogOpen
+				!canvas.dialogOpen &&
 				// FIXME a UI component should not know about its parents
-				&& canvas.$container.closest( '.metadata-panel-is-open' ).length === 0
+				canvas.$container.closest( '.metadata-panel-is-open' ).length === 0
 			) {
 				e.stopPropagation(); // don't let $imageWrapper handle this
 				mw.mmv.actionLogger.log( 'view-original-file' ).always( function () {
@@ -252,7 +254,7 @@
 	 * @param {{width: number, height: number}} size
 	 * @param {jQuery} $imagePlaceholder Image placeholder to be displayed while the real image loads.
 	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
-	 * @returns {boolean} Whether the image was blured or not
+	 * @return {boolean} Whether the image was blured or not
 	 */
 	C.maybeDisplayPlaceholder = function ( size, $imagePlaceholder, imageWidths ) {
 		var targetWidth,
@@ -293,6 +295,7 @@
 
 	/**
 	 * Blur image
+	 *
 	 * @param {jQuery} $image Image to be blurred.
 	 */
 	C.blur = function ( $image ) {
@@ -319,8 +322,8 @@
 		$( { blur: 3.0 } ).animate( { blur: 0.0 }, {
 			duration: animationLength,
 			step: function ( step ) {
-				self.$image.css( { '-webkit-filter' : 'blur(' + step + 'px)',
-					'filter' : 'blur(' + step + 'px)' } );
+				self.$image.css( { '-webkit-filter': 'blur(' + step + 'px)',
+					filter: 'blur(' + step + 'px)' } );
 			},
 			complete: function () {
 				// When the animation is complete, the blur value is 0, clean things up
@@ -332,12 +335,13 @@
 	C.unblur = function () {
 		// We apply empty CSS values to remove the inline styles applied by jQuery
 		// so that they don't get in the way of styles defined in CSS
-		this.$image.css( { '-webkit-filter' : '', 'opacity' : '', 'filter' : '' } )
+		this.$image.css( { '-webkit-filter': '', opacity: '', filter: '' } )
 			.removeClass( 'blurred' );
 	};
 
 	/**
 	 * Displays a message and error icon when loading the image fails.
+	 *
 	 * @param {string} error error message
 	 */
 	C.showError = function ( error ) {
@@ -353,12 +357,12 @@
 			'screen size: ' + screen.width + 'x' + screen.height,
 			'canvas size: ' + canvasDimensions.width + 'x' + canvasDimensions.height,
 			'image size: ' + this.imageRawMetadata.originalWidth + 'x' + this.imageRawMetadata.originalHeight,
-			'thumbnail size: CSS: ' + thumbnailDimensions.cssWidth + 'x' + thumbnailDimensions.cssHeight
-				+ ', screen width: ' + thumbnailDimensions.screen + ', real width: ' + thumbnailDimensions.real
+			'thumbnail size: CSS: ' + thumbnailDimensions.cssWidth + 'x' + thumbnailDimensions.cssHeight +
+				', screen width: ' + thumbnailDimensions.screen + ', real width: ' + thumbnailDimensions.real
 		];
 		// ** is bolding in Phabricator
-		description = '**' + mw.message( 'multimediaviewer-errorreport-privacywarning' ).text() + '**\n\n\n'
-			+ 'Error details:\n\n' + errorDetails.join( '\n' );
+		description = '**' + mw.message( 'multimediaviewer-errorreport-privacywarning' ).text() + '**\n\n\n' +
+			'Error details:\n\n' + errorDetails.join( '\n' );
 		errorUri = mw.msg( 'multimediaviewer-report-issue-url', encodeURIComponent( description ) );
 
 		retryLink = $( '<a>' ).addClass( 'mw-mmv-retry-link' ).text(
@@ -390,9 +394,10 @@
 
 	/**
 	 * Returns width and height of the canvas area (i.e. the space available for the image).
+	 *
 	 * @param {boolean} forFullscreen if true, return size in fullscreen mode; otherwise, return current size
 	 *  (which might still be fullscreen mode).
-	 * @return {{width: Number, height: Number}} width and height in CSS pixels
+	 * @return {Object} Width and height in CSS pixels
 	 */
 	C.getDimensions = function ( forFullscreen ) {
 		var $window = $( window ),
@@ -419,8 +424,9 @@
 
 	/**
 	 * Gets the widths for a given lightbox image.
+	 *
 	 * @param {mw.mmv.LightboxImage} image
-	 * @returns {mw.mmv.model.ThumbnailWidth}
+	 * @return {mw.mmv.model.ThumbnailWidth}
 	 */
 	C.getLightboxImageWidths = function ( image ) {
 		var thumb = image.thumbnail,
@@ -434,8 +440,9 @@
 	 * Gets the fullscreen widths for a given lightbox image.
 	 * Intended for use before the viewer is in fullscreen mode
 	 * (in fullscreen mode getLightboxImageWidths() works fine).
+	 *
 	 * @param {mw.mmv.LightboxImage} image
-	 * @returns {mw.mmv.model.ThumbnailWidth}
+	 * @return {mw.mmv.model.ThumbnailWidth}
 	 */
 	C.getLightboxImageWidthsForFullscreen = function ( image ) {
 		var thumb = image.thumbnail,
@@ -447,12 +454,12 @@
 
 	/**
 	 * Gets the widths for the current lightbox image.
-	 * @returns {mw.mmv.model.ThumbnailWidth}
+	 *
+	 * @return {mw.mmv.model.ThumbnailWidth}
 	 */
 	C.getCurrentImageWidths = function () {
 		return this.getLightboxImageWidths( this.imageRawMetadata );
 	};
-
 
 	mw.mmv.ui.Canvas = Canvas;
 }( mediaWiki, jQuery, OO ) );

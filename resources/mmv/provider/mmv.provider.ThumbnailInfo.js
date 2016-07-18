@@ -19,7 +19,9 @@
 
 	/**
 	 * Gets thumbnail information.
+	 *
 	 * See https://www.mediawiki.org/wiki/API:Properties#imageinfo_.2F_ii
+	 *
 	 * @class mw.mmv.provider.ThumbnailInfo
 	 * @extends mw.mmv.provider.Api
 	 * @constructor
@@ -39,6 +41,7 @@
 	 * One of width or height can be null; if both are set, the API will return the largest
 	 * thumbnail which fits into a width x height bounding box (or the full-sized image - whichever
 	 * is smaller).
+	 *
 	 * @param {mw.Title} file
 	 * @param {number} width thumbnail width in pixels
 	 * @param {number} height thumbnail height in pixels
@@ -59,8 +62,9 @@
 			} ).then( function ( data ) {
 				return provider.getQueryPage( file, data );
 			} ).then( function ( page ) {
-				if ( page.imageinfo && page.imageinfo[0] ) {
-					var imageInfo = page.imageinfo[0];
+				var imageInfo;
+				if ( page.imageinfo && page.imageinfo[ 0 ] ) {
+					imageInfo = page.imageinfo[ 0 ];
 					if ( imageInfo.thumburl && imageInfo.thumbwidth && imageInfo.thumbheight ) {
 						return $.Deferred().resolve(
 							new mw.mmv.model.Thumbnail(

@@ -65,4 +65,4 @@
 		$qf.click();
 		assert.ok( !$( '.mw-mmv-tipsy-dialog' ).length, 'dialog is hidden when clicked outside' );
 	} );
-} ( mediaWiki, jQuery ) );
+}( mediaWiki, jQuery ) );

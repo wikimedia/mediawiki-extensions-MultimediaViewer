@@ -18,11 +18,13 @@
 // This file is used to do the global initialization that we want on the real pages,
 // but do not want in the tests.
 ( function ( mw, $ ) {
+	var bootstrap;
+
 	if ( !mw.mmv.isBrowserSupported() ) {
 		return;
 	}
 
-	var bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+	bootstrap = new mw.mmv.MultimediaViewerBootstrap();
 
 	$( document ).ready( function () {
 		bootstrap.setupEventHandlers();

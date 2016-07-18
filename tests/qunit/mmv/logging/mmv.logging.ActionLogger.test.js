@@ -21,7 +21,7 @@
 
 		logger.log( unknownAction );
 
-		assert.strictEqual( mw.log.lastCall.args[ 0 ], unknownAction , 'Log message defaults to unknown key' );
+		assert.strictEqual( mw.log.lastCall.args[ 0 ], unknownAction, 'Log message defaults to unknown key' );
 		assert.ok( fakeEventLog.logEvent.called, 'event log has been recorded' );
 
 		mw.log.reset();

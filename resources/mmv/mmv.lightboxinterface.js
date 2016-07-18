@@ -20,6 +20,7 @@
 
 	/**
 	 * Represents the main interface of the lightbox
+	 *
 	 * @class mw.mmv.LightboxInterface
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
@@ -53,6 +54,7 @@
 
 	/**
 	 * The currently selected LightboxImage.
+	 *
 	 * @type {mw.mmv.LightboxImage}
 	 * @protected
 	 */
@@ -112,6 +114,7 @@
 
 	/**
 	 * Sets up the file reuse data in the DOM
+	 *
 	 * @param {mw.mmv.model.Image} image
 	 * @param {mw.mmv.model.Repo} repo
 	 * @param {string} caption
@@ -146,6 +149,7 @@
 
 	/**
 	 * Attaches the interface to the DOM.
+	 *
 	 * @param {string} [parentId] parent id where we want to attach the UI. Defaults to document
 	 *  element, override is mainly used for testing.
 	 */
@@ -194,8 +198,8 @@
 		this.handleEvent( 'mmv-fade-stopped', function ( e ) { ui.fadeStopped( e ); } );
 
 		this.buttons.connect( this, {
-			'next': [ 'emit', 'next' ],
-			'prev': [ 'emit', 'prev' ]
+			next: [ 'emit', 'next' ],
+			prev: [ 'emit', 'prev' ]
 		} );
 
 		$parent = $( parentId || document.body );
@@ -277,8 +281,8 @@
 		this.clearEvents();
 
 		this.buttons.disconnect( this, {
-			'next': [ 'emit', 'next' ],
-			'prev': [ 'emit', 'prev' ]
+			next: [ 'emit', 'next' ],
+			prev: [ 'emit', 'prev' ]
 		} );
 
 		// We trigger this event on the document because unattach() can run
@@ -352,6 +356,7 @@
 
 	/**
 	 * Handle a fullscreen change event.
+	 *
 	 * @param {jQuery.Event} e The fullscreen change event.
 	 */
 	LIP.fullscreenChange = function ( e ) {
@@ -400,6 +405,7 @@
 
 	/**
 	 * Handles keydown events on the document
+	 *
 	 * @param {jQuery.Event} e The jQuery keypress event object
 	 */
 	LIP.keydown = function ( e ) {
@@ -432,15 +438,16 @@
 
 	/**
 	 * Handles mousemove events on the document
+	 *
 	 * @param {jQuery.Event} e The mousemove event object
 	 */
 	LIP.mousemove = function ( e ) {
 		// T77869 ignore fake mousemove events triggered by Chrome
 		if (
-			e
-			&& e.originalEvent
-			&& e.originalEvent.movementX === 0
-			&& e.originalEvent.movementY === 0
+			e &&
+			e.originalEvent &&
+			e.originalEvent.movementX === 0 &&
+			e.originalEvent.movementY === 0
 		) {
 			return;
 		}
@@ -473,6 +480,7 @@
 
 	/**
 	 * Updates the next and prev buttons
+	 *
 	 * @param {boolean} showPrevButton Whether the prev button should be revealed or not
 	 * @param {boolean} showNextButton Whether the next button should be revealed or not
 	 */

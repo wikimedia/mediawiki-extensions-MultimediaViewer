@@ -19,8 +19,9 @@
 	var RP;
 
 	/**
-	 * @class mw.mmv.routing.Router
 	 * Converts between routes and their URL hash representations such as `mediaviewer/File:Foo`.
+	 *
+	 * @class mw.mmv.routing.Router
 	 * @constructor
 	 */
 	function Router() {}
@@ -29,6 +30,7 @@
 	/**
 	 * The prefix originally used to namespace MediaViewer routing hashes. Since there are many links
 	 * out there pointing to those URLs, we should keep them working.
+	 *
 	 * @protected
 	 * @property {string}
 	 */
@@ -36,6 +38,7 @@
 
 	/**
 	 * The prefix used to namespace MediaViewer routing hashes
+	 *
 	 * @protected
 	 * @property {string}
 	 */
@@ -48,6 +51,7 @@
 	 * The hash can contain the starting `#` but does not have to; it should be in raw (percent-
 	 * encoded) form. Note that the percent-encoding behavior of location.hash is not consistent
 	 * between browsers; location.href can be used instead.
+	 *
 	 * @param {string} hash
 	 * @return {mw.mmv.routing.Route|null}
 	 */
@@ -61,7 +65,7 @@
 		} else if ( hashParts.length === 1 ) {
 			return new mw.mmv.routing.MainFileRoute();
 		} else if ( hashParts.length === 2 ) {
-			fileName = this.decodeRouteComponent( hashParts[1] );
+			fileName = this.decodeRouteComponent( hashParts[ 1 ] );
 			return new mw.mmv.routing.ThumbnailRoute( new mw.Title( fileName ) );
 		}
 
@@ -72,6 +76,7 @@
 	 * Takes a route and returns a string representation which can be used in the URL fragment.
 	 * The string does not contain the starting `#`, and it is encoded and guaranteed to be a
 	 * valid URL.
+	 *
 	 * @param {mw.mmv.routing.Route} route
 	 * @return {string}
 	 */
@@ -99,11 +104,12 @@
 		// Firefox percent-decodes location.hash: https://bugzilla.mozilla.org/show_bug.cgi?id=483304
 		// which would cause inconsistent cross-browser behavior for files which have % or /
 		// characters in their names. Using location.href is safe.
-		return this.parseHash( location.href.split( '#' )[1] || '' );
+		return this.parseHash( location.href.split( '#' )[ 1 ] || '' );
 	};
 
 	/**
 	 * Like #createHash(), but appends the hash to a specified URL
+	 *
 	 * @param {mw.mmv.routing.Route} route
 	 * @param {string} baseUrl the URL of the page the image is on (can contain a hash part,
 	 *  which will be stripped)
@@ -116,6 +122,7 @@
 	/**
 	 * Returns true if this hash looks like it was created by MediaViewer.
 	 * The hash can contain the starting `#` but does not have to.
+	 *
 	 * @param {string} hash
 	 * @return {boolean}
 	 */
@@ -124,10 +131,11 @@
 	};
 
 	/**
-	 * @protected
 	 * Returns "segments" of a hash. The first segment is always the #applicationPrefix.
 	 * If the hash is not a MediaViewer routing hash, an empty array is returned.
 	 * The input hash can contain the starting `#` but does not have to.
+	 *
+	 * @protected
 	 * @param {string} hash
 	 * @return {string[]}
 	 */
@@ -135,7 +143,7 @@
 		var prefix,
 			hashParts;
 
-		if ( hash[0] === '#' ) {
+		if ( hash[ 0 ] === '#' ) {
 			hash = hash.slice( 1 );
 		}
 
@@ -154,16 +162,17 @@
 		hash = hash.slice( prefix.length );
 
 		hashParts = hash.split( '/' );
-		hashParts[0] = prefix;
+		hashParts[ 0 ] = prefix;
 
 		return hashParts;
 	};
 
 	/**
-	 * @protected
 	 * URL-encodes a route component.
 	 * Almost identical to mw.util.wikiUrlencode but makes sure there are no unencoded `/`
 	 * characters left since we use those to delimit components.
+	 *
+	 * @protected
 	 * @param {string} component
 	 * @return {string}
 	 */
@@ -172,10 +181,11 @@
 	};
 
 	/**
-	 * @protected
 	 * URL-decodes a route component.
 	 * This is basically just a standard percent-decode, but for backwards compatibility with
 	 * older schemes, we also replace spaces which underlines (the current scheme never has spaces).
+	 *
+	 * @protected
 	 * @param {string} component
 	 * @return {string}
 	 */

@@ -19,6 +19,7 @@
 
 	/**
 	 * Represents an image on the page.
+	 *
 	 * @class mw.mmv.LightboxImage
 	 * @constructor
 	 * @param {string} fileLink Link to the file - generally a thumb URL

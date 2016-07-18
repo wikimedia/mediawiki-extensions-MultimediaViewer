@@ -19,6 +19,7 @@
 
 	/**
 	 * Loads an image.
+	 *
 	 * @class mw.mmv.provider.Image
 	 * @constructor
 	 * @param {string} imageQueryParameter When defined, is a query parameter to add to every image request
@@ -43,6 +44,7 @@
 	/**
 	 * Loads an image and returns it. Includes performance metrics via mw.mmv.logging.PerformanceLogger.
 	 * When the browser supports it, the image is loaded as an AJAX request.
+	 *
 	 * @param {string} url
 	 * @param {jQuery.Deferred.<string>} extraStatsDeferred A promise which resolves to extra statistics.
 	 * @return {jQuery.Promise.<HTMLImageElement>} A promise which resolves to the image object.
@@ -63,27 +65,28 @@
 			url = uri.extend( extraParam ).toString();
 		}
 
-		if ( !this.cache[cacheKey] ) {
+		if ( !this.cache[ cacheKey ] ) {
 			if ( this.imagePreloadingSupported() ) {
 				rawGet = $.proxy( provider.rawGet, provider, url, true );
-				this.cache[cacheKey] = this.performance.record( 'image', url, extraStatsDeferred ).then( rawGet, rawGet );
+				this.cache[ cacheKey ] = this.performance.record( 'image', url, extraStatsDeferred ).then( rawGet, rawGet );
 			} else {
 				start = $.now();
-				this.cache[cacheKey] = this.rawGet( url );
-				this.cache[cacheKey].always( function () {
+				this.cache[ cacheKey ] = this.rawGet( url );
+				this.cache[ cacheKey ].always( function () {
 					provider.performance.recordEntry( 'image', $.now() - start, url, undefined, extraStatsDeferred );
 				} );
 			}
-			this.cache[cacheKey].fail( function ( error ) {
+			this.cache[ cacheKey ].fail( function ( error ) {
 				mw.log( provider.constructor.name + ' provider failed to load: ', error );
 			} );
 		}
 
-		return this.cache[cacheKey];
+		return this.cache[ cacheKey ];
 	};
 
 	/**
 	 * Internal version of get(): no caching, no performance metrics.
+	 *
 	 * @param {string} url
 	 * @param {boolean} [cors] if true, use CORS for preloading
 	 * @return {jQuery.Promise.<HTMLImageElement>} a promise which resolves to the image object
@@ -123,6 +126,7 @@
 	 *   request, and then normally by setting img.src, it is only loaded once)
 	 * - or (as is the case with Firefox) they are cached separately, but that can be changed by
 	 *   setting the crossOrigin attribute
+	 *
 	 * @return {boolean}
 	 */
 	Image.prototype.imagePreloadingSupported = function () {

@@ -19,9 +19,10 @@
 	var MPSP;
 
 	/**
+	 * Handles scrolling behavior of the metadata panel.
+	 *
 	 * @class mw.mmv.ui.MetadataPanelScroller
 	 * @extends mw.mmv.ui.Element
-	 * Handles scrolling behavior of the metadata panel.
 	 * @constructor
 	 * @param {jQuery} $container The container for the panel (.mw-mmv-post-image).
 	 * @param {jQuery} $aboveFold The control bar element (.mw-mmv-above-fold).
@@ -101,11 +102,12 @@
 	/**
 	 * Returns scroll top position when the panel is fully open.
 	 * (In other words, the height of the area that is outside the screen, in pixels.)
+	 *
 	 * @return {number}
 	 */
 	MPSP.getScrollTopWhenOpen = function () {
-		return this.$container.outerHeight() - parseInt( this.$aboveFold.css( 'min-height' ), 10 )
-			- parseInt( this.$aboveFold.css( 'padding-bottom' ), 10 );
+		return this.$container.outerHeight() - parseInt( this.$aboveFold.css( 'min-height' ), 10 ) -
+			parseInt( this.$aboveFold.css( 'padding-bottom' ), 10 );
 	};
 
 	/**
@@ -114,12 +116,14 @@
 	 * unfreezeHeight after the panel has been populeted with the new metadata.
 	 */
 	MPSP.freezeHeight = function () {
+		var scrollTop, scrollTopWhenOpen;
+
 		if ( !this.$container.is( ':visible' ) ) {
 			return;
 		}
 
-		var scrollTop = $.scrollTo().scrollTop(),
-			scrollTopWhenOpen = this.getScrollTopWhenOpen();
+		scrollTop = $.scrollTo().scrollTop();
+		scrollTopWhenOpen = this.getScrollTopWhenOpen();
 
 		this.panelWasFullyOpen = ( scrollTop === scrollTopWhenOpen );
 		this.$container.css( 'min-height', this.$container.height() );
@@ -135,7 +139,6 @@
 			$.scrollTo( this.getScrollTopWhenOpen() );
 		}
 	};
-
 
 	MPSP.initialize = function () {
 		try {
@@ -157,6 +160,7 @@
 
 	/**
 	 * Toggles the metadata div being totally visible.
+	 *
 	 * @param {string} [forceDirection] 'up' or 'down' makes the panel move on that direction (and is a noop
 	 *  if the panel is already at the upmost/bottommost position); without the parameter, the panel position
 	 *  is toggled. (Partially open counts as open.)
@@ -213,6 +217,7 @@
 
 	/**
 	 * Returns whether the metadata panel is open. (Partially open is considered to be open.)
+	 *
 	 * @return {boolean}
 	 */
 	MPSP.panelIsOpen = function () {
@@ -221,6 +226,7 @@
 
 	/**
 	 * Receives the window's scroll events and and turns them into business logic events
+	 *
 	 * @fires mmv-metadata-open
 	 * @fires mmv-metadata-close
 	 */

@@ -20,13 +20,14 @@
 
 	/**
 	 * A tab in a mw.mmv.ui.Pane component
+	 *
 	 * @class mw.mmv.ui.reuse.Tab
 	 * @extends mw.mmv.ui.Element
 	 * @param {jQuery} $container
 	 * @constructor
 	 */
 	function Tab( $container ) {
-		Tab['super'].call( this, $container );
+		Tab[ 'super' ].call( this, $container );
 
 		/**
 		 * Container for the tab.

@@ -21,6 +21,7 @@
 	/**
 	 * Writes EventLogging entries for size measurements related to thumbnail size selection
 	 * (bucket size vs. display size).
+	 *
 	 * @class mw.mmv.logging.DimensionLogger
 	 * @extends mw.mmv.logging.Logger
 	 * @constructor
@@ -45,9 +46,10 @@
 
 	/**
 	 * Logs dimension data.
-	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths widths of the imagethat will be displayed
-	 * @param {{width: Number, height: Number}} canvasDimensions canvas width and height in CSS pixels
-	 * @param {string} context reason for requesting the image, one of 'show', 'resize', 'preload'
+	 *
+	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths Widths of the image that will be displayed
+	 * @param {Object} canvasDimensions Canvas width and height in CSS pixels
+	 * @param {string} context Reason for requesting the image, one of 'show', 'resize', 'preload'
 	 */
 	DL.logDimensions = function ( imageWidths, canvasDimensions, context ) {
 		var data;

@@ -106,6 +106,7 @@
 	 * We need to set up a proxy on the jQuery scrollTop function and the jQuery.scrollTo plugin,
 	 * that will let us pretend that the document really scrolled and that will return values
 	 * as if the scroll happened.
+	 *
 	 * @param {sinon.sandbox} sandbox
 	 * @param {mw.mmv.ui.MetadataPanelScroller} scroller
 	 */
@@ -183,7 +184,6 @@
 
 		// Unattach lightbox from document
 		scroller.unattach();
-
 
 		// Second phase of the test: scroll memory
 

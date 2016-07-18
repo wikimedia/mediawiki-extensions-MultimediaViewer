@@ -21,6 +21,7 @@
 	/**
 	 * A queue which holds a list of tasks (functions). The tasks will be executed in order,
 	 * each starting when the previous one has finished (or failed).
+	 *
 	 * @class mw.mmv.model.TaskQueue
 	 * @constructor
 	 */
@@ -55,6 +56,7 @@
 	 * start when the promise resolves (or rejects).
 	 *
 	 * Tasks can only be added before the queue is first executed.
+	 *
 	 * @param {function()} task
 	 */
 	tqp.push = function ( task ) {
@@ -67,6 +69,7 @@
 	/**
 	 * Execute the queue. The tasks will be performed in order. No more tasks can be added to the
 	 * queue.
+	 *
 	 * @return {jQuery.Promise} a promise which will resolve when the queue execution is finished,
 	 *     or reject when it is cancelled.
 	 */
@@ -81,6 +84,7 @@
 
 	/**
 	 * Runs the next task once the current one has finished.
+	 *
 	 * @param {number} index
 	 * @param {jQuery.Promise} currentTask
 	 */
@@ -88,14 +92,14 @@
 		var taskQueue = this;
 
 		function handleThen() {
-			if ( !taskQueue.queue[index] ) {
+			if ( !taskQueue.queue[ index ] ) {
 				taskQueue.state = TaskQueue.State.FINISHED;
 				taskQueue.queue = []; // just to be sure there are no memory leaks
 				taskQueue.deferred.resolve();
 				return;
 			}
 
-			taskQueue.runNextTask( index + 1, $.when( taskQueue.queue[index]() ) );
+			taskQueue.runNextTask( index + 1, $.when( taskQueue.queue[ index ]() ) );
 		}
 
 		if ( this.state !== TaskQueue.State.RUNNING ) {
@@ -116,6 +120,7 @@
 
 	/**
 	 * State of the task queue (running, finished etc)
+	 *
 	 * @enum {string} mw.mmv.model.TaskQueue.State
 	 */
 	TaskQueue.State = {

@@ -21,6 +21,7 @@
 
 	/**
 	 * Represents a UI element.
+	 *
 	 * @class mw.mmv.ui.Element
 	 * @abstract
 	 * @constructor
@@ -42,8 +43,9 @@
 		this.$inlineStyles = [];
 
 		/**
-		 * @private
 		 * Stores named timeouts. See setTimer().
+		 *
+		 * @private
 		 * @property {Object.<string, {timeout: Object, handler: function(), delay: number}>}
 		 */
 		this.timers = {};
@@ -55,7 +57,8 @@
 
 	/**
 	 * Checks whether the document is RTL. Assumes it doesn't change.
-	 * @returns {boolean}
+	 *
+	 * @return {boolean}
 	 */
 	EP.isRTL = function () {
 		if ( cachedRTL === undefined ) {
@@ -66,26 +69,30 @@
 	};
 
 	/**
-	 * @abstract
 	 * Sets the data for the element.
+	 *
+	 * @abstract
 	 */
 	EP.set = function () {};
 
 	/**
-	 * @abstract
 	 * Empties the element.
+	 *
+	 * @abstract
 	 */
 	EP.empty = function () {};
 
 	/**
-	 * @abstract
 	 * Registers listeners.
+	 *
+	 * @abstract
 	 */
 	EP.attach = function () {};
 
 	/**
-	 * @abstract
 	 * Clears listeners.
+	 *
+	 * @abstract
 	 */
 	EP.unattach = function () {
 		this.clearEvents();
@@ -93,16 +100,17 @@
 
 	/**
 	 * Add event handler in a way that will be auto-cleared on lightbox close
-	 * @param {string} name Name of event, like 'keydown'
-	 * @param {Function} handler Callback for the event
 	 *
 	 * TODO: Unit tests
+	 *
+	 * @param {string} name Name of event, like 'keydown'
+	 * @param {Function} handler Callback for the event
 	 */
 	EP.handleEvent = function ( name, handler ) {
-		if ( this.eventsRegistered[name] === undefined ) {
-			this.eventsRegistered[name] = [];
+		if ( this.eventsRegistered[ name ] === undefined ) {
+			this.eventsRegistered[ name ] = [];
 		}
-		this.eventsRegistered[name].push( handler );
+		this.eventsRegistered[ name ].push( handler );
 		$( document ).on( name, handler );
 	};
 
@@ -116,8 +124,8 @@
 			events = Object.keys( this.eventsRegistered );
 
 		for ( i = 0; i < events.length; i++ ) {
-			thisevent = events[i];
-			handlers = this.eventsRegistered[thisevent];
+			thisevent = events[ i ];
+			handlers = this.eventsRegistered[ thisevent ];
 			while ( handlers.length > 0 ) {
 				$( document ).off( thisevent, handlers.pop() );
 			}
@@ -126,6 +134,7 @@
 
 	/**
 	 * Manipulate CSS directly. This is needed to set styles for pseudo-classes and pseudo-elements.
+	 *
 	 * @param {string} key some name to identify the style
 	 * @param {string|null} style a CSS snippet (set to null to delete the given style)
 	 */
@@ -135,15 +144,15 @@
 			this.$inlineStyles = [];
 		}
 
-		if ( !this.$inlineStyles[key] ) {
+		if ( !this.$inlineStyles[ key ] ) {
 			if ( !style ) {
 				return;
 			}
 
-			this.$inlineStyles[key] = $( '<style type="text/css" />' ).appendTo( 'head' );
+			this.$inlineStyles[ key ] = $( '<style type="text/css" />' ).appendTo( 'head' );
 		}
 
-		this.$inlineStyles[key].html( style || '' );
+		this.$inlineStyles[ key ].html( style || '' );
 	};
 
 	/**
@@ -153,6 +162,7 @@
 	 * - callbacks have the element as their context
 	 * Timers are local to the element.
 	 * See also clearTimer() and resetTimer().
+	 *
 	 * @param {string} name
 	 * @param {function()} callback
 	 * @param {number} delay delay in milliseconds
@@ -161,25 +171,26 @@
 		var element = this;
 
 		this.clearTimer( name );
-		this.timers[name] = {
+		this.timers[ name ] = {
 			timeout: null,
 			handler: callback,
 			delay: delay
 		};
-		this.timers[name].timeout = setTimeout( function () {
-			delete element.timers[name];
+		this.timers[ name ].timeout = setTimeout( function () {
+			delete element.timers[ name ];
 			callback.call( element );
 		}, delay );
 	};
 
 	/**
 	 * Clears a timer. See setTimer().
+	 *
 	 * @param {string} name
 	 */
 	EP.clearTimer = function ( name ) {
 		if ( name in this.timers ) {
-			clearTimeout( this.timers[name].timeout );
-			delete this.timers[name];
+			clearTimeout( this.timers[ name ].timeout );
+			delete this.timers[ name ];
 		}
 	};
 
@@ -188,15 +199,16 @@
 	 * the timer was created. Optionally changes the delay as well.
 	 * Resetting a timer that does not exist or has already fired has no effect.
 	 * See setTimer().
+	 *
 	 * @param {string} name
 	 * @param {number} [delay] delay in milliseconds
 	 */
 	EP.resetTimer = function ( name, delay ) {
 		if ( name in this.timers ) {
 			if ( delay === undefined ) {
-				delay = this.timers[name].delay;
+				delay = this.timers[ name ].delay;
 			}
-			this.setTimer( name, this.timers[name].handler, delay );
+			this.setTimer( name, this.timers[ name ].handler, delay );
 		}
 	};
 
@@ -225,6 +237,7 @@
 
 	/**
 	 * Flips E (east) and W (west) directions in RTL documents.
+	 *
 	 * @param {string} keyword a keyword where the first 'e' or 'w' character means a direction (such as a
 	 *  tipsy gravity parameter)
 	 * @return {string}

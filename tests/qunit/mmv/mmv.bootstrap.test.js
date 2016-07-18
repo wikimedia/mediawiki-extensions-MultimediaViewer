@@ -9,44 +9,45 @@
 	} ) );
 
 	function createGallery( imageSrc, caption ) {
-		var div = $( '<div>' ).addClass( 'gallery' ).appendTo( '#qunit-fixture' ),
-			galleryBox = $( '<div>' ).addClass( 'gallerybox' ).appendTo( div ),
-			thumbwrap = $( '<div>' ).addClass( 'thumb' ).appendTo( galleryBox ),
-			link = $( '<a>' ).addClass( 'image' ).appendTo( thumbwrap );
+		var $div = $( '<div>' ).addClass( 'gallery' ).appendTo( '#qunit-fixture' ),
+			$galleryBox = $( '<div>' ).addClass( 'gallerybox' ).appendTo( $div ),
+			$thumbwrap = $( '<div>' ).addClass( 'thumb' ).appendTo( $galleryBox ),
+			$link = $( '<a>' ).addClass( 'image' ).appendTo( $thumbwrap );
 
-		$( '<img>' ).attr( 'src', ( imageSrc || 'thumb.jpg' ) ).appendTo( link );
-		$( '<div>' ).addClass( 'gallerytext' ).text( caption || 'Foobar' ).appendTo( galleryBox );
+		$( '<img>' ).attr( 'src', ( imageSrc || 'thumb.jpg' ) ).appendTo( $link );
+		$( '<div>' ).addClass( 'gallerytext' ).text( caption || 'Foobar' ).appendTo( $galleryBox );
 
-		return div;
+		return $div;
 	}
 
 	function createThumb( imageSrc, caption, alt ) {
-		var div = $( '<div>' ).addClass( 'thumb' ).appendTo( '#qunit-fixture' ),
-			link = $( '<a>' ).addClass( 'image' ).appendTo( div );
+		var $div = $( '<div>' ).addClass( 'thumb' ).appendTo( '#qunit-fixture' ),
+			$link = $( '<a>' ).addClass( 'image' ).appendTo( $div );
 
-		$( '<div>' ).addClass( 'thumbcaption' ).appendTo( div ).text( caption );
-		$( '<img>' ).attr( 'src', ( imageSrc || 'thumb.jpg' ) ).attr( 'alt', alt ).appendTo( link );
+		$( '<div>' ).addClass( 'thumbcaption' ).appendTo( $div ).text( caption );
+		$( '<img>' ).attr( 'src', ( imageSrc || 'thumb.jpg' ) ).attr( 'alt', alt ).appendTo( $link );
 
-		return div;
+		return $div;
 	}
 
 	function createNormal( imageSrc, caption ) {
-		var link = $( '<a>' ).prop( 'title', caption ).addClass( 'image' ).appendTo( '#qunit-fixture' );
-		$( '<img>' ).prop( 'src', ( imageSrc || 'thumb.jpg' ) ).appendTo( link );
-		return link;
+		var $link = $( '<a>' ).prop( 'title', caption ).addClass( 'image' ).appendTo( '#qunit-fixture' );
+		$( '<img>' ).prop( 'src', ( imageSrc || 'thumb.jpg' ) ).appendTo( $link );
+		return $link;
 	}
 
 	function createMultipleImage( images ) {
-		var contain = $( '<div>' ).addClass( 'thumb' ),
-			thumbinner = $( '<div>' ).addClass( 'thumbinner' ).appendTo( contain );
-		for ( var i = 0; i < images.length; ++i ) {
-			var div = $( '<div>' ).appendTo( thumbinner );
-			var thumbimage = $( '<div>' ).addClass( 'thumbimage' ).appendTo( div );
-			var link = $( '<a>' ).addClass( 'image' ).appendTo( thumbimage );
-			$( '<img>' ).prop( 'src', images[i][0] ).appendTo( link );
-			$( '<div>' ).addClass( 'thumbcaption' ).text( images[i][1] ).appendTo( div );
+		var i, $div, $thumbimage, $link,
+			$contain = $( '<div>' ).addClass( 'thumb' ),
+			$thumbinner = $( '<div>' ).addClass( 'thumbinner' ).appendTo( $contain );
+		for ( i = 0; i < images.length; ++i ) {
+			$div = $( '<div>' ).appendTo( $thumbinner );
+			$thumbimage = $( '<div>' ).addClass( 'thumbimage' ).appendTo( $div );
+			$link = $( '<a>' ).addClass( 'image' ).appendTo( $thumbimage );
+			$( '<img>' ).prop( 'src', images[ i ][ 0 ] ).appendTo( $link );
+			$( '<div>' ).addClass( 'thumbcaption' ).text( images[ i ][ 1 ] ).appendTo( $div );
 		}
-		return contain;
+		return $contain;
 	}
 
 	function createBootstrap( viewer ) {
@@ -91,7 +92,7 @@
 			errorMessage = 'loading failed';
 
 		this.sandbox.stub( mw.loader, 'using' )
-			.callsArgWith( 2, new Error( errorMessage, ['mmv'] ) )
+			.callsArgWith( 2, new Error( errorMessage, [ 'mmv' ] ) )
 			.withArgs( 'mediawiki.notification' ).returns( $.Deferred().reject() ); // needed for mw.notify
 
 		bootstrap = createBootstrap();
@@ -117,7 +118,7 @@
 			bootstrap = new mw.mmv.MultimediaViewerBootstrap();
 
 		this.sandbox.stub( mw.loader, 'using' )
-			.callsArgWith( 2, new Error( 'loading failed', ['mmv'] ) )
+			.callsArgWith( 2, new Error( 'loading failed', [ 'mmv' ] ) )
 			.withArgs( 'mediawiki.notification' ).returns( $.Deferred().reject() ); // needed for mw.notify
 		bootstrap.ensureEventHandlersAreSetUp = $.noop;
 
@@ -363,7 +364,7 @@
 		hashTest( 'mediaviewer', bootstrap, assert );
 	} );
 
-	QUnit.test( 'Overlay is set up on hash change', 1, function( assert ) {
+	QUnit.test( 'Overlay is set up on hash change', 1, function ( assert ) {
 		var bootstrap;
 
 		window.location.hash = '#/media/foo';
@@ -376,7 +377,7 @@
 		assert.ok( bootstrap.setupOverlay.called, 'Overlay is set up' );
 	} );
 
-	QUnit.test( 'Overlay is not set up on an irrelevant hash change', 1, function( assert ) {
+	QUnit.test( 'Overlay is not set up on an irrelevant hash change', 1, function ( assert ) {
 		var bootstrap;
 
 		window.location.hash = '#foo';
@@ -492,7 +493,6 @@
 		var $container = $( '<div>' ),
 			$thumb = $( '<img>' ).appendTo( $container ),
 			bootstrap = createBootstrap();
-
 
 		assert.ok( bootstrap.isAllowedThumb( $thumb ), 'Normal image in a div is allowed.' );
 

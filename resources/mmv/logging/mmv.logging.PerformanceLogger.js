@@ -21,6 +21,7 @@
 	/**
 	 * Measures the network performance
 	 * See <https://meta.wikimedia.org/wiki/Schema:MultimediaViewerNetworkPerformance>
+	 *
 	 * @class mw.mmv.logging.PerformanceLogger
 	 * @extends mw.mmv.logging.Logger
 	 * @constructor
@@ -60,10 +61,11 @@
 	 * Gather network performance for a given URL
 	 * Will only run on a sample of users/requests. Avoid using this on URLs that aren't
 	 * cached by the browser, as it will consume unnecessary bandwidth for the user.
+	 *
 	 * @param {string} type the type of request to be measured
 	 * @param {string} url URL to be measured
 	 * @param {jQuery.Deferred.<string>} [extraStatsDeferred] A promise which resolves to the extra stats.
-	 * @returns {jQuery.Promise} A promise that resolves when the contents of the URL have been fetched
+	 * @return {jQuery.Promise} A promise that resolves when the contents of the URL have been fetched
 	 */
 	PL.record = function ( type, url, extraStatsDeferred ) {
 		var deferred = $.Deferred(),
@@ -108,6 +110,7 @@
 	/**
 	 * Records network performance results for a given url
 	 * Will record if enough data is present and it's not a local cache hit
+	 *
 	 * @param {string} type the type of request to be measured
 	 * @param {number} total the total load time tracked with a basic technique
 	 * @param {string} url URL of that was measured
@@ -135,7 +138,7 @@
 
 			this.performanceChecked[ url ] = true;
 
-			matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+			matches = url.match( /^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i );
 			stats.isHttps = url.indexOf( 'https' ) === 0;
 		}
 
@@ -172,6 +175,7 @@
 
 	/**
 	 * Processes an XMLHttpRequest (or jqXHR) object
+	 *
 	 * @param {Object} stats stats object to extend with additional statistics fields
 	 * @param {XMLHttpRequest} request
 	 */
@@ -228,6 +232,7 @@
 
 	/**
 	 * Populates statistics based on the Request Timing API
+	 *
 	 * @param {Object} stats
 	 * @param {string} url
 	 */
@@ -249,7 +254,7 @@
 				// This could fail in exotic cases (e.g. we send an AJAX request for a thumbnail,
 				// but it exists on the page as a normal thumbnail with the exact same size),
 				// but it's unlikely.
-				timingEntry = timingEntries[0];
+				timingEntry = timingEntries[ 0 ];
 
 				stats.total = Math.round( timingEntry.duration );
 				stats.redirect = Math.round( timingEntry.redirectEnd - timingEntry.redirectStart );
@@ -269,6 +274,7 @@
 	 * Like recordEntry, but takes a jqXHR argument instead of a normal XHR one.
 	 * Due to the way some parameters are retrieved, this will work best if the context option
 	 * for the ajax request was not used.
+	 *
 	 * @param {string} type the type of request to be measured
 	 * @param {number} total the total load time tracked with a basic technique
 	 * @param {jqXHR} jqxhr
@@ -309,6 +315,7 @@
 	 * Records network performance results for a given url
 	 * Will record if enough data is present and it's not a local cache hit
 	 * Will run after a delay to make sure the window.performance entry is present
+	 *
 	 * @param {string} type the type of request to be measured
 	 * @param {number} total the total load time tracked with a basic technique
 	 * @param {string} url URL of that was measured
@@ -327,6 +334,7 @@
 
 	/**
 	 * Like recordEntryDelayed, but for jQuery AJAX requests.
+	 *
 	 * @param {string} type the type of request to be measured
 	 * @param {number} total the total load time tracked with a basic technique
 	 * @param {jqXHR} jqxhr
@@ -343,8 +351,9 @@
 
 	/**
 	 * Parses an X-Cache header from Varnish and extracts varnish information
+	 *
 	 * @param {string} header The X-Cache header from the request
-	 * @returns {Object} The parsed X-Cache data
+	 * @return {Object} The parsed X-Cache data
 	 */
 	PL.parseVarnishXCacheHeader = function ( header ) {
 		var parts,
@@ -387,7 +396,8 @@
 	/**
 	 * Returns the window's Performance object
 	 * Allows us to override for unit tests
-	 * @returns {Object} The window's Performance object
+	 *
+	 * @return {Object} The window's Performance object
 	 */
 	PL.getWindowPerformance = function () {
 		return window.performance;
@@ -396,7 +406,8 @@
 	/**
 	 * Returns the navigator's Connection object
 	 * Allows us to override for unit tests
-	 * @returns {Object} The navigator's Connection object
+	 *
+	 * @return {Object} The navigator's Connection object
 	 */
 	PL.getNavigatorConnection = function () {
 		return navigator.connection || navigator.mozConnection || navigator.webkitConnection;
@@ -405,7 +416,8 @@
 	/**
 	 * Returns a new XMLHttpRequest object
 	 * Allows us to override for unit tests
-	 * @returns {XMLHttpRequest} New XMLHttpRequest
+	 *
+	 * @return {XMLHttpRequest} New XMLHttpRequest
 	 */
 	PL.newXHR = function () {
 		return new XMLHttpRequest();
@@ -416,15 +428,16 @@
 	 * @inheritdoc
 	 */
 	PL.log = function ( data ) {
-		var trackedWidths = mw.mmv.ThumbnailWidthCalculator.prototype.defaultOptions.widthBuckets.slice(0);
+		var trackedWidths = mw.mmv.ThumbnailWidthCalculator.prototype.defaultOptions.widthBuckets.slice( 0 );
 		trackedWidths.push( 600 ); // Most common non-bucket size
 
 		// Track thumbnail load time with statsv, unsampled
-		if ( data.type === 'image'
-			&& data.imageWidth > 0
-			&& data.total > 20
-			&& $.inArray( data.imageWidth, trackedWidths ) !== -1 ) {
-			mw.track( 'timing.media.thumbnail.client.' + data.imageWidth , data.total );
+		if ( data.type === 'image' &&
+			data.imageWidth > 0 &&
+			data.total > 20 &&
+			$.inArray( data.imageWidth, trackedWidths ) !== -1
+		) {
+			mw.track( 'timing.media.thumbnail.client.' + data.imageWidth, data.total );
 		}
 
 		if ( this.isEnabled() ) {

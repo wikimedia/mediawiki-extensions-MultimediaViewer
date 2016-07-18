@@ -55,7 +55,7 @@
 	QUnit.test( 'setImageAndMaxDimensions()', 4, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			$mainWrapper = $( '<div>' ).appendTo( $qf ),
-			$innerWrapper =$( '<div>' ).appendTo( $mainWrapper ),
+			$innerWrapper = $( '<div>' ).appendTo( $mainWrapper ),
 			$imageWrapper = $( '<div>' ).appendTo( $innerWrapper ),
 			canvas = new mw.mmv.ui.Canvas( $innerWrapper, $imageWrapper, $mainWrapper ),
 			imageRawMetadata = new mw.mmv.LightboxImage( 'foo.png' ),
@@ -108,7 +108,7 @@
 		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
-			assert.ok ( false, 'Placeholder is not shown' );
+			assert.ok( false, 'Placeholder is not shown' );
 		};
 
 		$image = $( '<img>' ).width( 10 ).height( 5 );
@@ -138,7 +138,7 @@
 		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
-			assert.ok ( true, 'Placeholder shown' );
+			assert.ok( true, 'Placeholder shown' );
 		};
 
 		$image = $( '<img>' ).width( 200 ).height( 100 );
@@ -168,7 +168,7 @@
 		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
-			assert.ok ( true, 'Placeholder shown' );
+			assert.ok( true, 'Placeholder shown' );
 		};
 
 		$image = $( '<img>' ).width( 100 ).height( 50 );
@@ -198,7 +198,7 @@
 		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
-			assert.ok ( true, 'Placeholder shown' );
+			assert.ok( true, 'Placeholder shown' );
 		};
 
 		$image = $( '<img>' ).width( 100 ).height( 50 );
@@ -228,7 +228,7 @@
 		canvas.imageRawMetadata = imageRawMetadata;
 
 		canvas.set = function () {
-			assert.ok ( false, 'Placeholder shown when it should not' );
+			assert.ok( false, 'Placeholder shown when it should not' );
 		};
 
 		$image = $( '<img>' ).width( 10 ).height( 5 );

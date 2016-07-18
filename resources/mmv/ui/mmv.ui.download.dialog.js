@@ -21,6 +21,7 @@
 
 	/**
 	 * Represents the file download dialog and the link to open it.
+	 *
 	 * @class mw.mmv.ui.download.Dialog
 	 * @extends mw.mmv.ui.Dialog
 	 * @param {jQuery} $container the element to which the dialog will be appended
@@ -52,6 +53,7 @@
 
 	/**
 	 * Sets data needed by contaned tabs and makes dialog launch link visible.
+	 *
 	 * @param {mw.mmv.model.Image} image
 	 * @param {mw.mmv.model.Repo} repo
 	 */

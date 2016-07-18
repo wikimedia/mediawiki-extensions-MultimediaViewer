@@ -21,6 +21,7 @@
 
 	/**
 	 * Represents a dialog and the link to open it.
+	 *
 	 * @class mw.mmv.ui.Dialog
 	 * @extends mw.mmv.ui.Element
 	 * @param {jQuery} $container the element to which the dialog will be appended
@@ -63,6 +64,7 @@
 
 	/**
 	 * Handles click on link that opens/closes the dialog.
+	 *
 	 * @param {Event} openEvent Event object for the mmv-$dialog-open event.
 	 * @param {Event} e Event object for the click event.
 	 */
@@ -83,6 +85,7 @@
 
 	/**
 	 * Toggles the open state on the dialog.
+	 *
 	 * @param {Event} [e] Event object when the close action is caused by a user
 	 *   action, as opposed to closing the window or something.
 	 */
@@ -130,10 +133,12 @@
 			var $clickTarget = $( e.target );
 
 			// Don't close the dialog if the click inside a dialog or on an navigation arrow
-			if ( $clickTarget.closest( dialog.$dialog ).length
-			|| $clickTarget.closest( '.mw-mmv-next-image' ).length
-			|| $clickTarget.closest( '.mw-mmv-prev-image' ).length
-			|| e.which === 3 ) {
+			if (
+				$clickTarget.closest( dialog.$dialog ).length ||
+				$clickTarget.closest( '.mw-mmv-next-image' ).length ||
+				$clickTarget.closest( '.mw-mmv-prev-image' ).length ||
+				e.which === 3
+			) {
 				return;
 			}
 

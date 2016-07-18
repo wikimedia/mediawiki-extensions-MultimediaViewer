@@ -21,6 +21,7 @@
 
 	/**
 	 * Represents the metadata panel in the viewer
+	 *
 	 * @class mw.mmv.ui.MetadataPanel
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
@@ -49,11 +50,12 @@
 	oo.inheritClass( MetadataPanel, mw.mmv.ui.Element );
 	MPP = MetadataPanel.prototype;
 
-    /**
-     * Maximum number of restriction icons before default icon is used
-     * @property MAX_RESTRICT
-     * @static
-     */
+	/**
+	 * Maximum number of restriction icons before default icon is used
+	 *
+	 * @property MAX_RESTRICT
+	 * @static
+	 */
 	MetadataPanel.MAX_RESTRICT = 4;
 
 	/**
@@ -84,9 +86,9 @@
 					someTextIsExpanded = !!$( e.target ).closest( '.mw-mmv-untruncated' ).length;
 
 				if (
-					!clickTargetIsLink // don't interfere with clicks on links in the text
-					&& clickTargetIsTruncated // don't expand when non-truncated text is clicked
-					&& !someTextIsExpanded // ignore clicks if text is already expanded
+					!clickTargetIsLink && // don't interfere with clicks on links in the text
+					clickTargetIsTruncated && // don't expand when non-truncated text is clicked
+					!someTextIsExpanded // ignore clicks if text is already expanded
 				) {
 					if ( panel.isFullscreened() ) {
 						panel.revealTruncatedText();
@@ -176,12 +178,11 @@
 		this.$container.removeClass( 'mw-mmv-untruncated' );
 	};
 
-	// **********************************************
-	// *********** Initialization methods ***********
-	// **********************************************
+	/* Initialization methods */
 
 	/**
 	 * Initializes the header, which contains the title, credit, and license elements.
+	 *
 	 * @param {Object} localStorage the localStorage object, for dependency injection
 	 */
 	MPP.initializeHeader = function ( localStorage ) {
@@ -212,7 +213,7 @@
 			.addClass( 'mw-mmv-title' );
 
 		this.title = new mw.mmv.ui.TruncatableTextField( this.$titlePara, this.$title, {
-			styles: ['mw-mmv-title-small', 'mw-mmv-title-smaller']
+			styles: [ 'mw-mmv-title-small', 'mw-mmv-title-smaller' ]
 		} );
 		this.title.setTitle(
 			mw.message( 'multimediaviewer-title-popup-text' ),
@@ -273,7 +274,6 @@
 			.on( 'click', '.mw-mmv-source a', function () {
 				mw.mmv.actionLogger.log( 'source-page' );
 			} );
-
 
 		this.creditField = new mw.mmv.ui.TruncatableTextField(
 			this.$credit,
@@ -428,9 +428,7 @@
 			.appendTo( this.$imageMetadata );
 	};
 
-	// *********************************
-	// ******** Setting methods ********
-	// *********************************
+	/* Setters */
 
 	/**
 	 * Sets the image title at the top of the metadata panel.
@@ -438,6 +436,7 @@
 	 * - the image caption
 	 * - the description from the filepage
 	 * - the filename (without extension)
+	 *
 	 * @param {mw.mmv.LightboxImage} image
 	 * @param {mw.mmv.model.Image} imageData
 	 */
@@ -457,6 +456,7 @@
 
 	/**
 	 * Sets the upload or creation date and time in the panel
+	 *f
 	 * @param {string} date The formatted date to set.
 	 * @param {boolean} created Whether this is the creation date
 	 */
@@ -473,6 +473,7 @@
 
 	/**
 	 * Sets the file name in the panel.
+	 *
 	 * @param {string} filename The file name to set, without prefix
 	 */
 	MPP.setFileName = function ( filename ) {
@@ -484,6 +485,7 @@
 
 	/**
 	 * Set source and author.
+	 *
 	 * @param {string} attribution Custom attribution string
 	 * @param {string} source With unsafe HTML
 	 * @param {string} author With unsafe HTML
@@ -520,6 +522,7 @@
 
 	/**
 	 * Wraps a source string it with MediaViewer styles
+	 *
 	 * @param {string} source Warning - unsafe HTML sometimes goes here
 	 * @return {string} unsafe HTML
 	 */
@@ -532,6 +535,7 @@
 
 	/**
 	 * Wraps an author string with MediaViewer styles
+	 *
 	 * @param {string} author Warning - unsafe HTML sometimes goes here
 	 * @param {number} authorCount
 	 * @param {string} filepageUrl URL of the file page (used when some author data is not available)
@@ -560,6 +564,7 @@
 
 	/**
 	 * Wraps an attribution string with MediaViewer styles
+	 *
 	 * @param {string} attribution Warning - unsafe HTML sometimes goes here
 	 * @return {string} unsafe HTML
 	 */
@@ -573,6 +578,7 @@
 
 	/**
 	 * Sets the license display in the panel
+	 *
 	 * @param {mw.mmv.model.License|null} license license data (could be missing)
 	 * @param {string} filePageUrl URL of the file description page
 	 */
@@ -603,6 +609,7 @@
 
 	/**
 	 * Set an extra permission text which should be displayed.
+	 *
 	 * @param {string} permission
 	 */
 	MPP.setPermission = function ( permission ) {
@@ -612,22 +619,24 @@
 
 	/**
 	 * Sets any special restrictions that should be displayed.
+	 *
 	 * @param {string[]} restrictions Array of restrictions
 	 */
 	MPP.setRestrictions = function ( restrictions ) {
-		var panel = this; // Access this inside $.each()
-		var restrictionsSet = {};
-		var showDefault = false;
-		var validRestrictions = 0;
-		$.each( restrictions, function( index, value ) {
+		var panel = this,
+			restrictionsSet = {},
+			showDefault = false,
+			validRestrictions = 0;
+
+		$.each( restrictions, function ( index, value ) {
 			if ( !mw.message( 'multimediaviewer-restriction-' + value ).exists() || value === 'default' || index + 1 > MetadataPanel.MAX_RESTRICT ) {
 				showDefault = true; // If the restriction isn't defined or there are more than MAX_RESTRICT of them, show a generic symbol at the end
 				return;
 			}
-			if( restrictionsSet[value] ) {
+			if ( restrictionsSet[ value ] ) {
 				return; // Only show one of each symbol
 			} else {
-				restrictionsSet[value] = true;
+				restrictionsSet[ value ] = true;
 			}
 
 			panel.$restrictions.append( panel.createRestriction( value ) );
@@ -645,6 +654,7 @@
 
 	/**
 	 * Helper function that generates restriction labels
+	 *
 	 * @param {string} type Restriction type
 	 * @return {jQuery} jQuery object of label
 	 */
@@ -668,6 +678,7 @@
 
 	/**
 	 * Sets location data in the interface.
+	 *
 	 * @param {mw.mmv.model.Image} imageData
 	 */
 	MPP.setLocationData = function ( imageData ) {
@@ -740,6 +751,7 @@
 
 	/**
 	 * Set all the image information in the panel
+	 *
 	 * @param {mw.mmv.LightboxImage} image
 	 * @param {mw.mmv.model.Image} imageData
 	 * @param {mw.mmv.model.Repo} repoData
@@ -793,6 +805,7 @@
 
 	/**
 	 * Show an error message, in case the data could not be loaded
+	 *
 	 * @param {string} title image title
 	 * @param {string} error error message
 	 */
@@ -804,6 +817,7 @@
 	/**
 	 * Transforms a date string into localized, human-readable format.
 	 * Unrecognized strings are returned unchanged.
+	 *
 	 * @param {string} dateString
 	 * @return {jQuery.Deferred}
 	 */

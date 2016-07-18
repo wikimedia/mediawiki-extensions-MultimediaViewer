@@ -30,47 +30,47 @@
 			api = { get: function () {
 				apiCallCount++;
 				return $.Deferred().resolve( {
-					'query': {
-						'repos': [
+					query: {
+						repos: [
 							{
-								'name': 'shared',
-								'displayname': 'Wikimedia Commons',
-								'rootUrl': '//upload.beta.wmflabs.org/wikipedia/commons',
-								'local': false,
-								'url': '//upload.beta.wmflabs.org/wikipedia/commons',
-								'thumbUrl': '//upload.beta.wmflabs.org/wikipedia/commons/thumb',
-								'initialCapital': true,
-								'descBaseUrl': '//commons.wikimedia.beta.wmflabs.org/wiki/File:',
-								'scriptDirUrl': '//commons.wikimedia.beta.wmflabs.org/w',
-								'fetchDescription': true,
-								'favicon': 'http://bits.wikimedia.org/favicon/wikipedia.ico'
+								name: 'shared',
+								displayname: 'Wikimedia Commons',
+								rootUrl: '//upload.beta.wmflabs.org/wikipedia/commons',
+								local: false,
+								url: '//upload.beta.wmflabs.org/wikipedia/commons',
+								thumbUrl: '//upload.beta.wmflabs.org/wikipedia/commons/thumb',
+								initialCapital: true,
+								descBaseUrl: '//commons.wikimedia.beta.wmflabs.org/wiki/File:',
+								scriptDirUrl: '//commons.wikimedia.beta.wmflabs.org/w',
+								fetchDescription: true,
+								favicon: 'http://bits.wikimedia.org/favicon/wikipedia.ico'
 							},
 							{
-								'name': 'wikimediacommons',
-								'displayname': 'Wikimedia Commons',
-								'rootUrl': '//upload.beta.wmflabs.org/wikipedia/en',
-								'local': false,
-								'url': '//upload.beta.wmflabs.org/wikipedia/en',
-								'thumbUrl': '//upload.beta.wmflabs.org/wikipedia/en/thumb',
-								'initialCapital': true,
-								'scriptDirUrl': 'http://commons.wikimedia.org/w',
-								'fetchDescription': true,
-								'descriptionCacheExpiry': 43200,
-								'apiurl': 'http://commons.wikimedia.org/w/api.php',
-								'articlepath': '/wiki/$1',
-								'server': '//commons.wikimedia.org',
-								'favicon': '//bits.wikimedia.org/favicon/commons.ico'
+								name: 'wikimediacommons',
+								displayname: 'Wikimedia Commons',
+								rootUrl: '//upload.beta.wmflabs.org/wikipedia/en',
+								local: false,
+								url: '//upload.beta.wmflabs.org/wikipedia/en',
+								thumbUrl: '//upload.beta.wmflabs.org/wikipedia/en/thumb',
+								initialCapital: true,
+								scriptDirUrl: 'http://commons.wikimedia.org/w',
+								fetchDescription: true,
+								descriptionCacheExpiry: 43200,
+								apiurl: 'http://commons.wikimedia.org/w/api.php',
+								articlepath: '/wiki/$1',
+								server: '//commons.wikimedia.org',
+								favicon: '//bits.wikimedia.org/favicon/commons.ico'
 							},
 							{
-								'name': 'local',
-								'displayname': null,
-								'rootUrl': '//upload.beta.wmflabs.org/wikipedia/en',
-								'local': true,
-								'url': '//upload.beta.wmflabs.org/wikipedia/en',
-								'thumbUrl': '//upload.beta.wmflabs.org/wikipedia/en/thumb',
-								'initialCapital': true,
-								'scriptDirUrl': '/w',
-								'favicon': 'http://bits.wikimedia.org/favicon/wikipedia.ico'
+								name: 'local',
+								displayname: null,
+								rootUrl: '//upload.beta.wmflabs.org/wikipedia/en',
+								local: true,
+								url: '//upload.beta.wmflabs.org/wikipedia/en',
+								thumbUrl: '//upload.beta.wmflabs.org/wikipedia/en/thumb',
+								initialCapital: true,
+								scriptDirUrl: '/w',
+								favicon: 'http://bits.wikimedia.org/favicon/wikipedia.ico'
 							}
 						]
 					}

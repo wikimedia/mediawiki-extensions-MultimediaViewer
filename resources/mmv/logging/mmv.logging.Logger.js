@@ -20,6 +20,7 @@
 
 	/**
 	 * Abstract class providing common code for EventLogging loggers
+	 *
 	 * @class mw.mmv.logging.Logger
 	 * @abstract
 	 */
@@ -46,6 +47,7 @@
 
 	/**
 	 * Sets the Geo object providing country information about the visitor
+	 *
 	 * @param {Object} Geo object containing country GeoIP information about the user
 	 */
 	L.setGeo = function ( Geo ) {
@@ -54,6 +56,7 @@
 
 	/**
 	 * Sets the eventLog object providing a facility to record events
+	 *
 	 * @param {mw.eventLog} eventLog EventLogging instance
 	 */
 	L.setEventLog = function ( eventLog ) {
@@ -62,7 +65,8 @@
 
 	/**
 	 * Loads the dependencies that allow us to log events
-	 * @returns {jQuery.Promise}
+	 *
+	 * @return {jQuery.Promise}
 	 */
 	L.loadDependencies = function () {
 		var self = this,
@@ -92,7 +96,8 @@
 
 	/**
 	 * Returns whether or not we should measure this request
-	 * @returns {boolean} True if this request needs to be sampled
+	 *
+	 * @return {boolean} True if this request needs to be sampled
 	 */
 	L.isInSample = function () {
 		if ( !$.isNumeric( this.samplingFactor ) || this.samplingFactor < 1 ) {
@@ -106,7 +111,8 @@
 	 * Returns whether logging this event is enabled. This is intended for console logging, which
 	 * (in debug mode) should be done even if the request is not being sampled, as long as logging
 	 * is enabled for some sample.
-	 * @returns {boolean} True if this logging is enabled
+	 *
+	 * @return {boolean} True if this logging is enabled
 	 */
 	L.isEnabled = function () {
 		return $.isNumeric( this.samplingFactor ) && this.samplingFactor >= 1;
@@ -114,18 +120,20 @@
 
 	/**
 	 * True if the schema has a country field. Broken out in a separate function so it's easy to mock.
-	 * @returns {boolean}
+	 *
+	 * @return {boolean}
 	 */
 	L.schemaSupportsCountry = function () {
 		return this.eventLog && this.eventLog.schemas && // don't die if eventLog is a mock
 			this.schema in this.eventLog.schemas && // don't die if schema is not loaded
-			'country' in this.eventLog.schemas[this.schema].schema.properties;
+			'country' in this.eventLog.schemas[ this.schema ].schema.properties;
 	};
 
 	/**
 	 * Logs EventLogging data while including Geo data if any
+	 *
 	 * @param {Object} data
-	 * @returns {jQuery.Promise}
+	 * @return {jQuery.Promise}
 	 */
 	L.log = function ( data ) {
 		var self = this;

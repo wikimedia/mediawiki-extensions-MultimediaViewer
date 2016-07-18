@@ -43,7 +43,7 @@
 			attribution = 'Created by my cats on a winter morning',
 			latitude = 39.12381283,
 			longitude = 100.983829,
-			restrictions = ['trademarked'],
+			restrictions = [ 'trademarked' ],
 			imageData = new mw.mmv.model.Image(
 				title, name, size, width, height, mime, url,
 				descurl, descShortUrl, pageID, repo, datetime, anondatetime, origdatetime,
@@ -58,7 +58,7 @@
 		assert.strictEqual( imageData.mimeType, mime, 'MIME type is set correctly' );
 		assert.strictEqual( imageData.url, url, 'URL for original image is set correctly' );
 		assert.strictEqual( imageData.descriptionUrl, descurl, 'URL for image description page is set correctly' );
-		assert.strictEqual( imageData.pageID, pageID, 'Page ID of image description is set correctly');
+		assert.strictEqual( imageData.pageID, pageID, 'Page ID of image description is set correctly' );
 		assert.strictEqual( imageData.repo, repo, 'Repository name is set correctly' );
 		assert.strictEqual( imageData.uploadDateTime, datetime, 'Date and time of last upload is set correctly' );
 		assert.strictEqual( imageData.anonymizedUploadDateTime, anondatetime, 'Anonymized date and time of last upload is set correctly' );
@@ -132,9 +132,9 @@
 			'Extmeta zero-prefixed integer string parsed correctly.' );
 		assert.deepEqual( Image.parseExtmeta( listDataEmpty, 'list' ), [],
 			'Extmeta empty list parsed correctly.' );
-		assert.deepEqual( Image.parseExtmeta( listDataSingle, 'list' ), ['foo'],
+		assert.deepEqual( Image.parseExtmeta( listDataSingle, 'list' ), [ 'foo' ],
 			'Extmeta list with single element parsed correctly.' );
-		assert.deepEqual( Image.parseExtmeta( listDataMultiple, 'list' ), ['foo', 'bar', 'baz'],
+		assert.deepEqual( Image.parseExtmeta( listDataMultiple, 'list' ), [ 'foo', 'bar', 'baz' ],
 			'Extmeta list with multipleelements parsed correctly.' );
 		assert.strictEqual( Image.parseExtmeta( missingData, 'string' ), undefined,
 			'Extmeta missing data parsed correctly.' );

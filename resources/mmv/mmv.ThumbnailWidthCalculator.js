@@ -84,6 +84,7 @@
 	 * Finds the smallest bucket which is large enough to hold the target size
 	 * (i. e. the smallest bucket whose size is equal to or greater than the target).
 	 * If none of the buckets are large enough, returns the largest bucket.
+	 *
 	 * @param {number} target
 	 * @return {number}
 	 */
@@ -92,7 +93,7 @@
 			buckets = this.widthBuckets;
 
 		for ( i = 0; i < buckets.length; i++ ) {
-			bucket = buckets[i];
+			bucket = buckets[ i ];
 
 			if ( bucket >= target ) {
 				return bucket;
@@ -104,13 +105,13 @@
 	};
 
 	/**
-	 * @protected
 	 * Finds the largest width for an image so that it will still fit into a given bounding box,
 	 * based on the size of a sample (some smaller version of the same image, like the thumbnail
 	 * shown in the article) which is used to calculate the ratio.
 	 *
 	 * This is for internal use, you should probably use calculateWidths() instead.
 	 *
+	 * @protected
 	 * @param {number} boundingWidth width of the bounding box
 	 * @param {number} boundingHeight height of the bounding box
 	 * @param {number} sampleWidth width of the sample image

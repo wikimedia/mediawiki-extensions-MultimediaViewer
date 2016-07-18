@@ -23,6 +23,7 @@
 	 * (Typically comes from the Permission field of the {{Information}} template.)
 	 * It has two states: when closed, it just shows some text, when open, it shows the HTML
 	 * block supplied by the author in its full beauty.
+	 *
 	 * @class mw.mmv.ui.Permission
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
@@ -122,6 +123,7 @@
 
 	/**
 	 * Set permission text/html
+	 *
 	 * @param {string} permission the text or HTML code written by the image author
 	 */
 	P.set = function ( permission ) {
@@ -135,6 +137,7 @@
 
 	/**
 	 * Enlarge the box, show HTML instead of text.
+	 *
 	 * @fires mmv-permission-grow
 	 */
 	P.grow = function () {
@@ -149,6 +152,7 @@
 
 	/**
 	 * Limit the size of the box, show text only.
+	 *
 	 * @fires mmv-permission-shrink
 	 */
 	P.shrink = function () {
@@ -158,7 +162,8 @@
 
 	/**
 	 * Returns whether the box is full-size.
-	 * @returns boolean
+	 *
+	 * @return {boolean}
 	 */
 	P.isFullSize = function () {
 		return this.$box.hasClass( 'full-size' );

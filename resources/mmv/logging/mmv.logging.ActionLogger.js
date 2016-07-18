@@ -20,6 +20,7 @@
 
 	/**
 	 * Writes log entries
+	 *
 	 * @class mw.mmv.logging.ActionLogger
 	 * @extends mw.mmv.logging.Logger
 	 * @constructor
@@ -58,11 +59,11 @@
 	 * @static
 	 */
 	L.logActions = {
-		'thumbnail': 'User clicked on a thumbnail to open Media Viewer.',
-		'enlarge': 'User clicked on an enlarge link to open Media Viewer.',
-		'fullscreen': 'User entered fullscreen mode.',
-		'defullscreen': 'User exited fullscreen mode.',
-		'close': 'User closed Media Viewer.',
+		thumbnail: 'User clicked on a thumbnail to open Media Viewer.',
+		enlarge: 'User clicked on an enlarge link to open Media Viewer.',
+		fullscreen: 'User entered fullscreen mode.',
+		defullscreen: 'User exited fullscreen mode.',
+		close: 'User closed Media Viewer.',
 		'view-original-file': 'User clicked on the direct link to the original file',
 		'file-description-page': 'User opened the file description page.',
 		'file-description-page-abovefold': 'User opened the file description page via the above-the-fold button.',
@@ -92,7 +93,7 @@
 		'download-select-menu-small': 'User selected the small size in the download dropdown menu.',
 		'download-select-menu-medium': 'User selected the medium size in the download dropdown menu.',
 		'download-select-menu-large': 'User selected the large size in the download dropdown menu.',
-		'download': 'User clicked on the button to download a file.',
+		download: 'User clicked on the button to download a file.',
 		'download-view-in-browser': 'User clicked on the link to view the image in the browser in the download tab.',
 		'right-click-image': 'User right-clicked on the image.',
 		'share-page': 'User opened the link to the current image.',
@@ -121,12 +122,13 @@
 
 	/**
 	 * Logs an action
+	 *
 	 * @param {string} action The key representing the action
 	 * @param {boolean} forceEventLog True if we want the action to be logged regardless of the sampling factor
-	 * @returns {jQuery.Promise}
+	 * @return {jQuery.Promise}
 	 */
 	L.log = function ( action, forceEventLog ) {
-		var actionText = this.logActions[action] || action,
+		var actionText = this.logActions[ action ] || action,
 			self = this;
 
 		if ( this.isEnabled( action ) ) {
@@ -136,8 +138,8 @@
 		if ( forceEventLog || self.isInSample( action ) ) {
 			return this.loadDependencies().then( function () {
 				self.eventLog.logEvent( self.schema, {
-					action : action,
-					samplingFactor : self.getActionFactor( action )
+					action: action,
+					samplingFactor: self.getActionFactor( action )
 				} );
 
 				return true;
@@ -149,17 +151,19 @@
 
 	/**
 	 * Returns the sampling factor for a given action
+	 *
 	 * @param {string} action The key representing the action
-	 * @returns {number} Sampling factor
+	 * @return {number} Sampling factor
 	 */
 	L.getActionFactor = function ( action ) {
-		return this.samplingFactorMap[ action ] || this.samplingFactorMap['default'];
+		return this.samplingFactorMap[ action ] || this.samplingFactorMap[ 'default' ];
 	};
 
 	/**
 	 * Returns whether or not we should measure this request for this action
+	 *
 	 * @param {string} action The key representing the action
-	 * @returns {boolean} True if this request needs to be sampled
+	 * @return {boolean} True if this request needs to be sampled
 	 */
 	L.isInSample = function ( action ) {
 		var factor = this.getActionFactor( action );
@@ -174,8 +178,9 @@
 	 * Returns whether logging this event is enabled. This is intended for console logging, which
 	 * (in debug mode) should be done even if the request is not being sampled, as long as logging
 	 * is enabled for some sample.
+	 *
 	 * @param {string} action The key representing the action
-	 * @returns {boolean} True if this logging is enabled
+	 * @return {boolean} True if this logging is enabled
 	 */
 	L.isEnabled = function ( action ) {
 		var factor = this.getActionFactor( action );

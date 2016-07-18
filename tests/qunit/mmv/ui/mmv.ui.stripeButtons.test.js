@@ -27,20 +27,20 @@
 		var buttons,
 		oldMwUserIsAnon = mw.user.isAnon;
 
-	// first pretend we are anonymous
-	mw.user.isAnon = function () { return true; };
-	buttons = createStripeButtons();
+		// first pretend we are anonymous
+		mw.user.isAnon = function () { return true; };
+		buttons = createStripeButtons();
 
-	assert.ok( buttons, 'UI element is created.' );
-	assert.ok( buttons.buttons.$descriptionPage, 'File page button created for anon.' );
+		assert.ok( buttons, 'UI element is created.' );
+		assert.ok( buttons.buttons.$descriptionPage, 'File page button created for anon.' );
 
-	// now pretend we are logged in
-	mw.user.isAnon = function () { return false; };
-	buttons = createStripeButtons();
+		// now pretend we are logged in
+		mw.user.isAnon = function () { return false; };
+		buttons = createStripeButtons();
 
-	assert.strictEqual( buttons.buttons.$descriptionPage.length, 1, 'File page button created for logged in.' );
+		assert.strictEqual( buttons.buttons.$descriptionPage.length, 1, 'File page button created for logged in.' );
 
-	mw.user.isAnon = oldMwUserIsAnon;
+		mw.user.isAnon = oldMwUserIsAnon;
 	} );
 
 	QUnit.test( 'set()/empty() sanity test:', 1, function ( assert ) {
