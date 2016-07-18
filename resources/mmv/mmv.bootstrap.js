@@ -136,7 +136,7 @@
 			'.gallery .image img, ' +
 			'a.image img, ' +
 			'#file a img, ' +
-			'figure[typeof*="mw:Image"] img, ' +
+			'figure[typeof*="mw:Image"] > *:first-child > img, ' +
 			'span[typeof*="mw:Image"] img'
 		);
 
