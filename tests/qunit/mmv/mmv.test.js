@@ -16,16 +16,16 @@
 
 		viewer.currentIndex = 2;
 		i = 0;
-		expectedIndices = [2, 3, 1, 4, 0, 5];
+		expectedIndices = [ 2, 3, 1, 4, 0, 5 ];
 		viewer.eachPrealoadableLightboxIndex( function ( index ) {
-			assert.strictEqual( index, expectedIndices[i++], 'preload on left edge' );
+			assert.strictEqual( index, expectedIndices[ i++ ], 'preload on left edge' );
 		} );
 
 		viewer.currentIndex = 9;
 		i = 0;
-		expectedIndices = [9, 10, 8, 7, 6];
+		expectedIndices = [ 9, 10, 8, 7, 6 ];
 		viewer.eachPrealoadableLightboxIndex( function ( index ) {
-			assert.strictEqual( index, expectedIndices[i++], 'preload on right edge' );
+			assert.strictEqual( index, expectedIndices[ i++ ], 'preload on right edge' );
 		} );
 	} );
 
@@ -353,7 +353,7 @@
 			canvas: {
 				unblurWithAnimation: $.noop,
 				unblur: $.noop
-		} };
+			} };
 
 		viewer.displayRealThumbnail( { url: undefined } );
 
@@ -487,7 +487,7 @@
 
 		viewer.ui.$closeButton.click();
 
-		function eventHandler ( e ) {
+		function eventHandler( e ) {
 			if ( e.isDefaultPrevented() ) {
 				assert.ok( false, 'Event was incorrectly trapped: ' + e.which );
 			}
@@ -509,7 +509,7 @@
 		for ( j = 0; j < eventTypes.length; j++ ) {
 			$document.on( eventTypes[ j ] + '.mmvtest', eventHandler );
 
-		eventloop:
+			eventloop:
 			for ( i = 0; i < 256; i++ ) {
 				// Save some time by not testing unlikely values for mouse events
 				if ( i > 32 ) {
@@ -551,7 +551,7 @@
 			imageStub,
 			promise,
 			useThumbnailGuessing,
-			viewer = new mw.mmv.MultimediaViewer( { imageQueryParameter: $.noop, language: $.noop, recordVirtualViewBeaconURI: $.noop, extensions: function () { return { 'jpg' : 'default' }; }, useThumbnailGuessing : function () { return useThumbnailGuessing; } } ),
+			viewer = new mw.mmv.MultimediaViewer( { imageQueryParameter: $.noop, language: $.noop, recordVirtualViewBeaconURI: $.noop, extensions: function () { return { jpg: 'default' }; }, useThumbnailGuessing: function () { return useThumbnailGuessing; } } ),
 			sandbox = this.sandbox,
 			file = new mw.Title( 'File:Copyleft.svg' ),
 			sampleURL = 'http://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Copyleft.svg/300px-Copyleft.svg.png',

@@ -19,9 +19,10 @@
 	var ITP;
 
 	/**
-	 * @class mw.mmv.model.IwTitle
 	 * IwTitle represents a title in a foreign wiki. The long-term goal is to have an interface
 	 * largely compatible with mw.Title, but for now we only implement what we actually need.
+	 *
+	 * @class mw.mmv.model.IwTitle
 	 * @param {string} namespaceId namespace number
 	 * @param {string} title full title, including namespace name; with underscores (as in mw.Title#getPrefixedDb())
 	 * @param {string} domain domain name of the wiki
@@ -51,13 +52,14 @@
 	/**
 	 * Turn underscores into spaces.
 	 * Copy of the private function in mw.Title.
+	 *
 	 * @param {string} s
 	 */
 	function text( s ) {
 		return s ? s.replace( /_/g, ' ' ) : '';
 	}
 
-	ITP.getUrl= function () {
+	ITP.getUrl = function () {
 		return this.url;
 	};
 

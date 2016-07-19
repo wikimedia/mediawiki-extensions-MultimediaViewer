@@ -18,6 +18,7 @@
 ( function ( mw ) {
 	/**
 	 * Contains information needed to embed and share files.
+	 *
 	 * @class mw.mmv.model.EmbedFileInfo
 	 * @constructor
 	 * @param {mw.mmv.model.Image} imageInfo

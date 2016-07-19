@@ -20,8 +20,9 @@
 
 	/**
 	 * Create a textfield that can contain exactly width x height characters
-	 * @param {int} width
-	 * @param {int} height
+	 *
+	 * @param {number} width
+	 * @param {number} height
 	 * @param {jQuery} $qf fixture element
 	 * @param {Object} sandbox sinon instance
 	 * @return {TruncatableTextField}

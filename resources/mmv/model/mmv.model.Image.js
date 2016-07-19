@@ -20,6 +20,7 @@
 
 	/**
 	 * Represents information about a single image
+	 *
 	 * @class mw.mmv.model.Image
 	 * @constructor
 	 * @param {mw.Title} title
@@ -30,6 +31,8 @@
 	 * @param {string} mimeType
 	 * @param {string} url URL to the image itself (original version)
 	 * @param {string} descriptionUrl URL to the image description page
+	 * @param {string} descriptionShortUrl A short URL to the description page for the image, using curid=...
+	 * @param {string} pageID pageId of the description page for the image
 	 * @param {string} repo The repository this image belongs to
 	 * @param {string} uploadDateTime The time and date the last upload occurred
 	 * @param {string} anonymizedUploadDateTime Anonymized and EL-friendly version of uploadDateTime
@@ -155,17 +158,19 @@
 
 	/**
 	 * Constructs a new Image object out of an object containing
+	 *
 	 * imageinfo data from an API response.
+	 *
 	 * @static
 	 * @param {mw.Title} title
 	 * @param {Object} imageInfo
-	 * @returns {mw.mmv.model.Image}
+	 * @return {mw.mmv.model.Image}
 	 */
 	Image.newFromImageInfo = function ( title, imageInfo ) {
 		var name, uploadDateTime, anonymizedUploadDateTime, creationDateTime, imageData,
 			description, source, author, authorCount, license, permission, attribution,
 			latitude, longitude, restrictions,
-			innerInfo = imageInfo.imageinfo[0],
+			innerInfo = imageInfo.imageinfo[ 0 ],
 			extmeta = innerInfo.extmetadata;
 
 		if ( extmeta ) {
@@ -186,7 +191,6 @@
 			author = this.parseExtmeta( extmeta.Artist, 'string' );
 			authorCount = this.parseExtmeta( extmeta.AuthorCount, 'integer' );
 
-
 			license = this.newLicenseFromImageInfo( extmeta );
 			permission = this.parseExtmeta( extmeta.Permission, 'string' );
 			attribution = this.parseExtmeta( extmeta.Attribution, 'string' );
@@ -199,7 +203,6 @@
 		if ( !name ) {
 			name = title.getNameText();
 		}
-
 
 		imageData = new Image(
 			title,
@@ -241,9 +244,10 @@
 	/**
 	 * Constructs a new License object out of an object containing
 	 * imageinfo data from an API response.
+	 *
 	 * @static
 	 * @param {Object} extmeta the extmeta array of the imageinfo data
-	 * @returns {mw.mmv.model.License|undefined}
+	 * @return {mw.mmv.model.License|undefined}
 	 */
 	Image.newLicenseFromImageInfo = function ( extmeta ) {
 		var license;
@@ -264,6 +268,7 @@
 
 	/**
 	 * Reads and parses a value from the imageinfo API extmetadata field.
+	 *
 	 * @param {Array} data
 	 * @param {string} type one of 'plaintext', 'string', 'float', 'boolean', 'list'
 	 * @return {string|number|boolean|Array} value or undefined if it is missing
@@ -282,9 +287,9 @@
 			return parseFloat( value );
 		} else if ( type === 'boolean' ) {
 			value = value.toString().toLowerCase().replace( /^\s+|\s+$/g, '' );
-			if ( value in { '1': null, 'yes': null, 'true': null } ) {
+			if ( value in { 1: null, yes: null, 'true': null } ) {
 				return true;
-			} else if ( value in { '0': null, 'no': null, 'false': null } ) {
+			} else if ( value in { 0: null, no: null, 'false': null } ) {
 				return false;
 			} else {
 				return undefined;
@@ -298,25 +303,28 @@
 
 	/**
 	 * Add a thumb URL
+	 *
 	 * @param {number} width
 	 * @param {string} url
 	 */
 	IP.addThumbUrl = function ( width, url ) {
-		this.thumbUrls[width] = url;
+		this.thumbUrls[ width ] = url;
 	};
 
 	/**
 	 * Get a thumb URL if we have it.
+	 *
 	 * @param {number} width
-	 * @returns {string|undefined}
+	 * @return {string|undefined}
 	 */
 	IP.getThumbUrl = function ( width ) {
-		return this.thumbUrls[width];
+		return this.thumbUrls[ width ];
 	};
 
 	/**
 	 * Check whether the image has geolocation data.
-	 * @returns {boolean}
+	 *
+	 * @return {boolean}
 	 */
 	IP.hasCoords = function () {
 		return this.hasOwnProperty( 'latitude' ) && this.hasOwnProperty( 'longitude' ) &&

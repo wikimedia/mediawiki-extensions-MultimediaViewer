@@ -27,8 +27,8 @@
 	// This is loaded before user JS so we cannot check wgMediaViewer.
 	try {
 		if (
-			mw.config.get( 'wgMediaViewerOnClick' ) !== true
-			|| mw.user.isAnon() && window.localStorage && localStorage.getItem( 'wgMediaViewerOnClick' ) === false
+			mw.config.get( 'wgMediaViewerOnClick' ) !== true ||
+			mw.user.isAnon() && window.localStorage && localStorage.getItem( 'wgMediaViewerOnClick' ) === false
 		) {
 			return;
 		}
@@ -53,7 +53,7 @@
 					mw.mmv.durationLogger.stop( 'early-click-to-replay-click', start ).record( 'early-click-to-replay-click' );
 
 					// We have to copy the properties, passing e doesn't work. Probably because of preventDefault()
-					$( e.target ).trigger( { type : 'click', which: 1, replayed: true } );
+					$( e.target ).trigger( { type: 'click', which: 1, replayed: true } );
 				} );
 			} );
 		} );

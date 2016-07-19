@@ -18,6 +18,7 @@
 ( function ( mw ) {
 	/**
 	 * Represents information about an image thumbnail
+	 *
 	 * @class mw.mmv.model.Thumbnail
 	 * @constructor
 	 * @param {string} url URL to the thumbnail

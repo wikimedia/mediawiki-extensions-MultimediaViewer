@@ -159,7 +159,7 @@
 			assert.strictEqual( image.permission, 'Do not use. Ever.', 'permission is set correctly' );
 			assert.strictEqual( image.latitude, 90, 'latitude is set correctly' );
 			assert.strictEqual( image.longitude, 180, 'longitude is set correctly' );
-			assert.deepEqual( image.restrictions, ['trademarked', 'insignia'], 'restrictions is set correctly' );
+			assert.deepEqual( image.restrictions, [ 'trademarked', 'insignia' ], 'restrictions is set correctly' );
 		} ).then( function () {
 			// call the data provider a second time to check caching
 			return imageInfoProvider.get( file );

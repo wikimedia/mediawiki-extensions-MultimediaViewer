@@ -19,7 +19,9 @@
 
 	/**
 	 * Gets file information.
+	 *
 	 * See https://www.mediawiki.org/wiki/API:Properties#imageinfo_.2F_ii
+	 *
 	 * @class mw.mmv.provider.ImageInfo
 	 * @extends mw.mmv.provider.Api
 	 * @constructor
@@ -40,6 +42,7 @@
 
 	/**
 	 * List of imageinfo API properties which are needed to construct an Image model.
+	 *
 	 * @property {string}
 	 */
 	ImageInfo.prototype.iiprop = [
@@ -53,6 +56,7 @@
 
 	/**
 	 * List of imageinfo extmetadata fields which are needed to construct an Image model.
+	 *
 	 * @property {string}
 	 */
 	ImageInfo.prototype.iiextmetadatafilter = [
@@ -78,6 +82,7 @@
 
 	/**
 	 * Runs an API GET request to get the image info.
+	 *
 	 * @param {mw.Title} file
 	 * @return {jQuery.Promise} a promise which resolves to an mw.mmv.model.Image object.
 	 */

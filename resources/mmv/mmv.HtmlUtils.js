@@ -19,10 +19,11 @@
 	var HUP, cache;
 
 	/**
+	 * Shared cache between HtmlUtils instances to store the results of expensive text operations.
+	 *
 	 * @member mw.mmv.HtmlUtils
 	 * @private
 	 * @static
-	 * Shared cache between HtmlUtils instances to store the results of expensive text operations.
 	 * @type {{text: Object.<string, string>, textWithLinks: Object.<string, string>, textWithTags: Object.<string, string>}}
 	 */
 	cache = {
@@ -32,8 +33,9 @@
 	};
 
 	/**
-	 * @class mw.mmv.HtmlUtils
 	 * Helper class that does various HTML-to-text transformations
+	 *
+	 * @class mw.mmv.HtmlUtils
 	 * @constructor
 	 */
 	function HtmlUtils() {}
@@ -42,6 +44,7 @@
 	/**
 	 * Returns a jQuery node which contains the given HTML (wrapped into a `<div>` - this is
 	 * necessary since an arbitrary HTML string might not have a jQuery representation).
+	 *
 	 * @param {string|HTMLElement|jQuery} html
 	 * @return {jQuery}
 	 */
@@ -58,8 +61,9 @@
 
 	/**
 	 * Returns true of the object is a jQuery object or an HTMLElement, false otherwise
+	 *
 	 * @param {string|HTMLElement|jQuery} html
-	 * @returns {Boolean}
+	 * @return {boolean}
 	 */
 	HUP.isJQueryOrHTMLElement = function ( html ) {
 		if ( html instanceof jQuery ) {
@@ -80,6 +84,7 @@
 	 * The root element is never filtered, and generally ignored (i.e. whether the root element is
 	 * visible won't affect the filtering).
 	 * Works in place.
+	 *
 	 * @param {jQuery} $jq
 	 */
 	HUP.filterInvisible = function ( $jq ) {
@@ -98,12 +103,13 @@
 	 * Discards all nodes which do not match the whitelist,
 	 * but keeps the text and whitelisted nodes inside them.
 	 * Works in-place.
+	 *
 	 * @param {jQuery} $el
 	 * @param {string} whitelist a jQuery selector string such as 'a, span, br'
 	 */
 	HUP.whitelistHtml = function ( $el, whitelist ) {
 		var child, $prev,
-		    $child = $el.children().first();
+			$child = $el.children().first();
 
 		while ( $child && $child.length ) {
 			child = $child.get( 0 );
@@ -133,6 +139,7 @@
 	 * Adds a whitespace to block elements. This is useful if you want to convert the contents
 	 * to text and don't want words that are visually separate (e.g. table cells) to be fused.
 	 * Works in-place.
+	 *
 	 * @param {jQuery} $el
 	 */
 	HUP.appendWhitespaceToBlockElements = function ( $el ) {
@@ -154,6 +161,7 @@
 	 * Unlike .html(), this includes HTML code for the outermost element; compare
 	 * - `$('<div>').html() // ''`
 	 * - `mw.mmv.HtmlUtils.jqueryToHtml( $('<div>') ) // '<div></div>'`
+	 *
 	 * @param {jQuery} $el
 	 * @return {string}
 	 */
@@ -168,10 +176,11 @@
 	};
 
 	/**
-	 * @protected
 	 * Cleans up superfluous whitespace.
 	 * Given that the results will be displayed in a HTML environment, this doesn't have any real
 	 * effect. It is mostly there to make testing easier.
+	 *
+	 * @protected
 	 * @param {string} html a HTML (or plaintext) string
 	 * @return {string}
 	 */
@@ -185,58 +194,62 @@
 	/**
 	 * Returns the text content of a html string.
 	 * Tries to give an approximation of what would be visible if the HTML would be displayed.
+	 *
 	 * @param {string} html
 	 * @return {string}
 	 */
 	HUP.htmlToText = function ( html ) {
 		var $html;
-		if ( !cache.text[html] ) {
+		if ( !cache.text[ html ] ) {
 			$html = this.wrapAndJquerify( html );
 			this.filterInvisible( $html );
 			this.appendWhitespaceToBlockElements( $html );
-			cache.text[html] = this.mergeWhitespace( $html.text() );
+			cache.text[ html ] = this.mergeWhitespace( $html.text() );
 		}
-		return cache.text[html];
+		return cache.text[ html ];
 	};
 
 	/**
 	 * Returns the text content of a html string, with the `<a>`, `<i>`, `<b>` tags left intact.
 	 * Tries to give an approximation of what would be visible if the HTML would be displayed.
+	 *
 	 * @param {string} html
 	 * @return {string}
 	 */
 	HUP.htmlToTextWithTags = function ( html ) {
 		var $html;
-		if ( !cache.textWithTags[html] ) {
+		if ( !cache.textWithTags[ html ] ) {
 			$html = this.wrapAndJquerify( html );
 			this.filterInvisible( $html );
 			this.appendWhitespaceToBlockElements( $html );
 			this.whitelistHtml( $html, 'a, span, i, b' );
-			cache.textWithTags[html] = this.mergeWhitespace( $html.html() );
+			cache.textWithTags[ html ] = this.mergeWhitespace( $html.html() );
 		}
-		return cache.textWithTags[html];
+		return cache.textWithTags[ html ];
 	};
 
 	/**
 	 * Returns the text content of a html string, with the `<a>` tags left intact.
 	 * Tries to give an approximation of what would be visible if the HTML would be displayed.
+	 *
 	 * @param {string} html
 	 * @return {string}
 	 */
 	HUP.htmlToTextWithLinks = function ( html ) {
 		var $html;
-		if ( !cache.textWithLinks[html] ) {
+		if ( !cache.textWithLinks[ html ] ) {
 			$html = this.wrapAndJquerify( html );
 			this.filterInvisible( $html );
 			this.appendWhitespaceToBlockElements( $html );
 			this.whitelistHtml( $html, 'a, span' );
-			cache.textWithLinks[html] = this.mergeWhitespace( $html.html() );
+			cache.textWithLinks[ html ] = this.mergeWhitespace( $html.html() );
 		}
-		return cache.textWithLinks[html];
+		return cache.textWithLinks[ html ];
 	};
 
 	/**
 	 * Generates HTML code for a link.
+	 *
 	 * @param {string} text Link text (plain text; will be sanitized)
 	 * @param {Object} props Link attributes (should at a minumum include href; will be sanitized)
 	 * @return {string}
@@ -247,7 +260,7 @@
 			if ( !props.hasOwnProperty( key ) ) {
 				continue;
 			}
-			props[key] = this.htmlToText( props[key] );
+			props[ key ] = this.htmlToText( props[ key ] );
 		}
 		return this.jqueryToHtml( $( '<a>' ).prop( props ).text( text ) );
 	};

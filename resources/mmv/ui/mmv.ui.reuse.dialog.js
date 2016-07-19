@@ -21,6 +21,7 @@
 
 	/**
 	 * Represents the file reuse dialog and the link to open it.
+	 *
 	 * @class mw.mmv.ui.reuse.Dialog
 	 * @extends mw.mmv.ui.Element
 	 * @param {jQuery} $container the element to which the dialog will be appended
@@ -91,7 +92,7 @@
 			this.selectedTab = 'share';
 		}
 
-		this.reuseTabs.selectItem( this.ooTabs[this.selectedTab] );
+		this.reuseTabs.selectItem( this.ooTabs[ this.selectedTab ] );
 
 		if ( this.dependenciesNeedToBeAttached ) {
 			this.attachDependencies();
@@ -123,9 +124,9 @@
 
 		for ( tab in this.tabs ) {
 			if ( tab === this.selectedTab ) {
-				this.tabs[tab].show();
+				this.tabs[ tab ].show();
 			} else {
-				this.tabs[tab].hide();
+				this.tabs[ tab ].hide();
 			}
 		}
 
@@ -162,7 +163,7 @@
 			this.reuseTabs.on( 'select', $.proxy( dialog.handleTabSelection, dialog ) );
 
 			for ( tab in this.tabs ) {
-				this.tabs[tab].attach();
+				this.tabs[ tab ].attach();
 			}
 
 			this.dependenciesNeedToBeAttached = false;
@@ -185,14 +186,14 @@
 
 		if ( this.tabs ) {
 			for ( tab in this.tabs ) {
-				this.tabs[tab].unattach();
+				this.tabs[ tab ].unattach();
 			}
 		}
 	};
 
-
 	/**
 	 * Sets data needed by contaned tabs and makes dialog launch link visible.
+	 *
 	 * @param {mw.mmv.model.Image} image
 	 * @param {mw.mmv.model.Repo} repo
 	 * @param {string} caption
@@ -204,8 +205,8 @@
 			this.tabs.embed.set( image, repo, caption, alt );
 		} else {
 			this.tabsSetValues = {
-				share : [ image ],
-				embed : [ image, repo, caption, alt ]
+				share: [ image ],
+				embed: [ image, repo, caption, alt ]
 			};
 		}
 	};
@@ -214,10 +215,12 @@
 	 * @inheritdoc
 	 */
 	DP.empty = function () {
+		var tab;
+
 		mw.mmv.ui.Dialog.prototype.empty.call( this );
 
-		for ( var tab in this.tabs ) {
-			this.tabs[tab].empty();
+		for ( tab in this.tabs ) {
+			this.tabs[ tab ].empty();
 		}
 	};
 
@@ -231,7 +234,7 @@
 	DP.openDialog = function () {
 		mw.mmv.ui.Dialog.prototype.openDialog.call( this );
 
-		this.tabs[this.selectedTab].show();
+		this.tabs[ this.selectedTab ].show();
 
 		$( document ).trigger( 'mmv-reuse-opened' );
 	};

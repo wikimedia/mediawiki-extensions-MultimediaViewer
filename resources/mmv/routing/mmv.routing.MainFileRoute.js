@@ -17,10 +17,11 @@
 
 ( function ( mw, oo ) {
 	/**
-	 * @class mw.mmv.routing.MainFileRoute
-	 * @extends mw.mmv.routing.Route
 	 * Route for showing the main image on the page, (whatever that means might depend on the page).
 	 * This is typically used on file pages.
+	 *
+	 * @class mw.mmv.routing.MainFileRoute
+	 * @extends mw.mmv.routing.Route
 	 * @constructor
 	 */
 	function MainFileRoute() {}

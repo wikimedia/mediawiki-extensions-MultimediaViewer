@@ -18,6 +18,7 @@
 ( function ( mw, oo ) {
 	/**
 	 * Represents information about a single image repository
+	 *
 	 * @class mw.mmv.model.Repo
 	 * @constructor
 	 * @param {string} displayName
@@ -41,9 +42,10 @@
 
 	/**
 	 * Creates a new object from repoInfo we found in an API response.
+	 *
 	 * @static
 	 * @param {Object} repoInfo
-	 * @returns {mw.mmv.model.Repo}
+	 * @return {mw.mmv.model.Repo}
 	 */
 	Repo.newFromRepoInfo = function ( repoInfo ) {
 		if ( repoInfo.apiurl ) {
@@ -69,7 +71,7 @@
 
 	/**
 	 * Returns true if the repo is Wikimedia Commons.
-	 * (This depends some
+	 *
 	 * @return {boolean}
 	 */
 	Repo.prototype.isCommons = function () {
@@ -79,6 +81,7 @@
 
 	/**
 	* Gets the article path for the repository.
+	*
 	* @param {boolean} absolute if true, the URL will be absolute (if false, it still might be)
 	* @return {string} Replace $1 with the page name you want to link to.
 	*/
@@ -94,6 +97,7 @@
 	 * Gets the a link to the site where the image was uploaded to.
 	 * This is a hack and might break for wikis with exotic config; unfortunately no
 	 * better data is provided currently.
+	 *
 	 * @return {string}
 	 */
 	Repo.prototype.getSiteLink = function () {
@@ -102,10 +106,14 @@
 
 	/**
 	 * Represents information about a foreign API repository
+	 *
 	 * @class mw.mmv.model.ForeignApiRepo
 	 * @extends mw.mmv.model.Repo
 	 * @constructor
 	 * @inheritdoc
+	 * @param {string} displayName
+	 * @param {string} favIcon
+	 * @param {boolean} isLocal
 	 * @param {string} apiUrl URL to the wiki's api.php
 	 * @param {string} server Hostname for the wiki
 	 * @param {string} articlePath Path to articles on the wiki, relative to the hostname.
@@ -153,10 +161,14 @@
 
 	/**
 	 * Represents information about a foreign, shared DB repository
+	 *
 	 * @class mw.mmv.model.ForeignDbRepo
 	 * @extends mw.mmv.model.Repo
 	 * @constructor
 	 * @inheritdoc
+	 * @param {string} displayName
+	 * @param {string} favIcon
+	 * @param {boolean} isLocal
 	 * @param {string} descBaseUrl Base URL for description pages - should include the "File:" prefix or similar.
 	 */
 	function ForeignDbRepo(

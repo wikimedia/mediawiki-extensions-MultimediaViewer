@@ -22,7 +22,7 @@
 				undefined,
 				undefined,
 				options.source,
-				options.author, 
+				options.author,
 				options.authorCount,
 				license ),
 			repoInfo = { displayName: options.siteName, getSiteLink:
@@ -47,18 +47,17 @@
 		byline = formatter.getByline();
 		assert.strictEqual( byline, undefined, 'No argument case handled correctly.' );
 
-
 		// Attribution present
 		byline = formatter.getByline( author, source, attribution );
-		assert.ok( byline.match ( /Cat/ ), 'Attribution found in bylines' );
+		assert.ok( byline.match( /Cat/ ), 'Attribution found in bylines' );
 
 		// Author and source present
 		byline = formatter.getByline( author, source );
-		assert.ok( byline.match ( /Homer|Iliad/ ), 'Author and source found in bylines' );
+		assert.ok( byline.match( /Homer|Iliad/ ), 'Author and source found in bylines' );
 
 		// Only author present
 		byline = formatter.getByline( author );
-		assert.ok( byline.match ( /Homer/ ), 'Author found in bylines.' );
+		assert.ok( byline.match( /Homer/ ), 'Author found in bylines.' );
 
 		// Only source present
 		byline = formatter.getByline( undefined, source );
@@ -75,7 +74,6 @@
 		assert.ok( siteLink.match( 'Wikipedia' ), 'Site name is present in site link' );
 		assert.ok( siteLink.indexOf( siteUrl ) !== -1, 'Site URL is present in site link' );
 	} );
-
 
 	QUnit.test( 'getThumbnailHtml():', 36, function ( assert ) {
 		var formatter = new mw.mmv.EmbedFileFormatter(),
@@ -114,7 +112,7 @@
 		assert.ok( generatedHtml.match( width ), 'Width appears in generated HTML' );
 		assert.ok( generatedHtml.match( height ), 'Height appears in generated HTML' );
 		// .includes() for checking the short url since it contains a ? (bad for regex). Could escape instead.
-		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML');
+		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML' );
 
 		// Bylines, no license and site
 		info = createEmbedFileInfo( { title: title, imgUrl: imgUrl, filePageUrl: filePageUrl,
@@ -130,7 +128,7 @@
 		assert.ok( generatedHtml.match( 'Iliad' ), 'Source appears in generated HTML' );
 		assert.ok( generatedHtml.match( width ), 'Width appears in generated HTML' );
 		assert.ok( generatedHtml.match( height ), 'Height appears in generated HTML' );
-		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML');
+		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML' );
 
 		// No bylines, license and site
 		info = createEmbedFileInfo( { title: title, imgUrl: imgUrl, filePageUrl: filePageUrl,
@@ -147,7 +145,7 @@
 		assert.ok( !generatedHtml.match( 'Iliad' ), 'Source should not appear in generated HTML' );
 		assert.ok( generatedHtml.match( width ), 'Width appears in generated HTML' );
 		assert.ok( generatedHtml.match( height ), 'Height appears in generated HTML' );
-		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML');
+		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML' );
 
 		// No bylines, no license and site
 		info = createEmbedFileInfo( { title: title, imgUrl: imgUrl, filePageUrl: filePageUrl,
@@ -162,7 +160,7 @@
 		assert.ok( !generatedHtml.match( 'Iliad' ), 'Source should not appear in generated HTML' );
 		assert.ok( generatedHtml.match( width ), 'Width appears in generated HTML' );
 		assert.ok( generatedHtml.match( height ), 'Height appears in generated HTML' );
-		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML');
+		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML' );
 
 	} );
 
@@ -188,7 +186,7 @@
 
 		// Title, width and no caption
 		info = createEmbedFileInfo( { title: title, imgUrl: imgUrl, filePageUrl: filePageUrl } );
-		wikitext = formatter.getThumbnailWikitextFromEmbedFileInfo( info , width );
+		wikitext = formatter.getThumbnailWikitextFromEmbedFileInfo( info, width );
 
 		assert.strictEqual(
 			wikitext,

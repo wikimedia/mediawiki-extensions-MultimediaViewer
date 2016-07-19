@@ -42,7 +42,7 @@
 
 		try {
 			license = new mw.mmv.model.License();
-		} catch( e ) {
+		} catch ( e ) {
 			assert.ok( e, 'License cannot be created without a short name' );
 		}
 	} );
@@ -57,13 +57,13 @@
 			oldMwMessagesExists = mw.messages.exists;
 
 		mw.message = function ( name ) {
-			return name === 'multimediaviewer-license-' + existingMessageKey
-				? { text: function () { return 'Translated name'; } }
-				: oldMwMessage.apply( mw, arguments );
+			return name === 'multimediaviewer-license-' + existingMessageKey ?
+				{ text: function () { return 'Translated name'; } } :
+				oldMwMessage.apply( mw, arguments );
 		};
 		mw.messages.exists = function ( name ) {
-			return name === 'multimediaviewer-license-' + existingMessageKey
-				? true : oldMwMessagesExists.apply( mw.messages, arguments );
+			return name === 'multimediaviewer-license-' + existingMessageKey ?
+				true : oldMwMessagesExists.apply( mw.messages, arguments );
 		};
 
 		assert.strictEqual( license1.getShortName(), 'Shortname',

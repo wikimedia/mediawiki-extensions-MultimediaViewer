@@ -60,7 +60,7 @@
 		title = new mw.Title( 'File:Foo.png' );
 		route = new mw.mmv.routing.ThumbnailRoute( title );
 		hash = router.createHash( route );
-		assert.notEqual( hash[0], '#', 'Leading # is not included in the returned hash' );
+		assert.notEqual( hash[ 0 ], '#', 'Leading # is not included in the returned hash' );
 		parsedRoute = router.parseHash( '#' + hash );
 		assert.strictEqual( parsedRoute.fileTitle.getPrefixedDb(),
 			title.getPrefixedDb(), 'Leading # is accepted when parsing a hash' );
@@ -168,7 +168,6 @@
 		location = { href: 'http://example.com/foo#/media/File:Foo.png' };
 		route = router.parseLocation( location );
 		assert.strictEqual( route.fileTitle.getPrefixedDb(), 'File:Foo.png', 'Reading location works' );
-
 
 		location = { href: 'http://example.com/foo' };
 		route = router.parseLocation( location );

@@ -206,7 +206,7 @@
 		],
 		i, cursize, opts;
 		for ( i = 0; i < exampleSizes.length; i++ ) {
-			cursize = exampleSizes[i];
+			cursize = exampleSizes[ i ];
 			opts = embed.getPossibleImageSizesForWikitext( cursize.width, cursize.height );
 			assert.deepEqual( opts, cursize.expected, 'We got the expected results out of the size calculation function.' );
 		}

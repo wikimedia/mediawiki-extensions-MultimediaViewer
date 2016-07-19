@@ -15,8 +15,9 @@
 
 	/**
 	 * Returns the exception thrown by callback, or undefined if no exception was thrown.
+	 *
 	 * @param {Function} callback
-	 * @returns {*}
+	 * @return {*}
 	 */
 	MTH.getException = function ( callback ) {
 		var ex;
@@ -30,7 +31,8 @@
 
 	/**
 	 * Returns a fake local storage which is not saved between reloads.
-	 * @param {object} [initialData]
+	 *
+	 * @param {Object} [initialData]
 	 */
 	MTH.getFakeLocalStorage = function ( initialData ) {
 		var bag = new mw.Map( initialData );
@@ -44,7 +46,8 @@
 
 	/**
 	 * Returns a viewer object with all the appropriate placeholder functions.
-	 * @returns {[type]} [description]
+	 *
+	 * @return {mv.mmv.MultiMediaViewer} [description]
 	 */
 	MTH.getMultimediaViewer = function () {
 		return new mw.mmv.MultimediaViewer( {
@@ -52,7 +55,7 @@
 			language: $.noop,
 			recordVirtualViewBeaconURI: $.noop,
 			extensions: function () {
-				return { 'jpg' : 'default' };
+				return { jpg: 'default' };
 			}
 		} );
 	};

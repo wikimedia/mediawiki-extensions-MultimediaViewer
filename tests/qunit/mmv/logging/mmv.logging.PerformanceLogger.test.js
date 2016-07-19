@@ -122,11 +122,11 @@
 
 		this.sandbox.stub( performance, 'getWindowPerformance' ).returns( {
 			getEntriesByName: function () {
-				return [perfData, {
+				return [ perfData, {
 					initiatorType: 'bogus',
 					duration: 1234,
 					name: url
-				}];
+				} ];
 			}
 		} );
 

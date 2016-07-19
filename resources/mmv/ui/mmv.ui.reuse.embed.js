@@ -33,6 +33,7 @@
 
 		/**
 		 * Formatter converting image data into formats needed for output
+		 *
 		 * @property {mw.mmv.EmbedFileFormatter}
 		 */
 		this.formatter = new mw.mmv.EmbedFileFormatter();
@@ -42,6 +43,7 @@
 
 		/**
 		 * Indicates whether or not the default option has been reset for both size menus.
+		 *
 		 * @property {boolean}
 		 */
 		this.isSizeMenuDefaultReset = false;
@@ -62,30 +64,35 @@
 
 		/**
 		 * Currently selected embed snippet.
+		 *
 		 * @property {jQuery}
 		 */
 		this.$currentMainEmbedText = mw.user.isAnon() ? this.embedTextHtml.$element : this.embedTextWikitext.$element;
 
 		/**
 		 * Default item for the html size menu.
+		 *
 		 * @property {OO.ui.MenuOptionWidget}
 		 */
 		this.defaultHtmlItem = this.embedSizeSwitchHtml.getMenu().getSelectedItem();
 
 		/**
 		 * Default item for the wikitext size menu.
+		 *
 		 * @property {OO.ui.MenuOptionWidget}
 		 */
 		this.defaultWikitextItem = this.embedSizeSwitchWikitext.getMenu().getSelectedItem();
 
 		/**
 		 * Currently selected size menu.
+		 *
 		 * @property {OO.ui.MenuSelectWidget}
 		 */
 		this.currentSizeMenu = mw.user.isAnon() ? this.embedSizeSwitchHtml.getMenu() : this.embedSizeSwitchWikitext.getMenu();
 
 		/**
 		 * Current default item.
+		 *
 		 * @property {OO.ui.MenuOptionWidget}
 		 */
 		this.currentDefaultItem = mw.user.isAnon() ? this.defaultHtmlItem : this.defaultWikitextItem;
@@ -98,7 +105,6 @@
 
 	/** @property {number} Height threshold at which an image is to be considered "large" */
 	EP.LARGE_IMAGE_HEIGHT_THRESHOLD = 900;
-
 
 	/**
 	 * Creates text areas for html and wikitext snippets.
@@ -251,7 +257,6 @@
 		var $htmlTextarea = this.embedTextHtml.$element.find( 'textarea' ),
 			$wikitextTextarea = this.embedTextWikitext.$element.find( 'textarea' );
 
-
 		mw.mmv.ui.reuse.Tab.prototype.unattach.call( this );
 
 		$htmlTextarea.off( 'focus mousedown click' );
@@ -354,6 +359,7 @@
 	 * Sets the HTML embed text.
 	 *
 	 * Assumes that the set() method has already been called to update this.embedFileInfo
+	 *
 	 * @param {mw.mmv.model.Thumbnail} thumbnail (can be just an empty object)
 	 * @param {number} width New width to set
 	 * @param {number} height New height to set
@@ -380,6 +386,7 @@
 	 * Updates the wikitext embed text with a new value for width.
 	 *
 	 * Assumes that the set method has already been called.
+	 *
 	 * @param {number} width
 	 */
 	EP.updateEmbedWikitext = function ( width ) {
@@ -405,9 +412,9 @@
 	 *
 	 * @param {number} width
 	 * @param {number} height
-	 * @returns {Object}
-	 * @returns {Object} return.html Collection of possible image sizes for html snippets
-	 * @returns {Object} return.wikitext Collection of possible image sizes for wikitext snippets
+	 * @return {Object}
+	 * @return {Object} return.html Collection of possible image sizes for html snippets
+	 * @return {Object} return.wikitext Collection of possible image sizes for wikitext snippets
 	 */
 	EP.getSizeOptions = function ( width, height ) {
 		var sizes = {};
@@ -474,40 +481,39 @@
 	 *
 	 * @param {number} width
 	 * @param {number} height
-	 * @returns {Object}
-	 * @returns { {width: number, height: number} } return.small
-	 * @returns { {width: number, height: number} } return.medium
-	 * @returns { {width: number, height: number} } return.large
+	 * @return {Object}
+	 * @return {Object} return.small
+	 * @return {Object} return.medium
+	 * @return {Object} return.large
 	 */
 	EP.getPossibleImageSizesForWikitext = function ( width, height ) {
 		var i, bucketName,
 			bucketWidth,
 			buckets = {
-				'small': 300,
-				'medium': 400,
-				'large': 500
+				small: 300,
+				medium: 400,
+				large: 500
 			},
 			sizes = {},
 			bucketNames = Object.keys( buckets ),
 			widthToHeight = height / width;
 
 		for ( i = 0; i < bucketNames.length; i++ ) {
-			bucketName = bucketNames[i];
-			bucketWidth = buckets[bucketName];
+			bucketName = bucketNames[ i ];
+			bucketWidth = buckets[ bucketName ];
 
 			if ( width > bucketWidth ) {
-				sizes[bucketName] = {
+				sizes[ bucketName ] = {
 					width: bucketWidth,
 					height: Math.round( bucketWidth * widthToHeight )
 				};
 			}
 		}
 
-		sizes['default'] = { width: null, height: null };
+		sizes[ 'default' ] = { width: null, height: null };
 
 		return sizes;
 	};
-
 
 	mw.mmv.ui.reuse.Embed = Embed;
 }( mediaWiki, jQuery, OO ) );

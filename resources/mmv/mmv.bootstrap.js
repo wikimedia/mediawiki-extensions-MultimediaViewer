@@ -21,9 +21,10 @@
 	/**
 	 * Bootstrap code listening to thumb clicks checking the initial location.hash
 	 * Loads the mmv and opens it if necessary
+	 *
 	 * @class mw.mmv.MultimediaViewerBootstrap
 	 */
-	function MultimediaViewerBootstrap () {
+	function MultimediaViewerBootstrap() {
 		var localStorage = false;
 
 		try {
@@ -71,8 +72,9 @@
 
 	/**
 	 * Loads the mmv module asynchronously and passes the thumb data to it
+	 *
 	 * @param {boolean} [setupOverlay]
-	 * @returns {jQuery.Promise}
+	 * @return {jQuery.Promise}
 	 */
 	MMVB.loadViewer = function ( setupOverlay ) {
 		var deferred = $.Deferred(),
@@ -154,6 +156,7 @@
 
 	/**
 	 * Check if this thumbnail should be handled by MediaViewer
+	 *
 	 * @param {jQuery} $thumb the thumbnail (an `<img>` element) in question
 	 * @return {boolean}
 	 */
@@ -168,6 +171,7 @@
 
 	/**
 	 * Processes a thumb
+	 *
 	 * @param {Object} thumb
 	 */
 	MMVB.processThumb = function ( thumb ) {
@@ -213,12 +217,12 @@
 
 		// This is the data that will be passed onto the mmv
 		this.thumbs.push( {
-			thumb : thumb,
-			$thumb : $thumb,
-			title : title,
-			link : link,
-			alt : alt,
-			caption : this.findCaption( $thumbContain, $link ) } );
+			thumb: thumb,
+			$thumb: $thumb,
+			title: title,
+			link: link,
+			alt: alt,
+			caption: this.findCaption( $thumbContain, $link ) } );
 
 		$link.add( $enlarge ).click( function ( e ) {
 			return bs.click( this, e, title );
@@ -228,6 +232,7 @@
 	/**
 	 * Processes the main thumbnail of a file page by adding some buttons
 	 * below to open MediaViewer.
+	 *
 	 * @param {jQuery} $thumb
 	 * @param {mw.Title} title
 	 */
@@ -265,10 +270,10 @@
 		);
 
 		this.thumbs.push( {
-			thumb : $thumb.get( 0 ),
-			$thumb : $thumb,
-			title : title,
-			link : link
+			thumb: $thumb.get( 0 ),
+			$thumb: $thumb,
+			title: title,
+			link: link
 		} );
 
 		$link.click( function () {
@@ -318,9 +323,10 @@
 
 	/**
 	 * Finds the caption for an image.
+	 *
 	 * @param {jQuery} $thumbContain The container for the thumbnail.
 	 * @param {jQuery} $link The link that encompasses the thumbnail.
-	 * @returns {string|undefined} Unsafe HTML may be present - caution
+	 * @return {string|undefined} Unsafe HTML may be present - caution
 	 */
 	MMVB.findCaption = function ( $thumbContain, $link ) {
 		var $thumbCaption;
@@ -344,9 +350,12 @@
 					} )
 					.not( function () {
 						// do not treat special file related pages as galleries
-						var $specialFileRelatedPages = $( '.page-Special_NewFiles, .page-Special_MostLinkedFiles\
-									, .page-Special_MostGloballyLinkedFiles\
-									, .page-Special_UncategorizedFiles, .page-Special_UnusedFiles'
+						var $specialFileRelatedPages = $(
+							'.page-Special_NewFiles, ' +
+							'.page-Special_MostLinkedFiles,' +
+							'.page-Special_MostGloballyLinkedFiles, ' +
+							'.page-Special_UncategorizedFiles, ' +
+							'.page-Special_UnusedFiles'
 						);
 						return $thumbContain.closest( $specialFileRelatedPages ).length;
 					} )
@@ -361,6 +370,7 @@
 
 	/**
 	 * Opens MediaViewer and loads the given thumbnail. Requires processThumb() to be called first.
+	 *
 	 * @param {HTMLElement} element Clicked element
 	 * @param {string} title File title
 	 */
@@ -384,10 +394,11 @@
 
 	/**
 	 * Handles a click event on a link
+	 *
 	 * @param {HTMLElement} element Clicked element
 	 * @param {jQuery.Event} e jQuery event object
 	 * @param {string} title File title
-	 * @returns {boolean} a value suitable for an event handler (ie. true if the click should be handled
+	 * @return {boolean} a value suitable for an event handler (ie. true if the click should be handled
 	 *  by the browser).
 	 */
 	MMVB.click = function ( element, e, title ) {
@@ -416,7 +427,8 @@
 
 	/**
 	 * Returns true if the hash part of the current URL is one that's owned by MMV.
-	 * @returns {boolean}
+	 *
+	 * @return {boolean}
 	 * @private
 	 */
 	MMVB.isViewerHash = function () {
@@ -426,7 +438,8 @@
 
 	/**
 	 * Handles the browser location hash on pageload or hash change
-	 * @param {boolean} log Whether this is called for the hash that came with the pageload
+	 *
+	 * @param {boolean} initialHash Whether this is called for the hash that came with the pageload
 	 */
 	MMVB.hash = function ( initialHash ) {
 		var bootstrap = this;
@@ -458,6 +471,7 @@
 
 	/**
 	 * Handles hash change requests coming from mmv
+	 *
 	 * @param {jQuery.Event} e Custom mmv-hash event
 	 */
 	MMVB.internalHashChange = function ( e ) {
@@ -486,7 +500,8 @@
 
 	/**
 	 * Instantiates a new viewer if necessary
-	 * @returns {mw.mmv.MultimediaViewer}
+	 *
+	 * @return {mw.mmv.MultimediaViewer}
 	 */
 	MMVB.getViewer = function () {
 		if ( this.viewer === undefined ) {
@@ -559,7 +574,7 @@
 				.addClass( 'mw-mmv-overlay' );
 		}
 
-		this.savedScroll = { top : $scrollTo.scrollTop(), left : $scrollTo.scrollLeft() };
+		this.savedScroll = { top: $scrollTo.scrollTop(), left: $scrollTo.scrollLeft() };
 
 		$body.addClass( 'mw-mmv-lightbox-open' )
 			.append( this.$overlay );
@@ -579,7 +594,9 @@
 
 		if ( this.savedScroll ) {
 			// setTimeout because otherwise Chrome will scroll back to top after the popstate event handlers run
-			setTimeout( function () { $.scrollTo( bootstrap.savedScroll, 0 ); bootstrap.savedScroll = undefined; }, 0 );
+			setTimeout( function () {
+				$.scrollTo( bootstrap.savedScroll, 0 ); bootstrap.savedScroll = undefined;
+			}, 0 );
 		}
 	};
 

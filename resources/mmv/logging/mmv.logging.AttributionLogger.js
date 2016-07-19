@@ -20,6 +20,7 @@
 
 	/**
 	 * Writes EventLogging entries for duration measurements
+	 *
 	 * @class mw.mmv.logging.AttributionLogger
 	 * @extends mw.mmv.logging.Logger
 	 * @constructor
@@ -44,6 +45,7 @@
 
 	/**
 	 * Logs attribution data
+	 *
 	 * @param {mw.mmv.model.Image} image Image data
 	 */
 	AL.logAttribution = function ( image ) {

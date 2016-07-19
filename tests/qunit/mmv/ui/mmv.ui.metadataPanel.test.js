@@ -23,11 +23,11 @@
 		panel.empty();
 
 		for ( i = 0; i < thingsShouldBeEmptied.length; i++ ) {
-			assert.strictEqual( panel[thingsShouldBeEmptied[i]].text(), '', 'We successfully emptied the ' + thingsShouldBeEmptied[i] + ' element' );
+			assert.strictEqual( panel[ thingsShouldBeEmptied[ i ] ].text(), '', 'We successfully emptied the ' + thingsShouldBeEmptied[ i ] + ' element' );
 		}
 
 		for ( i = 0; i < thingsShouldHaveEmptyClass.length; i++ ) {
-			assert.strictEqual( panel[thingsShouldHaveEmptyClass[i]].hasClass( 'empty' ), true, 'We successfully applied the empty class to the ' + thingsShouldHaveEmptyClass[i] + ' element' );
+			assert.strictEqual( panel[ thingsShouldHaveEmptyClass[ i ] ].hasClass( 'empty' ), true, 'We successfully applied the empty class to the ' + thingsShouldHaveEmptyClass[ i ] + ' element' );
 		}
 	} );
 
@@ -72,7 +72,7 @@
 
 		assert.strictEqual(
 			panel.$location.prop( 'href' ),
-			'http://tools.wmflabs.org/geohack/geohack.php?pagename=File:' + fileName + '&params=' + ( - latitude ) + '_S_' + ( - longitude ) + '_W_&language=en',
+			'http://tools.wmflabs.org/geohack/geohack.php?pagename=File:' + fileName + '&params=' + ( -latitude ) + '_S_' + ( -longitude ) + '_W_&language=en',
 			'Location URL is set as expected'
 		);
 

@@ -21,6 +21,7 @@
 
 	/**
 	 * Represents the file reuse dialog and link to open it.
+	 *
 	 * @class mw.mmv.ui.reuse.Share
 	 * @extends mw.mmv.ui.reuse.Tab
 	 * @param {jQuery} $container
@@ -53,7 +54,6 @@
 		this.pageInput.$input.on( 'copy', function () {
 			mw.mmv.actionLogger.log( 'share-link-copied' );
 		} );
-
 
 		this.$pageLink = $( '<a>' )
 			.addClass( 'mw-mmv-share-page-link' )
@@ -134,7 +134,6 @@
 	SP.select = function () {
 		this.pageInput.$element.focus();
 	};
-
 
 	mw.mmv.ui.reuse.Share = Share;
 }( mediaWiki, jQuery, OO ) );

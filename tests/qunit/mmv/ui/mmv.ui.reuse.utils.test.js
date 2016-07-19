@@ -39,9 +39,9 @@
 		assert.strictEqual( options.length, 4, 'Menu has correct number of items.' );
 
 		for ( i = 0; i < menuItems.length; i++ ) {
-			data = options[i].getData();
+			data = options[ i ].getData();
 
-			assert.strictEqual( data.name, menuItems[i], 'Correct item name on the list.' );
+			assert.strictEqual( data.name, menuItems[ i ], 'Correct item name on the list.' );
 			assert.strictEqual( data.height, null, 'Correct item height on the list.' );
 			assert.strictEqual( data.width, null, 'Correct item width on the list.' );
 		}
@@ -63,7 +63,7 @@
 		oldMessage = mw.message;
 
 		mw.message = function ( messageKey ) {
-			assert.ok( messageKey.match(/^multimediaviewer-(small|medium|original|embed-dimensions)/), 'messageKey passed correctly.' );
+			assert.ok( messageKey.match( /^multimediaviewer-(small|medium|original|embed-dimensions)/ ), 'messageKey passed correctly.' );
 
 			return { text: $.noop };
 		};
@@ -108,7 +108,7 @@
 		],
 		i, cursize, opts;
 		for ( i = 0; i < exampleSizes.length; i++ ) {
-			cursize = exampleSizes[i];
+			cursize = exampleSizes[ i ];
 			opts = utils.getPossibleImageSizesForHtml( cursize.width, cursize.height );
 			assert.deepEqual( opts, cursize.expected, 'We got the expected results out of the size calculation function.' );
 		}

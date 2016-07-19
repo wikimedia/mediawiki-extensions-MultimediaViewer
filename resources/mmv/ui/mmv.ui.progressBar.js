@@ -19,9 +19,10 @@
 	var PBP;
 
 	/**
+	 * A progress bar for the loading of the image.
+	 *
 	 * @class mw.mmv.ui.ProgressBar
 	 * @extends mw.mmv.ui.Element
-	 * A progress bar for the loading of the image.
 	 * @constructor
 	 * @param {jQuery} $container
 	 */
@@ -53,11 +54,12 @@
 	 */
 	PBP.hide = function () {
 		this.$progress.addClass( 'empty' );
-		this.$percent.stop().css( { width : 0 } );
+		this.$percent.stop().css( { width: 0 } );
 	};
 
 	/**
 	 * Handles the progress display when a percentage of progress is received
+	 *
 	 * @param {number} percent a number between 0 and 100
 	 */
 	PBP.animateTo = function ( percent ) {
@@ -69,21 +71,22 @@
 		if ( percent === 100 ) {
 			// When a 100% update comes in, we make sure that the bar is visible, we animate
 			// fast to 100 and we hide the bar when the animation is done
-			this.$percent.animate( { width : percent + '%' }, 50, 'swing', $.proxy( panel.hide, panel ) );
+			this.$percent.animate( { width: percent + '%' }, 50, 'swing', $.proxy( panel.hide, panel ) );
 		} else {
 			// When any other % update comes in, we make sure the bar is visible
 			// and we animate to the right position
-			this.$percent.animate( { width : percent + '%' } );
+			this.$percent.animate( { width: percent + '%' } );
 		}
 	};
 
 	/**
 	 * Goes to the given percent without animation
+	 *
 	 * @param {number} percent a number between 0 and 100
 	 */
 	PBP.jumpTo = function ( percent ) {
 		this.$progress.removeClass( 'empty' );
-		this.$percent.stop().css( { width : percent + '%' } );
+		this.$percent.stop().css( { width: percent + '%' } );
 	};
 
 	mw.mmv.ui.ProgressBar = ProgressBar;

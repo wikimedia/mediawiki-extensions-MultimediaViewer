@@ -35,26 +35,26 @@
 
 		api.get = this.sandbox.stub();
 		apiProvider.apiGetWithMaxAge( {} );
-		assert.ok( !( 'maxage' in api.get.getCall( 0 ).args[0] ), 'maxage is not set by default' );
-		assert.ok( !( 'smaxage' in api.get.getCall( 0 ).args[0] ), 'smaxage is not set by default' );
+		assert.ok( !( 'maxage' in api.get.getCall( 0 ).args[ 0 ] ), 'maxage is not set by default' );
+		assert.ok( !( 'smaxage' in api.get.getCall( 0 ).args[ 0 ] ), 'smaxage is not set by default' );
 
 		options = { maxage: 123 };
 		apiProvider = new mw.mmv.provider.Api( api, options );
 
 		api.get = this.sandbox.stub();
 		apiProvider.apiGetWithMaxAge( {} );
-		assert.strictEqual( api.get.getCall( 0 ).args[0].maxage, 123, 'maxage falls back to provider default' );
-		assert.strictEqual( api.get.getCall( 0 ).args[0].smaxage, 123, 'smaxage falls back to provider default' );
+		assert.strictEqual( api.get.getCall( 0 ).args[ 0 ].maxage, 123, 'maxage falls back to provider default' );
+		assert.strictEqual( api.get.getCall( 0 ).args[ 0 ].smaxage, 123, 'smaxage falls back to provider default' );
 
 		api.get = this.sandbox.stub();
 		apiProvider.apiGetWithMaxAge( {}, null, 456 );
-		assert.strictEqual( api.get.getCall( 0 ).args[0].maxage, 456, 'maxage can be overridden' );
-		assert.strictEqual( api.get.getCall( 0 ).args[0].smaxage, 456, 'smaxage can be overridden' );
+		assert.strictEqual( api.get.getCall( 0 ).args[ 0 ].maxage, 456, 'maxage can be overridden' );
+		assert.strictEqual( api.get.getCall( 0 ).args[ 0 ].smaxage, 456, 'smaxage can be overridden' );
 
 		api.get = this.sandbox.stub();
 		apiProvider.apiGetWithMaxAge( {}, null, null );
-		assert.ok( !( 'maxage' in api.get.getCall( 0 ).args[0] ), 'maxage can be overridden to unset' );
-		assert.ok( !( 'smaxage' in api.get.getCall( 0 ).args[0] ), 'smaxage can be overridden to unset' );
+		assert.ok( !( 'maxage' in api.get.getCall( 0 ).args[ 0 ] ), 'maxage can be overridden to unset' );
+		assert.ok( !( 'smaxage' in api.get.getCall( 0 ).args[ 0 ] ), 'smaxage can be overridden to unset' );
 	} );
 
 	QUnit.test( 'getCachedPromise success', 5, function ( assert ) {
@@ -238,12 +238,12 @@
 		};
 		QUnit.stop();
 		apiProvider.getQueryPage( title, data ).then( function ( field ) {
-			assert.strictEqual( field, data.query.pages['-1'], 'specified page is found' );
+			assert.strictEqual( field, data.query.pages[ '-1' ], 'specified page is found' );
 			QUnit.start();
 		} );
 		QUnit.stop();
 		apiProvider.getQueryPage( titleWithNamespaceAlias, data ).then( function ( field ) {
-			assert.strictEqual( field, data.query.pages['-1'],
+			assert.strictEqual( field, data.query.pages[ '-1' ],
 				'specified page is found even if its title was normalized' );
 			QUnit.start();
 		} );

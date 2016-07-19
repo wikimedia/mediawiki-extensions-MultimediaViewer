@@ -21,7 +21,8 @@
  * To utilize caching as much as possible, we use images which are displayed at a slightly
  * different size than their screen size. The ThumbnailWidth model stores the various types of
  * sizes and helps avoiding accidental incompatible assignments. (Think of it as a slightly
- * overcomplicated Hungarian notation :)
+ * overcomplicated Hungarian notation)
+ *
  * @class mw.mmv.model.ThumbnailWidth
  * @constructor
  * @param {number} cssWidth width in CSS pixels
@@ -37,6 +38,7 @@ function ThumbnailWidth( cssWidth, cssHeight, screen, real ) {
 	/**
 	 * Width of the thumbnail on the screen, in CSS pixels. This is the number which can be plugged
 	 * into UI code like $element.width(x).
+	 *
 	 * @property {number}
 	 */
 	this.cssWidth = cssWidth;
@@ -44,6 +46,7 @@ function ThumbnailWidth( cssWidth, cssHeight, screen, real ) {
 	/**
 	 * Height of the thumbnail on the screen, in CSS pixels. This is the number which can be plugged
 	 * into UI code like $element.height(x).
+	 *
 	 * @property {number}
 	 */
 	this.cssHeight = cssHeight;
@@ -52,7 +55,9 @@ function ThumbnailWidth( cssWidth, cssHeight, screen, real ) {
 	 * Width of the thumbnail on the screen, in device pixels. On most devices this is the same as
 	 * the CSS width, but devices with high pixel density displays have multiple screen pixels
 	 * in a CSS pixel.
+	 *
 	 * This value is mostly used internally; for most purposes you will need one of the others.
+	 *
 	 * @property {number}
 	 */
 	this.screen = screen;
@@ -65,6 +70,7 @@ function ThumbnailWidth( cssWidth, cssHeight, screen, real ) {
 	 * we cannot create a thumbnail which is larger than the original image. (In such cases the
 	 * image is just positioned to the center of the intended area and the space around it is
 	 * left empty.)
+	 *
 	 * @property {number}
 	 */
 	this.real = real;

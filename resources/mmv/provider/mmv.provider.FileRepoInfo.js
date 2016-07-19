@@ -19,6 +19,7 @@
 
 	/**
 	 * Gets file repo information.
+	 *
 	 * @class mw.mmv.provider.FileRepoInfo
 	 * @extends mw.mmv.provider.Api
 	 * @constructor
@@ -34,6 +35,7 @@
 
 	/**
 	 * Runs an API GET request to get the repo info.
+	 *
 	 * @return {jQuery.Promise.<Object.<string, mw.mmv.model.Repo>>} a promise which resolves to
 	 *     a hash of mw.mmv.model.Repo objects, indexed by repo names.
 	 */
@@ -50,7 +52,7 @@
 			} ).then( function ( reposArray ) {
 				var reposHash = {};
 				$.each( reposArray, function ( i, repo ) {
-					reposHash[repo.name] = mw.mmv.model.Repo.newFromRepoInfo( repo );
+					reposHash[ repo.name ] = mw.mmv.model.Repo.newFromRepoInfo( repo );
 				} );
 				return reposHash;
 			} );

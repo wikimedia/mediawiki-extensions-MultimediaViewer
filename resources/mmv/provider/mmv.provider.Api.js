@@ -18,6 +18,7 @@
 ( function ( mw, $ ) {
 	/**
 	 * Base class for API-based data providers.
+	 *
 	 * @class mw.mmv.provider.Api
 	 * @abstract
 	 * @constructor
@@ -65,18 +66,19 @@
 	Api.prototype.getCachedPromise = function ( key, getPromise ) {
 		var provider = this;
 
-		if ( !this.cache[key] ) {
-			this.cache[key] = getPromise();
-			this.cache[key].fail( function ( error ) {
+		if ( !this.cache[ key ] ) {
+			this.cache[ key ] = getPromise();
+			this.cache[ key ].fail( function ( error ) {
 				// constructor.name is usually not reliable in inherited classes, but OOjs fixes that
 				mw.log( provider.constructor.name + ' provider failed to load: ', error );
 			} );
 		}
-		return this.cache[key];
+		return this.cache[ key ];
 	};
 
 	/**
 	 * Calls mw.Api.get, with caching parameters.
+	 *
 	 * @param {Object} params Parameters to the API query.
 	 * @param {Object} [ajaxOptions] ajaxOptions argument for mw.Api.get
 	 * @param {number|null} [maxage] Cache the call for this many seconds.
@@ -97,11 +99,12 @@
 
 	/**
 	 * Pulls an error message out of an API response.
+	 *
 	 * @param {Object} data
 	 * @param {Object} data.error
 	 * @param {string} data.error.code
 	 * @param {string} data.error.info
-	 * @returns {string} From data.error.code + ': ' + data.error.info, or 'unknown error'
+	 * @return {string} From data.error.code + ': ' + data.error.info, or 'unknown error'
 	 */
 	Api.prototype.getErrorMessage = function ( data ) {
 		var errorCode, errorMessage;
@@ -118,15 +121,17 @@
 	 * The title of the returned file might be different from the requested title, e.g.
 	 * if we used a namespace alias. If that happens the old and new title will be set in
 	 * data.query.normalized; this method creates an updated title based on that.
+	 *
 	 * @param {mw.Title} title
 	 * @param {Object} data
 	 * @return {mw.Title}
 	 */
 	Api.prototype.getNormalizedTitle = function ( title, data ) {
+		var i, normalized, length;
 		if ( data && data.query && data.query.normalized ) {
-			for ( var normalized = data.query.normalized, length = normalized.length, i = 0; i < length; i++ ) {
-				if ( normalized[i].from === title.getPrefixedText() ) {
-					title = new mw.Title( normalized[i].to );
+			for ( normalized = data.query.normalized, length = normalized.length, i = 0; i < length; i++ ) {
+				if ( normalized[ i ].from === title.getPrefixedText() ) {
+					title = new mw.Title( normalized[ i ].to );
 					break;
 				}
 			}
@@ -137,6 +142,7 @@
 	/**
 	 * Returns a promise with the specified field from the API result.
 	 * This is intended to be used as a .then() callback for action=query APIs.
+	 *
 	 * @param {string} field
 	 * @param {Object} data
 	 * @return {jQuery.Promise} when successful, the first argument will be the field data,
@@ -144,8 +150,8 @@
 	 *     the full API response.
 	 */
 	Api.prototype.getQueryField = function ( field, data ) {
-		if ( data && data.query && data.query[field] ) {
-			return $.Deferred().resolve( data.query[field], data );
+		if ( data && data.query && data.query[ field ] ) {
+			return $.Deferred().resolve( data.query[ field ], data );
 		} else {
 			return $.Deferred().reject( this.getErrorMessage( data ), data );
 		}
@@ -154,6 +160,7 @@
 	/**
 	 * Returns a promise with the specified page from the API result.
 	 * This is intended to be used as a .then() callback for action=query&prop=(...) APIs.
+	 *
 	 * @param {mw.Title} title
 	 * @param {Object} data
 	 * @return {jQuery.Promise} when successful, the first argument will be the page data,

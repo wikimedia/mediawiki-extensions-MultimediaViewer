@@ -79,16 +79,16 @@
 		utils.filterInvisible( $visibleChildInInvisibleChild );
 		utils.filterInvisible( $invisibleChildWithVisibleSiblings );
 
-		assert.ok( $visibleChild.has( 'span' ).length , 'visible child is not filtered' );
-		assert.ok( !$invisibleChild.has( 'span' ).length , 'invisible child is filtered' );
-		assert.ok( $invisibleChildInVisibleChild.has( 'span' ).length , 'visible child is not filtered...' );
-		assert.ok( !$invisibleChildInVisibleChild.has( 'abbr' ).length , '... but its invisible child is' );
-		assert.ok( !$visibleChildInInvisibleChild.has( 'span' ).length , 'invisible child is filtered...' );
-		assert.ok( !$visibleChildInInvisibleChild.has( 'abbr' ).length , '...and its children too' );
-		assert.ok( $visibleChild.has( 'span' ).length , 'visible child is not filtered' );
-		assert.ok( !$invisibleChildWithVisibleSiblings.has( 'abbr' ).length , 'invisible sibling is filtered...' );
-		assert.ok( $invisibleChildWithVisibleSiblings.has( 'span' ).length , '...but its visible siblings are not' );
-		assert.ok( $invisibleChildWithVisibleSiblings.has( 'b' ).length , '...but its visible siblings are not' );
+		assert.ok( $visibleChild.has( 'span' ).length, 'visible child is not filtered' );
+		assert.ok( !$invisibleChild.has( 'span' ).length, 'invisible child is filtered' );
+		assert.ok( $invisibleChildInVisibleChild.has( 'span' ).length, 'visible child is not filtered...' );
+		assert.ok( !$invisibleChildInVisibleChild.has( 'abbr' ).length, '... but its invisible child is' );
+		assert.ok( !$visibleChildInInvisibleChild.has( 'span' ).length, 'invisible child is filtered...' );
+		assert.ok( !$visibleChildInInvisibleChild.has( 'abbr' ).length, '...and its children too' );
+		assert.ok( $visibleChild.has( 'span' ).length, 'visible child is not filtered' );
+		assert.ok( !$invisibleChildWithVisibleSiblings.has( 'abbr' ).length, 'invisible sibling is filtered...' );
+		assert.ok( $invisibleChildWithVisibleSiblings.has( 'span' ).length, '...but its visible siblings are not' );
+		assert.ok( $invisibleChildWithVisibleSiblings.has( 'b' ).length, '...but its visible siblings are not' );
 	} );
 
 	QUnit.test( 'whitelistHtml()', 8, function ( assert ) {

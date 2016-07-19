@@ -17,7 +17,6 @@
 
 ( function ( mw, $ ) {
 	/**
-	 * @class mw.mmv.provider.GuessedThumbnailInfo
 	 * This provider is similar to mw.mmv.provider.ThumbnailInfo, but instead of making an API call
 	 * to get the thumbnail URL, it tries to guess it. There are two failure modes:
 	 * - known failure: in the given situation it does not seem possible or safe to guess the URL.
@@ -27,6 +26,8 @@
 	 *   with anyway. On other wikis (especially ones which do not generate thumbnails on demand
 	 *   via the 404 handler) this could be more frequent. Again, it is the caller's resonsibility
 	 *   to handle this by detecting image loading errors and falling back to the normal provider.
+	 *
+	 * @class mw.mmv.provider.GuessedThumbnailInfo
 	 * @constructor
 	 */
 	function GuessedThumbnailInfo() {}
@@ -82,6 +83,7 @@
 	/**
 	 * Try to guess the URL of a thumbnail without doing an API request.
 	 * See #get().
+	 *
 	 * @param {mw.Title} file
 	 * @param {string} sampleUrl a thumbnail URL for the same file (but with different size)
 	 * @param {number} width thumbnail width in pixels
@@ -116,8 +118,9 @@
 	};
 
 	/**
-	 * @protected
 	 * True if the the original image needs to be used as a thumbnail.
+	 *
+	 * @protected
 	 * @param {mw.Title} file
 	 * @param {number} width thumbnail width in pixels
 	 * @param {number} originalWidth width of original image in pixels
@@ -127,8 +130,9 @@
 	};
 
 	/**
-	 * @protected
 	 * Checks if a given thumbnail URL is full-size (the original image) or scaled
+	 *
+	 * @protected
 	 * @param {string} url a thumbnail URL
 	 * @param {mw.Title} file
 	 */
@@ -137,9 +141,10 @@
 	};
 
 	/**
-	 * @protected
 	 * Removes the filename in a reversible way. This is useful because the filename can be nearly
 	 * anything and could cause false positives when looking for patterns.
+	 *
+	 * @protected
 	 * @param {string} url a thumbnail URL
 	 * @param {mw.Title} file
 	 * @return {string} thumbnnail URL with occurences of the filename replaced by `<filename>`
@@ -154,8 +159,9 @@
 	};
 
 	/**
-	 * @protected
 	 * Undoes #obscureFilename().
+	 *
+	 * @protected
 	 * @param {string} url a thumbnail URL (with obscured filename)
 	 * @param {mw.Title} file
 	 * @return {string} original thumbnnail URL
@@ -169,8 +175,9 @@
 	};
 
 	/**
-	 * @protected
 	 * True if the file is of a type for which the thumbnail can be scaled beyond the original size.
+	 *
+	 * @protected
 	 * @param {mw.Title} file
 	 * @return {boolean}
 	 */
@@ -179,8 +186,9 @@
 	};
 
 	/**
-	 * @protected
 	 * True if the file type can be displayed in most browsers, false if it needs thumbnailing
+	 *
+	 * @protected
 	 * @param {mw.Title} file
 	 * @return {boolean}
 	 */
@@ -189,9 +197,10 @@
 	};
 
 	/**
-	 * @protected
 	 * Guess what will be the width of the thumbnail. (Thumbnails for most file formats cannot be
 	 * larger than the original file so this might be smaller than the requested width.)
+	 *
+	 * @protected
 	 * @param {mw.Title} file
 	 * @param {number} width thumbnail width in pixels
 	 * @param {number} originalWidth width of original image in pixels
@@ -206,8 +215,9 @@
 	};
 
 	/**
-	 * @protected
 	 * Guess what will be the height of the thumbnail, given its width.
+	 *
+	 * @protected
 	 * @param {mw.Title} file
 	 * @param {number} width thumbnail width in pixels
 	 * @param {number} originalWidth width of original image in pixels
@@ -225,8 +235,9 @@
 	};
 
 	/**
-	 * @protected
 	 * Given a thumbnail URL with a wrong size, returns one with the right size.
+	 *
+	 * @protected
 	 * @param {mw.Title} file
 	 * @param {string} sampleUrl a thumbnail URL for the same file (but with different size)
 	 * @param {number} width thumbnail width in pixels
@@ -250,8 +261,9 @@
 	};
 
 	/**
-	 * @protected
 	 * Try to guess the original URL to the file, from a thumb URL.
+	 *
+	 * @protected
 	 * @param {mw.Title} file
 	 * @param {string} thumbnailUrl
 	 * @return {string} URL of the original file
@@ -272,8 +284,9 @@
 	};
 
 	/**
-	 * @protected
 	 * Hardest version: try to guess thumbnail URL from original
+	 *
+	 * @protected
 	 * @param {mw.Title} file
 	 * @param {string} originalUrl URL for the original file
 	 * @param {number} width thumbnail width in pixels

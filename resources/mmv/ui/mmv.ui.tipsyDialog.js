@@ -18,9 +18,10 @@
 	var TDP;
 
 	/**
-	 * @class mw.mmv.ui.TipsyDialog
 	 * A simple popup dialog that can be opened and closed and can contain some HTML.
 	 * Due to the way tipsy works, there can be only one TipsyDialog and/or tipsy tooltip on the same element.
+	 *
+	 * @class mw.mmv.ui.TipsyDialog
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
 	 * @property {jQuery} $anchor the element to which the popup is anchored.
@@ -74,19 +75,20 @@
 
 	/**
 	 * @private
-	 * @returns {boolean}
+	 * @return {boolean}
 	 */
 	TDP.isInitialized = function () {
 		return !!this.$anchor.tipsy( true );
 	};
 
 	/**
-	 * @private
 	 * Returns the preprocessed version of an options object:
 	 * - directions are flipped on RTL documents
 	 * - standard classnames are applied
 	 * - HTML content is generated
 	 * The original object is not changed.
+	 *
+	 * @private
 	 * @param {Object} originalOptions
 	 */
 	TDP.getPreprocessedOptions = function ( originalOptions ) {
@@ -143,6 +145,7 @@
 
 	/**
 	 * Return the main popup element.
+	 *
 	 * @return {jQuery|null}
 	 */
 	TDP.getPopup = function () {
@@ -153,6 +156,7 @@
 
 	/**
 	 * Set dialog contents
+	 *
 	 * @param {string|null} title title of the dialog (plain text; escaping will be handled by TipsyDialog)
 	 * @param {string|null} body content of the dialog (HTML; no escaping)
 	 */
@@ -164,7 +168,7 @@
 
 	/**
 	 * @private
-	 * @returns {string}
+	 * @return {string}
 	 */
 	TDP.generateContent = function ( title, body ) {
 		body = body || '';
@@ -175,20 +179,21 @@
 	};
 
 	/**
-	 * @private
 	 * Click handler to be set on the document.
+	 *
+	 * @private
 	 * @param {jQuery.Event} event
 	 */
 	TDP.maybeCloseOnClick = function ( event ) {
 		var $clickTarget = $( event.target );
 
 		if (
-			$clickTarget.closest( this.getPopup() ).length === 0 // click was outside the dialog
-			|| $clickTarget.closest( '.mw-mmv-tipsy-dialog-disable' ).length > 0 // click was on the close icon
+			$clickTarget.closest( this.getPopup() ).length === 0 || // click was outside the dialog
+			$clickTarget.closest( '.mw-mmv-tipsy-dialog-disable' ).length > 0 // click was on the close icon
 		) {
 			this.close();
 		}
 	};
 
 	mw.mmv.ui.TipsyDialog = TipsyDialog;
-} ( mediaWiki, jQuery, OO ) );
+}( mediaWiki, jQuery, OO ) );

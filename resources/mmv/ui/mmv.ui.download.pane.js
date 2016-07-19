@@ -61,7 +61,6 @@
 	oo.inheritClass( Pane, mw.mmv.ui.Element );
 	DP = Pane.prototype;
 
-
 	/**
 	 * Creates download split button. It is a link with the "download" property set plus an
 	 * arrow that allows the user to select the image size desired. The "download" property
@@ -139,7 +138,7 @@
 		var dl = this,
 			attributionInput = new oo.ui.TextInputWidget( {
 				classes: [ 'mw-mmv-download-attr-input' ],
-			readOnly: true
+				readOnly: true
 			} ),
 			attributionSwitch = new oo.ui.ButtonSelectWidget( {
 				classes: [ 'mw-mmv-download-attr-select' ]
@@ -213,7 +212,8 @@
 
 	/**
 	 * Selects the specified attribution type.
-	 * @param {'plain'|'html'} [name='plain'] The attribution type to use.
+	 *
+	 * @param {string} [name='plain'] The attribution type to use ('plain' or 'html')
 	 */
 	DP.selectAttribution = function ( name ) {
 		this.currentAttrView = name;
@@ -286,6 +286,7 @@
 
 	/**
 	 * Sets the URL on the download button.
+	 *
 	 * @param {string} url
 	 */
 	DP.setDownloadUrl = function ( url ) {
@@ -298,6 +299,7 @@
 
 	/**
 	 * Sets the text of the download button.
+	 *
 	 * @param {string} sizeClass A size class such as 'small'
 	 * @param {string} extension file extension
 	 * @param {number} width
@@ -313,13 +315,14 @@
 
 		// Update button label and size strings to reflect new selected size
 		this.$downloadButton.html(
-			'<span class="mw-mmv-download-image-size-name">' + sizeClasMessage + '</span>'
-				+ '<span class="mw-mmv-download-image-size">' + sizeMessage + '</span>'
+			'<span class="mw-mmv-download-image-size-name">' + sizeClasMessage + '</span>' +
+			'<span class="mw-mmv-download-image-size">' + sizeMessage + '</span>'
 		);
 	};
 
 	/**
 	 * Sets the text in the attribution input element.
+	 *
 	 * @param {mw.mmv.model.EmbedFileInfo} embed
 	 */
 	DP.setAttributionText = function ( embed ) {
@@ -330,11 +333,12 @@
 
 	/**
 	 * Chops off the extension part of an URL.
+	 *
 	 * @param {string} url
 	 */
 	DP.getExtensionFromUrl = function ( url ) {
 		var urlParts = url.split( '.' );
-		return urlParts[urlParts.length - 1];
+		return urlParts[ urlParts.length - 1 ];
 	};
 
 	/**
