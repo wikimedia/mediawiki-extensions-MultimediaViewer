@@ -1,43 +1,45 @@
-@expand-link-border-color: #dddddd;
+@expand-link-border-color: #ddd;
 
 .mw-mmv-overlay {
 	position: fixed;
-	top: 0px;
-	left: 0px;
-	right: 0px;
-	bottom: 0px;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	z-index: 1000;
-	background-color: rgb(0,0,0);
+	background-color: rgb( 0, 0, 0 );
 }
 
 body.mw-mmv-lightbox-open {
 	overflow-y: auto;
-}
 
-body.mw-mmv-lightbox-open #mw-page-base,
-body.mw-mmv-lightbox-open #mw-head-base,
-body.mw-mmv-lightbox-open #mw-navigation,
-body.mw-mmv-lightbox-open #content,
-body.mw-mmv-lightbox-open #footer,
-body.mw-mmv-lightbox-open #globalWrapper // monobook
-{
-	/** Stop the article from scrolling in the background - skin-specific but works in any browser */
-	display: none;
-}
+	/* stylelint-disable selector-no-id */
+	#mw-page-base,
+	#mw-head-base,
+	#mw-navigation,
+	#content,
+	#footer,
+	#globalWrapper { // monobook
+		/** Stop the article from scrolling in the background - skin-specific but works in any browser */
+		display: none;
+	}
+	/* stylelint-enable selector-no-id */
 
-body.mw-mmv-lightbox-open > * {
-	/** Stop the article from scrolling in the background - works with any skin but needs modern browser */
-	display: none;
-}
-body.mw-mmv-lightbox-open > .mw-mmv-overlay,
-body.mw-mmv-lightbox-open > .mw-mmv-wrapper {
-	display: block;
+	> * {
+		/** Stop the article from scrolling in the background - works with any skin but needs modern browser */
+		display: none;
+	}
+	> .mw-mmv-overlay,
+	> .mw-mmv-wrapper {
+		display: block;
+	}
 }
 
 .mw-mmv-filepage-buttons {
 	margin-top: 5px;
 
-	.mw-mmv-view-expanded, .mw-mmv-view-config {
+	.mw-mmv-view-expanded,
+	.mw-mmv-view-config {
 		display: block;
 		// Work around some weirdness of MW-UI buttons. T127052
 		line-height: inherit;
@@ -45,12 +47,12 @@ body.mw-mmv-lightbox-open > .mw-mmv-wrapper {
 
 	.mw-mmv-view-expanded.mw-ui-icon:before {
 		/* @embed */
-		background-image: url('img/expand.svg');
+		background-image: url( img/expand.svg );
 	}
 
 	.mw-mmv-view-config.mw-ui-icon:before {
 		/* @embed */
-		background-image: url('img/gear_gray.svg');
+		background-image: url( img/gear_gray.svg );
 		opacity: 0.75;
 
 		&:hover {

@@ -1,5 +1,5 @@
-@import "mediawiki.mixins";
-@import "../mmv.mixins";
+@import 'mediawiki.mixins';
+@import '../mmv.mixins';
 
 .mw-mmv-permission-box {
 	position: relative;
@@ -27,7 +27,7 @@
 
 		width: 16px;
 		height: 16px;
-		.background-image('img/x_gray.svg');
+		.background-image( 'img/x_gray.svg' );
 
 		cursor: pointer;
 	}
@@ -44,11 +44,11 @@
 		margin: 0 10px 10px;
 		font-size: @text-font-size;
 		line-height: @text-line-height;
-		color: #555555;
+		color: #555;
 
 		.mw-mmv-permission-text-fader {
 			position: absolute;
-			top: (@lines-shown - 1) * @text-line-height * @text-font-size;
+			top: ( @lines-shown - 1 ) * @text-line-height * @text-font-size;
 			width: 100%;
 			height: @text-line-height * @text-font-size;
 
@@ -58,7 +58,7 @@
 
 			a {
 				padding: 3px 0 0 1em;
-				background-color: white;
+				background-color: #fff;
 				font-size: 1em;
 			}
 		}

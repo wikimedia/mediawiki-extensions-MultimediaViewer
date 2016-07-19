@@ -1,5 +1,5 @@
-@import "mediawiki.mixins";
-@import "../mmv.mixins";
+@import 'mediawiki.mixins';
+@import '../mmv.mixins';
 
 .mw-mmv-ttf-container {
 	position: relative;
@@ -41,7 +41,7 @@
 		background-position: center center;
 		background-repeat: no-repeat;
 		/* @embed */
-		background-image: url(img/ellipsis_lightgray.svg);
+		background-image: url( img/ellipsis_lightgray.svg );
 		.box-shadow( -4px 6px 0 0 white);
 
 		// Hovering over .mw-mmv-ttf-ellipsis-container will make the ellipsis more visible to attract
@@ -50,13 +50,14 @@
 		.mw-mmv-ttf-ellipsis-container:hover & {
 			background-color: #d7d7d7;
 			/* @embed */
-			background-image: url(img/ellipsis_gray.svg);
+			background-image: url( img/ellipsis_gray.svg );
 		}
 		// second rule + ordering needed for specificity
-		&:hover, .mw-mmv-ttf-ellipsis-container &:hover {
+		&:hover,
+		.mw-mmv-ttf-ellipsis-container &:hover {
 			background-color: #cacaca;
 			/* @embed */
-			background-image: url(img/ellipsis_darkgray.svg);
+			background-image: url( img/ellipsis_darkgray.svg );
 		}
 
 		&:before {

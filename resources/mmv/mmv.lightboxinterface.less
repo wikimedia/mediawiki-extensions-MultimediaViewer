@@ -1,12 +1,12 @@
-@import "mmv.globals";
-@import "mmv.mixins";
+@import 'mmv.globals';
+@import 'mmv.mixins';
 
-@metadata-background: rgb(248, 248, 248);
+@metadata-background: rgb( 248, 248, 248 );
 
 .mw-mmv-wrapper {
-	top: 0px;
-	left: 0px;
-	right: 0px;
+	top: 0;
+	left: 0;
+	right: 0;
 	z-index: 1001;
 	position: absolute;
 	bottom: auto;
@@ -22,16 +22,16 @@
 	position: relative;
 
 	.jq-fullscreened {
-		background-color: black;
+		background-color: #000;
 	}
 }
 
 .mw-mmv-image-wrapper {
 	position: fixed;
-	top: 0px;
+	top: 0;
 	bottom: @metadatabar-above-fold-height;
-	left: 0px;
-	right: 0px;
+	left: 0;
+	right: 0;
 	overflow-y: hidden;
 }
 
@@ -43,7 +43,7 @@
 
 .mw-mmv-pre-image {
 	position: absolute;
-	top: 0px;
+	top: 0;
 	height: 32px;
 	width: 100%;
 	z-index: 1;
@@ -54,9 +54,9 @@
 	width: 100%;
 	bottom: auto;
 	height: auto;
-	color: #333333;
+	color: #333;
 	background-color: @panel-above-fold-background-color;
-	min-height: (@metadatabar-above-fold-inner-height + 1);
+	min-height: ( @metadatabar-above-fold-inner-height + 1 );
 	z-index: 1005;
 }
 
@@ -85,13 +85,13 @@
 }
 
 .mw-mmv-main.jq-fullscreened {
-	background-color: black;
+	background-color: #000;
 }
 
 .jq-fullscreened {
 	.mw-mmv-image-wrapper, // make the image occupy the whole screen
 	.mw-mmv-post-image {  // make sure the panel fits in the screen and does not cause scrollbars to appear
-		bottom: 0px;
+		bottom: 0;
 	}
 
 	.mw-mmv-post-image {

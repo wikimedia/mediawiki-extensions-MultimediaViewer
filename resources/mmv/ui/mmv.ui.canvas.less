@@ -1,4 +1,4 @@
-@import "../mmv.mixins";
+@import '../mmv.mixins';
 
 .mw-mmv-image {
 	display: table-cell;
@@ -13,7 +13,8 @@
 	&.error {
 		background-color: #333;
 
-		a, a:visited {
+		a,
+		a:visited {
 			cursor: pointer;
 			color: #3472e5;
 		}
@@ -21,7 +22,7 @@
 
 	.error-box {
 		/* @embed */
-		background: url(img/error-media-icon.svg) no-repeat 0 0;
+		background: url( img/error-media-icon.svg ) no-repeat 0 0;
 		background-size: 110px 110px;
 
 		position: absolute;
@@ -46,16 +47,6 @@
 	}
 }
 
-.mw-mmv-image.empty img {
-	display: none;
-}
-
-.mw-mmv-image img.blurred {
-	filter: blur(3px);
-	-webkit-filter: blur(3px);
-	.opacity(0.8);
-}
-
 .mw-mmv-image img {
 	display: block;
 	margin-right: auto;
@@ -63,10 +54,20 @@
 	cursor: pointer;
 	cursor: zoom-in;
 
+	&.blurred {
+		filter: blur( 3px );
+		-webkit-filter: blur( 3px );
+		.opacity( 0.8 );
+	}
+
 	/* Whitelist file types that are potentially transparent.
 	   We don't set it for other file types because Media Viewer plugins
 	   can find that undesirable (eg. 3d) */
-	&.gif, &.png, &.svg, &.tiff, &.tif {
+	&.gif,
+	&.png,
+	&.svg,
+	&.tiff,
+	&.tif {
 		background: url( checker.png ) repeat;
 	}
 
@@ -77,6 +78,10 @@
 	.metadata-panel-is-open & {
 		cursor: pointer;
 	}
+}
+
+.mw-mmv-image.empty img {
+	display: none;
 }
 
 .metadata-panel-is-open .mw-mmv-image-wrapper {

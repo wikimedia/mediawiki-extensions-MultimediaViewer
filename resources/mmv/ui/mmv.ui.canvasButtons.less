@@ -1,5 +1,5 @@
-@import "../mmv.globals";
-@import "../mmv.mixins";
+@import '../mmv.globals';
+@import '../mmv.mixins';
 
 .mw-mmv-download-button,
 .mw-mmv-reuse-button,
@@ -11,13 +11,13 @@
 	cursor: pointer;
 	position: fixed;
 	background-repeat: no-repeat;
-	.opacity(0.8);
-	border: none;
+	.opacity( 0.8 );
+	border: 0;
 	z-index: 1003;
 
 	&.mw-mmv-dialog-open,
 	&:hover {
-		.opacity(1);
+		.opacity( 1 );
 	}
 
 	.unselectable;
@@ -73,23 +73,23 @@
 .mw-mmv-close {
 	top: @buttons-offset-right;
 	/* @embed */
-	background-image: url(img/mw-close.svg);
+	background-image: url( img/mw-close.svg );
 	height: 23px;
 	width: 23px;
 }
 
 .mw-mmv-fullscreen {
-	top: (@buttons-offset-right + (@buttons-offset-each-top));
+	top: ( @buttons-offset-right + ( @buttons-offset-each-top ) );
 	/* @embed */
-	background-image: url(img/mw-fullscreen-ltr.svg);
+	background-image: url( img/mw-fullscreen-ltr.svg );
 	width: 21px;
 	height: 22px;
 }
 
 .mw-mmv-options-button {
-	top: (@buttons-offset-right + (2 * @buttons-offset-each-top));
+	top: ( @buttons-offset-right + ( 2 * @buttons-offset-each-top ) );
 	/* @embed */
-	background-image: url(img/gear.svg);
+	background-image: url( img/gear.svg );
 	height: 23px;
 	width: 23px;
 }
@@ -97,13 +97,13 @@
 .jq-fullscreened {
 	.mw-mmv-fullscreen {
 		/* @embed */
-		background-image: url(img/mw-defullscreen-ltr.svg);
+		background-image: url( img/mw-defullscreen-ltr.svg );
 	}
 }
 
 .mw-mmv-next-image {
 	/* @embed */
-	background-image: url(img/next-ltr.svg);
+	background-image: url( img/next-ltr.svg );
 	background-position: right;
 	right: @navbutton-width;
 
@@ -114,7 +114,7 @@
 
 .mw-mmv-prev-image {
 	/* @embed */
-	background-image: url(img/prev-ltr.svg);
+	background-image: url( img/prev-ltr.svg );
 	background-position: left;
 	left: @navbutton-width;
 
@@ -127,7 +127,7 @@
 	right: @buttons-offset-right - 2px;
 	bottom: @buttons-offset-right + @metadatabar-above-fold-height + @progress-bar-height;
 	/* @embed */
-	background-image: url(img/use-ltr.svg);
+	background-image: url( img/use-ltr.svg );
 	height: 24px;
 	width: 24px;
 }
@@ -135,7 +135,7 @@
 .mw-mmv-download-button {
 	bottom: @buttons-offset-right + @metadatabar-above-fold-height + @progress-bar-height + 37px;
 	/* @embed */
-	background-image: url(img/mw-download.svg);
+	background-image: url( img/mw-download.svg );
 	height: 24px;
 	width: 24px;
 }

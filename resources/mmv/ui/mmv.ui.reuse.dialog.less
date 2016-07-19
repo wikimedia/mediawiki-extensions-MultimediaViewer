@@ -1,5 +1,5 @@
-@import "../mmv.mixins";
-@import "../mmv.globals";
+@import '../mmv.mixins';
+@import '../mmv.globals';
 
 .mw-mmv-reuse-dialog {
 	@divider-border-height: 1px;
@@ -8,23 +8,24 @@
 	bottom: @metadatabar-above-fold-height + @progress-bar-height - 5px;
 
 	.mw-mmv-reuse-tabs {
-		@divider-color: rgb(204, 204, 204);
+		@divider-color: rgb( 204, 204, 204 );
 
 		position: static;
 		box-shadow: none;
 		padding-bottom: 0; // OOUI override
-		border: none; // OOUI override
+		border: 0; // OOUI override
 		border-bottom: @divider-border-height solid @divider-color;
-		.box-round(@border-radius @border-radius 0 0);
+		.box-round( @border-radius @border-radius 0 0 );
 
-		.oo-ui-iconedElement-icon.oo-ui-icon-check, .oo-ui-iconElement-icon.oo-ui-icon-check {
+		.oo-ui-iconedElement-icon.oo-ui-icon-check,
+		.oo-ui-iconElement-icon.oo-ui-icon-check {
 			display: none;
 		}
 
 		.oo-ui-optionWidget {
 			@tab-border-height: 3px;
-			@highlighted-tab-color: rgb(225, 243, 255);
-			@selected-tab-color: rgb(0, 113, 188);
+			@highlighted-tab-color: rgb( 225, 243, 255 );
+			@selected-tab-color: rgb( 0, 113, 188 );
 
 			display: inline-block;
 			padding: 10px 25px;
@@ -32,7 +33,7 @@
 			font-size: 1.2em;
 
 			&.oo-ui-optionWidget-highlighted {
-				border-bottom: (@tab-border-height - @divider-border-height) solid @highlighted-tab-color;
+				border-bottom: ( @tab-border-height - @divider-border-height ) solid @highlighted-tab-color;
 			}
 
 			&.oo-ui-optionWidget-selected,
@@ -41,7 +42,7 @@
 			}
 
 			&:first-child {
-				.box-round(@border-radius 0 0 0);
+				.box-round( @border-radius 0 0 0 );
 			}
 		}
 	}

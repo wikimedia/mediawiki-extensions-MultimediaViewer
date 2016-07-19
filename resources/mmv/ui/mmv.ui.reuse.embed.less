@@ -1,7 +1,7 @@
 @switch-color: #f2f2f2;
-@active-switch-color: #666666;
-@embed-dimensions-color: #aaaaaa;
-@textarea-text-color: #333333;
+@active-switch-color: #666;
+@embed-dimensions-color: #aaa;
+@textarea-text-color: #333;
 
 .mw-mmv-reuse-pane {
 	.mw-mmv-embed-text-html,
@@ -30,7 +30,8 @@
 		padding: 0;
 	}
 
-	p, textarea {
+	p,
+	textarea {
 		margin: 0;
 	}
 }
@@ -63,6 +64,6 @@
 	font-size: small;
 
 	.oo-ui-optionWidget-selected & {
-		color: lighten(@embed-dimensions-color, 20%); // selected option has dark background
+		color: lighten( @embed-dimensions-color, 20% ); // selected option has dark background
 	}
 }

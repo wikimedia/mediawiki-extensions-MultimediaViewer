@@ -1,5 +1,5 @@
-@import "../mmv.globals";
-@import "../mmv.mixins";
+@import '../mmv.globals';
+@import '../mmv.mixins';
 
 @button-vertical-padding: 20px;
 @button-height: 25px;
@@ -10,7 +10,7 @@
 // translation) so we float them to the right and calculate the top margin required to make them
 // full height.
 .mw-mmv-stripe-button {
-	@button-text-color: rgb(136, 136, 136);
+	@button-text-color: rgb( 136, 136, 136 );
 
 	float: right;
 	margin-top: @metadatabar-above-fold-inner-height - ( @button-height + 2 * @button-vertical-padding );
@@ -39,7 +39,7 @@
 		vertical-align: baseline;
 
 		/* @embed */
-		background-image: url(img/page.svg);
+		background-image: url( img/page.svg );
 
 		margin-right: 0.7em;
 	}
@@ -51,14 +51,14 @@
 	&.mw-mmv-description-page-button:active,
 	&.mw-mmv-description-page-button:visited {
 		border-radius: 4px;
-		color: white;
+		color: #fff;
 		padding: 7px 16px;
 		margin: 7px 10px;
 	}
 
 	&.mw-mmv-description-page-button.mw-mmv-repo-button-commons:before {
 		/* @embed */
-		background-image: url(img/commons_white.svg);
+		background-image: url( img/commons_white.svg );
 		width: 1.3em;
 		height: 1.3em;
 		position: relative;
