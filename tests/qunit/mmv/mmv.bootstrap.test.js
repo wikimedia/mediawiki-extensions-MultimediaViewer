@@ -52,6 +52,8 @@
 	function createBootstrap( viewer ) {
 		var bootstrap = new mw.mmv.MultimediaViewerBootstrap();
 
+		bootstrap.processThumbs( $( '#qunit-fixture' ) );
+
 		// MultimediaViewerBootstrap.ensureEventHandlersAreSetUp() is a weird workaround for gadget bugs.
 		// MediaViewer should work without it, and so should the tests.
 		bootstrap.ensureEventHandlersAreSetUp = $.noop;
