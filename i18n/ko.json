@@ -55,7 +55,7 @@
 	"multimediaviewer-embed-explanation": "파일을 포함하려면 이 코드 사용",
 	"multimediaviewer-embed-byline": "$1 만듦",
 	"multimediaviewer-embed-license": "$1로 라이선스됨.",
-	"multimediaviewer-embed-via": "$1(을)를 통해.",
+	"multimediaviewer-embed-via": "$1을(를) 통해.",
 	"multimediaviewer-default-embed-dimensions": "기본 섬네일 크기",
 	"multimediaviewer-original-embed-dimensions": "원본 파일 $1",
 	"multimediaviewer-large-embed-dimensions": "큰 크기 $1",
