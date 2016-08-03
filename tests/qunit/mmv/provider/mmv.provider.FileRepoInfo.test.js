@@ -43,7 +43,7 @@
 								descBaseUrl: '//commons.wikimedia.beta.wmflabs.org/wiki/File:',
 								scriptDirUrl: '//commons.wikimedia.beta.wmflabs.org/w',
 								fetchDescription: true,
-								favicon: 'http://bits.wikimedia.org/favicon/wikipedia.ico'
+								favicon: 'http://en.wikipedia.org/favicon.ico'
 							},
 							{
 								name: 'wikimediacommons',
@@ -59,7 +59,7 @@
 								apiurl: 'http://commons.wikimedia.org/w/api.php',
 								articlepath: '/wiki/$1',
 								server: '//commons.wikimedia.org',
-								favicon: '//bits.wikimedia.org/favicon/commons.ico'
+								favicon: '//commons.wikimedia.org/favicon.ico'
 							},
 							{
 								name: 'local',
@@ -70,7 +70,7 @@
 								thumbUrl: '//upload.beta.wmflabs.org/wikipedia/en/thumb',
 								initialCapital: true,
 								scriptDirUrl: '/w',
-								favicon: 'http://bits.wikimedia.org/favicon/wikipedia.ico'
+								favicon: 'http://en.wikipedia.org/favicon.ico'
 							}
 						]
 					}
@@ -82,7 +82,7 @@
 			assert.strictEqual( repos.shared.displayName,
 				'Wikimedia Commons', 'displayName is set correctly' );
 			assert.strictEqual( repos.shared.favIcon,
-				'http://bits.wikimedia.org/favicon/wikipedia.ico', 'favIcon is set correctly' );
+				'http://en.wikipedia.org/favicon.ico', 'favIcon is set correctly' );
 			assert.strictEqual( repos.shared.isLocal, false, 'isLocal is set correctly' );
 			assert.strictEqual( repos.shared.descBaseUrl,
 				'//commons.wikimedia.beta.wmflabs.org/wiki/File:', 'descBaseUrl is set correctly' );
@@ -90,7 +90,7 @@
 			assert.strictEqual( repos.wikimediacommons.displayName,
 				'Wikimedia Commons', 'displayName is set correctly' );
 			assert.strictEqual( repos.wikimediacommons.favIcon,
-				'//bits.wikimedia.org/favicon/commons.ico', 'favIcon is set correctly' );
+				'//commons.wikimedia.org/favicon.ico', 'favIcon is set correctly' );
 			assert.strictEqual( repos.wikimediacommons.isLocal, false, 'isLocal is set correctly' );
 			assert.strictEqual( repos.wikimediacommons.apiUrl,
 				'http://commons.wikimedia.org/w/api.php', 'apiUrl is set correctly' );
@@ -101,7 +101,7 @@
 
 			assert.strictEqual( repos.local.displayName, null, 'displayName is set correctly' );
 			assert.strictEqual( repos.local.favIcon,
-				'http://bits.wikimedia.org/favicon/wikipedia.ico', 'favIcon is set correctly' );
+				'http://en.wikipedia.org/favicon.ico', 'favIcon is set correctly' );
 			assert.strictEqual( repos.local.isLocal, true, 'isLocal is set correctly' );
 		} ).then( function () {
 			// call the data provider a second time to check caching
