@@ -190,7 +190,7 @@ class MultimediaViewerHooks {
 	/**
 	 * Get modules for testing our JavaScript
 	 * @param array $testModules
-	 * @param ResourceLoader resourceLoader
+	 * @param ResourceLoader &$resourceLoader
 	 * @return bool
 	 */
 	public static function getTestModules( array &$testModules, ResourceLoader &$resourceLoader ) {
