@@ -25,7 +25,7 @@ mw-vagrant-guest:
 
 beta:
   browser_useragent: test-user-agent
-  mediawiki_url: http://en.wikipedia.beta.wmflabs.org/wiki/
+  mediawiki_url: https://en.wikipedia.beta.wmflabs.org/wiki/
   mediawiki_user: Selenium_user
   # mediawiki_password: SET THIS IN THE ENVIRONMENT!
 
