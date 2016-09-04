@@ -96,6 +96,7 @@
 	"multimediaviewer-html-embed-credit-text-bl": "By $1, $2, $3",
 	"multimediaviewer-html-embed-credit-text-b": "By $1, $2",
 	"multimediaviewer-html-embed-credit-text-l": "$1, $2",
+	"multimediaviewer-html-embed-credit-link-text": "Link",
 	"multimediaviewer-embed-byline": "By $1",
 	"multimediaviewer-embed-license": "Licensed under $1.",
 	"multimediaviewer-embed-license-nonfree": "$1.",

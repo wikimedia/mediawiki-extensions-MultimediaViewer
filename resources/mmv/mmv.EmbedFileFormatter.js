@@ -163,7 +163,7 @@
 	EFFP.getCreditHtml = function ( info ) {
 		var creditText, creditParams,
 			shortURL = info.imageInfo.descriptionShortUrl,
-			shortLink = this.htmlUtils.makeLinkText( shortURL, { href: shortURL } ),
+			shortLink = this.htmlUtils.makeLinkText( mw.message( 'multimediaviewer-html-embed-credit-link-text' ), { href: shortURL } ),
 			license = info.imageInfo.license,
 			byline = this.getByline( info.imageInfo.author, info.imageInfo.source, info.imageInfo.attribution );
 

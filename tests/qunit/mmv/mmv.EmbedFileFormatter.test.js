@@ -258,14 +258,14 @@
 			imageInfo: {
 				author: 'Author',
 				source: 'Source',
-				descriptionShortUrl: 'link',
+				descriptionShortUrl: 'some link',
 				title: {
 					getNameText: function () { return 'Image Title'; }
 				}
 			}
 		} );
 
-		assert.strictEqual( html, 'By Author - Source, <a href="link">link</a>', 'Sanity check' );
+		assert.strictEqual( html, 'By Author - Source, <a href="some link">Link</a>', 'Sanity check' );
 
 		html = formatter.getCreditHtml( {
 			repoInfo: {
@@ -276,7 +276,7 @@
 			imageInfo: {
 				author: 'Author',
 				source: 'Source',
-				descriptionShortUrl: 'link',
+				descriptionShortUrl: 'some link',
 				title: {
 					getNameText: function () { return 'Image Title'; }
 				},
@@ -288,6 +288,6 @@
 			}
 		} );
 
-		assert.strictEqual( html, 'By Author - Source, <a href="http://www.wtfpl.net/">WTFPL v2</a>, <a href="link">link</a>', 'Sanity check' );
+		assert.strictEqual( html, 'By Author - Source, <a href="http://www.wtfpl.net/">WTFPL v2</a>, <a href="some link">Link</a>', 'Sanity check' );
 	} );
 }( mediaWiki ) );

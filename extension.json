@@ -232,7 +232,8 @@
 				"multimediaviewer-text-embed-credit-text-l",
 				"multimediaviewer-html-embed-credit-text-bl",
 				"multimediaviewer-html-embed-credit-text-b",
-				"multimediaviewer-html-embed-credit-text-l"
+				"multimediaviewer-html-embed-credit-text-l",
+				"multimediaviewer-html-embed-credit-link-text"
 			]
 		},
 		"mmv.ui.download.pane": {
