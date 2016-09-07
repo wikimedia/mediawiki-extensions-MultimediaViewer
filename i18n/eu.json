@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Subi"
+			"Subi",
+			"Sator"
 		]
 	},
 	"multimediaviewer-repository-local": "Xehetasun gehiago",
@@ -9,6 +10,8 @@
 	"multimediaviewer-permission-viewmore": "Ikusi gehiago",
 	"multimediaviewer-help-mmv": "Laguntza",
 	"multimediaviewer-reuse-loading-placeholder": "Kargatzen...",
+	"multimediaviewer-download-preview-link-title": "Nabigatzailean ikusi",
+	"multimediaviewer-view-expanded": "Media Viewerren ireki",
 	"multimediaviewer-options-learn-more": "Gehiago ikasi",
 	"multimediaviewer-option-cancel-button": "Utzi"
 }
