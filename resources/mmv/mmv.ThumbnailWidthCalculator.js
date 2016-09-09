@@ -37,7 +37,7 @@
 	 *     will be autodetected if omitted
 	 */
 	function ThumbnailWidthCalculator( options ) {
-		options = $.extend( {}, this.defaultOptions, options  );
+		options = $.extend( {}, this.defaultOptions, options );
 
 		if ( !options.widthBuckets.length ) {
 			throw 'No buckets!';

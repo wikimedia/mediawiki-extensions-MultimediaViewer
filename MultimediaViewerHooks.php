@@ -284,10 +284,10 @@ class MultimediaViewerHooks {
 	 */
 	public static function resourceLoaderGetConfigVars( &$vars ) {
 		global $wgMediaViewerActionLoggingSamplingFactorMap, $wgMediaViewerNetworkPerformanceSamplingFactor,
-		       $wgMediaViewerDurationLoggingSamplingFactor, $wgMediaViewerDurationLoggingLoggedinSamplingFactor,
-		       $wgMediaViewerAttributionLoggingSamplingFactor, $wgMediaViewerDimensionLoggingSamplingFactor,
-		       $wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing, $wgMediaViewerImageQueryParameter,
-		       $wgMediaViewerRecordVirtualViewBeaconURI, $wgMediaViewerExtensions;
+			$wgMediaViewerDurationLoggingSamplingFactor, $wgMediaViewerDurationLoggingLoggedinSamplingFactor,
+			$wgMediaViewerAttributionLoggingSamplingFactor, $wgMediaViewerDimensionLoggingSamplingFactor,
+			$wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing, $wgMediaViewerImageQueryParameter,
+			$wgMediaViewerRecordVirtualViewBeaconURI, $wgMediaViewerExtensions;
 
 		$vars['wgMultimediaViewer'] = array(
 			'infoLink' => self::$infoLink,
