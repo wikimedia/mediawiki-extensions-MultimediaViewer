@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"عثمان خان شاہ"
+			"عثمان خان شاہ",
+			"Muhammad Shuaib"
 		]
 	},
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About میڈیا نمائش گر]</span> کو فعال کریں",
 	"multimediaviewer-metadata-error": "تصویر کے تفصیلات دکھانے میں ناکام ہوگے (error: $1)",
 	"multimediaviewer-thumbnail-error": "معذرت کے ساتھ، یہ ملف نہیں دکھایا جاسکتا",
 	"multimediaviewer-thumbnail-error-retry": "دوبارہ کوشش کریں"
