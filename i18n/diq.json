@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mirzali"
+			"Mirzali",
+			"Asmen"
 		]
 	},
 	"multimediaviewer-permission-viewmore": "Zêde bıvêne",
+	"multimediaviewer-discuss-mmv": "Werênayış",
 	"multimediaviewer-option-cancel-button": "Bıtexelne"
 }
