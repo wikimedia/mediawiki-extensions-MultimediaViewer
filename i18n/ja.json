@@ -91,6 +91,7 @@
 	"multimediaviewer-options-dialog-header": "メディアビューアーを無効にしますか?",
 	"multimediaviewer-options-text-header": "全てのファイルでこの表示機能をスキップします。",
 	"multimediaviewer-options-text-body": "後にファイルの詳細のページからそれを有効にすることができます。",
+	"multimediaviewer-options-learn-more": "詳細",
 	"multimediaviewer-option-submit-button": "メディアビューアーを無効にする",
 	"multimediaviewer-option-cancel-button": "中止",
 	"multimediaviewer-disable-confirmation-header": "メディアビューアーは無効になりました。",
