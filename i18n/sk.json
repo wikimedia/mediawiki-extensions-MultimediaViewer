@@ -7,6 +7,7 @@
 	},
 	"multimediaviewer-desc": "Zobrazí náhľady obrázkov na celú obrazovku.",
 	"multimediaviewer-pref": "Prehliadač médií",
+	"multimediaviewer-optin-pref": "Zapnúť <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Prehliadač médií]</span>",
 	"multimediaviewer-repository-local": "Viac informácií",
 	"multimediaviewer-datetime-created": "Vytvorené: $1",
 	"multimediaviewer-datetime-uploaded": "Nahrané: $1",
@@ -65,5 +66,6 @@
 	"multimediaviewer-credit-popup-text-more": "Zobraziť úplné informácie o autorovi a zdroji",
 	"multimediaviewer-download-attribution-cta-header": "Musíte uviesť autora",
 	"multimediaviewer-download-optional-attribution-cta-header": "Môžete uviesť autora",
-	"multimediaviewer-download-attribution-cta": "Ukážte mi ako"
+	"multimediaviewer-download-attribution-cta": "Ukážte mi ako",
+	"multimediaviewer-option-submit-button": "Vypnúť Prehliadač médií"
 }

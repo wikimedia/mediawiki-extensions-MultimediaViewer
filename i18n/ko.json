@@ -54,6 +54,7 @@
 	"multimediaviewer-embed-wt": "위키텍스트",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "파일을 포함하려면 이 코드 사용",
+	"multimediaviewer-html-embed-credit-link-text": "링크",
 	"multimediaviewer-embed-byline": "$1 만듦",
 	"multimediaviewer-embed-license": "$1로 라이선스됨.",
 	"multimediaviewer-embed-via": "$1을(를) 통해.",

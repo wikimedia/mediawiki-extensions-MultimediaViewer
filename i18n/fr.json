@@ -86,6 +86,7 @@
 	"multimediaviewer-text-embed-credit-text-b": "Par $1, $2",
 	"multimediaviewer-html-embed-credit-text-bl": "Par $1, $2, $3",
 	"multimediaviewer-html-embed-credit-text-b": "Par $1, $2",
+	"multimediaviewer-html-embed-credit-link-text": "Lien",
 	"multimediaviewer-embed-byline": "Par $1",
 	"multimediaviewer-embed-license": "Sous licence $1.",
 	"multimediaviewer-embed-via": "Via $1.",

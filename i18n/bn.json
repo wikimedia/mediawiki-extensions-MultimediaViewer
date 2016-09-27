@@ -81,6 +81,7 @@
 	"multimediaviewer-text-embed-credit-text-b": "$1 কর্তৃক, $2",
 	"multimediaviewer-html-embed-credit-text-bl": "$1 কর্তৃক, $2, $3",
 	"multimediaviewer-html-embed-credit-text-b": "$1 কর্তৃক, $2",
+	"multimediaviewer-html-embed-credit-link-text": "সংযোগ",
 	"multimediaviewer-embed-byline": "$1 কর্তৃক",
 	"multimediaviewer-embed-license": "$1-এর অধীনে লাইসেন্সকৃত।",
 	"multimediaviewer-embed-via": "$1 হয়ে।",

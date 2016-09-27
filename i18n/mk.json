@@ -80,6 +80,7 @@
 	"multimediaviewer-text-embed-credit-text-b": "Од $1, $2",
 	"multimediaviewer-html-embed-credit-text-bl": "Од $1, $2, $3",
 	"multimediaviewer-html-embed-credit-text-b": "Од $1, $2",
+	"multimediaviewer-html-embed-credit-link-text": "Врска",
 	"multimediaviewer-embed-byline": "Од $1",
 	"multimediaviewer-embed-license": "Под лиценцата $1.",
 	"multimediaviewer-embed-via": "Преку $1.",
