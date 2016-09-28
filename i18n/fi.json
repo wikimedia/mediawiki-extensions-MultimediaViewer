@@ -7,7 +7,8 @@
 			"ElmA",
 			"Pxos",
 			"MrTapsa",
-			"McSalama"
+			"McSalama",
+			"Pyscowicz"
 		]
 	},
 	"multimediaviewer-desc": "Näytä pienoiskuvat suuremmassa koossa kokoruututilassa.",
@@ -18,7 +19,6 @@
 	"multimediaviewer-repository-local": "Lisätiedot",
 	"multimediaviewer-datetime-created": "Luotu: $1",
 	"multimediaviewer-datetime-uploaded": "Tallennettu: $1",
-	"multimediaviewer-userpage-link": "{{GENDER:$2|Tallentanut}} $1",
 	"multimediaviewer-credit-fallback": "Näytä tekijätiedot",
 	"multimediaviewer-metadata-error": "Kuvan tietoja ei voitu ladata (virhe: $1)",
 	"multimediaviewer-thumbnail-error": "Pahoittelut, tiedostoa ei voi näyttää",
@@ -53,9 +53,7 @@
 	"multimediaviewer-embed-wt": "Wikiteksti",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "Käytä tätä koodia tiedoston sijoittamiseksi kohteeseen",
-	"multimediaviewer-html-embed-credit-text-tbl": "\"$1\" käyttäjältä $2. Käytettävissä lisenssillä $3.",
-	"multimediaviewer-html-embed-credit-text-tb": "\"$1\" käyttäjältä $2.",
-	"multimediaviewer-html-embed-credit-text-tl": "\"$1\". Käytettävissä lisenssillä $2.",
+	"multimediaviewer-html-embed-credit-link-text": "Linkki",
 	"multimediaviewer-embed-byline": "Tekijä on $1",
 	"multimediaviewer-embed-license": "Lisensoitu lisenssillä $1.",
 	"multimediaviewer-default-embed-dimensions": "Pienoiskuvien oletuskoko",

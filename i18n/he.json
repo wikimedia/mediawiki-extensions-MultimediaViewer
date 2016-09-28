@@ -6,7 +6,8 @@
 			"בנימין",
 			"Yona b",
 			"Eladk",
-			"ערן"
+			"ערן",
+			"Guycn2"
 		]
 	},
 	"multimediaviewer-desc": "הגדלת תמונות ממוזערות למסך מלא.",
@@ -81,6 +82,7 @@
 	"multimediaviewer-text-embed-credit-text-b": "מאת $1, $2",
 	"multimediaviewer-html-embed-credit-text-bl": "מאת $1, $2, $3",
 	"multimediaviewer-html-embed-credit-text-b": "מאת $1, $2",
+	"multimediaviewer-html-embed-credit-link-text": "קישור",
 	"multimediaviewer-embed-byline": "מאת $1",
 	"multimediaviewer-embed-license": "ברישיון $1.",
 	"multimediaviewer-embed-via": "דרך $1.",
