@@ -13,7 +13,8 @@
 			"NigelSoft",
 			"Liangent",
 			"Papapasan",
-			"Linforest"
+			"Linforest",
+			"Hydra"
 		]
 	},
 	"multimediaviewer-desc": "在全屏界面中以较大尺寸显示缩略图。",
@@ -100,6 +101,7 @@
 	"multimediaviewer-text-embed-credit-text-b": "由$1，$2",
 	"multimediaviewer-html-embed-credit-text-bl": "由$1，$2，$3",
 	"multimediaviewer-html-embed-credit-text-b": "由$1，$2",
+	"multimediaviewer-html-embed-credit-link-text": "链接",
 	"multimediaviewer-embed-byline": "作者$1",
 	"multimediaviewer-embed-license": "采用$1授权。",
 	"multimediaviewer-embed-via": "来自$1。",
