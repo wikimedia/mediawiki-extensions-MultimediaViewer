@@ -63,6 +63,7 @@
 	"multimediaviewer-embed-wt": "Wikikod",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "Wykorzystaj ten kod do osadzenia pliku",
+	"multimediaviewer-html-embed-credit-link-text": "Link",
 	"multimediaviewer-embed-byline": "Autor: $1",
 	"multimediaviewer-embed-license": "Licencja: $1.",
 	"multimediaviewer-embed-via": "Na podstawie $1",

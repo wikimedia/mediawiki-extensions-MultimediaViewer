@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Dbc334",
-			"Eleassar"
+			"Eleassar",
+			"Pickle12"
 		]
 	},
 	"multimediaviewer-desc": "Razširitev sličic v večji velikosti v celozaslonskem vmesniku.",
@@ -38,6 +39,7 @@
 	"multimediaviewer-embed-wt": "Wikibesedilo",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "Uporabite to kodo za vdelavo datoteke",
+	"multimediaviewer-html-embed-credit-link-text": "Povezava",
 	"multimediaviewer-default-embed-dimensions": "Privzeta velikost sličice",
 	"multimediaviewer-original-embed-dimensions": "Izvirna datoteka $1",
 	"multimediaviewer-large-embed-dimensions": "Velika $1",
