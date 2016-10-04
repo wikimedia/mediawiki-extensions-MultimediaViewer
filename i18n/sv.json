@@ -68,6 +68,7 @@
 	"multimediaviewer-text-embed-credit-text-b": "Av $1, $2",
 	"multimediaviewer-html-embed-credit-text-bl": "Av $1, $2, $3",
 	"multimediaviewer-html-embed-credit-text-b": "Av $1, $2",
+	"multimediaviewer-html-embed-credit-link-text": "Länk",
 	"multimediaviewer-embed-byline": "Av $1",
 	"multimediaviewer-embed-license": "Licenserat under $1.",
 	"multimediaviewer-embed-via": "Via $1.",
