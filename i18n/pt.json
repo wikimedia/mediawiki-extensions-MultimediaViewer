@@ -5,14 +5,15 @@
 			"Imperadeiro98",
 			"SandroHc",
 			"Vitorvicentevalente",
-			"Macofe"
+			"Macofe",
+			"Hamilton Abreu"
 		]
 	},
 	"multimediaviewer-desc": "Expandir miniaturas num tamanho maior numa interface em ecrã cheio.",
 	"multimediaviewer-pref": "Visualizador Multimédia",
 	"multimediaviewer-pref-desc": "Melhore a sua experiência de visualização multimédia com esta nova ferramenta. Ela exibe imagens em tamanho maior nas páginas que possuam miniaturas. As imagens são mostradas em uma agradável sobreposição em ecrã cheio, e também podem ser visualizadas em tamanho real.",
 	"multimediaviewer-optin-pref": "Activar <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Visualizador Multimédia]</span>",
-	"multimediaviewer-file-page": "Ir para a página correspondente ao arquivo",
+	"multimediaviewer-file-page": "Ir para a página de ficheiro correspondente",
 	"multimediaviewer-repository-local": "Mais detalhes",
 	"multimediaviewer-datetime-created": "Criação: $1",
 	"multimediaviewer-datetime-uploaded": "Carregamento: $1",
