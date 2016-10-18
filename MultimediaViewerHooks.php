@@ -158,7 +158,7 @@ class MultimediaViewerHooks {
 		global $wgMediaViewerEnableByDefault;
 
 		if ( $wgMediaViewerEnableByDefault ) {
-			$defaultOptions['multimediaviewer-enable'] = true;
+			$defaultOptions['multimediaviewer-enable'] = 1;
 		}
 
 		return true;
