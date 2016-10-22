@@ -78,6 +78,7 @@
 	"multimediaviewer-text-embed-credit-text-b": "Автор: $1, $2",
 	"multimediaviewer-html-embed-credit-text-bl": "Автор: $1, $2, $3",
 	"multimediaviewer-html-embed-credit-text-b": "Автор: $1, $2",
+	"multimediaviewer-html-embed-credit-link-text": "Посилання",
 	"multimediaviewer-embed-byline": "Від $1",
 	"multimediaviewer-embed-license": "Під ліцензією $1.",
 	"multimediaviewer-embed-via": "Через $1.",
