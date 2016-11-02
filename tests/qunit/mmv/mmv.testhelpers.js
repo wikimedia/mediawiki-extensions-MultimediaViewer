@@ -35,7 +35,8 @@
 	 * @param {Object} [initialData]
 	 */
 	MTH.getFakeLocalStorage = function ( initialData ) {
-		var bag = new mw.Map( initialData );
+		var bag = new mw.Map( false );
+		bag.set( initialData );
 
 		return {
 			getItem: function ( key ) { return bag.get( key ); },
