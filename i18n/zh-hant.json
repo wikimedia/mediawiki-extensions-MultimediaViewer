@@ -57,6 +57,7 @@
 	"multimediaviewer-embed-wt": "Wikitext",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "使用此程式碼內嵌該檔案",
+	"multimediaviewer-html-embed-credit-link-text": "連結",
 	"multimediaviewer-embed-byline": "由 $1",
 	"multimediaviewer-embed-license": "使用 $1 條款授權。",
 	"multimediaviewer-embed-via": "來自 $1。",
