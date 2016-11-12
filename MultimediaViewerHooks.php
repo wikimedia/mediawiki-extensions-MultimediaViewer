@@ -211,7 +211,7 @@ class MultimediaViewerHooks {
 		$pageHasThumbnails = count( $out->getFileSearchOptions() ) > 0;
 		$pageIsFilePage = $out->getTitle()->inNamespace( NS_FILE );
 		$fileRelatedSpecialPages = array( 'NewFiles', 'ListFiles', 'MostLinkedFiles',
-			'MostGloballyLinkedFiles', 'UncategorizedFiles', 'UnusedFiles' );
+			'MostGloballyLinkedFiles', 'UncategorizedFiles', 'UnusedFiles', 'Search' );
 		$pageIsFileRelatedSpecialPage = $out->getTitle()->inNamespace( NS_SPECIAL )
 			&& in_array( $out->getTitle()->getText(), $fileRelatedSpecialPages );
 
