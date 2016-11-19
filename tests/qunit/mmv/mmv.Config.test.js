@@ -136,7 +136,7 @@
 	QUnit.test( 'setMediaViewerEnabledOnClick sanity check', 3, function ( assert ) {
 		var localStorage = { getItem: this.sandbox.stub(), setItem: this.sandbox.stub(), removeItem: this.sandbox.stub() },
 			mwUser = { isAnon: this.sandbox.stub() },
-			mwConfig = new mw.Map( false ),
+			mwConfig = new mw.Map(),
 			api = { postWithToken: this.sandbox.stub().returns( $.Deferred().resolve() ) },
 			config = new mw.mmv.Config( {}, mwConfig, mwUser, api, localStorage );
 		mwConfig.set( 'wgMediaViewerEnabledByDefault', false );
@@ -177,7 +177,7 @@
 
 	QUnit.test( 'shouldShowStatusInfo', 12, function ( assert ) {
 		var config,
-			mwConfig = new mw.Map( false ),
+			mwConfig = new mw.Map(),
 			fakeLocalStorage = mw.mmv.testHelpers.getFakeLocalStorage(),
 			mwUser = { isAnon: this.sandbox.stub() },
 			api = { postWithToken: this.sandbox.stub().returns( $.Deferred().resolve() ) };
