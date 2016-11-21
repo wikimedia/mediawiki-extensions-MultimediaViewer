@@ -431,8 +431,9 @@
 		var trackedWidths = mw.mmv.ThumbnailWidthCalculator.prototype.defaultOptions.widthBuckets.slice( 0 );
 		trackedWidths.push( 600 ); // Most common non-bucket size
 
-		// Track thumbnail load time with statsv, unsampled
-		if ( data.type === 'image' &&
+		// Track thumbnail load time with statsv, sampled
+		if ( this.isInSample() &&
+			data.type === 'image' &&
 			data.imageWidth > 0 &&
 			data.total > 20 &&
 			$.inArray( data.imageWidth, trackedWidths ) !== -1
