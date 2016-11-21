@@ -1,23 +1,18 @@
 @import '../mmv.globals';
 @import '../mmv.mixins';
 
-@shadow-color: #aaa;
 @divider-border-height: 1px;
 
 .mw-mmv-options-dialog {
 	@offset-top: ( @buttons-offset-right + ( 2 * @buttons-offset-each-top ) + 6px );
 
 	top: @offset-top;
-
 	height: auto;
-
 	z-index: 1004;
-
 	padding: 15px;
 
 	&.mw-mmv-enable-confirmation-shown {
 		background-color: #00af89;
-
 		box-shadow: 0 2px 0 #00634e;
 
 		.mw-mmv-dialog-down-arrow {
@@ -26,16 +21,16 @@
 	}
 
 	&.mw-mmv-disable-confirmation-shown {
-		background-color: #eee;
+		background-color: #eaecf0;
 
 		.mw-mmv-dialog-down-arrow {
-			background-color: #eee;
+			background-color: #eaecf0;
 		}
 	}
 
 	&.mw-mmv-enable-div-shown {
 		.mw-mmv-dialog-down-arrow {
-			background-color: #eee;
+			background-color: #eaecf0;
 		}
 	}
 
@@ -76,12 +71,12 @@
 
 	.mw-mmv-disable-confirmation {
 		.mw-mmv-options-dialog-header {
-			color: #333;
+			color: #222;
 			padding: 0;
 		}
 
 		.mw-mmv-options-text-header {
-			color: #555;
+			color: #222;
 		}
 	}
 
@@ -134,12 +129,11 @@
 }
 
 .mw-mmv-options-icon {
+	/* @embed */
+	background-image: url( img/icon_mmv.svg );
 	float: left;
 	width: 58px;
 	height: 52px;
-
-	/* @embed */
-	background-image: url( img/icon_mmv.svg );
 }
 
 .mw-mmv-options-cancel-button,
@@ -151,7 +145,7 @@
 	padding-top: 0;
 	font-weight: normal;
 	font-size: 1.25em;
-	color: #333;
+	color: #222;
 
 	.mw-mmv-options-enable & {
 		top: 35px;
@@ -166,20 +160,18 @@
 
 .mw-mmv-options-text-body {
 	font-size: 0.9em;
-	color: #777;
+	color: #72777d;
 }
 
 .mw-mmv-options-enable-alert {
+	background-color: #eaecf0;
+	color: #222;
 	position: absolute;
 	left: -15px;
 	right: -15px;
 	top: -15px;
-
+	border-top-right-radius: 2px;
+	border-top-left-radius: 2px;
 	padding: 10px 15px;
-
-	background-color: #eee;
-	border-top-right-radius: 3px;
-	border-top-left-radius: 3px;
-	color: #555;
 	font-weight: 500;
 }
