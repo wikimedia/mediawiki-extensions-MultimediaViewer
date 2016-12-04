@@ -159,13 +159,13 @@ class MultimediaViewerHooks {
 	}
 
 	public static function onEventLoggingRegisterSchemas( array &$schemas ) {
-		 $schemas += array(
+		 $schemas += [
 			'MediaViewer' => 10867062,
 			'MultimediaViewerNetworkPerformance' => 15573630,
 			'MultimediaViewerDuration' => 10427980,
 			'MultimediaViewerAttribution' => 9758179,
 			'MultimediaViewerDimensions' => 10014238,
-		);
+		];
 	}
 
 	/**
@@ -194,7 +194,7 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	protected static function getModules( &$out ) {
-		$out->addModules( array( 'mmv.head', 'mmv.bootstrap.autostart' ) );
+		$out->addModules( [ 'mmv.head', 'mmv.bootstrap.autostart' ] );
 
 		return true;
 	}
@@ -210,8 +210,8 @@ class MultimediaViewerHooks {
 	public static function getModulesForArticle( &$out, &$skin ) {
 		$pageHasThumbnails = count( $out->getFileSearchOptions() ) > 0;
 		$pageIsFilePage = $out->getTitle()->inNamespace( NS_FILE );
-		$fileRelatedSpecialPages = array( 'NewFiles', 'ListFiles', 'MostLinkedFiles',
-			'MostGloballyLinkedFiles', 'UncategorizedFiles', 'UnusedFiles', 'Search' );
+		$fileRelatedSpecialPages = [ 'NewFiles', 'ListFiles', 'MostLinkedFiles',
+			'MostGloballyLinkedFiles', 'UncategorizedFiles', 'UnusedFiles', 'Search' ];
 		$pageIsFileRelatedSpecialPage = $out->getTitle()->inNamespace( NS_SPECIAL )
 			&& in_array( $out->getTitle()->getText(), $fileRelatedSpecialPages );
 
@@ -247,17 +247,17 @@ class MultimediaViewerHooks {
 			return true;
 		}
 
-		$prefs['multimedia-viewer'] = array(
+		$prefs['multimedia-viewer'] = [
 			'label-message' => 'multimediaviewer-pref',
 			'desc-message' => 'multimediaviewer-pref-desc',
 			'info-link' => self::$infoLink,
 			'discussion-link' => self::$discussionLink,
 			'help-link' => self::$helpLink,
-			'screenshot' => array(
+			'screenshot' => [
 				'ltr' => "$wgExtensionAssetsPath/MultimediaViewer/viewer-ltr.svg",
 				'rtl' => "$wgExtensionAssetsPath/MultimediaViewer/viewer-rtl.svg",
-			),
-		);
+			],
+		];
 
 		return true;
 	}
@@ -267,11 +267,11 @@ class MultimediaViewerHooks {
 		global $wgMediaViewerIsInBeta;
 
 		if ( !$wgMediaViewerIsInBeta ) {
-			$prefs['multimediaviewer-enable'] = array(
+			$prefs['multimediaviewer-enable'] = [
 				'type' => 'toggle',
 				'label-message' => 'multimediaviewer-optin-pref',
 				'section' => 'rendering/files',
-			);
+			];
 		}
 
 		return true;
@@ -289,7 +289,7 @@ class MultimediaViewerHooks {
 			$wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing, $wgMediaViewerImageQueryParameter,
 			$wgMediaViewerRecordVirtualViewBeaconURI, $wgMediaViewerExtensions;
 
-		$vars['wgMultimediaViewer'] = array(
+		$vars['wgMultimediaViewer'] = [
 			'infoLink' => self::$infoLink,
 			'discussionLink' => self::$discussionLink,
 			'helpLink' => self::$helpLink,
@@ -304,7 +304,7 @@ class MultimediaViewerHooks {
 			'recordVirtualViewBeaconURI' => $wgMediaViewerRecordVirtualViewBeaconURI,
 			'tooltipDelay' => 1000,
 			'extensions' => $wgMediaViewerExtensions,
-		);
+		];
 		$vars['wgMediaViewer'] = true;
 		$vars['wgMediaViewerIsInBeta'] = $wgMediaViewerIsInBeta;
 
@@ -332,8 +332,8 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	public static function getTestModules( array &$testModules, ResourceLoader &$resourceLoader ) {
-		$testModules['qunit']['mmv.tests'] = array(
-			'scripts' => array(
+		$testModules['qunit']['mmv.tests'] = [
+			'scripts' => [
 				'tests/qunit/mmv/mmv.bootstrap.test.js',
 				'tests/qunit/mmv/mmv.test.js',
 				'tests/qunit/mmv/mmv.lightboxinterface.test.js',
@@ -383,8 +383,8 @@ class MultimediaViewerHooks {
 				'tests/qunit/mmv/ui/mmv.ui.truncatableTextField.test.js',
 				'tests/qunit/mmv/ui/mmv.ui.viewingOptions.test.js',
 				'tests/qunit/mmv/mmv.testhelpers.js',
-			),
-			'dependencies' => array(
+			],
+			'dependencies' => [
 				'mmv.head',
 				'mmv.bootstrap',
 				'mmv',
@@ -393,10 +393,10 @@ class MultimediaViewerHooks {
 				'mmv.ui.download.pane',
 				'mmv.ui.tipsyDialog',
 				'moment',
-			),
+			],
 			'localBasePath' => __DIR__,
 			'remoteExtPath' => 'MultimediaViewer',
-		);
+		];
 
 		return true;
 	}
