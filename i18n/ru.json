@@ -72,6 +72,7 @@
 	"multimediaviewer-text-embed-credit-text-b": "Автор: $1, $2",
 	"multimediaviewer-html-embed-credit-text-bl": "Автор: $1, $2, $3",
 	"multimediaviewer-html-embed-credit-text-b": "Автор: $1, $2",
+	"multimediaviewer-html-embed-credit-link-text": "Ссылка",
 	"multimediaviewer-embed-byline": "Участника $1",
 	"multimediaviewer-embed-license": "Под лицензией $1.",
 	"multimediaviewer-embed-via": "Через $1.",
