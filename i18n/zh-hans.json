@@ -14,7 +14,8 @@
 			"Liangent",
 			"Papapasan",
 			"Linforest",
-			"Hydra"
+			"Hydra",
+			"飞舞回堂前"
 		]
 	},
 	"multimediaviewer-desc": "在全屏界面中以较大尺寸显示缩略图。",
@@ -29,7 +30,7 @@
 	"multimediaviewer-multiple-authors": "{{PLURAL:$1|$1位更多作者}}",
 	"multimediaviewer-multiple-authors-combine": "$1和$2",
 	"multimediaviewer-metadata-error": "无法加载图片的详细信息（错误：$1）",
-	"multimediaviewer-thumbnail-error": "抱歉，文件不能被显示",
+	"multimediaviewer-thumbnail-error": "抱歉，文件无法显示",
 	"multimediaviewer-thumbnail-error-description": "看起来发生了技术问题。您可以$1，或如果仍然发生，可$3。错误：$2",
 	"multimediaviewer-thumbnail-error-retry": "重试",
 	"multimediaviewer-thumbnail-error-report": "报告问题",
