@@ -51,10 +51,12 @@
 	 */
 	L.schema = 'MultimediaViewerDuration';
 
+	// eslint-disable-next-line valid-jsdoc
 	/**
 	 * Saves the start of a duration
 	 *
 	 * @param {string|string[]} typeOrTypes Type(s) of duration being measured.
+	 * @chainable
 	 */
 	L.start = function ( typeOrTypes ) {
 		var i,
@@ -78,11 +80,13 @@
 		return this;
 	};
 
+	// eslint-disable-next-line valid-jsdoc
 	/**
 	 * Saves the stop of a duration
 	 *
 	 * @param {string} type Type of duration being measured.
 	 * @param {number} start Start timestamp to substitute the one coming from start()
+	 * @chainable
 	 */
 	L.stop = function ( type, start ) {
 		var stop = $.now();
@@ -104,11 +108,13 @@
 		return this;
 	};
 
+	// eslint-disable-next-line valid-jsdoc
 	/**
 	 * Records the duration log event
 	 *
 	 * @param {string} type Type of duration being measured.
 	 * @param {Object} extraData Extra information to add to the log event data
+	 * @chainable
 	 */
 	L.record = function ( type, extraData ) {
 		var e, duration;

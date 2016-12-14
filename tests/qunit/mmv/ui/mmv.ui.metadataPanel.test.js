@@ -115,7 +115,7 @@
 			},
 			oldMoment = window.moment;
 
-		/*window.moment = function ( date ) {
+		/* window.moment = function ( date ) {
 			// This has no effect for now, since writing this test revealed that our moment.js
 			// doesn't have any language configuration
 			return oldMoment( date ).lang( 'fr' );
@@ -187,13 +187,13 @@
 	} );
 
 	QUnit.test( 'About links', 3, function ( assert ) {
-		var panel,
-			$qf = $( '#qunit-fixture' ),
+		var $qf = $( '#qunit-fixture' ),
 			oldWgMediaViewerIsInBeta = mw.config.get( 'wgMediaViewerIsInBeta' );
 
 		this.sandbox.stub( mw.user, 'isAnon' );
 		mw.config.set( 'wgMediaViewerIsInBeta', false );
-		panel = new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) );
+		// eslint-disable-next-line no-new
+		new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) );
 
 		assert.strictEqual( $qf.find( '.mw-mmv-about-link' ).length, 1, 'About link is created.' );
 		assert.strictEqual( $qf.find( '.mw-mmv-discuss-link' ).length, 1, 'Discuss link is created.' );

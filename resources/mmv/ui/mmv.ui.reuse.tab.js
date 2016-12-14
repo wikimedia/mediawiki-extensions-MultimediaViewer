@@ -27,7 +27,7 @@
 	 * @constructor
 	 */
 	function Tab( $container ) {
-		Tab[ 'super' ].call( this, $container );
+		Tab.super.call( this, $container );
 
 		/**
 		 * Container for the tab.

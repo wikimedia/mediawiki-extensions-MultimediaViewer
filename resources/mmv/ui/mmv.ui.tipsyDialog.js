@@ -24,8 +24,8 @@
 	 * @class mw.mmv.ui.TipsyDialog
 	 * @extends mw.mmv.ui.Element
 	 * @constructor
-	 * @property {jQuery} $anchor the element to which the popup is anchored.
-	 * @property {Object} options takes any tipsy option - see
+	 * @param {jQuery} $anchor the element to which the popup is anchored.
+	 * @param {Object} options takes any tipsy option - see
 	 *  https://github.com/jaz303/tipsy/blob/master/docs/src/index.html.erb#L298
 	 */
 	function TipsyDialog( $anchor, options ) {
@@ -90,6 +90,7 @@
 	 *
 	 * @private
 	 * @param {Object} originalOptions
+	 * @return {Object} Preprocessed options
 	 */
 	TDP.getPreprocessedOptions = function ( originalOptions ) {
 		var options = $.extend( {}, originalOptions );
@@ -168,6 +169,8 @@
 
 	/**
 	 * @private
+	 * @param {string} [title]
+	 * @param {string} [body]
 	 * @return {string}
 	 */
 	TDP.generateContent = function ( title, body ) {

@@ -188,6 +188,10 @@
 
 	/**
 	 * Creates a confirmation pane.
+	 *
+	 * @param {string} divClass Class applied to main div.
+	 * @param {string} propName Name of the property on this object to which we'll assign the div.
+	 * @param {string} msgs See #addText
 	 */
 	ODP.createConfirmationPane = function ( divClass, propName, msgs ) {
 		var dialog = this,
@@ -263,6 +267,7 @@
 	 * @param {jQuery} $submitDiv The div for the buttons in the dialog.
 	 * @param {string} msg The string to put in the button.
 	 * @param {boolean} enabled Whether to turn the viewer on or off when this button is pressed.
+	 * @return {jQuery} Submit button
 	 */
 	ODP.makeSubmitButton = function ( $submitDiv, msg, enabled ) {
 		var dialog = this;
@@ -297,6 +302,7 @@
 	 * Makes a cancel button for one of the panels.
 	 *
 	 * @param {jQuery} $submitDiv The div for the buttons in the dialog.
+	 * @return {jQuery} Cancel button
 	 */
 	ODP.makeCancelButton = function ( $submitDiv ) {
 		var dialog = this;
@@ -369,6 +375,7 @@
 	 * Adds the info link to the panel.
 	 *
 	 * @param {jQuery} $div The panel to which we're adding the link.
+	 * @param {string} eventName
 	 */
 	ODP.addInfoLink = function ( $div, eventName ) {
 		$( '<a>' )
@@ -381,6 +388,8 @@
 
 	/**
 	 * Checks the preference.
+	 *
+	 * @return {boolean} MV is enabled
 	 */
 	ODP.isEnabled = function () {
 		return this.config.isMediaViewerEnabledOnClick();

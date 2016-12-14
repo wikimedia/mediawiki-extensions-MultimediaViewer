@@ -228,6 +228,9 @@
 	 * Reduces the action of clicks to solely focusing the input/textarea.
 	 * Essentialy disables clicking inside the text to select a portion of it.
 	 * Invoked with that input/textarea as context.
+	 *
+	 * @param {jQuery.Event} e
+	 * @return {boolean} False to prevent default event
 	 */
 	EP.onlyFocus = function ( e ) {
 		this.focus();

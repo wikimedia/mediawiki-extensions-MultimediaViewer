@@ -62,6 +62,7 @@
 	 *
 	 * @param {string} key cache key
 	 * @param {function(): jQuery.Promise} getPromise a function to get the promise on cache miss
+	 * @return {jQuery.Promise}
 	 */
 	Api.prototype.getCachedPromise = function ( key, getPromise ) {
 		var provider = this;

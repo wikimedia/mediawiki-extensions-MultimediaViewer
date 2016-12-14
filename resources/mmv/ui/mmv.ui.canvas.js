@@ -150,6 +150,8 @@
 
 	/**
 	 * Handles a "dialog open/close" event from dialogs on the page.
+	 *
+	 * @param {jQuery.Event} e
 	 */
 	C.handleDialogEvent = function ( e ) {
 		switch ( e.type ) {

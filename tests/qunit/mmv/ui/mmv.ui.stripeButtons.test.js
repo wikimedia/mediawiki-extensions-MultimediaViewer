@@ -25,7 +25,7 @@
 
 	QUnit.test( 'Sanity test, object creation and UI construction', 3, function ( assert ) {
 		var buttons,
-		oldMwUserIsAnon = mw.user.isAnon;
+			oldMwUserIsAnon = mw.user.isAnon;
 
 		// first pretend we are anonymous
 		mw.user.isAnon = function () { return true; };
@@ -45,8 +45,8 @@
 
 	QUnit.test( 'set()/empty() sanity test:', 1, function ( assert ) {
 		var buttons = createStripeButtons(),
-		fakeImageInfo = { descriptionUrl: '//commons.wikimedia.org/wiki/File:Foo.jpg' },
-		fakeRepoInfo = { displayName: 'Wikimedia Commons', isCommons: function () { return true; } };
+			fakeImageInfo = { descriptionUrl: '//commons.wikimedia.org/wiki/File:Foo.jpg' },
+			fakeRepoInfo = { displayName: 'Wikimedia Commons', isCommons: function () { return true; } };
 
 		buttons.set( fakeImageInfo, fakeRepoInfo );
 		buttons.empty();

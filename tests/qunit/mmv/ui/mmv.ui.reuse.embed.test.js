@@ -40,8 +40,8 @@
 
 	QUnit.test( 'changeSize(): Skip if no item selected.', 0, function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
-		width = 10,
-		height = 20;
+			width = 10,
+			height = 20;
 
 		// deselect items
 		embed.embedSwitch.selectItem();
@@ -58,8 +58,8 @@
 
 	QUnit.test( 'changeSize(): HTML size menu item selected.', 4, function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
-		width = 10,
-		height = 20;
+			width = 10,
+			height = 20;
 
 		embed.embedSwitch.getSelectedItem = function () {
 			return { getData: function () { return 'html'; } };
@@ -81,8 +81,8 @@
 
 	QUnit.test( 'changeSize(): Wikitext size menu item selected.', 2, function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
-		width = 10,
-		height = 20;
+			width = 10,
+			height = 20;
 
 		embed.embedSwitch.getSelectedItem = function () {
 			return { getData: function () { return 'wikitext'; } };
@@ -102,8 +102,8 @@
 
 	QUnit.test( 'updateEmbedHtml(): Do nothing if set() not called before.', 0, function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
-		width = 10,
-		height = 20;
+			width = 10,
+			height = 20;
 
 		embed.formatter.getThumbnailHtml = function () {
 			assert.ok( false, 'formatter.getThumbnailHtml() should not have been called.' );
@@ -149,7 +149,7 @@
 
 	QUnit.test( 'updateEmbedWikitext(): Do nothing if set() not called before.', 0, function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
-		width = 10;
+			width = 10;
 
 		embed.formatter.getThumbnailWikitext = function () {
 			assert.ok( false, 'formatter.getThumbnailWikitext() should not have been called.' );
@@ -176,35 +176,35 @@
 
 	QUnit.test( 'getPossibleImageSizesForWikitext()', 3, function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
-		exampleSizes = [
+			exampleSizes = [
 			// Big wide image
-			{
-				width: 2048, height: 1536,
-				expected: {
-					small: { width: 300, height: 225 },
-					medium: { width: 400, height: 300 },
-					large: { width: 500, height: 375 },
-					'default': { width: null, height: null }
-				}
-			},
+				{
+					width: 2048, height: 1536,
+					expected: {
+						small: { width: 300, height: 225 },
+						medium: { width: 400, height: 300 },
+						large: { width: 500, height: 375 },
+						'default': { width: null, height: null }
+					}
+				},
 
 			// Big tall image
-			{
-				width: 201, height: 1536,
-				expected: {
-					'default': { width: null, height: null }
-				}
-			},
+				{
+					width: 201, height: 1536,
+					expected: {
+						'default': { width: null, height: null }
+					}
+				},
 
 			// Very small image
-			{
-				width: 15, height: 20,
-				expected: {
-					'default': { width: null, height: null }
+				{
+					width: 15, height: 20,
+					expected: {
+						'default': { width: null, height: null }
+					}
 				}
-			}
-		],
-		i, cursize, opts;
+			],
+			i, cursize, opts;
 		for ( i = 0; i < exampleSizes.length; i++ ) {
 			cursize = exampleSizes[ i ];
 			opts = embed.getPossibleImageSizesForWikitext( cursize.width, cursize.height );
@@ -214,12 +214,12 @@
 
 	QUnit.test( 'set():', 8, function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
-		title = mw.Title.newFromText( 'File:Foobar.jpg' ),
-		src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
-		url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
-		embedFileInfo = new mw.mmv.model.EmbedFileInfo( title, src, url ),
-		width = 15,
-		height = 20;
+			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
+			src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
+			url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
+			embedFileInfo = new mw.mmv.model.EmbedFileInfo( title, src, url ),
+			width = 15,
+			height = 20;
 
 		QUnit.stop();
 
@@ -250,8 +250,8 @@
 
 	QUnit.test( 'empty():', 6, function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
-		width = 15,
-		height = 20;
+			width = 15,
+			height = 20;
 
 		embed.formatter = {
 			getThumbnailWikitextFromEmbedFileInfo: function () { return 'wikitext'; },
@@ -275,12 +275,12 @@
 
 	QUnit.test( 'attach()/unattach():', 5, function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
-		title = mw.Title.newFromText( 'File:Foobar.jpg' ),
-		src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
-		url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
-		embedFileInfo = new mw.mmv.model.EmbedFileInfo( title, src, url ),
-		width = 15,
-		height = 20;
+			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
+			src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
+			url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
+			embedFileInfo = new mw.mmv.model.EmbedFileInfo( title, src, url ),
+			width = 15,
+			height = 20;
 
 		embed.set( { width: width, height: height }, embedFileInfo );
 

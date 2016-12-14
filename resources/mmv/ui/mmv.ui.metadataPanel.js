@@ -60,6 +60,8 @@
 
 	/**
 	 * FIXME this should be in the jquery.fullscreen plugin.
+	 *
+	 * @return {boolean}
 	 */
 	MPP.isFullscreened = function () {
 		return $( this.$container ).closest( '.jq-fullscreened' ).length > 0;
@@ -731,8 +733,7 @@
 			).text()
 		);
 
-		$.each( mw.language.data, function ( key, value ) {
-			value = 'go away jshint';
+		$.each( mw.language.data, function ( key ) {
 			language = key;
 			return false;
 		} );
@@ -826,6 +827,7 @@
 			date;
 
 		mw.loader.using( 'moment', function () {
+			/* global moment */
 			date = moment( dateString );
 
 			if ( date.isValid() ) {

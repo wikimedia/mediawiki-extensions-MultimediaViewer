@@ -17,7 +17,7 @@
 	 * Returns the exception thrown by callback, or undefined if no exception was thrown.
 	 *
 	 * @param {Function} callback
-	 * @return {*}
+	 * @return {Error}
 	 */
 	MTH.getException = function ( callback ) {
 		var ex;
@@ -33,6 +33,7 @@
 	 * Returns a fake local storage which is not saved between reloads.
 	 *
 	 * @param {Object} [initialData]
+	 * @return {Object} Local storage-like object
 	 */
 	MTH.getFakeLocalStorage = function ( initialData ) {
 		var bag = new mw.Map();
@@ -62,4 +63,4 @@
 	};
 
 	mw.mmv.testHelpers = MTH;
-} )( mediaWiki, jQuery );
+}( mediaWiki, jQuery ) );

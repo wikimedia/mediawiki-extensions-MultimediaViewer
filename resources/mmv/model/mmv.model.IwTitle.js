@@ -54,6 +54,7 @@
 	 * Copy of the private function in mw.Title.
 	 *
 	 * @param {string} s
+	 * @return {string}
 	 */
 	function text( s ) {
 		return s ? s.replace( /_/g, ' ' ) : '';

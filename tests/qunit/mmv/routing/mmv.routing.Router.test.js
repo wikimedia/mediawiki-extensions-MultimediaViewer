@@ -179,10 +179,12 @@
 			router = new mw.mmv.routing.Router();
 
 		// mw.Title does not accept % in page names
-		this.sandbox.stub( mw, 'Title', function ( name ) { return {
-			name: name,
-			getMain: function () { return name.replace( /^File:/, '' ); }
-		}; } );
+		this.sandbox.stub( mw, 'Title', function ( name ) {
+			return {
+				name: name,
+				getMain: function () { return name.replace( /^File:/, '' ); }
+			};
+		} );
 		title = new mw.Title( 'File:%40.png' );
 		hash = router.createHash( new mw.mmv.routing.ThumbnailRoute( title ) );
 

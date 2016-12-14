@@ -240,6 +240,7 @@
 	 * Generate a link which we will be using for sharing stuff.
 	 *
 	 * @param {mw.mmv.model.EmbedFileInfo} info
+	 * @return {string} URL
 	 */
 	EFFP.getLinkUrl = function ( info ) {
 		var route = new mw.mmv.routing.ThumbnailRoute( info.imageInfo.title );

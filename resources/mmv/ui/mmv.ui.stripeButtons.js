@@ -19,10 +19,11 @@
 	var SBP;
 
 	/**
-	 * @class mw.mmv.ui.StripeButtons
-	 * @extends mw.mmv.ui.Element
 	 * Class for buttons which are placed on the metadata stripe (the always visible part of the
 	 * metadata panel).
+	 *
+	 * @class mw.mmv.ui.StripeButtons
+	 * @extends mw.mmv.ui.Element
 	 * @constructor
 	 * @param {jQuery} $container the title block (.mw-mmv-title-contain) which wraps the buttons and all
 	 *  other title elements
@@ -50,6 +51,7 @@
 	 *
 	 * @protected
 	 * @param {string} cssClass CSS class name for the button
+	 * @return {jQuery} Button
 	 */
 	SBP.createButton = function ( cssClass ) {
 		var $button;

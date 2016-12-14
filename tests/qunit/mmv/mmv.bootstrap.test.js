@@ -59,7 +59,9 @@
 		// MediaViewer should work without it, and so should the tests.
 		bootstrap.ensureEventHandlersAreSetUp = $.noop;
 
-		bootstrap.getViewer = function () { return viewer ? viewer : { initWithThumbs: $.noop, hash: $.noop }; };
+		bootstrap.getViewer = function () {
+			return viewer || { initWithThumbs: $.noop, hash: $.noop };
+		};
 
 		return bootstrap;
 	}
@@ -211,7 +213,7 @@
 	} );
 
 	QUnit.test( 'Skip images with invalid extensions', 0, function ( assert ) {
-		var div, link, bootstrap,
+		var div, link,
 			viewer = { initWithThumbs: $.noop };
 
 		// Create gallery with image that has invalid name extension
@@ -219,7 +221,7 @@
 		link = div.find( 'a.image' );
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
-		bootstrap = createBootstrap( viewer );
+		createBootstrap( viewer );
 
 		viewer.loadImageByTitle = function () {
 			assert.ok( false, 'Image should not be loaded' );

@@ -534,7 +534,7 @@
 			}
 		}
 
-		sizes[ 'default' ] = { width: null, height: null };
+		sizes.default = { width: null, height: null };
 
 		return sizes;
 	};
