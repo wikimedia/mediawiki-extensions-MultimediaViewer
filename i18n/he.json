@@ -100,6 +100,8 @@
 	"multimediaviewer-close-popup-text": "סגירת הכלי הזה (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "הצגה במסך מלא",
 	"multimediaviewer-defullscreen-popup-text": "יציאה ממסך מלא",
+	"multimediaviewer-next-image-alt-text": "להציג את התמונה הבאה",
+	"multimediaviewer-prev-image-alt-text": "הצגת התמונה הקודמת",
 	"multimediaviewer-title-popup-text": "תיאור",
 	"multimediaviewer-credit-popup-text": "מידע על המחבר והמקור",
 	"multimediaviewer-title-popup-text-more": "הצגת תיאור מלא",

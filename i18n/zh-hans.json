@@ -121,6 +121,8 @@
 	"multimediaviewer-close-popup-text": "关闭此工具（或按“Esc”键退出）",
 	"multimediaviewer-fullscreen-popup-text": "全屏显示",
 	"multimediaviewer-defullscreen-popup-text": "退出全屏",
+	"multimediaviewer-next-image-alt-text": "显示下一张图片",
+	"multimediaviewer-prev-image-alt-text": "显示上一张图片",
 	"multimediaviewer-title-popup-text": "说明",
 	"multimediaviewer-credit-popup-text": "作者和来源信息",
 	"multimediaviewer-title-popup-text-more": "显示完整说明",

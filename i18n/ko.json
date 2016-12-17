@@ -10,7 +10,8 @@
 			"Revi",
 			"IRTC1015",
 			"Hwangjy9",
-			"Ykhwong"
+			"Ykhwong",
+			"Jerrykim306"
 		]
 	},
 	"multimediaviewer-desc": "섬네일을 전체 화면 인터페이스에서 더 큰 크기로 확장합니다.",
@@ -66,5 +67,7 @@
 	"multimediaviewer-description-page-button-text": "이 파일의 자세한 내용",
 	"multimediaviewer-description-page-popup-text": "$1의 자세한 내용",
 	"multimediaviewer-commons-subtitle": "자유 미디어 저장소",
-	"multimediaviewer-view-expanded": "미디어 뷰어에서 열기"
+	"multimediaviewer-view-expanded": "미디어 뷰어에서 열기",
+	"multimediaviewer-next-image-alt-text": "다음 사진 보이기",
+	"multimediaviewer-prev-image-alt-text": "이전 사진 보이기"
 }
