@@ -143,6 +143,8 @@
 				"multimediaviewer-close-popup-text",
 				"multimediaviewer-fullscreen-popup-text",
 				"multimediaviewer-defullscreen-popup-text",
+				"multimediaviewer-next-image-alt-text",
+				"multimediaviewer-prev-image-alt-text",
 				"multimediaviewer-commons-subtitle",
 				"multimediaviewer-credit",
 				"multimediaviewer-credit-fallback",

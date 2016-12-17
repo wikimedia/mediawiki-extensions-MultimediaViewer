@@ -117,6 +117,8 @@
 	"multimediaviewer-close-popup-text": "Close this tool (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Show in full screen",
 	"multimediaviewer-defullscreen-popup-text": "Exit full screen",
+	"multimediaviewer-next-image-alt-text": "Show next image",
+	"multimediaviewer-prev-image-alt-text": "Show previous image",
 	"multimediaviewer-title-popup-text": "Description",
 	"multimediaviewer-credit-popup-text": "Author and source information",
 	"multimediaviewer-title-popup-text-more": "View full description",

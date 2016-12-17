@@ -319,6 +319,7 @@
 			.text( ' ' )
 			.addClass( 'mw-mmv-close' )
 			.prop( 'title', mw.message( 'multimediaviewer-close-popup-text' ).text() )
+			.attr( 'alt', mw.message( 'multimediaviewer-close-popup-text' ).text() )
 			.tipsy( {
 				delayIn: tooltipDelay,
 				gravity: this.correctEW( 'ne' )
@@ -334,6 +335,7 @@
 			.text( ' ' )
 			.addClass( 'mw-mmv-fullscreen' )
 			.prop( 'title', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() )
+			.attr( 'alt', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() )
 			.tipsy( {
 				delayIn: tooltipDelay,
 				gravity: this.correctEW( 'ne' )
@@ -366,12 +368,14 @@
 			mw.mmv.actionLogger.log( 'fullscreen' );
 
 			this.$fullscreenButton
-				.prop( 'title', mw.message( 'multimediaviewer-defullscreen-popup-text' ).text() );
+				.prop( 'title', mw.message( 'multimediaviewer-defullscreen-popup-text' ).text() )
+				.attr( 'alt', mw.message( 'multimediaviewer-defullscreen-popup-text' ).text() );
 		} else {
 			mw.mmv.actionLogger.log( 'defullscreen' );
 
 			this.$fullscreenButton
-				.prop( 'title', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() );
+				.prop( 'title', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() )
+				.attr( 'alt', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() );
 		}
 
 		if ( !this.fullscreenButtonJustPressed && !e.fullscreen ) {
