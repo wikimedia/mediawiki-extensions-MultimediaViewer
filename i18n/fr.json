@@ -104,6 +104,8 @@
 	"multimediaviewer-close-popup-text": "Fermer cet outil (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Afficher en plein écran",
 	"multimediaviewer-defullscreen-popup-text": "Sortir du plein écran",
+	"multimediaviewer-next-image-alt-text": "Afficher la prochaine image",
+	"multimediaviewer-prev-image-alt-text": "Afficher l'image précédente",
 	"multimediaviewer-title-popup-text": "Description",
 	"multimediaviewer-credit-popup-text": "Auteur et source de l’information",
 	"multimediaviewer-title-popup-text-more": "Afficher la description complète",
