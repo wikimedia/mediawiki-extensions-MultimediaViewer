@@ -98,6 +98,8 @@
 	"multimediaviewer-close-popup-text": "এই সরঞ্জামটি বন্ধ করুন (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "পূর্ণ স্ক্রিনে দেখান",
 	"multimediaviewer-defullscreen-popup-text": "পূর্ণ স্ক্রিন প্রস্থান করুন",
+	"multimediaviewer-next-image-alt-text": "পরবর্তী চিত্র দেখান",
+	"multimediaviewer-prev-image-alt-text": "পূর্ববর্তী চিত্র দেখান",
 	"multimediaviewer-title-popup-text": "বিবরণ",
 	"multimediaviewer-credit-popup-text": "প্রণেতা এবং উৎসের তথ্য",
 	"multimediaviewer-title-popup-text-more": "সম্পূর্ণ বিবরণ দেখুন",

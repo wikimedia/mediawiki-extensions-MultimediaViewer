@@ -58,6 +58,8 @@
 	"multimediaviewer-close-popup-text": "Aizvērt šo rīku (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Parādīt pilnekrāna režīmā",
 	"multimediaviewer-defullscreen-popup-text": "Iziet no pilnekrāna režīma",
+	"multimediaviewer-next-image-alt-text": "Rādīt nākamo attēlu",
+	"multimediaviewer-prev-image-alt-text": "Rādīt iepriekšējo attēlu",
 	"multimediaviewer-title-popup-text": "Apraksts",
 	"multimediaviewer-option-cancel-button": "Atcelt"
 }
