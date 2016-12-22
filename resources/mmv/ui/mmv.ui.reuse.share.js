@@ -40,6 +40,8 @@
 	SP = Share.prototype;
 
 	SP.init = function () {
+		var pane = this;
+
 		this.$pane.addClass( 'mw-mmv-share-pane' )
 			.appendTo( this.$container );
 
@@ -64,6 +66,30 @@
 			.click( function () {
 				mw.mmv.actionLogger.log( 'share-page' );
 			} );
+
+		this.$copyButton = $( '<a>' )
+			.addClass( 'mw-mmv-reuse-copy' )
+			.click( function () {
+				// Select the text, and then try to copy the text.
+				// If the copy fails or is not supported, continue as if nothing had happened.
+				pane.pageInput.$input.select();
+				try {
+					if ( document.queryCommandSupported &&
+						document.queryCommandSupported( 'copy' ) ) {
+						document.execCommand( 'copy' );
+					}
+				} catch ( e ) {
+					// queryCommandSupported in Firefox pre-41 can throw errors when used with
+					// clipboard commands. We catch and ignore these and other copy-command-related
+					// errors here.
+				}
+			} )
+			.prop( 'title', mw.msg( 'multimediaviewer-reuse-copy-share' )  )
+			.tipsy( {
+				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
+				gravity: this.correctEW( 'se' )
+			} )
+			.appendTo( this.$pane );
 
 		this.pageInput.$element.appendTo( this.$pane );
 

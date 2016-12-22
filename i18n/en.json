@@ -76,6 +76,8 @@
 	"multimediaviewer-geolocation": "Location: $1",
 	"multimediaviewer-reuse-link": "Share or embed this file",
 	"multimediaviewer-reuse-loading-placeholder": "Loading…",
+	"multimediaviewer-reuse-copy-share": "Select and copy (if supported) the link for sharing this file",
+	"multimediaviewer-reuse-copy-embed": "Select and copy (if supported) the code for embedding this file",
 	"multimediaviewer-share-tab": "Share",
 	"multimediaviewer-embed-tab": "Embed",
 	"multimediaviewer-download-link": "Download this file",

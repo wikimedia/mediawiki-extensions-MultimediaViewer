@@ -278,6 +278,7 @@
 				"mmv/ui/mmv.ui.reuse.shareembed.less"
 			],
 			"dependencies": [
+				"jquery.tipsy",
 				"oojs",
 				"oojs-ui",
 				"mediawiki.user",
@@ -290,6 +291,8 @@
 				"multimediaviewer-link-to-file",
 				"multimediaviewer-link-to-page",
 				"multimediaviewer-reuse-loading-placeholder",
+				"multimediaviewer-reuse-copy-share",
+				"multimediaviewer-reuse-copy-embed",
 				"multimediaviewer-embed-tab",
 				"multimediaviewer-embed-html",
 				"multimediaviewer-embed-wt",
