@@ -9,7 +9,8 @@
 			"Striking Blue",
 			"Dağlı95",
 			"Macofe",
-			"Jack who built the house"
+			"Jack who built the house",
+			"Kareyac"
 		]
 	},
 	"multimediaviewer-desc": "Раскрывает эскизы в большие изображения на весь экран.",
@@ -89,6 +90,8 @@
 	"multimediaviewer-close-popup-text": "Закрыть этот инструмент (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Показать в полноэкранном режиме",
 	"multimediaviewer-defullscreen-popup-text": "Выход из полноэкранного режима",
+	"multimediaviewer-next-image-alt-text": "Показать следующее изображение",
+	"multimediaviewer-prev-image-alt-text": "Показать предыдущее изображение",
 	"multimediaviewer-title-popup-text": "Описание",
 	"multimediaviewer-credit-popup-text": "Информация об авторе и источнике",
 	"multimediaviewer-title-popup-text-more": "Посмотреть полное описание",

@@ -95,6 +95,8 @@
 	"multimediaviewer-close-popup-text": "Закрити цей інструмент (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Показати на весь екран",
 	"multimediaviewer-defullscreen-popup-text": "Вийти з повноекранного режиму",
+	"multimediaviewer-next-image-alt-text": "Показати наступне зображення",
+	"multimediaviewer-prev-image-alt-text": "Показати попереднє зображення",
 	"multimediaviewer-title-popup-text": "Опис файлу",
 	"multimediaviewer-credit-popup-text": "Інформація про автора і джерело",
 	"multimediaviewer-title-popup-text-more": "Переглянути опис файлу повністю",
