@@ -80,6 +80,8 @@
 	"multimediaviewer-close-popup-text": "Zamknij narzędzie (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Pokaż w trybie pełnoekranowym",
 	"multimediaviewer-defullscreen-popup-text": "Wyjdź z trybu pełnoekranowego",
+	"multimediaviewer-next-image-alt-text": "Pokaż następny obraz",
+	"multimediaviewer-prev-image-alt-text": "Pokaż poprzedni obraz",
 	"multimediaviewer-title-popup-text": "Opis",
 	"multimediaviewer-credit-popup-text": "Informacje o autorze i źródle",
 	"multimediaviewer-title-popup-text-more": "Zobacz pełny opis",
