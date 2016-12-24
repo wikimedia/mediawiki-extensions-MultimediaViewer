@@ -10,7 +10,8 @@
 			"DJ Nietzsche",
 			"Jduranboger",
 			"Macofe",
-			"Themasterriot"
+			"Themasterriot",
+			"Dgstranz"
 		]
 	},
 	"multimediaviewer-desc": "Expande las miniaturas a un tamaño mayor en una vista de pantalla completa.",
@@ -36,6 +37,10 @@
 	"multimediaviewer-permission-link": "ver términos",
 	"multimediaviewer-permission-link-hide": "ocultar términos",
 	"multimediaviewer-permission-viewmore": "Ver más",
+	"multimediaviewer-restriction-communist": "Esta imagen contiene simbología comunista que puede estar prohibida en algunos países.",
+	"multimediaviewer-restriction-insignia": "Esta imagen contiene simbología oficial que puede estar sujeta a restricciones legales.",
+	"multimediaviewer-restriction-ita-mibac": "Esta imagen reproduce una propiedad del patrimonio cultural italiano y está restringida por las leyes italianas.",
+	"multimediaviewer-restriction-nazi": "Esta imagen contiene simbología nazi o fascista que puede estar prohibida en algunos países.",
 	"multimediaviewer-restriction-trademarked": "Esta imagen incluye contenido que puede estar sujeto a leyes sobre registro de marcas.",
 	"multimediaviewer-about-mmv": "Acerca de",
 	"multimediaviewer-discuss-mmv": "Discusión",
