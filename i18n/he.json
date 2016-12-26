@@ -64,6 +64,8 @@
 	"multimediaviewer-geolocation": "מיקום: $1",
 	"multimediaviewer-reuse-link": "שיתוף או הטמעה של הקובץ הזה",
 	"multimediaviewer-reuse-loading-placeholder": "טעינה...",
+	"multimediaviewer-reuse-copy-share": "לבחור ולהעתיק (אם זה נתמך) את הקישור לשיתוף הקובץ הזה",
+	"multimediaviewer-reuse-copy-embed": "לבחור ולהעתיק (אם זה נתמך) את הקישור להטמעת הקובץ הזה",
 	"multimediaviewer-share-tab": "שיתוף",
 	"multimediaviewer-embed-tab": "הטמעה",
 	"multimediaviewer-download-link": "הורדת הקובץ הזה",

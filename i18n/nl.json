@@ -10,7 +10,8 @@
 			"Mathonius",
 			"Macofe",
 			"Robin0van0der0vliet",
-			"Robin van der Vliet"
+			"Robin van der Vliet",
+			"Mainframe98"
 		]
 	},
 	"multimediaviewer-desc": "Miniatuurafbeeldingen schermvullend weergeven.",
@@ -81,6 +82,8 @@
 	"multimediaviewer-close-popup-text": "Hulpmiddel sluiten (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "In volledig scherm bekijken",
 	"multimediaviewer-defullscreen-popup-text": "Volledig schermmodus verlaten",
+	"multimediaviewer-next-image-alt-text": "Toon volgende afbeelding",
+	"multimediaviewer-prev-image-alt-text": "Toon vorige afbeelding",
 	"multimediaviewer-title-popup-text": "Beschrijving",
 	"multimediaviewer-credit-popup-text": "Auteur- en broninformatie",
 	"multimediaviewer-title-popup-text-more": "Volledige beschrijving bekijken",
