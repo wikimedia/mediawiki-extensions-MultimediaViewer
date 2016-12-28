@@ -68,7 +68,7 @@
 			} );
 
 		this.$copyButton = $( '<a>' )
-			.addClass( 'mw-mmv-reuse-copy' )
+			.addClass( 'mw-mmv-dialog-copy' )
 			.click( function () {
 				// Select the text, and then try to copy the text.
 				// If the copy fails or is not supported, continue as if nothing had happened.

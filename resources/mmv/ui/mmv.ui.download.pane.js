@@ -187,6 +187,29 @@
 					.text( mw.message( 'multimediaviewer-download-attribution-cta' ).text() )
 			)
 			.appendTo( this.$attributionSection );
+		this.attributionInput = attributionInput;
+		this.$attributionCopy = this.$copyButton = $( '<a>' )
+				.addClass( 'mw-mmv-dialog-copy' )
+				.click( function () {
+					// Select the text, and then try to copy the text.
+					// If the copy fails or is not supported, continue as if nothing had happened.
+					dl.attributionInput.select();
+					try {
+						if ( document.queryCommandSupported &&
+							document.queryCommandSupported( 'copy' ) ) {
+							document.execCommand( 'copy' );
+						}
+					} catch ( e ) {
+						// queryCommandSupported in Firefox pre-41 can throw errors when used with
+						// clipboard commands. We catch and ignore these and other copy-command-related
+						// errors here.
+					}
+				} )
+				.prop( 'title', mw.msg( 'multimediaviewer-download-attribution-copy' )  )
+				.tipsy( {
+					delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
+					gravity: this.correctEW( 'se' )
+				} );
 
 		this.$attributionHowHeader = $( '<p>' )
 			.addClass( 'mw-mmv-download-attribution-how-header' )
@@ -195,7 +218,8 @@
 			.addClass( 'mw-mmv-download-attribution-how' )
 			.append(
 				this.$attributionHowHeader,
-				attributionInput.$element,
+				this.attributionInput.$element,
+				this.$attributionCopy,
 				attributionSwitch.$element,
 				$( '<p>' )
 				.addClass( 'mw-mmv-download-attribution-close-button' )
@@ -206,8 +230,6 @@
 				.text( ' ' )
 			)
 			.appendTo( this.$attributionSection );
-
-		this.attributionInput = attributionInput;
 	};
 
 	/**

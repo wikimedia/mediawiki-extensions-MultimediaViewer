@@ -137,6 +137,7 @@
 	"multimediaviewer-download-attribution-cta-header": "Header for telling the user that the author of an image must be attributed, during a download action. See also {{msg-mw|multimediaviewer-download-optional-attribution-cta-header}}.",
 	"multimediaviewer-download-optional-attribution-cta-header": "Header for inviting the user to attribute author of the image during a download action. This is used for images where attribution is not a legal requirement. See also {{msg-mw|multimediaviewer-download-attribution-cta-header}}.",
 	"multimediaviewer-download-attribution-cta": "Call to action for a user to find out how to attribute the author of an image.",
+	"multimediaviewer-download-attribution-copy": "Text of the tooltip for the button to select and copy the attribution of a file (if supported by the browser) in the download panel, that is displayed when hovered over.",
 	"multimediaviewer-attr-plain": "Label for a button that lets the user pick plain text as an output format.",
 	"multimediaviewer-attr-html": "{{optional}}\nLabel for a button that lets the user pick HTML as an output format.\n{{Identical|HTML}}",
 	"multimediaviewer-options-tooltip": "Tooltip for a button that opens a panel for enabling or disabling the media viewer.",
