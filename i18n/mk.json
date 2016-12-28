@@ -62,6 +62,8 @@
 	"multimediaviewer-geolocation": "Местоположба: $1",
 	"multimediaviewer-reuse-link": "Сподели/Вметни ја податотекава",
 	"multimediaviewer-reuse-loading-placeholder": "Вчитувам…",
+	"multimediaviewer-reuse-copy-share": "Изберете и прекопирајте ја врската (ако е поддржано) за споделување на податотекава",
+	"multimediaviewer-reuse-copy-embed": "Изберете и прекопирајте го кодот (ако е поддржано) за вметнување на податотекава",
 	"multimediaviewer-share-tab": "Сподели",
 	"multimediaviewer-embed-tab": "Вметни",
 	"multimediaviewer-download-link": "Преземи ја податотекава",
