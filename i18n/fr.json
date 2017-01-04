@@ -115,6 +115,7 @@
 	"multimediaviewer-download-attribution-cta-header": "Vous devez attribuer l’auteur",
 	"multimediaviewer-download-optional-attribution-cta-header": "Vous pouvez attribuer l'auteur",
 	"multimediaviewer-download-attribution-cta": "Me montrer comment",
+	"multimediaviewer-download-attribution-copy": "Sélectionner et copier (si pris en charge) le texte d'attribution pour ce fichier",
 	"multimediaviewer-attr-plain": "Simple",
 	"multimediaviewer-options-tooltip": "Activer ou désactiver la visionneuse de médias",
 	"multimediaviewer-options-dialog-header": "Désactiver la visionneuse de médias",
