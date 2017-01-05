@@ -34,6 +34,16 @@
 	"multimediaviewer-restriction-communist": "Dette bildet inneholder kommunistiske symboler som kan være bannlyste i enkelte land.",
 	"multimediaviewer-restriction-costume": "Dette bildet viser kostymer og kan ha juridiske begrensninger.",
 	"multimediaviewer-restriction-currency": "Dette bildet viser en valutaenhet og kan ha juridiske begrensninger.",
+	"multimediaviewer-restriction-design": "Designet til subjektet av dette bildet kan være under opphavsrett og ha juridiske begrensninger.",
+	"multimediaviewer-restriction-fan-art": "Dette bildet er fan-kunst, og gjenbruk kan være ha juridiske begrensninger.",
+	"multimediaviewer-restriction-ihl": "Dette bildet inneholder symboler som begrenses av internasjonal menneskerett.",
+	"multimediaviewer-restriction-insignia": "Dette bildet inneholder offisielle symboler som kan ha juridiske begrensninger.",
+	"multimediaviewer-restriction-ita-mibac": "Dette bildet viser en eiendom som tilhører italiensk kulturarv, og kan ha juridiske begrensninger i italiensk lov.",
+	"multimediaviewer-restriction-nazi": "Dette bildet inneholder nazistiske eller fascistiske symboler som kan være bannlyste i enkelte land.",
+	"multimediaviewer-restriction-personality": "Dette bildet inneholder personer som kan ha rettigheter som legger juridiske begrensninger på gjenbruk uten deres samtykke.",
+	"multimediaviewer-restriction-trademarked": "Dette bildet inneholder innhold som kan være gjenstand for varemerkelover.",
+	"multimediaviewer-restriction-default": "Dette bildet kan være begrenset av juridiske begrensninger utenom opphavsrett. Se filbeskrivelsessiden for detaljer.",
+	"multimediaviewer-restriction-default-and-others": "Dette bildet kan ha videre begrensninger av juridiske bestemmelser utenom opphavsrett. Se filbeskrivelsessiden for detaljer.",
 	"multimediaviewer-about-mmv": "Om",
 	"multimediaviewer-discuss-mmv": "Diskusjon",
 	"multimediaviewer-help-mmv": "Hjelp",
@@ -48,6 +58,8 @@
 	"multimediaviewer-geolocation": "Sted: $1",
 	"multimediaviewer-reuse-link": "Del eller bygg inn denne filen",
 	"multimediaviewer-reuse-loading-placeholder": "Laster…",
+	"multimediaviewer-reuse-copy-share": "Velg og kopier lenka for å dele denne fila (om støttet)",
+	"multimediaviewer-reuse-copy-embed": "Velg og kopier koden for å bygge inn denne fila (om støttet)",
 	"multimediaviewer-share-tab": "Del",
 	"multimediaviewer-embed-tab": "Bygg inn",
 	"multimediaviewer-download-link": "Last ned denne filen",
@@ -110,5 +122,6 @@
 	"multimediaviewer-enable-confirmation-text": "Mediefremviseren bli brukt neste gang du trykker på et miniatyrbilde på $1.",
 	"multimediaviewer-enable-alert": "Mediefremviseren er deaktivert som standard",
 	"multimediaviewer-disable-info-title": "Du har deaktivert mediefremviseren",
-	"multimediaviewer-disable-info": "Du kan fremdeles vise enkeltfiler i mediefremviseren."
+	"multimediaviewer-disable-info": "Du kan fremdeles vise enkeltfiler i mediefremviseren.",
+	"multimediaviewer-errorreport-privacywarning": "Detaljer om feilen legges ved rapporten, og vil være synlige offentlig. Om du ikke er komfortabel med det kan du redigere rapporten nedenfor og fjerne data du ikke ønsker å dele."
 }
