@@ -73,7 +73,7 @@
 			waitForEventLog = $.Deferred();
 
 		// Waits for dom readiness because we don't want to have these dependencies loaded in the head
-		$( document ).ready( function () {
+		$( function () {
 			// window.Geo is currently defined in components that are loaded independently, there is no cheap
 			// way to load just that information. Either we piggy-back on something that already loaded it
 			// or we just don't have it

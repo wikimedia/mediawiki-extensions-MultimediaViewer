@@ -26,7 +26,7 @@
 
 	bootstrap = new mw.mmv.MultimediaViewerBootstrap();
 
-	$( document ).ready( function () {
+	$( function () {
 		bootstrap.setupEventHandlers();
 	} );
 

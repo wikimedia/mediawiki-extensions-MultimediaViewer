@@ -47,7 +47,7 @@
 
 		// We wait for document readiness because mw.loader.using writes to the DOM
 		// which can cause a blank page if it happens before DOM readiness
-		$document.ready( function () {
+		$( function () {
 			mw.loader.using( [ 'mmv.bootstrap.autostart' ], function () {
 				mw.mmv.bootstrap.whenThumbsReady().then( function () {
 					mw.mmv.durationLogger.stop( 'early-click-to-replay-click', start ).record( 'early-click-to-replay-click' );
