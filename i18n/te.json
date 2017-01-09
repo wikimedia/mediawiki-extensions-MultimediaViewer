@@ -15,7 +15,6 @@
 	"multimediaviewer-repository-local": "మరిన్ని వివరాలు",
 	"multimediaviewer-datetime-created": "$1 న సృష్టించబడింది",
 	"multimediaviewer-datetime-uploaded": "$1 న ఎక్కించబడింది",
-	"multimediaviewer-userpage-link": "ఈ బొమ్మను $1 {{GENDER:$2|ఎక్కించారు}}",
 	"multimediaviewer-metadata-error": "దోషం : $1. బొమ్మ సమాచారాన్ని చూపలేకపోతున్నాం.",
 	"multimediaviewer-thumbnail-error": "దోషం : $1. గోరంతబొమ్మ (నఖచిత్రం) సమాచారాన్ని చూపించలేకపోతున్నాం.",
 	"multimediaviewer-license-cc-pd": "సార్వజనీనం",
@@ -44,13 +43,6 @@
 	"multimediaviewer-embed-wt": "వికీపాఠ్యం",
 	"multimediaviewer-embed-html": "హెచ్.టి.ఎం.ఎల్",
 	"multimediaviewer-embed-explanation": "దస్త్రాన్ని ఇమిడ్చేందుకు ఈ కోడ్ ను వాడండి",
-	"multimediaviewer-html-embed-credit-text-tbls": "$2 ద్వారా \"$1\". $4 ద్వారా $3 కింద లైసెన్స్ కలదు.",
-	"multimediaviewer-html-embed-credit-text-tls": "\"$1\". $3 ద్వారా $2 కు అనుగుణంగా లైసెన్స్ చేయబడింది.",
-	"multimediaviewer-html-embed-credit-text-tbs": "$3 ద్వారా. $2 నుండి \"$1\"",
-	"multimediaviewer-html-embed-credit-text-tbl": "$2 నుండి \"$1\". $3 లైసెన్స్ కింద లభ్యం.",
-	"multimediaviewer-html-embed-credit-text-tb": "$2 నుండి \"$1\"",
-	"multimediaviewer-html-embed-credit-text-ts": "\"$1\". $2 ద్వారా.",
-	"multimediaviewer-html-embed-credit-text-tl": "\"$1\". $2 లైసెన్స్ కింద లభ్యం.",
 	"multimediaviewer-embed-byline": "$1 ద్వారా",
 	"multimediaviewer-embed-license": "$1 లైసెన్సుకు లోబడి",
 	"multimediaviewer-embed-via": "$1 ద్వారా.",
@@ -62,5 +54,7 @@
 	"multimediaviewer-description-page-button-text": "ఈ దస్త్రం గురించి మరిన్ని వివరాలు",
 	"multimediaviewer-description-page-popup-text": "$1 పై మరిన్ని వివరాలు",
 	"multimediaviewer-commons-subtitle": "స్వేచ్ఛా దస్త్రాల భాండాగారం",
-	"multimediaviewer-view-expanded": "వీక్షణాన్ని పెద్దది చేయండి"
+	"multimediaviewer-view-expanded": "వీక్షణాన్ని పెద్దది చేయండి",
+	"multimediaviewer-next-image-alt-text": "తర్వాతి బొమ్మను చూపించు",
+	"multimediaviewer-prev-image-alt-text": "మునుపటి బొమ్మను చూపించు"
 }
