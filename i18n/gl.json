@@ -4,7 +4,8 @@
 			"Toliño",
 			"Vivaelcelta",
 			"Elisardojm",
-			"Macofe"
+			"Macofe",
+			"Banjo"
 		]
 	},
 	"multimediaviewer-desc": "Expande as miniaturas ata un tamaño maior dentro dunha interface a pantalla completa.",
@@ -92,6 +93,8 @@
 	"multimediaviewer-close-popup-text": "Pechar a ferramenta (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Mostrar a pantalla completa",
 	"multimediaviewer-defullscreen-popup-text": "Saír da pantalla completa",
+	"multimediaviewer-next-image-alt-text": "Amosar a imaxe seguinte",
+	"multimediaviewer-prev-image-alt-text": "Amosar a imaxe previa",
 	"multimediaviewer-title-popup-text": "Descrición",
 	"multimediaviewer-credit-popup-text": "Autor e información da orixe",
 	"multimediaviewer-title-popup-text-more": "Ver a descrición completa",
