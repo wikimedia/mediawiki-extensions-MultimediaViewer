@@ -19,9 +19,14 @@
 	var CP;
 
 	/**
-	 * @class mw.mmv.Config
 	 * Contains/retrieves configuration/environment information for MediaViewer.
+	 * @class mw.mmv.Config
 	 * @constructor
+	 * @param {Object} viewerConfig
+	 * @param {mw.Map} mwConfig
+	 * @param {Object} mwUser
+	 * @param {mw.Api} api
+	 * @param {Object} localStorage
 	 */
 	function Config( viewerConfig, mwConfig, mwUser, api, localStorage ) {
 		/**
@@ -131,6 +136,8 @@
 
 	/**
 	 * Returns true if MediaViewer should handle thumbnail clicks.
+	 *
+	 * @return {boolean}
 	 */
 	CP.isMediaViewerEnabledOnClick = function () {
 		// IMPORTANT: mmv.head.js uses the same logic but does not use this class to be lightweight. Make sure to keep it in sync.
@@ -215,7 +222,7 @@
 	 *
 	 * @private
 	 */
-	CP.maybeEnableStatusInfo = function ( ) {
+	CP.maybeEnableStatusInfo = function () {
 		var currentShowStatusInfo = this.getFromLocalStorage( 'mmv-showStatusInfo' );
 		if ( currentShowStatusInfo === null ) {
 			this.setInLocalStorage( 'mmv-showStatusInfo', '1' );
@@ -225,7 +232,7 @@
 	/**
 	 * Called when status info is displayed. Future shouldShowStatusInfo() calls will retrurn false.
 	 */
-	CP.disableStatusInfo = function ( ) {
+	CP.disableStatusInfo = function () {
 		this.setInLocalStorage( 'mmv-showStatusInfo', '0' );
 	};
 
@@ -238,7 +245,7 @@
 	 *
 	 * @return {Object}
 	 */
-	CP.extensions = function ( ) {
+	CP.extensions = function () {
 		return this.viewerConfig.extensions;
 	};
 
@@ -247,7 +254,7 @@
 	 *
 	 * @return {string} Language code
 	 */
-	CP.language = function ( ) {
+	CP.language = function () {
 		return this.mwConfig.get( 'wgUserLanguage', false ) || this.mwConfig.get( 'wgContentLanguage', 'en' );
 	};
 
@@ -256,7 +263,7 @@
 	 *
 	 * @return {string|boolean} URI
 	 */
-	CP.recordVirtualViewBeaconURI = function ( ) {
+	CP.recordVirtualViewBeaconURI = function () {
 		return this.viewerConfig.recordVirtualViewBeaconURI;
 	};
 
@@ -265,7 +272,7 @@
 	 *
 	 * @return {boolean}
 	 */
-	CP.useThumbnailGuessing = function ( ) {
+	CP.useThumbnailGuessing = function () {
 		return this.viewerConfig.useThumbnailGuessing;
 	};
 
@@ -274,7 +281,7 @@
 	 *
 	 * @return {string|boolean}
 	 */
-	CP.imageQueryParameter = function ( ) {
+	CP.imageQueryParameter = function () {
 		return this.viewerConfig.imageQueryParameter;
 	};
 

@@ -130,6 +130,8 @@
 
 	/**
 	 * Processes all thumbs found on the page
+	 *
+	 * @param {jQuery} $content Element to search for thumbs
 	 */
 	MMVB.processThumbs = function ( $content ) {
 		var bs = this;
@@ -378,6 +380,7 @@
 	 *
 	 * @param {HTMLElement} element Clicked element
 	 * @param {string} title File title
+	 * @return {jQuery.Promise}
 	 */
 	MMVB.openImage = function ( element, title ) {
 		var $element = $( element );

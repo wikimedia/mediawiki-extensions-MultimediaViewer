@@ -83,11 +83,13 @@
 			localStorage = { getItem: $.noop, setItem: this.sandbox.stub().throwsException( 'I am full' ) },
 			scroller = new mw.mmv.ui.MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ), localStorage );
 
-		this.sandbox.stub( $, 'scrollTo', function () { return {
-			scrollTop: function () { return 10; },
-			on: $.noop,
-			off: $.noop
-		}; } );
+		this.sandbox.stub( $, 'scrollTo', function () {
+			return {
+				scrollTop: function () { return 10; },
+				on: $.noop,
+				off: $.noop
+			};
+		} );
 
 		scroller.attach();
 

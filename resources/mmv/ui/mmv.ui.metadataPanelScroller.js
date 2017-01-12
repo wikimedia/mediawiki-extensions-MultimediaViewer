@@ -200,6 +200,8 @@
 
 	/**
 	 * Handles keydown events for this element.
+	 *
+	 * @param {jQuery.Event} e Key down event
 	 */
 	MPSP.keydown = function ( e ) {
 		if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey ) {

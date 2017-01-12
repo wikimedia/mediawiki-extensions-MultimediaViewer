@@ -137,8 +137,11 @@
 	/**
 	 * Checks whether the current browser needs to set crossOrigin on images to avoid
 	 * doing a double load
+	 *
+	 * @return {boolean} Browser needs to set crossOrigin
 	 */
 	Image.prototype.needsCrossOrigin = function () {
+		// Support: IE11
 		// This check is essentially "is this browser anything but IE > 10?".
 		// I couldn't find something more topical because IE11 does support the crossOrigin
 		// attribute, just in a counter-productive way compared to all the other browsers

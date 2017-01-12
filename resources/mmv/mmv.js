@@ -696,6 +696,8 @@
 
 	/**
 	 * Preload the fullscreen size of the current image.
+	 *
+	 * @param {mw.mmv.LightboxImage} image
 	 */
 	MMVP.preloadFullscreenThumbnail = function ( image ) {
 		var imageWidths = this.ui.canvas.getLightboxImageWidthsForFullscreen( image ),

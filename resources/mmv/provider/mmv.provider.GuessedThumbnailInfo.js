@@ -124,6 +124,7 @@
 	 * @param {mw.Title} file
 	 * @param {number} width thumbnail width in pixels
 	 * @param {number} originalWidth width of original image in pixels
+	 * @return {boolean}
 	 */
 	GuessedThumbnailInfo.prototype.needsOriginal = function ( file, width, originalWidth ) {
 		return width >= originalWidth && !this.canHaveLargerThumbnailThanOriginal( file );
@@ -135,6 +136,7 @@
 	 * @protected
 	 * @param {string} url a thumbnail URL
 	 * @param {mw.Title} file
+	 * @return {boolean}
 	 */
 	GuessedThumbnailInfo.prototype.isFullSizeUrl = function ( url, file ) {
 		return !this.obscureFilename( url, file ).match( '/thumb/' );
@@ -292,8 +294,7 @@
 	 * @param {number} width thumbnail width in pixels
 	 * @return {string|undefined} thumbnail URL
 	 */
-	GuessedThumbnailInfo.prototype.guessThumbUrl = function ( file, originalUrl, width ) {
-		/* jshint unused:false */
+	GuessedThumbnailInfo.prototype.guessThumbUrl = function () {
 		// Not implemented. This can be very complicated (the thumbnail might have other
 		// parameters than the size, which are impossible to guess, might be converted to some
 		// other format, might have a special shortened format depending on the length of the

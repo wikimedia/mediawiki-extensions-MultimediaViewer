@@ -65,8 +65,9 @@
 	/**
 	 * Handles click on link that opens/closes the dialog.
 	 *
-	 * @param {Event} openEvent Event object for the mmv-$dialog-open event.
-	 * @param {Event} e Event object for the click event.
+	 * @param {jQuery.Event} openEvent Event object for the mmv-$dialog-open event.
+	 * @param {jQuery.Event} e Event object for the click event.
+	 * @return {boolean} False to cancel the default event
 	 */
 	DP.handleOpenCloseClick = function ( openEvent, e ) {
 		var dialog = this;
@@ -86,7 +87,7 @@
 	/**
 	 * Toggles the open state on the dialog.
 	 *
-	 * @param {Event} [e] Event object when the close action is caused by a user
+	 * @param {jQuery.Event} [e] Event object when the close action is caused by a user
 	 *   action, as opposed to closing the window or something.
 	 */
 	DP.toggleDialog = function ( e ) {

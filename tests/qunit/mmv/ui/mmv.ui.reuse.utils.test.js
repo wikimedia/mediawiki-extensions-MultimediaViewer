@@ -26,15 +26,15 @@
 
 	QUnit.test( 'createPulldownMenu():', 14, function ( assert ) {
 		var utils = new mw.mmv.ui.Utils(),
-		menuItems = [ 'original', 'small', 'medium', 'large' ],
-		def = 'large',
-		menu = utils.createPulldownMenu(
+			menuItems = [ 'original', 'small', 'medium', 'large' ],
+			def = 'large',
+			menu = utils.createPulldownMenu(
 			menuItems,
 			[ 'mw-mmv-download-size' ],
 			def
 		),
-		options = menu.getMenu().getItems(),
-		i, data;
+			options = menu.getMenu().getItems(),
+			i, data;
 
 		assert.strictEqual( options.length, 4, 'Menu has correct number of items.' );
 
@@ -51,16 +51,16 @@
 
 	QUnit.test( 'updateMenuOptions():', 9, function ( assert ) {
 		var utils = new mw.mmv.ui.Utils(),
-		menu = utils.createPulldownMenu(
+			menu = utils.createPulldownMenu(
 			[ 'original', 'small', 'medium', 'large' ],
 			[ 'mw-mmv-download-size' ],
 			'original'
 		),
-		options = menu.getMenu().getItems(),
-		width = 700,
-		height = 500,
-		sizes = utils.getPossibleImageSizesForHtml( width, height ),
-		oldMessage = mw.message;
+			options = menu.getMenu().getItems(),
+			width = 700,
+			height = 500,
+			sizes = utils.getPossibleImageSizesForHtml( width, height ),
+			oldMessage = mw.message;
 
 		mw.message = function ( messageKey ) {
 			assert.ok( messageKey.match( /^multimediaviewer-(small|medium|original|embed-dimensions)/ ), 'messageKey passed correctly.' );
@@ -75,38 +75,38 @@
 
 	QUnit.test( 'getPossibleImageSizesForHtml()', 3, function ( assert ) {
 		var utils = new mw.mmv.ui.Utils(),
-		exampleSizes = [
+			exampleSizes = [
 			// Big wide image
-			{
-				width: 2048, height: 1536,
-				expected: {
-					small: { width: 193, height: 145 },
-					medium: { width: 640, height: 480 },
-					large: { width: 1200, height: 900 },
-					original: { width: 2048, height: 1536 }
-				}
-			},
+				{
+					width: 2048, height: 1536,
+					expected: {
+						small: { width: 193, height: 145 },
+						medium: { width: 640, height: 480 },
+						large: { width: 1200, height: 900 },
+						original: { width: 2048, height: 1536 }
+					}
+				},
 
 			// Big tall image
-			{
-				width: 201, height: 1536,
-				expected: {
-					small: { width: 19, height: 145 },
-					medium: { width: 63, height: 480 },
-					large: { width: 118, height: 900 },
-					original: { width: 201, height: 1536 }
-				}
-			},
+				{
+					width: 201, height: 1536,
+					expected: {
+						small: { width: 19, height: 145 },
+						medium: { width: 63, height: 480 },
+						large: { width: 118, height: 900 },
+						original: { width: 201, height: 1536 }
+					}
+				},
 
 			// Very small image
-			{
-				width: 15, height: 20,
-				expected: {
-					original: { width: 15, height: 20 }
+				{
+					width: 15, height: 20,
+					expected: {
+						original: { width: 15, height: 20 }
+					}
 				}
-			}
-		],
-		i, cursize, opts;
+			],
+			i, cursize, opts;
 		for ( i = 0; i < exampleSizes.length; i++ ) {
 			cursize = exampleSizes[ i ];
 			opts = utils.getPossibleImageSizesForHtml( cursize.width, cursize.height );

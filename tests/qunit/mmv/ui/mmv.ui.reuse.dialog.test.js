@@ -179,17 +179,17 @@
 
 	QUnit.test( 'set()/empty() sanity check:', 1, function ( assert ) {
 		var reuseDialog = makeReuseDialog( this.sandbox ),
-		title = mw.Title.newFromText( 'File:Foobar.jpg' ),
-		src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
-		url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
-		image = { // fake mw.mmv.model.Image
-			title: title,
-			url: src,
-			descriptionUrl: url,
-			width: 100,
-			height: 80
-		},
-		embedFileInfo = new mw.mmv.model.EmbedFileInfo( title, src, url );
+			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
+			src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
+			url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
+			image = { // fake mw.mmv.model.Image
+				title: title,
+				url: src,
+				descriptionUrl: url,
+				width: 100,
+				height: 80
+			},
+			embedFileInfo = new mw.mmv.model.EmbedFileInfo( title, src, url );
 
 		reuseDialog.set( image, embedFileInfo );
 		reuseDialog.empty();
@@ -199,17 +199,17 @@
 
 	QUnit.test( 'openDialog()/closeDialog():', 3, function ( assert ) {
 		var reuseDialog = makeReuseDialog( this.sandbox ),
-		title = mw.Title.newFromText( 'File:Foobar.jpg' ),
-		src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
-		url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
-		image = { // fake mw.mmv.model.Image
-			title: title,
-			url: src,
-			descriptionUrl: url,
-			width: 100,
-			height: 80
-		},
-		repoInfo = new mw.mmv.model.Repo( 'Wikipedia', '//wikipedia.org/favicon.ico', true );
+			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
+			src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
+			url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
+			image = { // fake mw.mmv.model.Image
+				title: title,
+				url: src,
+				descriptionUrl: url,
+				width: 100,
+				height: 80
+			},
+			repoInfo = new mw.mmv.model.Repo( 'Wikipedia', '//wikipedia.org/favicon.ico', true );
 
 		reuseDialog.initTabs();
 

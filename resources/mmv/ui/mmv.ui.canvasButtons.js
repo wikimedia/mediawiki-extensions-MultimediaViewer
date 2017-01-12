@@ -190,6 +190,8 @@
 
 	/**
 	 * Reveals all active buttons and schedule a fade out if needed
+	 *
+	 * @param {Object} [mousePosition] Mouse position containing 'x' and 'y' properties
 	 */
 	CBP.revealAndFade = function ( mousePosition ) {
 		if ( this.buttonsFadeTimeout ) {

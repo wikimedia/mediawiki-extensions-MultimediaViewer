@@ -205,7 +205,7 @@
 						// errors here.
 					}
 				} )
-				.prop( 'title', mw.msg( 'multimediaviewer-download-attribution-copy' )  )
+				.prop( 'title', mw.msg( 'multimediaviewer-download-attribution-copy' ) )
 				.tipsy( {
 					delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
 					gravity: this.correctEW( 'se' )
@@ -356,7 +356,8 @@
 	/**
 	 * Chops off the extension part of an URL.
 	 *
-	 * @param {string} url
+	 * @param {string} url URL
+	 * @return {string} Extension
 	 */
 	DP.getExtensionFromUrl = function ( url ) {
 		var urlParts = url.split( '.' );
@@ -392,8 +393,8 @@
 		}
 
 		attributionCtaMessage = ( license && license.needsAttribution() ) ?
-			'multimediaviewer-download-attribution-cta-header'
-			: 'multimediaviewer-download-optional-attribution-cta-header';
+			'multimediaviewer-download-attribution-cta-header' :
+			'multimediaviewer-download-optional-attribution-cta-header';
 		this.$attributionCtaHeader.text( mw.message( attributionCtaMessage ).text() );
 		this.$attributionHowHeader.text( mw.message( attributionCtaMessage ).text() );
 	};

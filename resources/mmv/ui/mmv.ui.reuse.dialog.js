@@ -116,6 +116,8 @@
 
 	/**
 	 * Handles tab selection.
+	 *
+	 * @param {OO.ui.MenuOptionWidget} option
 	 */
 	DP.handleTabSelection = function ( option ) {
 		var tab;
@@ -134,7 +136,7 @@
 	};
 
 	/**
-	 *
+	 * @return {string} Last used tab
 	 */
 	DP.getLastUsedTab = function () {
 		return this.config.getFromLocalStorage( 'mmv-lastUsedTab' );

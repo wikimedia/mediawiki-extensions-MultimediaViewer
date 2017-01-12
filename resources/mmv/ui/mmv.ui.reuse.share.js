@@ -84,7 +84,7 @@
 					// errors here.
 				}
 			} )
-			.prop( 'title', mw.msg( 'multimediaviewer-reuse-copy-share' )  )
+			.prop( 'title', mw.msg( 'multimediaviewer-reuse-copy-share' ) )
 			.tipsy( {
 				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
 				gravity: this.correctEW( 'se' )
