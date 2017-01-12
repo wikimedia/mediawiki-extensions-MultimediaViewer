@@ -241,6 +241,16 @@
 	CP.extensions = function ( ) {
 		return this.viewerConfig.extensions;
 	};
+	
+	/**
+	 * Returns exclude pattern to exlude image from viewer.
+	 *
+	 *
+	 * @return {Object}
+	 */
+	CP.excludeThumbs = function ( ) {
+		return this.viewerConfig.excludeThumbs;
+	};
 
 	/**
 	 * Returns UI language

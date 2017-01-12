@@ -102,7 +102,7 @@
 		// we call needsCrossOrigin to check if the current browser needs to set the attribute
 		// or not in order to avoid loading the image twice.
 		if ( cors && this.needsCrossOrigin() ) {
-			img.crossOrigin = 'anonymous';
+			//img.crossOrigin = 'anonymous';
 		}
 
 		img.onload = function () {

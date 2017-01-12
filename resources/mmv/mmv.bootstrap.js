@@ -133,6 +133,8 @@
 	 */
 	MMVB.processThumbs = function ( $content ) {
 		var bs = this;
+		
+		excludeThumbs = this.config.excludeThumbs();
 
 		this.$thumbs = $content.find(
 			'.gallery .image img, ' +
@@ -140,7 +142,7 @@
 			'#file a img, ' +
 			'figure[typeof*="mw:Image"] > *:first-child > img, ' +
 			'span[typeof*="mw:Image"] img'
-		);
+		).not(excludeThumbs);
 
 		try {
 			this.$thumbs.each( function ( i, thumb ) {

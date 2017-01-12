@@ -408,6 +408,7 @@
 		]
 	},
 	"config": {
+		"MediaViewerExcludeThumbs": ".carousel-indicators a.image img",
 		"MediaViewerExtensions": {
 			"jpg": "default",
 			"jpeg": "default",
