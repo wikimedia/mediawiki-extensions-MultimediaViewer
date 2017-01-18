@@ -163,11 +163,14 @@
 	 * @return {boolean}
 	 */
 	MMVB.isAllowedThumb = function ( $thumb ) {
-		// .metadata means this is inside an informational template like {{refimprove}} on enwiki.
-		// .noviewer means MediaViewer has been specifically disabled for this image
-		// .noarticletext means we are on an error page for a non-existing article, the image is part of some
-		//  template // FIXME this should be handled by .metadata
-		return $thumb.closest( '.metadata, .noviewer, .noarticletext, #siteNotice' ).length === 0;
+		var selectors = [
+			'.metadata', // this is inside an informational template like {{refimprove}} on enwiki.
+			'.noviewer', // MediaViewer has been specifically disabled for this image
+			'.noarticletext', // we are on an error page for a non-existing article, the image is part of some template
+			'#siteNotice',
+			'ul.mw-gallery-slideshow li.gallerybox' // thumbnails of a slideshow gallery
+		];
+		return $thumb.closest( selectors.join( ', ' ) ).length === 0;
 
 	};
 
