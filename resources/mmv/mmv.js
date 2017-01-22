@@ -177,7 +177,8 @@
 	MMVP.resize = function ( ui ) {
 		var imageWidths, canvasDimensions,
 			viewer = this,
-			image = this.thumbs[ this.currentIndex ].image;
+			image = this.thumbs[ this.currentIndex ].image,
+			ext = this.thumbs[ this.currentIndex ].title.ext;
 
 		this.preloadThumbnails();
 
@@ -190,6 +191,7 @@
 			this.fetchThumbnailForLightboxImage(
 				image, imageWidths.real
 			).then( function ( thumbnail, image ) {
+				image.className = ext;
 				viewer.setImage( ui, thumbnail, image, imageWidths );
 			}, function ( error ) {
 				viewer.ui.canvas.showError( error );
