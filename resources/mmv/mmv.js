@@ -178,7 +178,7 @@
 		var imageWidths, canvasDimensions,
 			viewer = this,
 			image = this.thumbs[ this.currentIndex ].image,
-			ext = this.thumbs[ this.currentIndex ].title.ext;
+			ext = this.thumbs[ this.currentIndex ].title.ext.toLowerCase();
 
 		this.preloadThumbnails();
 
@@ -242,7 +242,7 @@
 			$initialImage = $( initialImage ),
 			extraStatsDeferred = $.Deferred();
 
-		pluginsPromise = this.loadExtensionPlugins( image.filePageTitle.ext );
+		pluginsPromise = this.loadExtensionPlugins( image.filePageTitle.ext.toLowerCase() );
 
 		this.currentIndex = image.index;
 
@@ -262,7 +262,7 @@
 		// the aspect ratio
 		$initialImage.hide();
 		$initialImage.addClass( 'mw-mmv-placeholder-image' );
-		$initialImage.addClass( image.filePageTitle.ext );
+		$initialImage.addClass( image.filePageTitle.ext.toLowerCase() );
 
 		this.ui.canvas.set( image, $initialImage );
 
@@ -307,7 +307,7 @@
 				} );
 			}
 
-			imageElement.className = 'mw-mmv-final-image ' + image.filePageTitle.ext;
+			imageElement.className = 'mw-mmv-final-image ' + image.filePageTitle.ext.toLowerCase();
 			imageElement.alt = image.alt;
 
 			$.when( metadataPromise, pluginsPromise ).done( function ( metadata ) {
