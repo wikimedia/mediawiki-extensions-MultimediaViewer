@@ -3,9 +3,11 @@
 		"authors": [
 			"Mitzev",
 			"DCLXVI",
-			"Vodnokon4e"
+			"Vodnokon4e",
+			"StanProg"
 		]
 	},
+	"multimediaviewer-datetime-created": "Създадено: $1",
 	"multimediaviewer-permission-title": "Информация за лиценза",
 	"multimediaviewer-permission-link": "вижте условията",
 	"multimediaviewer-permission-viewmore": "Вижте още",
