@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Milicevic01"
+			"Milicevic01",
+			"Сербијана"
 		]
 	},
 	"multimediaviewer-optin-pref": "Омогући <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
@@ -25,7 +26,7 @@
 	"multimediaviewer-restriction-trademarked": "Ова слика можда садржи регистровани заштитни знак.",
 	"multimediaviewer-restriction-default": "Ова слика можда подлеже неким другим ограничењима независно од статуса ауторских права. Погледајте страницу датотеке за више информација.",
 	"multimediaviewer-restriction-default-and-others": "Ова слика можда подлеже неким другим ограничењима независно од статуса ауторских права. Погледајте страницу датотеке за више информација.",
-	"multimediaviewer-about-mmv": "О Media Viewer-у",
+	"multimediaviewer-about-mmv": "О",
 	"multimediaviewer-discuss-mmv": "Расправа",
 	"multimediaviewer-help-mmv": "Помоћ",
 	"multimediaviewer-optout-mmv": "Онемогући Media Viewer",
