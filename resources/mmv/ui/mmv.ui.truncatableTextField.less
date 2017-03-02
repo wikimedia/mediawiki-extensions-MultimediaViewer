@@ -1,4 +1,5 @@
 @import 'mediawiki.mixins';
+@import '../mmv.globals';
 @import '../mmv.mixins';
 
 .mw-mmv-ttf-container {
@@ -35,27 +36,26 @@
 		height: 1em; // make it scale with the font
 		width: 1.5em; // SVG image has ~1.5 aspect ratio
 		text-indent: -9999px;
-
-		border-radius: 2px;
+		border-radius: @border-radius;
 		background-size: contain;
 		background-position: center center;
 		background-repeat: no-repeat;
 		/* @embed */
 		background-image: url( img/ellipsis_lightgray.svg );
-		.box-shadow( -4px 6px 0 0 white);
+		.box-shadow( -4px 6px 0 0 #fff );
 
 		// Hovering over .mw-mmv-ttf-ellipsis-container will make the ellipsis more visible to attract
 		// attention to it. Since it has to be set on a parent element which is not under control of
 		// TruncatableTextField, setting it is the caller's responsibility.
 		.mw-mmv-ttf-ellipsis-container:hover & {
-			background-color: #d7d7d7;
+			background-color: #eaecf0;
 			/* @embed */
 			background-image: url( img/ellipsis_gray.svg );
 		}
 		// second rule + ordering needed for specificity
 		&:hover,
 		.mw-mmv-ttf-ellipsis-container &:hover {
-			background-color: #cacaca;
+			background-color: #c8ccd1;
 			/* @embed */
 			background-image: url( img/ellipsis_darkgray.svg );
 		}
@@ -65,9 +65,7 @@
 
 			display: block;
 			content: '';
-
 			height: 1.6em; // 1em would not cover high glyphs
-
 			width: @fade-length;
 			margin-left: -@fade-length;
 			.fade-out-horizontal();

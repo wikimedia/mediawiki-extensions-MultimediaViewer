@@ -1,8 +1,6 @@
 @import '../mmv.globals';
 @import '../mmv.mixins';
 
-@divider-border-height: 1px;
-
 .mw-mmv-options-dialog {
 	@offset-top: ( @buttons-offset-right + ( 2 * @buttons-offset-each-top ) + 6px );
 
@@ -20,18 +18,10 @@
 		}
 	}
 
-	&.mw-mmv-disable-confirmation-shown {
+	&.mw-mmv-disable-confirmation-shown,
+	&.mw-mmv-disable-confirmation-shown .mw-mmv-dialog-down-arrow,
+	&.mw-mmv-enable-div-shown .mw-mmv-dialog-down-arrow {
 		background-color: #eaecf0;
-
-		.mw-mmv-dialog-down-arrow {
-			background-color: #eaecf0;
-		}
-	}
-
-	&.mw-mmv-enable-div-shown {
-		.mw-mmv-dialog-down-arrow {
-			background-color: #eaecf0;
-		}
 	}
 
 	.mw-mmv-dialog-down-arrow {
@@ -60,7 +50,6 @@
 		height: 15px;
 		cursor: pointer;
 		opacity: 0.75;
-
 		/* @embed */
 		background-image: url( img/x_gray.svg );
 
@@ -155,7 +144,7 @@
 .mw-mmv-options-text-header {
 	margin: 0;
 	font-size: 1em;
-	color: #555;
+	color: #54595d;
 }
 
 .mw-mmv-options-text-body {
@@ -170,8 +159,8 @@
 	left: -15px;
 	right: -15px;
 	top: -15px;
-	border-top-right-radius: 2px;
-	border-top-left-radius: 2px;
+	border-top-right-radius: @border-radius;
+	border-top-left-radius: @border-radius;
 	padding: 10px 15px;
 	font-weight: 500;
 }

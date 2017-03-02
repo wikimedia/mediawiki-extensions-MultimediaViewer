@@ -62,7 +62,7 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:#333333;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#222;fill-opacity:1;stroke:none;stroke-width:16;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 0,0 0,64.00004 10.345703,0 43.308594,0 L 64,64.00004 64,0 0,0 Z m 6,6 52,0 0,52.00004 -6.060547,0 A 25.20602,60.413365 0 0 0 41.75,39.05474 c -2.753842,1.9904 -6.120159,3.1816 -9.757812,3.1816 -3.624277,0 -6.978291,-1.1811 -9.726563,-3.1582 A 25.20602,60.413365 0 0 0 12.060547,58.00004 L 6,58.00004 6,6 Z m 25.992188,6.00004 c -7.45154,0 -13.492255,6.0405 -13.492188,13.4922 -5e-6,7.4516 6.040693,13.4921 13.492188,13.4921 7.451495,0 13.492192,-6.0405 13.492187,-13.4921 6.6e-5,-7.4517 -6.040648,-13.4922 -13.492187,-13.4922 z"
        id="path4134"
        inkscape:connector-curvature="0" />
