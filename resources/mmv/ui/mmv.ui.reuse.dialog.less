@@ -15,7 +15,7 @@
 		padding-bottom: 0; // OOUI override
 		border: 0; // OOUI override
 		border-bottom: @divider-border-height solid @divider-color;
-		.box-round( @border-radius @border-radius 0 0 );
+		border-radius: @border-radius @border-radius 0 0;
 
 		.oo-ui-iconedElement-icon.oo-ui-icon-check,
 		.oo-ui-iconElement-icon.oo-ui-icon-check {
@@ -25,11 +25,10 @@
 		.oo-ui-optionWidget {
 			@tab-border-height: 3px;
 			@highlighted-tab-color: rgb( 225, 243, 255 );
-			@selected-tab-color: rgb( 0, 113, 188 );
+			@selected-tab-color: #2a4b8d;
 
 			display: inline-block;
 			padding: 10px 25px;
-
 			font-size: 1.2em;
 
 			&.oo-ui-optionWidget-highlighted {
@@ -42,7 +41,7 @@
 			}
 
 			&:first-child {
-				.box-round( @border-radius 0 0 0 );
+				border-radius: @border-radius 0 0 0;
 			}
 		}
 	}

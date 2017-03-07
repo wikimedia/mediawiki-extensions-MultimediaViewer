@@ -52,7 +52,7 @@
        id="r"
        x="0"
        y="5"
-       fill="#E5E5E5"
+       fill="#eaecf0"
        width="22"
        height="6" />
   </defs>
@@ -65,32 +65,32 @@
      d="m 1,1 v 150.998 l 8,5.96 V 43 42 h 1 38 1 v 1 111.019 l 3.274,-2.779 0.589,-0.499 0.633,0.44 6.504,4.557 V 43 42 h 1 154 1 v 1 110.099 l 9.257,7.661 13.295,-9.569 0.644,-0.465 0.598,0.521 10.864,9.47 L 263,151.499 V 1 H 1 M 0,0 H 264 V 152 L 250.609,162 239.136,152 225.245,162 215,153.6 V 43 H 61 V 157.66 L 52.922,152 48,156.18 V 43 H 10 V 159.95 L 0,152.5 V 0 l 0,0 z"
      id="path8"
      inkscape:connector-curvature="0"
-     style="fill:#e5e5e5" />
+     style="fill:#eaecf0" />
   <path
      d="M 61,157.66 V 43 H 215 V 153.6 L 212.855,152 200.3,162 186.491,152 172.262,162 159.29,152 146.317,162 132.506,152 120.37,162 106.979,152 92.75,162 79.778,152 66.804,162 61,157.66 z"
      id="path10"
      inkscape:connector-curvature="0"
-     style="fill:#e5e5e5" />
+     style="fill:#eaecf0" />
   <path
      d="m 253,36 c 0,-7.732 -6.268,-14 -14,-14 -7.732,0 -14,6.268 -14,14 0,7.732 6.268,14 14,14 7.732,0 14,-6.268 14,-14 z"
      id="path12"
      inkscape:connector-curvature="0"
-     style="fill:#e5e5e5" />
+     style="fill:#eaecf0" />
   <path
      d="M 10,159.95 V 43 H 48 V 156.18 L 40.449,162 26.638,152 12.747,162 10,159.95 z"
      id="path14"
      inkscape:connector-curvature="0"
-     style="fill:#e5e5e5" />
+     style="fill:#eaecf0" />
   <path
      d="M 226,107 V 72 h 25 v 35 h -25 z"
      id="path16"
      inkscape:connector-curvature="0"
-     style="fill:#e5e5e5" />
+     style="fill:#eaecf0" />
   <path
      d="m 31.49,5 h -26 v 6 h 26 V 5 z"
      id="path18"
      inkscape:connector-curvature="0"
-     style="fill:#e5e5e5" />
+     style="fill:#eaecf0" />
   <use
      xlink:href="#r"
      x="208.50999"
@@ -103,7 +103,7 @@
      d="m 122,6 v 4 h 92 V 6 h -92 m -1,-1 h 94 v 6 H 121 V 5 l 0,0 z"
      id="path22"
      inkscape:connector-curvature="0"
-     style="fill:#e5e5e5" />
+     style="fill:#eaecf0" />
   <use
      xlink:href="#r"
      x="184.50999"
@@ -148,12 +148,12 @@
      d="M 262,14.5 H 2"
      id="path34"
      inkscape:connector-curvature="0"
-     style="fill:#e5e5e5;stroke:#e5e5e5" />
+     style="fill:#eaecf0;stroke:#eaecf0" />
   <path
      d="M 43,73 H 19 v 1 h 24 v -1 z"
      id="path36"
      inkscape:connector-curvature="0"
-     style="fill:#a3a3a3" />
+     style="fill:#a2a9b1" />
   <use
      x="52"
      y="2"
@@ -165,7 +165,7 @@
      d="m 226,59 v -5 h 25 v 5 h -25 z"
      id="path40"
      inkscape:connector-curvature="0"
-     style="fill:#e5e5e5" />
+     style="fill:#eaecf0" />
   <path
      d="M 14,47 H 44 V 71 H 14 V 47 z m 20.268,11 h -1.08 l -6.69,6.596 -3.634,-2.172 -5.477,4.557 V 67 h 23.959 l -7.078,-9 z"
      id="path42"
