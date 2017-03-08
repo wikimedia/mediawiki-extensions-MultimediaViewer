@@ -106,6 +106,7 @@
 	"multimediaviewer-download-attribution-cta-header": "Вам потрібно вказати автора",
 	"multimediaviewer-download-optional-attribution-cta-header": "Ви можете вказати ім'я автора",
 	"multimediaviewer-download-attribution-cta": "Показати мені, як",
+	"multimediaviewer-download-attribution-copy": "Виділіть та скопіюйте (якщо підтримується) текст атрибуції цього файлу",
 	"multimediaviewer-attr-plain": "Простий текст",
 	"multimediaviewer-options-tooltip": "Увімкнути або вимкнути Медіапереглядач",
 	"multimediaviewer-options-dialog-header": "Вимкнути Медіапереглядач?",
