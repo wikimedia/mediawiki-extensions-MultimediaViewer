@@ -38,43 +38,40 @@
 		this.$close = $closeButton;
 		this.$fullscreen = $fullscreenButton;
 
-		this.$reuse = $( '<div>' )
+		this.$reuse = $( '<button>' )
 			.addClass( 'mw-mmv-reuse-button' )
 			.html( '&nbsp;' )
 			.prop( 'title', mw.message( 'multimediaviewer-reuse-link' ).text() )
-			.attr( 'alt', mw.message( 'multimediaviewer-reuse-link' ).text() )
 			.tipsy( {
 				delayIn: tooltipDelay,
 				gravity: this.correctEW( 'se' )
 			} );
 
-		this.$options = $( '<div>' )
+		this.$options = $( '<button>' )
 			.text( ' ' )
 			.prop( 'title', mw.message( 'multimediaviewer-options-tooltip' ).text() )
-			.attr( 'alt', mw.message( 'multimediaviewer-options-tooltip' ).text() )
 			.addClass( 'mw-mmv-options-button' )
 			.tipsy( {
 				delayIn: tooltipDelay,
 				gravity: this.correctEW( 'se' )
 			} );
 
-		this.$download = $( '<div>' )
+		this.$download = $( '<button>' )
 			.addClass( 'mw-mmv-download-button' )
 			.html( '&nbsp;' )
 			.prop( 'title', mw.message( 'multimediaviewer-download-link' ).text() )
-			.attr( 'alt', mw.message( 'multimediaviewer-download-link' ).text() )
 			.tipsy( {
 				delayIn: tooltipDelay,
 				gravity: this.correctEW( 'se' )
 			} );
 
-		this.$next = $( '<div>' )
-			.attr( 'alt', mw.message( 'multimediaviewer-next-image-alt-text' ).text() )
+		this.$next = $( '<button>' )
+			.prop( 'title', mw.message( 'multimediaviewer-next-image-alt-text' ).text() )
 			.addClass( 'mw-mmv-next-image disabled' )
 			.html( '&nbsp;' );
 
-		this.$prev = $( '<div>' )
-			.attr( 'alt', mw.message( 'multimediaviewer-prev-image-alt-text' ).text() )
+		this.$prev = $( '<button>' )
+			.prop( 'title', mw.message( 'multimediaviewer-prev-image-alt-text' ).text() )
 			.addClass( 'mw-mmv-prev-image disabled' )
 			.html( '&nbsp;' );
 

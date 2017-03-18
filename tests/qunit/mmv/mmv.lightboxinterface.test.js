@@ -98,7 +98,7 @@
 		$.support.fullscreen = true;
 		lightbox.setupCanvasButtons();
 
-		assert.strictEqual( lightbox.$fullscreenButton.css( 'display' ), 'block',
+		assert.strictEqual( lightbox.$fullscreenButton.css( 'display' ), 'inline-block',
 			'Fullscreen button is visible when fullscreen mode is available' );
 
 		// Entering fullscreen
