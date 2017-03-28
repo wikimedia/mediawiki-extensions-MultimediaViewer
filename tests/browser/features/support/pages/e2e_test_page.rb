@@ -36,13 +36,13 @@ class E2ETestPage < CommonsPage
   a(:mmv_details_page_link, class: 'mw-mmv-description-page-button')
 
   # Controls
-  div(:mmv_next_button, class: 'mw-mmv-next-image')
-  div(:mmv_previous_button, class: 'mw-mmv-prev-image')
-  div(:mmv_close_button, class: 'mw-mmv-close')
+  button(:mmv_next_button, class: 'mw-mmv-next-image')
+  button(:mmv_previous_button, class: 'mw-mmv-prev-image')
+  button(:mmv_close_button, class: 'mw-mmv-close')
   div(:mmv_image_loaded_cucumber, class: 'mw-mmv-image-loaded-cucumber')
 
   # Download
-  div(:mmv_download_icon, class: 'mw-mmv-download-button')
+  button(:mmv_download_icon, class: 'mw-mmv-download-button')
   div(:mmv_download_menu, class: 'mw-mmv-download-dialog')
   span(:mmv_download_size_label, class: 'mw-mmv-download-image-size')
   span(:mmv_download_down_arrow_icon, class: 'mw-mmv-download-select-menu')
@@ -61,7 +61,7 @@ class E2ETestPage < CommonsPage
   end
 
   # Options
-  div(:mmv_options_icon, class: 'mw-mmv-options-button')
+  button(:mmv_options_icon, class: 'mw-mmv-options-button')
   div(:mmv_options_menu_disable, class: 'mw-mmv-options-disable')
   div(:mmv_options_menu_enable, class: 'mw-mmv-options-enable')
   button(:mmv_options_enable_button) do |page|

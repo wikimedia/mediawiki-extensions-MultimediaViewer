@@ -315,11 +315,10 @@
 		var ui = this,
 			tooltipDelay = mw.config.get( 'wgMultimediaViewer' ).tooltipDelay;
 
-		this.$closeButton = $( '<div>' )
+		this.$closeButton = $( '<button>' )
 			.text( ' ' )
 			.addClass( 'mw-mmv-close' )
 			.prop( 'title', mw.message( 'multimediaviewer-close-popup-text' ).text() )
-			.attr( 'alt', mw.message( 'multimediaviewer-close-popup-text' ).text() )
 			.tipsy( {
 				delayIn: tooltipDelay,
 				gravity: this.correctEW( 'ne' )
@@ -331,11 +330,10 @@
 				ui.unattach();
 			} );
 
-		this.$fullscreenButton = $( '<div>' )
+		this.$fullscreenButton = $( '<button>' )
 			.text( ' ' )
 			.addClass( 'mw-mmv-fullscreen' )
 			.prop( 'title', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() )
-			.attr( 'alt', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() )
 			.tipsy( {
 				delayIn: tooltipDelay,
 				gravity: this.correctEW( 'ne' )
