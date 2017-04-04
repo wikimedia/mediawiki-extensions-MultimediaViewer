@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"John Reid"
+			"John Reid",
+			"AmaryllisGardener"
 		]
 	},
 	"multimediaviewer-optin-pref": "Enable <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
@@ -20,7 +21,7 @@
 	"multimediaviewer-reuse-loading-placeholder": "Laidin...",
 	"multimediaviewer-share-tab": "Shair",
 	"multimediaviewer-embed-tab": "Embed",
-	"multimediaviewer-download-link": "Dounlaid",
+	"multimediaviewer-download-link": "Dounlaid this file",
 	"multimediaviewer-download-preview-link-title": "See in the brouser",
 	"multimediaviewer-download-original-button-name": "Dounlaid the oreeginal file",
 	"multimediaviewer-download-small-button-name": "Dounlaid wee size",
@@ -32,13 +33,6 @@
 	"multimediaviewer-embed-wt": "Wikitex",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "Uise this code tae embed the file",
-	"multimediaviewer-html-embed-credit-text-tbls": "\"$1\" bi $2. Licensed unner $3 bi wa o $4.",
-	"multimediaviewer-html-embed-credit-text-tls": "\"$1\". Licensed unner $2 bi waa o $3.",
-	"multimediaviewer-html-embed-credit-text-tbs": "\"$1\" bi $2. Bi waa o $3.",
-	"multimediaviewer-html-embed-credit-text-tbl": "\"$1\" bi $2. Licensed unner $3.",
-	"multimediaviewer-html-embed-credit-text-tb": "\"$1\" bi $2.",
-	"multimediaviewer-html-embed-credit-text-ts": "\"$1\". Bi waa o $2.",
-	"multimediaviewer-html-embed-credit-text-tl": "\"$1\". Licensed unner $2.",
 	"multimediaviewer-embed-byline": "Bi $1",
 	"multimediaviewer-embed-license": "Licensed unner $1.",
 	"multimediaviewer-embed-via": "Bi waa o $1.",
