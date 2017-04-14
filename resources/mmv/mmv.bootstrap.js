@@ -133,7 +133,7 @@
 	 */
 	MMVB.processThumbs = function ( $content ) {
 		var bs = this;
-		
+
 		excludeThumbs = this.config.excludeThumbs();
 
 		this.$thumbs = $content.find(
@@ -186,6 +186,9 @@
 			link = $link.prop( 'href' ),
 			alt = $thumb.attr( 'alt' );
 
+		// get image annotation layer :
+		var annotationlayer = $thumb.nextAll( '.annotationlayer' ).first();
+
 		if ( !title || !title.getExtension() || !( title.getExtension().toLowerCase() in bs.validExtensions ) ) {
 			return;
 		}
@@ -224,6 +227,7 @@
 			title: title,
 			link: link,
 			alt: alt,
+			annotationlayer: annotationlayer,
 			caption: this.findCaption( $thumbContain, $link ) } );
 
 		$link.add( $enlarge ).click( function ( e ) {

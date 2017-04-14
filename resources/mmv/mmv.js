@@ -134,7 +134,8 @@
 				i,
 				thumb.thumb,
 				thumb.caption,
-				thumb.alt
+				thumb.alt,
+				thumb.annotationlayer
 			);
 
 			thumb.extraStatsDeferred = $.Deferred();
@@ -154,7 +155,7 @@
 	 * @param {string} [alt] The alt text of the image
 	 * @return {mw.mmv.LightboxImage}
 	 */
-	MMVP.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption, alt ) {
+	MMVP.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption, alt, annotationlayer = null ) {
 		var thisImage = new mw.mmv.LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption, alt ),
 			$thumb = $( thumb );
 
@@ -164,6 +165,7 @@
 		thisImage.thumbnail = thumb;
 		thisImage.originalWidth = parseInt( $thumb.data( 'file-width' ), 10 );
 		thisImage.originalHeight = parseInt( $thumb.data( 'file-height' ), 10 );
+		thisImage.annotationlayer = annotationlayer;
 
 		return thisImage;
 	};

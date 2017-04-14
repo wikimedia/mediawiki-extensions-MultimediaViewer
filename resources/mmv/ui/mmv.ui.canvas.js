@@ -111,14 +111,34 @@
 	 * @param {jQuery} $imageElement
 	 */
 	C.set = function ( imageRawMetadata, $imageElement ) {
+		var canvas = this;
 		this.$imageDiv.removeClass( 'empty' );
+
 
 		this.imageRawMetadata = imageRawMetadata;
 		this.$image = $imageElement;
 		this.setUpImageClick();
+		if ($(this.imageRawMetadata.annotationlayer).length > 0) {
+			this.annotationlayer = $(this.imageRawMetadata.annotationlayer).clone() ;
+		} else {
+			this.annotationlayer = false;
+		}
 
 		this.$imageDiv.html( this.$image );
+		//this.$imageDiv.html( $(this.imageRawMetadata.annotationLayer).clone() );
+		if (this.annotationlayer ) {
+			this.$imageDiv.append( this.annotationlayer );
+		}
 	};
+
+	C.setAnnotationLayerPosition = function () {
+		if (this.annotationlayer) {
+			var imgElement = $(this.$imageDiv).find('img').first();
+			this.annotationlayer.offset(imgElement.offset());
+			this.annotationlayer.height(imgElement.height());
+			this.annotationlayer.width(imgElement.width());
+		}
+	}
 
 	/**
 	 * Resizes image to the given dimensions and displays it on the canvas.
@@ -225,6 +245,7 @@
 
 		$( window ).on( 'resize.mmv-canvas', $.debounce( 100, function () {
 			canvas.$mainWrapper.trigger( $.Event( 'mmv-resize-end' ) );
+			canvas.setAnnotationLayerPosition();
 		} ) );
 
 		this.$imageWrapper.on( 'click.mmv-canvas', function () {
@@ -289,6 +310,7 @@
 		}
 
 		this.set( this.imageRawMetadata, $imagePlaceholder.show() );
+		this.setAnnotationLayerPosition();
 
 		return blurredThumbnailShown;
 	};
@@ -337,6 +359,8 @@
 		// so that they don't get in the way of styles defined in CSS
 		this.$image.css( { '-webkit-filter': '', opacity: '', filter: '' } )
 			.removeClass( 'blurred' );
+
+		this.setAnnotationLayerPosition();
 	};
 
 	/**
