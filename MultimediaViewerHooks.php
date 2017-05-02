@@ -144,8 +144,18 @@ class MultimediaViewerHooks {
 		}
 	}
 
+	public static function onUserGetDefaultOptions( &$defaultOptions ) {
+		global $wgMediaViewerEnableByDefault;
+
+		if ( $wgMediaViewerEnableByDefault ) {
+			$defaultOptions['multimediaviewer-enable'] = true;
+		}
+
+		return true;
+	}
+
 	public static function onExtensionFunctions() {
-		global $wgResourceModules, $wgDefaultUserOptions, $wgMediaViewerEnableByDefault;
+		global $wgResourceModules;
 
 		if ( isset( $wgResourceModules['ext.eventLogging'] ) ) {
 			$wgResourceModules['mmv.lightboxinterface']['dependencies'][] = 'ext.eventLogging';
@@ -153,9 +163,6 @@ class MultimediaViewerHooks {
 			$wgResourceModules['mmv.bootstrap.autostart']['dependencies'][] = 'ext.eventLogging';
 		}
 
-		if ( $wgMediaViewerEnableByDefault ) {
-			$wgDefaultUserOptions['multimediaviewer-enable'] = true;
-		}
 	}
 
 	public static function onEventLoggingRegisterSchemas( array &$schemas ) {

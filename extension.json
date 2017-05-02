@@ -382,6 +382,9 @@
 		"EventLoggingRegisterSchemas": [
 			"MultimediaViewerHooks::onEventLoggingRegisterSchemas"
 		],
+		"UserGetDefaultOptions": [
+			"MultimediaViewerHooks::onUserGetDefaultOptions"
+		],
 		"GetPreferences": [
 			"MultimediaViewerHooks::getPreferences"
 		],
