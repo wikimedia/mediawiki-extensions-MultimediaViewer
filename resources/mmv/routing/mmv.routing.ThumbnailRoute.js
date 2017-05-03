@@ -27,7 +27,7 @@
 	 */
 	function ThumbnailRoute( fileTitle ) {
 		if ( !fileTitle ) {
-			throw 'mw.mmv.routing.ThumbnailRoute: fileTitle parameter is required';
+			throw new Error( 'mw.mmv.routing.ThumbnailRoute: fileTitle parameter is required' );
 		}
 		this.fileTitle = fileTitle;
 	}

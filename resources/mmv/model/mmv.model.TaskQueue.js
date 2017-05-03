@@ -61,7 +61,7 @@
 	 */
 	tqp.push = function ( task ) {
 		if ( this.state !== TaskQueue.State.NOT_STARTED ) {
-			throw 'Task queue already started!';
+			throw new Error( 'Task queue already started!' );
 		}
 		this.queue.push( task );
 	};

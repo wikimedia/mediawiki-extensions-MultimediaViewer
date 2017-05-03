@@ -33,7 +33,7 @@
 		alt
 	) {
 		if ( !imageInfo || !repoInfo ) {
-			throw 'imageInfo and repoInfo are required and must have a value';
+			throw new Error( 'imageInfo and repoInfo are required and must have a value' );
 		}
 
 		/** @property {mw.mmv.model.Image} imageInfo The title of the file */
