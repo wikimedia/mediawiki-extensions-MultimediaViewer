@@ -4,7 +4,6 @@
 			mw.config.set( 'wgMediaViewer', true );
 			mw.config.set( 'wgMediaViewerOnClick', true );
 			this.sandbox.stub( mw.user, 'isAnon' ).returns( false );
-			this.clock = this.sandbox.useFakeTimers();
 		}
 	} ) );
 
@@ -67,80 +66,93 @@
 	}
 
 	function hashTest( prefix, bootstrap, assert ) {
-		var hash = prefix + '/foo';
+		var hash = prefix + '/foo',
+			callCount = 0;
+
+		bootstrap.loadViewer = function () {
+			callCount++;
+			return $.Deferred().reject();
+		};
+
+		// Hijack loadViewer, which will return a promise that we'll have to
+		// wait for if we want to see these tests through
+		mw.mmv.testHelpers.asyncMethod( bootstrap, 'loadViewer' );
 
 		bootstrap.setupEventHandlers();
 
-		bootstrap.loadViewer = function () {
-			assert.ok( false, 'Viewer should not be loaded' );
-			return $.Deferred().reject();
-		};
-
+		// invalid hash, should not trigger MMV load
 		window.location.hash = 'Foo';
 
-		bootstrap.loadViewer = function () {
-			QUnit.start();
-			assert.ok( true, 'Viewer should be loaded' );
+		// actual hash we want to test for, should trigger MMV load
+		// use setTimeout to add new hash change to end of the call stack,
+		// ensuring that event handlers for our previous change can execute
+		// without us interfering with another immediate change
+		setTimeout( function () {
+			window.location.hash = hash;
+		} );
+
+		return mw.mmv.testHelpers.waitForAsync().then( function () {
+			assert.ok( callCount === 1, 'Viewer should be loaded once' );
 			bootstrap.cleanupEventHandlers();
 			window.location.hash = '';
-
-			return $.Deferred().reject();
-		};
-
-		QUnit.stop();
-		window.location.hash = hash;
+		} );
 	}
 
 	QUnit.test( 'Promise does not hang on ResourceLoader errors', 3, function ( assert ) {
 		var bootstrap,
-			errorMessage = 'loading failed';
+			errorMessage = 'loading failed',
+			done = assert.async();
 
 		this.sandbox.stub( mw.loader, 'using' )
 			.callsArgWith( 2, new Error( errorMessage, [ 'mmv' ] ) )
 			.withArgs( 'mediawiki.notification' ).returns( $.Deferred().reject() ); // needed for mw.notify
 
 		bootstrap = createBootstrap();
-
-		bootstrap.setupOverlay = function () {
-			assert.ok( true, 'Overlay was set up' );
-		};
-
-		bootstrap.cleanupOverlay = function () {
-			assert.ok( true, 'Overlay was cleaned up' );
-		};
-
-		QUnit.stop();
+		this.sandbox.stub( bootstrap, 'setupOverlay' );
+		this.sandbox.stub( bootstrap, 'cleanupOverlay' );
 
 		bootstrap.loadViewer( true ).fail( function ( message ) {
+			assert.ok( bootstrap.setupOverlay.called, 'Overlay was set up' );
+			assert.ok( bootstrap.cleanupOverlay.called, 'Overlay was cleaned up' );
 			assert.strictEqual( message, errorMessage, 'promise is rejected with the error message when loading fails' );
-			QUnit.start();
+			done();
 		} );
 	} );
 
 	QUnit.test( 'Clicks are not captured once the loading fails', 4, function ( assert ) {
 		var event, returnValue,
-			bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+			bootstrap = new mw.mmv.MultimediaViewerBootstrap(),
+			clock = this.sandbox.useFakeTimers();
 
 		this.sandbox.stub( mw.loader, 'using' )
 			.callsArgWith( 2, new Error( 'loading failed', [ 'mmv' ] ) )
 			.withArgs( 'mediawiki.notification' ).returns( $.Deferred().reject() ); // needed for mw.notify
 		bootstrap.ensureEventHandlersAreSetUp = $.noop;
 
+		// trigger first click, which will cause MMV to be loaded (which we've
+		// set up to fail)
 		event = new $.Event( 'click', { button: 0, which: 1 } );
 		returnValue = bootstrap.click( {}, event, 'foo' );
+		clock.tick( 10 );
 		assert.ok( event.isDefaultPrevented(), 'First click is caught' );
 		assert.strictEqual( returnValue, false, 'First click is caught' );
 
+		// wait until MMW is loaded (or failed to load, in this case) before we
+		// trigger another click - which should then not be caught
 		event = new $.Event( 'click', { button: 0, which: 1 } );
 		returnValue = bootstrap.click( {}, event, 'foo' );
+		clock.tick( 10 );
 		assert.ok( !event.isDefaultPrevented(), 'Click after loading failure is not caught' );
 		assert.notStrictEqual( returnValue, false, 'Click after loading failure is not caught' );
+
+		clock.restore();
 	} );
 
-	QUnit.test( 'Check viewer invoked when clicking on valid image links', 10, function ( assert ) {
+	QUnit.test( 'Check viewer invoked when clicking on valid image links', 14, function ( assert ) {
 		// TODO: Is <div class="gallery"><span class="image"><img/></span></div> valid ???
 		var div, link, link2, link3, link4, link5, bootstrap,
-			viewer = { initWithThumbs: $.noop };
+			viewer = { initWithThumbs: $.noop, loadImageByTitle: this.sandbox.stub() },
+			clock = this.sandbox.useFakeTimers();
 
 		// Create gallery with valid link image
 		div = createGallery();
@@ -166,6 +178,7 @@
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
 		bootstrap = createBootstrap( viewer );
+		this.sandbox.stub( bootstrap, 'setupOverlay' );
 
 		link4 = $( '.fullMedia .mw-mmv-view-expanded' );
 		assert.ok( link4.length, 'Link for viewing expanded file was set up.' );
@@ -173,48 +186,55 @@
 		link5 = $( '.fullMedia .mw-mmv-view-config' );
 		assert.ok( link5.length, 'Link for opening enable/disable configuration was set up.' );
 
-		bootstrap.setupOverlay = function () {
-			assert.ok( true, 'Overlay was set up' );
-		};
-
-		viewer.loadImageByTitle = function () {
-			assert.ok( true, 'Image loaded' );
-		};
-
 		// Click on valid link
 		link.trigger( { type: 'click', which: 1 } );
+		clock.tick( 10 );
+		assert.ok( bootstrap.setupOverlay.callCount === 1, 'setupOverlay was called' );
+		assert.ok( viewer.loadImageByTitle.callCount === 1, 'loadImageByTitle was called' );
 
 		// Click on valid link
 		link2.trigger( { type: 'click', which: 1 } );
+		clock.tick( 10 );
+		assert.ok( bootstrap.setupOverlay.callCount === 2, 'setupOverlay was called' );
+		assert.ok( viewer.loadImageByTitle.callCount === 2, 'loadImageByTitle was called' );
 
 		// Click on valid link
 		link4.trigger( { type: 'click', which: 1 } );
+		clock.tick( 10 );
+		assert.ok( bootstrap.setupOverlay.callCount === 3, 'setupOverlay was called' );
+		assert.ok( viewer.loadImageByTitle.callCount === 3, 'loadImageByTitle was called' );
 
 		// Click on valid link even when preference says not to
 		mw.config.set( 'wgMediaViewerOnClick', false );
 		link4.trigger( { type: 'click', which: 1 } );
+		clock.tick( 10 );
 		mw.config.set( 'wgMediaViewerOnClick', true );
+		assert.ok( bootstrap.setupOverlay.callCount === 4, 'setupOverlay was called' );
+		assert.ok( viewer.loadImageByTitle.callCount === 4, 'loadImageByTitle was called' );
 
-		bootstrap.setupOverlay = function () {
-			assert.ok( false, 'Overlay was not set up' );
-		};
-
-		viewer.loadImageByTitle = function () {
-			assert.ok( false, 'Image should not be loaded' );
-		};
+		// @todo comment that above clicks should result in call, below clicks should not
 
 		// Click on non-valid link
 		link3.trigger( { type: 'click', which: 1 } );
+		clock.tick( 10 );
+		assert.ok( bootstrap.setupOverlay.callCount === 4, 'setupOverlay was not called' );
+		assert.ok( viewer.loadImageByTitle.callCount === 4, 'loadImageByTitle was not called' );
 
 		// Click on valid links with preference off
 		mw.config.set( 'wgMediaViewerOnClick', false );
 		link.trigger( { type: 'click', which: 1 } );
 		link2.trigger( { type: 'click', which: 1 } );
+		clock.tick( 10 );
+		assert.ok( bootstrap.setupOverlay.callCount === 4, 'setupOverlay was not called' );
+		assert.ok( viewer.loadImageByTitle.callCount === 4, 'loadImageByTitle was not called' );
+
+		clock.restore();
 	} );
 
-	QUnit.test( 'Skip images with invalid extensions', 0, function ( assert ) {
+	QUnit.test( 'Skip images with invalid extensions', 1, function ( assert ) {
 		var div, link,
-			viewer = { initWithThumbs: $.noop };
+			viewer = { initWithThumbs: $.noop, loadImageByTitle: this.sandbox.stub() },
+			clock = this.sandbox.useFakeTimers();
 
 		// Create gallery with image that has invalid name extension
 		div = createGallery( 'thumb.badext' );
@@ -223,70 +243,67 @@
 		// Create a new bootstrap object to trigger the DOM scan, etc.
 		createBootstrap( viewer );
 
-		viewer.loadImageByTitle = function () {
-			assert.ok( false, 'Image should not be loaded' );
-		};
-
 		// Click on valid link with wrong image extension
 		link.trigger( { type: 'click', which: 1 } );
+		clock.tick( 10 );
+
+		assert.ok( !viewer.loadImageByTitle.called, 'Image should not be loaded' );
+
+		clock.restore();
 	} );
 
-	QUnit.test( 'Accept only left clicks without modifier keys, skip the rest', 2, function ( assert ) {
+	QUnit.test( 'Accept only left clicks without modifier keys, skip the rest', 6, function ( assert ) {
 		var $div, $link, bootstrap,
-			viewer = { initWithThumbs: $.noop };
+			viewer = { initWithThumbs: $.noop, loadImageByTitle: this.sandbox.stub() },
+			clock = this.sandbox.useFakeTimers();
 
 		// Create gallery with image that has valid name extension
 		$div = createGallery();
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
 		bootstrap = createBootstrap( viewer );
+		this.sandbox.stub( bootstrap, 'setupOverlay' );
 
 		$link = $div.find( 'a.image' );
 
-		bootstrap.setupOverlay = function () {
-			assert.ok( true, 'Overlay was set up' );
-		};
-
-		viewer.loadImageByTitle = function () {
-			assert.ok( true, 'Image loaded' );
-		};
-
 		// Handle valid left click, it should try to load the image
 		$link.trigger( { type: 'click', which: 1 } );
-
-		bootstrap.setupOverlay = function () {
-			assert.ok( false, 'Overlay was not set up' );
-		};
-
-		viewer.loadImageByTitle = function () {
-			assert.ok( false, 'Image should not be loaded' );
-		};
+		clock.tick( 10 );
+		assert.ok( bootstrap.setupOverlay.callCount === 1, 'Overlay was set up' );
+		assert.ok( viewer.loadImageByTitle.callCount === 1, 'Image was loaded' );
 
 		// Skip Ctrl-left-click, no image is loaded
 		$link.trigger( { type: 'click', which: 1, ctrlKey: true } );
+		clock.tick( 10 );
+		assert.ok( bootstrap.setupOverlay.callCount === 1, 'Overlay was not set up' );
+		assert.ok( viewer.loadImageByTitle.callCount === 1, 'Image was not loaded' );
 
 		// Skip invalid right click, no image is loaded
 		$link.trigger( { type: 'click', which: 2 } );
+		clock.tick( 10 );
+		assert.ok( bootstrap.setupOverlay.callCount === 1, 'Overlay was not set up' );
+		assert.ok( viewer.loadImageByTitle.callCount === 1, 'Image was not loaded' );
+
+		clock.restore();
 	} );
 
 	QUnit.test( 'Ensure that the correct title is loaded when clicking', 2, function ( assert ) {
 		var bootstrap,
-			viewer = { initWithThumbs: $.noop },
+			viewer = { initWithThumbs: $.noop, loadImageByTitle: this.sandbox.stub() },
 			$div = createGallery( 'foo.jpg' ),
-			$link = $div.find( 'a.image' );
-
-		viewer.loadImageByTitle = function ( loadedTitle ) {
-			assert.strictEqual( loadedTitle.getPrefixedDb(), 'File:Foo.jpg', 'Titles are identical' );
-		};
+			$link = $div.find( 'a.image' ),
+			clock = this.sandbox.useFakeTimers();
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
 		bootstrap = createBootstrap( viewer );
-
-		bootstrap.setupOverlay = function () {
-			assert.ok( true, 'Overlay was set up' );
-		};
+		this.sandbox.stub( bootstrap, 'setupOverlay' );
 
 		$link.trigger( { type: 'click', which: 1 } );
+		clock.tick( 10 );
+		assert.ok( bootstrap.setupOverlay.called, 'Overlay was set up' );
+		assert.strictEqual( viewer.loadImageByTitle.firstCall.args[ 0 ].getPrefixedDb(), 'File:Foo.jpg', 'Titles are identical' );
+
+		clock.restore();
 	} );
 
 	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 9, function ( assert ) {
@@ -296,13 +313,17 @@
 			viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			fname = 'valid',
 			imgSrc = '/' + fname + '.jpg/300px-' + fname + '.jpg',
-			imgRegex = new RegExp( imgSrc + '$' );
+			imgRegex = new RegExp( imgSrc + '$' ),
+			clock = this.sandbox.useFakeTimers();
 
 		$div = createThumb( imgSrc, 'Blah blah', 'meow' );
 		$link = $div.find( 'a.image' );
 
+		// Create a new bootstrap object to trigger the DOM scan, etc.
+		bootstrap = createBootstrap( viewer );
+		this.sandbox.stub( bootstrap, 'setupOverlay' );
+		this.sandbox.stub( viewer, 'createNewImage' );
 		viewer.loadImage = $.noop;
-
 		viewer.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption, alt ) {
 			var html = thumb.outerHTML;
 
@@ -316,14 +337,11 @@
 			assert.strictEqual( alt, 'meow', 'The alt text passed in is correct' );
 		};
 
-		// Create a new bootstrap object to trigger the DOM scan, etc.
-		bootstrap = createBootstrap( viewer );
-
-		bootstrap.setupOverlay = function () {
-			assert.ok( true, 'Overlay was set up' );
-		};
-
 		$link.trigger( { type: 'click', which: 1 } );
+		clock.tick( 10 );
+		assert.ok( bootstrap.setupOverlay.called, 'Overlay was set up' );
+
+		clock.reset();
 	} );
 
 	QUnit.test( 'Only load the viewer on a valid hash (modern browsers)', 1, function ( assert ) {
@@ -333,7 +351,7 @@
 
 		bootstrap = createBootstrap();
 
-		hashTest( '/media', bootstrap, assert );
+		return hashTest( '/media', bootstrap, assert );
 	} );
 
 	QUnit.test( 'Only load the viewer on a valid hash (old browsers)', 1, function ( assert ) {
@@ -344,7 +362,7 @@
 		bootstrap = createBootstrap();
 		bootstrap.browserHistory = undefined;
 
-		hashTest( '/media', bootstrap, assert );
+		return hashTest( '/media', bootstrap, assert );
 	} );
 
 	QUnit.test( 'Load the viewer on a legacy hash (modern browsers)', 1, function ( assert ) {
@@ -354,7 +372,7 @@
 
 		bootstrap = createBootstrap();
 
-		hashTest( 'mediaviewer', bootstrap, assert );
+		return hashTest( 'mediaviewer', bootstrap, assert );
 	} );
 
 	QUnit.test( 'Load the viewer on a legacy hash (old browsers)', 1, function ( assert ) {
@@ -365,7 +383,7 @@
 		bootstrap = createBootstrap();
 		bootstrap.browserHistory = undefined;
 
-		hashTest( 'mediaviewer', bootstrap, assert );
+		return hashTest( 'mediaviewer', bootstrap, assert );
 	} );
 
 	QUnit.test( 'Overlay is set up on hash change', 1, function ( assert ) {
@@ -396,48 +414,56 @@
 		assert.ok( !bootstrap.setupOverlay.called, 'Overlay is not set up' );
 	} );
 
-	QUnit.test( 'internalHashChange', 1, function ( assert ) {
+	QUnit.test( 'internalHashChange', 2, function ( assert ) {
 		var bootstrap = createBootstrap(),
-			hash = '#/media/foo';
+			hash = '#/media/foo',
+			callCount = 0,
+			clock = this.sandbox.useFakeTimers();
 
 		window.location.hash = '';
 
-		bootstrap.setupEventHandlers();
-
 		bootstrap.loadViewer = function () {
-			assert.ok( false, 'Viewer should not be loaded' );
+			callCount++;
 			return $.Deferred().reject();
 		};
 
-		bootstrap.internalHashChange( { hash: hash } );
+		bootstrap.setupEventHandlers();
 
+		bootstrap.internalHashChange( { hash: hash } );
+		clock.tick( 10 );
+
+		assert.ok( callCount === 0, 'Viewer should not be loaded' );
 		assert.strictEqual( window.location.hash, hash, 'Window\'s hash has been updated correctly' );
 
 		bootstrap.cleanupEventHandlers();
-
 		window.location.hash = '';
+		clock.restore();
 	} );
 
-	QUnit.test( 'internalHashChange (legacy)', 1, function ( assert ) {
+	QUnit.test( 'internalHashChange (legacy)', 2, function ( assert ) {
 		var bootstrap = createBootstrap(),
-			hash = '#mediaviewer/foo';
+			hash = '#mediaviewer/foo',
+			callCount = 0,
+			clock = this.sandbox.useFakeTimers();
 
 		window.location.hash = '';
 
-		bootstrap.setupEventHandlers();
-
 		bootstrap.loadViewer = function () {
-			assert.ok( false, 'Viewer should not be loaded' );
+			callCount++;
 			return $.Deferred().reject();
 		};
 
-		bootstrap.internalHashChange( { hash: hash } );
+		bootstrap.setupEventHandlers();
 
+		bootstrap.internalHashChange( { hash: hash } );
+		clock.tick( 10 );
+
+		assert.ok( callCount === 0, 'Viewer should not be loaded' );
 		assert.strictEqual( window.location.hash, hash, 'Window\'s hash has been updated correctly' );
 
 		bootstrap.cleanupEventHandlers();
-
 		window.location.hash = '';
+		clock.restore();
 	} );
 
 	QUnit.test( 'Restoring article scroll position', 2, function ( assert ) {
@@ -470,6 +496,7 @@
 
 	QUnit.test( 'Preload JS/CSS dependencies on thumb hover', 2, function ( assert ) {
 		var $div, bootstrap,
+			clock = this.sandbox.useFakeTimers(),
 			viewer = { initWithThumbs: $.noop };
 
 		// Create gallery with image that has valid name extension
@@ -481,16 +508,18 @@
 		this.sandbox.stub( mw.loader, 'load' );
 
 		$div.mouseenter();
-		this.clock.tick( bootstrap.hoverWaitDuration - 50 );
+		clock.tick( bootstrap.hoverWaitDuration - 50 );
 		$div.mouseleave();
 
 		assert.ok( !mw.loader.load.called, 'Dependencies should not be preloaded if the thumb is not hovered long enough' );
 
 		$div.mouseenter();
-		this.clock.tick( bootstrap.hoverWaitDuration + 50 );
+		clock.tick( bootstrap.hoverWaitDuration + 50 );
 		$div.mouseleave();
 
 		assert.ok( mw.loader.load.called, 'Dependencies should be preloaded if the thumb is hovered long enough' );
+
+		clock.restore();
 	} );
 
 	QUnit.test( 'isAllowedThumb', 5, function ( assert ) {

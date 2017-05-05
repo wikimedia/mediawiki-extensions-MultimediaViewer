@@ -112,20 +112,26 @@
 			deferred.reject( error.message );
 		} );
 
-		return deferred.done( function ( viewer ) {
-			if ( !bs.viewerInitialized ) {
-				if ( bs.thumbs.length ) {
-					viewer.initWithThumbs( bs.thumbs );
-				}
+		return deferred.promise()
+			.then(
+				function ( viewer ) {
+					if ( !bs.viewerInitialized ) {
+						if ( bs.thumbs.length ) {
+							viewer.initWithThumbs( bs.thumbs );
+						}
 
-				bs.viewerInitialized = true;
-			}
-		} ).fail( function ( message ) {
-			mw.log.warn( message );
-			bs.cleanupOverlay();
-			bs.viewerIsBroken = true;
-			mw.notify( 'Error loading MediaViewer: ' + message );
-		} );
+						bs.viewerInitialized = true;
+					}
+					return viewer;
+				},
+				function ( message ) {
+					mw.log.warn( message );
+					bs.cleanupOverlay();
+					bs.viewerIsBroken = true;
+					mw.notify( 'Error loading MediaViewer: ' + message );
+					return $.Deferred().reject( message );
+				}
+			);
 	};
 
 	/**
