@@ -288,63 +288,78 @@
 
 		metadataPromise = this.fetchSizeIndependentLightboxInfo( image.filePageTitle );
 
-		imagePromise.done( function ( thumbnail, imageElement ) {
-			if ( viewer.currentIndex !== image.index ) {
-				return;
-			}
+		imagePromise.then(
+			// done
+			function ( thumbnail, imageElement ) {
+				if ( viewer.currentIndex !== image.index ) {
+					return;
+				}
 
-			if ( viewer.imageDisplayedCount++ === 0 ) {
-				mw.mmv.durationLogger.stop( 'click-to-first-image' );
+				if ( viewer.imageDisplayedCount++ === 0 ) {
+					mw.mmv.durationLogger.stop( 'click-to-first-image' );
 
-				metadataPromise.done( function ( imageInfo ) {
-					if ( !imageInfo || !imageInfo.anonymizedUploadDateTime ) {
-						return;
-					}
+					metadataPromise.then( function ( imageInfo, repoInfo ) {
+						if ( imageInfo && imageInfo.anonymizedUploadDateTime ) {
+							mw.mmv.durationLogger.record( 'click-to-first-image', {
+								uploadTimestamp: imageInfo.anonymizedUploadDateTime
+							} );
+						}
 
-					mw.mmv.durationLogger.record( 'click-to-first-image', {
-						uploadTimestamp: imageInfo.anonymizedUploadDateTime
+						return $.Deferred().resolve( imageInfo, repoInfo );
 					} );
+				}
+
+				imageElement.className = 'mw-mmv-final-image ' + image.filePageTitle.ext.toLowerCase();
+				imageElement.alt = image.alt;
+
+				$.when( metadataPromise, pluginsPromise ).then( function ( metadata ) {
+					$( document ).trigger( $.Event( 'mmv-metadata', { viewer: viewer, image: image, imageInfo: metadata[ 0 ] } ) );
 				} );
+
+				viewer.displayRealThumbnail( thumbnail, imageElement, imageWidths, $.now() - start );
+
+				return $.Deferred().resolve( thumbnail, imageElement );
+			},
+			// fail
+			function ( error ) {
+				viewer.ui.canvas.showError( error );
+				return $.Deferred().reject( error );
 			}
+		);
 
-			imageElement.className = 'mw-mmv-final-image ' + image.filePageTitle.ext.toLowerCase();
-			imageElement.alt = image.alt;
+		metadataPromise.then(
+			// done
+			function ( imageInfo, repoInfo ) {
+				extraStatsDeferred.resolve( { uploadTimestamp: imageInfo.anonymizedUploadDateTime } );
 
-			$.when( metadataPromise, pluginsPromise ).done( function ( metadata ) {
-				$( document ).trigger( $.Event( 'mmv-metadata', { viewer: viewer, image: image, imageInfo: metadata[ 0 ] } ) );
-			} );
+				if ( viewer.currentIndex !== image.index ) {
+					return;
+				}
 
-			viewer.displayRealThumbnail( thumbnail, imageElement, imageWidths, $.now() - start );
-		} ).fail( function ( error ) {
-			viewer.ui.canvas.showError( error );
-		} );
+				if ( viewer.metadataDisplayedCount++ === 0 ) {
+					mw.mmv.durationLogger.stop( 'click-to-first-metadata' ).record( 'click-to-first-metadata' );
+				}
 
-		metadataPromise.done( function ( imageInfo, repoInfo ) {
-			extraStatsDeferred.resolve( { uploadTimestamp: imageInfo.anonymizedUploadDateTime } );
+				viewer.ui.panel.setImageInfo( image, imageInfo, repoInfo );
 
-			if ( viewer.currentIndex !== image.index ) {
-				return;
+				// File reuse steals a bunch of information from the DOM, so do it last
+				viewer.ui.setFileReuseData( imageInfo, repoInfo, image.caption, image.alt );
+
+				return $.Deferred().resolve( imageInfo, repoInfo );
+			},
+			// fail
+			function ( error ) {
+				extraStatsDeferred.reject();
+
+				if ( viewer.currentIndex === image.index ) {
+					// Set title to caption or file name if caption is not available;
+					// see setTitle() in mmv.ui.metadataPanel for extended caption fallback
+					viewer.ui.panel.showError( image.caption || image.filePageTitle.getNameText(), error );
+				}
+
+				return $.Deferred().reject( error );
 			}
-
-			if ( viewer.metadataDisplayedCount++ === 0 ) {
-				mw.mmv.durationLogger.stop( 'click-to-first-metadata' ).record( 'click-to-first-metadata' );
-			}
-
-			viewer.ui.panel.setImageInfo( image, imageInfo, repoInfo );
-
-			// File reuse steals a bunch of information from the DOM, so do it last
-			viewer.ui.setFileReuseData( imageInfo, repoInfo, image.caption, image.alt );
-		} ).fail( function ( error ) {
-			extraStatsDeferred.reject();
-
-			if ( viewer.currentIndex !== image.index ) {
-				return;
-			}
-
-			// Set title to caption or file name if caption is not available;
-			// see setTitle() in mmv.ui.metadataPanel for extended caption fallback
-			viewer.ui.panel.showError( image.caption || image.filePageTitle.getNameText(), error );
-		} );
+		);
 
 		$.when( imagePromise, metadataPromise ).then( function () {
 			if ( viewer.currentIndex !== image.index ) {
@@ -507,12 +522,6 @@
 			progressBar = viewer.ui.panel.progressBar,
 			key = image.filePageTitle.getPrefixedDb() + '|' + imageWidth;
 
-		if ( imagePromise.state() !== 'pending' ) {
-			// image has already loaded (or failed to load) - do not show the progress bar
-			progressBar.hide();
-			return;
-		}
-
 		if ( !this.progressCache[ key ] ) {
 			// Animate progress bar to 5 to give a sense that something is happening, and make sure
 			// the progress bar is noticeable, even if we're sitting at 0% stuck waiting for
@@ -525,34 +534,47 @@
 		}
 
 		// FIXME would be nice to have a "filtered" promise which does not fire when the image is not visible
-		imagePromise.progress( function ( progress ) {
-			// We pretend progress is always at least 5%, so progress events below 5% should be ignored
-			// 100 will be handled by the done handler, do not mix two animations
-			if ( progress < 5 || progress === 100 ) {
-				return;
-			}
+		imagePromise.then(
+			// done
+			function ( thumbnail, imageElement ) {
+				viewer.progressCache[ key ] = 100;
+				if ( viewer.currentIndex === image.index ) {
+					// Fallback in case the browser doesn't have fancy progress updates
+					progressBar.animateTo( 100 );
 
-			viewer.progressCache[ key ] = progress;
+					// Hide progress bar, we're done
+					progressBar.hide();
+				}
 
-			// Touch the UI only if the user is looking at this image
-			if ( viewer.currentIndex === image.index ) {
-				progressBar.animateTo( progress );
-			}
-		} ).done( function () {
-			viewer.progressCache[ key ] = 100;
+				return $.Deferred().resolve( thumbnail, imageElement );
+			},
+			// fail
+			function ( error ) {
+				viewer.progressCache[ key ] = 100;
 
-			if ( viewer.currentIndex === image.index ) {
-				// Fallback in case the browser doesn't have fancy progress updates
-				progressBar.animateTo( 100 );
-			}
-		} ).fail( function () {
-			viewer.progressCache[ key ] = 100;
+				if ( viewer.currentIndex === image.index ) {
+					// Hide progress bar on error
+					progressBar.hide();
+				}
 
-			if ( viewer.currentIndex === image.index ) {
-				// Hide progress bar on error
-				progressBar.hide();
+				return $.Deferred().reject( error );
+			},
+			// progress
+			function ( progress ) {
+				// We pretend progress is always at least 5%, so progress events below 5% should be ignored
+				// 100 will be handled by the done handler, do not mix two animations
+				if ( progress >= 5 && progress < 100 ) {
+					viewer.progressCache[ key ] = progress;
+
+					// Touch the UI only if the user is looking at this image
+					if ( viewer.currentIndex === image.index ) {
+						progressBar.animateTo( progress );
+					}
+				}
+
+				return progress;
 			}
-		} );
+		);
 	};
 
 	/**
@@ -762,6 +784,7 @@
 	MMVP.fetchThumbnail = function ( fileTitle, width, sampleUrl, originalWidth, originalHeight, extraStatsDeferred ) {
 		var viewer = this,
 			guessing = false,
+			combinedDeferred = $.Deferred(),
 			thumbnailPromise,
 			imagePromise;
 
@@ -806,10 +829,13 @@
 			} );
 		}
 
-		return $.when( thumbnailPromise, imagePromise ).then( null, null, function ( thumbnailProgress, imageProgress ) {
-			// Make progress events have a nice format.
-			return imageProgress[ 1 ];
+		// In jQuery<3, $.when used to also relay notify, but that is no longer
+		// the case - but we still want to pass it along...
+		$.when( thumbnailPromise, imagePromise ).then( combinedDeferred.resolve, combinedDeferred.reject );
+		imagePromise.then( null, null, function ( arg, progress ) {
+			combinedDeferred.notify( progress );
 		} );
+		return combinedDeferred;
 	};
 
 	/**
