@@ -26,6 +26,7 @@
 	"multimediaviewer-optin-mmv": "Aktiveer Mediakyker",
 	"multimediaviewer-optout-pending-mmv": "Deaktiveer tans Mediakyker",
 	"multimediaviewer-optin-pending-mmv": "Aktiveer tans Mediakyker",
+	"multimediaviewer-optout-help": "Mediakyker sal nie meer gebruik word om beelde te wys nie. Om dit weer te gebruik, klik op die \"{{int:multimediaviewer-view-expanded}}\"-knop langs enige beeld. Klik dan op \"{{int:multimediaviewer-optin-mmv}}\".",
 	"multimediaviewer-optin-help": "Mediakyker sal gebruik word om beelde te wys.",
 	"multimediaviewer-geolocation": "Ligging: $1",
 	"multimediaviewer-reuse-link": "Deel dié lêer of bed dit in",
@@ -69,7 +70,12 @@
 	"multimediaviewer-options-learn-more": "Meer inligting",
 	"multimediaviewer-option-submit-button": "Deaktiveer Mediakyker",
 	"multimediaviewer-option-cancel-button": "Kanselleer",
+	"multimediaviewer-disable-confirmation-header": "Mediakyker is gedeaktiveer",
+	"multimediaviewer-enable-dialog-header": "Aktiveer Mediakyker?",
+	"multimediaviewer-enable-text-header": "Aktiveer dié manier om media te kyk by verstek vir alle lêers.",
 	"multimediaviewer-enable-submit-button": "Aktiveer Mediakyker",
 	"multimediaviewer-enable-confirmation-header": "Mediakyker is geaktiveer vir alle lêers",
-	"multimediaviewer-enable-alert": "Mediakyker is nou gedaktiveerd"
+	"multimediaviewer-enable-confirmation-text": "Met die volgende klik op 'n duimnael op $1 sal Mediakyker gebruik word.",
+	"multimediaviewer-enable-alert": "Mediakyker is nou gedaktiveerd",
+	"multimediaviewer-disable-info": "Dit is steeds moontlik om individuele lêers met Mediakyker te bekyk."
 }

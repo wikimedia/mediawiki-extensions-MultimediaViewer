@@ -3,7 +3,8 @@
 		"authors": [
 			"Horus",
 			"Nullzero",
-			"Taweetham"
+			"Taweetham",
+			"Ans"
 		]
 	},
 	"multimediaviewer-desc": "ขยายรูปขนาดย่อให้มีขนาดใหญ่ขึ้นในอินเตอร์เฟซเต็มหน้าจอ",
@@ -13,9 +14,8 @@
 	"multimediaviewer-repository-local": "ดูรายละเอียดเพิ่มเติมเกี่ยวกับไฟล์นี้",
 	"multimediaviewer-datetime-created": "สร้าง: $1",
 	"multimediaviewer-datetime-uploaded": "อัปโหลด: $1",
-	"multimediaviewer-userpage-link": "$2 อัปโหลดโดย $1",
-	"multimediaviewer-license-cc-pd": "โดเมนสาธารณะ",
-	"multimediaviewer-license-pd": "โดเมนสาธารณะ",
+	"multimediaviewer-license-cc-pd": "สาธารณสมบัติ",
+	"multimediaviewer-license-pd": "สาธารณสมบัติ",
 	"multimediaviewer-license-default": "ดูสัญญาอนุญาต",
 	"multimediaviewer-permission-title": "รายละเอียดสัญญาอนุญาต",
 	"multimediaviewer-permission-link": "ดูเงื่อนไข",
