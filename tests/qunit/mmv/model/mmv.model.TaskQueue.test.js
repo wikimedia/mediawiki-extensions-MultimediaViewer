@@ -51,7 +51,7 @@
 		assert.strictEqual( taskQueue.state, mw.mmv.model.TaskQueue.State.RUNNING,
 			'state is RUNNING after execution started' );
 
-		task.resolve();
+		return task.resolve();
 	} );
 
 	QUnit.test( 'State check for cancellation', 1, function ( assert ) {
