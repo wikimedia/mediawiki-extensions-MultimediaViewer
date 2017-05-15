@@ -113,7 +113,9 @@
 				getArticlePath: function () { return 'Foo'; },
 				isCommons: function () { return false; }
 			},
-			oldMoment = window.moment;
+			oldMoment = window.moment,
+			// custom clock will give MPP.formatDate some time to load moment.js
+			clock = this.sandbox.useFakeTimers();
 
 		/* window.moment = function ( date ) {
 			// This has no effect for now, since writing this test revealed that our moment.js
@@ -142,6 +144,7 @@
 
 		panel.setImageInfo( image, imageData, repoData );
 		creditPopupText = panel.creditField.$element.attr( 'original-title' );
+		clock.tick( 10 );
 
 		assert.strictEqual( panel.$title.text(), title, 'Title is correctly set' );
 		assert.ok( !panel.$credit.hasClass( 'empty' ), 'Credit is not empty' );
@@ -157,10 +160,12 @@
 
 		imageData.creationDateTime = undefined;
 		panel.setImageInfo( image, imageData, repoData );
+		clock.tick( 10 );
 
 		assert.ok( panel.$datetime.text().indexOf( '25 August 2013' ) > 0, 'Correct date is displayed' );
 
 		window.moment = oldMoment;
+		clock.restore();
 	} );
 
 	QUnit.test( 'Setting permission information works as expected', 1, function ( assert ) {
