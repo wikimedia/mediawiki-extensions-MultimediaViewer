@@ -56,7 +56,8 @@
 
 	QUnit.test( 'Handler registration and clearance work OK', 2, function ( assert ) {
 		var lightbox = new mw.mmv.LightboxInterface(),
-			handlerCalls = 0;
+			handlerCalls = 0,
+			clock = this.sandbox.useFakeTimers();
 
 		function handleEvent() {
 			handlerCalls++;
@@ -64,10 +65,16 @@
 
 		lightbox.handleEvent( 'test', handleEvent );
 		$( document ).trigger( 'test' );
+		clock.tick( 10 );
 		assert.strictEqual( handlerCalls, 1, 'The handler was called when we triggered the event.' );
+
 		lightbox.clearEvents();
+
 		$( document ).trigger( 'test' );
+		clock.tick( 10 );
 		assert.strictEqual( handlerCalls, 1, 'The handler was not called after calling lightbox.clearEvents().' );
+
+		clock.restore();
 	} );
 
 	QUnit.test( 'Fullscreen mode', 8, function ( assert ) {
@@ -98,7 +105,7 @@
 		$.support.fullscreen = true;
 		lightbox.setupCanvasButtons();
 
-		assert.strictEqual( lightbox.$fullscreenButton.css( 'display' ), 'inline-block',
+		assert.strictEqual( lightbox.$fullscreenButton.css( 'display' ), '',
 			'Fullscreen button is visible when fullscreen mode is available' );
 
 		// Entering fullscreen
