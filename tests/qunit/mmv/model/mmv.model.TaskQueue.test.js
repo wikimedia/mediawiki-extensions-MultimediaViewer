@@ -36,14 +36,15 @@
 
 	QUnit.test( 'State check', 3, function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue(),
-			task = $.Deferred();
+			task = $.Deferred(),
+			promise;
 
 		taskQueue.push( function () { return task; } );
 
 		assert.strictEqual( taskQueue.state, mw.mmv.model.TaskQueue.State.NOT_STARTED,
 			'state is initially NOT_STARTED' );
 
-		taskQueue.execute().then( function () {
+		promise = taskQueue.execute().then( function () {
 			assert.strictEqual( taskQueue.state, mw.mmv.model.TaskQueue.State.FINISHED,
 				'state is FINISHED after execution finished' );
 		} );
@@ -51,7 +52,9 @@
 		assert.strictEqual( taskQueue.state, mw.mmv.model.TaskQueue.State.RUNNING,
 			'state is RUNNING after execution started' );
 
-		return task.resolve();
+		task.resolve();
+
+		return promise;
 	} );
 
 	QUnit.test( 'State check for cancellation', 1, function ( assert ) {
