@@ -2,6 +2,18 @@
 	QUnit.module( 'mmv.logging.DurationLogger', QUnit.newMwEnvironment( {
 		setup: function () {
 			this.clock = this.sandbox.useFakeTimers();
+
+			// since jQuery 2/3, $.now will capture a reference to Date.now
+			// before above fake timer gets a chance to override it, so I'll
+			// override that new behavior in order to run these tests...
+			// @see https://github.com/sinonjs/lolex/issues/76
+			this.oldNow = $.now;
+			$.now = function() { return +( new Date() ); };
+		},
+
+		teardown: function () {
+			$.now = this.oldNow;
+			this.clock.restore();
 		}
 	} ) );
 
@@ -96,6 +108,7 @@
 		assert.ok( !fakeEventLog.logEvent.called, 'Event queued if dependencies not loaded' );
 
 		dependenciesDeferred.resolve();
+		this.clock.tick( 10 );
 
 		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 0 ], 'MultimediaViewerDuration', 'EventLogging schema is correct' );
 		assert.deepEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ], { type: 'bar', duration: 1000, loggedIn: true, samplingFactor: 1 },
@@ -111,6 +124,7 @@
 		this.clock.tick( 3000 );
 		durationLogger.stop( 'foo' );
 		durationLogger.record( 'foo' );
+		this.clock.tick( 10 );
 
 		assert.strictEqual( fakeEventLog.logEvent.getCall( 2 ).args[ 0 ], 'MultimediaViewerDuration', 'EventLogging schema is correct' );
 		assert.deepEqual( fakeEventLog.logEvent.getCall( 2 ).args[ 1 ], { type: 'foo', duration: 3000, loggedIn: true, samplingFactor: 1 },
@@ -126,6 +140,7 @@
 		this.clock.tick( 2000 );
 		durationLogger.stop( 'baz' );
 		durationLogger.record( 'baz' );
+		this.clock.tick( 10 );
 
 		assert.strictEqual( fakeEventLog.logEvent.getCall( 3 ).args[ 0 ], 'MultimediaViewerDuration', 'EventLogging schema is correct' );
 		assert.deepEqual( fakeEventLog.logEvent.getCall( 3 ).args[ 1 ], { type: 'baz', duration: 2000, loggedIn: false, country: 'FR', samplingFactor: 1 },
@@ -136,6 +151,7 @@
 
 		durationLogger.stop( 'fooz', $.now() - 9000 );
 		durationLogger.record( 'fooz' );
+		this.clock.tick( 10 );
 
 		assert.deepEqual( fakeEventLog.logEvent.getCall( 4 ).args[ 1 ], { type: 'fooz', duration: 9000, loggedIn: false, country: 'FR', samplingFactor: 1 },
 			'EventLogging data is correct' );
@@ -144,11 +160,13 @@
 
 		durationLogger.stop( 'foo' );
 		durationLogger.record( 'foo' );
+		this.clock.tick( 10 );
 
 		assert.strictEqual( fakeEventLog.logEvent.callCount, 5, 'Record without a start doesn\'t get logged' );
 
 		durationLogger.start( 'foofoo' );
 		durationLogger.record( 'foofoo' );
+		this.clock.tick( 10 );
 
 		assert.strictEqual( fakeEventLog.logEvent.callCount, 5, 'Record without a stop doesn\'t get logged' );
 
@@ -156,6 +174,7 @@
 		this.clock.tick( 5000 );
 		durationLogger.stop( 'extra' );
 		durationLogger.record( 'extra', { bim: 'bam' } );
+		this.clock.tick( 10 );
 
 		assert.deepEqual( fakeEventLog.logEvent.getCall( 5 ).args[ 1 ], { type: 'extra', duration: 5000, loggedIn: false, country: 'FR', samplingFactor: 1, bim: 'bam' },
 			'EventLogging data is correct' );
@@ -170,6 +189,7 @@
 		mw.loader.using.withArgs( [ 'ext.eventLogging', 'schema.MultimediaViewerDuration' ] ).throwsException( 'EventLogging is missing' );
 
 		promise = durationLogger.loadDependencies();
+		this.clock.tick( 10 );
 
 		assert.strictEqual( promise.state(), 'rejected', 'Promise is rejected' );
 
@@ -180,6 +200,7 @@
 		mw.loader.using.withArgs( [ 'ext.eventLogging', 'schema.MultimediaViewerDuration' ] ).throwsException( 'EventLogging is missing' );
 
 		promise = durationLogger.loadDependencies();
+		this.clock.tick( 10 );
 
 		assert.strictEqual( promise.state(), 'rejected', 'Promise is rejected' );
 
@@ -190,6 +211,7 @@
 		mw.loader.using.withArgs( [ 'ext.eventLogging', 'schema.MultimediaViewerDuration' ] ).callsArg( 1 );
 
 		promise = durationLogger.loadDependencies();
+		this.clock.tick( 10 );
 
 		assert.strictEqual( promise.state(), 'resolved', 'Promise is resolved' );
 	} );
