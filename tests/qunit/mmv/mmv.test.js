@@ -117,7 +117,9 @@
 			fakeImage = {
 				filePageTitle: new mw.Title( 'File:Stuff.jpg' ),
 				extraStatsDeferred: $.Deferred().reject()
-			};
+			},
+			// custom clock ensures progress handlers execute in correct sequence
+			clock = this.sandbox.useFakeTimers();
 
 		viewer.thumbs = [];
 		viewer.displayPlaceholderThumbnail = $.noop;
@@ -150,20 +152,26 @@
 		viewer.imageInfoProvider.get = function () { return $.Deferred().resolve( {} ); };
 		viewer.thumbnailInfoProvider.get = function () { return $.Deferred().resolve( {} ); };
 
+		// loadImage will call setupProgressBar, which will attach done, fail &
+		// progress handlers
 		viewer.loadImage( fakeImage, new Image() );
+		clock.tick( 10 );
 		assert.ok( viewer.ui.panel.progressBar.jumpTo.lastCall.calledWith( 0 ),
 			'Percentage correctly reset by loadImage' );
-
-		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 5 ),
+		assert.ok( viewer.ui.panel.progressBar.animateTo.firstCall.calledWith( 5 ),
 			'Percentage correctly animated to 5 by loadImage' );
 
 		imageDeferred.notify( 'response', 45 );
-		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 45 ),
+		clock.tick( 10 );
+		assert.ok( viewer.ui.panel.progressBar.animateTo.secondCall.calledWith( 45 ),
 			'Percentage correctly funneled to panel UI' );
 
 		imageDeferred.resolve( {}, {} );
-		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 100 ),
+		clock.tick( 10 );
+		assert.ok( viewer.ui.panel.progressBar.animateTo.thirdCall.calledWith( 100 ),
 			'Percentage correctly funneled to panel UI' );
+
+		clock.restore();
 
 		viewer.close();
 	} );
@@ -181,7 +189,9 @@
 				filePageTitle: new mw.Title( 'File:Second.jpg' ),
 				extraStatsDeferred: $.Deferred().reject()
 			},
-			viewer = mw.mmv.testHelpers.getMultimediaViewer();
+			viewer = mw.mmv.testHelpers.getMultimediaViewer(),
+			// custom clock ensures progress handlers execute in correct sequence
+			clock = this.sandbox.useFakeTimers();
 
 		// animation would keep running, conflict with other tests
 		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
@@ -223,60 +233,65 @@
 		// load some image
 		viewer.imageProvider.get = this.sandbox.stub().returns( firstImageDeferred );
 		viewer.loadImage( firstImage, new Image() );
-
-		assert.ok( viewer.ui.panel.progressBar.jumpTo.lastCall.calledWith( 0 ),
+		clock.tick( 10 );
+		assert.ok( viewer.ui.panel.progressBar.jumpTo.getCall( 0 ).calledWith( 0 ),
 			'Percentage correctly reset for new first image' );
-		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 5 ),
+		assert.ok( viewer.ui.panel.progressBar.animateTo.getCall( 0 ).calledWith( 5 ),
 			'Percentage correctly animated to 5 for first new image' );
 
+		// progress on active image
 		firstImageDeferred.notify( 'response', 20 );
-
-		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 20 ),
+		clock.tick( 10 );
+		assert.ok( viewer.ui.panel.progressBar.animateTo.getCall( 1 ).calledWith( 20 ),
 			'Percentage correctly animated when active image is loading' );
 
 		// change to another image
 		viewer.imageProvider.get = this.sandbox.stub().returns( secondImageDeferred );
 		viewer.loadImage( secondImage, new Image() );
-
-		assert.ok( viewer.ui.panel.progressBar.jumpTo.lastCall.calledWith( 0 ),
+		clock.tick( 10 );
+		assert.ok( viewer.ui.panel.progressBar.jumpTo.getCall( 1 ).calledWith( 0 ),
 			'Percentage correctly reset for second new image' );
-		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 5 ),
+		assert.ok( viewer.ui.panel.progressBar.animateTo.getCall( 2 ).calledWith( 5 ),
 			'Percentage correctly animated to 5 for second new image' );
 
+		// progress on active image
 		secondImageDeferred.notify( 'response', 30 );
-
-		assert.ok( viewer.ui.panel.progressBar.animateTo.lastCall.calledWith( 30 ),
+		clock.tick( 10 );
+		assert.ok( viewer.ui.panel.progressBar.animateTo.getCall( 3 ).calledWith( 30 ),
 			'Percentage correctly animated when active image is loading' );
 
-		// this is the most convenient way of checking for new calls - just reset() and check called
-		viewer.ui.panel.progressBar.animateTo.reset();
-		viewer.ui.panel.progressBar.jumpTo.reset();
-
+		// progress on inactive image
 		firstImageDeferred.notify( 'response', 40 );
-
-		assert.ok( !viewer.ui.panel.progressBar.animateTo.called,
+		clock.tick( 10 );
+		assert.ok( viewer.ui.panel.progressBar.animateTo.callCount === 4,
 			'Percentage not animated when inactive image is loading' );
-		assert.ok( !viewer.ui.panel.progressBar.jumpTo.called,
-			'Percentage not changed when inactive image is loading' );
 
+		// progress on active image
 		secondImageDeferred.notify( 'response', 50 );
+		clock.tick( 10 );
+		assert.ok( viewer.ui.panel.progressBar.animateTo.getCall( 4 ).calledWith( 50 ),
+			'Percentage correctly ignored inactive image & only animated when active image is loading' );
 
 		// change back to first image
+		viewer.imageProvider.get = this.sandbox.stub().returns( firstImageDeferred );
 		viewer.loadImage( firstImage, new Image() );
-
-		assert.ok( viewer.ui.panel.progressBar.jumpTo.lastCall.calledWith( 40 ),
+		clock.tick( 10 );
+		assert.ok( viewer.ui.panel.progressBar.jumpTo.getCall( 2 ).calledWith( 40 ),
 			'Percentage jumps to right value when changing images' );
 
 		secondImageDeferred.resolve( {}, {} );
+		clock.tick( 10 );
 		assert.ok( !viewer.ui.panel.progressBar.hide.called,
 			'Progress bar not hidden when something finishes in the background' );
 
-		// change to second image which has finished loading
+		// change back to second image, which has finished loading
 		viewer.imageProvider.get = this.sandbox.stub().returns( secondImageDeferred );
 		viewer.loadImage( secondImage, new Image() );
-
+		clock.tick( 10 );
 		assert.ok( viewer.ui.panel.progressBar.hide.called,
-			'Progress bar not hidden when switching to finished image' );
+			'Progress bar hidden when switching to finished image' );
+
+		clock.restore();
 
 		viewer.close();
 	} );
@@ -400,7 +415,9 @@
 				filePageTitle: new mw.Title( 'File:Bar.jpg' ),
 				index: 1,
 				extraStatsDeferred: $.Deferred().reject()
-			};
+			},
+			// custom clock ensures progress handlers execute in correct sequence
+			clock = this.sandbox.useFakeTimers();
 
 		viewer.preloadFullscreenThumbnail = $.noop;
 		viewer.fetchSizeIndependentLightboxInfo = this.sandbox.stub();
@@ -435,25 +452,32 @@
 		viewer.imageProvider.get.returns( firstImageDeferred.promise() );
 		viewer.fetchSizeIndependentLightboxInfo.returns( firstLigthboxInfoDeferred.promise() );
 		viewer.loadImage( firstImage, new Image() );
+		clock.tick( 10 );
 		assert.ok( !viewer.animateMetadataDivOnce.called, 'Metadata of the first image should not be animated' );
 		assert.ok( !viewer.ui.panel.setImageInfo.called, 'Metadata of the first image should not be shown' );
 
 		viewer.imageProvider.get.returns( secondImageDeferred.promise() );
 		viewer.fetchSizeIndependentLightboxInfo.returns( secondLigthboxInfoDeferred.promise() );
 		viewer.loadImage( secondImage, new Image() );
+		clock.tick( 10 );
 
 		viewer.ui.panel.progressBar.animateTo.reset();
 		firstImageDeferred.notify( undefined, 45 );
+		clock.tick( 10 );
 		assert.ok( !viewer.ui.panel.progressBar.animateTo.reset.called, 'Progress of the first image should not be shown' );
 
 		firstImageDeferred.resolve( {}, {} );
 		firstLigthboxInfoDeferred.resolve( {} );
+		clock.tick( 10 );
 		assert.ok( !viewer.displayRealThumbnail.called, 'The first image being done loading should have no effect' );
 
 		viewer.displayRealThumbnail = this.sandbox.spy( function () { viewer.close(); } );
 		secondImageDeferred.resolve( {}, {} );
 		secondLigthboxInfoDeferred.resolve( {} );
+		clock.tick( 10 );
 		assert.ok( viewer.displayRealThumbnail.called, 'The second image being done loading should result in the image being shown' );
+
+		clock.restore();
 	} );
 
 	QUnit.test( 'Events are not trapped after the viewer is closed', 0, function ( assert ) {
@@ -558,7 +582,9 @@
 			width = 100,
 			originalWidth = 1000,
 			originalHeight = 1000,
-			image = {};
+			image = {},
+			// custom clock ensures progress handlers execute in correct sequence
+			clock = this.sandbox.useFakeTimers();
 
 		function setupStubs() {
 			guessedThumbnailInfoStub = viewer.guessedThumbnailInfoProvider.get = sandbox.stub();
@@ -574,6 +600,7 @@
 		thumbnailInfoStub.returns( $.Deferred().resolve( { url: 'apiURL' } ) );
 		imageStub.returns( $.Deferred().resolve( image ) );
 		promise = viewer.fetchThumbnail( file, width );
+		clock.tick( 10 );
 		assert.ok( !guessedThumbnailInfoStub.called, 'When we lack sample URL and original dimensions, GuessedThumbnailInfoProvider is not called' );
 		assert.ok( thumbnailInfoStub.calledOnce, 'When we lack sample URL and original dimensions, ThumbnailInfoProvider is called once' );
 		assert.ok( imageStub.calledOnce, 'When we lack sample URL and original dimensions, ImageProvider is called once' );
@@ -586,6 +613,7 @@
 		thumbnailInfoStub.returns( $.Deferred().resolve( { url: 'apiURL' } ) );
 		imageStub.returns( $.Deferred().resolve( image ) );
 		promise = viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight );
+		clock.tick( 10 );
 		assert.ok( guessedThumbnailInfoStub.calledOnce, 'When the guesser bails out, GuessedThumbnailInfoProvider is called once' );
 		assert.ok( thumbnailInfoStub.calledOnce, 'When the guesser bails out, ThumbnailInfoProvider is called once' );
 		assert.ok( imageStub.calledOnce, 'When the guesser bails out, ImageProvider is called once' );
@@ -598,6 +626,7 @@
 		thumbnailInfoStub.returns( $.Deferred().resolve( { url: 'apiURL' } ) );
 		imageStub.returns( $.Deferred().resolve( image ) );
 		promise = viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight );
+		clock.tick( 10 );
 		assert.ok( guessedThumbnailInfoStub.calledOnce, 'When the guesser returns an URL, GuessedThumbnailInfoProvider is called once' );
 		assert.ok( !thumbnailInfoStub.called, 'When the guesser returns an URL, ThumbnailInfoProvider is not called' );
 		assert.ok( imageStub.calledOnce, 'When the guesser returns an URL, ImageProvider is called once' );
@@ -611,6 +640,7 @@
 		imageStub.withArgs( 'guessedURL' ).returns( $.Deferred().reject() );
 		imageStub.withArgs( 'apiURL' ).returns( $.Deferred().resolve( image ) );
 		promise = viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight );
+		clock.tick( 10 );
 		assert.ok( guessedThumbnailInfoStub.calledOnce, 'When the guesser returns an URL, but that returns 404, GuessedThumbnailInfoProvider is called once' );
 		assert.ok( thumbnailInfoStub.calledOnce, 'When the guesser returns an URL, but that returns 404, ThumbnailInfoProvider is called once' );
 		assert.ok( imageStub.calledTwice, 'When the guesser returns an URL, but that returns 404, ImageProvider is called twice' );
@@ -625,6 +655,7 @@
 		imageStub.withArgs( 'guessedURL' ).returns( $.Deferred().reject() );
 		imageStub.withArgs( 'apiURL' ).returns( $.Deferred().reject() );
 		promise = viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight );
+		clock.tick( 10 );
 		assert.ok( guessedThumbnailInfoStub.calledOnce, 'When even the retry fails, GuessedThumbnailInfoProvider is called once' );
 		assert.ok( thumbnailInfoStub.calledOnce, 'When even the retry fails, ThumbnailInfoProvider is called once' );
 		assert.ok( imageStub.calledTwice, 'When even the retry fails, ImageProvider is called twice' );
@@ -640,11 +671,14 @@
 		thumbnailInfoStub.returns( $.Deferred().resolve( { url: 'apiURL' } ) );
 		imageStub.returns( $.Deferred().resolve( image ) );
 		promise = viewer.fetchThumbnail( file, width );
+		clock.tick( 10 );
 		assert.ok( !guessedThumbnailInfoStub.called, 'When guessing is disabled, GuessedThumbnailInfoProvider is not called' );
 		assert.ok( thumbnailInfoStub.calledOnce, 'When guessing is disabled, ThumbnailInfoProvider is called once' );
 		assert.ok( imageStub.calledOnce, 'When guessing is disabled, ImageProvider is called once' );
 		assert.ok( imageStub.calledWith( 'apiURL' ), 'When guessing is disabled, ImageProvider is called with the API url' );
 		assert.strictEqual( promise.state(), 'resolved', 'When guessing is disabled, fetchThumbnail resolves' );
+
+		clock.restore();
 	} );
 
 	QUnit.test( 'document.title', 2, function ( assert ) {
@@ -664,5 +698,4 @@
 
 		assert.strictEqual( document.title, oldDocumentTitle, 'Original title restored after viewer is closed' );
 	} );
-
 }( mediaWiki, jQuery ) );
