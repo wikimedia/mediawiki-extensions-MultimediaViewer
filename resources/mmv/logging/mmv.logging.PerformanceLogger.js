@@ -116,6 +116,7 @@
 	 * @param {string} url URL of that was measured
 	 * @param {XMLHttpRequest} request HTTP request that just completed
 	 * @param {jQuery.Deferred.<string>} [extraStatsDeferred] A promise which resolves to extra stats to be included.
+	 * @return {jQuery.Promise}
 	 */
 	PL.recordEntry = function ( type, total, url, request, extraStatsDeferred ) {
 		var matches,
@@ -133,7 +134,7 @@
 		if ( url && url.length ) {
 			// There is no need to measure the same url more than once
 			if ( url in this.performanceChecked ) {
-				return;
+				return $.Deferred().reject();
 			}
 
 			this.performanceChecked[ url ] = true;
@@ -166,7 +167,7 @@
 			}
 		}
 
-		( extraStatsDeferred || $.Deferred().reject() ).done( function ( extraStats ) {
+		return ( extraStatsDeferred || $.Deferred().reject() ).done( function ( extraStats ) {
 			stats = $.extend( stats, extraStats );
 		} ).always( function () {
 			logger.log( stats );

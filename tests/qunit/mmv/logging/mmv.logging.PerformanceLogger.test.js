@@ -40,7 +40,9 @@
 		var performance = new mw.mmv.logging.PerformanceLogger(),
 			fakeEventLog = { logEvent: this.sandbox.stub() },
 			type = 'gender',
-			total = 100;
+			total = 100,
+			// we'll be waiting for 4 promises to complete
+			asyncs = [ assert.async(), assert.async(), assert.async(), assert.async() ];
 
 		this.sandbox.stub( performance, 'loadDependencies' ).returns( $.Deferred().resolve() );
 		this.sandbox.stub( performance, 'isInSample' );
@@ -48,27 +50,30 @@
 
 		performance.isInSample.returns( false );
 
-		performance.recordEntry( type, total );
-
-		assert.strictEqual( fakeEventLog.logEvent.callCount, 0, 'No stats should be logged if not in sample' );
+		performance.recordEntry( type, total ).then( null, function () {
+			assert.strictEqual( fakeEventLog.logEvent.callCount, 0, 'No stats should be logged if not in sample' );
+			asyncs.pop()();
+		} );
 
 		performance.isInSample.returns( true );
 
-		performance.recordEntry( type, total );
+		performance.recordEntry( type, total ).then( null, function () {
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 0 ], 'MultimediaViewerNetworkPerformance', 'EventLogging schema is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].type, type, 'type is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].total, total, 'total is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.callCount, 1, 'Stats should be logged' );
+			asyncs.pop()();
+		} );
 
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 0 ], 'MultimediaViewerNetworkPerformance', 'EventLogging schema is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].type, type, 'type is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].total, total, 'total is correct' );
+		performance.recordEntry( type, total, 'URL' ).then( null, function () {
+			assert.strictEqual( fakeEventLog.logEvent.callCount, 2, 'Stats should be logged' );
+			asyncs.pop()();
+		} );
 
-		assert.strictEqual( fakeEventLog.logEvent.callCount, 1, 'Stats should be logged' );
-
-		performance.recordEntry( type, total, 'URL' );
-
-		assert.strictEqual( fakeEventLog.logEvent.callCount, 2, 'Stats should be logged' );
-
-		performance.recordEntry( type, total, 'URL' );
-
-		assert.strictEqual( fakeEventLog.logEvent.callCount, 2, 'Stats should not be logged a second time for the same URL' );
+		performance.recordEntry( type, total, 'URL' ).then( null, function () {
+			assert.strictEqual( fakeEventLog.logEvent.callCount, 2, 'Stats should not be logged a second time for the same URL' );
+			asyncs.pop()();
+		} );
 	} );
 
 	QUnit.test( 'recordEntry: with Navigation Timing data', 29, function ( assert ) {
@@ -114,7 +119,8 @@
 			status = 200,
 			metered = true,
 			bandwidth = 45.67,
-			fakeEventLog = { logEvent: this.sandbox.stub() };
+			fakeEventLog = { logEvent: this.sandbox.stub() },
+			done = assert.async();
 
 		this.sandbox.stub( performance, 'loadDependencies' ).returns( $.Deferred().resolve() );
 		performance.setEventLog( fakeEventLog );
@@ -153,37 +159,38 @@
 
 		performance.setGeo( { country: country } );
 
-		performance.recordEntry( type, 100, url, fakeRequest );
-
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 0 ], 'MultimediaViewerNetworkPerformance', 'EventLogging schema is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].type, type, 'type is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish1, varnish1, 'varnish1 is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish2, varnish2, 'varnish2 is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish3, varnish3, 'varnish3 is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish4, undefined, 'varnish4 is undefined' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish1hits, varnish1hits, 'varnish1hits is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish2hits, varnish2hits, 'varnish2hits is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish3hits, varnish3hits, 'varnish3hits is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish4hits, undefined, 'varnish4hits is undefined' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].XVarnish, xvarnish, 'XVarnish is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].XCache, xcache, 'XCache is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].age, parseInt( age, 10 ), 'age is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].contentLength, parseInt( contentLength, 10 ), 'contentLength is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].contentHost, window.location.host, 'contentHost is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].urlHost, urlHost, 'urlHost is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].timestamp, timestamp, 'timestamp is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].total, perfData.duration, 'total is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].redirect, redirect, 'redirect is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].dns, dns, 'dns is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].tcp, tcp, 'tcp is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].request, request, 'request is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].response, response, 'response is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].cache, cache, 'cache is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].country, country, 'country is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].isHttps, true, 'isHttps is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].status, status, 'status is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].metered, metered, 'metered is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].bandwidth, Math.round( bandwidth ), 'bandwidth is correct' );
+		performance.recordEntry( type, 100, url, fakeRequest ).then( null, function () {
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 0 ], 'MultimediaViewerNetworkPerformance', 'EventLogging schema is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].type, type, 'type is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish1, varnish1, 'varnish1 is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish2, varnish2, 'varnish2 is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish3, varnish3, 'varnish3 is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish4, undefined, 'varnish4 is undefined' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish1hits, varnish1hits, 'varnish1hits is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish2hits, varnish2hits, 'varnish2hits is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish3hits, varnish3hits, 'varnish3hits is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].varnish4hits, undefined, 'varnish4hits is undefined' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].XVarnish, xvarnish, 'XVarnish is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].XCache, xcache, 'XCache is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].age, parseInt( age, 10 ), 'age is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].contentLength, parseInt( contentLength, 10 ), 'contentLength is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].contentHost, window.location.host, 'contentHost is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].urlHost, urlHost, 'urlHost is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].timestamp, timestamp, 'timestamp is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].total, perfData.duration, 'total is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].redirect, redirect, 'redirect is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].dns, dns, 'dns is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].tcp, tcp, 'tcp is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].request, request, 'request is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].response, response, 'response is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].cache, cache, 'cache is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].country, country, 'country is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].isHttps, true, 'isHttps is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].status, status, 'status is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].metered, metered, 'metered is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].bandwidth, Math.round( bandwidth ), 'bandwidth is correct' );
+			done();
+		} );
 	} );
 
 	QUnit.test( 'recordEntry: with async extra stats', 11, function ( assert ) {
@@ -193,7 +200,8 @@
 			total = 100,
 			overriddenType = 'image',
 			foo = 'bar',
-			extraStatsPromise = $.Deferred();
+			extraStatsPromise = $.Deferred(),
+			clock = this.sandbox.useFakeTimers();
 
 		this.sandbox.stub( performance, 'loadDependencies' ).returns( $.Deferred().resolve() );
 		this.sandbox.stub( performance, 'isInSample' );
@@ -207,11 +215,18 @@
 
 		extraStatsPromise.reject();
 
-		assert.strictEqual( fakeEventLog.logEvent.callCount, 1, 'Stats should be logged' );
+		extraStatsPromise.then( null, function () {
+			assert.strictEqual( fakeEventLog.logEvent.callCount, 1, 'Stats should be logged' );
 
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 0 ], 'MultimediaViewerNetworkPerformance', 'EventLogging schema is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].type, type, 'type is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].total, total, 'total is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 0 ], 'MultimediaViewerNetworkPerformance', 'EventLogging schema is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].type, type, 'type is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 0 ).args[ 1 ].total, total, 'total is correct' );
+		} );
+
+		// make sure first promise is completed before recording another entry,
+		// to make sure data in fakeEventLog doesn't suffer race conditions
+		clock.tick( 10 );
+		clock.restore();
 
 		extraStatsPromise = $.Deferred();
 
@@ -221,12 +236,14 @@
 
 		extraStatsPromise.resolve( { type: overriddenType, foo: foo } );
 
-		assert.strictEqual( fakeEventLog.logEvent.callCount, 2, 'Stats should be logged' );
+		return extraStatsPromise.then( function () {
+			assert.strictEqual( fakeEventLog.logEvent.callCount, 2, 'Stats should be logged' );
 
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 0 ], 'MultimediaViewerNetworkPerformance', 'EventLogging schema is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 1 ].type, overriddenType, 'type is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 1 ].total, total, 'total is correct' );
-		assert.strictEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 1 ].foo, foo, 'extra stat is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 0 ], 'MultimediaViewerNetworkPerformance', 'EventLogging schema is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 1 ].type, overriddenType, 'type is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 1 ].total, total, 'total is correct' );
+			assert.strictEqual( fakeEventLog.logEvent.getCall( 1 ).args[ 1 ].foo, foo, 'extra stat is correct' );
+		} );
 	} );
 
 	QUnit.test( 'parseVarnishXCacheHeader', 15, function ( assert ) {
