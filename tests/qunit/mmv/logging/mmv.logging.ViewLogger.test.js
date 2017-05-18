@@ -2,6 +2,18 @@
 	QUnit.module( 'mmv.logging.ViewLogger', QUnit.newMwEnvironment( {
 		setup: function () {
 			this.clock = this.sandbox.useFakeTimers();
+
+			// since jQuery 2/3, $.now will capture a reference to Date.now
+			// before above fake timer gets a chance to override it, so I'll
+			// override that new behavior in order to run these tests...
+			// @see https://github.com/sinonjs/lolex/issues/76
+			this.oldNow = $.now;
+			$.now = function() { return +( new Date() ); };
+		},
+
+		teardown: function () {
+			$.now = this.oldNow;
+			this.clock.restore();
 		}
 	} ) );
 
