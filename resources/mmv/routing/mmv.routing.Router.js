@@ -87,9 +87,9 @@
 		} else if ( route instanceof mw.mmv.routing.MainFileRoute ) {
 			return this.applicationPrefix;
 		} else if ( route instanceof mw.mmv.routing.Route ) {
-			throw 'mw.mmv.routing.Router.createHash: not implemented for ' + route.constructor.name;
+			throw new Error( 'mw.mmv.routing.Router.createHash: not implemented for ' + route.constructor.name );
 		} else {
-			throw 'mw.mmv.routing.Router.createHash: invalid argument';
+			throw new Error( 'mw.mmv.routing.Router.createHash: invalid argument' );
 		}
 	};
 

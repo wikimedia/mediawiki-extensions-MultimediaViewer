@@ -40,7 +40,7 @@
 		options = $.extend( {}, this.defaultOptions, options );
 
 		if ( !options.widthBuckets.length ) {
-			throw 'No buckets!';
+			throw new Error( 'No buckets!' );
 		}
 
 		/**

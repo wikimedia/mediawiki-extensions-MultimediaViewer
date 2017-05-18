@@ -55,7 +55,7 @@
 			return $( '<div>' + html + '</div>' );
 		} else {
 			mw.log.warn( 'wrapAndJquerify: unknown type', html );
-			throw 'wrapAndJquerify: unknown type';
+			throw new Error( 'wrapAndJquerify: unknown type' );
 		}
 	};
 

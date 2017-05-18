@@ -305,7 +305,7 @@
 			url = 'http://example.com/',
 			performance = new mw.mmv.logging.PerformanceLogger();
 
-		performance.newXHR = function () { throw 'XMLHttpRequest? What\'s that?'; };
+		performance.newXHR = function () { throw new Error( 'XMLHttpRequest? What\'s that?' ); };
 
 		performance.record( type, url ).fail( function () {
 			assert.ok( true, 'the promise is rejected when XMLHttpRequest is not supported' );

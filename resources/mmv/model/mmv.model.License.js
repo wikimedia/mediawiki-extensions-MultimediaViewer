@@ -40,7 +40,7 @@
 		nonFree
 	) {
 		if ( !shortName ) {
-			throw 'mw.mmv.model.License: shortName is required';
+			throw new Error( 'mw.mmv.model.License: shortName is required' );
 		}
 
 		/** @property {string} shortName short (abbreviated) name of the license (e.g. CC-BY-SA-3.0) */

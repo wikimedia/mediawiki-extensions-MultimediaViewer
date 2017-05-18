@@ -32,7 +32,7 @@
  */
 function ThumbnailWidth( cssWidth, cssHeight, screen, real ) {
 	if ( !cssWidth || !cssHeight || !screen || !real ) {
-		throw 'All parameters are required and cannot be empty or zero';
+		throw new Error( 'All parameters are required and cannot be empty or zero' );
 	}
 
 	/**

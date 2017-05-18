@@ -297,7 +297,7 @@
 		} else if ( type === 'list' ) {
 			return value === '' ? [] : value.split( '|' );
 		} else {
-			throw 'mw.mmv.model.Image.parseExtmeta: unknown type';
+			throw new Error( 'mw.mmv.model.Image.parseExtmeta: unknown type' );
 		}
 	};
 

@@ -63,7 +63,7 @@
 			start = $.now();
 
 		if ( !typeOrTypes ) {
-			throw 'Must specify type';
+			throw new Error( 'Must specify type' );
 		}
 
 		if ( !$.isArray( typeOrTypes ) ) {
@@ -92,7 +92,7 @@
 		var stop = $.now();
 
 		if ( !type ) {
-			throw 'Must specify type';
+			throw new Error( 'Must specify type' );
 		}
 
 		// Don't overwrite an existing value
@@ -120,7 +120,7 @@
 		var e, duration;
 
 		if ( !type ) {
-			throw 'Must specify type';
+			throw new Error( 'Must specify type' );
 		}
 
 		if ( !this.starts.hasOwnProperty( type ) || this.starts[ type ] === undefined ) {

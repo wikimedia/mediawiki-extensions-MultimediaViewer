@@ -484,7 +484,7 @@
 			if ( recursion ) {
 				// this should not be possible, but an infinite recursion is nasty
 				// business, so we make a sanity check
-				throw 'MediaViewer internal error: displayPlaceholderThumbnail recursion';
+				throw new Error( 'MediaViewer internal error: displayPlaceholderThumbnail recursion' );
 			}
 			this.imageInfoProvider.get( image.filePageTitle ).done( function ( imageInfo ) {
 				// Make sure the user has not navigated away while we were waiting for the size
