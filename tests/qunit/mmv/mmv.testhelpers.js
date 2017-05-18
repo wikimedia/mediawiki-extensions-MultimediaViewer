@@ -62,5 +62,77 @@
 		} );
 	};
 
+	MTH.asyncPromises = [];
+
+	/**
+	 * Given a method/function that returns a promise, this'll return a function
+	 * that just wraps the original & returns the original result, but also
+	 * executes an assert.async() right before it's called, and resolves that
+	 * async after that promise has completed.
+	 *
+	 * Example usage: given a method `bootstrap.openImage` that returns a
+	 * promise, just call it like this to wrap this functionality around it:
+	 * `bootstrap.openImage = asyncMethod( bootstrap.openImage, bootstrap );`
+	 *
+	 * Now, every time some part of the code calls this function, it'll just
+	 * execute as it normally would, but your tests won't finish until these
+	 * functions (and any .then tacked on to them) have completed.
+	 *
+	 * This method will make sure your tests don't end prematurely (before the
+	 * promises have been resolved), but that's it. If you need to run
+	 * additional code after all promises have resolved, you can call the
+	 * complementary `waitForAsync`, which will return a promise that doesn't
+	 * resolve until all of these promises have.
+	 *
+	 * @param {Object} object
+	 * @param {string} method
+	 * @param {QUnit.assert} [assert]
+	 * @return {Function}
+	 */
+	MTH.asyncMethod = function ( object, method, assert ) {
+		return function () {
+			// apply arguments to original promise
+			var promise = object[ method ].apply( object, arguments ),
+				done;
+
+			this.asyncPromises.push( promise );
+
+			if ( assert ) {
+				done = assert.async();
+				// use setTimeout to ensure `done` is not the first callback handler
+				// to execute (possibly ending the test's wait right before
+				// the result of the promise is executed)
+				setTimeout( promise.then.bind( null, done, done ) );
+			}
+
+			return promise;
+		}.bind( this );
+	};
+
+	/**
+	 * Returns a promise that will not resolve until all of the promises that
+	 * were created in functions upon which `asyncMethod` was called have
+	 * resolved.
+	 *
+	 * @return {$.Promise}
+	 */
+	MTH.waitForAsync = function () {
+		var deferred = $.Deferred();
+
+		// it's possible that, before this function call, some code was executed
+		// that triggers async code that will eventually end up `asyncPromises`
+		// in order to give that code a chance to run, we'll add another promise
+		// to the array, that will only resolve at the end of the current call
+		// stack (using setTimeout)
+		this.asyncPromises.push( deferred.promise() );
+		setTimeout( deferred.resolve );
+
+		return QUnit.whenPromisesComplete.apply( null, this.asyncPromises ).then(
+			function () {
+				this.asyncPromises = [];
+			}.bind( this )
+		);
+	};
+
 	mw.mmv.testHelpers = MTH;
 }( mediaWiki, jQuery ) );
