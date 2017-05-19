@@ -23,23 +23,30 @@
 
 class MultimediaViewerHooks {
 	/** Link to more information about this module */
-	protected static $infoLink = '//mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About';
+	protected static $infoLink =
+		'//mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About';
 
 	/** Link to a page where this module can be discussed */
-	protected static $discussionLink = '//mediawiki.org/wiki/Special:MyLanguage/Extension_talk:Media_Viewer/About';
+	protected static $discussionLink =
+		'//mediawiki.org/wiki/Special:MyLanguage/Extension_talk:Media_Viewer/About';
 
 	/** Link to help about this module */
 	protected static $helpLink = '//mediawiki.org/wiki/Special:MyLanguage/Help:Extension:Media_Viewer';
 
 	public static function registerExtension() {
-		global $wgMediaViewerNetworkPerformanceSamplingFactor, $wgMediaViewerDurationLoggingSamplingFactor,
-		$wgMediaViewerDurationLoggingLoggedinSamplingFactor, $wgMediaViewerAttributionLoggingSamplingFactor,
-		$wgMediaViewerDimensionLoggingSamplingFactor, $wgMediaViewerActionLoggingSamplingFactorMap,
-		$wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing, $wgMediaViewerEnableByDefault,
+		global $wgMediaViewerNetworkPerformanceSamplingFactor,
+		$wgMediaViewerDurationLoggingSamplingFactor,
+		$wgMediaViewerDurationLoggingLoggedinSamplingFactor,
+		$wgMediaViewerAttributionLoggingSamplingFactor, $wgMediaViewerDimensionLoggingSamplingFactor,
+		$wgMediaViewerActionLoggingSamplingFactorMap, $wgMediaViewerIsInBeta,
+		$wgMediaViewerUseThumbnailGuessing, $wgMediaViewerEnableByDefault,
 		$wgMediaViewerEnableByDefaultForAnonymous, $wgMediaViewerImageQueryParameter,
 		$wgMediaViewerRecordVirtualViewBeaconURI;
+
 		if ( !isset( $wgMediaViewerNetworkPerformanceSamplingFactor ) ) {
-			/** @var int|bool: If set, records image load network performance via EventLogging once per this many requests. False if unset. **/
+			/** @var int|bool: If set, records image load network performance via
+			 * EventLogging once per this many requests. False if unset.
+			 */
 			$wgMediaViewerNetworkPerformanceSamplingFactor = false;
 		}
 
@@ -65,8 +72,8 @@ class MultimediaViewerHooks {
 
 		if ( !isset( $wgMediaViewerAttributionLoggingSamplingFactor ) ) {
 			/**
-			 * If set, records whether image attribution data was available. A value of 1000 means there will be an
-			 * 1:1000 chance to log the attribution event.
+			 * If set, records whether image attribution data was available.
+			 * A value of 1000 means there will be an 1:1000 chance to log the attribution event.
 			 * False if unset.
 			 * @var int|bool
 			 */
@@ -75,8 +82,8 @@ class MultimediaViewerHooks {
 
 		if ( !isset( $wgMediaViewerDimensionLoggingSamplingFactor ) ) {
 			/**
-			 * If set, records whether image dimension data was available. A value of 1000 means there will be an
-			 * 1:1000 chance to log the dimension event.
+			 * If set, records whether image dimension data was available.
+			 * A value of 1000 means there will be an 1:1000 chance to log the dimension event.
 			 * False if unset.
 			 * @var int|bool
 			 */
@@ -85,7 +92,8 @@ class MultimediaViewerHooks {
 
 		if ( !isset( $wgMediaViewerActionLoggingSamplingFactorMap ) ) {
 			/**
-			 * If set, records user actions via EventLogging and applies a sampling factor according to the map. A "default" key in the map must be set.
+			 * If set, records user actions via EventLogging and applies a sampling factor according
+			 * to the map. A "default" key in the map must be set.
 			 * False if unset.
 			 * @var array|bool
 			 */
@@ -100,11 +108,12 @@ class MultimediaViewerHooks {
 		if ( !isset( $wgMediaViewerUseThumbnailGuessing ) ) {
 			/**
 			 * When this is enabled, MediaViewer will try to guess image URLs instead of making an
-			 * imageinfo API to get them from the server. This speeds up image loading, but will result in 404s
-			 * when $wgGenerateThumbnailOnParse (so the thumbnails are only generated as a result of the API request).
-			 * MediaViewer will catch such 404 errors and fall back to the API request, but depending on how the site
-			 * is set up, the 404 might get cached, or redirected, causing the image load to fail. The safe way to
-			 * use URL guessing is with a 404 handler: https://www.mediawiki.org/wiki/Manual:Thumb.php#404_Handler
+			 * imageinfo API to get them from the server. This speeds up image loading, but will
+			 * result in 404s when $wgGenerateThumbnailOnParse (so the thumbnails are only generated
+			 * as a result of the API request). MediaViewer will catch such 404 errors and fall back
+			 * to the API request, but depending on how the site is set up, the 404 might get cached,
+			 * or redirected, causing the image load to fail. The safe way to use URL guessing is
+			 * with a 404 handler: https://www.mediawiki.org/wiki/Manual:Thumb.php#404_Handler
 			 *
 			 * @var bool
 			 */
@@ -113,7 +122,8 @@ class MultimediaViewerHooks {
 
 		if ( !isset( $wgMediaViewerEnableByDefault ) ) {
 			/**
-			 * If trueish, and $wgMediaViewerIsInBeta is unset, Media Viewer will be turned on by default.
+			 * If trueish, and $wgMediaViewerIsInBeta is unset,
+			 * Media Viewer will be turned on by default.
 			 * @var bool
 			 */
 			$wgMediaViewerEnableByDefault = true;
@@ -290,11 +300,14 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	public static function resourceLoaderGetConfigVars( &$vars ) {
-		global $wgMediaViewerActionLoggingSamplingFactorMap, $wgMediaViewerNetworkPerformanceSamplingFactor,
-			$wgMediaViewerDurationLoggingSamplingFactor, $wgMediaViewerDurationLoggingLoggedinSamplingFactor,
-			$wgMediaViewerAttributionLoggingSamplingFactor, $wgMediaViewerDimensionLoggingSamplingFactor,
-			$wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing, $wgMediaViewerImageQueryParameter,
-			$wgMediaViewerRecordVirtualViewBeaconURI, $wgMediaViewerExtensions;
+		global $wgMediaViewerActionLoggingSamplingFactorMap,
+			$wgMediaViewerNetworkPerformanceSamplingFactor,
+			$wgMediaViewerDurationLoggingSamplingFactor,
+			$wgMediaViewerDurationLoggingLoggedinSamplingFactor,
+			$wgMediaViewerAttributionLoggingSamplingFactor,
+			$wgMediaViewerDimensionLoggingSamplingFactor,
+			$wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing, $wgMediaViewerExtensions,
+			$wgMediaViewerImageQueryParameter, $wgMediaViewerRecordVirtualViewBeaconURI;
 
 		$vars['wgMultimediaViewer'] = [
 			'infoLink' => self::$infoLink,
@@ -329,7 +342,8 @@ class MultimediaViewerHooks {
 		$user = $out->getUser();
 		$vars['wgMediaViewerOnClick'] = self::shouldHandleClicks( $user );
 		// needed because of bug 69942; could be different for anon and logged-in
-		$vars['wgMediaViewerEnabledByDefault'] = !empty( $wgDefaultUserOptions['multimediaviewer-enable'] );
+		$vars['wgMediaViewerEnabledByDefault'] =
+			!empty( $wgDefaultUserOptions['multimediaviewer-enable'] );
 	}
 
 	/**
@@ -414,7 +428,9 @@ class MultimediaViewerHooks {
 	 * @param array $attribs Attributes of the <img> element
 	 * @param array|boolean $linkAttribs Attributes of the wrapping <a> element
 	 */
-	public static function thumbnailBeforeProduceHTML( ThumbnailImage $thumbnail, array &$attribs, &$linkAttribs ) {
+	public static function thumbnailBeforeProduceHTML( ThumbnailImage $thumbnail, array &$attribs,
+		&$linkAttribs
+	) {
 		$file = $thumbnail->getFile();
 
 		if ( $file ) {
