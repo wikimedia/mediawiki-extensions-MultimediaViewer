@@ -26,7 +26,7 @@
 	 * @param {mw.Map} mwConfig
 	 * @param {Object} mwUser
 	 * @param {mw.Api} api
-	 * @param {Object} localStorage
+	 * @param {mw.storage} localStorage
 	 */
 	function Config( viewerConfig, mwConfig, mwUser, api, localStorage ) {
 		/**
@@ -55,7 +55,7 @@
 
 		/**
 		 * The localStorage object, for dependency injection
-		 * @type {Object}
+		 * @type {mw.storage}
 		 */
 		this.localStorage = localStorage;
 	}
@@ -66,21 +66,24 @@
 	 *
 	 * @param {string} key
 	 * @param {*} [fallback] value to return when key is not set or localStorage is not supported
-	 * @return {*} stored value or fallback or null if neither exists
+	 * @return {string|null} stored value or fallback or null if neither exists
 	 */
 	CP.getFromLocalStorage = function ( key, fallback ) {
-		var value = null;
-		if ( this.localStorage ) {
-			try {
-				value = this.localStorage.getItem( key );
-			} catch ( e ) {
-				mw.log( 'Failed to fetch item ' + key + ' from localStorage', e );
-			}
+		var value = this.localStorage.get( key );
+
+		// localStorage will only store strings; if values `null`, `false` or
+		// `0` are set, they'll come out as `"null"`, `"false"` or `"0"`, so we
+		// can be certain that an actual null is a failure to locate the item,
+		// and false is an issue with localStorage itself
+		if ( value !== null && value !== false ) {
+			return value;
 		}
-		if ( value === null && fallback !== undefined ) {
-			value = fallback;
+
+		if ( value === null ) {
+			mw.log( 'Failed to fetch item ' + key + ' from localStorage' );
 		}
-		return value;
+
+		return fallback !== undefined ? fallback : null;
 	};
 
 	/**
@@ -91,14 +94,7 @@
 	 * @return {boolean} whether storing the item was successful
 	 */
 	CP.setInLocalStorage = function ( key, value ) {
-		var success = false;
-		if ( this.localStorage ) {
-			try {
-				this.localStorage.setItem( key, value );
-				success = true;
-			} catch ( e ) {}
-		}
-		return success;
+		return this.localStorage.set( key, value );
 	};
 
 	/**
@@ -108,15 +104,15 @@
 	 * @return {boolean} whether storing the item was successful
 	 */
 	CP.removeFromLocalStorage = function ( key ) {
-		if ( this.localStorage ) {
-			try {
-				this.localStorage.removeItem( key );
-				return true;
-			} catch ( e ) {
-				return false;
-			}
-		}
-		return true; // since we never even stored the value, this is considered a success
+		this.localStorage.remove( key );
+
+		// mw.storage.remove catches all exceptions and returns false if any
+		// occur, so we can't distinguish between actual issues, and
+		// localStorage not being supported - however, localStorage.removeItem
+		// is not documented to throw any errors, so nothing to worry about;
+		// when localStorage is not supported, we'll consider removal successful
+		// (it can't have been there in the first place)
+		return true;
 	};
 
 	/**
@@ -143,7 +139,7 @@
 		// IMPORTANT: mmv.head.js uses the same logic but does not use this class to be lightweight. Make sure to keep it in sync.
 		return this.mwConfig.get( 'wgMediaViewer' ) && // global opt-out switch, can be set in user JS
 			this.mwConfig.get( 'wgMediaViewerOnClick' ) && // thumbnail opt-out, can be set in preferences
-			( !this.mwUser.isAnon() || this.getFromLocalStorage( 'wgMediaViewerOnClick', 1 ) === 1 ); // thumbnail opt-out for anons
+			( !this.mwUser.isAnon() || this.getFromLocalStorage( 'wgMediaViewerOnClick', '1' ) === '1' ); // thumbnail opt-out for anons
 	};
 
 	/**
@@ -196,15 +192,6 @@
 				config.maybeEnableStatusInfo();
 			}
 		} );
-	};
-
-	/**
-	 * Returns true if #setMediaViewerEnabledOnClick() is supported.
-	 *
-	 * @return {boolean}
-	 */
-	CP.canSetMediaViewerEnabledOnClick = function () {
-		return !this.mwUser.isAnon() || !!this.localStorage;
 	};
 
 	/**

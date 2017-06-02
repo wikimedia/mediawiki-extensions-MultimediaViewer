@@ -106,6 +106,7 @@
 				"mediawiki.Title",
 				"mediawiki.Uri",
 				"mediawiki.jqueryMsg",
+				"mediawiki.storage",
 				"oojs",
 				"jquery.fullscreen",
 				"jquery.hidpi",
@@ -344,6 +345,7 @@
 				"mediawiki.ui.icon",
 				"mediawiki.Title",
 				"mediawiki.user",
+				"mediawiki.storage",
 				"mmv.head",
 				"oojs"
 			],
@@ -369,7 +371,8 @@
 				"mmv/mmv.head.js"
 			],
 			"dependencies": [
-				"mediawiki.user"
+				"mediawiki.user",
+				"mediawiki.storage"
 			],
 			"position": "top"
 		}

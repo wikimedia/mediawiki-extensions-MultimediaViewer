@@ -18,7 +18,7 @@
 	QUnit.test( 'The panel is emptied properly when necessary', thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length, function ( assert ) {
 		var i,
 			$qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) );
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), mw.storage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), mw.storage ) );
 
 		panel.empty();
 
@@ -33,7 +33,7 @@
 
 	QUnit.test( 'Setting location information works as expected', 6, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) ),
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), mw.storage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), mw.storage ) ),
 			fileName = 'Foobar.jpg',
 			latitude = 12.3456789,
 			longitude = 98.7654321,
@@ -98,7 +98,7 @@
 	QUnit.test( 'Setting image information works as expected', 17, function ( assert ) {
 		var creditPopupText,
 			$qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) ),
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), mw.storage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), mw.storage ) ),
 			title = 'Foo bar',
 			image = {
 				filePageTitle: mw.Title.newFromText( 'File:' + title + '.jpg' )
@@ -170,7 +170,7 @@
 
 	QUnit.test( 'Setting permission information works as expected', 1, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) );
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), mw.storage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), mw.storage ) );
 
 		panel.setLicense( null, 'http://example.com' ); // make sure license is visible as it contains the permission
 		panel.setPermission( 'Look at me, I am a permission!' );
@@ -179,7 +179,7 @@
 
 	QUnit.test( 'Date formatting', 1, function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
-			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) ),
+			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), mw.storage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), mw.storage ) ),
 			date1 = 'Garbage',
 			promise = panel.formatDate( date1 );
 
@@ -198,7 +198,7 @@
 		this.sandbox.stub( mw.user, 'isAnon' );
 		mw.config.set( 'wgMediaViewerIsInBeta', false );
 		// eslint-disable-next-line no-new
-		new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ), window.localStorage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), window.localStorage ) );
+		new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ), mw.storage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), mw.storage ) );
 
 		assert.strictEqual( $qf.find( '.mw-mmv-about-link' ).length, 1, 'About link is created.' );
 		assert.strictEqual( $qf.find( '.mw-mmv-discuss-link' ).length, 1, 'Discuss link is created.' );

@@ -25,12 +25,6 @@
 	 * @class mw.mmv.MultimediaViewerBootstrap
 	 */
 	function MultimediaViewerBootstrap() {
-		var localStorage = false;
-
-		try {
-			localStorage = window.localStorage || false;
-		} catch ( e ) { }
-
 		// Exposed for tests
 		this.hoverWaitDuration = 200;
 
@@ -42,7 +36,7 @@
 			mw.config,
 			mw.user,
 			new mw.Api(),
-			localStorage
+			mw.storage
 		);
 
 		this.validExtensions = this.config.extensions();
