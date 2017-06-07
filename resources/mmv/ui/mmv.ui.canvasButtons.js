@@ -175,9 +175,12 @@
 				offset = $e.offset();
 
 			if ( y >= offset.top &&
-				y <= offset.top + $e.height() &&
+				// using css( 'height' ) & css( 'width' ) instead of .height()
+				// and .width() since those don't include padding, and as a
+				// result can return a smaller size than is actually the button
+				y <= offset.top + parseInt( $e.css( 'height' ) ) &&
 				x >= offset.left &&
-				x <= offset.left + $e.width() ) {
+				x <= offset.left + parseInt( $e.css( 'width' ) ) ) {
 				hovered = true;
 			}
 		} );

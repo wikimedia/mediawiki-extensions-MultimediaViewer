@@ -338,9 +338,18 @@
 				delayIn: tooltipDelay,
 				gravity: this.correctEW( 'ne' )
 			} )
-			.click( function () {
+			.click( function ( e ) {
 				if ( ui.isFullscreen ) {
 					ui.exitFullscreen();
+
+					// mousemove is throttled and the mouse coordinates only
+					// register every 250ms, so there is a chance that we moved
+					// our mouse over one of the buttons but it didn't register,
+					// and a fadeOut is triggered; when we're coming back from
+					// fullscreen, we'll want to make sure the mouse data is
+					// current so that the fadeOut behavior will not trigger
+					ui.mousePosition = { x: e.pageX, y: e.pageY };
+					ui.buttons.revealAndFade( ui.mousePosition );
 				} else {
 					ui.enterFullscreen();
 				}

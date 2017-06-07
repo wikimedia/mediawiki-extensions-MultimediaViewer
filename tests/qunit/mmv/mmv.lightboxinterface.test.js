@@ -144,7 +144,7 @@
 		restoreScrollTo();
 	} );
 
-	QUnit.test( 'Fullscreen mode', 8, function ( assert ) {
+	QUnit.test( 'Fullscreen mode', 9, function ( assert ) {
 		var buttonOffset, panelBottom,
 			oldRevealButtonsAndFadeIfNeeded,
 			lightbox = new mw.mmv.LightboxInterface(),
@@ -201,6 +201,12 @@
 		panelBottom = $( '.mw-mmv-post-image' ).position().top + $( '.mw-mmv-post-image' ).height();
 
 		assert.ok( panelBottom === $( window ).height(), 'Image metadata does not extend beyond the viewport' );
+
+		lightbox.buttons.revealAndFade = function ( position ) {
+			assert.ok( true, 'Closing fullscreen triggers a reveal + fade' );
+
+			oldRevealButtonsAndFadeIfNeeded.call( this, position );
+		};
 
 		// Exiting fullscreen
 		lightbox.buttons.$fullscreen.click();
