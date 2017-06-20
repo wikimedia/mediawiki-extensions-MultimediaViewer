@@ -172,7 +172,6 @@ class MultimediaViewerHooks {
 			$wgResourceModules['mmv']['dependencies'][] = 'ext.eventLogging';
 			$wgResourceModules['mmv.bootstrap.autostart']['dependencies'][] = 'ext.eventLogging';
 		}
-
 	}
 
 	public static function onEventLoggingRegisterSchemas( array &$schemas ) {
