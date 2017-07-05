@@ -26,25 +26,25 @@
 	QUnit.test( 'Localstorage get', 8, function ( assert ) {
 		var localStorage, config;
 
-		localStorage = undefined; // no browser support
+		localStorage = mw.mmv.testHelpers.getUnsupportedLocalStorage(); // no browser support
 		config = new mw.mmv.Config( {}, {}, {}, {}, localStorage );
 		assert.strictEqual( config.getFromLocalStorage( 'foo' ), null, 'Returns null when not supported' );
 		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'bar', 'Returns fallback when not supported' );
 
-		localStorage = null; // browser supports it but disabled
+		localStorage = mw.mmv.testHelpers.getDisabledLocalStorage(); // browser supports it but disabled
 		config = new mw.mmv.Config( {}, {}, {}, {}, localStorage );
 		assert.strictEqual( config.getFromLocalStorage( 'foo' ), null, 'Returns null when disabled' );
 		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'bar', 'Returns fallback when disabled' );
 
-		localStorage = { getItem: this.sandbox.stub() };
+		localStorage = mw.mmv.testHelpers.createLocalStorage( { getItem: this.sandbox.stub() } );
 		config = new mw.mmv.Config( {}, {}, {}, {}, localStorage );
 
-		localStorage.getItem.withArgs( 'foo' ).returns( null );
+		localStorage.store.getItem.withArgs( 'foo' ).returns( null );
 		assert.strictEqual( config.getFromLocalStorage( 'foo' ), null, 'Returns null when key not set' );
 		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'bar', 'Returns fallback when key not set' );
 
-		localStorage.getItem.reset();
-		localStorage.getItem.withArgs( 'foo' ).returns( 'boom' );
+		localStorage.store.getItem.reset();
+		localStorage.store.getItem.withArgs( 'foo' ).returns( 'boom' );
 		assert.strictEqual( config.getFromLocalStorage( 'foo' ), 'boom', 'Returns correct value' );
 		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'boom', 'Returns correct value ignoring fallback' );
 	} );
@@ -52,45 +52,41 @@
 	QUnit.test( 'Localstorage set', 4, function ( assert ) {
 		var localStorage, config;
 
-		localStorage = undefined; // no browser support
+		localStorage = mw.mmv.testHelpers.getUnsupportedLocalStorage(); // no browser support
 		config = new mw.mmv.Config( {}, {}, {}, {}, localStorage );
 		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), false, 'Returns false when not supported' );
 
-		localStorage = null; // browser supports it but disabled
+		localStorage = mw.mmv.testHelpers.getDisabledLocalStorage(); // browser supports it but disabled
 		config = new mw.mmv.Config( {}, {}, {}, {}, localStorage );
 		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), false, 'Returns false when disabled' );
 
-		localStorage = { setItem: this.sandbox.stub() };
+		localStorage = mw.mmv.testHelpers.createLocalStorage( { setItem: this.sandbox.stub() } );
 		config = new mw.mmv.Config( {}, {}, {}, {}, localStorage );
 
 		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), true, 'Returns true when works' );
 
-		localStorage.setItem.throwsException( 'localStorage full!' );
+		localStorage.store.setItem.throwsException( 'localStorage full!' );
 		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), false, 'Returns false on error' );
 	} );
 
-	QUnit.test( 'Localstorage remove', 4, function ( assert ) {
+	QUnit.test( 'Localstorage remove', 3, function ( assert ) {
 		var localStorage, config;
 
-		localStorage = undefined; // no browser support
+		localStorage = mw.mmv.testHelpers.getUnsupportedLocalStorage(); // no browser support
 		config = new mw.mmv.Config( {}, {}, {}, {}, localStorage );
 		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), true, 'Returns true when not supported' );
 
-		localStorage = null; // browser supports it but disabled
+		localStorage = mw.mmv.testHelpers.getDisabledLocalStorage(); // browser supports it but disabled
 		config = new mw.mmv.Config( {}, {}, {}, {}, localStorage );
 		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), true, 'Returns true when disabled' );
 
-		localStorage = { removeItem: this.sandbox.stub() };
+		localStorage = mw.mmv.testHelpers.createLocalStorage( { removeItem: this.sandbox.stub() } );
 		config = new mw.mmv.Config( {}, {}, {}, {}, localStorage );
-
 		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), true, 'Returns true when works' );
-
-		localStorage.removeItem.throwsException( 'cannot write localStorage!' );
-		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), false, 'Returns false on error' );
 	} );
 
 	QUnit.test( 'isMediaViewerEnabledOnClick', 7, function ( assert ) {
-		var localStorage = { getItem: this.sandbox.stub() },
+		var localStorage = mw.mmv.testHelpers.createLocalStorage( { getItem: this.sandbox.stub() } ),
 			mwConfig = { get: this.sandbox.stub() },
 			mwUser = { isAnon: this.sandbox.stub() },
 			config = new mw.mmv.Config( {}, mwConfig, mwUser, {}, localStorage );
@@ -123,18 +119,22 @@
 		mwUser.isAnon.returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		localStorage.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( null );
+		localStorage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( null );
 		assert.strictEqual( config.isMediaViewerEnabledOnClick(), true, 'Returns true for anon with standard settings' );
 
 		mwUser.isAnon.returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		localStorage.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( '0' );
+		localStorage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( '0' );
 		assert.strictEqual( config.isMediaViewerEnabledOnClick(), false, 'Returns true for anon opted out via localSettings' );
 	} );
 
 	QUnit.test( 'setMediaViewerEnabledOnClick sanity check', 3, function ( assert ) {
-		var localStorage = { getItem: this.sandbox.stub(), setItem: this.sandbox.stub(), removeItem: this.sandbox.stub() },
+		var localStorage = mw.mmv.testHelpers.createLocalStorage( {
+				getItem: this.sandbox.stub(),
+				setItem: this.sandbox.stub(),
+				removeItem: this.sandbox.stub()
+			} ),
 			mwUser = { isAnon: this.sandbox.stub() },
 			mwConfig = new mw.Map(),
 			api = { postWithToken: this.sandbox.stub().returns( $.Deferred().resolve() ) },
@@ -148,31 +148,11 @@
 
 		mwUser.isAnon.returns( true );
 		config.setMediaViewerEnabledOnClick( false );
-		assert.ok( localStorage.setItem.called, 'For anons, opt-out is set in localStorage' );
+		assert.ok( localStorage.store.setItem.called, 'For anons, opt-out is set in localStorage' );
 
 		mwUser.isAnon.returns( true );
 		config.setMediaViewerEnabledOnClick( true );
-		assert.ok( localStorage.removeItem.called, 'For anons, opt-in means clearing localStorage' );
-	} );
-
-	QUnit.test( 'canSetMediaViewerEnabledOnClick', 4, function ( assert ) {
-		var mwUser = { isAnon: this.sandbox.stub() },
-			config = new mw.mmv.Config( {}, {}, mwUser, {}, {} );
-
-		mwUser.isAnon.returns( false );
-		assert.strictEqual( config.canSetMediaViewerEnabledOnClick(), true, 'Logged-in users can always disable' );
-
-		mwUser.isAnon.returns( true );
-		config = new mw.mmv.Config( {}, {}, mwUser, {}, {} );
-		assert.strictEqual( config.canSetMediaViewerEnabledOnClick(), true, 'Anons can disable when they have localStorage support' );
-
-		mwUser.isAnon.returns( true );
-		config = new mw.mmv.Config( {}, {}, mwUser, {}, null );
-		assert.strictEqual( config.canSetMediaViewerEnabledOnClick(), false, 'Anons cannot disable when they have no localStorage support' );
-
-		mwUser.isAnon.returns( true );
-		config = new mw.mmv.Config( {}, {}, mwUser, {}, undefined );
-		assert.strictEqual( config.canSetMediaViewerEnabledOnClick(), false, 'Anons cannot disable when disabled localStorage' );
+		assert.ok( localStorage.store.removeItem.called, 'For anons, opt-in means clearing localStorage' );
 	} );
 
 	QUnit.test( 'shouldShowStatusInfo', 12, function ( assert ) {

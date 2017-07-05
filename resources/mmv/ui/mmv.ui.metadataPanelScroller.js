@@ -26,14 +26,14 @@
 	 * @constructor
 	 * @param {jQuery} $container The container for the panel (.mw-mmv-post-image).
 	 * @param {jQuery} $aboveFold The control bar element (.mw-mmv-above-fold).
-	 * @param {Object} localStorage the localStorage object, for dependency injection
+	 * @param {mw.storage} localStorage the localStorage object, for dependency injection
 	 */
 	function MetadataPanelScroller( $container, $aboveFold, localStorage ) {
 		mw.mmv.ui.Element.call( this, $container );
 
 		this.$aboveFold = $aboveFold;
 
-		/** @property {Object} localStorage the window.localStorage object */
+		/** @property {mw.storage} localStorage */
 		this.localStorage = localStorage;
 
 		/** @property {boolean} panelWasOpen state flag which will be used to detect open <-> closed transitions */
@@ -72,13 +72,9 @@
 		} ) );
 
 		this.$container.on( 'mmv-metadata-open', function () {
-			if ( !panel.hasOpenedMetadata && panel.localStorage ) {
+			if ( !panel.hasOpenedMetadata && panel.localStorage.store ) {
 				panel.hasOpenedMetadata = true;
-				try {
-					panel.localStorage.setItem( 'mmv.hasOpenedMetadata', true );
-				} catch ( e ) {
-					// localStorage is full or disabled
-				}
+				panel.localStorage.set( 'mmv.hasOpenedMetadata', '1' );
 			}
 		} );
 
@@ -141,9 +137,16 @@
 	};
 
 	MPSP.initialize = function () {
-		try {
-			this.hasOpenedMetadata = !this.localStorage || this.localStorage.getItem( 'mmv.hasOpenedMetadata' );
-		} catch ( e ) { // localStorage.getItem can throw exceptions
+		var value = this.localStorage.get( 'mmv.hasOpenedMetadata' );
+
+		// localStorage will only store strings; if values `null`, `false` or
+		// `0` are set, they'll come out as `"null"`, `"false"` or `"0"`, so we
+		// can be certain that an actual null is a failure to locate the item,
+		// and false is an issue with localStorage itself
+		if ( value !== false ) {
+			this.hasOpenedMetadata = value !== null;
+		} else {
+			// if there was an issue with localStorage, treat it as opened
 			this.hasOpenedMetadata = true;
 		}
 	};

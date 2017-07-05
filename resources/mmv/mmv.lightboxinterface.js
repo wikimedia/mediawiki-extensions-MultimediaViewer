@@ -26,10 +26,7 @@
 	 * @constructor
 	 */
 	function LightboxInterface() {
-		this.localStorage = false;
-		try {
-			this.localStorage = window.localStorage || false;
-		} catch ( e ) {}
+		this.localStorage = mw.storage;
 
 		/** @property {mw.mmv.Config} config - */
 		this.config = new mw.mmv.Config(
