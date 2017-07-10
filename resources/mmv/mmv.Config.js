@@ -26,7 +26,7 @@
 	 * @param {mw.Map} mwConfig
 	 * @param {Object} mwUser
 	 * @param {mw.Api} api
-	 * @param {mw.storage} localStorage
+	 * @param {mw.SafeStorage} localStorage
 	 */
 	function Config( viewerConfig, mwConfig, mwUser, api, localStorage ) {
 		/**
@@ -55,7 +55,7 @@
 
 		/**
 		 * The localStorage object, for dependency injection
-		 * @type {mw.storage}
+		 * @type {mw.SafeStorage}
 		 */
 		this.localStorage = localStorage;
 	}
