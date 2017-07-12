@@ -117,9 +117,8 @@
 
 		( mw.user.isAnon() ? htmlClasses : wikitextClasses ).push( 'active' );
 
-		this.embedTextHtml = new oo.ui.TextInputWidget( {
+		this.embedTextHtml = new oo.ui.MultilineTextInputWidget( {
 			classes: htmlClasses,
-			multiline: true,
 			readOnly: true
 		} );
 
@@ -130,9 +129,8 @@
 			mw.mmv.actionLogger.log( 'embed-html-copied' );
 		} );
 
-		this.embedTextWikitext = new oo.ui.TextInputWidget( {
+		this.embedTextWikitext = new oo.ui.MultilineTextInputWidget( {
 			classes: wikitextClasses,
-			multiline: true,
 			readOnly: true
 		} );
 
