@@ -108,6 +108,8 @@
 	"multimediaviewer-close-popup-text": "Fechar esta ferramenta (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Mostrar em tela inteira",
 	"multimediaviewer-defullscreen-popup-text": "Sair do modo tela inteira",
+	"multimediaviewer-next-image-alt-text": "Mostrar próxima imagem",
+	"multimediaviewer-prev-image-alt-text": "Mostrar imagem anterior",
 	"multimediaviewer-title-popup-text": "Descrição",
 	"multimediaviewer-credit-popup-text": "Autor e informação sobre a fonte",
 	"multimediaviewer-title-popup-text-more": "Ver descrição completa",
