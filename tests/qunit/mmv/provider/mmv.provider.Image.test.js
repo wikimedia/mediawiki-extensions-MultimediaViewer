@@ -18,13 +18,13 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.provider.Image', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Image constructor sanity check', 1, function ( assert ) {
+	QUnit.test( 'Image constructor sanity check', function ( assert ) {
 		var imageProvider = new mw.mmv.provider.Image();
 
 		assert.ok( imageProvider );
 	} );
 
-	QUnit.test( 'Image load success', 2, function ( assert ) {
+	QUnit.test( 'Image load success', function ( assert ) {
 		var url = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0' +
 				'iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH' +
 				'8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC',
@@ -42,7 +42,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Image caching', 6, function ( assert ) {
+	QUnit.test( 'Image caching', function ( assert ) {
 		var url = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0' +
 				'iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH' +
 				'8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC',
@@ -77,7 +77,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Image load XHR progress funneling', 7, function ( assert ) {
+	QUnit.test( 'Image load XHR progress funneling', function ( assert ) {
 		var i = 0,
 			imageProvider = new mw.mmv.provider.Image(),
 			oldPerformance = imageProvider.performance,
@@ -146,7 +146,7 @@
 			} );
 	} );
 
-	QUnit.asyncTest( 'Image load fail', 2, function ( assert ) {
+	QUnit.asyncTest( 'Image load fail', function ( assert ) {
 		var imageProvider = new mw.mmv.provider.Image(),
 			oldMwLog = mw.log,
 			mwLogCalled = false;
@@ -163,7 +163,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Image load with preloading supported', 1, function ( assert ) {
+	QUnit.test( 'Image load with preloading supported', function ( assert ) {
 		var url = mw.config.get( 'wgExtensionAssetsPath' ) + '/MultimediaViewer/resources/mmv/img/expand.svg',
 			imageProvider = new mw.mmv.provider.Image(),
 			endsWith = function ( a, b ) { return a.indexOf( b ) === a.length - b.length; };
@@ -185,7 +185,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Failed image load with preloading supported', 1, function ( assert ) {
+	QUnit.test( 'Failed image load with preloading supported', function ( assert ) {
 		var url = 'nosuchimage.png',
 			imageProvider = new mw.mmv.provider.Image();
 
@@ -201,7 +201,7 @@
 		} );
 	} );
 
-	QUnit.test( 'imageQueryParameter', 1, function ( assert ) {
+	QUnit.test( 'imageQueryParameter', function ( assert ) {
 		var imageProvider = new mw.mmv.provider.Image( 'foo' );
 
 		imageProvider.imagePreloadingSupported = function () { return false; };

@@ -1,7 +1,7 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.ui.description', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sanity test, object creation and UI construction', 3, function ( assert ) {
+	QUnit.test( 'Sanity test, object creation and UI construction', function ( assert ) {
 		var description = new mw.mmv.ui.Description( $( '#qunit-fixture' ) );
 
 		assert.ok( description, 'Image description UI element is created' );
@@ -9,7 +9,7 @@
 		assert.strictEqual( description.$imageDesc.length, 1, 'Image description element is created' );
 	} );
 
-	QUnit.test( 'Setting data in different combinations works well', 5, function ( assert ) {
+	QUnit.test( 'Setting data in different combinations works well', function ( assert ) {
 		var description = new mw.mmv.ui.Description( $( '#qunit-fixture' ) );
 
 		description.set( null, null );
@@ -31,7 +31,7 @@
 			'Image description text is set correctly, caption is ignored' );
 	} );
 
-	QUnit.test( 'Emptying data works as expected', 2, function ( assert ) {
+	QUnit.test( 'Emptying data works as expected', function ( assert ) {
 		var description = new mw.mmv.ui.Description( $( '#qunit-fixture' ) );
 
 		description.set( 'foo', 'bar' );

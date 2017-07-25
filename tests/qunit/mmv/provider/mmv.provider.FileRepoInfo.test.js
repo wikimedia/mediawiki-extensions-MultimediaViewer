@@ -18,14 +18,14 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.provider.FileRepoInfo', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'FileRepoInfo constructor sanity check', 1, function ( assert ) {
+	QUnit.test( 'FileRepoInfo constructor sanity check', function ( assert ) {
 		var api = { get: function () {} },
 			fileRepoInfoProvider = new mw.mmv.provider.FileRepoInfo( api );
 
 		assert.ok( fileRepoInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'FileRepoInfo get test', 14, function ( assert ) {
+	QUnit.asyncTest( 'FileRepoInfo get test', function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function () {
 				apiCallCount++;
@@ -112,7 +112,7 @@
 		} );
 	} );
 
-	QUnit.asyncTest( 'FileRepoInfo fail test', 1, function ( assert ) {
+	QUnit.asyncTest( 'FileRepoInfo fail test', function ( assert ) {
 		var api = { get: function () {
 				return $.Deferred().resolve( {} );
 			} },

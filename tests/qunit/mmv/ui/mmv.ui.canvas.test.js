@@ -18,7 +18,7 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.ui.Canvas', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Constructor sanity check', 3, function ( assert ) {
+	QUnit.test( 'Constructor sanity check', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			canvas = new mw.mmv.ui.Canvas( $qf, $qf, $qf );
 
@@ -27,7 +27,7 @@
 		assert.strictEqual( canvas.$mainWrapper, $qf, '$mainWrapper is set correctly.' );
 	} );
 
-	QUnit.test( 'empty() and set()', 8, function ( assert ) {
+	QUnit.test( 'empty() and set()', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			canvas = new mw.mmv.ui.Canvas( $qf ),
 			image = new Image(),
@@ -52,7 +52,7 @@
 		assert.ok( canvas.$imageDiv.hasClass( 'empty' ), 'Canvas is not visible.' );
 	} );
 
-	QUnit.test( 'setImageAndMaxDimensions()', 4, function ( assert ) {
+	QUnit.test( 'setImageAndMaxDimensions()', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			$mainWrapper = $( '<div>' ).appendTo( $qf ),
 			$innerWrapper = $( '<div>' ).appendTo( $mainWrapper ),
@@ -95,7 +95,7 @@
 		assert.notStrictEqual( canvas.$image, $currentImage, 'Image element switched correctly.' );
 	} );
 
-	QUnit.test( 'maybeDisplayPlaceholder: Constrained area for SVG files', 4, function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: Constrained area for SVG files', function ( assert ) {
 		var $image,
 			blurredThumbnailShown,
 			$qf = $( '#qunit-fixture' ),
@@ -125,7 +125,7 @@
 		assert.ok( !blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'maybeDisplayPlaceholder: placeholder big enough that it doesn\'t need blurring, actual image bigger than the lightbox', 5, function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: placeholder big enough that it doesn\'t need blurring, actual image bigger than the lightbox', function ( assert ) {
 		var $image,
 			blurredThumbnailShown,
 			$qf = $( '#qunit-fixture' ),
@@ -155,7 +155,7 @@
 		assert.ok( !blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'maybeDisplayPlaceholder: big-enough placeholder that needs blurring, actual image bigger than the lightbox', 5, function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: big-enough placeholder that needs blurring, actual image bigger than the lightbox', function ( assert ) {
 		var $image,
 			blurredThumbnailShown,
 			$qf = $( '#qunit-fixture' ),
@@ -185,7 +185,7 @@
 		assert.ok( blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'maybeDisplayPlaceholder: big-enough placeholder that needs blurring, actual image smaller than the lightbox', 5, function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: big-enough placeholder that needs blurring, actual image smaller than the lightbox', function ( assert ) {
 		var $image,
 			blurredThumbnailShown,
 			$qf = $( '#qunit-fixture' ),
@@ -215,7 +215,7 @@
 		assert.ok( blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'maybeDisplayPlaceholder: placeholder too small to be displayed, actual image bigger than the lightbox', 4, function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: placeholder too small to be displayed, actual image bigger than the lightbox', function ( assert ) {
 		var $image,
 			blurredThumbnailShown,
 			$qf = $( '#qunit-fixture' ),
@@ -245,7 +245,7 @@
 		assert.ok( !blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'Unblur', 4, function ( assert ) {
+	QUnit.test( 'Unblur', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			canvas = new mw.mmv.ui.Canvas( $qf ),
 			oldAnimate = $.fn.animate;

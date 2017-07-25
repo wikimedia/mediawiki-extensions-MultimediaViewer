@@ -18,7 +18,7 @@
 ( function ( mw ) {
 	QUnit.module( 'mmv.model.Repo', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Repo constructor sanity check', 3, function ( assert ) {
+	QUnit.test( 'Repo constructor sanity check', function ( assert ) {
 		var displayName = 'Wikimedia Commons',
 			favicon = '//commons.wikimedia.org/favicon.ico',
 			apiUrl = '//commons.wikimedia.org/w/api.php',
@@ -36,7 +36,7 @@
 		assert.ok( foreignDbRepo, 'Foreign DB repo creation works' );
 	} );
 
-	QUnit.test( 'getArticlePath()', 4, function ( assert ) {
+	QUnit.test( 'getArticlePath()', function ( assert ) {
 		var displayName = 'Wikimedia Commons',
 			favicon = '//commons.wikimedia.org/favicon.ico',
 			apiUrl = '//commons.wikimedia.org/w/api.php',
@@ -68,7 +68,7 @@
 		mw.config.set( 'wgServer', oldWgServer );
 	} );
 
-	QUnit.test( 'getSiteLink()', 3, function ( assert ) {
+	QUnit.test( 'getSiteLink()', function ( assert ) {
 		var displayName = 'Wikimedia Commons',
 			favicon = '//commons.wikimedia.org/favicon.ico',
 			apiUrl = '//commons.wikimedia.org/w/api.php',

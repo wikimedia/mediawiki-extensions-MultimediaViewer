@@ -22,7 +22,7 @@
 		}
 	} ) );
 
-	QUnit.test( 'empty()', 1, function ( assert ) {
+	QUnit.test( 'empty()', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			localStorage = mw.mmv.testHelpers.getFakeLocalStorage(),
 			scroller = new mw.mmv.ui.MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ), localStorage );
@@ -31,7 +31,7 @@
 		assert.ok( !scroller.$container.hasClass( 'invite' ), 'We successfully reset the invite' );
 	} );
 
-	QUnit.test( 'Metadata div is only animated once', 5, function ( assert ) {
+	QUnit.test( 'Metadata div is only animated once', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			displayCount = null, // pretend it doesn't exist at first
 			localStorage = mw.mmv.testHelpers.createLocalStorage( {
@@ -69,7 +69,7 @@
 		scroller.unattach();
 	} );
 
-	QUnit.test( 'No localStorage', 1, function ( assert ) {
+	QUnit.test( 'No localStorage', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			localStorage = mw.mmv.testHelpers.getUnsupportedLocalStorage(),
 			scroller = new mw.mmv.ui.MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ), localStorage );
@@ -81,7 +81,7 @@
 		assert.strictEqual( scroller.hasOpenedMetadata, true, 'We store hasOpenedMetadata flag for the session' );
 	} );
 
-	QUnit.test( 'localStorage is full', 2, function ( assert ) {
+	QUnit.test( 'localStorage is full', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			localStorage = mw.mmv.testHelpers.createLocalStorage( {
 				getItem: this.sandbox.stub().returns( null ),
@@ -155,7 +155,7 @@
 		} );
 	}
 
-	QUnit.test( 'Metadata scrolling', 6, function ( assert ) {
+	QUnit.test( 'Metadata scrolling', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			$container = $( '<div>' ).css( 'height', 100 ).appendTo( $qf ),
 			$aboveFold = $( '<div>' ).css( 'height', 50 ).appendTo( $container ),
@@ -216,7 +216,7 @@
 		scroller.unattach();
 	} );
 
-	QUnit.test( 'Metadata scroll logging', 4, function ( assert ) {
+	QUnit.test( 'Metadata scroll logging', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			$container = $( '<div>' ).css( 'height', 100 ).appendTo( $qf ),
 			$aboveFold = $( '<div>' ).css( 'height', 50 ).appendTo( $container ),

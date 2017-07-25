@@ -17,7 +17,7 @@
 		}
 	} ) );
 
-	QUnit.test( 'Sanity test, object creation and ui construction', 20, function ( assert ) {
+	QUnit.test( 'Sanity test, object creation and ui construction', function ( assert ) {
 		var lightbox = new mw.mmv.LightboxInterface();
 
 		stubScrollTo();
@@ -54,7 +54,7 @@
 		restoreScrollTo();
 	} );
 
-	QUnit.test( 'Handler registration and clearance work OK', 2, function ( assert ) {
+	QUnit.test( 'Handler registration and clearance work OK', function ( assert ) {
 		var lightbox = new mw.mmv.LightboxInterface(),
 			handlerCalls = 0,
 			clock = this.sandbox.useFakeTimers();
@@ -77,7 +77,7 @@
 		clock.restore();
 	} );
 
-	QUnit.test( 'Fullscreen mode', 8, function ( assert ) {
+	QUnit.test( 'Fullscreen mode', function ( assert ) {
 		var lightbox = new mw.mmv.LightboxInterface(),
 			oldFnEnterFullscreen = $.fn.enterFullscreen,
 			oldFnExitFullscreen = $.fn.exitFullscreen,
@@ -144,7 +144,7 @@
 		restoreScrollTo();
 	} );
 
-	QUnit.test( 'Fullscreen mode', 9, function ( assert ) {
+	QUnit.test( 'Fullscreen mode', function ( assert ) {
 		var buttonOffset, panelBottom,
 			oldRevealButtonsAndFadeIfNeeded,
 			lightbox = new mw.mmv.LightboxInterface(),
@@ -224,7 +224,7 @@
 		restoreScrollTo();
 	} );
 
-	QUnit.test( 'isAnyActiveButtonHovered', 35, function ( assert ) {
+	QUnit.test( 'isAnyActiveButtonHovered', function ( assert ) {
 		var lightbox = new mw.mmv.LightboxInterface();
 
 		stubScrollTo();
@@ -262,7 +262,7 @@
 		restoreScrollTo();
 	} );
 
-	QUnit.test( 'Keyboard prev/next', 2, function ( assert ) {
+	QUnit.test( 'Keyboard prev/next', function ( assert ) {
 		var viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			lightbox = new mw.mmv.LightboxInterface();
 

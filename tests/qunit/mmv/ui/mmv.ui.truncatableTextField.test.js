@@ -44,7 +44,7 @@
 		return ttf;
 	}
 
-	QUnit.test( 'Normal constructor', 2, function ( assert ) {
+	QUnit.test( 'Normal constructor', function ( assert ) {
 		var $container = $( '#qunit-fixture' ),
 			$element = $( '<div>' ).appendTo( $container ).text( 'This is a unique string.' ),
 			ttf = new mw.mmv.ui.TruncatableTextField( $container, $element );
@@ -53,7 +53,7 @@
 		assert.strictEqual( ttf.$element.closest( '#qunit-fixture' ).length, 1, 'The constructor put the element into the container.' );
 	} );
 
-	QUnit.test( 'Set method', 1, function ( assert ) {
+	QUnit.test( 'Set method', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			ttf = getField( 3, 2, $qf, this.sandbox );
 

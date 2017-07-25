@@ -36,7 +36,7 @@
 		};
 	}
 
-	QUnit.test( 'recordEntry: basic', 7, function ( assert ) {
+	QUnit.test( 'recordEntry: basic', function ( assert ) {
 		var performance = new mw.mmv.logging.PerformanceLogger(),
 			fakeEventLog = { logEvent: this.sandbox.stub() },
 			type = 'gender',
@@ -76,7 +76,7 @@
 		} );
 	} );
 
-	QUnit.test( 'recordEntry: with Navigation Timing data', 29, function ( assert ) {
+	QUnit.test( 'recordEntry: with Navigation Timing data', function ( assert ) {
 		var fakeRequest,
 			varnish1 = 'cp1061',
 			varnish2 = 'cp3006',
@@ -193,7 +193,7 @@
 		} );
 	} );
 
-	QUnit.test( 'recordEntry: with async extra stats', 11, function ( assert ) {
+	QUnit.test( 'recordEntry: with async extra stats', function ( assert ) {
 		var performance = new mw.mmv.logging.PerformanceLogger(),
 			fakeEventLog = { logEvent: this.sandbox.stub() },
 			type = 'gender',
@@ -246,7 +246,7 @@
 		} );
 	} );
 
-	QUnit.test( 'parseVarnishXCacheHeader', 15, function ( assert ) {
+	QUnit.test( 'parseVarnishXCacheHeader', function ( assert ) {
 		var varnish1 = 'cp1061',
 			varnish2 = 'cp3006',
 			varnish3 = 'cp3005',
@@ -277,7 +277,7 @@
 		assert.ok( $.isEmptyObject( varnishXCache ), 'Varnish cache results are empty' );
 	} );
 
-	QUnit.test( 'record()', 4, function ( assert ) {
+	QUnit.test( 'record()', function ( assert ) {
 		var type = 'foo',
 			url = 'http://example.com/',
 			response = {},
@@ -300,7 +300,7 @@
 		} );
 	} );
 
-	QUnit.asyncTest( 'record() with old browser', 1, function ( assert ) {
+	QUnit.asyncTest( 'record() with old browser', function ( assert ) {
 		var type = 'foo',
 			url = 'http://example.com/',
 			performance = new mw.mmv.logging.PerformanceLogger();
@@ -313,7 +313,7 @@
 		} );
 	} );
 
-	QUnit.test( 'mw.mmv.logging.Api', 3, function ( assert ) {
+	QUnit.test( 'mw.mmv.logging.Api', function ( assert ) {
 		var api,
 			oldRecord = mw.mmv.logging.PerformanceLogger.prototype.recordJQueryEntryDelayed,
 			oldAjax = mw.Api.prototype.ajax,

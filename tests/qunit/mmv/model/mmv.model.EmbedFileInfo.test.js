@@ -18,7 +18,7 @@
 ( function ( mw ) {
 	QUnit.module( 'mmv.model.EmbedFileInfo', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'EmbedFileInfo constructor sanity check', 5, function ( assert ) {
+	QUnit.test( 'EmbedFileInfo constructor sanity check', function ( assert ) {
 		var imageInfo = {},
 			repoInfo = {},
 			caption = 'Foo',

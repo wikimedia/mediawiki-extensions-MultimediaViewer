@@ -31,7 +31,7 @@
 		}
 	} );
 
-	QUnit.test( 'Setting location information works as expected', 6, function ( assert ) {
+	QUnit.test( 'Setting location information works as expected', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), mw.storage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), mw.storage ) ),
 			fileName = 'Foobar.jpg',
@@ -95,7 +95,7 @@
 		);
 	} );
 
-	QUnit.test( 'Setting image information works as expected', 17, function ( assert ) {
+	QUnit.test( 'Setting image information works as expected', function ( assert ) {
 		var creditPopupText,
 			$qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), mw.storage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), mw.storage ) ),
@@ -168,7 +168,7 @@
 		clock.restore();
 	} );
 
-	QUnit.test( 'Setting permission information works as expected', 1, function ( assert ) {
+	QUnit.test( 'Setting permission information works as expected', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), mw.storage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), mw.storage ) );
 
@@ -177,7 +177,7 @@
 		assert.ok( panel.$permissionLink.is( ':visible' ) );
 	} );
 
-	QUnit.test( 'Date formatting', 1, function ( assert ) {
+	QUnit.test( 'Date formatting', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), mw.storage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), mw.storage ) ),
 			date1 = 'Garbage',
@@ -191,7 +191,7 @@
 		} );
 	} );
 
-	QUnit.test( 'About links', 3, function ( assert ) {
+	QUnit.test( 'About links', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			oldWgMediaViewerIsInBeta = mw.config.get( 'wgMediaViewerIsInBeta' );
 

@@ -13,12 +13,12 @@
 
 	QUnit.module( 'mmv.ui.viewingOptions', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Constructor sanity test', 1, function ( assert ) {
+	QUnit.test( 'Constructor sanity test', function ( assert ) {
 		var dialog = makeDialog();
 		assert.ok( dialog, 'Dialog is created successfully' );
 	} );
 
-	QUnit.test( 'Initialisation functions', 4, function ( assert ) {
+	QUnit.test( 'Initialisation functions', function ( assert ) {
 		var dialog = makeDialog( true );
 
 		assert.ok( dialog.$disableDiv, 'Disable div is created.' );
@@ -27,7 +27,7 @@
 		assert.ok( dialog.$enableConfirmation, 'Enable confirmation is created.' );
 	} );
 
-	QUnit.test( 'Disable', 20, function ( assert ) {
+	QUnit.test( 'Disable', function ( assert ) {
 		var $header, $icon, $text, $textHeader, $textBody,
 			$submitButton, $cancelButton, $aboutLink,
 			dialog = makeDialog(),
@@ -85,7 +85,7 @@
 		assert.ok( dialog.$dialog.hasClass( 'mw-mmv-disable-confirmation-shown' ), 'Disable confirmation shown' );
 	} );
 
-	QUnit.test( 'Enable', 18, function ( assert ) {
+	QUnit.test( 'Enable', function ( assert ) {
 		var $header, $icon, $text, $textHeader, $aboutLink,
 			$submitButton, $cancelButton,
 			dialog = makeDialog(),

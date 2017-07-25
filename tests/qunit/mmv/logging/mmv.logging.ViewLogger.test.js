@@ -17,7 +17,7 @@
 		}
 	} ) );
 
-	QUnit.test( 'unview()', 4, function ( assert ) {
+	QUnit.test( 'unview()', function ( assert ) {
 		var logger = { log: $.noop },
 			viewLogger = new mw.mmv.logging.ViewLogger( { recordVirtualViewBeaconURI: $.noop }, {}, logger );
 
@@ -42,7 +42,7 @@
 		assert.ok( logger.log.calledOnce, 'action logger not called again' );
 	} );
 
-	QUnit.test( 'focus and blur', 1, function ( assert ) {
+	QUnit.test( 'focus and blur', function ( assert ) {
 		var fakeWindow = $( '<div>' ),
 			viewLogger = new mw.mmv.logging.ViewLogger( { recordVirtualViewBeaconURI: $.noop }, fakeWindow, { log: $.noop } );
 
@@ -67,7 +67,7 @@
 		assert.strictEqual( viewLogger.viewDuration, 8, 'Only focus duration was logged' );
 	} );
 
-	QUnit.test( 'stopViewDuration before startViewDuration', 1, function ( assert ) {
+	QUnit.test( 'stopViewDuration before startViewDuration', function ( assert ) {
 		var viewLogger = new mw.mmv.logging.ViewLogger( { recordVirtualViewBeaconURI: $.noop }, {}, { log: $.noop } );
 
 		this.clock.tick( 1 ); // This is just so that $.now() > 0 in the fake timer environment

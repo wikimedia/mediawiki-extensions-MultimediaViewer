@@ -18,7 +18,7 @@
 ( function ( mw ) {
 	QUnit.module( 'mmv.model.Image', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Image model constructor sanity check', 24, function ( assert ) {
+	QUnit.test( 'Image model constructor sanity check', function ( assert ) {
 		var
 			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 			name = 'Foo bar',
@@ -76,7 +76,7 @@
 		assert.ok( imageData.thumbUrls, 'Thumb URL cache is set up properly' );
 	} );
 
-	QUnit.test( 'hasCoords()', 2, function ( assert ) {
+	QUnit.test( 'hasCoords()', function ( assert ) {
 		var
 			firstImageData = new mw.mmv.model.Image(
 				mw.Title.newFromText( 'File:Foobar.pdf.jpg' ), 'Foo bar',
@@ -96,7 +96,7 @@
 		assert.strictEqual( secondImageData.hasCoords(), true, 'Coordinates present means hasCoords returns true.' );
 	} );
 
-	QUnit.test( 'parseExtmeta()', 14, function ( assert ) {
+	QUnit.test( 'parseExtmeta()', function ( assert ) {
 		var Image = mw.mmv.model.Image,
 			stringData = { value: 'foo' },
 			plaintextData = { value: 'fo<b>o</b>' },

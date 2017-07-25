@@ -18,7 +18,7 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.provider.Api', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Api constructor sanity check', 2, function ( assert ) {
+	QUnit.test( 'Api constructor sanity check', function ( assert ) {
 		var api = { get: function () {} },
 			options = {},
 			apiProvider = new mw.mmv.provider.Api( api, options ),
@@ -28,7 +28,7 @@
 		assert.ok( ApiProviderWithNoOptions );
 	} );
 
-	QUnit.test( 'apiGetWithMaxAge()', 8, function ( assert ) {
+	QUnit.test( 'apiGetWithMaxAge()', function ( assert ) {
 		var api = {},
 			options = {},
 			apiProvider = new mw.mmv.provider.Api( api, options );
@@ -57,7 +57,7 @@
 		assert.ok( !( 'smaxage' in api.get.getCall( 0 ).args[ 0 ] ), 'smaxage can be overridden to unset' );
 	} );
 
-	QUnit.test( 'getCachedPromise success', 5, function ( assert ) {
+	QUnit.test( 'getCachedPromise success', function ( assert ) {
 		var api = { get: function () {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			oldMwLog = mw.log,
@@ -91,7 +91,7 @@
 		mw.log = oldMwLog;
 	} );
 
-	QUnit.test( 'getCachedPromise failure', 7, function ( assert ) {
+	QUnit.test( 'getCachedPromise failure', function ( assert ) {
 		var api = { get: function () {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			oldMwLog = mw.log,
@@ -125,7 +125,7 @@
 		mw.log = oldMwLog;
 	} );
 
-	QUnit.test( 'getErrorMessage', 2, function ( assert ) {
+	QUnit.test( 'getErrorMessage', function ( assert ) {
 		var api = { get: function () {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			errorMessage;
@@ -144,7 +144,7 @@
 		assert.strictEqual( apiProvider.getErrorMessage( {} ), 'unknown error', 'missing error message is handled' );
 	} );
 
-	QUnit.test( 'getNormalizedTitle', 3, function ( assert ) {
+	QUnit.test( 'getNormalizedTitle', function ( assert ) {
 		var api = { get: function () {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			title = new mw.Title( 'Image:Stuff.jpg' ),
@@ -178,7 +178,7 @@
 		assert.strictEqual( normalizedTitle.getPrefixedDb(), 'File:Stuff.jpg', 'normalization happens' );
 	} );
 
-	QUnit.test( 'getQueryField', 3, function ( assert ) {
+	QUnit.test( 'getQueryField', function ( assert ) {
 		var api = { get: function () {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			data;
@@ -213,7 +213,7 @@
 		} );
 	} );
 
-	QUnit.test( 'getQueryPage', 6, function ( assert ) {
+	QUnit.test( 'getQueryPage', function ( assert ) {
 		var api = { get: function () {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
 			title = new mw.Title( 'File:Stuff.jpg' ),

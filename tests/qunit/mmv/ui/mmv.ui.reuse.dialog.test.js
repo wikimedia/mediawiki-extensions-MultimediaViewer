@@ -24,14 +24,14 @@
 
 	QUnit.module( 'mmv.ui.reuse.Dialog', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sanity test, object creation and UI construction', 2, function ( assert ) {
+	QUnit.test( 'Sanity test, object creation and UI construction', function ( assert ) {
 		var reuseDialog = makeReuseDialog( this.sandbox );
 
 		assert.ok( reuseDialog, 'Reuse UI element is created.' );
 		assert.strictEqual( reuseDialog.$dialog.length, 1, 'Reuse dialog div created.' );
 	} );
 
-	QUnit.test( 'handleOpenCloseClick():', 2, function ( assert ) {
+	QUnit.test( 'handleOpenCloseClick():', function ( assert ) {
 		var reuseDialog = makeReuseDialog( this.sandbox );
 
 		reuseDialog.openDialog = function () {
@@ -56,7 +56,7 @@
 		reuseDialog.handleOpenCloseClick();
 	} );
 
-	QUnit.test( 'handleTabSelection():', 5, function ( assert ) {
+	QUnit.test( 'handleTabSelection():', function ( assert ) {
 		var reuseDialog = makeReuseDialog( this.sandbox );
 
 		reuseDialog.initTabs();
@@ -74,7 +74,7 @@
 		assert.ok( reuseDialog.tabs.embed.$pane.hasClass( 'active' ), 'Embed tab shown.' );
 	} );
 
-	QUnit.test( 'default tab:', 2, function ( assert ) {
+	QUnit.test( 'default tab:', function ( assert ) {
 		var reuseDialog;
 
 		reuseDialog = makeReuseDialog( this.sandbox );
@@ -87,7 +87,7 @@
 		assert.strictEqual( reuseDialog.selectedTab, 'share', 'Default can be overridden' );
 	} );
 
-	QUnit.test( 'attach()/unattach():', 2, function ( assert ) {
+	QUnit.test( 'attach()/unattach():', function ( assert ) {
 		var reuseDialog = makeReuseDialog( this.sandbox );
 
 		reuseDialog.initTabs();
@@ -131,7 +131,7 @@
 		reuseDialog.reuseTabs.emit( 'select' );
 	} );
 
-	QUnit.test( 'start/stopListeningToOutsideClick():', 11, function ( assert ) {
+	QUnit.test( 'start/stopListeningToOutsideClick():', function ( assert ) {
 		var reuseDialog = makeReuseDialog( this.sandbox ),
 			realCloseDialog = reuseDialog.closeDialog;
 
@@ -177,7 +177,7 @@
 		assertDialogDoesNotCatchClicks();
 	} );
 
-	QUnit.test( 'set()/empty() sanity check:', 1, function ( assert ) {
+	QUnit.test( 'set()/empty() sanity check:', function ( assert ) {
 		var reuseDialog = makeReuseDialog( this.sandbox ),
 			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 			src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
@@ -197,7 +197,7 @@
 		assert.ok( true, 'Set/empty did not cause an error.' );
 	} );
 
-	QUnit.test( 'openDialog()/closeDialog():', 3, function ( assert ) {
+	QUnit.test( 'openDialog()/closeDialog():', function ( assert ) {
 		var reuseDialog = makeReuseDialog( this.sandbox ),
 			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 			src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',

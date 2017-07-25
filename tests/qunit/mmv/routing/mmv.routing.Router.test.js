@@ -18,14 +18,14 @@
 ( function ( mw ) {
 	QUnit.module( 'mmv.routing.Router', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Constructor sanity checks', 1, function ( assert ) {
+	QUnit.test( 'Constructor sanity checks', function ( assert ) {
 		var router;
 
 		router = new mw.mmv.routing.Router();
 		assert.ok( router, 'Router created successfully' );
 	} );
 
-	QUnit.test( 'isMediaViewerHash()', 10, function ( assert ) {
+	QUnit.test( 'isMediaViewerHash()', function ( assert ) {
 		var router = new mw.mmv.routing.Router();
 
 		assert.ok( router.isMediaViewerHash( 'mediaviewer/foo' ), 'Legacy hash' );
@@ -40,7 +40,7 @@
 		assert.ok( !router.isMediaViewerHash( '' ), 'Empty hash' );
 	} );
 
-	QUnit.test( 'createHash()/parseHash()', 14, function ( assert ) {
+	QUnit.test( 'createHash()/parseHash()', function ( assert ) {
 		var route, parsedRoute, hash, title,
 			router = new mw.mmv.routing.Router();
 
@@ -110,7 +110,7 @@
 		}
 	} );
 
-	QUnit.test( 'createHash() error handling', 3, function ( assert ) {
+	QUnit.test( 'createHash() error handling', function ( assert ) {
 		var router = new mw.mmv.routing.Router();
 
 		assert.ok( mw.mmv.testHelpers.getException( function () { return new mw.mmv.routing.ThumbnailRoute(); } ),
@@ -123,7 +123,7 @@
 		} ), 'Exception thrown for non-Route class' );
 	} );
 
-	QUnit.test( 'parseHash() with invalid hashes', 4, function ( assert ) {
+	QUnit.test( 'parseHash() with invalid hashes', function ( assert ) {
 		var router = new mw.mmv.routing.Router();
 
 		assert.ok( !router.parseHash( 'foo' ), 'Non-MMV hash is rejected.' );
@@ -132,7 +132,7 @@
 		assert.ok( !router.parseHash( '#/media/foo/bar' ), 'Invalid MMV hash is rejected (with #).' );
 	} );
 
-	QUnit.test( 'parseHash() backwards compatibility', 2, function ( assert ) {
+	QUnit.test( 'parseHash() backwards compatibility', function ( assert ) {
 		var route,
 			router = new mw.mmv.routing.Router();
 
@@ -145,7 +145,7 @@
 			'Old urls (without percent-encoding) are handled' );
 	} );
 
-	QUnit.test( 'createHashedUrl()', 2, function ( assert ) {
+	QUnit.test( 'createHashedUrl()', function ( assert ) {
 		var url,
 			route = new mw.mmv.routing.MainFileRoute(),
 			router = new mw.mmv.routing.Router();
@@ -157,7 +157,7 @@
 		assert.strictEqual( url, 'http://example.com/#/media', 'Urls with fragments are handled' );
 	} );
 
-	QUnit.test( 'parseLocation()', 3, function ( assert ) {
+	QUnit.test( 'parseLocation()', function ( assert ) {
 		var location, route,
 			router = new mw.mmv.routing.Router();
 
@@ -174,7 +174,7 @@
 		assert.ok( !route, 'Reading location without fragment part works' );
 	} );
 
-	QUnit.test( 'parseLocation() with real location', 2, function ( assert ) {
+	QUnit.test( 'parseLocation() with real location', function ( assert ) {
 		var route, title, hash,
 			router = new mw.mmv.routing.Router();
 
@@ -206,7 +206,7 @@
 		window.location.hash = '#';
 	} );
 
-	QUnit.test( 'tokenizeHash()', 13, function ( assert ) {
+	QUnit.test( 'tokenizeHash()', function ( assert ) {
 		var router = new mw.mmv.routing.Router();
 
 		router.legacyPrefix = 'legacy';

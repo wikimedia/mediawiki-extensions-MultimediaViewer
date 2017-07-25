@@ -19,7 +19,7 @@
 
 	QUnit.module( 'mmv.model.License', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'License constructor sanity check', 11, function ( assert ) {
+	QUnit.test( 'License constructor sanity check', function ( assert ) {
 		var license,
 			shortName = 'CC-BY-SA-3.0',
 			internalName = 'cc-by-sa-3.0',
@@ -47,7 +47,7 @@
 		}
 	} );
 
-	QUnit.test( 'getShortName()', 3, function ( assert ) {
+	QUnit.test( 'getShortName()', function ( assert ) {
 		var existingMessageKey = 'Internal name that does exist',
 			nonExistingMessageKey = 'Internal name that does not exist',
 			license1 = new mw.mmv.model.License( 'Shortname' ),
@@ -77,7 +77,7 @@
 		mw.messages.exists = oldMwMessagesExists;
 	} );
 
-	QUnit.test( 'getShortLink()', 6, function ( assert ) {
+	QUnit.test( 'getShortLink()', function ( assert ) {
 		var $html,
 			license1 = new mw.mmv.model.License( 'lorem ipsum' ),
 			license2 = new mw.mmv.model.License( 'lorem ipsum', 'lipsum' ),
@@ -101,7 +101,7 @@
 			'Title for license with link is formatted correctly' );
 	} );
 
-	QUnit.test( 'isCc()', 3, function ( assert ) {
+	QUnit.test( 'isCc()', function ( assert ) {
 		var license;
 
 		license = new mw.mmv.model.License( 'CC-BY-SA-2.0', 'cc-by-sa-2.0',
@@ -117,7 +117,7 @@
 		assert.strictEqual( license.isCc(), false, 'Non-CC license with no internal name not recognized' );
 	} );
 
-	QUnit.test( 'isPd()', 3, function ( assert ) {
+	QUnit.test( 'isPd()', function ( assert ) {
 		var license;
 
 		license = new mw.mmv.model.License( 'Public Domain', 'pd',
@@ -133,7 +133,7 @@
 		assert.strictEqual( license.isPd(), false, 'Non-PD license with no internal name not recognized' );
 	} );
 
-	QUnit.test( 'isFree()', 2, function ( assert ) {
+	QUnit.test( 'isFree()', function ( assert ) {
 		var license;
 
 		license = new mw.mmv.model.License( 'CC-BY-SA-2.0', 'cc-by-sa-2.0',
@@ -146,7 +146,7 @@
 		assert.strictEqual( license.isFree(), false, 'Non-free flag handled correctly' );
 	} );
 
-	QUnit.test( 'needsAttribution()', 2, function ( assert ) {
+	QUnit.test( 'needsAttribution()', function ( assert ) {
 		var license;
 
 		license = new mw.mmv.model.License( 'CC-BY-SA-2.0', 'cc-by-sa-2.0',

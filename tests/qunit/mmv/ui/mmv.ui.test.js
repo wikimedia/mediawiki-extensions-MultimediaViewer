@@ -5,7 +5,7 @@
 		}
 	} ) );
 
-	QUnit.test( 'handleEvent()', 1, function ( assert ) {
+	QUnit.test( 'handleEvent()', function ( assert ) {
 		var element = new mw.mmv.ui.Element( $( '<div>' ) );
 
 		element.handleEvent( 'mmv-foo', function () {
@@ -19,7 +19,7 @@
 		$( document ).trigger( new $.Event( 'mmv-foo' ) );
 	} );
 
-	QUnit.test( 'setInlineStyle()', 3, function ( assert ) {
+	QUnit.test( 'setInlineStyle()', function ( assert ) {
 		var element = new mw.mmv.ui.Element( $( '<div>' ) ),
 			$testDiv = $( '<div id="mmv-testdiv">!!!</div>' ).appendTo( '#qunit-fixture' );
 
@@ -34,7 +34,7 @@
 		assert.ok( $testDiv.is( ':visible' ), 'Test div is visible again' );
 	} );
 
-	QUnit.test( 'setTimer()/clearTimer()/resetTimer()', 12, function ( assert ) {
+	QUnit.test( 'setTimer()/clearTimer()/resetTimer()', function ( assert ) {
 		var element = new mw.mmv.ui.Element( $( '<div>' ) ),
 			element2 = new mw.mmv.ui.Element( $( '<div>' ) ),
 			spy = this.sandbox.spy(),
@@ -92,7 +92,7 @@
 		assert.ok( spy.called, 'Timeout works after changing the delay' );
 	} );
 
-	QUnit.test( 'correctEW()', 5, function ( assert ) {
+	QUnit.test( 'correctEW()', function ( assert ) {
 		var element = new mw.mmv.ui.Element( $( '<div>' ) );
 
 		element.isRTL = this.sandbox.stub().returns( true );

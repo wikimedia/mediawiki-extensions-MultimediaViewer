@@ -18,13 +18,13 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.model.TaskQueue', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'TaskQueue constructor sanity check', 1, function ( assert ) {
+	QUnit.test( 'TaskQueue constructor sanity check', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue();
 
 		assert.ok( taskQueue, 'TaskQueue created successfully' );
 	} );
 
-	QUnit.test( 'Queue length check', 2, function ( assert ) {
+	QUnit.test( 'Queue length check', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue();
 
 		assert.strictEqual( taskQueue.queue.length, 0, 'queue is initially empty' );
@@ -34,7 +34,7 @@
 		assert.strictEqual( taskQueue.queue.length, 1, 'queue length is incremented on push' );
 	} );
 
-	QUnit.test( 'State check', 3, function ( assert ) {
+	QUnit.test( 'State check', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue(),
 			task = $.Deferred(),
 			promise;
@@ -57,7 +57,7 @@
 		return promise;
 	} );
 
-	QUnit.test( 'State check for cancellation', 1, function ( assert ) {
+	QUnit.test( 'State check for cancellation', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue(),
 			task = $.Deferred();
 
@@ -69,7 +69,7 @@
 			'state is CANCELLED after cancellation' );
 	} );
 
-	QUnit.test( 'Test executing empty queue', 1, function ( assert ) {
+	QUnit.test( 'Test executing empty queue', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue();
 
 		QUnit.stop();
@@ -79,7 +79,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Simple execution test', 2, function ( assert ) {
+	QUnit.test( 'Simple execution test', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue();
 
 		QUnit.stop();
@@ -95,7 +95,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Task execution order test', 4, function ( assert ) {
+	QUnit.test( 'Task execution order test', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue(),
 			nextExpectedTask = 1;
 
@@ -134,7 +134,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Double execution test', 2, function ( assert ) {
+	QUnit.test( 'Double execution test', function ( assert ) {
 		var taskExecuted = false,
 			taskQueue = new mw.mmv.model.TaskQueue();
 
@@ -154,7 +154,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Parallel execution test', 2, function ( assert ) {
+	QUnit.test( 'Parallel execution test', function ( assert ) {
 		var taskExecuted = false,
 			taskQueue = new mw.mmv.model.TaskQueue();
 
@@ -175,7 +175,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Test push after execute', 1, function ( assert ) {
+	QUnit.test( 'Test push after execute', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue();
 
 		taskQueue.execute();
@@ -187,7 +187,7 @@
 		}
 	} );
 
-	QUnit.test( 'Test failed task', 1, function ( assert ) {
+	QUnit.test( 'Test failed task', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue();
 
 		taskQueue.push( function () {
@@ -201,7 +201,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Test that tasks wait for each other', 1, function ( assert ) {
+	QUnit.test( 'Test that tasks wait for each other', function ( assert ) {
 		var longRunningTaskFinished = false,
 			taskQueue = new mw.mmv.model.TaskQueue();
 
@@ -225,7 +225,7 @@
 		taskQueue.execute();
 	} );
 
-	QUnit.test( 'Test cancellation before start', 2, function ( assert ) {
+	QUnit.test( 'Test cancellation before start', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue(),
 			taskTriggeredByHand = false,
 			verificationTask = function () {
@@ -250,7 +250,7 @@
 		}, 0 );
 	} );
 
-	QUnit.test( 'Test cancellation within callback', 2, function ( assert ) {
+	QUnit.test( 'Test cancellation within callback', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue(),
 			taskTriggeredByHand = false,
 			verificationTask = function () {
@@ -276,7 +276,7 @@
 		}, 0 );
 	} );
 
-	QUnit.test( 'Test cancellation from task', 2, function ( assert ) {
+	QUnit.test( 'Test cancellation from task', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue(),
 			taskTriggeredByHand = false,
 			task1 = $.Deferred(),

@@ -31,12 +31,12 @@
 		return new mw.mmv.model.EmbedFileInfo( imageInfo, repoInfo, options.caption );
 	}
 
-	QUnit.test( 'EmbedFileFormatter constructor sanity check', 1, function ( assert ) {
+	QUnit.test( 'EmbedFileFormatter constructor sanity check', function ( assert ) {
 		var formatter = new mw.mmv.EmbedFileFormatter();
 		assert.ok( formatter, 'constructor with no argument works' );
 	} );
 
-	QUnit.test( 'getByline():', 5, function ( assert ) {
+	QUnit.test( 'getByline():', function ( assert ) {
 		var formatter = new mw.mmv.EmbedFileFormatter(),
 			author = '<span class="mw-mmv-author">Homer</span>',
 			source = '<span class="mw-mmv-source">Iliad</span>',
@@ -64,7 +64,7 @@
 		assert.ok( byline.match( /Iliad/ ), 'Source found in bylines.' );
 	} );
 
-	QUnit.test( 'getSiteLink():', 2, function ( assert ) {
+	QUnit.test( 'getSiteLink():', function ( assert ) {
 		var repoInfo = new mw.mmv.model.Repo( 'Wikipedia', '//wikipedia.org/favicon.ico', true ),
 			info = new mw.mmv.model.EmbedFileInfo( {}, repoInfo ),
 			formatter = new mw.mmv.EmbedFileFormatter(),
@@ -75,7 +75,7 @@
 		assert.ok( siteLink.indexOf( siteUrl ) !== -1, 'Site URL is present in site link' );
 	} );
 
-	QUnit.test( 'getThumbnailHtml():', 36, function ( assert ) {
+	QUnit.test( 'getThumbnailHtml():', function ( assert ) {
 		var formatter = new mw.mmv.EmbedFileFormatter(),
 			titleText = 'Music Room',
 			title = mw.Title.newFromText( titleText ),
@@ -164,7 +164,7 @@
 
 	} );
 
-	QUnit.test( 'getThumbnailWikitext():', 3, function ( assert ) {
+	QUnit.test( 'getThumbnailWikitext():', function ( assert ) {
 		var formatter = new mw.mmv.EmbedFileFormatter(),
 			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 			imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
@@ -203,7 +203,7 @@
 			'Wikitext generated correctly.' );
 	} );
 
-	QUnit.test( 'getCreditText():', 2, function ( assert ) {
+	QUnit.test( 'getCreditText():', function ( assert ) {
 		var txt, formatter = new mw.mmv.EmbedFileFormatter();
 
 		txt = formatter.getCreditText( {
@@ -246,7 +246,7 @@
 		assert.strictEqual( txt, 'By Author - Source, WTFPL v2, link', 'License message works' );
 	} );
 
-	QUnit.test( 'getCreditHtml():', 2, function ( assert ) {
+	QUnit.test( 'getCreditHtml():', function ( assert ) {
 		var html, formatter = new mw.mmv.EmbedFileFormatter();
 
 		html = formatter.getCreditHtml( {

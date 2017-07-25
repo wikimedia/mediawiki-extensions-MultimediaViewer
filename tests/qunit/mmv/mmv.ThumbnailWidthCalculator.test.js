@@ -1,7 +1,7 @@
 ( function ( mw ) {
 	QUnit.module( 'mmv.ThumbnailWidthCalculator', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'ThumbnailWidthCalculator constructor sanity check', 4, function ( assert ) {
+	QUnit.test( 'ThumbnailWidthCalculator constructor sanity check', function ( assert ) {
 		var badWidthBuckets = [],
 			goodWidthBuckets = [ 1 ],
 			thumbnailWidthCalculator;
@@ -26,7 +26,7 @@
 		}
 	} );
 
-	QUnit.test( 'findNextBucket() test', 4, function ( assert ) {
+	QUnit.test( 'findNextBucket() test', function ( assert ) {
 		var thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator( {
 			widthBuckets: [ 100, 200 ]
 		} );
@@ -45,7 +45,7 @@
 	} );
 
 	// Old tests for the default bucket sizes. Preserved because why not.
-	QUnit.test( 'We get sane image sizes when we ask for them', 5, function ( assert ) {
+	QUnit.test( 'We get sane image sizes when we ask for them', function ( assert ) {
 		var twc = new mw.mmv.ThumbnailWidthCalculator();
 
 		assert.strictEqual( twc.findNextBucket( 200 ), 320, 'Low target size gives us lowest possible size bucket' );
@@ -55,7 +55,7 @@
 		assert.strictEqual( twc.findNextBucket( 3000 ), 2880, 'The image bucketing also works on REALLY big screens' );
 	} );
 
-	QUnit.test( 'findNextBucket() test with unordered bucket list', 3, function ( assert ) {
+	QUnit.test( 'findNextBucket() test with unordered bucket list', function ( assert ) {
 		var thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator( {
 			widthBuckets: [ 200, 100 ]
 		} );
@@ -70,7 +70,7 @@
 			'return next bucket for value between two buckets' );
 	} );
 
-	QUnit.test( 'calculateFittingWidth() test', 3, function ( assert ) {
+	QUnit.test( 'calculateFittingWidth() test', function ( assert ) {
 		var boundingWidth = 100,
 			boundingHeight = 200,
 			thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator( { widthBuckets: [ 1 ] } );
@@ -91,7 +91,7 @@
 			100, 'fit calculation correct when same aspect ratio' );
 	} );
 
-	QUnit.test( 'calculateWidths() test', 9, function ( assert ) {
+	QUnit.test( 'calculateWidths() test', function ( assert ) {
 		var boundingWidth = 100,
 			boundingHeight = 200,
 			thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator( {
@@ -119,7 +119,7 @@
 		assert.strictEqual( widths.real, 128, 'real width is correct when same aspect ratio' );
 	} );
 
-	QUnit.test( 'calculateWidths() test with non-standard device pixel ratio', 9, function ( assert ) {
+	QUnit.test( 'calculateWidths() test with non-standard device pixel ratio', function ( assert ) {
 		var boundingWidth = 100,
 			boundingHeight = 200,
 			thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator( {

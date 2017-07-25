@@ -18,7 +18,7 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.HtmlUtils', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'wrapAndJquerify() for single node', 4, function ( assert ) {
+	QUnit.test( 'wrapAndJquerify() for single node', function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils(),
 			$el = $( '<span>' ),
 			el = $( '<span>' ).get( 0 ),
@@ -36,7 +36,7 @@
 		}
 	} );
 
-	QUnit.test( 'wrapAndJquerify() for multiple nodes', 2, function ( assert ) {
+	QUnit.test( 'wrapAndJquerify() for multiple nodes', function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils(),
 			$el = $( '<span></span><span></span>' ),
 			html = '<span></span><span></span>';
@@ -45,7 +45,7 @@
 		assert.strictEqual( utils.wrapAndJquerify( html ).html(), '<span></span><span></span>', 'HTML string' );
 	} );
 
-	QUnit.test( 'wrapAndJquerify() for text', 2, function ( assert ) {
+	QUnit.test( 'wrapAndJquerify() for text', function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils(),
 			$el = $( document.createTextNode( 'foo' ) ),
 			html = 'foo';
@@ -54,7 +54,7 @@
 		assert.strictEqual( utils.wrapAndJquerify( html ).html(), 'foo', 'HTML string' );
 	} );
 
-	QUnit.test( 'wrapAndJquerify() does not change original', 2, function ( assert ) {
+	QUnit.test( 'wrapAndJquerify() does not change original', function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils(),
 			$el = $( '<span>' ),
 			el = $( '<span>' ).get( 0 );
@@ -65,7 +65,7 @@
 		assert.strictEqual( $( el ).prop( 'data-x' ), undefined, 'wrapped HTMLElement is not the same as original' );
 	} );
 
-	QUnit.test( 'filterInvisible()', 10, function ( assert ) {
+	QUnit.test( 'filterInvisible()', function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils(),
 			$visibleChild = $( '<div><span></span></div>' ),
 			$invisibleChild = $( '<div><span style="display: none"></span></div>' ),
@@ -91,7 +91,7 @@
 		assert.ok( $invisibleChildWithVisibleSiblings.has( 'b' ).length, '...but its visible siblings are not' );
 	} );
 
-	QUnit.test( 'whitelistHtml()', 8, function ( assert ) {
+	QUnit.test( 'whitelistHtml()', function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils(),
 			$whitelisted = $( '<div>abc<a>def</a>ghi</div>' ),
 			$nonWhitelisted = $( '<div>abc<span>def</span>ghi</div>' ),
@@ -115,7 +115,7 @@
 		assert.ok( $siblings.has( 'a' ).length, 'Whitelisted siblings are kept.' );
 	} );
 
-	QUnit.test( 'appendWhitespaceToBlockElements()', 3, function ( assert ) {
+	QUnit.test( 'appendWhitespaceToBlockElements()', function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils(),
 			$noBlockElement = $( '<div>abc<i>def</i>ghi</div>' ),
 			$blockElement = $( '<div>abc<p>def</p>ghi</div>' ),
@@ -130,7 +130,7 @@
 		assert.ok( $linebreak.text().match( /abc\s+def/ ), 'Linebreaks are whitespaced.' );
 	} );
 
-	QUnit.test( 'jqueryToHtml()', 3, function ( assert ) {
+	QUnit.test( 'jqueryToHtml()', function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils();
 
 		assert.strictEqual( utils.jqueryToHtml( $( '<a>' ) ), '<a></a>',
@@ -141,7 +141,7 @@
 			'works for text nodes' );
 	} );
 
-	QUnit.test( 'mergeWhitespace()', 3, function ( assert ) {
+	QUnit.test( 'mergeWhitespace()', function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils();
 
 		assert.strictEqual( utils.mergeWhitespace( ' x \n' ), 'x',
@@ -152,28 +152,28 @@
 			'multiple spaces are collapsed into a single one' );
 	} );
 
-	QUnit.test( 'htmlToText()', 1, function ( assert ) {
+	QUnit.test( 'htmlToText()', function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils(),
 			html = '<table><tr><td>Foo</td><td><a>bar</a></td><td style="display: none">baz</td></tr></table>';
 
 		assert.strictEqual( utils.htmlToText( html ), 'Foo bar', 'works' );
 	} );
 
-	QUnit.test( 'htmlToTextWithLinks()', 1, function ( assert ) {
+	QUnit.test( 'htmlToTextWithLinks()', function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils(),
 			html = '<table><tr><td><b>F</b>o<i>o</i></td><td><a>bar</a></td><td style="display: none">baz</td></tr></table>';
 
 		assert.strictEqual( utils.htmlToTextWithLinks( html ), 'Foo <a>bar</a>', 'works' );
 	} );
 
-	QUnit.test( 'htmlToTextWithTags()', 1, function ( assert ) {
+	QUnit.test( 'htmlToTextWithTags()', function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils(),
 			html = '<table><tr><td><b>F</b>o<i>o</i></td><td><a>bar</a></td><td style="display: none">baz</td></tr></table>';
 
 		assert.strictEqual( utils.htmlToTextWithTags( html ), '<b>F</b>o<i>o</i> <a>bar</a>', 'works' );
 	} );
 
-	QUnit.test( 'isJQueryOrHTMLElement()', 3, function ( assert ) {
+	QUnit.test( 'isJQueryOrHTMLElement()', function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils();
 
 		assert.ok( utils.isJQueryOrHTMLElement( $( '<span>' ) ), 'Recognizes jQuery objects correctly' );
@@ -181,7 +181,7 @@
 		assert.ok( !utils.isJQueryOrHTMLElement( '<span></span>' ), 'Recognizes jQuery objects correctly' );
 	} );
 
-	QUnit.test( 'makeLinkText()', 1, function ( assert ) {
+	QUnit.test( 'makeLinkText()', function ( assert ) {
 		var utils = new mw.mmv.HtmlUtils();
 
 		assert.strictEqual( utils.makeLinkText( 'foo', {

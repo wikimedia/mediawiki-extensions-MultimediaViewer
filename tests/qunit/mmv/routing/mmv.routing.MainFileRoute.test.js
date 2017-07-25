@@ -18,7 +18,7 @@
 ( function ( mw ) {
 	QUnit.module( 'mmv.routing.MainFileRoute', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Constructor sanity checks', 1, function ( assert ) {
+	QUnit.test( 'Constructor sanity checks', function ( assert ) {
 		assert.ok( new mw.mmv.routing.MainFileRoute(), 'MainFileRoute created successfully' );
 	} );
 }( mediaWiki ) );

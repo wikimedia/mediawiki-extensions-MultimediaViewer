@@ -18,12 +18,12 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.Config', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Constructor sanity test', 1, function ( assert ) {
+	QUnit.test( 'Constructor sanity test', function ( assert ) {
 		var config = new mw.mmv.Config( {}, {}, {}, {}, null );
 		assert.ok( config );
 	} );
 
-	QUnit.test( 'Localstorage get', 8, function ( assert ) {
+	QUnit.test( 'Localstorage get', function ( assert ) {
 		var localStorage, config;
 
 		localStorage = mw.mmv.testHelpers.getUnsupportedLocalStorage(); // no browser support
@@ -49,7 +49,7 @@
 		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'boom', 'Returns correct value ignoring fallback' );
 	} );
 
-	QUnit.test( 'Localstorage set', 4, function ( assert ) {
+	QUnit.test( 'Localstorage set', function ( assert ) {
 		var localStorage, config;
 
 		localStorage = mw.mmv.testHelpers.getUnsupportedLocalStorage(); // no browser support
@@ -69,7 +69,7 @@
 		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), false, 'Returns false on error' );
 	} );
 
-	QUnit.test( 'Localstorage remove', 3, function ( assert ) {
+	QUnit.test( 'Localstorage remove', function ( assert ) {
 		var localStorage, config;
 
 		localStorage = mw.mmv.testHelpers.getUnsupportedLocalStorage(); // no browser support
@@ -85,7 +85,7 @@
 		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), true, 'Returns true when works' );
 	} );
 
-	QUnit.test( 'isMediaViewerEnabledOnClick', 7, function ( assert ) {
+	QUnit.test( 'isMediaViewerEnabledOnClick', function ( assert ) {
 		var localStorage = mw.mmv.testHelpers.createLocalStorage( { getItem: this.sandbox.stub() } ),
 			mwConfig = { get: this.sandbox.stub() },
 			mwUser = { isAnon: this.sandbox.stub() },
@@ -129,7 +129,7 @@
 		assert.strictEqual( config.isMediaViewerEnabledOnClick(), false, 'Returns true for anon opted out via localSettings' );
 	} );
 
-	QUnit.test( 'setMediaViewerEnabledOnClick sanity check', 3, function ( assert ) {
+	QUnit.test( 'setMediaViewerEnabledOnClick sanity check', function ( assert ) {
 		var localStorage = mw.mmv.testHelpers.createLocalStorage( {
 				getItem: this.sandbox.stub(),
 				setItem: this.sandbox.stub(),
@@ -155,7 +155,7 @@
 		assert.ok( localStorage.store.removeItem.called, 'For anons, opt-in means clearing localStorage' );
 	} );
 
-	QUnit.test( 'shouldShowStatusInfo', 12, function ( assert ) {
+	QUnit.test( 'shouldShowStatusInfo', function ( assert ) {
 		var config,
 			mwConfig = new mw.Map(),
 			fakeLocalStorage = mw.mmv.testHelpers.getFakeLocalStorage(),

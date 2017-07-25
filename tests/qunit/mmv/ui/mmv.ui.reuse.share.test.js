@@ -22,7 +22,7 @@
 
 	QUnit.module( 'mmv.ui.reuse.share', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sanity test, object creation and UI construction', 4, function ( assert ) {
+	QUnit.test( 'Sanity test, object creation and UI construction', function ( assert ) {
 		var share = makeShare();
 
 		assert.ok( share, 'Share UI element is created.' );
@@ -31,7 +31,7 @@
 		assert.ok( share.$pageLink, 'Link created.' );
 	} );
 
-	QUnit.test( 'set()/empty():', 4, function ( assert ) {
+	QUnit.test( 'set()/empty():', function ( assert ) {
 		var share = makeShare(),
 			image = { // fake mw.mmv.model.Image
 				title: new mw.Title( 'File:Foobar.jpg' ),
@@ -54,7 +54,7 @@
 		assert.notStrictEqual( !share.pageInput.getValue(), '', 'pageInput is empty.' );
 	} );
 
-	QUnit.test( 'attach()/unattach():', 1, function ( assert ) {
+	QUnit.test( 'attach()/unattach():', function ( assert ) {
 		var share = makeShare(),
 			image = {
 				title: new mw.Title( 'File:Foobar.jpg' ),

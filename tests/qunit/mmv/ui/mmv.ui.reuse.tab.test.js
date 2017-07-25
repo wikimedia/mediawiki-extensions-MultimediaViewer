@@ -24,7 +24,7 @@
 
 	QUnit.module( 'mmv.ui.reuse.Tab', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Object creation, UI construction and basic funtionality', 5, function ( assert ) {
+	QUnit.test( 'Object creation, UI construction and basic funtionality', function ( assert ) {
 		var reuseTab = makeReuseTab();
 
 		assert.ok( reuseTab, 'Reuse UI element is created.' );

@@ -18,14 +18,14 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.provider.ThumbnailInfo', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'ThumbnailInfo constructor sanity check', 1, function ( assert ) {
+	QUnit.test( 'ThumbnailInfo constructor sanity check', function ( assert ) {
 		var api = { get: function () {} },
 			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
 
 		assert.ok( thumbnailInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'ThumbnailInfo get test', 7, function ( assert ) {
+	QUnit.asyncTest( 'ThumbnailInfo get test', function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function () {
 				apiCallCount++;
@@ -78,7 +78,7 @@
 		} );
 	} );
 
-	QUnit.asyncTest( 'ThumbnailInfo fail test', 1, function ( assert ) {
+	QUnit.asyncTest( 'ThumbnailInfo fail test', function ( assert ) {
 		var api = { get: function () {
 				return $.Deferred().resolve( {} );
 			} },
@@ -91,7 +91,7 @@
 		} );
 	} );
 
-	QUnit.asyncTest( 'ThumbnailInfo fail test 2', 1, function ( assert ) {
+	QUnit.asyncTest( 'ThumbnailInfo fail test 2', function ( assert ) {
 		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {
@@ -112,7 +112,7 @@
 		} );
 	} );
 
-	QUnit.asyncTest( 'ThumbnailInfo missing page test', 1, function ( assert ) {
+	QUnit.asyncTest( 'ThumbnailInfo missing page test', function ( assert ) {
 		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {
@@ -136,7 +136,7 @@
 		} );
 	} );
 
-	QUnit.asyncTest( 'ThumbnailInfo fail test 3', 1, function ( assert ) {
+	QUnit.asyncTest( 'ThumbnailInfo fail test 3', function ( assert ) {
 		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {

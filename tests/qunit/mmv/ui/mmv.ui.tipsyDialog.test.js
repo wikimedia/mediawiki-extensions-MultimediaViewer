@@ -24,7 +24,7 @@
 		}
 	} ) );
 
-	QUnit.test( 'Open/close', 3, function ( assert ) {
+	QUnit.test( 'Open/close', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			$anchor = $( '<div>' ).appendTo( $qf ),
 			dialog = new mw.mmv.ui.TipsyDialog( $anchor );
@@ -36,7 +36,7 @@
 		assert.ok( !$( '.mw-mmv-tipsy-dialog' ).length, 'dialog is not shown' );
 	} );
 
-	QUnit.test( 'setContent', 3, function ( assert ) {
+	QUnit.test( 'setContent', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			$anchor = $( '<div>' ).appendTo( $qf ),
 			titleText = 'This is a title',
@@ -50,7 +50,7 @@
 		assert.ok( $( '.mw-mmv-tipsy-dialog' ).find( '.typsyDialogTest-123' ).length, 'Body is HTML' );
 	} );
 
-	QUnit.test( 'Close on click', 4, function ( assert ) {
+	QUnit.test( 'Close on click', function ( assert ) {
 		var $qf = $( '#qunit-fixture' ),
 			$anchor = $( '<div>' ).appendTo( $qf ),
 			dialog = new mw.mmv.ui.TipsyDialog( $anchor );

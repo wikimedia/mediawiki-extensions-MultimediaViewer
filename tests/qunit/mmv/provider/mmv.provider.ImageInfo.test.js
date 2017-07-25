@@ -18,14 +18,14 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.provider.ImageInfo', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'ImageInfo constructor sanity check', 1, function ( assert ) {
+	QUnit.test( 'ImageInfo constructor sanity check', function ( assert ) {
 		var api = { get: function () {} },
 			imageInfoProvider = new mw.mmv.provider.ImageInfo( api );
 
 		assert.ok( imageInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'ImageInfo get test', 27, function ( assert ) {
+	QUnit.asyncTest( 'ImageInfo get test', function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function () {
 				apiCallCount++;
@@ -169,7 +169,7 @@
 		} );
 	} );
 
-	QUnit.asyncTest( 'ImageInfo fail test', 1, function ( assert ) {
+	QUnit.asyncTest( 'ImageInfo fail test', function ( assert ) {
 		var api = { get: function () {
 				return $.Deferred().resolve( {} );
 			} },
@@ -182,7 +182,7 @@
 		} );
 	} );
 
-	QUnit.asyncTest( 'ImageInfo fail test 2', 1, function ( assert ) {
+	QUnit.asyncTest( 'ImageInfo fail test 2', function ( assert ) {
 		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {
@@ -203,7 +203,7 @@
 		} );
 	} );
 
-	QUnit.asyncTest( 'ImageInfo missing page test', 1, function ( assert ) {
+	QUnit.asyncTest( 'ImageInfo missing page test', function ( assert ) {
 		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {

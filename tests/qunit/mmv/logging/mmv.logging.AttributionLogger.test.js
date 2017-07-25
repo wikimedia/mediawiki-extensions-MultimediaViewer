@@ -1,7 +1,7 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.logging.AttributionLogger', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'log()', 2, function ( assert ) {
+	QUnit.test( 'log()', function ( assert ) {
 		var fakeEventLog = { logEvent: this.sandbox.stub() },
 			logger = new mw.mmv.logging.AttributionLogger(),
 			image = { author: 'foo', source: 'bar', license: {} },

@@ -1,7 +1,7 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'eachPrealoadableLightboxIndex()', 11, function ( assert ) {
+	QUnit.test( 'eachPrealoadableLightboxIndex()', function ( assert ) {
 		var viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			expectedIndices,
 			i;
@@ -29,7 +29,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Hash handling', 8, function ( assert ) {
+	QUnit.test( 'Hash handling', function ( assert ) {
 		var oldUnattach,
 			viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			ui = new mw.mmv.LightboxInterface(),
@@ -111,7 +111,7 @@
 		window.location.hash = '';
 	} );
 
-	QUnit.test( 'Progress', 4, function ( assert ) {
+	QUnit.test( 'Progress', function ( assert ) {
 		var imageDeferred = $.Deferred(),
 			viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			fakeImage = {
@@ -176,7 +176,7 @@
 		viewer.close();
 	} );
 
-	QUnit.test( 'Progress when switching images', 11, function ( assert ) {
+	QUnit.test( 'Progress when switching images', function ( assert ) {
 		var firstImageDeferred = $.Deferred(),
 			secondImageDeferred = $.Deferred(),
 			firstImage = {
@@ -296,7 +296,7 @@
 		viewer.close();
 	} );
 
-	QUnit.test( 'resetBlurredThumbnailStates', 4, function ( assert ) {
+	QUnit.test( 'resetBlurredThumbnailStates', function ( assert ) {
 		var viewer = mw.mmv.testHelpers.getMultimediaViewer();
 
 		// animation would keep running, conflict with other tests
@@ -314,7 +314,7 @@
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'Placeholder first, then real thumbnail', 4, function ( assert ) {
+	QUnit.test( 'Placeholder first, then real thumbnail', function ( assert ) {
 		var viewer = mw.mmv.testHelpers.getMultimediaViewer();
 
 		viewer.setImage = $.noop;
@@ -336,7 +336,7 @@
 		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'Placeholder first, then real thumbnail - missing size', 4, function ( assert ) {
+	QUnit.test( 'Placeholder first, then real thumbnail - missing size', function ( assert ) {
 		var viewer = mw.mmv.testHelpers.getMultimediaViewer();
 
 		viewer.currentIndex = 1;
@@ -359,7 +359,7 @@
 		assert.ok( viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'Real thumbnail first, then placeholder', 4, function ( assert ) {
+	QUnit.test( 'Real thumbnail first, then placeholder', function ( assert ) {
 		var viewer = mw.mmv.testHelpers.getMultimediaViewer();
 
 		viewer.setImage = $.noop;
@@ -381,7 +381,7 @@
 		assert.ok( !viewer.blurredThumbnailShown, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'displayRealThumbnail', 2, function ( assert ) {
+	QUnit.test( 'displayRealThumbnail', function ( assert ) {
 		var viewer = mw.mmv.testHelpers.getMultimediaViewer();
 
 		viewer.setImage = $.noop;
@@ -400,7 +400,7 @@
 		assert.ok( viewer.ui.canvas.unblurWithAnimation.called, 'There should be an unblurWithAnimation animation' );
 	} );
 
-	QUnit.test( 'New image loaded while another one is loading', 5, function ( assert ) {
+	QUnit.test( 'New image loaded while another one is loading', function ( assert ) {
 		var viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			firstImageDeferred = $.Deferred(),
 			secondImageDeferred = $.Deferred(),
@@ -480,7 +480,7 @@
 		clock.restore();
 	} );
 
-	QUnit.test( 'Events are not trapped after the viewer is closed', 0, function ( assert ) {
+	QUnit.test( 'Events are not trapped after the viewer is closed', function ( assert ) {
 		var i, j, k, eventParameters,
 			viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			$document = $( document ),
@@ -488,6 +488,8 @@
 			eventTypes = [ 'keydown', 'keyup', 'keypress', 'click', 'mousedown', 'mouseup' ],
 			modifiers = [ undefined, 'altKey', 'ctrlKey', 'shiftKey', 'metaKey' ],
 			oldScrollTo = $.scrollTo;
+
+		assert.expect( 0 );
 
 		// animation would keep running, conflict with other tests
 		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
@@ -556,7 +558,7 @@
 		}
 	} );
 
-	QUnit.test( 'Refuse to load too-big thumbnails', 1, function ( assert ) {
+	QUnit.test( 'Refuse to load too-big thumbnails', function ( assert ) {
 		var viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			intendedWidth = 50,
 			title = mw.Title.newFromText( 'File:Foobar.svg' );
@@ -569,7 +571,7 @@
 		viewer.fetchThumbnail( title, 1000, null, intendedWidth, 60 );
 	} );
 
-	QUnit.test( 'fetchThumbnail()', 32, function ( assert ) {
+	QUnit.test( 'fetchThumbnail()', function ( assert ) {
 		var guessedThumbnailInfoStub,
 			thumbnailInfoStub,
 			imageStub,
@@ -681,7 +683,7 @@
 		clock.restore();
 	} );
 
-	QUnit.test( 'document.title', 2, function ( assert ) {
+	QUnit.test( 'document.title', function ( assert ) {
 		var viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			bootstrap = new mw.mmv.MultimediaViewerBootstrap(),
 			title = new mw.Title( 'File:This_should_show_up_in_document_title.png' ),

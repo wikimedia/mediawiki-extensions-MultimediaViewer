@@ -1,7 +1,7 @@
 ( function ( mw, $ ) {
 	QUnit.module( 'mmv.logging.DimensionLogger', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'log()', 1, function ( assert ) {
+	QUnit.test( 'log()', function ( assert ) {
 		var fakeEventLog = { logEvent: this.sandbox.stub() },
 			logger = new mw.mmv.logging.DimensionLogger();
 

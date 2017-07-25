@@ -18,12 +18,12 @@
 ( function ( mw ) {
 	QUnit.module( 'mmv.provider.GuessedThumbnailInfo', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Constructor sanity check', 1, function ( assert ) {
+	QUnit.test( 'Constructor sanity check', function ( assert ) {
 		var provider = new mw.mmv.provider.GuessedThumbnailInfo();
 		assert.ok( provider, 'Constructor call successful' );
 	} );
 
-	QUnit.test( 'get()', 7, function ( assert ) {
+	QUnit.test( 'get()', function ( assert ) {
 		var provider = new mw.mmv.provider.GuessedThumbnailInfo(),
 			file = new mw.Title( 'File:Copyleft.svg' ),
 			sampleUrl = 'http://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Copyleft.svg/180px-Copyleft.svg.png',
@@ -51,7 +51,7 @@
 		assert.strictEqual( result.state(), 'rejected', 'Result is rejected' );
 	} );
 
-	QUnit.test( 'getUrl()', 6, function ( assert ) {
+	QUnit.test( 'getUrl()', function ( assert ) {
 		var provider = new mw.mmv.provider.GuessedThumbnailInfo(),
 			file = new mw.Title( 'File:Elizabeth_I_George_Gower.jpg' ),
 			originalWidth = 922,
@@ -104,7 +104,7 @@
 		assert.strictEqual( resultUrl, expectedUrl, 'Thumbnail to "full-size", image with unlimited size' );
 	} );
 
-	QUnit.test( 'needsOriginal()', 6, function ( assert ) {
+	QUnit.test( 'needsOriginal()', function ( assert ) {
 		var provider = new mw.mmv.provider.GuessedThumbnailInfo(),
 			file = new mw.Title( 'File:Copyleft.svg' );
 
@@ -119,7 +119,7 @@
 		assert.ok( provider.needsOriginal( file, 2000, 1000 ), 'Thumbnail of a PNG bigger than the original size needs original' );
 	} );
 
-	QUnit.test( 'isFullSizeUrl()', 2, function ( assert ) {
+	QUnit.test( 'isFullSizeUrl()', function ( assert ) {
 		var provider = new mw.mmv.provider.GuessedThumbnailInfo(),
 			file = new mw.Title( 'File:Copyleft.svg' );
 
@@ -129,7 +129,7 @@
 			'Original url recognized as being full size' );
 	} );
 
-	QUnit.test( 'obscureFilename()', 2, function ( assert ) {
+	QUnit.test( 'obscureFilename()', function ( assert ) {
 		var provider = new mw.mmv.provider.GuessedThumbnailInfo(),
 			file = new mw.Title( 'File:Copyleft.svg' );
 
@@ -142,7 +142,7 @@
 			'http://upload.wikimedia.org/wikipedia/commons/thumb/d/da/<filename>/180px-<filename>', 'Filename with urlencoded character correctly obscured' );
 	} );
 
-	QUnit.test( 'restoreFilename()', 1, function ( assert ) {
+	QUnit.test( 'restoreFilename()', function ( assert ) {
 		var provider = new mw.mmv.provider.GuessedThumbnailInfo(),
 			file = new mw.Title( 'File:Copyleft.svg' );
 
@@ -151,7 +151,7 @@
 
 	} );
 
-	QUnit.test( 'canHaveLargerThumbnailThanOriginal()', 6, function ( assert ) {
+	QUnit.test( 'canHaveLargerThumbnailThanOriginal()', function ( assert ) {
 		var provider = new mw.mmv.provider.GuessedThumbnailInfo(),
 			file = new mw.Title( 'File:Copyleft.svg' );
 
@@ -178,7 +178,7 @@
 		assert.ok( !provider.canHaveLargerThumbnailThanOriginal( file ), 'GIF can\'t have a larger thumbnail than the original' );
 	} );
 
-	QUnit.test( 'canBeDisplayedInBrowser()', 6, function ( assert ) {
+	QUnit.test( 'canBeDisplayedInBrowser()', function ( assert ) {
 		var provider = new mw.mmv.provider.GuessedThumbnailInfo(),
 			file = new mw.Title( 'File:Copyleft.svg' );
 
@@ -205,7 +205,7 @@
 		assert.ok( provider.canBeDisplayedInBrowser( file ), 'GIF can be displayed as-is in the browser' );
 	} );
 
-	QUnit.test( 'guessWidth()', 4, function ( assert ) {
+	QUnit.test( 'guessWidth()', function ( assert ) {
 		var provider = new mw.mmv.provider.GuessedThumbnailInfo(),
 			file = new mw.Title( 'File:Copyleft.svg' );
 
@@ -218,7 +218,7 @@
 		assert.strictEqual( provider.guessWidth( file, 2000, 1000 ), 1000, 'Width correctly guessed for JPG thumbnail bigger than the original' );
 	} );
 
-	QUnit.test( 'guessHeight()', 4, function ( assert ) {
+	QUnit.test( 'guessHeight()', function ( assert ) {
 		var provider = new mw.mmv.provider.GuessedThumbnailInfo(),
 			file = new mw.Title( 'File:Copyleft.svg' );
 
@@ -231,7 +231,7 @@
 		assert.strictEqual( provider.guessHeight( file, 2000, 1000, 500 ), 500, 'Height correctly guessed for JPG thumbnail bigger than the original' );
 	} );
 
-	QUnit.test( 'replaceSize()', 5, function ( assert ) {
+	QUnit.test( 'replaceSize()', function ( assert ) {
 		var provider = new mw.mmv.provider.GuessedThumbnailInfo(),
 			file = new mw.Title( 'File:Copyleft.svg' );
 
@@ -251,7 +251,7 @@
 			'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Ranunculus_gmelinii_NRCS-2.tiff/lossy-page1-220px-Ranunculus_gmelinii_NRCS-2.tiff.jpg', 'Works with extra parameters' );
 	} );
 
-	QUnit.test( 'guessFullUrl()', 3, function ( assert ) {
+	QUnit.test( 'guessFullUrl()', function ( assert ) {
 		var provider = new mw.mmv.provider.GuessedThumbnailInfo(),
 			file = new mw.Title( 'File:Copyleft.svg' ),
 			fullUrl = 'http://upload.wikimedia.org/wikipedia/commons/8/8b/Copyleft.svg',

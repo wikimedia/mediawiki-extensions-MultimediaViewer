@@ -17,7 +17,7 @@
 		}
 	} ) );
 
-	QUnit.test( 'start()', 8, function ( assert ) {
+	QUnit.test( 'start()', function ( assert ) {
 		var durationLogger = new mw.mmv.durationLogger.constructor();
 		durationLogger.samplingFactor = 1;
 
@@ -45,7 +45,7 @@
 		assert.strictEqual( durationLogger.starts.bar, 1000, 'Third simultaneous event start not overwritten' );
 	} );
 
-	QUnit.test( 'stop()', 5, function ( assert ) {
+	QUnit.test( 'stop()', function ( assert ) {
 		var durationLogger = new mw.mmv.durationLogger.constructor();
 
 		try {
@@ -72,7 +72,7 @@
 		assert.strictEqual( durationLogger.starts.foo, 1, 'Event start not overwritten' );
 	} );
 
-	QUnit.test( 'record()', 21, function ( assert ) {
+	QUnit.test( 'record()', function ( assert ) {
 		var dependenciesDeferred = $.Deferred(),
 			fakeEventLog = { logEvent: this.sandbox.stub() },
 			durationLogger = new mw.mmv.durationLogger.constructor();
@@ -180,7 +180,7 @@
 			'EventLogging data is correct' );
 	} );
 
-	QUnit.test( 'loadDependencies()', 3, function ( assert ) {
+	QUnit.test( 'loadDependencies()', function ( assert ) {
 		var promise,
 			durationLogger = new mw.mmv.durationLogger.constructor();
 

@@ -98,7 +98,7 @@
 		} );
 	}
 
-	QUnit.test( 'Promise does not hang on ResourceLoader errors', 3, function ( assert ) {
+	QUnit.test( 'Promise does not hang on ResourceLoader errors', function ( assert ) {
 		var bootstrap,
 			errorMessage = 'loading failed',
 			done = assert.async();
@@ -119,7 +119,7 @@
 		} );
 	} );
 
-	QUnit.test( 'Clicks are not captured once the loading fails', 4, function ( assert ) {
+	QUnit.test( 'Clicks are not captured once the loading fails', function ( assert ) {
 		var event, returnValue,
 			bootstrap = new mw.mmv.MultimediaViewerBootstrap(),
 			clock = this.sandbox.useFakeTimers();
@@ -148,7 +148,7 @@
 		clock.restore();
 	} );
 
-	QUnit.test( 'Check viewer invoked when clicking on valid image links', 14, function ( assert ) {
+	QUnit.test( 'Check viewer invoked when clicking on valid image links', function ( assert ) {
 		// TODO: Is <div class="gallery"><span class="image"><img/></span></div> valid ???
 		var div, link, link2, link3, link4, link5, bootstrap,
 			viewer = { initWithThumbs: $.noop, loadImageByTitle: this.sandbox.stub() },
@@ -231,7 +231,7 @@
 		clock.restore();
 	} );
 
-	QUnit.test( 'Skip images with invalid extensions', 1, function ( assert ) {
+	QUnit.test( 'Skip images with invalid extensions', function ( assert ) {
 		var div, link,
 			viewer = { initWithThumbs: $.noop, loadImageByTitle: this.sandbox.stub() },
 			clock = this.sandbox.useFakeTimers();
@@ -252,7 +252,7 @@
 		clock.restore();
 	} );
 
-	QUnit.test( 'Accept only left clicks without modifier keys, skip the rest', 6, function ( assert ) {
+	QUnit.test( 'Accept only left clicks without modifier keys, skip the rest', function ( assert ) {
 		var $div, $link, bootstrap,
 			viewer = { initWithThumbs: $.noop, loadImageByTitle: this.sandbox.stub() },
 			clock = this.sandbox.useFakeTimers();
@@ -287,7 +287,7 @@
 		clock.restore();
 	} );
 
-	QUnit.test( 'Ensure that the correct title is loaded when clicking', 2, function ( assert ) {
+	QUnit.test( 'Ensure that the correct title is loaded when clicking', function ( assert ) {
 		var bootstrap,
 			viewer = { initWithThumbs: $.noop, loadImageByTitle: this.sandbox.stub() },
 			$div = createGallery( 'foo.jpg' ),
@@ -306,7 +306,7 @@
 		clock.restore();
 	} );
 
-	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', 9, function ( assert ) {
+	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', function ( assert ) {
 		var bootstrap,
 			$div,
 			$link,
@@ -344,7 +344,7 @@
 		clock.reset();
 	} );
 
-	QUnit.test( 'Only load the viewer on a valid hash (modern browsers)', 1, function ( assert ) {
+	QUnit.test( 'Only load the viewer on a valid hash (modern browsers)', function ( assert ) {
 		var bootstrap;
 
 		window.location.hash = '';
@@ -354,7 +354,7 @@
 		return hashTest( '/media', bootstrap, assert );
 	} );
 
-	QUnit.test( 'Only load the viewer on a valid hash (old browsers)', 1, function ( assert ) {
+	QUnit.test( 'Only load the viewer on a valid hash (old browsers)', function ( assert ) {
 		var bootstrap;
 
 		window.location.hash = '';
@@ -365,7 +365,7 @@
 		return hashTest( '/media', bootstrap, assert );
 	} );
 
-	QUnit.test( 'Load the viewer on a legacy hash (modern browsers)', 1, function ( assert ) {
+	QUnit.test( 'Load the viewer on a legacy hash (modern browsers)', function ( assert ) {
 		var bootstrap;
 
 		window.location.hash = '';
@@ -375,7 +375,7 @@
 		return hashTest( 'mediaviewer', bootstrap, assert );
 	} );
 
-	QUnit.test( 'Load the viewer on a legacy hash (old browsers)', 1, function ( assert ) {
+	QUnit.test( 'Load the viewer on a legacy hash (old browsers)', function ( assert ) {
 		var bootstrap;
 
 		window.location.hash = '';
@@ -386,7 +386,7 @@
 		return hashTest( 'mediaviewer', bootstrap, assert );
 	} );
 
-	QUnit.test( 'Overlay is set up on hash change', 1, function ( assert ) {
+	QUnit.test( 'Overlay is set up on hash change', function ( assert ) {
 		var bootstrap;
 
 		window.location.hash = '#/media/foo';
@@ -399,7 +399,7 @@
 		assert.ok( bootstrap.setupOverlay.called, 'Overlay is set up' );
 	} );
 
-	QUnit.test( 'Overlay is not set up on an irrelevant hash change', 1, function ( assert ) {
+	QUnit.test( 'Overlay is not set up on an irrelevant hash change', function ( assert ) {
 		var bootstrap;
 
 		window.location.hash = '#foo';
@@ -414,7 +414,7 @@
 		assert.ok( !bootstrap.setupOverlay.called, 'Overlay is not set up' );
 	} );
 
-	QUnit.test( 'internalHashChange', 2, function ( assert ) {
+	QUnit.test( 'internalHashChange', function ( assert ) {
 		var bootstrap = createBootstrap(),
 			hash = '#/media/foo',
 			callCount = 0,
@@ -440,7 +440,7 @@
 		clock.restore();
 	} );
 
-	QUnit.test( 'internalHashChange (legacy)', 2, function ( assert ) {
+	QUnit.test( 'internalHashChange (legacy)', function ( assert ) {
 		var bootstrap = createBootstrap(),
 			hash = '#mediaviewer/foo',
 			callCount = 0,
@@ -466,7 +466,7 @@
 		clock.restore();
 	} );
 
-	QUnit.test( 'Restoring article scroll position', 2, function ( assert ) {
+	QUnit.test( 'Restoring article scroll position', function ( assert ) {
 		var bootstrap = createBootstrap(),
 			scrollTop = 50,
 			scrollLeft = 60,
@@ -494,7 +494,7 @@
 		assert.strictEqual( stubbedScrollLeft, scrollLeft, 'Scroll is correctly reset to original left position' );
 	} );
 
-	QUnit.test( 'Preload JS/CSS dependencies on thumb hover', 2, function ( assert ) {
+	QUnit.test( 'Preload JS/CSS dependencies on thumb hover', function ( assert ) {
 		var $div, bootstrap,
 			clock = this.sandbox.useFakeTimers(),
 			viewer = { initWithThumbs: $.noop };
@@ -522,7 +522,7 @@
 		clock.restore();
 	} );
 
-	QUnit.test( 'isAllowedThumb', 5, function ( assert ) {
+	QUnit.test( 'isAllowedThumb', function ( assert ) {
 		var $container = $( '<div>' ),
 			$thumb = $( '<img>' ).appendTo( $container ),
 			bootstrap = createBootstrap();
@@ -545,7 +545,7 @@
 		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image with a noviewer class is disallowed.' );
 	} );
 
-	QUnit.test( 'findCaption', 4, function ( assert ) {
+	QUnit.test( 'findCaption', function ( assert ) {
 		var gallery = createGallery( 'foo.jpg', 'Baz' ),
 			thumb = createThumb( 'foo.jpg', 'Quuuuux' ),
 			link = createNormal( 'foo.jpg', 'Foobar' ),
