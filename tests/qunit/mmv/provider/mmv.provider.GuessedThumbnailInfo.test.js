@@ -31,18 +31,18 @@
 			originalWidth = 512,
 			originalHeight = 512,
 			resultUrl = 'http://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Copyleft.svg/300px-Copyleft.svg.png',
+			done = assert.async(),
 			result;
 
 		provider.getUrl = function () { return resultUrl; };
 		result = provider.get( file, sampleUrl, width, originalWidth, originalHeight );
 		assert.ok( result.then, 'Result is a promise' );
 		assert.strictEqual( result.state(), 'resolved', 'Result is resolved' );
-		QUnit.stop();
 		result.then( function ( thumbnailInfo ) {
-			QUnit.start();
 			assert.ok( thumbnailInfo.width, 'Width is set' );
 			assert.ok( thumbnailInfo.height, 'Height is set' );
 			assert.strictEqual( thumbnailInfo.url, resultUrl, 'URL is set' );
+			done();
 		} );
 
 		provider.getUrl = function () { return undefined; };

@@ -281,35 +281,34 @@
 		var type = 'foo',
 			url = 'http://example.com/',
 			response = {},
+			done = assert.async(),
 			performance = new mw.mmv.logging.PerformanceLogger();
 
 		performance.newXHR = function () { return createFakeXHR( response ); };
 
-		QUnit.stop();
 		performance.recordEntryDelayed = function ( recordType, _, recordUrl, recordRequest ) {
 			assert.strictEqual( recordType, type, 'type is recorded correctly' );
 			assert.strictEqual( recordUrl, url, 'url is recorded correctly' );
 			assert.strictEqual( recordRequest.response, response, 'response is recorded correctly' );
-			QUnit.start();
+			done();
 		};
 
-		QUnit.stop();
-		performance.record( type, url ).done( function ( recordResponse ) {
+		return performance.record( type, url ).done( function ( recordResponse ) {
 			assert.strictEqual( recordResponse, response, 'response is passed to callback' );
-			QUnit.start();
 		} );
 	} );
 
-	QUnit.asyncTest( 'record() with old browser', function ( assert ) {
+	QUnit.test( 'record() with old browser', function ( assert ) {
 		var type = 'foo',
 			url = 'http://example.com/',
+			done = assert.async(),
 			performance = new mw.mmv.logging.PerformanceLogger();
 
 		performance.newXHR = function () { throw new Error( 'XMLHttpRequest? What\'s that?' ); };
 
 		performance.record( type, url ).fail( function () {
 			assert.ok( true, 'the promise is rejected when XMLHttpRequest is not supported' );
-			QUnit.start();
+			done();
 		} );
 	} );
 

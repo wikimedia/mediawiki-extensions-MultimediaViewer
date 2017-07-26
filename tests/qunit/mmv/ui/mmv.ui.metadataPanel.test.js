@@ -15,12 +15,14 @@
 
 	QUnit.module( 'mmv.ui.metadataPanel', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'The panel is emptied properly when necessary', thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length, function ( assert ) {
+	QUnit.test( 'The panel is emptied properly when necessary', function ( assert ) {
 		var i,
 			$qf = $( '#qunit-fixture' ),
 			panel = new mw.mmv.ui.MetadataPanel( $qf, $( '<div>' ).appendTo( $qf ), mw.storage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), mw.storage ) );
 
 		panel.empty();
+
+		assert.expect( thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length );
 
 		for ( i = 0; i < thingsShouldBeEmptied.length; i++ ) {
 			assert.strictEqual( panel[ thingsShouldBeEmptied[ i ] ].text(), '', 'We successfully emptied the ' + thingsShouldBeEmptied[ i ] + ' element' );
@@ -183,11 +185,8 @@
 			date1 = 'Garbage',
 			promise = panel.formatDate( date1 );
 
-		QUnit.stop();
-
-		promise.then( function ( result ) {
+		return promise.then( function ( result ) {
 			assert.strictEqual( result, date1, 'Invalid date is correctly ignored' );
-			QUnit.start();
 		} );
 	} );
 

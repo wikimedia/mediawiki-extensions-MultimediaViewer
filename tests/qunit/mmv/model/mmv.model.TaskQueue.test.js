@@ -72,106 +72,81 @@
 	QUnit.test( 'Test executing empty queue', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue();
 
-		QUnit.stop();
-		taskQueue.execute().done( function () {
+		return taskQueue.execute().done( function () {
 			assert.ok( true, 'Queue promise resolved' );
-			QUnit.start();
 		} );
 	} );
 
 	QUnit.test( 'Simple execution test', function ( assert ) {
-		var taskQueue = new mw.mmv.model.TaskQueue();
+		var taskQueue = new mw.mmv.model.TaskQueue(),
+			called = false;
 
-		QUnit.stop();
 		taskQueue.push( function () {
-			assert.ok( true, 'Task executed successfully' );
-			QUnit.start();
+			called = true;
 		} );
 
-		QUnit.stop();
-		taskQueue.execute().done( function () {
-			assert.ok( true, 'Queue promise resolved' );
-			QUnit.start();
+		return taskQueue.execute().then( function () {
+			assert.strictEqual( called, true, 'Task executed successfully' );
 		} );
 	} );
 
 	QUnit.test( 'Task execution order test', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue(),
-			nextExpectedTask = 1;
+			order = [];
 
-		QUnit.stop();
 		taskQueue.push( function () {
-			assert.strictEqual( nextExpectedTask, 1, 'First task executed in order' );
-			nextExpectedTask++;
-			QUnit.start();
+			order.push( 1 );
 		} );
 
-		QUnit.stop();
 		taskQueue.push( function () {
 			var deferred = $.Deferred();
 
-			assert.strictEqual( nextExpectedTask, 2, 'Second task executed in order' );
-			nextExpectedTask++;
+			order.push( 2 );
 
 			setTimeout( function () {
 				deferred.resolve();
-				QUnit.start();
 			}, 0 );
 
 			return deferred;
 		} );
 
-		QUnit.stop();
 		taskQueue.push( function () {
-			assert.strictEqual( nextExpectedTask, 3, 'Second task executed in order' );
-			QUnit.start();
+			order.push( 3 );
 		} );
 
-		QUnit.stop();
-		taskQueue.execute().done( function () {
-			assert.ok( true, 'Queue promise resolved' );
-			QUnit.start();
+		return taskQueue.execute().then( function () {
+			assert.deepEqual( order, [ 1, 2, 3 ], 'Tasks executed in order' );
 		} );
 	} );
 
 	QUnit.test( 'Double execution test', function ( assert ) {
-		var taskExecuted = false,
-			taskQueue = new mw.mmv.model.TaskQueue();
+		var taskQueue = new mw.mmv.model.TaskQueue(),
+			called = 0;
 
-		QUnit.stop();
 		taskQueue.push( function () {
-			assert.ok( !taskExecuted, 'Task executed only once' );
-			taskExecuted = true;
-			QUnit.start();
+			called++;
 		} );
 
-		QUnit.stop();
-		taskQueue.execute().then( function () {
+		return taskQueue.execute().then( function () {
 			return taskQueue.execute();
-		} ).done( function () {
-			assert.ok( true, 'Queue promise resolved' );
-			QUnit.start();
+		} ).then( function () {
+			assert.strictEqual( called, 1, 'Task executed only once' );
 		} );
 	} );
 
 	QUnit.test( 'Parallel execution test', function ( assert ) {
-		var taskExecuted = false,
-			taskQueue = new mw.mmv.model.TaskQueue();
+		var taskQueue = new mw.mmv.model.TaskQueue(),
+			called = 0;
 
-		QUnit.stop();
 		taskQueue.push( function () {
-			assert.ok( !taskExecuted, 'Task executed only once' );
-			taskExecuted = true;
-			QUnit.start();
+			called++;
 		} );
 
-		QUnit.stop();
-		$.when(
+		return $.when(
 			taskQueue.execute(),
 			taskQueue.execute()
-		).done( function () {
-			assert.ok( true, 'Queue promise resolved' );
-			QUnit.start();
+		).then( function () {
+			assert.strictEqual( called, 1, 'Task executed only once' );
 		} );
 	} );
 
@@ -194,16 +169,15 @@
 			return $.Deferred().reject();
 		} );
 
-		QUnit.stop();
-		taskQueue.execute().done( function () {
+		return taskQueue.execute().done( function () {
 			assert.ok( true, 'Queue promise resolved' );
-			QUnit.start();
 		} );
 	} );
 
 	QUnit.test( 'Test that tasks wait for each other', function ( assert ) {
-		var longRunningTaskFinished = false,
-			taskQueue = new mw.mmv.model.TaskQueue();
+		var taskQueue = new mw.mmv.model.TaskQueue(),
+			longRunningTaskFinished = false,
+			seenFinished = false;
 
 		taskQueue.push( function () {
 			var deferred = $.Deferred();
@@ -216,46 +190,42 @@
 			return deferred;
 		} );
 
-		QUnit.stop();
 		taskQueue.push( function () {
-			assert.ok( longRunningTaskFinished, 'Task waits for previous task to finish' );
-			QUnit.start();
+			seenFinished = longRunningTaskFinished;
 		} );
 
-		taskQueue.execute();
+		return taskQueue.execute().then( function () {
+			assert.ok( seenFinished, 'Task waits for previous task to finish' );
+		} );
 	} );
 
 	QUnit.test( 'Test cancellation before start', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue(),
-			taskTriggeredByHand = false,
+			triggered = false,
 			verificationTask = function () {
-				assert.ok( taskTriggeredByHand, 'Task was not triggered' );
-				QUnit.start();
+				triggered = true;
 			};
 
 		taskQueue.push( verificationTask );
 
 		taskQueue.cancel();
 
-		QUnit.stop();
-		taskQueue.execute().fail( function () {
-			assert.ok( true, 'Queue promise rejected' );
-			QUnit.start();
-		} );
-
-		QUnit.stop();
-		setTimeout( function () {
-			taskTriggeredByHand = true;
-			verificationTask();
-		}, 0 );
+		taskQueue.execute()
+			.done( function () {
+				assert.ok( false, 'Queue promise rejected' );
+			} )
+			.fail( function () {
+				assert.ok( true, 'Queue promise rejected' );
+				assert.strictEqual( triggered, false, 'Task was not triggered' );
+			} )
+			.always( assert.async() );
 	} );
 
 	QUnit.test( 'Test cancellation within callback', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue(),
-			taskTriggeredByHand = false,
+			triggered = false,
 			verificationTask = function () {
-				assert.ok( taskTriggeredByHand, 'Task was not triggered' );
-				QUnit.start();
+				triggered = true;
 			};
 
 		taskQueue.push( function () {
@@ -263,26 +233,23 @@
 		} );
 		taskQueue.push( verificationTask );
 
-		QUnit.stop();
-		taskQueue.execute().fail( function () {
-			assert.ok( true, 'Queue promise rejected' );
-			QUnit.start();
-		} );
-
-		QUnit.stop();
-		setTimeout( function () {
-			taskTriggeredByHand = true;
-			verificationTask();
-		}, 0 );
+		taskQueue.execute()
+			.done( function () {
+				assert.ok( false, 'Queue promise rejected' );
+			} )
+			.fail( function () {
+				assert.ok( true, 'Queue promise rejected' );
+				assert.strictEqual( triggered, false, 'Task was not triggered' );
+			} )
+			.always( assert.async() );
 	} );
 
 	QUnit.test( 'Test cancellation from task', function ( assert ) {
 		var taskQueue = new mw.mmv.model.TaskQueue(),
-			taskTriggeredByHand = false,
+			triggered = false,
 			task1 = $.Deferred(),
 			verificationTask = function () {
-				assert.ok( taskTriggeredByHand, 'Task was not triggered' );
-				QUnit.start();
+				triggered = true;
 			};
 
 		taskQueue.push( function () {
@@ -290,22 +257,20 @@
 		} );
 		taskQueue.push( verificationTask );
 
-		QUnit.stop();
-		taskQueue.execute().fail( function () {
-			assert.ok( true, 'Queue promise rejected' );
-			QUnit.start();
-		} );
-
 		setTimeout( function () {
 			taskQueue.cancel();
 			task1.resolve();
 		}, 0 );
 
-		QUnit.stop();
-		setTimeout( function () {
-			taskTriggeredByHand = true;
-			verificationTask();
-		}, 0 );
+		taskQueue.execute()
+			.done( function () {
+				assert.ok( false, 'Queue promise rejected' );
+			} )
+			.fail( function () {
+				assert.ok( true, 'Queue promise rejected' );
+				assert.strictEqual( triggered, false, 'Task was not triggered' );
+			} )
+			.always( assert.async() );
 	} );
 
 }( mediaWiki, jQuery ) );

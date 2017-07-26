@@ -181,6 +181,7 @@
 	QUnit.test( 'getQueryField', function ( assert ) {
 		var api = { get: function () {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
+			done = assert.async( 3 ),
 			data;
 
 		data = {
@@ -194,22 +195,19 @@
 				]
 			}
 		};
-		QUnit.stop();
+
 		apiProvider.getQueryField( 'imageusage', data ).then( function ( field ) {
 			assert.strictEqual( field, data.query.imageusage, 'specified field is found' );
-			QUnit.start();
+			done();
 		} );
-
-		QUnit.stop();
 		apiProvider.getQueryField( 'imageusage', {} ).fail( function () {
 			assert.ok( true, 'promise rejected when data is missing' );
-			QUnit.start();
+			done();
 		} );
 
-		QUnit.stop();
 		apiProvider.getQueryField( 'imageusage', { data: { query: {} } } ).fail( function () {
 			assert.ok( true, 'promise rejected when field is missing' );
-			QUnit.start();
+			done();
 		} );
 	} );
 
@@ -219,6 +217,7 @@
 			title = new mw.Title( 'File:Stuff.jpg' ),
 			titleWithNamespaceAlias = new mw.Title( 'Image:Stuff.jpg' ),
 			otherTitle = new mw.Title( 'File:Foo.jpg' ),
+			done = assert.async( 6 ),
 			data;
 
 		data = {
@@ -236,39 +235,36 @@
 				}
 			}
 		};
-		QUnit.stop();
+
 		apiProvider.getQueryPage( title, data ).then( function ( field ) {
 			assert.strictEqual( field, data.query.pages[ '-1' ], 'specified page is found' );
-			QUnit.start();
+			done();
 		} );
-		QUnit.stop();
+
 		apiProvider.getQueryPage( titleWithNamespaceAlias, data ).then( function ( field ) {
 			assert.strictEqual( field, data.query.pages[ '-1' ],
 				'specified page is found even if its title was normalized' );
-			QUnit.start();
+			done();
 		} );
-		QUnit.stop();
+
 		apiProvider.getQueryPage( otherTitle, {} ).fail( function () {
 			assert.ok( true, 'promise rejected when page has different title' );
-			QUnit.start();
+			done();
 		} );
 
-		QUnit.stop();
 		apiProvider.getQueryPage( title, {} ).fail( function () {
 			assert.ok( true, 'promise rejected when data is missing' );
-			QUnit.start();
+			done();
 		} );
 
-		QUnit.stop();
 		apiProvider.getQueryPage( title, { data: { query: {} } } ).fail( function () {
 			assert.ok( true, 'promise rejected when pages are missing' );
-			QUnit.start();
+			done();
 		} );
 
-		QUnit.stop();
 		apiProvider.getQueryPage( title, { data: { query: { pages: {} } } } ).fail( function () {
 			assert.ok( true, 'promise rejected when pages are empty' );
-			QUnit.start();
+			done();
 		} );
 	} );
 }( mediaWiki, jQuery ) );

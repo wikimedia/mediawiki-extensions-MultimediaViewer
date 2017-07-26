@@ -224,10 +224,9 @@
 			src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
 			url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
 			embedFileInfo = new mw.mmv.model.EmbedFileInfo( title, src, url ),
+			calledSelect = false,
 			width = 15,
 			height = 20;
-
-		QUnit.stop();
 
 		embed.utils.updateMenuOptions = function ( sizes, options ) {
 			assert.strictEqual( options.length, 4, 'Options passed correctly.' );
@@ -242,8 +241,7 @@
 			assert.ok( true, 'updateEmbedHtml() is called after data is collected.' );
 		};
 		embed.select = function () {
-			assert.ok( true, 'select() is called after data is collected.' );
-			QUnit.start();
+			calledSelect = true;
 		};
 
 		assert.ok( !embed.embedFileInfo, 'embedFileInfo not set yet.' );
@@ -252,6 +250,7 @@
 
 		assert.ok( embed.embedFileInfo, 'embedFileInfo correctly set.' );
 		assert.strictEqual( embed.isSizeMenuDefaultReset, false, 'Reset flag cleared.' );
+		assert.strictEqual( calledSelect, true, 'select() is called' );
 	} );
 
 	QUnit.test( 'empty():', function ( assert ) {

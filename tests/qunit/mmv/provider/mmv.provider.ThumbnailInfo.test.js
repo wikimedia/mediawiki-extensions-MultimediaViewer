@@ -25,7 +25,7 @@
 		assert.ok( thumbnailInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'ThumbnailInfo get test', function ( assert ) {
+	QUnit.test( 'ThumbnailInfo get test', function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function () {
 				apiCallCount++;
@@ -54,7 +54,7 @@
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
 
-		thumbnailInfoProvider.get( file, 100 ).then( function ( thumbnail ) {
+		return thumbnailInfoProvider.get( file, 100 ).then( function ( thumbnail ) {
 			assert.strictEqual( thumbnail.url,
 				'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Stuff.jpg/51px-Stuff.jpg',
 				'URL is set correctly' );
@@ -74,24 +74,24 @@
 			return thumbnailInfoProvider.get( file, 110, 100 );
 		} ).then( function () {
 			assert.strictEqual( apiCallCount, 3 );
-			QUnit.start();
 		} );
 	} );
 
-	QUnit.asyncTest( 'ThumbnailInfo fail test', function ( assert ) {
+	QUnit.test( 'ThumbnailInfo fail test', function ( assert ) {
 		var api = { get: function () {
 				return $.Deferred().resolve( {} );
 			} },
 			file = new mw.Title( 'File:Stuff.jpg' ),
+			done = assert.async(),
 			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
 
 		thumbnailInfoProvider.get( file, 100 ).fail( function () {
 			assert.ok( true, 'promise rejected when no data is returned' );
-			QUnit.start();
+			done();
 		} );
 	} );
 
-	QUnit.asyncTest( 'ThumbnailInfo fail test 2', function ( assert ) {
+	QUnit.test( 'ThumbnailInfo fail test 2', function ( assert ) {
 		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {
@@ -104,15 +104,16 @@
 				} );
 			} },
 			file = new mw.Title( 'File:Stuff.jpg' ),
+			done = assert.async(),
 			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
 
 		thumbnailInfoProvider.get( file, 100 ).fail( function () {
 			assert.ok( true, 'promise rejected when imageinfo is missing' );
-			QUnit.start();
+			done();
 		} );
 	} );
 
-	QUnit.asyncTest( 'ThumbnailInfo missing page test', function ( assert ) {
+	QUnit.test( 'ThumbnailInfo missing page test', function ( assert ) {
 		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {
@@ -127,16 +128,17 @@
 				} );
 			} },
 			file = new mw.Title( 'File:Stuff.jpg' ),
+			done = assert.async(),
 			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
 
 		thumbnailInfoProvider.get( file ).fail( function ( errorMessage ) {
 			assert.strictEqual( errorMessage, 'file does not exist: File:Stuff.jpg',
 				'error message is set correctly for missing file' );
-			QUnit.start();
+			done();
 		} );
 	} );
 
-	QUnit.asyncTest( 'ThumbnailInfo fail test 3', function ( assert ) {
+	QUnit.test( 'ThumbnailInfo fail test 3', function ( assert ) {
 		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {
@@ -152,11 +154,12 @@
 				} );
 			} },
 			file = new mw.Title( 'File:Stuff.jpg' ),
+			done = assert.async(),
 			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
 
 		thumbnailInfoProvider.get( file, 100 ).fail( function () {
 			assert.ok( true, 'promise rejected when thumbnail info is missing' );
-			QUnit.start();
+			done();
 		} );
 	} );
 }( mediaWiki, jQuery ) );

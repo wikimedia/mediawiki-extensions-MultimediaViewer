@@ -25,7 +25,7 @@
 		assert.ok( fileRepoInfoProvider );
 	} );
 
-	QUnit.asyncTest( 'FileRepoInfo get test', function ( assert ) {
+	QUnit.test( 'FileRepoInfo get test', function ( assert ) {
 		var apiCallCount = 0,
 			api = { get: function () {
 				apiCallCount++;
@@ -78,7 +78,7 @@
 			} },
 			fileRepoInfoProvider = new mw.mmv.provider.FileRepoInfo( api );
 
-		fileRepoInfoProvider.get().then( function ( repos ) {
+		return fileRepoInfoProvider.get().then( function ( repos ) {
 			assert.strictEqual( repos.shared.displayName,
 				'Wikimedia Commons', 'displayName is set correctly' );
 			assert.strictEqual( repos.shared.favIcon,
@@ -108,19 +108,19 @@
 			return fileRepoInfoProvider.get();
 		} ).then( function () {
 			assert.strictEqual( apiCallCount, 1 );
-			QUnit.start();
 		} );
 	} );
 
-	QUnit.asyncTest( 'FileRepoInfo fail test', function ( assert ) {
+	QUnit.test( 'FileRepoInfo fail test', function ( assert ) {
 		var api = { get: function () {
 				return $.Deferred().resolve( {} );
 			} },
+			done = assert.async(),
 			fileRepoInfoProvider = new mw.mmv.provider.FileRepoInfo( api );
 
 		fileRepoInfoProvider.get().fail( function () {
 			assert.ok( true, 'promise rejected when no data is returned' );
-			QUnit.start();
+			done();
 		} );
 	} );
 }( mediaWiki, jQuery ) );

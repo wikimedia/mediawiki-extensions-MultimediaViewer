@@ -487,6 +487,8 @@
 			$qf = $( '#qunit-fixture' ),
 			eventTypes = [ 'keydown', 'keyup', 'keypress', 'click', 'mousedown', 'mouseup' ],
 			modifiers = [ undefined, 'altKey', 'ctrlKey', 'shiftKey', 'metaKey' ],
+			// Events are async, we need to wait for the last event to be caught before ending the test
+			done = assert.async(),
 			oldScrollTo = $.scrollTo;
 
 		assert.expect( 0 );
@@ -522,15 +524,12 @@
 
 			// Wait for the last event
 			if ( e.which === 32 && e.type === 'mouseup' ) {
-				QUnit.start();
 				$document.off( '.mmvtest' );
 				viewer.cleanupEventHandlers();
 				$.scrollTo = oldScrollTo;
+				done();
 			}
 		}
-
-		// Events are async, we need to wait for the last event to be caught before ending the test
-		QUnit.stop();
 
 		for ( j = 0; j < eventTypes.length; j++ ) {
 			$document.on( eventTypes[ j ] + '.mmvtest', eventHandler );
