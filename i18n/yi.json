@@ -29,6 +29,9 @@
 	"multimediaviewer-geolocation": "לאקאציע: $1",
 	"multimediaviewer-reuse-loading-placeholder": "לאָדנדיק…",
 	"multimediaviewer-share-tab": "טיילן",
+	"multimediaviewer-download-link": "אַראָפלאָדן די טעקע",
+	"multimediaviewer-download-preview-link-title": "באקוקן אין בלעטערער",
+	"multimediaviewer-download-original-button-name": "אַראָפלאָדן אריגינעלע טעקע",
 	"multimediaviewer-embed-wt": "וויקיטעקסט",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-text-embed-credit-text-bl": "פון $1, $2, $3",
@@ -44,7 +47,9 @@
 	"multimediaviewer-small-embed-dimensions": "קליין $1",
 	"multimediaviewer-description-page-button-text": "נאך פרטים וועגן דער טעקטע",
 	"multimediaviewer-view-expanded": "עפֿענען אין מעדיע־ווייזער",
+	"multimediaviewer-view-config": "קאנפֿיגוראציע",
 	"multimediaviewer-title-popup-text": "באַשרײבונג",
 	"multimediaviewer-download-attribution-cta": "ווײַז מיך וויאזוי",
+	"multimediaviewer-attr-plain": "קלארטעקסט",
 	"multimediaviewer-option-cancel-button": "אַנולירן"
 }
