@@ -7,7 +7,8 @@
 			"زكريا",
 			"OsamaK",
 			"محمد أحمد عبد الفتاح",
-			"Maroen1990"
+			"Maroen1990",
+			"ديفيد"
 		]
 	},
 	"multimediaviewer-desc": "زيادة حجم الصور المصغرة في واجهة ملء الشاشة.",
@@ -38,8 +39,8 @@
 	"multimediaviewer-optin-mmv": "مكّن عارض الوسائط",
 	"multimediaviewer-optout-pending-mmv": "يُعطّل عارض الوسائط",
 	"multimediaviewer-optin-pending-mmv": "يُفعّل عارض الوسائط",
-	"multimediaviewer-optout-help": "لن يستخدم عارض الوسائط لإظهار الصور. لتستخدمه مجددا انقر زر \"وسّع\" بجانب أي صورة ثم انقر \"{{int:multimediaviewer-optin-mmv}}\".",
-	"multimediaviewer-optin-help": "الآن سيستخدم عارض الوسائط لمشاهدة الصور.",
+	"multimediaviewer-optout-help": "لن يستخدم عارض الوسائط لإظهار الصور، لتستخدمه مجددا انقر زر \"{{int:multimediaviewer-view-expanded}}\" بجانب أية صورة ثم انقر \"{{int:multimediaviewer-optin-mmv}}\".",
+	"multimediaviewer-optin-help": "سيُستخدَم عارض الوسائط لمشاهدة الصور.",
 	"multimediaviewer-geolocation": "المكان: $1",
 	"multimediaviewer-reuse-link": "شارك أو ضمن هذا الملف",
 	"multimediaviewer-reuse-loading-placeholder": "تحميل...",
