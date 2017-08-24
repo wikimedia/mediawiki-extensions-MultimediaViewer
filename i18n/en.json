@@ -4,7 +4,7 @@
 			"Mark Holmquist <mtraceur@member.fsf.org>"
 		]
 	},
-	"multimediaviewer-desc": "Expand thumbnails in a larger size in a fullscreen interface.",
+	"multimediaviewer-desc": "Expand thumbnails in a larger size in a fullscreen interface",
 	"multimediaviewer-pref": "Media Viewer",
 	"multimediaviewer-pref-desc": "Improve your multimedia viewing experience with this new tool. It displays images in larger size on pages that have thumbnails. Images are shown in a nicer fullscreen interface overlay, and can also be viewed in full-size.",
 	"multimediaviewer-optin-pref": "Enable <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
