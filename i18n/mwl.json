@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"MokaAkashiyaPT"
+		]
+	},
+	"multimediaviewer-pref": "Bisualizador Multimédia",
+	"multimediaviewer-optin-pref": "Atibar l <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Bisualizador Multimédia]</span>",
+	"multimediaviewer-optin-mmv": "Atibar l Bisualizador Multimédia"
+}
