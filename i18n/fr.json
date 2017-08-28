@@ -17,7 +17,7 @@
 			"Urhixidur"
 		]
 	},
-	"multimediaviewer-desc": "Agrandit les vignettes dans une interface en plein écran.",
+	"multimediaviewer-desc": "Agrandit les vignettes dans une interface en plein écran",
 	"multimediaviewer-pref": "Visionneuse de Médias",
 	"multimediaviewer-pref-desc": "Améliorez votre expérience de visualisation multimédia avec ce nouvel outil. Il affiche les images en grande taille sur les pages qui ont des vignettes. Les images sont affichées dans un joli cadre d’interface en plein écran, et peuvent aussi être affichées en taille maximale.",
 	"multimediaviewer-optin-pref": "Activer <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About la visionneuse de médias]</span>",
