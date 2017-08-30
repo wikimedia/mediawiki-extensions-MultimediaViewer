@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Milicevic01",
-			"Сербијана"
+			"Сербијана",
+			"Obsuser"
 		]
 	},
 	"multimediaviewer-optin-pref": "Омогући <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
@@ -12,7 +13,9 @@
 	"multimediaviewer-datetime-uploaded": "Послато: $1",
 	"multimediaviewer-credit-fallback": "Види информације о аутору",
 	"multimediaviewer-thumbnail-error": "Жао нам је, датотеку није могуће приказати",
-	"multimediaviewer-thumbnail-error-retry": "пробај опет",
+	"multimediaviewer-thumbnail-error-description": "Изгледа да постоји технички проблем. Можете $1 или $3 ако се настави. Грешка: $2",
+	"multimediaviewer-thumbnail-error-retry": "пробати опет",
+	"multimediaviewer-thumbnail-error-report": "пријавити проблем",
 	"multimediaviewer-license-cc-pd": "Јавно власништво",
 	"multimediaviewer-license-pd": "Јавно власништво",
 	"multimediaviewer-license-default": "Види лиценцу",
