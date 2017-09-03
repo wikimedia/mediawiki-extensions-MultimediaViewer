@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"MaGa"
+			"MaGa",
+			"Bugoslav"
 		]
 	},
 	"multimediaviewer-desc": "Sličice u većoj veličini u prikazu preko cijelog zaslona.",
@@ -116,7 +117,7 @@
 	"multimediaviewer-options-tooltip": "Omogući ili onemogući preglednik multimedijskih datoteka",
 	"multimediaviewer-options-dialog-header": "Onemogućiti preglednik multimedijskih datoteka?",
 	"multimediaviewer-options-text-header": "Onemogući ovu značajku za sve datoteke.",
-	"multimediaviewer-options-text-body": "Naknadno je možete omogućiti na stranici s pojedinostima datoteke.",
+	"multimediaviewer-options-text-body": "Naknadno ju možete omogućiti na stranici s pojedinostima datoteke.",
 	"multimediaviewer-options-learn-more": "Saznajte više",
 	"multimediaviewer-option-submit-button": "Onemogući preglednik",
 	"multimediaviewer-option-cancel-button": "Odustani",
