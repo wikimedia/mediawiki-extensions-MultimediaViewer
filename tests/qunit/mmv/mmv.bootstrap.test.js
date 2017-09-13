@@ -467,31 +467,33 @@
 	} );
 
 	QUnit.test( 'Restoring article scroll position', function ( assert ) {
-		var bootstrap = createBootstrap(),
-			scrollTop = 50,
-			scrollLeft = 60,
-			stubbedScrollTop = scrollTop,
-			stubbedScrollLeft = scrollLeft;
+		var stubbedScrollTop,
+			bootstrap = createBootstrap(),
+			$window = $( window ),
+			done = assert.async();
 
-		this.sandbox.stub( $, 'scrollTo', function ( target ) {
-			if ( target ) {
-				stubbedScrollTop = target.top;
-				stubbedScrollLeft = target.left;
+		this.sandbox.stub( $.fn, 'scrollTop', function ( scrollTop ) {
+			if ( scrollTop !== undefined ) {
+				stubbedScrollTop = scrollTop;
+				return this;
 			} else {
-				return {
-					scrollTop: function () { return stubbedScrollTop; },
-					scrollLeft: function () { return stubbedScrollLeft; }
-				};
+				return stubbedScrollTop;
 			}
 		} );
 
+		$window.scrollTop( 50 );
 		bootstrap.setupOverlay();
 		// Calling this a second time because it can happen in history navigation context
 		bootstrap.setupOverlay();
+		// Clear scrollTop to check it is restored
+		$window.scrollTop( 0 );
 		bootstrap.cleanupOverlay();
 
-		assert.strictEqual( stubbedScrollTop, scrollTop, 'Scroll is correctly reset to original top position' );
-		assert.strictEqual( stubbedScrollLeft, scrollLeft, 'Scroll is correctly reset to original left position' );
+		// Scroll restoration is on a setTimeout
+		setTimeout( function () {
+			assert.strictEqual( $( window ).scrollTop(), 50, 'Scroll is correctly reset to original top position' );
+			done();
+		} );
 	} );
 
 	QUnit.test( 'Preload JS/CSS dependencies on thumb hover', function ( assert ) {

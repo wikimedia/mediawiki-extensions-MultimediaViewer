@@ -74,7 +74,7 @@
 			localStorage = mw.mmv.testHelpers.getUnsupportedLocalStorage(),
 			scroller = new mw.mmv.ui.MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ), localStorage );
 
-		this.sandbox.stub( $, 'scrollTo', function () { return { scrollTop: function () { return 10; } }; } );
+		this.sandbox.stub( $.fn, 'scrollTop', function () { return 10; } );
 
 		scroller.scroll();
 
@@ -89,13 +89,7 @@
 			} ),
 			scroller = new mw.mmv.ui.MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ), localStorage );
 
-		this.sandbox.stub( $, 'scrollTo', function () {
-			return {
-				scrollTop: function () { return 10; },
-				on: $.noop,
-				off: $.noop
-			};
-		} );
+		this.sandbox.stub( $.fn, 'scrollTop', function () { return 10; } );
 
 		scroller.attach();
 
@@ -119,44 +113,29 @@
 	 * @param {mw.mmv.ui.MetadataPanelScroller} scroller
 	 */
 	function stubScrollFunctions( sandbox, scroller ) {
-		var memorizedScrollToScroll = 0,
-			originalJQueryScrollTop = $.fn.scrollTop,
-			originalJQueryScrollTo = $.scrollTo;
+		var memorizedScrollTop = 0;
 
 		sandbox.stub( $.fn, 'scrollTop', function ( scrollTop ) {
-			// On some browsers $.scrollTo() != $document
-			if ( $.scrollTo().is( this ) ) {
-				if ( scrollTop !== undefined ) {
-					memorizedScrollToScroll = scrollTop;
-					return this;
-				} else {
-					return memorizedScrollToScroll;
-				}
+			if ( scrollTop !== undefined ) {
+				memorizedScrollTop = scrollTop;
+				scroller.scroll();
+				return this;
+			} else {
+				return memorizedScrollTop;
 			}
-
-			return originalJQueryScrollTop.call( this, scrollTop );
 		} );
-
-		sandbox.stub( $, 'scrollTo', function ( scrollTo ) {
-			var $element;
-
-			if ( scrollTo !== undefined ) {
-				memorizedScrollToScroll = scrollTo;
-			}
-
-			$element = originalJQueryScrollTo.call( this, scrollTo, 0 );
-
-			if ( scrollTo !== undefined ) {
-				// Trigger event manually
+		sandbox.stub( $.fn, 'animate', function ( props ) {
+			if ( 'scrollTop' in props ) {
+				memorizedScrollTop = props.scrollTop;
 				scroller.scroll();
 			}
-
-			return $element;
+			return this;
 		} );
 	}
 
 	QUnit.test( 'Metadata scrolling', function ( assert ) {
-		var $qf = $( '#qunit-fixture' ),
+		var $window = $( window ),
+			$qf = $( '#qunit-fixture' ),
 			$container = $( '<div>' ).css( 'height', 100 ).appendTo( $qf ),
 			$aboveFold = $( '<div>' ).css( 'height', 50 ).appendTo( $container ),
 			fakeLocalStorage = mw.mmv.testHelpers.createLocalStorage( {
@@ -176,22 +155,20 @@
 
 		scroller.attach();
 
-		assert.strictEqual( $.scrollTo().scrollTop(), 0, 'scrollTo scrollTop should be set to 0' );
+		assert.strictEqual( $window.scrollTop(), 0, 'scrollTop should be set to 0' );
 
 		assert.ok( !fakeLocalStorage.store.setItem.called, 'The metadata hasn\'t been open yet, no entry in localStorage' );
 
 		keydown.which = 38; // Up arrow
 		scroller.keydown( keydown );
-		this.clock.tick( scroller.toggleScrollDuration );
 
 		assert.ok( fakeLocalStorage.store.setItem.calledWithExactly( 'mmv.hasOpenedMetadata', '1' ), 'localStorage knows that the metadata has been open' );
 
 		keydown.which = 40; // Down arrow
 		scroller.keydown( keydown );
-		this.clock.tick( scroller.toggleScrollDuration );
 
-		assert.strictEqual( $.scrollTo().scrollTop(), 0,
-			'scrollTo scrollTop should be set to 0 after pressing down arrow' );
+		assert.strictEqual( $window.scrollTop(), 0,
+			'scrollTop should be set to 0 after pressing down arrow' );
 
 		// Unattach lightbox from document
 		scroller.unattach();
@@ -201,17 +178,17 @@
 		scroller.attach();
 
 		// To make sure that the details are out of view, the lightbox is supposed to scroll to the top when open
-		assert.strictEqual( $.scrollTo().scrollTop(), 0, 'Page scrollTop should be set to 0' );
+		assert.strictEqual( $window.scrollTop(), 0, 'Page scrollTop should be set to 0' );
 
 		// Scroll down to check that the scrollTop memory doesn't affect prev/next (bug 59861)
-		$.scrollTo( 20, 0 );
+		$window.scrollTop( 20 );
 		this.clock.tick( 100 );
 
 		// This extra attach() call simulates the effect of prev/next seen in bug 59861
 		scroller.attach();
 
 		// The lightbox was already open at this point, the scrollTop should be left untouched
-		assert.strictEqual( $.scrollTo().scrollTop(), 20, 'Page scrollTop should be set to 20' );
+		assert.strictEqual( $window.scrollTop(), 20, 'Page scrollTop should be set to 20' );
 
 		scroller.unattach();
 	} );
@@ -230,28 +207,24 @@
 
 		keydown.which = 38; // Up arrow
 		scroller.keydown( keydown );
-		this.clock.tick( scroller.toggleScrollDuration );
 
 		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-open' ), 'Opening keypress logged' );
 		mw.mmv.actionLogger.log.reset();
 
 		keydown.which = 38; // Up arrow
 		scroller.keydown( keydown );
-		this.clock.tick( scroller.toggleScrollDuration );
 
 		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-close' ), 'Closing keypress logged' );
 		mw.mmv.actionLogger.log.reset();
 
 		keydown.which = 40; // Down arrow
 		scroller.keydown( keydown );
-		this.clock.tick( scroller.toggleScrollDuration );
 
 		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-open' ), 'Opening keypress logged' );
 		mw.mmv.actionLogger.log.reset();
 
 		keydown.which = 40; // Down arrow
 		scroller.keydown( keydown );
-		this.clock.tick( scroller.toggleScrollDuration );
 
 		assert.ok( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-close' ), 'Closing keypress logged' );
 		mw.mmv.actionLogger.log.reset();

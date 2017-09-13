@@ -58,8 +58,6 @@
 	oo.inheritClass( MetadataPanelScroller, mw.mmv.ui.Element );
 	MPSP = MetadataPanelScroller.prototype;
 
-	MPSP.toggleScrollDuration = 400;
-
 	MPSP.attach = function () {
 		var panel = this;
 
@@ -67,7 +65,7 @@
 			panel.keydown( e );
 		} );
 
-		$.scrollTo().on( 'scroll.mmvp', $.throttle( 250, function () {
+		$( window ).on( 'scroll.mmvp', $.throttle( 250, function () {
 			panel.scroll();
 		} ) );
 
@@ -84,7 +82,7 @@
 
 	MPSP.unattach = function () {
 		this.clearEvents();
-		$.scrollTo().off( 'scroll.mmvp' );
+		$( window ).off( 'scroll.mmvp' );
 		this.$container.off( 'mmv-metadata-open' );
 	};
 
@@ -118,7 +116,7 @@
 			return;
 		}
 
-		scrollTop = $.scrollTo().scrollTop();
+		scrollTop = $( window ).scrollTop();
 		scrollTopWhenOpen = this.getScrollTopWhenOpen();
 
 		this.panelWasFullyOpen = ( scrollTop === scrollTopWhenOpen );
@@ -132,7 +130,7 @@
 
 		this.$container.css( 'min-height', '' );
 		if ( this.panelWasFullyOpen ) {
-			$.scrollTo( this.getScrollTopWhenOpen() );
+			$( window ).scrollTop( this.getScrollTopWhenOpen() );
 		}
 	};
 
@@ -167,20 +165,19 @@
 	 * @param {string} [forceDirection] 'up' or 'down' makes the panel move on that direction (and is a noop
 	 *  if the panel is already at the upmost/bottommost position); without the parameter, the panel position
 	 *  is toggled. (Partially open counts as open.)
-	 * @return {jQuery.Deferred} a deferred which resolves after the animation has finished.
+	 * @return {jQuery.Promise} A promise which resolves after the animation has finished.
 	 */
 	MPSP.toggle = function ( forceDirection ) {
-		var deferred = $.Deferred(),
-			scrollTopWhenOpen = this.getScrollTopWhenOpen(),
+		var scrollTopWhenOpen = this.getScrollTopWhenOpen(),
 			scrollTopWhenClosed = 0,
-			scrollTop = $.scrollTo().scrollTop(),
+			scrollTop = $( window ).scrollTop(),
 			panelIsOpen = scrollTop > scrollTopWhenClosed,
 			direction = forceDirection || ( panelIsOpen ? 'down' : 'up' ),
 			scrollTopTarget = ( direction === 'up' ) ? scrollTopWhenOpen : scrollTopWhenClosed;
 
 		// don't log / animate if the panel is already in the end position
 		if ( scrollTopTarget === scrollTop ) {
-			deferred.resolve();
+			return $.Deferred().resolve().promise();
 		} else {
 			mw.mmv.actionLogger.log( direction === 'up' ? 'metadata-open' : 'metadata-close' );
 			if ( direction === 'up' && !panelIsOpen ) {
@@ -192,13 +189,8 @@
 				this.$container.trigger( 'mmv-metadata-reveal-truncated-text' );
 				scrollTopTarget = this.getScrollTopWhenOpen();
 			}
-			$.scrollTo( scrollTopTarget, this.toggleScrollDuration, {
-				onAfter: function () {
-					deferred.resolve();
-				}
-			} );
+			return $( 'html, body' ).animate( { scrollTop: scrollTopTarget }, 'fast' ).promise();
 		}
-		return deferred;
 	};
 
 	/**
@@ -226,7 +218,7 @@
 	 * @return {boolean}
 	 */
 	MPSP.panelIsOpen = function () {
-		return $.scrollTo().scrollTop() > 0;
+		return $( window ).scrollTop() > 0;
 	};
 
 	/**

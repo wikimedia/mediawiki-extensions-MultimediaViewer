@@ -159,7 +159,7 @@
 		// If the lightbox is already attached, it means we're doing prev/next, and
 		// we should avoid scrolling the panel
 		if ( !this.attached ) {
-			$.scrollTo( 0, 0 );
+			$( window ).scrollTop( 0 );
 		}
 
 		// Make sure that the metadata is going to be at the bottom when it appears

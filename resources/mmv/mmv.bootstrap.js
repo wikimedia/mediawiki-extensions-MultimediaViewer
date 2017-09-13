@@ -571,8 +571,7 @@
 	 * Sets up the overlay while the viewer loads
 	 */
 	MMVB.setupOverlay = function () {
-		var $scrollTo = $.scrollTo(),
-			$body = $( document.body );
+		var $body = $( document.body );
 
 		// There are situations where we can call setupOverlay while the overlay is already there,
 		// such as inside this.hash(). In that case, do nothing
@@ -585,7 +584,7 @@
 				.addClass( 'mw-mmv-overlay' );
 		}
 
-		this.savedScroll = { top: $scrollTo.scrollTop(), left: $scrollTo.scrollLeft() };
+		this.savedScrollTop = $( window ).scrollTop();
 
 		$body.addClass( 'mw-mmv-lightbox-open' )
 			.append( this.$overlay );
@@ -603,11 +602,12 @@
 			this.$overlay.remove();
 		}
 
-		if ( this.savedScroll ) {
+		if ( this.savedScrollTop !== undefined ) {
 			// setTimeout because otherwise Chrome will scroll back to top after the popstate event handlers run
 			setTimeout( function () {
-				$.scrollTo( bootstrap.savedScroll, 0 ); bootstrap.savedScroll = undefined;
-			}, 0 );
+				$( window ).scrollTop( bootstrap.savedScrollTop );
+				bootstrap.savedScrollTop = undefined;
+			} );
 		}
 	};
 
