@@ -3,9 +3,11 @@
 		"authors": [
 			"Asoxor",
 			"Pirehelokan",
-			"Sarchia"
+			"Sarchia",
+			"Lost Whispers"
 		]
 	},
+	"multimediaviewer-pref": "نیشاندەری میدیا",
 	"multimediaviewer-repository-local": "وردەکاریی زیاتر",
 	"multimediaviewer-datetime-created": "دروست کراوە لە: $1",
 	"multimediaviewer-datetime-uploaded": "بارکراوە لە: $1",
@@ -34,6 +36,7 @@
 	"multimediaviewer-large-embed-dimensions": "گەورە $1",
 	"multimediaviewer-medium-embed-dimensions": "نێونجی $1",
 	"multimediaviewer-small-embed-dimensions": "بچووک $1",
+	"multimediaviewer-view-expanded": "کردنەوە لە نیشاندەری میدیادا",
 	"multimediaviewer-close-popup-text": "ئەم ئامرازە دا بخە (Esc)",
 	"multimediaviewer-title-popup-text": "وەسف",
 	"multimediaviewer-credit-popup-text": "زانیاریی بەرھەمھێنەر و سەرچاوە",
@@ -42,5 +45,6 @@
 	"multimediaviewer-download-attribution-cta": "نیشانم بدە چۆن",
 	"multimediaviewer-attr-plain": "ئاسایی",
 	"multimediaviewer-options-learn-more": "زۆرتر بزانە",
-	"multimediaviewer-enable-dialog-header": "چالاککردنی نیشاندەری میدیا؟"
+	"multimediaviewer-enable-dialog-header": "چالاککردنی نیشاندەری میدیا؟",
+	"multimediaviewer-enable-submit-button": "چالاککردنی نیشاندەری میدیا"
 }
