@@ -74,6 +74,8 @@
 	"multimediaviewer-credit-popup-text-more": "Weist all Informatiounen iwwer den Auteur an d'Quell",
 	"multimediaviewer-download-attribution-cta-header": "Dir musst eng Referenz op den Auteur maachen",
 	"multimediaviewer-download-attribution-cta": "Weist mir wéi",
+	"multimediaviewer-reuse-warning-deletion": "Et gouf virgeschloen dëse Fichier ze läschen.",
+	"multimediaviewer-reuse-warning-nonfree": "Dëse Fichier huet keng fräi Lizenz.",
 	"multimediaviewer-options-dialog-header": "Media Viewer ausschalten?",
 	"multimediaviewer-options-learn-more": "Fir méi ze wëssen",
 	"multimediaviewer-option-submit-button": "Media Viewer ausschalten",

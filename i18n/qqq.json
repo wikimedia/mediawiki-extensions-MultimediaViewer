@@ -10,7 +10,8 @@
 			"Amire80",
 			"Tacsipacsi",
 			"Wladek92",
-			"Pikne"
+			"Pikne",
+			"Jon Harald Søby"
 		]
 	},
 	"multimediaviewer-desc": "{{desc|name=Multimedia Viewer|url=https://www.mediawiki.org/wiki/Extension:MultimediaViewer}}",
@@ -141,7 +142,7 @@
 	"multimediaviewer-reuse-warning-deletion": "Warning message shown in the share/embed/download panels for files tagged with a deletion template. Followed by {{msg-mw|multimediaviewer-reuse-warning-generic}}.",
 	"multimediaviewer-reuse-warning-nonfree": "Warning message shown in the share/embed/download panels for files under a nonfree license / copyright tag. Followed by {{msg-mw|multimediaviewer-reuse-warning-generic}}.",
 	"multimediaviewer-reuse-warning-noattribution": "Warning message shown in the share/embed/download panels for files which have no machine-readable author or source. Followed by {{msg-mw|multimediaviewer-reuse-warning-generic}}.",
-	"multimediaviewer-reuse-warning-generic": "Generic message at the end of every warning. $1 is the link to the file page.",
+	"multimediaviewer-reuse-warning-generic": "Generic message at the end of every warning. $1 is the link to the file page.\n\nIt = the file",
 	"multimediaviewer-attr-plain": "Label for a button that lets the user pick plain text as an output format.",
 	"multimediaviewer-attr-html": "{{optional}}\nLabel for a button that lets the user pick HTML as an output format.\n{{Identical|HTML}}",
 	"multimediaviewer-options-tooltip": "Tooltip for a button that opens a panel for enabling or disabling the media viewer.",

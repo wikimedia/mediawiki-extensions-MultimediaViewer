@@ -69,5 +69,9 @@
 	"multimediaviewer-commons-subtitle": "자유 미디어 저장소",
 	"multimediaviewer-view-expanded": "미디어 뷰어에서 열기",
 	"multimediaviewer-next-image-alt-text": "다음 사진 보이기",
-	"multimediaviewer-prev-image-alt-text": "이전 사진 보이기"
+	"multimediaviewer-prev-image-alt-text": "이전 사진 보이기",
+	"multimediaviewer-reuse-warning-deletion": "이 파일은 삭제를 고려하고 있습니다.",
+	"multimediaviewer-reuse-warning-nonfree": "이 파일은 자유 라이선스가 아닙니다.",
+	"multimediaviewer-reuse-warning-noattribution": "이 파일에 속성 정보가 없습니다.",
+	"multimediaviewer-reuse-warning-generic": "사용하기 전에 [$1 상세 내용]을 확인하십시오."
 }
