@@ -9,7 +9,8 @@
 			"Stens51",
 			"Abbedabb",
 			"Warrakkk",
-			"Hangsna"
+			"Hangsna",
+			"Bengtsson96"
 		]
 	},
 	"multimediaviewer-desc": "Expandera miniatyrer i en större storlek i fulkskärmsgränssnitt.",
@@ -94,6 +95,9 @@
 	"multimediaviewer-download-attribution-cta-header": "Du måste ge skaparen erkännande",
 	"multimediaviewer-download-optional-attribution-cta-header": "Du kan ge skaparen erkännande",
 	"multimediaviewer-download-attribution-cta": "Visa mig hur",
+	"multimediaviewer-reuse-warning-deletion": "Filen är föreslagen för radering.",
+	"multimediaviewer-reuse-warning-nonfree": "Filen har inte en fri licens.",
+	"multimediaviewer-reuse-warning-generic": "Kontrollera [$1 filens detaljer] före användning.",
 	"multimediaviewer-attr-plain": "Klartext",
 	"multimediaviewer-options-tooltip": "Aktivera eller inaktivera Mediavisaren",
 	"multimediaviewer-options-dialog-header": "Inaktivera Mediavisaren?",
