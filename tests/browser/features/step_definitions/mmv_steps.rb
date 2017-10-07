@@ -90,7 +90,7 @@ def check_elements_in_viewer_for_image1(page)
   # Title
   expect(page.mmv_metadata_title_element.when_present.text).to match /^Sunrise over fishing boats$/
   # License
-  expect(page.mmv_metadata_license_element.when_present.attribute('href')).to match %r{^http://creativecommons.org/licenses/by-sa/3.0$}
+  expect(page.mmv_metadata_license_element.when_present.attribute('href')).to match %r{^https?://creativecommons.org/licenses/by-sa/3.0$}
   expect(page.mmv_metadata_license_element.when_present.text).to match 'CC BY-SA 3.0'
   # Credit
   expect(page.mmv_metadata_credit_element.when_present).to be_visible
@@ -123,7 +123,7 @@ def check_elements_in_viewer_for_image2(page)
   # Title
   expect(page.mmv_metadata_title_element.when_present.text).to match /^Tropical Fish Aquarium$/
   # License
-  expect(page.mmv_metadata_license_element.when_present(10).attribute('href')).to match %r{^http://creativecommons.org/licenses/by-sa/3.0$}
+  expect(page.mmv_metadata_license_element.when_present(10).attribute('href')).to match %r{^https?://creativecommons.org/licenses/by-sa/3.0$}
   expect(page.mmv_metadata_license_element.when_present.text).to match 'CC BY-SA 3.0'
   # Credit
   expect(page.mmv_metadata_credit_element.when_present).to be_visible
@@ -156,7 +156,7 @@ def check_elements_in_viewer_for_image3(page)
   # Title
   expect(page.mmv_metadata_title_element.when_present.text).to match /^Hong Kong Harbor at night$/
   # License
-  expect(page.mmv_metadata_license_element.when_present.attribute('href')).to match %r{^http://creativecommons.org/licenses/by-sa/3.0$}
+  expect(page.mmv_metadata_license_element.when_present.attribute('href')).to match %r{^https?://creativecommons.org/licenses/by-sa/3.0$}
   expect(page.mmv_metadata_license_element.when_present.text).to match 'CC BY-SA 3.0'
   # Credit
   expect(page.mmv_metadata_credit_element.when_present).to be_visible
