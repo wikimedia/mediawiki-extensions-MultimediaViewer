@@ -206,7 +206,7 @@ class MultimediaViewerHooks {
 	/**
 	 * Handler for all places where we add the modules
 	 * Could be on article pages or on Category pages
-	 * @param OutputPage $out
+	 * @param OutputPage &$out
 	 * @return bool
 	 */
 	protected static function getModules( &$out ) {
@@ -219,8 +219,8 @@ class MultimediaViewerHooks {
 	 * Handler for BeforePageDisplay hook
 	 * Add JavaScript to the page when an image is on it
 	 * and the user has enabled the feature if BetaFeatures is installed
-	 * @param OutputPage $out
-	 * @param Skin $skin
+	 * @param OutputPage &$out
+	 * @param Skin &$skin
 	 * @return bool
 	 */
 	public static function getModulesForArticle( &$out, &$skin ) {
@@ -241,7 +241,7 @@ class MultimediaViewerHooks {
 	/**
 	 * Handler for CategoryPageView hook
 	 * Add JavaScript to the page if there are images in the category
-	 * @param CategoryPage $catPage
+	 * @param CategoryPage &$catPage
 	 * @return bool
 	 */
 	public static function getModulesForCategory( &$catPage ) {
@@ -255,7 +255,12 @@ class MultimediaViewerHooks {
 		return true;
 	}
 
-	// Add a beta preference to gate the feature
+	/**
+	 * Add a beta preference to gate the feature
+	 * @param User $user
+	 * @param array &$prefs
+	 * @return true
+	 */
 	public static function getBetaPreferences( $user, &$prefs ) {
 		global $wgExtensionAssetsPath, $wgMediaViewerIsInBeta;
 
@@ -278,7 +283,12 @@ class MultimediaViewerHooks {
 		return true;
 	}
 
-	// Adds a default-enabled preference to gate the feature on non-beta sites
+	/**
+	 * Adds a default-enabled preference to gate the feature on non-beta sites
+	 * @param User $user
+	 * @param array &$prefs
+	 * @return true
+	 */
 	public static function getPreferences( $user, &$prefs ) {
 		global $wgMediaViewerIsInBeta;
 
@@ -295,7 +305,7 @@ class MultimediaViewerHooks {
 
 	/**
 	 * Export variables used in both PHP and JS to keep DRY
-	 * @param array $vars
+	 * @param array &$vars
 	 * @return bool
 	 */
 	public static function resourceLoaderGetConfigVars( &$vars ) {
@@ -332,7 +342,7 @@ class MultimediaViewerHooks {
 
 	/**
 	 * Export variables which depend on the current user
-	 * @param $vars
+	 * @param array &$vars
 	 * @param OutputPage $out
 	 */
 	public static function makeGlobalVariablesScript( &$vars, OutputPage $out ) {
@@ -347,7 +357,7 @@ class MultimediaViewerHooks {
 
 	/**
 	 * Get modules for testing our JavaScript
-	 * @param array $testModules
+	 * @param array &$testModules
 	 * @param ResourceLoader &$resourceLoader
 	 * @return bool
 	 */
@@ -424,8 +434,9 @@ class MultimediaViewerHooks {
 	/**
 	 * Modify thumbnail DOM
 	 * @param ThumbnailImage $thumbnail
-	 * @param array $attribs Attributes of the <img> element
-	 * @param array|bool $linkAttribs Attributes of the wrapping <a> element
+	 * @param array &$attribs Attributes of the <img> element
+	 * @param array|bool &$linkAttribs Attributes of the wrapping <a> element
+	 * @return true
 	 */
 	public static function thumbnailBeforeProduceHTML( ThumbnailImage $thumbnail, array &$attribs,
 		&$linkAttribs
