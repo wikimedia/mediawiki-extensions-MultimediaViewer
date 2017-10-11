@@ -133,7 +133,7 @@
 	"multimediaviewer-download-optional-attribution-cta-header": "您可以为作者署名",
 	"multimediaviewer-download-attribution-cta": "告诉我如何",
 	"multimediaviewer-download-attribution-copy": "选择并复制（如果支持）此文件的署名文本",
-	"multimediaviewer-reuse-warning-deletion": "文件正在提请删除。",
+	"multimediaviewer-reuse-warning-deletion": "文件被标记提删。",
 	"multimediaviewer-reuse-warning-nonfree": "文件没有自由许可协议。",
 	"multimediaviewer-reuse-warning-noattribution": "文件没有署名信息。",
 	"multimediaviewer-reuse-warning-generic": "在使用前请检查[$1 详情]。",
