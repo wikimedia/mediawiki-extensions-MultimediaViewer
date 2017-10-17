@@ -105,6 +105,7 @@
 	"multimediaviewer-download-optional-attribution-cta-header": "Pode darlle recoñecemento ao autor",
 	"multimediaviewer-download-attribution-cta": "Mostrádeme como",
 	"multimediaviewer-download-attribution-copy": "Seleccionar e copiar (se está soportado) o texto de atribución deste ficheiro",
+	"multimediaviewer-reuse-warning-nonfree": "Este ficheiro non ten unha licenza libre.",
 	"multimediaviewer-attr-plain": "Simple",
 	"multimediaviewer-options-tooltip": "Activar ou desactivar o visor de ficheiros multimedia",
 	"multimediaviewer-options-dialog-header": "Quere desactivar o visor de ficheiros multimedia?",
