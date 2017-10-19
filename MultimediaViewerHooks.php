@@ -346,13 +346,13 @@ class MultimediaViewerHooks {
 	 * @param OutputPage $out
 	 */
 	public static function makeGlobalVariablesScript( &$vars, OutputPage $out ) {
-		global $wgDefaultUserOptions;
+		$defaultUserOptions = User::getDefaultOptions();
 
 		$user = $out->getUser();
 		$vars['wgMediaViewerOnClick'] = self::shouldHandleClicks( $user );
 		// needed because of bug 69942; could be different for anon and logged-in
 		$vars['wgMediaViewerEnabledByDefault'] =
-			!empty( $wgDefaultUserOptions['multimediaviewer-enable'] );
+			!empty( $defaultUserOptions['multimediaviewer-enable'] );
 	}
 
 	/**
