@@ -115,10 +115,10 @@
 	 */
 	DP.createSizePulldownMenu = function ( $container ) {
 		this.downloadSizeMenu = this.utils.createPulldownMenu(
-				[ 'original', 'small', 'medium', 'large' ],
-				[ 'mw-mmv-download-size' ],
-				'original'
-				);
+			[ 'original', 'small', 'medium', 'large' ],
+			[ 'mw-mmv-download-size' ],
+			'original'
+		);
 
 		this.downloadSizeMenu.getMenu().on( 'select', function ( item ) {
 			mw.mmv.actionLogger.log( 'download-select-menu-' + item.data.name );
@@ -199,27 +199,27 @@
 			.appendTo( this.$attributionSection );
 		this.attributionInput = attributionInput;
 		this.$attributionCopy = this.$copyButton = $( '<a>' )
-				.addClass( 'mw-mmv-dialog-copy' )
-				.click( function () {
-					// Select the text, and then try to copy the text.
-					// If the copy fails or is not supported, continue as if nothing had happened.
-					dl.attributionInput.select();
-					try {
-						if ( document.queryCommandSupported &&
-							document.queryCommandSupported( 'copy' ) ) {
-							document.execCommand( 'copy' );
-						}
-					} catch ( e ) {
-						// queryCommandSupported in Firefox pre-41 can throw errors when used with
-						// clipboard commands. We catch and ignore these and other copy-command-related
-						// errors here.
+			.addClass( 'mw-mmv-dialog-copy' )
+			.click( function () {
+				// Select the text, and then try to copy the text.
+				// If the copy fails or is not supported, continue as if nothing had happened.
+				dl.attributionInput.select();
+				try {
+					if ( document.queryCommandSupported &&
+						document.queryCommandSupported( 'copy' ) ) {
+						document.execCommand( 'copy' );
 					}
-				} )
-				.prop( 'title', mw.msg( 'multimediaviewer-download-attribution-copy' ) )
-				.tipsy( {
-					delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
-					gravity: this.correctEW( 'se' )
-				} );
+				} catch ( e ) {
+					// queryCommandSupported in Firefox pre-41 can throw errors when used with
+					// clipboard commands. We catch and ignore these and other copy-command-related
+					// errors here.
+				}
+			} )
+			.prop( 'title', mw.msg( 'multimediaviewer-download-attribution-copy' ) )
+			.tipsy( {
+				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
+				gravity: this.correctEW( 'se' )
+			} );
 
 		this.$attributionHowHeader = $( '<p>' )
 			.addClass( 'mw-mmv-download-attribution-how-header' )
@@ -232,13 +232,13 @@
 				this.$attributionCopy,
 				attributionSwitch.$element,
 				$( '<p>' )
-				.addClass( 'mw-mmv-download-attribution-close-button' )
-				.click( function ( e ) {
-					dl.$container.trigger( 'mmv-download-cta-close' );
-					dl.$attributionSection.addClass( 'mw-mmv-download-attribution-collapsed' );
-					e.stopPropagation();
-				} )
-				.text( ' ' )
+					.addClass( 'mw-mmv-download-attribution-close-button' )
+					.click( function ( e ) {
+						dl.$container.trigger( 'mmv-download-cta-close' );
+						dl.$attributionSection.addClass( 'mw-mmv-download-attribution-collapsed' );
+						e.stopPropagation();
+					} )
+					.text( ' ' )
 			)
 			.appendTo( this.$attributionSection );
 	};

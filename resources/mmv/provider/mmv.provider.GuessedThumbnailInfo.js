@@ -73,8 +73,8 @@
 			return $.Deferred().resolve( new mw.mmv.model.Thumbnail(
 				url,
 				this.guessWidth( file, width, originalWidth ),
-				this.guessHeight( file, width, originalWidth, originalHeight
-			) ) );
+				this.guessHeight( file, width, originalWidth, originalHeight )
+			) );
 		} else {
 			return $.Deferred().reject( 'Could not guess thumbnail URL' );
 		}

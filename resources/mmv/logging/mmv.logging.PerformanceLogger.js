@@ -139,7 +139,7 @@
 
 			this.performanceChecked[ url ] = true;
 
-			matches = url.match( /^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i );
+			matches = url.match( /^https?:\/\/([^/?#]+)(?:[/?#]|$)/i );
 			stats.isHttps = url.indexOf( 'https' ) === 0;
 		}
 

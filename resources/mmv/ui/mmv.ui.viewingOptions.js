@@ -288,9 +288,7 @@
 					} else {
 						dialog.showDisableConfirmation();
 					}
-				} )
-
-				.always( function () {
+				} ).always( function () {
 					$buttons.prop( 'disabled', false );
 				} );
 

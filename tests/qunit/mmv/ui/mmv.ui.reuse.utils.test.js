@@ -29,10 +29,10 @@
 			menuItems = [ 'original', 'small', 'medium', 'large' ],
 			def = 'large',
 			menu = utils.createPulldownMenu(
-			menuItems,
-			[ 'mw-mmv-download-size' ],
-			def
-		),
+				menuItems,
+				[ 'mw-mmv-download-size' ],
+				def
+			),
 			options = menu.getMenu().getItems(),
 			i, data;
 
@@ -52,10 +52,10 @@
 	QUnit.test( 'updateMenuOptions():', function ( assert ) {
 		var utils = new mw.mmv.ui.Utils(),
 			menu = utils.createPulldownMenu(
-			[ 'original', 'small', 'medium', 'large' ],
-			[ 'mw-mmv-download-size' ],
-			'original'
-		),
+				[ 'original', 'small', 'medium', 'large' ],
+				[ 'mw-mmv-download-size' ],
+				'original'
+			),
 			options = menu.getMenu().getItems(),
 			width = 700,
 			height = 500,
@@ -76,7 +76,7 @@
 	QUnit.test( 'getPossibleImageSizesForHtml()', function ( assert ) {
 		var utils = new mw.mmv.ui.Utils(),
 			exampleSizes = [
-			// Big wide image
+				// Big wide image
 				{
 					width: 2048, height: 1536,
 					expected: {
@@ -87,7 +87,7 @@
 					}
 				},
 
-			// Big tall image
+				// Big tall image
 				{
 					width: 201, height: 1536,
 					expected: {
@@ -98,7 +98,7 @@
 					}
 				},
 
-			// Very small image
+				// Very small image
 				{
 					width: 15, height: 20,
 					expected: {

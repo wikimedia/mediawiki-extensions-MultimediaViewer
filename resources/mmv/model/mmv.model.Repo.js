@@ -192,7 +192,7 @@
 	* @inheritdoc
 	*/
 	ForeignDbRepo.prototype.getArticlePath = function () {
-		return this.descBaseUrl.replace( /[^\/:]*:$/, '$1' );
+		return this.descBaseUrl.replace( /[^/:]*:$/, '$1' );
 	};
 
 	/**

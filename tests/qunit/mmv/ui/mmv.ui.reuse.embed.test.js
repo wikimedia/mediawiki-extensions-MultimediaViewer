@@ -183,7 +183,7 @@
 	QUnit.test( 'getPossibleImageSizesForWikitext()', function ( assert ) {
 		var embed = new mw.mmv.ui.reuse.Embed( $qf ),
 			exampleSizes = [
-			// Big wide image
+				// Big wide image
 				{
 					width: 2048, height: 1536,
 					expected: {
@@ -194,7 +194,7 @@
 					}
 				},
 
-			// Big tall image
+				// Big tall image
 				{
 					width: 201, height: 1536,
 					expected: {
@@ -202,7 +202,7 @@
 					}
 				},
 
-			// Very small image
+				// Very small image
 				{
 					width: 15, height: 20,
 					expected: {

@@ -251,10 +251,13 @@
 			assert.strictEqual( lightbox.buttons.isAnyActiveButtonHovered( offset.left + width, offset.top + height ),
 				!disabled,
 				'Hover detection works for bottom-right corner of element' );
-			assert.strictEqual( lightbox.buttons.isAnyActiveButtonHovered(
-				offset.left + ( width / 2 ), offset.top + ( height / 2 ) ),
+			assert.strictEqual(
+				lightbox.buttons.isAnyActiveButtonHovered(
+					offset.left + ( width / 2 ), offset.top + ( height / 2 )
+				),
 				!disabled,
-				'Hover detection works for center of element' );
+				'Hover detection works for center of element'
+			);
 		} );
 
 		// Unattach lightbox from document

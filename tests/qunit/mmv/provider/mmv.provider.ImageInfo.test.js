@@ -84,7 +84,7 @@
 												source: 'commons-desc-page'
 											},
 											DateTimeOriginal: {
-												value: '<time class=\"dtstart\" datetime=\"2009-02-18\">18 February 2009</time>\u00a0(according to <a href=\"//en.wikipedia.org/wiki/Exchangeable_image_file_format\" class=\"extiw\" title=\"en:Exchangeable image file format\">EXIF</a> data)',
+												value: '<time class="dtstart" datetime="2009-02-18">18 February 2009</time>\u00a0(according to <a href="//en.wikipedia.org/wiki/Exchangeable_image_file_format" class="extiw" title="en:Exchangeable image file format">EXIF</a> data)',
 												source: 'commons-desc-page'
 											},
 											DateTime: {

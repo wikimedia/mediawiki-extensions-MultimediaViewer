@@ -508,10 +508,14 @@
 		viewer.preloadFullscreenThumbnail = $.noop;
 		viewer.initWithThumbs( [] );
 
-		viewer.loadImage( { filePageTitle: new mw.Title( 'File:Stuff.jpg' ),
-			thumbnail: new mw.mmv.model.Thumbnail( 'foo', 10, 10 ),
-			extraStatsDeferred: $.Deferred().reject() },
-			new Image() );
+		viewer.loadImage(
+			{
+				filePageTitle: new mw.Title( 'File:Stuff.jpg' ),
+				thumbnail: new mw.mmv.model.Thumbnail( 'foo', 10, 10 ),
+				extraStatsDeferred: $.Deferred().reject()
+			},
+			new Image()
+		);
 
 		viewer.ui.$closeButton.click();
 
