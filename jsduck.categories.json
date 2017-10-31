@@ -87,6 +87,7 @@
 					"mw.Api",
 					"mw.Title",
 					"mw.Map",
+					"mw.storage",
 					"mw.eventLog"
 				]
 			},

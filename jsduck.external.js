@@ -26,6 +26,11 @@
  */
 
 /**
+ * @class mw.storage
+ * <https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.storage>
+ */
+
+/**
  * @class HTMLElement
  * An HTML element.
  */
