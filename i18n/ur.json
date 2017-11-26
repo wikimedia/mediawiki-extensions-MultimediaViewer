@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"عثمان خان شاہ",
-			"Muhammad Shuaib"
+			"Muhammad Shuaib",
+			"BukhariSaeed"
 		]
 	},
 	"multimediaviewer-pref": "میڈیا نمائش گر",
@@ -24,7 +25,7 @@
 	"multimediaviewer-permission-link-hide": "شرائط چھپائیں",
 	"multimediaviewer-permission-viewmore": "مزید دیکھیں",
 	"multimediaviewer-about-mmv": "تعارف",
-	"multimediaviewer-discuss-mmv": "تبادلہٴ خیال",
+	"multimediaviewer-discuss-mmv": "تبادلۂ خیال",
 	"multimediaviewer-help-mmv": "معاونت",
 	"multimediaviewer-optout-mmv": "میڈیا نمائش گر کو غیر فعال کريں",
 	"multimediaviewer-optin-mmv": "میڈیا نمائش گر کو فعال کريں",
