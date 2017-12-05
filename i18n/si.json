@@ -3,7 +3,8 @@
 		"authors": [
 			"Sahan.ssw",
 			"Susith Chandira Gts",
-			"Thirsty"
+			"Thirsty",
+			1100100
 		]
 	},
 	"multimediaviewer-metadata-error": "පින්තූරයේ විස්තර වලට ප්‍රෙව්ශනය විය නොහැක(දෝෂය:$1)",
@@ -13,6 +14,5 @@
 	"multimediaviewer-permission-link": "කොන්දේසි පෙන්වන්න",
 	"multimediaviewer-permission-link-hide": "කොන්දේසි සඟවන්න",
 	"multimediaviewer-permission-viewmore": "තවත් බලන්න",
-	"multimediaviewer-embed-html": "HTML",
-	"multimediaviewer-text-embed-credit-text-t": "\"$1\""
+	"multimediaviewer-embed-html": "HTML"
 }

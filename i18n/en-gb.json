@@ -7,13 +7,5 @@
 	},
 	"multimediaviewer-license-default": "View licence",
 	"multimediaviewer-permission-title": "Permission details",
-	"multimediaviewer-text-embed-credit-text-tbls": "\"$1\" by $2. Licenced under $3 via $4",
-	"multimediaviewer-text-embed-credit-text-tls": "\"$1\". Licenced under $2 via $3",
-	"multimediaviewer-text-embed-credit-text-tbl": "\"$1\" by $2. Licenced under $3",
-	"multimediaviewer-text-embed-credit-text-tl": "\"$1\". Licenced under $2",
-	"multimediaviewer-html-embed-credit-text-tbls": "\"$1\" by $2. Licenced under $3 via $4.",
-	"multimediaviewer-html-embed-credit-text-tls": "\"$1\". Licenced under $2 via $3.",
-	"multimediaviewer-html-embed-credit-text-tbl": "\"$1\" by $2. Licenced under $3.",
-	"multimediaviewer-html-embed-credit-text-tl": "\"$1\". Licenced under $2.",
 	"multimediaviewer-embed-license": "Licenced under $1."
 }

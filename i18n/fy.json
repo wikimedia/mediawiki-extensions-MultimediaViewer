@@ -1,19 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robin0van0der0vliet"
+			"Robin0van0der0vliet",
+			"Robin van der Vliet"
 		]
 	},
 	"multimediaviewer-multiple-authors-combine": "$1 en $2",
 	"multimediaviewer-help-mmv": "Help",
 	"multimediaviewer-geolocation": "Lokaasje: $1",
 	"multimediaviewer-embed-html": "HTML",
-	"multimediaviewer-text-embed-credit-text-tbls-nonfree": "\"$1\" troch $2. $3 fia $4",
-	"multimediaviewer-text-embed-credit-text-tls-nonfree": "\"$1\". $2 fia $3",
-	"multimediaviewer-text-embed-credit-text-tbl-nonfree": "\"$1\" troch $2. $3",
-	"multimediaviewer-html-embed-credit-text-tbls-nonfree": "\"$1\" troch $2. $3 fia $4.",
-	"multimediaviewer-html-embed-credit-text-tls-nonfree": "\"$1\". $2 fia $3.",
-	"multimediaviewer-html-embed-credit-text-tbl-nonfree": "\"$1\" troch $2. $3.",
 	"multimediaviewer-large-embed-dimensions": "Grut $1",
 	"multimediaviewer-small-embed-dimensions": "Lyts $1",
 	"multimediaviewer-title-popup-text": "Beskriuwing"
