@@ -6,7 +6,8 @@
 			"Hugo.arg",
 			"Gediminas",
 			"Eitvys200",
-			"Zygimantus"
+			"Zygimantus",
+			"Manvydasz"
 		]
 	},
 	"multimediaviewer-desc": "Išplėsti labiau miniatiūras esant pilno dydžio vartotojo aplinkai.",
@@ -17,8 +18,8 @@
 	"multimediaviewer-datetime-created": "Sukurta: $1",
 	"multimediaviewer-datetime-uploaded": "Įkelta: $1",
 	"multimediaviewer-credit-fallback": "Žiūrėti informaciją apie autorių",
-	"multimediaviewer-multiple-authors": "ir {{PLURAL:$1|dar vienas autorius|dar $1 autoriai|dar $1 autorių}}",
-	"multimediaviewer-metadata-error": "Klaida: nepavyksta pakrauti vaizdo duomenų. $1",
+	"multimediaviewer-multiple-authors": "{{PLURAL:$1|dar vienas autorius|dar $1 autoriai|dar $1 autorių}}",
+	"multimediaviewer-metadata-error": "Nepavyksta įkelti vaizdo duomenų (klaida: $1)",
 	"multimediaviewer-thumbnail-error": "Klaida: nepavyksta pakrauti miniatiūros duomenų. $1",
 	"multimediaviewer-thumbnail-error-retry": "bandyti dar kartą",
 	"multimediaviewer-license-cc-pd": "Viešo naudojimo",
@@ -27,8 +28,8 @@
 	"multimediaviewer-permission-title": "Leidimo informacija",
 	"multimediaviewer-permission-link": "žiūrėti sąlygas",
 	"multimediaviewer-permission-viewmore": "Rodyti daugiau",
-	"multimediaviewer-about-mmv": "Apie nuotraukų peržvalgos įrankį",
-	"multimediaviewer-discuss-mmv": "Aptarti šią priemonę",
+	"multimediaviewer-about-mmv": "Apie",
+	"multimediaviewer-discuss-mmv": "Aptarimas",
 	"multimediaviewer-help-mmv": "Pagalba",
 	"multimediaviewer-optout-mmv": "Išjungti nuotraukų peržiūros įrankį",
 	"multimediaviewer-optin-mmv": "Įjungti nuotraukų peržvalgos programą",
