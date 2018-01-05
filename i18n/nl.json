@@ -11,7 +11,8 @@
 			"Macofe",
 			"Robin0van0der0vliet",
 			"Robin van der Vliet",
-			"Mainframe98"
+			"Mainframe98",
+			"Mar(c)"
 		]
 	},
 	"multimediaviewer-desc": "Miniatuurafbeeldingen schermvullend weergeven.",
@@ -97,10 +98,10 @@
 	"multimediaviewer-options-learn-more": "Meer lezen",
 	"multimediaviewer-option-submit-button": "MediaViewer uitschakelen",
 	"multimediaviewer-option-cancel-button": "Annuleren",
-	"multimediaviewer-disable-confirmation-header": "U heeft de MediaViewer uitgeschakeld",
+	"multimediaviewer-disable-confirmation-header": "U hebt de MediaViewer uitgeschakeld",
 	"multimediaviewer-enable-dialog-header": "MediaViewer inschakelen?",
 	"multimediaviewer-enable-submit-button": "MediaViewer inschakelen",
 	"multimediaviewer-enable-alert": "MediaViewer is nu uitgeschakeld",
-	"multimediaviewer-disable-info-title": "U heeft de MediaViewer uitgeschakeld",
+	"multimediaviewer-disable-info-title": "U hebt de MediaViewer uitgeschakeld",
 	"multimediaviewer-disable-info": "U kunt nog steeds losse bestanden bekijken met de MediaViewer."
 }
