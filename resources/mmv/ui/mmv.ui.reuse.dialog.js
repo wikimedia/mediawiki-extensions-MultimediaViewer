@@ -37,7 +37,7 @@
 		this.tabs = null;
 
 		/**
-		 * @property {Object.<string, OO.ui.MenuOptionWidget>} ooTabs List of tab OOJS UI objects.
+		 * @property {Object.<string, OO.ui.MenuOptionWidget>} ooTabs List of tab OOUI objects.
 		 */
 		this.ooTabs = null;
 

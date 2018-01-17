@@ -81,7 +81,7 @@
 	 * @param {jQuery} $container
 	 */
 	DP.createDownloadButton = function ( $container ) {
-		// TODO:  Use oojs-ui constructive button widget instead
+		// TODO: Use OOUI progressive button widget instead
 		this.$downloadButton = $( '<a>' )
 			.attr( 'target', '_blank' )
 			.attr( 'download', '' )
