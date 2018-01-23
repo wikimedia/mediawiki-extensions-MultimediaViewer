@@ -7,6 +7,7 @@ module.exports = function ( grunt ) {
 	grunt.loadNpmTasks( 'grunt-eslint' );
 	grunt.loadNpmTasks( 'grunt-jsonlint' );
 	grunt.loadNpmTasks( 'grunt-stylelint' );
+	grunt.loadNpmTasks( 'grunt-svgmin' );
 
 	grunt.initConfig( {
 		banana: conf.MessagesDirs,
@@ -29,9 +30,43 @@ module.exports = function ( grunt ) {
 				syntax: 'less'
 			},
 			src: 'resources/mmv/**/*.{css,less}'
+		},
+		// Image Optimization
+		svgmin: {
+			options: {
+				js2svg: {
+					pretty: true
+				},
+				plugins: [ {
+					cleanupIDs: false
+				}, {
+					removeDesc: false
+				}, {
+					removeRasterImages: true
+				}, {
+					removeTitle: false
+				}, {
+					removeViewBox: false
+				}, {
+					removeXMLProcInst: false
+				}, {
+					sortAttrs: true
+				} ]
+			},
+			all: {
+				files: [ {
+					expand: true,
+					cwd: 'resources',
+					src: [
+						'**/*.svg'
+					],
+					dest: 'resources/',
+					ext: '.svg'
+				} ]
+			}
 		}
 	} );
 
-	grunt.registerTask( 'test', [ 'eslint', 'stylelint', 'jsonlint', 'banana' ] );
+	grunt.registerTask( 'test', [ 'eslint', 'stylelint', 'svgmin', 'jsonlint', 'banana' ] );
 	grunt.registerTask( 'default', 'test' );
 };
