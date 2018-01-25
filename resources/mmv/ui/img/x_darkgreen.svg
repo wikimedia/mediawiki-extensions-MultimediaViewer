@@ -1,22 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   version="1.1"
-   width="100%"
-   height="100%"
-   viewBox="0 0 96 96"
-   id="Layer_1"
-   xml:space="preserve"><metadata
-     id="metadata9"><rdf:RDF><cc:Work
-         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
-     id="defs7" /><polygon
-     points="82,0 48,34 14,0 0,14 34,48 0,82 14,96 48,62 82,96 96,82 62,48 96,14 "
-     id="polygon3"
-     style="fill:#0a604c;fill-opacity:1" /></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+	<path fill="#0a604c" d="M82 0L48 34 14 0 0 14l34 34L0 82l14 14 34-34 34 34 14-14-34-34 34-34z"/>
+</svg>
