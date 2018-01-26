@@ -3,7 +3,8 @@
 		"authors": [
 			"Milicevic01",
 			"Сербијана",
-			"Obsuser"
+			"Obsuser",
+			"Acamicamacaraca"
 		]
 	},
 	"multimediaviewer-optin-pref": "Омогући <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
@@ -40,7 +41,7 @@
 	"multimediaviewer-optin-help": "Media Viewer ће бити коришћен за приказивање слика.",
 	"multimediaviewer-geolocation": "Локација: $1",
 	"multimediaviewer-reuse-link": "Користи ову датотеку",
-	"multimediaviewer-reuse-loading-placeholder": "Учитавање...",
+	"multimediaviewer-reuse-loading-placeholder": "Учитавам...",
 	"multimediaviewer-share-tab": "Дели",
 	"multimediaviewer-embed-tab": "Угради",
 	"multimediaviewer-download-link": "Преузми",
