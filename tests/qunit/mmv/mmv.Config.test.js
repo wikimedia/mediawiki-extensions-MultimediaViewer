@@ -137,14 +137,14 @@
 			} ),
 			mwUser = { isAnon: this.sandbox.stub() },
 			mwConfig = new mw.Map(),
-			api = { postWithToken: this.sandbox.stub().returns( $.Deferred().resolve() ) },
+			api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) },
 			config = new mw.mmv.Config( {}, mwConfig, mwUser, api, localStorage );
 		mwConfig.set( 'wgMediaViewerEnabledByDefault', false );
 
 		mwUser.isAnon.returns( false );
-		api.postWithToken.returns( $.Deferred().resolve() );
+		api.saveOption.returns( $.Deferred().resolve() );
 		config.setMediaViewerEnabledOnClick( false );
-		assert.ok( api.postWithToken.called, 'For logged-in users, pref change is via API' );
+		assert.ok( api.saveOption.called, 'For logged-in users, pref change is via API' );
 
 		mwUser.isAnon.returns( true );
 		config.setMediaViewerEnabledOnClick( false );
@@ -160,7 +160,7 @@
 			mwConfig = new mw.Map(),
 			fakeLocalStorage = mw.mmv.testHelpers.getFakeLocalStorage(),
 			mwUser = { isAnon: this.sandbox.stub() },
-			api = { postWithToken: this.sandbox.stub().returns( $.Deferred().resolve() ) };
+			api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) };
 
 		mwConfig.set( {
 			wgMediaViewer: true,
