@@ -344,6 +344,8 @@
 				"mmv/mmv.bootstrap.less"
 			],
 			"dependencies": [
+				"mediawiki.api",
+				"mediawiki.api.options",
 				"mediawiki.ui.button",
 				"mediawiki.ui.icon",
 				"mediawiki.Title",

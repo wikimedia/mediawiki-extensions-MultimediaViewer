@@ -123,11 +123,7 @@
 	 * @return {jQuery.Promise} a deferred which resolves/rejects on success/failure respectively
 	 */
 	CP.setUserPreference = function ( key, value ) {
-		return this.api.postWithToken( 'options', {
-			action: 'options',
-			optionname: key,
-			optionvalue: value
-		} );
+		return this.api.saveOption( key, value );
 	};
 
 	/**
