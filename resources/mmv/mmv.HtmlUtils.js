@@ -222,7 +222,7 @@
 			$html = this.wrapAndJquerify( html );
 			this.filterInvisible( $html );
 			this.appendWhitespaceToBlockElements( $html );
-			this.whitelistHtml( $html, 'a, span, i, b' );
+			this.whitelistHtml( $html, 'a, span, i, b, sup, sub' );
 			cache.textWithTags[ html ] = this.mergeWhitespace( $html.html() );
 		}
 		return cache.textWithTags[ html ];
