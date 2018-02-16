@@ -10,7 +10,8 @@
 			"Dağlı95",
 			"Macofe",
 			"Jack who built the house",
-			"Kareyac"
+			"Kareyac",
+			"Putnik"
 		]
 	},
 	"multimediaviewer-desc": "Раскрывает эскизы в большие изображения на весь экран.",
@@ -110,7 +111,7 @@
 	"multimediaviewer-disable-confirmation-header": "Вы отключили «Просмотрщик медиафайлов»",
 	"multimediaviewer-disable-confirmation-text": "Следующий раз, когда вы щёлкните на миниатюре файла на сайте $1, вы напрямую сможете просматривать все сведения о файле.",
 	"multimediaviewer-enable-dialog-header": "Включить «Просмотрщик медиафайлов»?",
-	"multimediaviewer-enable-text-header": "Включить эту функцию медиа-просмотра по умолчанию для всех файлов.",
+	"multimediaviewer-enable-text-header": "Включить эту функцию медиапросмотра по умолчанию для всех файлов.",
 	"multimediaviewer-enable-submit-button": "Включить «Просмотрщик медиафайлов»",
 	"multimediaviewer-enable-confirmation-header": "Вы включили «Просмотрщик медиафайлов» для всех файлов",
 	"multimediaviewer-enable-confirmation-text": "Следующий раз, когда вы щёлкните на миниатюре файла на сайте $1, будет использован «Просмотрщик медиафайлов».",
