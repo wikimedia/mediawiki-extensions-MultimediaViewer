@@ -11,7 +11,8 @@
 			"Macofe",
 			"Jack who built the house",
 			"Kareyac",
-			"Putnik"
+			"Putnik",
+			"Smigles"
 		]
 	},
 	"multimediaviewer-desc": "Раскрывает эскизы в большие изображения на весь экран.",
@@ -67,7 +68,7 @@
 	"multimediaviewer-link-to-page": "Ссылка на страницу описания файла",
 	"multimediaviewer-link-to-file": "Ссылка на исходный файл",
 	"multimediaviewer-share-explanation": "Скопируйте и свободно делитесь ссылкой",
-	"multimediaviewer-embed-wt": "Викитекст",
+	"multimediaviewer-embed-wt": "Вики-текст",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "Используйте этот код, чтобы вставить файл на страницу",
 	"multimediaviewer-text-embed-credit-text-bl": "Автор: $1, $2, $3",
