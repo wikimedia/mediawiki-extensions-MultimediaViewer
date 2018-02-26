@@ -76,6 +76,8 @@
 	"multimediaviewer-download-attribution-cta-header": "Морате навести аутора",
 	"multimediaviewer-download-optional-attribution-cta-header": "Можете навести аутора",
 	"multimediaviewer-download-attribution-cta": "Покажи ми како",
+	"multimediaviewer-reuse-warning-nonfree": "Ова датотека није под слободном лиценцом.",
+	"multimediaviewer-reuse-warning-noattribution": "Ова датотека нема информације о ауторству.",
 	"multimediaviewer-attr-plain": "Текст",
 	"multimediaviewer-options-tooltip": "Омогући или онемогући Media Viewer",
 	"multimediaviewer-options-dialog-header": "Онемогући Media Viewer?",
