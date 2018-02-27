@@ -46,7 +46,7 @@
 			assert.strictEqual( data.width, null, 'Correct item width on the list.' );
 		}
 
-		assert.strictEqual( menu.getMenu().getSelectedItem(), options[ 3 ], 'Default set correctly.' );
+		assert.strictEqual( menu.getMenu().findSelectedItem(), options[ 3 ], 'Default set correctly.' );
 	} );
 
 	QUnit.test( 'updateMenuOptions():', function ( assert ) {

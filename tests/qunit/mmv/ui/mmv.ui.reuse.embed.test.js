@@ -63,7 +63,7 @@
 			width = 10,
 			height = 20;
 
-		embed.embedSwitch.getSelectedItem = function () {
+		embed.embedSwitch.findSelectedItem = function () {
 			return { getData: function () { return 'html'; } };
 		};
 		embed.updateEmbedHtml = function ( thumb, w, h ) {
@@ -86,7 +86,7 @@
 			width = 10,
 			height = 20;
 
-		embed.embedSwitch.getSelectedItem = function () {
+		embed.embedSwitch.findSelectedItem = function () {
 			return { getData: function () { return 'wikitext'; } };
 		};
 		embed.updateEmbedHtml = function () {
@@ -305,9 +305,9 @@
 		embed.embedTextWikitext.$element.find( 'textarea' ).triggerHandler( 'focus' );
 		embed.embedSwitch.emit( 'select' );
 		embed.embedSizeSwitchHtml.getMenu().emit(
-			'choose', embed.embedSizeSwitchHtml.getMenu().getSelectedItem() );
+			'choose', embed.embedSizeSwitchHtml.getMenu().findSelectedItem() );
 		embed.embedSizeSwitchWikitext.getMenu().emit(
-			'choose', embed.embedSizeSwitchWikitext.getMenu().getSelectedItem() );
+			'choose', embed.embedSizeSwitchWikitext.getMenu().findSelectedItem() );
 
 		embed.selectAllOnEvent = function () {
 			assert.ok( true, 'selectAllOnEvent was called.' );
@@ -326,9 +326,9 @@
 		embed.embedTextWikitext.$element.find( 'textarea' ).triggerHandler( 'focus' );
 		embed.embedSwitch.emit( 'select' );
 		embed.embedSizeSwitchHtml.getMenu().emit(
-			'choose', embed.embedSizeSwitchHtml.getMenu().getSelectedItem() );
+			'choose', embed.embedSizeSwitchHtml.getMenu().findSelectedItem() );
 		embed.embedSizeSwitchWikitext.getMenu().emit(
-			'choose', embed.embedSizeSwitchWikitext.getMenu().getSelectedItem() );
+			'choose', embed.embedSizeSwitchWikitext.getMenu().findSelectedItem() );
 
 		// Test the unattach part
 		embed.selectAllOnEvent = function () {
@@ -348,9 +348,9 @@
 		embed.embedTextWikitext.$element.find( 'textarea' ).triggerHandler( 'focus' );
 		embed.embedSwitch.emit( 'select' );
 		embed.embedSizeSwitchHtml.getMenu().emit(
-			'choose', embed.embedSizeSwitchHtml.getMenu().getSelectedItem() );
+			'choose', embed.embedSizeSwitchHtml.getMenu().findSelectedItem() );
 		embed.embedSizeSwitchWikitext.getMenu().emit(
-			'choose', embed.embedSizeSwitchWikitext.getMenu().getSelectedItem() );
+			'choose', embed.embedSizeSwitchWikitext.getMenu().findSelectedItem() );
 	} );
 
 	QUnit.test( 'handleTypeSwitch():', function ( assert ) {

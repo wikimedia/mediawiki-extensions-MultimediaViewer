@@ -74,14 +74,14 @@
 		 *
 		 * @property {OO.ui.MenuOptionWidget}
 		 */
-		this.defaultHtmlItem = this.embedSizeSwitchHtml.getMenu().getSelectedItem();
+		this.defaultHtmlItem = this.embedSizeSwitchHtml.getMenu().findSelectedItem();
 
 		/**
 		 * Default item for the wikitext size menu.
 		 *
 		 * @property {OO.ui.MenuOptionWidget}
 		 */
-		this.defaultWikitextItem = this.embedSizeSwitchWikitext.getMenu().getSelectedItem();
+		this.defaultWikitextItem = this.embedSizeSwitchWikitext.getMenu().findSelectedItem();
 
 		/**
 		 * Currently selected size menu.
@@ -359,7 +359,7 @@
 	 * @param {number} height New height to set
 	 */
 	EP.changeSize = function ( width, height ) {
-		var currentItem = this.embedSwitch.getSelectedItem();
+		var currentItem = this.embedSwitch.findSelectedItem();
 
 		if ( currentItem === null ) {
 			return;

@@ -74,7 +74,7 @@
 
 		// Triggering action events before attaching should do nothing
 		download.downloadSizeMenu.getMenu().emit(
-			'choose', download.downloadSizeMenu.getMenu().getSelectedItem() );
+			'choose', download.downloadSizeMenu.getMenu().findSelectedItem() );
 		download.$selectionArrow.click();
 
 		assert.ok( !hsstub.called, 'handleSizeSwitch not called' );
@@ -87,7 +87,7 @@
 
 		// Action events should be handled now
 		download.downloadSizeMenu.getMenu().emit(
-			'choose', download.downloadSizeMenu.getMenu().getSelectedItem() );
+			'choose', download.downloadSizeMenu.getMenu().findSelectedItem() );
 		download.$selectionArrow.click();
 
 		assert.ok( hsstub.called, 'handleSizeSwitch was called' );
@@ -100,7 +100,7 @@
 
 		// Triggering action events now that we are unattached should do nothing
 		download.downloadSizeMenu.getMenu().emit(
-			'choose', download.downloadSizeMenu.getMenu().getSelectedItem() );
+			'choose', download.downloadSizeMenu.getMenu().findSelectedItem() );
 		download.$selectionArrow.click();
 
 		assert.ok( !hsstub.called, 'handleSizeSwitch not called' );
@@ -119,7 +119,7 @@
 			assert.strictEqual( url, newImageUrl, 'URL passed to setDownloadUrl is correct' );
 		};
 
-		download.handleSizeSwitch( download.downloadSizeMenu.getMenu().getSelectedItem() );
+		download.handleSizeSwitch( download.downloadSizeMenu.getMenu().findSelectedItem() );
 
 		assert.ok( download.$downloadButton.html().match( /original.*/ ), 'Button message updated.' );
 
@@ -129,7 +129,7 @@
 			assert.ok( false, 'Should not fetch the thumbnail if the image is original size.' );
 		};
 
-		download.handleSizeSwitch( download.downloadSizeMenu.getMenu().getSelectedItem() );
+		download.handleSizeSwitch( download.downloadSizeMenu.getMenu().findSelectedItem() );
 	} );
 
 	QUnit.test( 'setButtonText() sanity check:', function ( assert ) {

@@ -53,7 +53,7 @@
 		 * Default item for the size menu.
 		 * @property {OO.ui.MenuOptionWidget}
 		 */
-		this.defaultItem = this.downloadSizeMenu.getMenu().getSelectedItem();
+		this.defaultItem = this.downloadSizeMenu.getMenu().findSelectedItem();
 
 		/** @property {mw.mmv.model.Image|null} Image the download button currently points to. */
 		this.image = null;
