@@ -62,6 +62,7 @@
 	"multimediaviewer-large-embed-dimensions": "Велика $1",
 	"multimediaviewer-medium-embed-dimensions": "Средња $1",
 	"multimediaviewer-small-embed-dimensions": "Мала $1",
+	"multimediaviewer-embed-dimensions": "$1 × $2 п",
 	"multimediaviewer-description-page-button-text": "Прикажи детаље",
 	"multimediaviewer-description-page-popup-text": "Прикажи детаље са пројекта $1",
 	"multimediaviewer-commons-subtitle": "Ризница слободних медијских датотека",
