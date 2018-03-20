@@ -89,6 +89,7 @@
 	"multimediaviewer-download-attribution-cta": "Покажи ми како",
 	"multimediaviewer-reuse-warning-nonfree": "Ова датотека није под слободном лиценцом.",
 	"multimediaviewer-reuse-warning-noattribution": "Ова датотека нема информације о ауторству.",
+	"multimediaviewer-reuse-warning-generic": "Проверите [$1 њене детаље] пре коришћења.",
 	"multimediaviewer-attr-plain": "Текст",
 	"multimediaviewer-options-tooltip": "Омогућите или онемогућите прегледач датотека",
 	"multimediaviewer-options-dialog-header": "Онемогући Media Viewer?",
