@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * This file is part of the MediaWiki extension MultimediaViewer.
  *
  * MultimediaViewer is free software: you can redistribute it and/or modify
