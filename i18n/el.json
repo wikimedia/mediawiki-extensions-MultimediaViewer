@@ -8,7 +8,8 @@
 			"Evropi",
 			"Protnet",
 			"Xaris333",
-			"Glavkos"
+			"Glavkos",
+			"Nikosgranturismogt"
 		]
 	},
 	"multimediaviewer-desc": "Επεκτείνετε τις μικρογραφίες σε μεγαλύτερο μέγεθος σε ένα περιβάλλον εργασίας πλήρους οθόνης.",
@@ -29,8 +30,8 @@
 	"multimediaviewer-permission-title": "Λεπτομέρειες άδειας χρήσης",
 	"multimediaviewer-permission-link": "δείτε όρους",
 	"multimediaviewer-permission-viewmore": "Προβολή περισσοτέρων",
-	"multimediaviewer-about-mmv": "Περί το Media Viewer",
-	"multimediaviewer-discuss-mmv": "Συζήτηση αυτής της λειτουργίας",
+	"multimediaviewer-about-mmv": "Σχετικά",
+	"multimediaviewer-discuss-mmv": "Συζήτηση",
 	"multimediaviewer-help-mmv": "Βοήθεια",
 	"multimediaviewer-optout-mmv": "Απενεργοποίηση Media Viewer",
 	"multimediaviewer-optin-mmv": "Ενεργοποίηση Media Viewer",
@@ -74,7 +75,7 @@
 	"multimediaviewer-title-popup-text": "Περιγραφή",
 	"multimediaviewer-credit-popup-text": "Δημιουργός και πληροφορίες πηγής",
 	"multimediaviewer-title-popup-text-more": "Εμφάνιση πλήρους περιγραφής",
-	"multimediaviewer-credit-popup-text-more": "Κάντε κλικ για πλήρη εμφάνιση συγγραφέα και πηγής",
+	"multimediaviewer-credit-popup-text-more": "Πλήρης εμφάνιση συγγραφέα και πηγής",
 	"multimediaviewer-download-attribution-cta-header": "Θα πρέπει να αναφέρετε το δημιουργό",
 	"multimediaviewer-download-attribution-cta": "Δείξτε μου πώς",
 	"multimediaviewer-attr-plain": "Απλό",
