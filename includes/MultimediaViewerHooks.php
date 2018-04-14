@@ -311,7 +311,7 @@ class MultimediaViewerHooks {
 				'mmv.ui.tipsyDialog',
 				'moment',
 			],
-			'localBasePath' => __DIR__,
+			'localBasePath' => dirname( __DIR__ ),
 			'remoteExtPath' => 'MultimediaViewer',
 		];
 

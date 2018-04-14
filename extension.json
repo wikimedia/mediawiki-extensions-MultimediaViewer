@@ -36,7 +36,7 @@
 		]
 	},
 	"AutoloadClasses": {
-		"MultimediaViewerHooks": "MultimediaViewerHooks.php"
+		"MultimediaViewerHooks": "includes/MultimediaViewerHooks.php"
 	},
 	"ResourceModules": {
 		"mmv": {
