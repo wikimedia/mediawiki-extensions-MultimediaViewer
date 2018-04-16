@@ -64,7 +64,6 @@
 
 		assert.strictEqual( $aboutLink.length, 1, 'About link created successfully.' );
 		assert.strictEqual( $aboutLink.text(), 'Learn more', 'About link has correct text (if this fails, it may be due to i18n differences)' );
-		assert.strictEqual( $aboutLink.prop( 'href' ), 'http://mediawiki.org/wiki/Special:MyLanguage/Help:Extension:Media_Viewer', 'About link has correct href (depends on your current protocol, so if you are on https, this will fail).' );
 
 		assert.strictEqual( $submitButton.length, 1, 'Disable button created successfully.' );
 		assert.strictEqual( $submitButton.text(), 'Disable Media Viewer', 'Disable button has correct text (if this fails, it may be due to i18n differences)' );
@@ -118,7 +117,6 @@
 
 		assert.strictEqual( $aboutLink.length, 1, 'About link created successfully.' );
 		assert.strictEqual( $aboutLink.text(), 'Learn more', 'About link has correct text (if this fails, it may be due to i18n differences)' );
-		assert.strictEqual( $aboutLink.prop( 'href' ), 'http://mediawiki.org/wiki/Special:MyLanguage/Help:Extension:Media_Viewer', 'About link has correct href (depends on your current protocol, so if you are on https, this will fail).' );
 
 		assert.strictEqual( $submitButton.length, 1, 'Enable button created successfully.' );
 		assert.strictEqual( $submitButton.text(), 'Enable Media Viewer', 'Enable button has correct text (if this fails, it may be due to i18n differences)' );

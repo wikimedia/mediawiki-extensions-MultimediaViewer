@@ -24,14 +24,15 @@
 class MultimediaViewerHooks {
 	/** Link to more information about this module */
 	protected static $infoLink =
-		'//mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About';
+		'https://mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About';
 
 	/** Link to a page where this module can be discussed */
 	protected static $discussionLink =
-		'//mediawiki.org/wiki/Special:MyLanguage/Extension_talk:Media_Viewer/About';
+		'https://mediawiki.org/wiki/Special:MyLanguage/Extension_talk:Media_Viewer/About';
 
 	/** Link to help about this module */
-	protected static $helpLink = '//mediawiki.org/wiki/Special:MyLanguage/Help:Extension:Media_Viewer';
+	protected static $helpLink =
+		'https://mediawiki.org/wiki/Special:MyLanguage/Help:Extension:Media_Viewer';
 
 	public static function registerExtension() {
 		global $wgMediaViewerNetworkPerformanceSamplingFactor,
