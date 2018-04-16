@@ -27,7 +27,6 @@
 	"descriptionmsg": "multimediaviewer-desc",
 	"license-name": "GPL-2.0-or-later",
 	"type": "other",
-	"callback": "MultimediaViewerHooks::registerExtension",
 	"ExtensionFunctions": [
 		"MultimediaViewerHooks::onExtensionFunctions"
 	],
@@ -427,7 +426,19 @@
 			"png": "default",
 			"tiff": "default",
 			"tif": "default"
-		}
+		},
+		"MediaViewerNetworkPerformanceSamplingFactor": false,
+		"MediaViewerDurationLoggingSamplingFactor": false,
+		"MediaViewerDurationLoggingLoggedinSamplingFactor": false,
+		"MediaViewerAttributionLoggingSamplingFactor": false,
+		"MediaViewerDimensionLoggingSamplingFactor": false,
+		"MediaViewerActionLoggingSamplingFactorMap": false,
+		"MediaViewerIsInBeta": false,
+		"MediaViewerUseThumbnailGuessing": false,
+		"MediaViewerEnableByDefault": true,
+		"MediaViewerEnableByDefaultForAnonymous": null,
+		"MediaViewerImageQueryParameter": false,
+		"MediaViewerRecordVirtualViewBeaconURI": false
 	},
 	"manifest_version": 1
 }
