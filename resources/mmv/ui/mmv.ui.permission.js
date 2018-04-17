@@ -96,7 +96,7 @@
 		 * "Close" button (does not actually close the box, just makes it smaller).
 		 * @property {jQuery}
 		 */
-		this.$close = $( '<div>' )
+		this.$close = $( '<button>' )
 			.addClass( 'mw-mmv-permission-close' )
 			.on( 'click', function () {
 				permission.shrink();

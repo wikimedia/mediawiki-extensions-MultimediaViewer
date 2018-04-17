@@ -67,8 +67,8 @@
 				mw.mmv.actionLogger.log( 'share-page' );
 			} );
 
-		this.$copyButton = $( '<a>' )
-			.addClass( 'mw-mmv-dialog-copy' )
+		this.$copyButton = $( '<button>' )
+			.addClass( 'mw-mmv-button mw-mmv-dialog-copy' )
 			.click( function () {
 				// Select the text, and then try to copy the text.
 				// If the copy fails or is not supported, continue as if nothing had happened.
@@ -85,6 +85,7 @@
 				}
 			} )
 			.prop( 'title', mw.msg( 'multimediaviewer-reuse-copy-share' ) )
+			.text( mw.msg( 'multimediaviewer-reuse-copy-share' ) )
 			.tipsy( {
 				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
 				gravity: this.correctEW( 'se' )
