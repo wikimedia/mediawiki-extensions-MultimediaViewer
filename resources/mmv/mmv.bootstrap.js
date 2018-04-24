@@ -394,7 +394,7 @@
 	 * Opens MediaViewer and loads the given thumbnail. Requires processThumb() to be called first.
 	 *
 	 * @param {HTMLElement} element Clicked element
-	 * @param {string} title File title
+	 * @param {mw.Title} title File title
 	 * @return {jQuery.Promise}
 	 */
 	MMVB.openImage = function ( element, title ) {
@@ -420,7 +420,7 @@
 	 *
 	 * @param {HTMLElement} element Clicked element
 	 * @param {jQuery.Event} e jQuery event object
-	 * @param {string} title File title
+	 * @param {mw.Title} title File title
 	 * @return {boolean} a value suitable for an event handler (ie. true if the click should be handled
 	 *  by the browser).
 	 */
