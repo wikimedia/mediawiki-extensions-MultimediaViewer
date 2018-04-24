@@ -63,13 +63,13 @@
 			.prop( 'target', '_blank' )
 			.html( '&nbsp;' )
 			.appendTo( this.$pane )
-			.click( function () {
+			.on( 'click', function () {
 				mw.mmv.actionLogger.log( 'share-page' );
 			} );
 
 		this.$copyButton = $( '<button>' )
 			.addClass( 'mw-mmv-button mw-mmv-dialog-copy' )
-			.click( function () {
+			.on( 'click', function () {
 				// Select the text, and then try to copy the text.
 				// If the copy fails or is not supported, continue as if nothing had happened.
 				pane.pageInput.$input.select();

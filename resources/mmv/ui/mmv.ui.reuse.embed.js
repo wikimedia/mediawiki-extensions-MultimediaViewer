@@ -143,7 +143,7 @@
 
 		this.$copyButton = $( '<button>' )
 			.addClass( 'mw-mmv-button mw-mmv-dialog-copy' )
-			.click( function () {
+			.on( 'click', function () {
 				// Select the text, and then try to copy the text.
 				// If the copy fails or is not supported, continue as if nothing had happened.
 				$( this ).parent().find( '.active > textarea' ).select();

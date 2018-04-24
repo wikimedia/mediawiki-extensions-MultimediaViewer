@@ -109,24 +109,24 @@
 			'Fullscreen button is visible when fullscreen mode is available' );
 
 		// Entering fullscreen
-		lightbox.$fullscreenButton.click();
+		lightbox.$fullscreenButton.trigger( 'click' );
 
 		assert.strictEqual( lightbox.$main.hasClass( 'jq-fullscreened' ), true,
 			'Fullscreened area has the fullscreen class' );
 		assert.strictEqual( lightbox.isFullscreen, true, 'Lightbox knows it\'s in fullscreen mode' );
 
 		// Exiting fullscreen
-		lightbox.$fullscreenButton.click();
+		lightbox.$fullscreenButton.trigger( 'click' );
 
 		assert.strictEqual( lightbox.$main.hasClass( 'jq-fullscreened' ), false,
 			'Fullscreened area doesn\'t have the fullscreen class anymore' );
 		assert.strictEqual( lightbox.isFullscreen, false, 'Lightbox knows it\'s not in fullscreen mode' );
 
 		// Entering fullscreen
-		lightbox.$fullscreenButton.click();
+		lightbox.$fullscreenButton.trigger( 'click' );
 
 		// Hard-exiting fullscreen
-		lightbox.$closeButton.click();
+		lightbox.$closeButton.trigger( 'click' );
 
 		// Re-attach after hard-exit
 		lightbox.attach( '#qunit-fixture' );
@@ -180,7 +180,7 @@
 		lightbox.mousePosition = { x: buttonOffset.left, y: buttonOffset.top };
 
 		// Enter fullscreen
-		lightbox.buttons.$fullscreen.click();
+		lightbox.buttons.$fullscreen.trigger( 'click' );
 
 		lightbox.buttons.fadeOut = $.noop;
 		assert.ok( lightbox.isFullscreen, 'Lightbox knows that it\'s in fullscreen mode' );
@@ -209,7 +209,7 @@
 		};
 
 		// Exiting fullscreen
-		lightbox.buttons.$fullscreen.click();
+		lightbox.buttons.$fullscreen.trigger( 'click' );
 
 		panelBottom = $( '.mw-mmv-post-image' ).position().top + $( '.mw-mmv-post-image' ).height();
 

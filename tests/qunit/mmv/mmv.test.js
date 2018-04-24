@@ -517,7 +517,7 @@
 			new Image()
 		);
 
-		viewer.ui.$closeButton.click();
+		viewer.ui.$closeButton.trigger( 'click' );
 
 		function eventHandler( e ) {
 			if ( e.isDefaultPrevented() ) {

@@ -391,7 +391,7 @@
 		this.$location = $( '<a>' )
 			.addClass( 'mw-mmv-location' )
 			.appendTo( this.$locationLi )
-			.click( function () { mw.mmv.actionLogger.log( 'location-page' ); } );
+			.on( 'click', function () { mw.mmv.actionLogger.log( 'location-page' ); } );
 	};
 
 	/**
@@ -404,19 +404,19 @@
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).infoLink )
 			.text( mw.message( 'multimediaviewer-about-mmv' ).text() )
 			.addClass( 'mw-mmv-about-link' )
-			.click( function () { mw.mmv.actionLogger.log( 'about-page' ); } );
+			.on( 'click', function () { mw.mmv.actionLogger.log( 'about-page' ); } );
 
 		this.$mmvDiscussLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).discussionLink )
 			.text( mw.message( 'multimediaviewer-discuss-mmv' ).text() )
 			.addClass( 'mw-mmv-discuss-link' )
-			.click( function () { mw.mmv.actionLogger.log( 'discuss-page' ); } );
+			.on( 'click', function () { mw.mmv.actionLogger.log( 'discuss-page' ); } );
 
 		this.$mmvHelpLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).helpLink )
 			.text( mw.message( 'multimediaviewer-help-mmv' ).text() )
 			.addClass( 'mw-mmv-help-link' )
-			.click( function () { mw.mmv.actionLogger.log( 'help-page' ); } );
+			.on( 'click', function () { mw.mmv.actionLogger.log( 'help-page' ); } );
 
 		this.$mmvAboutLinks = $( '<div>' )
 			.addClass( 'mw-mmv-about-links' )
