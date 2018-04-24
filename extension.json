@@ -336,8 +336,7 @@
 				"mmv/mmv.bootstrap.js",
 				"mmv/logging/mmv.logging.Logger.js",
 				"mmv/logging/mmv.logging.ActionLogger.js",
-				"mmv/logging/mmv.logging.DurationLogger.js",
-				"jquery.hashchange/jquery.hashchange.js"
+				"mmv/logging/mmv.logging.DurationLogger.js"
 			],
 			"styles": [
 				"mmv/mmv.bootstrap.less"
