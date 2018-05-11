@@ -212,17 +212,20 @@
 
 		if ( $thumbContain.length ) {
 			// If this is a thumb, we preload JS/CSS when the mouse cursor hovers the thumb container (thumb image + caption + border)
-			$thumbContain.mouseenter( function () {
-				// There is no point preloading if clicking the thumb won't open Media Viewer
-				if ( !bs.config.isMediaViewerEnabledOnClick() ) {
-					return;
-				}
-				bs.preloadOnHoverTimer = setTimeout( function () {
-					mw.loader.load( 'mmv' );
-				}, bs.hoverWaitDuration );
-			} ).mouseleave( function () {
-				if ( bs.preloadOnHoverTimer ) {
-					clearTimeout( bs.preloadOnHoverTimer );
+			$thumbContain.on( {
+				mouseenter: function () {
+					// There is no point preloading if clicking the thumb won't open Media Viewer
+					if ( !bs.config.isMediaViewerEnabledOnClick() ) {
+						return;
+					}
+					bs.preloadOnHoverTimer = setTimeout( function () {
+						mw.loader.load( 'mmv' );
+					}, bs.hoverWaitDuration );
+				},
+				mouseleave: function () {
+					if ( bs.preloadOnHoverTimer ) {
+						clearTimeout( bs.preloadOnHoverTimer );
+					}
 				}
 			} );
 		}
@@ -241,7 +244,7 @@
 			alt: alt,
 			caption: this.findCaption( $thumbContain, $link ) } );
 
-		$link.add( $enlarge ).click( function ( e ) {
+		$link.add( $enlarge ).on( 'click', function ( e ) {
 			return bs.click( this, e, title );
 		} );
 	};
@@ -293,7 +296,7 @@
 			link: link
 		} );
 
-		$link.click( function () {
+		$link.on( 'click', function () {
 			if ( bs.statusInfoDialog ) {
 				bs.statusInfoDialog.close();
 			}
@@ -301,7 +304,7 @@
 			return false;
 		} );
 
-		$configLink.click( function () {
+		$configLink.on( 'click', function () {
 			if ( bs.statusInfoDialog ) {
 				bs.statusInfoDialog.close();
 			}

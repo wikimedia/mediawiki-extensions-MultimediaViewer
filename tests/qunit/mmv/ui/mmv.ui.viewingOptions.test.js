@@ -71,7 +71,7 @@
 		assert.strictEqual( $cancelButton.length, 1, 'Cancel button created successfully.' );
 		assert.strictEqual( $cancelButton.text(), 'Cancel', 'Cancel button has correct text (if this fails, it may be due to i18n differences)' );
 
-		$submitButton.click();
+		$submitButton.trigger( 'click' );
 
 		assert.ok( !dialog.$disableConfirmation.hasClass( 'mw-mmv-shown' ), 'Disable confirmation not shown yet' );
 		assert.ok( !dialog.$dialog.hasClass( 'mw-mmv-disable-confirmation-shown' ), 'Disable confirmation not shown yet' );
@@ -124,7 +124,7 @@
 		assert.strictEqual( $cancelButton.length, 1, 'Cancel button created successfully.' );
 		assert.strictEqual( $cancelButton.text(), 'Cancel', 'Cancel button has correct text (if this fails, it may be due to i18n differences)' );
 
-		$submitButton.click();
+		$submitButton.trigger( 'click' );
 
 		assert.ok( !dialog.$enableConfirmation.hasClass( 'mw-mmv-shown' ), 'Enable confirmation not shown yet' );
 		assert.ok( !dialog.$dialog.hasClass( 'mw-mmv-enable-confirmation-shown' ), 'Enable confirmation not shown yet' );

@@ -86,7 +86,7 @@
 			.attr( 'target', '_blank' )
 			.attr( 'download', '' )
 			.addClass( 'mw-ui-button mw-ui-progressive mw-mmv-download-go-button' )
-			.click( function () {
+			.on( 'click', function () {
 				mw.mmv.actionLogger.log( 'download' );
 			} );
 
@@ -138,7 +138,7 @@
 			.addClass( 'mw-mmv-download-preview-link' )
 			.text( mw.message( 'multimediaviewer-download-preview-link-title' ).text() )
 			.appendTo( $container )
-			.click( function () {
+			.on( 'click', function () {
 				mw.mmv.actionLogger.log( 'download-view-in-browser' );
 			} );
 	};
@@ -177,7 +177,7 @@
 		this.$attributionSection = $( '<div>' )
 			.addClass( 'mw-mmv-download-attribution mw-mmv-download-attribution-collapsed' )
 			.appendTo( $container )
-			.click( function () {
+			.on( 'click', function () {
 				if ( dl.$attributionSection.hasClass( 'mw-mmv-download-attribution-collapsed' ) ) {
 					dl.$container.trigger( 'mmv-download-cta-open' );
 					dl.$attributionSection.removeClass( 'mw-mmv-download-attribution-collapsed' );
@@ -200,7 +200,7 @@
 		this.attributionInput = attributionInput;
 		this.$attributionCopy = this.$copyButton = $( '<button>' )
 			.addClass( 'mw-ui-button mw-mmv-button mw-mmv-dialog-copy' )
-			.click( function () {
+			.on( 'click', function () {
 				// Select the text, and then try to copy the text.
 				// If the copy fails or is not supported, continue as if nothing had happened.
 				dl.attributionInput.select();
@@ -234,7 +234,7 @@
 				attributionSwitch.$element,
 				$( '<p>' )
 					.addClass( 'mw-mmv-download-attribution-close-button' )
-					.click( function ( e ) {
+					.on( 'click', function ( e ) {
 						dl.$container.trigger( 'mmv-download-cta-close' );
 						dl.$attributionSection.addClass( 'mw-mmv-download-attribution-collapsed' );
 						e.stopPropagation();

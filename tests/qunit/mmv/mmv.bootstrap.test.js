@@ -528,15 +528,15 @@
 
 		this.sandbox.stub( mw.loader, 'load' );
 
-		$div.mouseenter();
+		$div.trigger( 'mouseenter' );
 		clock.tick( bootstrap.hoverWaitDuration - 50 );
-		$div.mouseleave();
+		$div.trigger( 'mouseleave' );
 
 		assert.ok( !mw.loader.load.called, 'Dependencies should not be preloaded if the thumb is not hovered long enough' );
 
-		$div.mouseenter();
+		$div.trigger( 'mouseenter' );
 		clock.tick( bootstrap.hoverWaitDuration + 50 );
-		$div.mouseleave();
+		$div.trigger( 'mouseleave' );
 
 		assert.ok( mw.loader.load.called, 'Dependencies should be preloaded if the thumb is hovered long enough' );
 

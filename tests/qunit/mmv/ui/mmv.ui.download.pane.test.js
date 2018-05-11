@@ -75,7 +75,7 @@
 		// Triggering action events before attaching should do nothing
 		download.downloadSizeMenu.getMenu().emit(
 			'choose', download.downloadSizeMenu.getMenu().findSelectedItem() );
-		download.$selectionArrow.click();
+		download.$selectionArrow.trigger( 'click' );
 
 		assert.ok( !hsstub.called, 'handleSizeSwitch not called' );
 		assert.ok( !tstub.called, 'Menu selection did not happen' );
@@ -88,7 +88,7 @@
 		// Action events should be handled now
 		download.downloadSizeMenu.getMenu().emit(
 			'choose', download.downloadSizeMenu.getMenu().findSelectedItem() );
-		download.$selectionArrow.click();
+		download.$selectionArrow.trigger( 'click' );
 
 		assert.ok( hsstub.called, 'handleSizeSwitch was called' );
 		assert.ok( tstub.called, 'Menu selection happened' );
@@ -101,7 +101,7 @@
 		// Triggering action events now that we are unattached should do nothing
 		download.downloadSizeMenu.getMenu().emit(
 			'choose', download.downloadSizeMenu.getMenu().findSelectedItem() );
-		download.$selectionArrow.click();
+		download.$selectionArrow.trigger( 'click' );
 
 		assert.ok( !hsstub.called, 'handleSizeSwitch not called' );
 		assert.ok( !tstub.called, 'Menu selection did not happen' );
