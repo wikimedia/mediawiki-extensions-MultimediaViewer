@@ -132,7 +132,7 @@
 		// trigger first click, which will cause MMV to be loaded (which we've
 		// set up to fail)
 		event = new $.Event( 'click', { button: 0, which: 1 } );
-		returnValue = bootstrap.click( {}, event, 'foo' );
+		returnValue = bootstrap.click( {}, event, mw.Title.newFromText( 'Foo' ) );
 		clock.tick( 10 );
 		assert.ok( event.isDefaultPrevented(), 'First click is caught' );
 		assert.strictEqual( returnValue, false, 'First click is caught' );
@@ -140,7 +140,7 @@
 		// wait until MMW is loaded (or failed to load, in this case) before we
 		// trigger another click - which should then not be caught
 		event = new $.Event( 'click', { button: 0, which: 1 } );
-		returnValue = bootstrap.click( {}, event, 'foo' );
+		returnValue = bootstrap.click( {}, event, mw.Title.newFromText( 'Foo' ) );
 		clock.tick( 10 );
 		assert.ok( !event.isDefaultPrevented(), 'Click after loading failure is not caught' );
 		assert.notStrictEqual( returnValue, false, 'Click after loading failure is not caught' );
