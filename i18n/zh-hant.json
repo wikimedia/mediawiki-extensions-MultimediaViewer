@@ -6,7 +6,8 @@
 			"Liangent",
 			"Cwlin0416",
 			"LNDDYL",
-			"Alexsh"
+			"Alexsh",
+			"Kly"
 		]
 	},
 	"multimediaviewer-desc": "使用全螢幕介面以較大尺寸的方式顯示展開後的縮圖。",
@@ -38,7 +39,7 @@
 	"multimediaviewer-permission-link": "檢視條款",
 	"multimediaviewer-permission-link-hide": "隱藏條款",
 	"multimediaviewer-permission-viewmore": "檢視更多",
-	"multimediaviewer-about-mmv": "關於",
+	"multimediaviewer-about-mmv": "關於此介面：",
 	"multimediaviewer-discuss-mmv": "討論",
 	"multimediaviewer-help-mmv": "說明",
 	"multimediaviewer-optout-mmv": "停用媒體檢視器",
