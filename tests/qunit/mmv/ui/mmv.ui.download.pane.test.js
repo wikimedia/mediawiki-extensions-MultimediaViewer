@@ -77,8 +77,8 @@
 			'choose', download.downloadSizeMenu.getMenu().findSelectedItem() );
 		download.$selectionArrow.trigger( 'click' );
 
-		assert.ok( !hsstub.called, 'handleSizeSwitch not called' );
-		assert.ok( !tstub.called, 'Menu selection did not happen' );
+		assert.strictEqual( hsstub.called, false, 'handleSizeSwitch not called' );
+		assert.strictEqual( tstub.called, false, 'Menu selection did not happen' );
 
 		hsstub.reset();
 		tstub.reset();
@@ -90,8 +90,8 @@
 			'choose', download.downloadSizeMenu.getMenu().findSelectedItem() );
 		download.$selectionArrow.trigger( 'click' );
 
-		assert.ok( hsstub.called, 'handleSizeSwitch was called' );
-		assert.ok( tstub.called, 'Menu selection happened' );
+		assert.strictEqual( hsstub.called, true, 'handleSizeSwitch was called' );
+		assert.strictEqual( tstub.called, true, 'Menu selection happened' );
 
 		hsstub.reset();
 		tstub.reset();
@@ -103,8 +103,8 @@
 			'choose', download.downloadSizeMenu.getMenu().findSelectedItem() );
 		download.$selectionArrow.trigger( 'click' );
 
-		assert.ok( !hsstub.called, 'handleSizeSwitch not called' );
-		assert.ok( !tstub.called, 'Menu selection did not happen' );
+		assert.strictEqual( hsstub.called, false, 'handleSizeSwitch not called' );
+		assert.strictEqual( tstub.called, false, 'Menu selection did not happen' );
 	} );
 
 	QUnit.test( 'handleSizeSwitch():', function ( assert ) {
@@ -159,6 +159,6 @@
 
 		assert.strictEqual( download.$downloadButton.attr( 'href' ), imageUrl + '?download', 'Download link is set correctly.' );
 		assert.strictEqual( download.$previewLink.attr( 'href' ), imageUrl, 'Preview link is set correctly.' );
-		assert.ok( !download.$downloadButton.hasClass( 'disabledLink' ), 'Download link is enabled.' );
+		assert.strictEqual( download.$downloadButton.hasClass( 'disabledLink' ), false, 'Download link is enabled.' );
 	} );
 }( mediaWiki, jQuery ) );

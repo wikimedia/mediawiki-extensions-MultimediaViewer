@@ -29,11 +29,11 @@
 			$anchor = $( '<div>' ).appendTo( $qf ),
 			dialog = new mw.mmv.ui.TipsyDialog( $anchor );
 
-		assert.ok( !$( '.mw-mmv-tipsy-dialog' ).length, 'dialog is not shown' );
+		assert.notOk( $( '.mw-mmv-tipsy-dialog' ).length, 'dialog is not shown' );
 		dialog.open();
 		assert.ok( $( '.mw-mmv-tipsy-dialog' ).length, 'dialog is shown' );
 		dialog.close();
-		assert.ok( !$( '.mw-mmv-tipsy-dialog' ).length, 'dialog is not shown' );
+		assert.notOk( $( '.mw-mmv-tipsy-dialog' ).length, 'dialog is not shown' );
 	} );
 
 	QUnit.test( 'setContent', function ( assert ) {
@@ -60,9 +60,9 @@
 		dialog.getPopup().trigger( 'click' );
 		assert.ok( $( '.mw-mmv-tipsy-dialog' ).length, 'dialog is not hidden when clicked' );
 		dialog.getPopup().find( '.mw-mmv-tipsy-dialog-disable' ).trigger( 'click' );
-		assert.ok( !$( '.mw-mmv-tipsy-dialog' ).length, 'dialog is hidden when close icon is clicked' );
+		assert.notOk( $( '.mw-mmv-tipsy-dialog' ).length, 'dialog is hidden when close icon is clicked' );
 		dialog.open();
 		$qf.trigger( 'click' );
-		assert.ok( !$( '.mw-mmv-tipsy-dialog' ).length, 'dialog is hidden when clicked outside' );
+		assert.notOk( $( '.mw-mmv-tipsy-dialog' ).length, 'dialog is hidden when clicked outside' );
 	} );
 }( mediaWiki, jQuery ) );

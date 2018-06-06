@@ -73,15 +73,15 @@
 
 		$submitButton.trigger( 'click' );
 
-		assert.ok( !dialog.$disableConfirmation.hasClass( 'mw-mmv-shown' ), 'Disable confirmation not shown yet' );
-		assert.ok( !dialog.$dialog.hasClass( 'mw-mmv-disable-confirmation-shown' ), 'Disable confirmation not shown yet' );
+		assert.strictEqual( dialog.$disableConfirmation.hasClass( 'mw-mmv-shown' ), false, 'Disable confirmation not shown yet' );
+		assert.strictEqual( dialog.$dialog.hasClass( 'mw-mmv-disable-confirmation-shown' ), false, 'Disable confirmation not shown yet' );
 
 		// Pretend that the async call in mmv.js succeeded
 		deferred.resolve();
 
 		// The confirmation should appear
-		assert.ok( dialog.$disableConfirmation.hasClass( 'mw-mmv-shown' ), 'Disable confirmation shown' );
-		assert.ok( dialog.$dialog.hasClass( 'mw-mmv-disable-confirmation-shown' ), 'Disable confirmation shown' );
+		assert.strictEqual( dialog.$disableConfirmation.hasClass( 'mw-mmv-shown' ), true, 'Disable confirmation shown' );
+		assert.strictEqual( dialog.$dialog.hasClass( 'mw-mmv-disable-confirmation-shown' ), true, 'Disable confirmation shown' );
 	} );
 
 	QUnit.test( 'Enable', function ( assert ) {
@@ -126,14 +126,14 @@
 
 		$submitButton.trigger( 'click' );
 
-		assert.ok( !dialog.$enableConfirmation.hasClass( 'mw-mmv-shown' ), 'Enable confirmation not shown yet' );
-		assert.ok( !dialog.$dialog.hasClass( 'mw-mmv-enable-confirmation-shown' ), 'Enable confirmation not shown yet' );
+		assert.strictEqual( dialog.$enableConfirmation.hasClass( 'mw-mmv-shown' ), false, 'Enable confirmation not shown yet' );
+		assert.strictEqual( dialog.$dialog.hasClass( 'mw-mmv-enable-confirmation-shown' ), false, 'Enable confirmation not shown yet' );
 
 		// Pretend that the async call in mmv.js succeeded
 		deferred.resolve();
 
 		// The confirmation should appear
-		assert.ok( dialog.$enableConfirmation.hasClass( 'mw-mmv-shown' ), 'Enable confirmation shown' );
-		assert.ok( dialog.$dialog.hasClass( 'mw-mmv-enable-confirmation-shown' ), 'Enable confirmation shown' );
+		assert.strictEqual( dialog.$enableConfirmation.hasClass( 'mw-mmv-shown' ), true, 'Enable confirmation shown' );
+		assert.strictEqual( dialog.$dialog.hasClass( 'mw-mmv-enable-confirmation-shown' ), true, 'Enable confirmation shown' );
 	} );
 }( mediaWiki, jQuery ) );

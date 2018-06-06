@@ -168,8 +168,8 @@
 		viewer.ui = lightbox;
 		viewer.ui = lightbox;
 
-		assert.ok( !lightbox.isFullscreen, 'Lightbox knows that it\'s not in fullscreen mode' );
-		assert.ok( lightbox.panel.$imageMetadata.is( ':visible' ), 'Image metadata is visible' );
+		assert.strictEqual( lightbox.isFullscreen, false, 'Lightbox knows that it\'s not in fullscreen mode' );
+		assert.strictEqual( lightbox.panel.$imageMetadata.is( ':visible' ), true, 'Image metadata is visible' );
 
 		lightbox.buttons.fadeOut = function () {
 			assert.ok( true, 'Opening fullscreen triggers a fadeout' );
@@ -214,7 +214,7 @@
 		panelBottom = $( '.mw-mmv-post-image' ).position().top + $( '.mw-mmv-post-image' ).height();
 
 		assert.ok( panelBottom > $( window ).height(), 'Image metadata extends beyond the viewport' );
-		assert.ok( !lightbox.isFullscreen, 'Lightbox knows that it\'s not in fullscreen mode' );
+		assert.strictEqual( lightbox.isFullscreen, false, 'Lightbox knows that it\'s not in fullscreen mode' );
 
 		// Unattach lightbox from document
 		lightbox.unattach();

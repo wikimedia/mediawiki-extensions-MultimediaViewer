@@ -109,6 +109,21 @@
 		 * @property {mw.mmv.logging.ViewLogger} view -
 		 */
 		this.viewLogger = new mw.mmv.logging.ViewLogger( this.config, window, mw.mmv.actionLogger );
+
+		/**
+		 * Stores whether the real image was loaded and displayed already.
+		 * This is reset when paging, so it is not necessarily accurate.
+		 * @property {boolean}
+		 */
+		this.realThumbnailShown = false;
+
+		/**
+		 * Stores whether the a blurred placeholder is being displayed in place of the real image.
+		 * When a placeholder is displayed, but it is not blurred, this is false.
+		 * This is reset when paging, so it is not necessarily accurate.
+		 * @property {boolean}
+		 */
+		this.blurredThumbnailShown = false;
 	}
 
 	MMVP = MultimediaViewer.prototype;
@@ -411,19 +426,7 @@
 	 * Resets the cross-request states needed to handle the blurred thumbnail logic.
 	 */
 	MMVP.resetBlurredThumbnailStates = function () {
-		/**
-		 * Stores whether the real image was loaded and displayed already.
-		 * This is reset when paging, so it is not necessarily accurate.
-		 * @property {boolean}
-		 */
 		this.realThumbnailShown = false;
-
-		/**
-		 * Stores whether the a blurred placeholder is being displayed in place of the real image.
-		 * When a placeholder is displayed, but it is not blurred, this is false.
-		 * This is reset when paging, so it is not necessarily accurate.
-		 * @property {boolean}
-		 */
 		this.blurredThumbnailShown = false;
 	};
 
