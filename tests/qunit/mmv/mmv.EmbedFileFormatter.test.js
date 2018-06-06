@@ -71,8 +71,8 @@
 			siteUrl = repoInfo.getSiteLink(),
 			siteLink = formatter.getSiteLink( info );
 
-		assert.ok( siteLink.match( 'Wikipedia' ), 'Site name is present in site link' );
-		assert.ok( siteLink.indexOf( siteUrl ) !== -1, 'Site URL is present in site link' );
+		assert.strictEqual( siteLink.indexOf( 'Wikipedia' ) !== -1, true, 'Site name is present in site link' );
+		assert.strictEqual( siteLink.indexOf( siteUrl ) !== -1, true, 'Site URL is present in site link' );
 	} );
 
 	QUnit.test( 'getThumbnailHtml():', function ( assert ) {

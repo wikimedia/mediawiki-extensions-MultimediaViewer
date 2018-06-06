@@ -148,8 +148,8 @@
 		clock.restore();
 	} );
 
-	/* FIXME: Tests suspended as they do not pass in QUnit 2.x+ – T192932
-	QUnit.test( 'Check viewer invoked when clicking on valid image links', function ( assert ) {
+	// FIXME: Tests suspended as they do not pass in QUnit 2.x+ – T192932
+	QUnit.skip( 'Check viewer invoked when clicking on valid image links', function ( assert ) {
 		// TODO: Is <div class="gallery"><span class="image"><img/></span></div> valid ???
 		var div, link, link2, link3, link4, link5, bootstrap,
 			viewer = { initWithThumbs: $.noop, loadImageByTitle: this.sandbox.stub() },
@@ -239,7 +239,6 @@
 
 		clock.restore();
 	} );
-	*/
 
 	QUnit.test( 'Skip images with invalid extensions', function ( assert ) {
 		var div, link,
@@ -262,8 +261,8 @@
 		clock.restore();
 	} );
 
-	/* FIXME: Tests suspended as they do not pass in QUnit 2.x+ – T192932
-	QUnit.test( 'Accept only left clicks without modifier keys, skip the rest', function ( assert ) {
+	// FIXME: Tests suspended as they do not pass in QUnit 2.x+ – T192932
+	QUnit.skip( 'Accept only left clicks without modifier keys, skip the rest', function ( assert ) {
 		var $div, $link, bootstrap,
 			viewer = { initWithThumbs: $.noop, loadImageByTitle: this.sandbox.stub() },
 			clock = this.sandbox.useFakeTimers();
@@ -301,7 +300,6 @@
 
 		clock.restore();
 	} );
-	*/
 
 	QUnit.test( 'Ensure that the correct title is loaded when clicking', function ( assert ) {
 		var bootstrap,
@@ -322,8 +320,8 @@
 		clock.restore();
 	} );
 
-	/* FIXME: Tests suspended as they do not pass in QUnit 2.x+ – T192932
-	QUnit.test( 'Validate new LightboxImage object has sane constructor parameters', function ( assert ) {
+	// FIXME: Tests suspended as they do not pass in QUnit 2.x+ – T192932
+	QUnit.skip( 'Validate new LightboxImage object has sane constructor parameters', function ( assert ) {
 		var bootstrap,
 			$div,
 			$link,
@@ -361,7 +359,6 @@
 
 		clock.reset();
 	} );
-	*/
 
 	QUnit.test( 'Only load the viewer on a valid hash (modern browsers)', function ( assert ) {
 		var bootstrap;
@@ -451,7 +448,7 @@
 		bootstrap.internalHashChange( { hash: hash } );
 		clock.tick( 10 );
 
-		assert.ok( callCount === 0, 'Viewer should not be loaded' );
+		assert.strictEqual( callCount, 0, 'Viewer should not be loaded' );
 		assert.strictEqual( window.location.hash, hash, 'Window\'s hash has been updated correctly' );
 
 		bootstrap.cleanupEventHandlers();
@@ -477,7 +474,7 @@
 		bootstrap.internalHashChange( { hash: hash } );
 		clock.tick( 10 );
 
-		assert.ok( callCount === 0, 'Viewer should not be loaded' );
+		assert.strictEqual( callCount, 0, 'Viewer should not be loaded' );
 		assert.strictEqual( window.location.hash, hash, 'Window\'s hash has been updated correctly' );
 
 		bootstrap.cleanupEventHandlers();

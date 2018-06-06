@@ -77,7 +77,7 @@
 		clock.restore();
 	} );
 
-	QUnit.test( 'Fullscreen mode', function ( assert ) {
+	QUnit.test( 'Fullscreen mode init', function ( assert ) {
 		var lightbox = new mw.mmv.LightboxInterface(),
 			oldFnEnterFullscreen = $.fn.enterFullscreen,
 			oldFnExitFullscreen = $.fn.exitFullscreen,
@@ -200,7 +200,7 @@
 
 		panelBottom = $( '.mw-mmv-post-image' ).position().top + $( '.mw-mmv-post-image' ).height();
 
-		assert.ok( panelBottom === $( window ).height(), 'Image metadata does not extend beyond the viewport' );
+		assert.strictEqual( panelBottom, $( window ).height(), 'Image metadata does not extend beyond the viewport' );
 
 		lightbox.buttons.revealAndFade = function ( position ) {
 			assert.ok( true, 'Closing fullscreen triggers a reveal + fade' );

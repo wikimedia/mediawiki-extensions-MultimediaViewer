@@ -263,7 +263,7 @@
 		// progress on inactive image
 		firstImageDeferred.notify( 'response', 40 );
 		clock.tick( 10 );
-		assert.ok( viewer.ui.panel.progressBar.animateTo.callCount === 4,
+		assert.strictEqual( viewer.ui.panel.progressBar.animateTo.callCount, 4,
 			'Percentage not animated when inactive image is loading' );
 
 		// progress on active image

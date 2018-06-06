@@ -241,10 +241,10 @@
 			imageDeleted = $.extend( { deletionReason: 'deleted file test' }, image );
 
 		// Test that the lack of license is picked up
-		assert.equal( 1, reuseDialog.getImageWarnings( image ).length, 'Lack of license detected' );
+		assert.strictEqual( reuseDialog.getImageWarnings( image ).length, 1, 'Lack of license detected' );
 
 		// Test that deletion supersedes other warnings and only that one is reported
-		assert.equal( 1, reuseDialog.getImageWarnings( imageDeleted ).length, 'Deletion detected' );
+		assert.strictEqual( reuseDialog.getImageWarnings( imageDeleted ).length, 1, 'Deletion detected' );
 	} );
 
 }( mediaWiki, jQuery ) );
