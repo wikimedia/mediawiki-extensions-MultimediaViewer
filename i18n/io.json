@@ -6,6 +6,7 @@
 	},
 	"multimediaviewer-optin-pref": "Permisar <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
 	"multimediaviewer-repository-local": "Plusa detali",
+	"multimediaviewer-datetime-uploaded": "Sendita: $1",
 	"multimediaviewer-permission-link": "Montrez kondicioni",
 	"multimediaviewer-permission-viewmore": "Montrez pluse",
 	"multimediaviewer-optout-mmv": "Klozar ''Media Viewer''",

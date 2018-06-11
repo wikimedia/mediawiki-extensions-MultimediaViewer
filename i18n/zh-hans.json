@@ -15,7 +15,8 @@
 			"Papapasan",
 			"Linforest",
 			"Hydra",
-			"飞舞回堂前"
+			"飞舞回堂前",
+			"WhitePhosphorus"
 		]
 	},
 	"multimediaviewer-desc": "在全屏界面中以较大尺寸显示缩略图。",
@@ -131,7 +132,7 @@
 	"multimediaviewer-credit-popup-text-more": "显示完整的作者和来源",
 	"multimediaviewer-download-attribution-cta-header": "您需要为作者署名",
 	"multimediaviewer-download-optional-attribution-cta-header": "您可以为作者署名",
-	"multimediaviewer-download-attribution-cta": "告诉我如何",
+	"multimediaviewer-download-attribution-cta": "告诉我怎么做",
 	"multimediaviewer-download-attribution-copy": "选择并复制（如果支持）此文件的署名文本",
 	"multimediaviewer-reuse-warning-deletion": "文件被标记提删。",
 	"multimediaviewer-reuse-warning-nonfree": "文件没有自由许可协议。",
