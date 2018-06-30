@@ -8,7 +8,7 @@
 			"BadDog"
 		]
 	},
-	"multimediaviewer-optin-pref": "Омогући <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About прегледач датотека]</span>",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Прегледач датотека]</span>",
 	"multimediaviewer-file-page": "Иди на одговарајућу страницу датотеке",
 	"multimediaviewer-repository-local": "Више детаља",
 	"multimediaviewer-datetime-created": "Направљено: $1",
