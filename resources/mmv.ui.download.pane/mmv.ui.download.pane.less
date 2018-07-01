@@ -1,5 +1,5 @@
 @import 'mediawiki.ui/variables';
-@import '../mmv.mixins';
+@import '../mmv/mmv.mixins';
 
 @pane-padding: 10px;
 @attribution-color: #f8f9fa;
@@ -32,7 +32,7 @@
 		/* Selection size arrow element */
 		.mw-mmv-download-select-menu {
 			.unselectable();
-			background-image: /* @embed */ url( ../img/down.svg );
+			background-image: /* @embed */ url( img/down.svg );
 			background-position: center center;
 			background-repeat: no-repeat;
 			min-width: 10px;
@@ -132,7 +132,7 @@
 				width: 12px;
 				height: 12px;
 				/* @embed */
-				background-image: url( img/x_gray.svg );
+				background-image: url( ../mmv/ui/img/x_gray.svg );
 			}
 		}
 
@@ -158,7 +158,7 @@
 			padding-left: @attribution-logo-size + 10px;
 
 			/* @embed */
-			background-image: url( img/user-ltr.svg );
+			background-image: url( ../mmv/ui/img/user-ltr.svg );
 			background-repeat: no-repeat;
 			background-size: @attribution-logo-size;
 			background-position: left center;
