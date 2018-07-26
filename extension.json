@@ -383,10 +383,14 @@
 		"localBasePath": "resources",
 		"remoteExtPath": "MultimediaViewer/resources"
 	},
+	"EventLoggingSchemas": {
+		"MediaViewer": 10867062,
+		"MultimediaViewerNetworkPerformance": 15573630,
+		"MultimediaViewerDuration": 10427980,
+		"MultimediaViewerAttribution": 9758179,
+		"MultimediaViewerDimensions": 10014238
+	},
 	"Hooks": {
-		"EventLoggingRegisterSchemas": [
-			"MultimediaViewerHooks::onEventLoggingRegisterSchemas"
-		],
 		"UserGetDefaultOptions": [
 			"MultimediaViewerHooks::onUserGetDefaultOptions"
 		],
