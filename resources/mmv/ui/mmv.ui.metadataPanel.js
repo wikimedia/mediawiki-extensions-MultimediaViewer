@@ -685,8 +685,7 @@
 	 */
 	MPP.setLocationData = function ( imageData ) {
 		var latsec, latitude, latmsg, latdeg, latremain, latmin,
-			longsec, longitude, longmsg, longdeg, longremain, longmin,
-			language;
+			longsec, longitude, longmsg, longdeg, longremain, longmin;
 
 		if ( !imageData.hasCoords() ) {
 			return;
@@ -733,18 +732,13 @@
 			).text()
 		);
 
-		$.each( mw.language.data, function ( key ) {
-			language = key;
-			return false;
-		} );
-
 		this.$location.prop( 'href', (
 			'//tools.wmflabs.org/geohack/geohack.php?pagename=' +
 			'File:' + imageData.title.getMain() +
 			'&params=' +
 			Math.abs( imageData.latitude ) + ( imageData.latitude >= 0 ? '_N_' : '_S_' ) +
 			Math.abs( imageData.longitude ) + ( imageData.longitude >= 0 ? '_E_' : '_W_' ) +
-			'&language=' + language
+			'&language=' + encodeURIComponent( mw.config.get( 'wgUserLanguage' ) )
 		) );
 
 		this.$locationLi.removeClass( 'empty' );
