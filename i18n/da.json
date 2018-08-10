@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Christian List"
+			"Christian List",
+			"Saederup92"
 		]
 	},
 	"multimediaviewer-desc": "Udvid miniaturebilleder i en større størrelse på en fuld skærm.",
@@ -9,12 +10,28 @@
 	"multimediaviewer-pref-desc": "Med dette nye værktøj kan du forbedre din multimedieoplevelse. Det viser billeder i større størrelse på sider, der har miniaturer. Billederne er vist i et pænere fuldskærmsformat, og kan også ses i fuld størrelse.",
 	"multimediaviewer-file-page": "Gå til tilsvarende filside",
 	"multimediaviewer-repository-local": "Lær mere",
-	"multimediaviewer-datetime-created": "Oprettet den $1",
-	"multimediaviewer-datetime-uploaded": "Uploadet den $1",
+	"multimediaviewer-datetime-created": "Oprettet: $1",
+	"multimediaviewer-datetime-uploaded": "Uploadet: $1",
+	"multimediaviewer-multiple-authors-combine": "$1 og $2",
 	"multimediaviewer-license-cc-pd": "Offentlig ejendom",
 	"multimediaviewer-license-default": "Se licens",
+	"multimediaviewer-permission-viewmore": "Vis mere",
 	"multimediaviewer-about-mmv": "Om Medieviser",
 	"multimediaviewer-discuss-mmv": "Giv feedback",
+	"multimediaviewer-help-mmv": "Hjælp",
 	"multimediaviewer-geolocation": "Sted: $1",
-	"multimediaviewer-reuse-link": "Brug denne fil"
+	"multimediaviewer-reuse-link": "Brug eller indlejre denne fil",
+	"multimediaviewer-reuse-loading-placeholder": "Indlæser...",
+	"multimediaviewer-share-tab": "Del",
+	"multimediaviewer-text-embed-credit-text-bl": "Af $1, $2, $3",
+	"multimediaviewer-text-embed-credit-text-b": "Af $1, $2",
+	"multimediaviewer-html-embed-credit-text-bl": "Af $1, $2, $3",
+	"multimediaviewer-html-embed-credit-text-b": "Af $1, $2",
+	"multimediaviewer-embed-byline": "Af $1",
+	"multimediaviewer-large-embed-dimensions": "Stor $1",
+	"multimediaviewer-medium-embed-dimensions": "Mellem $1",
+	"multimediaviewer-small-embed-dimensions": "Lille $1",
+	"multimediaviewer-title-popup-text": "Beskrivelse",
+	"multimediaviewer-download-attribution-cta": "Vis mig hvordan",
+	"multimediaviewer-options-learn-more": "Lær mere"
 }
