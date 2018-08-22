@@ -14,7 +14,7 @@
 	"multimediaviewer-datetime-created": "Направљено: $1",
 	"multimediaviewer-datetime-uploaded": "Послато: $1",
 	"multimediaviewer-credit-fallback": "Погледај информације о аутору",
-	"multimediaviewer-thumbnail-error": "Жао нам је, датотеку није могуће приказати",
+	"multimediaviewer-thumbnail-error": "Нажалост, не могу да прикажем датотеку",
 	"multimediaviewer-thumbnail-error-description": "Изгледа да постоји технички проблем. Можете $1 или $3 ако се настави. Грешка: $2",
 	"multimediaviewer-thumbnail-error-retry": "пробати опет",
 	"multimediaviewer-thumbnail-error-report": "пријавити проблем",

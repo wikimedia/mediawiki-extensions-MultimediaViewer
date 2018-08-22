@@ -11,7 +11,8 @@
 			"Jduranboger",
 			"Macofe",
 			"Themasterriot",
-			"Dgstranz"
+			"Dgstranz",
+			"Tiberius1701"
 		]
 	},
 	"multimediaviewer-desc": "Expande las miniaturas a un tamaño mayor en una vista de pantalla completa.",
@@ -131,7 +132,7 @@
 	"multimediaviewer-enable-submit-button": "Activar el visor multimedia",
 	"multimediaviewer-enable-confirmation-header": "Has activado el visor multimedia para todos los archivos",
 	"multimediaviewer-enable-confirmation-text": "La próxima vez que hagas clic sobre una miniatura en $1, se usará el visor multimedia.",
-	"multimediaviewer-enable-alert": "Se ha desactivo el visor multimedia",
+	"multimediaviewer-enable-alert": "Se ha desactivado el visor multimedia",
 	"multimediaviewer-disable-info-title": "Has desactivado el visor multimedia",
 	"multimediaviewer-disable-info": "Aún puede ver archivos individuales con el Visor Multimedia.",
 	"multimediaviewer-errorreport-privacywarning": "El informe contiene detalles del error que serán visibles públicamente. Si ello no te inspira confianza, puedes modificar el informe para quitarle cualquier dato que no quieras compartir."
