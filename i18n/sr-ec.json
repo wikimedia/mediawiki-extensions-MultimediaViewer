@@ -5,7 +5,8 @@
 			"Сербијана",
 			"Obsuser",
 			"Acamicamacaraca",
-			"BadDog"
+			"BadDog",
+			"Zoranzoki21"
 		]
 	},
 	"multimediaviewer-optin-pref": "Омогући <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About приказивач медија]</span>",
@@ -15,8 +16,8 @@
 	"multimediaviewer-datetime-uploaded": "Послато: $1",
 	"multimediaviewer-credit-fallback": "Погледај информације о аутору",
 	"multimediaviewer-thumbnail-error": "Нажалост, не могу да прикажем датотеку",
-	"multimediaviewer-thumbnail-error-description": "Изгледа да постоји технички проблем. Можете $1 или $3 ако се настави. Грешка: $2",
-	"multimediaviewer-thumbnail-error-retry": "пробати опет",
+	"multimediaviewer-thumbnail-error-description": "Изгледа да постоји технички проблем. $1 ако се настави. Грешка: $2",
+	"multimediaviewer-thumbnail-error-retry": "Покушајте поново",
 	"multimediaviewer-thumbnail-error-report": "пријавити проблем",
 	"multimediaviewer-license-cc-pd": "Јавно власништво",
 	"multimediaviewer-license-pd": "Јавно власништво",
@@ -31,7 +32,7 @@
 	"multimediaviewer-restriction-trademarked": "Ова слика можда садржи регистровани заштитни знак.",
 	"multimediaviewer-restriction-default": "Ова слика можда подлеже неким другим ограничењима независно од статуса ауторских права. Погледајте страницу датотеке за више информација.",
 	"multimediaviewer-restriction-default-and-others": "Ова слика можда подлеже неким другим ограничењима независно од статуса ауторских права. Погледајте страницу датотеке за више информација.",
-	"multimediaviewer-about-mmv": "О",
+	"multimediaviewer-about-mmv": "О овом интерфејсу",
 	"multimediaviewer-discuss-mmv": "Расправа",
 	"multimediaviewer-help-mmv": "Помоћ",
 	"multimediaviewer-optout-mmv": "Онемогући Media Viewer",
