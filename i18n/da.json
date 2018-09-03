@@ -28,10 +28,12 @@
 	"multimediaviewer-html-embed-credit-text-bl": "Af $1, $2, $3",
 	"multimediaviewer-html-embed-credit-text-b": "Af $1, $2",
 	"multimediaviewer-embed-byline": "Af $1",
+	"multimediaviewer-embed-via": "Via $1.",
 	"multimediaviewer-large-embed-dimensions": "Stor $1",
 	"multimediaviewer-medium-embed-dimensions": "Mellem $1",
 	"multimediaviewer-small-embed-dimensions": "Lille $1",
 	"multimediaviewer-title-popup-text": "Beskrivelse",
 	"multimediaviewer-download-attribution-cta": "Vis mig hvordan",
-	"multimediaviewer-options-learn-more": "Lær mere"
+	"multimediaviewer-options-learn-more": "Lær mere",
+	"multimediaviewer-option-cancel-button": "Annullér"
 }
