@@ -403,11 +403,12 @@
 
 		this.comingFromHashChange = !updateHash;
 
-		$.each( this.thumbs, function ( idx, thumb ) {
+		this.thumbs.find( function ( thumb ) {
 			if ( thumb.title.getPrefixedText() === title.getPrefixedText() ) {
 				viewer.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ], true );
-				return false;
+				return true;
 			}
+			return false;
 		} );
 	};
 
