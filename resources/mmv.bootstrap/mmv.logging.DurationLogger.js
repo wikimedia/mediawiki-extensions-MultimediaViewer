@@ -66,7 +66,7 @@
 			throw new Error( 'Must specify type' );
 		}
 
-		if ( !$.isArray( typeOrTypes ) ) {
+		if ( !Array.isArray( typeOrTypes ) ) {
 			typeOrTypes = [ typeOrTypes ];
 		}
 
