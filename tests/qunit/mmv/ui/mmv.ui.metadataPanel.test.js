@@ -22,8 +22,6 @@
 
 		panel.empty();
 
-		assert.expect( thingsShouldBeEmptied.length + thingsShouldHaveEmptyClass.length );
-
 		for ( i = 0; i < thingsShouldBeEmptied.length; i++ ) {
 			assert.strictEqual( panel[ thingsShouldBeEmptied[ i ] ].text(), '', 'We successfully emptied the ' + thingsShouldBeEmptied[ i ] + ' element' );
 		}
