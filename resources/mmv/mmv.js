@@ -395,7 +395,7 @@
 	 * @param {boolean} updateHash Viewer should update the location hash when true
 	 */
 	MMVP.loadImageByTitle = function ( title, updateHash ) {
-		var viewer = this;
+		var i, thumb;
 
 		if ( !this.thumbs || !this.thumbs.length ) {
 			return;
@@ -403,13 +403,13 @@
 
 		this.comingFromHashChange = !updateHash;
 
-		this.thumbs.find( function ( thumb ) {
+		for ( i = 0; i < this.thumbs.length; i++ ) {
+			thumb = this.thumbs[ i ];
 			if ( thumb.title.getPrefixedText() === title.getPrefixedText() ) {
-				viewer.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ], true );
-				return true;
+				this.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ], true );
+				return;
 			}
-			return false;
-		} );
+		}
 	};
 
 	/**
