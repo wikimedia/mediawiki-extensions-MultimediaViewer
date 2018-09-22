@@ -103,6 +103,7 @@
 	"multimediaviewer-download-attribution-cta-header": "Вам нужно указать автора",
 	"multimediaviewer-download-optional-attribution-cta-header": "Вам нужно указать автора",
 	"multimediaviewer-download-attribution-cta": "Показать мне, как",
+	"multimediaviewer-reuse-warning-nonfree": "У этого файла не свободная лицензия.",
 	"multimediaviewer-attr-plain": "Простой",
 	"multimediaviewer-options-tooltip": "Включение или отключение «Просмотрщика медиафайлов»",
 	"multimediaviewer-options-dialog-header": "Отключить «Просмотрщик медиафайлов»?",
