@@ -108,7 +108,6 @@
 				"mediawiki.storage",
 				"oojs",
 				"jquery.fullscreen",
-				"jquery.hidpi",
 				"jquery.throttle-debounce",
 				"jquery.color",
 				"jquery.tipsy",
