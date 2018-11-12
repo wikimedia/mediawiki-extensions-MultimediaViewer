@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	var EP,
 		cachedRTL;
 
@@ -28,7 +28,7 @@
 	 * @param {jQuery} $container
 	 */
 	function Element( $container ) {
-		oo.EventEmitter.call( this );
+		OO.EventEmitter.call( this );
 
 		/** @property {jQuery} $container The element that contains the UI element. */
 		this.$container = $container;
@@ -51,7 +51,7 @@
 		this.timers = {};
 	}
 
-	oo.mixinClass( Element, oo.EventEmitter );
+	OO.mixinClass( Element, OO.EventEmitter );
 
 	EP = Element.prototype;
 
@@ -265,4 +265,4 @@
 	mw.mmv.ui = {};
 	mw.mmv.ui.reuse = {};
 	mw.mmv.ui.Element = Element;
-}( mediaWiki, jQuery, OO ) );
+}() );

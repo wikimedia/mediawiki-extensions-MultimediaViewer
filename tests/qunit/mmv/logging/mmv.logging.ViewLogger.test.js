@@ -1,4 +1,4 @@
-( function ( mw, $ ) {
+( function () {
 	QUnit.module( 'mmv.logging.ViewLogger', QUnit.newMwEnvironment( {
 		setup: function () {
 			this.clock = this.sandbox.useFakeTimers();
@@ -84,4 +84,4 @@
 
 		assert.strictEqual( viewLogger.viewDuration, 3, 'Only last timeframe was logged' );
 	} );
-}( mediaWiki, jQuery ) );
+}() );

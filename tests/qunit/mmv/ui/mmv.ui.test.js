@@ -1,4 +1,4 @@
-( function ( mw, $ ) {
+( function () {
 	QUnit.module( 'mmv.ui', QUnit.newMwEnvironment( {
 		setup: function () {
 			this.clock = this.sandbox.useFakeTimers();
@@ -106,4 +106,4 @@
 
 		assert.strictEqual( element.correctEW( 'e' ), 'e', 'no flipping in LTR documents' );
 	} );
-}( mediaWiki, jQuery ) );
+}() );

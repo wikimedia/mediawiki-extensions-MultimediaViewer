@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	var LIP;
 
 	/**
@@ -46,7 +46,7 @@
 		this.init();
 		mw.mmv.ui.Element.call( this, this.$wrapper );
 	}
-	oo.inheritClass( LightboxInterface, mw.mmv.ui.Element );
+	OO.inheritClass( LightboxInterface, mw.mmv.ui.Element );
 	LIP = LightboxInterface.prototype;
 
 	/**
@@ -506,4 +506,4 @@
 	};
 
 	mw.mmv.LightboxInterface = LightboxInterface;
-}( mediaWiki, jQuery, OO ) );
+}() );

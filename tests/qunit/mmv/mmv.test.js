@@ -1,4 +1,4 @@
-( function ( mw, $ ) {
+( function () {
 	QUnit.module( 'mmv', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'eachPrealoadableLightboxIndex()', function ( assert ) {
@@ -703,4 +703,4 @@
 
 		assert.strictEqual( document.title, oldDocumentTitle, 'Original title restored after viewer is closed' );
 	} );
-}( mediaWiki, jQuery ) );
+}() );

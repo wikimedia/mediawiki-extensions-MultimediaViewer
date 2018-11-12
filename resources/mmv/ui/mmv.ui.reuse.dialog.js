@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	// Shortcut for prototype later
 	var DP;
 
@@ -48,19 +48,19 @@
 		this.eventPrefix = 'use-this-file';
 	}
 
-	oo.inheritClass( Dialog, mw.mmv.ui.Dialog );
+	OO.inheritClass( Dialog, mw.mmv.ui.Dialog );
 	DP = Dialog.prototype;
 
 	// FIXME this should happen outside the dialog and the tabs, but we need to improve
 	DP.initTabs = function () {
 		function makeTab( type ) {
-			return new oo.ui.MenuOptionWidget( {
+			return new OO.ui.MenuOptionWidget( {
 				data: type,
 				label: mw.message( 'multimediaviewer-' + type + '-tab' ).text()
 			} );
 		}
 
-		this.reuseTabs = new oo.ui.MenuSelectWidget( {
+		this.reuseTabs = new OO.ui.MenuSelectWidget( {
 			autoHide: false,
 			classes: [ 'mw-mmv-reuse-tabs' ]
 		} );
@@ -261,4 +261,4 @@
 	};
 
 	mw.mmv.ui.reuse.Dialog = Dialog;
-}( mediaWiki, jQuery, OO ) );
+}() );

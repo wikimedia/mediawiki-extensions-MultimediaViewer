@@ -1,4 +1,4 @@
-( function ( mw, $ ) {
+( function () {
 	QUnit.module( 'mmv.logging.ActionLogger', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'log()', function ( assert ) {
@@ -45,4 +45,4 @@
 
 		clock.restore();
 	} );
-}( mediaWiki, jQuery ) );
+}() );

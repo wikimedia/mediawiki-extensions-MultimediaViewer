@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function () {
 	QUnit.module( 'mmv.provider.Image', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Image constructor sanity check', function ( assert ) {
@@ -197,4 +197,4 @@
 
 		imageProvider.get( 'http://www.wikipedia.org/' );
 	} );
-}( mediaWiki, jQuery ) );
+}() );

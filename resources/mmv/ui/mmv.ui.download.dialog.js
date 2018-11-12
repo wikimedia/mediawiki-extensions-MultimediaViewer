@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	// Shortcut for prototype later
 	var DP;
 
@@ -38,7 +38,7 @@
 		this.eventPrefix = 'download';
 	}
 
-	oo.inheritClass( Dialog, mw.mmv.ui.Dialog );
+	OO.inheritClass( Dialog, mw.mmv.ui.Dialog );
 	DP = Dialog.prototype;
 
 	/**
@@ -125,4 +125,4 @@
 	};
 
 	mw.mmv.ui.download.Dialog = Dialog;
-}( mediaWiki, jQuery, OO ) );
+}() );

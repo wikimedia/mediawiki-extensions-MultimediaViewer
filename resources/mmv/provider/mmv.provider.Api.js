@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function () {
 	/**
 	 * Base class for API-based data providers.
 	 *
@@ -196,4 +196,4 @@
 
 	mw.mmv.provider = {};
 	mw.mmv.provider.Api = Api;
-}( mediaWiki, jQuery ) );
+}() );

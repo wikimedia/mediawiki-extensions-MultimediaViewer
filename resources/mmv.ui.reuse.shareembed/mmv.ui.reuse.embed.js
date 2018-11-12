@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	// Shortcut for prototype later
 	var EP;
 
@@ -97,7 +97,7 @@
 		 */
 		this.currentDefaultItem = mw.user.isAnon() ? this.defaultHtmlItem : this.defaultWikitextItem;
 	}
-	oo.inheritClass( Embed, mw.mmv.ui.reuse.Tab );
+	OO.inheritClass( Embed, mw.mmv.ui.reuse.Tab );
 	EP = Embed.prototype;
 
 	/** @property {number} Width threshold at which an image is to be considered "large" */
@@ -117,7 +117,7 @@
 
 		( mw.user.isAnon() ? htmlClasses : wikitextClasses ).push( 'active' );
 
-		this.embedTextHtml = new oo.ui.MultilineTextInputWidget( {
+		this.embedTextHtml = new OO.ui.MultilineTextInputWidget( {
 			classes: htmlClasses,
 			readOnly: true
 		} );
@@ -129,7 +129,7 @@
 			mw.mmv.actionLogger.log( 'embed-html-copied' );
 		} );
 
-		this.embedTextWikitext = new oo.ui.MultilineTextInputWidget( {
+		this.embedTextWikitext = new OO.ui.MultilineTextInputWidget( {
 			classes: wikitextClasses,
 			readOnly: true
 		} );
@@ -183,15 +183,15 @@
 		var wikitextButtonOption,
 			htmlButtonOption;
 
-		this.embedSwitch = new oo.ui.ButtonSelectWidget( {
+		this.embedSwitch = new OO.ui.ButtonSelectWidget( {
 			classes: [ 'mw-mmv-embed-select' ]
 		} );
 
-		wikitextButtonOption = new oo.ui.ButtonOptionWidget( {
+		wikitextButtonOption = new OO.ui.ButtonOptionWidget( {
 			data: 'wikitext',
 			label: mw.message( 'multimediaviewer-embed-wt' ).text()
 		} );
-		htmlButtonOption = new oo.ui.ButtonOptionWidget( {
+		htmlButtonOption = new OO.ui.ButtonOptionWidget( {
 			data: 'html',
 			label: mw.message( 'multimediaviewer-embed-html' ).text()
 		} );
@@ -539,4 +539,4 @@
 	};
 
 	mw.mmv.ui.reuse.Embed = Embed;
-}( mediaWiki, jQuery, OO ) );
+}() );

@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw ) {
+( function () {
 	/**
 	 * Contains information needed to embed and share files.
 	 *
@@ -50,4 +50,4 @@
 	}
 
 	mw.mmv.model.EmbedFileInfo = EmbedFileInfo;
-}( mediaWiki ) );
+}() );

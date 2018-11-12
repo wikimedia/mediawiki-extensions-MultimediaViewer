@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function () {
 	var EFFP;
 
 	/**
@@ -248,4 +248,4 @@
 	};
 
 	mw.mmv.EmbedFileFormatter = EmbedFileFormatter;
-}( mediaWiki, jQuery ) );
+}() );

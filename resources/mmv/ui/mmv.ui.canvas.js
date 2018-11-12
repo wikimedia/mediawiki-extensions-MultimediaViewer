@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	var C;
 
 	/**
@@ -75,7 +75,7 @@
 		 */
 		this.imageRawMetadata = null;
 	}
-	oo.inheritClass( Canvas, mw.mmv.ui.Element );
+	OO.inheritClass( Canvas, mw.mmv.ui.Element );
 	C = Canvas.prototype;
 
 	/**
@@ -464,4 +464,4 @@
 	};
 
 	mw.mmv.ui.Canvas = Canvas;
-}( mediaWiki, jQuery, OO ) );
+}() );

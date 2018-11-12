@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function () {
 	QUnit.module( 'mmv.ui.metadataPanelScroller', QUnit.newMwEnvironment( {
 		setup: function () {
 			this.clock = this.sandbox.useFakeTimers();
@@ -229,4 +229,4 @@
 		assert.strictEqual( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-close' ), true, 'Closing keypress logged' );
 		mw.mmv.actionLogger.log.reset();
 	} );
-}( mediaWiki, jQuery ) );
+}() );

@@ -1,4 +1,4 @@
-( function ( mw, $ ) {
+( function () {
 	var oldScrollTo;
 
 	function stubScrollTo() {
@@ -303,4 +303,4 @@
 
 		viewer.cleanupEventHandlers();
 	} );
-}( mediaWiki, jQuery ) );
+}() );
