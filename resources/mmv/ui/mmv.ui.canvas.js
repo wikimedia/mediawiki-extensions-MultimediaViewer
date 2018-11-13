@@ -121,7 +121,13 @@
 		if ($(this.imageRawMetadata.annotationlayer).length > 0) {
 			this.annotationlayer = $(this.imageRawMetadata.annotationlayer).clone() ;
 		} else {
-			this.annotationlayer = false;
+			// if not found, try to find it if it has been created since :
+			var annotationElement = this.imageRawMetadata.thumbnail.nextElementSibling;
+			if (annotationElement && annotationElement.className == 'annotationlayer') {
+				this.annotationlayer = $(annotationElement).clone();
+			} else {
+				this.annotationlayer = false;
+			}
 		}
 
 		this.$imageDiv.html( this.$image );
