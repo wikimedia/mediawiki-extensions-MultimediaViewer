@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function () {
 	var VL;
 
 	/**
@@ -175,4 +175,4 @@
 	};
 
 	mw.mmv.logging.ViewLogger = ViewLogger;
-}( mediaWiki, jQuery ) );
+}() );

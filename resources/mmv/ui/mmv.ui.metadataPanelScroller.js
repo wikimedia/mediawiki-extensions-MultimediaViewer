@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	var MPSP;
 
 	/**
@@ -55,7 +55,7 @@
 
 		this.initialize();
 	}
-	oo.inheritClass( MetadataPanelScroller, mw.mmv.ui.Element );
+	OO.inheritClass( MetadataPanelScroller, mw.mmv.ui.Element );
 	MPSP = MetadataPanelScroller.prototype;
 
 	MPSP.attach = function () {
@@ -244,4 +244,4 @@
 	};
 
 	mw.mmv.ui.MetadataPanelScroller = MetadataPanelScroller;
-}( mediaWiki, jQuery, OO ) );
+}() );

@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function () {
 
 	/**
 	 * Loads an image.
@@ -150,4 +150,4 @@
 	};
 
 	mw.mmv.provider.Image = Image;
-}( mediaWiki, jQuery ) );
+}() );

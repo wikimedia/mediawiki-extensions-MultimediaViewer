@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw ) {
+( function () {
 	var IP;
 
 	/**
@@ -339,4 +339,4 @@
 	};
 
 	mw.mmv.model.Image = Image;
-}( mediaWiki ) );
+}() );

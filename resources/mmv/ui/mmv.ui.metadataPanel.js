@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	// Shortcut for prototype later
 	var MPP;
 
@@ -47,7 +47,7 @@
 		this.initializeImageMetadata();
 		this.initializeAboutLinks();
 	}
-	oo.inheritClass( MetadataPanel, mw.mmv.ui.Element );
+	OO.inheritClass( MetadataPanel, mw.mmv.ui.Element );
 	MPP = MetadataPanel.prototype;
 
 	/**
@@ -877,4 +877,4 @@
 	};
 
 	mw.mmv.ui.MetadataPanel = MetadataPanel;
-}( mediaWiki, jQuery, OO ) );
+}() );

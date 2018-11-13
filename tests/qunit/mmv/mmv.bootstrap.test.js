@@ -1,4 +1,4 @@
-( function ( mw, $ ) {
+( function () {
 	QUnit.module( 'mmv.bootstrap', QUnit.newMwEnvironment( {
 		setup: function () {
 			mw.config.set( 'wgMediaViewer', true );
@@ -576,4 +576,4 @@
 		assert.strictEqual( bootstrap.findCaption( $(), link ), 'Foobar', 'The caption is found even if the image is not a thumbnail.' );
 		assert.strictEqual( bootstrap.findCaption( multiple, multiple.find( 'img[src="bar.jpg"]' ).closest( 'a' ) ), 'Image #2', 'The caption is found in {{Multiple image}}.' );
 	} );
-}( mediaWiki, jQuery ) );
+}() );

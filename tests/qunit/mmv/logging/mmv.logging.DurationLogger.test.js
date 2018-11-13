@@ -1,4 +1,4 @@
-( function ( mw, $ ) {
+( function () {
 	QUnit.module( 'mmv.logging.DurationLogger', QUnit.newMwEnvironment( {
 		setup: function () {
 			this.clock = this.sandbox.useFakeTimers();
@@ -215,4 +215,4 @@
 
 		assert.strictEqual( promise.state(), 'resolved', 'Promise is resolved' );
 	} );
-}( mediaWiki, jQuery ) );
+}() );

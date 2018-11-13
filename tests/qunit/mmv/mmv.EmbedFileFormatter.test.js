@@ -1,4 +1,4 @@
-( function ( mw ) {
+( function () {
 	QUnit.module( 'mmv.EmbedFileFormatter', QUnit.newMwEnvironment() );
 
 	function createEmbedFileInfo( options ) {
@@ -290,4 +290,4 @@
 
 		assert.strictEqual( html, 'By Author - Source, <a href="http://www.wtfpl.net/">WTFPL v2</a>, <a href="some link">Link</a>', 'Sanity check' );
 	} );
-}( mediaWiki ) );
+}() );

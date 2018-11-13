@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function () {
 	var HUP, cache;
 
 	/**
@@ -266,4 +266,4 @@
 	};
 
 	mw.mmv.HtmlUtils = HtmlUtils;
-}( mediaWiki, jQuery ) );
+}() );

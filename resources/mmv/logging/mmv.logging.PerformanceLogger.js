@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	var PL;
 
 	/**
@@ -28,7 +28,7 @@
 	 */
 	function PerformanceLogger() {}
 
-	oo.inheritClass( PerformanceLogger, mw.mmv.logging.Logger );
+	OO.inheritClass( PerformanceLogger, mw.mmv.logging.Logger );
 
 	PL = PerformanceLogger.prototype;
 
@@ -452,4 +452,4 @@
 
 	mw.mmv.logging.PerformanceLogger = PerformanceLogger;
 
-}( mediaWiki, jQuery, OO ) );
+}() );

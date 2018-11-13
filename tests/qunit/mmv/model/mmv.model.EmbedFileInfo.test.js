@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw ) {
+( function () {
 	QUnit.module( 'mmv.model.EmbedFileInfo', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'EmbedFileInfo constructor sanity check', function ( assert ) {
@@ -37,4 +37,4 @@
 		}
 	} );
 
-}( mediaWiki ) );
+}() );

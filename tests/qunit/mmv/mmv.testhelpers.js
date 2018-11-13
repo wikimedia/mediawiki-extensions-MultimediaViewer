@@ -1,4 +1,4 @@
-( function ( mw, $ ) {
+( function () {
 	var MTH = {};
 
 	MTH.enterFullscreenMock = function () {
@@ -171,4 +171,4 @@
 	};
 
 	mw.mmv.testHelpers = MTH;
-}( mediaWiki, jQuery ) );
+}() );

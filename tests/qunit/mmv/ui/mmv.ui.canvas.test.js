@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function () {
 	QUnit.module( 'mmv.ui.Canvas', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Constructor sanity check', function ( assert ) {
@@ -284,4 +284,4 @@
 		$.fn.animate = oldAnimate;
 	} );
 
-}( mediaWiki, jQuery ) );
+}() );

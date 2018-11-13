@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	/**
 	 * Runs performance analysis on requests via mw.mmv.logging.PerformanceLogger
 	 *
@@ -35,7 +35,7 @@
 		this.type = type;
 	}
 
-	oo.inheritClass( Api, mw.Api );
+	OO.inheritClass( Api, mw.Api );
 
 	/**
 	 * Runs an AJAX call to the server.
@@ -55,4 +55,4 @@
 	};
 
 	mw.mmv.logging.Api = Api;
-}( mediaWiki, jQuery, OO ) );
+}() );

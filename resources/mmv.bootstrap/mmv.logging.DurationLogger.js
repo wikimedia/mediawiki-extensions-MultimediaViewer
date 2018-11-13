@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	var L;
 
 	/**
@@ -30,7 +30,7 @@
 		this.stops = {};
 	}
 
-	oo.inheritClass( DurationLogger, mw.mmv.logging.Logger );
+	OO.inheritClass( DurationLogger, mw.mmv.logging.Logger );
 
 	L = DurationLogger.prototype;
 
@@ -159,4 +159,4 @@
 	};
 
 	mw.mmv.durationLogger = new DurationLogger();
-}( mediaWiki, jQuery, OO ) );
+}() );

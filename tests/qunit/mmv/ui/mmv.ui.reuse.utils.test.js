@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function () {
 	QUnit.module( 'mw.mmv.ui.reuse.utils', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Sanity test, object creation and UI construction', function ( assert ) {
@@ -114,4 +114,4 @@
 		}
 	} );
 
-}( mediaWiki, jQuery ) );
+}() );

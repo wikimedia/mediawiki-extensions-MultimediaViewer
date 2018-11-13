@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function () {
 	var $qf = $( '#qunit-fixture' );
 
 	QUnit.module( 'mmv.ui.reuse.Embed', QUnit.newMwEnvironment() );
@@ -395,4 +395,4 @@
 		mw.user.isAnon = oldUserIsAnon;
 	} );
 
-}( mediaWiki, jQuery ) );
+}() );

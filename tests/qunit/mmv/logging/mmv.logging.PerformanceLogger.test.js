@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $ ) {
+( function () {
 	QUnit.module( 'mmv.logging.PerformanceLogger', QUnit.newMwEnvironment() );
 
 	function createFakeXHR( response ) {
@@ -338,4 +338,4 @@
 		mw.mmv.logging.PerformanceLogger.prototype.recordJQueryEntryDelayed = oldRecord;
 		mw.Api.prototype.ajax = oldAjax;
 	} );
-}( mediaWiki, jQuery ) );
+}() );

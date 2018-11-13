@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	var TTFP;
 
 	/**
@@ -76,7 +76,7 @@
 		this.init();
 	}
 
-	oo.inheritClass( TruncatableTextField, mw.mmv.ui.Element );
+	OO.inheritClass( TruncatableTextField, mw.mmv.ui.Element );
 
 	TTFP = TruncatableTextField.prototype;
 
@@ -235,4 +235,4 @@
 	};
 
 	mw.mmv.ui.TruncatableTextField = TruncatableTextField;
-}( mediaWiki, jQuery, OO ) );
+}() );

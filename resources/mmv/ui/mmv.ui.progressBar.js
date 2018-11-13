@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	var PBP;
 
 	/**
@@ -30,7 +30,7 @@
 		mw.mmv.ui.Element.call( this, $container );
 		this.init();
 	}
-	oo.inheritClass( ProgressBar, mw.mmv.ui.Element );
+	OO.inheritClass( ProgressBar, mw.mmv.ui.Element );
 	PBP = ProgressBar.prototype;
 
 	/**
@@ -90,4 +90,4 @@
 	};
 
 	mw.mmv.ui.ProgressBar = ProgressBar;
-}( mediaWiki, jQuery, OO ) );
+}() );

@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	var CBP;
 
 	/**
@@ -104,7 +104,7 @@
 			buttons.emit( 'prev' );
 		} );
 	}
-	oo.inheritClass( CanvasButtons, mw.mmv.ui.Element );
+	OO.inheritClass( CanvasButtons, mw.mmv.ui.Element );
 	CBP = CanvasButtons.prototype;
 
 	/**
@@ -282,4 +282,4 @@
 	};
 
 	mw.mmv.ui.CanvasButtons = CanvasButtons;
-}( mediaWiki, jQuery, OO ) );
+}() );

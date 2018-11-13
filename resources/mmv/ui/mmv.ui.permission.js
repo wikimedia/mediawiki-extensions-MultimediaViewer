@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	var P;
 
 	/**
@@ -108,7 +108,7 @@
 		 */
 		this.scroller = scroller;
 	}
-	oo.inheritClass( Permission, mw.mmv.ui.Element );
+	OO.inheritClass( Permission, mw.mmv.ui.Element );
 	P = Permission.prototype;
 
 	/**
@@ -169,4 +169,4 @@
 	};
 
 	mw.mmv.ui.Permission = Permission;
-}( mediaWiki, jQuery, OO ) );
+}() );

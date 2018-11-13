@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function ( mw, $, oo ) {
+( function () {
 	// Shortcut for prototype later
 	var ODP;
 
@@ -37,7 +37,7 @@
 		this.initPanel();
 	}
 
-	oo.inheritClass( OptionsDialog, mw.mmv.ui.Dialog );
+	OO.inheritClass( OptionsDialog, mw.mmv.ui.Dialog );
 	ODP = OptionsDialog.prototype;
 
 	ODP.attach = function () {
@@ -394,4 +394,4 @@
 	};
 
 	mw.mmv.ui.OptionsDialog = OptionsDialog;
-}( mediaWiki, jQuery, OO ) );
+}() );
