@@ -187,7 +187,7 @@
 			alt = $thumb.attr( 'alt' );
 
 		// get image annotation layer :
-		var annotationlayer = $link.find( '.annotationlayer' );
+		var annotationlayer = $thumb.next( '.annotationlayer' );
 
 		if ( !title || !title.getExtension() || !( title.getExtension().toLowerCase() in bs.validExtensions ) ) {
 			return;

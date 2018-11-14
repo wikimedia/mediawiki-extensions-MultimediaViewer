@@ -70,6 +70,12 @@
 		 * @property {mw.mmv.provider.ThumbnailInfo}
 		 * @private
 		 */
+		this.annotationThumbnailProvider = new mw.mmv.provider.AnnotationThumbnail();
+
+		/**
+		 * @property {mw.mmv.provider.ThumbnailInfo}
+		 * @private
+		 */
 		this.guessedThumbnailInfoProvider = new mw.mmv.provider.GuessedThumbnailInfo();
 
 		/**
@@ -769,7 +775,13 @@
 			width = originalWidth;
 		}
 
+		var regexAnnotation = new RegExp('/thumb/([a-zA-Z0-9])/([a-zA-Z0-9]{2})/([^/]+)/ia-([^/]+)\.png');
 		if (
+			sampleUrl && regexAnnotation.test(sampleUrl)
+		) {
+			// if the image is an annotation, use annotation Provider
+			thumbnailPromise = this.annotationThumbnailProvider.get(fileTitle, sampleUrl, width, originalWidth, originalHeight );
+		} else if (
 			sampleUrl && originalWidth && originalHeight &&
 			this.config.useThumbnailGuessing()
 		) {

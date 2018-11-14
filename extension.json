@@ -66,6 +66,7 @@
 				"mmv/provider/mmv.provider.FileRepoInfo.js",
 				"mmv/provider/mmv.provider.ThumbnailInfo.js",
 				"mmv/provider/mmv.provider.GuessedThumbnailInfo.js",
+				"mmv/provider/mmv.provider.AnnotationThumbnail.js",
 				"mmv/provider/mmv.provider.Image.js",
 				"mmv/mmv.ThumbnailWidthCalculator.js",
 				"mmv/ui/mmv.ui.js",
