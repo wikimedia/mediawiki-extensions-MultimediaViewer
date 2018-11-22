@@ -562,16 +562,25 @@
 	} );
 
 	QUnit.test( 'Refuse to load too-big thumbnails', function ( assert ) {
-		var viewer = mw.mmv.testHelpers.getMultimediaViewer(),
-			intendedWidth = 50,
-			title = mw.Title.newFromText( 'File:Foobar.svg' );
+		var title, expectedWidth,
+			reuestedWidth = 1000,
+			originalWidth = 50,
+			viewer = mw.mmv.testHelpers.getMultimediaViewer();
 
 		viewer.thumbnailInfoProvider.get = function ( fileTitle, width ) {
-			assert.strictEqual( width, intendedWidth );
+			assert.strictEqual( width, expectedWidth );
 			return $.Deferred().reject();
 		};
 
-		viewer.fetchThumbnail( title, 1000, null, intendedWidth, 60 );
+		// non-vector should be capped to original size
+		title = mw.Title.newFromText( 'File:Foobar.png' );
+		expectedWidth = originalWidth;
+		viewer.fetchThumbnail( title, reuestedWidth, null, originalWidth, 60 );
+
+		// vector images can be aritrarily large
+		title = mw.Title.newFromText( 'File:Foobar.svg' );
+		expectedWidth = reuestedWidth;
+		viewer.fetchThumbnail( title, reuestedWidth, null, originalWidth, 60 );
 	} );
 
 	QUnit.test( 'fetchThumbnail()', function ( assert ) {
