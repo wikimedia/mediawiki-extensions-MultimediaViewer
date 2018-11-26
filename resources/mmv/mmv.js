@@ -792,9 +792,8 @@
 			thumbnailPromise,
 			imagePromise;
 
-		if ( originalWidth && width > originalWidth ) {
+		if ( fileTitle.ext.toLowerCase() !== 'svg' && originalWidth && width > originalWidth ) {
 			// Do not request images larger than the original image
-			// This would be possible (but still unwanted) for SVG images
 			width = originalWidth;
 		}
 
