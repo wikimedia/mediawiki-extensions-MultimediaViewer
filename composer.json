@@ -1,5 +1,5 @@
 {
-    "name": "wikifab/MultimediaViewer",
+    "name": "wikifab/multimedia-viewer",
     "description":" MediaWiki extension MultimediaViewer",
     "type": "mediawiki-extension",
     "require": {
