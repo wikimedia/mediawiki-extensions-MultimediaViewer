@@ -346,6 +346,7 @@
 				"mediawiki.ui.icon",
 				"mediawiki.Title",
 				"mediawiki.user",
+				"mediawiki.notify",
 				"mediawiki.storage",
 				"mmv.head",
 				"oojs"
