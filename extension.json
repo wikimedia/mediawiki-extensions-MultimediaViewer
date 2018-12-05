@@ -106,6 +106,8 @@
 				"mediawiki.Uri",
 				"mediawiki.jqueryMsg",
 				"mediawiki.storage",
+				"mediawiki.user",
+				"mediawiki.util",
 				"oojs",
 				"jquery.fullscreen",
 				"jquery.throttle-debounce",
