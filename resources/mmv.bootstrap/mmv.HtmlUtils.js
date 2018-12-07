@@ -80,7 +80,7 @@
 	};
 
 	/**
-	 * Filters display:none children of a node.
+	 * Filters display:none and <style></style> children of a node.
 	 * The root element is never filtered, and generally ignored (i.e. whether the root element is
 	 * visible won't affect the filtering).
 	 * Works in place.
@@ -96,6 +96,11 @@
 		$jq
 			.find( '[style]' )
 			.filter( function () { return this.style.display === 'none'; } )
+			.remove();
+
+		// TemplateStyles can generate inline style tags
+		$jq
+			.find( 'style' )
 			.remove();
 	};
 
