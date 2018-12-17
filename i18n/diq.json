@@ -6,9 +6,12 @@
 			"1917 Ekim Devrimi"
 		]
 	},
+	"multimediaviewer-datetime-created": "Tarixê vıraştışi: $1",
+	"multimediaviewer-datetime-uploaded": "Tarixê barbiyayışi: $1",
 	"multimediaviewer-thumbnail-error-retry": "anciya bıcerrebne",
 	"multimediaviewer-permission-viewmore": "Zêde bıvêne",
 	"multimediaviewer-discuss-mmv": "Werênayış",
 	"multimediaviewer-help-mmv": "Peşti",
+	"multimediaviewer-download-link": "Na dosya biya war",
 	"multimediaviewer-option-cancel-button": "Bıtexelne"
 }
