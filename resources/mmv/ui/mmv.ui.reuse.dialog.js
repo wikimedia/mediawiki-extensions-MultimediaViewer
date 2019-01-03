@@ -147,10 +147,10 @@
 	 * Registers listeners.
 	 */
 	DP.attach = function () {
-		this.handleEvent( 'mmv-reuse-open', $.proxy( this.handleOpenCloseClick, this ) );
+		this.handleEvent( 'mmv-reuse-open', this.handleOpenCloseClick.bind( this ) );
 
-		this.handleEvent( 'mmv-download-open', $.proxy( this.closeDialog, this ) );
-		this.handleEvent( 'mmv-options-open', $.proxy( this.closeDialog, this ) );
+		this.handleEvent( 'mmv-download-open', this.closeDialog.bind( this ) );
+		this.handleEvent( 'mmv-options-open', this.closeDialog.bind( this ) );
 
 		this.attachDependencies();
 	};
@@ -163,7 +163,7 @@
 
 		if ( this.reuseTabs && this.tabs ) {
 			// This is a delayed attach() for the elements we've just created on demand
-			this.reuseTabs.on( 'select', $.proxy( dialog.handleTabSelection, dialog ) );
+			this.reuseTabs.on( 'select', dialog.handleTabSelection.bind( dialog ) );
 
 			for ( tab in this.tabs ) {
 				this.tabs[ tab ].attach();

@@ -630,7 +630,7 @@
 			showDefault = false,
 			validRestrictions = 0;
 
-		$.each( restrictions, function ( index, value ) {
+		restrictions.forEach( function ( value, index ) {
 			if ( !mw.message( 'multimediaviewer-restriction-' + value ).exists() || value === 'default' || index + 1 > MetadataPanel.MAX_RESTRICT ) {
 				showDefault = true; // If the restriction isn't defined or there are more than MAX_RESTRICT of them, show a generic symbol at the end
 				return;

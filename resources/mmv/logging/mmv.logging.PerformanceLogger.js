@@ -206,6 +206,7 @@
 			stats.XCache = xcache;
 			varnishXCache = this.parseVarnishXCacheHeader( xcache );
 
+			// eslint-disable-next-line jquery/no-each-util
 			$.each( varnishXCache, function ( key, value ) {
 				stats[ key ] = value;
 			} );

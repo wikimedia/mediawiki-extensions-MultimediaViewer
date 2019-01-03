@@ -47,10 +47,10 @@
 	DP.attach = function () {
 		var dialog = this;
 
-		this.handleEvent( 'mmv-download-open', $.proxy( this.handleOpenCloseClick, this ) );
+		this.handleEvent( 'mmv-download-open', this.handleOpenCloseClick.bind( this ) );
 
-		this.handleEvent( 'mmv-reuse-open', $.proxy( this.closeDialog, this ) );
-		this.handleEvent( 'mmv-options-open', $.proxy( this.closeDialog, this ) );
+		this.handleEvent( 'mmv-reuse-open', this.closeDialog.bind( this ) );
+		this.handleEvent( 'mmv-options-open', this.closeDialog.bind( this ) );
 
 		this.$container.on( 'mmv-download-cta-open', function () {
 			dialog.$warning.hide();

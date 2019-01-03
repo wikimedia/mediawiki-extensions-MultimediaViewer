@@ -41,10 +41,10 @@
 	ODP = OptionsDialog.prototype;
 
 	ODP.attach = function () {
-		this.handleEvent( 'mmv-options-open', $.proxy( this.handleOpenCloseClick, this ) );
+		this.handleEvent( 'mmv-options-open', this.handleOpenCloseClick.bind( this ) );
 
-		this.handleEvent( 'mmv-reuse-open', $.proxy( this.closeDialog, this ) );
-		this.handleEvent( 'mmv-download-open', $.proxy( this.closeDialog, this ) );
+		this.handleEvent( 'mmv-reuse-open', this.closeDialog.bind( this ) );
+		this.handleEvent( 'mmv-download-open', this.closeDialog.bind( this ) );
 	};
 
 	/**

@@ -232,12 +232,12 @@
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
 
-		$.each( lightbox.buttons.$buttons, function ( idx, e ) {
-			var $e = $( e ),
-				offset = $e.show().offset(),
-				width = $e.width(),
-				height = $e.height(),
-				disabled = $e.hasClass( 'disabled' );
+		lightbox.buttons.$buttons.each( function () {
+			var $button = $( this ),
+				offset = $button.show().offset(),
+				width = $button.width(),
+				height = $button.height(),
+				disabled = $button.hasClass( 'disabled' );
 
 			assert.strictEqual( lightbox.buttons.isAnyActiveButtonHovered( offset.left, offset.top ),
 				!disabled,

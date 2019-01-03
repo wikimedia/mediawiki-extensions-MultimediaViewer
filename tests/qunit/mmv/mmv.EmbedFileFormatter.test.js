@@ -112,6 +112,7 @@
 		assert.ok( generatedHtml.match( width ), 'Width appears in generated HTML' );
 		assert.ok( generatedHtml.match( height ), 'Height appears in generated HTML' );
 		// .includes() for checking the short url since it contains a ? (bad for regex). Could escape instead.
+		// eslint-disable-next-line no-restricted-syntax
 		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML' );
 
 		// Bylines, no license and site
@@ -128,6 +129,7 @@
 		assert.ok( generatedHtml.match( 'Iliad' ), 'Source appears in generated HTML' );
 		assert.ok( generatedHtml.match( width ), 'Width appears in generated HTML' );
 		assert.ok( generatedHtml.match( height ), 'Height appears in generated HTML' );
+		// eslint-disable-next-line no-restricted-syntax
 		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML' );
 
 		// No bylines, license and site
@@ -145,6 +147,7 @@
 		assert.notOk( generatedHtml.match( 'Iliad' ), 'Source should not appear in generated HTML' );
 		assert.ok( generatedHtml.match( width ), 'Width appears in generated HTML' );
 		assert.ok( generatedHtml.match( height ), 'Height appears in generated HTML' );
+		// eslint-disable-next-line no-restricted-syntax
 		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML' );
 
 		// No bylines, no license and site
@@ -160,6 +163,7 @@
 		assert.notOk( generatedHtml.match( 'Iliad' ), 'Source should not appear in generated HTML' );
 		assert.ok( generatedHtml.match( width ), 'Width appears in generated HTML' );
 		assert.ok( generatedHtml.match( height ), 'Height appears in generated HTML' );
+		// eslint-disable-next-line no-restricted-syntax
 		assert.ok( generatedHtml.includes( filePageShortUrl ), 'Short URL appears in generated HTML' );
 
 	} );

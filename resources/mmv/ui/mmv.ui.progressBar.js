@@ -71,7 +71,7 @@
 		if ( percent === 100 ) {
 			// When a 100% update comes in, we make sure that the bar is visible, we animate
 			// fast to 100 and we hide the bar when the animation is done
-			this.$percent.animate( { width: percent + '%' }, 50, 'swing', $.proxy( panel.hide, panel ) );
+			this.$percent.animate( { width: percent + '%' }, 50, 'swing', panel.hide.bind( panel ) );
 		} else {
 			// When any other % update comes in, we make sure the bar is visible
 			// and we animate to the right position

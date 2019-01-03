@@ -51,7 +51,7 @@
 				return provider.getQueryField( 'repos', data );
 			} ).then( function ( reposArray ) {
 				var reposHash = {};
-				$.each( reposArray, function ( i, repo ) {
+				reposArray.forEach( function ( repo ) {
 					reposHash[ repo.name ] = mw.mmv.model.Repo.newFromRepoInfo( repo );
 				} );
 				return reposHash;

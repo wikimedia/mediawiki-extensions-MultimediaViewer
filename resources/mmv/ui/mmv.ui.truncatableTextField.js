@@ -105,7 +105,7 @@
 	};
 
 	TTFP.attach = function () {
-		$( window ).on( 'resize.mmv-ttf', $.debounce( 100, $.proxy( this.repaint, this ) ) );
+		$( window ).on( 'resize.mmv-ttf', $.debounce( 100, this.repaint.bind( this ) ) );
 	};
 
 	TTFP.unattach = function () {
@@ -223,6 +223,7 @@
 			.addClass( newClass );
 		this.expanded = false;
 
+		// eslint-disable-next-line jquery/no-each-util
 		$.each( this.options.styles, function ( k, v ) {
 			if ( !field.isTruncatable() ) {
 				return false;

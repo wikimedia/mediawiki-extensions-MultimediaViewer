@@ -67,7 +67,7 @@
 
 		if ( !this.cache[ cacheKey ] ) {
 			if ( this.imagePreloadingSupported() ) {
-				rawGet = $.proxy( provider.rawGet, provider, url, true );
+				rawGet = provider.rawGet.bind( provider, url, true );
 				this.cache[ cacheKey ] = this.performance.record( 'image', url, extraStatsDeferred ).then( rawGet, rawGet );
 			} else {
 				start = $.now();

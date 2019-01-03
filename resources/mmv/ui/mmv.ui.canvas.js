@@ -185,12 +185,12 @@
 	C.setUpImageClick = function () {
 		var canvas = this;
 
-		this.handleEvent( 'mmv-reuse-opened', $.proxy( this.handleDialogEvent, this ) );
-		this.handleEvent( 'mmv-reuse-closed', $.proxy( this.handleDialogEvent, this ) );
-		this.handleEvent( 'mmv-download-opened', $.proxy( this.handleDialogEvent, this ) );
-		this.handleEvent( 'mmv-download-closed', $.proxy( this.handleDialogEvent, this ) );
-		this.handleEvent( 'mmv-options-opened', $.proxy( this.handleDialogEvent, this ) );
-		this.handleEvent( 'mmv-options-closed', $.proxy( this.handleDialogEvent, this ) );
+		this.handleEvent( 'mmv-reuse-opened', this.handleDialogEvent.bind( this ) );
+		this.handleEvent( 'mmv-reuse-closed', this.handleDialogEvent.bind( this ) );
+		this.handleEvent( 'mmv-download-opened', this.handleDialogEvent.bind( this ) );
+		this.handleEvent( 'mmv-download-closed', this.handleDialogEvent.bind( this ) );
+		this.handleEvent( 'mmv-options-opened', this.handleDialogEvent.bind( this ) );
+		this.handleEvent( 'mmv-options-closed', this.handleDialogEvent.bind( this ) );
 
 		this.$image.on( 'click.mmv-canvas', function ( e ) {
 			// ignore clicks if the metadata panel or one of the dialogs is open - assume the intent is to
