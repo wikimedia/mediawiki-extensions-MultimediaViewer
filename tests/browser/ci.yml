@@ -9,7 +9,7 @@ MEDIAWIKI_ENVIRONMENT:
 
 PLATFORM:
   - Linux
-  - OS X 10.9
+  - macos
 
 exclude:
   - BROWSER: chrome
@@ -19,7 +19,7 @@ exclude:
     PLATFORM: Linux
 
   - BROWSER: firefox
-    PLATFORM: OS X 10.9
+    PLATFORM: macos
 
   - BROWSER: safari
     MEDIAWIKI_ENVIRONMENT: mediawiki
