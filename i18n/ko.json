@@ -93,10 +93,10 @@
 	"multimediaviewer-options-learn-more": "더 알아보기",
 	"multimediaviewer-option-submit-button": "미디어 뷰어 비활성화",
 	"multimediaviewer-option-cancel-button": "취소",
-	"multimediaviewer-disable-confirmation-header": "미디어 뷰어를 비활성화했습니다.",
+	"multimediaviewer-disable-confirmation-header": "미디어 뷰어를 비활성화했습니다",
 	"multimediaviewer-disable-confirmation-text": "다음에 $1의 섬네일을 클릭하면, 바로 모든 파일의 속성을 볼 수 있습니다.",
 	"multimediaviewer-enable-dialog-header": "미디어 뷰어를 활성화할까요?",
 	"multimediaviewer-enable-submit-button": "미디어 뷰어 활성화",
-	"multimediaviewer-enable-alert": "미디어 뷰어가 비활성화되었습니다.",
-	"multimediaviewer-disable-info-title": "미디어 뷰어를 비활성화시켰습니다."
+	"multimediaviewer-enable-alert": "미디어 뷰어가 지금 비활성화되어 있습니다",
+	"multimediaviewer-disable-info-title": "미디어 뷰어를 비활성화시켰습니다"
 }
