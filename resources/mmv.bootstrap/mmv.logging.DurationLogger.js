@@ -60,7 +60,7 @@
 	 */
 	L.start = function ( typeOrTypes ) {
 		var i,
-			start = $.now();
+			start = ( new Date() ).getTime();
 
 		if ( !typeOrTypes ) {
 			throw new Error( 'Must specify type' );
@@ -89,7 +89,7 @@
 	 * @chainable
 	 */
 	L.stop = function ( type, start ) {
-		var stop = $.now();
+		var stop = ( new Date() ).getTime();
 
 		if ( !type ) {
 			throw new Error( 'Must specify type' );

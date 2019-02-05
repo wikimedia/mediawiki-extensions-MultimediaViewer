@@ -16,6 +16,8 @@
  */
 
 ( function () {
+	/* eslint-disable no-jquery/no-parse-html-literal */
+
 	QUnit.module( 'mmv.HtmlUtils', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'wrapAndJquerify() for single node', function ( assert ) {
@@ -192,4 +194,6 @@
 			title: 'h<b>t</b><i>m</i>l'
 		} ), '<a href="http://example.com" title="html">foo</a>', 'works' );
 	} );
+
+	/* eslint-enable no-jquery/no-parse-html-literal */
 }() );

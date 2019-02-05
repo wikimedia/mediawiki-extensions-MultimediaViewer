@@ -21,7 +21,7 @@
 
 	QUnit.test( 'setInlineStyle()', function ( assert ) {
 		var element = new mw.mmv.ui.Element( $( '<div>' ) ),
-			$testDiv = $( '<div id="mmv-testdiv">!!!</div>' ).appendTo( '#qunit-fixture' );
+			$testDiv = $( '<div>' ).attr( 'id', 'mmv-testdiv' ).text( '!!!' ).appendTo( '#qunit-fixture' );
 
 		assert.ok( $testDiv.is( ':visible' ), 'Test div is visible' );
 

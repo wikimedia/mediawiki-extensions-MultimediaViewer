@@ -87,7 +87,7 @@
 			};
 
 			request.onreadystatechange = function () {
-				var total = $.now() - start;
+				var total = ( new Date() ).getTime() - start;
 
 				if ( request.readyState === 4 ) {
 					deferred.notify( request.response, 100 );
@@ -96,7 +96,7 @@
 				}
 			};
 
-			start = $.now();
+			start = ( new Date() ).getTime();
 			request.open( 'GET', url, true );
 			request.send();
 		} catch ( e ) {

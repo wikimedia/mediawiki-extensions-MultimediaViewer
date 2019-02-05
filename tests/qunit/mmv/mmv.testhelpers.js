@@ -89,9 +89,9 @@
 	 */
 	MTH.getMultimediaViewer = function () {
 		return new mw.mmv.MultimediaViewer( {
-			imageQueryParameter: $.noop,
-			language: $.noop,
-			recordVirtualViewBeaconURI: $.noop,
+			imageQueryParameter: function () {},
+			language: function () {},
+			recordVirtualViewBeaconURI: function () {},
 			extensions: function () {
 				return { jpg: 'default' };
 			}

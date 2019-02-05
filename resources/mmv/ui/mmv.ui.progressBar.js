@@ -77,6 +77,7 @@
 		} else {
 			// When any other % update comes in, we make sure the bar is visible
 			// and we animate to the right position
+			// FIXME: Use CSS transition
 			// eslint-disable-next-line no-jquery/no-animate
 			this.$percent.animate( { width: percent + '%' } );
 		}

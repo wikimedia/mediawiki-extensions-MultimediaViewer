@@ -39,7 +39,7 @@
 			return;
 		}
 
-		start = $.now();
+		start = ( new Date() ).getTime();
 
 		// We wait for document readiness because mw.loader.using writes to the DOM
 		// which can cause a blank page if it happens before DOM readiness

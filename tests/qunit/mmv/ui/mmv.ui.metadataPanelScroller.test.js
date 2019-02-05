@@ -140,7 +140,7 @@
 			$aboveFold = $( '<div>' ).css( 'height', 50 ).appendTo( $container ),
 			fakeLocalStorage = mw.mmv.testHelpers.createLocalStorage( {
 				getItem: this.sandbox.stub().returns( null ),
-				setItem: $.noop
+				setItem: function () {}
 			} ),
 			scroller = new mw.mmv.ui.MetadataPanelScroller( $container, $aboveFold, fakeLocalStorage ),
 			keydown = $.Event( 'keydown' );

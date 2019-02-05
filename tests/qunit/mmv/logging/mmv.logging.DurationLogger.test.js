@@ -149,7 +149,7 @@
 		assert.strictEqual( durationLogger.starts.bar, undefined, 'Start value deleted after record' );
 		assert.strictEqual( durationLogger.stops.bar, undefined, 'Stop value deleted after record' );
 
-		durationLogger.stop( 'fooz', $.now() - 9000 );
+		durationLogger.stop( 'fooz', ( new Date() ).getTime() - 9000 );
 		durationLogger.record( 'fooz' );
 		this.clock.tick( 10 );
 

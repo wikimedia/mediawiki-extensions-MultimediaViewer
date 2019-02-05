@@ -354,6 +354,7 @@
 			} );
 
 		// If the browser doesn't support fullscreen mode, hide the fullscreen button
+		// This horrendous hack comes from jquery.fullscreen.js
 		if ( $.support.fullscreen ) {
 			this.$fullscreenButton.show();
 		} else {

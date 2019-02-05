@@ -2,7 +2,7 @@
 	function makeDialog( initialise ) {
 		var $qf = $( '#qunit-fixture' ),
 			$button = $( '<div>' ).appendTo( $qf ),
-			dialog = new mw.mmv.ui.OptionsDialog( $qf, $button, { setMediaViewerEnabledOnClick: $.noop } );
+			dialog = new mw.mmv.ui.OptionsDialog( $qf, $button, { setMediaViewerEnabledOnClick: function () {} } );
 
 		if ( initialise ) {
 			dialog.initPanel();

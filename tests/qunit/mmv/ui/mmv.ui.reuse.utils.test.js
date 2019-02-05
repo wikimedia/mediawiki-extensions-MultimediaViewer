@@ -65,7 +65,7 @@
 		mw.message = function ( messageKey ) {
 			assert.ok( messageKey.match( /^multimediaviewer-(small|medium|original|embed-dimensions)/ ), 'messageKey passed correctly.' );
 
-			return { text: $.noop };
+			return { text: function () {} };
 		};
 
 		utils.updateMenuOptions( sizes, options );

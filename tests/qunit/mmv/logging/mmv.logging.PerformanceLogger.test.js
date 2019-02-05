@@ -21,7 +21,7 @@
 	function createFakeXHR( response ) {
 		return {
 			readyState: 0,
-			open: $.noop,
+			open: function () {},
 			send: function () {
 				var xhr = this;
 

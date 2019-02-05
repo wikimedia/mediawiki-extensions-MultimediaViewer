@@ -83,7 +83,7 @@
 
 		// MenuSelectWidget has a nasty tendency to hide itself, maybe we're not using it right?
 		this.reuseTabs.toggle( true );
-		this.reuseTabs.toggle = $.noop;
+		this.reuseTabs.toggle = function () {};
 
 		this.selectedTab = this.getLastUsedTab();
 
