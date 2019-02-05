@@ -357,7 +357,9 @@
 	/**
 	 * Sets the text in the attribution input element.
 	 *
-	 * @param {mw.mmv.model.EmbedFileInfo} embed
+	 * @param {Object} embed
+	 * @param {mw.mmv.model.Image} embed.imageInfo
+	 * @param {mw.mmv.model.Repo} embed.repoInfo
 	 */
 	DP.setAttributionText = function ( embed ) {
 		this.htmlCredit = this.formatter.getCreditHtml( embed );
@@ -384,6 +386,7 @@
 	 */
 	DP.set = function ( image, repo ) {
 		var attributionCtaMessage,
+			embedFileInfo,
 			license = image && image.license,
 			sizeOptions = this.downloadSizeMenu.getMenu().getItems(),
 			sizes = this.utils.getPossibleImageSizesForHtml( image.width, image.height );
@@ -401,7 +404,11 @@
 		this.downloadSizeMenu.getMenu().chooseItem( this.defaultItem );
 
 		if ( image && repo ) {
-			this.setAttributionText( new mw.mmv.model.EmbedFileInfo( image, repo ) );
+			embedFileInfo = {
+				imageInfo: image,
+				repoInfo: repo
+			};
+			this.setAttributionText( embedFileInfo );
 		}
 
 		attributionCtaMessage = ( license && license.needsAttribution() ) ?

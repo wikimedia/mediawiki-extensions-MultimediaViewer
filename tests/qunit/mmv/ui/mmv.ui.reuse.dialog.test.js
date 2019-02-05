@@ -189,7 +189,11 @@
 				width: 100,
 				height: 80
 			},
-			embedFileInfo = new mw.mmv.model.EmbedFileInfo( title, src, url );
+			embedFileInfo = {
+				imageInfo: title,
+				repoInfo: src,
+				caption: url
+			};
 
 		reuseDialog.set( image, embedFileInfo );
 		reuseDialog.empty();

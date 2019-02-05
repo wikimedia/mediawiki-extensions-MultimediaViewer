@@ -28,7 +28,11 @@
 			repoInfo = { displayName: options.siteName, getSiteLink:
 				function () { return options.siteUrl; } };
 
-		return new mw.mmv.model.EmbedFileInfo( imageInfo, repoInfo, options.caption );
+		return {
+			imageInfo: imageInfo,
+			repoInfo: repoInfo,
+			caption: options.caption
+		};
 	}
 
 	QUnit.test( 'EmbedFileFormatter constructor sanity check', function ( assert ) {
@@ -66,7 +70,7 @@
 
 	QUnit.test( 'getSiteLink():', function ( assert ) {
 		var repoInfo = new mw.mmv.model.Repo( 'Wikipedia', '//wikipedia.org/favicon.ico', true ),
-			info = new mw.mmv.model.EmbedFileInfo( {}, repoInfo ),
+			info = { imageInfo: {}, repoInfo: repoInfo },
 			formatter = new mw.mmv.EmbedFileFormatter(),
 			siteUrl = repoInfo.getSiteLink(),
 			siteLink = formatter.getSiteLink( info );

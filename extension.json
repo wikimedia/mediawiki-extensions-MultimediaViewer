@@ -222,7 +222,6 @@
 		},
 		"mmv.ui.ondemandshareddependencies": {
 			"scripts": [
-				"mmv.ui.ondemandshareddependencies/mmv.model.EmbedFileInfo.js",
 				"mmv.ui.ondemandshareddependencies/mmv.EmbedFileFormatter.js",
 				"mmv.ui.ondemandshareddependencies/mmv.ui.utils.js"
 			],
