@@ -9,7 +9,10 @@
 		"mw": false
 	},
 	"rules": {
-		"max-len": 0,
-		"max-statements-per-line": 0
+		"max-len": "off",
+		"max-statements-per-line": "off",
+		"jquery/no-noop": "off",
+		"jquery/no-now": "off",
+		"jquery/no-support": "off"
 	}
 }

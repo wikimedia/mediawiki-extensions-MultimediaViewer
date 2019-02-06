@@ -315,12 +315,16 @@
 			animationLength = 300;
 
 		// The blurred class has an opacity < 1. This animated the image to become fully opaque
+		// FIXME: Use CSS transition
+		// eslint-disable-next-line jquery/no-animate
 		this.$image
 			.addClass( 'blurred' )
 			.animate( { opacity: 1.0 }, animationLength );
 
 		// During the same amount of time (animationLength) we animate a blur value from 3.0 to 0.0
 		// We pass that value to an inline CSS Gaussian blur effect
+		// FIXME: Use CSS transition
+		// eslint-disable-next-line jquery/no-animate
 		$( { blur: 3.0 } ).animate( { blur: 0.0 }, {
 			duration: animationLength,
 			step: function ( step ) {
@@ -403,6 +407,7 @@
 	 */
 	C.getDimensions = function ( forFullscreen ) {
 		var $window = $( window ),
+			// eslint-disable-next-line jquery/no-global-selector
 			$aboveFold = $( '.mw-mmv-above-fold' ),
 			isFullscreened = !!$aboveFold.closest( '.jq-fullscreened' ).length,
 			// Don't rely on this.$imageWrapper's sizing because it's fragile.

@@ -2,5 +2,12 @@
 	"extends": [
 		"wikimedia/qunit",
 		"../../.eslintrc.json"
-	]
+	],
+	"rules": {
+		"jquery/no-parse-html-literal": "off",
+		"jquery/no-global-selector": "off",
+		"jquery/no-noop": "off",
+		"jquery/no-now": "off",
+		"jquery/no-support": "off"
+	}
 }

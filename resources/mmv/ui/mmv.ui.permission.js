@@ -142,6 +142,8 @@
 	P.grow = function () {
 		mw.mmv.actionLogger.log( 'terms-open' );
 
+		// FIXME: Use CSS transition
+		// eslint-disable-next-line jquery/no-animate
 		this.$box.addClass( 'full-size' )
 			.stop( true )
 			.animate( { backgroundColor: '#FFFFA0' }, 500 )

@@ -198,7 +198,7 @@
 						small: { width: 300, height: 225 },
 						medium: { width: 400, height: 300 },
 						large: { width: 500, height: 375 },
-						'default': { width: null, height: null }
+						default: { width: null, height: null }
 					}
 				},
 
@@ -206,7 +206,7 @@
 				{
 					width: 201, height: 1536,
 					expected: {
-						'default': { width: null, height: null }
+						default: { width: null, height: null }
 					}
 				},
 
@@ -214,7 +214,7 @@
 				{
 					width: 15, height: 20,
 					expected: {
-						'default': { width: null, height: null }
+						default: { width: null, height: null }
 					}
 				}
 			],

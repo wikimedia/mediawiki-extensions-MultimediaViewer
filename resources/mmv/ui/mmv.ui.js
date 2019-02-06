@@ -149,7 +149,7 @@
 				return;
 			}
 
-			this.$inlineStyles[ key ] = $( '<style type="text/css" />' ).appendTo( 'head' );
+			this.$inlineStyles[ key ] = $( '<style>' ).attr( 'type', 'text/css' ).appendTo( 'head' );
 		}
 
 		this.$inlineStyles[ key ].html( style || '' );

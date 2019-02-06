@@ -149,6 +149,8 @@
 
 		// We don't use animation chaining because delay() can't be stop()ed
 		this.buttonsFadeTimeout = setTimeout( function () {
+			// FIXME: Use CSS transition
+			// eslint-disable-next-line jquery/no-animate
 			buttons.$buttons.not( '.disabled' ).animate( { opacity: 0 }, 1000, 'swing',
 				function () {
 					buttons.$buttons.addClass( 'hidden' );

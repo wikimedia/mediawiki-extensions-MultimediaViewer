@@ -48,7 +48,7 @@
 
 		/** @property {Function} closeProxy Proxied close function to be used as an event handler, so it can be
 		 * identified for removal. */
-		this.closeProxy = $.proxy( this.maybeCloseOnClick, this );
+		this.closeProxy = this.maybeCloseOnClick.bind( this );
 	}
 
 	OO.inheritClass( TipsyDialog, mw.mmv.ui.Element );
