@@ -38,8 +38,7 @@ module.exports = function ( grunt ) {
 		svgmin: {
 			options: {
 				js2svg: {
-					// eslint-disable-next-line no-tabs
-					indent: '	',
+					indent: '\t',
 					pretty: true
 				},
 				multipass: true,
