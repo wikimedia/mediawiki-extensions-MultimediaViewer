@@ -176,7 +176,7 @@
 
 			// pages is an associative array indexed by pageid,
 			// we need to iterate through to find the right page
-			// eslint-disable-next-line jquery/no-each-util
+			// eslint-disable-next-line no-jquery/no-each-util
 			$.each( data.query.pages, function ( id, page ) {
 				if ( page.title === pageName ) {
 					pageData = page;

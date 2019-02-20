@@ -223,7 +223,7 @@
 			.addClass( newClass );
 		this.expanded = false;
 
-		// eslint-disable-next-line jquery/no-each-util
+		// eslint-disable-next-line no-jquery/no-each-util
 		$.each( this.options.styles, function ( k, v ) {
 			if ( !field.isTruncatable() ) {
 				return false;

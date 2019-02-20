@@ -62,7 +62,7 @@
 	 */
 	LIP.init = function () {
 		// SVG filter, needed to achieve blur in Firefox
-		// eslint-disable-next-line jquery/no-parse-html-literal
+		// eslint-disable-next-line no-jquery/no-parse-html-literal
 		this.$filter = $( '<svg><filter id="gaussian-blur"><fegaussianblur stdDeviation="3"></filter></svg>' );
 
 		this.$wrapper = $( '<div>' )

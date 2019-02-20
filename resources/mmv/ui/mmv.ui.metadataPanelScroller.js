@@ -189,7 +189,7 @@
 				this.$container.trigger( 'mmv-metadata-reveal-truncated-text' );
 				scrollTopTarget = this.getScrollTopWhenOpen();
 			}
-			// eslint-disable-next-line jquery/no-global-selector, jquery/no-animate
+			// eslint-disable-next-line no-jquery/no-global-selector
 			return $( 'html, body' ).animate( { scrollTop: scrollTopTarget }, 'fast' ).promise();
 		}
 	};
