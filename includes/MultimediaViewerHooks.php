@@ -53,7 +53,7 @@ class MultimediaViewerHooks {
 		global $wgMediaViewerIsInBeta, $wgMediaViewerEnableByDefaultForAnonymous,
 			$wgMediaViewerEnableByDefault;
 
-		if ( $wgMediaViewerIsInBeta && class_exists( 'BetaFeatures' ) ) {
+		if ( $wgMediaViewerIsInBeta && ExtensionRegistry::getInstance()->isLoaded( 'BetaFeatures' ) ) {
 			return BetaFeatures::isFeatureEnabled( $user, 'multimedia-viewer' );
 		}
 
