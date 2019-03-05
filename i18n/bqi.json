@@ -19,6 +19,9 @@
 	"multimediaviewer-embed-tab": "رٱهڌاْ ڤامیٛن",
 	"multimediaviewer-download-link": "ای جانیا ناْ سوڤار کونین",
 	"multimediaviewer-download-original-button-name": "گرهڌن جانیا ٱسلی",
+	"multimediaviewer-download-small-button-name": "گرهدن میٛن ٱندازاْ کۊچیر",
+	"multimediaviewer-download-medium-button-name": "گرهڌن میٛن ٱندازاْ میٛنجقایی",
+	"multimediaviewer-download-large-button-name": "گرهڌن میٛن ٱندازاْ گٱپ",
 	"multimediaviewer-embed-wt": "ڤیکی تکست",
 	"multimediaviewer-embed-html": "اْچ تی اْم اْل",
 	"multimediaviewer-text-embed-credit-text-bl": "ڤا $1, $2, $3",
@@ -33,7 +36,9 @@
 	"multimediaviewer-medium-embed-dimensions": "میٛنجقا $1",
 	"multimediaviewer-small-embed-dimensions": "کۊچیر $1",
 	"multimediaviewer-view-config": "میزونکاری",
+	"multimediaviewer-close-popup-text": "چونو ٱڤزاری نٱ بیٛڤٱندین (Esc)",
 	"multimediaviewer-title-popup-text": "تۉزی",
+	"multimediaviewer-download-attribution-cta": "نشونم بڌاْ چ جۊراْ",
 	"multimediaviewer-options-learn-more": "بیشتر یاڌ بگرین",
 	"multimediaviewer-option-cancel-button": "ٱنجومشیڤ کردن"
 }
