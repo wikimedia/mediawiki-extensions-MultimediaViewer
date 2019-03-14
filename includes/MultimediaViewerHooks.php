@@ -93,12 +93,16 @@ class MultimediaViewerHooks {
 	public static function getModulesForArticle( &$out, &$skin ) {
 		$pageHasThumbnails = count( $out->getFileSearchOptions() ) > 0;
 		$pageIsFilePage = $out->getTitle()->inNamespace( NS_FILE );
+		// TODO: Have Flow work out if there are any images on the page
+		$pageIsFlowPage = ExtensionRegistry::getInstance()->isLoaded( 'Flow' ) &&
+			// CONTENT_MODEL_FLOW_BOARD
+			$out->getTitle()->getContentModel() === 'flow-board';
 		$fileRelatedSpecialPages = [ 'NewFiles', 'ListFiles', 'MostLinkedFiles',
 			'MostGloballyLinkedFiles', 'UncategorizedFiles', 'UnusedFiles', 'Search' ];
 		$pageIsFileRelatedSpecialPage = $out->getTitle()->inNamespace( NS_SPECIAL )
 			&& in_array( $out->getTitle()->getText(), $fileRelatedSpecialPages );
 
-		if ( $pageHasThumbnails || $pageIsFilePage || $pageIsFileRelatedSpecialPage ) {
+		if ( $pageHasThumbnails || $pageIsFilePage || $pageIsFileRelatedSpecialPage || $pageIsFlowPage ) {
 			return self::getModules( $out );
 		}
 
