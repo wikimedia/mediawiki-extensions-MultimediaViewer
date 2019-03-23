@@ -15,7 +15,8 @@
 			"Smigles",
 			"Ole Yves",
 			"Stjn",
-			"Nk88"
+			"Nk88",
+			"Diralik"
 		]
 	},
 	"multimediaviewer-desc": "Раскрывает эскизы в большие изображения на весь экран.",
@@ -134,7 +135,7 @@
 	"multimediaviewer-enable-submit-button": "Включить «Просмотрщик медиафайлов»",
 	"multimediaviewer-enable-confirmation-header": "Вы включили «Просмотрщик медиафайлов» для всех файлов",
 	"multimediaviewer-enable-confirmation-text": "Следующий раз, когда вы щёлкните на миниатюре файла на сайте $1, будет использован «Просмотрщик медиафайлов».",
-	"multimediaviewer-enable-alert": "«Просмотрщик медиафайлов» теперь отключен",
+	"multimediaviewer-enable-alert": "«Просмотрщик медиафайлов» теперь отключён",
 	"multimediaviewer-disable-info-title": "Вы отключили «Просмотрщик медиафайлов»",
 	"multimediaviewer-disable-info": "Вы всё ещё можете просматривать отдельные файлы через «Просмотрщик медиафайлов».",
 	"multimediaviewer-errorreport-privacywarning": "Подробная информация об ошибке прилагается к отчету, который будет общедоступным. Если вас это не устраивает, вы можете отредактировать отчет ниже и удалить все данные, которыми вы не хотите делиться."
