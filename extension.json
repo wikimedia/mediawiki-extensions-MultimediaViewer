@@ -475,7 +475,7 @@
 			"MultimediaViewerHooks::resourceLoaderGetConfigVars"
 		],
 		"MakeGlobalVariablesScript": [
-			"MultimediaViewerHooks::makeGlobalVariablesScript"
+			"MultimediaViewerHooks::onMakeGlobalVariablesScript"
 		],
 		"ThumbnailBeforeProduceHTML": [
 			"MultimediaViewerHooks::thumbnailBeforeProduceHTML"

@@ -216,7 +216,7 @@ class MultimediaViewerHooks {
 	 * @param array &$vars
 	 * @param OutputPage $out
 	 */
-	public static function makeGlobalVariablesScript( &$vars, OutputPage $out ) {
+	public static function onMakeGlobalVariablesScript( &$vars, OutputPage $out ) {
 		$defaultUserOptions = User::getDefaultOptions();
 
 		$user = $out->getUser();
