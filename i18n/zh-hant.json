@@ -7,7 +7,8 @@
 			"Cwlin0416",
 			"LNDDYL",
 			"Alexsh",
-			"Kly"
+			"Kly",
+			"A2093064"
 		]
 	},
 	"multimediaviewer-desc": "使用全螢幕介面以較大尺寸的方式顯示展開後的縮圖",
@@ -116,7 +117,7 @@
 	"multimediaviewer-reuse-warning-deletion": "此檔案被列為應刪除。",
 	"multimediaviewer-reuse-warning-nonfree": "此檔案沒有自由授權條款。",
 	"multimediaviewer-reuse-warning-noattribution": "此檔案沒有署名資訊。",
-	"multimediaviewer-reuse-warning-generic": "使用前請檢查[ $1 檔案詳情]。",
+	"multimediaviewer-reuse-warning-generic": "使用前請檢查[$1 詳情]。",
 	"multimediaviewer-attr-plain": "純文字",
 	"multimediaviewer-options-tooltip": "開啟或關閉媒體檢視器",
 	"multimediaviewer-options-dialog-header": "關閉媒體檢視器?",
