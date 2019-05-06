@@ -146,7 +146,7 @@
 			.on( 'click', function () {
 				// Select the text, and then try to copy the text.
 				// If the copy fails or is not supported, continue as if nothing had happened.
-				$( this ).parent().find( '.active > textarea' ).select();
+				$( this ).parent().find( '.active > textarea' ).trigger( 'select' );
 				try {
 					if ( document.queryCommandSupported &&
 						document.queryCommandSupported( 'copy' ) ) {
@@ -497,7 +497,7 @@
 	 * Selects the text in the current textbox by triggering a focus event.
 	 */
 	EP.select = function () {
-		this.$currentMainEmbedText.focus();
+		this.$currentMainEmbedText.trigger( 'focus' );
 	};
 
 	/**

@@ -100,7 +100,7 @@
 	 * @return {boolean} True if this request needs to be sampled
 	 */
 	L.isInSample = function () {
-		if ( !$.isNumeric( this.samplingFactor ) || this.samplingFactor < 1 ) {
+		if ( typeof this.samplingFactor !== 'number' || this.samplingFactor < 1 ) {
 			return false;
 		}
 
@@ -115,7 +115,7 @@
 	 * @return {boolean} True if this logging is enabled
 	 */
 	L.isEnabled = function () {
-		return $.isNumeric( this.samplingFactor ) && this.samplingFactor >= 1;
+		return typeof this.samplingFactor === 'number' && this.samplingFactor >= 1;
 	};
 
 	/**

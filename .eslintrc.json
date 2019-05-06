@@ -13,6 +13,7 @@
 		"max-statements-per-line": "off",
 		"no-jquery/no-noop": "off",
 		"no-jquery/no-now": "off",
+		"no-jquery/no-proxy": "off",
 		"no-jquery/no-support": "off"
 	}
 }

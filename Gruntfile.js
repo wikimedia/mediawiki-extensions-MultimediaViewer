@@ -20,12 +20,12 @@ module.exports = function ( grunt ) {
 		},
 		eslint: {
 			options: {
-				reportUnusedDisableDirectives: true
+				reportUnusedDisableDirectives: true,
+				cache: true
 			},
 			all: [
-				'*.js',
-				'resources/mmv/**/*.js',
-				'tests/**/*.js'
+				'**/*.js',
+				'!{vendor,node_modules}/**'
 			]
 		},
 		stylelint: {

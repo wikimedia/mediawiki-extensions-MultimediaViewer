@@ -265,6 +265,7 @@
 
 		// remove the buttons (and the clearing element) if they are already there
 		// this should not happen (at least until we support paged media) but just in case
+		// eslint-disable-next-line no-jquery/no-global-selector
 		$( '.mw-mmv-filepage-buttons' ).next().addBack().remove();
 
 		$link = $( '<a>' )
@@ -283,6 +284,7 @@
 			.addClass( 'mw-ui-button-group mw-mmv-filepage-buttons' )
 			.append( $link, $configLink );
 
+		// eslint-disable-next-line no-jquery/no-global-selector
 		$( '.fullMedia' ).append(
 			$filepageButtons,
 			$( '<div>' )
@@ -328,6 +330,7 @@
 
 		mw.loader.using( 'mmv.ui.tipsyDialog' ).done( function () {
 			/** @property {mw.mmv.ui.TipsyDialog} statusInfoDialog popup on the file page explaining how to re-enable */
+			// eslint-disable-next-line no-jquery/no-global-selector
 			bs.statusInfoDialog = new mw.mmv.ui.TipsyDialog( $( '.mw-mmv-view-expanded' ), { gravity: 'sw' } );
 			bs.statusInfoDialog.setContent(
 				mw.message( 'multimediaviewer-disable-info-title' ).plain(),

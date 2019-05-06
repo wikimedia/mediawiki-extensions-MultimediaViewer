@@ -66,7 +66,7 @@
 	 * @return {boolean}
 	 */
 	HUP.isJQueryOrHTMLElement = function ( html ) {
-		if ( html instanceof jQuery ) {
+		if ( html instanceof $ ) {
 			return true;
 		}
 
@@ -262,7 +262,7 @@
 	HUP.makeLinkText = function ( text, props ) {
 		var key;
 		for ( key in props ) {
-			if ( !props.hasOwnProperty( key ) ) {
+			if ( !Object.prototype.hasOwnProperty.call( props, key ) ) {
 				continue;
 			}
 			props[ key ] = this.htmlToText( props[ key ] );

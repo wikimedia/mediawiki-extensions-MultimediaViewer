@@ -168,7 +168,7 @@
 	L.isInSample = function ( action ) {
 		var factor = this.getActionFactor( action );
 
-		if ( !$.isNumeric( factor ) || factor < 1 ) {
+		if ( typeof factor !== 'number' || factor < 1 ) {
 			return false;
 		}
 		return Math.floor( Math.random() * factor ) === 0;
@@ -184,7 +184,7 @@
 	 */
 	L.isEnabled = function ( action ) {
 		var factor = this.getActionFactor( action );
-		return $.isNumeric( factor ) && factor >= 1;
+		return typeof factor === 'number' && factor >= 1;
 	};
 
 	mw.mmv.logging.ActionLogger = ActionLogger;

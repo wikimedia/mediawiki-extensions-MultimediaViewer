@@ -171,7 +171,7 @@
 		attributionSwitch.on( 'select', function ( selection ) {
 			dl.selectAttribution( selection.getData() );
 
-			dl.attributionInput.$element.find( 'input' ).focus();
+			dl.attributionInput.$element.find( 'input' ).trigger( 'focus' );
 		} );
 
 		this.$attributionSection = $( '<div>' )
@@ -181,7 +181,7 @@
 				if ( dl.$attributionSection.hasClass( 'mw-mmv-download-attribution-collapsed' ) ) {
 					dl.$container.trigger( 'mmv-download-cta-open' );
 					dl.$attributionSection.removeClass( 'mw-mmv-download-attribution-collapsed' );
-					dl.attributionInput.$element.find( 'input' ).focus();
+					dl.attributionInput.$element.find( 'input' ).trigger( 'focus' );
 				}
 			} );
 

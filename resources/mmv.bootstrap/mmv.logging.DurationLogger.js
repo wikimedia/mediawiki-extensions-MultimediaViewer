@@ -72,7 +72,7 @@
 
 		for ( i = 0; i < typeOrTypes.length; i++ ) {
 			// Don't overwrite an existing value
-			if ( !this.starts.hasOwnProperty( typeOrTypes[ i ] ) ) {
+			if ( !Object.prototype.hasOwnProperty.call( this.starts, typeOrTypes[ i ] ) ) {
 				this.starts[ typeOrTypes[ i ] ] = start;
 			}
 		}
@@ -96,12 +96,12 @@
 		}
 
 		// Don't overwrite an existing value
-		if ( !this.stops.hasOwnProperty( type ) ) {
+		if ( !Object.prototype.hasOwnProperty.call( this.stops, type ) ) {
 			this.stops[ type ] = stop;
 		}
 
 		// Don't overwrite an existing value
-		if ( start !== undefined && !this.starts.hasOwnProperty( type ) ) {
+		if ( start !== undefined && !Object.prototype.hasOwnProperty.call( this.starts, type ) ) {
 			this.starts[ type ] = start;
 		}
 
@@ -123,11 +123,11 @@
 			throw new Error( 'Must specify type' );
 		}
 
-		if ( !this.starts.hasOwnProperty( type ) || this.starts[ type ] === undefined ) {
+		if ( !Object.prototype.hasOwnProperty.call( this.starts, type ) || this.starts[ type ] === undefined ) {
 			return;
 		}
 
-		if ( !this.stops.hasOwnProperty( type ) || this.stops[ type ] === undefined ) {
+		if ( !Object.prototype.hasOwnProperty.call( this.stops, type ) || this.stops[ type ] === undefined ) {
 			return;
 		}
 
@@ -141,6 +141,7 @@
 		};
 
 		if ( extraData ) {
+			// eslint-disable-next-line no-jquery/no-each-util
 			$.each( extraData, function ( key, value ) {
 				e[ key ] = value;
 			} );

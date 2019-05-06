@@ -72,7 +72,7 @@
 			.on( 'click', function () {
 				// Select the text, and then try to copy the text.
 				// If the copy fails or is not supported, continue as if nothing had happened.
-				pane.pageInput.$input.select();
+				pane.pageInput.$input.triger( 'select' );
 				try {
 					if ( document.queryCommandSupported &&
 						document.queryCommandSupported( 'copy' ) ) {
@@ -159,7 +159,7 @@
 	 * Selects the text in the readonly textbox by triggering a focus event.
 	 */
 	SP.select = function () {
-		this.pageInput.$element.focus();
+		this.pageInput.$element.trigger( 'focus' );
 	};
 
 	mw.mmv.ui.reuse.Share = Share;
