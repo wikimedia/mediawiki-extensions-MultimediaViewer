@@ -189,17 +189,14 @@
 	} );
 
 	QUnit.test( 'About links', function ( assert ) {
-		var $qf = $( '#qunit-fixture' ),
-			oldWgMediaViewerIsInBeta = mw.config.get( 'wgMediaViewerIsInBeta' );
+		var $qf = $( '#qunit-fixture' );
 
 		this.sandbox.stub( mw.user, 'isAnon' );
-		mw.config.set( 'wgMediaViewerIsInBeta', false );
 		// eslint-disable-next-line no-new
 		new mw.mmv.ui.MetadataPanel( $qf.empty(), $( '<div>' ).appendTo( $qf ), mw.storage, new mw.mmv.Config( {}, mw.config, mw.user, new mw.Api(), mw.storage ) );
 
 		assert.strictEqual( $qf.find( '.mw-mmv-about-link' ).length, 1, 'About link is created.' );
 		assert.strictEqual( $qf.find( '.mw-mmv-discuss-link' ).length, 1, 'Discuss link is created.' );
 		assert.strictEqual( $qf.find( '.mw-mmv-help-link' ).length, 1, 'Help link is created.' );
-		mw.config.set( 'wgMediaViewerIsInBeta', oldWgMediaViewerIsInBeta );
 	} );
 }() );

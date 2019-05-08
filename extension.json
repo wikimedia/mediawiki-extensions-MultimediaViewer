@@ -462,9 +462,6 @@
 		"GetPreferences": [
 			"MultimediaViewerHooks::getPreferences"
 		],
-		"GetBetaFeaturePreferences": [
-			"MultimediaViewerHooks::getBetaPreferences"
-		],
 		"BeforePageDisplay": [
 			"MultimediaViewerHooks::getModulesForArticle"
 		],
@@ -497,7 +494,6 @@
 		"MediaViewerAttributionLoggingSamplingFactor": false,
 		"MediaViewerDimensionLoggingSamplingFactor": false,
 		"MediaViewerActionLoggingSamplingFactorMap": false,
-		"MediaViewerIsInBeta": false,
 		"MediaViewerUseThumbnailGuessing": false,
 		"MediaViewerEnableByDefault": true,
 		"MediaViewerEnableByDefaultForAnonymous": null,
