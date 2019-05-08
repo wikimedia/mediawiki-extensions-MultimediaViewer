@@ -50,12 +50,8 @@ class MultimediaViewerHooks {
 	 * @return bool
 	 */
 	protected static function shouldHandleClicks( $user ) {
-		global $wgMediaViewerIsInBeta, $wgMediaViewerEnableByDefaultForAnonymous,
+		global $wgMediaViewerEnableByDefaultForAnonymous,
 			$wgMediaViewerEnableByDefault;
-
-		if ( $wgMediaViewerIsInBeta && ExtensionRegistry::getInstance()->isLoaded( 'BetaFeatures' ) ) {
-			return BetaFeatures::isFeatureEnabled( $user, 'multimedia-viewer' );
-		}
 
 		if ( $wgMediaViewerEnableByDefaultForAnonymous === null ) {
 			$enableByDefaultForAnons = $wgMediaViewerEnableByDefault;
@@ -85,7 +81,7 @@ class MultimediaViewerHooks {
 	/**
 	 * Handler for BeforePageDisplay hook
 	 * Add JavaScript to the page when an image is on it
-	 * and the user has enabled the feature if BetaFeatures is installed
+	 * and the user has enabled the feature
 	 * @param OutputPage &$out
 	 * @param Skin &$skin
 	 * @return bool
@@ -127,51 +123,16 @@ class MultimediaViewerHooks {
 	}
 
 	/**
-	 * Add a beta preference to gate the feature
+	 * Adds a default-enabled preference to gate the feature
 	 * @param User $user
 	 * @param array &$prefs
-	 * @return true
-	 */
-	public static function getBetaPreferences( $user, &$prefs ) {
-		global $wgExtensionAssetsPath, $wgMediaViewerIsInBeta;
-
-		if ( !$wgMediaViewerIsInBeta ) {
-			return true;
-		}
-
-		$prefs['multimedia-viewer'] = [
-			'label-message' => 'multimediaviewer-pref',
-			'desc-message' => 'multimediaviewer-pref-desc',
-			'info-link' => self::$infoLink,
-			'discussion-link' => self::$discussionLink,
-			'help-link' => self::$helpLink,
-			'screenshot' => [
-				'ltr' => "$wgExtensionAssetsPath/MultimediaViewer/viewer-ltr.svg",
-				'rtl' => "$wgExtensionAssetsPath/MultimediaViewer/viewer-rtl.svg",
-			],
-		];
-
-		return true;
-	}
-
-	/**
-	 * Adds a default-enabled preference to gate the feature on non-beta sites
-	 * @param User $user
-	 * @param array &$prefs
-	 * @return true
 	 */
 	public static function getPreferences( $user, &$prefs ) {
-		global $wgMediaViewerIsInBeta;
-
-		if ( !$wgMediaViewerIsInBeta ) {
-			$prefs['multimediaviewer-enable'] = [
-				'type' => 'toggle',
-				'label-message' => 'multimediaviewer-optin-pref',
-				'section' => 'rendering/files',
-			];
-		}
-
-		return true;
+		$prefs['multimediaviewer-enable'] = [
+			'type' => 'toggle',
+			'label-message' => 'multimediaviewer-optin-pref',
+			'section' => 'rendering/files',
+		];
 	}
 
 	/**
@@ -186,7 +147,7 @@ class MultimediaViewerHooks {
 			$wgMediaViewerDurationLoggingLoggedinSamplingFactor,
 			$wgMediaViewerAttributionLoggingSamplingFactor,
 			$wgMediaViewerDimensionLoggingSamplingFactor,
-			$wgMediaViewerIsInBeta, $wgMediaViewerUseThumbnailGuessing, $wgMediaViewerExtensions,
+			$wgMediaViewerUseThumbnailGuessing, $wgMediaViewerExtensions,
 			$wgMediaViewerImageQueryParameter, $wgMediaViewerRecordVirtualViewBeaconURI;
 
 		$vars['wgMultimediaViewer'] = [
@@ -206,7 +167,6 @@ class MultimediaViewerHooks {
 			'extensions' => $wgMediaViewerExtensions,
 		];
 		$vars['wgMediaViewer'] = true;
-		$vars['wgMediaViewerIsInBeta'] = $wgMediaViewerIsInBeta;
 
 		return true;
 	}
@@ -221,7 +181,7 @@ class MultimediaViewerHooks {
 
 		$user = $out->getUser();
 		$vars['wgMediaViewerOnClick'] = self::shouldHandleClicks( $user );
-		// needed because of bug 69942; could be different for anon and logged-in
+		// needed because of T71942; could be different for anon and logged-in
 		$vars['wgMediaViewerEnabledByDefault'] =
 			!empty( $defaultUserOptions['multimediaviewer-enable'] );
 	}
