@@ -80,7 +80,7 @@ class MultimediaViewerHooks {
 	 * @param OutputPage &$out
 	 * @param Skin &$skin
 	 */
-	public static function getModulesForArticle( &$out, &$skin ) {
+	public static function onBeforePageDisplay( &$out, &$skin ) {
 		$pageHasThumbnails = count( $out->getFileSearchOptions() ) > 0;
 		$pageIsFilePage = $out->getTitle()->inNamespace( NS_FILE );
 		// TODO: Have Flow work out if there are any images on the page
@@ -102,7 +102,7 @@ class MultimediaViewerHooks {
 	 * Add JavaScript to the page if there are images in the category
 	 * @param CategoryPage &$catPage
 	 */
-	public static function getModulesForCategory( &$catPage ) {
+	public static function onCategoryPageView( &$catPage ) {
 		$title = $catPage->getTitle();
 		$cat = Category::newFromTitle( $title );
 		if ( $cat->getFileCount() > 0 ) {
@@ -116,7 +116,7 @@ class MultimediaViewerHooks {
 	 * @param User $user
 	 * @param array &$prefs
 	 */
-	public static function getPreferences( $user, &$prefs ) {
+	public static function onGetPreferences( $user, &$prefs ) {
 		$prefs['multimediaviewer-enable'] = [
 			'type' => 'toggle',
 			'label-message' => 'multimediaviewer-optin-pref',
@@ -128,7 +128,7 @@ class MultimediaViewerHooks {
 	 * Export variables used in both PHP and JS to keep DRY
 	 * @param array &$vars
 	 */
-	public static function resourceLoaderGetConfigVars( &$vars ) {
+	public static function onResourceLoaderGetConfigVars( &$vars ) {
 		global $wgMediaViewerActionLoggingSamplingFactorMap,
 			$wgMediaViewerNetworkPerformanceSamplingFactor,
 			$wgMediaViewerDurationLoggingSamplingFactor,
@@ -178,7 +178,9 @@ class MultimediaViewerHooks {
 	 * @param array &$attribs Attributes of the <img> element
 	 * @param array|bool &$linkAttribs Attributes of the wrapping <a> element
 	 */
-	public static function thumbnailBeforeProduceHTML( ThumbnailImage $thumbnail, array &$attribs,
+	public static function onThumbnailBeforeProduceHTML(
+		ThumbnailImage $thumbnail,
+		array &$attribs,
 		&$linkAttribs
 	) {
 		$file = $thumbnail->getFile();
