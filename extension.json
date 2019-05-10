@@ -460,22 +460,22 @@
 			"MultimediaViewerHooks::onUserGetDefaultOptions"
 		],
 		"GetPreferences": [
-			"MultimediaViewerHooks::getPreferences"
+			"MultimediaViewerHooks::onGetPreferences"
 		],
 		"BeforePageDisplay": [
-			"MultimediaViewerHooks::getModulesForArticle"
+			"MultimediaViewerHooks::onBeforePageDisplay"
 		],
 		"CategoryPageView": [
-			"MultimediaViewerHooks::getModulesForCategory"
+			"MultimediaViewerHooks::onCategoryPageView"
 		],
 		"ResourceLoaderGetConfigVars": [
-			"MultimediaViewerHooks::resourceLoaderGetConfigVars"
+			"MultimediaViewerHooks::onResourceLoaderGetConfigVars"
 		],
 		"MakeGlobalVariablesScript": [
 			"MultimediaViewerHooks::onMakeGlobalVariablesScript"
 		],
 		"ThumbnailBeforeProduceHTML": [
-			"MultimediaViewerHooks::thumbnailBeforeProduceHTML"
+			"MultimediaViewerHooks::onThumbnailBeforeProduceHTML"
 		]
 	},
 	"config": {

@@ -86,7 +86,7 @@ class MultimediaViewerHooks {
 	 * @param Skin &$skin
 	 * @return bool
 	 */
-	public static function getModulesForArticle( &$out, &$skin ) {
+	public static function onBeforePageDisplay( &$out, &$skin ) {
 		$pageHasThumbnails = count( $out->getFileSearchOptions() ) > 0;
 		$pageIsFilePage = $out->getTitle()->inNamespace( NS_FILE );
 		// TODO: Have Flow work out if there are any images on the page
@@ -111,7 +111,7 @@ class MultimediaViewerHooks {
 	 * @param CategoryPage &$catPage
 	 * @return bool
 	 */
-	public static function getModulesForCategory( &$catPage ) {
+	public static function onCategoryPageView( &$catPage ) {
 		$title = $catPage->getTitle();
 		$cat = Category::newFromTitle( $title );
 		if ( $cat->getFileCount() > 0 ) {
@@ -127,7 +127,7 @@ class MultimediaViewerHooks {
 	 * @param User $user
 	 * @param array &$prefs
 	 */
-	public static function getPreferences( $user, &$prefs ) {
+	public static function onGetPreferences( $user, &$prefs ) {
 		$prefs['multimediaviewer-enable'] = [
 			'type' => 'toggle',
 			'label-message' => 'multimediaviewer-optin-pref',
@@ -140,7 +140,7 @@ class MultimediaViewerHooks {
 	 * @param array &$vars
 	 * @return bool
 	 */
-	public static function resourceLoaderGetConfigVars( &$vars ) {
+	public static function onResourceLoaderGetConfigVars( &$vars ) {
 		global $wgMediaViewerActionLoggingSamplingFactorMap,
 			$wgMediaViewerNetworkPerformanceSamplingFactor,
 			$wgMediaViewerDurationLoggingSamplingFactor,
@@ -193,7 +193,9 @@ class MultimediaViewerHooks {
 	 * @param array|bool &$linkAttribs Attributes of the wrapping <a> element
 	 * @return true
 	 */
-	public static function thumbnailBeforeProduceHTML( ThumbnailImage $thumbnail, array &$attribs,
+	public static function onThumbnailBeforeProduceHTML(
+		ThumbnailImage $thumbnail,
+		array &$attribs,
 		&$linkAttribs
 	) {
 		$file = $thumbnail->getFile();
