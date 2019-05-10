@@ -38,7 +38,7 @@ class MultimediaViewerHooks {
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/UserGetDefaultOptions
 	 * @param array &$defaultOptions
 	 */
-	public static function onUserGetDefaultOptions( &$defaultOptions ) {
+	public static function onUserGetDefaultOptions( array &$defaultOptions ) {
 		global $wgMediaViewerEnableByDefault;
 
 		if ( $wgMediaViewerEnableByDefault ) {
@@ -51,7 +51,7 @@ class MultimediaViewerHooks {
 	 * @param User $user
 	 * @return bool
 	 */
-	protected static function shouldHandleClicks( $user ) {
+	protected static function shouldHandleClicks( User $user ) {
 		global $wgMediaViewerEnableByDefaultForAnonymous,
 			$wgMediaViewerEnableByDefault;
 
@@ -71,9 +71,9 @@ class MultimediaViewerHooks {
 	/**
 	 * Handler for all places where we add the modules
 	 * Could be on article pages or on Category pages
-	 * @param OutputPage &$out
+	 * @param OutputPage $out
 	 */
-	protected static function getModules( &$out ) {
+	protected static function getModules( OutputPage $out ) {
 		$out->addModules( [ 'mmv.head', 'mmv.bootstrap.autostart' ] );
 	}
 
@@ -81,10 +81,10 @@ class MultimediaViewerHooks {
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/BeforePageDisplay
 	 * Add JavaScript to the page when an image is on it
 	 * and the user has enabled the feature
-	 * @param OutputPage &$out
-	 * @param Skin &$skin
+	 * @param OutputPage $out
+	 * @param Skin $skin
 	 */
-	public static function onBeforePageDisplay( &$out, &$skin ) {
+	public static function onBeforePageDisplay( OutputPage $out, $skin ) {
 		$pageHasThumbnails = count( $out->getFileSearchOptions() ) > 0;
 		$pageIsFilePage = $out->getTitle()->inNamespace( NS_FILE );
 		// TODO: Have Flow work out if there are any images on the page
@@ -104,9 +104,9 @@ class MultimediaViewerHooks {
 	/**
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CategoryPageView
 	 * Add JavaScript to the page if there are images in the category
-	 * @param CategoryPage &$catPage
+	 * @param CategoryPage $catPage
 	 */
-	public static function onCategoryPageView( &$catPage ) {
+	public static function onCategoryPageView( CategoryPage $catPage ) {
 		$title = $catPage->getTitle();
 		$cat = Category::newFromTitle( $title );
 		if ( $cat->getFileCount() > 0 ) {
@@ -134,7 +134,7 @@ class MultimediaViewerHooks {
 	 * Export variables used in both PHP and JS to keep DRY
 	 * @param array &$vars
 	 */
-	public static function onResourceLoaderGetConfigVars( &$vars ) {
+	public static function onResourceLoaderGetConfigVars( array &$vars ) {
 		global $wgMediaViewerActionLoggingSamplingFactorMap,
 			$wgMediaViewerNetworkPerformanceSamplingFactor,
 			$wgMediaViewerDurationLoggingSamplingFactor,
@@ -169,7 +169,7 @@ class MultimediaViewerHooks {
 	 * @param array &$vars
 	 * @param OutputPage $out
 	 */
-	public static function onMakeGlobalVariablesScript( &$vars, OutputPage $out ) {
+	public static function onMakeGlobalVariablesScript( array &$vars, OutputPage $out ) {
 		$defaultUserOptions = User::getDefaultOptions();
 
 		$user = $out->getUser();
