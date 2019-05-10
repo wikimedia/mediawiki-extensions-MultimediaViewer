@@ -40,8 +40,6 @@ class MultimediaViewerHooks {
 		if ( $wgMediaViewerEnableByDefault ) {
 			$defaultOptions['multimediaviewer-enable'] = 1;
 		}
-
-		return true;
 	}
 
 	/**
@@ -70,12 +68,9 @@ class MultimediaViewerHooks {
 	 * Handler for all places where we add the modules
 	 * Could be on article pages or on Category pages
 	 * @param OutputPage &$out
-	 * @return bool
 	 */
 	protected static function getModules( &$out ) {
 		$out->addModules( [ 'mmv.head', 'mmv.bootstrap.autostart' ] );
-
-		return true;
 	}
 
 	/**
@@ -84,7 +79,6 @@ class MultimediaViewerHooks {
 	 * and the user has enabled the feature
 	 * @param OutputPage &$out
 	 * @param Skin &$skin
-	 * @return bool
 	 */
 	public static function getModulesForArticle( &$out, &$skin ) {
 		$pageHasThumbnails = count( $out->getFileSearchOptions() ) > 0;
@@ -99,27 +93,22 @@ class MultimediaViewerHooks {
 			&& in_array( $out->getTitle()->getText(), $fileRelatedSpecialPages );
 
 		if ( $pageHasThumbnails || $pageIsFilePage || $pageIsFileRelatedSpecialPage || $pageIsFlowPage ) {
-			return self::getModules( $out );
+			self::getModules( $out );
 		}
-
-		return true;
 	}
 
 	/**
 	 * Handler for CategoryPageView hook
 	 * Add JavaScript to the page if there are images in the category
 	 * @param CategoryPage &$catPage
-	 * @return bool
 	 */
 	public static function getModulesForCategory( &$catPage ) {
 		$title = $catPage->getTitle();
 		$cat = Category::newFromTitle( $title );
 		if ( $cat->getFileCount() > 0 ) {
 			$out = $catPage->getContext()->getOutput();
-			return self::getModules( $out );
+			self::getModules( $out );
 		}
-
-		return true;
 	}
 
 	/**
@@ -138,7 +127,6 @@ class MultimediaViewerHooks {
 	/**
 	 * Export variables used in both PHP and JS to keep DRY
 	 * @param array &$vars
-	 * @return bool
 	 */
 	public static function resourceLoaderGetConfigVars( &$vars ) {
 		global $wgMediaViewerActionLoggingSamplingFactorMap,
@@ -167,8 +155,6 @@ class MultimediaViewerHooks {
 			'extensions' => $wgMediaViewerExtensions,
 		];
 		$vars['wgMediaViewer'] = true;
-
-		return true;
 	}
 
 	/**
@@ -191,7 +177,6 @@ class MultimediaViewerHooks {
 	 * @param ThumbnailImage $thumbnail
 	 * @param array &$attribs Attributes of the <img> element
 	 * @param array|bool &$linkAttribs Attributes of the wrapping <a> element
-	 * @return true
 	 */
 	public static function thumbnailBeforeProduceHTML( ThumbnailImage $thumbnail, array &$attribs,
 		&$linkAttribs
@@ -211,7 +196,5 @@ class MultimediaViewerHooks {
 				$attribs['data-file-height'] = $file->getHeight();
 			}
 		}
-
-		return true;
 	}
 }
