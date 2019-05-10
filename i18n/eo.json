@@ -8,8 +8,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Etendi miniaturojn al larĝa grandeco en plenekrana interfaco.",
-	"multimediaviewer-pref": "Media Montrilo",
-	"multimediaviewer-pref-desc": "Plibonigi vian spektadon de plurmediaĵoj per tiu ĉi nova ilo. En paĝoj kie estas uzataj miniaturoj, ĝi montras bildojn pli grande. Bildoj estas montrataj en pli bela plenekrana interfaco kaj eblas ilin spekti en plena grandeco.",
 	"multimediaviewer-optin-pref": "Ŝalti <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Median Montrilon]</span>",
 	"multimediaviewer-file-page": "Iri al la paĝo kun priskribo de la dosiero",
 	"multimediaviewer-repository-local": "Pliaj detaloj",

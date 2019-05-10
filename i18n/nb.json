@@ -7,8 +7,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Utvider miniatyrbilder til større størrelse i et fullskjermoverlegg.",
-	"multimediaviewer-pref": "Mediefremviser",
-	"multimediaviewer-pref-desc": "Forbedre multimediavisningsopplevelsen med dette nye verktøyet. Det viser bilder i større størrelse på sider som har miniatyrbilder. Bilder vises i et overlegg, som også kan utvides til fullskjerm.",
 	"multimediaviewer-optin-pref": "Aktiver <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About mediefremviseren]</span>",
 	"multimediaviewer-file-page": "Gå til tilsvarende filside",
 	"multimediaviewer-repository-local": "Flere detaljer",

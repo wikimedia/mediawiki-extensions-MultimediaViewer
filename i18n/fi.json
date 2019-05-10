@@ -13,8 +13,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Näytä pienoiskuvat suuremmassa koossa kokoruututilassa",
-	"multimediaviewer-pref": "Mediakatselin",
-	"multimediaviewer-pref-desc": "Paranna multimedian katselukokemustasi tällä uudella työkalulla. Se näyttää kuvat suuremmassa koossa sivuilla, joissa on kuvakkeita. Kuvat aukeavat suuremmassa koossa kokoruututilassa, ja ne voidaan näyttää myös täysikokoisina.",
 	"multimediaviewer-optin-pref": "Ota käyttöön <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Mediakatselin]</span>",
 	"multimediaviewer-file-page": "Siirry tiedoston omalle sivulle",
 	"multimediaviewer-repository-local": "Lisätiedot",

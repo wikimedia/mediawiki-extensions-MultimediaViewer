@@ -13,8 +13,6 @@
 		]
 	},
 	"multimediaviewer-desc": "تصاویر بندانگشتی در اندازهٔ بزرگ‌تر داخل یک رابط کاربری تمام‌صفحه گسترش یابند.",
-	"multimediaviewer-pref": "نمایش‌دهندهٔ رسانه",
-	"multimediaviewer-pref-desc": "تجربهٔ بازدید چندرسانه‌ای شما با این ابزار جدید بهبود می‌یابد و تصاویر را در اندازهٔ بزرگتر در صفحه‌هایی که تصویر بندانگشتی دارند نمایش می‌دهد. تصاویر در پوشش سبک زیباتری نمایش داده می‌شوند و همچنین می‌توانند در اندازهٔ اصلی نمایش داده شوند.",
 	"multimediaviewer-optin-pref": "فعال کردن <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About نمایشگر رسانه‌ای]</span>",
 	"multimediaviewer-file-page": "رفتن به صفحهٔ مرتبط با پرونده",
 	"multimediaviewer-repository-local": "جزئیات بیشتر",
