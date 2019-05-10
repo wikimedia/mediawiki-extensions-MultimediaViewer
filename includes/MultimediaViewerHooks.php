@@ -34,6 +34,10 @@ class MultimediaViewerHooks {
 	protected static $helpLink =
 		'https://mediawiki.org/wiki/Special:MyLanguage/Help:Extension:Media_Viewer';
 
+	/**
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/UserGetDefaultOptions
+	 * @param array &$defaultOptions
+	 */
 	public static function onUserGetDefaultOptions( &$defaultOptions ) {
 		global $wgMediaViewerEnableByDefault;
 
@@ -74,7 +78,7 @@ class MultimediaViewerHooks {
 	}
 
 	/**
-	 * Handler for BeforePageDisplay hook
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/BeforePageDisplay
 	 * Add JavaScript to the page when an image is on it
 	 * and the user has enabled the feature
 	 * @param OutputPage &$out
@@ -98,7 +102,7 @@ class MultimediaViewerHooks {
 	}
 
 	/**
-	 * Handler for CategoryPageView hook
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CategoryPageView
 	 * Add JavaScript to the page if there are images in the category
 	 * @param CategoryPage &$catPage
 	 */
@@ -112,6 +116,7 @@ class MultimediaViewerHooks {
 	}
 
 	/**
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/GetPreferences
 	 * Adds a default-enabled preference to gate the feature
 	 * @param User $user
 	 * @param array &$prefs
@@ -125,6 +130,7 @@ class MultimediaViewerHooks {
 	}
 
 	/**
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ResourceLoaderGetConfigVars
 	 * Export variables used in both PHP and JS to keep DRY
 	 * @param array &$vars
 	 */
@@ -158,6 +164,7 @@ class MultimediaViewerHooks {
 	}
 
 	/**
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/MakeGlobalVariablesScript
 	 * Export variables which depend on the current user
 	 * @param array &$vars
 	 * @param OutputPage $out
@@ -173,6 +180,7 @@ class MultimediaViewerHooks {
 	}
 
 	/**
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ThumbnailBeforeProduceHTML
 	 * Modify thumbnail DOM
 	 * @param ThumbnailImage $thumbnail
 	 * @param array &$attribs Attributes of the <img> element
