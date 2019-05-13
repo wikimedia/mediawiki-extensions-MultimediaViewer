@@ -140,8 +140,6 @@
 		var $input = this.pageInput.$element.find( 'input' );
 
 		$input.on( 'focus', this.selectAllOnEvent );
-		// Disable partial text selection inside the textbox
-		$input.on( 'mousedown click', this.onlyFocus );
 	};
 
 	/**
@@ -152,7 +150,7 @@
 
 		mw.mmv.ui.reuse.Tab.prototype.unattach.call( this );
 
-		$input.off( 'focus mousedown click' );
+		$input.off( 'focus' );
 	};
 
 	/**

@@ -261,9 +261,6 @@
 		// Select all text once element gets focus
 		$htmlTextarea.on( 'focus', this.selectAllOnEvent );
 		$wikitextTextarea.on( 'focus', this.selectAllOnEvent );
-		// Disable partial text selection inside the textboxes
-		$htmlTextarea.on( 'mousedown click', this.onlyFocus );
-		$wikitextTextarea.on( 'mousedown click', this.onlyFocus );
 
 		// Register handler for switching between wikitext/html snippets
 		this.embedSwitch.on( 'select', $.proxy( embed.handleTypeSwitch, embed ) );
@@ -282,8 +279,8 @@
 
 		mw.mmv.ui.reuse.Tab.prototype.unattach.call( this );
 
-		$htmlTextarea.off( 'focus mousedown click' );
-		$wikitextTextarea.off( 'focus mousedown click' );
+		$htmlTextarea.off( 'focus' );
+		$wikitextTextarea.off( 'focus' );
 		this.embedSwitch.off( 'select' );
 		this.embedSizeSwitchHtml.getMenu().off( 'choose' );
 		this.embedSizeSwitchWikitext.getMenu().off( 'choose' );
