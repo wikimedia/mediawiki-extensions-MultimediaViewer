@@ -54,11 +54,10 @@
 
 		assert.strictEqual( viewer.isOpen, false, 'Viewer is closed' );
 
-		viewer.isOpen = true;
+		viewer.loadImageByTitle( image.filePageTitle );
 
 		// Verify that passing an invalid mmv hash when the mmv is open triggers unattach()
 		window.location.hash = 'Foo';
-		viewer.hash();
 
 		// Verify that mmv doesn't reset a foreign hash
 		assert.strictEqual( window.location.hash, '#Foo', 'Foreign hash remains intact' );
@@ -71,7 +70,6 @@
 
 		// Verify that passing an invalid mmv hash when the mmv is closed doesn't trigger unattach()
 		window.location.hash = 'Bar';
-		viewer.hash();
 
 		// Verify that mmv doesn't reset a foreign hash
 		assert.strictEqual( window.location.hash, '#Bar', 'Foreign hash remains intact' );
@@ -87,24 +85,19 @@
 		// Open a valid mmv hash link and check that the right image is requested.
 		// imageSrc contains a space without any encoding on purpose
 		window.location.hash = '/media/File:' + imageSrc;
-		viewer.hash();
 
 		// Reset the hash, because for some browsers switching from the non-URI-encoded to
 		// the non-URI-encoded version of the same text with a space will not trigger a hash change
 		window.location.hash = '';
-		viewer.hash();
 
 		// Try again with an URI-encoded imageSrc containing a space
 		window.location.hash = '/media/File:' + encodeURIComponent( imageSrc );
-		viewer.hash();
 
 		// Reset the hash
 		window.location.hash = '';
-		viewer.hash();
 
 		// Try again with a legacy hash
 		window.location.hash = 'mediaviewer/File:' + imageSrc;
-		viewer.hash();
 
 		viewer.cleanupEventHandlers();
 
@@ -703,7 +696,7 @@
 
 		viewer.currentImageFileTitle = title;
 		bootstrap.setupEventHandlers();
-		viewer.setHash();
+		viewer.setMediaHash();
 
 		assert.ok( document.title.match( title.getNameText() ), 'File name is visible in title' );
 

@@ -47,6 +47,11 @@
  */
 
 /**
+ * @class OO.Router
+ * <https://doc.wikimedia.org/oojs-router/master/#!/api/OO.Router>
+ */
+
+/**
  * @class OO.ui.MenuOptionWidget
  * <https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/OO.ui.MenuOptionWidget>
  */
