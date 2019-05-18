@@ -72,7 +72,7 @@
 			.on( 'click', function () {
 				// Select the text, and then try to copy the text.
 				// If the copy fails or is not supported, continue as if nothing had happened.
-				pane.pageInput.$input.triger( 'select' );
+				pane.pageInput.$input.trigger( 'select' );
 				try {
 					if ( document.queryCommandSupported &&
 						document.queryCommandSupported( 'copy' ) ) {
