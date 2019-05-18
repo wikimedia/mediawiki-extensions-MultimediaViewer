@@ -172,7 +172,7 @@
 	 */
 	HUP.jqueryToHtml = function ( $el ) {
 		// There are two possible implementations for this:
-		// 1) load innto a wrapper element and get its innerHTML;
+		// 1) load into a wrapper element and get its innerHTML;
 		// 2) use outerHTML.
 		// We go with 1) because it handles the case when a jQuery object contains something
 		// that is not an element (this can happen with e.g. $x.children() which returns text
@@ -256,7 +256,7 @@
 	 * Generates HTML code for a link.
 	 *
 	 * @param {string} text Link text (plain text; will be sanitized)
-	 * @param {Object} props Link attributes (should at a minumum include href; will be sanitized)
+	 * @param {Object} props Link attributes (should at a minimum include href; will be sanitized)
 	 * @return {string}
 	 */
 	HUP.makeLinkText = function ( text, props ) {

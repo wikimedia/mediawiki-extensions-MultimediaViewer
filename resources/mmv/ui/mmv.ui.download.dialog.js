@@ -70,7 +70,7 @@
 	};
 
 	/**
-	 * Sets data needed by contaned tabs and makes dialog launch link visible.
+	 * Sets data needed by contained tabs and makes dialog launch link visible.
 	 *
 	 * @param {mw.mmv.model.Image} image
 	 * @param {mw.mmv.model.Repo} repo

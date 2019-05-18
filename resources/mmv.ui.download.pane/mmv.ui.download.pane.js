@@ -339,16 +339,16 @@
 	 * @param {number} height
 	 */
 	DP.setButtonText = function ( sizeClass, extension, width, height ) {
-		var sizeClasMessage, sizeMessage, dimensionMessage;
+		var sizeClassMessage, sizeMessage, dimensionMessage;
 
-		sizeClasMessage = mw.message( 'multimediaviewer-download-' + sizeClass + '-button-name' ).text();
+		sizeClassMessage = mw.message( 'multimediaviewer-download-' + sizeClass + '-button-name' ).text();
 		dimensionMessage = mw.message( 'multimediaviewer-embed-dimensions', width, height ).text();
 		sizeMessage = mw.message( 'multimediaviewer-embed-dimensions-with-file-format',
 			dimensionMessage, extension ).text();
 
 		// Update button label and size strings to reflect new selected size
 		this.$downloadButton.html(
-			'<span class="mw-mmv-download-image-size-name">' + sizeClasMessage + '</span>' +
+			'<span class="mw-mmv-download-image-size-name">' + sizeClassMessage + '</span>' +
 			'<span class="mw-mmv-download-image-size">' + sizeMessage + '</span>'
 		);
 	};

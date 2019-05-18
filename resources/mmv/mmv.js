@@ -609,7 +609,7 @@
 	 * @private
 	 * @param {function(number, mw.mmv.LightboxImage)} callback
 	 */
-	MMVP.eachPrealoadableLightboxIndex = function ( callback ) {
+	MMVP.eachPreloadableLightboxIndex = function ( callback ) {
 		var i;
 		for ( i = 0; i <= this.preloadDistance; i++ ) {
 			if ( this.currentIndex + i < this.thumbs.length ) {
@@ -640,7 +640,7 @@
 	MMVP.pushLightboxImagesIntoQueue = function ( taskFactory ) {
 		var queue = new mw.mmv.model.TaskQueue();
 
-		this.eachPrealoadableLightboxIndex( function ( i, lightboxImage, extraStatsDeferred ) {
+		this.eachPreloadableLightboxIndex( function ( i, lightboxImage, extraStatsDeferred ) {
 			queue.push( taskFactory( lightboxImage, extraStatsDeferred ) );
 		} );
 
@@ -677,13 +677,13 @@
 
 		this.metadataPreloadQueue = this.pushLightboxImagesIntoQueue( function ( lightboxImage, extraStatsDeferred ) {
 			return function () {
-				var metadatapromise = viewer.fetchSizeIndependentLightboxInfo( lightboxImage.filePageTitle );
-				metadatapromise.done( function ( imageInfo ) {
+				var metadataPromise = viewer.fetchSizeIndependentLightboxInfo( lightboxImage.filePageTitle );
+				metadataPromise.done( function ( imageInfo ) {
 					extraStatsDeferred.resolve( { uploadTimestamp: imageInfo.anonymizedUploadDateTime } );
 				} ).fail( function () {
 					extraStatsDeferred.reject();
 				} );
-				return metadatapromise;
+				return metadataPromise;
 			};
 		} );
 
@@ -946,7 +946,7 @@
 
 	/**
 	 * @event mmv-close
-	 * Fired when the viewer is closed. This is used by the ligthbox to notify the main app.
+	 * Fired when the viewer is closed. This is used by the lightbox to notify the main app.
 	 */
 	/**
 	 * @event mmv-next
@@ -958,7 +958,7 @@
 	 */
 	/**
 	 * @event mmv-resize-end
-	 * Fired when the screen size changes. Debounced to avoid continous triggering while resizing with a mouse.
+	 * Fired when the screen size changes. Debounced to avoid continuous triggering while resizing with a mouse.
 	 */
 	/**
 	 * @event mmv-request-thumbnail

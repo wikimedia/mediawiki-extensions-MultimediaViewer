@@ -1,7 +1,7 @@
 ( function () {
 	QUnit.module( 'mmv', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'eachPrealoadableLightboxIndex()', function ( assert ) {
+	QUnit.test( 'eachPreloadableLightboxIndex()', function ( assert ) {
 		var viewer = mw.mmv.testHelpers.getMultimediaViewer(),
 			expectedIndices,
 			i;
@@ -17,14 +17,14 @@
 		viewer.currentIndex = 2;
 		i = 0;
 		expectedIndices = [ 2, 3, 1, 4, 0, 5 ];
-		viewer.eachPrealoadableLightboxIndex( function ( index ) {
+		viewer.eachPreloadableLightboxIndex( function ( index ) {
 			assert.strictEqual( index, expectedIndices[ i++ ], 'preload on left edge' );
 		} );
 
 		viewer.currentIndex = 9;
 		i = 0;
 		expectedIndices = [ 9, 10, 8, 7, 6 ];
-		viewer.eachPrealoadableLightboxIndex( function ( index ) {
+		viewer.eachPreloadableLightboxIndex( function ( index ) {
 			assert.strictEqual( index, expectedIndices[ i++ ], 'preload on right edge' );
 		} );
 	} );
@@ -443,7 +443,7 @@
 			open: function () {},
 			empty: function () {} };
 		viewer.displayRealThumbnail = this.sandbox.stub();
-		viewer.eachPrealoadableLightboxIndex = function () {};
+		viewer.eachPreloadableLightboxIndex = function () {};
 		viewer.animateMetadataDivOnce = this.sandbox.stub().returns( $.Deferred().reject() );
 		viewer.imageProvider.get = this.sandbox.stub();
 		viewer.imageInfoProvider.get = function () { return $.Deferred().reject(); };

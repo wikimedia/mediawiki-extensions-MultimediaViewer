@@ -35,7 +35,7 @@
 	 * Sampling factor key-value map.
 	 *
 	 * The map's keys are the action identifiers and the values are the sampling factor for each action type.
-	 * There is a "default" key defined providing a default sampling factor for actions that aren't explicitely
+	 * There is a "default" key defined providing a default sampling factor for actions that aren't explicitly
 	 * set in the map.
 	 * @property {Object.<string, number>}
 	 * @static
