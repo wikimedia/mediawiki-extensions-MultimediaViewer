@@ -115,7 +115,7 @@
 	 */
 	DP.createSizePulldownMenu = function ( $container ) {
 		this.downloadSizeMenu = this.utils.createPulldownMenu(
-			[ 'original', 'small', 'medium', 'large' ],
+			[ 'original', 'small', 'medium', 'large', 'xl' ],
 			[ 'mw-mmv-download-size' ],
 			'original'
 		);
