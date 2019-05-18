@@ -275,9 +275,10 @@
 		// know what size it should be. We still assign it to allow for
 		// size calculations in getCurrentImageWidths, which needs to know
 		// the aspect ratio
-		$initialImage.hide();
-		$initialImage.addClass( 'mw-mmv-placeholder-image' );
-		$initialImage.addClass( image.filePageTitle.ext.toLowerCase() );
+		$initialImage.hide()
+			.removeAttr( 'style' )
+			.removeClass()
+			.addClass( 'mw-mmv-placeholder-image ' + image.filePageTitle.ext.toLowerCase() );
 
 		this.ui.canvas.set( image, $initialImage );
 
