@@ -550,16 +550,13 @@
 		$container.addClass( 'metadata' );
 		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image in a metadata container is disallowed.' );
 
-		$container.prop( 'class', '' );
-		$container.addClass( 'noviewer' );
+		$container.removeClass().addClass( 'noviewer' );
 		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image in a noviewer container is disallowed.' );
 
-		$container.prop( 'class', '' );
-		$container.addClass( 'noarticletext' );
+		$container.removeClass().addClass( 'noarticletext' );
 		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image in an empty article is disallowed.' );
 
-		$container.prop( 'class', '' );
-		$thumb.addClass( 'noviewer' );
+		$container.removeClass().addClass( 'noviewer' );
 		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image with a noviewer class is disallowed.' );
 	} );
 
