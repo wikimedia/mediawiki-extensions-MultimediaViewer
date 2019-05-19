@@ -180,7 +180,8 @@
 		this.$attributionSection = $( '<div>' )
 			.addClass( 'mw-mmv-download-attribution mw-mmv-download-attribution-collapsed' )
 			.appendTo( $container )
-			.on( 'click', function () {
+			.on( 'click', function ( e ) {
+				e.stopPropagation();
 				if ( dl.$attributionSection.hasClass( 'mw-mmv-download-attribution-collapsed' ) ) {
 					dl.$container.trigger( 'mmv-download-cta-open' );
 					dl.$attributionSection.removeClass( 'mw-mmv-download-attribution-collapsed' );
