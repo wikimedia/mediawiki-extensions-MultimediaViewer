@@ -55,7 +55,7 @@
 	transition: opacity 0.25s;
 	background-position: center;
 	margin-top: 14px;
-	margin-right: 14px;
+	width: 24px + 2 * 14px;
 }
 
 .mw-mmv-next-image,
@@ -76,14 +76,13 @@
 	/* @embed */
 	background-image: url( img/mw-close.svg );
 	height: 23px;
-	width: 23px;
 }
 
 .mw-mmv-fullscreen {
+	right: @buttons-offset-right - 2px;
 	top: ( @buttons-offset-right + ( @buttons-offset-each-top ) );
 	/* @embed */
 	background-image: url( img/mw-fullscreen-ltr.svg );
-	width: 21px;
 	height: 22px;
 }
 
@@ -92,7 +91,6 @@
 	/* @embed */
 	background-image: url( img/gear.svg );
 	height: 23px;
-	width: 23px;
 }
 
 .jq-fullscreened {
@@ -130,7 +128,6 @@
 	/* @embed */
 	background-image: url( img/use-ltr.svg );
 	height: 24px;
-	width: 24px;
 }
 
 .mw-mmv-download-button {
@@ -138,5 +135,4 @@
 	/* @embed */
 	background-image: url( img/mw-download.svg );
 	height: 24px;
-	width: 24px;
 }
