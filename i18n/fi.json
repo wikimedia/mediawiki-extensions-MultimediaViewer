@@ -83,6 +83,7 @@
 	"multimediaviewer-download-attribution-cta": "Näytä kuinka",
 	"multimediaviewer-reuse-warning-deletion": "Tätä tiedostoa harkitaan poistettavaksi.",
 	"multimediaviewer-reuse-warning-nonfree": "Tiedosto ei ole vapaasti lisensoitu.",
+	"multimediaviewer-reuse-warning-generic": "Tarkista [$1 tiedot] ennen sen käyttöä.",
 	"multimediaviewer-options-tooltip": "Ota Mediakatselin käyttöön tai poista käytöstä",
 	"multimediaviewer-options-dialog-header": "Ota Mediakatselin pois käytöstä?",
 	"multimediaviewer-options-learn-more": "Lue lisää",
