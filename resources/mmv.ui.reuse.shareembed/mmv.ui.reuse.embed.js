@@ -119,7 +119,9 @@
 
 		this.embedTextHtml = new OO.ui.MultilineTextInputWidget( {
 			classes: htmlClasses,
-			readOnly: true
+			readOnly: true,
+			autosize: true,
+			maxRows: 5
 		} );
 
 		this.embedTextHtml.$element.find( 'textarea' )
@@ -131,7 +133,9 @@
 
 		this.embedTextWikitext = new OO.ui.MultilineTextInputWidget( {
 			classes: wikitextClasses,
-			readOnly: true
+			readOnly: true,
+			autosize: true,
+			maxRows: 5
 		} );
 
 		this.embedTextWikitext.$element.find( 'textarea' )
