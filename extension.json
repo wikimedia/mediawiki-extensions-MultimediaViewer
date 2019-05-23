@@ -252,6 +252,7 @@
 			"dependencies": [
 				"mediawiki.ui",
 				"mediawiki.ui.button",
+				"mediawiki.widgets",
 				"mmv",
 				"mmv.ui.ondemandshareddependencies",
 				"oojs",
@@ -281,14 +282,14 @@
 			],
 			"styles": [
 				"mmv.ui.reuse.shareembed/mmv.ui.reuse.share.less",
-				"mmv.ui.reuse.shareembed/mmv.ui.reuse.embed.less",
-				"mmv.ui.reuse.shareembed/mmv.ui.reuse.shareembed.less"
+				"mmv.ui.reuse.shareembed/mmv.ui.reuse.embed.less"
 			],
 			"dependencies": [
 				"jquery.tipsy",
 				"oojs",
 				"oojs-ui",
 				"mediawiki.user",
+				"mediawiki.widgets",
 				"mmv.ui.ondemandshareddependencies"
 			],
 			"messages": [

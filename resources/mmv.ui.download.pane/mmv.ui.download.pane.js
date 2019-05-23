@@ -145,9 +145,12 @@
 
 	DP.createAttributionButton = function ( $container ) {
 		var dl = this,
-			attributionInput = new OO.ui.TextInputWidget( {
-				classes: [ 'mw-mmv-download-attr-input' ],
-				readOnly: true
+			attributionInput = new mw.widgets.CopyTextLayout( {
+				align: 'top',
+				button: {
+					label: '',
+					title: mw.msg( 'multimediaviewer-download-attribution-copy' )
+				}
 			} ),
 			attributionSwitch = new OO.ui.ButtonSelectWidget( {
 				classes: [ 'mw-mmv-download-attr-select' ]
@@ -171,7 +174,7 @@
 		attributionSwitch.on( 'select', function ( selection ) {
 			dl.selectAttribution( selection.getData() );
 
-			dl.attributionInput.$element.find( 'input' ).trigger( 'focus' );
+			dl.attributionInput.selectText();
 		} );
 
 		this.$attributionSection = $( '<div>' )
@@ -181,7 +184,7 @@
 				if ( dl.$attributionSection.hasClass( 'mw-mmv-download-attribution-collapsed' ) ) {
 					dl.$container.trigger( 'mmv-download-cta-open' );
 					dl.$attributionSection.removeClass( 'mw-mmv-download-attribution-collapsed' );
-					dl.attributionInput.$element.find( 'input' ).trigger( 'focus' );
+					dl.attributionInput.selectText();
 				}
 			} );
 
@@ -198,29 +201,6 @@
 			)
 			.appendTo( this.$attributionSection );
 		this.attributionInput = attributionInput;
-		this.$attributionCopy = this.$copyButton = $( '<button>' )
-			.addClass( 'mw-ui-button mw-mmv-button mw-mmv-dialog-copy' )
-			.on( 'click', function () {
-				// Select the text, and then try to copy the text.
-				// If the copy fails or is not supported, continue as if nothing had happened.
-				dl.attributionInput.select();
-				try {
-					if ( document.queryCommandSupported &&
-						document.queryCommandSupported( 'copy' ) ) {
-						document.execCommand( 'copy' );
-					}
-				} catch ( e ) {
-					// queryCommandSupported in Firefox pre-41 can throw errors when used with
-					// clipboard commands. We catch and ignore these and other copy-command-related
-					// errors here.
-				}
-			} )
-			.prop( 'title', mw.msg( 'multimediaviewer-download-attribution-copy' ) )
-			.text( mw.msg( 'multimediaviewer-download-attribution-copy' ) )
-			.tipsy( {
-				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
-				gravity: this.correctEW( 'se' )
-			} );
 
 		this.$attributionHowHeader = $( '<p>' )
 			.addClass( 'mw-mmv-download-attribution-how-header' )
@@ -230,8 +210,7 @@
 			.append(
 				this.$attributionHowHeader,
 				this.attributionInput.$element,
-				this.$attributionCopy,
-				attributionSwitch.$element,
+				new OO.ui.FieldLayout( attributionSwitch, { align: 'top' } ).$element,
 				$( '<p>' )
 					.addClass( 'mw-mmv-download-attribution-close-button' )
 					.on( 'click', function ( e ) {
@@ -253,9 +232,9 @@
 		this.currentAttrView = name;
 
 		if ( this.currentAttrView === 'html' ) {
-			this.attributionInput.setValue( this.htmlCredit );
+			this.attributionInput.textInput.setValue( this.htmlCredit );
 		} else {
-			this.attributionInput.setValue( this.textCredit );
+			this.attributionInput.textInput.setValue( this.textCredit );
 		}
 	};
 
@@ -272,9 +251,6 @@
 		this.$selectionArrow.on( 'click', function () {
 			download.downloadSizeMenu.getMenu().toggle();
 		} );
-
-		this.attributionInput.$element.find( 'input' )
-			.on( 'focus', this.selectAllOnEvent );
 	};
 
 	/**
@@ -285,9 +261,6 @@
 
 		this.downloadSizeMenu.getMenu().off( 'choose' );
 		this.$selectionArrow.off( 'click' );
-
-		this.attributionInput.$element.find( 'input' )
-			.off( 'focus' );
 	};
 
 	/**

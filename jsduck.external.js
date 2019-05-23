@@ -36,6 +36,11 @@
  */
 
 /**
+ * @class mw.widgets.CopyTextLayout
+ * <https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.widgets.CopyTextLayout>
+ */
+
+/**
  * @class HTMLElement
  * An HTML element.
  */
