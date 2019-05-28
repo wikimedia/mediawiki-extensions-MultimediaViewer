@@ -78,8 +78,6 @@
 		// wait for if we want to see these tests through
 		mw.mmv.testHelpers.asyncMethod( bootstrap, 'loadViewer' );
 
-		bootstrap.setupEventHandlers();
-
 		// invalid hash, should not trigger MMV load
 		window.location.hash = 'Foo';
 
@@ -89,6 +87,7 @@
 		// without us interfering with another immediate change
 		setTimeout( function () {
 			window.location.hash = hash;
+			bootstrap.hash();
 		} );
 
 		return mw.mmv.testHelpers.waitForAsync().then( function () {
@@ -428,58 +427,6 @@
 		bootstrap.hash();
 
 		assert.strictEqual( bootstrap.setupOverlay.called, false, 'Overlay is not set up' );
-	} );
-
-	QUnit.test( 'internalHashChange', function ( assert ) {
-		var bootstrap = createBootstrap(),
-			hash = '#/media/foo',
-			callCount = 0,
-			clock = this.sandbox.useFakeTimers();
-
-		window.location.hash = '';
-
-		bootstrap.loadViewer = function () {
-			callCount++;
-			return $.Deferred().reject();
-		};
-
-		bootstrap.setupEventHandlers();
-
-		bootstrap.internalHashChange( { hash: hash } );
-		clock.tick( 10 );
-
-		assert.strictEqual( callCount, 0, 'Viewer should not be loaded' );
-		assert.strictEqual( window.location.hash, hash, 'Window\'s hash has been updated correctly' );
-
-		bootstrap.cleanupEventHandlers();
-		window.location.hash = '';
-		clock.restore();
-	} );
-
-	QUnit.test( 'internalHashChange (legacy)', function ( assert ) {
-		var bootstrap = createBootstrap(),
-			hash = '#mediaviewer/foo',
-			callCount = 0,
-			clock = this.sandbox.useFakeTimers();
-
-		window.location.hash = '';
-
-		bootstrap.loadViewer = function () {
-			callCount++;
-			return $.Deferred().reject();
-		};
-
-		bootstrap.setupEventHandlers();
-
-		bootstrap.internalHashChange( { hash: hash } );
-		clock.tick( 10 );
-
-		assert.strictEqual( callCount, 0, 'Viewer should not be loaded' );
-		assert.strictEqual( window.location.hash, hash, 'Window\'s hash has been updated correctly' );
-
-		bootstrap.cleanupEventHandlers();
-		window.location.hash = '';
-		clock.restore();
 	} );
 
 	QUnit.test( 'Restoring article scroll position', function ( assert ) {

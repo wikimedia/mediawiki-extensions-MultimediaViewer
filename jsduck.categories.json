@@ -5,6 +5,7 @@
 			{
 				"name": "Base",
 				"classes": [
+					"mw.mmv",
 					"mw.mmv.Config",
 					"mw.mmv.EmbedFileFormatter",
 					"mw.mmv.HtmlUtils",
@@ -31,12 +32,6 @@
 				"name": "Providers",
 				"classes": [
 					"mw.mmv.provider.*"
-				]
-			},
-			{
-				"name": "Routers",
-				"classes": [
-					"mw.mmv.routing.*"
 				]
 			},
 			{
@@ -72,6 +67,12 @@
 					"Object",
 					"RegExp",
 					"String"
+				]
+			},
+			{
+				"name": "OOjs Router",
+				"classes": [
+					"OO.Router"
 				]
 			},
 			{

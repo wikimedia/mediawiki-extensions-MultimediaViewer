@@ -79,9 +79,11 @@
 		this.currentIndex = 0;
 
 		/**
-		 * @property {mw.mmv.routing.Router} router -
+		 * @property {OO.Router} router
 		 */
-		this.router = new mw.mmv.routing.Router();
+		this.router = new OO.Router();
+		this.setupRouter();
+		comingFromHashChange = false;
 
 		/**
 		 * UI object used to display the pictures in the page.
@@ -245,8 +247,9 @@
 	 *
 	 * @param {mw.mmv.LightboxImage} image
 	 * @param {HTMLImageElement} initialImage A thumbnail to use as placeholder while the image loads
+	 * @param {boolean} useReplaceState Whether to update history entry to avoid long history queues
 	 */
-	MMVP.loadImage = function ( image, initialImage ) {
+	MMVP.loadImage = function ( image, initialImage, useReplaceState ) {
 		var imageWidths,
 			canvasDimensions,
 			imagePromise,
@@ -264,12 +267,14 @@
 		this.currentImageFileTitle = image.filePageTitle;
 
 		if ( !this.isOpen ) {
+			$( document ).trigger( $.Event( 'mmv-setup-overlay' ) );
 			this.ui.open();
 			this.isOpen = true;
 		} else {
 			this.ui.empty();
 		}
-		this.setHash();
+
+		this.setMediaHash( useReplaceState );
 
 		// At this point we can't show the thumbnail because we don't
 		// know what size it should be. We still assign it to allow for
@@ -385,29 +390,25 @@
 			viewer.ui.panel.scroller.animateMetadataOnce();
 			viewer.preloadDependencies();
 		} );
-
-		this.comingFromHashChange = false;
 	};
 
 	/**
 	 * Loads an image by its title
 	 *
 	 * @param {mw.Title} title
-	 * @param {boolean} updateHash Viewer should update the location hash when true
+	 * @param {boolean} useReplaceState Whether to update history entry to avoid long history queues
 	 */
-	MMVP.loadImageByTitle = function ( title, updateHash ) {
+	MMVP.loadImageByTitle = function ( title, useReplaceState ) {
 		var i, thumb;
 
 		if ( !this.thumbs || !this.thumbs.length ) {
 			return;
 		}
 
-		this.comingFromHashChange = !updateHash;
-
 		for ( i = 0; i < this.thumbs.length; i++ ) {
 			thumb = this.thumbs[ i ];
 			if ( thumb.title.getPrefixedText() === title.getPrefixedText() ) {
-				this.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ], true );
+				this.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ], useReplaceState );
 				return;
 			}
 		}
@@ -878,17 +879,15 @@
 	 * Handles close event coming from the lightbox
 	 */
 	MMVP.close = function () {
-		var windowTitle;
-
 		this.viewLogger.recordViewDuration();
 		this.viewLogger.unattach();
 
-		windowTitle = this.createDocumentTitle( null );
+		document.title = this.createDocumentTitle( null );
 
-		if ( comingFromHashChange === false ) {
-			$( document ).trigger( $.Event( 'mmv-hash', { hash: '#', title: windowTitle } ) );
-		} else {
+		if ( comingFromHashChange ) {
 			comingFromHashChange = false;
+		} else {
+			this.router.back();
 		}
 
 		// This has to happen after the hash reset, because setting the hash to # will reset the page scroll
@@ -898,36 +897,56 @@
 	};
 
 	/**
-	 * Handles a hash change coming from the browser
+	 * Sets up the route handlers
 	 */
-	MMVP.hash = function () {
-		var route = this.router.parseLocation( window.location );
-
-		if ( route instanceof mw.mmv.routing.ThumbnailRoute ) {
-			document.title = this.createDocumentTitle( route.fileTitle );
-			this.loadImageByTitle( route.fileTitle );
-		} else if ( this.isOpen ) {
-			// This allows us to avoid the mmv-hash event that normally happens on close
+	MMVP.setupRouter = function () {
+		function route( fileName ) {
+			var fileTitle;
 			comingFromHashChange = true;
-
-			document.title = this.createDocumentTitle( null );
-			if ( this.ui ) {
-				// FIXME triggers mmv-close event, which calls viewer.close()
-				this.ui.unattach();
-			} else {
-				this.close();
+			fileName = decodeURIComponent( fileName );
+			try {
+				fileTitle = new mw.Title( fileName );
+				this.loadImageByTitle( fileTitle );
+			} catch ( err ) {
+				// ignore routes to invalid titles
+				mw.log.warn( err );
 			}
 		}
+		this.router.addRoute( mw.mmv.ROUTE_REGEXP, route.bind( this ) );
+		this.router.addRoute( mw.mmv.LEGACY_ROUTE_REGEXP, route.bind( this ) );
+
+		// handle empty hashes, and anchor links (page sections)
+		this.router.addRoute( /^[^/]*$/, function () {
+			comingFromHashChange = true;
+			if ( this.isOpen ) {
+				document.title = this.createDocumentTitle( null );
+				if ( this.ui ) {
+					// FIXME triggers mmv-close event, which calls viewer.close()
+					this.ui.unattach();
+				} else {
+					this.close();
+				}
+			}
+		}.bind( this ) );
 	};
 
-	MMVP.setHash = function () {
-		var route, windowTitle, hashFragment;
-		if ( !this.comingFromHashChange ) {
-			route = new mw.mmv.routing.ThumbnailRoute( this.currentImageFileTitle );
-			hashFragment = '#' + this.router.createHash( route );
-			windowTitle = this.createDocumentTitle( this.currentImageFileTitle );
-			$( document ).trigger( $.Event( 'mmv-hash', { hash: hashFragment, title: windowTitle } ) );
+	/**
+	 * Updates the hash to reflect an open image file
+	 * @param {boolean} useReplaceState Whether to update history entry to avoid long history queues
+	 */
+	MMVP.setMediaHash = function ( useReplaceState ) {
+		if ( useReplaceState === undefined ) {
+			useReplaceState = true;
 		}
+		if ( comingFromHashChange ) {
+			comingFromHashChange = false;
+			return;
+		}
+		document.title = this.createDocumentTitle( this.currentImageFileTitle );
+		this.router.navigateTo( document.title, {
+			path: mw.mmv.getMediaHash( this.currentImageFileTitle ),
+			useReplaceState: useReplaceState
+		} );
 	};
 
 	/**

@@ -28,12 +28,6 @@
 	 */
 	function Share( $container ) {
 		mw.mmv.ui.reuse.Tab.call( this, $container );
-
-		/**
-		 * @property {mw.mmv.routing.Router} router -
-		 */
-		this.router = new mw.mmv.routing.Router();
-
 		this.init();
 	}
 	OO.inheritClass( Share, mw.mmv.ui.reuse.Tab );
@@ -88,8 +82,7 @@
 	 * @param {mw.mmv.model.Image} image
 	 */
 	SP.set = function ( image ) {
-		var route = new mw.mmv.routing.ThumbnailRoute( image.title ),
-			url = this.router.createHashedUrl( route, image.descriptionUrl );
+		var url = image.descriptionUrl + mw.mmv.getMediaHash( image.title );
 
 		this.pageInput.textInput.setValue( url );
 
