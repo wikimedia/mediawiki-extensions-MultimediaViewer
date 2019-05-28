@@ -268,6 +268,8 @@
 	 * Removes all UI things from the DOM, or hides them
 	 */
 	CBP.unattach = function () {
+		mw.mmv.ui.Element.prototype.unattach.call( this );
+
 		this.$download
 			.add( this.$reuse )
 			.add( this.$options )

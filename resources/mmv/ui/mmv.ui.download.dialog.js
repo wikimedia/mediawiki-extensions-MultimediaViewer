@@ -66,6 +66,8 @@
 	 * Clears listeners.
 	 */
 	DP.unattach = function () {
+		mw.mmv.ui.Dialog.prototype.unattach.call( this );
+
 		this.$container.off( 'mmv-download-cta-open mmv-download-cta-close' );
 	};
 
