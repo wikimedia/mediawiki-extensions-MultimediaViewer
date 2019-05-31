@@ -441,8 +441,7 @@
 			"mmv.ui.ondemandshareddependencies",
 			"mmv.ui.reuse.shareembed",
 			"mmv.ui.download.pane",
-			"mmv.ui.tipsyDialog",
-			"moment"
+			"mmv.ui.tipsyDialog"
 		]
 	},
 	"EventLoggingSchemas": {
