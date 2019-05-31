@@ -917,8 +917,8 @@
 
 		// handle empty hashes, and anchor links (page sections)
 		this.router.addRoute( /^[^/]*$/, function () {
-			comingFromHashChange = true;
 			if ( this.isOpen ) {
+				comingFromHashChange = true;
 				document.title = this.createDocumentTitle( null );
 				if ( this.ui ) {
 					// FIXME triggers mmv-close event, which calls viewer.close()
