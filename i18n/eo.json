@@ -4,7 +4,8 @@
 			"KuboF",
 			"Tlustulimu",
 			"Macofe",
-			"Robin van der Vliet"
+			"Robin van der Vliet",
+			"Mirin"
 		]
 	},
 	"multimediaviewer-desc": "Etendi miniaturojn al larĝa grandeco en plenekrana interfaco.",
@@ -56,6 +57,10 @@
 	"multimediaviewer-embed-wt": "Vikiteksto",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "Uzu tiun ĉi kodon por enkonstrui la dosieron",
+	"multimediaviewer-text-embed-credit-text-bl": "Far $1, $2, $3",
+	"multimediaviewer-text-embed-credit-text-b": "Far $1, $2",
+	"multimediaviewer-html-embed-credit-text-bl": "Far $1, $2, $3",
+	"multimediaviewer-html-embed-credit-text-b": "Far $1, $2",
 	"multimediaviewer-html-embed-credit-link-text": "Ligilo",
 	"multimediaviewer-embed-byline": "De $1",
 	"multimediaviewer-embed-license": "Licencita laŭ $1.",
