@@ -376,8 +376,7 @@
 			"dependencies": [
 				"mediawiki.user",
 				"mediawiki.storage"
-			],
-			"position": "top"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {
