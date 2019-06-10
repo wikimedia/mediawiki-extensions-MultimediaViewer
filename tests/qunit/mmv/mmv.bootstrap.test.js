@@ -79,21 +79,21 @@
 		mw.mmv.testHelpers.asyncMethod( bootstrap, 'loadViewer' );
 
 		// invalid hash, should not trigger MMV load
-		window.location.hash = 'Foo';
+		location.hash = 'Foo';
 
 		// actual hash we want to test for, should trigger MMV load
 		// use setTimeout to add new hash change to end of the call stack,
 		// ensuring that event handlers for our previous change can execute
 		// without us interfering with another immediate change
 		setTimeout( function () {
-			window.location.hash = hash;
+			location.hash = hash;
 			bootstrap.hash();
 		} );
 
 		return mw.mmv.testHelpers.waitForAsync().then( function () {
 			assert.strictEqual( callCount, 1, 'Viewer should be loaded once' );
 			bootstrap.cleanupEventHandlers();
-			window.location.hash = '';
+			location.hash = '';
 		} );
 	}
 
@@ -362,7 +362,7 @@
 	QUnit.test( 'Only load the viewer on a valid hash (modern browsers)', function ( assert ) {
 		var bootstrap;
 
-		window.location.hash = '';
+		location.hash = '';
 
 		bootstrap = createBootstrap();
 
@@ -372,7 +372,7 @@
 	QUnit.test( 'Only load the viewer on a valid hash (old browsers)', function ( assert ) {
 		var bootstrap;
 
-		window.location.hash = '';
+		location.hash = '';
 
 		bootstrap = createBootstrap();
 		bootstrap.browserHistory = undefined;
@@ -383,7 +383,7 @@
 	QUnit.test( 'Load the viewer on a legacy hash (modern browsers)', function ( assert ) {
 		var bootstrap;
 
-		window.location.hash = '';
+		location.hash = '';
 
 		bootstrap = createBootstrap();
 
@@ -393,7 +393,7 @@
 	QUnit.test( 'Load the viewer on a legacy hash (old browsers)', function ( assert ) {
 		var bootstrap;
 
-		window.location.hash = '';
+		location.hash = '';
 
 		bootstrap = createBootstrap();
 		bootstrap.browserHistory = undefined;
@@ -404,7 +404,7 @@
 	QUnit.test( 'Overlay is set up on hash change', function ( assert ) {
 		var bootstrap;
 
-		window.location.hash = '#/media/foo';
+		location.hash = '#/media/foo';
 
 		bootstrap = createBootstrap();
 		this.sandbox.stub( bootstrap, 'setupOverlay' );
@@ -417,7 +417,7 @@
 	QUnit.test( 'Overlay is not set up on an irrelevant hash change', function ( assert ) {
 		var bootstrap;
 
-		window.location.hash = '#foo';
+		location.hash = '#foo';
 
 		bootstrap = createBootstrap();
 		this.sandbox.stub( bootstrap, 'setupOverlay' );

@@ -337,7 +337,7 @@
 			);
 			// tipsy mispositions the tooltip, probably because it does the positioning before the buttons are
 			// displayed and the page is reflown. Adding some delay seems to help.
-			window.setTimeout( function () {
+			setTimeout( function () {
 				bs.statusInfoDialog.open();
 			}, 1000 );
 		} );

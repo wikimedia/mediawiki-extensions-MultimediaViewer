@@ -39,7 +39,7 @@
 		// animation would keep running, conflict with other tests
 		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
 
-		window.location.hash = '';
+		location.hash = '';
 
 		viewer.setupEventHandlers();
 		oldUnattach = ui.unattach;
@@ -57,10 +57,10 @@
 		viewer.loadImageByTitle( image.filePageTitle );
 
 		// Verify that passing an invalid mmv hash when the mmv is open triggers unattach()
-		window.location.hash = 'Foo';
+		location.hash = 'Foo';
 
 		// Verify that mmv doesn't reset a foreign hash
-		assert.strictEqual( window.location.hash, '#Foo', 'Foreign hash remains intact' );
+		assert.strictEqual( location.hash, '#Foo', 'Foreign hash remains intact' );
 		assert.strictEqual( viewer.isOpen, false, 'Viewer is closed' );
 
 		ui.unattach = function () {
@@ -69,10 +69,10 @@
 		};
 
 		// Verify that passing an invalid mmv hash when the mmv is closed doesn't trigger unattach()
-		window.location.hash = 'Bar';
+		location.hash = 'Bar';
 
 		// Verify that mmv doesn't reset a foreign hash
-		assert.strictEqual( window.location.hash, '#Bar', 'Foreign hash remains intact' );
+		assert.strictEqual( location.hash, '#Bar', 'Foreign hash remains intact' );
 
 		viewer.ui = { images: [ image ], disconnect: function () {} };
 
@@ -84,24 +84,24 @@
 
 		// Open a valid mmv hash link and check that the right image is requested.
 		// imageSrc contains a space without any encoding on purpose
-		window.location.hash = '/media/File:' + imageSrc;
+		location.hash = '/media/File:' + imageSrc;
 
 		// Reset the hash, because for some browsers switching from the non-URI-encoded to
 		// the non-URI-encoded version of the same text with a space will not trigger a hash change
-		window.location.hash = '';
+		location.hash = '';
 
 		// Try again with an URI-encoded imageSrc containing a space
-		window.location.hash = '/media/File:' + encodeURIComponent( imageSrc );
+		location.hash = '/media/File:' + encodeURIComponent( imageSrc );
 
 		// Reset the hash
-		window.location.hash = '';
+		location.hash = '';
 
 		// Try again with a legacy hash
-		window.location.hash = 'mediaviewer/File:' + imageSrc;
+		location.hash = 'mediaviewer/File:' + imageSrc;
 
 		viewer.cleanupEventHandlers();
 
-		window.location.hash = '';
+		location.hash = '';
 	} );
 
 	QUnit.test( 'Progress', function ( assert ) {
