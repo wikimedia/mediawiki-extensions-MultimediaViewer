@@ -399,7 +399,7 @@
 		this.ensureEventHandlersAreSetUp();
 
 		return this.loadViewer( true ).then( function ( viewer ) {
-			viewer.loadImageByTitle( title, true );
+			viewer.loadImageByTitle( title, element, true );
 		} );
 	};
 

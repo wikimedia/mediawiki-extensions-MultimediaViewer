@@ -368,9 +368,10 @@
 	 * Loads an image by its title
 	 *
 	 * @param {mw.Title} title
+	 * @param element Clicked element
 	 * @param {boolean} updateHash Viewer should update the location hash when true
 	 */
-	MMVP.loadImageByTitle = function ( title, updateHash ) {
+	MMVP.loadImageByTitle = function ( title, element, updateHash ) {
 		var viewer = this;
 
 		if ( !this.thumbs || !this.thumbs.length ) {
@@ -379,12 +380,21 @@
 
 		this.comingFromHashChange = !updateHash;
 
-		$.each( this.thumbs, function ( idx, thumb ) {
-			if ( thumb.title.getPrefixedText() === title.getPrefixedText() ) {
-				viewer.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ], true );
-				return false;
-			}
-		} );
+		if(element){
+			$.each( this.thumbs, function ( idx, thumb ) {
+				if ( thumb.title.getPrefixedText() === title.getPrefixedText() && thumb.thumb.src === element.href) {
+					viewer.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ], true );
+					return false;
+				}
+			} );
+		} else {
+			$.each( this.thumbs, function ( idx, thumb ) {
+				if ( thumb.title.getPrefixedText() === title.getPrefixedText()) {
+					viewer.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ], true );
+					return false;
+				}
+			} );
+		}
 	};
 
 	/**
