@@ -173,7 +173,6 @@ class Hooks implements MakeGlobalVariablesScriptHook {
 			'useThumbnailGuessing' => (bool)$wgMediaViewerUseThumbnailGuessing,
 			'imageQueryParameter' => $wgMediaViewerImageQueryParameter,
 			'recordVirtualViewBeaconURI' => $wgMediaViewerRecordVirtualViewBeaconURI,
-			'tooltipDelay' => 1000,
 			'extensions' => $wgMediaViewerExtensions,
 		];
 		$vars['wgMediaViewer'] = true;

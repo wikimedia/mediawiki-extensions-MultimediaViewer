@@ -312,17 +312,12 @@
 	 * Setup for canvas navigation buttons
 	 */
 	LIP.setupCanvasButtons = function () {
-		var ui = this,
-			tooltipDelay = mw.config.get( 'wgMultimediaViewer' ).tooltipDelay;
+		var ui = this;
 
 		this.$closeButton = $( '<button>' )
 			.text( ' ' )
 			.addClass( 'mw-mmv-close' )
 			.prop( 'title', mw.message( 'multimediaviewer-close-popup-text' ).text() )
-			.tipsy( {
-				delayIn: tooltipDelay,
-				gravity: this.correctEW( 'ne' )
-			} )
 			.on( 'click', function () {
 				if ( ui.isFullscreen ) {
 					ui.$main.trigger( $.Event( 'jq-fullscreen-change.lip' ) );
@@ -334,10 +329,6 @@
 			.text( ' ' )
 			.addClass( 'mw-mmv-fullscreen' )
 			.prop( 'title', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() )
-			.tipsy( {
-				delayIn: tooltipDelay,
-				gravity: this.correctEW( 'ne' )
-			} )
 			.on( 'click', function ( e ) {
 				if ( ui.isFullscreen ) {
 					ui.exitFullscreen();

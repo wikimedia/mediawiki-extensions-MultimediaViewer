@@ -30,8 +30,7 @@
 	 * @param {jQuery} $fullscreenButton The fullscreen button from the parent class.
 	 */
 	function CanvasButtons( $container, $closeButton, $fullscreenButton ) {
-		var buttons = this,
-			tooltipDelay = mw.config.get( 'wgMultimediaViewer' ).tooltipDelay;
+		var buttons = this;
 
 		mw.mmv.ui.Element.call( this, $container );
 
@@ -42,30 +41,18 @@
 			.attr( 'role', 'button' )
 			.addClass( 'mw-mmv-reuse-button' )
 			.text( '\u00A0' )
-			.prop( 'title', mw.message( 'multimediaviewer-reuse-link' ).text() )
-			.tipsy( {
-				delayIn: tooltipDelay,
-				gravity: this.correctEW( 'se' )
-			} );
+			.prop( 'title', mw.message( 'multimediaviewer-reuse-link' ).text() );
 
 		this.$options = $( '<button>' )
 			.text( ' ' )
 			.prop( 'title', mw.message( 'multimediaviewer-options-tooltip' ).text() )
-			.addClass( 'mw-mmv-options-button' )
-			.tipsy( {
-				delayIn: tooltipDelay,
-				gravity: this.correctEW( 'se' )
-			} );
+			.addClass( 'mw-mmv-options-button' );
 
 		this.$download = $( '<a>' )
 			.attr( 'role', 'button' )
 			.addClass( 'mw-mmv-download-button' )
 			.text( '\u00A0' )
-			.prop( 'title', mw.message( 'multimediaviewer-download-link' ).text() )
-			.tipsy( {
-				delayIn: tooltipDelay,
-				gravity: this.correctEW( 'se' )
-			} );
+			.prop( 'title', mw.message( 'multimediaviewer-download-link' ).text() );
 
 		this.$next = $( '<button>' )
 			.prop( 'title', mw.message( 'multimediaviewer-next-image-alt-text' ).text() )
@@ -260,10 +247,7 @@
 			.add( this.$reuse )
 			.add( this.$options )
 			.add( this.$close )
-			.add( this.$fullscreen )
-			.each( function () {
-				$( this ).tipsy( 'enable' );
-			} );
+			.add( this.$fullscreen );
 	};
 
 	/**
@@ -277,10 +261,7 @@
 			.add( this.$options )
 			.add( this.$close )
 			.add( this.$fullscreen )
-			.off( 'click.mmv-canvasButtons' )
-			.each( function () {
-				$( this ).tipsy( 'hide' ).tipsy( 'disable' );
-			} );
+			.off( 'click.mmv-canvasButtons' );
 	};
 
 	/**

@@ -103,7 +103,6 @@
 				"oojs",
 				"jquery.fullscreen",
 				"jquery.color",
-				"jquery.tipsy",
 				"mmv.bootstrap",
 				"mmv.head"
 			],
@@ -275,7 +274,6 @@
 				"mmv.ui.reuse.shareembed/mmv.ui.reuse.embed.less"
 			],
 			"dependencies": [
-				"jquery.tipsy",
 				"oojs",
 				"oojs-ui",
 				"mediawiki.user",
