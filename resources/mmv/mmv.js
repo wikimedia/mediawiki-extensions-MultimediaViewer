@@ -371,7 +371,7 @@
 	 * @param element Clicked element
 	 * @param {boolean} updateHash Viewer should update the location hash when true
 	 */
-	MMVP.loadImageByTitle = function ( title, element, updateHash ) {
+	MMVP.loadImageByTitle = function ( title, updateHash, element ) {
 		var viewer = this;
 
 		if ( !this.thumbs || !this.thumbs.length ) {
@@ -380,7 +380,7 @@
 
 		this.comingFromHashChange = !updateHash;
 
-		if(element){
+		if(element && element.firstChild.className === "annotationlayer"){
 			$.each( this.thumbs, function ( idx, thumb ) {
 				if ( thumb.title.getPrefixedText() === title.getPrefixedText() && thumb.thumb.src === element.href) {
 					viewer.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ], true );
