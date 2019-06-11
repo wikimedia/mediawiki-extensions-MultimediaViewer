@@ -882,13 +882,13 @@
 		this.viewLogger.recordViewDuration();
 		this.viewLogger.unattach();
 
-		document.title = this.createDocumentTitle( null );
-
 		if ( comingFromHashChange ) {
 			comingFromHashChange = false;
 		} else {
 			this.router.back();
 		}
+		// update title after route change, see T225387
+		document.title = this.createDocumentTitle( null );
 
 		// This has to happen after the hash reset, because setting the hash to # will reset the page scroll
 		$( document ).trigger( $.Event( 'mmv-cleanup-overlay' ) );
@@ -942,11 +942,12 @@
 			comingFromHashChange = false;
 			return;
 		}
-		document.title = this.createDocumentTitle( this.currentImageFileTitle );
 		this.router.navigateTo( document.title, {
 			path: mw.mmv.getMediaHash( this.currentImageFileTitle ),
 			useReplaceState: useReplaceState
 		} );
+		// update title after route change, see T225387
+		document.title = this.createDocumentTitle( this.currentImageFileTitle );
 	};
 
 	/**
