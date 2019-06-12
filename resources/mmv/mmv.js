@@ -380,7 +380,7 @@
 
 		this.comingFromHashChange = !updateHash;
 
-		if(element && element.firstChild.className === "annotationlayer"){
+		if(element && element.href.includes('ia-')){
 			$.each( this.thumbs, function ( idx, thumb ) {
 				if ( thumb.title.getPrefixedText() === title.getPrefixedText() && thumb.thumb.src === element.href) {
 					viewer.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ], true );
