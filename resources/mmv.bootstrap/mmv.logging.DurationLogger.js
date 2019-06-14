@@ -26,8 +26,8 @@
 	 * @constructor
 	 */
 	function DurationLogger() {
-		this.starts = {};
-		this.stops = {};
+		this.starts = Object.create( null );
+		this.stops = Object.create( null );
 	}
 
 	OO.inheritClass( DurationLogger, mw.mmv.logging.Logger );
@@ -72,7 +72,7 @@
 
 		for ( i = 0; i < typeOrTypes.length; i++ ) {
 			// Don't overwrite an existing value
-			if ( !Object.prototype.hasOwnProperty.call( this.starts, typeOrTypes[ i ] ) ) {
+			if ( !( typeOrTypes[ i ] in this.starts ) ) {
 				this.starts[ typeOrTypes[ i ] ] = start;
 			}
 		}
@@ -96,12 +96,12 @@
 		}
 
 		// Don't overwrite an existing value
-		if ( !Object.prototype.hasOwnProperty.call( this.stops, type ) ) {
+		if ( !( type in this.stops ) ) {
 			this.stops[ type ] = stop;
 		}
 
 		// Don't overwrite an existing value
-		if ( start !== undefined && !Object.prototype.hasOwnProperty.call( this.starts, type ) ) {
+		if ( start !== undefined && !( type in this.starts ) ) {
 			this.starts[ type ] = start;
 		}
 
@@ -123,11 +123,11 @@
 			throw new Error( 'Must specify type' );
 		}
 
-		if ( !Object.prototype.hasOwnProperty.call( this.starts, type ) || this.starts[ type ] === undefined ) {
+		if ( !( type in this.starts ) || this.starts[ type ] === undefined ) {
 			return;
 		}
 
-		if ( !Object.prototype.hasOwnProperty.call( this.stops, type ) || this.stops[ type ] === undefined ) {
+		if ( !( type in this.stops ) || this.stops[ type ] === undefined ) {
 			return;
 		}
 
