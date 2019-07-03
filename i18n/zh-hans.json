@@ -16,13 +16,14 @@
 			"Linforest",
 			"Hydra",
 			"飞舞回堂前",
-			"WhitePhosphorus"
+			"WhitePhosphorus",
+			"神樂坂秀吉"
 		]
 	},
 	"multimediaviewer-desc": "在全屏界面中以较大尺寸显示缩略图。",
 	"multimediaviewer-optin-pref": "启用<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About 媒体查看器]</span>",
 	"multimediaviewer-file-page": "前往对应的文件页面",
-	"multimediaviewer-repository-local": "更多详情",
+	"multimediaviewer-repository-local": "详情",
 	"multimediaviewer-datetime-created": "创建于：$1",
 	"multimediaviewer-datetime-uploaded": "上传于：$1",
 	"multimediaviewer-credit-fallback": "查看作者信息",
@@ -109,6 +110,7 @@
 	"multimediaviewer-embed-via": "来自$1。",
 	"multimediaviewer-default-embed-dimensions": "默认缩略图尺寸",
 	"multimediaviewer-original-embed-dimensions": "原始文件$1",
+	"multimediaviewer-xl-embed-dimensions": "特大$1",
 	"multimediaviewer-large-embed-dimensions": "大 $1",
 	"multimediaviewer-medium-embed-dimensions": "中 $1",
 	"multimediaviewer-small-embed-dimensions": "小 $1",
