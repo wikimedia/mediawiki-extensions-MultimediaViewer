@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Teslaton",
-			"LacoR"
+			"LacoR",
+			"Robert Važan"
 		]
 	},
 	"multimediaviewer-desc": "Zobrazí náhľady obrázkov na celú obrazovku.",
@@ -66,5 +67,10 @@
 	"multimediaviewer-download-attribution-cta-header": "Musíte uviesť autora",
 	"multimediaviewer-download-optional-attribution-cta-header": "Môžete uviesť autora",
 	"multimediaviewer-download-attribution-cta": "Ukážte mi ako",
-	"multimediaviewer-option-submit-button": "Vypnúť Prehliadač médií"
+	"multimediaviewer-options-learn-more": "Viac informácií",
+	"multimediaviewer-option-submit-button": "Vypnúť Prehliadač médií",
+	"multimediaviewer-option-cancel-button": "Zrušiť",
+	"multimediaviewer-enable-text-header": "Nastaviť prehliadač médií ako predvolený pre všetky súbory.",
+	"multimediaviewer-enable-submit-button": "Zapnúť Prehliadač médií",
+	"multimediaviewer-enable-alert": "Prehliadač médií je teraz vypnutý"
 }
