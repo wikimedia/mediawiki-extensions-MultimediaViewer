@@ -1,7 +1,5 @@
 BROWSER:
-  - chrome
   - firefox
-  - safari
 
 MEDIAWIKI_ENVIRONMENT:
   - beta
@@ -9,20 +7,3 @@ MEDIAWIKI_ENVIRONMENT:
 
 PLATFORM:
   - Linux
-  - macos
-
-exclude:
-  - BROWSER: chrome
-    MEDIAWIKI_ENVIRONMENT: mediawiki
-
-  - BROWSER: chrome
-    PLATFORM: Linux
-
-  - BROWSER: firefox
-    PLATFORM: macos
-
-  - BROWSER: safari
-    MEDIAWIKI_ENVIRONMENT: mediawiki
-
-  - BROWSER: safari
-    PLATFORM: Linux
