@@ -23,6 +23,7 @@
 	background-image: linear-gradient( to bottom, @invisible 0%, @backgroundColor 100% ); // W3C
 	filter: e( %( "progid:DXImageTransform.Microsoft.gradient( startColorstr='#%s', endColorstr='#%s',GradientType=0 )", rgbahex( @invisible ), rgbahex( @backgroundColor) ) ); // IE6-9
 }
+
 .fade-out-horizontal( @backgroundColor: white ) {
 	@invisible: fadeout( @backgroundColor, 100% );
 	background-image: -moz-linear-gradient( left, @invisible 0%, @backgroundColor 100% ); // FF3.6+

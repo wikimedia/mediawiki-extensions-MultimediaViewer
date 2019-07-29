@@ -11,6 +11,7 @@
 	"rules": {
 		"max-len": "off",
 		"max-statements-per-line": "off",
+		"no-jquery/no-class-state": "off",
 		"no-jquery/no-noop": "off",
 		"no-jquery/no-now": "off",
 		"no-jquery/no-proxy": "off",

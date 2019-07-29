@@ -362,6 +362,7 @@
 			$thumbCaption = $potentialCaptions.eq( 0 );
 		} else {
 			// Template:Multiple_image or some such; try to find closest caption to the image
+			// eslint-disable-next-line no-jquery/no-sizzle
 			$thumbCaption = $link.closest( ':has(> .thumbcaption)', $thumbContain )
 				.find( '> .thumbcaption' );
 		}
