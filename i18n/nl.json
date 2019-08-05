@@ -100,6 +100,7 @@
 	"multimediaviewer-option-cancel-button": "Annuleren",
 	"multimediaviewer-disable-confirmation-header": "U hebt de MediaViewer uitgeschakeld",
 	"multimediaviewer-enable-dialog-header": "MediaViewer inschakelen?",
+	"multimediaviewer-enable-text-header": "Schakel deze mediaweergavefunctie standaard in voor alle bestanden.",
 	"multimediaviewer-enable-submit-button": "MediaViewer inschakelen",
 	"multimediaviewer-enable-alert": "MediaViewer is nu uitgeschakeld",
 	"multimediaviewer-disable-info-title": "U hebt de MediaViewer uitgeschakeld",
