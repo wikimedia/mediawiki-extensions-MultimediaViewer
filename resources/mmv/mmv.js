@@ -195,7 +195,7 @@
 		var imageWidths, canvasDimensions,
 			viewer = this,
 			image = this.thumbs[ this.currentIndex ].image,
-			ext = this.thumbs[ this.currentIndex ].title.ext.toLowerCase();
+			ext = this.thumbs[ this.currentIndex ].title.getExtension().toLowerCase();
 
 		this.preloadThumbnails();
 
@@ -260,7 +260,7 @@
 			$initialImage = $( initialImage ),
 			extraStatsDeferred = $.Deferred();
 
-		pluginsPromise = this.loadExtensionPlugins( image.filePageTitle.ext.toLowerCase() );
+		pluginsPromise = this.loadExtensionPlugins( image.filePageTitle.getExtension().toLowerCase() );
 
 		this.currentIndex = image.index;
 
@@ -283,7 +283,7 @@
 		$initialImage.hide()
 			.removeAttr( 'style' )
 			.removeClass()
-			.addClass( 'mw-mmv-placeholder-image ' + image.filePageTitle.ext.toLowerCase() );
+			.addClass( 'mw-mmv-placeholder-image ' + image.filePageTitle.getExtension().toLowerCase() );
 
 		this.ui.canvas.set( image, $initialImage );
 
@@ -330,7 +330,7 @@
 					} );
 				}
 
-				imageElement.className = 'mw-mmv-final-image ' + image.filePageTitle.ext.toLowerCase();
+				imageElement.className = 'mw-mmv-final-image ' + image.filePageTitle.getExtension().toLowerCase();
 				imageElement.alt = image.alt;
 
 				$.when( metadataPromise, pluginsPromise ).then( function ( metadata ) {
@@ -794,7 +794,7 @@
 			thumbnailPromise,
 			imagePromise;
 
-		if ( fileTitle.ext.toLowerCase() !== 'svg' && originalWidth && width > originalWidth ) {
+		if ( fileTitle.getExtension().toLowerCase() !== 'svg' && originalWidth && width > originalWidth ) {
 			// Do not request images larger than the original image
 			width = originalWidth;
 		}
