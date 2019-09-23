@@ -5,7 +5,8 @@
 			"Whym",
 			"SkyDaisy9",
 			"Sujiniku",
-			"Otokoume"
+			"Otokoume",
+			"Omotecho"
 		]
 	},
 	"multimediaviewer-desc": "縮小画像を全画面表示インターフェイス内に拡大表示する",
@@ -41,7 +42,7 @@
 	"multimediaviewer-restriction-personality": "この画像には人物が含まれており、同意なしに行われる一定の再利用を制限する権利がその人物にある可能性があります。",
 	"multimediaviewer-restriction-trademarked": "この画像には商標法の対象になる可能性のあるものが含まれています。",
 	"multimediaviewer-restriction-default": "この画像は著作権法以外の法規定により制限を受ける可能性があります。詳細についてはファイル解説ページをご覧ください。",
-	"multimediaviewer-about-mmv": "メディア ビューアーについて",
+	"multimediaviewer-about-mmv": "このインターフェースについて",
 	"multimediaviewer-discuss-mmv": "議論",
 	"multimediaviewer-help-mmv": "ヘルプ",
 	"multimediaviewer-optout-mmv": "メディアビューアーを無効にする",
