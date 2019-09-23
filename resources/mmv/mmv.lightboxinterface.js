@@ -77,7 +77,6 @@
 
 		this.$imageWrapper = $( '<div>' )
 			.addClass( 'mw-mmv-image-wrapper' )
-			.on( 'click', this.close.bind( this, false ) )
 			.append( this.$innerWrapper );
 
 		this.$preDiv = $( '<div>' )
@@ -323,7 +322,12 @@
 				delayIn: tooltipDelay,
 				gravity: this.correctEW( 'ne' )
 			} )
-			.on( 'click', this.close.bind( this, true ) );
+			.on( 'click', function () {
+				if ( ui.isFullscreen ) {
+					ui.$main.trigger( $.Event( 'jq-fullscreen-change.lip' ) );
+				}
+				ui.unattach();
+			} );
 
 		this.$fullscreenButton = $( '<button>' )
 			.text( ' ' )
@@ -356,19 +360,6 @@
 			this.$fullscreenButton.show();
 		} else {
 			this.$fullscreenButton.hide();
-		}
-	};
-
-	/**
-	 * Closes the lightbox.
-	 * @param {boolean} forceClose Whether to close the lightbox when another canvas dialog is open.
-	 */
-	LIP.close = function ( forceClose ) {
-		if ( this.isFullscreen ) {
-			this.$main.trigger( $.Event( 'jq-fullscreen-change.lip' ) );
-		}
-		if ( forceClose || !this.canvas.dialogOpen ) {
-			this.unattach();
 		}
 	};
 
