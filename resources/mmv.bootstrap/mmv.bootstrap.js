@@ -57,8 +57,7 @@
 		// find and setup all thumbs on this page
 		// this will run initially and then every time the content changes,
 		// e.g. via a VE edit or pagination in a multipage file
-		mw.hook( 'wikipage.content' ).add( $.proxy( this, 'processThumbs' ) );
-
+		mw.hook( 'wikipage.content' ).add( this.processThumbs.bind( this ) );
 	}
 
 	MMVB = MultimediaViewerBootstrap.prototype;
