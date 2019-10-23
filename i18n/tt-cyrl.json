@@ -33,10 +33,10 @@
 	"multimediaviewer-optin-help": "Рәсемнәрне курсәтү өчен медиа гизгеч кулланылачак",
 	"multimediaviewer-geolocation": "Географик урыны: $1",
 	"multimediaviewer-reuse-link": "Файлны өлү яисә бүлешү",
-	"multimediaviewer-reuse-loading-placeholder": "Йөкләү...",
+	"multimediaviewer-reuse-loading-placeholder": "Төяү бара…",
 	"multimediaviewer-share-tab": "Бүлешү",
 	"multimediaviewer-embed-tab": "Кую",
-	"multimediaviewer-download-link": "Файлны йөкләү",
+	"multimediaviewer-download-link": "Бу файлны күчереп алу",
 	"multimediaviewer-download-preview-link-title": "Гизгечтә карау",
 	"multimediaviewer-download-original-button-name": "Төп файлны алу",
 	"multimediaviewer-download-small-button-name": "Кече зурлыкта алу",
@@ -71,7 +71,7 @@
 	"multimediaviewer-options-text-body": "Кирәк чакта, сез аны файл турындагы мәгълүмат битендә куша аласыз.",
 	"multimediaviewer-options-learn-more": "Күбрәк белү",
 	"multimediaviewer-option-submit-button": "Медиа гизгечне ябу",
-	"multimediaviewer-option-cancel-button": "Баш тарту",
+	"multimediaviewer-option-cancel-button": "Кире алу",
 	"multimediaviewer-enable-dialog-header": "Медиа гизгечне ачу?",
 	"multimediaviewer-enable-submit-button": "Медиа гизгечне ачу"
 }
