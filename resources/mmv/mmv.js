@@ -449,8 +449,9 @@
 		this.setImage( this.ui, thumbnail, imageElement, imageWidths );
 
 		// We only animate unblurWithAnimation if the image wasn't loaded from the cache
-		// A load in < 10ms is considered to be a browser cache hit
-		if ( this.blurredThumbnailShown && loadTime > 10 ) {
+		// A load in < 100ms is fast enough (maybe even browser cache hit) that
+		// using a 300ms animation would needlessly deter from a fast experience.
+		if ( this.blurredThumbnailShown && loadTime > 100 ) {
 			this.ui.canvas.unblurWithAnimation();
 		} else {
 			this.ui.canvas.unblur();
