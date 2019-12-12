@@ -7,6 +7,7 @@
 	"multimediaviewer-optin-pref": "Permisar <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
 	"multimediaviewer-repository-local": "Plusa detali",
 	"multimediaviewer-datetime-uploaded": "Sendita: $1",
+	"multimediaviewer-credit-fallback": "Vidar informo pri l'autoro",
 	"multimediaviewer-permission-title": "Detali pri permiso",
 	"multimediaviewer-permission-link": "Montrez kondicioni",
 	"multimediaviewer-permission-viewmore": "Montrez pluse",
