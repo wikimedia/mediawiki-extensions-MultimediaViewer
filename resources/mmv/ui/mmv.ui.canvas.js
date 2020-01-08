@@ -351,7 +351,7 @@
 	 * @param {string} error error message
 	 */
 	C.showError = function ( error ) {
-		var errorDetails, description, errorUri, retryLink, reportLink,
+		var errorDetails, description, errorUri, $retryLink, $reportLink,
 			canvasDimensions = this.getDimensions(),
 			thumbnailDimensions = this.getCurrentImageWidths(),
 			htmlUtils = new mw.mmv.HtmlUtils();
@@ -371,9 +371,9 @@
 			'Error details:\n\n' + errorDetails.join( '\n' );
 		errorUri = mw.msg( 'multimediaviewer-report-issue-url', encodeURIComponent( description ) );
 
-		retryLink = $( '<a>' ).addClass( 'mw-mmv-retry-link' ).text(
+		$retryLink = $( '<a>' ).addClass( 'mw-mmv-retry-link' ).text(
 			mw.msg( 'multimediaviewer-thumbnail-error-retry' ) );
-		reportLink = $( '<a>' ).attr( 'href', errorUri ).text(
+		$reportLink = $( '<a>' ).attr( 'href', errorUri ).text(
 			mw.msg( 'multimediaviewer-thumbnail-error-report' ) );
 
 		this.$imageDiv.empty()
@@ -386,9 +386,9 @@
 				).append(
 					$( '<div>' ).addClass( 'mw-mmv-error-description' ).append(
 						mw.msg( 'multimediaviewer-thumbnail-error-description',
-							htmlUtils.jqueryToHtml( retryLink ),
+							htmlUtils.jqueryToHtml( $retryLink ),
 							error,
-							htmlUtils.jqueryToHtml( reportLink )
+							htmlUtils.jqueryToHtml( $reportLink )
 						)
 					)
 				)
