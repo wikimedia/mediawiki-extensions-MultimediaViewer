@@ -8,6 +8,8 @@
 	"multimediaviewer-optin-pref": "Уключыць <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About мэдыяпраглядальнік]</span>",
 	"multimediaviewer-repository-local": "Падрабязьней",
 	"multimediaviewer-datetime-created": "Створаны: $1",
+	"multimediaviewer-datetime-uploaded": "Загружана: $1",
+	"multimediaviewer-credit": "$1 — $2",
 	"multimediaviewer-permission-link": "паказаць умовы",
 	"multimediaviewer-about-mmv": "Пра гэты інтэрфэйс",
 	"multimediaviewer-discuss-mmv": "Абмеркаваньне",
