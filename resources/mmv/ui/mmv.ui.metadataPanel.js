@@ -816,7 +816,8 @@
 				return date.toLocaleString( lang, {
 					day: 'numeric',
 					month: 'long',
-					year: 'numeric'
+					year: 'numeric',
+					timeZone: 'UTC'
 				} );
 			}
 		} catch ( ignore ) {}
