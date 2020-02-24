@@ -64,6 +64,10 @@ module.exports = function ( grunt ) {
 		}
 	} );
 
-	grunt.registerTask( 'test', [ 'eslint', 'stylelint', 'banana' ] );
-	grunt.registerTask( 'default', [ 'test', 'svgmin' ] );
+	grunt.registerTask( 'lint', [ 'eslint', 'stylelint', 'banana' ] );
+	grunt.registerTask( 'minify', 'svgmin' );
+
+	grunt.registerTask( 'test', 'lint' );
+	grunt.registerTask( 'build', 'minify' );
+	grunt.registerTask( 'default', [ 'test', 'build' ] );
 };
