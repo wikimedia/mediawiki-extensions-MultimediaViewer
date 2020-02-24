@@ -13,6 +13,7 @@ module.exports = function ( grunt ) {
 		eslint: {
 			options: {
 				extensions: [ '.js', '.json' ],
+				fix: grunt.option( 'fix' ),
 				cache: true
 			},
 			all: [
@@ -22,6 +23,7 @@ module.exports = function ( grunt ) {
 		},
 		stylelint: {
 			options: {
+				fix: grunt.option( 'fix' ),
 				syntax: 'less'
 			},
 			src: 'resources/mmv/**/*.{css,less}'
@@ -64,6 +66,10 @@ module.exports = function ( grunt ) {
 		}
 	} );
 
+	// Use `grunt lint --fix` to quickly fix trivial style errors.
+	// Add `alias lintfix='grunt lint --fix' ; alias jsfix='grunt eslint --fix' ; alias cssfix='grunt stylelint --fix'` to ~/.bashrc
+	// to use the short commands 1) lintfix, 2) jsfix, 3) cssfix for fixing lint errors in 1) all, 2) js, 3) css files.
+	// Alternatively choose shorter aliases ex. lf, jf, cf.
 	grunt.registerTask( 'lint', [ 'eslint', 'stylelint', 'banana' ] );
 	grunt.registerTask( 'minify', 'svgmin' );
 
