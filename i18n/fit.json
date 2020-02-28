@@ -5,6 +5,7 @@
 		]
 	},
 	"multimediaviewer-repository-local": "Lisätiot",
+	"multimediaviewer-datetime-uploaded": "Säästetty: $1",
 	"multimediaviewer-download-link": "Lattaa tämä fiili",
 	"multimediaviewer-link-to-file": "Länkki alkuperäseen fiiliin",
 	"multimediaviewer-share-explanation": "Jäljennä länkki ja levitä sitä vappaasti",
