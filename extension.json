@@ -451,27 +451,13 @@
 		"MultimediaViewerDimensions": 10014238
 	},
 	"Hooks": {
-		"UserGetDefaultOptions": [
-			"MultimediaViewerHooks::onUserGetDefaultOptions"
-		],
-		"GetPreferences": [
-			"MultimediaViewerHooks::onGetPreferences"
-		],
-		"BeforePageDisplay": [
-			"MultimediaViewerHooks::onBeforePageDisplay"
-		],
-		"CategoryPageView": [
-			"MultimediaViewerHooks::onCategoryPageView"
-		],
-		"ResourceLoaderGetConfigVars": [
-			"MultimediaViewerHooks::onResourceLoaderGetConfigVars"
-		],
-		"MakeGlobalVariablesScript": [
-			"MultimediaViewerHooks::onMakeGlobalVariablesScript"
-		],
-		"ThumbnailBeforeProduceHTML": [
-			"MultimediaViewerHooks::onThumbnailBeforeProduceHTML"
-		]
+		"UserGetDefaultOptions": "MultimediaViewerHooks::onUserGetDefaultOptions",
+		"GetPreferences": "MultimediaViewerHooks::onGetPreferences",
+		"BeforePageDisplay": "MultimediaViewerHooks::onBeforePageDisplay",
+		"CategoryPageView": "MultimediaViewerHooks::onCategoryPageView",
+		"ResourceLoaderGetConfigVars": "MultimediaViewerHooks::onResourceLoaderGetConfigVars",
+		"MakeGlobalVariablesScript": "MultimediaViewerHooks::onMakeGlobalVariablesScript",
+		"ThumbnailBeforeProduceHTML": "MultimediaViewerHooks::onThumbnailBeforeProduceHTML"
 	},
 	"config": {
 		"MediaViewerExtensions": {
