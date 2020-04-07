@@ -1,13 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
+			"Kkairri",
+			"Omotecho",
+			"Otokoume",
 			"Shirayuki",
-			"Whym",
 			"SkyDaisy9",
 			"Sujiniku",
-			"Otokoume",
-			"Omotecho",
-			"Kkairri"
+			"Whym"
 		]
 	},
 	"multimediaviewer-desc": "縮小画像を全画面表示インターフェイス内に拡大表示する",

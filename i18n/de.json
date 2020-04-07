@@ -1,15 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
+			"DerHexer",
+			"Envlh",
+			"Inkowik",
+			"Keegan",
 			"Kghbln",
 			"Metalhead64",
 			"Snatcher",
-			"Inkowik",
 			"Steinsplitter",
-			"Keegan",
-			"WhatamIdoing",
-			"DerHexer",
-			"Envlh"
+			"WhatamIdoing"
 		]
 	},
 	"multimediaviewer-desc": "Ermöglicht die Darstellung von Vorschaubildern in einer Vollbildschnittstelle",

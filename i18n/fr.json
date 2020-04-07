@@ -1,21 +1,21 @@
 {
 	"@metadata": {
 		"authors": [
+			"0x010C",
 			"Gomoko",
 			"Jean-Frédéric",
 			"Ltrlg",
-			"NemesisIII",
-			"Verdy p",
-			"Sherbrooke",
-			"Seb35",
 			"Macofe",
-			"Windes",
-			"0x010C",
+			"NemesisIII",
 			"Orikrin1998",
-			"Weft",
-			"Wladek92",
+			"Seb35",
+			"Sherbrooke",
+			"Thibaut120094",
 			"Urhixidur",
-			"Thibaut120094"
+			"Verdy p",
+			"Weft",
+			"Windes",
+			"Wladek92"
 		]
 	},
 	"multimediaviewer-desc": "Agrandit les vignettes dans une interface en plein écran",

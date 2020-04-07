@@ -1,16 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
+			"A2093064",
+			"Alexsh",
+			"Cwlin0416",
+			"Kly",
+			"LNDDYL",
+			"Liangent",
 			"Liuxinyu970226",
 			"Simon Shek",
-			"Liangent",
-			"Cwlin0416",
-			"LNDDYL",
-			"Alexsh",
-			"Kly",
-			"A2093064",
-			"Xiplus",
-			"Winston Sung"
+			"Winston Sung",
+			"Xiplus"
 		]
 	},
 	"multimediaviewer-desc": "使用全螢幕介面以較大尺寸的方式顯示展開後的縮圖",

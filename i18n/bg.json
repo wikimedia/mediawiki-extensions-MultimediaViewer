@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mitzev",
 			"DCLXVI",
-			"Vodnokon4e",
+			"Mitzev",
+			"ShockD",
 			"StanProg",
-			"ShockD"
+			"Vodnokon4e"
 		]
 	},
 	"multimediaviewer-optin-pref": "Включване на <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
