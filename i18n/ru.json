@@ -15,6 +15,7 @@
 			"Smigles",
 			"Stjn",
 			"Striking Blue",
+			"Toghrul Rahimli",
 			"Tucvbif",
 			"Wizardist"
 		]
@@ -111,7 +112,7 @@
 	"multimediaviewer-title-popup-text-more": "Посмотреть полное описание",
 	"multimediaviewer-credit-popup-text-more": "Посмотреть полную информацию об авторе и источнике",
 	"multimediaviewer-download-attribution-cta-header": "Вам нужно указать автора",
-	"multimediaviewer-download-optional-attribution-cta-header": "Вам нужно указать автора",
+	"multimediaviewer-download-optional-attribution-cta-header": "Вам можно указать автора",
 	"multimediaviewer-download-attribution-cta": "Показать мне, как",
 	"multimediaviewer-download-attribution-copy": "Выберите и скопируйте (если поддерживается) текст атрибуции для этого файла",
 	"multimediaviewer-reuse-warning-deletion": "Этот файл считается вынесен на удаление.",
