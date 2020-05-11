@@ -12,6 +12,7 @@
 	"multimediaviewer-permission-link": "Montrez kondicioni",
 	"multimediaviewer-permission-viewmore": "Montrez pluse",
 	"multimediaviewer-discuss-mmv": "Diskuto",
+	"multimediaviewer-help-mmv": "Helpo",
 	"multimediaviewer-optout-mmv": "Klozar ''Media Viewer''",
 	"multimediaviewer-reuse-link": "Partigar o stekar ica arkivo",
 	"multimediaviewer-download-link": "Descharjar ica arkivo",
@@ -26,5 +27,6 @@
 	"multimediaviewer-fullscreen-popup-text": "Montrez en plena skreno",
 	"multimediaviewer-title-popup-text": "Deskripto",
 	"multimediaviewer-attr-plain": "simpla texto",
-	"multimediaviewer-options-text-header": "Omisar ca formo pri vidado por omna arkivi."
+	"multimediaviewer-options-text-header": "Omisar ca formo pri vidado por omna arkivi.",
+	"multimediaviewer-option-cancel-button": "Anular"
 }
