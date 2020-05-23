@@ -460,7 +460,7 @@
 	 * @private
 	 */
 	MMVB.isViewerHash = function () {
-		var path = OO.Router.prototype.getPath();
+		var path = location.hash.slice( 1 );
 		return path.match( mw.mmv.ROUTE_REGEXP ) || path.match( mw.mmv.LEGACY_ROUTE_REGEXP );
 	};
 
