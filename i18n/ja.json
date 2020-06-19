@@ -7,6 +7,7 @@
 			"Shirayuki",
 			"SkyDaisy9",
 			"Sujiniku",
+			"Tmv",
 			"Whym"
 		]
 	},
@@ -49,9 +50,11 @@
 	"multimediaviewer-restriction-design": "この画像の被写体のデザインは著作権で保護されており、法的な制約を受けるかもしれません。",
 	"multimediaviewer-restriction-fan-art": "この画像はファンアートであり、再利用は法的な制約を受けるかもしれません。",
 	"multimediaviewer-restriction-ihl": "この画像には、国際人道法による制約のあるシンボルが含まれます。",
+	"multimediaviewer-restriction-nazi": "この画像にはナチス・ドイツやその他のファシストの記章が含まれている可能性があり、国によっては閲覧が禁止されている場合があります。",
 	"multimediaviewer-restriction-personality": "この画像には人物が含まれており、同意なしに行われる一定の再利用を制限する権利がその人物にある可能性があります。",
 	"multimediaviewer-restriction-trademarked": "この画像には商標法の対象になる可能性のあるものが含まれています。",
 	"multimediaviewer-restriction-default": "この画像は著作権法以外の法規定により制限を受ける可能性があります。詳細についてはファイル解説ページをご覧ください。",
+	"multimediaviewer-restriction-default-and-others": "この画像は、著作権法以外の法規定によって、著作権制限以外にさらに制限されている可能性があります。詳細はファイルの説明ページを参照してください。",
 	"multimediaviewer-about-mmv": "このインターフェースについて",
 	"multimediaviewer-discuss-mmv": "議論",
 	"multimediaviewer-help-mmv": "ヘルプ",
@@ -83,6 +86,7 @@
 	"multimediaviewer-link-to-file": "元ファイルへのリンク",
 	"multimediaviewer-embed-wt": "ウィキテキスト",
 	"multimediaviewer-embed-html": "HTML",
+	"multimediaviewer-embed-explanation": "このコードを使用してファイルを埋め込み",
 	"multimediaviewer-text-embed-credit-text-bl": "$1, $2, $3による",
 	"multimediaviewer-text-embed-credit-text-b": "$1, $2による",
 	"multimediaviewer-html-embed-credit-text-bl": "$1, $2, $3による",
