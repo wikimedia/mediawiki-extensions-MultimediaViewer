@@ -57,7 +57,7 @@
 	 * same image 10 times by hitting the prev/next buttons, there will be 10
 	 * image-view events, etc.
 	 *
-	 * @property
+	 * @property {Object}
 	 * @static
 	 */
 	L.logActions = {

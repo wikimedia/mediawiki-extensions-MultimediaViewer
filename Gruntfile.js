@@ -12,9 +12,8 @@ module.exports = function ( grunt ) {
 		banana: conf.MessagesDirs,
 		eslint: {
 			options: {
-				extensions: [ '.js', '.json' ],
-				fix: grunt.option( 'fix' ),
-				cache: true
+				cache: true,
+				fix: grunt.option( 'fix' )
 			},
 			all: [
 				'**/*.{js,json}',
@@ -23,8 +22,7 @@ module.exports = function ( grunt ) {
 		},
 		stylelint: {
 			options: {
-				fix: grunt.option( 'fix' ),
-				syntax: 'less'
+				fix: grunt.option( 'fix' )
 			},
 			src: 'resources/mmv/**/*.{css,less}'
 		},

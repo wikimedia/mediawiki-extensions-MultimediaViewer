@@ -85,7 +85,7 @@
 	/**
 	 * Maximum blownup factor tolerated
 	 *
-	 * @property MAX_BLOWUP_FACTOR
+	 * @property {number} MAX_BLOWUP_FACTOR
 	 * @static
 	 */
 	Canvas.MAX_BLOWUP_FACTOR = 11;
@@ -93,7 +93,7 @@
 	/**
 	 * Blowup factor threshold at which blurring kicks in
 	 *
-	 * @property BLUR_BLOWUP_FACTOR_THRESHOLD
+	 * @property {number} BLUR_BLOWUP_FACTOR_THRESHOLD
 	 * @static
 	 */
 	Canvas.BLUR_BLOWUP_FACTOR_THRESHOLD = 2;

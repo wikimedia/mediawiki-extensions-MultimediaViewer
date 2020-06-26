@@ -31,8 +31,8 @@
 		 */
 		ROUTE_REGEXP: /^\/media\/(.+)$/,
 		/**
-		 * @property
-		 * RegExp representing the legacy media route
+		 * @property {RegExp}
+		 * Regular expression representing the legacy media route
 		 * @member mw.mmv
 		 */
 		LEGACY_ROUTE_REGEXP: /^mediaviewer\/(.+)$/,

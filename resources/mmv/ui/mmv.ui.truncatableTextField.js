@@ -128,6 +128,7 @@
 
 	TTFP.empty = function () {
 		this.$element.empty();
+		// eslint-disable-next-line mediawiki/class-doc
 		this.$container
 			.removeClass( this.options.styles.concat( [ 'mw-mmv-ttf-untruncated', 'mw-mmv-ttf-truncated' ] ) )
 			.addClass( 'empty' );
@@ -219,6 +220,7 @@
 			newClass = 'mw-mmv-ttf-normal',
 			field = this;
 
+		// eslint-disable-next-line mediawiki/class-doc
 		this.$container
 			.removeClass( this.options.styles.concat( [ 'mw-mmv-ttf-untruncated', 'mw-mmv-ttf-truncated' ] ) )
 			.addClass( newClass );
@@ -232,6 +234,7 @@
 
 			oldClass = newClass;
 			newClass = v;
+			// eslint-disable-next-line mediawiki/class-doc
 			field.$container.removeClass( oldClass ).addClass( newClass );
 		} );
 	};
