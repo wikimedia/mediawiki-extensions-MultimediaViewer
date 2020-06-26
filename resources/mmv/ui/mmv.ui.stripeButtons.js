@@ -37,6 +37,7 @@
 
 		/**
 		 * This holds the actual buttons.
+		 *
 		 * @property {Object.<string, jQuery>}
 		 */
 		this.buttons = {};

@@ -51,6 +51,7 @@
 
 		/**
 		 * Default item for the size menu.
+		 *
 		 * @property {OO.ui.MenuOptionWidget}
 		 */
 		this.defaultItem = this.downloadSizeMenu.getMenu().findSelectedItem();

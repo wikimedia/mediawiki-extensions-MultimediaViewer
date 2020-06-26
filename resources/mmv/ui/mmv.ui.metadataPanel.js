@@ -458,7 +458,7 @@
 
 	/**
 	 * Sets the upload or creation date and time in the panel
-	 *f
+	 *
 	 * @param {string} date The formatted date to set.
 	 * @param {boolean} created Whether this is the creation date
 	 */

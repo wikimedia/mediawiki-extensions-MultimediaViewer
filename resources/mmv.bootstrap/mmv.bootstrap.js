@@ -46,6 +46,7 @@
 
 		/**
 		 * This flag is set to true when we were unable to load the viewer.
+		 *
 		 * @property {boolean}
 		 */
 		this.viewerIsBroken = false;

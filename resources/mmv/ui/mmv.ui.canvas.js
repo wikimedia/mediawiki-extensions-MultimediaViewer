@@ -47,6 +47,7 @@
 
 		/**
 		 * Contains image.
+		 *
 		 * @property {jQuery}
 		 */
 		this.$imageDiv = $( '<div>' )
@@ -56,6 +57,7 @@
 
 		/**
 		 * Container of canvas and controls, needed for canvas size calculations.
+		 *
 		 * @property {jQuery}
 		 * @private
 		 */
@@ -63,6 +65,7 @@
 
 		/**
 		 * Main container of image and metadata, needed to propagate events.
+		 *
 		 * @property {jQuery}
 		 * @private
 		 */
@@ -70,6 +73,7 @@
 
 		/**
 		 * Raw metadata of current image, needed for canvas size calculations.
+		 *
 		 * @property {mw.mmv.LightboxImage}
 		 * @private
 		 */
@@ -80,6 +84,7 @@
 
 	/**
 	 * Maximum blownup factor tolerated
+	 *
 	 * @property MAX_BLOWUP_FACTOR
 	 * @static
 	 */
@@ -87,6 +92,7 @@
 
 	/**
 	 * Blowup factor threshold at which blurring kicks in
+	 *
 	 * @property BLUR_BLOWUP_FACTOR_THRESHOLD
 	 * @static
 	 */

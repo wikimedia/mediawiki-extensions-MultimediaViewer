@@ -20,11 +20,13 @@
 	mw.mmv = {
 		/**
 		 * The media route prefix
+		 *
 		 * @member mw.mmv
 		 */
 		ROUTE: 'media',
 		/**
 		 * RegExp representing the media route
+		 *
 		 * @member mw.mmv
 		 */
 		ROUTE_REGEXP: /^\/media\/(.+)$/,
@@ -36,6 +38,7 @@
 		LEGACY_ROUTE_REGEXP: /^mediaviewer\/(.+)$/,
 		/**
 		 * Returns the location hash (route string) for the given file title.
+		 *
 		 * @param {string} imageFileTitle the file title
 		 * @return {string} the location hash
 		 * @member mw.mmv

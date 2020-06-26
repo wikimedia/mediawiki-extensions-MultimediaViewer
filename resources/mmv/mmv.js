@@ -74,6 +74,7 @@
 
 		/**
 		 * Image index on page.
+		 *
 		 * @property {number}
 		 */
 		this.currentIndex = 0;
@@ -87,6 +88,7 @@
 
 		/**
 		 * UI object used to display the pictures in the page.
+		 *
 		 * @property {mw.mmv.LightboxInterface}
 		 * @private
 		 */
@@ -94,12 +96,14 @@
 
 		/**
 		 * How many sharp images have been displayed in Media Viewer since the pageload
+		 *
 		 * @property {number}
 		 */
 		this.imageDisplayedCount = 0;
 
 		/**
 		 * How many data-filled metadata panels have been displayed in Media Viewer since the pageload
+		 *
 		 * @property {number}
 		 */
 		this.metadataDisplayedCount = 0;
@@ -115,6 +119,7 @@
 		/**
 		 * Stores whether the real image was loaded and displayed already.
 		 * This is reset when paging, so it is not necessarily accurate.
+		 *
 		 * @property {boolean}
 		 */
 		this.realThumbnailShown = false;
@@ -123,6 +128,7 @@
 		 * Stores whether the a blurred placeholder is being displayed in place of the real image.
 		 * When a placeholder is displayed, but it is not blurred, this is false.
 		 * This is reset when paging, so it is not necessarily accurate.
+		 *
 		 * @property {boolean}
 		 */
 		this.blurredThumbnailShown = false;
@@ -588,18 +594,21 @@
 	 * Preload this many prev/next images to speed up navigation.
 	 * (E.g. preloadDistance = 3 means that the previous 3 and the next 3 images will be loaded.)
 	 * Preloading only happens when the viewer is open.
+	 *
 	 * @property {number}
 	 */
 	MMVP.preloadDistance = 1;
 
 	/**
 	 * Stores image metadata preloads, so they can be cancelled.
+	 *
 	 * @property {mw.mmv.model.TaskQueue}
 	 */
 	MMVP.metadataPreloadQueue = null;
 
 	/**
 	 * Stores image thumbnail preloads, so they can be cancelled.
+	 *
 	 * @property {mw.mmv.model.TaskQueue}
 	 */
 	MMVP.thumbnailPreloadQueue = null;
@@ -933,6 +942,7 @@
 
 	/**
 	 * Updates the hash to reflect an open image file
+	 *
 	 * @param {boolean} useReplaceState Whether to update history entry to avoid long history queues
 	 */
 	MMVP.setMediaHash = function ( useReplaceState ) {
@@ -1016,8 +1026,8 @@
 	};
 
 	/**
-	* Unregisters all event handlers. Currently only used in tests.
-	*/
+	 * Unregisters all event handlers. Currently only used in tests.
+	 */
 	MMVP.cleanupEventHandlers = function () {
 		$( document ).off( 'mmv-close.mmvp mmv-resize-end.mmvp' );
 

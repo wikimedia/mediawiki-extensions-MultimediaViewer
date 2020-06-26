@@ -82,6 +82,7 @@
 
 	/**
 	 * Default options
+	 *
 	 * @property {Object} defaultOptions
 	 */
 	TTFP.defaultOptions = {
