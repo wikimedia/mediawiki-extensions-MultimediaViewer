@@ -9,7 +9,7 @@
 			"Сербијана"
 		]
 	},
-	"multimediaviewer-desc": "Ширење сличица у већој величини у интерфејсу за приказ преко целог екрана",
+	"multimediaviewer-desc": "Увећава минијатуре преко целог екрана",
 	"multimediaviewer-optin-pref": "Омогући <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About приказивач медија]</span>",
 	"multimediaviewer-file-page": "Иди на одговарајућу страницу датотеке",
 	"multimediaviewer-repository-local": "Више детаља",
@@ -70,7 +70,7 @@
 	"multimediaviewer-embed-byline": "Аутор: $1",
 	"multimediaviewer-embed-license": "Под лиценцом $1.",
 	"multimediaviewer-embed-via": "Преко $1.",
-	"multimediaviewer-default-embed-dimensions": "Подразумевана величина сличице",
+	"multimediaviewer-default-embed-dimensions": "Подразумевана величина минијатуре",
 	"multimediaviewer-original-embed-dimensions": "Оригинална датотека $1",
 	"multimediaviewer-large-embed-dimensions": "Велика $1",
 	"multimediaviewer-medium-embed-dimensions": "Средња $1",
