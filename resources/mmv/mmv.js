@@ -916,8 +916,8 @@
 		function route( fileName ) {
 			var fileTitle;
 			comingFromHashChange = true;
-			fileName = decodeURIComponent( fileName );
 			try {
+				fileName = decodeURIComponent( fileName );
 				fileTitle = new mw.Title( fileName );
 				this.loadImageByTitle( fileTitle );
 			} catch ( err ) {
