@@ -24,7 +24,7 @@
 		]
 	},
 	"multimediaviewer-desc": "在全屏界面中以较大尺寸显示缩略图。",
-	"multimediaviewer-optin-pref": "启用<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About 媒体查看器]</span>",
+	"multimediaviewer-optin-pref": "启用<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About 媒体文件查看器]</span>",
 	"multimediaviewer-file-page": "前往对应的文件页面",
 	"multimediaviewer-repository-local": "更多详情",
 	"multimediaviewer-datetime-created": "创作时间：$1",
