@@ -213,10 +213,10 @@
 
 			this.fetchThumbnailForLightboxImage(
 				image, imageWidths.real
-			).then( function ( thumbnail, image ) {
+			).then( function ( thumbnail, image2 ) {
 				// eslint-disable-next-line mediawiki/class-doc
-				image.className = ext;
-				viewer.setImage( ui, thumbnail, image, imageWidths );
+				image2.className = ext;
+				viewer.setImage( ui, thumbnail, image2, imageWidths );
 			}, function ( error ) {
 				viewer.ui.canvas.showError( error );
 			} );
