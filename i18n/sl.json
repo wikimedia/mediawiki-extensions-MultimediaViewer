@@ -15,6 +15,7 @@
 	"multimediaviewer-credit-fallback": "Ogled informacij o avtorju",
 	"multimediaviewer-multiple-authors": "{{PLURAL:$1|še $1 avtor|še $1 avtorja|še $1 avtorji|še $1 avtorjev}}",
 	"multimediaviewer-multiple-authors-combine": "$1 in $2",
+	"multimediaviewer-metadata-error": "Podrobnosti o sliki ni bilo mogoče naložiti (napaka: $1)",
 	"multimediaviewer-thumbnail-error-retry": "poskusi znova",
 	"multimediaviewer-thumbnail-error-report": "prijavi težavo",
 	"multimediaviewer-license-cc-pd": "javna last",
