@@ -148,7 +148,7 @@
 	VL.attach = function ( url ) {
 		var view = this;
 
-		this.url = url;
+		this.url = encodeURIComponent( url );
 		this.startViewDuration();
 
 		$( this.window )
