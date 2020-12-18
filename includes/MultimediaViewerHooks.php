@@ -62,7 +62,7 @@ class MultimediaViewerHooks {
 			$enableByDefaultForAnons = $wgMediaViewerEnableByDefaultForAnonymous;
 		}
 
-		if ( !$user->isLoggedIn() ) {
+		if ( !$user->isRegistered() ) {
 			return (bool)$enableByDefaultForAnons;
 		} else {
 			return (bool)$user->getOption( 'multimediaviewer-enable' );
