@@ -31,7 +31,7 @@
 	"multimediaviewer-restriction-nazi": "Slika vsebuje nacistične ali druge fašistične simbole, ki so v nekaterih državah morda prepovedani.",
 	"multimediaviewer-restriction-trademarked": "Slika vsebuje vsebino, ki je morda predmet zakonov o blagovnih znamkah.",
 	"multimediaviewer-about-mmv": "O tem vmesniku",
-	"multimediaviewer-discuss-mmv": "Razprava",
+	"multimediaviewer-discuss-mmv": "Pogovor",
 	"multimediaviewer-help-mmv": "Pomoč",
 	"multimediaviewer-geolocation": "Lokacija: $1",
 	"multimediaviewer-reuse-link": "Deli ali vdelaj datoteko",
@@ -57,5 +57,6 @@
 	"multimediaviewer-medium-embed-dimensions": "Srednja $1",
 	"multimediaviewer-small-embed-dimensions": "Majhna $1",
 	"multimediaviewer-description-page-button-text": "Več podrobnosti o datoteki",
-	"multimediaviewer-description-page-popup-text": "Več podrobnosti o datoteki na $1"
+	"multimediaviewer-description-page-popup-text": "Več podrobnosti o datoteki na $1",
+	"multimediaviewer-option-cancel-button": "Prekliči"
 }
