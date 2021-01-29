@@ -33,6 +33,9 @@
 	"multimediaviewer-about-mmv": "O tem vmesniku",
 	"multimediaviewer-discuss-mmv": "Pogovor",
 	"multimediaviewer-help-mmv": "Pomoč",
+	"multimediaviewer-optout-mmv": "Onemogoči Media Viewer",
+	"multimediaviewer-optin-mmv": "Omogoči Media Viewer",
+	"multimediaviewer-optin-pending-mmv": "Omogočam Media Viewer",
 	"multimediaviewer-geolocation": "Lokacija: $1",
 	"multimediaviewer-reuse-link": "Deli ali vdelaj datoteko",
 	"multimediaviewer-reuse-loading-placeholder": "Nalaganje ...",
@@ -59,5 +62,8 @@
 	"multimediaviewer-small-embed-dimensions": "Majhna $1",
 	"multimediaviewer-description-page-button-text": "Več podrobnosti o datoteki",
 	"multimediaviewer-description-page-popup-text": "Več podrobnosti o datoteki na $1",
-	"multimediaviewer-option-cancel-button": "Prekliči"
+	"multimediaviewer-option-cancel-button": "Prekliči",
+	"multimediaviewer-enable-dialog-header": "Omogočim Media Viewer?",
+	"multimediaviewer-enable-text-header": "To možnost prikazovanja predstavnostnih vsebin po privzetem omogoči za vse datoteke.",
+	"multimediaviewer-enable-submit-button": "Omogoči Media Viewer"
 }
