@@ -11,6 +11,7 @@
 		"max-statements-per-line": "off",
 		"no-jquery/no-class-state": "off",
 		"no-jquery/no-support": "off",
-		"no-shadow": "warn"
+		"no-shadow": "warn",
+		"compat/compat": "warn"
 	}
 }
