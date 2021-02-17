@@ -135,6 +135,15 @@
 	MMVB.processThumbs = function ( $content ) {
 		var bs = this;
 
+		// MMVB.processThumbs() is a callback for `wikipage.content` hook (see constructor)
+		// which as state in the documentation can be fired when content is added to the DOM
+		// https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.hook
+		// The content being added can contain thumbnails that the MultimediaViewer may need to
+		// process correctly and add the the thumbs array, so it's necessary to invalidate the
+		// viewer initialization state if this happens to let the MMVB.loadViewer() to process
+		// new images correctly
+		bs.viewerInitialized = false;
+
 		this.$thumbs = $content.find(
 			'.gallery .image img, ' +
 			'a.image img, ' +
