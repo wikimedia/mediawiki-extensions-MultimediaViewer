@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Andrei Stroe",
+			"Andreyyshore",
 			"Macofe",
 			"Minisarm",
 			"NGC 54"
@@ -99,7 +100,7 @@
 	"multimediaviewer-title-popup-text": "Descriere",
 	"multimediaviewer-credit-popup-text": "Informații despre autor și sursă",
 	"multimediaviewer-title-popup-text-more": "Vezi descrierea completă",
-	"multimediaviewer-credit-popup-text-more": "Vezi informațiile complete despre autor şi sursă",
+	"multimediaviewer-credit-popup-text-more": "Vezi informațiile complete despre autor și sursă",
 	"multimediaviewer-download-attribution-cta-header": "Trebuie să atribuiți autorului opera sa",
 	"multimediaviewer-download-optional-attribution-cta-header": "Puteți atribui autorului opera sa",
 	"multimediaviewer-download-attribution-cta": "Arată-mi cum",
