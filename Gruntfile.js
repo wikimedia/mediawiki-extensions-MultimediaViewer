@@ -6,7 +6,6 @@ module.exports = function ( grunt ) {
 	grunt.loadNpmTasks( 'grunt-banana-checker' );
 	grunt.loadNpmTasks( 'grunt-eslint' );
 	grunt.loadNpmTasks( 'grunt-stylelint' );
-	grunt.loadNpmTasks( 'grunt-svgmin' );
 
 	grunt.initConfig( {
 		banana: conf.MessagesDirs,
@@ -65,9 +64,7 @@ module.exports = function ( grunt ) {
 	} );
 
 	grunt.registerTask( 'lint', [ 'eslint', 'stylelint', 'banana' ] );
-	grunt.registerTask( 'minify', 'svgmin' );
 
 	grunt.registerTask( 'test', 'lint' );
-	grunt.registerTask( 'build', 'minify' );
-	grunt.registerTask( 'default', [ 'test', 'build' ] );
+	grunt.registerTask( 'default', [ 'test' ] );
 };

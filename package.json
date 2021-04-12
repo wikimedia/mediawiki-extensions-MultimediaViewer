@@ -1,8 +1,9 @@
 {
 	"private": true,
 	"scripts": {
-		"build": "grunt build",
+		"build": "npm -s run minify-svg",
 		"test": "grunt test",
+		"minify-svg": "svgo --config=.svgo.config.js -q -r -f resources/",
 		"doc": "jsduck"
 	},
 	"devDependencies": {
@@ -11,7 +12,7 @@
 		"grunt-banana-checker": "0.9.0",
 		"grunt-eslint": "23.0.0",
 		"grunt-stylelint": "0.16.0",
-		"grunt-svgmin": "6.0.0",
-		"stylelint-config-wikimedia": "0.10.3"
+		"stylelint-config-wikimedia": "0.10.3",
+		"svgo": "2.3.0"
 	}
 }
