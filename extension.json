@@ -28,7 +28,7 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "other",
 	"requires": {
-		"MediaWiki": ">= 1.35.0"
+		"MediaWiki": ">= 1.38.0"
 	},
 	"MessagesDirs": {
 		"MultimediaViewer": [
@@ -106,7 +106,6 @@
 				"oojs",
 				"oojs-router",
 				"jquery.fullscreen",
-				"jquery.throttle-debounce",
 				"jquery.color",
 				"jquery.tipsy",
 				"mmv.bootstrap",
