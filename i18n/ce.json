@@ -76,18 +76,18 @@
 	"multimediaviewer-options-tooltip": "Латор йа дӀайайар Медиа-хьожург",
 	"multimediaviewer-options-dialog-header": "ДӀайайъа «Медиафайлашка хьожург»?",
 	"multimediaviewer-options-text-header": "Латае хӀара хьажаран функци массо файлашна.",
-	"multimediaviewer-options-text-body": "Хьан йиш ю и тӀаьхьо латаян файлах лаьцна хаам болу агӀонгахь.",
+	"multimediaviewer-options-text-body": "Хьан йиш йу и тӀаьхьо латайан файлах лаьцна хаам болу агӀонгахь.",
 	"multimediaviewer-options-learn-more": "Цул совнаха хаа",
 	"multimediaviewer-option-submit-button": "ДӀайайъа «Медиафайлашка хьожург»",
 	"multimediaviewer-option-cancel-button": "Цаоьшу",
 	"multimediaviewer-disable-confirmation-header": "Ахьа дӀаяйина Медиа-хьожург",
-	"multimediaviewer-disable-confirmation-text": "Кхечу хенахь $1 сайтехь файлан тӀе таӀийча хьана файлан хаам хьажа йиш хира ю.",
+	"multimediaviewer-disable-confirmation-text": "Кхечу хенахь $1 сайтехь файлан тӀе таӀийча хьана файлан хаам хьажа йиш хира йу.",
 	"multimediaviewer-enable-dialog-header": "Латае медиа-хьожург?",
 	"multimediaviewer-enable-text-header": "Латае медиа-хьожург массо файлашна.",
 	"multimediaviewer-enable-submit-button": "Латае медиа-хьожург",
 	"multimediaviewer-enable-confirmation-header": "Ахьа латийна медиа-хьожург массо файлашна.",
-	"multimediaviewer-enable-confirmation-text": "Кхечу хенахь $1 сайтехь файлан тӀе таӀийча хьана медиа-хьожург лелор ю.",
+	"multimediaviewer-enable-confirmation-text": "Кхечу хенахь $1 сайтехь файлан тӀе таӀийча хьана медиа-хьожург лелор йу.",
 	"multimediaviewer-enable-alert": "Медиа-хьожург хӀинца дӀайайина йу",
 	"multimediaviewer-disable-info-title": "Ахьа дӀаяйина Медиа-хьожург",
-	"multimediaviewer-disable-info": "Хьа хӀинца а йиш ю цхьайолу файлашка медиа-хьожургцан хьажа."
+	"multimediaviewer-disable-info": "Хьа хӀинца а йиш йу цхьайолу файлашка медиа-хьожургцан хьажа."
 }
