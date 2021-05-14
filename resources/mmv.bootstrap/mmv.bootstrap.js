@@ -80,6 +80,10 @@
 			return deferred.reject();
 		}
 
+		if ( history.scrollRestoration ) {
+			history.scrollRestoration = 'manual';
+		}
+
 		// FIXME setupOverlay is a quick hack to avoid setting up and immediately
 		// removing the overlay on a not-MMV -> not-MMV hash change.
 		// loadViewer is called on every click and hash change and setting up
