@@ -266,7 +266,11 @@
 	 */
 	MMVB.processFilePageThumb = function ( $thumb, title ) {
 		var $link,
+			$icon,
+			$label,
 			$configLink,
+			$configIcon,
+			$configLabel,
 			$filepageButtons,
 			bs = this,
 			link = $thumb.closest( 'a' ).prop( 'href' );
@@ -276,17 +280,32 @@
 		// eslint-disable-next-line no-jquery/no-global-selector
 		$( '.mw-mmv-filepage-buttons' ).next().addBack().remove();
 
+		$icon = $( '<span>' ).addClass( 'mw-ui-icon mw-ui-icon-before' );
+
 		$link = $( '<a>' )
 			// It won't matter because we catch the click event anyway, but
 			// give the user some URL to see.
 			.prop( 'href', link )
-			.addClass( 'mw-mmv-view-expanded mw-ui-button mw-ui-icon mw-ui-icon-before' )
+			.addClass( 'mw-mmv-view-expanded mw-ui-button' );
+
+		$label = $( '<span>' )
 			.text( mw.message( 'multimediaviewer-view-expanded' ).text() );
+
+		$icon.append( $label ).appendTo( $link );
 
 		$configLink = $( '<a>' )
 			.prop( 'href', $thumb.closest( 'a' ).prop( 'href' ) )
-			.addClass( 'mw-mmv-view-config mw-ui-button mw-ui-icon mw-ui-icon-element' )
+			.addClass( 'mw-mmv-view-config mw-ui-button' );
+
+		$configLabel = $( '<span>' )
 			.text( mw.message( 'multimediaviewer-view-config' ).text() );
+
+		$configIcon = $( '<span>' )
+			.addClass( 'mw-ui-icon mw-ui-icon-before' )
+			.append( $configLabel )
+			.appendTo( $configLink );
+
+		$configIcon.append( $configLabel ).appendTo( $configLink );
 
 		$filepageButtons = $( '<div>' )
 			.addClass( 'mw-ui-button-group mw-mmv-filepage-buttons' )
