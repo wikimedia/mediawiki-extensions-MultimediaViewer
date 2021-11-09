@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ajeje Brazorf",
 			"Alexmar983",
 			"Beta16",
 			"CristianCantoro",
@@ -73,7 +74,7 @@
 	"multimediaviewer-download-medium-button-name": "Scarica dimensioni medie",
 	"multimediaviewer-download-large-button-name": "Scarica dimensioni grandi",
 	"multimediaviewer-link-to-page": "Collegamento alla pagina di descrizione del file.",
-	"multimediaviewer-link-to-file": "Collegamento al file originale.",
+	"multimediaviewer-link-to-file": "Collegamento al file originale",
 	"multimediaviewer-share-explanation": "Copia e condividi liberamente il collegamento",
 	"multimediaviewer-embed-wt": "Wikitesto",
 	"multimediaviewer-embed-html": "HTML",
