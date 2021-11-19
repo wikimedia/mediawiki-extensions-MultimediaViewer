@@ -54,6 +54,7 @@
 		this.thumbsReadyDeferred = $.Deferred();
 		this.thumbs = [];
 		this.$thumbs = null; // will be set by processThumbs
+		this.$parsoidThumbs = null; // will be set in processThumbs
 
 		// find and setup all thumbs on this page
 		// this will run initially and then every time the content changes,
@@ -151,14 +152,19 @@
 		this.$thumbs = $content.find(
 			'.gallery .image img, ' +
 			'a.image img, ' +
-			'#file a img, ' +
-			'figure[typeof*="mw:Image"] > *:first-child > img, ' +
-			'span[typeof*="mw:Image"] img'
+			'#file a img'
+		);
+
+		this.$parsoidThumbs = $content.find(
+			'[typeof*="mw:Image"] a.mw-file-description img'
 		);
 
 		try {
 			this.$thumbs.each( function ( i, thumb ) {
 				bs.processThumb( thumb );
+			} );
+			this.$parsoidThumbs.each( function ( i, thumb ) {
+				bs.processParsoidThumb( thumb );
 			} );
 		} finally {
 			this.thumbsReadyDeferred.resolve();
@@ -187,6 +193,40 @@
 	};
 
 	/**
+	 * @param {mw.Title|null} title
+	 * @return {boolean}
+	 */
+	MMVB.isValidExtension = function ( title ) {
+		return title && title.getExtension() && ( title.getExtension().toLowerCase() in this.validExtensions );
+	};
+
+	/**
+	 * Preload JS/CSS when the mouse cursor hovers the thumb container
+	 * (thumb image + caption + border)
+	 *
+	 * @param {jQuery} $thumbContainer
+	 */
+	MMVB.preloadAssets = function ( $thumbContainer ) {
+		var bs = this;
+		$thumbContainer.on( {
+			mouseenter: function () {
+				// There is no point preloading if clicking the thumb won't open Media Viewer
+				if ( !bs.config.isMediaViewerEnabledOnClick() ) {
+					return;
+				}
+				bs.preloadOnHoverTimer = setTimeout( function () {
+					mw.loader.load( 'mmv' );
+				}, bs.hoverWaitDuration );
+			},
+			mouseleave: function () {
+				if ( bs.preloadOnHoverTimer ) {
+					clearTimeout( bs.preloadOnHoverTimer );
+				}
+			}
+		} );
+	};
+
+	/**
 	 * Processes a thumb
 	 *
 	 * @param {Object} thumb
@@ -195,8 +235,8 @@
 		var title,
 			bs = this,
 			$thumb = $( thumb ),
-			$link = $thumb.closest( 'a.image, [typeof*="mw:Image"] > a' ),
-			$thumbContainer = $link.closest( '.thumb, [typeof*="mw:Image"]' ),
+			$link = $thumb.closest( 'a.image' ),
+			$thumbContainer = $link.closest( '.thumb' ),
 			$enlarge = $thumbContainer.find( '.magnify a' ),
 			link = $link.prop( 'href' ),
 			alt = $thumb.attr( 'alt' ),
@@ -212,7 +252,7 @@
 			title = mw.Title.newFromImg( $thumb );
 		}
 
-		if ( !title || !title.getExtension() || !( title.getExtension().toLowerCase() in bs.validExtensions ) ) {
+		if ( !bs.isValidExtension( title ) ) {
 			// Short-circuit event handler and interface setup, because
 			// we can't do anything for this filetype
 			return;
@@ -223,23 +263,7 @@
 		}
 
 		if ( $thumbContainer.length ) {
-			// If this is a thumb, we preload JS/CSS when the mouse cursor hovers the thumb container (thumb image + caption + border)
-			$thumbContainer.on( {
-				mouseenter: function () {
-					// There is no point preloading if clicking the thumb won't open Media Viewer
-					if ( !bs.config.isMediaViewerEnabledOnClick() ) {
-						return;
-					}
-					bs.preloadOnHoverTimer = setTimeout( function () {
-						mw.loader.load( 'mmv' );
-					}, bs.hoverWaitDuration );
-				},
-				mouseleave: function () {
-					if ( bs.preloadOnHoverTimer ) {
-						clearTimeout( bs.preloadOnHoverTimer );
-					}
-				}
-			} );
+			bs.preloadAssets( $thumbContainer );
 		}
 
 		if ( isFilePageMainThumb ) {
@@ -257,6 +281,54 @@
 			caption: this.findCaption( $thumbContainer, $link ) } );
 
 		$link.add( $enlarge ).on( 'click', function ( e ) {
+			return bs.click( this, e, title );
+		} );
+	};
+
+	/**
+	 * Processes a Parsoid thumb, making use of the specified structure,
+	 *   https://www.mediawiki.org/wiki/Specs/HTML#Media
+	 *
+	 * Active formatting elements are sometimes re-opened inside
+	 * the structure and accounted for using .closest()
+	 *
+	 * @param {Object} thumb
+	 */
+	MMVB.processParsoidThumb = function ( thumb ) {
+		var bs = this,
+			$thumb = $( thumb ),
+			$link = $thumb.closest( 'a.mw-file-description' ),
+			$thumbContainer = $link.closest( '[typeof*="mw:Image"]' ),
+			link = $link.prop( 'href' ),
+			alt = $thumb.attr( 'alt' ),
+			title = mw.Title.newFromImg( $thumb );
+
+		if ( !bs.isValidExtension( title ) ) {
+			// Short-circuit event handler and interface setup, because
+			// we can't do anything for this filetype
+			return;
+		}
+
+		if ( !bs.isAllowedThumb( $thumb ) ) {
+			return;
+		}
+
+		if ( $thumbContainer.length ) {
+			bs.preloadAssets( $thumbContainer );
+		}
+
+		// This is the data that will be passed onto the mmv
+		this.thumbs.push( {
+			thumb: thumb,
+			$thumb: $thumb,
+			title: title,
+			link: link,
+			alt: alt,
+			// FIXME: findCaption can further make use of Parsoid's regularity
+			caption: this.findCaption( $thumbContainer, $link )
+		} );
+
+		$link.on( 'click', function ( e ) {
 			return bs.click( this, e, title );
 		} );
 	};
