@@ -20,9 +20,13 @@
  * @author Mark Holmquist <mtraceur@member.fsf.org>
  * @copyright Copyright © 2013, Mark Holmquist
  */
-use MediaWiki\MediaWikiServices;
 
-class MultimediaViewerHooks {
+use MediaWiki\Hook\MakeGlobalVariablesScriptHook;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\User\UserIdentity;
+use MediaWiki\User\UserOptionsLookup;
+
+class MultimediaViewerHooks implements MakeGlobalVariablesScriptHook {
 	/** Link to more information about this module */
 	protected static $infoLink =
 		'https://mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About';
@@ -34,6 +38,18 @@ class MultimediaViewerHooks {
 	/** Link to help about this module */
 	protected static $helpLink =
 		'https://mediawiki.org/wiki/Special:MyLanguage/Help:Extension:Media_Viewer';
+
+	/**
+	 * @var UserOptionsLookup
+	 */
+	private $userOptionsLookup;
+
+	/**
+	 * @param UserOptionsLookup $userOptionsLookup
+	 */
+	public function __construct( UserOptionsLookup $userOptionsLookup ) {
+		$this->userOptionsLookup = $userOptionsLookup;
+	}
 
 	/**
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/UserGetDefaultOptions
@@ -49,10 +65,10 @@ class MultimediaViewerHooks {
 
 	/**
 	 * Checks the context for whether to load the viewer.
-	 * @param User $user
+	 * @param UserIdentity $performer
 	 * @return bool
 	 */
-	protected static function shouldHandleClicks( User $user ) {
+	protected function shouldHandleClicks( UserIdentity $performer ) {
 		global $wgMediaViewerEnableByDefaultForAnonymous,
 			$wgMediaViewerEnableByDefault;
 
@@ -62,10 +78,10 @@ class MultimediaViewerHooks {
 			$enableByDefaultForAnons = $wgMediaViewerEnableByDefaultForAnonymous;
 		}
 
-		if ( !$user->isRegistered() ) {
+		if ( !$performer->isRegistered() ) {
 			return (bool)$enableByDefaultForAnons;
 		} else {
-			return (bool)$user->getOption( 'multimediaviewer-enable' );
+			return (bool)$this->userOptionsLookup->getOption( $performer, 'multimediaviewer-enable' );
 		}
 	}
 
@@ -177,16 +193,15 @@ class MultimediaViewerHooks {
 	 * Export variables which depend on the current user
 	 * @param array &$vars
 	 * @param OutputPage $out
+	 * @return void
 	 */
-	public static function onMakeGlobalVariablesScript( array &$vars, OutputPage $out ) {
-		$userOptionsLookup = MediaWikiServices::getInstance()->getUserOptionsLookup();
-		$defaultUserOptions = $userOptionsLookup->getDefaultOptions();
+	public function onMakeGlobalVariablesScript( &$vars, $out ): void {
+		$isMultimediaViewerEnable = $this->userOptionsLookup->getDefaultOption( 'multimediaviewer-enable' );
 
 		$user = $out->getUser();
-		$vars['wgMediaViewerOnClick'] = self::shouldHandleClicks( $user );
+		$vars['wgMediaViewerOnClick'] = $this->shouldHandleClicks( $user );
 		// needed because of T71942; could be different for anon and logged-in
-		$vars['wgMediaViewerEnabledByDefault'] =
-			!empty( $defaultUserOptions['multimediaviewer-enable'] );
+		$vars['wgMediaViewerEnabledByDefault'] = (bool)$isMultimediaViewerEnable;
 	}
 
 	/**

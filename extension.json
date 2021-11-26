@@ -459,8 +459,16 @@
 		"BeforePageDisplay": "MultimediaViewerHooks::onBeforePageDisplay",
 		"CategoryPageView": "MultimediaViewerHooks::onCategoryPageView",
 		"ResourceLoaderGetConfigVars": "MultimediaViewerHooks::onResourceLoaderGetConfigVars",
-		"MakeGlobalVariablesScript": "MultimediaViewerHooks::onMakeGlobalVariablesScript",
+		"MakeGlobalVariablesScript": "main",
 		"ThumbnailBeforeProduceHTML": "MultimediaViewerHooks::onThumbnailBeforeProduceHTML"
+	},
+	"HookHandlers": {
+		"main": {
+			"class": "MultimediaViewerHooks",
+			"services": [
+				"UserOptionsLookup"
+			]
+		}
 	},
 	"config": {
 		"MediaViewerExtensions": {
