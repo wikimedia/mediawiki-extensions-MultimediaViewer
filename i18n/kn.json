@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"MSG17",
 			"Nayvik",
 			"Pavanaja",
 			"Vikassy",
@@ -43,6 +44,6 @@
 	"multimediaviewer-embed-explanation": "ಫೈಲನ್ನು ಅಂತರ್ಗತಿಸಲು ಈ ಕೋಡ್ ಅನ್ನು ಬಳಸಿ",
 	"multimediaviewer-description-page-button-text": "ಈ ಫೈಲಿನ ಕುರಿತ ಹೆಚ್ಚಿನ ವಿವರಗಳು",
 	"multimediaviewer-description-page-popup-text": "ಈ ಫೈಲಿನ ಕುರಿತ ಹೆಚ್ಚಿನ ವಿವರಗಳು $1 ರಲ್ಲಿ",
-	"multimediaviewer-commons-subtitle": "ಉಚಿತ ಮಾಧ್ಯಮ ಕಣಜ",
+	"multimediaviewer-commons-subtitle": "ಸ್ವತಂತ್ರ ಮಾಧ್ಯಮ ಕಣಜ",
 	"multimediaviewer-view-expanded": "ಹಿಗ್ಗಿದ ವೀಕ್ಷಣೆ"
 }
