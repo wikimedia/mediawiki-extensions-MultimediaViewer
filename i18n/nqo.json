@@ -1,0 +1,33 @@
+{
+	"@metadata": {
+		"authors": [
+			"Lancine.kounfantoh.fofana"
+		]
+	},
+	"multimediaviewer-repository-local": "ߝߊߙߊ߲ߝߊ߯ߛߌ߫ ߜߘߍ ߟߎ߬",
+	"multimediaviewer-datetime-created": "ߛߌ߲ߘߌ߫ ߘߊ߫: $1",
+	"multimediaviewer-datetime-uploaded": "ߊ߬ ߟߊߦߟߍ߬ ߘߊ߫: $1",
+	"multimediaviewer-credit-fallback": "ߛߓߍߦߟߊ ߞߌ߬ߓߊ߬ߙߏ߬ߦߊ ߦߋ߫",
+	"multimediaviewer-multiple-authors": "{{PLURAL:|ߛߓߍߦߟߊ߫ ߜߘߍ߫ $1|ߛߓߍߦߟߊ߫ ߜߘߍ߫ $1 ߟߎ߫}}",
+	"multimediaviewer-multiple-authors-combine": "$1 ߣߌ߫ $2",
+	"multimediaviewer-metadata-error": "ߖߌ߬ߦߊ߬ߓߍ ߝߊߙߊ߲ߝߊ߯ߛߌ ߕߍ߫ ߛߐ߲߬ ߠߊߢߎ߲߫ ߠߊ߫ (ߝߎ߬ߕߎ߲߬ߕߌ: $1)",
+	"multimediaviewer-thumbnail-error": "ߤߊߞߍ߬ߕߏ߫߸ ߞߐߕߐ߮ ߕߍ߫ ߛߐ߲߬ ߠߊߢߎ߲߫ ߠߊ߫",
+	"multimediaviewer-geolocation": "ߘߌ߲߬ߞߌߙߊ: $1",
+	"multimediaviewer-reuse-link": "ߞߐߕߐ߮ ߣߌ߲߬ ߠߊߖߍ߲ߛߍ߲߫ ߥߟߊ߫  ߞߴߊ߬ ߘߐߓߍ߲߬",
+	"multimediaviewer-reuse-loading-placeholder": "ߟߊ߬ߢߎ߲߬ߠߌ߲ ߦߵߌ ߘߐ߫...",
+	"multimediaviewer-share-tab": "ߊ߬ ߟߊߖߍ߲ߛߍ߲߫",
+	"multimediaviewer-download-link": "ߞߐߕߐ߮ ߣߌ߲߬ ߠߊߖߴߌ ߞߎ߲߬",
+	"multimediaviewer-download-preview-link-title": "ߊ߬ ߘߐߜߍ߫ ߛߏ߲߯ߓߊߟߊ߲ ߠߊ߫",
+	"multimediaviewer-download-small-button-name": "ߢߊ߲ߞߊ߲߫ ߘߋߣߍ߲ ߠߊߖߴߌ ߞߎ߲߬",
+	"multimediaviewer-download-medium-button-name": "ߢߊ߲ߞߊ߲߫ ߕߟߊߒߕߍ ߟߊߖߴߌ ߞߎ߲߬",
+	"multimediaviewer-download-large-button-name": "ߢߊ߲ߞߊ߲߫ ߞߎ߲ߓߊ ߟߊߖߴߌ ߞߎ߲߬",
+	"multimediaviewer-download-xl-button-name": "ߢߊ߲ߞߊ߲߫ ߓߟߋߓߟߋ ߟߊߖߴߌ ߞߎ߲߬",
+	"multimediaviewer-link-to-page": "ߛߘߌ߬ߜߋ߲ ߡߍ߲ ߦߋ߫ ߞߐߕߐ߮ ߞߊ߲߬ߛߓߍ߬ߟߌ߫ ߞߐߜߍ ߟߊ߫",
+	"multimediaviewer-link-to-file": "ߛߘߌ߬ߜߋ߲ ߡߍ߲ ߦߋ߫ ߞߐߕߐ߮ ߓߐߖߎ ߟߊ߫",
+	"multimediaviewer-share-explanation": "ߛߘߌ߬ߜߋ߲ ߓߊߓߌ߬ߟߴߊ߬ ߣߌ߫ ߞߵߊ߬ ߟߊߖߍ߲ߛߍ߲߫ ߞߊ߲ߠߊߓߌߟߊ ߘߐ߫",
+	"multimediaviewer-embed-wt": "ߥߞߌ߫ ߞߟߏߘߋ߲",
+	"multimediaviewer-embed-html": "HTML",
+	"multimediaviewer-text-embed-credit-text-bl": "ߞߊ߬ ߝߘߊ߫ $1߸ $2 ߸$3",
+	"multimediaviewer-html-embed-credit-link-text": "ߛߘߌ߬ߜߋ߲",
+	"multimediaviewer-embed-byline": "$1 ߓߟߏ߫"
+}
