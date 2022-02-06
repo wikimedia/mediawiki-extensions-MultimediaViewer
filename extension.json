@@ -35,8 +35,8 @@
 			"i18n"
 		]
 	},
-	"AutoloadClasses": {
-		"MultimediaViewerHooks": "includes/MultimediaViewerHooks.php"
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\MultimediaViewer\\": "includes/"
 	},
 	"ResourceModules": {
 		"mmv": {
@@ -454,17 +454,17 @@
 		}
 	},
 	"Hooks": {
-		"UserGetDefaultOptions": "MultimediaViewerHooks::onUserGetDefaultOptions",
-		"GetPreferences": "MultimediaViewerHooks::onGetPreferences",
-		"BeforePageDisplay": "MultimediaViewerHooks::onBeforePageDisplay",
-		"CategoryPageView": "MultimediaViewerHooks::onCategoryPageView",
-		"ResourceLoaderGetConfigVars": "MultimediaViewerHooks::onResourceLoaderGetConfigVars",
+		"UserGetDefaultOptions": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::onUserGetDefaultOptions",
+		"GetPreferences": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::onGetPreferences",
+		"BeforePageDisplay": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::onBeforePageDisplay",
+		"CategoryPageView": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::onCategoryPageView",
+		"ResourceLoaderGetConfigVars": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::onResourceLoaderGetConfigVars",
 		"MakeGlobalVariablesScript": "main",
-		"ThumbnailBeforeProduceHTML": "MultimediaViewerHooks::onThumbnailBeforeProduceHTML"
+		"ThumbnailBeforeProduceHTML": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::onThumbnailBeforeProduceHTML"
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "MultimediaViewerHooks",
+			"class": "MediaWiki\\Extension\\MultimediaViewer\\Hooks",
 			"services": [
 				"UserOptionsLookup"
 			]

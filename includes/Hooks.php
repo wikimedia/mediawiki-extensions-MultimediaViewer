@@ -21,12 +21,21 @@
  * @copyright Copyright © 2013, Mark Holmquist
  */
 
+namespace MediaWiki\Extension\MultimediaViewer;
+
+use Category;
+use CategoryPage;
+use ExtensionRegistry;
 use MediaWiki\Hook\MakeGlobalVariablesScriptHook;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\User\UserIdentity;
 use MediaWiki\User\UserOptionsLookup;
+use OutputPage;
+use Skin;
+use ThumbnailImage;
+use User;
 
-class MultimediaViewerHooks implements MakeGlobalVariablesScriptHook {
+class Hooks implements MakeGlobalVariablesScriptHook {
 	/** Link to more information about this module */
 	protected static $infoLink =
 		'https://mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About';
