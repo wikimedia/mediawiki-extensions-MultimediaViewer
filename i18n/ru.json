@@ -15,6 +15,7 @@
 			"Smigles",
 			"Stjn",
 			"Striking Blue",
+			"Tanzun",
 			"Toghrul Rahimli",
 			"Tucvbif",
 			"Wizardist"
@@ -56,7 +57,7 @@
 	"multimediaviewer-restriction-trademarked": "Это изображение содержит материал, который может быть объектом законов о товарном знаке.",
 	"multimediaviewer-restriction-default": "Это изображение может быть ограничено правовыми положениями вне закона об авторском праве. Смотрите страницу описания файла для деталей.",
 	"multimediaviewer-restriction-default-and-others": "Это изображение может быть дополнительно ограничено другими правовыми положениями вне закона об авторском праве. Смотрите страницу описания файла для деталей.",
-	"multimediaviewer-about-mmv": "О просмотрщике",
+	"multimediaviewer-about-mmv": "Справка: Просмотрщик медиафайлов",
 	"multimediaviewer-optout-mmv": "Отключить «Просмотрщик медиафайлов»",
 	"multimediaviewer-optin-mmv": "Включить «Просмотрщик медиафайлов»",
 	"multimediaviewer-optout-pending-mmv": "Отключение «Просмотрщика медиафайлов»",
