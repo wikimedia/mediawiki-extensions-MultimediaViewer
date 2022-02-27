@@ -3,7 +3,7 @@
 	"scripts": {
 		"build": "npm -s run minify-svg",
 		"test": "grunt test",
-		"minify-svg": "svgo --config=.svgo.config.js -q -r -f resources/",
+		"minify-svg": "svgo --config=.svgo.config.js --quiet --recursive --folder resources/",
 		"doc": "jsduck"
 	},
 	"devDependencies": {
@@ -13,6 +13,6 @@
 		"grunt-eslint": "23.0.0",
 		"grunt-stylelint": "0.16.0",
 		"stylelint-config-wikimedia": "0.11.1",
-		"svgo": "2.3.1"
+		"svgo": "2.8.0"
 	}
 }
