@@ -24,7 +24,7 @@
 	"multimediaviewer-file-page": "Aller à la page du fichier correspondant",
 	"multimediaviewer-repository-local": "Plus de détails",
 	"multimediaviewer-datetime-created": "Création : $1",
-	"multimediaviewer-datetime-uploaded": "Téléversé : $1",
+	"multimediaviewer-datetime-uploaded": "Téléversé : $1",
 	"multimediaviewer-credit": "$1 — $2",
 	"multimediaviewer-credit-fallback": "Voir les informations sur l’auteur",
 	"multimediaviewer-multiple-authors": "{{PLURAL:$1|un auteur supplémentaire|$1 auteurs supplémentaire}}",
