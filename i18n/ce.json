@@ -80,7 +80,7 @@
 	"multimediaviewer-options-learn-more": "Цул совнаха хаа",
 	"multimediaviewer-option-submit-button": "ДӀайайъа «Медиафайлашка хьожург»",
 	"multimediaviewer-option-cancel-button": "Цаоьшу",
-	"multimediaviewer-disable-confirmation-header": "Ахьа дӀаяйина Медиа-хьожург",
+	"multimediaviewer-disable-confirmation-header": "Ахьа дӀайайина Медиа-хьожург",
 	"multimediaviewer-disable-confirmation-text": "Кхечу хенахь $1 сайтехь файлан тӀе таӀийча хьана файлан хаам хьажа йиш хира йу.",
 	"multimediaviewer-enable-dialog-header": "Латайе медиа-хьожург?",
 	"multimediaviewer-enable-text-header": "Латайе медиа-хьожург массо файлашна.",
@@ -88,6 +88,6 @@
 	"multimediaviewer-enable-confirmation-header": "Ахьа латийна медиа-хьожург массо файлашна.",
 	"multimediaviewer-enable-confirmation-text": "Кхечу хенахь $1 сайтехь файлан тӀе таӀийча хьана медиа-хьожург лелор йу.",
 	"multimediaviewer-enable-alert": "Медиа-хьожург хӀинца дӀайайина йу",
-	"multimediaviewer-disable-info-title": "Ахьа дӀаяйина Медиа-хьожург",
+	"multimediaviewer-disable-info-title": "Ахьа дӀайайина Медиа-хьожург",
 	"multimediaviewer-disable-info": "Хьа хӀинца а йиш йу цхьайолу файлашка медиа-хьожургцан хьажа."
 }
