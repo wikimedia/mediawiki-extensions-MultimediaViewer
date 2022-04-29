@@ -1,0 +1,36 @@
+{
+	"@metadata": {
+		"authors": [
+			"Malikxan"
+		]
+	},
+	"multimediaviewer-repository-local": "Batafsil tafsilotlar",
+	"multimediaviewer-datetime-created": "Yaratilgan: $1",
+	"multimediaviewer-datetime-uploaded": "Yuklangan: $1",
+	"multimediaviewer-credit-fallback": "Muallif maʼlumotini koʻrish",
+	"multimediaviewer-multiple-authors": "{{PLURAL:$1|bittadan oshiq muallif|$1 tadan oshiq muallif}}",
+	"multimediaviewer-multiple-authors-combine": "$1 va $2",
+	"multimediaviewer-license-cc-pd": "Jamiyat mulki",
+	"multimediaviewer-license-pd": "Jamiyat mulki",
+	"multimediaviewer-license-default": "Litsenziyani koʻrish",
+	"multimediaviewer-about-mmv": "Media Viewer haqida",
+	"multimediaviewer-optout-mmv": "Media Viewerni oʻchirib qoʻyish",
+	"multimediaviewer-optin-mmv": "Media Viewermi yoqish",
+	"multimediaviewer-reuse-loading-placeholder": "Yuklanmoqda…",
+	"multimediaviewer-share-tab": "Ulashish",
+	"multimediaviewer-download-link": "Bu faylni yuklash",
+	"multimediaviewer-download-preview-link-title": "Brauzerda koʻrish",
+	"multimediaviewer-download-original-button-name": "Asl faylni yuklash",
+	"multimediaviewer-download-small-button-name": "Kichik hajmda yuklash",
+	"multimediaviewer-download-medium-button-name": "Oʻrtacha hajmda yuklash",
+	"multimediaviewer-download-large-button-name": "Katta hajmda yuklash",
+	"multimediaviewer-embed-wt": "Vikimatn",
+	"multimediaviewer-embed-html": "HTML",
+	"multimediaviewer-html-embed-credit-link-text": "Havola",
+	"multimediaviewer-embed-license": "$1 litsensiyasi ostida.",
+	"multimediaviewer-embed-via": "$1 orqali.",
+	"multimediaviewer-original-embed-dimensions": "Asl fayl $1",
+	"multimediaviewer-view-expanded": "Media Viewer orqali ochish",
+	"multimediaviewer-view-config": "Konfiguratsiya",
+	"multimediaviewer-title-popup-text": "Tavsif"
+}
