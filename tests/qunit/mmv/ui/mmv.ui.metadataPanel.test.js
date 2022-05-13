@@ -145,7 +145,7 @@
 		assert.strictEqual( panel.creditField.$element.find( '.mw-mmv-source' ).html(), '<b>Lost</b><a href="foo">Bar</a>', 'Source text is correctly set' );
 		// Either multimediaviewer-credit-popup-text or multimediaviewer-credit-popup-text-more.
 		assert.ok( creditPopupText === '(multimediaviewer-credit-popup-text)' || creditPopupText === '(multimediaviewer-credit-popup-text-more)', 'Source tooltip is correctly set' );
-		assert.strictEqual( panel.$datetime.text(), '(multimediaviewer-datetime-created: August 26, 2013)', 'Correct date is displayed' );
+		assert.strictEqual( panel.$datetime.text(), '(multimediaviewer-datetime-created: 26 August 2013)', 'Correct date is displayed' );
 		assert.strictEqual( panel.$license.text(), '(multimediaviewer-license-cc-by-2.0)', 'License is correctly set' );
 		assert.ok( panel.$license.prop( 'target' ), 'License information opens in new window' );
 		assert.strictEqual( panel.$restrictions.children().last().children().hasClass( 'mw-mmv-restriction-default' ), true, 'Default restriction is correctly displayed last' );
@@ -154,7 +154,7 @@
 		panel.setImageInfo( image, imageData, repoData );
 		clock.tick( 10 );
 
-		assert.strictEqual( panel.$datetime.text(), '(multimediaviewer-datetime-uploaded: August 25, 2013)', 'Correct date is displayed' );
+		assert.strictEqual( panel.$datetime.text(), '(multimediaviewer-datetime-uploaded: 25 August 2013)', 'Correct date is displayed' );
 
 		clock.restore();
 	} );

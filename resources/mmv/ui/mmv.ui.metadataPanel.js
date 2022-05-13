@@ -844,7 +844,13 @@
 	MPP.formatDate = function ( dateString ) {
 		var date,
 			lang = mw.config.get( 'wgUserLanguage' );
-		if ( lang === 'en' ) { lang = 'en-GB'; } // for D MMMM YYYY format
+		if ( lang === 'en' || lang === 'qqx' ) {
+			// prefer "D MMMM YYYY" format
+			// avoid passing invalid "qqx" to native toLocaleString(),
+			// which would cause developer's browser locale to be used,
+			// and thus sometimes cause tests to fail.
+			lang = 'en-GB';
+		}
 		date = new Date( dateString );
 		try {
 			if ( date instanceof Date && !isNaN( date ) ) {
