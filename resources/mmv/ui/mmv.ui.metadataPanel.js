@@ -105,10 +105,8 @@
 		} ).on( 'mmv-metadata-close.mmv-mp', function () {
 			panel.hideTruncatedText();
 		} ).on( 'mouseleave.mmv-mp', function () {
-			var duration;
-
 			if ( panel.isFullscreened() ) {
-				duration = parseFloat( panel.$container.css( 'transition-duration' ) ) * 1000 || 0;
+				var duration = parseFloat( panel.$container.css( 'transition-duration' ) ) * 1000 || 0;
 				panel.panelShrinkTimeout = setTimeout( function () {
 					panel.hideTruncatedText();
 				}, duration );
@@ -526,13 +524,11 @@
 	 * @return {string} unsafe HTML
 	 */
 	MPP.wrapAuthor = function ( author, authorCount, filepageUrl ) {
-		var moreText,
-			$wrapper = $( '<span>' );
-
-		$wrapper.addClass( 'mw-mmv-author' );
+		var $wrapper = $( '<span>' )
+			.addClass( 'mw-mmv-author' );
 
 		if ( authorCount > 1 ) {
-			moreText = this.htmlUtils.jqueryToHtml(
+			var moreText = this.htmlUtils.jqueryToHtml(
 				$( '<a>' )
 					.addClass( 'mw-mmv-more-authors' )
 					.text( mw.message( 'multimediaviewer-multiple-authors', authorCount - 1 ).text() )
@@ -713,29 +709,26 @@
 	 * @param {mw.mmv.model.Image} imageData
 	 */
 	MPP.setLocationData = function ( imageData ) {
-		var latsec, latitude, latmsg, latdeg, latremain, latmin,
-			longsec, longitude, longmsg, longdeg, longremain, longmin;
-
 		if ( !imageData.hasCoords() ) {
 			return;
 		}
 
-		latitude = imageData.latitude >= 0 ? imageData.latitude : imageData.latitude * -1;
-		latmsg = 'multimediaviewer-geoloc-' + ( imageData.latitude >= 0 ? 'north' : 'south' );
-		latdeg = Math.floor( latitude );
-		latremain = latitude - latdeg;
-		latmin = Math.floor( ( latremain ) * 60 );
+		var latitude = imageData.latitude >= 0 ? imageData.latitude : imageData.latitude * -1;
+		var latmsg = 'multimediaviewer-geoloc-' + ( imageData.latitude >= 0 ? 'north' : 'south' );
+		var latdeg = Math.floor( latitude );
+		var latremain = latitude - latdeg;
+		var latmin = Math.floor( ( latremain ) * 60 );
 
-		longitude = imageData.longitude >= 0 ? imageData.longitude : imageData.longitude * -1;
-		longmsg = 'multimediaviewer-geoloc-' + ( imageData.longitude >= 0 ? 'east' : 'west' );
-		longdeg = Math.floor( longitude );
-		longremain = longitude - longdeg;
-		longmin = Math.floor( ( longremain ) * 60 );
+		var longitude = imageData.longitude >= 0 ? imageData.longitude : imageData.longitude * -1;
+		var longmsg = 'multimediaviewer-geoloc-' + ( imageData.longitude >= 0 ? 'east' : 'west' );
+		var longdeg = Math.floor( longitude );
+		var longremain = longitude - longdeg;
+		var longmin = Math.floor( ( longremain ) * 60 );
 
 		longremain -= longmin / 60;
 		latremain -= latmin / 60;
-		latsec = Math.round( latremain * 100 * 60 * 60 ) / 100;
-		longsec = Math.round( longremain * 100 * 60 * 60 ) / 100;
+		var latsec = Math.round( latremain * 100 * 60 * 60 ) / 100;
+		var longsec = Math.round( longremain * 100 * 60 * 60 ) / 100;
 
 		this.$location.text(
 			mw.message( 'multimediaviewer-geolocation',
@@ -842,8 +835,7 @@
 	 * @return {string} formatted date
 	 */
 	MPP.formatDate = function ( dateString ) {
-		var date,
-			lang = mw.config.get( 'wgUserLanguage' );
+		var lang = mw.config.get( 'wgUserLanguage' );
 		if ( lang === 'en' || lang === 'qqx' ) {
 			// prefer "D MMMM YYYY" format
 			// avoid passing invalid "qqx" to native toLocaleString(),
@@ -851,7 +843,7 @@
 			// and thus sometimes cause tests to fail.
 			lang = 'en-GB';
 		}
-		date = new Date( dateString );
+		var date = new Date( dateString );
 		try {
 			if ( date instanceof Date && !isNaN( date ) ) {
 				return date.toLocaleString( lang, {
