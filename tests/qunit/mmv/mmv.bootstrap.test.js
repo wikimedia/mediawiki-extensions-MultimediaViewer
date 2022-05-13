@@ -1,6 +1,6 @@
 ( function () {
 	QUnit.module( 'mmv.bootstrap', QUnit.newMwEnvironment( {
-		setup: function () {
+		beforeEach: function () {
 			mw.config.set( 'wgMediaViewer', true );
 			mw.config.set( 'wgMediaViewerOnClick', true );
 			this.sandbox.stub( mw.user, 'isAnon' ).returns( false );

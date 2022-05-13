@@ -17,7 +17,7 @@
 
 ( function () {
 	QUnit.module( 'mmv.ui.tipsyDialog', QUnit.newMwEnvironment( {
-		setup: function () {
+		beforeEach: function () {
 			// remove tipsy elements left behind by other tests so these tests don't find them by accident
 			// tipsy puts its elements to the end of the body so clearing the fixture doesn't get rid of them
 			$( '.mw-mmv-tipsy-dialog' ).remove();

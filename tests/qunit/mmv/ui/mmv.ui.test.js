@@ -1,6 +1,6 @@
 ( function () {
 	QUnit.module( 'mmv.ui', QUnit.newMwEnvironment( {
-		setup: function () {
+		beforeEach: function () {
 			this.clock = this.sandbox.useFakeTimers();
 		}
 	} ) );

@@ -1,6 +1,6 @@
 ( function () {
 	QUnit.module( 'mmv.logging.ViewLogger', QUnit.newMwEnvironment( {
-		setup: function () {
+		beforeEach: function () {
 			this.clock = this.sandbox.useFakeTimers();
 
 			// since jQuery 2/3, $.now will capture a reference to Date.now
@@ -11,7 +11,7 @@
 			$.now = function () { return +( new Date() ); };
 		},
 
-		teardown: function () {
+		afterEach: function () {
 			$.now = this.oldNow;
 			this.clock.restore();
 		}

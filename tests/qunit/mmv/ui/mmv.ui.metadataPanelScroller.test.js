@@ -17,7 +17,7 @@
 
 ( function () {
 	QUnit.module( 'mmv.ui.metadataPanelScroller', QUnit.newMwEnvironment( {
-		setup: function () {
+		beforeEach: function () {
 			this.clock = this.sandbox.useFakeTimers();
 		}
 	} ) );
