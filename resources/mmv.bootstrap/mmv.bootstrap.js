@@ -156,6 +156,9 @@
 		);
 
 		this.$parsoidThumbs = $content.find(
+			'[typeof*="mw:File"] a.mw-file-description img, ' +
+			// TODO: Remove mw:Image when version 2.4.0 of the content is no
+			// longer supported
 			'[typeof*="mw:Image"] a.mw-file-description img'
 		);
 
@@ -298,7 +301,12 @@
 		var bs = this,
 			$thumb = $( thumb ),
 			$link = $thumb.closest( 'a.mw-file-description' ),
-			$thumbContainer = $link.closest( '[typeof*="mw:Image"]' ),
+			$thumbContainer = $link.closest(
+				'[typeof*="mw:File"], ' +
+				// TODO: Remove mw:Image when version 2.4.0 of the content is
+				// no longer supported
+				'[typeof*="mw:Image"]'
+			),
 			link = $link.prop( 'href' ),
 			alt = $thumb.attr( 'alt' ),
 			title = mw.Title.newFromImg( $thumb );
@@ -512,7 +520,13 @@
 
 		mw.mmv.durationLogger.start( [ 'click-to-first-image', 'click-to-first-metadata' ] );
 
-		if ( $element.is( 'a.image, [typeof*="mw:Image"] > a' ) ) {
+		if ( $element.is(
+			'a.image, ' +
+			'[typeof*="mw:File"] a.mw-file-description, ' +
+			// TODO: Remove mw:Image when version 2.4.0 of the content is no
+			// longer supported
+			'[typeof*="mw:Image"] a.mw-file-description'
+		) ) {
 			mw.mmv.actionLogger.log( 'thumbnail' );
 		} else if ( $element.is( '.magnify a' ) ) {
 			mw.mmv.actionLogger.log( 'enlarge' );
