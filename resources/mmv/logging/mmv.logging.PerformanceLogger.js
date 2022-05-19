@@ -87,7 +87,7 @@
 			};
 
 			request.onreadystatechange = function () {
-				var total = ( new Date() ).getTime() - start;
+				var total = Date.now() - start;
 
 				if ( request.readyState === 4 ) {
 					deferred.notify( request.response, 100 );
@@ -96,7 +96,7 @@
 				}
 			};
 
-			start = ( new Date() ).getTime();
+			start = Date.now();
 			request.open( 'GET', url, true );
 			request.send();
 		} catch ( e ) {
@@ -412,6 +412,7 @@
 	 * @return {Object} The navigator's Connection object
 	 */
 	PL.getNavigatorConnection = function () {
+		// eslint-disable-next-line compat/compat
 		return navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 	};
 

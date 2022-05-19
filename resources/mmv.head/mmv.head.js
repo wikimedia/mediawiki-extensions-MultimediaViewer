@@ -35,7 +35,7 @@
 			return;
 		}
 
-		start = ( new Date() ).getTime();
+		start = Date.now();
 
 		// We wait for document readiness because mw.loader.using writes to the DOM
 		// which can cause a blank page if it happens before DOM readiness

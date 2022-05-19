@@ -97,7 +97,7 @@
 	 * Starts recording a viewing window for the current image
 	 */
 	VL.startViewDuration = function () {
-		this.viewStartTime = ( new Date() ).getTime();
+		this.viewStartTime = Date.now();
 	};
 
 	/**
@@ -105,7 +105,7 @@
 	 */
 	VL.stopViewDuration = function () {
 		if ( this.viewStartTime ) {
-			this.viewDuration += ( new Date() ).getTime() - this.viewStartTime;
+			this.viewDuration += Date.now() - this.viewStartTime;
 			this.viewStartTime = 0;
 		}
 	};

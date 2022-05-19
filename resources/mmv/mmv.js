@@ -302,7 +302,7 @@
 		imageWidths = this.ui.canvas.getCurrentImageWidths();
 		canvasDimensions = this.ui.canvas.getDimensions();
 
-		start = ( new Date() ).getTime();
+		start = Date.now();
 
 		mw.mmv.dimensionLogger.logDimensions( imageWidths, canvasDimensions, 'show' );
 
@@ -346,7 +346,7 @@
 					$( document ).trigger( $.Event( 'mmv-metadata', { viewer: viewer, image: image, imageInfo: metadata[ 0 ] } ) );
 				} );
 
-				viewer.displayRealThumbnail( thumbnail, imageElement, imageWidths, ( new Date() ).getTime() - start );
+				viewer.displayRealThumbnail( thumbnail, imageElement, imageWidths, Date.now() - start );
 
 				return $.Deferred().resolve( thumbnail, imageElement );
 			},

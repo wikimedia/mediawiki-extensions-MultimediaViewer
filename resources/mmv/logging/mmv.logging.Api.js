@@ -46,11 +46,11 @@
 	 * @return {jQuery.Promise} Done: API response data. Fail: Error code.
 	 */
 	Api.prototype.ajax = function ( parameters, ajaxOptions ) {
-		var start = ( new Date() ).getTime(),
+		var start = Date.now(),
 			api = this;
 
 		return mw.Api.prototype.ajax.call( this, parameters, ajaxOptions ).done( function ( result, jqxhr ) {
-			api.performance.recordJQueryEntryDelayed( api.type, ( new Date() ).getTime() - start, jqxhr );
+			api.performance.recordJQueryEntryDelayed( api.type, Date.now() - start, jqxhr );
 		} );
 	};
 

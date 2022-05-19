@@ -8,7 +8,7 @@
 			// override that new behavior in order to run these tests...
 			// @see https://github.com/sinonjs/lolex/issues/76
 			this.oldNow = $.now;
-			$.now = function () { return +( new Date() ); };
+			$.now = function () { return Date.now(); };
 		},
 
 		afterEach: function () {

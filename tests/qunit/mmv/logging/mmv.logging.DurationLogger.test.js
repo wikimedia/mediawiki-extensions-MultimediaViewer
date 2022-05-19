@@ -8,7 +8,7 @@
 			// override that new behavior in order to run these tests...
 			// @see https://github.com/sinonjs/lolex/issues/76
 			this.oldNow = $.now;
-			$.now = function () { return +( new Date() ); };
+			$.now = function () { return Date.now(); };
 		},
 
 		afterEach: function () {
@@ -149,7 +149,7 @@
 		assert.strictEqual( durationLogger.starts.bar, undefined, 'Start value deleted after record' );
 		assert.strictEqual( durationLogger.stops.bar, undefined, 'Stop value deleted after record' );
 
-		durationLogger.stop( 'fooz', ( new Date() ).getTime() - 9000 );
+		durationLogger.stop( 'fooz', Date.now() - 9000 );
 		durationLogger.record( 'fooz' );
 		this.clock.tick( 10 );
 
