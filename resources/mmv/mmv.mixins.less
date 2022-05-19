@@ -1,5 +1,3 @@
-/* stylelint-disable function-parentheses-space-inside */
-
 .unselectable() {
 	-webkit-user-select: none;
 	-moz-user-select: -moz-none;
@@ -23,6 +21,8 @@
 }
 
 .grayscale() {
+	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 	-webkit-filter: grayscale( 100% );
+	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 	filter: grayscale( 100% );
 }
