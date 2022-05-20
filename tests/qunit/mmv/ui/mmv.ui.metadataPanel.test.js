@@ -122,10 +122,10 @@ QUnit.test( '.setImageInfo()', function ( assert ) {
 	panel.setImageInfo( image, imageData, repoData );
 
 	assert.strictEqual( panel.$title.text(), title, 'Title is correctly set' );
-	assert.ok( panel.$credit.text(), 'Default credit is shown' );
+	assert.notStrictEqual( panel.$credit.text(), '', 'Default credit is shown' );
 	assert.strictEqual( panel.$license.prop( 'href' ), imageData.descriptionUrl,
 		'User is directed to file page for license information' );
-	assert.notOk( panel.$license.prop( 'target' ), 'License information opens in same window' );
+	assert.strictEqual( panel.$license.prop( 'target' ), '', 'License information opens in same window' );
 	assert.true( panel.$datetimeLi.hasClass( 'empty' ), 'Date/Time is empty' );
 	assert.true( panel.$locationLi.hasClass( 'empty' ), 'Location is empty' );
 
@@ -148,10 +148,10 @@ QUnit.test( '.setImageInfo()', function ( assert ) {
 	assert.strictEqual( panel.creditField.$element.find( '.mw-mmv-author' ).text(), imageData.author, 'Author text is correctly set' );
 	assert.strictEqual( panel.creditField.$element.find( '.mw-mmv-source' ).html(), '<b>Lost</b><a href="foo">Bar</a>', 'Source text is correctly set' );
 	// Either multimediaviewer-credit-popup-text or multimediaviewer-credit-popup-text-more.
-	assert.ok( creditPopupText === '(multimediaviewer-credit-popup-text)' || creditPopupText === '(multimediaviewer-credit-popup-text-more)', 'Source tooltip is correctly set' );
+	assert.true( creditPopupText === '(multimediaviewer-credit-popup-text)' || creditPopupText === '(multimediaviewer-credit-popup-text-more)', 'Source tooltip is correctly set' );
 	assert.strictEqual( panel.$datetime.text(), '(multimediaviewer-datetime-created: 26 August 2013)', 'Correct date is displayed' );
 	assert.strictEqual( panel.$license.text(), '(multimediaviewer-license-cc-by-2.0)', 'License is correctly set' );
-	assert.ok( panel.$license.prop( 'target' ), 'License information opens in new window' );
+	assert.strictEqual( panel.$license.prop( 'target' ), '_blank', 'License information opens in new window' );
 	assert.true( panel.$restrictions.children().last().children().hasClass( 'mw-mmv-restriction-default' ), 'Default restriction is correctly displayed last' );
 
 	imageData.creationDateTime = undefined;

@@ -27,7 +27,7 @@
 		var $qf = $( '#qunit-fixture' ),
 			permission = new mw.mmv.ui.Permission( $qf );
 
-		assert.ok( permission, 'constructor does not throw error' );
+		assert.true( permission instanceof mw.mmv.ui.Permission, 'constructor does not throw error' );
 	} );
 
 	QUnit.test( 'set()', function ( assert ) {

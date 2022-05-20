@@ -24,7 +24,7 @@
 		try {
 			durationLogger.start();
 		} catch ( e ) {
-			assert.ok( true, 'Exception raised when calling start() without parameters' );
+			assert.true( true, 'Exception raised when calling start() without parameters' );
 		}
 		assert.strictEqual( $.isEmptyObject( durationLogger.starts ), true, 'No events saved by DurationLogger' );
 
@@ -51,7 +51,7 @@
 		try {
 			durationLogger.stop();
 		} catch ( e ) {
-			assert.ok( true, 'Exception raised when calling stop() without parameters' );
+			assert.true( true, 'Exception raised when calling stop() without parameters' );
 		}
 
 		durationLogger.stop( 'foo' );
@@ -86,7 +86,7 @@
 		try {
 			durationLogger.record();
 		} catch ( e ) {
-			assert.ok( true, 'Exception raised when calling record() without parameters' );
+			assert.true( true, 'Exception raised when calling record() without parameters' );
 		}
 
 		durationLogger.setEventLog( fakeEventLog );

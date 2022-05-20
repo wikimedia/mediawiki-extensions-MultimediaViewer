@@ -11,5 +11,5 @@ QUnit.test( 'log()', function ( assert ) {
 	logger.setEventLog( fakeEventLog );
 
 	logger.logDimensions( 640, 480, 200, 'resize' );
-	assert.ok( true, 'logDimensions() did not throw errors' );
+	assert.true( true, 'logDimensions() did not throw errors' );
 } );

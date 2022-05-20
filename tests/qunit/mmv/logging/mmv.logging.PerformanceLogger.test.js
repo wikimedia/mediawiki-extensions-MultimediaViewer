@@ -274,7 +274,7 @@
 		assert.strictEqual( varnishXCache.varnish3hits, undefined, 'Third varnish hit count is undefined' );
 
 		varnishXCache = performance.parseVarnishXCacheHeader( 'garbage' );
-		assert.ok( $.isEmptyObject( varnishXCache ), 'Varnish cache results are empty' );
+		assert.true( $.isEmptyObject( varnishXCache ), 'Varnish cache results are empty' );
 	} );
 
 	QUnit.test( 'record()', function ( assert ) {
@@ -307,7 +307,7 @@
 		performance.newXHR = function () { throw new Error( 'XMLHttpRequest? What\'s that?' ); };
 
 		performance.record( type, url ).fail( function () {
-			assert.ok( true, 'the promise is rejected when XMLHttpRequest is not supported' );
+			assert.true( true, 'the promise is rejected when XMLHttpRequest is not supported' );
 			done();
 		} );
 	} );
@@ -333,7 +333,7 @@
 
 		api.ajax();
 
-		assert.ok( ajaxCalled, 'parent ajax() function was called' );
+		assert.true( ajaxCalled, 'parent ajax() function was called' );
 
 		mw.mmv.logging.PerformanceLogger.prototype.recordJQueryEntryDelayed = oldRecord;
 		mw.Api.prototype.ajax = oldAjax;

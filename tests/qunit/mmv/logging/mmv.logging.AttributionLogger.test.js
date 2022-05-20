@@ -13,8 +13,8 @@ QUnit.test( 'log()', function ( assert ) {
 	logger.setEventLog( fakeEventLog );
 
 	logger.logAttribution( image );
-	assert.ok( true, 'logDimensions() did not throw errors' );
+	assert.true( true, 'logDimensions() did not throw errors' );
 
 	logger.logAttribution( emptyImage );
-	assert.ok( true, 'logDimensions() did not throw errors for empty image' );
+	assert.true( true, 'logDimensions() did not throw errors for empty image' );
 } );

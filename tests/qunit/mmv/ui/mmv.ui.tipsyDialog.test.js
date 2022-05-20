@@ -29,11 +29,11 @@
 			$anchor = $( '<div>' ).appendTo( $qf ),
 			dialog = new mw.mmv.ui.TipsyDialog( $anchor );
 
-		assert.notOk( $( '.mw-mmv-tipsy-dialog' ).length, 'dialog is not shown' );
+		assert.strictEqual( $( '.mw-mmv-tipsy-dialog' ).length, 0, 'dialog is not shown' );
 		dialog.open();
-		assert.ok( $( '.mw-mmv-tipsy-dialog' ).length, 'dialog is shown' );
+		assert.strictEqual( $( '.mw-mmv-tipsy-dialog' ).length, 1, 'dialog is shown' );
 		dialog.close();
-		assert.notOk( $( '.mw-mmv-tipsy-dialog' ).length, 'dialog is not shown' );
+		assert.strictEqual( $( '.mw-mmv-tipsy-dialog' ).length, 0, 'dialog is not shown' );
 	} );
 
 	QUnit.test( 'setContent', function ( assert ) {
@@ -45,9 +45,9 @@
 
 		dialog.setContent( titleText, bodyText );
 		dialog.open();
-		assert.ok( $( '.mw-mmv-tipsy-dialog' ).text().match( titleText ), 'Title is included' );
-		assert.ok( $( '.mw-mmv-tipsy-dialog' ).html().match( bodyText ), 'Body is included' );
-		assert.ok( $( '.mw-mmv-tipsy-dialog' ).find( '.typsyDialogTest-123' ).length, 'Body is HTML' );
+		assert.notStrictEqual( $( '.mw-mmv-tipsy-dialog' ).text().match( titleText ), null, 'Title is included' );
+		assert.notStrictEqual( $( '.mw-mmv-tipsy-dialog' ).html().match( bodyText ), null, 'Body is included' );
+		assert.strictEqual( $( '.mw-mmv-tipsy-dialog' ).find( '.typsyDialogTest-123' ).length, 1, 'Body is HTML' );
 	} );
 
 	QUnit.test( 'Close on click', function ( assert ) {
@@ -56,13 +56,13 @@
 			dialog = new mw.mmv.ui.TipsyDialog( $anchor );
 
 		dialog.open();
-		assert.ok( $( '.mw-mmv-tipsy-dialog' ).length, 'dialog is shown initially' );
+		assert.strictEqual( $( '.mw-mmv-tipsy-dialog' ).length, 1, 'dialog is shown initially' );
 		dialog.getPopup().trigger( 'click' );
-		assert.ok( $( '.mw-mmv-tipsy-dialog' ).length, 'dialog is not hidden when clicked' );
+		assert.strictEqual( $( '.mw-mmv-tipsy-dialog' ).length, 1, 'dialog is not hidden when clicked' );
 		dialog.getPopup().find( '.mw-mmv-tipsy-dialog-disable' ).trigger( 'click' );
-		assert.notOk( $( '.mw-mmv-tipsy-dialog' ).length, 'dialog is hidden when close icon is clicked' );
+		assert.strictEqual( $( '.mw-mmv-tipsy-dialog' ).length, 0, 'dialog is hidden when close icon is clicked' );
 		dialog.open();
 		$qf.trigger( 'click' );
-		assert.notOk( $( '.mw-mmv-tipsy-dialog' ).length, 'dialog is hidden when clicked outside' );
+		assert.strictEqual( $( '.mw-mmv-tipsy-dialog' ).length, 0, 'dialog is hidden when clicked outside' );
 	} );
 }() );

@@ -45,9 +45,9 @@
 
 		scroller.animateMetadataOnce();
 
-		assert.ok( scroller.hasAnimatedMetadata,
+		assert.true( scroller.hasAnimatedMetadata,
 			'The first call to animateMetadataOnce set hasAnimatedMetadata to true' );
-		assert.ok( $qf.hasClass( 'invite' ),
+		assert.true( $qf.hasClass( 'invite' ),
 			'The first call to animateMetadataOnce led to an animation' );
 
 		$qf.removeClass( 'invite' );
@@ -63,7 +63,7 @@
 		scroller.attach();
 
 		scroller.animateMetadataOnce();
-		assert.ok( $qf.hasClass( 'invite' ),
+		assert.true( $qf.hasClass( 'invite' ),
 			'After closing and opening the viewer, the panel is animated again' );
 
 		scroller.unattach();
@@ -99,7 +99,7 @@
 
 		scroller.scroll();
 
-		assert.ok( localStorage.store.setItem.calledOnce, 'localStorage only written once' );
+		assert.true( localStorage.store.setItem.calledOnce, 'localStorage only written once' );
 
 		scroller.unattach();
 	} );
