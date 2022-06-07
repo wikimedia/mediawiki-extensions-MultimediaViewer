@@ -496,6 +496,7 @@
 					.addClass( 'mw-mmv-credit-fallback' )
 					.prop( 'href', filepageUrl )
 					.text( mw.message( 'multimediaviewer-credit-fallback' ).plain() )
+					.get( 0 ).outerHTML
 			);
 		}
 
