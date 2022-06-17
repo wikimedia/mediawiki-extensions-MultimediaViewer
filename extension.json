@@ -439,17 +439,6 @@
 			"mmv.ui.tipsyDialog"
 		]
 	},
-	"attributes": {
-		"EventLogging": {
-			"Schemas": {
-				"MediaViewer": 10867062,
-				"MultimediaViewerNetworkPerformance": 15573630,
-				"MultimediaViewerDuration": 10427980,
-				"MultimediaViewerAttribution": 9758179,
-				"MultimediaViewerDimensions": 10014238
-			}
-		}
-	},
 	"Hooks": {
 		"UserGetDefaultOptions": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::onUserGetDefaultOptions",
 		"GetPreferences": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::onGetPreferences",
