@@ -516,22 +516,6 @@
 	 * @return {jQuery.Promise}
 	 */
 	MMVB.openImage = function ( element, title ) {
-		var $element = $( element );
-
-		mw.mmv.durationLogger.start( [ 'click-to-first-image', 'click-to-first-metadata' ] );
-
-		if ( $element.is(
-			'a.image, ' +
-			'[typeof*="mw:File"] a.mw-file-description, ' +
-			// TODO: Remove mw:Image when version 2.4.0 of the content is no
-			// longer supported
-			'[typeof*="mw:Image"] a.mw-file-description'
-		) ) {
-			mw.mmv.actionLogger.log( 'thumbnail' );
-		} else if ( $element.is( '.magnify a' ) ) {
-			mw.mmv.actionLogger.log( 'enlarge' );
-		}
-
 		this.ensureEventHandlersAreSetUp();
 
 		return this.loadViewer( true ).then( function ( viewer ) {
@@ -585,10 +569,8 @@
 
 	/**
 	 * Handles the browser location hash on pageload or hash change
-	 *
-	 * @param {boolean} initialHash Whether this is called for the hash that came with the pageload
 	 */
-	MMVB.hash = function ( initialHash ) {
+	MMVB.hash = function () {
 		var bootstrap = this;
 
 		// There is no point loading the mmv if it isn't loaded yet for hash changes unrelated to the mmv
@@ -603,10 +585,6 @@
 			// the page is loaded with an invalid MMV url
 			if ( !viewer.isOpen ) {
 				bootstrap.cleanupOverlay();
-			} else if ( initialHash ) {
-				mw.mmv.actionLogger.log( 'hash-load' );
-			} else {
-				mw.mmv.actionLogger.log( 'history-navigation' );
 			}
 		} );
 	};

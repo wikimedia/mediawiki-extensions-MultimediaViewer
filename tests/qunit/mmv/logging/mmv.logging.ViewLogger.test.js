@@ -17,31 +17,6 @@
 		}
 	} ) );
 
-	QUnit.test( 'unview()', function ( assert ) {
-		var logger = { log: function () {} },
-			viewLogger = new mw.mmv.logging.ViewLogger( { recordVirtualViewBeaconURI: function () {} }, {}, logger );
-
-		this.sandbox.stub( logger, 'log' );
-
-		viewLogger.unview();
-
-		assert.strictEqual( logger.log.called, false, 'action logger not called' );
-
-		viewLogger.setLastViewLogged( false );
-		viewLogger.unview();
-
-		assert.strictEqual( logger.log.called, false, 'action logger not called' );
-
-		viewLogger.setLastViewLogged( true );
-		viewLogger.unview();
-
-		assert.strictEqual( logger.log.calledOnce, true, 'action logger called' );
-
-		viewLogger.unview();
-
-		assert.strictEqual( logger.log.calledOnce, true, 'action logger not called again' );
-	} );
-
 	QUnit.test( 'focus and blur', function ( assert ) {
 		var $fakeWindow = $( '<div>' ),
 			viewLogger = new mw.mmv.logging.ViewLogger( { recordVirtualViewBeaconURI: function () {} }, $fakeWindow, { log: function () {} } );
