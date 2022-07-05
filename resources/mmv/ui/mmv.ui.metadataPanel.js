@@ -260,20 +260,11 @@
 	MPP.initializeCredit = function () {
 		this.$credit = $( '<p>' )
 			.addClass( 'mw-mmv-credit empty' )
-			.appendTo( this.$imageMetadataLeft )
-			.on( 'click.mmv-mp', '.mw-mmv-credit-fallback', function () {
-				mw.mmv.actionLogger.log( 'author-page' );
-			} );
+			.appendTo( this.$imageMetadataLeft );
 
 		// we need an inline container for tipsy, otherwise it would be centered weirdly
 		this.$authorAndSource = $( '<span>' )
-			.addClass( 'mw-mmv-source-author' )
-			.on( 'click', '.mw-mmv-author a', function () {
-				mw.mmv.actionLogger.log( 'author-page' );
-			} )
-			.on( 'click', '.mw-mmv-source a', function () {
-				mw.mmv.actionLogger.log( 'source-page' );
-			} );
+			.addClass( 'mw-mmv-source-author' );
 
 		this.creditField = new mw.mmv.ui.TruncatableTextField(
 			this.$credit,
@@ -323,10 +314,7 @@
 		this.$license = $( '<a>' )
 			.addClass( 'mw-mmv-license' )
 			.prop( 'href', '#' )
-			.appendTo( this.$licenseLi )
-			.on( 'click', function () {
-				mw.mmv.actionLogger.log( 'license-page' );
-			} );
+			.appendTo( this.$licenseLi );
 
 		this.$restrictions = $( '<span>' )
 			.addClass( 'mw-mmv-restrictions' )
@@ -388,8 +376,7 @@
 
 		this.$location = $( '<a>' )
 			.addClass( 'mw-mmv-location' )
-			.appendTo( this.$locationLi )
-			.on( 'click', function () { mw.mmv.actionLogger.log( 'location-page' ); } );
+			.appendTo( this.$locationLi );
 	};
 
 	/**
@@ -399,8 +386,7 @@
 		this.$mmvAboutLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).infoLink )
 			.text( mw.message( 'multimediaviewer-about-mmv' ).text() )
-			.addClass( 'mw-mmv-about-link' )
-			.on( 'click', function () { mw.mmv.actionLogger.log( 'about-page' ); } );
+			.addClass( 'mw-mmv-about-link' );
 
 		this.$mmvAboutLinks = $( '<div>' )
 			.addClass( 'mw-mmv-about-links' )
@@ -781,8 +767,6 @@
 	 */
 	MPP.setImageInfo = function ( image, imageData, repoData ) {
 		var panel = this;
-
-		mw.mmv.attributionLogger.logAttribution( imageData );
 
 		if ( imageData.creationDateTime ) {
 			panel.setDateTime( this.formatDate( imageData.creationDateTime ), true );

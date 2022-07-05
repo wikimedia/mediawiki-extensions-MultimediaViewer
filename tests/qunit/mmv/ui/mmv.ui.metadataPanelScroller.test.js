@@ -192,41 +192,4 @@
 
 		scroller.unattach();
 	} );
-
-	QUnit.test( 'Metadata scroll logging', function ( assert ) {
-		var $qf = $( '#qunit-fixture' ),
-			$container = $( '<div>' ).css( 'height', 100 ).appendTo( $qf ),
-			$aboveFold = $( '<div>' ).css( 'height', 50 ).appendTo( $container ),
-			localStorage = mw.mmv.testHelpers.getFakeLocalStorage(),
-			scroller = new mw.mmv.ui.MetadataPanelScroller( $container, $aboveFold, localStorage ),
-			keydown = $.Event( 'keydown' );
-
-		stubScrollFunctions( this.sandbox, scroller );
-
-		this.sandbox.stub( mw.mmv.actionLogger, 'log' );
-
-		keydown.which = 38; // Up arrow
-		scroller.keydown( keydown );
-
-		assert.strictEqual( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-open' ), true, 'Opening keypress logged' );
-		mw.mmv.actionLogger.log.reset();
-
-		keydown.which = 38; // Up arrow
-		scroller.keydown( keydown );
-
-		assert.strictEqual( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-close' ), true, 'Closing keypress logged' );
-		mw.mmv.actionLogger.log.reset();
-
-		keydown.which = 40; // Down arrow
-		scroller.keydown( keydown );
-
-		assert.strictEqual( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-open' ), true, 'Opening keypress logged' );
-		mw.mmv.actionLogger.log.reset();
-
-		keydown.which = 40; // Down arrow
-		scroller.keydown( keydown );
-
-		assert.strictEqual( mw.mmv.actionLogger.log.calledWithExactly( 'metadata-close' ), true, 'Closing keypress logged' );
-		mw.mmv.actionLogger.log.reset();
-	} );
 }() );
