@@ -8,6 +8,7 @@
 	"multimediaviewer-datetime-created": "Rajjum: $1",
 	"multimediaviewer-multiple-authors-combine": "$1 da $2",
 	"multimediaviewer-thumbnail-error-retry": "ǩiččlõõđ oʹđđest",
+	"multimediaviewer-thumbnail-error-report": "iʹlmmted čuõlmâst",
 	"multimediaviewer-license-default": "Čuäʹjet liseeʹns",
 	"multimediaviewer-permission-viewmore": "Čuäʹjet lââʹzz",
 	"multimediaviewer-share-tab": "Jueʹjj",
@@ -18,5 +19,6 @@
 	"multimediaviewer-embed-wt": "Wikiteʹkstt",
 	"multimediaviewer-html-embed-credit-link-text": "Liŋkk",
 	"multimediaviewer-embed-license": "Lisenssiõsttum liseeʹnsin $1.",
-	"multimediaviewer-original-embed-dimensions": "Alggveärlaž teâttõs $1"
+	"multimediaviewer-original-embed-dimensions": "Alggveärlaž teâttõs $1",
+	"multimediaviewer-options-learn-more": "Lââʹssteâđ"
 }
