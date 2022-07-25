@@ -53,6 +53,8 @@
 	"multimediaviewer-html-embed-credit-text-b": "ߞߊ߬ ߝߘߊ߫ $1߸ $2",
 	"multimediaviewer-html-embed-credit-link-text": "ߛߘߌ߬ߜߋ߲",
 	"multimediaviewer-embed-byline": "$1 ߓߟߏ߫",
+	"multimediaviewer-embed-via": "ߛߌߟߊ $1 ߝߍ߬.",
+	"multimediaviewer-default-embed-dimensions": "ߓߐߛߎ߲ ߞߝߊ߬ߟߋ߲ߛߋ߲ ߢߊ߲ߞߊ߲",
 	"multimediaviewer-original-embed-dimensions": "ߞߐߕߐ߮ ߓߊߛߎ߲ $1",
 	"multimediaviewer-xl-embed-dimensions": "ߓߟߋ߬ߓߟߋ $1",
 	"multimediaviewer-large-embed-dimensions": "ߞߎ߲߬ߓߊ $1",
@@ -75,6 +77,7 @@
 	"multimediaviewer-download-attribution-cta-header": "ߌ ߞߊߡߊ߲߫ ߞߊ߬ ߛߓߍߦߟߊ ߕߐ߯ߘߐߕߍ߰",
 	"multimediaviewer-download-optional-attribution-cta-header": "ߌ ߦߋ߫ ߛߓߍߦߟߊ ߕߐ߯ߘߐߕߍ߰",
 	"multimediaviewer-download-attribution-cta": "ߊ߬ ߞߍߢߊ ߦߌ߬ߘߊ߬ ߒ ߠߊ߫",
+	"multimediaviewer-download-attribution-copy": "ߞߐߕߐ߮ ߣߌ߲߬ ߛߓߍߟߌ ߘߍ߬ߡߍ߲߬ߘߌ߬ߣߍ߲ ߡߊߡߌ߬ߣߊ߬ ߞߵߊ߬ ߓߊߓߌ߬ߟߊ߬ (ߣߴߊ߬ ߛߐ߲߬ ߘߴߊ߬ ߡߊ߬)",
 	"multimediaviewer-reuse-warning-deletion": "ߞߐߜߍ ߣߌ߲߬ ߘߊ߲ߞߎ߲ߣߍ߲߫ ߦߴߊ߬ ߖߏ߰ߛߌ߬ ߞߊ߲ ߠߋ߬ ߡߊ߬.",
 	"multimediaviewer-reuse-warning-nonfree": "ߞߐߕߐ߮ ߣߌ߲߬ ߟߊߞߏߟߏ߲߫ ߕߍ߫ ߕߌ߰ߦߊ ߡߊ߬.",
 	"multimediaviewer-reuse-warning-noattribution": "ߞߎ߲߬ߠߊ߬ߝߏߣߌ߲߫ ߘߍ߬ߡߍ߲߬ߘߌ߬ߣߍ߲߫ ߞߐߕߐ߮ ߣߌ߲߬ ߠߊ߫.",
@@ -96,5 +99,6 @@
 	"multimediaviewer-enable-confirmation-text": "ߛߋ߲߬ߧߊ߫ ߣߊ߬ߕߐ ߸ ߌ ߦߋ߫ $1 ߞߝߊ߬ߟߋ߲ߛߋ߲ ߛߐ߲߬ߞߌ߲߬߸ ߏ߬ ߓߊ߯ ߞߍ߫ ߞߟߋߞߟߋ ߦߋߟߊ߲ ߘߌ߫ ߓߊ߯ߙߊ߫",
 	"multimediaviewer-enable-alert": "ߞߟߋߞߟߋ ߦߋߟߊ߲ ߓߘߊ߫ ߓߴߊ߬ ߟߊ߫ ߡߎ߬ߕߎ߲߬",
 	"multimediaviewer-disable-info-title": "ߌ ߓߘߊ߫ ߞߟߋߞߟߋ ߦߋߟߊ߲ ߓߴߊ߬ ߟߊ߫",
-	"multimediaviewer-disable-info": "ߌ ߘߌ߫ ߕߏ߫ ߞߐߕߐ߮ ߝߊߙߊ߲ߝߊߙߊ߲ߠߊ ߠߎ߬ ߦߋ߫ ߟߊ߫ ߞߟߋߞߟߋ ߦߋߟߊ߲ ߠߊ߫ ߡߎߣߎ߲߬."
+	"multimediaviewer-disable-info": "ߌ ߘߌ߫ ߕߏ߫ ߞߐߕߐ߮ ߝߊߙߊ߲ߝߊߙߊ߲ߠߊ ߠߎ߬ ߦߋ߫ ߟߊ߫ ߞߟߋߞߟߋ ߦߋߟߊ߲ ߠߊ߫ ߡߎߣߎ߲߬.",
+	"multimediaviewer-errorreport-privacywarning": "ߝߌ߬ߟߌ ߝߊߙߊ߲ߝߊ߯ߛߌ ߛߘߌ߬ߣߍ߲߫ ߦߋ߫ ߘߊ߲߬ߕߍ߰ߟߌ ߟߋ߬ ߟߊ߫ ߡߍ߲ ߘߌ߫ ߣߊ߬ ߞߍ߫ ߜߍߘߐ߫ ߦߋߕߊ ߘߌ߫. ߣߴߏ߬ ߘߏ߲߬ ߡߊ߫ ߞߴߌ ߟߊߝߙߍߞߏ߫ ߘߴߌ ߢߣߊ߫߸ ߌ ߘߌ߫ ߛߋ߫ ߘߊ߲߬ߕߍ߰ߟߌ ߘߎ߰ߟߊ ߘߐ߫ ߘߊ߬ ߓߟߏߡߟߊ ߟߎ߬ ߓߍ߯ ߖߏ߰ߛߌ߫ ߌ ߕߴߊ߬ ߝߍ߬ ߞߊ߬ ߡߍ߲ ߠߎ߬ ߟߊߖߍ߲ߛߍ߲߫."
 }
