@@ -4,10 +4,11 @@
 			"Adriendelucca",
 			"Fohanno",
 			"Fulup",
-			"Y-M D"
+			"Y-M D",
+			"Huñvreüs"
 		]
 	},
-	"multimediaviewer-repository-local": "Gouzout hiroc'h diwar-benn ar restr-mañ",
+	"multimediaviewer-repository-local": "Gouzout hiroc'h",
 	"multimediaviewer-datetime-created": "Krouet: $1",
 	"multimediaviewer-datetime-uploaded": "Enporzhiet: $1",
 	"multimediaviewer-multiple-authors-combine": "$1 ha $2",
@@ -35,11 +36,11 @@
 	"multimediaviewer-small-embed-dimensions": "Bihan $1",
 	"multimediaviewer-description-page-button-text": "Muioc'h a ditouroù diwar-benn ar restr-mañ",
 	"multimediaviewer-description-page-popup-text": "Muioc'h a ditouroù diwar-benn ar restr-mañ war $1",
-	"multimediaviewer-view-expanded": "Diskweladur astennet",
+	"multimediaviewer-view-expanded": "Digeriñ e Media Viewer",
 	"multimediaviewer-fullscreen-popup-text": "Diskouez er skramm leun",
 	"multimediaviewer-defullscreen-popup-text": "Kuitaat ar skramm leun",
 	"multimediaviewer-title-popup-text": "Deskrivadur",
-	"multimediaviewer-title-popup-text-more": "Klikañ da welet anv klok ar restr",
+	"multimediaviewer-title-popup-text-more": "Gwelet deskrivadur klok",
 	"multimediaviewer-download-attribution-cta": "Diskouez din penaos ober",
 	"multimediaviewer-attr-plain": "Plaen"
 }
