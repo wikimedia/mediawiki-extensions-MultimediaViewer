@@ -20,7 +20,7 @@
 	"multimediaviewer-metadata-error": "Podatkov o sliki ni bilo mogoče naložiti (napaka: $1)",
 	"multimediaviewer-thumbnail-error": "Datoteke žal ni mogoče prikazati",
 	"multimediaviewer-thumbnail-error-description": "Pojavila se je tehnična težava. Če vztraja, lahko $1. Napaka: $2.",
-	"multimediaviewer-thumbnail-error-retry": "poskusi znova",
+	"multimediaviewer-thumbnail-error-retry": "poskusite znova",
 	"multimediaviewer-thumbnail-error-report": "poročaj o težavi",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",
 	"multimediaviewer-license-cc-by-sa-1.0": "CC BY-SA 1.0",
