@@ -5,6 +5,7 @@
 			"Eduardo Addad de Oliveira",
 			"Eduardoaddad",
 			"Felipe L. Ewald",
+			"Fúlvio",
 			"Jefersonmoraes",
 			"Macofe",
 			"Oona",
@@ -12,7 +13,7 @@
 			"TheEduGobi"
 		]
 	},
-	"multimediaviewer-desc": "Expandir miniaturas em tamanho maior numa interface em tela cheia.",
+	"multimediaviewer-desc": "Expandir miniaturas em tamanho maior numa interface em tela cheia",
 	"multimediaviewer-optin-pref": "Ativar <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visualizador de mídia]</span>",
 	"multimediaviewer-file-page": "Ir para a página do arquivo correspondente",
 	"multimediaviewer-repository-local": "Mais detalhes",
