@@ -10,7 +10,7 @@
 	"multimediaviewer-desc": "V celozaslonskem vmesniku razširi sličice na večjo velikost",
 	"multimediaviewer-optin-pref": "Vklopi <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Pregledovalnik datotek]</span>",
 	"multimediaviewer-file-page": "Pojdi na pripadajočo opisno stran datoteke",
-	"multimediaviewer-repository-local": "Več podrobnosti",
+	"multimediaviewer-repository-local": "Več podatkov",
 	"multimediaviewer-datetime-created": "Ustvarjeno: $1",
 	"multimediaviewer-datetime-uploaded": "Naloženo: $1",
 	"multimediaviewer-credit": "$1 – $2",
