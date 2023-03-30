@@ -116,7 +116,7 @@
 		assert.notStrictEqual( generatedHtml.match( width ), null, 'Width appears in generated HTML' );
 		assert.notStrictEqual( generatedHtml.match( height ), null, 'Height appears in generated HTML' );
 		// .includes() for checking the short url since it contains a ? (bad for regex). Could escape instead.
-		// eslint-disable-next-line no-restricted-syntax
+		// eslint-disable-next-line es-x/no-string-prototype-includes, es-x/no-array-prototype-includes
 		assert.notStrictEqual( generatedHtml.includes( filePageShortUrl ), null, 'Short URL appears in generated HTML' );
 
 		// Bylines, no license and site
@@ -133,7 +133,7 @@
 		assert.notStrictEqual( generatedHtml.match( 'Iliad' ), null, 'Source appears in generated HTML' );
 		assert.notStrictEqual( generatedHtml.match( width ), null, 'Width appears in generated HTML' );
 		assert.notStrictEqual( generatedHtml.match( height ), null, 'Height appears in generated HTML' );
-		// eslint-disable-next-line no-restricted-syntax
+		// eslint-disable-next-line es-x/no-string-prototype-includes, es-x/no-array-prototype-includes
 		assert.notStrictEqual( generatedHtml.includes( filePageShortUrl ), null, 'Short URL appears in generated HTML' );
 
 		// No bylines, license and site
@@ -151,7 +151,7 @@
 		assert.strictEqual( generatedHtml.match( 'Iliad' ), null, 'Source should not appear in generated HTML' );
 		assert.notStrictEqual( generatedHtml.match( width ), null, 'Width appears in generated HTML' );
 		assert.notStrictEqual( generatedHtml.match( height ), null, 'Height appears in generated HTML' );
-		// eslint-disable-next-line no-restricted-syntax
+		// eslint-disable-next-line es-x/no-string-prototype-includes, es-x/no-array-prototype-includes
 		assert.notStrictEqual( generatedHtml.includes( filePageShortUrl ), null, 'Short URL appears in generated HTML' );
 
 		// No bylines, no license and site
@@ -167,7 +167,7 @@
 		assert.strictEqual( generatedHtml.match( 'Iliad' ), null, 'Source should not appear in generated HTML' );
 		assert.notStrictEqual( generatedHtml.match( width ), null, 'Width appears in generated HTML' );
 		assert.notStrictEqual( generatedHtml.match( height ), null, 'Height appears in generated HTML' );
-		// eslint-disable-next-line no-restricted-syntax
+		// eslint-disable-next-line es-x/no-string-prototype-includes, es-x/no-array-prototype-includes
 		assert.notStrictEqual( generatedHtml.includes( filePageShortUrl ), null, 'Short URL appears in generated HTML' );
 
 	} );
