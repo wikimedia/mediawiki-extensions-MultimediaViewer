@@ -1,9 +1,9 @@
+@import 'mediawiki.skin.variables.less';
 @import '../mmv.variables.less';
 @import '../mmv.mixins.less';
 
 @panel-below-fold-background-color: #f8f9fa;
 
-@fold-separator-border-width: 1px;
 @vertical-padding: 10px;
 @horizontal-padding: 20px;
 @space-above-credit: 2px;
@@ -11,9 +11,9 @@
 .mw-mmv-info-box {
 	display: inline-block;
 	overflow: hidden;
-	border: 1px solid #c8ccd1;
-	border-radius: @border-radius;
-	background-color: #fff;
+	border: @border-subtle;
+	border-radius: @border-radius-base;
+	background-color: @background-color-base;
 }
 
 .mw-mmv-title-contain {
@@ -64,13 +64,13 @@
 .mw-mmv-credit {
 	@padding-right: 5px;
 	margin: 0;
-	color: #54595d;
+	color: @color-subtle;
 	padding: 0 0 @padding-right;
 	font-size: 0.85em;
 
 	.metadata-panel-is-closed {
-		height: @metadatabar-below-fold-pushup-height - @space-above-credit - @fold-separator-border-width; // needs explicit height for text truncation logic
-		line-height: @metadatabar-below-fold-pushup-height - @space-above-credit - @fold-separator-border-width;
+		height: @metadatabar-below-fold-pushup-height - @space-above-credit - @border-width-base; // needs explicit height for text truncation logic
+		line-height: @metadatabar-below-fold-pushup-height - @space-above-credit - @border-width-base;
 	}
 
 	&.empty {
@@ -102,13 +102,13 @@
 	width: 100%;
 	position: relative;
 	margin-top: -@metadatabar-below-fold-pushup-height;
-	border-top: @fold-separator-border-width solid #c8ccd1;
+	border-top: @border-subtle;
 	background-color: @panel-below-fold-background-color;
 	padding-top: @space-above-credit;
 
 	.jq-fullscreened & {
 		// Make sure content fits into the screen. This assumes no paddings.
-		height: @metadatabar-below-fold-pushup-height - @fold-separator-border-width - @space-above-credit;
+		height: @metadatabar-below-fold-pushup-height - @border-width-base - @space-above-credit;
 		overflow: hidden;
 	}
 
@@ -153,7 +153,7 @@
 
 .mw-mmv-image-desc {
 	font-size: @mediumfont;
-	color: #54595d;
+	color: @color-subtle;
 }
 
 .mw-mmv-image-links {
@@ -252,7 +252,7 @@
 	color: @color-base;
 	margin-left: 6px;
 	margin-top: 1px;
-	border-radius: @border-radius;
+	border-radius: @border-radius-base;
 	padding: 2px 5px;
 	font-size: 0.9em;
 
@@ -391,5 +391,5 @@
 
 .mw-mmv-optout-link.pending {
 	cursor: wait;
-	color: #54595d;
+	color: @color-subtle;
 }
