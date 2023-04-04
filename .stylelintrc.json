@@ -7,7 +7,6 @@
 	"rules": {
 		"declaration-property-unit-disallowed-list": null,
 		"no-descending-specificity": null,
-		"selector-class-pattern": null,
-		"selector-pseudo-element-colon-notation": null
+		"selector-class-pattern": null
 	}
 }
