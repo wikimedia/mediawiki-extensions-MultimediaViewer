@@ -56,7 +56,7 @@ QUnit.test( '.setLocationData()', function ( assert ) {
 	);
 	assert.strictEqual(
 		panel.$location.prop( 'href' ),
-		'http://tools.wmflabs.org/geohack/geohack.php?pagename=File:' + fileName + '&params=' + latitude + '_N_' + longitude + '_E_&language=qqx',
+		'https://geohack.toolforge.org/geohack.php?pagename=File:' + fileName + '&params=' + latitude + '_N_' + longitude + '_E_&language=qqx',
 		'Location URL is set as expected'
 	);
 
@@ -73,7 +73,7 @@ QUnit.test( '.setLocationData()', function ( assert ) {
 	);
 	assert.strictEqual(
 		panel.$location.prop( 'href' ),
-		'http://tools.wmflabs.org/geohack/geohack.php?pagename=File:' + fileName + '&params=' + ( -latitude ) + '_S_' + ( -longitude ) + '_W_&language=qqx',
+		'https://geohack.toolforge.org/geohack.php?pagename=File:' + fileName + '&params=' + ( -latitude ) + '_S_' + ( -longitude ) + '_W_&language=qqx',
 		'Location URL is set as expected'
 	);
 
@@ -90,7 +90,7 @@ QUnit.test( '.setLocationData()', function ( assert ) {
 	);
 	assert.strictEqual(
 		panel.$location.prop( 'href' ),
-		'http://tools.wmflabs.org/geohack/geohack.php?pagename=File:' + fileName + '&params=' + latitude + '_N_' + longitude + '_E_&language=qqx',
+		'https://geohack.toolforge.org/geohack.php?pagename=File:' + fileName + '&params=' + latitude + '_N_' + longitude + '_E_&language=qqx',
 		'Location URL is set as expected'
 	);
 } );

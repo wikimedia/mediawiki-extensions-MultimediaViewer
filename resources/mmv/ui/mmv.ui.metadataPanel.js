@@ -748,7 +748,7 @@
 		);
 
 		this.$location.prop( 'href', (
-			'//tools.wmflabs.org/geohack/geohack.php?pagename=' +
+			'https://geohack.toolforge.org/geohack.php?pagename=' +
 			'File:' + imageData.title.getMain() +
 			'&params=' +
 			Math.abs( imageData.latitude ) + ( imageData.latitude >= 0 ? '_N_' : '_S_' ) +
