@@ -41,9 +41,9 @@
 	OO.inheritClass( ImageInfo, mw.mmv.provider.Api );
 
 	/**
-	 * List of imageinfo API properties which are needed to construct an Image model.
+	 * Array of imageinfo API properties which are needed to construct an Image model.
 	 *
-	 * @property {string}
+	 * @property {string[]}
 	 */
 	ImageInfo.prototype.iiprop = [
 		'timestamp',
@@ -52,12 +52,12 @@
 		'mime',
 		'mediatype',
 		'extmetadata'
-	].join( '|' );
+	];
 
 	/**
-	 * List of imageinfo extmetadata fields which are needed to construct an Image model.
+	 * Array of imageinfo extmetadata fields which are needed to construct an Image model.
 	 *
-	 * @property {string}
+	 * @property {string[]}
 	 */
 	ImageInfo.prototype.iiextmetadatafilter = [
 		'DateTime',
@@ -79,7 +79,7 @@
 		'NonFree',
 		'Restrictions',
 		'DeletionReason'
-	].join( '|' );
+	];
 
 	/**
 	 * Runs an API GET request to get the image info.
