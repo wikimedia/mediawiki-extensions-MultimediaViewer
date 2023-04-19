@@ -1,4 +1,4 @@
-@import 'mediawiki.ui/variables.less';
+@import 'mediawiki.skin.variables.less';
 @import '../mmv/mmv.variables.less';
 @import '../mmv/mmv.mixins.less';
 
@@ -38,10 +38,10 @@
 			min-width: 10px;
 			border-top-left-radius: 0;
 			border-bottom-left-radius: 0;
-			border-left: 1px solid mix( #000, @colorProgressive, 20% );
+			border-left: 1px solid mix( #000, @color-progressive, 20% );
 
 			&:hover {
-				border-bottom: 1px solid mix( #000, @colorProgressive, 20% );
+				border-bottom: 1px solid mix( #000, @color-progressive, 20% );
 			}
 		}
 
@@ -60,7 +60,7 @@
 			margin-top: 12px;
 			margin-left: -6px;
 			font-size: 16px;
-			color: #54595d;
+			color: @color-subtle;
 
 			&::before {
 				display: inline-block;
@@ -111,7 +111,7 @@
 		margin: 0 -@pane-padding;
 		padding: @pane-padding;
 		background-color: @attribution-color;
-		color: #54595d;
+		color: @color-subtle;
 
 		&:hover {
 			background-color: @attribution-color-highlighted;
