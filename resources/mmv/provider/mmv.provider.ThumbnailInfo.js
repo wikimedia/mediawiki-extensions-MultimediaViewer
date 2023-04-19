@@ -53,6 +53,7 @@
 
 		return this.getCachedPromise( cacheKey, function () {
 			return provider.apiGetWithMaxAge( {
+				formatversion: 2,
 				action: 'query',
 				prop: 'imageinfo',
 				titles: file.getPrefixedDb(),
@@ -60,7 +61,7 @@
 				iiurlwidth: width, // mw.Api will omit null/undefined parameters
 				iiurlheight: height
 			} ).then( function ( data ) {
-				return provider.getQueryPage( file, data );
+				return provider.getQueryPage( data );
 			} ).then( function ( page ) {
 				var imageInfo;
 				if ( page.imageinfo && page.imageinfo[ 0 ] ) {
@@ -76,7 +77,7 @@
 					} else {
 						return $.Deferred().reject( 'error in provider, thumb info not found' );
 					}
-				} else if ( page.missing === '' && page.imagerepository === '' ) {
+				} else if ( page.missing === true && page.imagerepository === '' ) {
 					return $.Deferred().reject( 'file does not exist: ' + file.getPrefixedDb() );
 				} else {
 					return $.Deferred().reject( 'unknown error' );

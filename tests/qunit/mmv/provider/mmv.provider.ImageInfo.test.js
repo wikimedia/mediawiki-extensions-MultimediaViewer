@@ -31,11 +31,11 @@
 				apiCallCount++;
 				return $.Deferred().resolve( {
 					query: {
-						pages: {
-							'-1': {
+						pages: [
+							{
 								ns: 6,
 								title: 'File:Stuff.jpg',
-								missing: '',
+								missing: true,
 								imagerepository: 'shared',
 								imageinfo: [
 									{
@@ -134,7 +134,7 @@
 									}
 								]
 							}
-						}
+						]
 					}
 				} );
 			} },
@@ -196,11 +196,11 @@
 		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {
-						pages: {
-							'-1': {
+						pages: [
+							{
 								title: 'File:Stuff.jpg'
 							}
-						}
+						]
 					}
 				} );
 			} },
@@ -218,13 +218,13 @@
 		var api = { get: function () {
 				return $.Deferred().resolve( {
 					query: {
-						pages: {
-							'-1': {
+						pages: [
+							{
 								title: 'File:Stuff.jpg',
-								missing: '',
+								missing: true,
 								imagerepository: ''
 							}
-						}
+						]
 					}
 				} );
 			} },

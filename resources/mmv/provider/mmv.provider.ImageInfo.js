@@ -92,6 +92,7 @@
 
 		return this.getCachedPromise( file.getPrefixedDb(), function () {
 			return provider.apiGetWithMaxAge( {
+				formatversion: 2,
 				action: 'query',
 				prop: 'imageinfo',
 				titles: file.getPrefixedDb(),
@@ -100,11 +101,11 @@
 				iiextmetadatalanguage: provider.options.language,
 				uselang: 'content'
 			} ).then( function ( data ) {
-				return provider.getQueryPage( file, data );
+				return provider.getQueryPage( data );
 			} ).then( function ( page ) {
 				if ( page.imageinfo && page.imageinfo.length ) {
 					return mw.mmv.model.Image.newFromImageInfo( file, page );
-				} else if ( page.missing === '' && page.imagerepository === '' ) {
+				} else if ( page.missing === true && page.imagerepository === '' ) {
 					return $.Deferred().reject( 'file does not exist: ' + file.getPrefixedDb() );
 				} else {
 					return $.Deferred().reject( 'unknown error' );
