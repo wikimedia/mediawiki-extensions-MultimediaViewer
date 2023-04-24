@@ -41,7 +41,7 @@
 		this.$reuse = $( '<a>' )
 			.attr( 'role', 'button' )
 			.addClass( 'mw-mmv-reuse-button' )
-			.html( '&nbsp;' )
+			.text( '\u00A0' )
 			.prop( 'title', mw.message( 'multimediaviewer-reuse-link' ).text() )
 			.tipsy( {
 				delayIn: tooltipDelay,
@@ -60,7 +60,7 @@
 		this.$download = $( '<a>' )
 			.attr( 'role', 'button' )
 			.addClass( 'mw-mmv-download-button' )
-			.html( '&nbsp;' )
+			.text( '\u00A0' )
 			.prop( 'title', mw.message( 'multimediaviewer-download-link' ).text() )
 			.tipsy( {
 				delayIn: tooltipDelay,
@@ -70,12 +70,12 @@
 		this.$next = $( '<button>' )
 			.prop( 'title', mw.message( 'multimediaviewer-next-image-alt-text' ).text() )
 			.addClass( 'mw-mmv-next-image disabled' )
-			.html( '&nbsp;' );
+			.text( '\u00A0' );
 
 		this.$prev = $( '<button>' )
 			.prop( 'title', mw.message( 'multimediaviewer-prev-image-alt-text' ).text() )
 			.addClass( 'mw-mmv-prev-image disabled' )
-			.html( '&nbsp;' );
+			.text( '\u00A0' );
 
 		this.$nav = this.$next
 			.add( this.$prev );

@@ -203,7 +203,7 @@
 				.appendTo( this.$dialog );
 
 		$( '<div>' )
-			.html( '&nbsp;' )
+			.text( '\u00A0' )
 			.addClass( 'mw-mmv-confirmation-close' )
 			.on( 'click', function () {
 				dialog.closeDialog();
@@ -362,7 +362,7 @@
 			$subContainer = $( '<div>' ).addClass( 'mw-mmv-options-subcontainer' );
 
 			$( '<div>' )
-				.html( '&nbsp;' )
+				.text( '\u00A0' )
 				.addClass( 'mw-mmv-options-icon' )
 				.appendTo( $subContainer );
 
