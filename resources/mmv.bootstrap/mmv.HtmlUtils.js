@@ -52,7 +52,7 @@
 		if ( this.isJQueryOrHTMLElement( html ) ) {
 			return $( '<div>' ).append( $( html ).clone() );
 		} else if ( typeof html === 'string' ) {
-			return $( '<div>' + html + '</div>' );
+			return $( '<div>' ).html( html );
 		} else {
 			mw.log.warn( 'wrapAndJquerify: unknown type', html );
 			throw new Error( 'wrapAndJquerify: unknown type' );
