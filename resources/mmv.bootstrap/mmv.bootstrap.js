@@ -17,6 +17,12 @@
 
 ( function () {
 	var MMVB;
+	var mwRouter = require( 'mediawiki.router' );
+
+	// We pass this to history.pushState/replaceState to indicate that we're controlling the page URL.
+	// Then we look for this marker on page load so that if the page is refreshed, we don't generate an
+	// extra history entry.
+	var MANAGED_STATE = 'MMV was here!';
 
 	/**
 	 * Bootstrap code listening to thumb clicks checking the initial location.hash
@@ -60,9 +66,43 @@
 		// this will run initially and then every time the content changes,
 		// e.g. via a VE edit or pagination in a multipage file
 		mw.hook( 'wikipage.content' ).add( this.processThumbs.bind( this ) );
+
+		// Setup the router
+		this.setupRouter( mwRouter );
 	}
 
 	MMVB = MultimediaViewerBootstrap.prototype;
+
+	/**
+	 * Routes to a given file.
+	 *
+	 * @param {string} fileName
+	 */
+	MMVB.route = function ( fileName ) {
+		this.loadViewer( true ).then( function ( viewer ) {
+			var fileTitle;
+			viewer.comingFromHashChange = true;
+			try {
+				fileName = decodeURIComponent( fileName );
+				fileTitle = new mw.Title( fileName );
+				viewer.loadImageByTitle( fileTitle );
+			} catch ( err ) {
+				// ignore routes to invalid titles
+				mw.log.warn( err );
+			}
+		} );
+	};
+
+	/**
+	 * Sets up the route handlers
+	 *
+	 * @param {OO.Router} router
+	 */
+	MMVB.setupRouter = function ( router ) {
+		router.addRoute( mw.mmv.ROUTE_REGEXP, this.route.bind( this ) );
+		router.addRoute( mw.mmv.LEGACY_ROUTE_REGEXP, this.route.bind( this ) );
+		this.router = router;
+	};
 
 	/**
 	 * Loads the mmv module asynchronously and passes the thumb data to it
@@ -284,7 +324,7 @@
 			caption: this.findCaption( $thumbContainer, $link ) } );
 
 		$link.add( $enlarge ).on( 'click', function ( e ) {
-			return bs.click( this, e, title );
+			return bs.click( e, title );
 		} );
 	};
 
@@ -342,7 +382,7 @@
 		} );
 
 		$link.on( 'click', function ( e ) {
-			return bs.click( this, e, title );
+			return bs.click( e, title );
 		} );
 	};
 
@@ -516,28 +556,25 @@
 	/**
 	 * Opens MediaViewer and loads the given thumbnail. Requires processThumb() to be called first.
 	 *
-	 * @param {HTMLElement} element Clicked element
 	 * @param {mw.Title} title File title
 	 * @return {jQuery.Promise}
 	 */
-	MMVB.openImage = function ( element, title ) {
+	MMVB.openImage = function ( title ) {
 		this.ensureEventHandlersAreSetUp();
-
-		return this.loadViewer( true ).then( function ( viewer ) {
-			viewer.loadImageByTitle( title, false );
-		} );
+		var hash = mw.mmv.getMediaHash( title );
+		location.hash = hash;
+		history.replaceState( MANAGED_STATE, null, hash );
 	};
 
 	/**
 	 * Handles a click event on a link
 	 *
-	 * @param {HTMLElement} element Clicked element
 	 * @param {jQuery.Event} e jQuery event object
 	 * @param {mw.Title} title File title
 	 * @return {boolean} a value suitable for an event handler (ie. true if the click should be handled
 	 *  by the browser).
 	 */
-	MMVB.click = function ( element, e, title ) {
+	MMVB.click = function ( e, title ) {
 		// Do not interfere with non-left clicks or if modifier keys are pressed.
 		if ( ( e.button !== 0 && e.which !== 1 ) || e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) {
 			return true;
@@ -553,7 +590,8 @@
 			return true;
 		}
 
-		this.openImage( element, title );
+		// Mark the state so that if the page is refreshed, we don't generate an extra history entry
+		this.openImage( title );
 
 		// calling this late so that in case of errors users at least get to the file page
 		e.preventDefault();
@@ -576,22 +614,21 @@
 	 * Handles the browser location hash on pageload or hash change
 	 */
 	MMVB.hash = function () {
-		var bootstrap = this;
+		var isViewerHash = this.isViewerHash();
 
 		// There is no point loading the mmv if it isn't loaded yet for hash changes unrelated to the mmv
 		// Such as anchor links on the page
-		if ( !this.viewerInitialized && !this.isViewerHash() ) {
+		if ( !this.viewerInitialized && !isViewerHash ) {
 			return;
 		}
 
-		this.loadViewer( this.isViewerHash() ).then( function ( viewer ) {
-			viewer.router.checkRoute();
-			// this is an ugly temporary fix to avoid a black screen of death when
-			// the page is loaded with an invalid MMV url
-			if ( !viewer.isOpen ) {
-				bootstrap.cleanupOverlay();
-			}
-		} );
+		var hash = location.hash;
+		if ( window.history.state !== MANAGED_STATE ) {
+			// First replace the current URL with a URL with a hash.
+			history.replaceState( null, null, '#' );
+			history.pushState( MANAGED_STATE, null, hash );
+		}
+		this.router.checkRoute();
 	};
 
 	/**

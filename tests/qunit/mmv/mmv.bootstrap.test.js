@@ -60,6 +60,7 @@
 
 		bootstrap.getViewer = function () {
 			return viewer || {
+				loadImageByTitle: function () {},
 				initWithThumbs: function () {},
 				hash: function () {},
 				router: { checkRoute: function () {} }
@@ -91,7 +92,6 @@
 		// without us interfering with another immediate change
 		setTimeout( function () {
 			location.hash = hash;
-			bootstrap.hash();
 		} );
 
 		return mw.mmv.testHelpers.waitForAsync().then( function () {
@@ -135,19 +135,10 @@
 		// trigger first click, which will cause MMV to be loaded (which we've
 		// set up to fail)
 		event = new $.Event( 'click', { button: 0, which: 1 } );
-		returnValue = bootstrap.click( {}, event, mw.Title.newFromText( 'Foo' ) );
+		returnValue = bootstrap.click( event, mw.Title.newFromText( 'Foo' ) );
 		clock.tick( 10 );
 		assert.true( event.isDefaultPrevented(), 'First click is caught' );
 		assert.strictEqual( returnValue, false, 'First click is caught' );
-
-		// wait until MMW is loaded (or failed to load, in this case) before we
-		// trigger another click - which should then not be caught
-		event = new $.Event( 'click', { button: 0, which: 1 } );
-		returnValue = bootstrap.click( {}, event, mw.Title.newFromText( 'Foo' ) );
-		clock.tick( 10 );
-		assert.strictEqual( event.isDefaultPrevented(), false, 'Click after loading failure is not caught' );
-		assert.notStrictEqual( returnValue, false, 'Click after loading failure is not caught' );
-
 		clock.restore();
 	} );
 
@@ -307,15 +298,13 @@
 	QUnit.test( 'Ensure that the correct title is loaded when clicking', function ( assert ) {
 		var bootstrap,
 			viewer = { initWithThumbs: function () {}, loadImageByTitle: this.sandbox.stub() },
-			$div = createGallery( 'foo.jpg' ),
-			$link = $div.find( 'a.image' ),
 			clock = this.sandbox.useFakeTimers();
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
 		bootstrap = createBootstrap( viewer );
 		this.sandbox.stub( bootstrap, 'setupOverlay' );
 
-		$link.trigger( { type: 'click', which: 1 } );
+		bootstrap.route( 'File:Foo.jpg' );
 		clock.tick( 10 );
 		assert.true( bootstrap.setupOverlay.called, 'Overlay was set up' );
 		assert.strictEqual(
@@ -324,6 +313,7 @@
 			'Titles are identical'
 		);
 
+		clock.tick( 10 );
 		clock.restore();
 	} );
 
