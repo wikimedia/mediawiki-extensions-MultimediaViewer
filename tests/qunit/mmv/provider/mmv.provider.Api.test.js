@@ -144,40 +144,6 @@
 		assert.strictEqual( apiProvider.getErrorMessage( {} ), 'unknown error', 'missing error message is handled' );
 	} );
 
-	QUnit.test( 'getNormalizedTitle', function ( assert ) {
-		var api = { get: function () {} },
-			apiProvider = new mw.mmv.provider.Api( api ),
-			title = new mw.Title( 'Image:Stuff.jpg' ),
-			normalizedTitle;
-
-		normalizedTitle = apiProvider.getNormalizedTitle( title, {} );
-		assert.strictEqual( normalizedTitle, title, 'missing normalization block is handled' );
-
-		normalizedTitle = apiProvider.getNormalizedTitle( title, {
-			query: {
-				normalized: [
-					{
-						from: 'Image:Foo.jpg',
-						to: 'File:Foo.jpg'
-					}
-				]
-			}
-		} );
-		assert.strictEqual( normalizedTitle, title, 'irrelevant normalization info is skipped' );
-
-		normalizedTitle = apiProvider.getNormalizedTitle( title, {
-			query: {
-				normalized: [
-					{
-						from: 'Image:Stuff.jpg',
-						to: 'File:Stuff.jpg'
-					}
-				]
-			}
-		} );
-		assert.strictEqual( normalizedTitle.getPrefixedDb(), 'File:Stuff.jpg', 'normalization happens' );
-	} );
-
 	QUnit.test( 'getQueryField', function ( assert ) {
 		var api = { get: function () {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
@@ -214,57 +180,54 @@
 	QUnit.test( 'getQueryPage', function ( assert ) {
 		var api = { get: function () {} },
 			apiProvider = new mw.mmv.provider.Api( api ),
-			title = new mw.Title( 'File:Stuff.jpg' ),
-			titleWithNamespaceAlias = new mw.Title( 'Image:Stuff.jpg' ),
-			otherTitle = new mw.Title( 'File:Foo.jpg' ),
-			done = assert.async( 6 ),
+			done = assert.async( 5 ),
 			data;
 
 		data = {
-			normalized: [
-				{
-					from: 'Image:Stuff.jpg',
-					to: 'File:Stuff.jpg'
-				}
-			],
 			query: {
-				pages: {
-					'-1': {
+				pages: [
+					{
 						title: 'File:Stuff.jpg'
 					}
-				}
+				]
 			}
 		};
 
-		apiProvider.getQueryPage( title, data ).then( function ( field ) {
-			assert.strictEqual( field, data.query.pages[ '-1' ], 'specified page is found' );
+		apiProvider.getQueryPage( data ).then( function ( field ) {
+			assert.strictEqual( field, data.query.pages[ 0 ], 'specified page is found' );
 			done();
 		} );
 
-		apiProvider.getQueryPage( titleWithNamespaceAlias, data ).then( function ( field ) {
-			assert.strictEqual( field, data.query.pages[ '-1' ],
-				'specified page is found even if its title was normalized' );
-			done();
-		} );
-
-		apiProvider.getQueryPage( otherTitle, {} ).fail( function () {
-			assert.true( true, 'promise rejected when page has different title' );
-			done();
-		} );
-
-		apiProvider.getQueryPage( title, {} ).fail( function () {
+		apiProvider.getQueryPage( {} ).fail( function () {
 			assert.true( true, 'promise rejected when data is missing' );
 			done();
 		} );
 
-		apiProvider.getQueryPage( title, { data: { query: {} } } ).fail( function () {
+		apiProvider.getQueryPage( { data: { query: {} } } ).fail( function () {
 			assert.true( true, 'promise rejected when pages are missing' );
 			done();
 		} );
 
-		apiProvider.getQueryPage( title, { data: { query: { pages: {} } } } ).fail( function () {
+		apiProvider.getQueryPage( { data: { query: { pages: [] } } } ).fail( function () {
 			assert.true( true, 'promise rejected when pages are empty' );
 			done();
 		} );
+
+		apiProvider.getQueryPage( {
+			query: {
+				pages: [
+					{
+						title: 'File:Stuff.jpg'
+					},
+					{
+						title: 'File:OtherStuff.jpg'
+					}
+				]
+			}
+		} ).fail( function () {
+			assert.true( true, 'promise rejected when data contains two entries' );
+			done();
+		} );
+
 	} );
 }() );

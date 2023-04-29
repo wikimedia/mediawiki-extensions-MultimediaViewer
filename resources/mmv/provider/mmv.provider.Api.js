@@ -121,29 +121,6 @@
 	};
 
 	/**
-	 * Returns a fixed a title based on the API response.
-	 * The title of the returned file might be different from the requested title, e.g.
-	 * if we used a namespace alias. If that happens the old and new title will be set in
-	 * data.query.normalized; this method creates an updated title based on that.
-	 *
-	 * @param {mw.Title} title
-	 * @param {Object} data
-	 * @return {mw.Title}
-	 */
-	Api.prototype.getNormalizedTitle = function ( title, data ) {
-		var i, normalized, length;
-		if ( data && data.query && data.query.normalized ) {
-			for ( normalized = data.query.normalized, length = normalized.length, i = 0; i < length; i++ ) {
-				if ( normalized[ i ].from === title.getPrefixedText() ) {
-					title = new mw.Title( normalized[ i ].to );
-					break;
-				}
-			}
-		}
-		return title;
-	};
-
-	/**
 	 * Returns a promise with the specified field from the API result.
 	 * This is intended to be used as a .then() callback for action=query APIs.
 	 *
@@ -165,35 +142,23 @@
 	 * Returns a promise with the specified page from the API result.
 	 * This is intended to be used as a .then() callback for action=query&prop=(...) APIs.
 	 *
-	 * @param {mw.Title} title
 	 * @param {Object} data
 	 * @return {jQuery.Promise} when successful, the first argument will be the page data,
 	 *     when unsuccessful, it will be an error message. The second argument is always
 	 *     the full API response.
 	 */
-	Api.prototype.getQueryPage = function ( title, data ) {
-		var pageName, pageData = null;
-		if ( data && data.query && data.query.pages ) {
-			title = this.getNormalizedTitle( title, data );
-			pageName = title.getPrefixedText();
-
-			// pages is an associative array indexed by pageid,
-			// we need to iterate through to find the right page
-			// eslint-disable-next-line no-jquery/no-each-util
-			$.each( data.query.pages, function ( id, page ) {
-				if ( page.title === pageName ) {
-					pageData = page;
-					return false;
-				}
-			} );
-
-			if ( pageData ) {
-				return $.Deferred().resolve( pageData, data );
-			}
+	Api.prototype.getQueryPage = function ( data ) {
+		if ( data &&
+			data.query &&
+			Array.isArray( data.query.pages ) &&
+			data.query.pages.length === 1
+		) {
+			// pages is an array and the first element is always the requested title
+			return $.Deferred().resolve( data.query.pages[ 0 ], data );
 		}
 
-		// If we got to this point either the pages array is missing completely, or we iterated
-		// through it and the requested page was not found. Neither is supposed to happen
+		// If we got to this point either the pages array is missing completely, or the
+		// first element is not the requested page. Neither is supposed to happen
 		// (if the page simply did not exist, there would still be a record for it).
 		return $.Deferred().reject( this.getErrorMessage( data ), data );
 	};
