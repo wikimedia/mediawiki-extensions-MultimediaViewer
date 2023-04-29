@@ -318,7 +318,11 @@
 		$link.trigger( { type: 'click', which: 1 } );
 		clock.tick( 10 );
 		assert.true( bootstrap.setupOverlay.called, 'Overlay was set up' );
-		assert.strictEqual( viewer.loadImageByTitle.firstCall.args[ 0 ].getPrefixedDb(), 'File:Foo.jpg', 'Titles are identical' );
+		assert.strictEqual(
+			viewer.loadImageByTitle.firstCall.args[ 0 ].getPrefixedDb(),
+			new mw.Title( 'File:foo.jpg' ).getPrefixedDb(),
+			'Titles are identical'
+		);
 
 		clock.restore();
 	} );
