@@ -135,6 +135,7 @@
 					animateMetadataOnce: function () {}
 				},
 				progressBar: {
+					hide: this.sandbox.stub(),
 					animateTo: this.sandbox.stub(),
 					jumpTo: this.sandbox.stub()
 				}
@@ -428,6 +429,7 @@
 					animateMetadataOnce: function () {}
 				},
 				progressBar: {
+					hide: this.sandbox.stub(),
 					animateTo: this.sandbox.stub(),
 					jumpTo: this.sandbox.stub()
 				},

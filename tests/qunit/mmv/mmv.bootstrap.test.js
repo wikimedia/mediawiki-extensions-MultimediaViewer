@@ -59,7 +59,11 @@
 		bootstrap.ensureEventHandlersAreSetUp = function () {};
 
 		bootstrap.getViewer = function () {
-			return viewer || { initWithThumbs: function () {}, hash: function () {} };
+			return viewer || {
+				initWithThumbs: function () {},
+				hash: function () {},
+				router: { checkRoute: function () {} }
+			};
 		};
 
 		return bootstrap;
