@@ -93,12 +93,12 @@
 			.append(
 				$( '<span>' )
 					.addClass( 'mw-mmv-download-image-size-name' )
-					.html( '&nbsp;' )
+					.text( '\u00A0' )
 			)
 			.append(
 				$( '<span>' )
 					.addClass( 'mw-mmv-download-image-size' )
-					.html( '&nbsp;' )
+					.text( '\u00A0' )
 			);
 
 		$container

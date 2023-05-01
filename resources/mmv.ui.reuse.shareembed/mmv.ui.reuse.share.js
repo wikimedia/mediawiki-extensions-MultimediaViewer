@@ -54,7 +54,7 @@
 			.addClass( 'mw-mmv-share-page-link' )
 			.prop( 'alt', mw.message( 'multimediaviewer-link-to-page' ).text() )
 			.prop( 'target', '_blank' )
-			.html( '&nbsp;' )
+			.text( '\u00A0' )
 			.appendTo( this.$pane );
 
 		this.pageInput.$element.appendTo( this.$pane );
