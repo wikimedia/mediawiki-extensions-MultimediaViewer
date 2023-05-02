@@ -83,12 +83,8 @@
 			deferred = $.Deferred();
 
 		// This attribute is necessary in Firefox, which needs it for the image request after
-		// the XHR to hit the cache by being a proper CORS request. In IE11, however,
-		// the presence of that attribute would cause the second image request to miss the cache,
-		// because IE11 adds a no-cache request header to image CORS requests. As a result,
-		// we call needsCrossOrigin to check if the current browser needs to set the attribute
-		// or not in order to avoid loading the image twice.
-		if ( cors && this.needsCrossOrigin() ) {
+		// the XHR to hit the cache by being a proper CORS request.
+		if ( cors ) {
 			img.crossOrigin = 'anonymous';
 		}
 
@@ -119,21 +115,6 @@
 	Image.prototype.imagePreloadingSupported = function () {
 		// This checks if the browser supports CORS requests in XHRs
 		return window.XMLHttpRequest !== undefined && 'withCredentials' in new XMLHttpRequest();
-	};
-
-	/**
-	 * Checks whether the current browser needs to set crossOrigin on images to avoid
-	 * doing a double load
-	 *
-	 * @return {boolean} Browser needs to set crossOrigin
-	 */
-	Image.prototype.needsCrossOrigin = function () {
-		// Support: IE11
-		// This check is essentially "is this browser anything but IE > 10?".
-		// I couldn't find something more topical because IE11 does support the crossOrigin
-		// attribute, just in a counter-productive way compared to all the other browsers
-		// who also support it.
-		return window.MSInputMethodContext === undefined;
 	};
 
 	mw.mmv.provider.Image = Image;
