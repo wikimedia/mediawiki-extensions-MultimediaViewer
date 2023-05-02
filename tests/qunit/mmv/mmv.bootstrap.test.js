@@ -357,7 +357,7 @@
 		clock.reset();
 	} );
 
-	QUnit.test( 'Only load the viewer on a valid hash (modern browsers)', function ( assert ) {
+	QUnit.test( 'Only load the viewer on a valid hash', function ( assert ) {
 		var bootstrap;
 
 		location.hash = '';
@@ -367,34 +367,12 @@
 		return hashTest( '/media', bootstrap, assert );
 	} );
 
-	QUnit.test( 'Only load the viewer on a valid hash (old browsers)', function ( assert ) {
+	QUnit.test( 'Load the viewer on a legacy hash', function ( assert ) {
 		var bootstrap;
 
 		location.hash = '';
 
 		bootstrap = createBootstrap();
-		bootstrap.browserHistory = undefined;
-
-		return hashTest( '/media', bootstrap, assert );
-	} );
-
-	QUnit.test( 'Load the viewer on a legacy hash (modern browsers)', function ( assert ) {
-		var bootstrap;
-
-		location.hash = '';
-
-		bootstrap = createBootstrap();
-
-		return hashTest( 'mediaviewer', bootstrap, assert );
-	} );
-
-	QUnit.test( 'Load the viewer on a legacy hash (old browsers)', function ( assert ) {
-		var bootstrap;
-
-		location.hash = '';
-
-		bootstrap = createBootstrap();
-		bootstrap.browserHistory = undefined;
 
 		return hashTest( 'mediaviewer', bootstrap, assert );
 	} );
