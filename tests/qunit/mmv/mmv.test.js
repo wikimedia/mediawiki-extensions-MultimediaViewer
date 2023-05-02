@@ -696,9 +696,11 @@
 			title = new mw.Title( 'File:This_should_show_up_in_document_title.png' ),
 			oldDocumentTitle = document.title;
 
+		this.sandbox.stub( bootstrap.router, 'back' );
+		this.sandbox.stub( mw.loader, 'using' ).returns( $.Deferred().resolve( viewer ) );
 		viewer.currentImageFileTitle = title;
 		bootstrap.setupEventHandlers();
-		viewer.setMediaHash();
+		viewer.setTitle();
 
 		assert.notStrictEqual( document.title.match( title.getNameText() ), null, 'File name is visible in title' );
 

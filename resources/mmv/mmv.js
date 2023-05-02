@@ -252,10 +252,9 @@
 	 * Loads a specified image.
 	 *
 	 * @param {mw.mmv.LightboxImage} image
-	 * @param {HTMLImageElement} initialImage A thumbnail to use as placeholder while the image loads
-	 * @param {boolean} useReplaceState Whether to update history entry to avoid long history queues
+	 * @param {HTMLImageElement} initialImage A thumbnail to use as placeholder while the image loadsx
 	 */
-	MMVP.loadImage = function ( image, initialImage, useReplaceState ) {
+	MMVP.loadImage = function ( image, initialImage ) {
 		var imageWidths,
 			imagePromise,
 			metadataPromise,
@@ -279,7 +278,7 @@
 			this.ui.empty();
 		}
 
-		this.setMediaHash( useReplaceState );
+		this.setTitle();
 
 		// At this point we can't show the thumbnail because we don't
 		// know what size it should be. We still assign it to allow for
@@ -382,9 +381,8 @@
 	 * Loads an image by its title
 	 *
 	 * @param {mw.Title} title
-	 * @param {boolean} useReplaceState Whether to update history entry to avoid long history queues
 	 */
-	MMVP.loadImageByTitle = function ( title, useReplaceState ) {
+	MMVP.loadImageByTitle = function ( title ) {
 		var i, thumb;
 
 		if ( !this.thumbs || !this.thumbs.length ) {
@@ -394,7 +392,7 @@
 		for ( i = 0; i < this.thumbs.length; i++ ) {
 			thumb = this.thumbs[ i ];
 			if ( thumb.title.getPrefixedText() === title.getPrefixedText() ) {
-				this.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ], useReplaceState );
+				this.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ] );
 				return;
 			}
 		}
@@ -835,6 +833,10 @@
 
 			thumb = this.thumbs[ index ];
 			this.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ] );
+			router.navigateTo( null, {
+				path: mw.mmv.getMediaHash( thumb.title ),
+				useReplaceState: true
+			} );
 		}
 	};
 
@@ -877,21 +879,6 @@
 	 * Sets up the route handlers
 	 */
 	MMVP.setupRouter = function () {
-		function route( fileName ) {
-			var fileTitle;
-			comingFromHashChange = true;
-			try {
-				fileName = decodeURIComponent( fileName );
-				fileTitle = new mw.Title( fileName );
-				this.loadImageByTitle( fileTitle );
-			} catch ( err ) {
-				// ignore routes to invalid titles
-				mw.log.warn( err );
-			}
-		}
-		this.router.addRoute( mw.mmv.ROUTE_REGEXP, route.bind( this ) );
-		this.router.addRoute( mw.mmv.LEGACY_ROUTE_REGEXP, route.bind( this ) );
-
 		// handle empty hashes, and anchor links (page sections)
 		this.router.addRoute( /^[^/]*$/, function () {
 			if ( this.isOpen ) {
@@ -908,22 +895,9 @@
 	};
 
 	/**
-	 * Updates the hash to reflect an open image file
-	 *
-	 * @param {boolean} useReplaceState Whether to update history entry to avoid long history queues
+	 * Updates the page title to reflect the current title.
 	 */
-	MMVP.setMediaHash = function ( useReplaceState ) {
-		if ( useReplaceState === undefined ) {
-			useReplaceState = true;
-		}
-		if ( comingFromHashChange ) {
-			comingFromHashChange = false;
-			return;
-		}
-		this.router.navigateTo( document.title, {
-			path: mw.mmv.getMediaHash( this.currentImageFileTitle ),
-			useReplaceState: useReplaceState
-		} );
+	MMVP.setTitle = function () {
 		// update title after route change, see T225387
 		document.title = this.createDocumentTitle( this.currentImageFileTitle );
 	};
