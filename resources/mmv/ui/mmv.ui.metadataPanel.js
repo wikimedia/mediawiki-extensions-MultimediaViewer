@@ -79,9 +79,6 @@
 			.add( this.$authorAndSource )
 			.add( this.title.$ellipsis )
 			.add( this.creditField.$ellipsis )
-			.each( function () {
-				$( this ).tipsy( 'enable' );
-			} )
 			.on( 'click.mmv-mp', function ( e ) {
 				var clickTargetIsLink = $( e.target ).is( 'a' ),
 					clickTargetIsTruncated = !!$( e.target ).closest( '.mw-mmv-ttf-truncated' ).length,
@@ -133,9 +130,6 @@
 			.add( this.title.$ellipsis )
 			.add( this.$authorAndSource )
 			.add( this.creditField.$ellipsis )
-			.each( function () {
-				$( this ).tipsy( 'hide' ).tipsy( 'disable' );
-			} )
 			.off( 'click.mmv-mp' );
 
 		$( this.$container ).off( '.mmv-mp' );
@@ -220,10 +214,7 @@
 			mw.message( 'multimediaviewer-title-popup-text-more' )
 		);
 
-		this.$title.add( this.title.$ellipsis ).tipsy( {
-			delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
-			gravity: this.correctEW( 'sw' )
-		} );
+		this.$title.add( this.title.$ellipsis );
 	};
 
 	MPP.initializeButtons = function () {
@@ -277,10 +268,7 @@
 			mw.message( 'multimediaviewer-credit-popup-text-more' )
 		);
 
-		this.$authorAndSource.add( this.creditField.$ellipsis ).tipsy( {
-			delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
-			gravity: this.correctEW( 'sw' )
-		} );
+		this.$authorAndSource.add( this.creditField.$ellipsis );
 	};
 
 	/**
@@ -660,11 +648,7 @@
 			// * multimediaviewer-restriction-trademarked
 			// * multimediaviewer-restriction-default
 			// * multimediaviewer-restriction-default-and-others
-			.prop( 'title', mw.message( 'multimediaviewer-restriction-' + type ).text() )
-			.tipsy( {
-				delay: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
-				gravity: this.correctEW( 'se' )
-			} );
+			.prop( 'title', mw.message( 'multimediaviewer-restriction-' + type ).text() );
 
 		$( '<span>' )
 			// The following classes are used here:
