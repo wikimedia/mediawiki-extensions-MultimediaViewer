@@ -458,7 +458,7 @@
 			if ( bs.statusInfoDialog ) {
 				bs.statusInfoDialog.close();
 			}
-			bs.openImage( this, title );
+			bs.openImage( title );
 			return false;
 		} );
 
@@ -466,9 +466,10 @@
 			if ( bs.statusInfoDialog ) {
 				bs.statusInfoDialog.close();
 			}
-			bs.openImage( this, title ).then( function () {
+			$( document ).one( 'mmv-metadata', function () {
 				$( document ).trigger( 'mmv-options-open' );
 			} );
+			bs.openImage( title );
 			return false;
 		} );
 
