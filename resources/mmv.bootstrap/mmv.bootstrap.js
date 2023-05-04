@@ -483,21 +483,26 @@
 	 * Shows a popup notifying the user
 	 */
 	MMVB.showStatusInfo = function () {
-		var bs = this;
+		mw.loader.using( 'oojs-ui-core' ).done( function () {
+			const content = document.createElement( 'div' );
+			content.textContent = mw.message( 'multimediaviewer-disable-info' ).text();
 
-		mw.loader.using( 'mmv.ui.tipsyDialog' ).done( function () {
-			/** @property {mw.mmv.ui.TipsyDialog} statusInfoDialog popup on the file page explaining how to re-enable */
-			// eslint-disable-next-line no-jquery/no-global-selector
-			bs.statusInfoDialog = new mw.mmv.ui.TipsyDialog( $( '.mw-mmv-view-expanded' ), { gravity: 'sw' } );
-			bs.statusInfoDialog.setContent(
-				mw.message( 'multimediaviewer-disable-info-title' ).plain(),
-				mw.message( 'multimediaviewer-disable-info' ).escaped()
-			);
-			// tipsy mispositions the tooltip, probably because it does the positioning before the buttons are
-			// displayed and the page is reflown. Adding some delay seems to help.
-			setTimeout( function () {
-				bs.statusInfoDialog.open();
-			}, 1000 );
+			const popupWidget = new OO.ui.PopupWidget( {
+				label: mw.message( 'multimediaviewer-disable-info-title' ).text(),
+				$content: $( content ),
+				padded: true,
+				head: true,
+				anchor: true,
+				align: 'center',
+				position: 'above',
+				autoFlip: false,
+				horizontalPosition: 'start',
+				// eslint-disable-next-line no-jquery/no-global-selector
+				$floatableContainer: $( '.mw-mmv-view-expanded' )
+			} );
+			popupWidget.$element.appendTo( document.body );
+			popupWidget.toggleClipping( true );
+			popupWidget.toggle( true );
 		} );
 	};
 

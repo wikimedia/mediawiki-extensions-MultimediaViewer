@@ -306,19 +306,6 @@
 				"multimediaviewer-embed-dimensions-separated"
 			]
 		},
-		"mmv.ui.tipsyDialog": {
-			"scripts": [
-				"mmv.ui.tipsyDialog/mmv.ui.tipsyDialog.js"
-			],
-			"styles": [
-				"mmv.ui.tipsyDialog/mmv.ui.tipsyDialog.less"
-			],
-			"dependencies": [
-				"mmv",
-				"oojs",
-				"jquery.tipsy"
-			]
-		},
 		"mmv.bootstrap": {
 			"scripts": [
 				"mmv.bootstrap/mmv.Config.js",
@@ -410,7 +397,6 @@
 			"tests/qunit/mmv/ui/mmv.ui.reuse.share.test.js",
 			"tests/qunit/mmv/ui/mmv.ui.reuse.tab.test.js",
 			"tests/qunit/mmv/ui/mmv.ui.reuse.utils.test.js",
-			"tests/qunit/mmv/ui/mmv.ui.tipsyDialog.test.js",
 			"tests/qunit/mmv/ui/mmv.ui.truncatableTextField.test.js",
 			"tests/qunit/mmv/ui/mmv.ui.viewingOptions.test.js",
 			"tests/qunit/mmv/mmv.testhelpers.js"
@@ -421,8 +407,7 @@
 			"mmv",
 			"mmv.ui.ondemandshareddependencies",
 			"mmv.ui.reuse.shareembed",
-			"mmv.ui.download.pane",
-			"mmv.ui.tipsyDialog"
+			"mmv.ui.download.pane"
 		]
 	},
 	"Hooks": {

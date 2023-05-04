@@ -1,7 +1,7 @@
 {
 	"root": true,
 	"extends": [
-		"wikimedia/client-es5",
+		"wikimedia/client-es6",
 		"wikimedia/jquery",
 		"wikimedia/mediawiki",
 		"wikimedia/jsduck"
@@ -12,6 +12,7 @@
 		"no-jquery/no-class-state": "off",
 		"no-jquery/no-support": "off",
 		"no-shadow": "warn",
-		"compat/compat": "warn"
+		"compat/compat": "warn",
+		"no-var": "warn"
 	}
 }
