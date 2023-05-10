@@ -1,4 +1,5 @@
 @import 'mediawiki.skin.variables.less';
+@import 'mediawiki.mixins.less';
 @import '../mmv.mixins.less';
 
 .mw-mmv-image {
@@ -6,7 +7,7 @@
 	width: 100%;
 	height: 100%;
 	vertical-align: middle;
-	.unselectable;
+	.user-select( none );
 
 	&.empty {
 		display: none;

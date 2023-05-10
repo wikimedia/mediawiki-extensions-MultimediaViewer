@@ -1,5 +1,6 @@
 @import 'mediawiki.skin.variables.less';
 @import '../mmv.variables.less';
+@import 'mediawiki.mixins.less';
 @import '../mmv.mixins.less';
 
 @button-vertical-padding: 20px;
@@ -14,7 +15,7 @@
 	@button-text-color: #888;
 	float: right;
 	margin-top: @metadatabar-above-fold-inner-height - ( @button-height + 2 * @button-vertical-padding );
-	.unselectable;
+	.user-select( none );
 	font-size: 1.25em;
 	color: @button-text-color;
 	cursor: pointer;
