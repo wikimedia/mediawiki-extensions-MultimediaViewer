@@ -23,9 +23,9 @@
 
 namespace MediaWiki\Extension\MultimediaViewer;
 
-use Category;
 use CategoryPage;
 use ExtensionRegistry;
+use MediaWiki\Category\Category;
 use MediaWiki\Hook\MakeGlobalVariablesScriptHook;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\User\UserIdentity;
