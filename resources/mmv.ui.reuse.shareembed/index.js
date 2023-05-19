@@ -15,44 +15,12 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function () {
-	var TP;
+const Embed = require( './mmv.ui.reuse.embed.js' );
+const Share = require( './mmv.ui.reuse.share.js' );
+const Tab = require( './mmv.ui.reuse.tab.js' );
 
-	/**
-	 * A tab in a mw.mmv.ui.Pane component
-	 *
-	 * @class mw.mmv.ui.reuse.Tab
-	 * @extends mw.mmv.ui.Element
-	 * @param {jQuery} $container
-	 * @constructor
-	 */
-	function Tab( $container ) {
-		Tab.super.call( this, $container );
+mw.mmv.ui.reuse.Embed = Embed;
+mw.mmv.ui.reuse.Share = Share;
+mw.mmv.ui.reuse.Tab = Tab;
 
-		/**
-		 * Container for the tab.
-		 *
-		 * @property {jQuery}
-		 */
-		this.$pane = $( '<div>' ).addClass( 'mw-mmv-reuse-pane' );
-
-	}
-	OO.inheritClass( Tab, mw.mmv.ui.Element );
-	TP = Tab.prototype;
-
-	/**
-	 * Shows the pane.
-	 */
-	TP.show = function () {
-		this.$pane.addClass( 'active' );
-	};
-
-	/**
-	 * Hides the pane.
-	 */
-	TP.hide = function () {
-		this.$pane.removeClass( 'active' );
-	};
-
-	module.exports = Tab;
-}() );
+module.exports = { Embed, Share, Tab };

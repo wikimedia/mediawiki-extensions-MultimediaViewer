@@ -15,6 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const Tab = require( './mmv.ui.reuse.tab.js' );
+
 ( function () {
 	// Shortcut for prototype later
 	var SP;
@@ -22,15 +24,15 @@
 	/**
 	 * Represents the file reuse dialog and link to open it.
 	 *
-	 * @class mw.mmv.ui.reuse.Share
-	 * @extends mw.mmv.ui.reuse.Tab
+	 * @class Share
+	 * @extends Tab
 	 * @param {jQuery} $container
 	 */
 	function Share( $container ) {
-		mw.mmv.ui.reuse.Tab.call( this, $container );
+		Tab.call( this, $container );
 		this.init();
 	}
-	OO.inheritClass( Share, mw.mmv.ui.reuse.Tab );
+	OO.inheritClass( Share, Tab );
 	SP = Share.prototype;
 
 	SP.init = function () {
@@ -66,7 +68,7 @@
 	 * Shows the pane.
 	 */
 	SP.show = function () {
-		mw.mmv.ui.reuse.Tab.prototype.show.call( this );
+		Tab.prototype.show.call( this );
 		this.select();
 	};
 
@@ -99,5 +101,5 @@
 		this.pageInput.selectText();
 	};
 
-	mw.mmv.ui.reuse.Share = Share;
+	module.exports = Share;
 }() );

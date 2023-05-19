@@ -265,7 +265,8 @@
 			]
 		},
 		"mmv.ui.reuse.shareembed": {
-			"scripts": [
+			"packageFiles": [
+				"mmv.ui.reuse.shareembed/index.js",
 				"mmv.ui.reuse.shareembed/mmv.ui.reuse.tab.js",
 				"mmv.ui.reuse.shareembed/mmv.ui.reuse.share.js",
 				"mmv.ui.reuse.shareembed/mmv.ui.reuse.embed.js"

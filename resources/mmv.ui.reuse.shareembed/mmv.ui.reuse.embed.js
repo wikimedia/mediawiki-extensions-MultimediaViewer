@@ -15,6 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const Tab = require( './mmv.ui.reuse.tab.js' );
+
 ( function () {
 	// Shortcut for prototype later
 	var EP;
@@ -23,13 +25,13 @@
 	 * UI component that provides the user html/wikitext snippets needed to share
 	 * and/or embed a media asset.
 	 *
-	 * @class mw.mmv.ui.reuse.Embed
-	 * @extends mw.mmv.ui.reuse.Tab
+	 * @class Embed
+	 * @extends Tab
 	 * @constructor
 	 * @param {jQuery} $container
 	 */
 	function Embed( $container ) {
-		mw.mmv.ui.reuse.Tab.call( this, $container );
+		Tab.call( this, $container );
 
 		/**
 		 * Formatter converting image data into formats needed for output
@@ -92,7 +94,7 @@
 		 */
 		this.currentDefaultItem = mw.user.isAnon() ? this.defaultHtmlItem : this.defaultWikitextItem;
 	}
-	OO.inheritClass( Embed, mw.mmv.ui.reuse.Tab );
+	OO.inheritClass( Embed, Tab );
 	EP = Embed.prototype;
 
 	/** @property {number} Width threshold at which an image is to be considered "large" */
@@ -230,7 +232,7 @@
 	 * Clears listeners.
 	 */
 	EP.unattach = function () {
-		mw.mmv.ui.reuse.Tab.prototype.unattach.call( this );
+		Tab.prototype.unattach.call( this );
 
 		this.embedSwitch.off( 'select' );
 		this.embedSizeSwitchHtml.getMenu().off( 'choose' );
@@ -371,7 +373,7 @@
 	 * Shows the pane.
 	 */
 	EP.show = function () {
-		mw.mmv.ui.reuse.Tab.prototype.show.call( this );
+		Tab.prototype.show.call( this );
 
 		// Force update size on multiline inputs, as they may have be
 		// calculated while not visible.
@@ -491,5 +493,5 @@
 		return sizes;
 	};
 
-	mw.mmv.ui.reuse.Embed = Embed;
+	module.exports = Embed;
 }() );
