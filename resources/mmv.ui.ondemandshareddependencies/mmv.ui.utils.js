@@ -217,5 +217,5 @@
 		).text();
 	};
 
-	mw.mmv.ui.Utils = Utils;
+	module.exports = Utils;
 }() );
