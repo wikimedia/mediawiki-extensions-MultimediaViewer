@@ -107,6 +107,7 @@
 				"mmv.head"
 			],
 			"messages": [
+				"license-header",
 				"multimediaviewer-file-page",
 				"multimediaviewer-options-learn-more",
 				"multimediaviewer-options-dialog-header",

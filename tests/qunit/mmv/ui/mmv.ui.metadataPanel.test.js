@@ -123,7 +123,8 @@ QUnit.test( '.setImageInfo()', function ( assert ) {
 
 	assert.strictEqual( panel.$title.text(), title, 'Title is correctly set' );
 	assert.notStrictEqual( panel.$credit.text(), '', 'Default credit is shown' );
-	assert.strictEqual( panel.$license.prop( 'href' ), imageData.descriptionUrl,
+	assert.strictEqual( panel.$license.prop( 'href' ),
+		imageData.descriptionUrl + '?uselang=qqx#(license-header)',
 		'User is directed to file page for license information' );
 	assert.strictEqual( panel.$license.prop( 'target' ), '', 'License information opens in same window' );
 	assert.true( panel.$datetimeLi.hasClass( 'empty' ), 'Date/Time is empty' );

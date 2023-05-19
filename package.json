@@ -5,7 +5,7 @@
 		"build": "npm -s run minify-svg",
 		"test": "grunt test",
 		"minify-svg": "svgo --config=.svgo.config.js --quiet --recursive --folder resources/",
-		"doc": "jsduck"
+		"doc": ""
 	},
 	"devDependencies": {
 		"eslint-config-wikimedia": "0.25.0",

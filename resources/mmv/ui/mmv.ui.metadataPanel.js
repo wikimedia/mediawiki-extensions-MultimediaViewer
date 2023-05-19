@@ -540,6 +540,8 @@
 	MPP.setLicense = function ( license, filePageUrl ) {
 		var shortName, url, isCc, isPd;
 
+		filePageUrl += `?uselang=${mw.config.get( 'wgUserLanguage' )}#${mw.message( 'license-header' ).text()}`;
+
 		if ( license ) {
 			shortName = license.getShortName();
 			url = license.deedUrl || filePageUrl;
