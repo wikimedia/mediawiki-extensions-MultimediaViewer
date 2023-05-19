@@ -15,6 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const Dialog = require( './mmv.ui.dialog.js' );
+
 ( function () {
 	// Shortcut for prototype later
 	var ODP;
@@ -22,14 +24,14 @@
 	/**
 	 * Represents the viewing options dialog and the link to open it.
 	 *
-	 * @class mw.mmv.ui.OptionsDialog
-	 * @extends mw.mmv.ui.Dialog
+	 * @class OptionsDialog
+	 * @extends Dialog
 	 * @param {jQuery} $container the element to which the dialog will be appended
 	 * @param {jQuery} $openButton the button which opens the dialog. Only used for positioning.
 	 * @param {mw.mmv.Config} config
 	 */
 	function OptionsDialog( $container, $openButton, config ) {
-		mw.mmv.ui.Dialog.call( this, $container, $openButton, config );
+		Dialog.call( this, $container, $openButton, config );
 
 		this.$dialog.addClass( 'mw-mmv-options-dialog' );
 		this.eventPrefix = 'options';
@@ -37,7 +39,7 @@
 		this.initPanel();
 	}
 
-	OO.inheritClass( OptionsDialog, mw.mmv.ui.Dialog );
+	OO.inheritClass( OptionsDialog, Dialog );
 	ODP = OptionsDialog.prototype;
 
 	ODP.attach = function () {
@@ -159,7 +161,7 @@
 			this.$dialog.addClass( 'mw-mmv-enable-div-shown' );
 		}
 
-		mw.mmv.ui.Dialog.prototype.openDialog.call( this );
+		Dialog.prototype.openDialog.call( this );
 		$( document ).trigger( 'mmv-options-opened' );
 	};
 
@@ -177,7 +179,7 @@
 	ODP.closeDialog = function ( e ) {
 		var wasConfirmation = this.$dialog.is( '.mw-mmv-disable-confirmation-shown' ) || this.$dialog.is( '.mw-mmv-enable-confirmation-shown' );
 
-		mw.mmv.ui.Dialog.prototype.closeDialog.call( this );
+		Dialog.prototype.closeDialog.call( this );
 		$( document ).trigger( 'mmv-options-closed' );
 		this.hideDivs();
 
@@ -395,5 +397,6 @@
 		return this.config.isMediaViewerEnabledOnClick();
 	};
 
-	mw.mmv.ui.OptionsDialog = OptionsDialog;
+	module.exports = OptionsDialog;
+	module.exports = OptionsDialog;
 }() );

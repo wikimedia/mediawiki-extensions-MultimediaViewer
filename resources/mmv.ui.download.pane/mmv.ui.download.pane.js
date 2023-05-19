@@ -15,6 +15,9 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { UiElement } = require( 'mmv' );
+const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
+
 ( function () {
 	// Shortcut for prototype later
 	var DP;
@@ -23,15 +26,15 @@
 	 * UI component that provides functionality to download the media asset displayed.
 	 *
 	 * @class mw.mmv.ui.download.Pane
-	 * @extends mw.mmv.ui.Element
+	 * @extends UiElement
 	 * @constructor
 	 * @param {jQuery} $container
 	 */
 	function Pane( $container ) {
-		mw.mmv.ui.Element.call( this, $container );
+		UiElement.call( this, $container );
 
-		/** @property {mw.mmv.ui.Utils} utils - */
-		this.utils = new mw.mmv.ui.Utils();
+		/** @property {Utils} utils - */
+		this.utils = new Utils();
 
 		this.$pane = $( '<div>' )
 			.addClass( 'mw-mmv-download-pane' )
@@ -59,7 +62,7 @@
 		/** @property {mw.mmv.model.Image|null} Image the download button currently points to. */
 		this.image = null;
 	}
-	OO.inheritClass( Pane, mw.mmv.ui.Element );
+	OO.inheritClass( Pane, UiElement );
 	DP = Pane.prototype;
 
 	/**
@@ -248,7 +251,7 @@
 	 * Clears listeners.
 	 */
 	DP.unattach = function () {
-		mw.mmv.ui.Element.prototype.unattach.call( this );
+		UiElement.prototype.unattach.call( this );
 
 		this.downloadSizeMenu.getMenu().off( 'choose' );
 		this.$selectionArrow.off( 'click' );
@@ -404,5 +407,7 @@
 		this.image = null;
 	};
 
+	mw.mmv.ui.download = mw.mmv.ui.download || {};
 	mw.mmv.ui.download.Pane = Pane;
+	module.exports = Pane;
 }() );

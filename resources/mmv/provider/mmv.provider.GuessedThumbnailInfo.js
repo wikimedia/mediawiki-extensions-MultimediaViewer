@@ -15,6 +15,8 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const Thumbnail = require( '../model/mmv.model.Thumbnail.js' );
+
 ( function () {
 	/**
 	 * This provider is similar to mw.mmv.provider.ThumbnailInfo, but instead of making an API call
@@ -24,7 +26,7 @@
 	 * - unexpected failure: we guess an URL but it does not work. The current implementation is
 	 *   conservative so at least on WMF wikis this probably won't happen, but should be reckoned
 	 *   with anyway. On other wikis (especially ones which do not generate thumbnails on demand
-	 *   via the 404 handler) this could be more frequent. Again, it is the caller's resonsibility
+	 *   via the 404 handler) this could be more frequent. Again, it is the caller's responsibility
 	 *   to handle this by detecting image loading errors and falling back to the normal provider.
 	 *
 	 * @class mw.mmv.provider.GuessedThumbnailInfo
@@ -67,12 +69,12 @@
 	 * @param {number} width thumbnail width in pixels
 	 * @param {number} originalWidth width of original image in pixels
 	 * @param {number} originalHeight height of original image in pixels
-	 * @return {jQuery.Promise.<mw.mmv.model.Thumbnail>}
+	 * @return {jQuery.Promise.<Thumbnail>}
 	 */
 	GuessedThumbnailInfo.prototype.get = function ( file, sampleUrl, width, originalWidth, originalHeight ) {
 		var url = this.getUrl( file, sampleUrl, width, originalWidth );
 		if ( url ) {
-			return $.Deferred().resolve( new mw.mmv.model.Thumbnail(
+			return $.Deferred().resolve( new Thumbnail(
 				url,
 				this.guessWidth( file, width, originalWidth ),
 				this.guessHeight( file, width, originalWidth, originalHeight )
@@ -305,5 +307,5 @@
 		return undefined;
 	};
 
-	mw.mmv.provider.GuessedThumbnailInfo = GuessedThumbnailInfo;
+	module.exports = GuessedThumbnailInfo;
 }() );

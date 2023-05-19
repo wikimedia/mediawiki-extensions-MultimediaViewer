@@ -15,6 +15,11 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const Config = require( './mmv.Config.js' );
+const HtmlUtils = require( './mmv.HtmlUtils.js' );
+mw.mmv.Config = Config;
+mw.mmv.HtmlUtils = HtmlUtils;
+
 ( function () {
 	var MMVB;
 	var mwRouter = require( 'mediawiki.router' );
@@ -28,7 +33,7 @@
 	 * Bootstrap code listening to thumb clicks checking the initial location.hash
 	 * Loads the mmv and opens it if necessary
 	 *
-	 * @class mw.mmv.MultimediaViewerBootstrap
+	 * @class MultimediaViewerBootstrap
 	 */
 	function MultimediaViewerBootstrap() {
 		// Exposed for tests
@@ -36,8 +41,8 @@
 
 		// TODO lazy-load config and htmlUtils
 
-		/** @property {mw.mmv.Config} config - */
-		this.config = new mw.mmv.Config(
+		/** @property {Config} config - */
+		this.config = new Config(
 			mw.config.get( 'wgMultimediaViewer', {} ),
 			mw.config,
 			mw.user,
@@ -47,8 +52,8 @@
 
 		this.validExtensions = this.config.extensions();
 
-		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
-		this.htmlUtils = new mw.mmv.HtmlUtils();
+		/** @property {HtmlUtils} htmlUtils - */
+		this.htmlUtils = new HtmlUtils();
 
 		/**
 		 * This flag is set to true when we were unable to load the viewer.
@@ -134,9 +139,9 @@
 			bs.setupOverlay();
 		}
 
-		mw.loader.using( 'mmv', function () {
+		mw.loader.using( 'mmv', function ( req ) {
 			try {
-				viewer = bs.getViewer();
+				viewer = bs.getViewer( req );
 			} catch ( e ) {
 				message = e.message;
 				if ( e.stack ) {
@@ -640,11 +645,13 @@
 	/**
 	 * Instantiates a new viewer if necessary
 	 *
-	 * @return {mw.mmv.MultimediaViewer}
+	 * @param {Function} localRequire
+	 * @return {MultimediaViewer}
 	 */
-	MMVB.getViewer = function () {
+	MMVB.getViewer = function ( localRequire ) {
 		if ( this.viewer === undefined ) {
-			this.viewer = new mw.mmv.MultimediaViewer( this.config );
+			const { MultimediaViewer } = localRequire( 'mmv' );
+			this.viewer = new MultimediaViewer( this.config );
 			this.viewer.setupEventHandlers();
 			mw.mmv.viewer = this.viewer;
 		}
@@ -739,4 +746,5 @@
 	};
 
 	mw.mmv.MultimediaViewerBootstrap = MultimediaViewerBootstrap;
+	module.exports = { MultimediaViewerBootstrap, Config, HtmlUtils };
 }() );

@@ -44,5 +44,5 @@
 		this.height = height;
 	}
 
-	mw.mmv.model.Thumbnail = Thumbnail;
+	module.exports = Thumbnail;
 }() );

@@ -140,5 +140,5 @@
 		CANCELLED: 'cancelled'
 	};
 
-	mw.mmv.model.TaskQueue = TaskQueue;
+	module.exports = TaskQueue;
 }() );

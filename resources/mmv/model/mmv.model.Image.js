@@ -15,6 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const License = require( './mmv.model.License.js' );
+
 ( function () {
 	var IP;
 
@@ -41,7 +43,7 @@
 	 * @param {string} source
 	 * @param {string} author
 	 * @param {number} authorCount
-	 * @param {mw.mmv.model.License} license
+	 * @param {License} license
 	 * @param {string} permission
 	 * @param {string} attribution Custom attribution string that replaces credit line when set
 	 * @param {string} deletionReason
@@ -133,7 +135,7 @@
 		 */
 		this.authorCount = authorCount;
 
-		/** @property {mw.mmv.model.License} license The license under which the image is distributed */
+		/** @property {License} license The license under which the image is distributed */
 		this.license = license;
 
 		/** @property {string} additional license conditions by the author (note that this is usually a big ugly HTML blob) */
@@ -256,13 +258,13 @@
 	 *
 	 * @static
 	 * @param {Object} extmeta the extmeta array of the imageinfo data
-	 * @return {mw.mmv.model.License|undefined}
+	 * @return {License|undefined}
 	 */
 	Image.newLicenseFromImageInfo = function ( extmeta ) {
 		var license;
 
 		if ( extmeta.LicenseShortName ) {
-			license = new mw.mmv.model.License(
+			license = new License(
 				this.parseExtmeta( extmeta.LicenseShortName, 'string' ),
 				this.parseExtmeta( extmeta.License, 'string' ),
 				this.parseExtmeta( extmeta.UsageTerms, 'string' ),
@@ -340,5 +342,5 @@
 			this.longitude !== undefined && this.longitude !== null;
 	};
 
-	mw.mmv.model.Image = Image;
+	module.exports = Image;
 }() );

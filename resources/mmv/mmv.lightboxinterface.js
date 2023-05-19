@@ -15,6 +15,16 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { Config } = require( 'mmv.bootstrap' );
+const Canvas = require( './ui/mmv.ui.canvas.js' );
+const CanvasButtons = require( './ui/mmv.ui.canvasButtons.js' );
+const DownloadDialog = require( './ui/mmv.ui.download.dialog.js' );
+const MetadataPanel = require( './ui/mmv.ui.metadataPanel.js' );
+const OptionsDialog = require( './ui/mmv.ui.viewingOptions.js' );
+const ReuseDialog = require( './ui/mmv.ui.reuse.dialog.js' );
+const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
+const UiElement = require( './ui/mmv.ui.js' );
+
 ( function () {
 	var LIP;
 
@@ -22,14 +32,14 @@
 	 * Represents the main interface of the lightbox
 	 *
 	 * @class mw.mmv.LightboxInterface
-	 * @extends mw.mmv.ui.Element
+	 * @extends UiElement
 	 * @constructor
 	 */
 	function LightboxInterface() {
 		this.localStorage = mw.storage;
 
-		/** @property {mw.mmv.Config} config - */
-		this.config = new mw.mmv.Config(
+		/** @property {Config} config - */
+		this.config = new Config(
 			mw.config.get( 'wgMultimediaViewer', {} ),
 			mw.config,
 			mw.user,
@@ -38,15 +48,15 @@
 		);
 
 		/**
-		 * @property {mw.mmv.ThumbnailWidthCalculator}
+		 * @property {ThumbnailWidthCalculator}
 		 * @private
 		 */
-		this.thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator();
+		this.thumbnailWidthCalculator = new ThumbnailWidthCalculator();
 
 		this.init();
-		mw.mmv.ui.Element.call( this, this.$wrapper );
+		UiElement.call( this, this.$wrapper );
 	}
-	OO.inheritClass( LightboxInterface, mw.mmv.ui.Element );
+	OO.inheritClass( LightboxInterface, UiElement );
 	LIP = LightboxInterface.prototype;
 
 	/**
@@ -101,13 +111,13 @@
 
 		this.setupCanvasButtons();
 
-		this.panel = new mw.mmv.ui.MetadataPanel( this.$postDiv, this.$aboveFold, this.localStorage, this.config );
-		this.buttons = new mw.mmv.ui.CanvasButtons( this.$preDiv, this.$closeButton, this.$fullscreenButton );
-		this.canvas = new mw.mmv.ui.Canvas( this.$innerWrapper, this.$imageWrapper, this.$wrapper );
+		this.panel = new MetadataPanel( this.$postDiv, this.$aboveFold, this.localStorage, this.config );
+		this.buttons = new CanvasButtons( this.$preDiv, this.$closeButton, this.$fullscreenButton );
+		this.canvas = new Canvas( this.$innerWrapper, this.$imageWrapper, this.$wrapper );
 
-		this.fileReuse = new mw.mmv.ui.reuse.Dialog( this.$innerWrapper, this.buttons.$reuse, this.config );
-		this.downloadDialog = new mw.mmv.ui.download.Dialog( this.$innerWrapper, this.buttons.$download, this.config );
-		this.optionsDialog = new mw.mmv.ui.OptionsDialog( this.$innerWrapper, this.buttons.$options, this.config );
+		this.fileReuse = new ReuseDialog( this.$innerWrapper, this.buttons.$reuse, this.config );
+		this.downloadDialog = new DownloadDialog( this.$innerWrapper, this.buttons.$download, this.config );
+		this.optionsDialog = new OptionsDialog( this.$innerWrapper, this.buttons.$options, this.config );
 	};
 
 	/**
@@ -496,5 +506,5 @@
 		this.buttons.toggle( showPrevButton, showNextButton );
 	};
 
-	mw.mmv.LightboxInterface = LightboxInterface;
+	module.exports = LightboxInterface;
 }() );

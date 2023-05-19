@@ -15,6 +15,8 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { UiElement } = require( 'mmv' );
+
 ( function () {
 	var TP;
 
@@ -22,7 +24,7 @@
 	 * A tab in a mw.mmv.ui.Pane component
 	 *
 	 * @class mw.mmv.ui.reuse.Tab
-	 * @extends mw.mmv.ui.Element
+	 * @extends UiElement
 	 * @param {jQuery} $container
 	 * @constructor
 	 */
@@ -37,7 +39,7 @@
 		this.$pane = $( '<div>' ).addClass( 'mw-mmv-reuse-pane' );
 
 	}
-	OO.inheritClass( Tab, mw.mmv.ui.Element );
+	OO.inheritClass( Tab, UiElement );
 	TP = Tab.prototype;
 
 	/**

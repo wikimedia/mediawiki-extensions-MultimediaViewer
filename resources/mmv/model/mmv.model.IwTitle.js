@@ -76,5 +76,5 @@
 		return this.domain;
 	};
 
-	mw.mmv.model.IwTitle = IwTitle;
+	module.exports = IwTitle;
 }() );

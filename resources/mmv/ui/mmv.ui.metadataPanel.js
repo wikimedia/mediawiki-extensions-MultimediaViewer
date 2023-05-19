@@ -15,6 +15,15 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { HtmlUtils } = require( 'mmv.bootstrap' );
+const Description = require( './mmv.ui.description.js' );
+const UiElement = require( './mmv.ui.js' );
+const MetadataPanelScroller = require( './mmv.ui.metadataPanelScroller.js' );
+const Permission = require( './mmv.ui.permission.js' );
+const ProgressBar = require( './mmv.ui.progressBar.js' );
+const StripeButtons = require( './mmv.ui.stripeButtons.js' );
+const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
+
 ( function () {
 	// Shortcut for prototype later
 	var MPP;
@@ -22,8 +31,8 @@
 	/**
 	 * Represents the metadata panel in the viewer
 	 *
-	 * @class mw.mmv.ui.MetadataPanel
-	 * @extends mw.mmv.ui.Element
+	 * @class MetadataPanel
+	 * @extends UiElement
 	 * @constructor
 	 * @param {jQuery} $container The container for the panel (.mw-mmv-post-image).
 	 * @param {jQuery} $aboveFold The brighter headline of the metadata panel (.mw-mmv-above-fold).
@@ -33,21 +42,21 @@
 	 * @param {mw.mmv.Config} config A configuration object.
 	 */
 	function MetadataPanel( $container, $aboveFold, localStorage, config ) {
-		mw.mmv.ui.Element.call( this, $container );
+		UiElement.call( this, $container );
 
 		this.$aboveFold = $aboveFold;
 
 		/** @property {mw.mmv.Config} config - */
 		this.config = config;
 
-		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
-		this.htmlUtils = new mw.mmv.HtmlUtils();
+		/** @property {HtmlUtils} htmlUtils - */
+		this.htmlUtils = new HtmlUtils();
 
 		this.initializeHeader( localStorage );
 		this.initializeImageMetadata();
 		this.initializeAboutLinks();
 	}
-	OO.inheritClass( MetadataPanel, mw.mmv.ui.Element );
+	OO.inheritClass( MetadataPanel, UiElement );
 	MPP = MetadataPanel.prototype;
 
 	/**
@@ -180,9 +189,9 @@
 	 * @param {mw.SafeStorage} localStorage the localStorage object, for dependency injection
 	 */
 	MPP.initializeHeader = function ( localStorage ) {
-		this.progressBar = new mw.mmv.ui.ProgressBar( this.$aboveFold );
+		this.progressBar = new ProgressBar( this.$aboveFold );
 
-		this.scroller = new mw.mmv.ui.MetadataPanelScroller( this.$container, this.$aboveFold,
+		this.scroller = new MetadataPanelScroller( this.$container, this.$aboveFold,
 			localStorage );
 
 		this.$titleDiv = $( '<div>' )
@@ -206,7 +215,7 @@
 		this.$title = $( '<span>' )
 			.addClass( 'mw-mmv-title' );
 
-		this.title = new mw.mmv.ui.TruncatableTextField( this.$titlePara, this.$title, {
+		this.title = new TruncatableTextField( this.$titlePara, this.$title, {
 			styles: [ 'mw-mmv-title-small', 'mw-mmv-title-smaller' ]
 		} );
 		this.title.setTitle(
@@ -218,7 +227,7 @@
 	};
 
 	MPP.initializeButtons = function () {
-		this.buttons = new mw.mmv.ui.StripeButtons( this.$titleDiv );
+		this.buttons = new StripeButtons( this.$titleDiv );
 	};
 
 	/**
@@ -240,8 +249,8 @@
 			.appendTo( this.$imageMetadata );
 
 		this.initializeCredit();
-		this.description = new mw.mmv.ui.Description( this.$imageMetadataLeft );
-		this.permission = new mw.mmv.ui.Permission( this.$imageMetadataLeft, this.scroller );
+		this.description = new Description( this.$imageMetadataLeft );
+		this.permission = new Permission( this.$imageMetadataLeft, this.scroller );
 		this.initializeImageLinks();
 	};
 
@@ -257,7 +266,7 @@
 		this.$authorAndSource = $( '<span>' )
 			.addClass( 'mw-mmv-source-author' );
 
-		this.creditField = new mw.mmv.ui.TruncatableTextField(
+		this.creditField = new TruncatableTextField(
 			this.$credit,
 			this.$authorAndSource,
 			{ styles: [] }
@@ -866,5 +875,5 @@
 		}
 	};
 
-	mw.mmv.ui.MetadataPanel = MetadataPanel;
+	module.exports = MetadataPanel;
 }() );

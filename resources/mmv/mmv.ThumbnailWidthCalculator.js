@@ -15,6 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const ThumbnailWidth = require( './model/mmv.model.ThumbnailWidth.js' );
+
 ( function () {
 	var TWCP;
 
@@ -168,8 +170,8 @@
 
 		bucketedWidth = this.findNextBucket( screenPixelWidth );
 
-		return new mw.mmv.model.ThumbnailWidth( cssWidth, cssHeight, screenPixelWidth, bucketedWidth );
+		return new ThumbnailWidth( cssWidth, cssHeight, screenPixelWidth, bucketedWidth );
 	};
 
-	mw.mmv.ThumbnailWidthCalculator = ThumbnailWidthCalculator;
+	module.exports = ThumbnailWidthCalculator;
 }() );

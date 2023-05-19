@@ -15,6 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const UiElement = require( './mmv.ui.js' );
+
 ( function () {
 	// Shortcut for prototype later
 	var DP;
@@ -22,14 +24,14 @@
 	/**
 	 * Represents a dialog and the link to open it.
 	 *
-	 * @class mw.mmv.ui.Dialog
-	 * @extends mw.mmv.ui.Element
+	 * @class Dialog
+	 * @extends UiElement
 	 * @param {jQuery} $container the element to which the dialog will be appended
 	 * @param {jQuery} $openButton the button which opens the dialog. Only used for positioning.
 	 * @param {mw.mmv.Config} config
 	 */
 	function Dialog( $container, $openButton, config ) {
-		mw.mmv.ui.Element.call( this, $container );
+		UiElement.call( this, $container );
 
 		/** @property {boolean} isOpen Whether or not the dialog is open. */
 		this.isOpen = false;
@@ -66,7 +68,7 @@
 		this.$dialog.appendTo( this.$container );
 	}
 
-	OO.inheritClass( Dialog, mw.mmv.ui.Element );
+	OO.inheritClass( Dialog, UiElement );
 	DP = Dialog.prototype;
 
 	/**
@@ -175,7 +177,7 @@
 	 * Clears listeners.
 	 */
 	DP.unattach = function () {
-		mw.mmv.ui.Element.prototype.unattach.call( this );
+		UiElement.prototype.unattach.call( this );
 
 		this.stopListeningToOutsideClick();
 	};
@@ -248,5 +250,5 @@
 		}
 	};
 
-	mw.mmv.ui.Dialog = Dialog;
+	module.exports = Dialog;
 }() );

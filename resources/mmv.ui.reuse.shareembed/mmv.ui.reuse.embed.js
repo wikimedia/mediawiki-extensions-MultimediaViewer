@@ -15,6 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 const Tab = require( './mmv.ui.reuse.tab.js' );
 
 ( function () {
@@ -36,12 +37,12 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 		/**
 		 * Formatter converting image data into formats needed for output
 		 *
-		 * @property {mw.mmv.EmbedFileFormatter}
+		 * @property {EmbedFileFormatter}
 		 */
-		this.formatter = new mw.mmv.EmbedFileFormatter();
+		this.formatter = new EmbedFileFormatter();
 
-		/** @property {mw.mmv.ui.Utils} utils - */
-		this.utils = new mw.mmv.ui.Utils();
+		/** @property {Utils} utils - */
+		this.utils = new Utils();
 
 		/**
 		 * Indicates whether or not the default option has been reset for both size menus.

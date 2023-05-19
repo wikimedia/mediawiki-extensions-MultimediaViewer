@@ -59,5 +59,5 @@
 		this.originalHeight = undefined;
 	}
 
-	mw.mmv.LightboxImage = LightboxImage;
+	module.exports = LightboxImage;
 }() );

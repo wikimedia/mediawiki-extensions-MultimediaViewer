@@ -22,12 +22,12 @@
 	/**
 	 * Represents a UI element.
 	 *
-	 * @class mw.mmv.ui.Element
+	 * @class Element
 	 * @abstract
 	 * @constructor
 	 * @param {jQuery} $container
 	 */
-	function Element( $container ) {
+	function UiElement( $container ) {
 		OO.EventEmitter.call( this );
 
 		/** @property {jQuery} $container The element that contains the UI element. */
@@ -51,9 +51,9 @@
 		this.timers = {};
 	}
 
-	OO.mixinClass( Element, OO.EventEmitter );
+	OO.mixinClass( UiElement, OO.EventEmitter );
 
-	EP = Element.prototype;
+	EP = UiElement.prototype;
 
 	/**
 	 * Checks whether the document is RTL. Assumes it doesn't change.
@@ -236,7 +236,5 @@
 		return keyword;
 	};
 
-	mw.mmv.ui = {};
-	mw.mmv.ui.reuse = {};
-	mw.mmv.ui.Element = Element;
+	module.exports = UiElement;
 }() );

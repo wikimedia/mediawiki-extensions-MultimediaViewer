@@ -17,7 +17,7 @@
 
 // Included on every page which has images so keep it lightweight.
 ( function () {
-	mw.mmv = {
+	module.exports = {
 		/**
 		 * The media route prefix
 		 *

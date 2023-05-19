@@ -19,6 +19,7 @@ const Embed = require( './mmv.ui.reuse.embed.js' );
 const Share = require( './mmv.ui.reuse.share.js' );
 const Tab = require( './mmv.ui.reuse.tab.js' );
 
+mw.mmv.ui.reuse = mw.mmv.ui.reuse || {};
 mw.mmv.ui.reuse.Embed = Embed;
 mw.mmv.ui.reuse.Share = Share;
 mw.mmv.ui.reuse.Tab = Tab;

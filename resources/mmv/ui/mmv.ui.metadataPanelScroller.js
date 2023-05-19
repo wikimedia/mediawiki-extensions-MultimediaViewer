@@ -15,21 +15,23 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const UiElement = require( './mmv.ui.js' );
+
 ( function () {
 	var MPSP;
 
 	/**
 	 * Handles scrolling behavior of the metadata panel.
 	 *
-	 * @class mw.mmv.ui.MetadataPanelScroller
-	 * @extends mw.mmv.ui.Element
+	 * @class MetadataPanelScroller
+	 * @extends UiElement
 	 * @constructor
 	 * @param {jQuery} $container The container for the panel (.mw-mmv-post-image).
 	 * @param {jQuery} $aboveFold The control bar element (.mw-mmv-above-fold).
 	 * @param {mw.SafeStorage} localStorage the localStorage object, for dependency injection
 	 */
 	function MetadataPanelScroller( $container, $aboveFold, localStorage ) {
-		mw.mmv.ui.Element.call( this, $container );
+		UiElement.call( this, $container );
 
 		this.$aboveFold = $aboveFold;
 
@@ -57,7 +59,7 @@
 
 		this.initialize();
 	}
-	OO.inheritClass( MetadataPanelScroller, mw.mmv.ui.Element );
+	OO.inheritClass( MetadataPanelScroller, UiElement );
 	MPSP = MetadataPanelScroller.prototype;
 
 	MPSP.attach = function () {
@@ -244,5 +246,5 @@
 		this.panelWasOpen = panelIsOpen;
 	};
 
-	mw.mmv.ui.MetadataPanelScroller = MetadataPanelScroller;
+	module.exports = MetadataPanelScroller;
 }() );

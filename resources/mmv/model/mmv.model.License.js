@@ -15,6 +15,8 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { HtmlUtils } = require( 'mmv.bootstrap' );
+
 ( function () {
 	var LP;
 
@@ -61,8 +63,8 @@
 		/** @property {boolean} nonFree is this a non-free license? */
 		this.nonFree = nonFree;
 
-		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
-		this.htmlUtils = new mw.mmv.HtmlUtils();
+		/** @property {HtmlUtils} htmlUtils - */
+		this.htmlUtils = new HtmlUtils();
 	}
 	LP = License.prototype;
 
@@ -158,5 +160,5 @@
 		}
 	};
 
-	mw.mmv.model.License = License;
+	module.exports = License;
 }() );

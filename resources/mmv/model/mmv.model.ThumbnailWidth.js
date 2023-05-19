@@ -77,6 +77,6 @@
 		this.real = real;
 	}
 
-	mw.mmv.model.ThumbnailWidth = ThumbnailWidth;
+	module.exports = ThumbnailWidth;
 
 }() );

@@ -15,6 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const Dialog = require( './mmv.ui.dialog.js' );
+
 ( function () {
 	// Shortcut for prototype later
 	var DP;
@@ -22,14 +24,14 @@
 	/**
 	 * Represents the file download dialog and the link to open it.
 	 *
-	 * @class mw.mmv.ui.download.Dialog
-	 * @extends mw.mmv.ui.Dialog
+	 * @class DownloadDialog
+	 * @extends Dialog
 	 * @param {jQuery} $container the element to which the dialog will be appended
 	 * @param {jQuery} $openButton the button which opens the dialog. Only used for positioning.
 	 * @param {mw.mmv.Config} config
 	 */
-	function Dialog( $container, $openButton, config ) {
-		mw.mmv.ui.Dialog.call( this, $container, $openButton, config );
+	function DownloadDialog( $container, $openButton, config ) {
+		Dialog.call( this, $container, $openButton, config );
 
 		this.loadDependencies.push( 'mmv.ui.download.pane' );
 
@@ -38,8 +40,8 @@
 		this.eventPrefix = 'download';
 	}
 
-	OO.inheritClass( Dialog, mw.mmv.ui.Dialog );
-	DP = Dialog.prototype;
+	OO.inheritClass( DownloadDialog, Dialog );
+	DP = DownloadDialog.prototype;
 
 	/**
 	 * Registers listeners.
@@ -66,7 +68,7 @@
 	 * Clears listeners.
 	 */
 	DP.unattach = function () {
-		mw.mmv.ui.Dialog.prototype.unattach.call( this );
+		Dialog.prototype.unattach.call( this );
 
 		this.$container.off( 'mmv-download-cta-open mmv-download-cta-close' );
 	};
@@ -98,7 +100,8 @@
 	 */
 	DP.openDialog = function () {
 		if ( !this.download ) {
-			this.download = new mw.mmv.ui.download.Pane( this.$dialog );
+			const DownloadPane = require( 'mmv.ui.download.pane' );
+			this.download = new DownloadPane( this.$dialog );
 			this.download.attach();
 		}
 
@@ -108,7 +111,7 @@
 			this.setValues = undefined;
 		}
 
-		mw.mmv.ui.Dialog.prototype.openDialog.call( this );
+		Dialog.prototype.openDialog.call( this );
 
 		$( document ).trigger( 'mmv-download-opened' );
 	};
@@ -121,10 +124,10 @@
 	 * Closes the download dialog.
 	 */
 	DP.closeDialog = function () {
-		mw.mmv.ui.Dialog.prototype.closeDialog.call( this );
+		Dialog.prototype.closeDialog.call( this );
 
 		$( document ).trigger( 'mmv-download-closed' );
 	};
 
-	mw.mmv.ui.download.Dialog = Dialog;
+	module.exports = DownloadDialog;
 }() );

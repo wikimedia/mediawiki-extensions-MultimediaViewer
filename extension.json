@@ -40,7 +40,8 @@
 	},
 	"ResourceModules": {
 		"mmv": {
-			"scripts": [
+			"packageFiles": [
+				"mmv/mmv.js",
 				"mmv/logging/mmv.logging.ViewLogger.js",
 				"mmv/model/mmv.model.js",
 				"mmv/model/mmv.model.IwTitle.js",
@@ -51,6 +52,7 @@
 				"mmv/model/mmv.model.TaskQueue.js",
 				"mmv/model/mmv.model.ThumbnailWidth.js",
 				"mmv/mmv.lightboximage.js",
+				"mmv/provider/mmv.provider.js",
 				"mmv/provider/mmv.provider.Api.js",
 				"mmv/provider/mmv.provider.ImageInfo.js",
 				"mmv/provider/mmv.provider.FileRepoInfo.js",
@@ -58,10 +60,10 @@
 				"mmv/provider/mmv.provider.GuessedThumbnailInfo.js",
 				"mmv/provider/mmv.provider.Image.js",
 				"mmv/mmv.ThumbnailWidthCalculator.js",
+				"mmv/ui/index.js",
 				"mmv/ui/mmv.ui.js",
 				"mmv/ui/mmv.ui.dialog.js",
 				"mmv/ui/mmv.ui.reuse.dialog.js",
-				"mmv/ui/mmv.ui.download.js",
 				"mmv/ui/mmv.ui.download.dialog.js",
 				"mmv/ui/mmv.ui.description.js",
 				"mmv/ui/mmv.ui.viewingOptions.js",
@@ -73,8 +75,7 @@
 				"mmv/ui/mmv.ui.truncatableTextField.js",
 				"mmv/ui/mmv.ui.metadataPanel.js",
 				"mmv/ui/mmv.ui.metadataPanelScroller.js",
-				"mmv/mmv.lightboxinterface.js",
-				"mmv/mmv.js"
+				"mmv/mmv.lightboxinterface.js"
 			],
 			"styles": [
 				"mmv/ui/mmv.ui.dialog.less",
@@ -233,7 +234,7 @@
 			]
 		},
 		"mmv.ui.download.pane": {
-			"scripts": [
+			"packageFiles": [
 				"mmv.ui.download.pane/mmv.ui.download.pane.js"
 			],
 			"styles": [
@@ -310,10 +311,10 @@
 			]
 		},
 		"mmv.bootstrap": {
-			"scripts": [
+			"packageFiles": [
+				"mmv.bootstrap/mmv.bootstrap.js",
 				"mmv.bootstrap/mmv.Config.js",
-				"mmv.bootstrap/mmv.HtmlUtils.js",
-				"mmv.bootstrap/mmv.bootstrap.js"
+				"mmv.bootstrap/mmv.HtmlUtils.js"
 			],
 			"styles": [
 				"mmv.bootstrap/mmv.bootstrap.less"
@@ -337,7 +338,7 @@
 			]
 		},
 		"mmv.bootstrap.autostart": {
-			"scripts": [
+			"packageFiles": [
 				"mmv.bootstrap.autostart/mmv.bootstrap.autostart.js"
 			],
 			"dependencies": [
@@ -346,9 +347,9 @@
 			]
 		},
 		"mmv.head": {
-			"scripts": [
-				"mmv.head/base.js",
-				"mmv.head/mmv.head.js"
+			"packageFiles": [
+				"mmv.head/mmv.head.js",
+				"mmv.head/base.js"
 			],
 			"dependencies": [
 				"mediawiki.user",

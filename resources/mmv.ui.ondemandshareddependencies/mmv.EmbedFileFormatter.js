@@ -15,6 +15,8 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { HtmlUtils } = require( 'mmv.bootstrap' );
+
 ( function () {
 	var EFFP;
 
@@ -25,8 +27,8 @@
 	 * @constructor
 	 */
 	function EmbedFileFormatter() {
-		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
-		this.htmlUtils = new mw.mmv.HtmlUtils();
+		/** @property {HtmlUtils} htmlUtils - */
+		this.htmlUtils = new HtmlUtils();
 	}
 	EFFP = EmbedFileFormatter.prototype;
 

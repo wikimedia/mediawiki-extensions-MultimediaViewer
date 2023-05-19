@@ -15,6 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const Dialog = require( './mmv.ui.dialog.js' );
+
 ( function () {
 	// Shortcut for prototype later
 	var DP;
@@ -22,17 +24,17 @@
 	/**
 	 * Represents the file reuse dialog and the link to open it.
 	 *
-	 * @class mw.mmv.ui.reuse.Dialog
-	 * @extends mw.mmv.ui.Element
+	 * @class ReuseDialog
+	 * @extends Dialog
 	 * @param {jQuery} $container the element to which the dialog will be appended
 	 * @param {jQuery} $openButton the button which opens the dialog. Only used for positioning.
 	 * @param {mw.mmv.Config} config
 	 */
-	function Dialog( $container, $openButton, config ) {
-		mw.mmv.ui.Dialog.call( this, $container, $openButton, config );
+	function ReuseDialog( $container, $openButton, config ) {
+		Dialog.call( this, $container, $openButton, config );
 
 		/**
-		 * @property {Object.<string, mw.mmv.ui.Element>} tabs List of tab ui objects.
+		 * @property {Object.<string, UiElement>} tabs List of tab ui objects.
 		 */
 		this.tabs = null;
 
@@ -48,8 +50,8 @@
 		this.eventPrefix = 'use-this-file';
 	}
 
-	OO.inheritClass( Dialog, mw.mmv.ui.Dialog );
-	DP = Dialog.prototype;
+	OO.inheritClass( ReuseDialog, Dialog );
+	DP = ReuseDialog.prototype;
 
 	// FIXME this should happen outside the dialog and the tabs, but we need to improve
 	DP.initTabs = function () {
@@ -69,9 +71,10 @@
 		} );
 		this.reuseTabs.$element.appendTo( this.$dialog );
 
+		const { Embed, Share } = require( 'mmv.ui.reuse.shareembed' );
 		this.tabs = {
-			share: new mw.mmv.ui.reuse.Share( this.$dialog ),
-			embed: new mw.mmv.ui.reuse.Embed( this.$dialog )
+			share: new Share( this.$dialog ),
+			embed: new Embed( this.$dialog )
 		};
 
 		this.ooTabs = {
@@ -115,7 +118,7 @@
 			this.initTabs();
 		}
 
-		mw.mmv.ui.Dialog.prototype.toggleDialog.call( this );
+		Dialog.prototype.toggleDialog.call( this );
 	};
 
 	/**
@@ -184,7 +187,7 @@
 	DP.unattach = function () {
 		var tab;
 
-		mw.mmv.ui.Dialog.prototype.unattach.call( this );
+		Dialog.prototype.unattach.call( this );
 
 		if ( this.reuseTabs ) {
 			this.reuseTabs.off( 'select' );
@@ -198,7 +201,7 @@
 	};
 
 	/**
-	 * Sets data needed by contaned tabs and makes dialog launch link visible.
+	 * Sets data needed by contained tabs and makes dialog launch link visible.
 	 *
 	 * @param {mw.mmv.model.Image} image
 	 * @param {mw.mmv.model.Repo} repo
@@ -225,7 +228,7 @@
 	DP.empty = function () {
 		var tab;
 
-		mw.mmv.ui.Dialog.prototype.empty.call( this );
+		Dialog.prototype.empty.call( this );
 
 		for ( tab in this.tabs ) {
 			this.tabs[ tab ].empty();
@@ -240,7 +243,7 @@
 	 * Opens a dialog with information about file reuse.
 	 */
 	DP.openDialog = function () {
-		mw.mmv.ui.Dialog.prototype.openDialog.call( this );
+		Dialog.prototype.openDialog.call( this );
 
 		// move warnings after the tabs
 		this.$warning.insertAfter( this.reuseTabs.$element );
@@ -258,10 +261,10 @@
 	 * Closes the reuse dialog.
 	 */
 	DP.closeDialog = function () {
-		mw.mmv.ui.Dialog.prototype.closeDialog.call( this );
+		Dialog.prototype.closeDialog.call( this );
 
 		$( document ).trigger( 'mmv-reuse-closed' );
 	};
 
-	mw.mmv.ui.reuse.Dialog = Dialog;
+	module.exports = ReuseDialog;
 }() );

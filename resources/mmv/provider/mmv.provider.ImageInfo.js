@@ -15,6 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const Api = require( './mmv.provider.Api.js' );
+
 ( function () {
 
 	/**
@@ -23,7 +25,7 @@
 	 * See https://www.mediawiki.org/wiki/API:Properties#imageinfo_.2F_ii
 	 *
 	 * @class mw.mmv.provider.ImageInfo
-	 * @extends mw.mmv.provider.Api
+	 * @extends Api
 	 * @constructor
 	 * @param {mw.Api} api
 	 * @param {Object} [options]
@@ -36,9 +38,9 @@
 			language: null
 		}, options );
 
-		mw.mmv.provider.Api.call( this, api, options );
+		Api.call( this, api, options );
 	}
-	OO.inheritClass( ImageInfo, mw.mmv.provider.Api );
+	OO.inheritClass( ImageInfo, Api );
 
 	/**
 	 * Array of imageinfo API properties which are needed to construct an Image model.
@@ -114,5 +116,5 @@
 		} );
 	};
 
-	mw.mmv.provider.ImageInfo = ImageInfo;
+	module.exports = ImageInfo;
 }() );

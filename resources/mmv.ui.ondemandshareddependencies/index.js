@@ -19,6 +19,7 @@ const EmbedFileFormatter = require( './mmv.EmbedFileFormatter.js' );
 const Utils = require( './mmv.ui.utils.js' );
 
 mw.mmv.EmbedFileFormatter = EmbedFileFormatter;
+mw.mmv.ui = mw.mmv.ui || {};
 mw.mmv.ui.Utils = Utils;
 
 module.exports = { EmbedFileFormatter, Utils };

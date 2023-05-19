@@ -15,20 +15,23 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { HtmlUtils } = require( 'mmv.bootstrap' );
+const UiElement = require( './mmv.ui.js' );
+
 ( function () {
 	/**
 	 * Description element in the UI.
 	 *
-	 * @class mw.mmv.ui.Description
-	 * @extends mw.mmv.ui.Element
+	 * @class Description
+	 * @extends UiElement
 	 * @constructor
 	 * @inheritdoc
 	 */
 	function Description( $container ) {
-		mw.mmv.ui.Element.call( this, $container );
+		UiElement.call( this, $container );
 
-		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
-		this.htmlUtils = new mw.mmv.HtmlUtils();
+		/** @property {HtmlUtils} htmlUtils - */
+		this.htmlUtils = new HtmlUtils();
 
 		this.$imageDescDiv = $( '<div>' )
 			.addClass( 'mw-mmv-image-desc-div empty' )
@@ -39,7 +42,7 @@
 			.appendTo( this.$imageDescDiv );
 	}
 
-	OO.inheritClass( Description, mw.mmv.ui.Element );
+	OO.inheritClass( Description, UiElement );
 
 	/**
 	 * Sets data on the element.
@@ -65,5 +68,5 @@
 		this.$imageDescDiv.addClass( 'empty' );
 	};
 
-	mw.mmv.ui.Description = Description;
+	module.exports = Description;
 }() );

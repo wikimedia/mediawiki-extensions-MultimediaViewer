@@ -201,7 +201,5 @@
 		return /^(https?:)?\/\/commons.wikimedia.org/.test( this.descBaseUrl );
 	};
 
-	mw.mmv.model.Repo = Repo;
-	mw.mmv.model.ForeignApiRepo = ForeignApiRepo;
-	mw.mmv.model.ForeignDbRepo = ForeignDbRepo;
+	module.exports = { Repo, ForeignApiRepo, ForeignDbRepo };
 }() );

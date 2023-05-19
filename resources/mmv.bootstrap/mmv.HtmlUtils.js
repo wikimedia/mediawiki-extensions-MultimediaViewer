@@ -270,5 +270,5 @@
 		return this.jqueryToHtml( $( '<a>' ).prop( props ).text( text ) );
 	};
 
-	mw.mmv.HtmlUtils = HtmlUtils;
+	module.exports = HtmlUtils;
 }() );

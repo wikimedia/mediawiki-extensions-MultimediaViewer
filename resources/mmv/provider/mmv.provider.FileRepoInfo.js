@@ -15,13 +15,15 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const Api = require( './mmv.provider.Api.js' );
+
 ( function () {
 
 	/**
 	 * Gets file repo information.
 	 *
 	 * @class mw.mmv.provider.FileRepoInfo
-	 * @extends mw.mmv.provider.Api
+	 * @extends Api
 	 * @constructor
 	 * @param {mw.Api} api
 	 * @param {Object} [options]
@@ -29,9 +31,9 @@
 	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
 	 */
 	function FileRepoInfo( api, options ) {
-		mw.mmv.provider.Api.call( this, api, options );
+		Api.call( this, api, options );
 	}
-	OO.inheritClass( FileRepoInfo, mw.mmv.provider.Api );
+	OO.inheritClass( FileRepoInfo, Api );
 
 	/**
 	 * Runs an API GET request to get the repo info.
@@ -60,5 +62,5 @@
 		} );
 	};
 
-	mw.mmv.provider.FileRepoInfo = FileRepoInfo;
+	module.exports = FileRepoInfo;
 }() );

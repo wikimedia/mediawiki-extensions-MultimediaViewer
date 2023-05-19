@@ -15,6 +15,9 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { HtmlUtils } = require( 'mmv.bootstrap' );
+const UiElement = require( './mmv.ui.js' );
+
 ( function () {
 	var TTFP;
 
@@ -39,8 +42,8 @@
 	 *
 	 * repaint() should be called after layout changes to keep the truncation accurate.
 	 *
-	 * @class mw.mmv.ui.TruncatableTextField
-	 * @extends mw.mmv.ui.Element
+	 * @class TruncatableTextField
+	 * @extends UiElement
 	 * @constructor
 	 * @param {jQuery} $container The container for the element.
 	 * @param {jQuery} $element The element where we should put the text.
@@ -50,7 +53,7 @@
 	 *  the text fit.
 	 */
 	function TruncatableTextField( $container, $element, options ) {
-		mw.mmv.ui.Element.call( this, $container );
+		UiElement.call( this, $container );
 
 		/** @property {jQuery} $element The DOM element that holds text for this element. */
 		this.$element = $element;
@@ -70,13 +73,13 @@
 		/** @property {string} truncatedTitle title attribute to show when the text is not truncated */
 		this.truncatedTitle = null;
 
-		/** @property {mw.mmv.HtmlUtils} htmlUtils Our HTML utility instance. */
-		this.htmlUtils = new mw.mmv.HtmlUtils();
+		/** @property {HtmlUtils} htmlUtils Our HTML utility instance. */
+		this.htmlUtils = new HtmlUtils();
 
 		this.init();
 	}
 
-	OO.inheritClass( TruncatableTextField, mw.mmv.ui.Element );
+	OO.inheritClass( TruncatableTextField, UiElement );
 
 	TTFP = TruncatableTextField.prototype;
 
@@ -239,5 +242,5 @@
 		} );
 	};
 
-	mw.mmv.ui.TruncatableTextField = TruncatableTextField;
+	module.exports = TruncatableTextField;
 }() );

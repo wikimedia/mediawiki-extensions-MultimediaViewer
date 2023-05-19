@@ -15,6 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const UiElement = require( './mmv.ui.js' );
+
 ( function () {
 	var CBP;
 
@@ -22,8 +24,8 @@
 	 * Represents the buttons which are displayed over the image - next, previous, close
 	 * and fullscreen.
 	 *
-	 * @class mw.mmv.ui.CanvasButtons
-	 * @extends mw.mmv.ui.Element
+	 * @class CanvasButtons
+	 * @extends UiElement
 	 * @constructor
 	 * @param {jQuery} $container The parent element we should put the buttons into.
 	 * @param {jQuery} $closeButton The close button element from the parent class.
@@ -32,7 +34,7 @@
 	function CanvasButtons( $container, $closeButton, $fullscreenButton ) {
 		var buttons = this;
 
-		mw.mmv.ui.Element.call( this, $container );
+		UiElement.call( this, $container );
 
 		this.$close = $closeButton;
 		this.$fullscreen = $fullscreenButton;
@@ -93,7 +95,7 @@
 			buttons.emit( 'prev' );
 		} );
 	}
-	OO.inheritClass( CanvasButtons, mw.mmv.ui.Element );
+	OO.inheritClass( CanvasButtons, UiElement );
 	CBP = CanvasButtons.prototype;
 
 	/**
@@ -254,7 +256,7 @@
 	 * Removes all UI things from the DOM, or hides them
 	 */
 	CBP.unattach = function () {
-		mw.mmv.ui.Element.prototype.unattach.call( this );
+		UiElement.prototype.unattach.call( this );
 
 		this.$download
 			.add( this.$reuse )
@@ -280,5 +282,5 @@
 			.prop( 'href', null );
 	};
 
-	mw.mmv.ui.CanvasButtons = CanvasButtons;
+	module.exports = CanvasButtons;
 }() );

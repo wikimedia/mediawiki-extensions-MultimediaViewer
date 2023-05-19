@@ -15,6 +15,10 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { HtmlUtils } = require( 'mmv.bootstrap' );
+const ThumbnailWidthCalculator = require( '../mmv.ThumbnailWidthCalculator.js' );
+const UiElement = require( './mmv.ui.js' );
+
 ( function () {
 	var C;
 
@@ -23,15 +27,15 @@
 	 * This first version assumes an image but it can be extended to other
 	 * media types (video, sound, presentation, etc.).
 	 *
-	 * @class mw.mmv.ui.Canvas
-	 * @extends mw.mmv.ui.Element
+	 * @class Canvas
+	 * @extends UiElement
 	 * @constructor
 	 * @param {jQuery} $container Canvas' container
 	 * @param {jQuery} $imageWrapper
 	 * @param {jQuery} $mainWrapper
 	 */
 	function Canvas( $container, $imageWrapper, $mainWrapper ) {
-		mw.mmv.ui.Element.call( this, $container );
+		UiElement.call( this, $container );
 
 		/**
 		 * @property {boolean}
@@ -40,10 +44,10 @@
 		this.dialogOpen = false;
 
 		/**
-		 * @property {mw.mmv.ThumbnailWidthCalculator}
+		 * @property {ThumbnailWidthCalculator}
 		 * @private
 		 */
-		this.thumbnailWidthCalculator = new mw.mmv.ThumbnailWidthCalculator();
+		this.thumbnailWidthCalculator = new ThumbnailWidthCalculator();
 
 		/**
 		 * Contains image.
@@ -79,7 +83,7 @@
 		 */
 		this.imageRawMetadata = null;
 	}
-	OO.inheritClass( Canvas, mw.mmv.ui.Element );
+	OO.inheritClass( Canvas, UiElement );
 	C = Canvas.prototype;
 
 	/**
@@ -355,7 +359,7 @@
 		var errorDetails, description, errorUri, $retryLink, $reportLink,
 			canvasDimensions = this.getDimensions(),
 			thumbnailDimensions = this.getCurrentImageWidths(),
-			htmlUtils = new mw.mmv.HtmlUtils();
+			htmlUtils = new HtmlUtils();
 
 		errorDetails = [
 			'error: ' + error,
@@ -469,5 +473,5 @@
 		return this.getLightboxImageWidths( this.imageRawMetadata );
 	};
 
-	mw.mmv.ui.Canvas = Canvas;
+	module.exports = Canvas;
 }() );

@@ -274,5 +274,5 @@
 		return this.viewerConfig.imageQueryParameter;
 	};
 
-	mw.mmv.Config = Config;
+	module.exports = Config;
 }() );

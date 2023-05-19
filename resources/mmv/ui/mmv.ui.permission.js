@@ -15,6 +15,10 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { HtmlUtils } = require( 'mmv.bootstrap' );
+const UiElement = require( './mmv.ui.js' );
+const MetadataPanelScroller = require( './mmv.ui.metadataPanelScroller.js' );
+
 ( function () {
 	var P;
 
@@ -24,19 +28,19 @@
 	 * It has two states: when closed, it just shows some text, when open, it shows the HTML
 	 * block supplied by the author in its full beauty.
 	 *
-	 * @class mw.mmv.ui.Permission
-	 * @extends mw.mmv.ui.Element
+	 * @class Permission
+	 * @extends UiElement
 	 * @constructor
 	 * @param {jQuery} $container
-	 * @param {mw.mmv.ui.MetadataPanelScroller} scroller
+	 * @param {MetadataPanelScroller} scroller
 	 */
 	function Permission( $container, scroller ) {
 		var permission = this;
 
-		mw.mmv.ui.Element.call( this, $container );
+		UiElement.call( this, $container );
 
-		/** @property {mw.mmv.HtmlUtils} htmlUtils - */
-		this.htmlUtils = new mw.mmv.HtmlUtils();
+		/** @property {HtmlUtils} htmlUtils - */
+		this.htmlUtils = new HtmlUtils();
 
 		/**
 		 * Contains everything else.
@@ -111,11 +115,11 @@
 		/**
 		 * Panel scroller from the metadata panel object.
 		 *
-		 * @property {mw.mmv.ui.MetadataPanelScroller}
+		 * @property {MetadataPanelScroller}
 		 */
 		this.scroller = scroller;
 	}
-	OO.inheritClass( Permission, mw.mmv.ui.Element );
+	OO.inheritClass( Permission, UiElement );
 	P = Permission.prototype;
 
 	/**
@@ -175,5 +179,5 @@
 		return this.$box.hasClass( 'full-size' );
 	};
 
-	mw.mmv.ui.Permission = Permission;
+	module.exports = Permission;
 }() );

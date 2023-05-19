@@ -163,6 +163,5 @@
 		return $.Deferred().reject( this.getErrorMessage( data ), data );
 	};
 
-	mw.mmv.provider = {};
-	mw.mmv.provider.Api = Api;
+	module.exports = Api;
 }() );

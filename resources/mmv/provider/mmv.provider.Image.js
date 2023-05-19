@@ -117,5 +117,5 @@
 		return window.XMLHttpRequest !== undefined && 'withCredentials' in new XMLHttpRequest();
 	};
 
-	mw.mmv.provider.Image = Image;
+	module.exports = Image;
 }() );

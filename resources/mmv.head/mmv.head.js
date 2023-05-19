@@ -15,6 +15,9 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const base = require( './base.js' );
+mw.mmv = base;
+
 ( function () {
 	var $document = $( document );
 

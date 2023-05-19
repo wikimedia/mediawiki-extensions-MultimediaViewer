@@ -15,6 +15,8 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const UiElement = require( './mmv.ui.js' );
+
 ( function () {
 	var SBP;
 
@@ -22,14 +24,14 @@
 	 * Class for buttons which are placed on the metadata stripe (the always visible part of the
 	 * metadata panel).
 	 *
-	 * @class mw.mmv.ui.StripeButtons
-	 * @extends mw.mmv.ui.Element
+	 * @class StripeButtons
+	 * @extends UiElement
 	 * @constructor
 	 * @param {jQuery} $container the title block (.mw-mmv-title-contain) which wraps the buttons and all
 	 *  other title elements
 	 */
 	function StripeButtons( $container ) {
-		mw.mmv.ui.Element.call( this, $container );
+		UiElement.call( this, $container );
 
 		this.$buttonContainer = $( '<div>' )
 			.addClass( 'mw-mmv-stripe-button-container' )
@@ -44,7 +46,7 @@
 
 		this.initDescriptionPageButton();
 	}
-	OO.inheritClass( StripeButtons, mw.mmv.ui.Element );
+	OO.inheritClass( StripeButtons, UiElement );
 	SBP = StripeButtons.prototype;
 
 	/**
@@ -140,5 +142,5 @@
 			.removeClass( 'mw-mmv-repo-button-commons' );
 	};
 
-	mw.mmv.ui.StripeButtons = StripeButtons;
+	module.exports = StripeButtons;
 }() );

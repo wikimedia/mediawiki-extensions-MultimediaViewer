@@ -15,6 +15,25 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const ViewLogger = require( './logging/mmv.logging.ViewLogger.js' );
+require( './provider/mmv.provider.js' );
+require( './model/mmv.model.js' );
+require( './ui/index.js' );
+const LightboxImage = require( './mmv.lightboximage.js' );
+const LightboxInterface = require( './mmv.lightboxinterface.js' );
+const TaskQueue = require( './model/mmv.model.TaskQueue.js' );
+const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
+const UiElement = require( './ui/mmv.ui.js' );
+const ImageProvider = require( './provider/mmv.provider.Image.js' );
+const ImageInfo = require( './provider/mmv.provider.ImageInfo.js' );
+const FileRepoInfo = require( './provider/mmv.provider.FileRepoInfo.js' );
+const ThumbnailInfo = require( './provider/mmv.provider.ThumbnailInfo.js' );
+const GuessedThumbnailInfo = require( './provider/mmv.provider.GuessedThumbnailInfo.js' );
+
+mw.mmv.LightboxImage = LightboxImage;
+mw.mmv.LightboxInterface = LightboxInterface;
+mw.mmv.ThumbnailWidthCalculator = ThumbnailWidthCalculator;
+
 ( function () {
 	var router = require( 'mediawiki.router' );
 	var comingFromHashChange = false;
@@ -24,9 +43,9 @@
 	 * Analyses the page, looks for image content and sets up the hooks
 	 * to manage the viewing experience of such content.
 	 *
-	 * @class mw.mmv.MultimediaViewer
+	 * @class MultimediaViewer
 	 * @constructor
-	 * @param {mw.mmv.Config} config mw.mmv.Config object
+	 * @param {Config} config Config object
 	 */
 	function MultimediaViewer( config ) {
 		var apiCacheMaxAge = 86400, // one day (24 hours * 60 min * 60 sec)
@@ -34,45 +53,45 @@
 			api = new mw.Api();
 
 		/**
-		 * @property {mw.mmv.Config}
+		 * @property {Config}
 		 * @private
 		 */
 		this.config = config;
 
 		/**
-		 * @property {mw.mmv.provider.Image}
+		 * @property {ImageProvider}
 		 * @private
 		 */
-		this.imageProvider = new mw.mmv.provider.Image( this.config.imageQueryParameter() );
+		this.imageProvider = new ImageProvider( this.config.imageQueryParameter() );
 
 		/**
-		 * @property {mw.mmv.provider.ImageInfo}
+		 * @property {ImageInfo}
 		 * @private
 		 */
-		this.imageInfoProvider = new mw.mmv.provider.ImageInfo( api, {
+		this.imageInfoProvider = new ImageInfo( api, {
 			language: this.config.language(),
 			maxage: apiCacheFiveMinutes
 		} );
 
 		/**
-		 * @property {mw.mmv.provider.FileRepoInfo}
+		 * @property {FileRepoInfo}
 		 * @private
 		 */
-		this.fileRepoInfoProvider = new mw.mmv.provider.FileRepoInfo( api,
+		this.fileRepoInfoProvider = new FileRepoInfo( api,
 			{ maxage: apiCacheMaxAge } );
 
 		/**
-		 * @property {mw.mmv.provider.ThumbnailInfo}
+		 * @property {ThumbnailInfo}
 		 * @private
 		 */
-		this.thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api,
+		this.thumbnailInfoProvider = new ThumbnailInfo( api,
 			{ maxage: apiCacheMaxAge } );
 
 		/**
-		 * @property {mw.mmv.provider.ThumbnailInfo}
+		 * @property {ThumbnailInfo}
 		 * @private
 		 */
-		this.guessedThumbnailInfoProvider = new mw.mmv.provider.GuessedThumbnailInfo();
+		this.guessedThumbnailInfoProvider = new GuessedThumbnailInfo();
 
 		/**
 		 * Image index on page.
@@ -91,10 +110,10 @@
 		/**
 		 * UI object used to display the pictures in the page.
 		 *
-		 * @property {mw.mmv.LightboxInterface}
+		 * @property {LightboxInterface}
 		 * @private
 		 */
-		this.ui = new mw.mmv.LightboxInterface();
+		this.ui = new LightboxInterface();
 
 		/**
 		 * How many sharp images have been displayed in Media Viewer since the pageload
@@ -114,9 +133,9 @@
 		this.documentTitle = document.title;
 
 		/**
-		 * @property {mw.mmv.logging.ViewLogger} view -
+		 * @property {ViewLogger} view -
 		 */
-		this.viewLogger = new mw.mmv.logging.ViewLogger( this.config, window );
+		this.viewLogger = new ViewLogger( this.config, window );
 
 		/**
 		 * Stores whether the real image was loaded and displayed already.
@@ -177,10 +196,10 @@
 	 * @param {HTMLImageElement} thumb The thumbnail that represents this image on the page
 	 * @param {string} [caption] The caption, if any.
 	 * @param {string} [alt] The alt text of the image
-	 * @return {mw.mmv.LightboxImage}
+	 * @return {LightboxImage}
 	 */
 	MMVP.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption, alt ) {
-		var thisImage = new mw.mmv.LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption, alt ),
+		var thisImage = new LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption, alt ),
 			$thumb = $( thumb );
 
 		thisImage.filePageLink = filePageLink;
@@ -197,7 +216,7 @@
 	 * Handles resize events in viewer.
 	 *
 	 * @protected
-	 * @param {mw.mmv.LightboxInterface} ui lightbox that got resized
+	 * @param {LightboxInterface} ui lightbox that got resized
 	 */
 	MMVP.resize = function ( ui ) {
 		var imageWidths,
@@ -238,10 +257,10 @@
 	/**
 	 * Loads and sets the specified image. It also updates the controls.
 	 *
-	 * @param {mw.mmv.LightboxInterface} ui image container
-	 * @param {mw.mmv.model.Thumbnail} thumbnail thumbnail information
+	 * @param {LightboxInterface} ui image container
+	 * @param {Thumbnail} thumbnail thumbnail information
 	 * @param {HTMLImageElement} imageElement
-	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
+	 * @param {ThumbnailWidth} imageWidths
 	 */
 	MMVP.setImage = function ( ui, thumbnail, imageElement, imageWidths ) {
 		ui.canvas.setImageAndMaxDimensions( thumbnail, imageElement, imageWidths );
@@ -420,9 +439,9 @@
 	/**
 	 * Display the real, full-resolution, thumbnail that was fetched with fetchThumbnail
 	 *
-	 * @param {mw.mmv.model.Thumbnail} thumbnail
+	 * @param {Thumbnail} thumbnail
 	 * @param {HTMLImageElement} imageElement
-	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
+	 * @param {ThumbnailWidth} imageWidths
 	 * @param {number} loadTime Time it took to load the thumbnail
 	 */
 	MMVP.displayRealThumbnail = function ( thumbnail, imageElement, imageWidths, loadTime ) {
@@ -447,7 +466,7 @@
 	 *
 	 * @param {mw.mmv.LightboxImage} image
 	 * @param {jQuery} $initialImage The thumbnail from the page
-	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
+	 * @param {ThumbnailWidth} imageWidths
 	 * @param {boolean} [recursion=false] for internal use, never set this when calling from outside
 	 */
 	MMVP.displayPlaceholderThumbnail = function ( image, $initialImage, imageWidths, recursion ) {
@@ -499,7 +518,7 @@
 	 * all the related callbacks.
 	 *
 	 * @param {mw.mmv.LightboxImage} image
-	 * @param {jQuery.Promise.<mw.mmv.model.Thumbnail, HTMLImageElement>} imagePromise
+	 * @param {jQuery.Promise.<Thumbnail, HTMLImageElement>} imagePromise
 	 * @param {number} imageWidth needed for caching progress (FIXME)
 	 */
 	MMVP.setupProgressBar = function ( image, imagePromise, imageWidth ) {
@@ -574,14 +593,14 @@
 	/**
 	 * Stores image metadata preloads, so they can be cancelled.
 	 *
-	 * @property {mw.mmv.model.TaskQueue}
+	 * @property {TaskQueue}
 	 */
 	MMVP.metadataPreloadQueue = null;
 
 	/**
 	 * Stores image thumbnail preloads, so they can be cancelled.
 	 *
-	 * @property {mw.mmv.model.TaskQueue}
+	 * @property {TaskQueue}
 	 */
 	MMVP.thumbnailPreloadQueue = null;
 
@@ -619,10 +638,10 @@
 	 *
 	 * @private
 	 * @param {function(mw.mmv.LightboxImage): function()} taskFactory
-	 * @return {mw.mmv.model.TaskQueue}
+	 * @return {TaskQueue}
 	 */
 	MMVP.pushLightboxImagesIntoQueue = function ( taskFactory ) {
-		var queue = new mw.mmv.model.TaskQueue();
+		var queue = new TaskQueue();
 
 		this.eachPreloadableLightboxIndex( function ( i, lightboxImage, extraStatsDeferred ) {
 			queue.push( taskFactory( lightboxImage, extraStatsDeferred ) );
@@ -719,7 +738,7 @@
 	 * information).
 	 *
 	 * @param {mw.Title} fileTitle Title of the file page for the image.
-	 * @return {jQuery.Promise.<mw.mmv.model.Image, mw.mmv.model.Repo>}
+	 * @return {jQuery.Promise.<Image, Repo>}
 	 */
 	MMVP.fetchSizeIndependentLightboxInfo = function ( fileTitle ) {
 		var imageInfoPromise = this.imageInfoProvider.get( fileTitle ),
@@ -738,7 +757,7 @@
 	 * @param {mw.mmv.LightboxImage} image
 	 * @param {number} width the width of the requested thumbnail
 	 * @param {jQuery.Deferred.<string>} [extraStatsDeferred] Promise that resolves to the image's upload timestamp when the metadata is loaded
-	 * @return {jQuery.Promise.<mw.mmv.model.Thumbnail, HTMLImageElement>}
+	 * @return {jQuery.Promise.<Thumbnail, HTMLImageElement>}
 	 */
 	MMVP.fetchThumbnailForLightboxImage = function ( image, width, extraStatsDeferred ) {
 		return this.fetchThumbnail(
@@ -760,7 +779,7 @@
 	 * @param {number} [originalWidth] the width of the original, full-sized file (might be missing)
 	 * @param {number} [originalHeight] the height of the original, full-sized file (might be missing)
 	 * @param {jQuery.Deferred.<string>} [extraStatsDeferred] Promise that resolves to the image's upload timestamp when the metadata is loaded
-	 * @return {jQuery.Promise.<mw.mmv.model.Thumbnail, HTMLImageElement>} A promise resolving to
+	 * @return {jQuery.Promise.<Thumbnail, HTMLImageElement>} A promise resolving to
 	 *  a thumbnail model and an <img> element. It might or might not have progress events which
 	 *  return a single number.
 	 */
@@ -1004,4 +1023,5 @@
 	};
 
 	mw.mmv.MultimediaViewer = MultimediaViewer;
+	module.exports = { MultimediaViewer, UiElement };
 }() );

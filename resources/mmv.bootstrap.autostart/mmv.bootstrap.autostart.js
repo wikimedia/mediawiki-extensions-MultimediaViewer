@@ -17,14 +17,16 @@
 
 // This file is used to do the global initialization that we want on the real pages,
 // but do not want in the tests.
-( function () {
-	var bootstrap;
 
-	bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
+
+( function () {
+	const bootstrap = new MultimediaViewerBootstrap();
 
 	$( function () {
 		bootstrap.setupEventHandlers();
 	} );
 
 	mw.mmv.bootstrap = bootstrap;
+	module.exports = bootstrap;
 }() );

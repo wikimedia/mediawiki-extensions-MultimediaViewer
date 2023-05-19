@@ -15,6 +15,9 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const Api = require( './mmv.provider.Api.js' );
+const Thumbnail = require( '../model/mmv.model.Thumbnail.js' );
+
 ( function () {
 
 	/**
@@ -23,7 +26,7 @@
 	 * See https://www.mediawiki.org/wiki/API:Properties#imageinfo_.2F_ii
 	 *
 	 * @class mw.mmv.provider.ThumbnailInfo
-	 * @extends mw.mmv.provider.Api
+	 * @extends Api
 	 * @constructor
 	 * @param {mw.Api} api
 	 * @param {Object} [options]
@@ -31,9 +34,9 @@
 	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
 	 */
 	function ThumbnailInfo( api, options ) {
-		mw.mmv.provider.Api.call( this, api, options );
+		Api.call( this, api, options );
 	}
-	OO.inheritClass( ThumbnailInfo, mw.mmv.provider.Api );
+	OO.inheritClass( ThumbnailInfo, Api );
 
 	/**
 	 * Runs an API GET request to get the thumbnail info for the specified size.
@@ -45,7 +48,7 @@
 	 * @param {mw.Title} file
 	 * @param {number} width thumbnail width in pixels
 	 * @param {number} height thumbnail height in pixels
-	 * @return {jQuery.Promise.<mw.mmv.model.Thumbnail>}
+	 * @return {jQuery.Promise.<Thumbnail>}
 	 */
 	ThumbnailInfo.prototype.get = function ( file, width, height ) {
 		var provider = this,
@@ -68,7 +71,7 @@
 					imageInfo = page.imageinfo[ 0 ];
 					if ( imageInfo.thumburl && imageInfo.thumbwidth && imageInfo.thumbheight ) {
 						return $.Deferred().resolve(
-							new mw.mmv.model.Thumbnail(
+							new Thumbnail(
 								imageInfo.thumburl,
 								imageInfo.thumbwidth,
 								imageInfo.thumbheight
@@ -86,5 +89,5 @@
 		} );
 	};
 
-	mw.mmv.provider.ThumbnailInfo = ThumbnailInfo;
+	module.exports = ThumbnailInfo;
 }() );

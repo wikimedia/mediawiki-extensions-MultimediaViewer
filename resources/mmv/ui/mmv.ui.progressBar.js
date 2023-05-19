@@ -15,22 +15,24 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const UiElement = require( './mmv.ui.js' );
+
 ( function () {
 	var PBP;
 
 	/**
 	 * A progress bar for the loading of the image.
 	 *
-	 * @class mw.mmv.ui.ProgressBar
-	 * @extends mw.mmv.ui.Element
+	 * @class ProgressBar
+	 * @extends UiElement
 	 * @constructor
 	 * @param {jQuery} $container
 	 */
 	function ProgressBar( $container ) {
-		mw.mmv.ui.Element.call( this, $container );
+		UiElement.call( this, $container );
 		this.init();
 	}
-	OO.inheritClass( ProgressBar, mw.mmv.ui.Element );
+	OO.inheritClass( ProgressBar, UiElement );
 	PBP = ProgressBar.prototype;
 
 	/**
@@ -93,5 +95,5 @@
 		this.$percent.stop().css( { width: percent + '%' } );
 	};
 
-	mw.mmv.ui.ProgressBar = ProgressBar;
+	module.exports = ProgressBar;
 }() );
