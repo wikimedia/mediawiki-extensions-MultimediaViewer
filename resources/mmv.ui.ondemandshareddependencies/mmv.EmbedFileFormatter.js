@@ -249,5 +249,5 @@
 		return info.imageInfo.descriptionUrl + mw.mmv.getMediaHash( info.imageInfo.title );
 	};
 
-	mw.mmv.EmbedFileFormatter = EmbedFileFormatter;
+	module.exports = EmbedFileFormatter;
 }() );
