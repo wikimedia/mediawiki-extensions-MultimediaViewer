@@ -49,3 +49,20 @@ mw.mmv.ui.download.Dialog = DownloadDialog;
 
 mw.mmv.ui.reuse = mw.mmv.ui.reuse || {};
 mw.mmv.ui.reuse.Dialog = ReuseDialog;
+
+module.exports = {
+	Canvas,
+	CanvasButtons,
+	Description,
+	Dialog,
+	DownloadDialog,
+	UiElement,
+	MetadataPanel,
+	MetadataPanelScroller,
+	Permission,
+	ProgressBar,
+	ReuseDialog,
+	StripeButtons,
+	TruncatableTextField,
+	OptionsDialog
+};

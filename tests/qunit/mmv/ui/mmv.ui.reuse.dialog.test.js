@@ -15,11 +15,13 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { ReuseDialog, Repo } = require( 'mmv' );
+
 ( function () {
 	function makeReuseDialog( sandbox ) {
 		var $fixture = $( '#qunit-fixture' ),
 			config = { getFromLocalStorage: sandbox.stub(), setInLocalStorage: sandbox.stub() };
-		return new mw.mmv.ui.reuse.Dialog( $fixture, $( '<div>' ).appendTo( $fixture ), config );
+		return new ReuseDialog( $fixture, $( '<div>' ).appendTo( $fixture ), config );
 	}
 
 	QUnit.module( 'mmv.ui.reuse.Dialog', QUnit.newMwEnvironment() );
@@ -27,7 +29,7 @@
 	QUnit.test( 'Sense test, object creation and UI construction', function ( assert ) {
 		var reuseDialog = makeReuseDialog( this.sandbox );
 
-		assert.true( reuseDialog instanceof mw.mmv.ui.reuse.Dialog, 'Reuse UI element is created.' );
+		assert.true( reuseDialog instanceof ReuseDialog, 'Reuse UI element is created.' );
 		assert.strictEqual( reuseDialog.$dialog.length, 1, 'Reuse dialog div created.' );
 	} );
 
@@ -182,7 +184,7 @@
 			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 			src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
 			url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
-			image = { // fake mw.mmv.model.Image
+			image = { // fake ImageModel
 				title: title,
 				url: src,
 				descriptionUrl: url,
@@ -206,14 +208,14 @@
 			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 			src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
 			url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
-			image = { // fake mw.mmv.model.Image
+			image = { // fake ImageModel
 				title: title,
 				url: src,
 				descriptionUrl: url,
 				width: 100,
 				height: 80
 			},
-			repoInfo = new mw.mmv.model.Repo( 'Wikipedia', '//wikipedia.org/favicon.ico', true );
+			repoInfo = new Repo( 'Wikipedia', '//wikipedia.org/favicon.ico', true );
 
 		reuseDialog.initTabs();
 
@@ -235,7 +237,7 @@
 			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
 			src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
 			url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
-			image = { // fake mw.mmv.model.Image
+			image = { // fake ImageModel
 				title: title,
 				url: src,
 				descriptionUrl: url,

@@ -26,7 +26,16 @@ mw.mmv.provider = {
 	Api,
 	FileRepoInfo,
 	GuessedThumbnailInfo,
-	Image: ImageProvider,
 	ImageInfo,
+	Image: ImageProvider,
+	ThumbnailInfo
+};
+
+module.exports = {
+	Api,
+	FileRepoInfo,
+	GuessedThumbnailInfo,
+	ImageInfo,
+	ImageProvider,
 	ThumbnailInfo
 };

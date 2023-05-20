@@ -1,3 +1,6 @@
+const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
+const { asyncMethod, waitForAsync, getMultimediaViewer } = require( './mmv.testhelpers.js' );
+
 ( function () {
 	QUnit.module( 'mmv.bootstrap', QUnit.newMwEnvironment( {
 		beforeEach: function () {
@@ -50,7 +53,7 @@
 	}
 
 	function createBootstrap( viewer ) {
-		var bootstrap = new mw.mmv.MultimediaViewerBootstrap();
+		var bootstrap = new MultimediaViewerBootstrap();
 
 		bootstrap.processThumbs( $( '#qunit-fixture' ) );
 
@@ -81,7 +84,7 @@
 
 		// Hijack loadViewer, which will return a promise that we'll have to
 		// wait for if we want to see these tests through
-		mw.mmv.testHelpers.asyncMethod( bootstrap, 'loadViewer' );
+		asyncMethod( bootstrap, 'loadViewer' );
 
 		// invalid hash, should not trigger MMV load
 		location.hash = 'Foo';
@@ -94,7 +97,7 @@
 			location.hash = hash;
 		} );
 
-		return mw.mmv.testHelpers.waitForAsync().then( function () {
+		return waitForAsync().then( function () {
 			assert.strictEqual( callCount, 1, 'Viewer should be loaded once' );
 			bootstrap.cleanupEventHandlers();
 			location.hash = '';
@@ -124,7 +127,7 @@
 
 	QUnit.test( 'Clicks are not captured once the loading fails', function ( assert ) {
 		var event, returnValue,
-			bootstrap = new mw.mmv.MultimediaViewerBootstrap(),
+			bootstrap = new MultimediaViewerBootstrap(),
 			clock = this.sandbox.useFakeTimers();
 
 		this.sandbox.stub( mw.loader, 'using' )
@@ -322,7 +325,7 @@
 		var bootstrap,
 			$div,
 			$link,
-			viewer = mw.mmv.testHelpers.getMultimediaViewer(),
+			viewer = getMultimediaViewer(),
 			fname = 'valid',
 			imgSrc = '/' + fname + '.jpg/300px-' + fname + '.jpg',
 			imgRegex = new RegExp( imgSrc + '$' ),

@@ -1,8 +1,12 @@
+const { LightboxInterface, MultimediaViewer, Thumbnail } = require( 'mmv' );
+const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
+const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
+
 ( function () {
 	QUnit.module( 'mmv', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'eachPreloadableLightboxIndex()', function ( assert ) {
-		var viewer = mw.mmv.testHelpers.getMultimediaViewer(),
+		var viewer = getMultimediaViewer(),
 			expectedIndices,
 			i;
 
@@ -31,8 +35,8 @@
 
 	QUnit.test( 'Hash handling', function ( assert ) {
 		var oldUnattach,
-			viewer = mw.mmv.testHelpers.getMultimediaViewer(),
-			ui = new mw.mmv.LightboxInterface(),
+			viewer = getMultimediaViewer(),
+			ui = new LightboxInterface(),
 			imageSrc = 'Foo bar.jpg',
 			image = { filePageTitle: new mw.Title( 'File:' + imageSrc ) };
 
@@ -106,7 +110,7 @@
 
 	QUnit.test( 'Progress', function ( assert ) {
 		var imageDeferred = $.Deferred(),
-			viewer = mw.mmv.testHelpers.getMultimediaViewer(),
+			viewer = getMultimediaViewer(),
 			fakeImage = {
 				filePageTitle: new mw.Title( 'File:Stuff.jpg' ),
 				extraStatsDeferred: $.Deferred().reject()
@@ -183,7 +187,7 @@
 				filePageTitle: new mw.Title( 'File:Second.jpg' ),
 				extraStatsDeferred: $.Deferred().reject()
 			},
-			viewer = mw.mmv.testHelpers.getMultimediaViewer(),
+			viewer = getMultimediaViewer(),
 			// custom clock ensures progress handlers execute in correct sequence
 			clock = this.sandbox.useFakeTimers();
 
@@ -291,7 +295,7 @@
 	} );
 
 	QUnit.test( 'resetBlurredThumbnailStates', function ( assert ) {
-		var viewer = mw.mmv.testHelpers.getMultimediaViewer();
+		var viewer = getMultimediaViewer();
 
 		// animation would keep running, conflict with other tests
 		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
@@ -309,7 +313,7 @@
 	} );
 
 	QUnit.test( 'Placeholder first, then real thumbnail', function ( assert ) {
-		var viewer = mw.mmv.testHelpers.getMultimediaViewer();
+		var viewer = getMultimediaViewer();
 
 		viewer.setImage = function () {};
 		viewer.ui = { canvas: {
@@ -331,7 +335,7 @@
 	} );
 
 	QUnit.test( 'Placeholder first, then real thumbnail - missing size', function ( assert ) {
-		var viewer = mw.mmv.testHelpers.getMultimediaViewer();
+		var viewer = getMultimediaViewer();
 
 		viewer.currentIndex = 1;
 		viewer.setImage = function () {};
@@ -354,7 +358,7 @@
 	} );
 
 	QUnit.test( 'Real thumbnail first, then placeholder', function ( assert ) {
-		var viewer = mw.mmv.testHelpers.getMultimediaViewer();
+		var viewer = getMultimediaViewer();
 
 		viewer.setImage = function () {};
 		viewer.ui = {
@@ -376,7 +380,7 @@
 	} );
 
 	QUnit.test( 'displayRealThumbnail', function ( assert ) {
-		var viewer = mw.mmv.testHelpers.getMultimediaViewer();
+		var viewer = getMultimediaViewer();
 
 		viewer.setImage = function () {};
 		viewer.ui = { canvas: {
@@ -395,7 +399,7 @@
 	} );
 
 	QUnit.test( 'New image loaded while another one is loading', function ( assert ) {
-		var viewer = mw.mmv.testHelpers.getMultimediaViewer(),
+		var viewer = getMultimediaViewer(),
 			firstImageDeferred = $.Deferred(),
 			secondImageDeferred = $.Deferred(),
 			firstLigthboxInfoDeferred = $.Deferred(),
@@ -477,7 +481,7 @@
 
 	QUnit.test( 'Events are not trapped after the viewer is closed', function ( assert ) {
 		var i, j, k, eventParameters,
-			viewer = mw.mmv.testHelpers.getMultimediaViewer(),
+			viewer = getMultimediaViewer(),
 			$document = $( document ),
 			$qf = $( '#qunit-fixture' ),
 			eventTypes = [ 'keydown', 'keyup', 'keypress', 'click', 'mousedown', 'mouseup' ],
@@ -506,7 +510,7 @@
 		viewer.loadImage(
 			{
 				filePageTitle: new mw.Title( 'File:Stuff.jpg' ),
-				thumbnail: new mw.mmv.model.Thumbnail( 'foo', 10, 10 ),
+				thumbnail: new Thumbnail( 'foo', 10, 10 ),
 				extraStatsDeferred: $.Deferred().reject()
 			},
 			new Image()
@@ -560,7 +564,7 @@
 		var title, expectedWidth,
 			reuestedWidth = 1000,
 			originalWidth = 50,
-			viewer = mw.mmv.testHelpers.getMultimediaViewer();
+			viewer = getMultimediaViewer();
 
 		viewer.thumbnailInfoProvider.get = function ( fileTitle, width ) {
 			assert.strictEqual( width, expectedWidth );
@@ -584,7 +588,7 @@
 			imageStub,
 			promise,
 			useThumbnailGuessing,
-			viewer = new mw.mmv.MultimediaViewer( { imageQueryParameter: function () {}, language: function () {}, recordVirtualViewBeaconURI: function () {}, extensions: function () { return { jpg: 'default' }; }, useThumbnailGuessing: function () { return useThumbnailGuessing; } } ),
+			viewer = new MultimediaViewer( { imageQueryParameter: function () {}, language: function () {}, recordVirtualViewBeaconURI: function () {}, extensions: function () { return { jpg: 'default' }; }, useThumbnailGuessing: function () { return useThumbnailGuessing; } } ),
 			sandbox = this.sandbox,
 			file = new mw.Title( 'File:Copyleft.svg' ),
 			sampleURL = 'http://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Copyleft.svg/300px-Copyleft.svg.png',
@@ -691,8 +695,8 @@
 	} );
 
 	QUnit.test( 'document.title', function ( assert ) {
-		var viewer = mw.mmv.testHelpers.getMultimediaViewer(),
-			bootstrap = new mw.mmv.MultimediaViewerBootstrap(),
+		var viewer = getMultimediaViewer(),
+			bootstrap = new MultimediaViewerBootstrap(),
 			title = new mw.Title( 'File:This_should_show_up_in_document_title.png' ),
 			oldDocumentTitle = document.title;
 

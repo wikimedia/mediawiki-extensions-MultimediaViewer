@@ -51,7 +51,7 @@ const License = require( './mmv.model.License.js' );
 	 * @param {number} longitude
 	 * @param {string[]} restrictions
 	 */
-	function Image(
+	function ImageModel(
 		title,
 		name,
 		size,
@@ -163,7 +163,7 @@ const License = require( './mmv.model.License.js' );
 		 */
 		this.thumbUrls = {};
 	}
-	IP = Image.prototype;
+	IP = ImageModel.prototype;
 
 	/**
 	 * Constructs a new Image object out of an object containing
@@ -175,7 +175,7 @@ const License = require( './mmv.model.License.js' );
 	 * @param {Object} imageInfo
 	 * @return {Image}
 	 */
-	Image.newFromImageInfo = function ( title, imageInfo ) {
+	ImageModel.newFromImageInfo = function ( title, imageInfo ) {
 		var name, uploadDateTime, anonymizedUploadDateTime, creationDateTime, imageData,
 			description, source, author, authorCount, license, permission, attribution,
 			deletionReason, latitude, longitude, restrictions,
@@ -214,7 +214,7 @@ const License = require( './mmv.model.License.js' );
 			name = title.getNameText();
 		}
 
-		imageData = new Image(
+		imageData = new ImageModel(
 			title,
 			name,
 			innerInfo.size,
@@ -260,7 +260,7 @@ const License = require( './mmv.model.License.js' );
 	 * @param {Object} extmeta the extmeta array of the imageinfo data
 	 * @return {License|undefined}
 	 */
-	Image.newLicenseFromImageInfo = function ( extmeta ) {
+	ImageModel.newLicenseFromImageInfo = function ( extmeta ) {
 		var license;
 
 		if ( extmeta.LicenseShortName ) {
@@ -284,7 +284,7 @@ const License = require( './mmv.model.License.js' );
 	 * @param {string} type one of 'plaintext', 'string', 'float', 'boolean', 'list'
 	 * @return {string|number|boolean|Array} value or undefined if it is missing
 	 */
-	Image.parseExtmeta = function ( data, type ) {
+	ImageModel.parseExtmeta = function ( data, type ) {
 		var value = data && data.value;
 		if ( value === null || value === undefined ) {
 			return undefined;
@@ -342,5 +342,5 @@ const License = require( './mmv.model.License.js' );
 			this.longitude !== undefined && this.longitude !== null;
 	};
 
-	module.exports = Image;
+	module.exports = ImageModel;
 }() );

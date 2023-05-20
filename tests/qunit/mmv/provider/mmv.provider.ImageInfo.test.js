@@ -15,14 +15,16 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { ImageInfo } = require( 'mmv' );
+
 ( function () {
 	QUnit.module( 'mmv.provider.ImageInfo', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'ImageInfo constructor sense check', function ( assert ) {
 		var api = { get: function () {} },
-			imageInfoProvider = new mw.mmv.provider.ImageInfo( api );
+			imageInfoProvider = new ImageInfo( api );
 
-		assert.true( imageInfoProvider instanceof mw.mmv.provider.ImageInfo );
+		assert.true( imageInfoProvider instanceof ImageInfo );
 	} );
 
 	QUnit.test( 'ImageInfo get test', function ( assert ) {
@@ -139,7 +141,7 @@
 				} );
 			} },
 			file = new mw.Title( 'File:Stuff.jpg' ),
-			imageInfoProvider = new mw.mmv.provider.ImageInfo( api );
+			imageInfoProvider = new ImageInfo( api );
 
 		return imageInfoProvider.get( file ).then( function ( image ) {
 			assert.strictEqual( image.title.getPrefixedDb(), 'File:Stuff.jpg', 'title is set correctly' );
@@ -184,7 +186,7 @@
 			} },
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			done = assert.async(),
-			imageInfoProvider = new mw.mmv.provider.ImageInfo( api );
+			imageInfoProvider = new ImageInfo( api );
 
 		imageInfoProvider.get( file ).fail( function () {
 			assert.true( true, 'promise rejected when no data is returned' );
@@ -206,7 +208,7 @@
 			} },
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			done = assert.async(),
-			imageInfoProvider = new mw.mmv.provider.ImageInfo( api );
+			imageInfoProvider = new ImageInfo( api );
 
 		imageInfoProvider.get( file ).fail( function () {
 			assert.true( true, 'promise rejected when imageinfo is missing' );
@@ -230,7 +232,7 @@
 			} },
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			done = assert.async(),
-			imageInfoProvider = new mw.mmv.provider.ImageInfo( api );
+			imageInfoProvider = new ImageInfo( api );
 
 		imageInfoProvider.get( file ).fail( function ( errorMessage ) {
 			assert.strictEqual( errorMessage, 'file does not exist: File:Stuff.jpg',

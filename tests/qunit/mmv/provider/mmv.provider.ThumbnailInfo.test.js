@@ -15,14 +15,16 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { ThumbnailInfo } = require( 'mmv' );
+
 ( function () {
 	QUnit.module( 'mmv.provider.ThumbnailInfo', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'ThumbnailInfo constructor sense check', function ( assert ) {
 		var api = { get: function () {} },
-			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
+			thumbnailInfoProvider = new ThumbnailInfo( api );
 
-		assert.true( thumbnailInfoProvider instanceof mw.mmv.provider.ThumbnailInfo );
+		assert.true( thumbnailInfoProvider instanceof ThumbnailInfo );
 	} );
 
 	QUnit.test( 'ThumbnailInfo get test', function ( assert ) {
@@ -52,7 +54,7 @@
 				} );
 			} },
 			file = new mw.Title( 'File:Stuff.jpg' ),
-			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
+			thumbnailInfoProvider = new ThumbnailInfo( api );
 
 		return thumbnailInfoProvider.get( file, 100 ).then( function ( thumbnail ) {
 			assert.strictEqual( thumbnail.url,
@@ -83,7 +85,7 @@
 			} },
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			done = assert.async(),
-			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
+			thumbnailInfoProvider = new ThumbnailInfo( api );
 
 		thumbnailInfoProvider.get( file, 100 ).fail( function () {
 			assert.true( true, 'promise rejected when no data is returned' );
@@ -105,7 +107,7 @@
 			} },
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			done = assert.async(),
-			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
+			thumbnailInfoProvider = new ThumbnailInfo( api );
 
 		thumbnailInfoProvider.get( file, 100 ).fail( function () {
 			assert.true( true, 'promise rejected when imageinfo is missing' );
@@ -129,7 +131,7 @@
 			} },
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			done = assert.async(),
-			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
+			thumbnailInfoProvider = new ThumbnailInfo( api );
 
 		thumbnailInfoProvider.get( file ).fail( function ( errorMessage ) {
 			assert.strictEqual( errorMessage, 'file does not exist: File:Stuff.jpg',
@@ -155,7 +157,7 @@
 			} },
 			file = new mw.Title( 'File:Stuff.jpg' ),
 			done = assert.async(),
-			thumbnailInfoProvider = new mw.mmv.provider.ThumbnailInfo( api );
+			thumbnailInfoProvider = new ThumbnailInfo( api );
 
 		thumbnailInfoProvider.get( file, 100 ).fail( function () {
 			assert.true( true, 'promise rejected when thumbnail info is missing' );

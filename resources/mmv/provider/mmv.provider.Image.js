@@ -24,7 +24,7 @@
 	 * @constructor
 	 * @param {string} imageQueryParameter When defined, is a query parameter to add to every image request
 	 */
-	function Image( imageQueryParameter ) {
+	function ImageProvider( imageQueryParameter ) {
 		this.imageQueryParameter = imageQueryParameter;
 
 		/**
@@ -45,7 +45,7 @@
 	 *  When loaded via AJAX, it has progress events, which return an array with the content loaded
 	 *  so far and with the progress as a floating-point number between 0 and 100.
 	 */
-	Image.prototype.get = function ( url ) {
+	ImageProvider.prototype.get = function ( url ) {
 		var provider = this,
 			cacheKey = url,
 			extraParam = {},
@@ -78,7 +78,7 @@
 	 * @param {boolean} [cors] if true, use CORS for preloading
 	 * @return {jQuery.Promise.<HTMLImageElement>} a promise which resolves to the image object
 	 */
-	Image.prototype.rawGet = function ( url, cors ) {
+	ImageProvider.prototype.rawGet = function ( url, cors ) {
 		var img = new window.Image(),
 			deferred = $.Deferred();
 
@@ -112,10 +112,10 @@
 	 *
 	 * @return {boolean}
 	 */
-	Image.prototype.imagePreloadingSupported = function () {
+	ImageProvider.prototype.imagePreloadingSupported = function () {
 		// This checks if the browser supports CORS requests in XHRs
 		return window.XMLHttpRequest !== undefined && 'withCredentials' in new XMLHttpRequest();
 	};
 
-	module.exports = Image;
+	module.exports = ImageProvider;
 }() );

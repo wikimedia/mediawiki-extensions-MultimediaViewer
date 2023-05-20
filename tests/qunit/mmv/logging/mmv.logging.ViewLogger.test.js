@@ -1,3 +1,5 @@
+const { ViewLogger } = require( 'mmv' );
+
 ( function () {
 	QUnit.module( 'mmv.logging.ViewLogger', QUnit.newMwEnvironment( {
 		beforeEach: function () {
@@ -19,7 +21,7 @@
 
 	QUnit.test( 'focus and blur', function ( assert ) {
 		var $fakeWindow = $( '<div>' ),
-			viewLogger = new mw.mmv.logging.ViewLogger( { recordVirtualViewBeaconURI: function () {} }, $fakeWindow, { log: function () {} } );
+			viewLogger = new ViewLogger( { recordVirtualViewBeaconURI: function () {} }, $fakeWindow, { log: function () {} } );
 
 		this.clock.tick( 1 ); // This is just so that the timer ticks up in the fake timer environment
 
@@ -43,7 +45,7 @@
 	} );
 
 	QUnit.test( 'stopViewDuration before startViewDuration', function ( assert ) {
-		var viewLogger = new mw.mmv.logging.ViewLogger( { recordVirtualViewBeaconURI: function () {} }, {}, { log: function () {} } );
+		var viewLogger = new ViewLogger( { recordVirtualViewBeaconURI: function () {} }, {}, { log: function () {} } );
 
 		this.clock.tick( 1 ); // This is just so that the timer ticks up in the fake timer environment
 

@@ -34,3 +34,15 @@ mw.mmv.model = {
 	Thumbnail,
 	ThumbnailWidth
 };
+
+module.exports = {
+	ImageModel,
+	IwTitle,
+	License,
+	Repo,
+	ForeignApiRepo,
+	ForeignDbRepo,
+	TaskQueue,
+	Thumbnail,
+	ThumbnailWidth
+};

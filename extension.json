@@ -364,7 +364,8 @@
 	"QUnitTestModule": {
 		"localBasePath": "",
 		"remoteExtPath": "MultimediaViewer",
-		"scripts": [
+		"packageFiles": [
+			"tests/qunit/mmv/index.js",
 			"tests/qunit/mmv/mmv.bootstrap.test.js",
 			"tests/qunit/mmv/mmv.test.js",
 			"tests/qunit/mmv/mmv.lightboxinterface.test.js",

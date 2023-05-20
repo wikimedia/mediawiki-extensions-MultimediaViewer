@@ -15,23 +15,25 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { Api } = require( 'mmv' );
+
 ( function () {
 	QUnit.module( 'mmv.provider.Api', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Api constructor sense check', function ( assert ) {
 		var api = { get: function () {} },
 			options = {},
-			apiProvider = new mw.mmv.provider.Api( api, options ),
-			ApiProviderWithNoOptions = new mw.mmv.provider.Api( api );
+			apiProvider = new Api( api, options ),
+			ApiProviderWithNoOptions = new Api( api );
 
-		assert.true( apiProvider instanceof mw.mmv.provider.Api );
-		assert.true( ApiProviderWithNoOptions instanceof mw.mmv.provider.Api );
+		assert.true( apiProvider instanceof Api );
+		assert.true( ApiProviderWithNoOptions instanceof Api );
 	} );
 
 	QUnit.test( 'apiGetWithMaxAge()', function ( assert ) {
 		var api = {},
 			options = {},
-			apiProvider = new mw.mmv.provider.Api( api, options );
+			apiProvider = new Api( api, options );
 
 		api.get = this.sandbox.stub();
 		apiProvider.apiGetWithMaxAge( {} );
@@ -39,7 +41,7 @@
 		assert.false( 'smaxage' in api.get.getCall( 0 ).args[ 0 ], 'smaxage is not set by default' );
 
 		options = { maxage: 123 };
-		apiProvider = new mw.mmv.provider.Api( api, options );
+		apiProvider = new Api( api, options );
 
 		api.get = this.sandbox.stub();
 		apiProvider.apiGetWithMaxAge( {} );
@@ -59,7 +61,7 @@
 
 	QUnit.test( 'getCachedPromise success', function ( assert ) {
 		var api = { get: function () {} },
-			apiProvider = new mw.mmv.provider.Api( api ),
+			apiProvider = new Api( api ),
 			oldMwLog = mw.log,
 			promiseSource,
 			promiseShouldBeCached = false;
@@ -93,7 +95,7 @@
 
 	QUnit.test( 'getCachedPromise failure', function ( assert ) {
 		var api = { get: function () {} },
-			apiProvider = new mw.mmv.provider.Api( api ),
+			apiProvider = new Api( api ),
 			oldMwLog = mw.log,
 			promiseSource,
 			promiseShouldBeCached = false;
@@ -127,7 +129,7 @@
 
 	QUnit.test( 'getErrorMessage', function ( assert ) {
 		var api = { get: function () {} },
-			apiProvider = new mw.mmv.provider.Api( api ),
+			apiProvider = new Api( api ),
 			errorMessage;
 
 		errorMessage = apiProvider.getErrorMessage( {
@@ -146,7 +148,7 @@
 
 	QUnit.test( 'getQueryField', function ( assert ) {
 		var api = { get: function () {} },
-			apiProvider = new mw.mmv.provider.Api( api ),
+			apiProvider = new Api( api ),
 			done = assert.async( 3 ),
 			data;
 
@@ -179,7 +181,7 @@
 
 	QUnit.test( 'getQueryPage', function ( assert ) {
 		var api = { get: function () {} },
-			apiProvider = new mw.mmv.provider.Api( api ),
+			apiProvider = new Api( api ),
 			done = assert.async( 5 ),
 			data;
 

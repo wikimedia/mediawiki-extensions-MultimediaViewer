@@ -16,7 +16,7 @@
  */
 
 const Api = require( './mmv.provider.Api.js' );
-const UiImage = require( '../model/mmv.model.Image.js' );
+const ImageModel = require( '../model/mmv.model.Image.js' );
 
 ( function () {
 
@@ -107,7 +107,7 @@ const UiImage = require( '../model/mmv.model.Image.js' );
 				return provider.getQueryPage( data );
 			} ).then( function ( page ) {
 				if ( page.imageinfo && page.imageinfo.length ) {
-					return UiImage.newFromImageInfo( file, page );
+					return ImageModel.newFromImageInfo( file, page );
 				} else if ( page.missing === true && page.imagerepository === '' ) {
 					return $.Deferred().reject( 'file does not exist: ' + file.getPrefixedDb() );
 				} else {

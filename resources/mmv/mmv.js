@@ -17,19 +17,44 @@
 
 const { getMediaHash } = require( 'mmv.head' );
 const ViewLogger = require( './logging/mmv.logging.ViewLogger.js' );
-require( './provider/mmv.provider.js' );
-require( './model/mmv.model.js' );
-require( './ui/index.js' );
+const {
+	Api,
+	FileRepoInfo,
+	GuessedThumbnailInfo,
+	ImageInfo,
+	ImageProvider,
+	ThumbnailInfo
+} = require( './provider/mmv.provider.js' );
+const {
+	ImageModel,
+	IwTitle,
+	License,
+	Repo,
+	ForeignApiRepo,
+	ForeignDbRepo,
+	TaskQueue,
+	Thumbnail,
+	ThumbnailWidth
+} = require( './model/mmv.model.js' );
+const {
+	Canvas,
+	CanvasButtons,
+	Description,
+	Dialog,
+	DownloadDialog,
+	UiElement,
+	MetadataPanel,
+	MetadataPanelScroller,
+	Permission,
+	ProgressBar,
+	ReuseDialog,
+	StripeButtons,
+	TruncatableTextField,
+	OptionsDialog
+} = require( './ui/index.js' );
 const LightboxImage = require( './mmv.lightboximage.js' );
 const LightboxInterface = require( './mmv.lightboxinterface.js' );
-const TaskQueue = require( './model/mmv.model.TaskQueue.js' );
 const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
-const UiElement = require( './ui/mmv.ui.js' );
-const ImageProvider = require( './provider/mmv.provider.Image.js' );
-const ImageInfo = require( './provider/mmv.provider.ImageInfo.js' );
-const FileRepoInfo = require( './provider/mmv.provider.FileRepoInfo.js' );
-const ThumbnailInfo = require( './provider/mmv.provider.ThumbnailInfo.js' );
-const GuessedThumbnailInfo = require( './provider/mmv.provider.GuessedThumbnailInfo.js' );
 
 mw.mmv.LightboxImage = LightboxImage;
 mw.mmv.LightboxInterface = LightboxInterface;
@@ -1024,5 +1049,40 @@ mw.mmv.ThumbnailWidthCalculator = ThumbnailWidthCalculator;
 	};
 
 	mw.mmv.MultimediaViewer = MultimediaViewer;
-	module.exports = { MultimediaViewer, UiElement };
+	module.exports = {
+		Api,
+		Canvas,
+		CanvasButtons,
+		Description,
+		Dialog,
+		DownloadDialog,
+		FileRepoInfo,
+		ForeignApiRepo,
+		ForeignDbRepo,
+		GuessedThumbnailInfo,
+		ImageInfo,
+		ImageModel,
+		ImageProvider,
+		IwTitle,
+		License,
+		LightboxImage,
+		LightboxInterface,
+		MetadataPanel,
+		MetadataPanelScroller,
+		MultimediaViewer,
+		OptionsDialog,
+		Permission,
+		ProgressBar,
+		Repo,
+		ReuseDialog,
+		StripeButtons,
+		TaskQueue,
+		Thumbnail,
+		ThumbnailInfo,
+		ThumbnailWidth,
+		ThumbnailWidthCalculator,
+		TruncatableTextField,
+		UiElement,
+		ViewLogger
+	};
 }() );
