@@ -18,8 +18,6 @@
 const { getMediaHash, ROUTE_REGEXP, LEGACY_ROUTE_REGEXP } = require( 'mmv.head' );
 const Config = require( './mmv.Config.js' );
 const HtmlUtils = require( './mmv.HtmlUtils.js' );
-mw.mmv.Config = Config;
-mw.mmv.HtmlUtils = HtmlUtils;
 
 ( function () {
 	var MMVB;
@@ -745,6 +743,5 @@ mw.mmv.HtmlUtils = HtmlUtils;
 		return this.thumbsReadyDeferred.promise();
 	};
 
-	mw.mmv.MultimediaViewerBootstrap = MultimediaViewerBootstrap;
 	module.exports = { MultimediaViewerBootstrap, Config, HtmlUtils };
 }() );

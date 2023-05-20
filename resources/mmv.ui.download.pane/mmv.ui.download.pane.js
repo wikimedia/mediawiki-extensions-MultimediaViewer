@@ -407,7 +407,5 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 		this.image = null;
 	};
 
-	mw.mmv.ui.download = mw.mmv.ui.download || {};
-	mw.mmv.ui.download.Pane = Pane;
 	module.exports = Pane;
 }() );

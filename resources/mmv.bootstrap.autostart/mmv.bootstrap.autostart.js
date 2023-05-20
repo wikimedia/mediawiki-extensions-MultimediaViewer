@@ -27,6 +27,5 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		bootstrap.setupEventHandlers();
 	} );
 
-	mw.mmv.bootstrap = bootstrap;
 	module.exports = bootstrap;
 }() );

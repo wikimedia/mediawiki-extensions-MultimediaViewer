@@ -30,26 +30,6 @@ const StripeButtons = require( './mmv.ui.stripeButtons.js' );
 const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 const OptionsDialog = require( './mmv.ui.viewingOptions.js' );
 
-mw.mmv.ui = mw.mmv.ui || {};
-mw.mmv.ui.Canvas = Canvas;
-mw.mmv.ui.CanvasButtons = CanvasButtons;
-mw.mmv.ui.Description = Description;
-mw.mmv.ui.Dialog = Dialog;
-mw.mmv.ui.Element = UiElement;
-mw.mmv.ui.MetadataPanel = MetadataPanel;
-mw.mmv.ui.MetadataPanelScroller = MetadataPanelScroller;
-mw.mmv.ui.Permission = Permission;
-mw.mmv.ui.ProgressBar = ProgressBar;
-mw.mmv.ui.StripeButtons = StripeButtons;
-mw.mmv.ui.TruncatableTextField = TruncatableTextField;
-mw.mmv.ui.OptionsDialog = OptionsDialog;
-
-mw.mmv.ui.download = mw.mmv.ui.download || {};
-mw.mmv.ui.download.Dialog = DownloadDialog;
-
-mw.mmv.ui.reuse = mw.mmv.ui.reuse || {};
-mw.mmv.ui.reuse.Dialog = ReuseDialog;
-
 module.exports = {
 	Canvas,
 	CanvasButtons,

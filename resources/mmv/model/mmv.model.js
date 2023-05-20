@@ -23,18 +23,6 @@ const TaskQueue = require( './mmv.model.TaskQueue.js' );
 const Thumbnail = require( './mmv.model.Thumbnail.js' );
 const ThumbnailWidth = require( './mmv.model.ThumbnailWidth.js' );
 
-mw.mmv.model = {
-	Image: ImageModel,
-	IwTitle,
-	License,
-	Repo,
-	ForeignApiRepo,
-	ForeignDbRepo,
-	TaskQueue,
-	Thumbnail,
-	ThumbnailWidth
-};
-
 module.exports = {
 	ImageModel,
 	IwTitle,

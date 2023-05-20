@@ -22,15 +22,6 @@ const ImageProvider = require( './mmv.provider.Image.js' );
 const ImageInfo = require( './mmv.provider.ImageInfo.js' );
 const ThumbnailInfo = require( './mmv.provider.ThumbnailInfo.js' );
 
-mw.mmv.provider = {
-	Api,
-	FileRepoInfo,
-	GuessedThumbnailInfo,
-	ImageInfo,
-	Image: ImageProvider,
-	ThumbnailInfo
-};
-
 module.exports = {
 	Api,
 	FileRepoInfo,

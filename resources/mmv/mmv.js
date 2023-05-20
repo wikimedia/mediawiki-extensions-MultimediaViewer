@@ -56,10 +56,6 @@ const LightboxImage = require( './mmv.lightboximage.js' );
 const LightboxInterface = require( './mmv.lightboxinterface.js' );
 const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 
-mw.mmv.LightboxImage = LightboxImage;
-mw.mmv.LightboxInterface = LightboxInterface;
-mw.mmv.ThumbnailWidthCalculator = ThumbnailWidthCalculator;
-
 ( function () {
 	var router = require( 'mediawiki.router' );
 	var comingFromHashChange = false;
@@ -1048,7 +1044,6 @@ mw.mmv.ThumbnailWidthCalculator = ThumbnailWidthCalculator;
 		return deferred;
 	};
 
-	mw.mmv.MultimediaViewer = MultimediaViewer;
 	module.exports = {
 		Api,
 		Canvas,

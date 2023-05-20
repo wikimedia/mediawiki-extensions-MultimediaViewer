@@ -177,7 +177,5 @@
 		this.wasLastViewLogged = wasEventLogged;
 	};
 
-	mw.mmv.logging = mw.mmv.logging || {};
-	mw.mmv.logging.ViewLogger = ViewLogger;
 	module.exports = ViewLogger;
 }() );
