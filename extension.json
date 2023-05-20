@@ -124,6 +124,7 @@
 				"multimediaviewer-enable-submit-button",
 				"multimediaviewer-enable-confirmation-header",
 				"multimediaviewer-enable-confirmation-text",
+				"multimediaviewer-file-not-found-error",
 				"multimediaviewer-thumbnail-error",
 				"multimediaviewer-thumbnail-error-description",
 				"multimediaviewer-thumbnail-error-retry",

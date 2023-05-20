@@ -414,20 +414,33 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 * @param {mw.Title} title
 		 */
 		loadImageByTitle( title ) {
-			let i;
-			let thumb;
-
 			if ( !this.thumbs || !this.thumbs.length ) {
 				return;
 			}
 
-			for ( i = 0; i < this.thumbs.length; i++ ) {
-				thumb = this.thumbs[ i ];
-				if ( thumb.title.getPrefixedText() === title.getPrefixedText() ) {
-					this.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ] );
-					return;
-				}
+			const thumb = this.thumbs.find( ( t ) => t.title.getPrefixedText() === title.getPrefixedText() );
+
+			if ( !thumb ) {
+				this.onTitleNotFound( title );
+				return;
 			}
+
+			this.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ] );
+		}
+
+		/**
+		 * When the image to load is not present on the current page,
+		 * a notification is shown to the user and the MMV is closed.
+		 *
+		 * @param {mw.Title} title
+		 * @private
+		 */
+		onTitleNotFound( title ) {
+			this.close();
+			const text = mw.message( 'multimediaviewer-file-not-found-error', title.getMainText() ).text();
+			const $link = $( '<a>' ).text( mw.message( 'multimediaviewer-file-page' ).text() ).prop( 'href', title.getUrl() );
+			const $message = $( '<div>' ).text( text ).append( $( '<br>' ) ).append( $link );
+			mw.notify( $message );
 		}
 
 		/**
