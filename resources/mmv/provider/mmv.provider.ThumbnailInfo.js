@@ -25,7 +25,7 @@ const Thumbnail = require( '../model/mmv.model.Thumbnail.js' );
 	 *
 	 * See https://www.mediawiki.org/wiki/API:Properties#imageinfo_.2F_ii
 	 *
-	 * @class mw.mmv.provider.ThumbnailInfo
+	 * @class ThumbnailInfo
 	 * @extends Api
 	 * @constructor
 	 * @param {mw.Api} api

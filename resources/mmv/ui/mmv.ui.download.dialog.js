@@ -28,7 +28,7 @@ const Dialog = require( './mmv.ui.dialog.js' );
 	 * @extends Dialog
 	 * @param {jQuery} $container the element to which the dialog will be appended
 	 * @param {jQuery} $openButton the button which opens the dialog. Only used for positioning.
-	 * @param {mw.mmv.Config} config
+	 * @param {Config} config
 	 */
 	function DownloadDialog( $container, $openButton, config ) {
 		Dialog.call( this, $container, $openButton, config );
@@ -76,8 +76,8 @@ const Dialog = require( './mmv.ui.dialog.js' );
 	/**
 	 * Sets data needed by contained tabs and makes dialog launch link visible.
 	 *
-	 * @param {mw.mmv.model.Image} image
-	 * @param {mw.mmv.model.Repo} repo
+	 * @param {Image} image
+	 * @param {Repo} repo
 	 */
 	DP.set = function ( image, repo ) {
 		if ( this.download ) {

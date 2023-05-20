@@ -15,6 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { getMediaHash } = require( 'mmv.head' );
 const { HtmlUtils } = require( 'mmv.bootstrap' );
 
 ( function () {
@@ -23,7 +24,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 	/**
 	 * Converts data in various formats needed by the Embed sub-dialog
 	 *
-	 * @class mw.mmv.EmbedFileFormatter
+	 * @class EmbedFileFormatter
 	 * @constructor
 	 */
 	function EmbedFileFormatter() {
@@ -36,7 +37,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 	 * Returns the caption of the image (possibly a fallback generated from image metadata).
 	 *
 	 * @param {Object} info
-	 * @param {mw.mmv.model.Image} info.imageInfo
+	 * @param {Image} info.imageInfo
 	 * @param {string} [info.caption]
 	 * @return {string}
 	 */
@@ -71,7 +72,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 	 * Helper function to generate thumbnail wikicode
 	 *
 	 * @param {Object} info
-	 * @param {mw.mmv.model.Image} info.imageInfo
+	 * @param {Image} info.imageInfo
 	 * @param {number} [width]
 	 * @return {string}
 	 */
@@ -118,7 +119,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 	 * Generates the plain text embed code for the image credit line.
 	 *
 	 * @param {Object} info
-	 * @param {mw.mmv.model.Image} info.imageInfo
+	 * @param {Image} info.imageInfo
 	 * @return {string}
 	 */
 	EFFP.getCreditText = function ( info ) {
@@ -159,7 +160,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 	 * Generates the HTML embed code for the image credit line.
 	 *
 	 * @param {Object} info
-	 * @param {mw.mmv.model.Image} info.imageInfo
+	 * @param {Image} info.imageInfo
 	 * @return {string}
 	 */
 	EFFP.getCreditHtml = function ( info ) {
@@ -196,7 +197,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 	 * Returns HTML code for a link to the site of the image.
 	 *
 	 * @param {Object} info
-	 * @param {mw.mmv.model.Image} info.imageInfo
+	 * @param {Image} info.imageInfo
 	 * @return {string}
 	 */
 	EFFP.getSiteLink = function ( info ) {
@@ -216,7 +217,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 	 * Generates the HTML embed code for the image.
 	 *
 	 * @param {Object} info
-	 * @param {mw.mmv.model.Image} info.imageInfo
+	 * @param {Image} info.imageInfo
 	 * @param {string} imgUrl URL to the file itself.
 	 * @param {number} [width] Width to put into the image element.
 	 * @param {number} [height] Height to put into the image element.
@@ -244,11 +245,11 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 	 * Generate a link which we will be using for sharing stuff.
 	 *
 	 * @param {Object} info
-	 * @param {mw.mmv.model.Image} info.imageInfo
+	 * @param {Image} info.imageInfo
 	 * @return {string} URL
 	 */
 	EFFP.getLinkUrl = function ( info ) {
-		return info.imageInfo.descriptionUrl + mw.mmv.getMediaHash( info.imageInfo.title );
+		return info.imageInfo.descriptionUrl + getMediaHash( info.imageInfo.title );
 	};
 
 	module.exports = EmbedFileFormatter;

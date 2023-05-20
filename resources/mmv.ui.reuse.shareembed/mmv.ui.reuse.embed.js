@@ -330,7 +330,7 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 	 *
 	 * Assumes that the set() method has already been called to update this.embedFileInfo
 	 *
-	 * @param {mw.mmv.model.Thumbnail} thumbnail (can be just an empty object)
+	 * @param {Thumbnail} thumbnail (can be just an empty object)
 	 * @param {number} width New width to set
 	 * @param {number} height New height to set
 	 */
@@ -405,8 +405,8 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 	/**
 	 * Sets the data on the element.
 	 *
-	 * @param {mw.mmv.model.Image} image
-	 * @param {mw.mmv.model.Repo} repo
+	 * @param {Image} image
+	 * @param {Repo} repo
 	 * @param {string} [caption]
 	 * @param {string} [alt]
 	 */

@@ -28,7 +28,7 @@ const UiElement = require( './mmv.ui.js' );
 	 * @extends UiElement
 	 * @param {jQuery} $container the element to which the dialog will be appended
 	 * @param {jQuery} $openButton the button which opens the dialog. Only used for positioning.
-	 * @param {mw.mmv.Config} config
+	 * @param {Config} config
 	 */
 	function Dialog( $container, $openButton, config ) {
 		UiElement.call( this, $container );
@@ -45,7 +45,7 @@ const UiElement = require( './mmv.ui.js' );
 		 * @property {string} eventPrefix Prefix specific to the class to be applied to events.
 		 */
 		this.eventPrefix = '';
-		/** @property {mw.mmv.Config} config - */
+		/** @property {Config} config - */
 		this.config = config;
 
 		/** @property {jQuery} $openButton The click target which opens the dialog. */
@@ -213,7 +213,7 @@ const UiElement = require( './mmv.ui.js' );
 	};
 
 	/**
-	 * @param {mw.mmv.model.Image} image
+	 * @param {Image} image
 	 * @return {string[]}
 	 */
 	DP.getImageWarnings = function ( image ) {
@@ -237,7 +237,7 @@ const UiElement = require( './mmv.ui.js' );
 	};
 
 	/**
-	 * @param {mw.mmv.model.Image} image
+	 * @param {Image} image
 	 */
 	DP.showImageWarnings = function ( image ) {
 		var warnings = this.getImageWarnings( image );

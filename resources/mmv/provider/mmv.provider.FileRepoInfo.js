@@ -16,13 +16,14 @@
  */
 
 const Api = require( './mmv.provider.Api.js' );
+const { Repo } = require( '../model/mmv.model.Repo.js' );
 
 ( function () {
 
 	/**
 	 * Gets file repo information.
 	 *
-	 * @class mw.mmv.provider.FileRepoInfo
+	 * @class FileRepoInfo
 	 * @extends Api
 	 * @constructor
 	 * @param {mw.Api} api
@@ -38,8 +39,8 @@ const Api = require( './mmv.provider.Api.js' );
 	/**
 	 * Runs an API GET request to get the repo info.
 	 *
-	 * @return {jQuery.Promise.<Object.<string, mw.mmv.model.Repo>>} a promise which resolves to
-	 *     a hash of mw.mmv.model.Repo objects, indexed by repo names.
+	 * @return {jQuery.Promise.<Object.<string, Repo>>} a promise which resolves to
+	 *     a hash of Repo objects, indexed by repo names.
 	 */
 	FileRepoInfo.prototype.get = function () {
 		var provider = this;
@@ -55,7 +56,7 @@ const Api = require( './mmv.provider.Api.js' );
 			} ).then( function ( reposArray ) {
 				var reposHash = {};
 				reposArray.forEach( function ( repo ) {
-					reposHash[ repo.name ] = mw.mmv.model.Repo.newFromRepoInfo( repo );
+					reposHash[ repo.name ] = Repo.newFromRepoInfo( repo );
 				} );
 				return reposHash;
 			} );

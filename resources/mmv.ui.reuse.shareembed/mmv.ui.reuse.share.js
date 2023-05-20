@@ -15,6 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { getMediaHash } = require( 'mmv.head' );
 const Tab = require( './mmv.ui.reuse.tab.js' );
 
 ( function () {
@@ -74,10 +75,10 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 
 	/**
 	 * @inheritdoc
-	 * @param {mw.mmv.model.Image} image
+	 * @param {Image} image
 	 */
 	SP.set = function ( image ) {
-		var url = image.descriptionUrl + mw.mmv.getMediaHash( image.title );
+		const url = image.descriptionUrl + getMediaHash( image.title );
 
 		this.pageInput.textInput.setValue( url );
 

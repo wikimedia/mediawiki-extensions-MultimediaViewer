@@ -16,6 +16,7 @@
  */
 
 const Api = require( './mmv.provider.Api.js' );
+const UiImage = require( '../model/mmv.model.Image.js' );
 
 ( function () {
 
@@ -24,7 +25,7 @@ const Api = require( './mmv.provider.Api.js' );
 	 *
 	 * See https://www.mediawiki.org/wiki/API:Properties#imageinfo_.2F_ii
 	 *
-	 * @class mw.mmv.provider.ImageInfo
+	 * @class ImageInfo
 	 * @extends Api
 	 * @constructor
 	 * @param {mw.Api} api
@@ -87,7 +88,7 @@ const Api = require( './mmv.provider.Api.js' );
 	 * Runs an API GET request to get the image info.
 	 *
 	 * @param {mw.Title} file
-	 * @return {jQuery.Promise} a promise which resolves to an mw.mmv.model.Image object.
+	 * @return {jQuery.Promise} a promise which resolves to an Image object.
 	 */
 	ImageInfo.prototype.get = function ( file ) {
 		var provider = this;
@@ -106,7 +107,7 @@ const Api = require( './mmv.provider.Api.js' );
 				return provider.getQueryPage( data );
 			} ).then( function ( page ) {
 				if ( page.imageinfo && page.imageinfo.length ) {
-					return mw.mmv.model.Image.newFromImageInfo( file, page );
+					return UiImage.newFromImageInfo( file, page );
 				} else if ( page.missing === true && page.imagerepository === '' ) {
 					return $.Deferred().reject( 'file does not exist: ' + file.getPrefixedDb() );
 				} else {

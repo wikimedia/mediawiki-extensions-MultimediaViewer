@@ -31,11 +31,11 @@ const ThumbnailWidth = require( './model/mmv.model.ThumbnailWidth.js' );
 	 *
 	 * [1]: https://www.mediawiki.org/wiki/Talk:Requests_for_comment/Standardized_thumbnails_sizes
 	 *
-	 * @class mw.mmv.ThumbnailWidthCalculator
+	 * @class ThumbnailWidthCalculator
 	 * @constructor
 	 * @param {Object} [options]
-	 * @param {number[]} [options.widthBuckets] see {@link mw.mmv.ThumbnailWidthCalculator#widthBuckets}
-	 * @param {number} [options.devicePixelRatio] see {@link mw.mmv.ThumbnailWidthCalculator#devicePixelRatio};
+	 * @param {number[]} [options.widthBuckets] see {@link ThumbnailWidthCalculator#widthBuckets}
+	 * @param {number} [options.devicePixelRatio] see {@link ThumbnailWidthCalculator#devicePixelRatio};
 	 *     will be autodetected if omitted
 	 */
 	function ThumbnailWidthCalculator( options ) {
@@ -153,7 +153,7 @@ const ThumbnailWidth = require( './model/mmv.model.ThumbnailWidth.js' );
 	 * @param {number} boundingHeight height of the bounding box, in CSS pixels
 	 * @param {number} sampleWidth width of the sample image (in whatever - only used for aspect ratio)
 	 * @param {number} sampleHeight height of the sample image (in whatever - only used for aspect ratio)
-	 * @return {mw.mmv.model.ThumbnailWidth}
+	 * @return {ThumbnailWidth}
 	 */
 
 	TWCP.calculateWidths = function ( boundingWidth, boundingHeight, sampleWidth, sampleHeight ) {

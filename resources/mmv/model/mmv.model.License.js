@@ -24,7 +24,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 	 * Class for storing license information about an image. For available fields, see
 	 * TemplateParser::$licenseFieldClasses in the CommonsMetadata extension.
 	 *
-	 * @class mw.mmv.model.License
+	 * @class License
 	 * @param {string} shortName see {@link #shortName}
 	 * @param {string} [internalName] see {@link #internalName}
 	 * @param {string} [longName] see {@link #longName}
@@ -42,7 +42,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 		nonFree
 	) {
 		if ( !shortName ) {
-			throw new Error( 'mw.mmv.model.License: shortName is required' );
+			throw new Error( 'License: shortName is required' );
 		}
 
 		/** @property {string} shortName short (abbreviated) name of the license (e.g. CC-BY-SA-3.0) */

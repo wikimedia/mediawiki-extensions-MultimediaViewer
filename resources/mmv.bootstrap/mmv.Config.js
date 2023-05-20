@@ -21,7 +21,7 @@
 	/**
 	 * Contains/retrieves configuration/environment information for MediaViewer.
 	 *
-	 * @class mw.mmv.Config
+	 * @class Config
 	 * @constructor
 	 * @param {Object} viewerConfig
 	 * @param {mw.Map} mwConfig

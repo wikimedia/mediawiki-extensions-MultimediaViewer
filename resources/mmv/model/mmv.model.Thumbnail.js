@@ -19,7 +19,7 @@
 	/**
 	 * Represents information about an image thumbnail
 	 *
-	 * @class mw.mmv.model.Thumbnail
+	 * @class Thumbnail
 	 * @constructor
 	 * @param {string} url URL to the thumbnail
 	 * @param {number} width Width in pixels

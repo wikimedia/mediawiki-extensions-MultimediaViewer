@@ -21,10 +21,10 @@
 	/**
 	 * Tracks how long users are viewing images for
 	 *
-	 * @class mw.mmv.logging.ViewLogger
+	 * @class ViewLogger
 	 * @extends mw.Api
 	 * @constructor
-	 * @param {mw.mmv.Config} config mw.mmv.Config object
+	 * @param {Config} config Config object
 	 * @param {Object} windowObject Browser window object
 	 */
 	function ViewLogger( config, windowObject ) {

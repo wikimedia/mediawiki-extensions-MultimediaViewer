@@ -22,7 +22,7 @@
 	 * IwTitle represents a title in a foreign wiki. The long-term goal is to have an interface
 	 * largely compatible with mw.Title, but for now we only implement what we actually need.
 	 *
-	 * @class mw.mmv.model.IwTitle
+	 * @class IwTitle
 	 * @param {string} namespaceId namespace number
 	 * @param {string} title full title, including namespace name; with underscores (as in mw.Title#getPrefixedDb())
 	 * @param {string} domain domain name of the wiki

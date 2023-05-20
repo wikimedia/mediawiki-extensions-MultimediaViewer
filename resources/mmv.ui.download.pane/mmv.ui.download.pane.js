@@ -16,7 +16,7 @@
  */
 
 const { UiElement } = require( 'mmv' );
-const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
+const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 
 ( function () {
 	// Shortcut for prototype later
@@ -25,7 +25,7 @@ const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 	/**
 	 * UI component that provides functionality to download the media asset displayed.
 	 *
-	 * @class mw.mmv.ui.download.Pane
+	 * @class Pane
 	 * @extends UiElement
 	 * @constructor
 	 * @param {jQuery} $container
@@ -48,7 +48,7 @@ const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 		this.createSizePulldownMenu( this.$downloadArea );
 		this.createPreviewLink( this.$downloadArea );
 
-		this.formatter = new mw.mmv.EmbedFileFormatter();
+		this.formatter = new EmbedFileFormatter();
 		this.currentAttrView = 'plain';
 		this.createAttributionButton( this.$pane );
 
@@ -59,7 +59,7 @@ const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 		 */
 		this.defaultItem = this.downloadSizeMenu.getMenu().findSelectedItem();
 
-		/** @property {mw.mmv.model.Image|null} Image the download button currently points to. */
+		/** @property {Image|null} Image the download button currently points to. */
 		this.image = null;
 	}
 	OO.inheritClass( Pane, UiElement );
@@ -330,8 +330,8 @@ const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 	 * Sets the text in the attribution input element.
 	 *
 	 * @param {Object} embed
-	 * @param {mw.mmv.model.Image} embed.imageInfo
-	 * @param {mw.mmv.model.Repo} embed.repoInfo
+	 * @param {Image} embed.imageInfo
+	 * @param {Repo} embed.repoInfo
 	 */
 	DP.setAttributionText = function ( embed ) {
 		this.htmlCredit = this.formatter.getCreditHtml( embed );
@@ -353,8 +353,8 @@ const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 	/**
 	 * Sets the data on the element.
 	 *
-	 * @param {mw.mmv.model.Image} image
-	 * @param {mw.mmv.model.Repo} repo
+	 * @param {Image} image
+	 * @param {Repo} repo
 	 */
 	DP.set = function ( image, repo ) {
 		var attributionCtaMessage,

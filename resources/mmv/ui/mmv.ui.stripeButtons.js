@@ -95,8 +95,8 @@ const UiElement = require( './mmv.ui.js' );
 
 	/**
 	 * @inheritdoc
-	 * @param {mw.mmv.model.Image} imageInfo
-	 * @param {mw.mmv.model.Repo} repoInfo
+	 * @param {Image} imageInfo
+	 * @param {Repo} repoInfo
 	 */
 	SBP.set = function ( imageInfo, repoInfo ) {
 		this.eachButton( function ( $button ) {
@@ -110,8 +110,8 @@ const UiElement = require( './mmv.ui.js' );
 	 * Updates the button linking to the file page.
 	 *
 	 * @protected
-	 * @param {mw.mmv.model.Image} imageInfo
-	 * @param {mw.mmv.model.Repo} repoInfo
+	 * @param {Image} imageInfo
+	 * @param {Repo} repoInfo
 	 */
 	SBP.setDescriptionPageButton = function ( imageInfo, repoInfo ) {
 		var $button = this.buttons.$descriptionPage,

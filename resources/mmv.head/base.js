@@ -44,7 +44,7 @@
 		 * @member mw.mmv
 		 */
 		getMediaHash: function ( imageFileTitle ) {
-			return '#/' + mw.mmv.ROUTE + '/' + imageFileTitle;
+			return '#/media/' + imageFileTitle;
 		}
 	};
 }() );

@@ -31,7 +31,7 @@ const UiElement = require( './ui/mmv.ui.js' );
 	/**
 	 * Represents the main interface of the lightbox
 	 *
-	 * @class mw.mmv.LightboxInterface
+	 * @class LightboxInterface
 	 * @extends UiElement
 	 * @constructor
 	 */
@@ -62,7 +62,7 @@ const UiElement = require( './ui/mmv.ui.js' );
 	/**
 	 * The currently selected LightboxImage.
 	 *
-	 * @type {mw.mmv.LightboxImage}
+	 * @type {LightboxImage}
 	 * @protected
 	 */
 	LIP.currentImage = null;
@@ -123,8 +123,8 @@ const UiElement = require( './ui/mmv.ui.js' );
 	/**
 	 * Sets up the file reuse data in the DOM
 	 *
-	 * @param {mw.mmv.model.Image} image
-	 * @param {mw.mmv.model.Repo} repo
+	 * @param {Image} image
+	 * @param {Repo} repo
 	 * @param {string} caption
 	 * @param {string} alt
 	 */

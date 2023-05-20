@@ -267,7 +267,7 @@ const UiElement = require( './mmv.ui.js' );
 	};
 
 	/**
-	 * @param {mw.mmv.model.Image} image
+	 * @param {Image} image
 	 */
 	CBP.set = function ( image ) {
 		this.$reuse.prop( 'href', image.descriptionUrl );

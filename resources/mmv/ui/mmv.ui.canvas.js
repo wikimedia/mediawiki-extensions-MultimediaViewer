@@ -78,7 +78,7 @@ const UiElement = require( './mmv.ui.js' );
 		/**
 		 * Raw metadata of current image, needed for canvas size calculations.
 		 *
-		 * @property {mw.mmv.LightboxImage}
+		 * @property {LightboxImage}
 		 * @private
 		 */
 		this.imageRawMetadata = null;
@@ -117,7 +117,7 @@ const UiElement = require( './mmv.ui.js' );
 	 * FIXME maybeDisplayPlaceholder() receives the placeholder so it is very unclear why this
 	 * is necessary at all (apart from setting the LightboxImage, which is used in size calculations).
 	 *
-	 * @param {mw.mmv.LightboxImage} imageRawMetadata
+	 * @param {LightboxImage} imageRawMetadata
 	 * @param {jQuery} $imageElement
 	 */
 	C.set = function ( imageRawMetadata, $imageElement ) {
@@ -134,9 +134,9 @@ const UiElement = require( './mmv.ui.js' );
 	 * Resizes image to the given dimensions and displays it on the canvas.
 	 * This is used to display the actual image; it assumes set function was already called before.
 	 *
-	 * @param {mw.mmv.model.Thumbnail} thumbnail thumbnail information
+	 * @param {Thumbnail} thumbnail thumbnail information
 	 * @param {HTMLImageElement} imageElement
-	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
+	 * @param {ThumbnailWidth} imageWidths
 	 */
 	C.setImageAndMaxDimensions = function ( thumbnail, imageElement, imageWidths ) {
 		var $image = $( imageElement );
@@ -260,7 +260,7 @@ const UiElement = require( './mmv.ui.js' );
 	 *
 	 * @param {{width: number, height: number}} size
 	 * @param {jQuery} $imagePlaceholder Image placeholder to be displayed while the real image loads.
-	 * @param {mw.mmv.model.ThumbnailWidth} imageWidths
+	 * @param {ThumbnailWidth} imageWidths
 	 * @return {boolean} Whether the image was blured or not
 	 */
 	C.maybeDisplayPlaceholder = function ( size, $imagePlaceholder, imageWidths ) {
@@ -437,8 +437,8 @@ const UiElement = require( './mmv.ui.js' );
 	/**
 	 * Gets the widths for a given lightbox image.
 	 *
-	 * @param {mw.mmv.LightboxImage} image
-	 * @return {mw.mmv.model.ThumbnailWidth}
+	 * @param {LightboxImage} image
+	 * @return {ThumbnailWidth}
 	 */
 	C.getLightboxImageWidths = function ( image ) {
 		var thumb = image.thumbnail,
@@ -453,8 +453,8 @@ const UiElement = require( './mmv.ui.js' );
 	 * Intended for use before the viewer is in fullscreen mode
 	 * (in fullscreen mode getLightboxImageWidths() works fine).
 	 *
-	 * @param {mw.mmv.LightboxImage} image
-	 * @return {mw.mmv.model.ThumbnailWidth}
+	 * @param {LightboxImage} image
+	 * @return {ThumbnailWidth}
 	 */
 	C.getLightboxImageWidthsForFullscreen = function ( image ) {
 		var thumb = image.thumbnail,
@@ -467,7 +467,7 @@ const UiElement = require( './mmv.ui.js' );
 	/**
 	 * Gets the widths for the current lightbox image.
 	 *
-	 * @return {mw.mmv.model.ThumbnailWidth}
+	 * @return {ThumbnailWidth}
 	 */
 	C.getCurrentImageWidths = function () {
 		return this.getLightboxImageWidths( this.imageRawMetadata );

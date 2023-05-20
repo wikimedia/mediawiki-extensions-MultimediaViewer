@@ -28,7 +28,7 @@ const Dialog = require( './mmv.ui.dialog.js' );
 	 * @extends Dialog
 	 * @param {jQuery} $container the element to which the dialog will be appended
 	 * @param {jQuery} $openButton the button which opens the dialog. Only used for positioning.
-	 * @param {mw.mmv.Config} config
+	 * @param {Config} config
 	 */
 	function OptionsDialog( $container, $openButton, config ) {
 		Dialog.call( this, $container, $openButton, config );

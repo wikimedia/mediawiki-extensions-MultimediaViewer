@@ -39,14 +39,14 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 	 *  Called "aboveFold" for historical reasons, but actually a part of the next sibling of the element
 	 *  is also above the fold (bottom of the screen).
 	 * @param {mw.SafeStorage} localStorage the localStorage object, for dependency injection
-	 * @param {mw.mmv.Config} config A configuration object.
+	 * @param {Config} config A configuration object.
 	 */
 	function MetadataPanel( $container, $aboveFold, localStorage, config ) {
 		UiElement.call( this, $container );
 
 		this.$aboveFold = $aboveFold;
 
-		/** @property {mw.mmv.Config} config - */
+		/** @property {Config} config - */
 		this.config = config;
 
 		/** @property {HtmlUtils} htmlUtils - */
@@ -402,8 +402,8 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 	 * - the description from the filepage
 	 * - the filename (without extension)
 	 *
-	 * @param {mw.mmv.LightboxImage} image
-	 * @param {mw.mmv.model.Image} imageData
+	 * @param {LightboxImage} image
+	 * @param {Image} imageData
 	 */
 	MPP.setTitle = function ( image, imageData ) {
 		var title;
@@ -543,7 +543,7 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 	/**
 	 * Sets the license display in the panel
 	 *
-	 * @param {mw.mmv.model.License|null} license license data (could be missing)
+	 * @param {License|null} license license data (could be missing)
 	 * @param {string} filePageUrl URL of the file description page
 	 */
 	MPP.setLicense = function ( license, filePageUrl ) {
@@ -688,7 +688,7 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 	/**
 	 * Sets location data in the interface.
 	 *
-	 * @param {mw.mmv.model.Image} imageData
+	 * @param {Image} imageData
 	 */
 	MPP.setLocationData = function ( imageData ) {
 		if ( !imageData.hasCoords() ) {
@@ -757,9 +757,9 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 	/**
 	 * Set all the image information in the panel
 	 *
-	 * @param {mw.mmv.LightboxImage} image
-	 * @param {mw.mmv.model.Image} imageData
-	 * @param {mw.mmv.model.Repo} repoData
+	 * @param {LightboxImage} image
+	 * @param {Image} imageData
+	 * @param {Repo} repoData
 	 */
 	MPP.setImageInfo = function ( image, imageData, repoData ) {
 		var panel = this;

@@ -20,7 +20,7 @@
 	/**
 	 * Represents an image on the page.
 	 *
-	 * @class mw.mmv.LightboxImage
+	 * @class LightboxImage
 	 * @constructor
 	 * @param {string} fileLink Link to the file - generally a thumb URL
 	 * @param {string} filePageLink Link to the File: page

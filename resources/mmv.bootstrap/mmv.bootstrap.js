@@ -15,6 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { getMediaHash, ROUTE_REGEXP, LEGACY_ROUTE_REGEXP } = require( 'mmv.head' );
 const Config = require( './mmv.Config.js' );
 const HtmlUtils = require( './mmv.HtmlUtils.js' );
 mw.mmv.Config = Config;
@@ -104,8 +105,8 @@ mw.mmv.HtmlUtils = HtmlUtils;
 	 * @param {OO.Router} router
 	 */
 	MMVB.setupRouter = function ( router ) {
-		router.addRoute( mw.mmv.ROUTE_REGEXP, this.route.bind( this ) );
-		router.addRoute( mw.mmv.LEGACY_ROUTE_REGEXP, this.route.bind( this ) );
+		router.addRoute( ROUTE_REGEXP, this.route.bind( this ) );
+		router.addRoute( LEGACY_ROUTE_REGEXP, this.route.bind( this ) );
 		this.router = router;
 	};
 
@@ -572,7 +573,7 @@ mw.mmv.HtmlUtils = HtmlUtils;
 	 */
 	MMVB.openImage = function ( title ) {
 		this.ensureEventHandlersAreSetUp();
-		var hash = mw.mmv.getMediaHash( title );
+		var hash = getMediaHash( title );
 		location.hash = hash;
 		history.replaceState( MANAGED_STATE, null, hash );
 	};
@@ -618,7 +619,7 @@ mw.mmv.HtmlUtils = HtmlUtils;
 	 */
 	MMVB.isViewerHash = function () {
 		var path = location.hash.slice( 1 );
-		return path.match( mw.mmv.ROUTE_REGEXP ) || path.match( mw.mmv.LEGACY_ROUTE_REGEXP );
+		return path.match( ROUTE_REGEXP ) || path.match( LEGACY_ROUTE_REGEXP );
 	};
 
 	/**
@@ -653,7 +654,6 @@ mw.mmv.HtmlUtils = HtmlUtils;
 			const { MultimediaViewer } = localRequire( 'mmv' );
 			this.viewer = new MultimediaViewer( this.config );
 			this.viewer.setupEventHandlers();
-			mw.mmv.viewer = this.viewer;
 		}
 
 		return this.viewer;

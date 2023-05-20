@@ -21,9 +21,9 @@ const { UiElement } = require( 'mmv' );
 	var TP;
 
 	/**
-	 * A tab in a mw.mmv.ui.Pane component
+	 * A tab in a pane component
 	 *
-	 * @class mw.mmv.ui.reuse.Tab
+	 * @class Tab
 	 * @extends UiElement
 	 * @param {jQuery} $container
 	 * @constructor

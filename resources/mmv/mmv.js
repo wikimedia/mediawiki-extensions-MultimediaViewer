@@ -15,6 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { getMediaHash } = require( 'mmv.head' );
 const ViewLogger = require( './logging/mmv.logging.ViewLogger.js' );
 require( './provider/mmv.provider.js' );
 require( './model/mmv.model.js' );
@@ -270,7 +271,7 @@ mw.mmv.ThumbnailWidthCalculator = ThumbnailWidthCalculator;
 	/**
 	 * Loads a specified image.
 	 *
-	 * @param {mw.mmv.LightboxImage} image
+	 * @param {LightboxImage} image
 	 * @param {HTMLImageElement} initialImage A thumbnail to use as placeholder while the image loadsx
 	 */
 	MMVP.loadImage = function ( image, initialImage ) {
@@ -464,7 +465,7 @@ mw.mmv.ThumbnailWidthCalculator = ThumbnailWidthCalculator;
 	/**
 	 * Display the blurred thumbnail from the page
 	 *
-	 * @param {mw.mmv.LightboxImage} image
+	 * @param {LightboxImage} image
 	 * @param {jQuery} $initialImage The thumbnail from the page
 	 * @param {ThumbnailWidth} imageWidths
 	 * @param {boolean} [recursion=false] for internal use, never set this when calling from outside
@@ -517,7 +518,7 @@ mw.mmv.ThumbnailWidthCalculator = ThumbnailWidthCalculator;
 	 * Displays a progress bar for the image loading, if necessary, and sets up handling of
 	 * all the related callbacks.
 	 *
-	 * @param {mw.mmv.LightboxImage} image
+	 * @param {LightboxImage} image
 	 * @param {jQuery.Promise.<Thumbnail, HTMLImageElement>} imagePromise
 	 * @param {number} imageWidth needed for caching progress (FIXME)
 	 */
@@ -610,7 +611,7 @@ mw.mmv.ThumbnailWidthCalculator = ThumbnailWidthCalculator;
 	 * that is ideal for preloading.
 	 *
 	 * @private
-	 * @param {function(number, mw.mmv.LightboxImage)} callback
+	 * @param {function(number, LightboxImage)} callback
 	 */
 	MMVP.eachPreloadableLightboxIndex = function ( callback ) {
 		var i;
@@ -637,7 +638,7 @@ mw.mmv.ThumbnailWidthCalculator = ThumbnailWidthCalculator;
 	 * taskFactory(lightboxImage) should return a preload task for the given lightboximage.
 	 *
 	 * @private
-	 * @param {function(mw.mmv.LightboxImage): function()} taskFactory
+	 * @param {function(LightboxImage): function()} taskFactory
 	 * @return {TaskQueue}
 	 */
 	MMVP.pushLightboxImagesIntoQueue = function ( taskFactory ) {
@@ -725,7 +726,7 @@ mw.mmv.ThumbnailWidthCalculator = ThumbnailWidthCalculator;
 	/**
 	 * Preload the fullscreen size of the current image.
 	 *
-	 * @param {mw.mmv.LightboxImage} image
+	 * @param {LightboxImage} image
 	 */
 	MMVP.preloadFullscreenThumbnail = function ( image ) {
 		var imageWidths = this.ui.canvas.getLightboxImageWidthsForFullscreen( image );
@@ -754,7 +755,7 @@ mw.mmv.ThumbnailWidthCalculator = ThumbnailWidthCalculator;
 	/**
 	 * Loads size-dependent components of a lightbox - the thumbnail model and the image itself.
 	 *
-	 * @param {mw.mmv.LightboxImage} image
+	 * @param {LightboxImage} image
 	 * @param {number} width the width of the requested thumbnail
 	 * @param {jQuery.Deferred.<string>} [extraStatsDeferred] Promise that resolves to the image's upload timestamp when the metadata is loaded
 	 * @return {jQuery.Promise.<Thumbnail, HTMLImageElement>}
@@ -853,7 +854,7 @@ mw.mmv.ThumbnailWidthCalculator = ThumbnailWidthCalculator;
 			thumb = this.thumbs[ index ];
 			this.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ] );
 			router.navigateTo( null, {
-				path: mw.mmv.getMediaHash( thumb.title ),
+				path: getMediaHash( thumb.title ),
 				useReplaceState: true
 			} );
 		}

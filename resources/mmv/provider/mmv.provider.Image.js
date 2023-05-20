@@ -20,7 +20,7 @@
 	/**
 	 * Loads an image.
 	 *
-	 * @class mw.mmv.provider.Image
+	 * @class Image
 	 * @constructor
 	 * @param {string} imageQueryParameter When defined, is a query parameter to add to every image request
 	 */

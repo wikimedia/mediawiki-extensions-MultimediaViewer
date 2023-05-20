@@ -19,7 +19,7 @@ const Thumbnail = require( '../model/mmv.model.Thumbnail.js' );
 
 ( function () {
 	/**
-	 * This provider is similar to mw.mmv.provider.ThumbnailInfo, but instead of making an API call
+	 * This provider is similar to ThumbnailInfo, but instead of making an API call
 	 * to get the thumbnail URL, it tries to guess it. There are two failure modes:
 	 * - known failure: in the given situation it does not seem possible or safe to guess the URL.
 	 *   It is up to the caller to obtain it by falling back to the normal provider.
@@ -29,7 +29,7 @@ const Thumbnail = require( '../model/mmv.model.Thumbnail.js' );
 	 *   via the 404 handler) this could be more frequent. Again, it is the caller's responsibility
 	 *   to handle this by detecting image loading errors and falling back to the normal provider.
 	 *
-	 * @class mw.mmv.provider.GuessedThumbnailInfo
+	 * @class GuessedThumbnailInfo
 	 * @constructor
 	 */
 	function GuessedThumbnailInfo() {}

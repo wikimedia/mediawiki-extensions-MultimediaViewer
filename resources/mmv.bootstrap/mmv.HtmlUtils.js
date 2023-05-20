@@ -21,7 +21,7 @@
 	/**
 	 * Shared cache between HtmlUtils instances to store the results of expensive text operations.
 	 *
-	 * @member mw.mmv.HtmlUtils
+	 * @member HtmlUtils
 	 * @private
 	 * @static
 	 * @type {{text: Object.<string, string>, textWithLinks: Object.<string, string>, textWithTags: Object.<string, string>}}
@@ -35,7 +35,7 @@
 	/**
 	 * Helper class that does various HTML-to-text transformations
 	 *
-	 * @class mw.mmv.HtmlUtils
+	 * @class HtmlUtils
 	 * @constructor
 	 */
 	function HtmlUtils() {}
@@ -165,7 +165,7 @@
 	 * Returns the HTML code for a jQuery element (only the first one if passed a set of elements).
 	 * Unlike .html(), this includes HTML code for the outermost element; compare
 	 * - `$('<div>').html() // ''`
-	 * - `mw.mmv.HtmlUtils.jqueryToHtml( $('<div>') ) // '<div></div>'`
+	 * - `HtmlUtils.jqueryToHtml( $('<div>') ) // '<div></div>'`
 	 *
 	 * @param {jQuery} $el
 	 * @return {string}

@@ -23,7 +23,7 @@ const License = require( './mmv.model.License.js' );
 	/**
 	 * Represents information about a single image
 	 *
-	 * @class mw.mmv.model.Image
+	 * @class Image
 	 * @constructor
 	 * @param {mw.Title} title
 	 * @param {string} name Image name (e.g. title of the artwork) or human-readable file if there is no better title
@@ -173,7 +173,7 @@ const License = require( './mmv.model.License.js' );
 	 * @static
 	 * @param {mw.Title} title
 	 * @param {Object} imageInfo
-	 * @return {mw.mmv.model.Image}
+	 * @return {Image}
 	 */
 	Image.newFromImageInfo = function ( title, imageInfo ) {
 		var name, uploadDateTime, anonymizedUploadDateTime, creationDateTime, imageData,
@@ -308,7 +308,7 @@ const License = require( './mmv.model.License.js' );
 		} else if ( type === 'list' ) {
 			return value === '' ? [] : value.split( '|' );
 		} else {
-			throw new Error( 'mw.mmv.model.Image.parseExtmeta: unknown type' );
+			throw new Error( 'Image.parseExtmeta: unknown type' );
 		}
 	};
 

@@ -19,7 +19,7 @@
 	/**
 	 * Base class for API-based data providers.
 	 *
-	 * @class mw.mmv.provider.Api
+	 * @class Api
 	 * @abstract
 	 * @constructor
 	 * @param {mw.Api} api

@@ -19,7 +19,7 @@
 	/**
 	 * Represents information about a single image repository
 	 *
-	 * @class mw.mmv.model.Repo
+	 * @class Repo
 	 * @constructor
 	 * @param {string} displayName
 	 * @param {string} favIcon URL to the repo's favicon
@@ -45,7 +45,7 @@
 	 *
 	 * @static
 	 * @param {Object} repoInfo
-	 * @return {mw.mmv.model.Repo}
+	 * @return {Repo}
 	 */
 	Repo.newFromRepoInfo = function ( repoInfo ) {
 		if ( repoInfo.apiurl ) {
@@ -107,8 +107,8 @@
 	/**
 	 * Represents information about a foreign API repository
 	 *
-	 * @class mw.mmv.model.ForeignApiRepo
-	 * @extends mw.mmv.model.Repo
+	 * @class ForeignApiRepo
+	 * @extends Repo
 	 * @constructor
 	 * @inheritdoc
 	 * @param {string} displayName
@@ -162,8 +162,8 @@
 	/**
 	 * Represents information about a foreign, shared DB repository
 	 *
-	 * @class mw.mmv.model.ForeignDbRepo
-	 * @extends mw.mmv.model.Repo
+	 * @class ForeignDbRepo
+	 * @extends Repo
 	 * @constructor
 	 * @inheritdoc
 	 * @param {string} displayName

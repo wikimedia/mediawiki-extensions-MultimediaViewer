@@ -22,7 +22,7 @@
 	 * A queue which holds a list of tasks (functions). The tasks will be executed in order,
 	 * each starting when the previous one has finished (or failed).
 	 *
-	 * @class mw.mmv.model.TaskQueue
+	 * @class TaskQueue
 	 * @constructor
 	 */
 	function TaskQueue() {
@@ -38,7 +38,7 @@
 		 * State of the task queue (running, finished etc)
 		 *
 		 * @protected
-		 * @property {mw.mmv.model.TaskQueue.State}
+		 * @property {TaskQueue.State}
 		 */
 		this.state = TaskQueue.State.NOT_STARTED;
 
@@ -124,7 +124,7 @@
 	/**
 	 * State of the task queue (running, finished etc)
 	 *
-	 * @enum {string} mw.mmv.model.TaskQueue.State
+	 * @enum {string} TaskQueue.State
 	 */
 	TaskQueue.State = {
 		/** not executed yet, tasks can still be added */

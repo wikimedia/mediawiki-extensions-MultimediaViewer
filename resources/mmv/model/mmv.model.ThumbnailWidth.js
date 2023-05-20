@@ -24,7 +24,7 @@
 	 * sizes and helps avoiding accidental incompatible assignments. (Think of it as a slightly
 	 * overcomplicated Hungarian notation)
 	 *
-	 * @class mw.mmv.model.ThumbnailWidth
+	 * @class ThumbnailWidth
 	 * @constructor
 	 * @param {number} cssWidth width in CSS pixels
 	 * @param {number} cssHeight height in CSS pixels
