@@ -49,7 +49,7 @@ const UiElement = require( './mmv.ui.js' );
 			/** @property {jQuery} $openButton The click target which opens the dialog. */
 			this.$openButton = $openButton;
 
-			/** @type {jQuery} $dialog The main dialog container */
+			/** @property {jQuery} $dialog The main dialog container */
 			this.$dialog = $( '<div>' )
 				.addClass( 'mw-mmv-dialog' );
 

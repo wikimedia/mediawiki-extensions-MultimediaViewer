@@ -225,9 +225,10 @@ const Dialog = require( './mmv.ui.dialog.js' );
 		}
 
 		/**
-		 * @event mmv-reuse-opened
 		 * Fired when the dialog is opened.
+		 * @event ReuseDialog#mmv-reuse-opened
 		 */
+
 		/**
 		 * Opens a dialog with information about file reuse.
 		 */
@@ -243,9 +244,10 @@ const Dialog = require( './mmv.ui.dialog.js' );
 		}
 
 		/**
-		 * @event mmv-reuse-closed
 		 * Fired when the dialog is closed.
+		 * @event ReuseDialog#mmv-reuse-closed
 		 */
+
 		/**
 		 * Closes the reuse dialog.
 		 */

@@ -5,7 +5,7 @@
 		"build": "npm -s run minify-svg",
 		"test": "grunt test",
 		"minify-svg": "svgo --config=.svgo.config.js --quiet --recursive --folder resources/",
-		"doc": ""
+		"doc": "jsdoc -c jsdoc.json"
 	},
 	"devDependencies": {
 		"eslint-config-wikimedia": "0.25.0",
@@ -13,6 +13,8 @@
 		"grunt-banana-checker": "0.10.0",
 		"grunt-eslint": "24.0.1",
 		"grunt-stylelint": "0.18.0",
+		"jsdoc": "3.6.10",
+		"jsdoc-wmf-theme": "^0.0.5",
 		"stylelint-config-wikimedia": "0.14.0",
 		"svgo": "2.8.0"
 	}

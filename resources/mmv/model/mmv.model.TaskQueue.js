@@ -27,7 +27,7 @@
 			 * The list of functions to execute.
 			 *
 			 * @protected
-			 * @property {Array.<function()>}
+			 * @property {Array}
 			 */
 			this.queue = [];
 
@@ -55,7 +55,7 @@
 		 *
 		 * Tasks can only be added before the queue is first executed.
 		 *
-		 * @param {function()} task
+		 * @param {function(): any} task
 		 */
 		push( task ) {
 			if ( this.state !== TaskQueue.State.NOT_STARTED ) {

@@ -223,10 +223,18 @@ const UiElement = require( './mmv.ui.js' );
 		}
 
 		/**
+		 * @event MetadataPanelScroller#mmv-metadata-open
+		 */
+
+		/**
+		 * @event MetadataPanelScroller#mmv-metadata-close
+		 */
+
+		/**
 		 * Receives the window's scroll events and and turns them into business logic events
 		 *
-		 * @fires mmv-metadata-open
-		 * @fires mmv-metadata-close
+		 * @fires MetadataPanelScroller#mmv-metadata-open
+		 * @fires MetadataPanelScroller#mmv-metadata-close
 		 */
 		scroll() {
 			const panelIsOpen = this.panelIsOpen();

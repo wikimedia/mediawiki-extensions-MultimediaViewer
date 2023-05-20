@@ -61,12 +61,13 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 		}
 
 		/**
-		 * @event mmv-download-cta-open
 		 * Fired when the attribution call to action panel is clicked.
+		 * @event DownloadPane#mmv-download-cta-open
 		 */
+
 		/**
-		 * @event mmv-download-cta-close
 		 * Fired when the attribution area is closed.
+		 * @event DownloadPane#mmv-download-cta-close
 		 */
 
 		/**

@@ -171,6 +171,13 @@ const UiElement = require( './mmv.ui.js' );
 
 		/**
 		 * Registers click listener on the image.
+		 *
+		 * @emit ReuseDialog#mmv-reuse-opened
+		 * @emit ReuseDialog#mmv-reuse-closed
+		 * @emit DownloadDialog#mmv-download-opened
+		 * @emit DownloadDialog#mmv-download-closed
+		 * @emit OptionsDialog#mmv-options-opened
+		 * @emit OptionsDialog#mmv-options-closed
 		 */
 		setUpImageClick() {
 			this.handleEvent( 'mmv-reuse-opened', this.handleDialogEvent.bind( this ) );
@@ -202,8 +209,15 @@ const UiElement = require( './mmv.ui.js' );
 
 		/**
 		 * Registers listeners.
+		 *
+		 * @fires MultimediaViewer#mmv-resize-end
 		 */
 		attach() {
+			/**
+			 * Fired when the screen size changes. Debounced to avoid continuous triggering while resizing with a mouse.
+			 *
+			 * @event MultimediaViewer#mmv-resize-end
+			 */
 			$( window ).on( 'resize.mmv-canvas', mw.util.debounce( () => {
 				this.$mainWrapper.trigger( $.Event( 'mmv-resize-end' ) );
 			}, 100 ) );
