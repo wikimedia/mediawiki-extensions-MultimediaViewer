@@ -244,7 +244,7 @@ const { ReuseDialog, Repo } = require( 'mmv' );
 				width: 100,
 				height: 80
 			},
-			imageDeleted = $.extend( { deletionReason: 'deleted file test' }, image );
+			imageDeleted = Object.assign( { deletionReason: 'deleted file test' }, image );
 
 		// Test that the lack of license is picked up
 		assert.strictEqual( reuseDialog.getImageWarnings( image ).length, 1, 'Lack of license detected' );

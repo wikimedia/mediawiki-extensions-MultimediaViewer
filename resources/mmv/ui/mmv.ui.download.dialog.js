@@ -18,116 +18,108 @@
 const Dialog = require( './mmv.ui.dialog.js' );
 
 ( function () {
-	// Shortcut for prototype later
-	var DP;
 
 	/**
 	 * Represents the file download dialog and the link to open it.
-	 *
-	 * @class DownloadDialog
-	 * @extends Dialog
-	 * @param {jQuery} $container the element to which the dialog will be appended
-	 * @param {jQuery} $openButton the button which opens the dialog. Only used for positioning.
-	 * @param {Config} config
 	 */
-	function DownloadDialog( $container, $openButton, config ) {
-		Dialog.call( this, $container, $openButton, config );
+	class DownloadDialog extends Dialog {
+		/**
+		 * @param {jQuery} $container the element to which the dialog will be appended
+		 * @param {jQuery} $openButton the button which opens the dialog. Only used for positioning.
+		 * @param {Config} config
+		 */
+		constructor( $container, $openButton, config ) {
+			super( $container, $openButton, config );
 
-		this.loadDependencies.push( 'mmv.ui.download.pane' );
+			this.loadDependencies.push( 'mmv.ui.download.pane' );
 
-		this.$dialog.addClass( 'mw-mmv-download-dialog' );
+			this.$dialog.addClass( 'mw-mmv-download-dialog' );
 
-		this.eventPrefix = 'download';
-	}
+			this.eventPrefix = 'download';
+		}
 
-	OO.inheritClass( DownloadDialog, Dialog );
-	DP = DownloadDialog.prototype;
+		/**
+		 * Registers listeners.
+		 */
+		attach() {
+			this.handleEvent( 'mmv-download-open', this.handleOpenCloseClick.bind( this ) );
 
-	/**
-	 * Registers listeners.
-	 */
-	DP.attach = function () {
-		var dialog = this;
+			this.handleEvent( 'mmv-reuse-open', this.closeDialog.bind( this ) );
+			this.handleEvent( 'mmv-options-open', this.closeDialog.bind( this ) );
 
-		this.handleEvent( 'mmv-download-open', this.handleOpenCloseClick.bind( this ) );
+			this.$container.on( 'mmv-download-cta-open', () => this.$warning.hide() );
+			this.$container.on( 'mmv-download-cta-close', () => {
+				if ( this.$dialog.hasClass( 'mw-mmv-warning-visible' ) ) {
+					this.$warning.show();
+				}
+			} );
+		}
 
-		this.handleEvent( 'mmv-reuse-open', this.closeDialog.bind( this ) );
-		this.handleEvent( 'mmv-options-open', this.closeDialog.bind( this ) );
+		/**
+		 * Clears listeners.
+		 */
+		unattach() {
+			super.unattach();
 
-		this.$container.on( 'mmv-download-cta-open', function () {
-			dialog.$warning.hide();
-		} );
-		this.$container.on( 'mmv-download-cta-close', function () {
-			if ( dialog.$dialog.hasClass( 'mw-mmv-warning-visible' ) ) {
-				dialog.$warning.show();
+			this.$container.off( 'mmv-download-cta-open mmv-download-cta-close' );
+		}
+
+		/**
+		 * Sets data needed by contained tabs and makes dialog launch link visible.
+		 *
+		 * @param {Image} image
+		 * @param {Repo} repo
+		 */
+		set( image, repo ) {
+			if ( this.download ) {
+				this.download.set( image, repo );
+				this.showImageWarnings( image );
+			} else {
+				this.setValues = {
+					image: image,
+					repo: repo
+				};
 			}
-		} );
-	};
-
-	/**
-	 * Clears listeners.
-	 */
-	DP.unattach = function () {
-		Dialog.prototype.unattach.call( this );
-
-		this.$container.off( 'mmv-download-cta-open mmv-download-cta-close' );
-	};
-
-	/**
-	 * Sets data needed by contained tabs and makes dialog launch link visible.
-	 *
-	 * @param {Image} image
-	 * @param {Repo} repo
-	 */
-	DP.set = function ( image, repo ) {
-		if ( this.download ) {
-			this.download.set( image, repo );
-			this.showImageWarnings( image );
-		} else {
-			this.setValues = {
-				image: image,
-				repo: repo
-			};
-		}
-	};
-
-	/**
-	 * @event mmv-download-opened
-	 * Fired when the dialog is opened.
-	 */
-	/**
-	 * Opens a dialog with information about file download.
-	 */
-	DP.openDialog = function () {
-		if ( !this.download ) {
-			const DownloadPane = require( 'mmv.ui.download.pane' );
-			this.download = new DownloadPane( this.$dialog );
-			this.download.attach();
 		}
 
-		if ( this.setValues ) {
-			this.download.set( this.setValues.image, this.setValues.repo );
-			this.showImageWarnings( this.setValues.image );
-			this.setValues = undefined;
+		/**
+		 * @event mmv-download-opened
+		 * Fired when the dialog is opened.
+		 */
+		/**
+		 * Opens a dialog with information about file download.
+		 */
+		openDialog() {
+			if ( !this.download ) {
+				const DownloadPane = require( 'mmv.ui.download.pane' );
+				this.download = new DownloadPane( this.$dialog );
+				this.download.attach();
+			}
+
+			if ( this.setValues ) {
+				this.download.set( this.setValues.image, this.setValues.repo );
+				this.showImageWarnings( this.setValues.image );
+				this.setValues = undefined;
+			}
+
+			super.openDialog();
+
+			$( document ).trigger( 'mmv-download-opened' );
 		}
 
-		Dialog.prototype.openDialog.call( this );
+		/**
+		 * @event mmv-download-closed
+		 * Fired when the dialog is closed.
+		 */
+		/**
+		 * Closes the download dialog.
+		 */
+		closeDialog() {
+			super.closeDialog();
 
-		$( document ).trigger( 'mmv-download-opened' );
-	};
-
-	/**
-	 * @event mmv-download-closed
-	 * Fired when the dialog is closed.
-	 */
-	/**
-	 * Closes the download dialog.
-	 */
-	DP.closeDialog = function () {
-		Dialog.prototype.closeDialog.call( this );
-
-		$( document ).trigger( 'mmv-download-closed' );
-	};
+			$( document ).trigger( 'mmv-download-closed' );
+		}
+	}
 
 	module.exports = DownloadDialog;
 }() );

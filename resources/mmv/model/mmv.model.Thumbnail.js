@@ -18,30 +18,27 @@
 ( function () {
 	/**
 	 * Represents information about an image thumbnail
-	 *
-	 * @class Thumbnail
-	 * @constructor
-	 * @param {string} url URL to the thumbnail
-	 * @param {number} width Width in pixels
-	 * @param {number} height Height in pixels
 	 */
-	function Thumbnail(
-		url,
-		width,
-		height
-	) {
-		if ( !url || !width || !height ) {
-			throw new Error( 'All parameters are required and cannot be empty or zero' );
+	class Thumbnail {
+		/**
+		 * @param {string} url URL to the thumbnail
+		 * @param {number} width Width in pixels
+		 * @param {number} height Height in pixels
+		 */
+		constructor( url, width, height ) {
+			if ( !url || !width || !height ) {
+				throw new Error( 'All parameters are required and cannot be empty or zero' );
+			}
+
+			/** @property {string} url The URL to the thumbnail */
+			this.url = url;
+
+			/** @property {number} width The width of the thumbnail in pixels */
+			this.width = width;
+
+			/** @property {number} height The height of the thumbnail in pixels */
+			this.height = height;
 		}
-
-		/** @property {string} url The URL to the thumbnail */
-		this.url = url;
-
-		/** @property {number} width The width of the thumbnail in pixels */
-		this.width = width;
-
-		/** @property {number} height The height of the thumbnail in pixels */
-		this.height = height;
 	}
 
 	module.exports = Thumbnail;

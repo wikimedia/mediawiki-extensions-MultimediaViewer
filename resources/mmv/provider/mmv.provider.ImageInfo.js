@@ -24,98 +24,99 @@ const ImageModel = require( '../model/mmv.model.Image.js' );
 	 * Gets file information.
 	 *
 	 * See https://www.mediawiki.org/wiki/API:Properties#imageinfo_.2F_ii
-	 *
-	 * @class ImageInfo
-	 * @extends Api
-	 * @constructor
-	 * @param {mw.Api} api
-	 * @param {Object} [options]
-	 * @cfg {string} [language=null] image metadata language
-	 * @cfg {number} [maxage] cache expiration time, in seconds
-	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
 	 */
-	function ImageInfo( api, options ) {
-		options = $.extend( {
-			language: null
-		}, options );
+	class ImageInfo extends Api {
+		/**
+		 * @param {mw.Api} api
+		 * @param {Object} [options]
+		 * @cfg {string} [language=null] image metadata language
+		 * @cfg {number} [maxage] cache expiration time, in seconds
+		 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
+		 */
+		constructor( api, options ) {
+			options = Object.assign( {
+				language: null
+			}, options );
 
-		Api.call( this, api, options );
-	}
-	OO.inheritClass( ImageInfo, Api );
+			super( api, options );
+		}
 
-	/**
-	 * Array of imageinfo API properties which are needed to construct an Image model.
-	 *
-	 * @property {string[]}
-	 */
-	ImageInfo.prototype.iiprop = [
-		'timestamp',
-		'url',
-		'size',
-		'mime',
-		'mediatype',
-		'extmetadata'
-	];
+		/**
+		 * Array of imageinfo API properties which are needed to construct an Image model.
+		 *
+		 * @property {string[]}
+		 */
+		get iiprop() {
+			return [
+				'timestamp',
+				'url',
+				'size',
+				'mime',
+				'mediatype',
+				'extmetadata'
+			];
+		}
 
-	/**
-	 * Array of imageinfo extmetadata fields which are needed to construct an Image model.
-	 *
-	 * @property {string[]}
-	 */
-	ImageInfo.prototype.iiextmetadatafilter = [
-		'DateTime',
-		'DateTimeOriginal',
-		'ObjectName',
-		'ImageDescription',
-		'License',
-		'LicenseShortName',
-		'UsageTerms',
-		'LicenseUrl',
-		'Credit',
-		'Artist',
-		'AuthorCount',
-		'GPSLatitude',
-		'GPSLongitude',
-		'Permission',
-		'Attribution',
-		'AttributionRequired',
-		'NonFree',
-		'Restrictions',
-		'DeletionReason'
-	];
+		/**
+		 * Array of imageinfo extmetadata fields which are needed to construct an Image model.
+		 *
+		 * @property {string[]}
+		 */
+		get iiextmetadatafilter() {
+			return [
+				'DateTime',
+				'DateTimeOriginal',
+				'ObjectName',
+				'ImageDescription',
+				'License',
+				'LicenseShortName',
+				'UsageTerms',
+				'LicenseUrl',
+				'Credit',
+				'Artist',
+				'AuthorCount',
+				'GPSLatitude',
+				'GPSLongitude',
+				'Permission',
+				'Attribution',
+				'AttributionRequired',
+				'NonFree',
+				'Restrictions',
+				'DeletionReason'
+			];
+		}
 
-	/**
-	 * Runs an API GET request to get the image info.
-	 *
-	 * @param {mw.Title} file
-	 * @return {jQuery.Promise} a promise which resolves to an Image object.
-	 */
-	ImageInfo.prototype.get = function ( file ) {
-		var provider = this;
-
-		return this.getCachedPromise( file.getPrefixedDb(), function () {
-			return provider.apiGetWithMaxAge( {
-				formatversion: 2,
-				action: 'query',
-				prop: 'imageinfo',
-				titles: file.getPrefixedDb(),
-				iiprop: provider.iiprop,
-				iiextmetadatafilter: provider.iiextmetadatafilter,
-				iiextmetadatalanguage: provider.options.language,
-				uselang: 'content'
-			} ).then( function ( data ) {
-				return provider.getQueryPage( data );
-			} ).then( function ( page ) {
-				if ( page.imageinfo && page.imageinfo.length ) {
-					return ImageModel.newFromImageInfo( file, page );
-				} else if ( page.missing === true && page.imagerepository === '' ) {
-					return $.Deferred().reject( 'file does not exist: ' + file.getPrefixedDb() );
-				} else {
-					return $.Deferred().reject( 'unknown error' );
-				}
+		/**
+		 * Runs an API GET request to get the image info.
+		 *
+		 * @param {mw.Title} file
+		 * @return {jQuery.Promise} a promise which resolves to an Image object.
+		 */
+		get( file ) {
+			return this.getCachedPromise( file.getPrefixedDb(), () => {
+				return this.apiGetWithMaxAge( {
+					formatversion: 2,
+					action: 'query',
+					prop: 'imageinfo',
+					titles: file.getPrefixedDb(),
+					iiprop: this.iiprop,
+					iiextmetadatafilter: this.iiextmetadatafilter,
+					iiextmetadatalanguage: this.options.language,
+					uselang: 'content'
+				} ).then( ( data ) => {
+					return this.getQueryPage( data );
+				} ).then( ( page ) => {
+					if ( page.imageinfo && page.imageinfo.length ) {
+						return ImageModel.newFromImageInfo( file, page );
+					} else if ( page.missing === true && page.imagerepository === '' ) {
+						return $.Deferred().reject( `file does not exist: ${file.getPrefixedDb()}` );
+					} else {
+						return $.Deferred().reject( 'unknown error' );
+					}
+				} );
 			} );
-		} );
-	};
+		}
+	}
 
 	module.exports = ImageInfo;
 }() );

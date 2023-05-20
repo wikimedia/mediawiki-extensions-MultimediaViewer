@@ -43,8 +43,6 @@
 		 * @return {string} the location hash
 		 * @member mw.mmv
 		 */
-		getMediaHash: function ( imageFileTitle ) {
-			return '#/media/' + imageFileTitle;
-		}
+		getMediaHash: ( imageFileTitle ) => `#/media/${imageFileTitle}`
 	};
 }() );

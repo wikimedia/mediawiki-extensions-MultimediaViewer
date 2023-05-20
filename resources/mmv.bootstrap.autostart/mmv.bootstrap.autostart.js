@@ -23,9 +23,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 ( function () {
 	const bootstrap = new MultimediaViewerBootstrap();
 
-	$( function () {
-		bootstrap.setupEventHandlers();
-	} );
+	$( bootstrap.setupEventHandlers.bind( bootstrap ) );
 
 	module.exports = bootstrap;
 }() );

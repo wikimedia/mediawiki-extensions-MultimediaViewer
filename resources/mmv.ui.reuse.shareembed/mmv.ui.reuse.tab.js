@@ -18,43 +18,40 @@
 const { UiElement } = require( 'mmv' );
 
 ( function () {
-	var TP;
 
 	/**
 	 * A tab in a pane component
-	 *
-	 * @class Tab
-	 * @extends UiElement
-	 * @param {jQuery} $container
-	 * @constructor
 	 */
-	function Tab( $container ) {
-		Tab.super.call( this, $container );
+	class Tab extends UiElement {
+		/**
+		 * @param {jQuery} $container
+		 */
+		constructor( $container ) {
+			super( $container );
+
+			/**
+			 * Container for the tab.
+			 *
+			 * @property {jQuery}
+			 */
+			this.$pane = $( '<div>' ).addClass( 'mw-mmv-reuse-pane' );
+
+		}
 
 		/**
-		 * Container for the tab.
-		 *
-		 * @property {jQuery}
+		 * Shows the pane.
 		 */
-		this.$pane = $( '<div>' ).addClass( 'mw-mmv-reuse-pane' );
+		show() {
+			this.$pane.addClass( 'active' );
+		}
 
+		/**
+		 * Hides the pane.
+		 */
+		hide() {
+			this.$pane.removeClass( 'active' );
+		}
 	}
-	OO.inheritClass( Tab, UiElement );
-	TP = Tab.prototype;
-
-	/**
-	 * Shows the pane.
-	 */
-	TP.show = function () {
-		this.$pane.addClass( 'active' );
-	};
-
-	/**
-	 * Hides the pane.
-	 */
-	TP.hide = function () {
-		this.$pane.removeClass( 'active' );
-	};
 
 	module.exports = Tab;
 }() );
