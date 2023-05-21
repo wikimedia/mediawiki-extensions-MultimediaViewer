@@ -275,34 +275,23 @@ const { enterFullscreenMock, exitFullscreenMock, getMultimediaViewer } = require
 		viewer.setupEventHandlers();
 
 		// Since we define both, the test works regardless of RTL settings
-		lightbox.on( 'next', function () {
-			assert.true( true, 'Next image was open' );
-		} );
+		lightbox.on( 'next', () => assert.true( true, 'Next image was open' ) );
+		lightbox.on( 'prev', () => assert.true( true, 'Prev image was open' ) );
 
-		lightbox.on( 'prev', function () {
-			assert.true( true, 'Prev image was open' );
-		} );
+		lightbox.keydown( $.Event( 'keydown', { key: 'ArrowLeft' } ) );
+		lightbox.keydown( $.Event( 'keydown', { key: 'ArrowRight' } ) );
 
-		// 37 is left arrow, 39 is right arrow
-		lightbox.keydown( $.Event( 'keydown', { which: 37 } ) );
-		lightbox.keydown( $.Event( 'keydown', { which: 39 } ) );
+		lightbox.off( 'next' ).on( 'next', () => assert.true( false, 'Next image should not have been open' ) );
+		lightbox.off( 'prev' ).on( 'prev', () => assert.true( false, 'Prev image should not have been open' ) );
 
-		lightbox.off( 'next' ).on( 'next', function () {
-			assert.true( false, 'Next image should not have been open' );
-		} );
-
-		lightbox.off( 'prev' ).on( 'prev', function () {
-			assert.true( false, 'Prev image should not have been open' );
-		} );
-
-		lightbox.keydown( $.Event( 'keydown', { which: 37, altKey: true } ) );
-		lightbox.keydown( $.Event( 'keydown', { which: 39, altKey: true } ) );
-		lightbox.keydown( $.Event( 'keydown', { which: 37, ctrlKey: true } ) );
-		lightbox.keydown( $.Event( 'keydown', { which: 39, ctrlKey: true } ) );
-		lightbox.keydown( $.Event( 'keydown', { which: 37, shiftKey: true } ) );
-		lightbox.keydown( $.Event( 'keydown', { which: 39, shiftKey: true } ) );
-		lightbox.keydown( $.Event( 'keydown', { which: 37, metaKey: true } ) );
-		lightbox.keydown( $.Event( 'keydown', { which: 39, metaKey: true } ) );
+		lightbox.keydown( $.Event( 'keydown', { key: 'ArrowLeft', altKey: true } ) );
+		lightbox.keydown( $.Event( 'keydown', { key: 'ArrowRight', altKey: true } ) );
+		lightbox.keydown( $.Event( 'keydown', { key: 'ArrowLeft', ctrlKey: true } ) );
+		lightbox.keydown( $.Event( 'keydown', { key: 'ArrowRight', ctrlKey: true } ) );
+		lightbox.keydown( $.Event( 'keydown', { key: 'ArrowLeft', shiftKey: true } ) );
+		lightbox.keydown( $.Event( 'keydown', { key: 'ArrowRight', shiftKey: true } ) );
+		lightbox.keydown( $.Event( 'keydown', { key: 'ArrowLeft', metaKey: true } ) );
+		lightbox.keydown( $.Event( 'keydown', { key: 'ArrowRight', metaKey: true } ) );
 
 		viewer.cleanupEventHandlers();
 	} );

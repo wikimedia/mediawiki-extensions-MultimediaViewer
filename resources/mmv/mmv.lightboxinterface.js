@@ -396,30 +396,23 @@ const UiElement = require( './ui/mmv.ui.js' );
 		 * @param {jQuery.Event} e The jQuery keypress event object
 		 */
 		keydown( e ) {
-			let forward;
 			const isRtl = $( document.body ).hasClass( 'rtl' );
 
 			if ( e.altKey || e.shiftKey || e.ctrlKey || e.metaKey ) {
 				return;
 			}
-
-			switch ( e.which ) {
-				case 37: // Left arrow
-				case 39: // Right arrow
-					e.preventDefault();
-					forward = ( e.which === 39 );
-					if ( isRtl ) {
-						forward = !forward;
-					}
-
-					if ( forward ) {
-						this.emit( 'next' );
-					} else {
-						this.emit( 'prev' );
-					}
-
-					e.preventDefault();
-					break;
+			if ( e.key === 'ArrowLeft' ) {
+				this.emit( isRtl ? 'next' : 'prev' );
+				e.preventDefault();
+			} else if ( e.key === 'ArrowRight' ) {
+				this.emit( isRtl ? 'prev' : 'next' );
+				e.preventDefault();
+			} else if ( e.key === 'Home' ) {
+				this.emit( 'first' );
+				e.preventDefault();
+			} else if ( e.key === 'End' ) {
+				this.emit( 'last' );
+				e.preventDefault();
 			}
 		}
 

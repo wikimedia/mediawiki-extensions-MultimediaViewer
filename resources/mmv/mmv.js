@@ -825,6 +825,20 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		}
 
 		/**
+		 * Opens the last image
+		 */
+		firstImage() {
+			this.loadIndex( 0 );
+		}
+
+		/**
+		 * Opens the last image
+		 */
+		lastImage() {
+			this.loadIndex( this.thumbs.length - 1 );
+		}
+
+		/**
 		 * Opens the next image
 		 */
 		nextImage() {
@@ -937,6 +951,8 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 */
 		setupEventHandlers() {
 			this.ui.connect( this, {
+				first: 'firstImage',
+				last: 'lastImage',
 				next: 'nextImage',
 				prev: 'prevImage'
 			} );
