@@ -27,6 +27,7 @@
 	"multimediaviewer-multiple-authors": "{{PLURAL:$1|bir yazar daha|$1 yazar daha}}",
 	"multimediaviewer-multiple-authors-combine": "$1 ve $2",
 	"multimediaviewer-metadata-error": "Resim ayrıntıları yüklenemedi (hata: $1)",
+	"multimediaviewer-file-not-found-error": "Üzgünüz, geçerli sayfada olmadığı için $1 dosyası görüntülenemiyor.",
 	"multimediaviewer-thumbnail-error": "Maalesef dosya görüntülenemiyor",
 	"multimediaviewer-thumbnail-error-description": "Teknik bir sorun var gibi görünüyor. Devam ederse $1. Hata: $2",
 	"multimediaviewer-thumbnail-error-retry": "tekrar deneyin",
