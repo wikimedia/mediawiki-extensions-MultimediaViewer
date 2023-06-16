@@ -618,7 +618,7 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 * taskFactory(lightboxImage) should return a preload task for the given lightboximage.
 		 *
 		 * @private
-		 * @param {function(LightboxImage): function()} taskFactory
+		 * @param {function(LightboxImage)} taskFactory
 		 * @return {TaskQueue}
 		 */
 		pushLightboxImagesIntoQueue( taskFactory ) {
@@ -902,26 +902,36 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		}
 
 		/**
-		 * @event mmv-close
 		 * Fired when the viewer is closed. This is used by the lightbox to notify the main app.
+		 *
+		 * @event MultimediaViewer#mmv-close
 		 */
+
 		/**
-		 * @event mmv-next
 		 * Fired when the user requests the next image.
+		 *
+		 * @event MultimediaViewer#mmv-next
 		 */
+
 		/**
-		 * @event mmv-prev
 		 * Fired when the user requests the previous image.
+		 *
+		 * @event MultimediaViewer#mmv-prev
 		 */
+
 		/**
-		 * @event mmv-resize-end
 		 * Fired when the screen size changes. Debounced to avoid continuous triggering while resizing with a mouse.
+		 *
+		 * @event MultimediaViewer#mmv-resize-end
 		 */
+
 		/**
-		 * @event mmv-request-thumbnail
 		 * Used by components to request a thumbnail URL for the current thumbnail, with a given size.
+		 *
+		 * @event MultimediaViewer#mmv-request-thumbnail
 		 * @param {number} size
 		 */
+
 		/**
 		 * Registers all event handlers
 		 */

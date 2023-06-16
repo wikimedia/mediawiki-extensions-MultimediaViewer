@@ -69,7 +69,7 @@
 		 * Get value from local storage or fail gracefully.
 		 *
 		 * @param {string} key
-		 * @param {*} [fallback] value to return when key is not set or localStorage is not supported
+		 * @param {any} [fallback] value to return when key is not set or localStorage is not supported
 		 * @return {string|null} stored value or fallback or null if neither exists
 		 */
 		getFromLocalStorage( key, fallback ) {
@@ -94,7 +94,7 @@
 		 * Set item in local storage or fail gracefully.
 		 *
 		 * @param {string} key
-		 * @param {*} value
+		 * @param {any} value
 		 * @return {boolean} whether storing the item was successful
 		 */
 		setInLocalStorage( key, value ) {

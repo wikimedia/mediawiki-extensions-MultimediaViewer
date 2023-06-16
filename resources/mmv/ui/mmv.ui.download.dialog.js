@@ -83,9 +83,10 @@ const Dialog = require( './mmv.ui.dialog.js' );
 		}
 
 		/**
-		 * @event mmv-download-opened
 		 * Fired when the dialog is opened.
+		 * @event DownloadDialog#mmv-download-opened
 		 */
+
 		/**
 		 * Opens a dialog with information about file download.
 		 */
@@ -108,9 +109,10 @@ const Dialog = require( './mmv.ui.dialog.js' );
 		}
 
 		/**
-		 * @event mmv-download-closed
 		 * Fired when the dialog is closed.
+		 * @event DownloadDialog#mmv-download-closed
 		 */
+
 		/**
 		 * Closes the download dialog.
 		 */

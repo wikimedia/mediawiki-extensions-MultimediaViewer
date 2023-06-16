@@ -140,9 +140,10 @@ const Dialog = require( './mmv.ui.dialog.js' );
 		}
 
 		/**
-		 * @event mmv-options-opened
 		 * Fired when the dialog is opened.
+		 * @event OptionsDialog#mmv-options-opened
 		 */
+
 		/**
 		 * Opens a dialog with information about file reuse.
 		 */
@@ -159,9 +160,10 @@ const Dialog = require( './mmv.ui.dialog.js' );
 		}
 
 		/**
-		 * @event mmv-options-closed
 		 * Fired when the dialog is closed.
+		 * @event OptionsDialog#mmv-options-closed
 		 */
+
 		/**
 		 * Closes the options dialog.
 		 *

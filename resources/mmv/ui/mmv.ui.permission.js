@@ -140,9 +140,13 @@ const MetadataPanelScroller = require( './mmv.ui.metadataPanelScroller.js' );
 		}
 
 		/**
+		 * @event Permission#mmv-permission-grow
+		 */
+
+		/**
 		 * Enlarge the box, show HTML instead of text.
 		 *
-		 * @fires mmv-permission-grow
+		 * @fires Permission#mmv-permission-grow
 		 */
 		grow() {
 			// FIXME: Use CSS transition
@@ -155,9 +159,13 @@ const MetadataPanelScroller = require( './mmv.ui.metadataPanelScroller.js' );
 		}
 
 		/**
+		 * @event Permission#mmv-permission-shrink
+		 */
+
+		/**
 		 * Limit the size of the box, show text only.
 		 *
-		 * @fires mmv-permission-shrink
+		 * @fires Permission#mmv-permission-shrink
 		 */
 		shrink() {
 			this.$box.removeClass( 'full-size' );

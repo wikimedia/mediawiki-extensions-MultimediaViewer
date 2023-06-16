@@ -28,6 +28,7 @@ const UiElement = require( './mmv.ui.js' );
 		 * @param {jQuery} $container The parent element we should put the buttons into.
 		 * @param {jQuery} $closeButton The close button element from the parent class.
 		 * @param {jQuery} $fullscreenButton The fullscreen button from the parent class.
+		 * @fires MultimediaViewer#mmv-close
 		 */
 		constructor( $container, $closeButton, $fullscreenButton ) {
 			super( $container );
@@ -195,12 +196,15 @@ const UiElement = require( './mmv.ui.js' );
 		}
 
 		/**
-		 * @event mmv-reuse-open
-		 * Fired when the button to open the reuse dialog is clicked.
-		 */
-		/**
 		 * Registers listeners.
-		 */
+		 *
+		 * @emit mmv-reuse-opened
+		 * @emit mmv-reuse-closed
+		 * @emit mmv-download-open
+		 * @emit mmv-download-closed
+		 * @emit mmv-options-opened
+		 * @emit mmv-options-closed
+		*/
 		attach() {
 			this.$reuse.on( 'click.mmv-canvasButtons', ( e ) => {
 				$( document ).trigger( 'mmv-reuse-open', e );
