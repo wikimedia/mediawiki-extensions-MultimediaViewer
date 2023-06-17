@@ -192,7 +192,7 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 		 */
 		initializeTitle() {
 			this.$titlePara = $( '<p>' )
-				.addClass( 'mw-mmv-title-para' )
+				.addClass( 'mw-mmv-title-para mw-parser-output' )
 				.appendTo( this.$aboveFold );
 
 			this.$title = $( '<span>' )
