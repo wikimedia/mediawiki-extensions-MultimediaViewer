@@ -40,7 +40,8 @@ const { MetadataPanelScroller } = require( 'mmv' );
 			localStorage = createLocalStorage( {
 				// We simulate localStorage to avoid test side-effects
 				getItem: function () { return displayCount; },
-				setItem: function ( _, val ) { displayCount = val; }
+				setItem: function ( _, val ) { displayCount = val; },
+				removeItem: function () { displayCount = null; }
 			} ),
 			scroller = new MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ), localStorage );
 
@@ -88,7 +89,8 @@ const { MetadataPanelScroller } = require( 'mmv' );
 		var $qf = $( '#qunit-fixture' ),
 			localStorage = createLocalStorage( {
 				getItem: this.sandbox.stub().returns( null ),
-				setItem: this.sandbox.stub().throwsException( 'I am full' )
+				setItem: this.sandbox.stub().throwsException( 'I am full' ),
+				removeItem: this.sandbox.stub()
 			} ),
 			scroller = new MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ), localStorage );
 
@@ -143,7 +145,8 @@ const { MetadataPanelScroller } = require( 'mmv' );
 			$aboveFold = $( '<div>' ).css( 'height', 50 ).appendTo( $container ),
 			fakeLocalStorage = createLocalStorage( {
 				getItem: this.sandbox.stub().returns( null ),
-				setItem: function () {}
+				setItem: function () {},
+				removeItem: function () {}
 			} ),
 			scroller = new MetadataPanelScroller( $container, $aboveFold, fakeLocalStorage ),
 			keydown = $.Event( 'keydown' );

@@ -63,7 +63,7 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 		config = new Config( {}, {}, {}, {}, localStorage );
 		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), false, 'Returns false when disabled' );
 
-		localStorage = createLocalStorage( { setItem: this.sandbox.stub() } );
+		localStorage = createLocalStorage( { setItem: this.sandbox.stub(), removeItem: this.sandbox.stub() } );
 		config = new Config( {}, {}, {}, {}, localStorage );
 
 		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), true, 'Returns true when works' );
