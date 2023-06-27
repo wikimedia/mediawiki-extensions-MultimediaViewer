@@ -387,36 +387,22 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 			// eslint-disable-next-line no-jquery/no-global-selector
 			$( '.mw-mmv-filepage-buttons' ).next().addBack().remove();
 
-			const $icon = $( '<span>' ).addClass( 'mw-ui-icon mw-ui-icon-before' );
+			const $mmvButton = $( '<button>' )
+				.addClass( 'mw-mmv-view-expanded cdx-button' )
+				.append( $( '<span>' ).addClass( 'cdx-button__icon' ) )
+				.append( ' ' )
+				.append( mw.message( 'multimediaviewer-view-expanded' ).text() );
 
-			const $link = $( '<a>' )
-				// It won't matter because we catch the click event anyway, but
-				// give the user some URL to see.
-				.prop( 'href', link )
-				.addClass( 'mw-mmv-view-expanded mw-ui-button' );
-
-			const $label = $( '<span>' )
-				.text( mw.message( 'multimediaviewer-view-expanded' ).text() );
-
-			$icon.append( $label ).appendTo( $link );
-
-			const $configLink = $( '<a>' )
-				.prop( 'href', $thumb.closest( 'a' ).prop( 'href' ) )
-				.addClass( 'mw-mmv-view-config mw-ui-button' );
-
-			const $configLabel = $( '<span>' )
-				.text( mw.message( 'multimediaviewer-view-config' ).text() );
-
-			const $configIcon = $( '<span>' )
-				.addClass( 'mw-ui-icon mw-ui-icon-before' )
-				.append( $configLabel )
-				.appendTo( $configLink );
-
-			$configIcon.append( $configLabel ).appendTo( $configLink );
+			const $configButton = $( '<button>' )
+				.attr( 'title', mw.message( 'multimediaviewer-view-config' ).text() )
+				.addClass( 'mw-mmv-view-config cdx-button cdx-button--icon-only' )
+				.append( $( '<span>' ).addClass( 'cdx-button__icon' ) )
+				// U+200B ZERO WIDTH SPACE to accomplish same height as $mmvButton
+				.append( '\u200B' );
 
 			const $filepageButtons = $( '<div>' )
-				.addClass( 'mw-ui-button-group mw-mmv-filepage-buttons' )
-				.append( $link, $configLink );
+				.addClass( 'cdx-button-group mw-mmv-filepage-buttons' )
+				.append( $mmvButton, $configButton );
 
 			// eslint-disable-next-line no-jquery/no-global-selector
 			$( '.fullMedia' ).append(
@@ -432,7 +418,7 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 				link: link
 			} );
 
-			$link.on( 'click', () => {
+			$mmvButton.on( 'click', () => {
 				if ( this.statusInfoDialog ) {
 					this.statusInfoDialog.close();
 				}
@@ -440,7 +426,7 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 				return false;
 			} );
 
-			$configLink.on( 'click', () => {
+			$configButton.on( 'click', () => {
 				if ( this.statusInfoDialog ) {
 					this.statusInfoDialog.close();
 				}

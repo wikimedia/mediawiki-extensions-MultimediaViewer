@@ -101,6 +101,7 @@
 				"mediawiki.storage",
 				"mediawiki.user",
 				"mediawiki.util",
+				"mediawiki.ui.button",
 				"oojs",
 				"jquery.fullscreen",
 				"jquery.color",
@@ -321,10 +322,9 @@
 				"mmv.bootstrap/mmv.bootstrap.less"
 			],
 			"dependencies": [
+				"codex-search-styles",
 				"mediawiki.api",
 				"mediawiki.router",
-				"mediawiki.ui.button",
-				"mediawiki.ui.icon",
 				"mediawiki.Title",
 				"mediawiki.user",
 				"mediawiki.storage",
