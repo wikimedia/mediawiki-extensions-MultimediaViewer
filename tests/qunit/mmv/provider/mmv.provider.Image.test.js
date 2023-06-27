@@ -32,7 +32,7 @@ const { ImageProvider } = require( 'mmv' );
 				'8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC',
 			imageProvider = new ImageProvider();
 
-		imageProvider.imagePreloadingSupported = function () { return false; };
+		imageProvider.imagePreloadingSupported = () => false;
 
 		return imageProvider.get( url ).then( function ( image ) {
 			assert.true( image instanceof HTMLImageElement,
@@ -49,7 +49,7 @@ const { ImageProvider } = require( 'mmv' );
 			result,
 			imageProvider = new ImageProvider();
 
-		imageProvider.imagePreloadingSupported = function () { return false; };
+		imageProvider.imagePreloadingSupported = () => false;
 
 		return QUnit.whenPromisesComplete(
 			imageProvider.get( url ).then( function ( image ) {
@@ -77,8 +77,10 @@ const { ImageProvider } = require( 'mmv' );
 			done = assert.async(),
 			mwLogCalled = false;
 
-		imageProvider.imagePreloadingSupported = function () { return false; };
-		mw.log = function () { mwLogCalled = true; };
+		imageProvider.imagePreloadingSupported = () => false;
+		mw.log = function () {
+			mwLogCalled = true;
+		};
 
 		imageProvider.get( 'doesntexist.png' ).fail( function () {
 			assert.true( true, 'fail handler was called' );
@@ -93,7 +95,7 @@ const { ImageProvider } = require( 'mmv' );
 			imageProvider = new ImageProvider(),
 			endsWith = function ( a, b ) { return a.indexOf( b ) === a.length - b.length; };
 
-		imageProvider.imagePreloadingSupported = function () { return true; };
+		imageProvider.imagePreloadingSupported = () => true;
 		imageProvider.performance = {
 			record: function () { return $.Deferred().resolve(); }
 		};
@@ -109,7 +111,7 @@ const { ImageProvider } = require( 'mmv' );
 			imageProvider = new ImageProvider(),
 			done = assert.async();
 
-		imageProvider.imagePreloadingSupported = function () { return true; };
+		imageProvider.imagePreloadingSupported = () => true;
 		imageProvider.performance = {
 			record: function () { return $.Deferred().resolve(); }
 		};
@@ -124,7 +126,7 @@ const { ImageProvider } = require( 'mmv' );
 		var imageProvider = new ImageProvider( 'foo' ),
 			done = assert.async();
 
-		imageProvider.imagePreloadingSupported = function () { return false; };
+		imageProvider.imagePreloadingSupported = () => false;
 		imageProvider.rawGet = function ( url ) {
 			assert.strictEqual( url, 'http://www.wikipedia.org/?foo', 'Extra parameter added' );
 

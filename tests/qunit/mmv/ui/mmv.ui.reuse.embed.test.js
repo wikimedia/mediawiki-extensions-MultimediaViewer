@@ -66,7 +66,7 @@ const { Embed } = require( 'mmv.ui.reuse.shareembed' );
 			height = 20;
 
 		embed.embedSwitch.findSelectedItem = function () {
-			return { getData: function () { return 'html'; } };
+			return { getData: () => 'html' };
 		};
 		embed.updateEmbedHtml = function ( thumb, w, h ) {
 			assert.strictEqual( thumb.url, undefined, 'Empty thumbnail passed.' );
@@ -89,7 +89,7 @@ const { Embed } = require( 'mmv.ui.reuse.shareembed' );
 			height = 20;
 
 		embed.embedSwitch.findSelectedItem = function () {
-			return { getData: function () { return 'wikitext'; } };
+			return { getData: () => 'wikitext' };
 		};
 		embed.updateEmbedHtml = function () {
 			assert.true( false, 'Dealing with wikitext menu, this should not have been called.' );
@@ -365,7 +365,7 @@ const { Embed } = require( 'mmv.ui.reuse.shareembed' );
 		};
 
 		// HTML selected
-		embed.handleTypeSwitch( { getData: function () { return 'html'; } } );
+		embed.handleTypeSwitch( { getData: () => 'html' } );
 
 		assert.strictEqual( embed.isSizeMenuDefaultReset, true, 'Reset flag updated correctly.' );
 		assert.strictEqual( embed.embedSizeSwitchWikitext.getMenu().isVisible(), false, 'Wikitext size menu should be hidden.' );
@@ -375,7 +375,7 @@ const { Embed } = require( 'mmv.ui.reuse.shareembed' );
 		};
 
 		// Wikitext selected, we are done resetting defaults
-		embed.handleTypeSwitch( { getData: function () { return 'wikitext'; } } );
+		embed.handleTypeSwitch( { getData: () => 'wikitext' } );
 
 		assert.strictEqual( embed.isSizeMenuDefaultReset, true, 'Reset flag updated correctly.' );
 		assert.strictEqual( embed.embedSizeSwitchHtml.getMenu().isVisible(), false, 'HTML size menu should be hidden.' );
@@ -385,7 +385,7 @@ const { Embed } = require( 'mmv.ui.reuse.shareembed' );
 		var embed,
 			oldUserIsAnon = mw.user.isAnon;
 
-		mw.user.isAnon = function () { return true; };
+		mw.user.isAnon = () => true;
 
 		embed = new Embed( $qf );
 

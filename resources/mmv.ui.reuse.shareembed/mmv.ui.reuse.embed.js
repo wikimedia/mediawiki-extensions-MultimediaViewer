@@ -404,8 +404,12 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 			const sizes = this.getSizeOptions( image.width, image.height );
 
 			this.embedFileInfo = { imageInfo: image, repoInfo: repo };
-			if ( caption ) { this.embedFileInfo.caption = caption; }
-			if ( alt ) { this.embedFileInfo.alt = alt; }
+			if ( caption ) {
+				this.embedFileInfo.caption = caption;
+			}
+			if ( alt ) {
+				this.embedFileInfo.alt = alt;
+			}
 
 			this.utils.updateMenuOptions( sizes.html, htmlSizeOptions );
 			this.utils.updateMenuOptions( sizes.wikitext, wikitextSizeOptions );

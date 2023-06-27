@@ -30,14 +30,14 @@ const { StripeButtons } = require( 'mmv' );
 			oldMwUserIsAnon = mw.user.isAnon;
 
 		// first pretend we are anonymous
-		mw.user.isAnon = function () { return true; };
+		mw.user.isAnon = () => true;
 		buttons = createStripeButtons();
 
 		assert.true( buttons instanceof StripeButtons, 'UI element is created.' );
 		assert.strictEqual( buttons.buttons.$descriptionPage.length, 1, 'File page button created for anon.' );
 
 		// now pretend we are logged in
-		mw.user.isAnon = function () { return false; };
+		mw.user.isAnon = () => false;
 		buttons = createStripeButtons();
 
 		assert.strictEqual( buttons.buttons.$descriptionPage.length, 1, 'File page button created for logged in.' );
@@ -70,13 +70,13 @@ const { StripeButtons } = require( 'mmv' );
 		assert.strictEqual( $button.hasClass( 'mw-mmv-repo-button-commons' ), false, 'Button does not have commons class non-Commons files' );
 		assert.strictEqual( $button.find( 'a' ).addBack().filter( 'a' ).attr( 'href' ), descriptionUrl, 'Description page link is correct' );
 
-		repoInfo.isCommons = function () { return true; };
+		repoInfo.isCommons = () => true;
 		buttons.setDescriptionPageButton( imageInfo, repoInfo );
 
 		assert.strictEqual( $button.hasClass( 'mw-mmv-repo-button-commons' ), true, 'Button commons class for Commons files' );
 
 		imageInfo.pageID = 1;
-		imageInfo.title = { getUrl: function () { return descriptionUrl2; } };
+		imageInfo.title = { getUrl: () => descriptionUrl2 };
 		repoInfo.isLocal = false;
 		buttons.setDescriptionPageButton( imageInfo, repoInfo );
 

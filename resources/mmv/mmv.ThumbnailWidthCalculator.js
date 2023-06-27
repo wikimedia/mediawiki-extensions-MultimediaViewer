@@ -64,7 +64,7 @@ const ThumbnailWidth = require( './model/mmv.model.ThumbnailWidth.js' );
 			 * @property {number[]}
 			 */
 			this.widthBuckets = options.widthBuckets;
-			this.widthBuckets.sort( ( a, b ) => { return a - b; } );
+			this.widthBuckets.sort( ( a, b ) => a - b );
 
 			/**
 			 * Screen pixel count per CSS pixel.

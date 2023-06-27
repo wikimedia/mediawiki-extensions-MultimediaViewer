@@ -10,7 +10,7 @@ const { ViewLogger } = require( 'mmv' );
 			// override that new behavior in order to run these tests...
 			// @see https://github.com/sinonjs/lolex/issues/76
 			this.oldNow = $.now;
-			$.now = function () { return Date.now(); };
+			$.now = () => Date.now();
 		},
 
 		afterEach: function () {

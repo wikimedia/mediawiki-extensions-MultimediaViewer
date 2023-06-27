@@ -36,7 +36,7 @@ const { GuessedThumbnailInfo } = require( 'mmv' );
 			done = assert.async(),
 			result;
 
-		provider.getUrl = function () { return resultUrl; };
+		provider.getUrl = () => resultUrl;
 		result = provider.get( file, sampleUrl, width, originalWidth, originalHeight );
 		assert.true( typeof result.then === 'function', 'Result is a promise' );
 		assert.strictEqual( result.state(), 'resolved', 'Result is resolved' );
@@ -47,7 +47,7 @@ const { GuessedThumbnailInfo } = require( 'mmv' );
 			done();
 		} );
 
-		provider.getUrl = function () { return undefined; };
+		provider.getUrl = () => undefined;
 		result = provider.get( file, sampleUrl, width, originalWidth, originalHeight );
 		assert.true( typeof result.then === 'function', 'Result is a promise' );
 		assert.strictEqual( result.state(), 'rejected', 'Result is rejected' );

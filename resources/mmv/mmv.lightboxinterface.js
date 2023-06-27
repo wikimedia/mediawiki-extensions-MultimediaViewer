@@ -174,15 +174,21 @@ const UiElement = require( './ui/mmv.ui.js' );
 				this.fullscreenChange( e );
 			} );
 
-			this.handleEvent( 'keydown', ( e ) => { this.keydown( e ); } );
+			this.handleEvent( 'keydown', ( e ) => {
+				this.keydown( e );
+			} );
 
 			// mousemove generates a ton of events, which is why we throttle it
 			this.handleEvent( 'mousemove.lip', mw.util.throttle( ( e ) => {
 				this.mousemove( e );
 			}, 250 ) );
 
-			this.handleEvent( 'mmv-faded-out', ( e ) => { this.fadedOut( e ); } );
-			this.handleEvent( 'mmv-fade-stopped', ( e ) => { this.fadeStopped( e ); } );
+			this.handleEvent( 'mmv-faded-out', ( e ) => {
+				this.fadedOut( e );
+			} );
+			this.handleEvent( 'mmv-fade-stopped', ( e ) => {
+				this.fadeStopped( e );
+			} );
 
 			this.buttons.connect( this, {
 				next: [ 'emit', 'next' ],

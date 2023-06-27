@@ -41,7 +41,7 @@ const { TaskQueue } = require( 'mmv' );
 			task = $.Deferred(),
 			promise;
 
-		taskQueue.push( function () { return task; } );
+		taskQueue.push( () => task );
 
 		assert.strictEqual( taskQueue.state, TaskQueue.State.NOT_STARTED,
 			'state is initially NOT_STARTED' );
@@ -63,7 +63,7 @@ const { TaskQueue } = require( 'mmv' );
 		var taskQueue = new TaskQueue(),
 			task = $.Deferred();
 
-		taskQueue.push( function () { return task; } );
+		taskQueue.push( () => task );
 		taskQueue.execute();
 		taskQueue.cancel();
 

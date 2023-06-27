@@ -64,14 +64,14 @@ const { ReuseDialog, Repo } = require( 'mmv' );
 		reuseDialog.initTabs();
 
 		// Share pane is selected
-		reuseDialog.handleTabSelection( { getData: function () { return 'share'; } } );
+		reuseDialog.handleTabSelection( { getData: () => 'share' } );
 		assert.strictEqual( reuseDialog.tabs.share.$pane.hasClass( 'active' ), true, 'Share tab shown.' );
 		assert.strictEqual( reuseDialog.tabs.embed.$pane.hasClass( 'active' ), false, 'Embed tab hidden.' );
 		assert.strictEqual( reuseDialog.config.setInLocalStorage.calledWith( 'mmv-lastUsedTab', 'share' ), true,
 			'Tab state saved in local storage.' );
 
 		// Embed pane is selected
-		reuseDialog.handleTabSelection( { getData: function () { return 'embed'; } } );
+		reuseDialog.handleTabSelection( { getData: () => 'embed' } );
 		assert.strictEqual( reuseDialog.tabs.share.$pane.hasClass( 'active' ), false, 'Share tab hidden.' );
 		assert.strictEqual( reuseDialog.tabs.embed.$pane.hasClass( 'active' ), true, 'Embed tab shown.' );
 	} );
@@ -152,18 +152,18 @@ const { ReuseDialog, Repo } = require( 'mmv' );
 
 		function assertDialogDoesNotCatchClicks() {
 			var event;
-			reuseDialog.closeDialog = function () { assert.true( false, 'Dialog is not affected by click' ); };
+			reuseDialog.closeDialog = () => assert.true( false, 'Dialog is not affected by click' );
 			event = clickOutsideDialog();
 			assert.strictEqual( event.isDefaultPrevented(), false, 'Dialog does not affect click' );
 			assert.strictEqual( event.isPropagationStopped(), false, 'Dialog does not affect click propagation' );
 		}
 		function assertDialogCatchesOutsideClicksOnly() {
 			var event;
-			reuseDialog.closeDialog = function () { assert.true( false, 'Dialog is not affected by inside click' ); };
+			reuseDialog.closeDialog = () => assert.true( false, 'Dialog is not affected by inside click' );
 			event = clickInsideDialog();
 			assert.strictEqual( event.isDefaultPrevented(), false, 'Dialog does not affect inside click' );
 			assert.strictEqual( event.isPropagationStopped(), false, 'Dialog does not affect inside click propagation' );
-			reuseDialog.closeDialog = function () { assert.true( true, 'Dialog is closed by outside click' ); };
+			reuseDialog.closeDialog = () => assert.true( true, 'Dialog is closed by outside click' );
 			event = clickOutsideDialog();
 			assert.strictEqual( event.isDefaultPrevented(), true, 'Dialog catches outside click' );
 			assert.strictEqual( event.isPropagationStopped(), true, 'Dialog stops outside click propagation' );

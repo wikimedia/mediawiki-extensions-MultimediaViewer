@@ -78,7 +78,7 @@ const { MetadataPanelScroller } = require( 'mmv' );
 			localStorage = getUnsupportedLocalStorage(),
 			scroller = new MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ), localStorage );
 
-		this.sandbox.stub( $.fn, 'scrollTop', function () { return 10; } );
+		this.sandbox.stub( $.fn, 'scrollTop', () => 10 );
 
 		scroller.scroll();
 
@@ -94,7 +94,7 @@ const { MetadataPanelScroller } = require( 'mmv' );
 			} ),
 			scroller = new MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ), localStorage );
 
-		this.sandbox.stub( $.fn, 'scrollTop', function () { return 10; } );
+		this.sandbox.stub( $.fn, 'scrollTop', () => 10 );
 
 		scroller.attach();
 

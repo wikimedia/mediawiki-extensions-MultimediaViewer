@@ -6,7 +6,9 @@ const { enterFullscreenMock, exitFullscreenMock, getMultimediaViewer } = require
 
 	function stubScrollTo() {
 		oldScrollTo = $.scrollTo;
-		$.scrollTo = function () { return { scrollTop: function () {}, on: function () {}, off: function () {} }; };
+		$.scrollTo = function () {
+			return { scrollTop: () => {}, on: () => {}, off: () => {} };
+		};
 	}
 
 	function restoreScrollTo() {

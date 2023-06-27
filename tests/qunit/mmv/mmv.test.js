@@ -123,7 +123,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.setImage = function () {};
 		viewer.scroll = function () {};
 		viewer.preloadFullscreenThumbnail = function () {};
-		viewer.fetchSizeIndependentLightboxInfo = function () { return $.Deferred().resolve( {} ); };
+		viewer.fetchSizeIndependentLightboxInfo = () => $.Deferred().resolve( {} );
 		viewer.ui = {
 			setFileReuseData: function () {},
 			setupForLoad: function () {},
@@ -146,9 +146,9 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 			},
 			open: function () {} };
 
-		viewer.imageProvider.get = function () { return imageDeferred.promise(); };
-		viewer.imageInfoProvider.get = function () { return $.Deferred().resolve( {} ); };
-		viewer.thumbnailInfoProvider.get = function () { return $.Deferred().resolve( {} ); };
+		viewer.imageProvider.get = () => imageDeferred.promise();
+		viewer.imageInfoProvider.get = () => $.Deferred().resolve( {} );
+		viewer.thumbnailInfoProvider.get = () => $.Deferred().resolve( {} );
 
 		// loadImage will call setupProgressBar, which will attach done, fail &
 		// progress handlers
@@ -201,7 +201,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.preloadFullscreenThumbnail = function () {};
 		viewer.preloadImagesMetadata = function () {};
 		viewer.preloadThumbnails = function () {};
-		viewer.fetchSizeIndependentLightboxInfo = function () { return $.Deferred().resolve( {} ); };
+		viewer.fetchSizeIndependentLightboxInfo = () => $.Deferred().resolve( {} );
 		viewer.ui = {
 			setFileReuseData: function () {},
 			setupForLoad: function () {},
@@ -225,8 +225,8 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 			open: function () {},
 			empty: function () {} };
 
-		viewer.imageInfoProvider.get = function () { return $.Deferred().resolve( {} ); };
-		viewer.thumbnailInfoProvider.get = function () { return $.Deferred().resolve( {} ); };
+		viewer.imageInfoProvider.get = () => $.Deferred().resolve( {} );
+		viewer.thumbnailInfoProvider.get = () => $.Deferred().resolve( {} );
 
 		// load some image
 		viewer.imageProvider.get = this.sandbox.stub().returns( firstImageDeferred );
@@ -445,8 +445,8 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.eachPreloadableLightboxIndex = function () {};
 		viewer.animateMetadataDivOnce = this.sandbox.stub().returns( $.Deferred().reject() );
 		viewer.imageProvider.get = this.sandbox.stub();
-		viewer.imageInfoProvider.get = function () { return $.Deferred().reject(); };
-		viewer.thumbnailInfoProvider.get = function () { return $.Deferred().resolve( {} ); };
+		viewer.imageInfoProvider.get = () => $.Deferred().reject( {} );
+		viewer.thumbnailInfoProvider.get = () => $.Deferred().resolve( {} );
 
 		viewer.imageProvider.get.returns( firstImageDeferred.promise() );
 		viewer.fetchSizeIndependentLightboxInfo.returns( firstLigthboxInfoDeferred.promise() );
@@ -470,7 +470,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		clock.tick( 10 );
 		assert.strictEqual( viewer.displayRealThumbnail.called, false, 'The first image being done loading should have no effect' );
 
-		viewer.displayRealThumbnail = this.sandbox.spy( function () { viewer.close(); } );
+		viewer.displayRealThumbnail = this.sandbox.spy( () => viewer.close() );
 		secondImageDeferred.resolve( {}, {} );
 		secondLigthboxInfoDeferred.resolve( {} );
 		clock.tick( 10 );
@@ -495,14 +495,16 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		// animation would keep running, conflict with other tests
 		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
 
-		$.scrollTo = function () { return { scrollTop: function () {}, on: function () {}, off: function () {} }; };
+		$.scrollTo = function () {
+			return { scrollTop: () => {}, on: () => {}, off: () => {} };
+		};
 
 		viewer.setupEventHandlers();
 
-		viewer.imageProvider.get = function () { return $.Deferred().reject(); };
-		viewer.imageInfoProvider.get = function () { return $.Deferred().reject(); };
-		viewer.thumbnailInfoProvider.get = function () { return $.Deferred().reject(); };
-		viewer.fileRepoInfoProvider.get = function () { return $.Deferred().reject(); };
+		viewer.imageProvider.get = () => $.Deferred().reject();
+		viewer.imageInfoProvider.get = () => $.Deferred().reject();
+		viewer.thumbnailInfoProvider.get = () => $.Deferred().reject();
+		viewer.fileRepoInfoProvider.get = () => $.Deferred().reject();
 
 		viewer.preloadFullscreenThumbnail = function () {};
 		viewer.initWithThumbs( [] );
@@ -588,7 +590,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 			imageStub,
 			promise,
 			useThumbnailGuessing,
-			viewer = new MultimediaViewer( { imageQueryParameter: function () {}, language: function () {}, recordVirtualViewBeaconURI: function () {}, extensions: function () { return { jpg: 'default' }; }, useThumbnailGuessing: function () { return useThumbnailGuessing; } } ),
+			viewer = new MultimediaViewer( { imageQueryParameter: function () {}, language: function () {}, recordVirtualViewBeaconURI: function () {}, extensions: function () { return { jpg: 'default' }; }, useThumbnailGuessing: () => useThumbnailGuessing } ),
 			sandbox = this.sandbox,
 			file = new mw.Title( 'File:Copyleft.svg' ),
 			sampleURL = 'http://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Copyleft.svg/300px-Copyleft.svg.png',
