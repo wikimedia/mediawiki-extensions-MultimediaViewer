@@ -541,7 +541,6 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 		 * Opens MediaViewer and loads the given thumbnail. Requires processThumb() to be called first.
 		 *
 		 * @param {mw.Title} title File title
-		 * @return {jQuery.Promise}
 		 */
 		openImage( title ) {
 			this.ensureEventHandlersAreSetUp();

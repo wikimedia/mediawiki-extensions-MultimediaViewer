@@ -141,6 +141,7 @@ const Dialog = require( './mmv.ui.dialog.js' );
 
 		/**
 		 * Fired when the dialog is opened.
+		 *
 		 * @event OptionsDialog#mmv-options-opened
 		 */
 
@@ -161,6 +162,7 @@ const Dialog = require( './mmv.ui.dialog.js' );
 
 		/**
 		 * Fired when the dialog is closed.
+		 *
 		 * @event OptionsDialog#mmv-options-closed
 		 */
 

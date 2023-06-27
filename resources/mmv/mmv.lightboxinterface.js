@@ -237,6 +237,7 @@ const UiElement = require( './ui/mmv.ui.js' );
 
 		/**
 		 * Detaches the interface from the DOM.
+		 *
 		 * @fires MultimediaViewer#mmv-close
 		 */
 		unattach() {

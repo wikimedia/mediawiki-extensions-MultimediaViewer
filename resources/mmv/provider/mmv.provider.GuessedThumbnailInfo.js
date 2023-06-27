@@ -35,7 +35,7 @@ const Thumbnail = require( '../model/mmv.model.Thumbnail.js' );
 		 * File extensions which are vector types (as opposed to bitmap).
 		 * Thumbnails of vector types can be larger than the original file.
 		 *
-		 * @property {Object.<string, number>}
+		 * @return {Object.<string, number>}
 		 */
 		get vectorExtensions() {
 			return {
@@ -46,7 +46,7 @@ const Thumbnail = require( '../model/mmv.model.Thumbnail.js' );
 		 * File extensions which can be displayed in the browser.
 		 * Other file types need to be thumbnailed even if the size of the original file would be right.
 		 *
-		 * @property {Object.<string, number>}
+		 * @return {Object.<string, number>}
 		 */
 		get displayableExtensions() {
 			return {

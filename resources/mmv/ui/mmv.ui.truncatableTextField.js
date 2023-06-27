@@ -214,7 +214,7 @@ const UiElement = require( './mmv.ui.js' );
 
 			for ( const v of this.options.styles ) {
 				if ( !this.isTruncatable() ) {
-					return false;
+					break;
 				}
 
 				oldClass = newClass;

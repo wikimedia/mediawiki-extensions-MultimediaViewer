@@ -77,7 +77,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 		 *
 		 * @param {number} width
 		 *
-		 * @emit MMV#mmv-request-thumbnail
+		 * @fires MultimediaViewer#mmv-request-thumbnail
 		 * @return {jQuery.Promise.<string>}
 		 */
 		getThumbnailUrlPromise( width ) {

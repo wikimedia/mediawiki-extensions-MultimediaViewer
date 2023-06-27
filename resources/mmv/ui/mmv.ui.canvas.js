@@ -172,12 +172,12 @@ const UiElement = require( './mmv.ui.js' );
 		/**
 		 * Registers click listener on the image.
 		 *
-		 * @emit ReuseDialog#mmv-reuse-opened
-		 * @emit ReuseDialog#mmv-reuse-closed
-		 * @emit DownloadDialog#mmv-download-opened
-		 * @emit DownloadDialog#mmv-download-closed
-		 * @emit OptionsDialog#mmv-options-opened
-		 * @emit OptionsDialog#mmv-options-closed
+		 * @fires ReuseDialog#mmv-reuse-opened
+		 * @fires ReuseDialog#mmv-reuse-closed
+		 * @fires DownloadDialog#mmv-download-opened
+		 * @fires DownloadDialog#mmv-download-closed
+		 * @fires OptionsDialog#mmv-options-opened
+		 * @fires OptionsDialog#mmv-options-closed
 		 */
 		setUpImageClick() {
 			this.handleEvent( 'mmv-reuse-opened', this.handleDialogEvent.bind( this ) );

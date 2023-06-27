@@ -8,14 +8,14 @@
 		"doc": "jsdoc -c jsdoc.json"
 	},
 	"devDependencies": {
-		"eslint-config-wikimedia": "0.25.0",
+		"eslint-config-wikimedia": "0.25.1",
 		"grunt": "1.6.1",
-		"grunt-banana-checker": "0.10.0",
-		"grunt-eslint": "24.0.1",
+		"grunt-banana-checker": "0.11.0",
+		"grunt-eslint": "24.2.0",
 		"grunt-stylelint": "0.18.0",
 		"jsdoc": "3.6.10",
 		"jsdoc-wmf-theme": "^0.0.5",
-		"stylelint-config-wikimedia": "0.14.0",
+		"stylelint-config-wikimedia": "0.15.0",
 		"svgo": "3.0.2"
 	}
 }

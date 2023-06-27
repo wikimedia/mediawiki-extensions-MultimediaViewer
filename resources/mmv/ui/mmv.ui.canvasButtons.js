@@ -198,13 +198,13 @@ const UiElement = require( './mmv.ui.js' );
 		/**
 		 * Registers listeners.
 		 *
-		 * @emit mmv-reuse-opened
-		 * @emit mmv-reuse-closed
-		 * @emit mmv-download-open
-		 * @emit mmv-download-closed
-		 * @emit mmv-options-opened
-		 * @emit mmv-options-closed
-		*/
+		 * @fires ReuseDialog#mmv-reuse-opened
+		 * @fires ReuseDialog#mmv-reuse-closed
+		 * @fires DownloadDialog#mmv-download-opened
+		 * @fires DownloadDialog#mmv-download-closed
+		 * @fires OptionsDialog#mmv-options-opened
+		 * @fires OptionsDialog#mmv-options-closed
+		 */
 		attach() {
 			this.$reuse.on( 'click.mmv-canvasButtons', ( e ) => {
 				$( document ).trigger( 'mmv-reuse-open', e );

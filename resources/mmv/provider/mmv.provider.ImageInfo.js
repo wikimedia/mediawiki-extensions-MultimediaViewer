@@ -44,7 +44,7 @@ const ImageModel = require( '../model/mmv.model.Image.js' );
 		/**
 		 * Array of imageinfo API properties which are needed to construct an Image model.
 		 *
-		 * @property {string[]}
+		 * @return {string[]}
 		 */
 		get iiprop() {
 			return [
@@ -60,7 +60,7 @@ const ImageModel = require( '../model/mmv.model.Image.js' );
 		/**
 		 * Array of imageinfo extmetadata fields which are needed to construct an Image model.
 		 *
-		 * @property {string[]}
+		 * @return {string[]}
 		 */
 		get iiextmetadatafilter() {
 			return [

@@ -226,6 +226,7 @@ const Dialog = require( './mmv.ui.dialog.js' );
 
 		/**
 		 * Fired when the dialog is opened.
+		 *
 		 * @event ReuseDialog#mmv-reuse-opened
 		 */
 
@@ -245,6 +246,7 @@ const Dialog = require( './mmv.ui.dialog.js' );
 
 		/**
 		 * Fired when the dialog is closed.
+		 *
 		 * @event ReuseDialog#mmv-reuse-closed
 		 */
 
