@@ -83,14 +83,13 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 		 * @param {jQuery} $container
 		 */
 		createDownloadButton( $container ) {
-			// TODO: Use OOUI progressive button widget instead
 			this.$downloadButton = $( '<a>' )
 				.attr( 'target', '_blank' )
 				.attr( 'download', '' )
-				.addClass( 'mw-ui-button mw-ui-progressive mw-mmv-download-go-button' );
+				.addClass( 'cdx-button cdx-button--weight-primary cdx-button--action-progressive cdx-button--fake-button cdx-button--fake-button--enabled mw-mmv-download-go-button' );
 
 			this.$selectionArrow = $( '<span>' )
-				.addClass( 'mw-ui-button mw-ui-progressive mw-mmv-download-select-menu' )
+				.addClass( 'cdx-button cdx-button--weight-primary cdx-button--action-progressive cdx-button--fake-button cdx-button--fake-button--enabled mw-mmv-download-select-menu' )
 				.append(
 					$( '<span>' )
 						.addClass( 'mw-mmv-download-image-size-name' )

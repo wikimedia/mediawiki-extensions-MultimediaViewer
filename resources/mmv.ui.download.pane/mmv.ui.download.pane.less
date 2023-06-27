@@ -24,10 +24,15 @@
 		padding-left: 10px;
 		padding-bottom: 60px;
 		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
 
 		.mw-mmv-download-go-button {
 			border-top-right-radius: 0;
 			border-bottom-right-radius: 0;
+			display: inline-flex;
+			flex-flow: column;
+			min-height: 50px;
 		}
 
 		/* Selection size arrow element */
@@ -62,6 +67,7 @@
 			margin-left: -6px;
 			font-size: 16px;
 			color: @color-subtle;
+			width: 100%;
 
 			&::before {
 				display: inline-block;
@@ -83,7 +89,7 @@
 			display: none;
 			margin-top: 0;
 			margin-right: 20px;
-			width: auto;
+			width: 100%;
 
 			&.active {
 				display: block;

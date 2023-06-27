@@ -101,7 +101,6 @@
 				"mediawiki.storage",
 				"mediawiki.user",
 				"mediawiki.util",
-				"mediawiki.ui.button",
 				"oojs",
 				"jquery.fullscreen",
 				"jquery.color",
@@ -243,8 +242,7 @@
 				"mmv.ui.download.pane/mmv.ui.download.pane.less"
 			],
 			"dependencies": [
-				"mediawiki.ui",
-				"mediawiki.ui.button",
+				"codex-styles",
 				"mediawiki.widgets",
 				"mmv",
 				"mmv.ui.ondemandshareddependencies",

@@ -272,7 +272,7 @@ const Dialog = require( './mmv.ui.dialog.js' );
 		 */
 		makeSubmitButton( $submitDiv, msg, enabled ) {
 			return $( '<button>' )
-				.addClass( 'mw-mmv-options-submit-button mw-ui-button mw-ui-progressive' )
+				.addClass( 'mw-mmv-options-submit-button cdx-button cdx-button--action-progressive cdx-button--weight-primary' )
 				.text( msg )
 				.appendTo( $submitDiv )
 				.on( 'click', () => {
@@ -301,7 +301,7 @@ const Dialog = require( './mmv.ui.dialog.js' );
 		 */
 		makeCancelButton( $submitDiv ) {
 			return $( '<button>' )
-				.addClass( 'mw-mmv-options-cancel-button mw-ui-button mw-ui-quiet' )
+				.addClass( 'mw-mmv-options-cancel-button cdx-button cdx-button--weight-quiet' )
 				.text( mw.message( 'multimediaviewer-option-cancel-button' ).text() )
 				.appendTo( $submitDiv )
 				.on( 'click', () => {

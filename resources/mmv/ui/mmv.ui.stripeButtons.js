@@ -46,30 +46,15 @@ const UiElement = require( './mmv.ui.js' );
 		}
 
 		/**
-		 * Creates a new button on the metadata stripe.
-		 *
-		 * @protected
-		 * @param {string} cssClass CSS class name for the button
-		 * @return {jQuery} Button
-		 */
-		createButton( cssClass ) {
-			// eslint-disable-next-line mediawiki/class-doc
-			return $( '<a>' )
-				.addClass( `mw-mmv-stripe-button empty ${cssClass}` )
-				// elements are right-floated so we use prepend instead of append to keep the order
-				.prependTo( this.$buttonContainer )
-				.attr( 'tabindex', '0' );
-		}
-
-		/**
 		 * Creates a button linking to the file description page.
 		 *
 		 * @protected
 		 */
 		initDescriptionPageButton() {
-			this.buttons.$descriptionPage = this.createButton(
-				'empty mw-mmv-description-page-button mw-ui-big mw-ui-button mw-ui-progressive'
-			);
+			this.buttons.$descriptionPage = $( '<a>' )
+				.addClass( 'mw-mmv-stripe-button empty mw-mmv-description-page-button cdx-button cdx-button--weight-primary cdx-button--action-progressive cdx-button--size-large cdx-button--fake-button cdx-button--fake-button--enabled' )
+				// elements are right-floated so we use prepend instead of append to keep the order
+				.prependTo( this.$buttonContainer );
 		}
 
 		/**
@@ -116,7 +101,9 @@ const UiElement = require( './mmv.ui.js' );
 				isCommons = false;
 			}
 
-			$button.text( mw.message( 'multimediaviewer-repository-local' ).text() )
+			$button.empty()
+				.append( $( '<span>' ).addClass( 'cdx-button__icon' ) )
+				.append( mw.message( 'multimediaviewer-repository-local' ).text() )
 				.attr( 'href', descriptionUrl );
 
 			$button.toggleClass( 'mw-mmv-repo-button-commons', isCommons );
