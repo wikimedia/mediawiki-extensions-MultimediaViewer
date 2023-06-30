@@ -121,8 +121,14 @@ class Hooks implements MakeGlobalVariablesScriptHook {
 			$out->getTitle()->getContentModel() === 'flow-board';
 		$fileRelatedSpecialPages = [ 'NewFiles', 'ListFiles', 'MostLinkedFiles',
 			'MostGloballyLinkedFiles', 'UncategorizedFiles', 'UnusedFiles', 'Search' ];
+		$fileRelatedSpecialPagesLocalNames = array_map(
+			static function ( $name ) {
+				return \Title::newFromText( $name, NS_SPECIAL )->fixSpecialName()->getText();
+			},
+			$fileRelatedSpecialPages
+		);
 		$pageIsFileRelatedSpecialPage = $out->getTitle()->inNamespace( NS_SPECIAL )
-			&& in_array( $out->getTitle()->getText(), $fileRelatedSpecialPages );
+			&& in_array( $out->getTitle()->fixSpecialName()->getText(), $fileRelatedSpecialPagesLocalNames );
 
 		if ( $pageHasThumbnails || $pageIsFilePage || $pageIsFileRelatedSpecialPage || $pageIsFlowPage ) {
 			self::getModules( $out );
