@@ -26,7 +26,7 @@ module.exports = base;
 	// This is loaded before user JS so we cannot check wgMediaViewer.
 	if (
 		mw.config.get( 'wgMediaViewerOnClick' ) !== true ||
-		mw.user.isAnon() && mw.storage.get( 'wgMediaViewerOnClick', '1' ) !== '1'
+		!mw.user.isNamed() && mw.storage.get( 'wgMediaViewerOnClick', '1' ) !== '1'
 	) {
 		return;
 	}

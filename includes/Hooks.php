@@ -28,7 +28,6 @@ use ExtensionRegistry;
 use MediaWiki\Category\Category;
 use MediaWiki\Hook\MakeGlobalVariablesScriptHook;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\User\UserIdentity;
 use MediaWiki\User\UserOptionsLookup;
 use OutputPage;
 use Skin;
@@ -74,14 +73,14 @@ class Hooks implements MakeGlobalVariablesScriptHook {
 
 	/**
 	 * Checks the context for whether to load the viewer.
-	 * @param UserIdentity $performer
+	 * @param User $performer
 	 * @return bool
 	 */
-	protected function shouldHandleClicks( UserIdentity $performer ) {
+	protected function shouldHandleClicks( User $performer ): bool {
 		global $wgMediaViewerEnableByDefaultForAnonymous,
 			$wgMediaViewerEnableByDefault;
 
-		if ( $performer->isRegistered() ) {
+		if ( $performer->isNamed() ) {
 			return (bool)$this->userOptionsLookup->getOption( $performer, 'multimediaviewer-enable' );
 		}
 
