@@ -139,7 +139,7 @@
 			// IMPORTANT: mmv.head.js uses the same logic but does not use this class to be lightweight. Make sure to keep it in sync.
 			return this.mwConfig.get( 'wgMediaViewer' ) && // global opt-out switch, can be set in user JS
 				this.mwConfig.get( 'wgMediaViewerOnClick' ) && // thumbnail opt-out, can be set in preferences
-				( !this.mwUser.isAnon() || this.getFromLocalStorage( 'wgMediaViewerOnClick', '1' ) === '1' ); // thumbnail opt-out for anons
+				( this.mwUser.isNamed() || this.getFromLocalStorage( 'wgMediaViewerOnClick', '1' ) === '1' ); // thumbnail opt-out for anons
 		}
 
 		/**
@@ -157,7 +157,7 @@
 			let newPrefValue;
 			let success = true;
 
-			if ( this.mwUser.isAnon() ) {
+			if ( !this.mwUser.isNamed() ) {
 				if ( !enabled ) {
 					success = this.setInLocalStorage( 'wgMediaViewerOnClick', '0' ); // localStorage stringifies everything, best use strings in the first place
 				} else {

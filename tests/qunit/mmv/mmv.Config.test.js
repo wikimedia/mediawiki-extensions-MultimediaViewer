@@ -91,41 +91,41 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 	QUnit.test( 'isMediaViewerEnabledOnClick', function ( assert ) {
 		var localStorage = createLocalStorage( { getItem: this.sandbox.stub() } ),
 			mwConfig = { get: this.sandbox.stub() },
-			mwUser = { isAnon: this.sandbox.stub() },
+			mwUser = { isNamed: this.sandbox.stub() },
 			config = new Config( {}, mwConfig, mwUser, {}, localStorage );
 
-		mwUser.isAnon.returns( false );
+		mwUser.isNamed.returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
 		assert.strictEqual( config.isMediaViewerEnabledOnClick(), true, 'Returns true for logged-in with standard settings' );
 
-		mwUser.isAnon.returns( false );
+		mwUser.isNamed.returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
 		assert.strictEqual( config.isMediaViewerEnabledOnClick(), false, 'Returns false if opted out via user JS flag' );
 
-		mwUser.isAnon.returns( false );
+		mwUser.isNamed.returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( false );
 		assert.strictEqual( config.isMediaViewerEnabledOnClick(), false, 'Returns false if opted out via preferences' );
 
-		mwUser.isAnon.returns( true );
+		mwUser.isNamed.returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
 		assert.strictEqual( config.isMediaViewerEnabledOnClick(), false, 'Returns false if anon user opted out via user JS flag' );
 
-		mwUser.isAnon.returns( true );
+		mwUser.isNamed.returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( false );
 		assert.strictEqual( config.isMediaViewerEnabledOnClick(), false, 'Returns false if anon user opted out in some weird way' ); // apparently someone created a browser extension to do this
 
-		mwUser.isAnon.returns( true );
+		mwUser.isNamed.returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
 		localStorage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( null );
 		assert.strictEqual( config.isMediaViewerEnabledOnClick(), true, 'Returns true for anon with standard settings' );
 
-		mwUser.isAnon.returns( true );
+		mwUser.isNamed.returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
 		localStorage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( '0' );
@@ -138,22 +138,22 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 				setItem: this.sandbox.stub(),
 				removeItem: this.sandbox.stub()
 			} ),
-			mwUser = { isAnon: this.sandbox.stub() },
+			mwUser = { isNamed: this.sandbox.stub() },
 			mwConfig = new mw.Map(),
 			api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) },
 			config = new Config( {}, mwConfig, mwUser, api, localStorage );
 		mwConfig.set( 'wgMediaViewerEnabledByDefault', false );
 
-		mwUser.isAnon.returns( false );
+		mwUser.isNamed.returns( true );
 		api.saveOption.returns( $.Deferred().resolve() );
 		config.setMediaViewerEnabledOnClick( false );
 		assert.true( api.saveOption.called, 'For logged-in users, pref change is via API' );
 
-		mwUser.isAnon.returns( true );
+		mwUser.isNamed.returns( false );
 		config.setMediaViewerEnabledOnClick( false );
 		assert.true( localStorage.store.setItem.called, 'For anons, opt-out is set in localStorage' );
 
-		mwUser.isAnon.returns( true );
+		mwUser.isNamed.returns( false );
 		config.setMediaViewerEnabledOnClick( true );
 		assert.true( localStorage.store.removeItem.called, 'For anons, opt-in means clearing localStorage' );
 	} );
@@ -162,7 +162,7 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 		var config,
 			mwConfig = new mw.Map(),
 			fakeLocalStorage = getFakeLocalStorage(),
-			mwUser = { isAnon: this.sandbox.stub() },
+			mwUser = { isNamed: this.sandbox.stub() },
 			api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) };
 
 		mwConfig.set( {
@@ -171,7 +171,7 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 			wgMediaViewerEnabledByDefault: true
 		} );
 		config = new Config( {}, mwConfig, mwUser, api, fakeLocalStorage );
-		mwUser.isAnon.returns( false );
+		mwUser.isNamed.returns( true );
 
 		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default' );
 		config.setMediaViewerEnabledOnClick( false );
@@ -189,7 +189,7 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 
 		// make sure disabling calls maybeEnableStatusInfo() for logged-in as well
 		config.localStorage = getFakeLocalStorage();
-		mwUser.isAnon.returns( true );
+		mwUser.isNamed.returns( false );
 		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default for logged-in users' );
 		config.setMediaViewerEnabledOnClick( false );
 		assert.strictEqual( config.shouldShowStatusInfo(), true, 'Status info is shown after MMV is disabled the first time for logged-in users' );
