@@ -3,6 +3,62 @@ const { asyncMethod, waitForAsync, getMultimediaViewer } = require( './mmv.testh
 
 ( function () {
 	QUnit.module( 'mmv.bootstrap', QUnit.newMwEnvironment( {
+		// mw.Title relies on these three config vars
+		// Restore them after each test run
+		config: {
+			wgFormattedNamespaces: {
+				'-2': 'Media',
+				'-1': 'Special',
+				0: '',
+				1: 'Talk',
+				2: 'User',
+				3: 'User talk',
+				4: 'Wikipedia',
+				5: 'Wikipedia talk',
+				6: 'File',
+				7: 'File talk',
+				8: 'MediaWiki',
+				9: 'MediaWiki talk',
+				10: 'Template',
+				11: 'Template talk',
+				12: 'Help',
+				13: 'Help talk',
+				14: 'Category',
+				15: 'Category talk',
+				// testing custom / localized namespace
+				100: 'Penguins'
+			},
+			wgNamespaceIds: {
+				/* eslint-disable camelcase */
+				media: -2,
+				special: -1,
+				'': 0,
+				talk: 1,
+				user: 2,
+				user_talk: 3,
+				wikipedia: 4,
+				wikipedia_talk: 5,
+				file: 6,
+				file_talk: 7,
+				mediawiki: 8,
+				mediawiki_talk: 9,
+				template: 10,
+				template_talk: 11,
+				help: 12,
+				help_talk: 13,
+				category: 14,
+				category_talk: 15,
+				image: 6,
+				image_talk: 7,
+				project: 4,
+				project_talk: 5,
+				// Testing custom namespaces and aliases
+				penguins: 100,
+				antarctic_waterfowl: 100
+				/* eslint-enable camelcase */
+			},
+			wgCaseSensitiveNamespaces: []
+		},
 		beforeEach: function () {
 			mw.config.set( 'wgMediaViewer', true );
 			mw.config.set( 'wgMediaViewerOnClick', true );
@@ -310,11 +366,7 @@ const { asyncMethod, waitForAsync, getMultimediaViewer } = require( './mmv.testh
 		bootstrap.route( 'File:Foo.jpg' );
 		clock.tick( 10 );
 		assert.true( bootstrap.setupOverlay.called, 'Overlay was set up' );
-		assert.strictEqual(
-			viewer.loadImageByTitle.firstCall.args[ 0 ].getPrefixedDb(),
-			new mw.Title( 'File:foo.jpg' ).getPrefixedDb(),
-			'Titles are identical'
-		);
+		assert.strictEqual( viewer.loadImageByTitle.firstCall.args[ 0 ].getPrefixedDb(), 'File:Foo.jpg', 'Titles are identical' );
 
 		clock.tick( 10 );
 		clock.restore();
