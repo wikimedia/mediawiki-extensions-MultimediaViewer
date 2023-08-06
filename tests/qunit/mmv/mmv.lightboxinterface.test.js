@@ -205,7 +205,11 @@ const { enterFullscreenMock, exitFullscreenMock, getMultimediaViewer } = require
 
 		panelBottom = $( '.mw-mmv-post-image' ).position().top + $( '.mw-mmv-post-image' ).height();
 
-		assert.strictEqual( panelBottom, $( window ).height(), 'Image metadata does not extend beyond the viewport' );
+		assert.strictEqual(
+			panelBottom.toFixed(),
+			$( window ).height().toFixed(),
+			'Image metadata does not extend beyond the viewport'
+		);
 
 		lightbox.buttons.revealAndFade = function ( position ) {
 			assert.true( true, 'Closing fullscreen triggers a reveal + fade' );
