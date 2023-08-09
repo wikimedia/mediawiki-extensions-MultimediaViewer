@@ -126,7 +126,8 @@
 		 * @inheritdoc
 		 */
 		isCommons() {
-			return /^(https?:)?\/\/commons.wikimedia.org/.test( this.server );
+			// eslint-disable-next-line security/detect-unsafe-regex
+			return /^(https?:)?\/\/commons\.wikimedia\.org/.test( this.server );
 		}
 	}
 
@@ -166,7 +167,8 @@
 		 * @inheritdoc
 		 */
 		isCommons() {
-			return /^(https?:)?\/\/commons.wikimedia.org/.test( this.descBaseUrl );
+			// eslint-disable-next-line security/detect-unsafe-regex
+			return /^(https?:)?\/\/commons\.wikimedia\.org/.test( this.descBaseUrl );
 		}
 	}
 
