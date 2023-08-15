@@ -417,13 +417,13 @@
 		]
 	},
 	"Hooks": {
-		"UserGetDefaultOptions": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::onUserGetDefaultOptions",
-		"GetPreferences": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::onGetPreferences",
-		"BeforePageDisplay": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::onBeforePageDisplay",
-		"CategoryPageView": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::onCategoryPageView",
-		"ResourceLoaderGetConfigVars": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::onResourceLoaderGetConfigVars",
+		"UserGetDefaultOptions": "main",
+		"GetPreferences": "main",
+		"BeforePageDisplay": "main",
+		"CategoryPageView": "main",
+		"ResourceLoaderGetConfigVars": "main",
 		"MakeGlobalVariablesScript": "main",
-		"ThumbnailBeforeProduceHTML": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::onThumbnailBeforeProduceHTML"
+		"ThumbnailBeforeProduceHTML": "main"
 	},
 	"HookHandlers": {
 		"main": {
