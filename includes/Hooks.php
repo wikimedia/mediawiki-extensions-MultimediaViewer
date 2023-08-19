@@ -34,6 +34,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\Hook\CategoryPageViewHook;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderGetConfigVarsHook;
+use MediaWiki\Title\Title;
 use MediaWiki\User\Hook\UserGetDefaultOptionsHook;
 use MediaWiki\User\UserOptionsLookup;
 use OutputPage;
@@ -137,7 +138,7 @@ class Hooks implements
 			'MostGloballyLinkedFiles', 'UncategorizedFiles', 'UnusedFiles', 'Search' ];
 		$fileRelatedSpecialPagesLocalNames = array_map(
 			static function ( $name ) {
-				return \Title::newFromText( $name, NS_SPECIAL )->fixSpecialName()->getText();
+				return Title::newFromText( $name, NS_SPECIAL )->fixSpecialName()->getText();
 			},
 			$fileRelatedSpecialPages
 		);
