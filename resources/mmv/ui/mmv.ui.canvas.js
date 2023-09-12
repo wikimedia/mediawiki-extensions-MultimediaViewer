@@ -296,6 +296,8 @@ const UiElement = require( './mmv.ui.js' );
 			// We have to apply the SVG filter here, it doesn't work when defined in the .less file
 			// We can't use an external SVG file because filters can't be accessed cross-domain
 			// We can't embed the SVG file because accessing the filter inside of it doesn't work
+			// TODO: This breaks the invert filter used by dark mode. Consider blurring the container
+			// instead?
 			$image.addClass( 'blurred' ).css( 'filter', 'url("#gaussian-blur")' );
 		}
 
