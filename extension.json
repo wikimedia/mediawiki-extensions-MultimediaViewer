@@ -103,8 +103,6 @@
 				"mediawiki.util",
 				"mediawiki.ui.button",
 				"oojs",
-				"jquery.fullscreen",
-				"jquery.color",
 				"mmv.bootstrap",
 				"mmv.head"
 			],

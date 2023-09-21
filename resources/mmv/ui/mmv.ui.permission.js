@@ -149,12 +149,7 @@ const MetadataPanelScroller = require( './mmv.ui.metadataPanelScroller.js' );
 		 * @fires Permission#mmv-permission-grow
 		 */
 		grow() {
-			// FIXME: Use CSS transition
-			// eslint-disable-next-line no-jquery/no-animate
-			this.$box.addClass( 'full-size' )
-				.stop( true )
-				.animate( { backgroundColor: '#FFFFA0' }, 500 )
-				.animate( { backgroundColor: '#FFFFFF' }, 500 );
+			this.$box.addClass( 'full-size' );
 			this.$container.trigger( 'mmv-permission-grow' );
 		}
 
