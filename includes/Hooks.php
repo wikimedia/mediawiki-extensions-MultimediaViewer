@@ -34,7 +34,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\Hook\CategoryPageViewHook;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderGetConfigVarsHook;
-use MediaWiki\Title\Title;
+use MediaWiki\SpecialPage\SpecialPageFactory;
 use MediaWiki\User\Hook\UserGetDefaultOptionsHook;
 use MediaWiki\User\UserOptionsLookup;
 use OutputPage;
@@ -67,12 +67,18 @@ class Hooks implements
 	 * @var UserOptionsLookup
 	 */
 	private $userOptionsLookup;
+	private SpecialPageFactory $specialPageFactory;
 
 	/**
 	 * @param UserOptionsLookup $userOptionsLookup
+	 * @param SpecialPageFactory $specialPageFactory
 	 */
-	public function __construct( UserOptionsLookup $userOptionsLookup ) {
+	public function __construct(
+		UserOptionsLookup $userOptionsLookup,
+		SpecialPageFactory $specialPageFactory
+	) {
 		$this->userOptionsLookup = $userOptionsLookup;
+		$this->specialPageFactory = $specialPageFactory;
 	}
 
 	/**
@@ -134,16 +140,11 @@ class Hooks implements
 		$pageIsFlowPage = ExtensionRegistry::getInstance()->isLoaded( 'Flow' ) &&
 			// CONTENT_MODEL_FLOW_BOARD
 			$out->getTitle()->getContentModel() === 'flow-board';
-		$fileRelatedSpecialPages = [ 'NewFiles', 'ListFiles', 'MostLinkedFiles',
-			'MostGloballyLinkedFiles', 'UncategorizedFiles', 'UnusedFiles', 'Search' ];
-		$fileRelatedSpecialPagesLocalNames = array_map(
-			static function ( $name ) {
-				return Title::newFromText( $name, NS_SPECIAL )->fixSpecialName()->getText();
-			},
-			$fileRelatedSpecialPages
-		);
+		$fileRelatedSpecialPages = [ 'Newimages', 'Listfiles', 'Mostimages',
+			'MostGloballyLinkedFiles', 'Uncategorizedimages', 'Unusedimages', 'Search' ];
 		$pageIsFileRelatedSpecialPage = $out->getTitle()->inNamespace( NS_SPECIAL )
-			&& in_array( $out->getTitle()->fixSpecialName()->getText(), $fileRelatedSpecialPagesLocalNames );
+			&& in_array( $this->specialPageFactory->resolveAlias( $out->getTitle()->getDBkey() )[0],
+				$fileRelatedSpecialPages );
 
 		if ( $pageHasThumbnails || $pageIsFilePage || $pageIsFileRelatedSpecialPage || $pageIsFlowPage ) {
 			self::getModules( $out );
