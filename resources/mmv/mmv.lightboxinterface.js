@@ -70,7 +70,9 @@ const UiElement = require( './ui/mmv.ui.js' );
 				.append( this.$innerWrapper );
 
 			this.$preDiv = $( '<div>' )
-				.addClass( 'mw-mmv-pre-image' );
+				// The overlay has no-invert, so the interface overlaid
+				// on it must also have no-invert
+				.addClass( 'mw-mmv-pre-image mw-no-invert' );
 
 			this.$postDiv = $( '<div>' )
 				.addClass( 'mw-mmv-post-image' );

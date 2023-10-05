@@ -666,7 +666,8 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 
 			if ( !this.$overlay ) {
 				this.$overlay = $( '<div>' )
-					.addClass( 'mw-mmv-overlay' );
+					// Dark overlay should stay dark in dark mode
+					.addClass( 'mw-mmv-overlay mw-no-invert' );
 			}
 
 			this.savedScrollTop = $( window ).scrollTop();
