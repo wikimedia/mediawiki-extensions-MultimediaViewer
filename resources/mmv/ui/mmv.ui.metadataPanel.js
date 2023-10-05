@@ -111,7 +111,7 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 					.text( mw.message( 'multimediaviewer-permission-link' ).text() );
 			} );
 
-			this.handleEvent( 'jq-fullscreen-change.lip', () => {
+			this.handleEvent( 'fullscreenchange.lip', () => {
 				this.hideTruncatedText();
 			} );
 		}

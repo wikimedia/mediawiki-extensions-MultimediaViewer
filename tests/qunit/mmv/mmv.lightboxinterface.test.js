@@ -1,5 +1,5 @@
 const { LightboxInterface } = require( 'mmv' );
-const { enterFullscreenMock, exitFullscreenMock, getMultimediaViewer } = require( './mmv.testhelpers.js' );
+const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
 
 ( function () {
 	var oldScrollTo;
@@ -84,15 +84,12 @@ const { enterFullscreenMock, exitFullscreenMock, getMultimediaViewer } = require
 
 	QUnit.test( 'Fullscreen mode init', function ( assert ) {
 		var lightbox = new LightboxInterface(),
-			oldFnEnterFullscreen = $.fn.enterFullscreen,
-			oldFnExitFullscreen = $.fn.exitFullscreen,
-			oldSupportFullscreen = $.support.fullscreen;
+			enterFullscreen = Element.prototype.requestFullscreen;
 
 		// Since we don't want these tests to really open fullscreen
 		// which is subject to user security confirmation,
 		// we use a mock that pretends regular jquery.fullscreen behavior happened
-		$.fn.enterFullscreen = enterFullscreenMock;
-		$.fn.exitFullscreen = exitFullscreenMock;
+		Element.prototype.requestFullscreen = function () {};
 
 		stubScrollTo();
 
@@ -101,17 +98,7 @@ const { enterFullscreenMock, exitFullscreenMock, getMultimediaViewer } = require
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
 
-		$.support.fullscreen = false;
 		lightbox.setupCanvasButtons();
-
-		assert.strictEqual( lightbox.$fullscreenButton.css( 'display' ), 'none',
-			'Fullscreen button is hidden when fullscreen mode is unavailable' );
-
-		$.support.fullscreen = true;
-		lightbox.setupCanvasButtons();
-
-		assert.strictEqual( lightbox.$fullscreenButton.css( 'display' ), '',
-			'Fullscreen button is visible when fullscreen mode is available' );
 
 		// Entering fullscreen
 		lightbox.$fullscreenButton.trigger( 'click' );
@@ -143,9 +130,7 @@ const { enterFullscreenMock, exitFullscreenMock, getMultimediaViewer } = require
 		// Unattach lightbox from document
 		lightbox.unattach();
 
-		$.fn.enterFullscreen = oldFnEnterFullscreen;
-		$.fn.exitFullscreen = oldFnExitFullscreen;
-		$.support.fullscreen = oldSupportFullscreen;
+		Element.prototype.requestFullscreen = enterFullscreen;
 		restoreScrollTo();
 	} );
 
@@ -154,8 +139,7 @@ const { enterFullscreenMock, exitFullscreenMock, getMultimediaViewer } = require
 			oldRevealButtonsAndFadeIfNeeded,
 			lightbox = new LightboxInterface(),
 			viewer = getMultimediaViewer(),
-			oldFnEnterFullscreen = $.fn.enterFullscreen,
-			oldFnExitFullscreen = $.fn.exitFullscreen;
+			enterFullscreen = Element.prototype.requestFullscreen;
 
 		stubScrollTo();
 
@@ -165,8 +149,7 @@ const { enterFullscreenMock, exitFullscreenMock, getMultimediaViewer } = require
 		// Since we don't want these tests to really open fullscreen
 		// which is subject to user security confirmation,
 		// we use a mock that pretends regular jquery.fullscreen behavior happened
-		$.fn.enterFullscreen = enterFullscreenMock;
-		$.fn.exitFullscreen = exitFullscreenMock;
+		Element.prototype.requestFullscreen = function () {};
 
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
@@ -228,8 +211,7 @@ const { enterFullscreenMock, exitFullscreenMock, getMultimediaViewer } = require
 		// Unattach lightbox from document
 		lightbox.unattach();
 
-		$.fn.enterFullscreen = oldFnEnterFullscreen;
-		$.fn.exitFullscreen = oldFnExitFullscreen;
+		Element.prototype.requestFullscreen = enterFullscreen;
 		restoreScrollTo();
 	} );
 

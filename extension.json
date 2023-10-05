@@ -102,8 +102,6 @@
 				"mediawiki.user",
 				"mediawiki.util",
 				"oojs",
-				"jquery.fullscreen",
-				"jquery.color",
 				"mmv.bootstrap",
 				"mmv.head"
 			],

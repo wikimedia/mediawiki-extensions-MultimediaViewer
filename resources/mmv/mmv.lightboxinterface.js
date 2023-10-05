@@ -100,7 +100,6 @@ const UiElement = require( './ui/mmv.ui.js' );
 			this.fileReuse = new ReuseDialog( this.$innerWrapper, this.buttons.$reuse, this.config );
 			this.downloadDialog = new DownloadDialog( this.$innerWrapper, this.buttons.$download, this.config );
 			this.optionsDialog = new OptionsDialog( this.$innerWrapper, this.buttons.$options, this.config );
-
 		}
 
 		/**
@@ -172,8 +171,8 @@ const UiElement = require( './ui/mmv.ui.js' );
 				}
 			} );
 
-			this.handleEvent( 'jq-fullscreen-change.lip', ( e ) => {
-				this.fullscreenChange( e );
+			this.handleEvent( 'fullscreenchange.lip', () => {
+				this.fullscreenChange();
 			} );
 
 			this.handleEvent( 'keydown', ( e ) => {
@@ -199,9 +198,7 @@ const UiElement = require( './ui/mmv.ui.js' );
 
 			const $parent = $( parentId || document.body );
 
-			// Clean up fullscreen data because hard-existing fullscreen might have left
-			// jquery.fullscreen unable to remove the class and attribute, since $main wasn't
-			// attached to the DOM anymore at the time the jq-fullscreen-change event triggered
+			// Clean up fullscreen data left attached to the DOM
 			this.$main.data( 'isFullscreened', false ).removeClass( 'jq-fullscreened' );
 			this.isFullscreen = false;
 
@@ -255,7 +252,7 @@ const UiElement = require( './ui/mmv.ui.js' );
 			// appears to have an impact on automatic scroll restoration (which
 			// might happen as a result of this being closed) in FF
 			$( document ).trigger( $.Event( 'mmv-close' ) )
-				.off( 'jq-fullscreen-change.lip' );
+				.off( 'fullscreenchange.lip' );
 
 			// Has to happen first so that the scroller can freeze with visible elements
 			this.panel.unattach();
@@ -296,29 +293,36 @@ const UiElement = require( './ui/mmv.ui.js' );
 		 */
 		exitFullscreen() {
 			this.fullscreenButtonJustPressed = true;
-			this.$main.exitFullscreen();
+			if ( this.$main.get( 0 ) === document.fullscreenElement ) {
+				if ( document.exitFullscreen ) {
+					document.exitFullscreen();
+				}
+			}
+			this.isFullscreen = false;
+			this.$main.data( 'isFullscreened', false ).removeClass( 'jq-fullscreened' );
 		}
 
 		/**
 		 * Enters fullscreen mode.
 		 */
 		enterFullscreen() {
-			this.$main.enterFullscreen();
+			var el = this.$main.get( 0 );
+			if ( el.requestFullscreen ) {
+				el.requestFullscreen();
+			}
+			this.isFullscreen = true;
+			this.$main.addClass( 'jq-fullscreened' ).data( 'isFullscreened', true );
 		}
 
 		/**
 		 * Setup for canvas navigation buttons
 		 */
 		setupCanvasButtons() {
-
 			this.$closeButton = $( '<button>' )
 				.text( ' ' )
 				.addClass( 'mw-mmv-close' )
 				.prop( 'title', mw.message( 'multimediaviewer-close-popup-text' ).text() )
 				.on( 'click', () => {
-					if ( this.isFullscreen ) {
-						this.$main.trigger( $.Event( 'jq-fullscreen-change.lip' ) );
-					}
 					this.unattach();
 				} );
 
@@ -342,24 +346,14 @@ const UiElement = require( './ui/mmv.ui.js' );
 						this.enterFullscreen();
 					}
 				} );
-
-			// If the browser doesn't support fullscreen mode, hide the fullscreen button
-			// This horrendous hack comes from jquery.fullscreen.js
-			if ( $.support.fullscreen ) {
-				this.$fullscreenButton.show();
-			} else {
-				this.$fullscreenButton.hide();
-			}
 		}
 
 		/**
 		 * Handle a fullscreen change event.
-		 *
-		 * @param {jQuery.Event} e The fullscreen change event.
 		 */
-		fullscreenChange( e ) {
-			this.isFullscreen = e.fullscreen;
-
+		fullscreenChange() {
+			// eslint-disable-next-line compat/compat
+			this.isFullscreen = !!document.fullscreenElement;
 			if ( this.isFullscreen ) {
 				this.$fullscreenButton
 					.prop( 'title', mw.message( 'multimediaviewer-defullscreen-popup-text' ).text() )
@@ -370,7 +364,7 @@ const UiElement = require( './ui/mmv.ui.js' );
 					.attr( 'alt', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() );
 			}
 
-			if ( !this.fullscreenButtonJustPressed && !e.fullscreen ) {
+			if ( !this.fullscreenButtonJustPressed && !this.isFullscreen ) {
 				// Close the interface all the way if the user pressed 'esc'
 				this.unattach();
 			} else if ( this.fullscreenButtonJustPressed ) {
