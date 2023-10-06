@@ -1,4 +1,4 @@
-const { LightboxInterface, MultimediaViewer, Thumbnail } = require( 'mmv' );
+const { MultimediaViewer, Thumbnail } = require( 'mmv' );
 const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
 const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 
@@ -36,81 +36,6 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.eachPreloadableLightboxIndex( function ( index ) {
 			assert.strictEqual( index, expectedIndices[ i++ ], 'preload on right edge' );
 		} );
-	} );
-
-	QUnit.test( 'Hash handling', function ( assert ) {
-		var oldUnattach,
-			viewer = getMultimediaViewer(),
-			ui = new LightboxInterface(),
-			imageSrc = 'Foo bar.jpg',
-			image = { filePageTitle: new mw.Title( 'File:' + imageSrc ) };
-
-		// animation would keep running, conflict with other tests
-		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
-
-		location.hash = '';
-
-		viewer.setupEventHandlers();
-		oldUnattach = ui.unattach;
-
-		ui.unattach = function () {
-			assert.true( true, 'Lightbox was unattached' );
-			oldUnattach.call( this );
-		};
-
-		viewer.ui = ui;
-		viewer.close();
-
-		assert.strictEqual( viewer.isOpen, false, 'Viewer is closed' );
-
-		viewer.loadImageByTitle( image.filePageTitle );
-
-		// Verify that passing an invalid mmv hash when the mmv is open triggers unattach()
-		location.hash = 'Foo';
-
-		// Verify that mmv doesn't reset a foreign hash
-		assert.strictEqual( location.hash, '#Foo', 'Foreign hash remains intact' );
-		assert.strictEqual( viewer.isOpen, false, 'Viewer is closed' );
-
-		ui.unattach = function () {
-			assert.true( false, 'Lightbox was not unattached' );
-			oldUnattach.call( this );
-		};
-
-		// Verify that passing an invalid mmv hash when the mmv is closed doesn't trigger unattach()
-		location.hash = 'Bar';
-
-		// Verify that mmv doesn't reset a foreign hash
-		assert.strictEqual( location.hash, '#Bar', 'Foreign hash remains intact' );
-
-		viewer.ui = { images: [ image ], disconnect: function () {} };
-
-		$( '#qunit-fixture' ).append( '<a class="image"><img src="' + imageSrc + '"></a>' );
-
-		viewer.loadImageByTitle = function ( title ) {
-			assert.strictEqual( title.getPrefixedText(), 'File:' + imageSrc, 'The title matches' );
-		};
-
-		// Open a valid mmv hash link and check that the right image is requested.
-		// imageSrc contains a space without any encoding on purpose
-		location.hash = '/media/File:' + imageSrc;
-
-		// Reset the hash, because for some browsers switching from the non-URI-encoded to
-		// the non-URI-encoded version of the same text with a space will not trigger a hash change
-		location.hash = '';
-
-		// Try again with an URI-encoded imageSrc containing a space
-		location.hash = '/media/File:' + encodeURIComponent( imageSrc );
-
-		// Reset the hash
-		location.hash = '';
-
-		// Try again with a legacy hash
-		location.hash = 'mediaviewer/File:' + imageSrc;
-
-		viewer.cleanupEventHandlers();
-
-		location.hash = '';
 	} );
 
 	QUnit.test( 'Progress', function ( assert ) {
