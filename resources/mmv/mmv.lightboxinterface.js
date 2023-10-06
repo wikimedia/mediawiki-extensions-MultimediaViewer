@@ -199,7 +199,7 @@ const UiElement = require( './ui/mmv.ui.js' );
 			const $parent = $( parentId || document.body );
 
 			// Clean up fullscreen data left attached to the DOM
-			this.$main.data( 'isFullscreened', false ).removeClass( 'jq-fullscreened' );
+			this.$main.removeClass( 'jq-fullscreened' );
 			this.isFullscreen = false;
 
 			$parent
@@ -299,7 +299,7 @@ const UiElement = require( './ui/mmv.ui.js' );
 				}
 			}
 			this.isFullscreen = false;
-			this.$main.data( 'isFullscreened', false ).removeClass( 'jq-fullscreened' );
+			this.$main.removeClass( 'jq-fullscreened' );
 		}
 
 		/**
@@ -311,7 +311,7 @@ const UiElement = require( './ui/mmv.ui.js' );
 				el.requestFullscreen();
 			}
 			this.isFullscreen = true;
-			this.$main.addClass( 'jq-fullscreened' ).data( 'isFullscreened', true );
+			this.$main.addClass( 'jq-fullscreened' );
 		}
 
 		/**
@@ -470,7 +470,7 @@ const UiElement = require( './ui/mmv.ui.js' );
 		updateControls( showPrevButton, showNextButton ) {
 			const prevNextTop = `${( this.$imageWrapper.height() / 2 ) - 60}px`;
 
-			if ( this.$main.data( 'isFullscreened' ) ) {
+			if ( this.isFullscreen ) {
 				this.$postDiv.css( 'top', '' );
 			} else {
 				this.$postDiv.css( 'top', this.$imageWrapper.height() );
