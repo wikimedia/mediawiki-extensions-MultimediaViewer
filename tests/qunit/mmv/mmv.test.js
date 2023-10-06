@@ -3,7 +3,12 @@ const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
 const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 
 ( function () {
-	QUnit.module( 'mmv', QUnit.newMwEnvironment() );
+	QUnit.module( 'mmv', QUnit.newMwEnvironment( {
+		beforeEach: function () {
+			// prevent a real "back" navigation from taking place
+			this.sandbox.stub( require( 'mediawiki.router' ), 'back' );
+		}
+	} ) );
 
 	QUnit.test( 'eachPreloadableLightboxIndex()', function ( assert ) {
 		var viewer = getMultimediaViewer(),
@@ -702,7 +707,6 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 			title = new mw.Title( 'File:This_should_show_up_in_document_title.png' ),
 			oldDocumentTitle = document.title;
 
-		this.sandbox.stub( bootstrap.router, 'back' );
 		this.sandbox.stub( mw.loader, 'using' ).returns( $.Deferred().resolve( viewer ) );
 		viewer.currentImageFileTitle = title;
 		bootstrap.setupEventHandlers();
