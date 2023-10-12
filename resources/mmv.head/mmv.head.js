@@ -31,7 +31,7 @@ module.exports = base;
 		return;
 	}
 
-	$document.on( 'click.mmv-head', 'a.image', ( e ) => {
+	$document.on( 'click.mmv-head', 'a.image, a.mw-file-description', ( e ) => {
 		// Do not interfere with non-left clicks or if modifier keys are pressed.
 		// Also, make sure we do not get in a loop.
 		if ( ( e.button !== 0 && e.which !== 1 ) || e.altKey || e.ctrlKey || e.shiftKey || e.metaKey || e.replayed ) {

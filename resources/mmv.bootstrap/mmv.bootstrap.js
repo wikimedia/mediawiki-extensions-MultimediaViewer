@@ -188,6 +188,7 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 			this.$thumbs = $content.find(
 				'.gallery .image img, ' +
 				'a.image img, ' +
+				'a.mw-file-description img, ' +
 				'#file a img'
 			);
 
@@ -268,7 +269,7 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 		processThumb( thumb ) {
 			let title;
 			const $thumb = $( thumb );
-			const $link = $thumb.closest( 'a.image' );
+			const $link = $thumb.closest( 'a.image, a.mw-file-description' );
 			const $thumbContainer = $link.closest( '.thumb' );
 			const $enlarge = $thumbContainer.find( '.magnify a' );
 			const link = $link.prop( 'href' );
