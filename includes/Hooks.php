@@ -51,15 +51,15 @@ class Hooks implements
 	ResourceLoaderGetConfigVarsHook,
 	ThumbnailBeforeProduceHTMLHook
 {
-	/** Link to more information about this module */
+	/** @var string Link to more information about this module */
 	protected static $infoLink =
 		'https://mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About';
 
-	/** Link to a page where this module can be discussed */
+	/** @var string Link to a page where this module can be discussed */
 	protected static $discussionLink =
 		'https://mediawiki.org/wiki/Special:MyLanguage/Extension_talk:Media_Viewer/About';
 
-	/** Link to help about this module */
+	/** @var string Link to help about this module */
 	protected static $helpLink =
 		'https://mediawiki.org/wiki/Special:MyLanguage/Help:Extension:Media_Viewer';
 
