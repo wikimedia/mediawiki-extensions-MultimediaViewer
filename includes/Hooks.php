@@ -24,23 +24,23 @@
 namespace MediaWiki\Extension\MultimediaViewer;
 
 use CategoryPage;
-use Config;
 use ExtensionRegistry;
 use MediaWiki\Category\Category;
+use MediaWiki\Config\Config;
 use MediaWiki\Hook\BeforePageDisplayHook;
 use MediaWiki\Hook\MakeGlobalVariablesScriptHook;
 use MediaWiki\Hook\ThumbnailBeforeProduceHTMLHook;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\Hook\CategoryPageViewHook;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderGetConfigVarsHook;
 use MediaWiki\SpecialPage\SpecialPageFactory;
 use MediaWiki\User\Hook\UserGetDefaultOptionsHook;
+use MediaWiki\User\User;
 use MediaWiki\User\UserOptionsLookup;
-use OutputPage;
 use Skin;
 use ThumbnailImage;
-use User;
 
 class Hooks implements
 	MakeGlobalVariablesScriptHook,
