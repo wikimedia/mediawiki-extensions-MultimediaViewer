@@ -183,13 +183,10 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 * @param {Object[]} thumbs Complex structure...TODO, document this better.
 		 */
 		initWithThumbs( thumbs ) {
-			let i;
-			let thumb;
-
 			this.thumbs = thumbs;
 
-			for ( i = 0; i < this.thumbs.length; i++ ) {
-				thumb = this.thumbs[ i ];
+			for ( let i = 0; i < this.thumbs.length; i++ ) {
+				const thumb = this.thumbs[ i ];
 				// Create a LightboxImage object for each legit image
 				thumb.image = this.createNewImage(
 					thumb.$thumb.prop( 'src' ),
@@ -239,14 +236,13 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 * @param {LightboxInterface} ui lightbox that got resized
 		 */
 		resize( ui ) {
-			let imageWidths;
 			const image = this.thumbs[ this.currentIndex ].image;
 			const ext = this.thumbs[ this.currentIndex ].title.getExtension().toLowerCase();
 
 			this.preloadThumbnails();
 
 			if ( image ) {
-				imageWidths = ui.canvas.getCurrentImageWidths();
+				const imageWidths = ui.canvas.getCurrentImageWidths();
 
 				this.fetchThumbnailForLightboxImage(
 					image, imageWidths.real
@@ -594,8 +590,7 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 * @param {function(number, LightboxImage)} callback
 		 */
 		eachPreloadableLightboxIndex( callback ) {
-			let i;
-			for ( i = 0; i <= this.preloadDistance; i++ ) {
+			for ( let i = 0; i <= this.preloadDistance; i++ ) {
 				if ( this.currentIndex + i < this.thumbs.length ) {
 					callback(
 						this.currentIndex + i,
@@ -810,12 +805,10 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 * @param {number} index
 		 */
 		loadIndex( index ) {
-			let thumb;
-
 			if ( index < this.thumbs.length && index >= 0 ) {
 				this.viewLogger.recordViewDuration();
 
-				thumb = this.thumbs[ index ];
+				const thumb = this.thumbs[ index ];
 				this.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ] );
 				router.navigateTo( null, {
 					path: getMediaHash( thumb.title ),
