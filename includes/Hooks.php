@@ -63,17 +63,21 @@ class Hooks implements
 	protected static $helpLink =
 		'https://mediawiki.org/wiki/Special:MyLanguage/Help:Extension:Media_Viewer';
 
+	private Config $config;
 	private SpecialPageFactory $specialPageFactory;
 	private UserOptionsLookup $userOptionsLookup;
 
 	/**
+	 * @param Config $config
 	 * @param SpecialPageFactory $specialPageFactory
 	 * @param UserOptionsLookup $userOptionsLookup
 	 */
 	public function __construct(
+		Config $config,
 		SpecialPageFactory $specialPageFactory,
 		UserOptionsLookup $userOptionsLookup
 	) {
+		$this->config = $config;
 		$this->specialPageFactory = $specialPageFactory;
 		$this->userOptionsLookup = $userOptionsLookup;
 	}
@@ -83,9 +87,7 @@ class Hooks implements
 	 * @param array &$defaultOptions
 	 */
 	public function onUserGetDefaultOptions( &$defaultOptions ) {
-		global $wgMediaViewerEnableByDefault;
-
-		if ( $wgMediaViewerEnableByDefault ) {
+		if ( $this->config->get( 'MediaViewerEnableByDefault' ) ) {
 			$defaultOptions['multimediaviewer-enable'] = 1;
 		}
 	}
@@ -96,14 +98,14 @@ class Hooks implements
 	 * @return bool
 	 */
 	protected function shouldHandleClicks( User $performer ): bool {
-		global $wgMediaViewerEnableByDefaultForAnonymous,
-			$wgMediaViewerEnableByDefault;
-
 		if ( $performer->isNamed() ) {
 			return (bool)$this->userOptionsLookup->getOption( $performer, 'multimediaviewer-enable' );
 		}
 
-		return (bool)( $wgMediaViewerEnableByDefaultForAnonymous ?? $wgMediaViewerEnableByDefault );
+		return (bool)(
+			$this->config->get( 'MediaViewerEnableByDefaultForAnonymous' ) ??
+			$this->config->get( 'MediaViewerEnableByDefault' )
+		);
 	}
 
 	/**
@@ -184,17 +186,14 @@ class Hooks implements
 	 * @param Config $config
 	 */
 	public function onResourceLoaderGetConfigVars( array &$vars, $skin, Config $config ): void {
-		global $wgMediaViewerUseThumbnailGuessing, $wgMediaViewerExtensions,
-			$wgMediaViewerImageQueryParameter, $wgMediaViewerRecordVirtualViewBeaconURI;
-
 		$vars['wgMultimediaViewer'] = [
 			'infoLink' => self::$infoLink,
 			'discussionLink' => self::$discussionLink,
 			'helpLink' => self::$helpLink,
-			'useThumbnailGuessing' => (bool)$wgMediaViewerUseThumbnailGuessing,
-			'imageQueryParameter' => $wgMediaViewerImageQueryParameter,
-			'recordVirtualViewBeaconURI' => $wgMediaViewerRecordVirtualViewBeaconURI,
-			'extensions' => $wgMediaViewerExtensions,
+			'useThumbnailGuessing' => (bool)$this->config->get( 'MediaViewerUseThumbnailGuessing' ),
+			'imageQueryParameter' => $this->config->get( 'MediaViewerImageQueryParameter' ),
+			'recordVirtualViewBeaconURI' => $this->config->get( 'MediaViewerRecordVirtualViewBeaconURI' ),
+			'extensions' => $this->config->get( 'MediaViewerExtensions' ),
 		];
 		$vars['wgMediaViewer'] = true;
 	}
