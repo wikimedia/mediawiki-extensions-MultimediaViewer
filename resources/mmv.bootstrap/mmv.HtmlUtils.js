@@ -109,12 +109,11 @@
 		 * @param {string} whitelist a jQuery selector string such as 'a, span, br'
 		 */
 		whitelistHtml( $el, whitelist ) {
-			let child;
 			let $prev;
 			let $child = $el.children().first();
 
 			while ( $child && $child.length ) {
-				child = $child.get( 0 );
+				const child = $child.get( 0 );
 
 				if ( child.nodeType !== child.ELEMENT_NODE ) {
 					return;
@@ -201,9 +200,8 @@
 		 * @return {string}
 		 */
 		htmlToText( html ) {
-			let $html;
 			if ( !cache.text[ html ] ) {
-				$html = this.wrapAndJquerify( html );
+				const $html = this.wrapAndJquerify( html );
 				this.filterInvisible( $html );
 				this.appendWhitespaceToBlockElements( $html );
 				cache.text[ html ] = this.mergeWhitespace( $html.text() );
@@ -219,9 +217,8 @@
 		 * @return {string}
 		 */
 		htmlToTextWithTags( html ) {
-			let $html;
 			if ( !cache.textWithTags[ html ] ) {
-				$html = this.wrapAndJquerify( html );
+				const $html = this.wrapAndJquerify( html );
 				this.filterInvisible( $html );
 				this.appendWhitespaceToBlockElements( $html );
 				this.whitelistHtml( $html, 'a, span, i, b, sup, sub' );
@@ -238,9 +235,8 @@
 		 * @return {string}
 		 */
 		htmlToTextWithLinks( html ) {
-			let $html;
 			if ( !cache.textWithLinks[ html ] ) {
-				$html = this.wrapAndJquerify( html );
+				const $html = this.wrapAndJquerify( html );
 				this.filterInvisible( $html );
 				this.appendWhitespaceToBlockElements( $html );
 				this.whitelistHtml( $html, 'a, span' );
@@ -257,8 +253,7 @@
 		 * @return {string}
 		 */
 		makeLinkText( text, props ) {
-			let key;
-			for ( key in props ) {
+			for ( const key in props ) {
 				if ( !Object.prototype.hasOwnProperty.call( props, key ) ) {
 					continue;
 				}

@@ -203,7 +203,6 @@ const UiElement = require( './mmv.ui.js' );
 		 * Changes the element style if a certain length is reached.
 		 */
 		changeStyle() {
-			let oldClass;
 			let newClass = 'mw-mmv-ttf-normal';
 
 			// eslint-disable-next-line mediawiki/class-doc
@@ -217,7 +216,7 @@ const UiElement = require( './mmv.ui.js' );
 					break;
 				}
 
-				oldClass = newClass;
+				const oldClass = newClass;
 				newClass = v;
 				// eslint-disable-next-line mediawiki/class-doc
 				this.$container.removeClass( oldClass ).addClass( newClass );
