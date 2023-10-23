@@ -63,22 +63,19 @@ class Hooks implements
 	protected static $helpLink =
 		'https://mediawiki.org/wiki/Special:MyLanguage/Help:Extension:Media_Viewer';
 
-	/**
-	 * @var UserOptionsLookup
-	 */
-	private $userOptionsLookup;
 	private SpecialPageFactory $specialPageFactory;
+	private UserOptionsLookup $userOptionsLookup;
 
 	/**
-	 * @param UserOptionsLookup $userOptionsLookup
 	 * @param SpecialPageFactory $specialPageFactory
+	 * @param UserOptionsLookup $userOptionsLookup
 	 */
 	public function __construct(
-		UserOptionsLookup $userOptionsLookup,
-		SpecialPageFactory $specialPageFactory
+		SpecialPageFactory $specialPageFactory,
+		UserOptionsLookup $userOptionsLookup
 	) {
-		$this->userOptionsLookup = $userOptionsLookup;
 		$this->specialPageFactory = $specialPageFactory;
+		$this->userOptionsLookup = $userOptionsLookup;
 	}
 
 	/**
