@@ -425,6 +425,7 @@
 		"main": {
 			"class": "MediaWiki\\Extension\\MultimediaViewer\\Hooks",
 			"services": [
+				"MainConfig",
 				"SpecialPageFactory",
 				"UserOptionsLookup"
 			]
