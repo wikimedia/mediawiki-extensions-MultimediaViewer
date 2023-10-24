@@ -1,7 +1,7 @@
 const { MultimediaViewer } = require( 'mmv' );
 
 ( function () {
-	var MTH = {};
+	const MTH = {};
 
 	/**
 	 * Returns the exception thrown by callback, or undefined if no exception was thrown.
@@ -10,7 +10,7 @@ const { MultimediaViewer } = require( 'mmv' );
 	 * @return {Error}
 	 */
 	MTH.getException = function ( callback ) {
-		var ex;
+		let ex;
 		try {
 			callback();
 		} catch ( e ) {
@@ -44,7 +44,7 @@ const { MultimediaViewer } = require( 'mmv' );
 	 * @return {mw.SafeStorage} Local storage-like object
 	 */
 	MTH.getDisabledLocalStorage = function () {
-		var e = function () {
+		const e = function () {
 			throw new Error( 'Error' );
 		};
 
@@ -62,7 +62,7 @@ const { MultimediaViewer } = require( 'mmv' );
 	 * @return {mw.SafeStorage} Local storage-like object
 	 */
 	MTH.getFakeLocalStorage = function ( initialData ) {
-		var bag = new mw.Map();
+		const bag = new mw.Map();
 		bag.set( initialData );
 
 		return MTH.createLocalStorage( {
@@ -116,15 +116,15 @@ const { MultimediaViewer } = require( 'mmv' );
 	 * @return {Function}
 	 */
 	MTH.asyncMethod = function ( object, method, assert ) {
-		var helpers = this;
+		const helpers = this;
 		return function () {
 			// apply arguments to original promise
-			var promise = object[ method ].apply( object, arguments );
+			const promise = object[ method ].apply( object, arguments );
 
 			helpers.asyncPromises.push( promise );
 
 			if ( assert ) {
-				var done = assert.async();
+				const done = assert.async();
 				// use setTimeout to ensure `done` is not the first callback handler
 				// to execute (possibly ending the test's wait right before
 				// the result of the promise is executed)
@@ -143,7 +143,7 @@ const { MultimediaViewer } = require( 'mmv' );
 	 * @return {jQuery.Promise}
 	 */
 	MTH.waitForAsync = function () {
-		var deferred = $.Deferred();
+		const deferred = $.Deferred();
 
 		// it's possible that, before this function call, some code was executed
 		// that triggers async code that will eventually end up `asyncPromises`

@@ -306,7 +306,7 @@ const UiElement = require( './ui/mmv.ui.js' );
 		 * Enters fullscreen mode.
 		 */
 		enterFullscreen() {
-			var el = this.$main.get( 0 );
+			const el = this.$main.get( 0 );
 			if ( el.requestFullscreen ) {
 				el.requestFullscreen();
 			}

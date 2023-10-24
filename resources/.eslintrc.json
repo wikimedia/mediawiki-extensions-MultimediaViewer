@@ -6,7 +6,7 @@
 		"wikimedia/mediawiki"
 	],
 	"rules": {
-		"no-var": "off",
+		"no-var": "error",
 		"max-len": "off",
 		"no-jquery/no-class-state": "off",
 		"no-jquery/no-support": "off"

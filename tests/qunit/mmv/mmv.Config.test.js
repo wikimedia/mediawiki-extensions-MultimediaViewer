@@ -22,12 +22,12 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 	QUnit.module( 'mmv.Config', QUnit.newMwEnvironment() );
 
 	QUnit.test( 'Constructor sense test', function ( assert ) {
-		var config = new Config( {}, {}, {}, {}, null );
+		const config = new Config( {}, {}, {}, {}, null );
 		assert.true( config instanceof Config );
 	} );
 
 	QUnit.test( 'Localstorage get', function ( assert ) {
-		var localStorage, config;
+		let localStorage, config;
 
 		localStorage = getUnsupportedLocalStorage(); // no browser support
 		config = new Config( {}, {}, {}, {}, localStorage );
@@ -53,7 +53,7 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 	} );
 
 	QUnit.test( 'Localstorage set', function ( assert ) {
-		var localStorage, config;
+		let localStorage, config;
 
 		localStorage = getUnsupportedLocalStorage(); // no browser support
 		config = new Config( {}, {}, {}, {}, localStorage );
@@ -73,7 +73,7 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 	} );
 
 	QUnit.test( 'Localstorage remove', function ( assert ) {
-		var localStorage, config;
+		let localStorage, config;
 
 		localStorage = getUnsupportedLocalStorage(); // no browser support
 		config = new Config( {}, {}, {}, {}, localStorage );
@@ -89,10 +89,10 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 	} );
 
 	QUnit.test( 'isMediaViewerEnabledOnClick', function ( assert ) {
-		var localStorage = createLocalStorage( { getItem: this.sandbox.stub() } ),
-			mwConfig = { get: this.sandbox.stub() },
-			mwUser = { isNamed: this.sandbox.stub() },
-			config = new Config( {}, mwConfig, mwUser, {}, localStorage );
+		const localStorage = createLocalStorage( { getItem: this.sandbox.stub() } );
+		const mwConfig = { get: this.sandbox.stub() };
+		const mwUser = { isNamed: this.sandbox.stub() };
+		const config = new Config( {}, mwConfig, mwUser, {}, localStorage );
 
 		mwUser.isNamed.returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
@@ -133,15 +133,15 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 	} );
 
 	QUnit.test( 'setMediaViewerEnabledOnClick sense check', function ( assert ) {
-		var localStorage = createLocalStorage( {
-				getItem: this.sandbox.stub(),
-				setItem: this.sandbox.stub(),
-				removeItem: this.sandbox.stub()
-			} ),
-			mwUser = { isNamed: this.sandbox.stub() },
-			mwConfig = new mw.Map(),
-			api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) },
-			config = new Config( {}, mwConfig, mwUser, api, localStorage );
+		const localStorage = createLocalStorage( {
+			getItem: this.sandbox.stub(),
+			setItem: this.sandbox.stub(),
+			removeItem: this.sandbox.stub()
+		} );
+		const mwUser = { isNamed: this.sandbox.stub() };
+		const mwConfig = new mw.Map();
+		const api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) };
+		const config = new Config( {}, mwConfig, mwUser, api, localStorage );
 		mwConfig.set( 'wgMediaViewerEnabledByDefault', false );
 
 		mwUser.isNamed.returns( true );
@@ -159,18 +159,17 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 	} );
 
 	QUnit.test( 'shouldShowStatusInfo', function ( assert ) {
-		var config,
-			mwConfig = new mw.Map(),
-			fakeLocalStorage = getFakeLocalStorage(),
-			mwUser = { isNamed: this.sandbox.stub() },
-			api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) };
+		const mwConfig = new mw.Map();
+		const fakeLocalStorage = getFakeLocalStorage();
+		const mwUser = { isNamed: this.sandbox.stub() };
+		const api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) };
 
 		mwConfig.set( {
 			wgMediaViewer: true,
 			wgMediaViewerOnClick: true,
 			wgMediaViewerEnabledByDefault: true
 		} );
-		config = new Config( {}, mwConfig, mwUser, api, fakeLocalStorage );
+		const config = new Config( {}, mwConfig, mwUser, api, fakeLocalStorage );
 		mwUser.isNamed.returns( true );
 
 		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default' );

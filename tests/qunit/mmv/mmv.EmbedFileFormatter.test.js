@@ -5,31 +5,38 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 	QUnit.module( 'mmv.EmbedFileFormatter', QUnit.newMwEnvironment() );
 
 	function createEmbedFileInfo( options ) {
-		var license = options.licenseShortName ? new License( options.licenseShortName,
-				options.licenseInternalName, options.licenseLongName, options.licenseUrl ) : undefined,
-			imageInfo = new ImageModel(
-
-				options.title,
-				options.title.getNameText(),
-				undefined,
-				undefined,
-				undefined,
-				undefined,
-				options.imgUrl,
-				options.filePageUrl,
-				options.shortFilePageUrl,
-				42,
-				'repo',
-				undefined,
-				undefined,
-				undefined,
-				undefined,
-				options.source,
-				options.author,
-				options.authorCount,
-				license ),
-			repoInfo = { displayName: options.siteName, getSiteLink:
-				function () { return options.siteUrl; } };
+		const license = options.licenseShortName ?
+			new License(
+				options.licenseShortName,
+				options.licenseInternalName,
+				options.licenseLongName,
+				options.licenseUrl
+			) : undefined;
+		const imageInfo = new ImageModel(
+			options.title,
+			options.title.getNameText(),
+			undefined,
+			undefined,
+			undefined,
+			undefined,
+			options.imgUrl,
+			options.filePageUrl,
+			options.shortFilePageUrl,
+			42,
+			'repo',
+			undefined,
+			undefined,
+			undefined,
+			undefined,
+			options.source,
+			options.author,
+			options.authorCount,
+			license
+		);
+		const repoInfo = {
+			displayName: options.siteName,
+			getSiteLink: function () { return options.siteUrl; }
+		};
 
 		return {
 			imageInfo: imageInfo,
@@ -39,19 +46,18 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 	}
 
 	QUnit.test( 'EmbedFileFormatter constructor sense check', function ( assert ) {
-		var formatter = new EmbedFileFormatter();
+		const formatter = new EmbedFileFormatter();
 		assert.true( formatter instanceof EmbedFileFormatter, 'constructor with no argument works' );
 	} );
 
 	QUnit.test( 'getByline():', function ( assert ) {
-		var formatter = new EmbedFileFormatter(),
-			author = '<span class="mw-mmv-author">Homer</span>',
-			source = '<span class="mw-mmv-source">Iliad</span>',
-			attribution = '<span class="mw-mmv-attr">Cat</span>',
-			byline;
+		const formatter = new EmbedFileFormatter();
+		const author = '<span class="mw-mmv-author">Homer</span>';
+		const source = '<span class="mw-mmv-source">Iliad</span>';
+		const attribution = '<span class="mw-mmv-attr">Cat</span>';
 
 		// Works with no arguments
-		byline = formatter.getByline();
+		let byline = formatter.getByline();
 		assert.strictEqual( byline, undefined, 'No argument case handled correctly.' );
 
 		// Attribution present
@@ -72,44 +78,42 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 	} );
 
 	QUnit.test( 'getSiteLink():', function ( assert ) {
-		var repoInfo = new Repo( 'Wikipedia', '//wikipedia.org/favicon.ico', true ),
-			info = { imageInfo: {}, repoInfo: repoInfo },
-			formatter = new EmbedFileFormatter(),
-			siteUrl = repoInfo.getSiteLink(),
-			siteLink = formatter.getSiteLink( info );
+		const repoInfo = new Repo( 'Wikipedia', '//wikipedia.org/favicon.ico', true );
+		const info = { imageInfo: {}, repoInfo: repoInfo };
+		const formatter = new EmbedFileFormatter();
+		const siteUrl = repoInfo.getSiteLink();
+		const siteLink = formatter.getSiteLink( info );
 
 		assert.notStrictEqual( siteLink.indexOf( 'Wikipedia' ), -1, 'Site name is present in site link' );
 		assert.notStrictEqual( siteLink.indexOf( siteUrl ), -1, 'Site URL is present in site link' );
 	} );
 
 	QUnit.test( 'getThumbnailHtml():', function ( assert ) {
-		var formatter = new EmbedFileFormatter(),
-			titleText = 'Music Room',
-			title = mw.Title.newFromText( titleText ),
-			imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
-			filePageUrl = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
-			filePageShortUrl = 'https://commons.wikimedia.org/wiki/index.php?curid=42',
-			siteName = 'Site Name',
-			siteUrl = '//site.url/',
-			licenseShortName = 'Public License',
-			licenseInternalName = '-',
-			licenseLongName = 'Public Domain, copyrights have lapsed',
-			licenseUrl = '//example.com/pd',
-			author = '<span class="mw-mmv-author">Homer</span>',
-			source = '<span class="mw-mmv-source">Iliad</span>',
-			thumbUrl = 'https://upload.wikimedia.org/wikipedia/thumb/Foobar.jpg',
-			width = 700,
-			height = 500,
-			info,
-			generatedHtml;
+		const formatter = new EmbedFileFormatter();
+		const titleText = 'Music Room';
+		const title = mw.Title.newFromText( titleText );
+		const imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
+		const filePageUrl = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg';
+		const filePageShortUrl = 'https://commons.wikimedia.org/wiki/index.php?curid=42';
+		const siteName = 'Site Name';
+		const siteUrl = '//site.url/';
+		const licenseShortName = 'Public License';
+		const licenseInternalName = '-';
+		const licenseLongName = 'Public Domain, copyrights have lapsed';
+		const licenseUrl = '//example.com/pd';
+		const author = '<span class="mw-mmv-author">Homer</span>';
+		const source = '<span class="mw-mmv-source">Iliad</span>';
+		const thumbUrl = 'https://upload.wikimedia.org/wikipedia/thumb/Foobar.jpg';
+		const width = 700;
+		const height = 500;
 
 		// Bylines, license and site
-		info = createEmbedFileInfo( { title: title, imgUrl: imgUrl, filePageUrl: filePageUrl,
+		let info = createEmbedFileInfo( { title: title, imgUrl: imgUrl, filePageUrl: filePageUrl,
 			shortFilePageUrl: filePageShortUrl, siteName: siteName, siteUrl: siteUrl,
 			licenseShortName: licenseShortName, licenseInternalName: licenseInternalName,
 			licenseLongName: licenseLongName, licenseUrl: licenseUrl, author: author, source: source } );
 
-		generatedHtml = formatter.getThumbnailHtml( info, thumbUrl, width, height );
+		let generatedHtml = formatter.getThumbnailHtml( info, thumbUrl, width, height );
 		assert.notStrictEqual( generatedHtml.match( titleText ), null, 'Title appears in generated HTML.' );
 		assert.notStrictEqual( generatedHtml.match( filePageUrl ), null, 'Page url appears in generated HTML.' );
 		assert.notStrictEqual( generatedHtml.match( thumbUrl ), null, 'Thumbnail url appears in generated HTML' );
@@ -176,19 +180,17 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 	} );
 
 	QUnit.test( 'getThumbnailWikitext():', function ( assert ) {
-		var formatter = new EmbedFileFormatter(),
-			title = mw.Title.newFromText( 'File:Foobar.jpg' ),
-			imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
-			filePageUrl = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
-			caption = 'Foobar caption.',
-			width = 700,
-			info,
-			wikitext;
+		const formatter = new EmbedFileFormatter();
+		const title = mw.Title.newFromText( 'File:Foobar.jpg' );
+		const imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
+		const filePageUrl = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg';
+		const caption = 'Foobar caption.';
+		const width = 700;
 
 		// Title, width and caption
-		info = createEmbedFileInfo( { title: title, imgUrl: imgUrl, filePageUrl: filePageUrl,
+		let info = createEmbedFileInfo( { title: title, imgUrl: imgUrl, filePageUrl: filePageUrl,
 			caption: caption } );
-		wikitext = formatter.getThumbnailWikitextFromEmbedFileInfo( info, width );
+		let wikitext = formatter.getThumbnailWikitextFromEmbedFileInfo( info, width );
 
 		assert.strictEqual(
 			wikitext,
@@ -215,9 +217,9 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 	} );
 
 	QUnit.test( 'getCreditText():', function ( assert ) {
-		var txt, formatter = new EmbedFileFormatter();
+		const formatter = new EmbedFileFormatter();
 
-		txt = formatter.getCreditText( {
+		let txt = formatter.getCreditText( {
 			repoInfo: {
 				displayName: 'Localcommons'
 			},
@@ -258,9 +260,9 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 	} );
 
 	QUnit.test( 'getCreditHtml():', function ( assert ) {
-		var html, formatter = new EmbedFileFormatter();
+		const formatter = new EmbedFileFormatter();
 
-		html = formatter.getCreditHtml( {
+		let html = formatter.getCreditHtml( {
 			repoInfo: {
 				displayName: 'Localcommons',
 				getSiteLink: function () { return 'quux'; }
