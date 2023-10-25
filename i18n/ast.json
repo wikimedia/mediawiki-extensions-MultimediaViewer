@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Xuacu"
+			"Xuacu",
+			"YoaR"
 		]
 	},
 	"multimediaviewer-desc": "Espande les miniatures a mayor tamañu nuna interfaz a pantalla completa.",
@@ -110,7 +111,7 @@
 	"multimediaviewer-options-text-body": "Pues activalla más sero na páxina de detalles del ficheru.",
 	"multimediaviewer-options-learn-more": "Más información",
 	"multimediaviewer-option-submit-button": "Desactivar el visor de multimedia",
-	"multimediaviewer-option-cancel-button": "Encaboxar",
+	"multimediaviewer-option-cancel-button": "Zarrar",
 	"multimediaviewer-disable-confirmation-header": "Desactivasti el visor de multimedia",
 	"multimediaviewer-disable-confirmation-text": "La siguiente vez que faigas clic n'una miniatura en $1, verás direutamente los detalles del ficheru.",
 	"multimediaviewer-enable-dialog-header": "¿Activar el visor de multimedia?",
