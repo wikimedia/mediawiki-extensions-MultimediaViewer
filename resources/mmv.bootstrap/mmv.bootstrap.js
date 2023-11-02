@@ -270,6 +270,16 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 			let title;
 			const $thumb = $( thumb );
 			const $link = $thumb.closest( 'a.image, a.mw-file-description' );
+			const $typeofContainer = $link.closest(
+				'[typeof*="mw:File"], ' +
+				// TODO: Remove mw:Image when version 2.4.0 of the content is
+				// no longer supported
+				'[typeof*="mw:Image"]'
+			);
+			if ( $typeofContainer.length ) {
+				// Handled by processParsoidThumb()
+				return;
+			}
 			const $thumbContainer = $link.closest( '.thumb' );
 			const $enlarge = $thumbContainer.find( '.magnify a' );
 			const link = $link.prop( 'href' );
