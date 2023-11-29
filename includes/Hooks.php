@@ -37,8 +37,8 @@ use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderGetConfigVarsHook;
 use MediaWiki\SpecialPage\SpecialPageFactory;
 use MediaWiki\User\Hook\UserGetDefaultOptionsHook;
+use MediaWiki\User\Options\UserOptionsLookup;
 use MediaWiki\User\User;
-use MediaWiki\User\UserOptionsLookup;
 use Skin;
 use ThumbnailImage;
 
