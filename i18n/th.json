@@ -5,7 +5,8 @@
 			"Ans",
 			"Horus",
 			"Nullzero",
-			"Taweetham"
+			"Taweetham",
+			"Ekminarin"
 		]
 	},
 	"multimediaviewer-desc": "ขยายรูปขนาดย่อให้มีขนาดใหญ่ขึ้นในอินเทอร์เฟซเต็มหน้าจอ",
@@ -82,12 +83,25 @@
 	"multimediaviewer-credit-popup-text": "ข้อมูลผู้สร้างและแหล่งที่มา",
 	"multimediaviewer-title-popup-text-more": "ดูคำอธิบายแบบเต็ม",
 	"multimediaviewer-credit-popup-text-more": "ดูข้อมูลผู้สร้างและแหล่งที่มาแบบเต็ม",
+	"multimediaviewer-download-attribution-cta-header": "คุณต้องระบุแหล่งที่มาของผู้เขียน",
+	"multimediaviewer-download-optional-attribution-cta-header": "คุณสามารถระบุแหล่งที่มาของผู้เขียนได้",
 	"multimediaviewer-download-attribution-cta": "แสดงวิธีให้ฉัน",
+	"multimediaviewer-reuse-warning-noattribution": "ไฟล์นี้ไม่มีข้อมูลการระบุแหล่งที่มา",
+	"multimediaviewer-attr-plain": "ธรรมดา",
 	"multimediaviewer-options-tooltip": "เปิดหรือปิดใช้งานตัวแสดงสื่อ",
 	"multimediaviewer-options-dialog-header": "ปิดใช้งานตัวแสดงสื่อหรือไม่?",
+	"multimediaviewer-options-text-header": "ข้ามคุณสมบัติการดูนี้สำหรับไฟล์ทั้งหมด",
+	"multimediaviewer-options-text-body": "คุณสามารถเปิดใช้งานได้ในภายหลังผ่านหน้ารายละเอียดไฟล์",
 	"multimediaviewer-options-learn-more": "เรียนรู้เพิ่มเติม",
 	"multimediaviewer-option-submit-button": "ปิดใช้งานตัวแสดงสื่อ",
 	"multimediaviewer-option-cancel-button": "ยกเลิก",
+	"multimediaviewer-disable-confirmation-header": "คุณได้ปิดใช้งานตัวแสดงสื่อแล้ว",
+	"multimediaviewer-disable-confirmation-text": "ครั้งต่อไปที่คุณคลิกภาพขนาดย่อบน $1 คุณจะดูรายละเอียดไฟล์ทั้งหมดได้โดยตรง",
 	"multimediaviewer-enable-dialog-header": "เปิดใช้งานตัวแสดงสื่อหรือไม่?",
-	"multimediaviewer-enable-submit-button": "เปิดใช้งานตัวแสดงสื่อ"
+	"multimediaviewer-enable-text-header": "เปิดใช้งานคุณสมบัติตัวแสดงสื่อนี้สำหรับไฟล์ทั้งหมดตามค่าเริ่มต้น",
+	"multimediaviewer-enable-submit-button": "เปิดใช้งานตัวแสดงสื่อ",
+	"multimediaviewer-enable-confirmation-header": "คุณได้เปิดใช้งานตัวแสดงสื่อสำหรับไฟล์ทั้งหมดแล้ว",
+	"multimediaviewer-enable-confirmation-text": "ครั้งต่อไปที่คุณคลิกภาพขนาดย่อบน $1 ตัวแสดงสื่อจะถูกนำมาใช้",
+	"multimediaviewer-enable-alert": "ตัวแสดงสื่อถูกปิดใช้งาน",
+	"multimediaviewer-disable-info-title": "คุณได้ปิดใช้งานตัวแสดงสื่อแล้ว"
 }
