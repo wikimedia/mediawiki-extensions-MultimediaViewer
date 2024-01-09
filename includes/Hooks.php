@@ -206,9 +206,12 @@ class Hooks implements
 	 * @return void
 	 */
 	public function onMakeGlobalVariablesScript( &$vars, $out ): void {
-		$isMultimediaViewerEnable = $this->userOptionsLookup->getDefaultOption( 'multimediaviewer-enable' );
-
 		$user = $out->getUser();
+		$isMultimediaViewerEnable = $this->userOptionsLookup->getDefaultOption(
+			'multimediaviewer-enable',
+			$user
+		);
+
 		$vars['wgMediaViewerOnClick'] = $this->shouldHandleClicks( $user );
 		// needed because of T71942; could be different for anon and logged-in
 		$vars['wgMediaViewerEnabledByDefault'] = (bool)$isMultimediaViewerEnable;
