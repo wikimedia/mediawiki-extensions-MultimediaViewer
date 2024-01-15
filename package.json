@@ -2,9 +2,10 @@
 	"name": "MultimediaViewer",
 	"private": true,
 	"scripts": {
-		"build": "npm -s run minify-svg",
+		"build": "npm -s run minify",
 		"test": "grunt test",
-		"minify-svg": "svgo --config=.svgo.config.js --quiet --recursive --folder resources/",
+		"minify": "npm -s run minify:svg",
+		"minify:svg": "svgo --config=.svgo.config.js --quiet --recursive --folder resources/",
 		"doc": "jsdoc -c jsdoc.json"
 	},
 	"devDependencies": {
@@ -16,6 +17,6 @@
 		"jsdoc": "3.6.10",
 		"jsdoc-wmf-theme": "0.0.8",
 		"stylelint-config-wikimedia": "0.15.0",
-		"svgo": "3.0.2"
+		"svgo": "3.2.0"
 	}
 }
