@@ -140,6 +140,13 @@ const { ImageModel, License } = require( 'mmv' );
 		assert.strictEqual( ImageModel.parseExtmeta( missingData, 'string' ), undefined,
 			'Extmeta missing data parsed correctly.' );
 
+		assert.strictEqual( ImageModel.parseExtmeta( { value: '1960-03-14' }, 'datetime' ), '1960-03-14',
+			'Extmeta date is parsed correctly.' );
+		assert.strictEqual( ImageModel.parseExtmeta( { value: '1960' }, 'datetime' ), '1960',
+			'Extmeta year is parsed correctly.' );
+		assert.strictEqual( ImageModel.parseExtmeta( { value: '1926<div style="display: none;">date QS:P571,+1926-00-00T00:00:00Z/9</div>' }, 'datetime' ), '1926',
+			'Extmeta year is extracted from hidden div.' );
+
 		assert.throws( function () {
 			ImageModel.parseExtmeta( stringData, 'strong' );
 		}, 'Exception is thrown on invalid argument' );

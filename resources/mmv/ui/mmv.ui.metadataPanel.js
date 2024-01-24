@@ -801,6 +801,10 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 				// and thus sometimes cause tests to fail.
 				lang = 'en-GB';
 			}
+			if ( dateString.length === 4 ) {
+				// assume yyyy
+				return dateString;
+			}
 			const date = new Date( dateString );
 			try {
 				if ( date instanceof Date && !isNaN( date ) ) {
