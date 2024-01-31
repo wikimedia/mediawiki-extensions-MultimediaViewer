@@ -6,7 +6,8 @@
 			"Horus",
 			"Nullzero",
 			"Taweetham",
-			"Ekminarin"
+			"Ekminarin",
+			"RidJasper"
 		]
 	},
 	"multimediaviewer-desc": "ขยายรูปขนาดย่อให้มีขนาดใหญ่ขึ้นในอินเทอร์เฟซเต็มหน้าจอ",
@@ -51,6 +52,7 @@
 	"multimediaviewer-download-small-button-name": "ดาวน์โหลดขนาดเล็ก",
 	"multimediaviewer-download-medium-button-name": "ดาวน์โหลดขนาดปานกลาง",
 	"multimediaviewer-download-large-button-name": "ดาวน์โหลดขนาดใหญ่",
+	"multimediaviewer-download-xl-button-name": "ดาวน์โหลดขนาดใหญ่พิเศษ",
 	"multimediaviewer-link-to-page": "ลิงก์ไปยังหน้าคำอธิบายไฟล์",
 	"multimediaviewer-link-to-file": "ลิงก์ไปยังไฟล์ต้นฉบับ",
 	"multimediaviewer-share-explanation": "คัดลอกและแบ่งปันลิงก์ได้อย่างเสรี",
@@ -67,6 +69,7 @@
 	"multimediaviewer-embed-via": "ผ่าน $1",
 	"multimediaviewer-default-embed-dimensions": "ขนาดรูปขนาดย่อเริ่มต้น",
 	"multimediaviewer-original-embed-dimensions": "ไฟล์ต้นฉบับ $1",
+	"multimediaviewer-xl-embed-dimensions": "ใหญ่พิเศษ $1",
 	"multimediaviewer-large-embed-dimensions": "ใหญ่ $1",
 	"multimediaviewer-medium-embed-dimensions": "ปานกลาง $1",
 	"multimediaviewer-small-embed-dimensions": "เล็ก $1",
