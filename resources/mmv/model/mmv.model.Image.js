@@ -192,8 +192,8 @@ const License = require( './mmv.model.License.js' );
 			const extmeta = innerInfo.extmetadata;
 
 			if ( extmeta ) {
-				creationDateTime = this.parseExtmeta( extmeta.DateTimeOriginal, 'plaintext' );
-				uploadDateTime = this.parseExtmeta( extmeta.DateTime, 'plaintext' ).toString();
+				creationDateTime = this.parseExtmeta( extmeta.DateTimeOriginal, 'datetime' );
+				uploadDateTime = this.parseExtmeta( extmeta.DateTime, 'datetime' );
 
 				// Convert to "timestamp" format commonly used in EventLogging
 				anonymizedUploadDateTime = uploadDateTime.replace( /[^\d]/g, '' );
@@ -288,7 +288,7 @@ const License = require( './mmv.model.License.js' );
 		 * Reads and parses a value from the imageinfo API extmetadata field.
 		 *
 		 * @param {Array} data
-		 * @param {string} type one of 'plaintext', 'string', 'float', 'boolean', 'list'
+		 * @param {string} type one of 'plaintext', 'string', 'float', 'boolean', 'list', 'datetime'
 		 * @return {string|number|boolean|Array} value or undefined if it is missing
 		 */
 		static parseExtmeta( data, type ) {
@@ -312,6 +312,21 @@ const License = require( './mmv.model.License.js' );
 				} else {
 					return undefined;
 				}
+			} else if ( type === 'datetime' ) {
+				value = value.toString();
+				// https://datatracker.ietf.org/doc/html/rfc3339
+				// adapted from https://stackoverflow.com/questions/3143070/regex-to-match-an-iso-8601-datetime-string
+				const rfc3339 = /\d{4}-[01]\d-[0-3]\d(T[0-2]\d:[0-5]\d:[0-5]\d(\.\d+)?Z?)?/;
+				const match = value.match( rfc3339 );
+				if ( !match ) {
+					return value.replace( /<.*?>/g, '' );
+				}
+				value = match[ 0 ];
+				if ( value.match( /^\d{4}-00-00/ ) ) {
+					// assume yyyy
+					return value.slice( 0, 4 );
+				}
+				return value;
 			} else if ( type === 'list' ) {
 				return value === '' ? [] : value.split( '|' );
 			} else {
