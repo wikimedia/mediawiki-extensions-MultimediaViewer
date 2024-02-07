@@ -23,7 +23,7 @@
 	class Config {
 		/**
 		 * @param {Object} viewerConfig
-		 * @param {mw.Map} mwConfig
+		 * @param {Map} mwConfig
 		 * @param {Object} mwUser
 		 * @param {mw.Api} api
 		 * @param {mw.SafeStorage} localStorage
@@ -39,7 +39,7 @@
 			/**
 			 * The mw.config object, for dependency injection
 			 *
-			 * @type {mw.Map}
+			 * @type {Map}
 			 */
 			this.mwConfig = mwConfig;
 

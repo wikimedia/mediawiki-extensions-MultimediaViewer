@@ -139,7 +139,7 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 			removeItem: this.sandbox.stub()
 		} );
 		const mwUser = { isNamed: this.sandbox.stub() };
-		const mwConfig = new mw.Map();
+		const mwConfig = new Map();
 		const api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) };
 		const config = new Config( {}, mwConfig, mwUser, api, localStorage );
 		mwConfig.set( 'wgMediaViewerEnabledByDefault', false );
@@ -159,16 +159,14 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 	} );
 
 	QUnit.test( 'shouldShowStatusInfo', function ( assert ) {
-		const mwConfig = new mw.Map();
+		const mwConfig = new Map();
 		const fakeLocalStorage = getFakeLocalStorage();
 		const mwUser = { isNamed: this.sandbox.stub() };
 		const api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) };
 
-		mwConfig.set( {
-			wgMediaViewer: true,
-			wgMediaViewerOnClick: true,
-			wgMediaViewerEnabledByDefault: true
-		} );
+		mwConfig.set( 'wgMediaViewer', true );
+		mwConfig.set( 'wgMediaViewerOnClick', true );
+		mwConfig.set( 'wgMediaViewerEnabledByDefault', true );
 		const config = new Config( {}, mwConfig, mwUser, api, fakeLocalStorage );
 		mwUser.isNamed.returns( true );
 

@@ -58,17 +58,14 @@ const { MultimediaViewer } = require( 'mmv' );
 	/**
 	 * Returns a fake local storage which is not saved between reloads.
 	 *
-	 * @param {Object} [initialData]
 	 * @return {mw.SafeStorage} Local storage-like object
 	 */
-	MTH.getFakeLocalStorage = function ( initialData ) {
-		const bag = new mw.Map();
-		bag.set( initialData );
-
+	MTH.getFakeLocalStorage = function () {
+		const bag = new Map();
 		return MTH.createLocalStorage( {
-			getItem: function ( key ) { return bag.get( key ); },
-			setItem: function ( key, value ) { bag.set( key, value ); },
-			removeItem: function ( key ) { bag.set( key, null ); }
+			getItem: ( key ) => bag.get( key ) || null,
+			setItem: ( key, value ) => bag.set( key, value ),
+			removeItem: ( key ) => bag.delete( key )
 		} );
 	};
 
