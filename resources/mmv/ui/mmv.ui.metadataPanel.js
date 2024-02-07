@@ -154,8 +154,10 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 			this.$filenamePrefix.empty();
 			this.$filenameLi.addClass( 'empty' );
 
-			this.$datetime.empty();
-			this.$datetimeLi.addClass( 'empty' );
+			this.$datetimeCreated.empty();
+			this.$datetimeCreatedLi.addClass( 'empty' );
+			this.$datetimeUpdated.empty();
+			this.$datetimeUpdatedLi.addClass( 'empty' );
 
 			this.$location.empty();
 			this.$locationLi.addClass( 'empty' );
@@ -335,13 +337,21 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 		 * Initializes the upload date/time element.
 		 */
 		initializeDatetime() {
-			this.$datetimeLi = $( '<li>' )
+			this.$datetimeCreatedLi = $( '<li>' )
 				.addClass( 'mw-mmv-datetime-li empty' )
 				.appendTo( this.$imageLinks );
 
-			this.$datetime = $( '<span>' )
+			this.$datetimeCreated = $( '<span>' )
 				.addClass( 'mw-mmv-datetime' )
-				.appendTo( this.$datetimeLi );
+				.appendTo( this.$datetimeCreatedLi );
+
+			this.$datetimeUpdatedLi = $( '<li>' )
+				.addClass( 'mw-mmv-datetime-li empty' )
+				.appendTo( this.$imageLinks );
+
+			this.$datetimeUpdated = $( '<span>' )
+				.addClass( 'mw-mmv-datetime' )
+				.appendTo( this.$datetimeUpdatedLi );
 		}
 
 		/**
@@ -397,23 +407,6 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 			}
 
 			this.title.set( title );
-		}
-
-		/**
-		 * Sets the upload or creation date and time in the panel
-		 *
-		 * @param {string} date The formatted date to set.
-		 * @param {boolean} created Whether this is the creation date
-		 */
-		setDateTime( date, created ) {
-			this.$datetime.text(
-				mw.message(
-					( created ? 'multimediaviewer-datetime-created' : 'multimediaviewer-datetime-uploaded' ),
-					date
-				).text()
-			);
-
-			this.$datetimeLi.removeClass( 'empty' );
 		}
 
 		/**
@@ -744,9 +737,16 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 		 */
 		setImageInfo( image, imageData, repoData ) {
 			if ( imageData.creationDateTime ) {
-				this.setDateTime( this.formatDate( imageData.creationDateTime ), true );
-			} else if ( imageData.uploadDateTime ) {
-				this.setDateTime( this.formatDate( imageData.uploadDateTime ) );
+				this.$datetimeCreated.text(
+					mw.message( 'multimediaviewer-datetime-created', this.formatDate( imageData.creationDateTime ) ).text()
+				);
+				this.$datetimeCreatedLi.removeClass( 'empty' );
+			}
+			if ( imageData.uploadDateTime ) {
+				this.$datetimeUpdated.text(
+					mw.message( 'multimediaviewer-datetime-uploaded', this.formatDate( imageData.uploadDateTime ) ).text()
+				);
+				this.$datetimeUpdatedLi.removeClass( 'empty' );
 			}
 
 			this.buttons.set( imageData, repoData );

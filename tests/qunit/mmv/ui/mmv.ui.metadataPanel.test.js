@@ -17,7 +17,8 @@ QUnit.test( '.empty()', function ( assert ) {
 		'$license',
 		'$title',
 		'$location',
-		'$datetime'
+		'$datetimeCreated',
+		'$datetimeUpdated'
 	].forEach( function ( thing ) {
 		assert.strictEqual( panel[ thing ].text(), '', thing + ' empty text' );
 	} );
@@ -26,7 +27,8 @@ QUnit.test( '.empty()', function ( assert ) {
 		'$licenseLi',
 		'$credit',
 		'$locationLi',
-		'$datetimeLi'
+		'$datetimeCreatedLi',
+		'$datetimeUpdatedLi'
 	].forEach( function ( thing ) {
 		assert.true( panel[ thing ].hasClass( 'empty' ), thing + ' empty class' );
 	} );
@@ -138,7 +140,8 @@ QUnit.test( '.setImageInfo()', function ( assert ) {
 		imageData.descriptionUrl + '?uselang=qqx#(license-header)',
 		'User is directed to file page for license information' );
 	assert.strictEqual( panel.$license.prop( 'target' ), '', 'License information opens in same window' );
-	assert.true( panel.$datetimeLi.hasClass( 'empty' ), 'Date/Time is empty' );
+	assert.true( panel.$datetimeCreatedLi.hasClass( 'empty' ), 'Date/Time is empty' );
+	assert.true( panel.$datetimeUpdatedLi.hasClass( 'empty' ), 'Date/Time is empty' );
 	assert.true( panel.$locationLi.hasClass( 'empty' ), 'Location is empty' );
 
 	imageData.creationDateTime = '2013-08-26T14:41:02Z';
@@ -156,12 +159,12 @@ QUnit.test( '.setImageInfo()', function ( assert ) {
 
 	assert.strictEqual( panel.$title.text(), title, 'Title is correctly set' );
 	assert.false( panel.$credit.hasClass( 'empty' ), 'Credit is not empty' );
-	assert.false( panel.$datetimeLi.hasClass( 'empty' ), 'Date/Time is not empty' );
+	assert.false( panel.$datetimeCreatedLi.hasClass( 'empty' ), 'Date/Time is not empty' );
 	assert.strictEqual( panel.creditField.$element.find( '.mw-mmv-author' ).text(), imageData.author, 'Author text is correctly set' );
 	assert.strictEqual( panel.creditField.$element.find( '.mw-mmv-source' ).html(), '<b>Lost</b><a href="foo">Bar</a>', 'Source text is correctly set' );
 	// Either multimediaviewer-credit-popup-text or multimediaviewer-credit-popup-text-more.
 	assert.true( creditPopupText === '(multimediaviewer-credit-popup-text)' || creditPopupText === '(multimediaviewer-credit-popup-text-more)', 'Source tooltip is correctly set' );
-	assert.strictEqual( panel.$datetime.text(), '(multimediaviewer-datetime-created: 26 August 2013)', 'Correct date is displayed' );
+	assert.strictEqual( panel.$datetimeCreated.text(), '(multimediaviewer-datetime-created: 26 August 2013)', 'Correct date is displayed' );
 	assert.strictEqual( panel.$license.text(), '(multimediaviewer-license-cc-by-2.0)', 'License is correctly set' );
 	assert.strictEqual( panel.$license.prop( 'target' ), '_blank', 'License information opens in new window' );
 	assert.true( panel.$restrictions.children().last().children().hasClass( 'mw-mmv-restriction-default' ), 'Default restriction is correctly displayed last' );
@@ -170,7 +173,8 @@ QUnit.test( '.setImageInfo()', function ( assert ) {
 	panel.setImageInfo( image, imageData, repoData );
 	clock.tick( 10 );
 
-	assert.strictEqual( panel.$datetime.text(), '(multimediaviewer-datetime-uploaded: 25 August 2013)', 'Correct date is displayed' );
+	assert.false( panel.$datetimeUpdatedLi.hasClass( 'empty' ), 'Date/Time is not empty' );
+	assert.strictEqual( panel.$datetimeUpdated.text(), '(multimediaviewer-datetime-uploaded: 25 August 2013)', 'Correct date is displayed' );
 
 	clock.restore();
 } );
