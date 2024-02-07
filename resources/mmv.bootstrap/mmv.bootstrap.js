@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { getMediaHash, ROUTE_REGEXP, LEGACY_ROUTE_REGEXP } = require( 'mmv.head' );
+const { getMediaHash, ROUTE_REGEXP, LEGACY_ROUTE_REGEXP, isMediaViewerEnabledOnClick } = require( 'mmv.head' );
 const Config = require( './mmv.Config.js' );
 const HtmlUtils = require( './mmv.HtmlUtils.js' );
 
@@ -249,7 +249,7 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 			$thumbContainer.on( {
 				mouseenter: () => {
 					// There is no point preloading if clicking the thumb won't open Media Viewer
-					if ( !this.config.isMediaViewerEnabledOnClick() ) {
+					if ( !isMediaViewerEnabledOnClick() ) {
 						return;
 					}
 					this.preloadOnHoverTimer = setTimeout( () => {
@@ -554,7 +554,7 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 			}
 
 			// Don't load if someone has specifically stopped us from doing so
-			if ( !this.config.isMediaViewerEnabledOnClick() ) {
+			if ( !isMediaViewerEnabledOnClick() ) {
 				return true;
 			}
 

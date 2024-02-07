@@ -15,6 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { isMediaViewerEnabledOnClick } = require( 'mmv.head' );
 const Dialog = require( './mmv.ui.dialog.js' );
 
 ( function () {
@@ -149,7 +150,7 @@ const Dialog = require( './mmv.ui.dialog.js' );
 		 * Opens a dialog with information about file reuse.
 		 */
 		openDialog() {
-			if ( this.isEnabled() ) {
+			if ( isMediaViewerEnabledOnClick() ) {
 				this.$disableDiv.addClass( 'mw-mmv-shown' );
 			} else {
 				this.$enableDiv.addClass( 'mw-mmv-shown' );
@@ -374,15 +375,6 @@ const Dialog = require( './mmv.ui.dialog.js' );
 				.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).helpLink )
 				.text( mw.message( 'multimediaviewer-options-learn-more' ) )
 				.appendTo( $div.find( '.mw-mmv-options-text' ) );
-		}
-
-		/**
-		 * Checks the preference.
-		 *
-		 * @return {boolean} MV is enabled
-		 */
-		isEnabled() {
-			return this.config.isMediaViewerEnabledOnClick();
 		}
 	}
 

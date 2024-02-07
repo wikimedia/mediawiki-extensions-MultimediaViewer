@@ -15,6 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { isMediaViewerEnabledOnClick } = require( 'mmv.head' );
 const { Config } = require( 'mmv.bootstrap' );
 const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUnsupportedLocalStorage } = require( './mmv.testhelpers.js' );
 
@@ -92,44 +93,43 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 		const localStorage = createLocalStorage( { getItem: this.sandbox.stub() } );
 		const mwConfig = { get: this.sandbox.stub() };
 		const mwUser = { isNamed: this.sandbox.stub() };
-		const config = new Config( {}, mwConfig, mwUser, {}, localStorage );
 
 		mwUser.isNamed.returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		assert.strictEqual( config.isMediaViewerEnabledOnClick(), true, 'Returns true for logged-in with standard settings' );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser, localStorage ), true, 'Returns true for logged-in with standard settings' );
 
 		mwUser.isNamed.returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		assert.strictEqual( config.isMediaViewerEnabledOnClick(), false, 'Returns false if opted out via user JS flag' );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser, localStorage ), false, 'Returns false if opted out via user JS flag' );
 
 		mwUser.isNamed.returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( false );
-		assert.strictEqual( config.isMediaViewerEnabledOnClick(), false, 'Returns false if opted out via preferences' );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser, localStorage ), false, 'Returns false if opted out via preferences' );
 
 		mwUser.isNamed.returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		assert.strictEqual( config.isMediaViewerEnabledOnClick(), false, 'Returns false if anon user opted out via user JS flag' );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser, localStorage ), false, 'Returns false if anon user opted out via user JS flag' );
 
 		mwUser.isNamed.returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( false );
-		assert.strictEqual( config.isMediaViewerEnabledOnClick(), false, 'Returns false if anon user opted out in some weird way' ); // apparently someone created a browser extension to do this
+		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser, localStorage ), false, 'Returns false if anon user opted out in some weird way' ); // apparently someone created a browser extension to do this
 
 		mwUser.isNamed.returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
 		localStorage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( null );
-		assert.strictEqual( config.isMediaViewerEnabledOnClick(), true, 'Returns true for anon with standard settings' );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser, localStorage ), true, 'Returns true for anon with standard settings' );
 
 		mwUser.isNamed.returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
 		localStorage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( '0' );
-		assert.strictEqual( config.isMediaViewerEnabledOnClick(), false, 'Returns true for anon opted out via localSettings' );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser, localStorage ), false, 'Returns true for anon opted out via localSettings' );
 	} );
 
 	QUnit.test( 'setMediaViewerEnabledOnClick sense check', function ( assert ) {
