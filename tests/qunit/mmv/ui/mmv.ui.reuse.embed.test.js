@@ -272,8 +272,12 @@ const { Embed } = require( 'mmv.ui.reuse.shareembed' );
 		const height = 20;
 
 		embed.formatter = {
-			getThumbnailWikitextFromEmbedFileInfo: function () { return 'wikitext'; },
-			getThumbnailHtml: function () { return 'html'; }
+			getThumbnailWikitextFromEmbedFileInfo: function () {
+				return 'wikitext';
+			},
+			getThumbnailHtml: function () {
+				return 'html';
+			}
 		};
 
 		embed.set( {}, {} );

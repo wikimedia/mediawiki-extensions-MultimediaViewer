@@ -99,7 +99,9 @@ const { ImageProvider } = require( 'mmv' );
 
 		imageProvider.imagePreloadingSupported = () => true;
 		imageProvider.performance = {
-			record: function () { return $.Deferred().resolve(); }
+			record: function () {
+				return $.Deferred().resolve();
+			}
 		};
 
 		return imageProvider.get( url ).then( function ( image ) {
@@ -115,7 +117,9 @@ const { ImageProvider } = require( 'mmv' );
 
 		imageProvider.imagePreloadingSupported = () => true;
 		imageProvider.performance = {
-			record: function () { return $.Deferred().resolve(); }
+			record: function () {
+				return $.Deferred().resolve();
+			}
 		};
 
 		imageProvider.get( url ).fail( function () {

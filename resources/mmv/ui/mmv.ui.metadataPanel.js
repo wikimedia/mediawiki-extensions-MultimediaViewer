@@ -373,6 +373,7 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 				)
 				.appendTo( this.$imageMetadata );
 		}
+
 		/* Setters */
 		/**
 		 * Sets the image title at the top of the metadata panel.
@@ -531,7 +532,7 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 			let isCc;
 			let isPd;
 
-			filePageUrl += `?uselang=${mw.config.get( 'wgUserLanguage' )}#${mw.message( 'license-header' ).text()}`;
+			filePageUrl += `?uselang=${ mw.config.get( 'wgUserLanguage' ) }#${ mw.message( 'license-header' ).text() }`;
 
 			if ( license ) {
 				shortName = license.getShortName();
@@ -592,7 +593,7 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 				// * multimediaviewer-restriction-trademarked
 				// * multimediaviewer-restriction-default
 				// * multimediaviewer-restriction-default-and-others
-				if ( !mw.message( `multimediaviewer-restriction-${value}` ).exists() || value === 'default' || index + 1 > MetadataPanel.MAX_RESTRICT ) {
+				if ( !mw.message( `multimediaviewer-restriction-${ value }` ).exists() || value === 'default' || index + 1 > MetadataPanel.MAX_RESTRICT ) {
 					showDefault = true; // If the restriction isn't defined or there are more than MAX_RESTRICT of them, show a generic symbol at the end
 					return;
 				}
@@ -640,7 +641,7 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 				// * multimediaviewer-restriction-trademarked
 				// * multimediaviewer-restriction-default
 				// * multimediaviewer-restriction-default-and-others
-				.prop( 'title', mw.message( `multimediaviewer-restriction-${type}` ).text() );
+				.prop( 'title', mw.message( `multimediaviewer-restriction-${ type }` ).text() );
 
 			$( '<span>' )
 				// The following classes are used here:
@@ -658,8 +659,8 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 				// * mw-mmv-restriction-personality
 				// * mw-mmv-restriction-trademarked:after
 				// * mw-mmv-restriction-default
-				.addClass( `mw-mmv-restriction-label-inner mw-mmv-restriction-${type === 'default-and-others' ? 'default' : type}` )
-				.text( mw.message( `multimediaviewer-restriction-${type}` ).text() )
+				.addClass( `mw-mmv-restriction-label-inner mw-mmv-restriction-${ type === 'default-and-others' ? 'default' : type }` )
+				.text( mw.message( `multimediaviewer-restriction-${ type }` ).text() )
 				.appendTo( $label );
 
 			return $label;
@@ -676,13 +677,13 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 			}
 
 			const latitude = imageData.latitude >= 0 ? imageData.latitude : imageData.latitude * -1;
-			const latmsg = `multimediaviewer-geoloc-${imageData.latitude >= 0 ? 'north' : 'south'}`;
+			const latmsg = `multimediaviewer-geoloc-${ imageData.latitude >= 0 ? 'north' : 'south' }`;
 			const latdeg = Math.floor( latitude );
 			let latremain = latitude - latdeg;
 			const latmin = Math.floor( ( latremain ) * 60 );
 
 			const longitude = imageData.longitude >= 0 ? imageData.longitude : imageData.longitude * -1;
-			const longmsg = `multimediaviewer-geoloc-${imageData.longitude >= 0 ? 'east' : 'west'}`;
+			const longmsg = `multimediaviewer-geoloc-${ imageData.longitude >= 0 ? 'east' : 'west' }`;
 			const longdeg = Math.floor( longitude );
 			let longremain = longitude - longdeg;
 			const longmin = Math.floor( ( longremain ) * 60 );
@@ -724,11 +725,11 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 
 			this.$location.prop( 'href', (
 				'https://geohack.toolforge.org/geohack.php?pagename=' +
-				`File:${imageData.title.getMain()
+				`File:${ imageData.title.getMain()
 				}&params=${
-					Math.abs( imageData.latitude )}${imageData.latitude >= 0 ? '_N_' : '_S_'
-				}${Math.abs( imageData.longitude )}${imageData.longitude >= 0 ? '_E_' : '_W_'
-				}&language=${encodeURIComponent( mw.config.get( 'wgUserLanguage' ) )}`
+					Math.abs( imageData.latitude ) }${ imageData.latitude >= 0 ? '_N_' : '_S_'
+				}${ Math.abs( imageData.longitude ) }${ imageData.longitude >= 0 ? '_E_' : '_W_'
+				}&language=${ encodeURIComponent( mw.config.get( 'wgUserLanguage' ) ) }`
 			) );
 
 			this.$locationLi.removeClass( 'empty' );

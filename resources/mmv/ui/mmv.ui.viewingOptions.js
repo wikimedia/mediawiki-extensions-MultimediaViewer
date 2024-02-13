@@ -36,6 +36,7 @@ const Dialog = require( './mmv.ui.dialog.js' );
 
 			this.initPanel();
 		}
+
 		attach() {
 			this.handleEvent( 'mmv-options-open', this.handleOpenCloseClick.bind( this ) );
 

@@ -91,7 +91,9 @@
 			//    document, possibly a different site, that would probably have unexpected results.
 			$jq
 				.find( '[style]' )
-				.filter( function () { return this.style.display === 'none'; } )
+				.filter( function () {
+					return this.style.display === 'none';
+				} )
 				.remove();
 
 			// TemplateStyles can generate inline style tags

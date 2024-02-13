@@ -39,9 +39,15 @@ const { MetadataPanelScroller } = require( 'mmv' );
 		let displayCount = null; // pretend it doesn't exist at first
 		const localStorage = createLocalStorage( {
 			// We simulate localStorage to avoid test side-effects
-			getItem: function () { return displayCount; },
-			setItem: function ( _, val ) { displayCount = val; },
-			removeItem: function () { displayCount = null; }
+			getItem: function () {
+				return displayCount;
+			},
+			setItem: function ( _, val ) {
+				displayCount = val;
+			},
+			removeItem: function () {
+				displayCount = null;
+			}
 		} );
 		const scroller = new MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ), localStorage );
 

@@ -101,7 +101,9 @@ const { Canvas, LightboxImage } = require( 'mmv' );
 		const canvas = new Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function () { return 'svg'; }
+			getExtension: function () {
+				return 'svg';
+			}
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
@@ -129,7 +131,9 @@ const { Canvas, LightboxImage } = require( 'mmv' );
 		const canvas = new Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function () { return 'png'; }
+			getExtension: function () {
+				return 'png';
+			}
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
@@ -157,7 +161,9 @@ const { Canvas, LightboxImage } = require( 'mmv' );
 		const canvas = new Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function () { return 'png'; }
+			getExtension: function () {
+				return 'png';
+			}
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
@@ -185,7 +191,9 @@ const { Canvas, LightboxImage } = require( 'mmv' );
 		const canvas = new Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function () { return 'png'; }
+			getExtension: function () {
+				return 'png';
+			}
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 
@@ -213,7 +221,9 @@ const { Canvas, LightboxImage } = require( 'mmv' );
 		const canvas = new Canvas( $qf );
 
 		imageRawMetadata.filePageTitle = {
-			getExtension: function () { return 'png'; }
+			getExtension: function () {
+				return 'png';
+			}
 		};
 		canvas.imageRawMetadata = imageRawMetadata;
 

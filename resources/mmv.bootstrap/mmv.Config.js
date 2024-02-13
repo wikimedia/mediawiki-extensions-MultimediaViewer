@@ -84,7 +84,7 @@
 			}
 
 			if ( value === null ) {
-				mw.log( `Failed to fetch item ${key} from localStorage` );
+				mw.log( `Failed to fetch item ${ key } from localStorage` );
 			}
 
 			return fallback !== undefined ? fallback : null;

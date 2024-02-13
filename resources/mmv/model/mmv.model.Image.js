@@ -162,6 +162,7 @@ const License = require( './mmv.model.License.js' );
 			 */
 			this.thumbUrls = {};
 		}
+
 		/**
 		 * Constructs a new Image object out of an object containing
 		 *
@@ -200,7 +201,7 @@ const License = require( './mmv.model.License.js' );
 
 				// Anonymise the timestamp to avoid making the file identifiable
 				// We only need to know the day
-				anonymizedUploadDateTime = `${anonymizedUploadDateTime.slice( 0, anonymizedUploadDateTime.length - 6 )}000000`;
+				anonymizedUploadDateTime = `${ anonymizedUploadDateTime.slice( 0, anonymizedUploadDateTime.length - 6 ) }000000`;
 
 				name = this.parseExtmeta( extmeta.ObjectName, 'plaintext' );
 
@@ -260,6 +261,7 @@ const License = require( './mmv.model.License.js' );
 
 			return imageData;
 		}
+
 		/**
 		 * Constructs a new License object out of an object containing
 		 * imageinfo data from an API response.
@@ -284,6 +286,7 @@ const License = require( './mmv.model.License.js' );
 
 			return license;
 		}
+
 		/**
 		 * Reads and parses a value from the imageinfo API extmetadata field.
 		 *
@@ -333,6 +336,7 @@ const License = require( './mmv.model.License.js' );
 				throw new Error( 'Image.parseExtmeta: unknown type' );
 			}
 		}
+
 		/**
 		 * Add a thumb URL
 		 *
@@ -342,6 +346,7 @@ const License = require( './mmv.model.License.js' );
 		addThumbUrl( width, url ) {
 			this.thumbUrls[ width ] = url;
 		}
+
 		/**
 		 * Get a thumb URL if we have it.
 		 *
@@ -351,6 +356,7 @@ const License = require( './mmv.model.License.js' );
 		getThumbUrl( width ) {
 			return this.thumbUrls[ width ];
 		}
+
 		/**
 		 * Check whether the image has geolocation data.
 		 *

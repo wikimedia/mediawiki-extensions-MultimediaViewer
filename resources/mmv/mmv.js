@@ -316,7 +316,7 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 			$initialImage.hide()
 				.removeAttr( 'style' )
 				.removeClass()
-				.addClass( `mw-mmv-placeholder-image ${image.filePageTitle.getExtension().toLowerCase()}` );
+				.addClass( `mw-mmv-placeholder-image ${ image.filePageTitle.getExtension().toLowerCase() }` );
 
 			this.ui.canvas.set( image, $initialImage );
 
@@ -346,7 +346,7 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 					}
 
 					// eslint-disable-next-line mediawiki/class-doc
-					imageElement.className = `mw-mmv-final-image ${image.filePageTitle.getExtension().toLowerCase()}`;
+					imageElement.className = `mw-mmv-final-image ${ image.filePageTitle.getExtension().toLowerCase() }`;
 					imageElement.alt = image.alt;
 
 					$.when( metadataPromise, pluginsPromise ).then( ( metadata ) => {
@@ -524,7 +524,7 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 */
 		setupProgressBar( image, imagePromise, imageWidth ) {
 			const progressBar = this.ui.panel.progressBar;
-			const key = `${image.filePageTitle.getPrefixedDb()}|${imageWidth}`;
+			const key = `${ image.filePageTitle.getPrefixedDb() }|${ imageWidth }`;
 
 			if ( !this.progressCache[ key ] ) {
 				// Animate progress bar to 5 to give a sense that something is happening, and make sure
@@ -902,7 +902,7 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 */
 		createDocumentTitle( imageTitle ) {
 			if ( imageTitle ) {
-				return `${imageTitle.getNameText()} - ${this.documentTitle}`;
+				return `${ imageTitle.getNameText() } - ${ this.documentTitle }`;
 			} else {
 				return this.documentTitle;
 			}

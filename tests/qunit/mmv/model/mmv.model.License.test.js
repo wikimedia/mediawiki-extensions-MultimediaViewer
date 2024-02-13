@@ -57,7 +57,9 @@ const { License } = require( 'mmv' );
 
 		mw.message = function ( name ) {
 			return name === 'multimediaviewer-license-' + existingMessageKey ?
-				{ text: function () { return 'Translated name'; } } :
+				{ text: function () {
+					return 'Translated name';
+				} } :
 				oldMwMessage.apply( mw, arguments );
 		};
 		mw.messages.exists = function ( name ) {

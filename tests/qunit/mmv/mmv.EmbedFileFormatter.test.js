@@ -35,7 +35,9 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 		);
 		const repoInfo = {
 			displayName: options.siteName,
-			getSiteLink: function () { return options.siteUrl; }
+			getSiteLink: function () {
+				return options.siteUrl;
+			}
 		};
 
 		return {
@@ -229,7 +231,9 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 				source: 'Source',
 				descriptionShortUrl: 'link',
 				title: {
-					getNameText: function () { return 'Image Title'; }
+					getNameText: function () {
+						return 'Image Title';
+					}
 				}
 			}
 		} );
@@ -246,10 +250,14 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 				source: 'Source',
 				descriptionShortUrl: 'link',
 				title: {
-					getNameText: function () { return 'Image Title'; }
+					getNameText: function () {
+						return 'Image Title';
+					}
 				},
 				license: {
-					getShortName: function () { return 'WTFPL v2'; },
+					getShortName: function () {
+						return 'WTFPL v2';
+					},
 					longName: 'Do What the Fuck You Want Public License Version 2',
 					isFree: this.sandbox.stub().returns( true )
 				}
@@ -265,7 +273,9 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 		let html = formatter.getCreditHtml( {
 			repoInfo: {
 				displayName: 'Localcommons',
-				getSiteLink: function () { return 'quux'; }
+				getSiteLink: function () {
+					return 'quux';
+				}
 			},
 
 			imageInfo: {
@@ -273,7 +283,9 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 				source: 'Source',
 				descriptionShortUrl: 'some link',
 				title: {
-					getNameText: function () { return 'Image Title'; }
+					getNameText: function () {
+						return 'Image Title';
+					}
 				}
 			}
 		} );
@@ -287,7 +299,9 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 		html = formatter.getCreditHtml( {
 			repoInfo: {
 				displayName: 'Localcommons',
-				getSiteLink: function () { return 'quux'; }
+				getSiteLink: function () {
+					return 'quux';
+				}
 			},
 
 			imageInfo: {
@@ -295,10 +309,14 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 				source: 'Source',
 				descriptionShortUrl: 'some link',
 				title: {
-					getNameText: function () { return 'Image Title'; }
+					getNameText: function () {
+						return 'Image Title';
+					}
 				},
 				license: {
-					getShortLink: function () { return '<a href="http://www.wtfpl.net/">WTFPL v2</a>'; },
+					getShortLink: function () {
+						return '<a href="http://www.wtfpl.net/">WTFPL v2</a>';
+					},
 					longName: 'Do What the Fuck You Want Public License Version 2',
 					isFree: this.sandbox.stub().returns( true )
 				}

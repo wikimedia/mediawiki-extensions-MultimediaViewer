@@ -49,7 +49,9 @@ const { StripeButtons } = require( 'mmv' );
 		const fakeImageInfo = { descriptionUrl: '//commons.wikimedia.org/wiki/File:Foo.jpg' };
 		const fakeRepoInfo = {
 			displayName: 'Wikimedia Commons',
-			isCommons: function () { return true; }
+			isCommons: function () {
+				return true;
+			}
 		};
 
 		buttons.set( fakeImageInfo, fakeRepoInfo );
@@ -66,7 +68,9 @@ const { StripeButtons } = require( 'mmv' );
 		const descriptionUrl2 = 'http://example.com/different-desc';
 		const imageInfo = { descriptionUrl: descriptionUrl };
 		const repoInfo = {
-			isCommons: function () { return false; }
+			isCommons: function () {
+				return false;
+			}
 		};
 
 		buttons.setDescriptionPageButton( imageInfo, repoInfo );

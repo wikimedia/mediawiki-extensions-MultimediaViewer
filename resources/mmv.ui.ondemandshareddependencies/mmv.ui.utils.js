@@ -204,7 +204,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 				// * multimediaviewer-large-embed-dimensions
 				// * multimediaviewer-medium-embed-dimensions
 				// * multimediaviewer-small-embed-dimensions
-				`multimediaviewer-${sizeLabel}-embed-dimensions`,
+				`multimediaviewer-${ sizeLabel }-embed-dimensions`,
 				dimensions
 			).text();
 		}

@@ -47,6 +47,7 @@ const Dialog = require( './mmv.ui.dialog.js' );
 
 			this.eventPrefix = 'use-this-file';
 		}
+
 		// FIXME this should happen outside the dialog and the tabs, but we need to improve
 		initTabs() {
 			const makeTab = ( type ) => new OO.ui.MenuOptionWidget( {
@@ -54,7 +55,7 @@ const Dialog = require( './mmv.ui.dialog.js' );
 				// The following messages are used here:
 				// * multimediaviewer-embed-tab
 				// * multimediaviewer-share-tab
-				label: mw.message( `multimediaviewer-${type}-tab` ).text()
+				label: mw.message( `multimediaviewer-${ type }-tab` ).text()
 			} );
 
 			this.reuseTabs = new OO.ui.MenuSelectWidget( {
@@ -104,6 +105,7 @@ const Dialog = require( './mmv.ui.dialog.js' );
 				this.tabsSetValues = undefined;
 			}
 		}
+
 		toggleDialog() {
 			if ( this.tabs === null ) {
 				this.initTabs();

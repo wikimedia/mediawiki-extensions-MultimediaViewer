@@ -46,7 +46,9 @@ QUnit.test( '.setLocationData()', function ( assert ) {
 	const imageData = {
 		latitude: latitude,
 		longitude: longitude,
-		hasCoords: function () { return true; },
+		hasCoords: function () {
+			return true;
+		},
 		title: mw.Title.newFromText( 'File:Foobar.jpg' )
 	};
 
@@ -114,11 +116,17 @@ QUnit.test( '.setImageInfo()', function ( assert ) {
 		title: image.filePageTitle,
 		url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
 		descriptionUrl: 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
-		hasCoords: function () { return false; }
+		hasCoords: function () {
+			return false;
+		}
 	};
 	const repoData = {
-		getArticlePath: function () { return 'Foo'; },
-		isCommons: function () { return false; }
+		getArticlePath: function () {
+			return 'Foo';
+		},
+		isCommons: function () {
+			return false;
+		}
 	};
 	const clock = this.sandbox.useFakeTimers();
 

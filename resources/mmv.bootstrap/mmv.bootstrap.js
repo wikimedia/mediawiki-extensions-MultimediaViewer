@@ -138,7 +138,7 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 				} catch ( e ) {
 					message = e.message;
 					if ( e.stack ) {
-						message += `\n${e.stack}`;
+						message += `\n${ e.stack }`;
 					}
 					deferred.reject( message );
 					return;
@@ -164,7 +164,7 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 						mw.log.warn( message2 );
 						this.cleanupOverlay();
 						this.viewerIsBroken = true;
-						mw.notify( `Error loading MediaViewer: ${message2}` );
+						mw.notify( `Error loading MediaViewer: ${ message2 }` );
 						return $.Deferred().reject( message2 );
 					}
 				);
@@ -698,6 +698,7 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 				} );
 			}
 		}
+
 		whenThumbsReady() {
 			return this.thumbsReadyDeferred.promise();
 		}

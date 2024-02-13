@@ -60,8 +60,12 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 			canvas: { set: function () {},
 				unblurWithAnimation: function () {},
 				unblur: function () {},
-				getCurrentImageWidths: function () { return { real: 0 }; },
-				getDimensions: function () { return {}; }
+				getCurrentImageWidths: function () {
+					return { real: 0 };
+				},
+				getDimensions: function () {
+					return {};
+				}
 			},
 			panel: {
 				setImageInfo: function () {},
@@ -138,8 +142,12 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 			canvas: { set: function () {},
 				unblurWithAnimation: function () {},
 				unblur: function () {},
-				getCurrentImageWidths: function () { return { real: 0 }; },
-				getDimensions: function () { return {}; }
+				getCurrentImageWidths: function () {
+					return { real: 0 };
+				},
+				getDimensions: function () {
+					return {};
+				}
 			},
 			panel: {
 				setImageInfo: function () {},
@@ -249,7 +257,9 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.ui = { canvas: {
 			unblurWithAnimation: function () {},
 			unblur: function () {},
-			maybeDisplayPlaceholder: function () { return true; }
+			maybeDisplayPlaceholder: function () {
+				return true;
+			}
 		} };
 		viewer.imageInfoProvider.get = this.sandbox.stub();
 
@@ -272,7 +282,9 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.ui = { canvas: {
 			unblurWithAnimation: function () {},
 			unblur: function () {},
-			maybeDisplayPlaceholder: function () { return true; }
+			maybeDisplayPlaceholder: function () {
+				return true;
+			}
 		} };
 		viewer.imageInfoProvider.get = this.sandbox.stub().returns( $.Deferred().resolve( { width: 100, height: 100 } ) );
 
@@ -354,8 +366,12 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 			setupForLoad: function () {},
 			canvas: {
 				set: function () {},
-				getCurrentImageWidths: function () { return { real: 0 }; },
-				getDimensions: function () { return {}; }
+				getCurrentImageWidths: function () {
+					return { real: 0 };
+				},
+				getDimensions: function () {
+					return {};
+				}
 			},
 			panel: {
 				setImageInfo: this.sandbox.stub(),
