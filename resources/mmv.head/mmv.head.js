@@ -24,10 +24,7 @@ module.exports = base;
 
 	// If MediaViewer is disabled by the user, do not set up click handling.
 	// This is loaded before user JS so we cannot check wgMediaViewer.
-	if (
-		mw.config.get( 'wgMediaViewerOnClick' ) !== true ||
-		!mw.user.isNamed() && mw.storage.get( 'wgMediaViewerOnClick', '1' ) !== '1'
-	) {
+	if ( !base.isMediaViewerEnabledOnClick() ) {
 		return;
 	}
 
