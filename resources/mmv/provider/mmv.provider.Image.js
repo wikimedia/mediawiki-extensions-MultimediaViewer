@@ -107,8 +107,10 @@
 		 * @return {boolean}
 		 */
 		imagePreloadingSupported() {
+			// Override the original functionality to support Chrome.
+			return false;
 			// This checks if the browser supports CORS requests in XHRs
-			return window.XMLHttpRequest !== undefined && 'withCredentials' in new XMLHttpRequest();
+			// return window.XMLHttpRequest !== undefined && 'withCredentials' in new XMLHttpRequest();
 		}
 	}
 
