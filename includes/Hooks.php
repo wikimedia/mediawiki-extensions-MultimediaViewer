@@ -30,7 +30,6 @@ use MediaWiki\Config\Config;
 use MediaWiki\Hook\BeforePageDisplayHook;
 use MediaWiki\Hook\MakeGlobalVariablesScriptHook;
 use MediaWiki\Hook\ThumbnailBeforeProduceHTMLHook;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\Hook\CategoryPageViewHook;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
@@ -39,6 +38,7 @@ use MediaWiki\SpecialPage\SpecialPageFactory;
 use MediaWiki\User\Hook\UserGetDefaultOptionsHook;
 use MediaWiki\User\Options\UserOptionsLookup;
 use MediaWiki\User\User;
+use MobileContext;
 use Skin;
 use ThumbnailImage;
 
@@ -66,6 +66,7 @@ class Hooks implements
 	private Config $config;
 	private SpecialPageFactory $specialPageFactory;
 	private UserOptionsLookup $userOptionsLookup;
+	private ?MobileContext $mobileContext;
 
 	/**
 	 * @param Config $config
@@ -75,11 +76,13 @@ class Hooks implements
 	public function __construct(
 		Config $config,
 		SpecialPageFactory $specialPageFactory,
-		UserOptionsLookup $userOptionsLookup
+		UserOptionsLookup $userOptionsLookup,
+		?MobileContext $mobileContext
 	) {
 		$this->config = $config;
 		$this->specialPageFactory = $specialPageFactory;
 		$this->userOptionsLookup = $userOptionsLookup;
+		$this->mobileContext = $mobileContext;
 	}
 
 	/**
@@ -113,13 +116,12 @@ class Hooks implements
 	 * Could be on article pages or on Category pages
 	 * @param OutputPage $out
 	 */
-	protected static function getModules( OutputPage $out ) {
+	protected function getModules( OutputPage $out ) {
 		// The MobileFrontend extension provides its own implementation of MultimediaViewer.
 		// See https://phabricator.wikimedia.org/T65504 and subtasks for more details.
 		// To avoid loading MMV twice, we check the environment we are running in.
 		$isMobileFrontendView = ExtensionRegistry::getInstance()->isLoaded( 'MobileFrontend' ) &&
-			MediaWikiServices::getInstance()->getService( 'MobileFrontend.Context' )
-				->shouldDisplayMobileView();
+			$this->mobileContext && $this->mobileContext->shouldDisplayMobileView();
 		if ( !$isMobileFrontendView ) {
 			$out->addModules( [ 'mmv.head', 'mmv.bootstrap.autostart' ] );
 		}
@@ -146,7 +148,7 @@ class Hooks implements
 				$fileRelatedSpecialPages );
 
 		if ( $pageHasThumbnails || $pageIsFilePage || $pageIsFileRelatedSpecialPage || $pageIsFlowPage ) {
-			self::getModules( $out );
+			$this->getModules( $out );
 		}
 	}
 
@@ -160,7 +162,7 @@ class Hooks implements
 		$cat = Category::newFromTitle( $title );
 		if ( $cat->getFileCount() > 0 ) {
 			$out = $catPage->getContext()->getOutput();
-			self::getModules( $out );
+			$this->getModules( $out );
 		}
 	}
 

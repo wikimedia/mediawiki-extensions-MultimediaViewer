@@ -428,6 +428,9 @@
 				"MainConfig",
 				"SpecialPageFactory",
 				"UserOptionsLookup"
+			],
+			"optional_services": [
+				"MobileFrontend.Context"
 			]
 		}
 	},

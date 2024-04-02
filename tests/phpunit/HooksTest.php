@@ -17,7 +17,8 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		return new Hooks(
 			$this->getServiceContainer()->getMainConfig(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
-			$this->getServiceContainer()->getUserOptionsLookup()
+			$this->getServiceContainer()->getUserOptionsLookup(),
+			null
 		);
 	}
 
