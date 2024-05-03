@@ -2,7 +2,7 @@
 @import '../mmv.variables.less';
 @import '../mmv.mixins.less';
 
-@panel-below-fold-background-color: #f8f9fa;
+@panel-below-fold-background-color: @background-color-interactive-subtle;
 
 @vertical-padding: 10px;
 @horizontal-padding: 20px;
@@ -11,9 +11,9 @@
 .mw-mmv-info-box {
 	display: inline-block;
 	overflow: hidden;
-	border: @border-subtle;
+	border: 1px solid @border-color-muted;
 	border-radius: @border-radius-base;
-	background-color: @background-color-base;
+	background-color: @background-color-interactive-subtle;
 }
 
 .mw-mmv-title-contain {
@@ -53,7 +53,6 @@
 	.mw-mmv-ttf-ellipsis {
 		right: @horizontal-padding;
 		bottom: 3px;
-		background-color: @panel-above-fold-background-color; // clip text
 
 		&::before {
 			.fade-out-horizontal( @panel-above-fold-background-color );
@@ -102,7 +101,7 @@
 	width: 100%;
 	position: relative;
 	margin-top: -@metadatabar-below-fold-pushup-height;
-	border-top: @border-subtle;
+	border-top: 1px solid @border-color-muted;
 	background-color: @panel-below-fold-background-color;
 	padding-top: @space-above-credit;
 
@@ -248,7 +247,7 @@
 }
 
 .mw-mmv-label {
-	background-color: #eaecf0;
+	background-color: @background-color-interactive;
 	color: @color-base;
 	margin-left: 6px;
 	margin-top: 1px;
@@ -257,7 +256,7 @@
 	font-size: 0.9em;
 
 	&:hover {
-		background-color: #c8ccd1;
+		background-color: @background-color-interactive-subtle;
 	}
 }
 
@@ -294,7 +293,7 @@
 
 	&,
 	&:hover {
-		background-color: #fc6;
+		background-color: @color-warning;
 	}
 }
 

@@ -2,9 +2,9 @@
 @import '../mmv.variables.less';
 @import '../mmv.mixins.less';
 
-@background-color: #fff;
+@background-color: @background-color-neutral;
 @dialog-width: 450px;
-@box-shadow-dialog: 0 2px 2px 0 darken( @background-color, 33.3% );
+@box-shadow-dialog: @box-shadow-color-base;
 
 .mw-mmv-dialog {
 	position: fixed;
@@ -42,6 +42,6 @@
 	}
 
 	.mw-mmv-dialog-warning {
-		background-color: @dialog-warning-color;
+		background-color: @background-color-warning-subtle;
 	}
 }

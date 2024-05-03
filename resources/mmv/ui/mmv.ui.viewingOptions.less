@@ -21,7 +21,7 @@
 	&.mw-mmv-disable-confirmation-shown,
 	&.mw-mmv-disable-confirmation-shown .mw-mmv-dialog-down-arrow,
 	&.mw-mmv-enable-div-shown .mw-mmv-dialog-down-arrow {
-		background-color: #eaecf0;
+		background-color: @background-color-neutral;
 	}
 
 	.mw-mmv-dialog-down-arrow {
@@ -105,6 +105,7 @@
 .mw-mmv-options-text {
 	left: 68px;
 	right: 0;
+	line-height: 1.4;
 }
 
 .mw-mmv-options-subcontainer .mw-mmv-options-text {
@@ -135,19 +136,15 @@
 	}
 }
 
-.mw-mmv-options-text-header {
+.mw-mmv-options-text-header,
+.mw-mmv-options-text-body {
 	margin: 0;
 	font-size: 1em;
 	color: @color-subtle;
 }
 
-.mw-mmv-options-text-body {
-	font-size: 0.9em;
-	color: #72777d;
-}
-
 .mw-mmv-options-enable-alert {
-	background-color: #eaecf0;
+	background-color: @background-color-neutral;
 	color: @color-base;
 	position: absolute;
 	left: -15px;
