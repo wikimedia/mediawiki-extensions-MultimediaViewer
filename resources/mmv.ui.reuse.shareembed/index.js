@@ -17,6 +17,5 @@
 
 const Embed = require( './mmv.ui.reuse.embed.js' );
 const Share = require( './mmv.ui.reuse.share.js' );
-const Tab = require( './mmv.ui.reuse.tab.js' );
 
-module.exports = { Embed, Share, Tab };
+module.exports = { Embed, Share };

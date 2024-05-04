@@ -16,49 +16,35 @@
  */
 
 const { getMediaHash } = require( 'mmv.head' );
-const Tab = require( './mmv.ui.reuse.tab.js' );
+const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
+const { UiElement } = require( 'mmv' );
 
 ( function () {
 
 	/**
 	 * Represents the file reuse dialog and link to open it.
 	 */
-	class Share extends Tab {
+	class Share extends UiElement {
 		/**
 		 * @param {jQuery} $container
 		 */
 		constructor( $container ) {
 			super( $container );
-			this.init();
-		}
 
-		init() {
-			this.$pane.addClass( 'mw-mmv-share-pane' )
-				.appendTo( this.$container );
+			this.utils = new Utils();
+			this.utils.createHeader( mw.message( 'multimediaviewer-share-tab' ).text() )
+				.appendTo( $container );
 
-			this.pageInput = new mw.widgets.CopyTextLayout( {
-				help: mw.message( 'multimediaviewer-share-explanation' ).text(),
-				helpInline: true,
-				align: 'top',
-				textInput: {
-					placeholder: mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text()
-				},
-				button: {
-					label: '',
-					title: mw.msg( 'multimediaviewer-reuse-copy-share' )
-				}
-			} );
+			const $body = $( '<div>' )
+				.addClass( 'cdx-dialog__body mw-mmv-pt-0' )
+				.appendTo( $container );
 
-			this.$pageLink = $( '<a>' )
-				.addClass( 'mw-mmv-share-page-link' )
-				.prop( 'alt', mw.message( 'multimediaviewer-link-to-page' ).text() )
-				.prop( 'target', '_blank' )
-				.text( '\u00A0' )
-				.appendTo( this.$pane );
-
-			this.pageInput.$element.appendTo( this.$pane );
-
-			this.$pane.appendTo( this.$container );
+			[ this.$pageInput, this.$pageInputDiv ] = this.utils.createInputWithCopy(
+				mw.message( 'multimediaviewer-reuse-copy-share' ).text(),
+				mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text()
+			);
+			this.$pageInput.attr( 'title', mw.message( 'multimediaviewer-share-explanation' ).text() );
+			this.$pageInputDiv.appendTo( $body );
 		}
 
 		/**
@@ -66,7 +52,6 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 		 */
 		show() {
 			super.show();
-			this.select();
 		}
 
 		/**
@@ -75,27 +60,14 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 		 */
 		set( image ) {
 			const url = image.descriptionUrl + getMediaHash( image.title );
-
-			this.pageInput.textInput.setValue( url );
-
-			this.select();
-
-			this.$pageLink.prop( 'href', url );
+			this.$pageInput.val( url );
 		}
 
 		/**
 		 * @inheritdoc
 		 */
 		empty() {
-			this.pageInput.textInput.setValue( '' );
-			this.$pageLink.prop( 'href', null );
-		}
-
-		/**
-		 * Selects the text in the readonly textbox.
-		 */
-		select() {
-			this.pageInput.selectText();
+			this.$pageInput.val( '' );
 		}
 	}
 

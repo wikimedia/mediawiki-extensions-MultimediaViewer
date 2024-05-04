@@ -29,6 +29,53 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 		}
 
 		/**
+		 * Creates header from given options.
+		 *
+		 * @param {string} text
+		 * @return {jQuery}
+		 */
+		createHeader( text ) {
+			const $header = $( '<div>' ).addClass( 'cdx-dialog__header' );
+			$( '<p>' )
+				.addClass( 'cdx-dialog__header__title' )
+				.text( text )
+				.appendTo( $header );
+			return $header;
+		}
+
+		/**
+		 * Creates input element with copy button from given options.
+		 *
+		 * @param {string} title
+		 * @param {string} placeholder
+		 * @return {jQuery[]} [$input, $div]
+		 */
+		createInputWithCopy( title, placeholder ) {
+			const $input = $( '<input>' )
+				.addClass( 'cdx-text-input__input' )
+				.attr( 'placeholder', placeholder );
+			const $copyButton = $( '<button>' )
+				.addClass( 'cdx-button cdx-button--action-default cdx-button--weight-normal cdx-button--size-medium cdx-button--framed' )
+				.addClass( 'mw-mmv-pt-0 mw-mmv-pb-0' ) // override padding provided by ".oo-ui-buttonElement-framed.oo-ui-labelElement > .oo-ui-buttonElement-button, button"
+				.attr( 'title', title )
+				.append( $( '<span>' ).addClass( 'cdx-button__icon cdx-button__icon--copy' ).attr( 'aria-hidden', 'true' ) )
+				.append( mw.message( 'multimediaviewer-copy-button' ).text() )
+				// navigator.clipboard() is not supported in Safari 11.1, iOS Safari 11.3-11.4
+				// eslint-disable-next-line compat/compat
+				.on( 'click', () => navigator.clipboard && navigator.clipboard.writeText && navigator.clipboard.writeText( $input.val() ) );
+			const $div = $( '<div>' )
+				.addClass( 'mw-mmv-flex mw-mmv-gap-50' )
+				.append(
+					$( '<div>' )
+						.addClass( 'cdx-text-input mw-mmv-flex-grow-1' )
+						.append( $input ),
+					$copyButton
+				);
+
+			return [ $input, $div ];
+		}
+
+		/**
 		 * Creates select menu from given options.
 		 *
 		 * @param {string[]} options
@@ -49,46 +96,6 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 		}
 
 		/**
-		 * Creates pulldown menu from given options.
-		 *
-		 * @param {string[]} options
-		 * @param {string[]} classes
-		 * @param {string} def
-		 * @return {OO.ui.DropdownWidget}
-		 */
-		createPulldownMenu( options, classes, def ) {
-			const items = [];
-			const choices = {};
-
-			// eslint-disable-next-line mediawiki/class-doc
-			const dropdown = new OO.ui.DropdownWidget( {
-				classes: classes
-			} );
-
-			for ( let i = 0; i < options.length; i++ ) {
-				const option = options[ i ];
-
-				choices[ option ] = new OO.ui.MenuOptionWidget( {
-					data: {
-						name: option,
-						height: null,
-						width: null
-					},
-					label: this.getDimensionsMessageHtml( option, 0, 0 ),
-					autoFitLabel: false
-				} );
-
-				items.push( choices[ option ] );
-			}
-
-			dropdown.getMenu()
-				.addItems( items )
-				.chooseItem( choices[ def ] );
-
-			return dropdown;
-		}
-
-		/**
 		 * Gets a promise for the large thumbnail URL. This is needed because thumbnail URLs cannot
 		 * be reliably guessed, even if we know the full size of the image - most of the time replacing
 		 * the size in another thumbnail URL works (as long as the new size is not larger than the full
@@ -103,34 +110,6 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 		getThumbnailUrlPromise( width ) {
 			return $( document ).triggerHandler( 'mmv-request-thumbnail', width ) ||
 				$.Deferred().reject();
-		}
-
-		/**
-		 * Updates the menu options based on calculated sizes.
-		 *
-		 * @private
-		 * @param {Object} sizes
-		 * @param {OO.ui.MenuOptionWidget[]} options
-		 */
-		updateMenuOptions( sizes, options ) {
-			for ( let i = 0; i < options.length; i++ ) {
-				const option = options[ i ];
-				const data = option.getData();
-
-				if ( sizes[ data.name ] ) {
-					option.setDisabled( false );
-
-					// These values are later used when the item is selected
-					data.width = sizes[ data.name ].width;
-					data.height = sizes[ data.name ].height;
-
-					const $label = $( '<span>' ).html( this.getDimensionsMessageHtml( data.name, data.width, data.height ) );
-
-					option.setLabel( $label );
-				} else {
-					option.setDisabled( true );
-				}
-			}
 		}
 
 		/**

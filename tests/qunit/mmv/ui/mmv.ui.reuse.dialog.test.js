@@ -58,84 +58,39 @@ const { ReuseDialog, Repo } = require( 'mmv' );
 		reuseDialog.handleOpenCloseClick();
 	} );
 
-	QUnit.test( 'handleTabSelection():', function ( assert ) {
-		const reuseDialog = makeReuseDialog( this.sandbox );
-
-		reuseDialog.initTabs();
-
-		// Share pane is selected
-		reuseDialog.handleTabSelection( { getData: () => 'share' } );
-		assert.strictEqual( reuseDialog.tabs.share.$pane.hasClass( 'active' ), true, 'Share tab shown.' );
-		assert.strictEqual( reuseDialog.tabs.embed.$pane.hasClass( 'active' ), false, 'Embed tab hidden.' );
-		assert.strictEqual( reuseDialog.config.setInLocalStorage.calledWith( 'mmv-lastUsedTab', 'share' ), true,
-			'Tab state saved in local storage.' );
-
-		// Embed pane is selected
-		reuseDialog.handleTabSelection( { getData: () => 'embed' } );
-		assert.strictEqual( reuseDialog.tabs.share.$pane.hasClass( 'active' ), false, 'Share tab hidden.' );
-		assert.strictEqual( reuseDialog.tabs.embed.$pane.hasClass( 'active' ), true, 'Embed tab shown.' );
-	} );
-
-	QUnit.test( 'default tab:', function ( assert ) {
-		let reuseDialog = makeReuseDialog( this.sandbox );
-		reuseDialog.initTabs();
-		assert.strictEqual( reuseDialog.selectedTab, 'share', 'Share tab is default' );
-
-		reuseDialog = makeReuseDialog( this.sandbox );
-		reuseDialog.config.getFromLocalStorage.withArgs( 'mmv-lastUsedTab' ).returns( 'share' );
-		reuseDialog.initTabs();
-		assert.strictEqual( reuseDialog.selectedTab, 'share', 'Default can be overridden' );
-	} );
-
 	QUnit.test( 'attach()/unattach():', function ( assert ) {
 		const reuseDialog = makeReuseDialog( this.sandbox );
-
-		reuseDialog.initTabs();
 
 		reuseDialog.handleOpenCloseClick = function () {
 			assert.true( false, 'handleOpenCloseClick should not have been called.' );
 		};
-		reuseDialog.handleTabSelection = function () {
-			assert.true( false, 'handleTabSelection should not have been called.' );
-		};
 
 		// Triggering action events before attaching should do nothing
 		$( document ).trigger( 'mmv-reuse-open' );
-		reuseDialog.reuseTabs.emit( 'select' );
 
 		reuseDialog.handleOpenCloseClick = function () {
 			assert.true( true, 'handleOpenCloseClick called.' );
-		};
-		reuseDialog.handleTabSelection = function () {
-			assert.true( true, 'handleTabSelection called.' );
 		};
 
 		reuseDialog.attach();
 
 		// Action events should be handled now
 		$( document ).trigger( 'mmv-reuse-open' );
-		reuseDialog.reuseTabs.emit( 'select' );
 
 		// Test the unattach part
 		reuseDialog.handleOpenCloseClick = function () {
 			assert.true( false, 'handleOpenCloseClick should not have been called.' );
-		};
-		reuseDialog.handleTabSelection = function () {
-			assert.true( false, 'handleTabSelection should not have been called.' );
 		};
 
 		reuseDialog.unattach();
 
 		// Triggering action events now that we are unattached should do nothing
 		$( document ).trigger( 'mmv-reuse-open' );
-		reuseDialog.reuseTabs.emit( 'select' );
 	} );
 
 	QUnit.test( 'start/stopListeningToOutsideClick():', function ( assert ) {
 		const reuseDialog = makeReuseDialog( this.sandbox );
 		const realCloseDialog = reuseDialog.closeDialog;
-
-		reuseDialog.initTabs();
 
 		function clickOutsideDialog() {
 			const event = new $.Event( 'click', { target: reuseDialog.$container[ 0 ] } );
@@ -213,9 +168,8 @@ const { ReuseDialog, Repo } = require( 'mmv' );
 		};
 		const repoInfo = new Repo( 'Wikipedia', '//wikipedia.org/favicon.ico', true );
 
-		reuseDialog.initTabs();
-
 		reuseDialog.set( image, repoInfo );
+		reuseDialog.setValues = undefined;
 
 		assert.strictEqual( reuseDialog.isOpen, false, 'Dialog closed by default.' );
 

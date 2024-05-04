@@ -129,7 +129,7 @@
 	"multimediaviewer-download-attribution-cta-header": "You need to attribute the author",
 	"multimediaviewer-download-optional-attribution-cta-header": "You can attribute the author",
 	"multimediaviewer-download-attribution-cta": "Show me how",
-	"multimediaviewer-download-attribution-copy-button": "Copy",
+	"multimediaviewer-copy-button": "Copy",
 	"multimediaviewer-download-attribution-copy": "Select and copy (if supported) the attribution text for this file",
 	"multimediaviewer-reuse-warning-deletion": "This file is considered for deletion.",
 	"multimediaviewer-reuse-warning-nonfree": "This file does not have a free license.",

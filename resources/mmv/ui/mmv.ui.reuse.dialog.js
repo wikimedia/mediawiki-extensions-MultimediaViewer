@@ -31,113 +31,11 @@ const Dialog = require( './mmv.ui.dialog.js' );
 		constructor( $container, $openButton, config ) {
 			super( $container, $openButton, config );
 
-			/**
-			 * @property {Object.<string, UiElement>} tabs List of tab ui objects.
-			 */
-			this.tabs = null;
-
-			/**
-			 * @property {Object.<string, OO.ui.MenuOptionWidget>} ooTabs List of tab OOUI objects.
-			 */
-			this.ooTabs = null;
-
 			this.loadDependencies.push( 'mmv.ui.reuse.shareembed' );
 
 			this.$dialog.addClass( 'mw-mmv-reuse-dialog' );
 
 			this.eventPrefix = 'use-this-file';
-		}
-
-		// FIXME this should happen outside the dialog and the tabs, but we need to improve
-		initTabs() {
-			const makeTab = ( type ) => new OO.ui.MenuOptionWidget( {
-				data: type,
-				// The following messages are used here:
-				// * multimediaviewer-embed-tab
-				// * multimediaviewer-share-tab
-				label: mw.message( `multimediaviewer-${ type }-tab` ).text()
-			} );
-
-			this.reuseTabs = new OO.ui.MenuSelectWidget( {
-				autoHide: false,
-				classes: [ 'mw-mmv-reuse-tabs' ]
-			} );
-			this.reuseTabs.$element.appendTo( this.$dialog );
-
-			const { Embed, Share } = require( 'mmv.ui.reuse.shareembed' );
-			this.tabs = {
-				share: new Share( this.$dialog ),
-				embed: new Embed( this.$dialog )
-			};
-
-			this.ooTabs = {
-				share: makeTab( 'share' ),
-				embed: makeTab( 'embed' )
-			};
-
-			this.reuseTabs.addItems( [
-				this.ooTabs.share,
-				this.ooTabs.embed
-			] );
-
-			// MenuSelectWidget has a nasty tendency to hide itself, maybe we're not using it right?
-			this.reuseTabs.toggle( true );
-			this.reuseTabs.toggle = () => { };
-
-			this.selectedTab = this.getLastUsedTab();
-
-			// In case nothing is saved in localStorage or it contains junk
-			if ( !Object.prototype.hasOwnProperty.call( this.tabs, this.selectedTab ) ) {
-				this.selectedTab = 'share';
-			}
-
-			this.reuseTabs.selectItem( this.ooTabs[ this.selectedTab ] );
-
-			if ( this.dependenciesNeedToBeAttached ) {
-				this.attachDependencies();
-			}
-
-			if ( this.tabsSetValues ) {
-				// This is a delayed set() for the elements we've just created on demand
-				this.tabs.share.set.apply( this.tabs.share, this.tabsSetValues.share );
-				this.tabs.embed.set.apply( this.tabs.embed, this.tabsSetValues.embed );
-				this.showImageWarnings( this.tabsSetValues.share[ 0 ] );
-				this.tabsSetValues = undefined;
-			}
-		}
-
-		toggleDialog() {
-			if ( this.tabs === null ) {
-				this.initTabs();
-			}
-
-			super.toggleDialog();
-		}
-
-		/**
-		 * Handles tab selection.
-		 *
-		 * @param {OO.ui.MenuOptionWidget} option
-		 */
-		handleTabSelection( option ) {
-			this.selectedTab = option.getData();
-
-			for ( const tab in this.tabs ) {
-				if ( tab === this.selectedTab ) {
-					this.tabs[ tab ].show();
-				} else {
-					this.tabs[ tab ].hide();
-				}
-			}
-
-			this.config.setInLocalStorage( 'mmv-lastUsedTab', this.selectedTab );
-		}
-
-		/**
-		 * @return {string} Last used tab
-		 */
-		getLastUsedTab() {
-			return this.config.getFromLocalStorage( 'mmv-lastUsedTab' );
 		}
 
 		/**
@@ -148,47 +46,10 @@ const Dialog = require( './mmv.ui.dialog.js' );
 
 			this.handleEvent( 'mmv-download-open', this.closeDialog.bind( this ) );
 			this.handleEvent( 'mmv-options-open', this.closeDialog.bind( this ) );
-
-			this.attachDependencies();
 		}
 
 		/**
-		 * Registers listeners for dependencies loaded on demand
-		 */
-		attachDependencies() {
-			if ( this.reuseTabs && this.tabs ) {
-				// This is a delayed attach() for the elements we've just created on demand
-				this.reuseTabs.on( 'select', this.handleTabSelection.bind( this ) );
-
-				for ( const tab in this.tabs ) {
-					this.tabs[ tab ].attach();
-				}
-
-				this.dependenciesNeedToBeAttached = false;
-			} else {
-				this.dependenciesNeedToBeAttached = true;
-			}
-		}
-
-		/**
-		 * Clears listeners.
-		 */
-		unattach() {
-			super.unattach();
-
-			if ( this.reuseTabs ) {
-				this.reuseTabs.off( 'select' );
-			}
-
-			if ( this.tabs ) {
-				for ( const tab in this.tabs ) {
-					this.tabs[ tab ].unattach();
-				}
-			}
-		}
-
-		/**
-		 * Sets data needed by contained tabs and makes dialog launch link visible.
+		 * Sets data needed by contained panes and makes dialog launch link visible.
 		 *
 		 * @param {Image} image
 		 * @param {Repo} repo
@@ -196,27 +57,13 @@ const Dialog = require( './mmv.ui.dialog.js' );
 		 * @param {string} alt
 		 */
 		set( image, repo, caption, alt ) {
-			if ( this.tabs !== null ) {
-				this.tabs.share.set( image );
-				this.tabs.embed.set( image, repo, caption, alt );
-				this.tabs.embed.set( image, repo, caption );
+			if ( this.share && this.embed ) {
+				this.share.set( image );
+				this.embed.set( image, repo, caption, alt );
+				this.embed.set( image, repo, caption );
 				this.showImageWarnings( image );
 			} else {
-				this.tabsSetValues = {
-					share: [ image ],
-					embed: [ image, repo, caption, alt ]
-				};
-			}
-		}
-
-		/**
-		 * @inheritdoc
-		 */
-		empty() {
-			super.empty();
-
-			for ( const tab in this.tabs ) {
-				this.tabs[ tab ].empty();
+				this.setValues = [ image, repo, caption, alt ];
 			}
 		}
 
@@ -230,12 +77,25 @@ const Dialog = require( './mmv.ui.dialog.js' );
 		 * Opens a dialog with information about file reuse.
 		 */
 		openDialog() {
+			const { Embed, Share } = require( 'mmv.ui.reuse.shareembed' );
+			if ( !this.share ) {
+				this.share = new Share( this.$dialog );
+				this.share.attach();
+			}
+
+			if ( !this.embed ) {
+				this.embed = new Embed( this.$dialog );
+				this.embed.attach();
+			}
+
+			if ( this.setValues ) {
+				this.set( ...this.setValues );
+				this.setValues = undefined;
+			}
+
 			super.openDialog();
 
-			// move warnings after the tabs
-			this.$warning.insertAfter( this.reuseTabs.$element );
-
-			this.tabs[ this.selectedTab ].show();
+			this.$warning.insertAfter( this.$container );
 
 			$( document ).trigger( 'mmv-reuse-opened' );
 		}

@@ -26,50 +26,46 @@ const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 		assert.true( utils instanceof Utils, 'ReuseUtils object is created.' );
 	} );
 
-	QUnit.test( 'createPulldownMenu():', function ( assert ) {
+	QUnit.test( 'createSelectMenu():', function ( assert ) {
 		const utils = new Utils();
 		const menuItems = [ 'original', 'small', 'medium', 'large' ];
 		const def = 'large';
-		const menu = utils.createPulldownMenu(
+		const $select = utils.createSelectMenu(
 			menuItems,
-			[ 'mw-mmv-download-size' ],
 			def
 		);
-		const options = menu.getMenu().getItems();
+		const $options = $select.children();
 
-		assert.strictEqual( options.length, 4, 'Menu has correct number of items.' );
+		assert.strictEqual( $options.length, 4, 'Menu has correct number of items.' );
 
 		for ( let i = 0; i < menuItems.length; i++ ) {
-			const data = options[ i ].getData();
+			const $option = $( $options[ i ] );
 
-			assert.strictEqual( data.name, menuItems[ i ], 'Correct item name on the list.' );
-			assert.strictEqual( data.height, null, 'Correct item height on the list.' );
-			assert.strictEqual( data.width, null, 'Correct item width on the list.' );
+			assert.strictEqual( $option.attr( 'data-name' ), menuItems[ i ], 'Correct item name on the list.' );
+			assert.strictEqual( $option.attr( 'data-height' ), undefined, 'Correct item height on the list.' );
+			assert.strictEqual( $option.attr( 'data-width' ), undefined, 'Correct item width on the list.' );
 		}
-
-		assert.strictEqual( menu.getMenu().findSelectedItem(), options[ 3 ], 'Default set correctly.' );
 	} );
 
-	QUnit.test( 'updateMenuOptions():', function ( assert ) {
+	QUnit.test( 'updateSelectOptions():', function ( assert ) {
 		const utils = new Utils();
-		const menu = utils.createPulldownMenu(
+		const $select = utils.createSelectMenu(
 			[ 'original', 'small', 'medium', 'large' ],
-			[ 'mw-mmv-download-size' ],
 			'original'
 		);
-		const options = menu.getMenu().getItems();
+		const $options = $select.children();
 		const width = 700;
 		const height = 500;
 		const sizes = utils.getPossibleImageSizesForHtml( width, height );
 		const oldMessage = mw.message;
 
 		mw.message = function ( messageKey ) {
-			assert.true( /^multimediaviewer-(small|medium|original|embed-dimensions)/.test( messageKey ), 'messageKey passed correctly.' );
+			assert.true( /^multimediaviewer-(small|medium|large|original|embed-dimensions)/.test( messageKey ), 'messageKey passed correctly.' );
 
 			return { text: function () {} };
 		};
 
-		utils.updateMenuOptions( sizes, options );
+		utils.updateSelectOptions( sizes, $options );
 
 		mw.message = oldMessage;
 	} );

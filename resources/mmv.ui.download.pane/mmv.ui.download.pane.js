@@ -114,7 +114,9 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 		}
 
 		createAttributionButton( $container ) {
-			this.$attributionInput = $( '<input>' ).addClass( 'cdx-text-input__input' );
+			[ this.$attributionInput, this.$attributionInputDiv ] = this.utils.createInputWithCopy(
+				mw.message( 'multimediaviewer-download-attribution-copy' ).text(), ''
+			);
 
 			const $header = $( '<div>' )
 				.addClass( 'cdx-dialog__header' )
@@ -143,29 +145,12 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 			);
 			this.selectAttribution( 'plain' );
 
-			const $copyButton = $( '<button>' )
-				.addClass( 'cdx-button cdx-button--action-default cdx-button--weight-normal cdx-button--size-medium cdx-button--framed' )
-				.addClass( 'mw-mmv-pt-0 mw-mmv-pb-0' ) // override padding provided by ".oo-ui-buttonElement-framed.oo-ui-labelElement > .oo-ui-buttonElement-button, button"
-				.attr( 'title', mw.msg( 'multimediaviewer-download-attribution-copy' ) )
-				.append( $( '<span>' ).addClass( 'cdx-button__icon cdx-button__icon--copy' ).attr( 'aria-hidden', 'true' ) )
-				.append( mw.message( 'multimediaviewer-download-attribution-copy-button' ).text() )
-				// navigator.clipboard() is not supported in Safari 11.1, iOS Safari 11.3-11.4
-				// eslint-disable-next-line compat/compat
-				.on( 'click', () => navigator.clipboard && navigator.clipboard.writeText && navigator.clipboard.writeText( this.$attributionInput.val() ) );
-
 			$( '<div>' )
 				.addClass( 'cdx-dialog__body mw-mmv-pt-0 mw-mmv-pb-150' )
 				.append(
 					this.$attributionHowHeader,
 					$attributionTabs,
-					$( '<div>' )
-						.addClass( 'mw-mmv-flex mw-mmv-gap-50 mw-mmv-mt-75' )
-						.append(
-							$( '<div>' )
-								.addClass( 'cdx-text-input mw-mmv-flex-grow-1' )
-								.append( this.$attributionInput ),
-							$copyButton
-						)
+					this.$attributionInputDiv.addClass( ' mw-mmv-mt-75' )
 				)
 				.appendTo( $container );
 		}

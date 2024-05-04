@@ -222,6 +222,7 @@
 				"oojs-ui"
 			],
 			"messages": [
+				"multimediaviewer-copy-button",
 				"multimediaviewer-default-embed-dimensions",
 				"multimediaviewer-original-embed-dimensions",
 				"multimediaviewer-xl-embed-dimensions",
@@ -248,9 +249,7 @@
 				"codex-styles",
 				"mediawiki.widgets",
 				"mmv",
-				"mmv.ui.ondemandshareddependencies",
-				"oojs",
-				"oojs-ui"
+				"mmv.ui.ondemandshareddependencies"
 			],
 			"messages": [
 				"multimediaviewer-download",
@@ -258,7 +257,6 @@
 				"multimediaviewer-download-attribution-cta-header",
 				"multimediaviewer-download-link",
 				"multimediaviewer-download-optional-attribution-cta-header",
-				"multimediaviewer-download-attribution-copy-button",
 				"multimediaviewer-download-attribution-copy",
 				"multimediaviewer-download-attribution",
 				"multimediaviewer-attr-plain",
@@ -268,7 +266,6 @@
 		"mmv.ui.reuse.shareembed": {
 			"packageFiles": [
 				"mmv.ui.reuse.shareembed/index.js",
-				"mmv.ui.reuse.shareembed/mmv.ui.reuse.tab.js",
 				"mmv.ui.reuse.shareembed/mmv.ui.reuse.share.js",
 				"mmv.ui.reuse.shareembed/mmv.ui.reuse.embed.js"
 			],
@@ -277,8 +274,7 @@
 				"mmv.ui.reuse.shareembed/mmv.ui.reuse.embed.less"
 			],
 			"dependencies": [
-				"oojs",
-				"oojs-ui",
+				"codex-styles",
 				"mediawiki.user",
 				"mediawiki.widgets",
 				"mmv.ui.ondemandshareddependencies"
@@ -390,7 +386,6 @@
 			"tests/qunit/mmv/ui/mmv.ui.reuse.dialog.test.js",
 			"tests/qunit/mmv/ui/mmv.ui.reuse.embed.test.js",
 			"tests/qunit/mmv/ui/mmv.ui.reuse.share.test.js",
-			"tests/qunit/mmv/ui/mmv.ui.reuse.tab.test.js",
 			"tests/qunit/mmv/ui/mmv.ui.reuse.utils.test.js",
 			"tests/qunit/mmv/ui/mmv.ui.truncatableTextField.test.js",
 			"tests/qunit/mmv/ui/mmv.ui.viewingOptions.test.js",

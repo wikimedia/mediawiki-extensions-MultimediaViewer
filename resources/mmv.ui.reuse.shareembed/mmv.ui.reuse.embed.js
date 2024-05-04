@@ -16,7 +16,7 @@
  */
 
 const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencies' );
-const Tab = require( './mmv.ui.reuse.tab.js' );
+const { UiElement } = require( 'mmv' );
 
 ( function () {
 
@@ -24,7 +24,7 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 	 * UI component that provides the user html/wikitext snippets needed to share
 	 * and/or embed a media asset.
 	 */
-	class Embed extends Tab {
+	class Embed extends UiElement {
 		/**
 		 * @param {jQuery} $container
 		 */
@@ -41,56 +41,16 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 			/** @property {Utils} utils - */
 			this.utils = new Utils();
 
-			/**
-			 * Indicates whether or not the default option has been reset for both size menus.
-			 *
-			 * @property {boolean}
-			 */
-			this.isSizeMenuDefaultReset = false;
+			this.utils.createHeader( mw.message( 'multimediaviewer-embed-tab' ).text() )
+				.appendTo( $container );
 
-			this.$pane.addClass( 'mw-mmv-embed-pane' );
+			const $body = $( '<div>' )
+				.addClass( 'cdx-dialog__body mw-mmv-pt-0 mw-mmv-pb-150' )
+				.appendTo( $container );
 
-			this.$pane.appendTo( this.$container );
-
-			this.createSnippetTextAreas( this.$pane );
-
-			this.createSnippetSelectionButtons( this.$pane );
-			this.createSizePulldownMenus( this.$pane );
-
-			/**
-			 * Currently selected embed snippet.
-			 *
-			 * @property {mw.widgets.CopyTextLayout}
-			 */
-			this.currentMainEmbedText = mw.user.isAnon() ? this.embedTextHtml : this.embedTextWikitext;
-
-			/**
-			 * Default item for the html size menu.
-			 *
-			 * @property {OO.ui.MenuOptionWidget}
-			 */
-			this.defaultHtmlItem = this.embedSizeSwitchHtml.getMenu().findSelectedItem();
-
-			/**
-			 * Default item for the wikitext size menu.
-			 *
-			 * @property {OO.ui.MenuOptionWidget}
-			 */
-			this.defaultWikitextItem = this.embedSizeSwitchWikitext.getMenu().findSelectedItem();
-
-			/**
-			 * Currently selected size menu.
-			 *
-			 * @property {OO.ui.MenuSelectWidget}
-			 */
-			this.currentSizeMenu = mw.user.isAnon() ? this.embedSizeSwitchHtml.getMenu() : this.embedSizeSwitchWikitext.getMenu();
-
-			/**
-			 * Current default item.
-			 *
-			 * @property {OO.ui.MenuOptionWidget}
-			 */
-			this.currentDefaultItem = mw.user.isAnon() ? this.defaultHtmlItem : this.defaultWikitextItem;
+			this.createSnippetSelectionButtons( $body );
+			this.createSizePulldownMenus( $body );
+			this.createSnippetTextAreas( $body );
 		}
 
 		/**
@@ -99,44 +59,21 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 		 * @param {jQuery} $container
 		 */
 		createSnippetTextAreas( $container ) {
-			this.embedTextHtml = new mw.widgets.CopyTextLayout( {
-				help: mw.message( 'multimediaviewer-embed-explanation' ).text(),
-				helpInline: true,
-				align: 'top',
-				multiline: true,
-				textInput: {
-					placeholder: mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text(),
-					autosize: true,
-					maxRows: 5
-				},
-				button: {
-					title: mw.msg( 'multimediaviewer-reuse-copy-embed' )
-				}
-			} );
+			[ this.$embedTextHtml, this.$embedTextHtmlDiv ] = this.utils.createInputWithCopy(
+				mw.message( 'multimediaviewer-reuse-copy-embed' ).text(),
+				mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text()
+			);
+			this.$embedTextHtml.attr( 'title', mw.message( 'multimediaviewer-embed-explanation' ).text() );
 
-			this.embedTextWikitext = new mw.widgets.CopyTextLayout( {
-				help: mw.message( 'multimediaviewer-embed-explanation' ).text(),
-				helpInline: true,
-				align: 'top',
-				multiline: true,
-				textInput: {
-					// The following classes are used here:
-					// * mw-editfont-monospace
-					// * mw-editfont-sans-serif
-					// * mw-editfont-serif
-					classes: [ `mw-editfont-${ mw.user.options.get( 'editfont' ) }` ],
-					placeholder: mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text(),
-					autosize: true,
-					maxRows: 5
-				},
-				button: {
-					title: mw.msg( 'multimediaviewer-reuse-copy-embed' )
-				}
-			} );
+			[ this.$embedTextWikitext, this.$embedTextWikitextDiv ] = this.utils.createInputWithCopy(
+				mw.message( 'multimediaviewer-reuse-copy-embed' ).text(),
+				mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text()
+			);
+			this.$embedTextWikitext.attr( 'title', mw.message( 'multimediaviewer-embed-explanation' ).text() );
 
 			$container.append(
-				this.embedTextHtml.$element,
-				this.embedTextWikitext.$element
+				this.$embedTextHtmlDiv,
+				this.$embedTextWikitextDiv
 			);
 		}
 
@@ -146,30 +83,17 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 		 * @param {jQuery} $container
 		 */
 		createSnippetSelectionButtons( $container ) {
-			this.embedSwitch = new OO.ui.ButtonSelectWidget( {
-				classes: [ 'mw-mmv-embed-select' ]
-			} );
-
-			const wikitextButtonOption = new OO.ui.ButtonOptionWidget( {
-				data: 'wikitext',
-				label: mw.message( 'multimediaviewer-embed-wt' ).text()
-			} );
-			const htmlButtonOption = new OO.ui.ButtonOptionWidget( {
-				data: 'html',
-				label: mw.message( 'multimediaviewer-embed-html' ).text()
-			} );
-
-			this.embedSwitch.addItems( [
-				wikitextButtonOption,
-				htmlButtonOption
-			] );
-
-			$( '<p>' )
-				.append( this.embedSwitch.$element )
-				.appendTo( $container );
-
-			// Logged-out defaults to 'html', logged-in to 'wikitext'
-			this.embedSwitch.selectItem( mw.user.isAnon() ? htmlButtonOption : wikitextButtonOption );
+			const $embedSwitch = $( '<div>' ).addClass( 'cdx-tabs mw-mmv-mb-75' ).appendTo( $container );
+			const $embedSwitchHeader = $( '<div>' ).addClass( 'cdx-tabs__header' ).appendTo( $embedSwitch );
+			this.$embedSwitchList = $( '<div>' ).addClass( 'cdx-tabs__list' ).attr( 'role', 'tablist' ).appendTo( $embedSwitchHeader );
+			[ 'wikitext', 'html' ].forEach( ( name ) => $( '<button>' )
+				.addClass( 'cdx-tabs__list__item' )
+				.attr( 'role', 'tab' )
+				.attr( 'data-name', name )
+				.text( mw.message( name === 'wikitext' ? 'multimediaviewer-embed-wt' : 'multimediaviewer-embed-html' ).text() )
+				.on( 'click', () => this.handleTypeSwitch( name ) )
+				.appendTo( this.$embedSwitchList )
+			);
 		}
 
 		/**
@@ -179,40 +103,33 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 		 */
 		createSizePulldownMenus( $container ) {
 			// Wikitext sizes pulldown menu
-			this.embedSizeSwitchWikitext = this.utils.createPulldownMenu(
+			this.$embedSizeSwitchWikitext = this.utils.createSelectMenu(
 				[ 'default', 'small', 'medium', 'large' ],
-				[],
 				'default'
 			);
 
 			// Html sizes pulldown menu
-			this.embedSizeSwitchHtml = this.utils.createPulldownMenu(
+			this.$embedSizeSwitchHtml = this.utils.createSelectMenu(
 				[ 'small', 'medium', 'large', 'original' ],
-				[],
 				'original'
 			);
 
-			this.embedSizeSwitchHtmlLayout = new OO.ui.FieldLayout( this.embedSizeSwitchHtml, { align: 'top' } );
-			this.embedSizeSwitchWikitextLayout = new OO.ui.FieldLayout( this.embedSizeSwitchWikitext, { align: 'top' } );
-
-			$container.append(
-				this.embedSizeSwitchHtmlLayout.$element,
-				this.embedSizeSwitchWikitextLayout.$element
-			);
+			$( '<div>' ).addClass( 'mw-mmv-flex mw-mmv-mb-75' ).append(
+				this.$embedSizeSwitchHtml,
+				this.$embedSizeSwitchWikitext
+			).appendTo( $container );
 		}
 
 		/**
 		 * Registers listeners.
 		 */
 		attach() {
-			// Register handler for switching between wikitext/html snippets
-			this.embedSwitch.on( 'select', this.handleTypeSwitch.bind( this ) );
-
-			this.handleTypeSwitch( this.embedSwitch.findSelectedItem() );
+			// Logged-out defaults to 'html', logged-in to 'wikitext'
+			this.handleTypeSwitch( mw.user.isAnon() ? 'html' : 'wikitext' );
 
 			// Register handlers for switching between file sizes
-			this.embedSizeSwitchHtml.getMenu().on( 'choose', this.handleSizeSwitch.bind( this ) );
-			this.embedSizeSwitchWikitext.getMenu().on( 'choose', this.handleSizeSwitch.bind( this ) );
+			this.$embedSizeSwitchHtml.on( 'change', () => this.handleSizeSwitch() );
+			this.$embedSizeSwitchWikitext.on( 'change', () => this.handleSizeSwitch() );
 		}
 
 		/**
@@ -221,94 +138,51 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 		unattach() {
 			super.unattach();
 
-			this.embedSwitch.off( 'select' );
-			this.embedSizeSwitchHtml.getMenu().off( 'choose' );
-			this.embedSizeSwitchWikitext.getMenu().off( 'choose' );
+			this.$embedSizeSwitchHtml.off( 'change' );
+			this.$embedSizeSwitchWikitext.off( 'change' );
 		}
 
 		/**
 		 * Handles size menu change events.
-		 *
-		 * @param {OO.ui.MenuOptionWidget} item
 		 */
-		handleSizeSwitch( item ) {
-			const value = item.getData();
-
-			this.changeSize( value.width, value.height );
+		handleSizeSwitch() {
+			// eslint-disable-next-line no-jquery/no-sizzle
+			const $html = this.$embedSizeSwitchHtml.find( ':selected' );
+			if ( $html.length ) {
+				this.updateEmbedHtml( {}, $html.attr( 'data-width' ), $html.attr( 'data-height' ) );
+			}
+			// eslint-disable-next-line no-jquery/no-sizzle
+			const $wikitext = this.$embedSizeSwitchWikitext.find( ':selected' );
+			if ( $wikitext.length ) {
+				this.updateEmbedWikitext( $wikitext.attr( 'data-width' ) );
+			}
 		}
 
 		/**
 		 * Handles snippet type switch.
 		 *
-		 * @param {OO.ui.MenuOptionWidget} item
+		 * @param {string} value 'html' or 'wikitext'
 		 */
-		handleTypeSwitch( item ) {
-			const value = item.getData();
+		handleTypeSwitch( value ) {
+			this.$embedSwitchList.children().each( ( _i, element ) => {
+				const $element = $( element );
+				$element.attr( 'aria-selected', $element.attr( 'data-name' ) === value );
+			} );
 
-			if ( value === 'html' ) {
-				this.currentMainEmbedText = this.embedTextHtml;
-				this.embedSizeSwitchWikitext.getMenu().toggle( false );
+			this.$embedTextHtmlDiv.toggle( value === 'html' );
+			this.$embedSizeSwitchHtml.toggle( value === 'html' );
 
-				this.currentSizeMenu = this.embedSizeSwitchHtml.getMenu();
-				this.currentDefaultItem = this.defaultHtmlItem;
-			} else if ( value === 'wikitext' ) {
-				this.currentMainEmbedText = this.embedTextWikitext;
-				this.embedSizeSwitchHtml.getMenu().toggle( false );
-
-				this.currentSizeMenu = this.embedSizeSwitchWikitext.getMenu();
-				this.currentDefaultItem = this.defaultWikitextItem;
-			}
-
-			this.embedTextHtml.toggle( value === 'html' );
-			this.embedSizeSwitchHtmlLayout.toggle( value === 'html' );
-
-			this.embedTextWikitext.toggle( value === 'wikitext' );
-			this.embedSizeSwitchWikitextLayout.toggle( value === 'wikitext' );
-
-			// Reset current selection to default when switching the first time
-			if ( !this.isSizeMenuDefaultReset ) {
-				this.resetCurrentSizeMenuToDefault();
-				this.isSizeMenuDefaultReset = true;
-			}
-
-			this.select();
+			this.$embedTextWikitextDiv.toggle( value === 'wikitext' );
+			this.$embedSizeSwitchWikitext.toggle( value === 'wikitext' );
 		}
 
 		/**
 		 * Reset current menu selection to default item.
 		 */
 		resetCurrentSizeMenuToDefault() {
-			this.currentSizeMenu.chooseItem( this.currentDefaultItem );
-			// Force select logic to update the selected item bar, otherwise we end up
-			// with the wrong label. This is implementation dependent and maybe it should
-			// be done via a to flag to OO.ui.SelectWidget.prototype.chooseItem()?
-			this.currentSizeMenu.emit( 'select', this.currentDefaultItem );
-		}
-
-		/**
-		 * Changes the size, takes different actions based on which sort of
-		 * embed is currently chosen.
-		 *
-		 * @param {number} width New width to set
-		 * @param {number} height New height to set
-		 */
-		changeSize( width, height ) {
-			const currentItem = this.embedSwitch.findSelectedItem();
-
-			if ( currentItem === null ) {
-				return;
-			}
-
-			switch ( currentItem.getData() ) {
-				case 'html':
-					this.updateEmbedHtml( {}, width, height );
-					break;
-				case 'wikitext':
-					this.updateEmbedWikitext( width );
-					break;
-			}
-
-			this.select();
+			this.$embedSizeSwitchWikitext.val( 'default' );
+			this.$embedSizeSwitchHtml.val( 'original' );
+			this.handleSizeSwitch();
 		}
 
 		/**
@@ -332,7 +206,7 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 				src = this.embedFileInfo.imageInfo.url;
 			}
 
-			this.embedTextHtml.textInput.setValue(
+			this.$embedTextHtml.val(
 				this.formatter.getThumbnailHtml( this.embedFileInfo, src, width, height )
 			);
 		}
@@ -349,23 +223,9 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 				return;
 			}
 
-			this.embedTextWikitext.textInput.setValue(
+			this.$embedTextWikitext.val(
 				this.formatter.getThumbnailWikitextFromEmbedFileInfo( this.embedFileInfo, width )
 			);
-		}
-
-		/**
-		 * Shows the pane.
-		 */
-		show() {
-			super.show();
-
-			// Force update size on multiline inputs, as they may have be
-			// calculated while not visible.
-			this.currentMainEmbedText.textInput.valCache = null;
-			this.currentMainEmbedText.textInput.adjustSize();
-
-			this.select();
 		}
 
 		/**
@@ -395,10 +255,6 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 		 * @param {string} [alt]
 		 */
 		set( image, repo, caption, alt ) {
-			const htmlSizeSwitch = this.embedSizeSwitchHtml.getMenu();
-			const htmlSizeOptions = htmlSizeSwitch.getItems();
-			const wikitextSizeSwitch = this.embedSizeSwitchWikitext.getMenu();
-			const wikitextSizeOptions = wikitextSizeSwitch.getItems();
 			const sizes = this.getSizeOptions( image.width, image.height );
 
 			this.embedFileInfo = { imageInfo: image, repoInfo: repo };
@@ -409,17 +265,15 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 				this.embedFileInfo.alt = alt;
 			}
 
-			this.utils.updateMenuOptions( sizes.html, htmlSizeOptions );
-			this.utils.updateMenuOptions( sizes.wikitext, wikitextSizeOptions );
+			this.utils.updateSelectOptions( sizes.html, this.$embedSizeSwitchHtml.children() );
+			this.utils.updateSelectOptions( sizes.wikitext, this.$embedSizeSwitchWikitext.children() );
 
 			// Reset defaults
-			this.isSizeMenuDefaultReset = false;
 			this.resetCurrentSizeMenuToDefault();
 
 			this.utils.getThumbnailUrlPromise( this.LARGE_IMAGE_WIDTH_THRESHOLD )
 				.done( ( thumbnail ) => {
 					this.updateEmbedHtml( thumbnail );
-					this.select();
 				} );
 		}
 
@@ -427,18 +281,11 @@ const Tab = require( './mmv.ui.reuse.tab.js' );
 		 * @inheritdoc
 		 */
 		empty() {
-			this.embedTextHtml.textInput.setValue( '' );
-			this.embedTextWikitext.textInput.setValue( '' );
+			this.$embedTextHtml.val( '' );
+			this.$embedTextWikitext.val( '' );
 
-			this.embedSizeSwitchHtml.getMenu().toggle( false );
-			this.embedSizeSwitchWikitext.getMenu().toggle( false );
-		}
-
-		/**
-		 * Selects the text in the current textbox by triggering a focus event.
-		 */
-		select() {
-			this.currentMainEmbedText.selectText();
+			this.$embedSizeSwitchHtml.toggle( false );
+			this.$embedSizeSwitchWikitext.toggle( false );
 		}
 
 		/**
