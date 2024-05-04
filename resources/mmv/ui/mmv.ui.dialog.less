@@ -14,7 +14,7 @@
 	height: @dialog-height;
 	background-color: @background-color;
 	box-shadow: @box-shadow-dialog;
-	border-radius: @border-radius-base;
+	border-radius: 2px; // @border-radius-base
 	z-index: 1004;
 
 	.mw-mmv-dialog-down-arrow {
@@ -26,22 +26,39 @@
 		position: fixed;
 	}
 
-	.mw-mmv-dialog-copy {
-		/* @embed */
-		background-image: url( img/pasting.svg );
-		background-size: contain;
-		background-position: right center;
-		background-repeat: no-repeat;
-		cursor: pointer;
-
-		&:hover {
-			/* @embed */
-			background-image: url( img/pasting-hover.svg );
-			text-decoration: none;
-		}
-	}
-
 	.mw-mmv-dialog-warning {
 		background-color: @background-color-warning-subtle;
+	}
+
+	.mw-mmv-pt-0 {
+		padding-top: 0;
+	}
+
+	.mw-mmv-pb-0 {
+		padding-bottom: 0;
+	}
+
+	.mw-mmv-mt-75 {
+		margin-top: @spacing-75;
+	}
+
+	.mw-mmv-mb-75 {
+		margin-bottom: @spacing-75;
+	}
+
+	.mw-mmv-pb-150 {
+		padding-bottom: @spacing-150;
+	}
+
+	.mw-mmv-gap-50 {
+		gap: @spacing-50;
+	}
+
+	.mw-mmv-flex {
+		display: flex;
+	}
+
+	.mw-mmv-flex-grow-1 {
+		flex-grow: 1;
 	}
 }
