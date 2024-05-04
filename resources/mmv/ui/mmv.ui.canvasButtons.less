@@ -77,39 +77,32 @@
 }
 
 .mw-mmv-close {
+	padding-right: @spacing-150;
 	top: @buttons-offset-right;
-	/* @embed */
-	background-image: url( img/mw-close.svg );
-	height: 23px;
+	.cdx-mixin-css-icon( @cdx-icon-close, @param-fill-color: @color-inverted-fixed );
 }
 
 .mw-mmv-fullscreen {
-	right: @buttons-offset-right - 2px;
+	padding-right: @spacing-150;
 	top: ( @buttons-offset-right + ( @buttons-offset-each-top ) );
-	/* @embed */
-	background-image: url( img/mw-fullscreen-ltr.svg );
-	height: 22px;
+	.cdx-mixin-css-icon( @cdx-icon-full-screen, @param-fill-color: @color-inverted-fixed );
 }
 
 .mw-mmv-options-button {
+	padding-right: @spacing-150;
 	top: ( @buttons-offset-right + ( 2 * @buttons-offset-each-top ) );
-	/* @embed */
-	background-image: url( img/gear.svg );
-	height: 23px;
+	.cdx-mixin-css-icon( @cdx-icon-settings, @param-fill-color: @color-inverted-fixed );
 }
 
 .jq-fullscreened {
 	.mw-mmv-fullscreen {
-		/* @embed */
-		background-image: url( img/mw-defullscreen-ltr.svg );
+		.cdx-mixin-css-icon( @cdx-icon-exit-fullscreen, @param-fill-color: @color-inverted-fixed );
 	}
 }
 
 .mw-mmv-next-image {
-	/* @embed */
-	background-image: url( img/next-ltr.svg );
-	background-position: right;
-	right: @navbutton-width;
+	.cdx-mixin-css-icon( @cdx-icon-next, @param-fill-color: @color-inverted-fixed, @param-size-icon: @size-icon-medium );
+	right: @size-icon-medium;
 
 	&:hover {
 		margin-right: -4px;
@@ -117,10 +110,8 @@
 }
 
 .mw-mmv-prev-image {
-	/* @embed */
-	background-image: url( img/prev-ltr.svg );
-	background-position: left;
-	left: @navbutton-width;
+	.cdx-mixin-css-icon( @cdx-icon-previous, @param-fill-color: @color-inverted-fixed, @param-size-icon: @size-icon-medium );
+	left: @size-icon-medium;
 
 	&:hover {
 		margin-left: -4px;
@@ -128,16 +119,13 @@
 }
 
 .mw-mmv-reuse-button {
-	right: @buttons-offset-right - 2px;
+	padding-right: @spacing-150;
 	bottom: @buttons-offset-right + @metadatabar-above-fold-height + @progress-bar-height;
-	/* @embed */
-	background-image: url( img/use-ltr.svg );
-	height: 24px;
+	.cdx-mixin-css-icon( @cdx-icon-share, @param-fill-color: @color-inverted-fixed );
 }
 
 .mw-mmv-download-button {
+	padding-right: @spacing-150;
 	bottom: @buttons-offset-right + @metadatabar-above-fold-height + @progress-bar-height + 37px;
-	/* @embed */
-	background-image: url( img/mw-download.svg );
-	height: 24px;
+	.cdx-mixin-css-icon( @cdx-icon-download, @param-fill-color: @color-inverted-fixed );
 }

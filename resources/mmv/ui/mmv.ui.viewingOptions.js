@@ -236,7 +236,7 @@ const Dialog = require( './mmv.ui.dialog.js' );
 					.appendTo( $div );
 			}
 
-			this.addText( $div, msgs, true );
+			this.addText( $div, msgs );
 			this.addInfoLink( $div );
 			this.makeButtons( $div, smsg, enabled );
 
@@ -317,9 +317,8 @@ const Dialog = require( './mmv.ui.dialog.js' );
 		 *
 		 * @param {jQuery} $container
 		 * @param {string[]} msgs The messages to be added.
-		 * @param {boolean} icon Whether to display an icon next to the text or not
 		 */
-		addText( $container, msgs, icon ) {
+		addText( $container, msgs ) {
 			const $text = $( '<div>' )
 				.addClass( 'mw-mmv-options-text' );
 
@@ -350,19 +349,7 @@ const Dialog = require( './mmv.ui.dialog.js' );
 				adders[ i ]( msgs[ i ] );
 			}
 
-			if ( icon ) {
-				const $subContainer = $( '<div>' ).addClass( 'mw-mmv-options-subcontainer' );
-
-				$( '<div>' )
-					.text( '\u00A0' )
-					.addClass( 'mw-mmv-options-icon' )
-					.appendTo( $subContainer );
-
-				$text.appendTo( $subContainer );
-				$subContainer.appendTo( $container );
-			} else {
-				$text.appendTo( $container );
-			}
+			$text.appendTo( $container );
 		}
 
 		/**

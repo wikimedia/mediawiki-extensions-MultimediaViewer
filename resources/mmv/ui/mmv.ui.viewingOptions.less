@@ -46,17 +46,8 @@
 		position: absolute;
 		right: 0;
 		top: 0;
-		width: 15px;
-		height: 15px;
+		.cdx-mixin-css-icon( @cdx-icon-close, @param-fill-color: @color-base );
 		cursor: pointer;
-		opacity: 0.75;
-		/* @embed */
-		background-image: url( img/x_white.svg );
-		background-size: 15px 15px;
-
-		&:hover {
-			opacity: 1;
-		}
 	}
 
 	.mw-mmv-disable-confirmation {
@@ -91,13 +82,6 @@
 	}
 }
 
-.mw-mmv-options-text,
-.mw-mmv-options-icon {
-	.mw-mmv-options-enable & {
-		top: 70px;
-	}
-}
-
 .mw-mmv-options-submit {
 	margin-top: 10px;
 }
@@ -106,18 +90,14 @@
 	left: 68px;
 	right: 0;
 	line-height: 1.4;
+
+	.mw-mmv-options-enable & {
+		top: 70px;
+	}
 }
 
 .mw-mmv-options-subcontainer .mw-mmv-options-text {
 	margin-left: 68px;
-}
-
-.mw-mmv-options-icon {
-	/* @embed */
-	background-image: url( img/icon_mmv.svg );
-	float: left;
-	width: 58px;
-	height: 52px;
 }
 
 .mw-mmv-options-cancel-button,

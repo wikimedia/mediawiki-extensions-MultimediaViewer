@@ -117,18 +117,9 @@
 }
 
 .mw-mmv-author::before {
-	/* @embed */
-	background-image: url( img/user-avatar.svg );
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: contain;
-	display: inline-block;
-	vertical-align: middle;
-	height: 16px;
-	width: 16px;
+	.cdx-mixin-css-icon( @cdx-icon-user-avatar, @param-fill-color: @color-subtle, @param-size-icon: @size-icon-small );
 	content: ' ';
-	margin-right: 7px;
-	margin-bottom: 2px;
+	margin-right: @spacing-50;
 }
 
 .mw-mmv-image-desc-div {
@@ -175,46 +166,32 @@
 		}
 
 		&::before {
-			display: inline-block;
-			vertical-align: middle;
-			height: 16px;
-			width: 16px;
 			content: ' ';
-			margin-right: 7px;
-			margin-bottom: 2px;
-			background-size: contain;
-			background-position: right center;
-			background-repeat: no-repeat;
+			margin-right: @spacing-50;
 		}
 
 		&.mw-mmv-license-li::before {
-			/* @embed */
-			background-image: url( img/license.svg );
+			.cdx-mixin-css-icon( @cdx-icon-lock, @param-fill-color: @color-subtle, @param-size-icon: @size-icon-small );
 		}
 
 		&.mw-mmv-license-li.cc-license::before {
-			/* @embed */
-			background-image: url( img/cc.svg );
+			.cdx-mixin-css-icon( @cdx-icon-logo-c-c, @param-fill-color: @color-subtle, @param-size-icon: @size-icon-small );
 		}
 
 		&.mw-mmv-license-li.pd-license::before {
-			/* @embed */
-			background-image: url( img/pd.svg );
+			.cdx-mixin-css-icon( @cdx-icon-un-lock, @param-fill-color: @color-subtle, @param-size-icon: @size-icon-small );
 		}
 
 		&.mw-mmv-filename-li::before {
-			/* @embed */
-			background-image: url( img/file.svg );
+			.cdx-mixin-css-icon( @cdx-icon-image, @param-fill-color: @color-subtle, @param-size-icon: @size-icon-small );
 		}
 
 		&.mw-mmv-datetime-li::before {
-			/* @embed */
-			background-image: url( img/time.svg );
+			.cdx-mixin-css-icon( @cdx-icon-clock, @param-fill-color: @color-subtle, @param-size-icon: @size-icon-small );
 		}
 
 		&.mw-mmv-location-li::before {
-			/* @embed */
-			background-image: url( img/location.svg );
+			.cdx-mixin-css-icon( @cdx-icon-map-pin, @param-fill-color: @color-subtle, @param-size-icon: @size-icon-small );
 		}
 
 		&.empty::before {

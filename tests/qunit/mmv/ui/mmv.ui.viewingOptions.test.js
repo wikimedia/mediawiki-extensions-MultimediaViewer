@@ -40,7 +40,6 @@ const { OptionsDialog } = require( 'mmv' );
 		dialog.initDisableDiv();
 
 		const $header = dialog.$disableDiv.find( 'h3.mw-mmv-options-dialog-header' );
-		const $icon = dialog.$disableDiv.find( 'div.mw-mmv-options-icon' );
 
 		const $text = dialog.$disableDiv.find( 'div.mw-mmv-options-text' );
 		const $textHeader = $text.find( 'p.mw-mmv-options-text-header' );
@@ -51,9 +50,6 @@ const { OptionsDialog } = require( 'mmv' );
 
 		assert.strictEqual( $header.length, 1, 'Disable header created successfully.' );
 		assert.strictEqual( $header.text(), '(multimediaviewer-options-dialog-header)', 'Disable header has correct text (if this fails, it may be due to i18n differences)' );
-
-		assert.strictEqual( $icon.length, 1, 'Icon created successfully.' );
-		assert.strictEqual( $icon.html(), '&nbsp;', 'Icon has a blank space in it.' );
 
 		assert.strictEqual( $text.length, 1, 'Text div created successfully.' );
 		assert.strictEqual( $textHeader.length, 1, 'Text header created successfully.' );
@@ -95,7 +91,6 @@ const { OptionsDialog } = require( 'mmv' );
 		dialog.initEnableDiv();
 
 		const $header = dialog.$enableDiv.find( 'h3.mw-mmv-options-dialog-header' );
-		const $icon = dialog.$enableDiv.find( 'div.mw-mmv-options-icon' );
 
 		const $text = dialog.$enableDiv.find( 'div.mw-mmv-options-text' );
 		const $textHeader = $text.find( 'p.mw-mmv-options-text-header' );
@@ -105,9 +100,6 @@ const { OptionsDialog } = require( 'mmv' );
 
 		assert.strictEqual( $header.length, 1, 'Enable header created successfully.' );
 		assert.strictEqual( $header.text(), '(multimediaviewer-enable-dialog-header)', 'Enable header has correct text (if this fails, it may be due to i18n differences)' );
-
-		assert.strictEqual( $icon.length, 1, 'Icon created successfully.' );
-		assert.strictEqual( $icon.html(), '&nbsp;', 'Icon has a blank space in it.' );
 
 		assert.strictEqual( $text.length, 1, 'Text div created successfully.' );
 		assert.strictEqual( $textHeader.length, 1, 'Text header created successfully.' );
