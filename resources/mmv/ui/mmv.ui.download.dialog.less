@@ -10,20 +10,6 @@
 	position: fixed;
 	bottom: @metadatabar-above-fold-height + @progress-bar-height + 35px;
 
-	.mw-mmv-download-size .oo-ui-optionWidget {
-		display: inline-block;
-		padding: 10px 25px;
-		font-size: 16px;
-
-		&.oo-ui-optionWidget-selected {
-			border: 0;
-		}
-
-		&:first-child {
-			border-radius: @border-radius-base 0 0 0;
-		}
-	}
-
 	.mw-mmv-dialog-down-arrow {
 		bottom: @metadatabar-above-fold-height + @progress-bar-height + 45px;
 		background-color: @background-color-neutral;
@@ -31,5 +17,13 @@
 
 	.mw-mmv-dialog-warning {
 		padding: 10px 30px;
+	}
+
+	.cdx-button__icon--download {
+		.cdx-mixin-css-icon( @cdx-icon-download, @param-is-button-icon: true );
+	}
+
+	.cdx-button__icon--copy {
+		.cdx-mixin-css-icon( @cdx-icon-copy, @param-is-button-icon: true );
 	}
 }

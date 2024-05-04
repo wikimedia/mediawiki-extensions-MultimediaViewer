@@ -33,44 +33,41 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 			/** @property {Utils} utils - */
 			this.utils = new Utils();
 
-			this.$pane = $( '<div>' )
-				.addClass( 'mw-mmv-download-pane' )
-				.appendTo( this.$container );
-
-			this.$downloadArea = $( '<div>' )
-				.addClass( 'mw-mmv-download-area' )
-				.appendTo( this.$pane );
-
-			this.createDownloadButton( this.$downloadArea );
-			this.createSizePulldownMenu( this.$downloadArea );
-			this.createPreviewLink( this.$downloadArea );
-
 			this.formatter = new EmbedFileFormatter();
-			this.currentAttrView = 'plain';
-			this.createAttributionButton( this.$pane );
-
-			/**
-			 * Default item for the size menu.
-			 *
-			 * @property {OO.ui.MenuOptionWidget}
-			 */
-			this.defaultItem = this.downloadSizeMenu.getMenu().findSelectedItem();
+			this.createDownloadSection( this.$container );
+			this.createAttributionButton( this.$container );
 
 			/** @property {Image|null} Image the download button currently points to. */
 			this.image = null;
 		}
 
 		/**
-		 * Fired when the attribution call to action panel is clicked.
+		 * Creates dialog download section.
 		 *
-		 * @event DownloadPane#mmv-download-cta-open
+		 * @param {jQuery} $container
 		 */
+		createDownloadSection( $container ) {
+			const $header = $( '<div>' )
+				.addClass( 'cdx-dialog__header' )
+				.appendTo( $container );
+			$( '<div>' )
+				.addClass( 'cdx-dialog__header__title' )
+				.text( mw.message( 'multimediaviewer-download-link' ).text() )
+				.appendTo( $header );
 
-		/**
-		 * Fired when the attribution area is closed.
-		 *
-		 * @event DownloadPane#mmv-download-cta-close
-		 */
+			const $body = $( '<div>' )
+				.addClass( 'cdx-dialog__body mw-mmv-pt-0' )
+				.appendTo( $container );
+
+			this.$downloadArea = $( '<div>' )
+				.addClass( 'mw-mmv-flex mw-mmv-gap-50' )
+				.appendTo( $body );
+			this.createSizePulldownMenu( this.$downloadArea );
+			this.createDownloadButton( this.$downloadArea );
+
+			const $p = $( '<p>' ).addClass( 'mw-mmv-mt-75' ).appendTo( $body );
+			this.createPreviewLink( $p );
+		}
 
 		/**
 		 * Creates download split button. It is a link with the "download" property set plus an
@@ -86,24 +83,9 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 			this.$downloadButton = $( '<a>' )
 				.attr( 'target', '_blank' )
 				.attr( 'download', '' )
-				.addClass( 'cdx-button cdx-button--weight-primary cdx-button--action-progressive cdx-button--fake-button cdx-button--fake-button--enabled mw-mmv-download-go-button' );
-
-			this.$selectionArrow = $( '<span>' )
-				.addClass( 'cdx-button cdx-button--weight-primary cdx-button--action-progressive cdx-button--fake-button cdx-button--fake-button--enabled mw-mmv-download-select-menu' )
-				.append(
-					$( '<span>' )
-						.addClass( 'mw-mmv-download-image-size-name' )
-						.text( '\u00A0' )
-				)
-				.append(
-					$( '<span>' )
-						.addClass( 'mw-mmv-download-image-size' )
-						.text( '\u00A0' )
-				);
-
-			$container
-				.append( this.$downloadButton )
-				.append( this.$selectionArrow );
+				.addClass( 'cdx-button cdx-button--weight-primary cdx-button--action-progressive cdx-button--fake-button cdx-button--fake-button--enabled' )
+				.html( '<span class="cdx-button__icon cdx-button__icon--download" aria-hidden="true"></span>' + mw.message( 'multimediaviewer-download' ).text() )
+				.appendTo( $container );
 		}
 
 		/**
@@ -112,13 +94,10 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 		 * @param {jQuery} $container
 		 */
 		createSizePulldownMenu( $container ) {
-			this.downloadSizeMenu = this.utils.createPulldownMenu(
+			this.$downloadSizeMenu = this.utils.createSelectMenu(
 				[ 'original', 'small', 'medium', 'large', 'xl' ],
-				[ 'mw-mmv-download-size' ],
 				'original'
-			);
-
-			$container.append( this.downloadSizeMenu.$element );
+			).appendTo( $container );
 		}
 
 		/**
@@ -129,88 +108,66 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 		createPreviewLink( $container ) {
 			this.$previewLink = $( '<a>' )
 				.attr( 'target', '_blank' )
-				.addClass( 'mw-mmv-download-preview-link' )
-				.text( mw.message( 'multimediaviewer-download-preview-link-title' ).text() )
+				.addClass( 'cdx-docs-link' )
+				.html( mw.message( 'multimediaviewer-download-preview-link-title' ).text() )
 				.appendTo( $container );
 		}
 
 		createAttributionButton( $container ) {
-			const attributionInput = new mw.widgets.CopyTextLayout( {
-				align: 'top',
-				button: {
-					label: '',
-					title: mw.msg( 'multimediaviewer-download-attribution-copy' )
-				}
-			} );
-			const attributionSwitch = new OO.ui.ButtonSelectWidget( {
-				classes: [ 'mw-mmv-download-attr-select' ]
-			} );
-			const plainOption = new OO.ui.ButtonOptionWidget( {
-				data: 'plain',
-				label: mw.message( 'multimediaviewer-attr-plain' ).text()
-			} );
-			const htmlOption = new OO.ui.ButtonOptionWidget( {
-				data: 'html',
-				label: mw.message( 'multimediaviewer-attr-html' ).text()
-			} );
+			this.$attributionInput = $( '<input>' ).addClass( 'cdx-text-input__input' );
 
-			attributionSwitch.addItems( [
-				plainOption,
-				htmlOption
-			] );
-
-			attributionSwitch.selectItem( plainOption );
-
-			attributionSwitch.on( 'select', ( selection ) => {
-				this.selectAttribution( selection.getData() );
-
-				this.attributionInput.selectText();
-			} );
-
-			this.$attributionSection = $( '<div>' )
-				.addClass( 'mw-mmv-download-attribution mw-mmv-download-attribution-collapsed' )
-				.appendTo( $container )
-				.on( 'click', () => {
-					if ( this.$attributionSection.hasClass( 'mw-mmv-download-attribution-collapsed' ) ) {
-						this.$container.trigger( 'mmv-download-cta-open' );
-						this.$attributionSection.removeClass( 'mw-mmv-download-attribution-collapsed' );
-						this.attributionInput.selectText();
-					}
-				} );
-
-			this.$attributionCtaHeader = $( '<p>' )
-				.addClass( 'mw-mmv-download-attribution-cta-header' )
-				.text( mw.message( 'multimediaviewer-download-attribution-cta-header' ).text() );
-			this.$attributionCta = $( '<div>' )
-				.addClass( 'mw-mmv-download-attribution-cta' )
-				.append(
-					this.$attributionCtaHeader,
-					$( '<p>' )
-						.addClass( 'mw-mmv-download-attribution-cta-invite' )
-						.text( mw.message( 'multimediaviewer-download-attribution-cta' ).text() )
-				)
-				.appendTo( this.$attributionSection );
-			this.attributionInput = attributionInput;
-
+			const $header = $( '<div>' )
+				.addClass( 'cdx-dialog__header' )
+				.appendTo( $container );
+			$( '<p>' )
+				.addClass( 'cdx-dialog__header__title' )
+				.text( mw.message( 'multimediaviewer-download-attribution' ).text() )
+				.appendTo( $header );
 			this.$attributionHowHeader = $( '<p>' )
-				.addClass( 'mw-mmv-download-attribution-how-header' )
+				.addClass( 'mw-mmv-mb-75' )
 				.text( mw.message( 'multimediaviewer-download-attribution-cta-header' ).text() );
-			this.$attributionHow = $( '<div>' )
-				.addClass( 'mw-mmv-download-attribution-how' )
+
+			const $attributionTabs = $( '<div>' ).addClass( 'cdx-tabs' );
+			const $attributionTabsHeader = $( '<div>' ).addClass( 'cdx-tabs__header' ).appendTo( $attributionTabs );
+			this.$attributionTabsList = $( '<div>' ).addClass( 'cdx-tabs__list' ).attr( 'role', 'tablist' ).appendTo( $attributionTabsHeader );
+			[ 'plain', 'html' ].forEach( ( name ) => $( '<button>' )
+				.addClass( 'cdx-tabs__list__item' )
+				.attr( 'role', 'tab' )
+				.attr( 'data-name', name )
+				// The following messages are used here:
+				// * multimediaviewer-attr-plain
+				// * multimediaviewer-attr-html
+				.text( mw.message( 'multimediaviewer-attr-' + name ).text() )
+				.on( 'click', () => this.selectAttribution( name ) )
+				.appendTo( this.$attributionTabsList )
+			);
+			this.selectAttribution( 'plain' );
+
+			const $copyButton = $( '<button>' )
+				.addClass( 'cdx-button cdx-button--action-default cdx-button--weight-normal cdx-button--size-medium cdx-button--framed' )
+				.addClass( 'mw-mmv-pt-0 mw-mmv-pb-0' ) // override padding provided by ".oo-ui-buttonElement-framed.oo-ui-labelElement > .oo-ui-buttonElement-button, button"
+				.attr( 'title', mw.msg( 'multimediaviewer-download-attribution-copy' ) )
+				.append( $( '<span>' ).addClass( 'cdx-button__icon cdx-button__icon--copy' ).attr( 'aria-hidden', 'true' ) )
+				.append( mw.message( 'multimediaviewer-download-attribution-copy-button' ).text() )
+				// navigator.clipboard() is not supported in Safari 11.1, iOS Safari 11.3-11.4
+				// eslint-disable-next-line compat/compat
+				.on( 'click', () => navigator.clipboard && navigator.clipboard.writeText && navigator.clipboard.writeText( this.$attributionInput.val() ) );
+
+			$( '<div>' )
+				.addClass( 'cdx-dialog__body mw-mmv-pt-0 mw-mmv-pb-150' )
 				.append(
 					this.$attributionHowHeader,
-					this.attributionInput.$element,
-					new OO.ui.FieldLayout( attributionSwitch, { align: 'top' } ).$element,
-					$( '<p>' )
-						.addClass( 'mw-mmv-download-attribution-close-button' )
-						.on( 'click', ( e ) => {
-							this.$container.trigger( 'mmv-download-cta-close' );
-							this.$attributionSection.addClass( 'mw-mmv-download-attribution-collapsed' );
-							e.stopPropagation();
-						} )
-						.text( ' ' )
+					$attributionTabs,
+					$( '<div>' )
+						.addClass( 'mw-mmv-flex mw-mmv-gap-50 mw-mmv-mt-75' )
+						.append(
+							$( '<div>' )
+								.addClass( 'cdx-text-input mw-mmv-flex-grow-1' )
+								.append( this.$attributionInput ),
+							$copyButton
+						)
 				)
-				.appendTo( this.$attributionSection );
+				.appendTo( $container );
 		}
 
 		/**
@@ -221,10 +178,15 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 		selectAttribution( name ) {
 			this.currentAttrView = name;
 
+			this.$attributionTabsList.children().each( ( _i, element ) => {
+				const $element = $( element );
+				$element.attr( 'aria-selected', $element.attr( 'data-name' ) === name );
+			} );
+
 			if ( this.currentAttrView === 'html' ) {
-				this.attributionInput.textInput.setValue( this.htmlCredit );
+				this.$attributionInput.val( this.htmlCredit );
 			} else {
-				this.attributionInput.textInput.setValue( this.textCredit );
+				this.$attributionInput.val( this.textCredit );
 			}
 		}
 
@@ -233,8 +195,7 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 		 */
 		attach() {
 			// Register handlers for switching between file sizes
-			this.downloadSizeMenu.getMenu().on( 'choose', ( item ) => this.handleSizeSwitch( item ) );
-			this.$selectionArrow.on( 'click', () => this.downloadSizeMenu.getMenu().toggle() );
+			this.$downloadSizeMenu.on( 'change', () => this.handleSizeSwitch() );
 		}
 
 		/**
@@ -242,33 +203,28 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 		 */
 		unattach() {
 			super.unattach();
-
-			this.downloadSizeMenu.getMenu().off( 'choose' );
-			this.$selectionArrow.off( 'click' );
+			this.$downloadSizeMenu.off( 'change' );
 		}
 
 		/**
 		 * Handles size menu change events.
-		 *
-		 * @param {OO.ui.MenuOptionWidget} item
 		 */
-		handleSizeSwitch( item ) {
-			const value = item.getData();
+		handleSizeSwitch() {
+			// eslint-disable-next-line no-jquery/no-sizzle
+			const $option = this.$downloadSizeMenu.find( ':selected' );
+			const value = {
+				name: $option.attr( 'data-name' ),
+				width: $option.attr( 'data-width' ),
+				height: $option.attr( 'data-height' )
+			};
 
 			if ( value.name === 'original' && this.image !== null ) {
 				this.setDownloadUrl( this.image.url );
-				this.setButtonText( value.name, this.getExtensionFromUrl( this.image.url ),
-					value.width, value.height );
 			} else {
 				// Disable download while we get the image
 				this.$downloadButton.addClass( 'disabledLink' );
-				// Set a temporary message. It will be updated once we have the file type.
-				this.setButtonText( value.name, this.imageExtension, value.width, value.height );
-
 				this.utils.getThumbnailUrlPromise( value.width ).done( ( thumbnail ) => {
 					this.setDownloadUrl( thumbnail.url );
-					this.setButtonText( value.name, this.getExtensionFromUrl( thumbnail.url ),
-						value.width, value.height );
 				} );
 			}
 		}
@@ -284,33 +240,6 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 
 			// Re-enable download
 			this.$downloadButton.removeClass( 'disabledLink' );
-		}
-
-		/**
-		 * Sets the text of the download button.
-		 *
-		 * @param {string} sizeClass A size class such as 'small'
-		 * @param {string} extension file extension
-		 * @param {number} width
-		 * @param {number} height
-		 */
-		setButtonText( sizeClass, extension, width, height ) {
-			// The following messages are used here:
-			// * multimediaviewer-download-original-button-name
-			// * multimediaviewer-download-small-button-name
-			// * multimediaviewer-download-medium-button-name
-			// * multimediaviewer-download-large-button-name
-			// * multimediaviewer-download-xl-button-name
-			const sizeClassMessage = mw.message( `multimediaviewer-download-${ sizeClass }-button-name` ).text();
-			const dimensionMessage = mw.message( 'multimediaviewer-embed-dimensions', width, height ).text();
-			const sizeMessage = mw.message( 'multimediaviewer-embed-dimensions-with-file-format',
-				dimensionMessage, extension ).text();
-
-			// Update button label and size strings to reflect new selected size
-			this.$downloadButton.html(
-				`<span class="mw-mmv-download-image-size-name">${ sizeClassMessage }</span>` +
-				`<span class="mw-mmv-download-image-size">${ sizeMessage }</span>`
-			);
 		}
 
 		/**
@@ -345,20 +274,18 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 		 */
 		set( image, repo ) {
 			const license = image && image.license;
-			const sizeOptions = this.downloadSizeMenu.getMenu().getItems();
 			const sizes = this.utils.getPossibleImageSizesForHtml( image.width, image.height );
 
 			this.image = image;
 
-			this.utils.updateMenuOptions( sizes, sizeOptions );
-
-			this.downloadSizeMenu.$element.addClass( 'active' );
+			this.utils.updateSelectOptions( sizes, this.$downloadSizeMenu.children() );
 
 			// Note: This extension will not be the real one for file types other than: png/gif/jpg/jpeg
 			this.imageExtension = image.title.getExtension().toLowerCase();
 
 			// Reset size menu to default item and update download button label now that we have the info
-			this.downloadSizeMenu.getMenu().chooseItem( this.defaultItem );
+			this.$downloadSizeMenu.val( 'original' );
+			this.handleSizeSwitch();
 
 			if ( image && repo ) {
 				const embedFileInfo = {
@@ -373,8 +300,6 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 				'multimediaviewer-download-optional-attribution-cta-header';
 			// Message defined above
 			// eslint-disable-next-line mediawiki/msg-doc
-			this.$attributionCtaHeader.text( mw.message( attributionCtaMessage ).text() );
-			// eslint-disable-next-line mediawiki/msg-doc
 			this.$attributionHowHeader.text( mw.message( attributionCtaMessage ).text() );
 		}
 
@@ -382,9 +307,6 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 		 * @inheritdoc
 		 */
 		empty() {
-			this.downloadSizeMenu.getMenu().toggle( false );
-			this.downloadSizeMenu.$element.removeClass( 'active' );
-
 			this.$downloadButton.attr( 'href', '' );
 			this.$previewLink.attr( 'href', '' );
 			this.imageExtension = undefined;

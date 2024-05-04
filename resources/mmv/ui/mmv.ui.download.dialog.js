@@ -46,22 +46,6 @@ const Dialog = require( './mmv.ui.dialog.js' );
 
 			this.handleEvent( 'mmv-reuse-open', this.closeDialog.bind( this ) );
 			this.handleEvent( 'mmv-options-open', this.closeDialog.bind( this ) );
-
-			this.$container.on( 'mmv-download-cta-open', () => this.$warning.hide() );
-			this.$container.on( 'mmv-download-cta-close', () => {
-				if ( this.$dialog.hasClass( 'mw-mmv-warning-visible' ) ) {
-					this.$warning.show();
-				}
-			} );
-		}
-
-		/**
-		 * Clears listeners.
-		 */
-		unattach() {
-			super.unattach();
-
-			this.$container.off( 'mmv-download-cta-open mmv-download-cta-close' );
 		}
 
 		/**

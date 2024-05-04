@@ -222,6 +222,14 @@
 				"oojs-ui"
 			],
 			"messages": [
+				"multimediaviewer-default-embed-dimensions",
+				"multimediaviewer-original-embed-dimensions",
+				"multimediaviewer-xl-embed-dimensions",
+				"multimediaviewer-large-embed-dimensions",
+				"multimediaviewer-medium-embed-dimensions",
+				"multimediaviewer-small-embed-dimensions",
+				"multimediaviewer-embed-dimensions",
+				"multimediaviewer-embed-dimensions-separated",
 				"multimediaviewer-credit",
 				"multimediaviewer-text-embed-credit-text-bl",
 				"multimediaviewer-text-embed-credit-text-b",
@@ -236,9 +244,6 @@
 			"packageFiles": [
 				"mmv.ui.download.pane/mmv.ui.download.pane.js"
 			],
-			"styles": [
-				"mmv.ui.download.pane/mmv.ui.download.pane.less"
-			],
 			"dependencies": [
 				"codex-styles",
 				"mediawiki.widgets",
@@ -248,18 +253,14 @@
 				"oojs-ui"
 			],
 			"messages": [
+				"multimediaviewer-download",
 				"multimediaviewer-download-preview-link-title",
-				"multimediaviewer-download-original-button-name",
-				"multimediaviewer-download-small-button-name",
-				"multimediaviewer-download-medium-button-name",
-				"multimediaviewer-download-large-button-name",
-				"multimediaviewer-download-xl-button-name",
-				"multimediaviewer-embed-dimensions",
-				"multimediaviewer-embed-dimensions-with-file-format",
 				"multimediaviewer-download-attribution-cta-header",
+				"multimediaviewer-download-link",
 				"multimediaviewer-download-optional-attribution-cta-header",
-				"multimediaviewer-download-attribution-cta",
+				"multimediaviewer-download-attribution-copy-button",
 				"multimediaviewer-download-attribution-copy",
+				"multimediaviewer-download-attribution",
 				"multimediaviewer-attr-plain",
 				"multimediaviewer-attr-html"
 			]
@@ -297,15 +298,7 @@
 				"multimediaviewer-embed-explanation",
 				"multimediaviewer-embed-byline",
 				"multimediaviewer-embed-license",
-				"multimediaviewer-embed-via",
-				"multimediaviewer-default-embed-dimensions",
-				"multimediaviewer-original-embed-dimensions",
-				"multimediaviewer-xl-embed-dimensions",
-				"multimediaviewer-large-embed-dimensions",
-				"multimediaviewer-medium-embed-dimensions",
-				"multimediaviewer-small-embed-dimensions",
-				"multimediaviewer-embed-dimensions",
-				"multimediaviewer-embed-dimensions-separated"
+				"multimediaviewer-embed-via"
 			]
 		},
 		"mmv.bootstrap": {

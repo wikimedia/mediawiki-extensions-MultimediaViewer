@@ -127,6 +127,10 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 				return shortURL;
 			}
 
+			// The following messages are used here:
+			// * multimediaviewer-text-embed-credit-text-bl
+			// * multimediaviewer-text-embed-credit-text-b
+			// * multimediaviewer-text-embed-credit-text-l
 			const creditParams = [
 				'multimediaviewer-text-embed-credit-text-'
 			];
@@ -164,6 +168,10 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 				return shortLink;
 			}
 
+			// The following messages are used here:
+			// * multimediaviewer-html-embed-credit-text-bl
+			// * multimediaviewer-html-embed-credit-text-b
+			// * multimediaviewer-html-embed-credit-text-l
 			const creditParams = [
 				'multimediaviewer-html-embed-credit-text-'
 			];

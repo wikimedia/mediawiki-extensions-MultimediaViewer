@@ -29,6 +29,26 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 		}
 
 		/**
+		 * Creates select menu from given options.
+		 *
+		 * @param {string[]} options
+		 * @param {string} def
+		 * @return {jQuery}
+		 */
+		createSelectMenu( options, def ) {
+			const $select = $( '<select>' ).addClass( 'cdx-select mw-mmv-flex-grow-1' );
+			options.forEach( ( size ) =>
+				$( '<option>' )
+					.attr( 'value', size )
+					.attr( 'data-name', size )
+					.text( this.getDimensionsMessageHtml( size ) )
+					.appendTo( $select )
+			);
+			$select.val( def );
+			return $select;
+		}
+
+		/**
 		 * Creates pulldown menu from given options.
 		 *
 		 * @param {string[]} options
@@ -114,6 +134,32 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 		}
 
 		/**
+		 * Updates the select options based on calculated sizes.
+		 *
+		 * @private
+		 * @param {Object} sizes
+		 * @param {jQuery} options
+		 */
+		updateSelectOptions( sizes, options ) {
+			for ( let i = 0; i < options.length; i++ ) {
+				const $option = $( options[ i ] );
+				const name = $option.attr( 'data-name' );
+				if ( sizes[ name ] ) {
+					$option.prop( 'disabled', false );
+
+					// These values are later used when the item is selected
+					$option.attr( 'data-width', sizes[ name ].width );
+					$option.attr( 'data-height', sizes[ name ].height );
+
+					$option.text( this.getDimensionsMessageHtml( name, sizes[ name ].width, sizes[ name ].height ) );
+				} else {
+					$option.prop( 'disabled', true );
+					$option.text( this.getDimensionsMessageHtml( name, undefined, undefined ) );
+				}
+			}
+		}
+
+		/**
 		 * Calculates possible image sizes for html snippets. It returns up to
 		 * three possible snippet frame sizes (small, medium, large) plus the
 		 * original image size.
@@ -184,18 +230,14 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 		 * @return {string} i18n label html
 		 */
 		getDimensionsMessageHtml( sizeLabel, width, height ) {
-			const dimensions = this.htmlUtils.jqueryToHtml( $( '<span>' )
-				.addClass( 'mw-mmv-embed-dimensions' )
-				.text(
-					mw.message(
-						'multimediaviewer-embed-dimensions-separated',
-						mw.message(
-							'multimediaviewer-embed-dimensions',
-							width, height ).text()
-					).text()
-				) );
+			const dimensions = !width || !height ? '' : mw.message(
+				'multimediaviewer-embed-dimensions-separated',
+				mw.message(
+					'multimediaviewer-embed-dimensions',
+					width, height ).text()
+			).text();
 
-			// The following messagse are used here:
+			// The following messages are used here:
 			return mw.message(
 				// The following messages are used here:
 				// * multimediaviewer-default-embed-dimensions
