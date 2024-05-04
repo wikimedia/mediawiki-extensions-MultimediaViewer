@@ -84,7 +84,8 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 				.attr( 'target', '_blank' )
 				.attr( 'download', '' )
 				.addClass( 'cdx-button cdx-button--weight-primary cdx-button--action-progressive cdx-button--fake-button cdx-button--fake-button--enabled' )
-				.html( '<span class="cdx-button__icon cdx-button__icon--download" aria-hidden="true"></span>' + mw.message( 'multimediaviewer-download' ).text() )
+				// FIXME T364254: using "notheme" here since codex does not apply @color-inverted-fixed instead of @color-inverted for progressive/destructive button
+				.html( '<span class="cdx-button__icon cdx-button__icon--download notheme" aria-hidden="true"></span>' + mw.message( 'multimediaviewer-download' ).text() )
 				.appendTo( $container );
 		}
 
