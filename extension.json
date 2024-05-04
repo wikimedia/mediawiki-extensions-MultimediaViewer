@@ -101,7 +101,6 @@
 				"mediawiki.storage",
 				"mediawiki.user",
 				"mediawiki.util",
-				"oojs",
 				"mmv.bootstrap",
 				"mmv.head"
 			],
@@ -217,9 +216,7 @@
 			],
 			"dependencies": [
 				"mmv.head",
-				"mmv",
-				"oojs",
-				"oojs-ui"
+				"mmv"
 			],
 			"messages": [
 				"multimediaviewer-copy-button",
@@ -313,8 +310,7 @@
 				"mediawiki.Title",
 				"mediawiki.user",
 				"mediawiki.storage",
-				"mmv.head",
-				"oojs"
+				"mmv.head"
 			],
 			"messages": [
 				"multimediaviewer-view-expanded",

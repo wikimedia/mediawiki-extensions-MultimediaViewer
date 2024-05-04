@@ -36,10 +36,7 @@
 				"mw.Title": "https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.Title",
 				"mw.widgets.CopyTextLayout": "https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.widgets.CopyTextLayout",
 				"Object": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
-				"OO.Router": "https://doc.wikimedia.org/oojs-router/master/#!/api/OO.Router",
-				"OO.ui.DropdownWidget": "https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.DropdownWidget",
-				"OO.ui.MenuOptionWidget": "https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MenuOptionWidget",
-				"OO.ui.MenuSelectWidget": "https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MenuSelectWidget"
+				"OO.Router": "https://doc.wikimedia.org/oojs-router/master/#!/api/OO.Router"
 			}
 		}
 	}
