@@ -238,12 +238,23 @@
 				"multimediaviewer-html-embed-credit-link-text"
 			]
 		},
+		"mmv.codex": {
+			"class": "MediaWiki\\ResourceLoader\\CodexModule",
+			"codexStyleOnly": true,
+			"codexComponents": [
+				"CdxButton",
+				"CdxDialog",
+				"CdxSelect",
+				"CdxTabs",
+				"CdxTextInput"
+			]
+		},
 		"mmv.ui.download.pane": {
 			"packageFiles": [
 				"mmv.ui.download.pane/mmv.ui.download.pane.js"
 			],
 			"dependencies": [
-				"codex-styles",
+				"mmv.codex",
 				"mediawiki.widgets",
 				"mmv",
 				"mmv.ui.ondemandshareddependencies"
@@ -267,7 +278,7 @@
 				"mmv.ui.reuse.shareembed/mmv.ui.reuse.embed.js"
 			],
 			"dependencies": [
-				"codex-styles",
+				"mmv.codex",
 				"mediawiki.user",
 				"mediawiki.widgets",
 				"mmv.ui.ondemandshareddependencies"
@@ -300,7 +311,7 @@
 				"mmv.bootstrap/mmv.bootstrap.less"
 			],
 			"dependencies": [
-				"codex-search-styles",
+				"mmv.codex",
 				"mediawiki.api",
 				"mediawiki.router",
 				"mediawiki.Title",
