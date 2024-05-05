@@ -98,7 +98,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 						'multimediaviewer-credit',
 						author,
 						source
-					).parse();
+					).text();
 				} else {
 					return author || source;
 				}

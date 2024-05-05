@@ -64,19 +64,19 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 
 		// Attribution present
 		byline = formatter.getByline( author, source, attribution );
-		assert.true( /Cat/.test( byline ), 'Attribution found in bylines' );
+		assert.strictEqual( byline, '<span class="mw-mmv-attr">Cat</span>', 'Attribution found in bylines' );
 
 		// Author and source present
 		byline = formatter.getByline( author, source );
-		assert.true( /Homer|Iliad/.test( byline ), 'Author and source found in bylines' );
+		assert.strictEqual( byline, '(multimediaviewer-credit: <span class="mw-mmv-author">Homer</span>, <span class="mw-mmv-source">Iliad</span>)', 'Author and source found in bylines' );
 
 		// Only author present
 		byline = formatter.getByline( author );
-		assert.true( /Homer/.test( byline ), 'Author found in bylines.' );
+		assert.strictEqual( byline, '<span class="mw-mmv-author">Homer</span>', 'Author found in bylines.' );
 
 		// Only source present
 		byline = formatter.getByline( undefined, source );
-		assert.true( /Iliad/.test( byline ), 'Source found in bylines.' );
+		assert.strictEqual( byline, '<span class="mw-mmv-source">Iliad</span>', 'Source found in bylines.' );
 	} );
 
 	QUnit.test( 'getSiteLink():', function ( assert ) {
@@ -219,6 +219,8 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 	} );
 
 	QUnit.test( 'getCreditText():', function ( assert ) {
+		const author = '<span class="mw-mmv-author">Homer</span>';
+		const source = '<span class="mw-mmv-source">Iliad</span>';
 		const formatter = new EmbedFileFormatter();
 
 		let txt = formatter.getCreditText( {
@@ -227,8 +229,8 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 			},
 
 			imageInfo: {
-				author: 'Author',
-				source: 'Source',
+				author,
+				source,
 				descriptionShortUrl: 'link',
 				title: {
 					getNameText: function () {
@@ -238,7 +240,7 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 			}
 		} );
 
-		assert.strictEqual( txt, '(multimediaviewer-text-embed-credit-text-b: (multimediaviewer-credit: Author, Source), link)', 'Sense check' );
+		assert.strictEqual( txt, '(multimediaviewer-text-embed-credit-text-b: (multimediaviewer-credit: Homer, Iliad), link)', 'Sense check' );
 
 		txt = formatter.getCreditText( {
 			repoInfo: {
@@ -246,8 +248,8 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 			},
 
 			imageInfo: {
-				author: 'Author',
-				source: 'Source',
+				author,
+				source,
 				descriptionShortUrl: 'link',
 				title: {
 					getNameText: function () {
@@ -264,10 +266,12 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 			}
 		} );
 
-		assert.strictEqual( txt, '(multimediaviewer-text-embed-credit-text-bl: (multimediaviewer-credit: Author, Source), WTFPL v2, link)', 'License message works' );
+		assert.strictEqual( txt, '(multimediaviewer-text-embed-credit-text-bl: (multimediaviewer-credit: Homer, Iliad), WTFPL v2, link)', 'License message works' );
 	} );
 
 	QUnit.test( 'getCreditHtml():', function ( assert ) {
+		const author = '<span class="mw-mmv-author">Homer</span>';
+		const source = '<span class="mw-mmv-source">Iliad</span>';
 		const formatter = new EmbedFileFormatter();
 
 		let html = formatter.getCreditHtml( {
@@ -279,8 +283,8 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 			},
 
 			imageInfo: {
-				author: 'Author',
-				source: 'Source',
+				author,
+				source,
 				descriptionShortUrl: 'some link',
 				title: {
 					getNameText: function () {
@@ -292,7 +296,7 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 
 		assert.strictEqual(
 			html,
-			'(multimediaviewer-html-embed-credit-text-b: (multimediaviewer-credit: Author, Source), <a href="some link">(multimediaviewer-html-embed-credit-link-text)</a>)',
+			'(multimediaviewer-html-embed-credit-text-b: (multimediaviewer-credit: <span class="mw-mmv-author">Homer</span>, <span class="mw-mmv-source">Iliad</span>), <a href="some link">(multimediaviewer-html-embed-credit-link-text)</a>)',
 			'Sense check'
 		);
 
@@ -305,8 +309,8 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 			},
 
 			imageInfo: {
-				author: 'Author',
-				source: 'Source',
+				author,
+				source,
 				descriptionShortUrl: 'some link',
 				title: {
 					getNameText: function () {
@@ -325,7 +329,7 @@ const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
 
 		assert.strictEqual(
 			html,
-			'(multimediaviewer-html-embed-credit-text-bl: (multimediaviewer-credit: Author, Source), <a href="http://www.wtfpl.net/">WTFPL v2</a>, <a href="some link">(multimediaviewer-html-embed-credit-link-text)</a>)',
+			'(multimediaviewer-html-embed-credit-text-bl: (multimediaviewer-credit: <span class="mw-mmv-author">Homer</span>, <span class="mw-mmv-source">Iliad</span>), <a href="http://www.wtfpl.net/">WTFPL v2</a>, <a href="some link">(multimediaviewer-html-embed-credit-link-text)</a>)',
 			'Sense check'
 		);
 	} );
