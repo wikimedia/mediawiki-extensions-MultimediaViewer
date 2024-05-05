@@ -266,10 +266,6 @@
 				"mmv.ui.reuse.shareembed/mmv.ui.reuse.share.js",
 				"mmv.ui.reuse.shareembed/mmv.ui.reuse.embed.js"
 			],
-			"styles": [
-				"mmv.ui.reuse.shareembed/mmv.ui.reuse.share.less",
-				"mmv.ui.reuse.shareembed/mmv.ui.reuse.embed.less"
-			],
 			"dependencies": [
 				"codex-styles",
 				"mediawiki.user",
