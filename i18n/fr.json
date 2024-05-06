@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"0x010C",
+			"Funkytoast",
 			"Gomoko",
 			"Jean-Frédéric",
 			"Ltrlg",
@@ -137,6 +138,7 @@
 	"multimediaviewer-credit-popup-text": "Informations sur l’auteur et la source",
 	"multimediaviewer-title-popup-text-more": "Afficher la description complète",
 	"multimediaviewer-credit-popup-text-more": "Afficher au complet l’auteur et la source",
+	"multimediaviewer-download-attribution": "Attriubution",
 	"multimediaviewer-download-attribution-cta-header": "Vous devez en mentionner l’auteur",
 	"multimediaviewer-download-optional-attribution-cta-header": "Vous pouvez en mentionner l’auteur",
 	"multimediaviewer-download-attribution-cta": "Me montrer comment faire",

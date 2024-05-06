@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Chqaz",
 			"Kkairri",
 			"MathXplore",
 			"Omotecho",
@@ -74,6 +75,7 @@
 	"multimediaviewer-reuse-loading-placeholder": "読み込み中…",
 	"multimediaviewer-share-tab": "共有",
 	"multimediaviewer-embed-tab": "埋め込み",
+	"multimediaviewer-download": "ダウンロード",
 	"multimediaviewer-download-link": "このファイルをダウンロード",
 	"multimediaviewer-download-preview-link-title": "ブラウザーで閲覧",
 	"multimediaviewer-download-original-button-name": "元のファイルをダウンロード",
