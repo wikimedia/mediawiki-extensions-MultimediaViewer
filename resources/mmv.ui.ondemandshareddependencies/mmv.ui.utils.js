@@ -60,9 +60,13 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 				.attr( 'title', title )
 				.append( $( '<span>' ).addClass( 'cdx-button__icon cdx-button__icon--copy' ).attr( 'aria-hidden', 'true' ) )
 				.append( mw.message( 'multimediaviewer-copy-button' ).text() )
-				// navigator.clipboard() is not supported in Safari 11.1, iOS Safari 11.3-11.4
-				// eslint-disable-next-line compat/compat
-				.on( 'click', () => navigator.clipboard && navigator.clipboard.writeText && navigator.clipboard.writeText( $input.val() ) );
+				.on( 'click', () => {
+					// navigator.clipboard() is not supported in Safari 11.1, iOS Safari 11.3-11.4
+					if ( navigator.clipboard && navigator.clipboard.writeText ) {
+						navigator.clipboard.writeText( $input.val() );
+						mw.notify( mw.msg( 'mw-widgets-copytextlayout-copy-success' ) );
+					}
+				} );
 			const $div = $( '<div>' )
 				.addClass( 'mw-mmv-flex mw-mmv-gap-50' )
 				.append(
