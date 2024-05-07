@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Abijeet Patro",
 			"Kunalgrover05",
 			"Saurmandal",
 			"Sfic",
@@ -61,6 +62,7 @@
 	"multimediaviewer-reuse-copy-embed": "इस चित्र को एम्बेड करने के लिए कोड को चुनकर इसकी प्रतिलिपि बनाएँ (अगर यह समर्थित हो)",
 	"multimediaviewer-share-tab": "बाँटें",
 	"multimediaviewer-embed-tab": "एम्बेड करें",
+	"multimediaviewer-download": "डाउनलोड",
 	"multimediaviewer-download-link": "इस चित्र को डाउनलोड करें",
 	"multimediaviewer-download-preview-link-title": "ब्राउज़र में देखें",
 	"multimediaviewer-download-original-button-name": "मूल चित्र को डाउनलोड करें",
