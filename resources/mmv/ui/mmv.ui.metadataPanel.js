@@ -718,7 +718,7 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 
 			this.$location.prop( 'href', (
 				'https://geohack.toolforge.org/geohack.php?pagename=' +
-				`File:${ imageData.title.getMain()
+				`${ imageData.title.getPrefixedText()
 				}&params=${
 					Math.abs( imageData.latitude ) }${ imageData.latitude >= 0 ? '_N_' : '_S_'
 				}${ Math.abs( imageData.longitude ) }${ imageData.longitude >= 0 ? '_E_' : '_W_'

@@ -59,7 +59,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 			const captionSection = caption ? `|${ caption }` : '';
 			const altSection = alt ? `|alt=${ alt }` : '';
 
-			return `[[File:${ title.getMainText() }${ widthSection }|thumb${ captionSection }${ altSection }]]`;
+			return `[[${ title.getPrefixedText() }${ widthSection }|thumb${ captionSection }${ altSection }]]`;
 		}
 
 		/**
