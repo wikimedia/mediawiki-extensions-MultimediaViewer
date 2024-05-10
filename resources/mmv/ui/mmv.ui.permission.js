@@ -35,9 +35,6 @@ const MetadataPanelScroller = require( './mmv.ui.metadataPanelScroller.js' );
 		constructor( $container, scroller ) {
 			super( $container );
 
-			/** @property {HtmlUtils} htmlUtils - */
-			this.htmlUtils = new HtmlUtils();
-
 			/**
 			 * Contains everything else.
 			 *
@@ -133,7 +130,7 @@ const MetadataPanelScroller = require( './mmv.ui.metadataPanelScroller.js' );
 		set( permission ) {
 			this.$box.removeClass( 'empty' );
 
-			this.$text.html( this.htmlUtils.htmlToTextWithLinks( permission ) );
+			this.$text.html( HtmlUtils.htmlToTextWithLinks( permission ) );
 			this.$text.append( this.$fader );
 
 			this.$html.html( permission );

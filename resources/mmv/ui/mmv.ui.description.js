@@ -26,9 +26,6 @@ const UiElement = require( './mmv.ui.js' );
 		constructor( $container ) {
 			super( $container );
 
-			/** @property {HtmlUtils} htmlUtils - */
-			this.htmlUtils = new HtmlUtils();
-
 			this.$imageDescDiv = $( '<div>' )
 				.addClass( 'mw-mmv-image-desc-div empty' )
 				.appendTo( this.$container );
@@ -47,7 +44,7 @@ const UiElement = require( './mmv.ui.js' );
 		 */
 		set( description, caption ) {
 			if ( caption && description ) { // panel header shows the caption - show description here
-				this.$imageDesc.html( this.htmlUtils.htmlToTextWithTags( description ) );
+				this.$imageDesc.html( HtmlUtils.htmlToTextWithTags( description ) );
 				this.$imageDescDiv.removeClass( 'empty' );
 			} else { // either there is no description or the paner header already shows it - nothing to do here
 				this.empty();

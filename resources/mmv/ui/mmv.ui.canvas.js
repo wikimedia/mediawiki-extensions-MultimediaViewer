@@ -348,7 +348,6 @@ const UiElement = require( './mmv.ui.js' );
 		showError( error ) {
 			const canvasDimensions = this.getDimensions();
 			const thumbnailDimensions = this.getCurrentImageWidths();
-			const htmlUtils = new HtmlUtils();
 
 			// ** is bolding in Phabricator
 			const description = `**${ mw.message( 'multimediaviewer-errorreport-privacywarning' ).text() }**
@@ -380,9 +379,9 @@ thumbnail size: CSS: ${ thumbnailDimensions.cssWidth }x${ thumbnailDimensions.cs
 					).append(
 						$( '<div>' ).addClass( 'mw-mmv-error-description' ).append(
 							mw.msg( 'multimediaviewer-thumbnail-error-description',
-								htmlUtils.jqueryToHtml( $retryLink ),
+								HtmlUtils.jqueryToHtml( $retryLink ),
 								error,
-								htmlUtils.jqueryToHtml( $reportLink )
+								HtmlUtils.jqueryToHtml( $reportLink )
 							)
 						)
 					)

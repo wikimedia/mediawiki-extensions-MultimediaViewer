@@ -24,11 +24,6 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 	 * Converts data in various formats needed by the Embed sub-dialog
 	 */
 	class EmbedFileFormatter {
-		constructor() {
-			/** @property {HtmlUtils} htmlUtils - */
-			this.htmlUtils = new HtmlUtils();
-		}
-
 		/**
 		 * Returns the caption of the image (possibly a fallback generated from image metadata).
 		 *
@@ -39,7 +34,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 		 */
 		getCaption( info ) {
 			if ( info.caption ) {
-				return this.htmlUtils.htmlToText( info.caption );
+				return HtmlUtils.htmlToText( info.caption );
 			} else {
 				return info.imageInfo.title.getNameText();
 			}
@@ -84,7 +79,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 		 * @return {string} Byline (can contain HTML)
 		 */
 		getByline( author, source, attribution, formatterFunction ) {
-			formatterFunction = formatterFunction || ( ( txt ) => this.htmlUtils.htmlToTextWithLinks( txt ) );
+			formatterFunction = formatterFunction || ( ( txt ) => HtmlUtils.htmlToTextWithLinks( txt ) );
 
 			if ( attribution ) {
 				attribution = attribution && formatterFunction( attribution );
@@ -119,7 +114,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 				info.imageInfo.author,
 				info.imageInfo.source,
 				info.imageInfo.attribution,
-				( txt ) => this.htmlUtils.htmlToText( txt )
+				( txt ) => HtmlUtils.htmlToText( txt )
 			);
 
 			// If both the byline and licence are missing, the credit text is simply the URL
@@ -142,7 +137,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 
 			if ( license ) {
 				creditParams[ 0 ] += 'l';
-				creditParams.push( this.htmlUtils.htmlToText( license.getShortName() ) );
+				creditParams.push( HtmlUtils.htmlToText( license.getShortName() ) );
 			}
 
 			creditParams.push( shortURL );
@@ -160,7 +155,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 		 */
 		getCreditHtml( info ) {
 			const shortURL = info.imageInfo.descriptionShortUrl;
-			const shortLink = this.htmlUtils.makeLinkText( mw.message( 'multimediaviewer-html-embed-credit-link-text' ), { href: shortURL } );
+			const shortLink = HtmlUtils.makeLinkText( mw.message( 'multimediaviewer-html-embed-credit-link-text' ), { href: shortURL } );
 			const license = info.imageInfo.license;
 			const byline = this.getByline( info.imageInfo.author, info.imageInfo.source, info.imageInfo.attribution );
 
@@ -203,7 +198,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 			const siteUrl = info.repoInfo.getSiteLink();
 
 			if ( siteUrl ) {
-				return this.htmlUtils.jqueryToHtml(
+				return HtmlUtils.jqueryToHtml(
 					$( '<a>' ).prop( 'href', siteUrl ).text( siteName )
 				);
 			} else {
@@ -222,7 +217,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 		 * @return {string} Embed code.
 		 */
 		getThumbnailHtml( info, imgUrl, width, height ) {
-			return this.htmlUtils.jqueryToHtml(
+			return HtmlUtils.jqueryToHtml(
 				$( '<p>' ).append(
 					$( '<a>' )
 						.attr( 'href', this.getLinkUrl( info ) )

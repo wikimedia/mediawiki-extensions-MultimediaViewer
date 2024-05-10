@@ -46,9 +46,6 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 			/** @property {Config} config - */
 			this.config = config;
 
-			/** @property {HtmlUtils} htmlUtils - */
-			this.htmlUtils = new HtmlUtils();
-
 			this.initializeHeader( localStorage );
 			this.initializeImageMetadata();
 			this.initializeAboutLinks();
@@ -485,7 +482,7 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 				.addClass( 'mw-mmv-author' );
 
 			if ( authorCount > 1 ) {
-				const moreText = this.htmlUtils.jqueryToHtml(
+				const moreText = HtmlUtils.jqueryToHtml(
 					$( '<a>' )
 						.addClass( 'mw-mmv-more-authors' )
 						.text( mw.message( 'multimediaviewer-multiple-authors', authorCount - 1 ).text() )

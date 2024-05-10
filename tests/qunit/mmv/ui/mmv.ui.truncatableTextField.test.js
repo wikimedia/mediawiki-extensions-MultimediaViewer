@@ -29,12 +29,10 @@ const { TruncatableTextField } = require( 'mmv' );
 	 * @param {Object} sandbox sinon instance
 	 * @return {TruncatableTextField}
 	 */
-	function getField( width, height, $qf, sandbox ) {
+	function getField( width, height, $qf ) {
 		const $container = $( '<div>' ).appendTo( $qf );
 		const $element = $( '<span>' );
 		const ttf = new TruncatableTextField( $container, $element, {} );
-
-		ttf.htmlUtils.htmlToTextWithLinks = sandbox.stub().returnsArg( 0 );
 
 		$container.css( {
 			fontFamily: 'monospace',
@@ -57,7 +55,7 @@ const { TruncatableTextField } = require( 'mmv' );
 
 	QUnit.test( 'Set method', function ( assert ) {
 		const $qf = $( '#qunit-fixture' );
-		const ttf = getField( 3, 2, $qf, this.sandbox );
+		const ttf = getField( 3, 2, $qf );
 
 		ttf.shrink = this.sandbox.stub();
 		ttf.set( 'abc' );

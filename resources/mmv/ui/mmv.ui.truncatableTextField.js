@@ -73,9 +73,6 @@ const UiElement = require( './mmv.ui.js' );
 			/** @property {string} truncatedTitle title attribute to show when the text is not truncated */
 			this.truncatedTitle = null;
 
-			/** @property {HtmlUtils} htmlUtils Our HTML utility instance. */
-			this.htmlUtils = new HtmlUtils();
-
 			this.init();
 		}
 
@@ -109,7 +106,7 @@ const UiElement = require( './mmv.ui.js' );
 		 * @param {string} value Warning - unsafe HTML is allowed here.
 		 */
 		set( value ) {
-			this.$element.empty().append( this.htmlUtils.htmlToTextWithTags( value ) );
+			this.$element.empty().append( HtmlUtils.htmlToTextWithTags( value ) );
 			this.changeStyle();
 			this.$container.toggleClass( 'empty', !value );
 			this.$ellipsis.hide();

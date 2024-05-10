@@ -15,19 +15,12 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { HtmlUtils } = require( 'mmv.bootstrap' );
-
 ( function () {
 
 	/**
 	 * A helper class for reuse logic.
 	 */
 	class Utils {
-		constructor() {
-			/** @property {HtmlUtils} htmlUtils - */
-			this.htmlUtils = new HtmlUtils();
-		}
-
 		/**
 		 * Creates header from given options.
 		 *
