@@ -52,7 +52,6 @@ const {
 	TruncatableTextField,
 	OptionsDialog
 } = require( './ui/index.js' );
-const LightboxImage = require( './mmv.lightboximage.js' );
 const LightboxInterface = require( './mmv.lightboxinterface.js' );
 const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 
@@ -180,51 +179,10 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 * Initialize the lightbox interface given an array of thumbnail
 		 * objects.
 		 *
-		 * @param {Object[]} thumbs Complex structure...TODO, document this better.
+		 * @param {LightboxImage[]} thumbs
 		 */
 		initWithThumbs( thumbs ) {
 			this.thumbs = thumbs;
-
-			for ( let i = 0; i < this.thumbs.length; i++ ) {
-				const thumb = this.thumbs[ i ];
-				// Create a LightboxImage object for each legit image
-				thumb.image = this.createNewImage(
-					thumb.$thumb.prop( 'src' ),
-					thumb.link,
-					thumb.title,
-					i,
-					thumb.thumb,
-					thumb.caption,
-					thumb.alt
-				);
-			}
-		}
-
-		/**
-		 * Create an image object for the lightbox to use.
-		 *
-		 * @protected
-		 * @param {string} fileLink Link to the file - generally a thumb URL
-		 * @param {string} filePageLink Link to the File: page
-		 * @param {mw.Title} fileTitle Represents the File: page
-		 * @param {number} index Which number file this is
-		 * @param {HTMLImageElement} thumb The thumbnail that represents this image on the page
-		 * @param {string} [caption] The caption, if any.
-		 * @param {string} [alt] The alt text of the image
-		 * @return {LightboxImage}
-		 */
-		createNewImage( fileLink, filePageLink, fileTitle, index, thumb, caption, alt ) {
-			const thisImage = new LightboxImage( fileLink, filePageLink, fileTitle, index, thumb, caption, alt );
-			const $thumb = $( thumb );
-
-			thisImage.filePageLink = filePageLink;
-			thisImage.filePageTitle = fileTitle;
-			thisImage.index = index;
-			thisImage.thumbnail = thumb;
-			thisImage.originalWidth = parseInt( $thumb.data( 'file-width' ), 10 );
-			thisImage.originalHeight = parseInt( $thumb.data( 'file-height' ), 10 );
-
-			return thisImage;
 		}
 
 		/**
@@ -234,7 +192,7 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 * @param {LightboxInterface} ui lightbox that got resized
 		 */
 		resize( ui ) {
-			const image = this.thumbs[ this.currentIndex ].image;
+			const image = this.thumbs[ this.currentIndex ];
 			const ext = this.thumbs[ this.currentIndex ].title.getExtension().toLowerCase();
 
 			this.preloadThumbnails();
@@ -284,10 +242,9 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 * Loads a specified image.
 		 *
 		 * @param {LightboxImage} image
-		 * @param {HTMLImageElement} initialImage A thumbnail to use as placeholder while the image loadsx
 		 */
-		loadImage( image, initialImage ) {
-			const $initialImage = $( initialImage );
+		loadImage( image ) {
+			const $initialImage = $( image.thumbnail ).clone();
 
 			const pluginsPromise = this.loadExtensionPlugins( image.filePageTitle.getExtension().toLowerCase() );
 
@@ -401,20 +358,24 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 * Loads an image by its title
 		 *
 		 * @param {mw.Title} title
+		 * @param {number} [position]
 		 */
-		loadImageByTitle( title ) {
+		loadImageByTitle( title, position ) {
 			if ( !this.thumbs || !this.thumbs.length ) {
 				return;
 			}
 
-			const thumb = this.thumbs.find( ( t ) => t.title.getPrefixedText() === title.getPrefixedText() );
+			const thumb = this.thumbs.find( ( t ) =>
+				t.filePageTitle.getPrefixedText() === title.getPrefixedText() &&
+				( !position || t.position === position )
+			);
 
 			if ( !thumb ) {
 				this.onTitleNotFound( title );
 				return;
 			}
 
-			this.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ] );
+			this.loadImage( thumb );
 		}
 
 		/**
@@ -587,13 +548,13 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 				if ( this.currentIndex + i < this.thumbs.length ) {
 					callback(
 						this.currentIndex + i,
-						this.thumbs[ this.currentIndex + i ].image
+						this.thumbs[ this.currentIndex + i ]
 					);
 				}
 				if ( i && this.currentIndex - i >= 0 ) { // skip duplicate for i==0
 					callback(
 						this.currentIndex - i,
-						this.thumbs[ this.currentIndex - i ].image
+						this.thumbs[ this.currentIndex - i ]
 					);
 				}
 			}
@@ -783,9 +744,9 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 				this.viewLogger.recordViewDuration();
 
 				const thumb = this.thumbs[ index ];
-				this.loadImage( thumb.image, thumb.$thumb.clone()[ 0 ] );
+				this.loadImage( thumb );
 				router.navigateTo( null, {
-					path: getMediaHash( thumb.title ),
+					path: getMediaHash( thumb.filePageTitle, thumb.position ),
 					useReplaceState: true
 				} );
 			}
@@ -1038,7 +999,6 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		ImageProvider,
 		IwTitle,
 		License,
-		LightboxImage,
 		LightboxInterface,
 		MetadataPanel,
 		MetadataPanelScroller,

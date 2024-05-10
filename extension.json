@@ -52,7 +52,6 @@
 				"mmv/model/mmv.model.Thumbnail.js",
 				"mmv/model/mmv.model.TaskQueue.js",
 				"mmv/model/mmv.model.ThumbnailWidth.js",
-				"mmv/mmv.lightboximage.js",
 				"mmv/provider/mmv.provider.js",
 				"mmv/provider/mmv.provider.Api.js",
 				"mmv/provider/mmv.provider.ImageInfo.js",
@@ -312,6 +311,7 @@
 		"mmv.bootstrap": {
 			"packageFiles": [
 				"mmv.bootstrap/mmv.bootstrap.js",
+				"mmv.bootstrap/mmv.lightboximage.js",
 				"mmv.bootstrap/mmv.Config.js",
 				"mmv.bootstrap/mmv.HtmlUtils.js"
 			],

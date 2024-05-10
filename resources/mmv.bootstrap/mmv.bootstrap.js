@@ -15,9 +15,10 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { getMediaHash, ROUTE_REGEXP, LEGACY_ROUTE_REGEXP, isMediaViewerEnabledOnClick } = require( 'mmv.head' );
+const { getMediaHash, ROUTE_REGEXP, POSITION_REGEXP, LEGACY_ROUTE_REGEXP, isMediaViewerEnabledOnClick } = require( 'mmv.head' );
 const Config = require( './mmv.Config.js' );
 const HtmlUtils = require( './mmv.HtmlUtils.js' );
+const LightboxImage = require( './mmv.lightboximage.js' );
 
 ( function () {
 	const mwRouter = require( 'mediawiki.router' );
@@ -56,6 +57,9 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 			this.viewerIsBroken = false;
 
 			this.thumbsReadyDeferred = $.Deferred();
+			/**
+			 * @property {LightboxImage[]}
+			 */
 			this.thumbs = [];
 			this.$thumbs = null; // will be set by processThumbs
 			this.$parsoidThumbs = null; // will be set in processThumbs
@@ -79,9 +83,16 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 				let fileTitle;
 				viewer.comingFromHashChange = true;
 				try {
+					let position = fileName.match( POSITION_REGEXP );
+					if ( position ) {
+						position = +position[ 1 ];
+						fileName = fileName.replace( POSITION_REGEXP, '' );
+					} else {
+						position = undefined;
+					}
 					fileName = decodeURIComponent( fileName );
 					fileTitle = new mw.Title( fileName );
-					viewer.loadImageByTitle( fileTitle );
+					viewer.loadImageByTitle( fileTitle, position );
 				} catch ( err ) {
 					// ignore routes to invalid titles
 					mw.log.warn( err );
@@ -273,7 +284,6 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 			const $thumbContainer = $link.closest( '.thumb' );
 			const $enlarge = $thumbContainer.find( '.magnify a' );
 			const link = $link.prop( 'href' );
-			const alt = $thumb.attr( 'alt' );
 			const isFilePageMainThumb = $thumb.closest( '#file' ).length > 0;
 
 			if ( isFilePageMainThumb ) {
@@ -306,16 +316,18 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 			}
 
 			// This is the data that will be passed onto the mmv
-			this.thumbs.push( {
-				thumb: thumb,
-				$thumb: $thumb,
-				title: title,
-				link: link,
-				alt: alt,
-				caption: this.findCaption( $thumbContainer, $link )
-			} );
+			const image = new LightboxImage(
+				$thumb.prop( 'src' ),
+				link,
+				title,
+				this.thumbs.length,
+				this.thumbs.filter( ( t ) => t.filePageTitle.getPrefixedText() === title.getPrefixedText() ).length + 1,
+				$thumb[ 0 ],
+				this.findCaption( $thumbContainer, $link )
+			);
+			this.thumbs.push( image );
 
-			$link.add( $enlarge ).on( 'click', ( e ) => this.click( e, title ) );
+			$link.add( $enlarge ).on( 'click', ( e ) => this.click( e, image ) );
 		}
 
 		/**
@@ -334,7 +346,6 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 				'[typeof*="mw:Image"]'
 			);
 			const link = $link.prop( 'href' );
-			const alt = $thumb.attr( 'alt' );
 			const title = mw.Title.newFromImg( $thumb );
 			let caption;
 			let $thumbCaption;
@@ -361,16 +372,18 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 			}
 
 			// This is the data that will be passed onto the mmv
-			this.thumbs.push( {
-				thumb: thumb,
-				$thumb: $thumb,
-				title: title,
-				link: link,
-				alt: alt,
-				caption: caption
-			} );
+			const image = new LightboxImage(
+				$thumb.prop( 'src' ),
+				link,
+				title,
+				this.thumbs.length,
+				this.thumbs.filter( ( t ) => t.filePageTitle.getPrefixedText() === title.getPrefixedText() ).length + 1,
+				$thumb[ 0 ],
+				caption
+			);
+			this.thumbs.push( image );
 
-			$link.on( 'click', ( e ) => this.click( e, title ) );
+			$link.on( 'click', ( e ) => this.click( e, image ) );
 		}
 
 		/**
@@ -412,18 +425,22 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 					.css( 'clear', 'both' )
 			);
 
-			this.thumbs.push( {
-				thumb: $thumb.get( 0 ),
-				$thumb: $thumb,
-				title: title,
-				link: link
-			} );
+			const image = new LightboxImage(
+				$thumb.prop( 'src' ),
+				link,
+				title,
+				this.thumbs.length,
+				1,
+				$thumb[ 0 ],
+				''
+			);
+			this.thumbs.push( image );
 
 			$mmvButton.on( 'click', () => {
 				if ( this.statusInfoDialog ) {
 					this.statusInfoDialog.close();
 				}
-				this.openImage( title );
+				this.openImage( image );
 				return false;
 			} );
 
@@ -434,7 +451,7 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 				$( document ).one( 'mmv-metadata', () => {
 					$( document ).trigger( 'mmv-options-open' );
 				} );
-				this.openImage( title );
+				this.openImage( image );
 				return false;
 			} );
 
@@ -527,11 +544,11 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 		/**
 		 * Opens MediaViewer and loads the given thumbnail. Requires processThumb() to be called first.
 		 *
-		 * @param {mw.Title} title File title
+		 * @param {LightboxImage} image Image
 		 */
-		openImage( title ) {
+		openImage( image ) {
 			this.ensureEventHandlersAreSetUp();
-			const hash = getMediaHash( title );
+			const hash = getMediaHash( image.filePageTitle, image.position );
 			location.hash = hash;
 			history.replaceState( MANAGED_STATE, null, hash );
 		}
@@ -540,11 +557,11 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 		 * Handles a click event on a link
 		 *
 		 * @param {jQuery.Event} e jQuery event object
-		 * @param {mw.Title} title File title
+		 * @param {LightboxImage} image Image
 		 * @return {boolean} a value suitable for an event handler (ie. true if the click should be handled
 		 *  by the browser).
 		 */
-		click( e, title ) {
+		click( e, image ) {
 			// Do not interfere with non-left clicks or if modifier keys are pressed.
 			if ( ( e.button !== 0 && e.which !== 1 ) || e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) {
 				return true;
@@ -561,7 +578,7 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 			}
 
 			// Mark the state so that if the page is refreshed, we don't generate an extra history entry
-			this.openImage( title );
+			this.openImage( image );
 
 			// calling this late so that in case of errors users at least get to the file page
 			e.preventDefault();
@@ -701,5 +718,5 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 		}
 	}
 
-	module.exports = { MultimediaViewerBootstrap, Config, HtmlUtils };
+	module.exports = { MultimediaViewerBootstrap, LightboxImage, Config, HtmlUtils };
 }() );
