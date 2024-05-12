@@ -216,7 +216,8 @@
 			],
 			"dependencies": [
 				"mmv.head",
-				"mmv"
+				"mmv",
+				"mediawiki.notification"
 			],
 			"messages": [
 				"multimediaviewer-copy-button",
@@ -235,7 +236,8 @@
 				"multimediaviewer-html-embed-credit-text-bl",
 				"multimediaviewer-html-embed-credit-text-b",
 				"multimediaviewer-html-embed-credit-text-l",
-				"multimediaviewer-html-embed-credit-link-text"
+				"multimediaviewer-html-embed-credit-link-text",
+				"mw-widgets-copytextlayout-copy-success"
 			]
 		},
 		"mmv.codex": {
