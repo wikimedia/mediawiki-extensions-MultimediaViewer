@@ -48,9 +48,6 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 
 			this.validExtensions = this.config.extensions();
 
-			/** @property {HtmlUtils} htmlUtils - */
-			this.htmlUtils = new HtmlUtils();
-
 			/**
 			 * This flag is set to true when we were unable to load the viewer.
 			 *
@@ -358,7 +355,7 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 
 			if ( ( $thumbContainer.prop( 'tagName' ) || '' ).toLowerCase() === 'figure' ) {
 				$thumbCaption = $thumbContainer.find( 'figcaption' );
-				caption = this.htmlUtils.htmlToTextWithTags( $thumbCaption.html() || '' );
+				caption = HtmlUtils.htmlToTextWithTags( $thumbCaption.html() || '' );
 			} else {
 				caption = $link.prop( 'title' ) || undefined;
 			}
@@ -524,7 +521,7 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 				$thumbCaption.find( '.magnify' ).remove();
 			}
 
-			return this.htmlUtils.htmlToTextWithTags( $thumbCaption.html() || '' );
+			return HtmlUtils.htmlToTextWithTags( $thumbCaption.html() || '' );
 		}
 
 		/**

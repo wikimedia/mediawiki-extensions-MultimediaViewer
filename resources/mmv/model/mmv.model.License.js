@@ -61,9 +61,6 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 
 			/** @property {boolean} nonFree is this a non-free license? */
 			this.nonFree = nonFree;
-
-			/** @property {HtmlUtils} htmlUtils - */
-			this.htmlUtils = new HtmlUtils();
 		}
 
 		/**
@@ -149,7 +146,7 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 			const shortName = this.getShortName();
 
 			if ( this.deedUrl ) {
-				return this.htmlUtils.makeLinkText( shortName, {
+				return HtmlUtils.makeLinkText( shortName, {
 					href: this.deedUrl,
 					title: this.longName || shortName
 				} );

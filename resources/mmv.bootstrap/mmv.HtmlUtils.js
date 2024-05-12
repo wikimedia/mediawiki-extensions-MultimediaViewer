@@ -35,8 +35,6 @@
 	 * Helper class that does various HTML-to-text transformations
 	 */
 	class HtmlUtils {
-		constructor() { }
-
 		/**
 		 * Returns a jQuery node which contains the given HTML (wrapped into a `<div>` - this is
 		 * necessary since an arbitrary HTML string might not have a jQuery representation).
@@ -44,8 +42,8 @@
 		 * @param {string|HTMLElement|jQuery} html
 		 * @return {jQuery}
 		 */
-		wrapAndJquerify( html ) {
-			if ( this.isJQueryOrHTMLElement( html ) ) {
+		static wrapAndJquerify( html ) {
+			if ( HtmlUtils.isJQueryOrHTMLElement( html ) ) {
 				return $( '<div>' ).append( $( html ).clone() );
 			} else if ( typeof html === 'string' ) {
 				return $( '<div>' ).html( html );
@@ -61,7 +59,7 @@
 		 * @param {string|HTMLElement|jQuery} html
 		 * @return {boolean}
 		 */
-		isJQueryOrHTMLElement( html ) {
+		static isJQueryOrHTMLElement( html ) {
 			if ( html instanceof $ ) {
 				return true;
 			}
@@ -83,7 +81,7 @@
 		 *
 		 * @param {jQuery} $jq
 		 */
-		filterInvisible( $jq ) {
+		static filterInvisible( $jq ) {
 			// We are not using :visible because
 			// 1) it would require appending $jq to the document which makes things complicated;
 			// 2) the main difference is that it looks for CSS rules hiding the element;
@@ -110,7 +108,7 @@
 		 * @param {jQuery} $el
 		 * @param {string} whitelist a jQuery selector string such as 'a, span, br'
 		 */
-		whitelistHtml( $el, whitelist ) {
+		static whitelistHtml( $el, whitelist ) {
 			let $prev;
 			let $child = $el.children().first();
 
@@ -121,7 +119,7 @@
 					return;
 				}
 
-				this.whitelistHtml( $child, whitelist );
+				HtmlUtils.whitelistHtml( $child, whitelist );
 
 				if ( !$child.is( whitelist ) ) {
 					$prev = $child.prev();
@@ -145,7 +143,7 @@
 		 *
 		 * @param {jQuery} $el
 		 */
-		appendWhitespaceToBlockElements( $el ) {
+		static appendWhitespaceToBlockElements( $el ) {
 			// the list of what elements to add whitespace to is somewhat ad-hoc (not all of these
 			// are technically block-level elements, and a lot of block-level elements are missing)
 			// but will hopefully cover the common cases where text is fused together.
@@ -168,7 +166,7 @@
 		 * @param {jQuery} $el
 		 * @return {string}
 		 */
-		jqueryToHtml( $el ) {
+		static jqueryToHtml( $el ) {
 			// There are two possible implementations for this:
 			// 1) load into a wrapper element and get its innerHTML;
 			// 2) use outerHTML.
@@ -187,7 +185,7 @@
 		 * @param {string} html a HTML (or plaintext) string
 		 * @return {string}
 		 */
-		mergeWhitespace( html ) {
+		static mergeWhitespace( html ) {
 			html = html.replace( /^\s+|\s+$/g, '' );
 			html = html.replace( /\s*\n\s*/g, '\n' );
 			html = html.replace( / {2,}/g, ' ' );
@@ -201,12 +199,12 @@
 		 * @param {string} html
 		 * @return {string}
 		 */
-		htmlToText( html ) {
+		static htmlToText( html ) {
 			if ( !cache.text[ html ] ) {
-				const $html = this.wrapAndJquerify( html );
-				this.filterInvisible( $html );
-				this.appendWhitespaceToBlockElements( $html );
-				cache.text[ html ] = this.mergeWhitespace( $html.text() );
+				const $html = HtmlUtils.wrapAndJquerify( html );
+				HtmlUtils.filterInvisible( $html );
+				HtmlUtils.appendWhitespaceToBlockElements( $html );
+				cache.text[ html ] = HtmlUtils.mergeWhitespace( $html.text() );
 			}
 			return cache.text[ html ];
 		}
@@ -218,13 +216,13 @@
 		 * @param {string} html
 		 * @return {string}
 		 */
-		htmlToTextWithTags( html ) {
+		static htmlToTextWithTags( html ) {
 			if ( !cache.textWithTags[ html ] ) {
-				const $html = this.wrapAndJquerify( html );
-				this.filterInvisible( $html );
-				this.appendWhitespaceToBlockElements( $html );
-				this.whitelistHtml( $html, 'a, span, i, b, sup, sub' );
-				cache.textWithTags[ html ] = this.mergeWhitespace( $html.html() );
+				const $html = HtmlUtils.wrapAndJquerify( html );
+				HtmlUtils.filterInvisible( $html );
+				HtmlUtils.appendWhitespaceToBlockElements( $html );
+				HtmlUtils.whitelistHtml( $html, 'a, span, i, b, sup, sub' );
+				cache.textWithTags[ html ] = HtmlUtils.mergeWhitespace( $html.html() );
 			}
 			return cache.textWithTags[ html ];
 		}
@@ -236,13 +234,13 @@
 		 * @param {string} html
 		 * @return {string}
 		 */
-		htmlToTextWithLinks( html ) {
+		static htmlToTextWithLinks( html ) {
 			if ( !cache.textWithLinks[ html ] ) {
-				const $html = this.wrapAndJquerify( html );
-				this.filterInvisible( $html );
-				this.appendWhitespaceToBlockElements( $html );
-				this.whitelistHtml( $html, 'a, span' );
-				cache.textWithLinks[ html ] = this.mergeWhitespace( $html.html() );
+				const $html = HtmlUtils.wrapAndJquerify( html );
+				HtmlUtils.filterInvisible( $html );
+				HtmlUtils.appendWhitespaceToBlockElements( $html );
+				HtmlUtils.whitelistHtml( $html, 'a, span' );
+				cache.textWithLinks[ html ] = HtmlUtils.mergeWhitespace( $html.html() );
 			}
 			return cache.textWithLinks[ html ];
 		}
@@ -254,14 +252,14 @@
 		 * @param {Object} props Link attributes (should at a minimum include href; will be sanitized)
 		 * @return {string}
 		 */
-		makeLinkText( text, props ) {
+		static makeLinkText( text, props ) {
 			for ( const key in props ) {
 				if ( !Object.prototype.hasOwnProperty.call( props, key ) ) {
 					continue;
 				}
-				props[ key ] = this.htmlToText( props[ key ] );
+				props[ key ] = HtmlUtils.htmlToText( props[ key ] );
 			}
-			return this.jqueryToHtml( $( '<a>' ).prop( props ).text( text ) );
+			return HtmlUtils.jqueryToHtml( $( '<a>' ).prop( props ).text( text ) );
 		}
 	}
 
