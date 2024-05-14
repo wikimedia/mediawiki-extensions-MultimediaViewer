@@ -1,0 +1,36 @@
+{
+	"modules": [
+		{
+			"resourceModule": "mmv",
+			"maxSize": "40.0 kB"
+		},
+		{
+			"resourceModule": "mmv.ui.ondemandshareddependencies",
+			"maxSize": "2.3 kB"
+		},
+		{
+			"resourceModule": "mmv.codex",
+			"maxSize": "5.6 kB"
+		},
+		{
+			"resourceModule": "mmv.ui.download.pane",
+			"maxSize": "1.8 kB"
+		},
+		{
+			"resourceModule": "mmv.ui.reuse.shareembed",
+			"maxSize": "2.8 kB"
+		},
+		{
+			"resourceModule": "mmv.bootstrap",
+			"maxSize": "5.6 kB"
+		},
+		{
+			"resourceModule": "mmv.bootstrap.autostart",
+			"maxSize": "1 kB"
+		},
+		{
+			"resourceModule": "mmv.head",
+			"maxSize": "1 kB"
+		}
+	]
+}
