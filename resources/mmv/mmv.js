@@ -197,8 +197,6 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 					thumb.caption,
 					thumb.alt
 				);
-
-				thumb.extraStatsDeferred = $.Deferred();
 			}
 		}
 
@@ -290,7 +288,6 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 */
 		loadImage( image, initialImage ) {
 			const $initialImage = $( initialImage );
-			const extraStatsDeferred = $.Deferred();
 
 			const pluginsPromise = this.loadExtensionPlugins( image.filePageTitle.getExtension().toLowerCase() );
 
@@ -327,7 +324,7 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 
 			const start = Date.now();
 
-			const imagePromise = this.fetchThumbnailForLightboxImage( image, imageWidths.real, extraStatsDeferred );
+			const imagePromise = this.fetchThumbnailForLightboxImage( image, imageWidths.real );
 
 			this.resetBlurredThumbnailStates();
 			if ( imagePromise.state() === 'pending' ) {
@@ -367,8 +364,6 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 			metadataPromise.then(
 				// done
 				( imageInfo, repoInfo ) => {
-					extraStatsDeferred.resolve( { uploadTimestamp: imageInfo.anonymizedUploadDateTime } );
-
 					if ( this.currentIndex !== image.index ) {
 						return;
 					}
@@ -382,8 +377,6 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 				},
 				// fail
 				( error ) => {
-					extraStatsDeferred.reject();
-
 					if ( this.currentIndex === image.index ) {
 						// Set title to caption or file name if caption is not available;
 						// see setTitle() in mmv.ui.metadataPanel for extended caption fallback
@@ -594,15 +587,13 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 				if ( this.currentIndex + i < this.thumbs.length ) {
 					callback(
 						this.currentIndex + i,
-						this.thumbs[ this.currentIndex + i ].image,
-						this.thumbs[ this.currentIndex + i ].extraStatsDeferred
+						this.thumbs[ this.currentIndex + i ].image
 					);
 				}
 				if ( i && this.currentIndex - i >= 0 ) { // skip duplicate for i==0
 					callback(
 						this.currentIndex - i,
-						this.thumbs[ this.currentIndex - i ].image,
-						this.thumbs[ this.currentIndex - i ].extraStatsDeferred
+						this.thumbs[ this.currentIndex - i ].image
 					);
 				}
 			}
@@ -619,8 +610,8 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		pushLightboxImagesIntoQueue( taskFactory ) {
 			const queue = new TaskQueue();
 
-			this.eachPreloadableLightboxIndex( ( i, lightboxImage, extraStatsDeferred ) => {
-				queue.push( taskFactory( lightboxImage, extraStatsDeferred ) );
+			this.eachPreloadableLightboxIndex( ( i, lightboxImage ) => {
+				queue.push( taskFactory( lightboxImage ) );
 			} );
 
 			return queue;
@@ -652,16 +643,8 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		preloadImagesMetadata() {
 			this.cancelImageMetadataPreloading();
 
-			this.metadataPreloadQueue = this.pushLightboxImagesIntoQueue( ( lightboxImage, extraStatsDeferred ) => {
-				return () => {
-					const metadataPromise = this.fetchSizeIndependentLightboxInfo( lightboxImage.filePageTitle );
-					metadataPromise.done( ( imageInfo ) => {
-						extraStatsDeferred.resolve( { uploadTimestamp: imageInfo.anonymizedUploadDateTime } );
-					} ).fail( () => {
-						extraStatsDeferred.reject();
-					} );
-					return metadataPromise;
-				};
+			this.metadataPreloadQueue = this.pushLightboxImagesIntoQueue( ( lightboxImage ) => {
+				return () => this.fetchSizeIndependentLightboxInfo( lightboxImage.filePageTitle );
 			} );
 
 			this.metadataPreloadQueue.execute();
@@ -675,7 +658,7 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		preloadThumbnails() {
 			this.cancelThumbnailsPreloading();
 
-			this.thumbnailPreloadQueue = this.pushLightboxImagesIntoQueue( ( lightboxImage, extraStatsDeferred ) => {
+			this.thumbnailPreloadQueue = this.pushLightboxImagesIntoQueue( ( lightboxImage ) => {
 				return () => {
 					// viewer.ui.canvas.getLightboxImageWidths needs the viewer to be open
 					// because it needs to read the size of visible elements
@@ -685,7 +668,7 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 
 					const imageWidths = this.ui.canvas.getLightboxImageWidths( lightboxImage );
 
-					return this.fetchThumbnailForLightboxImage( lightboxImage, imageWidths.real, extraStatsDeferred );
+					return this.fetchThumbnailForLightboxImage( lightboxImage, imageWidths.real );
 				};
 			} );
 
@@ -726,17 +709,15 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 *
 		 * @param {LightboxImage} image
 		 * @param {number} width the width of the requested thumbnail
-		 * @param {jQuery.Deferred.<string>} [extraStatsDeferred] Promise that resolves to the image's upload timestamp when the metadata is loaded
 		 * @return {jQuery.Promise.<Thumbnail, HTMLImageElement>}
 		 */
-		fetchThumbnailForLightboxImage( image, width, extraStatsDeferred ) {
+		fetchThumbnailForLightboxImage( image, width ) {
 			return this.fetchThumbnail(
 				image.filePageTitle,
 				width,
 				image.src,
 				image.originalWidth,
-				image.originalHeight,
-				extraStatsDeferred
+				image.originalHeight
 			);
 		}
 
@@ -748,12 +729,11 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 		 * @param {string} [sampleUrl] a thumbnail URL for the same file (but with different size) (might be missing)
 		 * @param {number} [originalWidth] the width of the original, full-sized file (might be missing)
 		 * @param {number} [originalHeight] the height of the original, full-sized file (might be missing)
-		 * @param {jQuery.Deferred.<string>} [extraStatsDeferred] Promise that resolves to the image's upload timestamp when the metadata is loaded
 		 * @return {jQuery.Promise.<Thumbnail, HTMLImageElement>} A promise resolving to
 		 *  a thumbnail model and an <img> element. It might or might not have progress events which
 		 *  return a single number.
 		 */
-		fetchThumbnail( fileTitle, width, sampleUrl, originalWidth, originalHeight, extraStatsDeferred ) {
+		fetchThumbnail( fileTitle, width, sampleUrl, originalWidth, originalHeight ) {
 			let guessing = false;
 			const combinedDeferred = $.Deferred();
 			let thumbnailPromise;
@@ -773,13 +753,7 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 				thumbnailPromise = this.thumbnailInfoProvider.get( fileTitle, width );
 			}
 
-			// Add thumbnail width to the extra stats passed to the performance log
-			extraStatsDeferred = $.when( extraStatsDeferred || {} ).then( ( extraStats ) => {
-				extraStats.imageWidth = width;
-				return extraStats;
-			} );
-
-			imagePromise = thumbnailPromise.then( ( thumbnail ) => this.imageProvider.get( thumbnail.url, extraStatsDeferred ) );
+			imagePromise = thumbnailPromise.then( ( thumbnail ) => this.imageProvider.get( thumbnail.url ) );
 
 			if ( guessing ) {
 				// If we guessed wrong, need to retry with real URL on failure.
@@ -787,7 +761,7 @@ const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 				// because thumbnailInfoProvider.get is already called above when guessedThumbnailInfoProvider.get fails.
 				imagePromise = imagePromise
 					.then( null, () => this.thumbnailInfoProvider.get( fileTitle, width )
-						.then( ( thumbnail ) => this.imageProvider.get( thumbnail.url, extraStatsDeferred ) ) );
+						.then( ( thumbnail ) => this.imageProvider.get( thumbnail.url ) ) );
 			}
 
 			// In jQuery<3, $.when used to also relay notify, but that is no longer

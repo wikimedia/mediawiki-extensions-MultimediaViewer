@@ -42,8 +42,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		const imageDeferred = $.Deferred();
 		const viewer = getMultimediaViewer();
 		const fakeImage = {
-			filePageTitle: new mw.Title( 'File:Stuff.jpg' ),
-			extraStatsDeferred: $.Deferred().reject()
+			filePageTitle: new mw.Title( 'File:Stuff.jpg' )
 		};
 		// custom clock ensures progress handlers execute in correct sequence
 		const clock = this.sandbox.useFakeTimers();
@@ -113,13 +112,11 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		const secondImageDeferred = $.Deferred();
 		const firstImage = {
 			index: 1,
-			filePageTitle: new mw.Title( 'File:First.jpg' ),
-			extraStatsDeferred: $.Deferred().reject()
+			filePageTitle: new mw.Title( 'File:First.jpg' )
 		};
 		const secondImage = {
 			index: 2,
-			filePageTitle: new mw.Title( 'File:Second.jpg' ),
-			extraStatsDeferred: $.Deferred().reject()
+			filePageTitle: new mw.Title( 'File:Second.jpg' )
 		};
 		const viewer = getMultimediaViewer();
 		// custom clock ensures progress handlers execute in correct sequence
@@ -348,13 +345,11 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		const secondLigthboxInfoDeferred = $.Deferred();
 		const firstImage = {
 			filePageTitle: new mw.Title( 'File:Foo.jpg' ),
-			index: 0,
-			extraStatsDeferred: $.Deferred().reject()
+			index: 0
 		};
 		const secondImage = {
 			filePageTitle: new mw.Title( 'File:Bar.jpg' ),
-			index: 1,
-			extraStatsDeferred: $.Deferred().reject()
+			index: 1
 		};
 		// custom clock ensures progress handlers execute in correct sequence
 		const clock = this.sandbox.useFakeTimers();
@@ -457,8 +452,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.loadImage(
 			{
 				filePageTitle: new mw.Title( 'File:Stuff.jpg' ),
-				thumbnail: new Thumbnail( 'foo', 10, 10 ),
-				extraStatsDeferred: $.Deferred().reject()
+				thumbnail: new Thumbnail( 'foo', 10, 10 )
 			},
 			new Image()
 		);
