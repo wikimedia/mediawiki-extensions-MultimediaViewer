@@ -136,7 +136,7 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 			[ 'plain', 'html' ].forEach( ( name ) => $( '<button>' )
 				.addClass( 'cdx-tabs__list__item' )
 				.attr( 'role', 'tab' )
-				.attr( 'data-name', name )
+				.data( 'name', name )
 				// The following messages are used here:
 				// * multimediaviewer-attr-plain
 				// * multimediaviewer-attr-html
@@ -166,7 +166,7 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 
 			this.$attributionTabsList.children().each( ( _i, element ) => {
 				const $element = $( element );
-				$element.attr( 'aria-selected', $element.attr( 'data-name' ) === name );
+				$element.attr( 'aria-selected', $element.data( 'name' ) === name );
 			} );
 
 			if ( this.currentAttrView === 'html' ) {
@@ -199,9 +199,9 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 			// eslint-disable-next-line no-jquery/no-sizzle
 			const $option = this.$downloadSizeMenu.find( ':selected' );
 			const value = {
-				name: $option.attr( 'data-name' ),
-				width: $option.attr( 'data-width' ),
-				height: $option.attr( 'data-height' )
+				name: $option.data( 'name' ),
+				width: $option.data( 'width' ),
+				height: $option.data( 'height' )
 			};
 
 			if ( value.name === 'original' && this.image !== null ) {

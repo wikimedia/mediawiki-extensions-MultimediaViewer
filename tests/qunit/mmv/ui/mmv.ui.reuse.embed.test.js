@@ -56,8 +56,8 @@ const { Embed } = require( 'mmv.ui.reuse.shareembed' );
 		const height = '20';
 
 		const $option = embed.$embedSizeSwitchHtml.children().first();
-		$option.attr( 'data-width', width );
-		$option.attr( 'data-height', height );
+		$option.data( 'width', width );
+		$option.data( 'height', height );
 		embed.$embedSizeSwitchHtml.val( $option.val() );
 
 		embed.updateEmbedHtml = function ( thumb, w, h ) {
@@ -81,8 +81,8 @@ const { Embed } = require( 'mmv.ui.reuse.shareembed' );
 		const height = '20';
 
 		const $option = embed.$embedSizeSwitchWikitext.children().first();
-		$option.attr( 'data-width', width );
-		$option.attr( 'data-height', height );
+		$option.data( 'width', width );
+		$option.data( 'height', height );
 		embed.$embedSizeSwitchWikitext.val( $option.val() );
 
 		embed.updateEmbedHtml = function () {

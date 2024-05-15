@@ -89,7 +89,7 @@ const { UiElement } = require( 'mmv' );
 			[ 'wikitext', 'html' ].forEach( ( name ) => $( '<button>' )
 				.addClass( 'cdx-tabs__list__item' )
 				.attr( 'role', 'tab' )
-				.attr( 'data-name', name )
+				.data( 'name', name )
 				.text( mw.message( name === 'wikitext' ? 'multimediaviewer-embed-wt' : 'multimediaviewer-embed-html' ).text() )
 				.on( 'click', () => this.handleTypeSwitch( name ) )
 				.appendTo( this.$embedSwitchList )
@@ -149,12 +149,12 @@ const { UiElement } = require( 'mmv' );
 			// eslint-disable-next-line no-jquery/no-sizzle
 			const $html = this.$embedSizeSwitchHtml.find( ':selected' );
 			if ( $html.length ) {
-				this.updateEmbedHtml( {}, $html.attr( 'data-width' ), $html.attr( 'data-height' ) );
+				this.updateEmbedHtml( {}, $html.data( 'width' ), $html.data( 'height' ) );
 			}
 			// eslint-disable-next-line no-jquery/no-sizzle
 			const $wikitext = this.$embedSizeSwitchWikitext.find( ':selected' );
 			if ( $wikitext.length ) {
-				this.updateEmbedWikitext( $wikitext.attr( 'data-width' ) );
+				this.updateEmbedWikitext( $wikitext.data( 'width' ) );
 			}
 		}
 
@@ -166,7 +166,7 @@ const { UiElement } = require( 'mmv' );
 		handleTypeSwitch( value ) {
 			this.$embedSwitchList.children().each( ( _i, element ) => {
 				const $element = $( element );
-				$element.attr( 'aria-selected', $element.attr( 'data-name' ) === value );
+				$element.attr( 'aria-selected', $element.data( 'name' ) === value );
 			} );
 
 			this.$embedTextHtmlDiv.toggle( value === 'html' );
