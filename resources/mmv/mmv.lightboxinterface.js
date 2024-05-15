@@ -52,9 +52,6 @@ class LightboxInterface extends UiElement {
 		 * @private
 		 */
 		this.thumbnailWidthCalculator = new ThumbnailWidthCalculator();
-		// SVG filter, needed to achieve blur in Firefox
-		// eslint-disable-next-line no-jquery/no-parse-html-literal
-		this.$filter = $( '<svg><filter id="gaussian-blur"><fegaussianblur stdDeviation="3"></filter></svg>' );
 
 		this.$main = $( '<div>' )
 			.addClass( 'mw-mmv-main' );
@@ -81,8 +78,7 @@ class LightboxInterface extends UiElement {
 		this.$main.append(
 			this.$preDiv,
 			this.$imageWrapper,
-			this.$postDiv,
-			this.$filter
+			this.$postDiv
 		);
 
 		this.$wrapper.append(

@@ -239,24 +239,19 @@ class Canvas extends UiElement {
 	}
 
 	/**
-	 * Sets page thumbnail for display if blowupFactor <= MAX_BLOWUP_FACTOR. Otherwise thumb is not set.
-	 * The image gets also blured to avoid pixelation if blowupFactor > BLUR_BLOWUP_FACTOR_THRESHOLD.
+	 * Sets page thumbnail for display if blowupFactor
+	 * <= MAX_BLOWUP_FACTOR. Otherwise thumb is not set.
 	 * We set SVG files to the maximum screen size available.
 	 * Assumes set function called before.
 	 *
 	 * @param {{width: number, height: number}} size
 	 * @param {jQuery} $imagePlaceholder Image placeholder to be displayed while the real image loads.
 	 * @param {ThumbnailWidth} imageWidths
-	 * @return {boolean} Whether the image was blured or not
 	 */
 	maybeDisplayPlaceholder( size, $imagePlaceholder, imageWidths ) {
-		let targetWidth;
-		let targetHeight;
-		let blurredThumbnailShown = false;
-
 		// Assume natural thumbnail size¸
-		targetWidth = size.width;
-		targetHeight = size.height;
+		let targetWidth = size.width;
+		let targetHeight = size.height;
 
 		// If the image is bigger than the screen we need to resize it
 		if ( size.width > imageWidths.cssWidth ) { // This assumes imageInfo.width in CSS units
@@ -265,77 +260,14 @@ class Canvas extends UiElement {
 		}
 
 		const blowupFactor = targetWidth / $imagePlaceholder.width();
-
 		// If the placeholder is too blown up, it's not worth showing it
 		if ( blowupFactor > Canvas.MAX_BLOWUP_FACTOR ) {
-			return blurredThumbnailShown;
+			return;
 		}
 
 		$imagePlaceholder.width( targetWidth );
 		$imagePlaceholder.height( targetHeight );
-
-		// Only blur the placeholder if it's blown up significantly
-		if ( blowupFactor > Canvas.BLUR_BLOWUP_FACTOR_THRESHOLD ) {
-			this.blur( $imagePlaceholder );
-			blurredThumbnailShown = true;
-		}
-
 		this.set( this.imageRawMetadata, $imagePlaceholder.show() );
-
-		return blurredThumbnailShown;
-	}
-
-	/**
-	 * Blur image
-	 *
-	 * @param {jQuery} $image Image to be blurred.
-	 */
-	blur( $image ) {
-		// We have to apply the SVG filter here, it doesn't work when defined in the .less file
-		// We can't use an external SVG file because filters can't be accessed cross-domain
-		// We can't embed the SVG file because accessing the filter inside of it doesn't work
-		// TODO: This breaks the invert filter used by dark mode. Consider blurring the container
-		// instead?
-		$image.addClass( 'blurred' ).css( 'filter', 'url("#gaussian-blur")' );
-	}
-
-	/**
-	 * Animates the image into focus
-	 */
-	unblurWithAnimation() {
-		const animationLength = 300;
-
-		// The blurred class has an opacity < 1. This animated the image to become fully opaque
-		// FIXME: Use CSS transition
-		// eslint-disable-next-line no-jquery/no-animate
-		this.$image
-			.addClass( 'blurred' )
-			.animate( { opacity: 1.0 }, animationLength );
-
-		// During the same amount of time (animationLength) we animate a blur value from 3.0 to 0.0
-		// We pass that value to an inline CSS Gaussian blur effect
-		// FIXME: Use CSS transition
-		// eslint-disable-next-line no-jquery/no-animate
-		$( { blur: 3.0 } ).animate( { blur: 0.0 }, {
-			duration: animationLength,
-			step: ( step ) => {
-				this.$image.css( {
-					'-webkit-filter': `blur(${ step }px)`,
-					filter: `blur(${ step }px)`
-				} );
-			},
-			complete: () => {
-				// When the animation is complete, the blur value is 0, clean things up
-				this.unblur();
-			}
-		} );
-	}
-
-	unblur() {
-		// We apply empty CSS values to remove the inline styles applied by jQuery
-		// so that they don't get in the way of styles defined in CSS
-		this.$image.css( { '-webkit-filter': '', opacity: '', filter: '' } )
-			.removeClass( 'blurred' );
 	}
 
 	/**
@@ -467,13 +399,5 @@ thumbnail size: CSS: ${ thumbnailDimensions.cssWidth }x${ thumbnailDimensions.cs
  * @static
  */
 Canvas.MAX_BLOWUP_FACTOR = 11;
-
-/**
- * Blowup factor threshold at which blurring kicks in
- *
- * @property {number} BLUR_BLOWUP_FACTOR_THRESHOLD
- * @static
- */
-Canvas.BLUR_BLOWUP_FACTOR_THRESHOLD = 2;
 
 module.exports = Canvas;

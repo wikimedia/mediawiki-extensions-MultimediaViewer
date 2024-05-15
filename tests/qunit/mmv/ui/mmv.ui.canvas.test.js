@@ -114,7 +114,7 @@ const { Canvas } = require( 'mmv' );
 
 		const $image = $( '<img>' ).width( 10 ).height( 5 );
 
-		const blurredThumbnailShown = canvas.maybeDisplayPlaceholder(
+		canvas.maybeDisplayPlaceholder(
 			{ width: 200, height: 100 },
 			$image,
 			{ cssWidth: 300, cssHeight: 150 }
@@ -122,11 +122,9 @@ const { Canvas } = require( 'mmv' );
 
 		assert.strictEqual( $image.width(), 10, 'Placeholder width was not set to max' );
 		assert.strictEqual( $image.height(), 5, 'Placeholder height was not set to max' );
-		assert.strictEqual( $image.hasClass( 'blurred' ), false, 'Placeholder is not blurred' );
-		assert.strictEqual( blurredThumbnailShown, false, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'maybeDisplayPlaceholder: placeholder big enough that it doesn\'t need blurring, actual image bigger than the lightbox', function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: placeholder big enough to show, actual image bigger than the lightbox', function ( assert ) {
 		const $qf = $( '#qunit-fixture' );
 		const imageRawMetadata = new LightboxImage( 'foo.png' );
 		const canvas = new Canvas( $qf );
@@ -144,7 +142,7 @@ const { Canvas } = require( 'mmv' );
 
 		const $image = $( '<img>' ).width( 200 ).height( 100 );
 
-		const blurredThumbnailShown = canvas.maybeDisplayPlaceholder(
+		canvas.maybeDisplayPlaceholder(
 			{ width: 1000, height: 500 },
 			$image,
 			{ cssWidth: 300, cssHeight: 150 }
@@ -152,11 +150,9 @@ const { Canvas } = require( 'mmv' );
 
 		assert.strictEqual( $image.width(), 300, 'Placeholder has the right width' );
 		assert.strictEqual( $image.height(), 150, 'Placeholder has the right height' );
-		assert.strictEqual( $image.hasClass( 'blurred' ), false, 'Placeholder is not blurred' );
-		assert.strictEqual( blurredThumbnailShown, false, 'Placeholder state is correct' );
 	} );
 
-	QUnit.test( 'maybeDisplayPlaceholder: big-enough placeholder that needs blurring, actual image bigger than the lightbox', function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: big-enough placeholder to show, actual image smaller than the lightbox', function ( assert ) {
 		const $qf = $( '#qunit-fixture' );
 		const imageRawMetadata = new LightboxImage( 'foo.png' );
 		const canvas = new Canvas( $qf );
@@ -174,37 +170,7 @@ const { Canvas } = require( 'mmv' );
 
 		const $image = $( '<img>' ).width( 100 ).height( 50 );
 
-		const blurredThumbnailShown = canvas.maybeDisplayPlaceholder(
-			{ width: 1000, height: 500 },
-			$image,
-			{ cssWidth: 300, cssHeight: 150 }
-		);
-
-		assert.strictEqual( $image.width(), 300, 'Placeholder has the right width' );
-		assert.strictEqual( $image.height(), 150, 'Placeholder has the right height' );
-		assert.strictEqual( $image.hasClass( 'blurred' ), true, 'Placeholder is blurred' );
-		assert.strictEqual( blurredThumbnailShown, true, 'Placeholder state is correct' );
-	} );
-
-	QUnit.test( 'maybeDisplayPlaceholder: big-enough placeholder that needs blurring, actual image smaller than the lightbox', function ( assert ) {
-		const $qf = $( '#qunit-fixture' );
-		const imageRawMetadata = new LightboxImage( 'foo.png' );
-		const canvas = new Canvas( $qf );
-
-		imageRawMetadata.filePageTitle = {
-			getExtension: function () {
-				return 'png';
-			}
-		};
-		canvas.imageRawMetadata = imageRawMetadata;
-
-		canvas.set = function () {
-			assert.true( true, 'Placeholder shown' );
-		};
-
-		const $image = $( '<img>' ).width( 100 ).height( 50 );
-
-		const blurredThumbnailShown = canvas.maybeDisplayPlaceholder(
+		canvas.maybeDisplayPlaceholder(
 			{ width: 1000, height: 500 },
 			$image,
 			{ cssWidth: 1200, cssHeight: 600 }
@@ -212,8 +178,6 @@ const { Canvas } = require( 'mmv' );
 
 		assert.strictEqual( $image.width(), 1000, 'Placeholder has the right width' );
 		assert.strictEqual( $image.height(), 500, 'Placeholder has the right height' );
-		assert.strictEqual( $image.hasClass( 'blurred' ), true, 'Placeholder is blurred' );
-		assert.strictEqual( blurredThumbnailShown, true, 'Placeholder state is correct' );
 	} );
 
 	QUnit.test( 'maybeDisplayPlaceholder: placeholder too small to be displayed, actual image bigger than the lightbox', function ( assert ) {
@@ -234,7 +198,7 @@ const { Canvas } = require( 'mmv' );
 
 		const $image = $( '<img>' ).width( 10 ).height( 5 );
 
-		const blurredThumbnailShown = canvas.maybeDisplayPlaceholder(
+		canvas.maybeDisplayPlaceholder(
 			{ width: 1000, height: 500 },
 			$image,
 			{ cssWidth: 300, cssHeight: 150 }
@@ -242,42 +206,6 @@ const { Canvas } = require( 'mmv' );
 
 		assert.strictEqual( $image.width(), 10, 'Placeholder has the right width' );
 		assert.strictEqual( $image.height(), 5, 'Placeholder has the right height' );
-		assert.strictEqual( $image.hasClass( 'blurred' ), false, 'Placeholder is not blurred' );
-		assert.strictEqual( blurredThumbnailShown, false, 'Placeholder state is correct' );
-	} );
-
-	QUnit.test( 'unblurWithAnimation', function ( assert ) {
-		const $qf = $( '#qunit-fixture' );
-		const canvas = new Canvas( $qf );
-		const oldAnimate = $.fn.animate;
-
-		$.fn.animate = function ( target, options ) {
-			if ( options ) {
-				if ( options.step ) {
-					for ( const key in target ) {
-						options.step.call( this, target[ key ] /* , tween object */ );
-					}
-				}
-
-				if ( options.complete ) {
-					options.complete.call( this );
-				}
-			}
-		};
-
-		canvas.$image = $( '<img>' );
-
-		canvas.unblurWithAnimation();
-
-		assert.true( !canvas.$image.css( '-webkit-filter' ) || !canvas.$image.css( '-webkit-filter' ).length,
-			'Image has no -webkit-filter left' );
-		assert.true( !canvas.$image.css( 'filter' ) || !canvas.$image.css( 'filter' ).length || canvas.$image.css( 'filter' ) === 'none',
-			'Image has no filter left' );
-		assert.strictEqual( parseInt( canvas.$image.css( 'opacity' ), 10 ), 1,
-			'Image is fully opaque' );
-		assert.strictEqual( canvas.$image.hasClass( 'blurred' ), false, 'Image has no "blurred" class' );
-
-		$.fn.animate = oldAnimate;
 	} );
 
 }() );

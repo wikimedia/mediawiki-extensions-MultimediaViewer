@@ -155,15 +155,6 @@ class MultimediaViewer {
 		 * @property {boolean}
 		 */
 		this.realThumbnailShown = false;
-
-		/**
-		 * Stores whether the a blurred placeholder is being displayed in place of the real image.
-		 * When a placeholder is displayed, but it is not blurred, this is false.
-		 * This is reset when paging, so it is not necessarily accurate.
-		 *
-		 * @property {boolean}
-		 */
-		this.blurredThumbnailShown = false;
 	}
 
 	/**
@@ -274,11 +265,10 @@ class MultimediaViewer {
 
 		const imagePromise = this.fetchThumbnailForLightboxImage( image, imageWidths.real );
 
-		this.resetBlurredThumbnailStates();
 		if ( imagePromise.state() === 'pending' ) {
 			this.displayPlaceholderThumbnail( image, $initialImage, imageWidths );
 		}
-
+		this.resetThumbnailStates();
 		this.setupProgressBar( image, imagePromise, imageWidths.real );
 
 		const metadataPromise = this.fetchSizeIndependentLightboxInfo( image.filePageTitle );
@@ -384,11 +374,10 @@ class MultimediaViewer {
 	}
 
 	/**
-	 * Resets the cross-request states needed to handle the blurred thumbnail logic.
+	 * Resets the cross-request states needed to handle the thumbnail logic.
 	 */
-	resetBlurredThumbnailStates() {
+	resetThumbnailStates() {
 		this.realThumbnailShown = false;
-		this.blurredThumbnailShown = false;
 	}
 
 	/**
@@ -397,27 +386,15 @@ class MultimediaViewer {
 	 * @param {Thumbnail} thumbnail
 	 * @param {HTMLImageElement} imageElement
 	 * @param {ThumbnailWidth} imageWidths
-	 * @param {number} loadTime Time it took to load the thumbnail
 	 */
-	displayRealThumbnail( thumbnail, imageElement, imageWidths, loadTime ) {
+	displayRealThumbnail( thumbnail, imageElement, imageWidths ) {
 		this.realThumbnailShown = true;
-
 		this.setImage( this.ui, thumbnail, imageElement, imageWidths );
-
-		// We only animate unblurWithAnimation if the image wasn't loaded from the cache
-		// A load in < 100ms is fast enough (maybe even browser cache hit) that
-		// using a 300ms animation would needlessly deter from a fast experience.
-		if ( this.blurredThumbnailShown && loadTime > 100 ) {
-			this.ui.canvas.unblurWithAnimation();
-		} else {
-			this.ui.canvas.unblur();
-		}
-
 		this.viewLogger.attach( thumbnail.url );
 	}
 
 	/**
-	 * Display the blurred thumbnail from the page
+		 * Display the thumbnail from the page
 	 *
 	 * @param {LightboxImage} image
 	 * @param {jQuery} $initialImage The thumbnail from the page
@@ -427,7 +404,7 @@ class MultimediaViewer {
 	displayPlaceholderThumbnail( image, $initialImage, imageWidths, recursion ) {
 		const size = { width: image.originalWidth, height: image.originalHeight };
 
-		// If the actual image has already been displayed, there's no point showing the blurry one.
+		// If the actual image has already been displayed, there's no point showing the thumbnail.
 		// This can happen if the API request to get the original image size needed to show the
 		// placeholder thumbnail takes longer then loading the actual thumbnail.
 		if ( this.realThumbnailShown ) {
@@ -453,8 +430,7 @@ class MultimediaViewer {
 				}
 			} );
 		} else {
-			this.blurredThumbnailShown = this.ui.canvas.maybeDisplayPlaceholder(
-				size, $initialImage, imageWidths );
+			this.ui.canvas.maybeDisplayPlaceholder( size, $initialImage, imageWidths );
 		}
 	}
 
@@ -922,17 +898,6 @@ class MultimediaViewer {
 		return deferred;
 	}
 }
-
-/**
- * Image loading progress. Keyed by image (database) name + '|' + thumbnail width in pixels,
- * value is undefined, 'blurred' or 'real' (meaning respectively that no thumbnail is shown
- * yet / the thumbnail that existed on the page is shown, enlarged and blurred / the real,
- * correct-size thumbnail is shown).
- *
- * @private
- * @property {Object.<string, string>}
- */
-MultimediaViewer.prototype.thumbnailStateCache = {};
 
 /**
  * Image loading progress. Keyed by image (database) name + '|' + thumbnail width in pixels,

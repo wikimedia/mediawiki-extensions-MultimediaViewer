@@ -57,8 +57,6 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 			setFileReuseData: function () {},
 			setupForLoad: function () {},
 			canvas: { set: function () {},
-				unblurWithAnimation: function () {},
-				unblur: function () {},
 				getCurrentImageWidths: function () {
 					return { real: 0 };
 				},
@@ -137,8 +135,6 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 			setFileReuseData: function () {},
 			setupForLoad: function () {},
 			canvas: { set: function () {},
-				unblurWithAnimation: function () {},
-				unblur: function () {},
 				getCurrentImageWidths: function () {
 					return { real: 0 };
 				},
@@ -229,22 +225,16 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.close();
 	} );
 
-	QUnit.test( 'resetBlurredThumbnailStates', function ( assert ) {
+	QUnit.test( 'resetThumbnailStates', function ( assert ) {
 		const viewer = getMultimediaViewer();
 
-		// animation would keep running, conflict with other tests
-		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
-
 		assert.strictEqual( viewer.realThumbnailShown, false, 'Real thumbnail state is correct' );
-		assert.strictEqual( viewer.blurredThumbnailShown, false, 'Placeholder state is correct' );
 
 		viewer.realThumbnailShown = true;
-		viewer.blurredThumbnailShown = true;
 
-		viewer.resetBlurredThumbnailStates();
+		viewer.resetThumbnailStates();
 
 		assert.strictEqual( viewer.realThumbnailShown, false, 'Real thumbnail state is correct' );
-		assert.strictEqual( viewer.blurredThumbnailShown, false, 'Placeholder state is correct' );
 	} );
 
 	QUnit.test( 'Placeholder first, then real thumbnail', function ( assert ) {
@@ -252,23 +242,18 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 
 		viewer.setImage = function () {};
 		viewer.ui = { canvas: {
-			unblurWithAnimation: function () {},
-			unblur: function () {},
 			maybeDisplayPlaceholder: function () {
-				return true;
 			}
 		} };
 		viewer.imageInfoProvider.get = this.sandbox.stub();
 
 		viewer.displayPlaceholderThumbnail( { originalWidth: 100, originalHeight: 100 }, undefined, undefined );
 
-		assert.strictEqual( viewer.blurredThumbnailShown, true, 'Placeholder state is correct' );
 		assert.strictEqual( viewer.realThumbnailShown, false, 'Real thumbnail state is correct' );
 
 		viewer.displayRealThumbnail( { url: undefined } );
 
 		assert.strictEqual( viewer.realThumbnailShown, true, 'Real thumbnail state is correct' );
-		assert.strictEqual( viewer.blurredThumbnailShown, true, 'Placeholder state is correct' );
 	} );
 
 	QUnit.test( 'Placeholder first, then real thumbnail - missing size', function ( assert ) {
@@ -277,23 +262,18 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.currentIndex = 1;
 		viewer.setImage = function () {};
 		viewer.ui = { canvas: {
-			unblurWithAnimation: function () {},
-			unblur: function () {},
 			maybeDisplayPlaceholder: function () {
-				return true;
 			}
 		} };
 		viewer.imageInfoProvider.get = this.sandbox.stub().returns( $.Deferred().resolve( { width: 100, height: 100 } ) );
 
 		viewer.displayPlaceholderThumbnail( { index: 1 }, undefined, undefined );
 
-		assert.strictEqual( viewer.blurredThumbnailShown, true, 'Placeholder state is correct' );
 		assert.strictEqual( viewer.realThumbnailShown, false, 'Real thumbnail state is correct' );
 
 		viewer.displayRealThumbnail( { url: undefined } );
 
 		assert.strictEqual( viewer.realThumbnailShown, true, 'Real thumbnail state is correct' );
-		assert.strictEqual( viewer.blurredThumbnailShown, true, 'Placeholder state is correct' );
 	} );
 
 	QUnit.test( 'Real thumbnail first, then placeholder', function ( assert ) {
@@ -302,39 +282,16 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.setImage = function () {};
 		viewer.ui = {
 			showImage: function () {},
-			canvas: {
-				unblurWithAnimation: function () {},
-				unblur: function () {}
-			} };
+			canvas: {}
+		};
 
 		viewer.displayRealThumbnail( { url: undefined } );
 
 		assert.strictEqual( viewer.realThumbnailShown, true, 'Real thumbnail state is correct' );
-		assert.strictEqual( viewer.blurredThumbnailShown, false, 'Placeholder state is correct' );
 
 		viewer.displayPlaceholderThumbnail( {}, undefined, undefined );
 
 		assert.strictEqual( viewer.realThumbnailShown, true, 'Real thumbnail state is correct' );
-		assert.strictEqual( viewer.blurredThumbnailShown, false, 'Placeholder state is correct' );
-	} );
-
-	QUnit.test( 'displayRealThumbnail', function ( assert ) {
-		const viewer = getMultimediaViewer();
-
-		viewer.setImage = function () {};
-		viewer.ui = { canvas: {
-			unblurWithAnimation: this.sandbox.stub(),
-			unblur: function () {}
-		} };
-		viewer.blurredThumbnailShown = true;
-
-		// Should not result in an unblurWithAnimation animation (image cache from cache)
-		viewer.displayRealThumbnail( { url: undefined }, undefined, undefined, 5 );
-		assert.strictEqual( viewer.ui.canvas.unblurWithAnimation.called, false, 'There should not be an unblurWithAnimation animation' );
-
-		// Should result in an unblurWithAnimation (image didn't come from cache)
-		viewer.displayRealThumbnail( { url: undefined }, undefined, undefined, 1000 );
-		assert.strictEqual( viewer.ui.canvas.unblurWithAnimation.called, true, 'There should be an unblurWithAnimation animation' );
 	} );
 
 	QUnit.test( 'New image loaded while another one is loading', function ( assert ) {
