@@ -57,10 +57,10 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 		const $el = $( '<span>' );
 		const el = $( '<span>' ).get( 0 );
 
-		HtmlUtils.wrapAndJquerify( $el ).find( 'span' ).prop( 'data-x', 1 );
-		HtmlUtils.wrapAndJquerify( el ).find( 'span' ).prop( 'data-x', 1 );
-		assert.strictEqual( $el.prop( 'data-x' ), undefined, 'wrapped jQuery element is not the same as original' );
-		assert.strictEqual( $( el ).prop( 'data-x' ), undefined, 'wrapped HTMLElement is not the same as original' );
+		HtmlUtils.wrapAndJquerify( $el ).find( 'span' ).data( 'x', 1 );
+		HtmlUtils.wrapAndJquerify( el ).find( 'span' ).data( 'x', 1 );
+		assert.strictEqual( $el.data( 'x' ), undefined, 'wrapped jQuery element is not the same as original' );
+		assert.strictEqual( $( el ).data( 'x' ), undefined, 'wrapped HTMLElement is not the same as original' );
 	} );
 
 	QUnit.test( 'filterInvisible()', function ( assert ) {

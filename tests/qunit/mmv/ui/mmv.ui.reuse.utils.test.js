@@ -41,9 +41,9 @@ const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 		for ( let i = 0; i < menuItems.length; i++ ) {
 			const $option = $( $options[ i ] );
 
-			assert.strictEqual( $option.attr( 'data-name' ), menuItems[ i ], 'Correct item name on the list.' );
-			assert.strictEqual( $option.attr( 'data-height' ), undefined, 'Correct item height on the list.' );
-			assert.strictEqual( $option.attr( 'data-width' ), undefined, 'Correct item width on the list.' );
+			assert.strictEqual( $option.data( 'name' ), menuItems[ i ], 'Correct item name on the list.' );
+			assert.strictEqual( $option.data( 'height' ), undefined, 'Correct item height on the list.' );
+			assert.strictEqual( $option.data( 'width' ), undefined, 'Correct item width on the list.' );
 		}
 	} );
 

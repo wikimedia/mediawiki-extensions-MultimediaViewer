@@ -84,7 +84,7 @@
 			options.forEach( ( size ) =>
 				$( '<option>' )
 					.attr( 'value', size )
-					.attr( 'data-name', size )
+					.data( 'name', size )
 					.text( this.getDimensionsMessageHtml( size ) )
 					.appendTo( $select )
 			);
@@ -119,13 +119,13 @@
 		updateSelectOptions( sizes, options ) {
 			for ( let i = 0; i < options.length; i++ ) {
 				const $option = $( options[ i ] );
-				const name = $option.attr( 'data-name' );
+				const name = $option.data( 'name' );
 				if ( sizes[ name ] ) {
 					$option.prop( 'disabled', false );
 
 					// These values are later used when the item is selected
-					$option.attr( 'data-width', sizes[ name ].width );
-					$option.attr( 'data-height', sizes[ name ].height );
+					$option.data( 'width', sizes[ name ].width );
+					$option.data( 'height', sizes[ name ].height );
 
 					$option.text( this.getDimensionsMessageHtml( name, sizes[ name ].width, sizes[ name ].height ) );
 				} else {
