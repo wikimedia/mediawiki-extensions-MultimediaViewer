@@ -20,17 +20,10 @@ const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 ( function () {
 	QUnit.module( 'mmv.ui.reuse.utils', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sense test, object creation and UI construction', function ( assert ) {
-		const utils = new Utils();
-
-		assert.true( utils instanceof Utils, 'ReuseUtils object is created.' );
-	} );
-
 	QUnit.test( 'createSelectMenu():', function ( assert ) {
-		const utils = new Utils();
 		const menuItems = [ 'original', 'small', 'medium', 'large' ];
 		const def = 'large';
-		const $select = utils.createSelectMenu(
+		const $select = Utils.createSelectMenu(
 			menuItems,
 			def
 		);
@@ -48,15 +41,14 @@ const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 	} );
 
 	QUnit.test( 'updateSelectOptions():', function ( assert ) {
-		const utils = new Utils();
-		const $select = utils.createSelectMenu(
+		const $select = Utils.createSelectMenu(
 			[ 'original', 'small', 'medium', 'large' ],
 			'original'
 		);
 		const $options = $select.children();
 		const width = 700;
 		const height = 500;
-		const sizes = utils.getPossibleImageSizesForHtml( width, height );
+		const sizes = Utils.getPossibleImageSizesForHtml( width, height );
 		const oldMessage = mw.message;
 
 		mw.message = function ( messageKey ) {
@@ -65,13 +57,12 @@ const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 			return { text: function () {} };
 		};
 
-		utils.updateSelectOptions( sizes, $options );
+		Utils.updateSelectOptions( sizes, $options );
 
 		mw.message = oldMessage;
 	} );
 
 	QUnit.test( 'getPossibleImageSizesForHtml()', function ( assert ) {
-		const utils = new Utils();
 		const exampleSizes = [
 			{
 				test: 'Extra large wide image',
@@ -117,7 +108,7 @@ const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 		];
 		for ( let i = 0; i < exampleSizes.length; i++ ) {
 			const cursize = exampleSizes[ i ];
-			const opts = utils.getPossibleImageSizesForHtml( cursize.width, cursize.height );
+			const opts = Utils.getPossibleImageSizesForHtml( cursize.width, cursize.height );
 			assert.deepEqual( opts, cursize.expected, 'Size calculation for "' + cursize.test + '" gives expected results' );
 		}
 	} );

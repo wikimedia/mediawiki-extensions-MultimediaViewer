@@ -30,9 +30,6 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 		constructor( $container ) {
 			super( $container );
 
-			/** @property {Utils} utils - */
-			this.utils = new Utils();
-
 			this.formatter = new EmbedFileFormatter();
 			this.createDownloadSection( this.$container );
 			this.createAttributionButton( this.$container );
@@ -95,7 +92,7 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 		 * @param {jQuery} $container
 		 */
 		createSizePulldownMenu( $container ) {
-			this.$downloadSizeMenu = this.utils.createSelectMenu(
+			this.$downloadSizeMenu = Utils.createSelectMenu(
 				[ 'original', 'small', 'medium', 'large', 'xl' ],
 				'original'
 			).appendTo( $container );
@@ -115,7 +112,7 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 		}
 
 		createAttributionButton( $container ) {
-			[ this.$attributionInput, this.$attributionInputDiv ] = this.utils.createInputWithCopy(
+			[ this.$attributionInput, this.$attributionInputDiv ] = Utils.createInputWithCopy(
 				mw.message( 'multimediaviewer-download-attribution-copy' ).text(), ''
 			);
 
@@ -209,7 +206,7 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 			} else {
 				// Disable download while we get the image
 				this.$downloadButton.addClass( 'disabledLink' );
-				this.utils.getThumbnailUrlPromise( value.width ).done( ( thumbnail ) => {
+				Utils.getThumbnailUrlPromise( value.width ).done( ( thumbnail ) => {
 					this.setDownloadUrl( thumbnail.url );
 				} );
 			}
@@ -260,11 +257,11 @@ const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencie
 		 */
 		set( image, repo ) {
 			const license = image && image.license;
-			const sizes = this.utils.getPossibleImageSizesForHtml( image.width, image.height );
+			const sizes = Utils.getPossibleImageSizesForHtml( image.width, image.height );
 
 			this.image = image;
 
-			this.utils.updateSelectOptions( sizes, this.$downloadSizeMenu.children() );
+			Utils.updateSelectOptions( sizes, this.$downloadSizeMenu.children() );
 
 			// Note: This extension will not be the real one for file types other than: png/gif/jpg/jpeg
 			this.imageExtension = image.title.getExtension().toLowerCase();

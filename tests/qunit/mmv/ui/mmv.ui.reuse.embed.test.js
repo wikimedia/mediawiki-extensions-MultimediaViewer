@@ -16,6 +16,7 @@
  */
 
 const { Embed } = require( 'mmv.ui.reuse.shareembed' );
+const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 
 ( function () {
 	const $qf = $( '#qunit-fixture' );
@@ -242,13 +243,15 @@ const { Embed } = require( 'mmv.ui.reuse.shareembed' );
 		const width = 15;
 		const height = 20;
 
-		embed.utils.updateMenuOptions = function ( sizes, options ) {
+		const updateMenuOptions = Utils.updateMenuOptions;
+		Utils.updateMenuOptions = function ( sizes, options ) {
 			assert.strictEqual( options.length, 4, 'Options passed correctly.' );
 		};
 		embed.resetCurrentSizeMenuToDefault = function () {
 			assert.true( true, 'resetCurrentSizeMenuToDefault() is called.' );
 		};
-		embed.utils.getThumbnailUrlPromise = function () {
+		const getThumbnailUrlPromise = Utils.getThumbnailUrlPromise;
+		Utils.getThumbnailUrlPromise = function () {
 			return $.Deferred().resolve().promise();
 		};
 		embed.updateEmbedHtml = function () {
@@ -260,6 +263,9 @@ const { Embed } = require( 'mmv.ui.reuse.shareembed' );
 		embed.set( { width: width, height: height }, embedFileInfo );
 
 		assert.true( $.isPlainObject( embed.embedFileInfo ), 'embedFileInfo set.' );
+
+		Utils.updateMenuOptions = updateMenuOptions;
+		Utils.getThumbnailUrlPromise = getThumbnailUrlPromise;
 	} );
 
 	QUnit.test( 'empty():', function ( assert ) {

@@ -16,6 +16,7 @@
  */
 
 const DownloadPane = require( 'mmv.ui.download.pane' );
+const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 
 ( function () {
 	QUnit.module( 'mmv.ui.download.pane', QUnit.newMwEnvironment() );
@@ -43,7 +44,8 @@ const DownloadPane = require( 'mmv.ui.download.pane' );
 
 		assert.strictEqual( download.imageExtension, undefined, 'Image extension is not set.' );
 
-		download.utils.updateMenuOptions = function () {
+		const updateMenuOptions = Utils.updateMenuOptions;
+		Utils.updateMenuOptions = function () {
 			assert.true( true, 'Menu options updated.' );
 		};
 
@@ -54,13 +56,16 @@ const DownloadPane = require( 'mmv.ui.download.pane' );
 		download.empty();
 
 		assert.strictEqual( download.imageExtension, undefined, 'Image extension is not set.' );
+
+		Utils.updateMenuOptions = updateMenuOptions;
 	} );
 
 	QUnit.test( 'handleSizeSwitch():', function ( assert ) {
 		const download = new DownloadPane( $( '#qunit-fixture' ) );
 		const newImageUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/NewFoobar.jpg';
 
-		download.utils.getThumbnailUrlPromise = function () {
+		const getThumbnailUrlPromise = Utils.getThumbnailUrlPromise;
+		Utils.getThumbnailUrlPromise = function () {
 			return $.Deferred().resolve( { url: newImageUrl } ).promise();
 		};
 
@@ -72,11 +77,13 @@ const DownloadPane = require( 'mmv.ui.download.pane' );
 
 		download.image = { url: newImageUrl };
 
-		download.utils.getThumbnailUrlPromise = function () {
+		Utils.getThumbnailUrlPromise = function () {
 			assert.true( false, 'Should not fetch the thumbnail if the image is original size.' );
 		};
 
 		download.handleSizeSwitch();
+
+		Utils.getThumbnailUrlPromise = getThumbnailUrlPromise;
 	} );
 
 	QUnit.test( 'getExtensionFromUrl():', function ( assert ) {

@@ -27,7 +27,7 @@
 		 * @param {string} text
 		 * @return {jQuery}
 		 */
-		createHeader( text ) {
+		static createHeader( text ) {
 			const $header = $( '<div>' ).addClass( 'cdx-dialog__header' );
 			$( '<p>' )
 				.addClass( 'cdx-dialog__header__title' )
@@ -43,7 +43,7 @@
 		 * @param {string} placeholder
 		 * @return {jQuery[]} [$input, $div]
 		 */
-		createInputWithCopy( title, placeholder ) {
+		static createInputWithCopy( title, placeholder ) {
 			const $input = $( '<input>' )
 				.addClass( 'cdx-text-input__input' )
 				.attr( 'placeholder', placeholder );
@@ -79,13 +79,13 @@
 		 * @param {string} def
 		 * @return {jQuery}
 		 */
-		createSelectMenu( options, def ) {
+		static createSelectMenu( options, def ) {
 			const $select = $( '<select>' ).addClass( 'cdx-select mw-mmv-flex-grow-1' );
 			options.forEach( ( size ) =>
 				$( '<option>' )
 					.attr( 'value', size )
 					.data( 'name', size )
-					.text( this.getDimensionsMessageHtml( size ) )
+					.text( Utils.getDimensionsMessageHtml( size ) )
 					.appendTo( $select )
 			);
 			$select.val( def );
@@ -104,7 +104,7 @@
 		 * @fires MultimediaViewer#mmv-request-thumbnail
 		 * @return {jQuery.Promise.<string>}
 		 */
-		getThumbnailUrlPromise( width ) {
+		static getThumbnailUrlPromise( width ) {
 			return $( document ).triggerHandler( 'mmv-request-thumbnail', width ) ||
 				$.Deferred().reject();
 		}
@@ -116,7 +116,7 @@
 		 * @param {Object} sizes
 		 * @param {jQuery} options
 		 */
-		updateSelectOptions( sizes, options ) {
+		static updateSelectOptions( sizes, options ) {
 			for ( let i = 0; i < options.length; i++ ) {
 				const $option = $( options[ i ] );
 				const name = $option.data( 'name' );
@@ -127,10 +127,10 @@
 					$option.data( 'width', sizes[ name ].width );
 					$option.data( 'height', sizes[ name ].height );
 
-					$option.text( this.getDimensionsMessageHtml( name, sizes[ name ].width, sizes[ name ].height ) );
+					$option.text( Utils.getDimensionsMessageHtml( name, sizes[ name ].width, sizes[ name ].height ) );
 				} else {
 					$option.prop( 'disabled', true );
-					$option.text( this.getDimensionsMessageHtml( name, undefined, undefined ) );
+					$option.text( Utils.getDimensionsMessageHtml( name, undefined, undefined ) );
 				}
 			}
 		}
@@ -149,7 +149,7 @@
 		 * @return {Object} return.xl
 		 * @return {Object} return.original
 		 */
-		getPossibleImageSizesForHtml( width, height ) {
+		static getPossibleImageSizesForHtml( width, height ) {
 			const buckets = {
 				small: { width: 640, height: 480 },
 				medium: { width: 1280, height: 720 }, // HD ready = 720p
@@ -205,7 +205,7 @@
 		 * @param {number} height
 		 * @return {string} i18n label html
 		 */
-		getDimensionsMessageHtml( sizeLabel, width, height ) {
+		static getDimensionsMessageHtml( sizeLabel, width, height ) {
 			const dimensions = !width || !height ? '' : mw.message(
 				'multimediaviewer-embed-dimensions-separated',
 				mw.message(
