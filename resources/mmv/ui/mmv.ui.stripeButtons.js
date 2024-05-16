@@ -101,8 +101,7 @@ const UiElement = require( './mmv.ui.js' );
 			}
 
 			$button.empty()
-				// FIXME T364254: using "notheme" here since codex does not apply @color-inverted-fixed instead of @color-inverted for progressive/destructive button
-				.append( $( '<span>' ).addClass( 'cdx-button__icon notheme' ) )
+				.append( $( '<span>' ).addClass( 'cdx-button__icon' ) )
 				.append( mw.message( 'multimediaviewer-repository-local' ).text() )
 				.attr( 'href', descriptionUrl );
 
