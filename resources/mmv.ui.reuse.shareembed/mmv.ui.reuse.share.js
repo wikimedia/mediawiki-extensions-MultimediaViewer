@@ -31,15 +31,14 @@ const { UiElement } = require( 'mmv' );
 		constructor( $container ) {
 			super( $container );
 
-			this.utils = new Utils();
-			this.utils.createHeader( mw.message( 'multimediaviewer-share-tab' ).text() )
+			Utils.createHeader( mw.message( 'multimediaviewer-share-tab' ).text() )
 				.appendTo( $container );
 
 			const $body = $( '<div>' )
 				.addClass( 'cdx-dialog__body mw-mmv-pt-0' )
 				.appendTo( $container );
 
-			[ this.$pageInput, this.$pageInputDiv ] = this.utils.createInputWithCopy(
+			[ this.$pageInput, this.$pageInputDiv ] = Utils.createInputWithCopy(
 				mw.message( 'multimediaviewer-reuse-copy-share' ).text(),
 				mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text()
 			);

@@ -38,10 +38,7 @@ const { UiElement } = require( 'mmv' );
 			 */
 			this.formatter = new EmbedFileFormatter();
 
-			/** @property {Utils} utils - */
-			this.utils = new Utils();
-
-			this.utils.createHeader( mw.message( 'multimediaviewer-embed-tab' ).text() )
+			Utils.createHeader( mw.message( 'multimediaviewer-embed-tab' ).text() )
 				.appendTo( $container );
 
 			const $body = $( '<div>' )
@@ -59,13 +56,13 @@ const { UiElement } = require( 'mmv' );
 		 * @param {jQuery} $container
 		 */
 		createSnippetTextAreas( $container ) {
-			[ this.$embedTextHtml, this.$embedTextHtmlDiv ] = this.utils.createInputWithCopy(
+			[ this.$embedTextHtml, this.$embedTextHtmlDiv ] = Utils.createInputWithCopy(
 				mw.message( 'multimediaviewer-reuse-copy-embed' ).text(),
 				mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text()
 			);
 			this.$embedTextHtml.attr( 'title', mw.message( 'multimediaviewer-embed-explanation' ).text() );
 
-			[ this.$embedTextWikitext, this.$embedTextWikitextDiv ] = this.utils.createInputWithCopy(
+			[ this.$embedTextWikitext, this.$embedTextWikitextDiv ] = Utils.createInputWithCopy(
 				mw.message( 'multimediaviewer-reuse-copy-embed' ).text(),
 				mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text()
 			);
@@ -103,13 +100,13 @@ const { UiElement } = require( 'mmv' );
 		 */
 		createSizePulldownMenus( $container ) {
 			// Wikitext sizes pulldown menu
-			this.$embedSizeSwitchWikitext = this.utils.createSelectMenu(
+			this.$embedSizeSwitchWikitext = Utils.createSelectMenu(
 				[ 'default', 'small', 'medium', 'large' ],
 				'default'
 			);
 
 			// Html sizes pulldown menu
-			this.$embedSizeSwitchHtml = this.utils.createSelectMenu(
+			this.$embedSizeSwitchHtml = Utils.createSelectMenu(
 				[ 'small', 'medium', 'large', 'original' ],
 				'original'
 			);
@@ -240,7 +237,7 @@ const { UiElement } = require( 'mmv' );
 		getSizeOptions( width, height ) {
 			const sizes = {};
 
-			sizes.html = this.utils.getPossibleImageSizesForHtml( width, height );
+			sizes.html = Utils.getPossibleImageSizesForHtml( width, height );
 			sizes.wikitext = this.getPossibleImageSizesForWikitext( width, height );
 
 			return sizes;
@@ -265,13 +262,13 @@ const { UiElement } = require( 'mmv' );
 				this.embedFileInfo.alt = alt;
 			}
 
-			this.utils.updateSelectOptions( sizes.html, this.$embedSizeSwitchHtml.children() );
-			this.utils.updateSelectOptions( sizes.wikitext, this.$embedSizeSwitchWikitext.children() );
+			Utils.updateSelectOptions( sizes.html, this.$embedSizeSwitchHtml.children() );
+			Utils.updateSelectOptions( sizes.wikitext, this.$embedSizeSwitchWikitext.children() );
 
 			// Reset defaults
 			this.resetCurrentSizeMenuToDefault();
 
-			this.utils.getThumbnailUrlPromise( this.LARGE_IMAGE_WIDTH_THRESHOLD )
+			Utils.getThumbnailUrlPromise( this.LARGE_IMAGE_WIDTH_THRESHOLD )
 				.done( ( thumbnail ) => {
 					this.updateEmbedHtml( thumbnail );
 				} );
