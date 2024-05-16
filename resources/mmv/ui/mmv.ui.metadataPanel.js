@@ -412,7 +412,11 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 		 * @param {string} filename The file name to set, without prefix
 		 */
 		setFileName( filename ) {
-			this.$filenamePrefix.text( 'File:' );
+			this.$filenamePrefix.text(
+				mw.config.get( 'wgFormattedNamespaces' )[
+					mw.config.get( 'wgNamespaceIds' ).file
+				] + ':'
+			);
 			this.$filename.text( filename );
 
 			this.$filenameLi.removeClass( 'empty' );
