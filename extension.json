@@ -304,6 +304,11 @@
 				"multimediaviewer-embed-via"
 			]
 		},
+		"mmv.ui.restriction": {
+			"styles": [
+				"mmv.ui.restriction/mmv.ui.restriction.less"
+			]
+		},
 		"mmv.bootstrap": {
 			"packageFiles": [
 				"mmv.bootstrap/mmv.bootstrap.js",
