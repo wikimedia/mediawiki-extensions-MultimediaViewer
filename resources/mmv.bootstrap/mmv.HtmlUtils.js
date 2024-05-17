@@ -221,7 +221,7 @@
 				const $html = HtmlUtils.wrapAndJquerify( html );
 				HtmlUtils.filterInvisible( $html );
 				HtmlUtils.appendWhitespaceToBlockElements( $html );
-				HtmlUtils.whitelistHtml( $html, 'a, span, i, b, sup, sub' );
+				HtmlUtils.whitelistHtml( $html, 'a, span, i, b, sup, sub, s' );
 				cache.textWithTags[ html ] = HtmlUtils.mergeWhitespace( $html.html() );
 			}
 			return cache.textWithTags[ html ];
