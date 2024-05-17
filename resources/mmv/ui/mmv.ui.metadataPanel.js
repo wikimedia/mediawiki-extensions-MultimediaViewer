@@ -617,6 +617,7 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 		 * @return {jQuery} jQuery object of label
 		 */
 		createRestriction( type ) {
+			mw.loader.using( 'mmv.ui.restriction', () => {} ); // for restriction icons
 			const $label = $( '<span>' )
 				.addClass( 'mw-mmv-label mw-mmv-restriction-label' )
 				// Messages duplicated from above for linter

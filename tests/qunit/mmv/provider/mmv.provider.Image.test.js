@@ -91,7 +91,7 @@ const { ImageProvider } = require( 'mmv' );
 	} );
 
 	QUnit.test( 'Image load with preloading supported', function ( assert ) {
-		const url = mw.config.get( 'wgExtensionAssetsPath' ) + '/MultimediaViewer/resources/mmv/ui/img/restrict-personality.svg';
+		const url = mw.config.get( 'wgExtensionAssetsPath' ) + '/MultimediaViewer/resources/mmv.ui.restriction/img/restrict-personality.svg';
 		const imageProvider = new ImageProvider();
 		const endsWith = function ( a, b ) {
 			return a.indexOf( b ) === a.length - b.length;
