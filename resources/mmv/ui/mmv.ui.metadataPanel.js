@@ -670,22 +670,21 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 				return;
 			}
 
-			const latitude = imageData.latitude >= 0 ? imageData.latitude : imageData.latitude * -1;
-			const latmsg = `multimediaviewer-geoloc-${ imageData.latitude >= 0 ? 'north' : 'south' }`;
-			const latdeg = Math.floor( latitude );
-			let latremain = latitude - latdeg;
-			const latmin = Math.floor( ( latremain ) * 60 );
-
-			const longitude = imageData.longitude >= 0 ? imageData.longitude : imageData.longitude * -1;
-			const longmsg = `multimediaviewer-geoloc-${ imageData.longitude >= 0 ? 'east' : 'west' }`;
-			const longdeg = Math.floor( longitude );
-			let longremain = longitude - longdeg;
-			const longmin = Math.floor( ( longremain ) * 60 );
-
-			longremain -= longmin / 60;
-			latremain -= latmin / 60;
-			const latsec = Math.round( latremain * 100 * 60 * 60 ) / 100;
-			const longsec = Math.round( longremain * 100 * 60 * 60 ) / 100;
+			/**
+			 * Form at latitude or longitude as deg/min/sec array
+			 *
+			 * @param {number} value latitude or longitude
+			 * @return {string[]} formatted deg/min/sec array
+			 */
+			function convertDegMinSec( value ) {
+				value = Math.abs( value );
+				const deg = Math.floor( value );
+				value -= deg;
+				const min = Math.floor( value * 60 );
+				value -= min / 60;
+				const sec = Math.round( value * 100 * 60 * 60 ) / 100;
+				return [ deg, min, sec ].map( ( n ) => mw.language.convertNumber( n ) );
+			}
 
 			this.$location.text(
 				mw.message( 'multimediaviewer-geolocation',
@@ -694,24 +693,20 @@ const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 
 						mw.message(
 							'multimediaviewer-geoloc-coord',
-							mw.language.convertNumber( latdeg ),
-							mw.language.convertNumber( latmin ),
-							mw.language.convertNumber( latsec ),
+							...convertDegMinSec( imageData.latitude ),
 							// The following messages are used here:
 							// * multimediaviewer-geoloc-north
 							// * multimediaviewer-geoloc-south
-							mw.message( latmsg ).text()
+							mw.message( `multimediaviewer-geoloc-${ imageData.latitude >= 0 ? 'north' : 'south' }` ).text()
 						).text(),
 
 						mw.message(
 							'multimediaviewer-geoloc-coord',
-							mw.language.convertNumber( longdeg ),
-							mw.language.convertNumber( longmin ),
-							mw.language.convertNumber( longsec ),
+							...convertDegMinSec( imageData.longitude ),
 							// The following messages are used here:
 							// * multimediaviewer-geoloc-east
 							// * multimediaviewer-geoloc-west
-							mw.message( longmsg ).text()
+							mw.message( `multimediaviewer-geoloc-${ imageData.longitude >= 0 ? 'east' : 'west' }` ).text()
 						).text()
 					).text()
 				).text()
