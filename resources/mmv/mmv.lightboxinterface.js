@@ -179,6 +179,10 @@ const UiElement = require( './ui/mmv.ui.js' );
 				this.keydown( e );
 			} );
 
+			this.handleEvent( 'touchstart', ( e ) => {
+				this.touchTap( e );
+			} );
+
 			// mousemove generates a ton of events, which is why we throttle it
 			this.handleEvent( 'mousemove.lip', mw.util.throttle( ( e ) => {
 				this.mousemove( e );
@@ -459,6 +463,12 @@ const UiElement = require( './ui/mmv.ui.js' );
 		 */
 		fadeStopped() {
 			this.$main.removeClass( 'cursor-hidden' );
+		}
+
+		touchTap() {
+			if ( this.isFullscreen ) {
+				this.buttons.revealAndFade( this.mousePosition );
+			}
 		}
 
 		/**
