@@ -174,7 +174,11 @@ class MultimediaViewerBootstrap {
 					mw.notify( `Error loading MediaViewer: ${ message2 }` );
 					return $.Deferred().reject( message2 );
 				}
-			);
+			).always( () => {
+				if ( this.$loadBar ) {
+					this.$loadBar.remove();
+				}
+			} );
 	}
 
 	/**
@@ -214,7 +218,7 @@ class MultimediaViewerBootstrap {
 			this.$parsoidThumbs.each( ( i, thumb ) => this.processParsoidThumb( thumb ) );
 		} finally {
 			this.thumbsReadyDeferred.resolve();
-			// now that we have set up our real click handler we can we can remove the temporary
+			// now that we have set up our real click handler we can remove the temporary
 			// handler added in mmv.head.js which just replays clicks to the real handler
 			$( document ).off( 'click.mmv-head' );
 		}
@@ -685,6 +689,14 @@ class MultimediaViewerBootstrap {
 			this.$overlay = $( '<div>' )
 				// Dark overlay should stay dark in dark mode
 				.addClass( 'mw-mmv-overlay mw-no-invert' );
+
+			this.$loadBar = $( '<div>' )
+				.addClass( 'cdx-progress-bar' )
+				.attr( {
+					role: 'progressbar',
+					'aria-label': mw.msg( 'multimediaviewer-loading' )
+				} ).append( $( '<div>' ).addClass( 'cdx-progress-bar__bar' ) );
+			this.$overlay.append( this.$loadBar );
 		}
 
 		this.savedScrollTop = $( window ).scrollTop();

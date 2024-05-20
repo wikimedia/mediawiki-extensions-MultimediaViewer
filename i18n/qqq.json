@@ -167,5 +167,6 @@
 	"multimediaviewer-enable-alert": "Text shown in the enable panel to alert the user that the media viewer is currently disabled.",
 	"multimediaviewer-disable-info-title": "Used as title for {{msg-mw|Multimediaviewer-disable-info}}.",
 	"multimediaviewer-disable-info": "The title for this message is {{msg-mw|Multimediaviewer-disable-info-title}}.",
-	"multimediaviewer-errorreport-privacywarning": "A warning that is included in the Phabricator error report that's generated when the user clicks on the report link on an error page."
+	"multimediaviewer-errorreport-privacywarning": "A warning that is included in the Phabricator error report that's generated when the user clicks on the report link on an error page.",
+	"multimediaviewer-loading": "Label for indeterminate progress bar shown while the dialog is loading."
 }

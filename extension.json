@@ -207,6 +207,7 @@
 			"codexComponents": [
 				"CdxButton",
 				"CdxDialog",
+				"CdxProgressBar",
 				"CdxSelect",
 				"CdxTabs",
 				"CdxTextInput"
@@ -301,6 +302,7 @@
 				"mmv.head"
 			],
 			"messages": [
+				"multimediaviewer-loading",
 				"multimediaviewer-view-expanded",
 				"multimediaviewer-view-config",
 				"multimediaviewer-disable-info-title",
