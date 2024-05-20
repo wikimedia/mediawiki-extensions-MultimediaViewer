@@ -15,10 +15,9 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { getMediaHash, ROUTE_REGEXP, POSITION_REGEXP, LEGACY_ROUTE_REGEXP, isMediaViewerEnabledOnClick } = require( 'mmv.head' );
+const { getMediaHash, ROUTE_REGEXP, LEGACY_ROUTE_REGEXP, isMediaViewerEnabledOnClick } = require( 'mmv.head' );
 const Config = require( './mmv.Config.js' );
 const HtmlUtils = require( './mmv.HtmlUtils.js' );
-const LightboxImage = require( './mmv.lightboximage.js' );
 
 ( function () {
 	const mwRouter = require( 'mediawiki.router' );
@@ -57,9 +56,6 @@ const LightboxImage = require( './mmv.lightboximage.js' );
 			this.viewerIsBroken = false;
 
 			this.thumbsReadyDeferred = $.Deferred();
-			/**
-			 * @property {LightboxImage[]}
-			 */
 			this.thumbs = [];
 			this.$thumbs = null; // will be set by processThumbs
 			this.$parsoidThumbs = null; // will be set in processThumbs
@@ -83,16 +79,9 @@ const LightboxImage = require( './mmv.lightboximage.js' );
 				let fileTitle;
 				viewer.comingFromHashChange = true;
 				try {
-					let position = fileName.match( POSITION_REGEXP );
-					if ( position ) {
-						position = +position[ 1 ];
-						fileName = fileName.replace( POSITION_REGEXP, '' );
-					} else {
-						position = undefined;
-					}
 					fileName = decodeURIComponent( fileName );
 					fileTitle = new mw.Title( fileName );
-					viewer.loadImageByTitle( fileTitle, position );
+					viewer.loadImageByTitle( fileTitle );
 				} catch ( err ) {
 					// ignore routes to invalid titles
 					mw.log.warn( err );
@@ -284,6 +273,7 @@ const LightboxImage = require( './mmv.lightboximage.js' );
 			const $thumbContainer = $link.closest( '.thumb' );
 			const $enlarge = $thumbContainer.find( '.magnify a' );
 			const link = $link.prop( 'href' );
+			const alt = $thumb.attr( 'alt' );
 			const isFilePageMainThumb = $thumb.closest( '#file' ).length > 0;
 
 			if ( isFilePageMainThumb ) {
@@ -316,18 +306,16 @@ const LightboxImage = require( './mmv.lightboximage.js' );
 			}
 
 			// This is the data that will be passed onto the mmv
-			const image = new LightboxImage(
-				$thumb.prop( 'src' ),
-				link,
-				title,
-				this.thumbs.length,
-				this.thumbs.filter( ( t ) => t.filePageTitle.getPrefixedText() === title.getPrefixedText() ).length + 1,
-				$thumb[ 0 ],
-				this.findCaption( $thumbContainer, $link )
-			);
-			this.thumbs.push( image );
+			this.thumbs.push( {
+				thumb: thumb,
+				$thumb: $thumb,
+				title: title,
+				link: link,
+				alt: alt,
+				caption: this.findCaption( $thumbContainer, $link )
+			} );
 
-			$link.add( $enlarge ).on( 'click', ( e ) => this.click( e, image ) );
+			$link.add( $enlarge ).on( 'click', ( e ) => this.click( e, title ) );
 		}
 
 		/**
@@ -346,6 +334,7 @@ const LightboxImage = require( './mmv.lightboximage.js' );
 				'[typeof*="mw:Image"]'
 			);
 			const link = $link.prop( 'href' );
+			const alt = $thumb.attr( 'alt' );
 			const title = mw.Title.newFromImg( $thumb );
 			let caption;
 			let $thumbCaption;
@@ -372,18 +361,16 @@ const LightboxImage = require( './mmv.lightboximage.js' );
 			}
 
 			// This is the data that will be passed onto the mmv
-			const image = new LightboxImage(
-				$thumb.prop( 'src' ),
-				link,
-				title,
-				this.thumbs.length,
-				this.thumbs.filter( ( t ) => t.filePageTitle.getPrefixedText() === title.getPrefixedText() ).length + 1,
-				$thumb[ 0 ],
-				caption
-			);
-			this.thumbs.push( image );
+			this.thumbs.push( {
+				thumb: thumb,
+				$thumb: $thumb,
+				title: title,
+				link: link,
+				alt: alt,
+				caption: caption
+			} );
 
-			$link.on( 'click', ( e ) => this.click( e, image ) );
+			$link.on( 'click', ( e ) => this.click( e, title ) );
 		}
 
 		/**
@@ -425,22 +412,18 @@ const LightboxImage = require( './mmv.lightboximage.js' );
 					.css( 'clear', 'both' )
 			);
 
-			const image = new LightboxImage(
-				$thumb.prop( 'src' ),
-				link,
-				title,
-				this.thumbs.length,
-				1,
-				$thumb[ 0 ],
-				''
-			);
-			this.thumbs.push( image );
+			this.thumbs.push( {
+				thumb: $thumb.get( 0 ),
+				$thumb: $thumb,
+				title: title,
+				link: link
+			} );
 
 			$mmvButton.on( 'click', () => {
 				if ( this.statusInfoDialog ) {
 					this.statusInfoDialog.close();
 				}
-				this.openImage( image );
+				this.openImage( title );
 				return false;
 			} );
 
@@ -451,7 +434,7 @@ const LightboxImage = require( './mmv.lightboximage.js' );
 				$( document ).one( 'mmv-metadata', () => {
 					$( document ).trigger( 'mmv-options-open' );
 				} );
-				this.openImage( image );
+				this.openImage( title );
 				return false;
 			} );
 
@@ -544,11 +527,11 @@ const LightboxImage = require( './mmv.lightboximage.js' );
 		/**
 		 * Opens MediaViewer and loads the given thumbnail. Requires processThumb() to be called first.
 		 *
-		 * @param {LightboxImage} image Image
+		 * @param {mw.Title} title File title
 		 */
-		openImage( image ) {
+		openImage( title ) {
 			this.ensureEventHandlersAreSetUp();
-			const hash = getMediaHash( image.filePageTitle, image.position );
+			const hash = getMediaHash( title );
 			location.hash = hash;
 			history.replaceState( MANAGED_STATE, null, hash );
 		}
@@ -557,11 +540,11 @@ const LightboxImage = require( './mmv.lightboximage.js' );
 		 * Handles a click event on a link
 		 *
 		 * @param {jQuery.Event} e jQuery event object
-		 * @param {LightboxImage} image Image
+		 * @param {mw.Title} title File title
 		 * @return {boolean} a value suitable for an event handler (ie. true if the click should be handled
 		 *  by the browser).
 		 */
-		click( e, image ) {
+		click( e, title ) {
 			// Do not interfere with non-left clicks or if modifier keys are pressed.
 			if ( ( e.button !== 0 && e.which !== 1 ) || e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) {
 				return true;
@@ -578,7 +561,7 @@ const LightboxImage = require( './mmv.lightboximage.js' );
 			}
 
 			// Mark the state so that if the page is refreshed, we don't generate an extra history entry
-			this.openImage( image );
+			this.openImage( title );
 
 			// calling this late so that in case of errors users at least get to the file page
 			e.preventDefault();
@@ -718,5 +701,5 @@ const LightboxImage = require( './mmv.lightboximage.js' );
 		}
 	}
 
-	module.exports = { MultimediaViewerBootstrap, LightboxImage, Config, HtmlUtils };
+	module.exports = { MultimediaViewerBootstrap, Config, HtmlUtils };
 }() );

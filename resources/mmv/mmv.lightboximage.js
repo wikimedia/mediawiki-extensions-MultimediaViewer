@@ -26,11 +26,11 @@
 		 * @param {string} filePageLink Link to the File: page
 		 * @param {mw.Title} fileTitle Represents the File: page
 		 * @param {number} index Which number file this is
-		 * @param {number} position The relative position of this image to others with same file
 		 * @param {HTMLImageElement} thumb The thumbnail that represents this image on the page
 		 * @param {string} [caption] The caption, if any.
+		 * @param {string} [alt] The alt text of the image
 		 */
-		constructor( fileLink, filePageLink, fileTitle, index, position, thumb, caption ) {
+		constructor( fileLink, filePageLink, fileTitle, index, thumb, caption, alt ) {
 			/** @property {string} Link to the file - generally a thumb URL */
 			this.src = fileLink;
 
@@ -43,29 +43,20 @@
 			/** @property {number} index What number this image is in the array of indexed images */
 			this.index = index;
 
-			/** @property {number} position The relative position of this image to others with same file */
-			this.position = position;
-
 			/** @property {HTMLImageElement} thumbnail The <img> element that holds the already-loaded thumbnail of the image */
 			this.thumbnail = thumb;
 
 			/** @property {string} caption The caption of the image, if any */
 			this.caption = caption;
-		}
 
-		/** @return {string} The alt text of the image */
-		get alt() {
-			return $( this.thumbnail ).attr( 'alt' );
-		}
+			/** @property {string} alt The alt text of the image */
+			this.alt = alt;
 
-		/** @return {number} Width of the full-sized file (read from HTML data attribute, might be missing) */
-		get originalWidth() {
-			return parseInt( $( this.thumbnail ).data( 'file-width' ), 10 );
-		}
+			/** @property {number|undefined} originalWidth Width of the full-sized file (read from HTML data attribute, might be missing) */
+			this.originalWidth = undefined;
 
-		/** @return {number} originalHeight Height of the full-sized file (read from HTML data attribute, might be missing) */
-		get originalHeight() {
-			return parseInt( $( this.thumbnail ).data( 'file-height' ), 10 );
+			/** @property {number|undefined} originalHeight Height of the full-sized file (read from HTML data attribute, might be missing) */
+			this.originalHeight = undefined;
 		}
 	}
 
