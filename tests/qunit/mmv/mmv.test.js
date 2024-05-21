@@ -1,4 +1,4 @@
-const { MultimediaViewer, Thumbnail } = require( 'mmv' );
+const { MultimediaViewer } = require( 'mmv' );
 const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
 const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 
@@ -85,7 +85,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 
 		// loadImage will call setupProgressBar, which will attach done, fail &
 		// progress handlers
-		viewer.loadImage( fakeImage, new Image() );
+		viewer.loadImage( fakeImage );
 		clock.tick( 10 );
 		assert.strictEqual( viewer.ui.panel.progressBar.jumpTo.lastCall.calledWith( 0 ), true,
 			'Percentage correctly reset by loadImage' );
@@ -165,7 +165,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 
 		// load some image
 		viewer.imageProvider.get = this.sandbox.stub().returns( firstImageDeferred );
-		viewer.loadImage( firstImage, new Image() );
+		viewer.loadImage( firstImage );
 		clock.tick( 10 );
 		assert.strictEqual( viewer.ui.panel.progressBar.jumpTo.getCall( 0 ).calledWith( 0 ), true,
 			'Percentage correctly reset for new first image' );
@@ -180,7 +180,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 
 		// change to another image
 		viewer.imageProvider.get = this.sandbox.stub().returns( secondImageDeferred );
-		viewer.loadImage( secondImage, new Image() );
+		viewer.loadImage( secondImage );
 		clock.tick( 10 );
 		assert.strictEqual( viewer.ui.panel.progressBar.jumpTo.getCall( 1 ).calledWith( 0 ), true,
 			'Percentage correctly reset for second new image' );
@@ -207,7 +207,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 
 		// change back to first image
 		viewer.imageProvider.get = this.sandbox.stub().returns( firstImageDeferred );
-		viewer.loadImage( firstImage, new Image() );
+		viewer.loadImage( firstImage );
 		clock.tick( 10 );
 		assert.strictEqual( viewer.ui.panel.progressBar.jumpTo.getCall( 2 ).calledWith( 40 ), true,
 			'Percentage jumps to right value when changing images' );
@@ -219,7 +219,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 
 		// change back to second image, which has finished loading
 		viewer.imageProvider.get = this.sandbox.stub().returns( secondImageDeferred );
-		viewer.loadImage( secondImage, new Image() );
+		viewer.loadImage( secondImage );
 		clock.tick( 10 );
 		assert.strictEqual( viewer.ui.panel.progressBar.hide.called, true,
 			'Progress bar hidden when switching to finished image' );
@@ -391,14 +391,14 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 
 		viewer.imageProvider.get.returns( firstImageDeferred.promise() );
 		viewer.fetchSizeIndependentLightboxInfo.returns( firstLigthboxInfoDeferred.promise() );
-		viewer.loadImage( firstImage, new Image() );
+		viewer.loadImage( firstImage );
 		clock.tick( 10 );
 		assert.strictEqual( viewer.animateMetadataDivOnce.called, false, 'Metadata of the first image should not be animated' );
 		assert.strictEqual( viewer.ui.panel.setImageInfo.called, false, 'Metadata of the first image should not be shown' );
 
 		viewer.imageProvider.get.returns( secondImageDeferred.promise() );
 		viewer.fetchSizeIndependentLightboxInfo.returns( secondLigthboxInfoDeferred.promise() );
-		viewer.loadImage( secondImage, new Image() );
+		viewer.loadImage( secondImage );
 		clock.tick( 10 );
 
 		viewer.ui.panel.progressBar.animateTo.reset();
@@ -452,7 +452,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.loadImage(
 			{
 				filePageTitle: new mw.Title( 'File:Stuff.jpg' ),
-				thumbnail: new Thumbnail( 'foo', 10, 10 )
+				thumbnail: new Image( 10, 10 )
 			},
 			new Image()
 		);

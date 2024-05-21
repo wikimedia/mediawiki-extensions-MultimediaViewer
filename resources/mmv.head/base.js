@@ -31,6 +31,12 @@
 		 */
 		ROUTE_REGEXP: /^\/media\/(.+)$/,
 		/**
+		 * RegExp representing the media position as in "File:foo.jpg/3"
+		 *
+		 * @member mw.mmv
+		 */
+		POSITION_REGEXP: /\/(\d+)$/,
+		/**
 		 * @property {RegExp}
 		 * Regular expression representing the legacy media route
 		 * @member mw.mmv
@@ -55,9 +61,12 @@
 		 * Returns the location hash (route string) for the given file title.
 		 *
 		 * @param {string} imageFileTitle the file title
+		 * @param {number} [position] the relative position of this image to others with same file
 		 * @return {string} the location hash
 		 * @member mw.mmv
 		 */
-		getMediaHash: ( imageFileTitle ) => `#/media/${ encodeURI( imageFileTitle ) }`
+		getMediaHash: ( imageFileTitle, position ) => position > 1 ?
+			`#/media/${ encodeURI( imageFileTitle ) }/${ position }` :
+			`#/media/${ encodeURI( imageFileTitle ) }`
 	};
 }() );
