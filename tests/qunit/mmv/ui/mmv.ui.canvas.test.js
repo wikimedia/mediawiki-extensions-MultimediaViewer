@@ -15,7 +15,8 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { Canvas, LightboxImage } = require( 'mmv' );
+const { LightboxImage } = require( 'mmv.bootstrap' );
+const { Canvas } = require( 'mmv' );
 
 ( function () {
 	QUnit.module( 'mmv.ui.Canvas', QUnit.newMwEnvironment() );

@@ -1,4 +1,4 @@
-const { LightboxImage } = require( 'mmv' );
+const { LightboxImage } = require( 'mmv.bootstrap' );
 
 QUnit.module( 'mmv.lightboximage', QUnit.newMwEnvironment() );
 
