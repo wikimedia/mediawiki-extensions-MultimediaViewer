@@ -19,56 +19,53 @@ const { getMediaHash } = require( 'mmv.head' );
 const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
 const { UiElement } = require( 'mmv' );
 
-( function () {
-
+/**
+ * Represents the file reuse dialog and link to open it.
+ */
+class Share extends UiElement {
 	/**
-	 * Represents the file reuse dialog and link to open it.
+	 * @param {jQuery} $container
 	 */
-	class Share extends UiElement {
-		/**
-		 * @param {jQuery} $container
-		 */
-		constructor( $container ) {
-			super( $container );
+	constructor( $container ) {
+		super( $container );
 
-			Utils.createHeader( mw.message( 'multimediaviewer-share-tab' ).text() )
-				.appendTo( $container );
+		Utils.createHeader( mw.message( 'multimediaviewer-share-tab' ).text() )
+			.appendTo( $container );
 
-			const $body = $( '<div>' )
-				.addClass( 'cdx-dialog__body mw-mmv-pt-0' )
-				.appendTo( $container );
+		const $body = $( '<div>' )
+			.addClass( 'cdx-dialog__body mw-mmv-pt-0' )
+			.appendTo( $container );
 
-			[ this.$pageInput, this.$pageInputDiv ] = Utils.createInputWithCopy(
-				mw.message( 'multimediaviewer-reuse-copy-share' ).text(),
-				mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text()
-			);
-			this.$pageInput.attr( 'title', mw.message( 'multimediaviewer-share-explanation' ).text() );
-			this.$pageInputDiv.appendTo( $body );
-		}
-
-		/**
-		 * Shows the pane.
-		 */
-		show() {
-			super.show();
-		}
-
-		/**
-		 * @inheritdoc
-		 * @param {Image} image
-		 */
-		set( image ) {
-			const url = image.descriptionUrl + getMediaHash( image.title );
-			this.$pageInput.val( url );
-		}
-
-		/**
-		 * @inheritdoc
-		 */
-		empty() {
-			this.$pageInput.val( '' );
-		}
+		[ this.$pageInput, this.$pageInputDiv ] = Utils.createInputWithCopy(
+			mw.message( 'multimediaviewer-reuse-copy-share' ).text(),
+			mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text()
+		);
+		this.$pageInput.attr( 'title', mw.message( 'multimediaviewer-share-explanation' ).text() );
+		this.$pageInputDiv.appendTo( $body );
 	}
 
-	module.exports = Share;
-}() );
+	/**
+	 * Shows the pane.
+	 */
+	show() {
+		super.show();
+	}
+
+	/**
+	 * @inheritdoc
+	 * @param {Image} image
+	 */
+	set( image ) {
+		const url = image.descriptionUrl + getMediaHash( image.title );
+		this.$pageInput.val( url );
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	empty() {
+		this.$pageInput.val( '' );
+	}
+}
+
+module.exports = Share;

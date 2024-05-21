@@ -16,57 +16,55 @@
  */
 
 // Included on every page which has images so keep it lightweight.
-( function () {
-	module.exports = {
-		/**
-		 * The media route prefix
-		 *
-		 * @member mw.mmv
-		 */
-		ROUTE: 'media',
-		/**
-		 * RegExp representing the media route
-		 *
-		 * @member mw.mmv
-		 */
-		ROUTE_REGEXP: /^\/media\/(.+)$/,
-		/**
-		 * RegExp representing the media position as in "File:foo.jpg/3"
-		 *
-		 * @member mw.mmv
-		 */
-		POSITION_REGEXP: /\/(\d+)$/,
-		/**
-		 * @property {RegExp}
-		 * Regular expression representing the legacy media route
-		 * @member mw.mmv
-		 */
-		LEGACY_ROUTE_REGEXP: /^mediaviewer\/(.+)$/,
+module.exports = {
+	/**
+	 * The media route prefix
+	 *
+	 * @member mw.mmv
+	 */
+	ROUTE: 'media',
+	/**
+	 * RegExp representing the media route
+	 *
+	 * @member mw.mmv
+	 */
+	ROUTE_REGEXP: /^\/media\/(.+)$/,
+	/**
+	 * RegExp representing the media position as in "File:foo.jpg/3"
+	 *
+	 * @member mw.mmv
+	 */
+	POSITION_REGEXP: /\/(\d+)$/,
+	/**
+	 * @property {RegExp}
+	 * Regular expression representing the legacy media route
+	 * @member mw.mmv
+	 */
+	LEGACY_ROUTE_REGEXP: /^mediaviewer\/(.+)$/,
 
-		/**
-		 * Returns true if MediaViewer should handle thumbnail clicks.
-		 *
-		 * @param {Map} mwConfig
-		 * @param {Object} mwUser
-		 * @param {mw.SafeStorage} mwStorage
-		 * @return {boolean}
-		 */
-		isMediaViewerEnabledOnClick( mwConfig = mw.config, mwUser = mw.user, mwStorage = mw.storage ) {
-			return mwConfig.get( 'wgMediaViewer' ) && // global opt-out switch, can be set in user JS
-				mwConfig.get( 'wgMediaViewerOnClick' ) && // thumbnail opt-out, can be set in preferences
-				( mwUser.isNamed() || !mwStorage.get( 'wgMediaViewerOnClick' ) || mwStorage.get( 'wgMediaViewerOnClick' ) === '1' ); // thumbnail opt-out for anons
-		},
+	/**
+	 * Returns true if MediaViewer should handle thumbnail clicks.
+	 *
+	 * @param {Map} mwConfig
+	 * @param {Object} mwUser
+	 * @param {mw.SafeStorage} mwStorage
+	 * @return {boolean}
+	 */
+	isMediaViewerEnabledOnClick( mwConfig = mw.config, mwUser = mw.user, mwStorage = mw.storage ) {
+		return mwConfig.get( 'wgMediaViewer' ) && // global opt-out switch, can be set in user JS
+			mwConfig.get( 'wgMediaViewerOnClick' ) && // thumbnail opt-out, can be set in preferences
+			( mwUser.isNamed() || !mwStorage.get( 'wgMediaViewerOnClick' ) || mwStorage.get( 'wgMediaViewerOnClick' ) === '1' ); // thumbnail opt-out for anons
+	},
 
-		/**
-		 * Returns the location hash (route string) for the given file title.
-		 *
-		 * @param {string} imageFileTitle the file title
-		 * @param {number} [position] the relative position of this image to others with same file
-		 * @return {string} the location hash
-		 * @member mw.mmv
-		 */
-		getMediaHash: ( imageFileTitle, position ) => position > 1 ?
-			`#/media/${ encodeURI( imageFileTitle ) }/${ position }` :
-			`#/media/${ encodeURI( imageFileTitle ) }`
-	};
-}() );
+	/**
+	 * Returns the location hash (route string) for the given file title.
+	 *
+	 * @param {string} imageFileTitle the file title
+	 * @param {number} [position] the relative position of this image to others with same file
+	 * @return {string} the location hash
+	 * @member mw.mmv
+	 */
+	getMediaHash: ( imageFileTitle, position ) => position > 1 ?
+		`#/media/${ encodeURI( imageFileTitle ) }/${ position }` :
+		`#/media/${ encodeURI( imageFileTitle ) }`
+};

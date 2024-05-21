@@ -18,47 +18,44 @@
 const Api = require( './mmv.provider.Api.js' );
 const { newFromRepoInfo } = require( '../model/mmv.model.Repo.js' );
 
-( function () {
-
+/**
+ * Gets file repo information.
+ */
+class FileRepoInfo extends Api {
 	/**
-	 * Gets file repo information.
+	 * @param {mw.Api} api
+	 * @param {Object} [options]
+	 * @cfg {number} [maxage] cache expiration time, in seconds
+	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
 	 */
-	class FileRepoInfo extends Api {
-		/**
-		 * @param {mw.Api} api
-		 * @param {Object} [options]
-		 * @cfg {number} [maxage] cache expiration time, in seconds
-		 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
-		 */
-		constructor( api, options ) {
-			super( api, options );
-		}
-
-		/**
-		 * Runs an API GET request to get the repo info.
-		 *
-		 * @return {jQuery.Promise.<Object.<string, Repo>>} a promise which resolves to
-		 *     a hash of Repo objects, indexed by repo names.
-		 */
-		get() {
-			return this.getCachedPromise( '*', () => {
-				return this.apiGetWithMaxAge( {
-					formatversion: 2,
-					action: 'query',
-					meta: 'filerepoinfo',
-					uselang: 'content'
-				} ).then( ( data ) => {
-					return this.getQueryField( 'repos', data );
-				} ).then( ( reposArray ) => {
-					const reposHash = {};
-					reposArray.forEach( ( repo ) => {
-						reposHash[ repo.name ] = newFromRepoInfo( repo );
-					} );
-					return reposHash;
-				} );
-			} );
-		}
+	constructor( api, options ) {
+		super( api, options );
 	}
 
-	module.exports = FileRepoInfo;
-}() );
+	/**
+	 * Runs an API GET request to get the repo info.
+	 *
+	 * @return {jQuery.Promise.<Object.<string, Repo>>} a promise which resolves to
+	 *     a hash of Repo objects, indexed by repo names.
+	 */
+	get() {
+		return this.getCachedPromise( '*', () => {
+			return this.apiGetWithMaxAge( {
+				formatversion: 2,
+				action: 'query',
+				meta: 'filerepoinfo',
+				uselang: 'content'
+			} ).then( ( data ) => {
+				return this.getQueryField( 'repos', data );
+			} ).then( ( reposArray ) => {
+				const reposHash = {};
+				reposArray.forEach( ( repo ) => {
+					reposHash[ repo.name ] = newFromRepoInfo( repo );
+				} );
+				return reposHash;
+			} );
+		} );
+	}
+}
+
+module.exports = FileRepoInfo;

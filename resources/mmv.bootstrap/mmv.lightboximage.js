@@ -15,59 +15,56 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-( function () {
-
+/**
+ * Represents an image on the page.
+ */
+class LightboxImage {
 	/**
-	 * Represents an image on the page.
+	 * @param {string} fileLink Link to the file - generally a thumb URL
+	 * @param {string} filePageLink Link to the File: page
+	 * @param {mw.Title} fileTitle Represents the File: page
+	 * @param {number} index Which number file this is
+	 * @param {number} position The relative position of this image to others with same file
+	 * @param {HTMLImageElement} thumb The thumbnail that represents this image on the page
+	 * @param {string} [caption] The caption, if any.
 	 */
-	class LightboxImage {
-		/**
-		 * @param {string} fileLink Link to the file - generally a thumb URL
-		 * @param {string} filePageLink Link to the File: page
-		 * @param {mw.Title} fileTitle Represents the File: page
-		 * @param {number} index Which number file this is
-		 * @param {number} position The relative position of this image to others with same file
-		 * @param {HTMLImageElement} thumb The thumbnail that represents this image on the page
-		 * @param {string} [caption] The caption, if any.
-		 */
-		constructor( fileLink, filePageLink, fileTitle, index, position, thumb, caption ) {
-			/** @property {string} Link to the file - generally a thumb URL */
-			this.src = fileLink;
+	constructor( fileLink, filePageLink, fileTitle, index, position, thumb, caption ) {
+		/** @property {string} Link to the file - generally a thumb URL */
+		this.src = fileLink;
 
-			/** @property {string} filePageLink URL to the image's file page */
-			this.filePageLink = filePageLink;
+		/** @property {string} filePageLink URL to the image's file page */
+		this.filePageLink = filePageLink;
 
-			/** @property {mw.Title} filePageTitle Title of the image's file page */
-			this.filePageTitle = fileTitle;
+		/** @property {mw.Title} filePageTitle Title of the image's file page */
+		this.filePageTitle = fileTitle;
 
-			/** @property {number} index What number this image is in the array of indexed images */
-			this.index = index;
+		/** @property {number} index What number this image is in the array of indexed images */
+		this.index = index;
 
-			/** @property {number} position The relative position of this image to others with same file */
-			this.position = position;
+		/** @property {number} position The relative position of this image to others with same file */
+		this.position = position;
 
-			/** @property {HTMLImageElement} thumbnail The <img> element that holds the already-loaded thumbnail of the image */
-			this.thumbnail = thumb;
+		/** @property {HTMLImageElement} thumbnail The <img> element that holds the already-loaded thumbnail of the image */
+		this.thumbnail = thumb;
 
-			/** @property {string} caption The caption of the image, if any */
-			this.caption = caption;
-		}
-
-		/** @return {string} The alt text of the image */
-		get alt() {
-			return $( this.thumbnail ).attr( 'alt' );
-		}
-
-		/** @return {number} Width of the full-sized file (read from HTML data attribute, might be missing) */
-		get originalWidth() {
-			return parseInt( $( this.thumbnail ).data( 'file-width' ), 10 );
-		}
-
-		/** @return {number} originalHeight Height of the full-sized file (read from HTML data attribute, might be missing) */
-		get originalHeight() {
-			return parseInt( $( this.thumbnail ).data( 'file-height' ), 10 );
-		}
+		/** @property {string} caption The caption of the image, if any */
+		this.caption = caption;
 	}
 
-	module.exports = LightboxImage;
-}() );
+	/** @return {string} The alt text of the image */
+	get alt() {
+		return $( this.thumbnail ).attr( 'alt' );
+	}
+
+	/** @return {number} Width of the full-sized file (read from HTML data attribute, might be missing) */
+	get originalWidth() {
+		return parseInt( $( this.thumbnail ).data( 'file-width' ), 10 );
+	}
+
+	/** @return {number} originalHeight Height of the full-sized file (read from HTML data attribute, might be missing) */
+	get originalHeight() {
+		return parseInt( $( this.thumbnail ).data( 'file-height' ), 10 );
+	}
+}
+
+module.exports = LightboxImage;
