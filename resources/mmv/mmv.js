@@ -17,41 +17,33 @@
 
 const { getMediaHash } = require( 'mmv.head' );
 const ViewLogger = require( './logging/mmv.logging.ViewLogger.js' );
-const {
-	Api,
-	FileRepoInfo,
-	GuessedThumbnailInfo,
-	ImageInfo,
-	ImageProvider,
-	ThumbnailInfo
-} = require( './provider/mmv.provider.js' );
-const {
-	ImageModel,
-	IwTitle,
-	License,
-	Repo,
-	ForeignApiRepo,
-	ForeignDbRepo,
-	TaskQueue,
-	Thumbnail,
-	ThumbnailWidth
-} = require( './model/mmv.model.js' );
-const {
-	Canvas,
-	CanvasButtons,
-	Description,
-	Dialog,
-	DownloadDialog,
-	UiElement,
-	MetadataPanel,
-	MetadataPanelScroller,
-	Permission,
-	ProgressBar,
-	ReuseDialog,
-	StripeButtons,
-	TruncatableTextField,
-	OptionsDialog
-} = require( './ui/index.js' );
+const Api = require( './provider/mmv.provider.Api.js' );
+const FileRepoInfo = require( './provider/mmv.provider.FileRepoInfo.js' );
+const GuessedThumbnailInfo = require( './provider/mmv.provider.GuessedThumbnailInfo.js' );
+const ImageProvider = require( './provider/mmv.provider.Image.js' );
+const ImageInfo = require( './provider/mmv.provider.ImageInfo.js' );
+const ThumbnailInfo = require( './provider/mmv.provider.ThumbnailInfo.js' );
+const ImageModel = require( './model/mmv.model.Image.js' );
+const IwTitle = require( './model/mmv.model.IwTitle.js' );
+const License = require( './model/mmv.model.License.js' );
+const { Repo, ForeignApiRepo, ForeignDbRepo } = require( './model/mmv.model.Repo.js' );
+const TaskQueue = require( './model/mmv.model.TaskQueue.js' );
+const Thumbnail = require( './model/mmv.model.Thumbnail.js' );
+const ThumbnailWidth = require( './model/mmv.model.ThumbnailWidth.js' );
+const Canvas = require( './ui/mmv.ui.canvas.js' );
+const CanvasButtons = require( './ui/mmv.ui.canvasButtons.js' );
+const Description = require( './ui/mmv.ui.description.js' );
+const Dialog = require( './ui/mmv.ui.dialog.js' );
+const DownloadDialog = require( './ui/mmv.ui.download.dialog.js' );
+const UiElement = require( './ui/mmv.ui.js' );
+const MetadataPanel = require( './ui/mmv.ui.metadataPanel.js' );
+const MetadataPanelScroller = require( './ui/mmv.ui.metadataPanelScroller.js' );
+const Permission = require( './ui/mmv.ui.permission.js' );
+const ProgressBar = require( './ui/mmv.ui.progressBar.js' );
+const ReuseDialog = require( './ui/mmv.ui.reuse.dialog.js' );
+const StripeButtons = require( './ui/mmv.ui.stripeButtons.js' );
+const TruncatableTextField = require( './ui/mmv.ui.truncatableTextField.js' );
+const OptionsDialog = require( './ui/mmv.ui.viewingOptions.js' );
 const LightboxInterface = require( './mmv.lightboxinterface.js' );
 const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 

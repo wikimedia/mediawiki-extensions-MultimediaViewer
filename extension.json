@@ -44,7 +44,6 @@
 			"packageFiles": [
 				"mmv/mmv.js",
 				"mmv/logging/mmv.logging.ViewLogger.js",
-				"mmv/model/mmv.model.js",
 				"mmv/model/mmv.model.IwTitle.js",
 				"mmv/model/mmv.model.License.js",
 				"mmv/model/mmv.model.Image.js",
@@ -52,7 +51,6 @@
 				"mmv/model/mmv.model.Thumbnail.js",
 				"mmv/model/mmv.model.TaskQueue.js",
 				"mmv/model/mmv.model.ThumbnailWidth.js",
-				"mmv/provider/mmv.provider.js",
 				"mmv/provider/mmv.provider.Api.js",
 				"mmv/provider/mmv.provider.ImageInfo.js",
 				"mmv/provider/mmv.provider.FileRepoInfo.js",
@@ -60,7 +58,6 @@
 				"mmv/provider/mmv.provider.GuessedThumbnailInfo.js",
 				"mmv/provider/mmv.provider.Image.js",
 				"mmv/mmv.ThumbnailWidthCalculator.js",
-				"mmv/ui/index.js",
 				"mmv/ui/mmv.ui.js",
 				"mmv/ui/mmv.ui.dialog.js",
 				"mmv/ui/mmv.ui.reuse.dialog.js",
