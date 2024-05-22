@@ -50,7 +50,7 @@ class ProgressBar extends UiElement {
 	 */
 	hide() {
 		this.$progress.addClass( 'empty' );
-		this.$percent.stop().css( { width: 0 } );
+		this.$percent.css( { width: 0 } );
 	}
 
 	/**
@@ -60,31 +60,26 @@ class ProgressBar extends UiElement {
 	 */
 	animateTo( percent ) {
 		this.$progress.removeClass( 'empty' );
-		this.$percent.stop();
 
 		if ( percent === 100 ) {
 			// When a 100% update comes in, we make sure that the bar is visible, we animate
-			// fast to 100 and we hide the bar when the animation is done
-			// FIXME: Use CSS transition
-			// eslint-disable-next-line no-jquery/no-animate
-			this.$percent.animate( { width: `${ percent }%` }, 50, 'swing', this.hide.bind( this ) );
+			// fast to 100 and we hide the bar
+			this.$percent.css( { width: `${ percent }%` } );
+			this.hide();
 		} else {
 			// When any other % update comes in, we make sure the bar is visible
 			// and we animate to the right position
-			// FIXME: Use CSS transition
-			// eslint-disable-next-line no-jquery/no-animate
-			this.$percent.animate( { width: `${ percent }%` } );
+			this.$percent.css( { width: `${ percent }%` } );
 		}
 	}
 
 	/**
-	 * Goes to the given percent without animation
+	 * Goes to the given percent (originally without animation)
 	 *
 	 * @param {number} percent a number between 0 and 100
 	 */
 	jumpTo( percent ) {
-		this.$progress.removeClass( 'empty' );
-		this.$percent.stop().css( { width: `${ percent }%` } );
+		this.animateTo( percent );
 	}
 }
 

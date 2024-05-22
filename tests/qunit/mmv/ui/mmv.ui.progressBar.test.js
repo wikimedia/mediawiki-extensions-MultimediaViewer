@@ -31,38 +31,31 @@ const { ProgressBar } = require( 'mmv' );
 		const $div = $( '<div>' ).css( { width: 250, position: 'relative' } ).appendTo( $qf );
 		const progress = new ProgressBar( $div );
 
+		assert.strictEqual( progress.$progress.width(), 250, 'Progress bar is 250 wide' );
 		assert.strictEqual( progress.$progress.hasClass( 'empty' ), true, 'Progress bar is hidden' );
 		assert.strictEqual( progress.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
 
-		this.sandbox.stub( $.fn, 'animate', function ( target ) {
-			$( this ).css( target );
-			assert.strictEqual( target.width, '50%', 'Animation should go to 50%' );
-		} );
+		// Disable transition, as it messes with qunit test
+		progress.$percent.css( 'transition', 'unset' );
 		progress.animateTo( 50 );
-		assert.strictEqual( progress.$progress.hasClass( 'empty' ), false, 'Progress bar is visible' );
 
+		assert.strictEqual( progress.$progress.hasClass( 'empty' ), false, 'Progress bar is visible' );
 		assert.strictEqual( progress.$percent.width(), 125, 'Progress bar\'s indicator is at half' );
 
-		$.fn.animate.restore();
-		this.sandbox.stub( $.fn, 'animate', function ( target, duration, transition, callback ) {
-			$( this ).css( target );
-
-			assert.strictEqual( target.width, '100%', 'Animation should go to 100%' );
-
-			if ( callback !== undefined ) {
-				callback();
-			}
-		} );
 		progress.animateTo( 100 );
+
 		assert.strictEqual( progress.$progress.hasClass( 'empty' ), true, 'Progress bar is hidden' );
-		assert.strictEqual( progress.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
+		assert.strictEqual( progress.$percent.width(), 0, 'Progress bar\'s indicator is back to 0 and hidden' );
 	} );
 
 	QUnit.test( 'jumpTo()/hide()', function ( assert ) {
 		const $qf = $( '#qunit-fixture' );
 		const $div = $( '<div>' ).css( { width: 250, position: 'relative' } ).appendTo( $qf );
 		const progress = new ProgressBar( $div );
+		assert.strictEqual( progress.$progress.width(), 250, 'progress bar should have width of 250px' );
 
+		// Disable transition, as it messes with qunit test
+		progress.$percent.css( 'transition', 'unset' );
 		assert.strictEqual( progress.$progress.hasClass( 'empty' ), true, 'Progress bar is hidden' );
 		assert.strictEqual( progress.$percent.width(), 0, 'Progress bar\'s indicator is at 0' );
 

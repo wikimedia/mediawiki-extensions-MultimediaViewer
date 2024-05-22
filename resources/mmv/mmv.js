@@ -465,6 +465,7 @@ class MultimediaViewer {
 					progressBar.animateTo( 100 );
 
 					// Hide progress bar, we're done
+					// TODO not really needed, but testcase depends on it
 					progressBar.hide();
 				}
 

@@ -120,9 +120,6 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		// custom clock ensures progress handlers execute in correct sequence
 		const clock = this.sandbox.useFakeTimers();
 
-		// animation would keep running, conflict with other tests
-		this.sandbox.stub( $.fn, 'animate' ).returnsThis();
-
 		viewer.thumbs = [];
 		viewer.displayPlaceholderThumbnail = function () {};
 		viewer.setImage = function () {};
