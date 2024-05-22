@@ -205,16 +205,30 @@
 				"multimediaviewer-license-default"
 			]
 		},
-		"mmv.ui.ondemandshareddependencies": {
+		"mmv.codex": {
+			"class": "MediaWiki\\ResourceLoader\\CodexModule",
+			"codexStyleOnly": true,
+			"codexComponents": [
+				"CdxButton",
+				"CdxDialog",
+				"CdxSelect",
+				"CdxTabs",
+				"CdxTextInput"
+			]
+		},
+		"mmv.ui.reuse": {
 			"packageFiles": [
-				"mmv.ui.ondemandshareddependencies/index.js",
-				"mmv.ui.ondemandshareddependencies/mmv.EmbedFileFormatter.js",
-				"mmv.ui.ondemandshareddependencies/mmv.ui.utils.js"
+				"mmv.ui.reuse/index.js",
+				"mmv.ui.reuse/mmv.ui.download.pane.js",
+				"mmv.ui.reuse/mmv.ui.reuse.share.js",
+				"mmv.ui.reuse/mmv.ui.reuse.embed.js",
+				"mmv.ui.reuse/mmv.EmbedFileFormatter.js",
+				"mmv.ui.reuse/mmv.ui.utils.js"
 			],
 			"dependencies": [
-				"mmv.head",
-				"mmv",
-				"mediawiki.notification"
+				"mmv.codex",
+				"mediawiki.user",
+				"mediawiki.widgets"
 			],
 			"messages": [
 				"multimediaviewer-copy-button",
@@ -234,31 +248,7 @@
 				"multimediaviewer-html-embed-credit-text-b",
 				"multimediaviewer-html-embed-credit-text-l",
 				"multimediaviewer-html-embed-credit-link-text",
-				"mw-widgets-copytextlayout-copy-success"
-			]
-		},
-		"mmv.codex": {
-			"class": "MediaWiki\\ResourceLoader\\CodexModule",
-			"codexStyleOnly": true,
-			"codexComponents": [
-				"CdxButton",
-				"CdxDialog",
-				"CdxSelect",
-				"CdxTabs",
-				"CdxTextInput"
-			]
-		},
-		"mmv.ui.download.pane": {
-			"packageFiles": [
-				"mmv.ui.download.pane/mmv.ui.download.pane.js"
-			],
-			"dependencies": [
-				"mmv.codex",
-				"mediawiki.widgets",
-				"mmv",
-				"mmv.ui.ondemandshareddependencies"
-			],
-			"messages": [
+				"mw-widgets-copytextlayout-copy-success",
 				"multimediaviewer-download",
 				"multimediaviewer-download-preview-link-title",
 				"multimediaviewer-download-attribution-cta-header",
@@ -267,23 +257,7 @@
 				"multimediaviewer-download-attribution-copy",
 				"multimediaviewer-download-attribution",
 				"multimediaviewer-attr-plain",
-				"multimediaviewer-attr-html"
-			]
-		},
-		"mmv.ui.reuse.shareembed": {
-			"packageFiles": [
-				"mmv.ui.reuse.shareembed/index.js",
-				"mmv.ui.reuse.shareembed/mmv.ui.reuse.share.js",
-				"mmv.ui.reuse.shareembed/mmv.ui.reuse.embed.js"
-			],
-			"dependencies": [
-				"mmv.codex",
-				"mediawiki.user",
-				"mediawiki.widgets",
-				"mmv.ui.ondemandshareddependencies"
-			],
-			"messages": [
-				"multimediaviewer-reuse-loading-placeholder",
+				"multimediaviewer-attr-html",
 				"multimediaviewer-share-tab",
 				"multimediaviewer-share-explanation",
 				"multimediaviewer-link-to-file",
@@ -403,9 +377,7 @@
 			"mmv.head",
 			"mmv.bootstrap",
 			"mmv",
-			"mmv.ui.ondemandshareddependencies",
-			"mmv.ui.reuse.shareembed",
-			"mmv.ui.download.pane"
+			"mmv.ui.reuse"
 		]
 	},
 	"Hooks": {

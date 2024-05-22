@@ -341,7 +341,6 @@ class MultimediaViewer {
 			}
 
 			this.ui.panel.scroller.animateMetadataOnce();
-			this.preloadDependencies();
 		} );
 	}
 
@@ -900,13 +899,6 @@ class MultimediaViewer {
 		$( document ).off( 'mmv-close.mmvp mmv-resize-end.mmvp' );
 
 		this.ui.disconnect( this );
-	}
-
-	/**
-	 * Preloads JS and CSS dependencies that aren't needed to display the first image, but could be needed later
-	 */
-	preloadDependencies() {
-		mw.loader.load( [ 'mmv.ui.reuse.shareembed' ] );
 	}
 
 	/**

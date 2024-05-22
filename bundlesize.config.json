@@ -9,20 +9,12 @@
 			"maxSize": "9.1 kB"
 		},
 		{
-			"resourceModule": "mmv.ui.ondemandshareddependencies",
-			"maxSize": "2.3 kB"
-		},
-		{
 			"resourceModule": "mmv.codex",
 			"maxSize": "5.1 kB"
 		},
 		{
-			"resourceModule": "mmv.ui.download.pane",
-			"maxSize": "1.8 kB"
-		},
-		{
-			"resourceModule": "mmv.ui.reuse.shareembed",
-			"maxSize": "2.0 kB"
+			"resourceModule": "mmv.ui.reuse",
+			"maxSize": "4.8 kB"
 		},
 		{
 			"resourceModule": "mmv.bootstrap",

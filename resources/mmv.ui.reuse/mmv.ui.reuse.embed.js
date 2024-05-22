@@ -15,7 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { EmbedFileFormatter, Utils } = require( 'mmv.ui.ondemandshareddependencies' );
+const EmbedFileFormatter = require( './mmv.EmbedFileFormatter.js' );
+const Utils = require( './mmv.ui.utils.js' );
 const { UiElement } = require( 'mmv' );
 
 /**

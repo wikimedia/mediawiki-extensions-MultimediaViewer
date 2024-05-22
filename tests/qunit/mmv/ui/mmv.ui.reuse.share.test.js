@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { Share } = require( 'mmv.ui.reuse.shareembed' );
+const { Share } = require( 'mmv.ui.reuse' );
 
 ( function () {
 	function makeShare() {

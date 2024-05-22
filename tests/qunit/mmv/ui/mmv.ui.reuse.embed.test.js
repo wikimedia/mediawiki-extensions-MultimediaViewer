@@ -15,8 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { Embed } = require( 'mmv.ui.reuse.shareembed' );
-const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
+const { Embed, Utils } = require( 'mmv.ui.reuse' );
 
 ( function () {
 	const $qf = $( '#qunit-fixture' );

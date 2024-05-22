@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
+const { Utils } = require( 'mmv.ui.reuse' );
 
 ( function () {
 	QUnit.module( 'mmv.ui.reuse.utils', QUnit.newMwEnvironment() );

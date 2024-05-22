@@ -29,7 +29,7 @@ class ReuseDialog extends Dialog {
 	constructor( $container, $openButton, config ) {
 		super( $container, $openButton, config );
 
-		this.loadDependencies.push( 'mmv.ui.reuse.shareembed' );
+		this.loadDependencies.push( 'mmv.ui.reuse' );
 
 		this.$dialog.addClass( 'mw-mmv-reuse-dialog' );
 
@@ -75,7 +75,7 @@ class ReuseDialog extends Dialog {
 	 * Opens a dialog with information about file reuse.
 	 */
 	openDialog() {
-		const { Embed, Share } = require( 'mmv.ui.reuse.shareembed' );
+		const { Embed, Share } = require( 'mmv.ui.reuse' );
 		if ( !this.share ) {
 			this.share = new Share( this.$dialog );
 			this.share.attach();

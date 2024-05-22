@@ -15,8 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const DownloadPane = require( 'mmv.ui.download.pane' );
-const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
+const { Download: DownloadPane, Utils } = require( 'mmv.ui.reuse' );
 
 ( function () {
 	QUnit.module( 'mmv.ui.download.pane', QUnit.newMwEnvironment() );

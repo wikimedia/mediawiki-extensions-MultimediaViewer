@@ -16,7 +16,7 @@
  */
 
 const { getMediaHash } = require( 'mmv.head' );
-const { Utils } = require( 'mmv.ui.ondemandshareddependencies' );
+const Utils = require( './mmv.ui.utils.js' );
 const { UiElement } = require( 'mmv' );
 
 /**

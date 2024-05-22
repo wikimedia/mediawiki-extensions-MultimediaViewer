@@ -29,7 +29,7 @@ class DownloadDialog extends Dialog {
 	constructor( $container, $openButton, config ) {
 		super( $container, $openButton, config );
 
-		this.loadDependencies.push( 'mmv.ui.download.pane' );
+		this.loadDependencies.push( 'mmv.ui.reuse' );
 
 		this.$dialog.addClass( 'mw-mmv-download-dialog' );
 
@@ -75,8 +75,8 @@ class DownloadDialog extends Dialog {
 	 */
 	openDialog() {
 		if ( !this.download ) {
-			const DownloadPane = require( 'mmv.ui.download.pane' );
-			this.download = new DownloadPane( this.$dialog );
+			const { Download } = require( 'mmv.ui.reuse' );
+			this.download = new Download( this.$dialog );
 			this.download.attach();
 		}
 

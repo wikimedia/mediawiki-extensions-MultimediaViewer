@@ -1,5 +1,5 @@
 const { License, ImageModel, Repo } = require( 'mmv' );
-const { EmbedFileFormatter } = require( 'mmv.ui.ondemandshareddependencies' );
+const { EmbedFileFormatter } = require( 'mmv.ui.reuse' );
 
 ( function () {
 	QUnit.module( 'mmv.EmbedFileFormatter', QUnit.newMwEnvironment() );
