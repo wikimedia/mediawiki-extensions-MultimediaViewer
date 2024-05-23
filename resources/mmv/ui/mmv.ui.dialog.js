@@ -33,11 +33,6 @@ class Dialog extends UiElement {
 		this.isOpen = false;
 
 		/**
-		 * @property {string[]} loadDependencies Dependencies to load before showing the dialog.
-		 */
-		this.loadDependencies = [];
-
-		/**
 		 * @property {string} eventPrefix Prefix specific to the class to be applied to events.
 		 */
 		this.eventPrefix = '';
@@ -88,13 +83,7 @@ class Dialog extends UiElement {
 	 * @return {boolean} False to cancel the default event
 	 */
 	handleOpenCloseClick( openEvent, e ) {
-		mw.loader.using( this.loadDependencies, () => {
-			this.dependenciesLoaded = true;
-			this.toggleDialog( e );
-		}, ( error ) => {
-			mw.log.error( 'mw.loader.using error when trying to load dialog dependencies', error );
-		} );
-
+		this.toggleDialog( e );
 		return false;
 	}
 

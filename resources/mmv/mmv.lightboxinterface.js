@@ -18,12 +18,39 @@
 const { Config } = require( 'mmv.bootstrap' );
 const Canvas = require( './ui/mmv.ui.canvas.js' );
 const CanvasButtons = require( './ui/mmv.ui.canvasButtons.js' );
-const DownloadDialog = require( './ui/mmv.ui.download.dialog.js' );
 const MetadataPanel = require( './ui/mmv.ui.metadataPanel.js' );
 const OptionsDialog = require( './ui/mmv.ui.viewingOptions.js' );
-const ReuseDialog = require( './ui/mmv.ui.reuse.dialog.js' );
 const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 const UiElement = require( './ui/mmv.ui.js' );
+
+/** Proxy for a Dialog. Initialises and attaches the dialog upon first use. */
+class DialogProxy extends UiElement {
+	constructor( eventName, initDialog ) {
+		super();
+		this.eventName = eventName;
+		this.initDialog = initDialog;
+	}
+
+	attach() {
+		this.handleEvent( this.eventName, this.handleOpenCloseClick.bind( this ) );
+	}
+
+	set( ...setValues ) {
+		this.setValues = setValues;
+	}
+
+	handleOpenCloseClick() {
+		mw.loader.using( 'mmv.ui.reuse', ( req ) => {
+			this.unattach();
+			const dialog = this.initDialog( req );
+			dialog.attach();
+			dialog.set( ...this.setValues );
+			dialog.handleOpenCloseClick();
+		} );
+	}
+
+	closeDialog() {}
+}
 
 /**
  * Represents the main interface of the lightbox
@@ -91,8 +118,16 @@ class LightboxInterface extends UiElement {
 		this.buttons = new CanvasButtons( this.$preDiv, this.$closeButton, this.$fullscreenButton );
 		this.canvas = new Canvas( this.$innerWrapper, this.$imageWrapper, this.$wrapper );
 
-		this.fileReuse = new ReuseDialog( this.$innerWrapper, this.buttons.$reuse, this.config );
-		this.downloadDialog = new DownloadDialog( this.$innerWrapper, this.buttons.$download, this.config );
+		this.fileReuse = new DialogProxy( 'mmv-reuse-open', ( req ) => {
+			const { ReuseDialog } = req( 'mmv.ui.reuse' );
+			this.fileReuse = new ReuseDialog( this.$innerWrapper, this.buttons.$download, this.config );
+			return this.fileReuse;
+		} );
+		this.downloadDialog = new DialogProxy( 'mmv-download-open', ( req ) => {
+			const { DownloadDialog } = req( 'mmv.ui.reuse' );
+			this.downloadDialog = new DownloadDialog( this.$innerWrapper, this.buttons.$download, this.config );
+			return this.downloadDialog;
+		} );
 		this.optionsDialog = new OptionsDialog( this.$innerWrapper, this.buttons.$options, this.config );
 	}
 

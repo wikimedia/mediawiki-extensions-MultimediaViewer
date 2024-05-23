@@ -15,10 +15,12 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const DownloadDialog = require( './mmv.ui.download.dialog.js' );
+const ReuseDialog = require( './mmv.ui.reuse.dialog.js' );
 const Download = require( './mmv.ui.download.pane.js' );
 const Embed = require( './mmv.ui.reuse.embed.js' );
 const EmbedFileFormatter = require( './mmv.EmbedFileFormatter.js' );
 const Share = require( './mmv.ui.reuse.share.js' );
 const Utils = require( './mmv.ui.utils.js' );
 
-module.exports = { Download, Embed, EmbedFileFormatter, Share, Utils };
+module.exports = { DownloadDialog, ReuseDialog, Download, Embed, EmbedFileFormatter, Share, Utils };
