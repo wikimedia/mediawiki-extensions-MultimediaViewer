@@ -280,7 +280,7 @@ class Canvas extends UiElement {
 		const thumbnailDimensions = this.getCurrentImageWidths();
 
 		// ** is bolding in Phabricator
-		const description = `**${ mw.message( 'multimediaviewer-errorreport-privacywarning' ).text() }**
+		const description = `**${ mw.msg( 'multimediaviewer-errorreport-privacywarning' ) }**
 
 
 Error details:

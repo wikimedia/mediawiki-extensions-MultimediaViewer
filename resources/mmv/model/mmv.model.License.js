@@ -129,7 +129,7 @@ class License {
 			// * multimediaviewer-license-cc-zero
 			// * multimediaviewer-license-pd
 			// * multimediaviewer-license-default
-			return mw.message( message ).text();
+			return mw.msg( message );
 		} else {
 			return this.shortName;
 		}

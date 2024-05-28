@@ -87,11 +87,7 @@ class EmbedFileFormatter {
 			source = source && formatterFunction( source );
 
 			if ( author && source ) {
-				return mw.message(
-					'multimediaviewer-credit',
-					author,
-					source
-				).text();
+				return mw.msg( 'multimediaviewer-credit', author, source );
 			} else {
 				return author || source;
 			}

@@ -38,26 +38,26 @@ class CanvasButtons extends UiElement {
 			.attr( 'role', 'button' )
 			.addClass( 'mw-mmv-reuse-button' )
 			.text( '\u00A0' )
-			.prop( 'title', mw.message( 'multimediaviewer-reuse-link' ).text() );
+			.prop( 'title', mw.msg( 'multimediaviewer-reuse-link' ) );
 
 		this.$options = $( '<button>' )
 			.text( ' ' )
-			.prop( 'title', mw.message( 'multimediaviewer-options-tooltip' ).text() )
+			.prop( 'title', mw.msg( 'multimediaviewer-options-tooltip' ) )
 			.addClass( 'mw-mmv-options-button' );
 
 		this.$download = $( '<a>' )
 			.attr( 'role', 'button' )
 			.addClass( 'mw-mmv-download-button' )
 			.text( '\u00A0' )
-			.prop( 'title', mw.message( 'multimediaviewer-download-link' ).text() );
+			.prop( 'title', mw.msg( 'multimediaviewer-download-link' ) );
 
 		this.$next = $( '<button>' )
-			.prop( 'title', mw.message( 'multimediaviewer-next-image-alt-text' ).text() )
+			.prop( 'title', mw.msg( 'multimediaviewer-next-image-alt-text' ) )
 			.addClass( 'mw-mmv-next-image disabled' )
 			.text( '\u00A0' );
 
 		this.$prev = $( '<button>' )
-			.prop( 'title', mw.message( 'multimediaviewer-prev-image-alt-text' ).text() )
+			.prop( 'title', mw.msg( 'multimediaviewer-prev-image-alt-text' ) )
 			.addClass( 'mw-mmv-prev-image disabled' )
 			.text( '\u00A0' );
 
