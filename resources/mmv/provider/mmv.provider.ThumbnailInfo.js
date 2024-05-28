@@ -27,7 +27,7 @@ class ThumbnailInfo extends Api {
 	/**
 	 * @param {mw.Api} api
 	 * @param {Object} [options]
-	 * @cfg {number} [maxage] cache expiration time, in seconds
+	 * @param {number} [options.maxage] cache expiration time, in seconds
 	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
 	 */
 	constructor( api, options ) {

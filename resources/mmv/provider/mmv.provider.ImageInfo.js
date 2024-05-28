@@ -27,8 +27,8 @@ class ImageInfo extends Api {
 	/**
 	 * @param {mw.Api} api
 	 * @param {Object} [options]
-	 * @cfg {string} [language=null] image metadata language
-	 * @cfg {number} [maxage] cache expiration time, in seconds
+	 * @param {string} [options.language=null] image metadata language
+	 * @param {number} [options.maxage] cache expiration time, in seconds
 	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
 	 */
 	constructor( api, options ) {
