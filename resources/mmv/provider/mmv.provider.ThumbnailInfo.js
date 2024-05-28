@@ -42,12 +42,15 @@ class ThumbnailInfo extends Api {
 	 * is smaller).
 	 *
 	 * @param {mw.Title} file
+	 * @param {string} sampleUrl a thumbnail URL for the same file (but with different size).
 	 * @param {number} width thumbnail width in pixels
 	 * @param {number} height thumbnail height in pixels
 	 * @return {jQuery.Promise.<Thumbnail>}
 	 */
-	get( file, width, height ) {
-		const cacheKey = `${ file.getPrefixedDb() }|${ width || '' }|${ height || '' }`;
+	get( file, sampleUrl, width, height ) {
+		const match = sampleUrl.match( /(lang|page)([\d\-a-z]+)-(\d+)px/ ); // multi lingual SVG or PDF page
+		const iiurlparam = match ? `${ match[ 1 ] }${ match[ 2 ] }-${ width }px` : undefined;
+		const cacheKey = [ file.getPrefixedDb(), width || '', height || '', iiurlparam || '' ].join();
 
 		return this.getCachedPromise( cacheKey, () => this.apiGetWithMaxAge( {
 			formatversion: 2,
@@ -55,6 +58,7 @@ class ThumbnailInfo extends Api {
 			prop: 'imageinfo',
 			titles: file.getPrefixedDb(),
 			iiprop: 'url',
+			iiurlparam,
 			iiurlwidth: width,
 			iiurlheight: height
 		} ).then( ( data ) => this.getQueryPage( data ) ).then( ( page ) => {

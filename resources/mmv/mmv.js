@@ -206,7 +206,7 @@ class MultimediaViewer {
 
 		this.currentIndex = image.index;
 
-		this.currentImageFileTitle = image.filePageTitle;
+		this.currentImage = image;
 
 		if ( !this.isOpen ) {
 			$( document ).trigger( $.Event( 'mmv-setup-overlay' ) );
@@ -632,9 +632,9 @@ class MultimediaViewer {
 			guessing = true;
 			thumbnailPromise = this.guessedThumbnailInfoProvider.get(
 				fileTitle, sampleUrl, width, originalWidth, originalHeight
-			).then( null, () => this.thumbnailInfoProvider.get( fileTitle, width ) );
+			).then( null, () => this.thumbnailInfoProvider.get( fileTitle, sampleUrl, width ) );
 		} else {
-			thumbnailPromise = this.thumbnailInfoProvider.get( fileTitle, width );
+			thumbnailPromise = this.thumbnailInfoProvider.get( fileTitle, sampleUrl, width );
 		}
 
 		imagePromise = thumbnailPromise.then( ( thumbnail ) => this.imageProvider.get( thumbnail.url ) );
@@ -644,7 +644,7 @@ class MultimediaViewer {
 			// As a side effect this introduces an extra (harmless) retry of a failed thumbnailInfoProvider.get call
 			// because thumbnailInfoProvider.get is already called above when guessedThumbnailInfoProvider.get fails.
 			imagePromise = imagePromise
-				.then( null, () => this.thumbnailInfoProvider.get( fileTitle, width )
+				.then( null, () => this.thumbnailInfoProvider.get( fileTitle, sampleUrl, width )
 					.then( ( thumbnail ) => this.imageProvider.get( thumbnail.url ) ) );
 		}
 
@@ -748,7 +748,7 @@ class MultimediaViewer {
 	 */
 	setTitle() {
 		// update title after route change, see T225387
-		document.title = this.createDocumentTitle( this.currentImageFileTitle );
+		document.title = this.createDocumentTitle( this.currentImage && this.currentImage.filePageTitle );
 	}
 
 	/**
@@ -813,13 +813,13 @@ class MultimediaViewer {
 		} ).on( 'mmv-resize-end.mmvp', () => {
 			this.resize( this.ui );
 		} ).on( 'mmv-request-thumbnail.mmvp', ( e, size ) => {
-			if ( this.currentImageFileTitle ) {
-				return this.thumbnailInfoProvider.get( this.currentImageFileTitle, size );
+			if ( this.currentImage && this.currentImage.filePageTitle ) {
+				return this.thumbnailInfoProvider.get( this.currentImage.filePageTitle, this.currentImage.src, size );
 			} else {
 				return $.Deferred().reject();
 			}
 		} ).on( 'mmv-viewfile.mmvp', () => {
-			this.imageInfoProvider.get( this.currentImageFileTitle ).done( ( imageInfo ) => {
+			this.imageInfoProvider.get( this.currentImage.filePageTitle ).done( ( imageInfo ) => {
 				document.location = imageInfo.url;
 			} );
 		} );

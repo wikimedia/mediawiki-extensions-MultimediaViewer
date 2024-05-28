@@ -48,7 +48,7 @@ const { StripeButtons } = require( 'mmv' );
 		const buttons = createStripeButtons();
 		const fakeImageInfo = { descriptionUrl: '//commons.wikimedia.org/wiki/File:Foo.jpg' };
 
-		buttons.set( fakeImageInfo );
+		buttons.set( null, fakeImageInfo );
 		buttons.empty();
 
 		assert.true( true, 'No error on set()/empty().' );
@@ -62,16 +62,16 @@ const { StripeButtons } = require( 'mmv' );
 		const descriptionUrlCommons = 'https://commons.wikimedia.org/desc';
 		const descriptionUrl2 = 'http://example.com/different-desc';
 
-		buttons.set( { descriptionUrl } );
+		buttons.set( null, { descriptionUrl } );
 
 		assert.strictEqual( $button.hasClass( 'mw-mmv-repo-button-commons' ), false, 'Button does not have commons class non-Commons files' );
 		assert.strictEqual( $button.find( 'a' ).addBack().filter( 'a' ).attr( 'href' ), descriptionUrl, 'Description page link is correct' );
 
-		buttons.set( { descriptionUrl: descriptionUrlCommons } );
+		buttons.set( null, { descriptionUrl: descriptionUrlCommons } );
 
 		assert.strictEqual( $button.hasClass( 'mw-mmv-repo-button-commons' ), true, 'Button commons class for Commons files' );
 
-		buttons.set( {
+		buttons.set( null, {
 			descriptionUrl,
 			pageID: 1,
 			title: { getUrl: () => descriptionUrl2 }

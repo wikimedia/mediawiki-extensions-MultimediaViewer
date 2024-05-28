@@ -112,7 +112,8 @@ QUnit.test( '.setImageInfo()', function ( assert ) {
 	);
 	const title = 'Foo bar';
 	const image = {
-		filePageTitle: mw.Title.newFromText( 'File:' + title + '.jpg' )
+		filePageTitle: mw.Title.newFromText( 'File:' + title + '.jpg' ),
+		src: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg'
 	};
 	const imageData = {
 		title: image.filePageTitle,

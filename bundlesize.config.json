@@ -2,7 +2,7 @@
 	"modules": [
 		{
 			"resourceModule": "mmv",
-			"maxSize": "26.6 kB"
+			"maxSize": "26.9 kB"
 		},
 		{
 			"resourceModule": "mmv.ui.restriction",

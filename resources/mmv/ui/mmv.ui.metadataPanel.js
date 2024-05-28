@@ -739,7 +739,7 @@ class MetadataPanel extends UiElement {
 			this.$datetimeUpdatedLi.removeClass( 'empty' );
 		}
 
-		this.buttons.set( imageData );
+		this.buttons.set( image, imageData );
 		this.description.set( imageData.description, image.caption );
 
 		this.setLicense( imageData.license, imageData.descriptionUrl );

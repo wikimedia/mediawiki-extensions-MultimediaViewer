@@ -460,7 +460,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		const originalWidth = 50;
 		const viewer = getMultimediaViewer();
 
-		viewer.thumbnailInfoProvider.get = function ( fileTitle, width ) {
+		viewer.thumbnailInfoProvider.get = function ( fileTitle, sampleUrl, width ) {
 			assert.strictEqual( width, expectedWidth );
 			return $.Deferred().reject();
 		};
@@ -603,7 +603,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		const oldDocumentTitle = document.title;
 
 		this.sandbox.stub( mw.loader, 'using' ).returns( $.Deferred().resolve( viewer ) );
-		viewer.currentImageFileTitle = title;
+		viewer.currentImage = { filePageTitle: title };
 		bootstrap.setupEventHandlers();
 		viewer.setTitle();
 
