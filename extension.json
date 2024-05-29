@@ -60,8 +60,6 @@
 				"mmv/mmv.ThumbnailWidthCalculator.js",
 				"mmv/ui/mmv.ui.js",
 				"mmv/ui/mmv.ui.dialog.js",
-				"mmv/ui/mmv.ui.reuse.dialog.js",
-				"mmv/ui/mmv.ui.download.dialog.js",
 				"mmv/ui/mmv.ui.description.js",
 				"mmv/ui/mmv.ui.viewingOptions.js",
 				"mmv/ui/mmv.ui.canvas.js",
@@ -76,8 +74,6 @@
 			],
 			"styles": [
 				"mmv/ui/mmv.ui.dialog.less",
-				"mmv/ui/mmv.ui.reuse.dialog.less",
-				"mmv/ui/mmv.ui.download.dialog.less",
 				"mmv/ui/mmv.ui.viewingOptions.less",
 				"mmv/ui/mmv.ui.canvas.less",
 				"mmv/ui/mmv.ui.canvasButtons.less",
@@ -219,11 +215,17 @@
 		"mmv.ui.reuse": {
 			"packageFiles": [
 				"mmv.ui.reuse/index.js",
+				"mmv.ui.reuse/mmv.ui.reuse.dialog.js",
+				"mmv.ui.reuse/mmv.ui.download.dialog.js",
 				"mmv.ui.reuse/mmv.ui.download.pane.js",
 				"mmv.ui.reuse/mmv.ui.reuse.share.js",
 				"mmv.ui.reuse/mmv.ui.reuse.embed.js",
 				"mmv.ui.reuse/mmv.EmbedFileFormatter.js",
 				"mmv.ui.reuse/mmv.ui.utils.js"
+			],
+			"styles": [
+				"mmv.ui.reuse/mmv.ui.reuse.dialog.less",
+				"mmv.ui.reuse/mmv.ui.download.dialog.less"
 			],
 			"dependencies": [
 				"mmv.codex",

@@ -15,7 +15,9 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const Dialog = require( './mmv.ui.dialog.js' );
+const { Dialog } = require( 'mmv' );
+const Embed = require( './mmv.ui.reuse.embed.js' );
+const Share = require( './mmv.ui.reuse.share.js' );
 
 /**
  * Represents the file reuse dialog and the link to open it.
@@ -29,8 +31,8 @@ class ReuseDialog extends Dialog {
 	constructor( $container, $openButton, config ) {
 		super( $container, $openButton, config );
 
-		this.loadDependencies.push( 'mmv.ui.reuse' );
-
+		this.share = new Share( this.$dialog );
+		this.embed = new Embed( this.$dialog );
 		this.$dialog.addClass( 'mw-mmv-reuse-dialog' );
 
 		this.eventPrefix = 'use-this-file';
@@ -40,6 +42,9 @@ class ReuseDialog extends Dialog {
 	 * Registers listeners.
 	 */
 	attach() {
+		this.share.attach();
+		this.embed.attach();
+
 		this.handleEvent( 'mmv-reuse-open', this.handleOpenCloseClick.bind( this ) );
 
 		this.handleEvent( 'mmv-download-open', this.closeDialog.bind( this ) );
@@ -55,14 +60,10 @@ class ReuseDialog extends Dialog {
 	 * @param {string} alt
 	 */
 	set( image, repo, caption, alt ) {
-		if ( this.share && this.embed ) {
-			this.share.set( image );
-			this.embed.set( image, repo, caption, alt );
-			this.embed.set( image, repo, caption );
-			this.showImageWarnings( image );
-		} else {
-			this.setValues = [ image, repo, caption, alt ];
-		}
+		this.share.set( image );
+		this.embed.set( image, repo, caption, alt );
+		this.embed.set( image, repo, caption );
+		this.showImageWarnings( image );
 	}
 
 	/**
@@ -75,22 +76,6 @@ class ReuseDialog extends Dialog {
 	 * Opens a dialog with information about file reuse.
 	 */
 	openDialog() {
-		const { Embed, Share } = require( 'mmv.ui.reuse' );
-		if ( !this.share ) {
-			this.share = new Share( this.$dialog );
-			this.share.attach();
-		}
-
-		if ( !this.embed ) {
-			this.embed = new Embed( this.$dialog );
-			this.embed.attach();
-		}
-
-		if ( this.setValues ) {
-			this.set( ...this.setValues );
-			this.setValues = undefined;
-		}
-
 		super.openDialog();
 
 		this.$warning.insertAfter( this.$container );

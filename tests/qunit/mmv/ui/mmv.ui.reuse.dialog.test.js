@@ -15,7 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { ReuseDialog, Repo } = require( 'mmv' );
+const { Repo } = require( 'mmv' );
+const { ReuseDialog } = require( 'mmv.ui.reuse' );
 
 ( function () {
 	function makeReuseDialog( sandbox ) {
@@ -132,6 +133,7 @@ const { ReuseDialog, Repo } = require( 'mmv' );
 
 	QUnit.test( 'set()/empty() sense check:', function ( assert ) {
 		const reuseDialog = makeReuseDialog( this.sandbox );
+		reuseDialog.embed.resetCurrentSizeMenuToDefault = () => {};
 		const title = mw.Title.newFromText( 'File:Foobar.jpg' );
 		const src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
 		const url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg';
@@ -156,6 +158,7 @@ const { ReuseDialog, Repo } = require( 'mmv' );
 
 	QUnit.test( 'openDialog()/closeDialog():', function ( assert ) {
 		const reuseDialog = makeReuseDialog( this.sandbox );
+		reuseDialog.embed.resetCurrentSizeMenuToDefault = () => {};
 		const title = mw.Title.newFromText( 'File:Foobar.jpg' );
 		const src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
 		const url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg';

@@ -15,7 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const Dialog = require( './mmv.ui.dialog.js' );
+const { Dialog } = require( 'mmv' );
+const DownloadPane = require( './mmv.ui.download.pane.js' );
 
 /**
  * Represents the file download dialog and the link to open it.
@@ -29,8 +30,7 @@ class DownloadDialog extends Dialog {
 	constructor( $container, $openButton, config ) {
 		super( $container, $openButton, config );
 
-		this.loadDependencies.push( 'mmv.ui.reuse' );
-
+		this.download = new DownloadPane( this.$dialog );
 		this.$dialog.addClass( 'mw-mmv-download-dialog' );
 
 		this.eventPrefix = 'download';
@@ -40,6 +40,8 @@ class DownloadDialog extends Dialog {
 	 * Registers listeners.
 	 */
 	attach() {
+		this.download.attach();
+
 		this.handleEvent( 'mmv-download-open', this.handleOpenCloseClick.bind( this ) );
 
 		this.handleEvent( 'mmv-reuse-open', this.closeDialog.bind( this ) );
@@ -53,15 +55,8 @@ class DownloadDialog extends Dialog {
 	 * @param {Repo} repo
 	 */
 	set( image, repo ) {
-		if ( this.download ) {
-			this.download.set( image, repo );
-			this.showImageWarnings( image );
-		} else {
-			this.setValues = {
-				image: image,
-				repo: repo
-			};
-		}
+		this.download.set( image, repo );
+		this.showImageWarnings( image );
 	}
 
 	/**
@@ -74,18 +69,6 @@ class DownloadDialog extends Dialog {
 	 * Opens a dialog with information about file download.
 	 */
 	openDialog() {
-		if ( !this.download ) {
-			const { Download } = require( 'mmv.ui.reuse' );
-			this.download = new Download( this.$dialog );
-			this.download.attach();
-		}
-
-		if ( this.setValues ) {
-			this.download.set( this.setValues.image, this.setValues.repo );
-			this.showImageWarnings( this.setValues.image );
-			this.setValues = undefined;
-		}
-
 		super.openDialog();
 
 		$( document ).trigger( 'mmv-download-opened' );

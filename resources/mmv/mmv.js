@@ -34,13 +34,11 @@ const Canvas = require( './ui/mmv.ui.canvas.js' );
 const CanvasButtons = require( './ui/mmv.ui.canvasButtons.js' );
 const Description = require( './ui/mmv.ui.description.js' );
 const Dialog = require( './ui/mmv.ui.dialog.js' );
-const DownloadDialog = require( './ui/mmv.ui.download.dialog.js' );
 const UiElement = require( './ui/mmv.ui.js' );
 const MetadataPanel = require( './ui/mmv.ui.metadataPanel.js' );
 const MetadataPanelScroller = require( './ui/mmv.ui.metadataPanelScroller.js' );
 const Permission = require( './ui/mmv.ui.permission.js' );
 const ProgressBar = require( './ui/mmv.ui.progressBar.js' );
-const ReuseDialog = require( './ui/mmv.ui.reuse.dialog.js' );
 const StripeButtons = require( './ui/mmv.ui.stripeButtons.js' );
 const TruncatableTextField = require( './ui/mmv.ui.truncatableTextField.js' );
 const OptionsDialog = require( './ui/mmv.ui.viewingOptions.js' );
@@ -937,7 +935,6 @@ module.exports = {
 	CanvasButtons,
 	Description,
 	Dialog,
-	DownloadDialog,
 	FileRepoInfo,
 	ForeignApiRepo,
 	ForeignDbRepo,
@@ -955,7 +952,6 @@ module.exports = {
 	Permission,
 	ProgressBar,
 	Repo,
-	ReuseDialog,
 	StripeButtons,
 	TaskQueue,
 	Thumbnail,
