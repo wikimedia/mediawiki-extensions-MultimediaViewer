@@ -100,10 +100,10 @@ class MetadataPanel extends UiElement {
 			clearTimeout( this.panelShrinkTimeout );
 		} ).on( 'mmv-permission-grow.mmv-mp', () => {
 			this.$permissionLink
-				.text( mw.message( 'multimediaviewer-permission-link-hide' ).text() );
+				.text( mw.msg( 'multimediaviewer-permission-link-hide' ) );
 		} ).on( 'mmv-permission-shrink.mmv-mp', () => {
 			this.$permissionLink
-				.text( mw.message( 'multimediaviewer-permission-link' ).text() );
+				.text( mw.msg( 'multimediaviewer-permission-link' ) );
 		} );
 
 		this.handleEvent( 'fullscreenchange.lip', () => {
@@ -297,7 +297,7 @@ class MetadataPanel extends UiElement {
 
 		this.$permissionLink = $( '<span>' )
 			.addClass( 'mw-mmv-permission-link mw-mmv-label' )
-			.text( mw.message( 'multimediaviewer-permission-link' ).text() )
+			.text( mw.msg( 'multimediaviewer-permission-link' ) )
 			.appendTo( this.$licenseLi )
 			.hide()
 			.on( 'click', () => {
@@ -368,7 +368,7 @@ class MetadataPanel extends UiElement {
 	initializeAboutLinks() {
 		this.$mmvAboutLink = $( '<a>' )
 			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).infoLink )
-			.text( mw.message( 'multimediaviewer-about-mmv' ).text() )
+			.text( mw.msg( 'multimediaviewer-about-mmv' ) )
 			.addClass( 'mw-mmv-about-link' );
 
 		this.$mmvAboutLinks = $( '<div>' )
@@ -487,10 +487,10 @@ class MetadataPanel extends UiElement {
 			const moreText = HtmlUtils.jqueryToHtml(
 				$( '<a>' )
 					.addClass( 'mw-mmv-more-authors' )
-					.text( mw.message( 'multimediaviewer-multiple-authors', authorCount - 1 ).text() )
+					.text( mw.msg( 'multimediaviewer-multiple-authors', authorCount - 1 ) )
 					.attr( 'href', filepageUrl )
 			);
-			$wrapper.append( mw.message( 'multimediaviewer-multiple-authors-combine', author, moreText ).text() );
+			$wrapper.append( mw.msg( 'multimediaviewer-multiple-authors-combine', author, moreText ) );
 		} else {
 			$wrapper.append( author );
 		}
@@ -524,7 +524,7 @@ class MetadataPanel extends UiElement {
 		let isCc;
 		let isPd;
 
-		filePageUrl += `?uselang=${ mw.config.get( 'wgUserLanguage' ) }#${ mw.message( 'license-header' ).text() }`;
+		filePageUrl += `?uselang=${ mw.config.get( 'wgUserLanguage' ) }#${ mw.msg( 'license-header' ) }`;
 
 		if ( license ) {
 			shortName = license.getShortName();
@@ -532,7 +532,7 @@ class MetadataPanel extends UiElement {
 			isCc = license.isCc();
 			isPd = license.isPd();
 		} else {
-			shortName = mw.message( 'multimediaviewer-license-default' ).text();
+			shortName = mw.msg( 'multimediaviewer-license-default' );
 			url = filePageUrl;
 			isCc = isPd = false;
 		}
@@ -634,7 +634,7 @@ class MetadataPanel extends UiElement {
 			// * multimediaviewer-restriction-trademarked
 			// * multimediaviewer-restriction-default
 			// * multimediaviewer-restriction-default-and-others
-			.prop( 'title', mw.message( `multimediaviewer-restriction-${ type }` ).text() );
+			.prop( 'title', mw.msg( `multimediaviewer-restriction-${ type }` ) );
 
 		$( '<span>' )
 			// The following classes are used here:
@@ -653,7 +653,7 @@ class MetadataPanel extends UiElement {
 			// * mw-mmv-restriction-trademarked:after
 			// * mw-mmv-restriction-default
 			.addClass( `mw-mmv-restriction-label-inner mw-mmv-restriction-${ type === 'default-and-others' ? 'default' : type }` )
-			.text( mw.message( `multimediaviewer-restriction-${ type }` ).text() )
+			.text( mw.msg( `multimediaviewer-restriction-${ type }` ) )
 			.appendTo( $label );
 
 		return $label;
@@ -686,29 +686,25 @@ class MetadataPanel extends UiElement {
 		}
 
 		this.$location.text(
-			mw.message( 'multimediaviewer-geolocation',
-				mw.message(
-					'multimediaviewer-geoloc-coords',
-
-					mw.message(
-						'multimediaviewer-geoloc-coord',
+			mw.msg( 'multimediaviewer-geolocation',
+				mw.msg( 'multimediaviewer-geoloc-coords',
+					mw.msg( 'multimediaviewer-geoloc-coord',
 						...convertDegMinSec( imageData.latitude ),
 						// The following messages are used here:
 						// * multimediaviewer-geoloc-north
 						// * multimediaviewer-geoloc-south
-						mw.message( `multimediaviewer-geoloc-${ imageData.latitude >= 0 ? 'north' : 'south' }` ).text()
-					).text(),
+						mw.msg( `multimediaviewer-geoloc-${ imageData.latitude >= 0 ? 'north' : 'south' }` )
+					),
 
-					mw.message(
-						'multimediaviewer-geoloc-coord',
+					mw.msg( 'multimediaviewer-geoloc-coord',
 						...convertDegMinSec( imageData.longitude ),
 						// The following messages are used here:
 						// * multimediaviewer-geoloc-east
 						// * multimediaviewer-geoloc-west
-						mw.message( `multimediaviewer-geoloc-${ imageData.longitude >= 0 ? 'east' : 'west' }` ).text()
-					).text()
-				).text()
-			).text()
+						mw.msg( `multimediaviewer-geoloc-${ imageData.longitude >= 0 ? 'east' : 'west' }` )
+					)
+				)
+			)
 		);
 
 		this.$location.prop( 'href', (
@@ -733,13 +729,13 @@ class MetadataPanel extends UiElement {
 	setImageInfo( image, imageData, repoData ) {
 		if ( imageData.creationDateTime ) {
 			this.$datetimeCreated.text(
-				mw.message( 'multimediaviewer-datetime-created', this.formatDate( imageData.creationDateTime ) ).text()
+				mw.msg( 'multimediaviewer-datetime-created', this.formatDate( imageData.creationDateTime ) )
 			);
 			this.$datetimeCreatedLi.removeClass( 'empty' );
 		}
 		if ( imageData.uploadDateTime ) {
 			this.$datetimeUpdated.text(
-				mw.message( 'multimediaviewer-datetime-uploaded', this.formatDate( imageData.uploadDateTime ) ).text()
+				mw.msg( 'multimediaviewer-datetime-uploaded', this.formatDate( imageData.uploadDateTime ) )
 			);
 			this.$datetimeUpdatedLi.removeClass( 'empty' );
 		}
@@ -777,7 +773,7 @@ class MetadataPanel extends UiElement {
 	 * @param {string} error error message
 	 */
 	showError( title, error ) {
-		this.$credit.text( mw.message( 'multimediaviewer-metadata-error', error ).text() );
+		this.$credit.text( mw.msg( 'multimediaviewer-metadata-error', error ) );
 		this.$title.html( title );
 	}
 

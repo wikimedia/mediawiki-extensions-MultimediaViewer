@@ -37,7 +37,7 @@ class Embed extends UiElement {
 		 */
 		this.formatter = new EmbedFileFormatter();
 
-		Utils.createHeader( mw.message( 'multimediaviewer-embed-tab' ).text() )
+		Utils.createHeader( mw.msg( 'multimediaviewer-embed-tab' ) )
 			.appendTo( $container );
 
 		const $body = $( '<div>' )
@@ -56,16 +56,16 @@ class Embed extends UiElement {
 	 */
 	createSnippetTextAreas( $container ) {
 		[ this.$embedTextHtml, this.$embedTextHtmlDiv ] = Utils.createInputWithCopy(
-			mw.message( 'multimediaviewer-reuse-copy-embed' ).text(),
-			mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text()
+			mw.msg( 'multimediaviewer-reuse-copy-embed' ),
+			mw.msg( 'multimediaviewer-reuse-loading-placeholder' )
 		);
-		this.$embedTextHtml.attr( 'title', mw.message( 'multimediaviewer-embed-explanation' ).text() );
+		this.$embedTextHtml.attr( 'title', mw.msg( 'multimediaviewer-embed-explanation' ) );
 
 		[ this.$embedTextWikitext, this.$embedTextWikitextDiv ] = Utils.createInputWithCopy(
-			mw.message( 'multimediaviewer-reuse-copy-embed' ).text(),
-			mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text()
+			mw.msg( 'multimediaviewer-reuse-copy-embed' ),
+			mw.msg( 'multimediaviewer-reuse-loading-placeholder' )
 		);
-		this.$embedTextWikitext.attr( 'title', mw.message( 'multimediaviewer-embed-explanation' ).text() );
+		this.$embedTextWikitext.attr( 'title', mw.msg( 'multimediaviewer-embed-explanation' ) );
 
 		$container.append(
 			this.$embedTextHtmlDiv,
@@ -86,7 +86,7 @@ class Embed extends UiElement {
 			.addClass( 'cdx-tabs__list__item' )
 			.attr( 'role', 'tab' )
 			.data( 'name', name )
-			.text( mw.message( name === 'wikitext' ? 'multimediaviewer-embed-wt' : 'multimediaviewer-embed-html' ).text() )
+			.text( mw.msg( name === 'wikitext' ? 'multimediaviewer-embed-wt' : 'multimediaviewer-embed-html' ) )
 			.on( 'click', () => this.handleTypeSwitch( name ) )
 			.appendTo( this.$embedSwitchList )
 		);

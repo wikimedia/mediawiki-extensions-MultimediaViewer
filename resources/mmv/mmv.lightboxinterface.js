@@ -354,7 +354,7 @@ class LightboxInterface extends UiElement {
 		this.$closeButton = $( '<button>' )
 			.text( ' ' )
 			.addClass( 'mw-mmv-close' )
-			.prop( 'title', mw.message( 'multimediaviewer-close-popup-text' ).text() )
+			.prop( 'title', mw.msg( 'multimediaviewer-close-popup-text' ) )
 			.on( 'click', () => {
 				this.unattach();
 			} );
@@ -362,7 +362,7 @@ class LightboxInterface extends UiElement {
 		this.$fullscreenButton = $( '<button>' )
 			.text( ' ' )
 			.addClass( 'mw-mmv-fullscreen' )
-			.prop( 'title', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() )
+			.prop( 'title', mw.msg( 'multimediaviewer-fullscreen-popup-text' ) )
 			.on( 'click', ( e ) => {
 				if ( this.isFullscreen ) {
 					this.exitFullscreen();
@@ -389,12 +389,12 @@ class LightboxInterface extends UiElement {
 		this.isFullscreen = !!document.fullscreenElement;
 		if ( this.isFullscreen ) {
 			this.$fullscreenButton
-				.prop( 'title', mw.message( 'multimediaviewer-defullscreen-popup-text' ).text() )
-				.attr( 'alt', mw.message( 'multimediaviewer-defullscreen-popup-text' ).text() );
+				.prop( 'title', mw.msg( 'multimediaviewer-defullscreen-popup-text' ) )
+				.attr( 'alt', mw.msg( 'multimediaviewer-defullscreen-popup-text' ) );
 		} else {
 			this.$fullscreenButton
-				.prop( 'title', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() )
-				.attr( 'alt', mw.message( 'multimediaviewer-fullscreen-popup-text' ).text() );
+				.prop( 'title', mw.msg( 'multimediaviewer-fullscreen-popup-text' ) )
+				.attr( 'alt', mw.msg( 'multimediaviewer-fullscreen-popup-text' ) );
 		}
 
 		if ( !this.fullscreenButtonJustPressed && !this.isFullscreen ) {

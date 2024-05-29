@@ -61,8 +61,8 @@ class OptionsDialog extends Dialog {
 			'mw-mmv-enable-confirmation',
 			'$enableConfirmation',
 			[
-				mw.message( 'multimediaviewer-enable-confirmation-header' ).text(),
-				mw.message( 'multimediaviewer-enable-confirmation-text', mw.config.get( 'wgSiteName' ) ).text()
+				mw.msg( 'multimediaviewer-enable-confirmation-header' ),
+				mw.msg( 'multimediaviewer-enable-confirmation-text', mw.config.get( 'wgSiteName' ) )
 			] );
 	}
 
@@ -74,8 +74,8 @@ class OptionsDialog extends Dialog {
 			'mw-mmv-disable-confirmation',
 			'$disableConfirmation',
 			[
-				mw.message( 'multimediaviewer-disable-confirmation-header' ).text(),
-				mw.message( 'multimediaviewer-disable-confirmation-text', mw.config.get( 'wgSiteName' ) ).text()
+				mw.msg( 'multimediaviewer-disable-confirmation-header' ),
+				mw.msg( 'multimediaviewer-disable-confirmation-text', mw.config.get( 'wgSiteName' ) )
 			] );
 	}
 
@@ -86,10 +86,10 @@ class OptionsDialog extends Dialog {
 		this.createActionPane(
 			'mw-mmv-options-enable',
 			'$enableDiv',
-			mw.message( 'multimediaviewer-enable-submit-button' ).text(),
+			mw.msg( 'multimediaviewer-enable-submit-button' ),
 			[
-				mw.message( 'multimediaviewer-enable-dialog-header' ).text(),
-				mw.message( 'multimediaviewer-enable-text-header' ).text()
+				mw.msg( 'multimediaviewer-enable-dialog-header' ),
+				mw.msg( 'multimediaviewer-enable-text-header' )
 			], true );
 	}
 
@@ -100,11 +100,11 @@ class OptionsDialog extends Dialog {
 		this.createActionPane(
 			'mw-mmv-options-disable',
 			'$disableDiv',
-			mw.message( 'multimediaviewer-option-submit-button' ).text(),
+			mw.msg( 'multimediaviewer-option-submit-button' ),
 			[
-				mw.message( 'multimediaviewer-options-dialog-header' ).text(),
-				mw.message( 'multimediaviewer-options-text-header' ).text(),
-				mw.message( 'multimediaviewer-options-text-body' ).text()
+				mw.msg( 'multimediaviewer-options-dialog-header' ),
+				mw.msg( 'multimediaviewer-options-text-header' ),
+				mw.msg( 'multimediaviewer-options-text-body' )
 			], false );
 	}
 
@@ -230,7 +230,7 @@ class OptionsDialog extends Dialog {
 		if ( enabled ) {
 			$( '<div>' )
 				.addClass( 'mw-mmv-options-enable-alert' )
-				.text( mw.message( 'multimediaviewer-enable-alert' ).text() )
+				.text( mw.msg( 'multimediaviewer-enable-alert' ) )
 				.appendTo( $div );
 		}
 
@@ -302,7 +302,7 @@ class OptionsDialog extends Dialog {
 	makeCancelButton( $submitDiv ) {
 		return $( '<button>' )
 			.addClass( 'mw-mmv-options-cancel-button cdx-button cdx-button--weight-quiet' )
-			.text( mw.message( 'multimediaviewer-option-cancel-button' ).text() )
+			.text( mw.msg( 'multimediaviewer-option-cancel-button' ) )
 			.appendTo( $submitDiv )
 			.on( 'click', () => {
 				this.closeDialog();

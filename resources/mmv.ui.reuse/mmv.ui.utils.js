@@ -50,7 +50,7 @@ class Utils {
 			.addClass( 'mw-mmv-pt-0 mw-mmv-pb-0' ) // override padding provided by ".oo-ui-buttonElement-framed.oo-ui-labelElement > .oo-ui-buttonElement-button, button"
 			.attr( 'title', title )
 			.append( $( '<span>' ).addClass( 'cdx-button__icon cdx-button__icon--copy' ).attr( 'aria-hidden', 'true' ) )
-			.append( mw.message( 'multimediaviewer-copy-button' ).text() )
+			.append( mw.msg( 'multimediaviewer-copy-button' ) )
 			.on( 'click', () => {
 				// navigator.clipboard() is not supported in Safari 11.1, iOS Safari 11.3-11.4
 				if ( navigator.clipboard && navigator.clipboard.writeText ) {
@@ -204,15 +204,13 @@ class Utils {
 	 * @return {string} i18n label html
 	 */
 	static getDimensionsMessageHtml( sizeLabel, width, height ) {
-		const dimensions = !width || !height ? '' : mw.message(
+		const dimensions = !width || !height ? '' : mw.msg(
 			'multimediaviewer-embed-dimensions-separated',
-			mw.message(
-				'multimediaviewer-embed-dimensions',
-				width, height ).text()
-		).text();
+			mw.msg( 'multimediaviewer-embed-dimensions',
+				width, height ) );
 
 		// The following messages are used here:
-		return mw.message(
+		return mw.msg(
 			// The following messages are used here:
 			// * multimediaviewer-default-embed-dimensions
 			// * multimediaviewer-original-embed-dimensions
@@ -222,7 +220,7 @@ class Utils {
 			// * multimediaviewer-small-embed-dimensions
 			`multimediaviewer-${ sizeLabel }-embed-dimensions`,
 			dimensions
-		).text();
+		);
 	}
 }
 

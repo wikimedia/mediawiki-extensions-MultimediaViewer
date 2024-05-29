@@ -404,10 +404,10 @@ class MultimediaViewerBootstrap {
 			.addClass( 'mw-mmv-view-expanded cdx-button' )
 			.append( $( '<span>' ).addClass( 'cdx-button__icon' ) )
 			.append( ' ' )
-			.append( mw.message( 'multimediaviewer-view-expanded' ).text() );
+			.append( mw.msg( 'multimediaviewer-view-expanded' ) );
 
 		const $configButton = $( '<button>' )
-			.attr( 'title', mw.message( 'multimediaviewer-view-config' ).text() )
+			.attr( 'title', mw.msg( 'multimediaviewer-view-config' ) )
 			.addClass( 'mw-mmv-view-config cdx-button cdx-button--icon-only' )
 			.append( $( '<span>' ).addClass( 'cdx-button__icon' ) )
 			// U+200B ZERO WIDTH SPACE to accomplish same height as $mmvButton
@@ -466,10 +466,10 @@ class MultimediaViewerBootstrap {
 	showStatusInfo() {
 		mw.loader.using( 'oojs-ui-core' ).done( () => {
 			const content = document.createElement( 'div' );
-			content.textContent = mw.message( 'multimediaviewer-disable-info' ).text();
+			content.textContent = mw.msg( 'multimediaviewer-disable-info' );
 
 			const popupWidget = new OO.ui.PopupWidget( {
-				label: mw.message( 'multimediaviewer-disable-info-title' ).text(),
+				label: mw.msg( 'multimediaviewer-disable-info-title' ),
 				$content: $( content ),
 				padded: true,
 				head: true,

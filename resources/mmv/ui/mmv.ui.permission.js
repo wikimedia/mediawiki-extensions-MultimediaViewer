@@ -48,7 +48,7 @@ class Permission extends UiElement {
 		 * @property {jQuery}
 		 */
 		this.$title = $( '<h3>' )
-			.text( mw.message( 'multimediaviewer-permission-title' ).text() )
+			.text( mw.msg( 'multimediaviewer-permission-title' ) )
 			.appendTo( this.$box );
 
 		/**
@@ -78,7 +78,7 @@ class Permission extends UiElement {
 				$( '<a>' )
 					.addClass( 'mw-mmv-permission-text-viewmore' )
 					.prop( 'href', '#' )
-					.text( mw.message( 'multimediaviewer-permission-viewmore' ).text() )
+					.text( mw.msg( 'multimediaviewer-permission-viewmore' ) )
 			);
 
 		/**

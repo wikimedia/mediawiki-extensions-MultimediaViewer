@@ -48,7 +48,7 @@ class DownloadPane extends UiElement {
 			.appendTo( $container );
 		$( '<div>' )
 			.addClass( 'cdx-dialog__header__title' )
-			.text( mw.message( 'multimediaviewer-download-link' ).text() )
+			.text( mw.msg( 'multimediaviewer-download-link' ) )
 			.appendTo( $header );
 
 		const $body = $( '<div>' )
@@ -80,7 +80,7 @@ class DownloadPane extends UiElement {
 			.attr( 'target', '_blank' )
 			.attr( 'download', '' )
 			.addClass( 'cdx-button cdx-button--weight-primary cdx-button--action-progressive cdx-button--fake-button cdx-button--fake-button--enabled' )
-			.html( '<span class="cdx-button__icon cdx-button__icon--download" aria-hidden="true"></span>' + mw.message( 'multimediaviewer-download' ).text() )
+			.html( '<span class="cdx-button__icon cdx-button__icon--download" aria-hidden="true"></span>' + mw.msg( 'multimediaviewer-download' ) )
 			.appendTo( $container );
 	}
 
@@ -105,13 +105,13 @@ class DownloadPane extends UiElement {
 		this.$previewLink = $( '<a>' )
 			.attr( 'target', '_blank' )
 			.addClass( 'cdx-docs-link' )
-			.html( mw.message( 'multimediaviewer-download-preview-link-title' ).text() )
+			.html( mw.msg( 'multimediaviewer-download-preview-link-title' ) )
 			.appendTo( $container );
 	}
 
 	createAttributionButton( $container ) {
 		[ this.$attributionInput, this.$attributionInputDiv ] = Utils.createInputWithCopy(
-			mw.message( 'multimediaviewer-download-attribution-copy' ).text(), ''
+			mw.msg( 'multimediaviewer-download-attribution-copy' ), ''
 		);
 
 		const $header = $( '<div>' )
@@ -119,11 +119,11 @@ class DownloadPane extends UiElement {
 			.appendTo( $container );
 		$( '<p>' )
 			.addClass( 'cdx-dialog__header__title' )
-			.text( mw.message( 'multimediaviewer-download-attribution' ).text() )
+			.text( mw.msg( 'multimediaviewer-download-attribution' ) )
 			.appendTo( $header );
 		this.$attributionHowHeader = $( '<p>' )
 			.addClass( 'mw-mmv-mb-75' )
-			.text( mw.message( 'multimediaviewer-download-attribution-cta-header' ).text() );
+			.text( mw.msg( 'multimediaviewer-download-attribution-cta-header' ) );
 
 		const $attributionTabs = $( '<div>' ).addClass( 'cdx-tabs' );
 		const $attributionTabsHeader = $( '<div>' ).addClass( 'cdx-tabs__header' ).appendTo( $attributionTabs );
@@ -135,7 +135,7 @@ class DownloadPane extends UiElement {
 			// The following messages are used here:
 			// * multimediaviewer-attr-plain
 			// * multimediaviewer-attr-html
-			.text( mw.message( 'multimediaviewer-attr-' + name ).text() )
+			.text( mw.msg( 'multimediaviewer-attr-' + name ) )
 			.on( 'click', () => this.selectAttribution( name ) )
 			.appendTo( this.$attributionTabsList )
 		);
@@ -281,7 +281,7 @@ class DownloadPane extends UiElement {
 			'multimediaviewer-download-optional-attribution-cta-header';
 		// Message defined above
 		// eslint-disable-next-line mediawiki/msg-doc
-		this.$attributionHowHeader.text( mw.message( attributionCtaMessage ).text() );
+		this.$attributionHowHeader.text( mw.msg( attributionCtaMessage ) );
 	}
 
 	/**

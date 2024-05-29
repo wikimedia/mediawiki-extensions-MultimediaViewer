@@ -365,8 +365,8 @@ class MultimediaViewer {
 	 */
 	onTitleNotFound( title ) {
 		this.close();
-		const text = mw.message( 'multimediaviewer-file-not-found-error', title.getMainText() ).text();
-		const $link = $( '<a>' ).text( mw.message( 'multimediaviewer-file-page' ).text() ).prop( 'href', title.getUrl() );
+		const text = mw.msg( 'multimediaviewer-file-not-found-error', title.getMainText() );
+		const $link = $( '<a>' ).text( mw.msg( 'multimediaviewer-file-page' ) ).prop( 'href', title.getUrl() );
 		const $message = $( '<div>' ).text( text ).append( $( '<br>' ) ).append( $link );
 		mw.notify( $message );
 	}
@@ -392,7 +392,7 @@ class MultimediaViewer {
 	}
 
 	/**
-		 * Display the thumbnail from the page
+	 * Display the thumbnail from the page
 	 *
 	 * @param {LightboxImage} image
 	 * @param {jQuery} $initialImage The thumbnail from the page

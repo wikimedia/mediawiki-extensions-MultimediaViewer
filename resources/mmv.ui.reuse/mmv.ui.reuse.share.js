@@ -29,7 +29,7 @@ class Share extends UiElement {
 	constructor( $container ) {
 		super( $container );
 
-		Utils.createHeader( mw.message( 'multimediaviewer-share-tab' ).text() )
+		Utils.createHeader( mw.msg( 'multimediaviewer-share-tab' ) )
 			.appendTo( $container );
 
 		const $body = $( '<div>' )
@@ -37,10 +37,10 @@ class Share extends UiElement {
 			.appendTo( $container );
 
 		[ this.$pageInput, this.$pageInputDiv ] = Utils.createInputWithCopy(
-			mw.message( 'multimediaviewer-reuse-copy-share' ).text(),
-			mw.message( 'multimediaviewer-reuse-loading-placeholder' ).text()
+			mw.msg( 'multimediaviewer-reuse-copy-share' ),
+			mw.msg( 'multimediaviewer-reuse-loading-placeholder' )
 		);
-		this.$pageInput.attr( 'title', mw.message( 'multimediaviewer-share-explanation' ).text() );
+		this.$pageInput.attr( 'title', mw.msg( 'multimediaviewer-share-explanation' ) );
 		this.$pageInputDiv.appendTo( $body );
 	}
 
