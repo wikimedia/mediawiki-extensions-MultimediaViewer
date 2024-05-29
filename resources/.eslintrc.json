@@ -16,10 +16,13 @@
 		"jsdoc": {
 			"preferredTypes": {
 				"Config": "Config",
+				"ImageModel": "ImageModel",
+				"DownloadDialog": "DownloadDialog",
 				"License": "License",
 				"LightboxImage": "LightboxImage",
 				"MultimediaViewer": "MultimediaViewer",
-				"Repo": "Repo",
+				"OptionsDialog": "OptionsDialog",
+				"ReuseDialog": "ReuseDialog",
 				"TaskQueue": "TaskQueue",
 				"TaskQueueLightboxImage": "TaskQueueLightboxImage",
 				"Thumbnail": "Thumbnail",

@@ -122,17 +122,9 @@ QUnit.test( '.setImageInfo()', function ( assert ) {
 			return false;
 		}
 	};
-	const repoData = {
-		getArticlePath: function () {
-			return 'Foo';
-		},
-		isCommons: function () {
-			return false;
-		}
-	};
 	const clock = this.sandbox.useFakeTimers();
 
-	panel.setImageInfo( image, imageData, repoData );
+	panel.setImageInfo( image, imageData );
 
 	assert.strictEqual( panel.$title.text(), title, 'Title is correctly set' );
 	assert.notStrictEqual( panel.$credit.text(), '', 'Default credit is shown' );
@@ -153,7 +145,7 @@ QUnit.test( '.setImageInfo()', function ( assert ) {
 		'http://creativecommons.org/licenses/by-sa/2.0/' );
 	imageData.restrictions = [ 'trademarked', 'default', 'insignia' ];
 
-	panel.setImageInfo( image, imageData, repoData );
+	panel.setImageInfo( image, imageData );
 	const creditPopupText = panel.creditField.$element.attr( 'original-title' );
 	clock.tick( 10 );
 
@@ -170,7 +162,7 @@ QUnit.test( '.setImageInfo()', function ( assert ) {
 	assert.true( panel.$restrictions.children().last().children().hasClass( 'mw-mmv-restriction-default' ), 'Default restriction is correctly displayed last' );
 
 	imageData.creationDateTime = undefined;
-	panel.setImageInfo( image, imageData, repoData );
+	panel.setImageInfo( image, imageData );
 	clock.tick( 10 );
 
 	assert.false( panel.$datetimeUpdatedLi.hasClass( 'empty' ), 'Date/Time is not empty' );

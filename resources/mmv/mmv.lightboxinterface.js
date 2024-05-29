@@ -118,11 +118,13 @@ class LightboxInterface extends UiElement {
 		this.buttons = new CanvasButtons( this.$preDiv, this.$closeButton, this.$fullscreenButton );
 		this.canvas = new Canvas( this.$innerWrapper, this.$imageWrapper, this.$wrapper );
 
+		/** @property {DialogProxy|ReuseDialog} */
 		this.fileReuse = new DialogProxy( 'mmv-reuse-open', ( req ) => {
 			const { ReuseDialog } = req( 'mmv.ui.reuse' );
 			this.fileReuse = new ReuseDialog( this.$innerWrapper, this.buttons.$download, this.config );
 			return this.fileReuse;
 		} );
+		/** @property {DialogProxy|DownloadDialog} */
 		this.downloadDialog = new DialogProxy( 'mmv-download-open', ( req ) => {
 			const { DownloadDialog } = req( 'mmv.ui.reuse' );
 			this.downloadDialog = new DownloadDialog( this.$innerWrapper, this.buttons.$download, this.config );
@@ -134,15 +136,14 @@ class LightboxInterface extends UiElement {
 	/**
 	 * Sets up the file reuse data in the DOM
 	 *
-	 * @param {Image} image
-	 * @param {Repo} repo
+	 * @param {ImageModel} image
 	 * @param {string} caption
 	 * @param {string} alt
 	 */
-	setFileReuseData( image, repo, caption, alt ) {
+	setFileReuseData( image, caption, alt ) {
 		this.buttons.set( image );
-		this.fileReuse.set( image, repo, caption, alt );
-		this.downloadDialog.set( image, repo );
+		this.fileReuse.set( image, caption, alt );
+		this.downloadDialog.set( image );
 	}
 
 	/**

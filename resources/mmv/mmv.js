@@ -18,7 +18,6 @@
 const { getMediaHash } = require( 'mmv.head' );
 const ViewLogger = require( './logging/mmv.logging.ViewLogger.js' );
 const Api = require( './provider/mmv.provider.Api.js' );
-const FileRepoInfo = require( './provider/mmv.provider.FileRepoInfo.js' );
 const GuessedThumbnailInfo = require( './provider/mmv.provider.GuessedThumbnailInfo.js' );
 const ImageProvider = require( './provider/mmv.provider.Image.js' );
 const ImageInfo = require( './provider/mmv.provider.ImageInfo.js' );
@@ -26,7 +25,6 @@ const ThumbnailInfo = require( './provider/mmv.provider.ThumbnailInfo.js' );
 const ImageModel = require( './model/mmv.model.Image.js' );
 const IwTitle = require( './model/mmv.model.IwTitle.js' );
 const License = require( './model/mmv.model.License.js' );
-const { Repo, ForeignApiRepo, ForeignDbRepo } = require( './model/mmv.model.Repo.js' );
 const TaskQueue = require( './model/mmv.model.TaskQueue.js' );
 const Thumbnail = require( './model/mmv.model.Thumbnail.js' );
 const ThumbnailWidth = require( './model/mmv.model.ThumbnailWidth.js' );
@@ -81,13 +79,6 @@ class MultimediaViewer {
 			language: this.config.language(),
 			maxage: apiCacheFiveMinutes
 		} );
-
-		/**
-		 * @property {FileRepoInfo}
-		 * @private
-		 */
-		this.fileRepoInfoProvider = new FileRepoInfo( api,
-			{ maxage: apiCacheMaxAge } );
 
 		/**
 		 * @property {ThumbnailInfo}
@@ -259,8 +250,6 @@ class MultimediaViewer {
 		// this.preloadFullscreenThumbnail( image ); // disabled - #474
 		const imageWidths = this.ui.canvas.getCurrentImageWidths();
 
-		const start = Date.now();
-
 		const imagePromise = this.fetchThumbnailForLightboxImage( image, imageWidths.real );
 
 		if ( imagePromise.state() === 'pending' ) {
@@ -282,13 +271,11 @@ class MultimediaViewer {
 				imageElement.className = `mw-mmv-final-image ${ image.filePageTitle.getExtension().toLowerCase() }`;
 				imageElement.alt = image.alt;
 
-				$.when( metadataPromise, pluginsPromise ).then( ( metadata ) => {
-					$( document ).trigger( $.Event( 'mmv-metadata', { viewer: this, image: image, imageInfo: metadata[ 0 ] } ) );
+				$.when( metadataPromise, pluginsPromise ).then( ( imageInfo ) => {
+					$( document ).trigger( $.Event( 'mmv-metadata', { viewer: this, image, imageInfo } ) );
 				} );
 
-				this.displayRealThumbnail( thumbnail, imageElement, imageWidths, Date.now() - start );
-
-				return $.Deferred().resolve( thumbnail, imageElement );
+				this.displayRealThumbnail( thumbnail, imageElement, imageWidths );
 			},
 			// fail
 			( error ) => {
@@ -299,17 +286,15 @@ class MultimediaViewer {
 
 		metadataPromise.then(
 			// done
-			( imageInfo, repoInfo ) => {
+			( imageInfo ) => {
 				if ( this.currentIndex !== image.index ) {
 					return;
 				}
 
-				this.ui.panel.setImageInfo( image, imageInfo, repoInfo );
+				this.ui.panel.setImageInfo( image, imageInfo );
 
 				// File reuse steals a bunch of information from the DOM, so do it last
-				this.ui.setFileReuseData( imageInfo, repoInfo, image.caption, image.alt );
-
-				return $.Deferred().resolve( imageInfo, repoInfo );
+				this.ui.setFileReuseData( imageInfo, image.caption, image.alt );
 			},
 			// fail
 			( error ) => {
@@ -617,17 +602,10 @@ class MultimediaViewer {
 	 * information).
 	 *
 	 * @param {mw.Title} fileTitle Title of the file page for the image.
-	 * @return {jQuery.Promise.<Image, Repo>}
+	 * @return {jQuery.Promise.<ImageModel>}
 	 */
 	fetchSizeIndependentLightboxInfo( fileTitle ) {
-		const imageInfoPromise = this.imageInfoProvider.get( fileTitle );
-		const repoInfoPromise = this.fileRepoInfoProvider.get( fileTitle );
-
-		return $.when(
-			imageInfoPromise, repoInfoPromise
-		).then( ( imageInfo, repoInfoHash ) => {
-			return $.Deferred().resolve( imageInfo, repoInfoHash[ imageInfo.repo ] );
-		} );
+		return this.imageInfoProvider.get( fileTitle );
 	}
 
 	/**
@@ -936,9 +914,6 @@ module.exports = {
 	CanvasButtons,
 	Description,
 	Dialog,
-	FileRepoInfo,
-	ForeignApiRepo,
-	ForeignDbRepo,
 	GuessedThumbnailInfo,
 	ImageInfo,
 	ImageModel,
@@ -952,7 +927,6 @@ module.exports = {
 	OptionsDialog,
 	Permission,
 	ProgressBar,
-	Repo,
 	StripeButtons,
 	TaskQueue,
 	Thumbnail,

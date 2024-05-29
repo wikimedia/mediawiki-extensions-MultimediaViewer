@@ -247,7 +247,7 @@ class CanvasButtons extends UiElement {
 	}
 
 	/**
-	 * @param {Image} image
+	 * @param {ImageModel} image
 	 */
 	set( image ) {
 		this.$reuse.prop( 'href', image.descriptionUrl );

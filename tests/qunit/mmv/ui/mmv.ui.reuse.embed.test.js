@@ -117,19 +117,19 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 		const url = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
 		const thumbUrl = 'https://upload.wikimedia.org/wikipedia/thumb/Foobar.jpg';
 		const imageInfo = { url, title };
-		const repoInfo = {};
 		const caption = '-';
+		const alt = undefined;
 		const info = {
-			imageInfo: imageInfo,
-			repoInfo: repoInfo,
-			caption: caption
+			imageInfo,
+			caption,
+			alt
 		};
 		let width = 10;
 		const height = 20;
 
 		embed.resetCurrentSizeMenuToDefault = () => {};
 
-		embed.set( imageInfo, repoInfo, caption );
+		embed.set( imageInfo, caption );
 
 		// Small image, no thumbnail info is passed
 		embed.formatter.getThumbnailHtml = function ( i, u, w, h ) {
@@ -172,18 +172,18 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 		const url = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
 
 		const imageInfo = { url, title };
-		const repoInfo = {};
 		const caption = '-';
+		const alt = undefined;
 		const info = {
-			imageInfo: imageInfo,
-			repoInfo: repoInfo,
-			caption: caption
+			imageInfo,
+			caption,
+			alt
 		};
 		const width = 10;
 
 		embed.resetCurrentSizeMenuToDefault = () => {};
 
-		embed.set( imageInfo, repoInfo, caption );
+		embed.set( imageInfo, caption );
 
 		embed.formatter.getThumbnailWikitextFromEmbedFileInfo = function ( i, w ) {
 			assert.deepEqual( i, info, 'EmbedFileInfo passed correctly.' );
@@ -231,14 +231,6 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 
 	QUnit.test( 'set():', function ( assert ) {
 		const embed = new Embed( $qf );
-		const title = mw.Title.newFromText( 'File:Foobar.jpg' );
-		const src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
-		const url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg';
-		const embedFileInfo = {
-			imageInfo: title,
-			repoInfo: src,
-			caption: url
-		};
 		const width = 15;
 		const height = 20;
 
@@ -259,7 +251,7 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 
 		assert.false( $.isPlainObject( embed.embedFileInfo ), 'embedFileInfo not set yet.' );
 
-		embed.set( { width: width, height: height }, embedFileInfo );
+		embed.set( { width, height }, 'caption' );
 
 		assert.true( $.isPlainObject( embed.embedFileInfo ), 'embedFileInfo set.' );
 
@@ -298,20 +290,12 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 
 	QUnit.test( 'attach()/unattach():', function ( assert ) {
 		const embed = new Embed( $qf );
-		const title = mw.Title.newFromText( 'File:Foobar.jpg' );
-		const src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
-		const url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg';
-		const embedFileInfo = {
-			imageInfo: title,
-			repoInfo: src,
-			caption: url
-		};
 		const width = 15;
 		const height = 20;
 
 		embed.resetCurrentSizeMenuToDefault = () => {};
 
-		embed.set( { width: width, height: height }, embedFileInfo );
+		embed.set( { width, height }, 'caption' );
 
 		embed.handleTypeSwitch = function () {
 			assert.true( false, 'handleTypeSwitch should not have been called.' );

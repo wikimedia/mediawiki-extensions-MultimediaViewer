@@ -398,7 +398,6 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.imageProvider.get = () => $.Deferred().reject();
 		viewer.imageInfoProvider.get = () => $.Deferred().reject();
 		viewer.thumbnailInfoProvider.get = () => $.Deferred().reject();
-		viewer.fileRepoInfoProvider.get = () => $.Deferred().reject();
 
 		viewer.preloadFullscreenThumbnail = function () {};
 		viewer.initWithThumbs( [] );

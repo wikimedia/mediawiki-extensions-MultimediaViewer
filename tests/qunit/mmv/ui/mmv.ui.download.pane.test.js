@@ -48,6 +48,7 @@ const { Download: DownloadPane, Utils } = require( 'mmv.ui.reuse' );
 			assert.true( true, 'Menu options updated.' );
 		};
 
+		download.setAttributionText = () => {};
 		download.set( image );
 
 		assert.strictEqual( download.imageExtension, 'jpg', 'Image extension is set correctly.' );

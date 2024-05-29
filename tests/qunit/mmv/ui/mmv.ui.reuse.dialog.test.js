@@ -15,7 +15,6 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { Repo } = require( 'mmv' );
 const { ReuseDialog } = require( 'mmv.ui.reuse' );
 
 ( function () {
@@ -144,13 +143,7 @@ const { ReuseDialog } = require( 'mmv.ui.reuse' );
 			width: 100,
 			height: 80
 		};
-		const embedFileInfo = {
-			imageInfo: title,
-			repoInfo: src,
-			caption: url
-		};
-
-		reuseDialog.set( image, embedFileInfo );
+		reuseDialog.set( image, 'caption' );
 		reuseDialog.empty();
 
 		assert.true( true, 'Set/empty did not cause an error.' );
@@ -169,9 +162,8 @@ const { ReuseDialog } = require( 'mmv.ui.reuse' );
 			width: 100,
 			height: 80
 		};
-		const repoInfo = new Repo( 'Wikipedia', '//wikipedia.org/favicon.ico', true );
 
-		reuseDialog.set( image, repoInfo );
+		reuseDialog.set( image, 'caption' );
 		reuseDialog.setValues = undefined;
 
 		assert.strictEqual( reuseDialog.isOpen, false, 'Dialog closed by default.' );

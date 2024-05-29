@@ -34,87 +34,42 @@ class StripeButtons extends UiElement {
 			.appendTo( $container );
 
 		/**
-		 * This holds the actual buttons.
-		 *
-		 * @property {Object.<string, jQuery>}
+		 * A button linking to the file description page.
 		 */
-		this.buttons = {};
-
-		this.initDescriptionPageButton();
-	}
-
-	/**
-	 * Creates a button linking to the file description page.
-	 *
-	 * @protected
-	 */
-	initDescriptionPageButton() {
-		this.buttons.$descriptionPage = $( '<a>' )
+		this.$descriptionPage = $( '<a>' )
 			.addClass( 'mw-mmv-stripe-button empty mw-mmv-description-page-button cdx-button cdx-button--weight-primary cdx-button--action-progressive cdx-button--size-large cdx-button--fake-button cdx-button--fake-button--enabled' )
 			// elements are right-floated so we use prepend instead of append to keep the order
 			.prependTo( this.$buttonContainer );
 	}
 
 	/**
-	 * Runs code for each button, similarly to $.each.
-	 *
-	 * @protected
-	 * @param {function(jQuery, string)} callback a function that will be called with each button
-	 */
-	eachButton( callback ) {
-		for ( const buttonName in this.buttons ) {
-			callback( this.buttons[ buttonName ], buttonName );
-		}
-	}
-
-	/**
 	 * @inheritdoc
-	 * @param {Image} imageInfo
-	 * @param {Repo} repoInfo
+	 * @param {ImageModel} imageInfo
 	 */
-	set( imageInfo, repoInfo ) {
-		this.eachButton( ( $button ) => {
-			$button.removeClass( 'empty' );
-		} );
-
-		this.setDescriptionPageButton( imageInfo, repoInfo );
-	}
-
-	/**
-	 * Updates the button linking to the file page.
-	 *
-	 * @protected
-	 * @param {Image} imageInfo
-	 * @param {Repo} repoInfo
-	 */
-	setDescriptionPageButton( imageInfo, repoInfo ) {
-		const $button = this.buttons.$descriptionPage;
-		let isCommons = repoInfo.isCommons();
+	set( imageInfo ) {
 		let descriptionUrl = imageInfo.descriptionUrl;
+		let isCommons = String( descriptionUrl ).includes( '//commons.wikimedia.org/' );
 
-		if ( repoInfo.isLocal === false && imageInfo.pageID ) {
+		if ( imageInfo.pageID ) {
 			// The file has a local description page, override the description URL
 			descriptionUrl = imageInfo.title.getUrl();
 			isCommons = false;
 		}
 
-		$button.empty()
+		this.$descriptionPage.empty()
 			.append( $( '<span>' ).addClass( 'cdx-button__icon' ) )
 			.append( mw.msg( 'multimediaviewer-repository-local' ) )
-			.attr( 'href', descriptionUrl );
-
-		$button.toggleClass( 'mw-mmv-repo-button-commons', isCommons );
+			.attr( 'href', descriptionUrl )
+			.removeClass( 'empty' )
+			.toggleClass( 'mw-mmv-repo-button-commons', isCommons );
 	}
 
 	/**
 	 * @inheritdoc
 	 */
 	empty() {
-		this.eachButton( ( $button ) => {
-			$button.addClass( 'empty' );
-		} );
-
-		this.buttons.$descriptionPage.attr( { href: null, title: null, 'original-title': null } )
+		this.$descriptionPage.attr( { href: null, title: null, 'original-title': null } )
+			.addClass( 'empty' )
 			.removeClass( 'mw-mmv-repo-button-commons' );
 	}
 }

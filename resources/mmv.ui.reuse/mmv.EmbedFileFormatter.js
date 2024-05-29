@@ -23,22 +23,6 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
  */
 class EmbedFileFormatter {
 	/**
-	 * Returns the caption of the image (possibly a fallback generated from image metadata).
-	 *
-	 * @param {Object} info
-	 * @param {Image} info.imageInfo
-	 * @param {string} [info.caption]
-	 * @return {string}
-	 */
-	getCaption( info ) {
-		if ( info.caption ) {
-			return HtmlUtils.htmlToText( info.caption );
-		} else {
-			return info.imageInfo.title.getNameText();
-		}
-	}
-
-	/**
 	 * Helper function to generate thumbnail wikicode
 	 *
 	 * @param {mw.Title} title
@@ -59,12 +43,13 @@ class EmbedFileFormatter {
 	 * Helper function to generate thumbnail wikicode
 	 *
 	 * @param {Object} info
-	 * @param {Image} info.imageInfo
+	 * @param {ImageModel} info.imageInfo
 	 * @param {number} [width]
 	 * @return {string}
 	 */
 	getThumbnailWikitextFromEmbedFileInfo( info, width ) {
-		return this.getThumbnailWikitext( info.imageInfo.title, width, this.getCaption( info ), info.alt );
+		const caption = info.caption ? HtmlUtils.htmlToText( info.caption ) : info.imageInfo.title.getNameText();
+		return this.getThumbnailWikitext( info.imageInfo.title, width, caption, info.alt );
 	}
 
 	/**
@@ -97,17 +82,16 @@ class EmbedFileFormatter {
 	/**
 	 * Generates the plain text embed code for the image credit line.
 	 *
-	 * @param {Object} info
-	 * @param {Image} info.imageInfo
+	 * @param {ImageModel} imageInfo
 	 * @return {string}
 	 */
-	getCreditText( info ) {
-		const shortURL = info.imageInfo.descriptionShortUrl;
-		const license = info.imageInfo.license;
+	getCreditText( imageInfo ) {
+		const shortURL = imageInfo.descriptionShortUrl;
+		const license = imageInfo.license;
 		const byline = this.getByline(
-			info.imageInfo.author,
-			info.imageInfo.source,
-			info.imageInfo.attribution,
+			imageInfo.author,
+			imageInfo.source,
+			imageInfo.attribution,
 			( txt ) => HtmlUtils.htmlToText( txt )
 		);
 
@@ -135,23 +119,20 @@ class EmbedFileFormatter {
 		}
 
 		creditParams.push( shortURL );
-		const creditText = mw.message.apply( mw, creditParams ).plain();
-
-		return creditText;
+		return mw.message.apply( mw, creditParams ).plain();
 	}
 
 	/**
 	 * Generates the HTML embed code for the image credit line.
 	 *
-	 * @param {Object} info
-	 * @param {Image} info.imageInfo
+	 * @param {ImageModel} imageInfo
 	 * @return {string}
 	 */
-	getCreditHtml( info ) {
-		const shortURL = info.imageInfo.descriptionShortUrl;
+	getCreditHtml( imageInfo ) {
+		const shortURL = imageInfo.descriptionShortUrl;
 		const shortLink = HtmlUtils.makeLinkText( mw.message( 'multimediaviewer-html-embed-credit-link-text' ), { href: shortURL } );
-		const license = info.imageInfo.license;
-		const byline = this.getByline( info.imageInfo.author, info.imageInfo.source, info.imageInfo.attribution );
+		const license = imageInfo.license;
+		const byline = this.getByline( imageInfo.author, imageInfo.source, imageInfo.attribution );
 
 		if ( !byline && !license ) {
 			return shortLink;
@@ -175,36 +156,14 @@ class EmbedFileFormatter {
 		}
 
 		creditParams.push( shortLink );
-		const creditText = mw.message.apply( mw, creditParams ).plain();
-
-		return creditText;
-	}
-
-	/**
-	 * Returns HTML code for a link to the site of the image.
-	 *
-	 * @param {Object} info
-	 * @param {Image} info.imageInfo
-	 * @return {string}
-	 */
-	getSiteLink( info ) {
-		const siteName = info.repoInfo.displayName;
-		const siteUrl = info.repoInfo.getSiteLink();
-
-		if ( siteUrl ) {
-			return HtmlUtils.jqueryToHtml(
-				$( '<a>' ).prop( 'href', siteUrl ).text( siteName )
-			);
-		} else {
-			return siteName;
-		}
+		return mw.message.apply( mw, creditParams ).plain();
 	}
 
 	/**
 	 * Generates the HTML embed code for the image.
 	 *
 	 * @param {Object} info
-	 * @param {Image} info.imageInfo
+	 * @param {ImageModel} info.imageInfo
 	 * @param {string} imgUrl URL to the file itself.
 	 * @param {number} [width] Width to put into the image element.
 	 * @param {number} [height] Height to put into the image element.
@@ -214,7 +173,7 @@ class EmbedFileFormatter {
 		return HtmlUtils.jqueryToHtml(
 			$( '<p>' ).append(
 				$( '<a>' )
-					.attr( 'href', this.getLinkUrl( info ) )
+					.attr( 'href', info.imageInfo.descriptionUrl + getMediaHash( info.imageInfo.title ) )
 					.append(
 						$( '<img>' )
 							.attr( 'src', imgUrl )
@@ -223,20 +182,9 @@ class EmbedFileFormatter {
 							.attr( 'width', width )
 					),
 				$( '<br>' ),
-				this.getCreditHtml( info )
+				this.getCreditHtml( info.imageInfo )
 			)
 		);
-	}
-
-	/**
-	 * Generate a link which we will be using for sharing stuff.
-	 *
-	 * @param {Object} info
-	 * @param {Image} info.imageInfo
-	 * @return {string} URL
-	 */
-	getLinkUrl( info ) {
-		return info.imageInfo.descriptionUrl + getMediaHash( info.imageInfo.title );
 	}
 }
 

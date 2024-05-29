@@ -388,7 +388,7 @@ class MetadataPanel extends UiElement {
 	 * - the filename (without extension)
 	 *
 	 * @param {LightboxImage} image
-	 * @param {Image} imageData
+	 * @param {ImageModel} imageData
 	 */
 	setTitle( image, imageData ) {
 		let title;
@@ -662,7 +662,7 @@ class MetadataPanel extends UiElement {
 	/**
 	 * Sets location data in the interface.
 	 *
-	 * @param {Image} imageData
+	 * @param {ImageModel} imageData
 	 */
 	setLocationData( imageData ) {
 		if ( !imageData.hasCoords() ) {
@@ -723,10 +723,9 @@ class MetadataPanel extends UiElement {
 	 * Set all the image information in the panel
 	 *
 	 * @param {LightboxImage} image
-	 * @param {Image} imageData
-	 * @param {Repo} repoData
+	 * @param {ImageModel} imageData
 	 */
-	setImageInfo( image, imageData, repoData ) {
+	setImageInfo( image, imageData ) {
 		if ( imageData.creationDateTime ) {
 			this.$datetimeCreated.text(
 				mw.msg( 'multimediaviewer-datetime-created', this.formatDate( imageData.creationDateTime ) )
@@ -740,7 +739,7 @@ class MetadataPanel extends UiElement {
 			this.$datetimeUpdatedLi.removeClass( 'empty' );
 		}
 
-		this.buttons.set( imageData, repoData );
+		this.buttons.set( imageData );
 		this.description.set( imageData.description, image.caption );
 
 		this.setLicense( imageData.license, imageData.descriptionUrl );

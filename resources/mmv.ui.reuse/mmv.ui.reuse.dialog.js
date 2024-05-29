@@ -54,15 +54,13 @@ class ReuseDialog extends Dialog {
 	/**
 	 * Sets data needed by contained panes and makes dialog launch link visible.
 	 *
-	 * @param {Image} image
-	 * @param {Repo} repo
+	 * @param {ImageModel} image
 	 * @param {string} caption
 	 * @param {string} alt
 	 */
-	set( image, repo, caption, alt ) {
+	set( image, caption, alt ) {
 		this.share.set( image );
-		this.embed.set( image, repo, caption, alt );
-		this.embed.set( image, repo, caption );
+		this.embed.set( image, caption, alt );
 		this.showImageWarnings( image );
 	}
 

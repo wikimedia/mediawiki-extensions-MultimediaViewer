@@ -191,7 +191,7 @@ class Dialog extends UiElement {
 	}
 
 	/**
-	 * @param {Image} image
+	 * @param {ImageModel} image
 	 * @return {string[]}
 	 */
 	getImageWarnings( image ) {
@@ -215,7 +215,7 @@ class Dialog extends UiElement {
 	}
 
 	/**
-	 * @param {Image} image
+	 * @param {ImageModel} image
 	 */
 	showImageWarnings( image ) {
 		const warnings = this.getImageWarnings( image );

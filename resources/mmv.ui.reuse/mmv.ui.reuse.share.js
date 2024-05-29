@@ -53,7 +53,7 @@ class Share extends UiElement {
 
 	/**
 	 * @inheritdoc
-	 * @param {Image} image
+	 * @param {ImageModel} image
 	 */
 	set( image ) {
 		const url = image.descriptionUrl + getMediaHash( image.title );

@@ -33,7 +33,7 @@ class DownloadPane extends UiElement {
 		this.createDownloadSection( this.$container );
 		this.createAttributionButton( this.$container );
 
-		/** @property {Image|null} Image the download button currently points to. */
+		/** @property {ImageModel|null} Image the download button currently points to. */
 		this.image = null;
 	}
 
@@ -226,13 +226,11 @@ class DownloadPane extends UiElement {
 	/**
 	 * Sets the text in the attribution input element.
 	 *
-	 * @param {Object} embed
-	 * @param {Image} embed.imageInfo
-	 * @param {Repo} embed.repoInfo
+	 * @param {ImageModel} imageInfo
 	 */
-	setAttributionText( embed ) {
-		this.htmlCredit = this.formatter.getCreditHtml( embed );
-		this.textCredit = this.formatter.getCreditText( embed );
+	setAttributionText( imageInfo ) {
+		this.htmlCredit = this.formatter.getCreditHtml( imageInfo );
+		this.textCredit = this.formatter.getCreditText( imageInfo );
 		this.selectAttribution( this.currentAttrView );
 	}
 
@@ -250,10 +248,9 @@ class DownloadPane extends UiElement {
 	/**
 	 * Sets the data on the element.
 	 *
-	 * @param {Image} image
-	 * @param {Repo} repo
+	 * @param {ImageModel} image
 	 */
-	set( image, repo ) {
+	set( image ) {
 		const license = image && image.license;
 		const sizes = Utils.getPossibleImageSizesForHtml( image.width, image.height );
 
@@ -268,12 +265,8 @@ class DownloadPane extends UiElement {
 		this.$downloadSizeMenu.val( 'original' );
 		this.handleSizeSwitch();
 
-		if ( image && repo ) {
-			const embedFileInfo = {
-				imageInfo: image,
-				repoInfo: repo
-			};
-			this.setAttributionText( embedFileInfo );
+		if ( image ) {
+			this.setAttributionText( image );
 		}
 
 		const attributionCtaMessage = ( license && license.needsAttribution() ) ?

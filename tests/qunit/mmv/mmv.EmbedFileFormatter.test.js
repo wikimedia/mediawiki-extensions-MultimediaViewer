@@ -1,4 +1,4 @@
-const { License, ImageModel, Repo } = require( 'mmv' );
+const { License, ImageModel } = require( 'mmv' );
 const { EmbedFileFormatter } = require( 'mmv.ui.reuse' );
 
 ( function () {
@@ -33,16 +33,8 @@ const { EmbedFileFormatter } = require( 'mmv.ui.reuse' );
 			options.authorCount,
 			license
 		);
-		const repoInfo = {
-			displayName: options.siteName,
-			getSiteLink: function () {
-				return options.siteUrl;
-			}
-		};
-
 		return {
 			imageInfo: imageInfo,
-			repoInfo: repoInfo,
 			caption: options.caption
 		};
 	}
@@ -77,17 +69,6 @@ const { EmbedFileFormatter } = require( 'mmv.ui.reuse' );
 		// Only source present
 		byline = formatter.getByline( undefined, source );
 		assert.strictEqual( byline, '<span class="mw-mmv-source">Iliad</span>', 'Source found in bylines.' );
-	} );
-
-	QUnit.test( 'getSiteLink():', function ( assert ) {
-		const repoInfo = new Repo( 'Wikipedia', '//wikipedia.org/favicon.ico', true );
-		const info = { imageInfo: {}, repoInfo: repoInfo };
-		const formatter = new EmbedFileFormatter();
-		const siteUrl = repoInfo.getSiteLink();
-		const siteLink = formatter.getSiteLink( info );
-
-		assert.notStrictEqual( siteLink.indexOf( 'Wikipedia' ), -1, 'Site name is present in site link' );
-		assert.notStrictEqual( siteLink.indexOf( siteUrl ), -1, 'Site URL is present in site link' );
 	} );
 
 	QUnit.test( 'getThumbnailHtml():', function ( assert ) {
@@ -224,47 +205,37 @@ const { EmbedFileFormatter } = require( 'mmv.ui.reuse' );
 		const formatter = new EmbedFileFormatter();
 
 		let txt = formatter.getCreditText( {
-			repoInfo: {
-				displayName: 'Localcommons'
-			},
-
-			imageInfo: {
-				author,
-				source,
-				descriptionShortUrl: 'link',
-				title: {
-					getNameText: function () {
-						return 'Image Title';
-					}
+			author,
+			source,
+			descriptionShortUrl: 'link',
+			title: {
+				getNameText: function () {
+					return 'Image Title';
 				}
 			}
-		} );
+		}
+		);
 
 		assert.strictEqual( txt, '(multimediaviewer-text-embed-credit-text-b: (multimediaviewer-credit: Homer, Iliad), link)', 'Sense check' );
 
 		txt = formatter.getCreditText( {
-			repoInfo: {
-				displayName: 'Localcommons'
-			},
-
-			imageInfo: {
-				author,
-				source,
-				descriptionShortUrl: 'link',
-				title: {
-					getNameText: function () {
-						return 'Image Title';
-					}
-				},
-				license: {
-					getShortName: function () {
-						return 'WTFPL v2';
-					},
-					longName: 'Do What the Fuck You Want Public License Version 2',
-					isFree: this.sandbox.stub().returns( true )
+			author,
+			source,
+			descriptionShortUrl: 'link',
+			title: {
+				getNameText: function () {
+					return 'Image Title';
 				}
+			},
+			license: {
+				getShortName: function () {
+					return 'WTFPL v2';
+				},
+				longName: 'Do What the Fuck You Want Public License Version 2',
+				isFree: this.sandbox.stub().returns( true )
 			}
-		} );
+		}
+		);
 
 		assert.strictEqual( txt, '(multimediaviewer-text-embed-credit-text-bl: (multimediaviewer-credit: Homer, Iliad), WTFPL v2, link)', 'License message works' );
 	} );
@@ -275,24 +246,16 @@ const { EmbedFileFormatter } = require( 'mmv.ui.reuse' );
 		const formatter = new EmbedFileFormatter();
 
 		let html = formatter.getCreditHtml( {
-			repoInfo: {
-				displayName: 'Localcommons',
-				getSiteLink: function () {
-					return 'quux';
-				}
-			},
-
-			imageInfo: {
-				author,
-				source,
-				descriptionShortUrl: 'some link',
-				title: {
-					getNameText: function () {
-						return 'Image Title';
-					}
+			author,
+			source,
+			descriptionShortUrl: 'some link',
+			title: {
+				getNameText: function () {
+					return 'Image Title';
 				}
 			}
-		} );
+		}
+		);
 
 		assert.strictEqual(
 			html,
@@ -301,31 +264,23 @@ const { EmbedFileFormatter } = require( 'mmv.ui.reuse' );
 		);
 
 		html = formatter.getCreditHtml( {
-			repoInfo: {
-				displayName: 'Localcommons',
-				getSiteLink: function () {
-					return 'quux';
+			author,
+			source,
+			descriptionShortUrl: 'some link',
+			title: {
+				getNameText: function () {
+					return 'Image Title';
 				}
 			},
-
-			imageInfo: {
-				author,
-				source,
-				descriptionShortUrl: 'some link',
-				title: {
-					getNameText: function () {
-						return 'Image Title';
-					}
+			license: {
+				getShortLink: function () {
+					return '<a href="http://www.wtfpl.net/">WTFPL v2</a>';
 				},
-				license: {
-					getShortLink: function () {
-						return '<a href="http://www.wtfpl.net/">WTFPL v2</a>';
-					},
-					longName: 'Do What the Fuck You Want Public License Version 2',
-					isFree: this.sandbox.stub().returns( true )
-				}
+				longName: 'Do What the Fuck You Want Public License Version 2',
+				isFree: this.sandbox.stub().returns( true )
 			}
-		} );
+		}
+		);
 
 		assert.strictEqual(
 			html,

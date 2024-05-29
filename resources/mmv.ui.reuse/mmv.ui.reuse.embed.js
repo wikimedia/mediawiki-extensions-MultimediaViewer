@@ -245,21 +245,14 @@ class Embed extends UiElement {
 	/**
 	 * Sets the data on the element.
 	 *
-	 * @param {Image} image
-	 * @param {Repo} repo
+	 * @param {ImageModel} imageInfo
 	 * @param {string} [caption]
 	 * @param {string} [alt]
 	 */
-	set( image, repo, caption, alt ) {
-		const sizes = this.getSizeOptions( image.width, image.height );
+	set( imageInfo, caption, alt ) {
+		const sizes = this.getSizeOptions( imageInfo.width, imageInfo.height );
 
-		this.embedFileInfo = { imageInfo: image, repoInfo: repo };
-		if ( caption ) {
-			this.embedFileInfo.caption = caption;
-		}
-		if ( alt ) {
-			this.embedFileInfo.alt = alt;
-		}
+		this.embedFileInfo = { imageInfo, caption, alt };
 
 		Utils.updateSelectOptions( sizes.html, this.$embedSizeSwitchHtml.children() );
 		Utils.updateSelectOptions( sizes.wikitext, this.$embedSizeSwitchWikitext.children() );

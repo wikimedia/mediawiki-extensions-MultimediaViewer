@@ -169,7 +169,7 @@ class ImageModel {
 	 * @static
 	 * @param {mw.Title} title
 	 * @param {Object} imageInfo
-	 * @return {Image}
+	 * @return {ImageModel}
 	 */
 	static newFromImageInfo( title, imageInfo ) {
 		let name;

@@ -51,11 +51,10 @@ class DownloadDialog extends Dialog {
 	/**
 	 * Sets data needed by contained tabs and makes dialog launch link visible.
 	 *
-	 * @param {Image} image
-	 * @param {Repo} repo
+	 * @param {ImageModel} image
 	 */
-	set( image, repo ) {
-		this.download.set( image, repo );
+	set( image ) {
+		this.download.set( image );
 		this.showImageWarnings( image );
 	}
 
