@@ -8,6 +8,17 @@
 	bottom: 0;
 	z-index: 1000;
 	background-color: #000;
+	display: flex;
+	justify-items: center;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+
+	.cdx-progress-bar {
+		max-width: 80vw;
+		min-width: 20vw;
+		width: 20rem;
+	}
 }
 
 body.mw-mmv-lightbox-open {
@@ -18,7 +29,10 @@ body.mw-mmv-lightbox-open {
 		display: none;
 	}
 
-	> .mw-mmv-overlay,
+	> .mw-mmv-overlay {
+		display: flex;
+	}
+
 	> .mw-mmv-wrapper {
 		display: block;
 	}
