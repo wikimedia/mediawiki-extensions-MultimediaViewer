@@ -173,5 +173,6 @@
 	"multimediaviewer-enable-alert": "媒体查看器已停用",
 	"multimediaviewer-disable-info-title": "您已停用媒体查看器",
 	"multimediaviewer-disable-info": "您仍然可以使用媒体查看器查看单个文件。",
-	"multimediaviewer-errorreport-privacywarning": "错误详情附在报告中，会公开展示。如果您对此不满意，可以编辑下面的报告，删除所有您不想分享的数据。"
+	"multimediaviewer-errorreport-privacywarning": "错误详情附在报告中，会公开展示。如果您对此不满意，可以编辑下面的报告，删除所有您不想分享的数据。",
+	"multimediaviewer-loading": "正在加载媒体查看器。"
 }

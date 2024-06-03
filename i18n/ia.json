@@ -125,5 +125,6 @@
 	"multimediaviewer-enable-alert": "MediaViewer es ora disactivate",
 	"multimediaviewer-disable-info-title": "Tu ha disactivate Media Viiewer",
 	"multimediaviewer-disable-info": "Tu pote totevia vider files individual con Media Viewer.",
-	"multimediaviewer-errorreport-privacywarning": "Le detalios del error es attachate al reporto, le qual essera publicamente visibile. Si tu non te senti confortabile con isto, tu pote modificar le reporto hic infra e remover tote le datos que tu non vole condivider."
+	"multimediaviewer-errorreport-privacywarning": "Le detalios del error es attachate al reporto, le qual essera publicamente visibile. Si tu non te senti confortabile con isto, tu pote modificar le reporto hic infra e remover tote le datos que tu non vole condivider.",
+	"multimediaviewer-loading": "Cargamento de Media Viewer in curso."
 }

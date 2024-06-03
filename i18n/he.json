@@ -136,5 +136,6 @@
 	"multimediaviewer-enable-alert": "מציג המדיה כבוי עכשיו",
 	"multimediaviewer-disable-info-title": "כיבית את מציג המדיה",
 	"multimediaviewer-disable-info": "עדיין יש לך אפשרות להציג קבצים בודדים עם מציג המדיה.",
-	"multimediaviewer-errorreport-privacywarning": "פרטי השגיאה מצורפים לדו\"ח, שיהיה זמין לצפייה באופן ציבורי. אם זה לא מתאים לך, באפשרותך לערוך את הדו\"ח להלן ולמחוק את כל הנתונים שאינך רוצה לשתף."
+	"multimediaviewer-errorreport-privacywarning": "פרטי השגיאה מצורפים לדו\"ח, שיהיה זמין לצפייה באופן ציבורי. אם זה לא מתאים לך, באפשרותך לערוך את הדו\"ח להלן ולמחוק את כל הנתונים שאינך רוצה לשתף.",
+	"multimediaviewer-loading": "טעינת מציג מדיה."
 }

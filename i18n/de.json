@@ -14,7 +14,7 @@
 			"WhatamIdoing"
 		]
 	},
-	"multimediaviewer-desc": "Ermöglicht die Darstellung von Vorschaubildern in einer Vollbildschnittstelle",
+	"multimediaviewer-desc": "Ermöglicht die Darstellung von Vorschaubildern in einer Vollbildschnittstelle.",
 	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Medienbetrachter]</span> aktivieren",
 	"multimediaviewer-file-page": "Gehe zur zugehörigen Dateiseite",
 	"multimediaviewer-repository-local": "Weitere Einzelheiten",
@@ -137,5 +137,6 @@
 	"multimediaviewer-enable-alert": "Der Medienbetrachter ist jetzt deaktiviert",
 	"multimediaviewer-disable-info-title": "Du hast den Medienbetrachter deaktiviert",
 	"multimediaviewer-disable-info": "Du kannst dennoch einzelne Dateien mit dem Medienbetrachter ansehen.",
-	"multimediaviewer-errorreport-privacywarning": "Einzelheiten zum Fehler werden dem Bericht beigefügt, die öffentlich sichtbar sind. Falls du mit diesem Vorgehen nicht einverstanden bist, kannst du den Bericht unten bearbeiten und alle Daten entfernen, die du nicht teilen möchtest."
+	"multimediaviewer-errorreport-privacywarning": "Einzelheiten zum Fehler werden dem Bericht beigefügt, die öffentlich sichtbar sind. Falls du mit diesem Vorgehen nicht einverstanden bist, kannst du den Bericht unten bearbeiten und alle Daten entfernen, die du nicht teilen möchtest.",
+	"multimediaviewer-loading": "Medienbetrachter wird geladen."
 }

@@ -119,5 +119,6 @@
 	"multimediaviewer-enable-confirmation-text": "Следећи пут када кликнете на неку слику на $1, приказивач датотека ће је приказати.",
 	"multimediaviewer-enable-alert": "Приказивач медија је сада искључен",
 	"multimediaviewer-disable-info-title": "Искључили сте приказивач медија",
-	"multimediaviewer-disable-info": "И даље можете користити приказивач медија за појединачне датотеке."
+	"multimediaviewer-disable-info": "И даље можете користити приказивач медија за појединачне датотеке.",
+	"multimediaviewer-loading": "Учитавање приказивача медија"
 }

@@ -130,5 +130,6 @@
 	"multimediaviewer-enable-alert": "\"Media nümayişetdiricisi\" hazırda deaktivdir",
 	"multimediaviewer-disable-info-title": "\"Media nümayişetdiricisi\" deaktiv edildi",
 	"multimediaviewer-disable-info": "Siz hələ də Media Nümayiş etdiricisi ilə fərdi fayllara baxa bilərsiniz.",
-	"multimediaviewer-errorreport-privacywarning": "Xətanın detalları hesabata əlavə olunur və bu, ictimaiyyət üçün açıq olacaq. Əgər bununla bağlı narahatçılığınız varsa, aşağıdakı hesabatı redaktə edə və paylaşmaq istəmədiyiniz bütün məlumatları silə bilərsiniz."
+	"multimediaviewer-errorreport-privacywarning": "Xətanın detalları hesabata əlavə olunur və bu, ictimaiyyət üçün açıq olacaq. Əgər bununla bağlı narahatçılığınız varsa, aşağıdakı hesabatı redaktə edə və paylaşmaq istəmədiyiniz bütün məlumatları silə bilərsiniz.",
+	"multimediaviewer-loading": "Media Viewer yüklənir."
 }
