@@ -143,38 +143,6 @@ const { Api } = require( 'mmv' );
 		assert.strictEqual( apiProvider.getErrorMessage( {} ), 'unknown error', 'missing error message is handled' );
 	} );
 
-	QUnit.test( 'getQueryField', function ( assert ) {
-		const api = { get: function () {} };
-		const apiProvider = new Api( api );
-		const done = assert.async( 3 );
-
-		const data = {
-			query: {
-				imageusage: [
-					{
-						pageid: 736,
-						ns: 0,
-						title: 'Albert Einstein'
-					}
-				]
-			}
-		};
-
-		apiProvider.getQueryField( 'imageusage', data ).then( function ( field ) {
-			assert.strictEqual( field, data.query.imageusage, 'specified field is found' );
-			done();
-		} );
-		apiProvider.getQueryField( 'imageusage', {} ).fail( function () {
-			assert.true( true, 'promise rejected when data is missing' );
-			done();
-		} );
-
-		apiProvider.getQueryField( 'imageusage', { data: { query: {} } } ).fail( function () {
-			assert.true( true, 'promise rejected when field is missing' );
-			done();
-		} );
-	} );
-
 	QUnit.test( 'getQueryPage', function ( assert ) {
 		const api = { get: function () {} };
 		const apiProvider = new Api( api );

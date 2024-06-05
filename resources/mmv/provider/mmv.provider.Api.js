@@ -118,24 +118,6 @@ class Api {
 	}
 
 	/**
-	 * Returns a promise with the specified field from the API result.
-	 * This is intended to be used as a .then() callback for action=query APIs.
-	 *
-	 * @param {string} field
-	 * @param {Object} data
-	 * @return {jQuery.Promise} when successful, the first argument will be the field data,
-	 *     when unsuccessful, it will be an error message. The second argument is always
-	 *     the full API response.
-	 */
-	getQueryField( field, data ) {
-		if ( data && data.query && data.query[ field ] ) {
-			return $.Deferred().resolve( data.query[ field ], data );
-		} else {
-			return $.Deferred().reject( this.getErrorMessage( data ), data );
-		}
-	}
-
-	/**
 	 * Returns a promise with the specified page from the API result.
 	 * This is intended to be used as a .then() callback for action=query&prop=(...) APIs.
 	 *
