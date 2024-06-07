@@ -225,13 +225,18 @@ class Embed extends UiElement {
 	}
 
 	/**
+	 * @typedef {Object} SizeOptions
+	 * @memberof Embed
+	 * @property {Utils.ImageSizes} html Collection of possible image sizes for html snippets
+	 * @property {Utils.ImageSizes} wikitext Collection of possible image sizes for wikitext snippets
+	 */
+
+	/**
 	 * Gets size options for html and wikitext snippets.
 	 *
 	 * @param {number} width
 	 * @param {number} height
-	 * @return {Object}
-	 * @return {Object} return.html Collection of possible image sizes for html snippets
-	 * @return {Object} return.wikitext Collection of possible image sizes for wikitext snippets
+	 * @return {Embed.SizeOptions}
 	 */
 	getSizeOptions( width, height ) {
 		const sizes = {};
@@ -283,10 +288,7 @@ class Embed extends UiElement {
 	 *
 	 * @param {number} width
 	 * @param {number} height
-	 * @return {Object}
-	 * @return {Object} return.small
-	 * @return {Object} return.medium
-	 * @return {Object} return.large
+	 * @return {Utils.ImageSizes}
 	 */
 	getPossibleImageSizesForWikitext( width, height ) {
 		const buckets = {

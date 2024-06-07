@@ -133,18 +133,30 @@ class Utils {
 	}
 
 	/**
+	 * @typedef {Object} Dimensions
+	 * @memberof Utils
+	 * @property {number} width
+	 * @property {number} height
+	 */
+
+	/**
+	 * @typedef {Object} ImageSizes
+	 * @memberof Utils
+	 * @property {Utils.Dimensions} small
+	 * @property {Utils.Dimensions} medium
+	 * @property {Utils.Dimensions} large
+	 * @property {Utils.Dimensions} [xl] Only present in HTML
+	 * @property {Utils.Dimensions} [original] Only present in HTML
+	 */
+
+	/**
 	 * Calculates possible image sizes for html snippets. It returns up to
 	 * three possible snippet frame sizes (small, medium, large) plus the
 	 * original image size.
 	 *
 	 * @param {number} width
 	 * @param {number} height
-	 * @return {Object}
-	 * @return {Object} return.small
-	 * @return {Object} return.medium
-	 * @return {Object} return.large
-	 * @return {Object} return.xl
-	 * @return {Object} return.original
+	 * @return {Utils.ImageSizes}
 	 */
 	static getPossibleImageSizesForHtml( width, height ) {
 		const buckets = {
