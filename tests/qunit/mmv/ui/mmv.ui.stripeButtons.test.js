@@ -25,7 +25,7 @@ const { StripeButtons } = require( 'mmv' );
 		return new StripeButtons( $fixture );
 	}
 
-	QUnit.test( 'Sense test, object creation and UI construction', function ( assert ) {
+	QUnit.test( 'Sense test, object creation and UI construction', ( assert ) => {
 		const oldMwUserIsAnon = mw.user.isAnon;
 
 		// first pretend we are anonymous
@@ -44,7 +44,7 @@ const { StripeButtons } = require( 'mmv' );
 		mw.user.isAnon = oldMwUserIsAnon;
 	} );
 
-	QUnit.test( 'set()/empty() sense test:', function ( assert ) {
+	QUnit.test( 'set()/empty() sense test:', ( assert ) => {
 		const buttons = createStripeButtons();
 		const fakeImageInfo = { descriptionUrl: '//commons.wikimedia.org/wiki/File:Foo.jpg' };
 
@@ -54,7 +54,7 @@ const { StripeButtons } = require( 'mmv' );
 		assert.true( true, 'No error on set()/empty().' );
 	} );
 
-	QUnit.test( 'Description page button', function ( assert ) {
+	QUnit.test( 'Description page button', ( assert ) => {
 		const $qf = $( '#qunit-fixture' );
 		const buttons = new StripeButtons( $qf );
 		const $button = buttons.$descriptionPage;

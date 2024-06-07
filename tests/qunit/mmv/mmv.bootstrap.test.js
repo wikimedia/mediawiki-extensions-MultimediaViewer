@@ -148,11 +148,11 @@ const { asyncMethod, waitForAsync, getMultimediaViewer } = require( './mmv.testh
 		// use setTimeout to add new hash change to end of the call stack,
 		// ensuring that event handlers for our previous change can execute
 		// without us interfering with another immediate change
-		setTimeout( function () {
+		setTimeout( () => {
 			location.hash = hash;
 		} );
 
-		return waitForAsync().then( function () {
+		return waitForAsync().then( () => {
 			assert.strictEqual( callCount, 1, 'Viewer should be loaded once' );
 			bootstrap.cleanupEventHandlers();
 			location.hash = '';
@@ -171,7 +171,7 @@ const { asyncMethod, waitForAsync, getMultimediaViewer } = require( './mmv.testh
 		this.sandbox.stub( bootstrap, 'setupOverlay' );
 		this.sandbox.stub( bootstrap, 'cleanupOverlay' );
 
-		bootstrap.loadViewer( true ).fail( function ( message ) {
+		bootstrap.loadViewer( true ).fail( ( message ) => {
 			assert.strictEqual( bootstrap.setupOverlay.called, true, 'Overlay was set up' );
 			assert.strictEqual( bootstrap.cleanupOverlay.called, true, 'Overlay was cleaned up' );
 			assert.strictEqual( message, errorMessage, 'promise is rejected with the error message when loading fails' );
@@ -402,7 +402,7 @@ const { asyncMethod, waitForAsync, getMultimediaViewer } = require( './mmv.testh
 		clock.reset();
 	} );
 
-	QUnit.test( 'Only load the viewer on a valid hash', function ( assert ) {
+	QUnit.test( 'Only load the viewer on a valid hash', ( assert ) => {
 		location.hash = '';
 
 		const bootstrap = createBootstrap();
@@ -410,7 +410,7 @@ const { asyncMethod, waitForAsync, getMultimediaViewer } = require( './mmv.testh
 		return hashTest( '/media', bootstrap, assert );
 	} );
 
-	QUnit.test( 'Load the viewer on a legacy hash', function ( assert ) {
+	QUnit.test( 'Load the viewer on a legacy hash', ( assert ) => {
 		location.hash = '';
 
 		const bootstrap = createBootstrap();
@@ -466,7 +466,7 @@ const { asyncMethod, waitForAsync, getMultimediaViewer } = require( './mmv.testh
 		bootstrap.cleanupOverlay();
 
 		// Scroll restoration is on a setTimeout
-		setTimeout( function () {
+		setTimeout( () => {
 			assert.strictEqual( $( window ).scrollTop(), 50, 'Scroll is correctly reset to original top position' );
 			done();
 		} );
@@ -499,7 +499,7 @@ const { asyncMethod, waitForAsync, getMultimediaViewer } = require( './mmv.testh
 		clock.restore();
 	} );
 
-	QUnit.test( 'isAllowedThumb', function ( assert ) {
+	QUnit.test( 'isAllowedThumb', ( assert ) => {
 		const $container = $( '<div>' );
 		const $thumb = $( '<img>' ).appendTo( $container );
 		const bootstrap = createBootstrap();
@@ -519,7 +519,7 @@ const { asyncMethod, waitForAsync, getMultimediaViewer } = require( './mmv.testh
 		assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image with a noviewer class is disallowed.' );
 	} );
 
-	QUnit.test( 'findCaption', function ( assert ) {
+	QUnit.test( 'findCaption', ( assert ) => {
 		const gallery = createGallery( 'foo.jpg', 'Baz' );
 		const thumb = createThumb( 'foo.jpg', 'Quuuuux' );
 		const link = createNormal( 'foo.jpg', 'Foobar' );

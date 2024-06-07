@@ -22,7 +22,7 @@ const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
 		}
 	} ) );
 
-	QUnit.test( 'Sense test, object creation and ui construction', function ( assert ) {
+	QUnit.test( 'Sense test, object creation and ui construction', ( assert ) => {
 		const lightbox = new LightboxInterface();
 
 		stubScrollTo();
@@ -82,7 +82,7 @@ const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
 		clock.restore();
 	} );
 
-	QUnit.test( 'Fullscreen mode init', function ( assert ) {
+	QUnit.test( 'Fullscreen mode init', ( assert ) => {
 		const lightbox = new LightboxInterface();
 		const enterFullscreen = Element.prototype.requestFullscreen;
 
@@ -134,7 +134,7 @@ const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
 		restoreScrollTo();
 	} );
 
-	QUnit.test( 'Fullscreen mode', function ( assert ) {
+	QUnit.test( 'Fullscreen mode', ( assert ) => {
 		const lightbox = new LightboxInterface();
 		const viewer = getMultimediaViewer();
 		const enterFullscreen = Element.prototype.requestFullscreen;
@@ -213,7 +213,7 @@ const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
 		restoreScrollTo();
 	} );
 
-	QUnit.test( 'isAnyActiveButtonHovered', function ( assert ) {
+	QUnit.test( 'isAnyActiveButtonHovered', ( assert ) => {
 		const lightbox = new LightboxInterface();
 
 		stubScrollTo();
@@ -254,7 +254,7 @@ const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
 		restoreScrollTo();
 	} );
 
-	QUnit.test( 'Keyboard prev/next', function ( assert ) {
+	QUnit.test( 'Keyboard prev/next', ( assert ) => {
 		const viewer = getMultimediaViewer();
 		const lightbox = new LightboxInterface();
 

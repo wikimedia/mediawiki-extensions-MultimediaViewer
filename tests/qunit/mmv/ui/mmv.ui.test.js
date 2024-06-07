@@ -7,10 +7,10 @@ const { UiElement } = require( 'mmv' );
 		}
 	} ) );
 
-	QUnit.test( 'handleEvent()', function ( assert ) {
+	QUnit.test( 'handleEvent()', ( assert ) => {
 		const element = new UiElement( $( '<div>' ) );
 
-		element.handleEvent( 'mmv-foo', function () {
+		element.handleEvent( 'mmv-foo', () => {
 			assert.true( true, 'Event is handled' );
 		} );
 

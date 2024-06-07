@@ -22,7 +22,7 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 ( function () {
 	QUnit.module( 'mmv.Config', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Constructor sense test', function ( assert ) {
+	QUnit.test( 'Constructor sense test', ( assert ) => {
 		const config = new Config( {}, {}, {}, {}, null );
 		assert.true( config instanceof Config );
 	} );

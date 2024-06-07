@@ -44,7 +44,7 @@ const { TruncatableTextField } = require( 'mmv' );
 		return ttf;
 	}
 
-	QUnit.test( 'Normal constructor', function ( assert ) {
+	QUnit.test( 'Normal constructor', ( assert ) => {
 		const $container = $( '#qunit-fixture' );
 		const $element = $( '<div>' ).appendTo( $container ).text( 'This is a unique string.' );
 		const ttf = new TruncatableTextField( $container, $element );

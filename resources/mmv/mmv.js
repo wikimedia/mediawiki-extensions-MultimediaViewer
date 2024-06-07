@@ -328,8 +328,7 @@ class MultimediaViewer {
 			return;
 		}
 
-		const thumb = this.thumbs.find( ( t ) =>
-			t.filePageTitle.getPrefixedText() === title.getPrefixedText() &&
+		const thumb = this.thumbs.find( ( t ) => t.filePageTitle.getPrefixedText() === title.getPrefixedText() &&
 			( !position || t.position === position )
 		);
 
@@ -554,9 +553,7 @@ class MultimediaViewer {
 	preloadImagesMetadata() {
 		this.cancelImageMetadataPreloading();
 
-		this.metadataPreloadQueue = this.pushLightboxImagesIntoQueue( ( lightboxImage ) => {
-			return () => this.fetchSizeIndependentLightboxInfo( lightboxImage.filePageTitle );
-		} );
+		this.metadataPreloadQueue = this.pushLightboxImagesIntoQueue( ( lightboxImage ) => () => this.fetchSizeIndependentLightboxInfo( lightboxImage.filePageTitle ) );
 
 		this.metadataPreloadQueue.execute();
 	}
@@ -569,18 +566,16 @@ class MultimediaViewer {
 	preloadThumbnails() {
 		this.cancelThumbnailsPreloading();
 
-		this.thumbnailPreloadQueue = this.pushLightboxImagesIntoQueue( ( lightboxImage ) => {
-			return () => {
-				// viewer.ui.canvas.getLightboxImageWidths needs the viewer to be open
-				// because it needs to read the size of visible elements
-				if ( !this.isOpen ) {
-					return;
-				}
+		this.thumbnailPreloadQueue = this.pushLightboxImagesIntoQueue( ( lightboxImage ) => () => {
+			// viewer.ui.canvas.getLightboxImageWidths needs the viewer to be open
+			// because it needs to read the size of visible elements
+			if ( !this.isOpen ) {
+				return;
+			}
 
-				const imageWidths = this.ui.canvas.getLightboxImageWidths( lightboxImage );
+			const imageWidths = this.ui.canvas.getLightboxImageWidths( lightboxImage );
 
-				return this.fetchThumbnailForLightboxImage( lightboxImage, imageWidths.real );
-			};
+			return this.fetchThumbnailForLightboxImage( lightboxImage, imageWidths.real );
 		} );
 
 		this.thumbnailPreloadQueue.execute();

@@ -24,14 +24,14 @@ const { Share } = require( 'mmv.ui.reuse' );
 
 	QUnit.module( 'mmv.ui.reuse.share', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sense test, object creation and UI construction', function ( assert ) {
+	QUnit.test( 'Sense test, object creation and UI construction', ( assert ) => {
 		const share = makeShare();
 
 		assert.true( share instanceof Share, 'Share UI element is created.' );
 		assert.true( share.$pageInput[ 0 ] instanceof HTMLElement, 'Text field created.' );
 	} );
 
-	QUnit.test( 'set()/empty():', function ( assert ) {
+	QUnit.test( 'set()/empty():', ( assert ) => {
 		const share = makeShare();
 		const image = { // fake ImageModel
 			title: new mw.Title( 'File:Foobar.jpg' ),

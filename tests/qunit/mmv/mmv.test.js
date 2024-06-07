@@ -10,7 +10,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		}
 	} ) );
 
-	QUnit.test( 'eachPreloadableLightboxIndex()', function ( assert ) {
+	QUnit.test( 'eachPreloadableLightboxIndex()', ( assert ) => {
 		const viewer = getMultimediaViewer();
 		let expectedIndices;
 		let i;
@@ -26,14 +26,14 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.currentIndex = 2;
 		i = 0;
 		expectedIndices = [ 2, 3, 1, 4, 0, 5 ];
-		viewer.eachPreloadableLightboxIndex( function ( index ) {
+		viewer.eachPreloadableLightboxIndex( ( index ) => {
 			assert.strictEqual( index, expectedIndices[ i++ ], 'preload on left edge' );
 		} );
 
 		viewer.currentIndex = 9;
 		i = 0;
 		expectedIndices = [ 9, 10, 8, 7, 6 ];
-		viewer.eachPreloadableLightboxIndex( function ( index ) {
+		viewer.eachPreloadableLightboxIndex( ( index ) => {
 			assert.strictEqual( index, expectedIndices[ i++ ], 'preload on right edge' );
 		} );
 	} );
@@ -222,7 +222,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.close();
 	} );
 
-	QUnit.test( 'resetThumbnailStates', function ( assert ) {
+	QUnit.test( 'resetThumbnailStates', ( assert ) => {
 		const viewer = getMultimediaViewer();
 
 		assert.strictEqual( viewer.realThumbnailShown, false, 'Real thumbnail state is correct' );
@@ -273,7 +273,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		assert.strictEqual( viewer.realThumbnailShown, true, 'Real thumbnail state is correct' );
 	} );
 
-	QUnit.test( 'Real thumbnail first, then placeholder', function ( assert ) {
+	QUnit.test( 'Real thumbnail first, then placeholder', ( assert ) => {
 		const viewer = getMultimediaViewer();
 
 		viewer.setImage = function () {};
@@ -454,7 +454,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		}
 	} );
 
-	QUnit.test( 'Refuse to load too-big thumbnails', function ( assert ) {
+	QUnit.test( 'Refuse to load too-big thumbnails', ( assert ) => {
 		let expectedWidth;
 		const reuestedWidth = 1000;
 		const originalWidth = 50;

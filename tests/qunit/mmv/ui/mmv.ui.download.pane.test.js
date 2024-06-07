@@ -20,7 +20,7 @@ const { Download: DownloadPane, Utils } = require( 'mmv.ui.reuse' );
 ( function () {
 	QUnit.module( 'mmv.ui.download.pane', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sense test, object creation and UI construction', function ( assert ) {
+	QUnit.test( 'Sense test, object creation and UI construction', ( assert ) => {
 		const download = new DownloadPane( $( '#qunit-fixture' ) );
 
 		assert.true( download instanceof DownloadPane, 'download UI element is created.' );
@@ -33,7 +33,7 @@ const { Download: DownloadPane, Utils } = require( 'mmv.ui.reuse' );
 		assert.strictEqual( download.$previewLink.attr( 'href' ), undefined, 'Preview link href is empty.' );
 	} );
 
-	QUnit.test( 'set()/empty():', function ( assert ) {
+	QUnit.test( 'set()/empty():', ( assert ) => {
 		const download = new DownloadPane( $( '#qunit-fixture' ) );
 		const src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
 		const image = { // fake ImageModel
@@ -60,7 +60,7 @@ const { Download: DownloadPane, Utils } = require( 'mmv.ui.reuse' );
 		Utils.updateMenuOptions = updateMenuOptions;
 	} );
 
-	QUnit.test( 'handleSizeSwitch():', function ( assert ) {
+	QUnit.test( 'handleSizeSwitch():', ( assert ) => {
 		const download = new DownloadPane( $( '#qunit-fixture' ) );
 		const newImageUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/NewFoobar.jpg';
 
@@ -86,14 +86,14 @@ const { Download: DownloadPane, Utils } = require( 'mmv.ui.reuse' );
 		Utils.getThumbnailUrlPromise = getThumbnailUrlPromise;
 	} );
 
-	QUnit.test( 'getExtensionFromUrl():', function ( assert ) {
+	QUnit.test( 'getExtensionFromUrl():', ( assert ) => {
 		const download = new DownloadPane( $( '#qunit-fixture' ) );
 
 		assert.strictEqual( download.getExtensionFromUrl( 'http://example.com/bing/foo.bar.png' ),
 			'png', 'Extension is parsed correctly' );
 	} );
 
-	QUnit.test( 'setDownloadUrl', function ( assert ) {
+	QUnit.test( 'setDownloadUrl', ( assert ) => {
 		const download = new DownloadPane( $( '#qunit-fixture' ) );
 		const imageUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/NewFoobar.jpg';
 

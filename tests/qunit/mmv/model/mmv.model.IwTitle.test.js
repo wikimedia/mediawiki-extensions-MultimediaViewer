@@ -20,7 +20,7 @@ const { IwTitle } = require( 'mmv' );
 ( function () {
 	QUnit.module( 'mmv.model.IwTitle', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'constructor sense test', function ( assert ) {
+	QUnit.test( 'constructor sense test', ( assert ) => {
 		const namespace = 4;
 		const fullPageName = 'User_talk:John_Doe';
 		const domain = 'en.wikipedia.org';
@@ -30,7 +30,7 @@ const { IwTitle } = require( 'mmv' );
 		assert.true( title instanceof IwTitle );
 	} );
 
-	QUnit.test( 'getters', function ( assert ) {
+	QUnit.test( 'getters', ( assert ) => {
 		const namespace = 4;
 		const fullPageName = 'User_talk:John_Doe';
 		const domain = 'en.wikipedia.org';

@@ -79,12 +79,11 @@ class Utils {
 	 */
 	static createSelectMenu( options, def ) {
 		const $select = $( '<select>' ).addClass( 'cdx-select mw-mmv-flex-grow-1' );
-		options.forEach( ( size ) =>
-			$( '<option>' )
-				.attr( 'value', size )
-				.data( 'name', size )
-				.text( Utils.getDimensionsMessageHtml( size ) )
-				.appendTo( $select )
+		options.forEach( ( size ) => $( '<option>' )
+			.attr( 'value', size )
+			.data( 'name', size )
+			.text( Utils.getDimensionsMessageHtml( size ) )
+			.appendTo( $select )
 		);
 		$select.val( def );
 		return $select;

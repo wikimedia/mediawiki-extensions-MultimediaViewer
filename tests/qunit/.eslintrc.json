@@ -10,6 +10,6 @@
 	"rules": {
 		"no-jquery/no-global-selector": "off",
 		"no-jquery/no-sizzle": "off",
-		"es-x/no-resizable-and-growable-arraybuffers": "warn"
+		"es-x/no-resizable-and-growable-arraybuffers": "off"
 	}
 }

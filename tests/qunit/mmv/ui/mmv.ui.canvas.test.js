@@ -21,7 +21,7 @@ const { Canvas } = require( 'mmv' );
 ( function () {
 	QUnit.module( 'mmv.ui.Canvas', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Constructor sense check', function ( assert ) {
+	QUnit.test( 'Constructor sense check', ( assert ) => {
 		const $qf = $( '#qunit-fixture' );
 		const canvas = new Canvas( $qf, $qf, $qf );
 
@@ -30,7 +30,7 @@ const { Canvas } = require( 'mmv' );
 		assert.strictEqual( canvas.$mainWrapper, $qf, '$mainWrapper is set correctly.' );
 	} );
 
-	QUnit.test( 'empty() and set()', function ( assert ) {
+	QUnit.test( 'empty() and set()', ( assert ) => {
 		const $qf = $( '#qunit-fixture' );
 		const canvas = new Canvas( $qf );
 		const image = new Image();
@@ -55,7 +55,7 @@ const { Canvas } = require( 'mmv' );
 		assert.strictEqual( canvas.$imageDiv.hasClass( 'empty' ), true, 'Canvas is not visible.' );
 	} );
 
-	QUnit.test( 'setImageAndMaxDimensions()', function ( assert ) {
+	QUnit.test( 'setImageAndMaxDimensions()', ( assert ) => {
 		const $qf = $( '#qunit-fixture' );
 		const $mainWrapper = $( '<div>' ).appendTo( $qf );
 		const $innerWrapper = $( '<div>' ).appendTo( $mainWrapper );
@@ -96,7 +96,7 @@ const { Canvas } = require( 'mmv' );
 		assert.notStrictEqual( canvas.$image, $currentImage, 'Image element switched correctly.' );
 	} );
 
-	QUnit.test( 'maybeDisplayPlaceholder: Constrained area for SVG files', function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: Constrained area for SVG files', ( assert ) => {
 		const $qf = $( '#qunit-fixture' );
 		const imageRawMetadata = new LightboxImage( 'foo.svg' );
 		const canvas = new Canvas( $qf );
@@ -124,7 +124,7 @@ const { Canvas } = require( 'mmv' );
 		assert.strictEqual( $image.height(), 5, 'Placeholder height was not set to max' );
 	} );
 
-	QUnit.test( 'maybeDisplayPlaceholder: placeholder big enough to show, actual image bigger than the lightbox', function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: placeholder big enough to show, actual image bigger than the lightbox', ( assert ) => {
 		const $qf = $( '#qunit-fixture' );
 		const imageRawMetadata = new LightboxImage( 'foo.png' );
 		const canvas = new Canvas( $qf );
@@ -152,7 +152,7 @@ const { Canvas } = require( 'mmv' );
 		assert.strictEqual( $image.height(), 150, 'Placeholder has the right height' );
 	} );
 
-	QUnit.test( 'maybeDisplayPlaceholder: big-enough placeholder to show, actual image smaller than the lightbox', function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: big-enough placeholder to show, actual image smaller than the lightbox', ( assert ) => {
 		const $qf = $( '#qunit-fixture' );
 		const imageRawMetadata = new LightboxImage( 'foo.png' );
 		const canvas = new Canvas( $qf );
@@ -180,7 +180,7 @@ const { Canvas } = require( 'mmv' );
 		assert.strictEqual( $image.height(), 500, 'Placeholder has the right height' );
 	} );
 
-	QUnit.test( 'maybeDisplayPlaceholder: placeholder too small to be displayed, actual image bigger than the lightbox', function ( assert ) {
+	QUnit.test( 'maybeDisplayPlaceholder: placeholder too small to be displayed, actual image bigger than the lightbox', ( assert ) => {
 		const $qf = $( '#qunit-fixture' );
 		const imageRawMetadata = new LightboxImage( 'foo.png' );
 		const canvas = new Canvas( $qf );

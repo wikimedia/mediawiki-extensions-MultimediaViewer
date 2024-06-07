@@ -39,12 +39,12 @@ const { EmbedFileFormatter } = require( 'mmv.ui.reuse' );
 		};
 	}
 
-	QUnit.test( 'EmbedFileFormatter constructor sense check', function ( assert ) {
+	QUnit.test( 'EmbedFileFormatter constructor sense check', ( assert ) => {
 		const formatter = new EmbedFileFormatter();
 		assert.true( formatter instanceof EmbedFileFormatter, 'constructor with no argument works' );
 	} );
 
-	QUnit.test( 'getByline():', function ( assert ) {
+	QUnit.test( 'getByline():', ( assert ) => {
 		const formatter = new EmbedFileFormatter();
 		const author = '<span class="mw-mmv-author">Homer</span>';
 		const source = '<span class="mw-mmv-source">Iliad</span>';
@@ -71,7 +71,7 @@ const { EmbedFileFormatter } = require( 'mmv.ui.reuse' );
 		assert.strictEqual( byline, '<span class="mw-mmv-source">Iliad</span>', 'Source found in bylines.' );
 	} );
 
-	QUnit.test( 'getThumbnailHtml():', function ( assert ) {
+	QUnit.test( 'getThumbnailHtml():', ( assert ) => {
 		const formatter = new EmbedFileFormatter();
 		const titleText = 'Music Room';
 		const title = mw.Title.newFromText( titleText );
@@ -162,7 +162,7 @@ const { EmbedFileFormatter } = require( 'mmv.ui.reuse' );
 
 	} );
 
-	QUnit.test( 'getThumbnailWikitext():', function ( assert ) {
+	QUnit.test( 'getThumbnailWikitext():', ( assert ) => {
 		const formatter = new EmbedFileFormatter();
 		const title = mw.Title.newFromText( 'File:Foobar.jpg' );
 		const imgUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';

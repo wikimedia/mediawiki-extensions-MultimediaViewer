@@ -22,7 +22,7 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 
 	QUnit.module( 'mmv.ui.reuse.Embed', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Sense test, object creation and UI construction', function ( assert ) {
+	QUnit.test( 'Sense test, object creation and UI construction', ( assert ) => {
 		const embed = new Embed( $qf );
 
 		assert.true( embed instanceof Embed, 'Embed UI element is created.' );
@@ -32,7 +32,7 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 		assert.true( embed.$embedSizeSwitchHtml[ 0 ] instanceof HTMLElement, 'Size selection menu for html created.' );
 	} );
 
-	QUnit.test( 'handleSizeSwitch(): Skip if no item selected.', function ( assert ) {
+	QUnit.test( 'handleSizeSwitch(): Skip if no item selected.', ( assert ) => {
 		const embed = new Embed( $qf );
 
 		assert.expect( 0 );
@@ -50,7 +50,7 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 		embed.handleSizeSwitch();
 	} );
 
-	QUnit.test( 'handleSizeSwitch(): HTML/Wikitext size menu item selected.', function ( assert ) {
+	QUnit.test( 'handleSizeSwitch(): HTML/Wikitext size menu item selected.', ( assert ) => {
 		const embed = new Embed( $qf );
 		const width = '10';
 		const height = '20';
@@ -75,7 +75,7 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 		embed.handleSizeSwitch();
 	} );
 
-	QUnit.test( 'handleSizeSwitch(): Wikitext size menu item selected.', function ( assert ) {
+	QUnit.test( 'handleSizeSwitch(): Wikitext size menu item selected.', ( assert ) => {
 		const embed = new Embed( $qf );
 		const width = '10';
 		const height = '20';
@@ -98,7 +98,7 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 		embed.handleSizeSwitch();
 	} );
 
-	QUnit.test( 'updateEmbedHtml(): Do nothing if set() not called before.', function ( assert ) {
+	QUnit.test( 'updateEmbedHtml(): Do nothing if set() not called before.', ( assert ) => {
 		const embed = new Embed( $qf );
 		const width = 10;
 		const height = 20;
@@ -111,7 +111,7 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 		embed.updateEmbedHtml( {}, width, height );
 	} );
 
-	QUnit.test( 'updateEmbedHtml():', function ( assert ) {
+	QUnit.test( 'updateEmbedHtml():', ( assert ) => {
 		const embed = new Embed( $qf );
 		const title = mw.Title.newFromText( 'File:Foobar.jpg' );
 		const url = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
@@ -154,7 +154,7 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 		embed.updateEmbedHtml( { url: thumbUrl }, width, height );
 	} );
 
-	QUnit.test( 'updateEmbedWikitext(): Do nothing if set() not called before.', function ( assert ) {
+	QUnit.test( 'updateEmbedWikitext(): Do nothing if set() not called before.', ( assert ) => {
 		const embed = new Embed( $qf );
 		const width = 10;
 
@@ -166,7 +166,7 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 		embed.updateEmbedWikitext( width );
 	} );
 
-	QUnit.test( 'updateEmbedWikitext():', function ( assert ) {
+	QUnit.test( 'updateEmbedWikitext():', ( assert ) => {
 		const embed = new Embed( $qf );
 		const title = mw.Title.newFromText( 'File:Foobar.jpg' );
 		const url = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
@@ -192,7 +192,7 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 		embed.updateEmbedWikitext( width );
 	} );
 
-	QUnit.test( 'getPossibleImageSizesForWikitext()', function ( assert ) {
+	QUnit.test( 'getPossibleImageSizesForWikitext()', ( assert ) => {
 		const embed = new Embed( $qf );
 		const exampleSizes = [
 			// Big wide image
@@ -229,7 +229,7 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 		}
 	} );
 
-	QUnit.test( 'set():', function ( assert ) {
+	QUnit.test( 'set():', ( assert ) => {
 		const embed = new Embed( $qf );
 		const width = 15;
 		const height = 20;
@@ -259,7 +259,7 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 		Utils.getThumbnailUrlPromise = getThumbnailUrlPromise;
 	} );
 
-	QUnit.test( 'empty():', function ( assert ) {
+	QUnit.test( 'empty():', ( assert ) => {
 		const embed = new Embed( $qf );
 		const width = 15;
 		const height = 20;
@@ -288,7 +288,7 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 		assert.strictEqual( embed.$embedSizeSwitchWikitext.css( 'display' ), 'none', 'Wikitext size menu should be hidden.' );
 	} );
 
-	QUnit.test( 'attach()/unattach():', function ( assert ) {
+	QUnit.test( 'attach()/unattach():', ( assert ) => {
 		const embed = new Embed( $qf );
 		const width = 15;
 		const height = 20;
@@ -336,7 +336,7 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 		embed.$embedSizeSwitchWikitext.trigger( 'change' );
 	} );
 
-	QUnit.test( 'handleTypeSwitch():', function ( assert ) {
+	QUnit.test( 'handleTypeSwitch():', ( assert ) => {
 		const embed = new Embed( $qf );
 
 		embed.resetCurrentSizeMenuToDefault = function () {
@@ -358,7 +358,7 @@ const { Embed, Utils } = require( 'mmv.ui.reuse' );
 		assert.strictEqual( embed.$embedSizeSwitchHtml.css( 'display' ), 'none', 'HTML size menu should be hidden.' );
 	} );
 
-	QUnit.test( 'Logged out', function ( assert ) {
+	QUnit.test( 'Logged out', ( assert ) => {
 		const oldUserIsAnon = mw.user.isAnon;
 
 		mw.user.isAnon = () => true;

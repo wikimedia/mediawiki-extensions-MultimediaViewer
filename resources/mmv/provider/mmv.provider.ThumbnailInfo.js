@@ -49,39 +49,35 @@ class ThumbnailInfo extends Api {
 	get( file, width, height ) {
 		const cacheKey = `${ file.getPrefixedDb() }|${ width || '' }|${ height || '' }`;
 
-		return this.getCachedPromise( cacheKey, () => {
-			return this.apiGetWithMaxAge( {
-				formatversion: 2,
-				action: 'query',
-				prop: 'imageinfo',
-				titles: file.getPrefixedDb(),
-				iiprop: 'url',
-				iiurlwidth: width,
-				iiurlheight: height
-			} ).then( ( data ) => {
-				return this.getQueryPage( data );
-			} ).then( ( page ) => {
-				let imageInfo;
-				if ( page.imageinfo && page.imageinfo[ 0 ] ) {
-					imageInfo = page.imageinfo[ 0 ];
-					if ( imageInfo.thumburl && imageInfo.thumbwidth && imageInfo.thumbheight ) {
-						return $.Deferred().resolve(
-							new Thumbnail(
-								imageInfo.thumburl,
-								imageInfo.thumbwidth,
-								imageInfo.thumbheight
-							)
-						);
-					} else {
-						return $.Deferred().reject( 'error in provider, thumb info not found' );
-					}
-				} else if ( page.missing === true && page.imagerepository === '' ) {
-					return $.Deferred().reject( `file does not exist: ${ file.getPrefixedDb() }` );
+		return this.getCachedPromise( cacheKey, () => this.apiGetWithMaxAge( {
+			formatversion: 2,
+			action: 'query',
+			prop: 'imageinfo',
+			titles: file.getPrefixedDb(),
+			iiprop: 'url',
+			iiurlwidth: width,
+			iiurlheight: height
+		} ).then( ( data ) => this.getQueryPage( data ) ).then( ( page ) => {
+			let imageInfo;
+			if ( page.imageinfo && page.imageinfo[ 0 ] ) {
+				imageInfo = page.imageinfo[ 0 ];
+				if ( imageInfo.thumburl && imageInfo.thumbwidth && imageInfo.thumbheight ) {
+					return $.Deferred().resolve(
+						new Thumbnail(
+							imageInfo.thumburl,
+							imageInfo.thumbwidth,
+							imageInfo.thumbheight
+						)
+					);
 				} else {
-					return $.Deferred().reject( 'unknown error' );
+					return $.Deferred().reject( 'error in provider, thumb info not found' );
 				}
-			} );
-		} );
+			} else if ( page.missing === true && page.imagerepository === '' ) {
+				return $.Deferred().reject( `file does not exist: ${ file.getPrefixedDb() }` );
+			} else {
+				return $.Deferred().reject( 'unknown error' );
+			}
+		} ) );
 	}
 }
 

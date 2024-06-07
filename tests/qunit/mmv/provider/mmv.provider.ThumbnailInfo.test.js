@@ -77,14 +77,14 @@ const { ThumbnailInfo } = require( 'mmv' );
 		}
 	} ) );
 
-	QUnit.test( 'ThumbnailInfo constructor sense check', function ( assert ) {
+	QUnit.test( 'ThumbnailInfo constructor sense check', ( assert ) => {
 		const api = { get: function () {} };
 		const thumbnailInfoProvider = new ThumbnailInfo( api );
 
 		assert.true( thumbnailInfoProvider instanceof ThumbnailInfo );
 	} );
 
-	QUnit.test( 'ThumbnailInfo get test', function ( assert ) {
+	QUnit.test( 'ThumbnailInfo get test', ( assert ) => {
 		let apiCallCount = 0;
 		const api = { get: function () {
 			apiCallCount++;
@@ -113,30 +113,30 @@ const { ThumbnailInfo } = require( 'mmv' );
 		const file = new mw.Title( 'File:Stuff.jpg' );
 		const thumbnailInfoProvider = new ThumbnailInfo( api );
 
-		return thumbnailInfoProvider.get( file, 100 ).then( function ( thumbnail ) {
+		return thumbnailInfoProvider.get( file, 100 ).then( ( thumbnail ) => {
 			assert.strictEqual( thumbnail.url,
 				'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Stuff.jpg/51px-Stuff.jpg',
 				'URL is set correctly' );
 			assert.strictEqual( thumbnail.width, 95, 'actual width is set correctly' );
 			assert.strictEqual( thumbnail.height, 200, 'actual height is set correctly' );
-		} ).then( function () {
+		} ).then( () => {
 			assert.strictEqual( apiCallCount, 1 );
 			// call the data provider a second time to check caching
 			return thumbnailInfoProvider.get( file, 100 );
-		} ).then( function () {
+		} ).then( () => {
 			assert.strictEqual( apiCallCount, 1 );
 			// call a third time with different size to check caching
 			return thumbnailInfoProvider.get( file, 110 );
-		} ).then( function () {
+		} ).then( () => {
 			assert.strictEqual( apiCallCount, 2 );
 			// call it again, with a height specified, to check caching
 			return thumbnailInfoProvider.get( file, 110, 100 );
-		} ).then( function () {
+		} ).then( () => {
 			assert.strictEqual( apiCallCount, 3 );
 		} );
 	} );
 
-	QUnit.test( 'ThumbnailInfo fail test', function ( assert ) {
+	QUnit.test( 'ThumbnailInfo fail test', ( assert ) => {
 		const api = { get: function () {
 			return $.Deferred().resolve( {} );
 		} };
@@ -144,13 +144,13 @@ const { ThumbnailInfo } = require( 'mmv' );
 		const done = assert.async();
 		const thumbnailInfoProvider = new ThumbnailInfo( api );
 
-		thumbnailInfoProvider.get( file, 100 ).fail( function () {
+		thumbnailInfoProvider.get( file, 100 ).fail( () => {
 			assert.true( true, 'promise rejected when no data is returned' );
 			done();
 		} );
 	} );
 
-	QUnit.test( 'ThumbnailInfo fail test 2', function ( assert ) {
+	QUnit.test( 'ThumbnailInfo fail test 2', ( assert ) => {
 		const api = { get: function () {
 			return $.Deferred().resolve( {
 				query: {
@@ -166,13 +166,13 @@ const { ThumbnailInfo } = require( 'mmv' );
 		const done = assert.async();
 		const thumbnailInfoProvider = new ThumbnailInfo( api );
 
-		thumbnailInfoProvider.get( file, 100 ).fail( function () {
+		thumbnailInfoProvider.get( file, 100 ).fail( () => {
 			assert.true( true, 'promise rejected when imageinfo is missing' );
 			done();
 		} );
 	} );
 
-	QUnit.test( 'ThumbnailInfo missing page test', function ( assert ) {
+	QUnit.test( 'ThumbnailInfo missing page test', ( assert ) => {
 		const api = { get: function () {
 			return $.Deferred().resolve( {
 				query: {
@@ -190,14 +190,14 @@ const { ThumbnailInfo } = require( 'mmv' );
 		const done = assert.async();
 		const thumbnailInfoProvider = new ThumbnailInfo( api );
 
-		thumbnailInfoProvider.get( file ).fail( function ( errorMessage ) {
+		thumbnailInfoProvider.get( file ).fail( ( errorMessage ) => {
 			assert.strictEqual( errorMessage, 'file does not exist: File:Stuff.jpg',
 				'error message is set correctly for missing file' );
 			done();
 		} );
 	} );
 
-	QUnit.test( 'ThumbnailInfo fail test 3', function ( assert ) {
+	QUnit.test( 'ThumbnailInfo fail test 3', ( assert ) => {
 		const api = { get: function () {
 			return $.Deferred().resolve( {
 				query: {
@@ -216,7 +216,7 @@ const { ThumbnailInfo } = require( 'mmv' );
 		const done = assert.async();
 		const thumbnailInfoProvider = new ThumbnailInfo( api );
 
-		thumbnailInfoProvider.get( file, 100 ).fail( function () {
+		thumbnailInfoProvider.get( file, 100 ).fail( () => {
 			assert.true( true, 'promise rejected when thumbnail info is missing' );
 			done();
 		} );

@@ -91,28 +91,24 @@ class ImageInfo extends Api {
 	 * @return {jQuery.Promise} a promise which resolves to an Image object.
 	 */
 	get( file ) {
-		return this.getCachedPromise( file.getPrefixedDb(), () => {
-			return this.apiGetWithMaxAge( {
-				formatversion: 2,
-				action: 'query',
-				prop: 'imageinfo',
-				titles: file.getPrefixedDb(),
-				iiprop: this.iiprop,
-				iiextmetadatafilter: this.iiextmetadatafilter,
-				iiextmetadatalanguage: this.options.language,
-				uselang: 'content'
-			} ).then( ( data ) => {
-				return this.getQueryPage( data );
-			} ).then( ( page ) => {
-				if ( page.imageinfo && page.imageinfo.length ) {
-					return ImageModel.newFromImageInfo( file, page );
-				} else if ( page.missing === true && page.imagerepository === '' ) {
-					return $.Deferred().reject( `file does not exist: ${ file.getPrefixedDb() }` );
-				} else {
-					return $.Deferred().reject( 'unknown error' );
-				}
-			} );
-		} );
+		return this.getCachedPromise( file.getPrefixedDb(), () => this.apiGetWithMaxAge( {
+			formatversion: 2,
+			action: 'query',
+			prop: 'imageinfo',
+			titles: file.getPrefixedDb(),
+			iiprop: this.iiprop,
+			iiextmetadatafilter: this.iiextmetadatafilter,
+			iiextmetadatalanguage: this.options.language,
+			uselang: 'content'
+		} ).then( ( data ) => this.getQueryPage( data ) ).then( ( page ) => {
+			if ( page.imageinfo && page.imageinfo.length ) {
+				return ImageModel.newFromImageInfo( file, page );
+			} else if ( page.missing === true && page.imagerepository === '' ) {
+				return $.Deferred().reject( `file does not exist: ${ file.getPrefixedDb() }` );
+			} else {
+				return $.Deferred().reject( 'unknown error' );
+			}
+		} ) );
 	}
 }
 

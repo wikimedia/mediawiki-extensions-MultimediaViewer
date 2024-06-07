@@ -20,7 +20,7 @@ const { Utils } = require( 'mmv.ui.reuse' );
 ( function () {
 	QUnit.module( 'mmv.ui.reuse.utils', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'createSelectMenu():', function ( assert ) {
+	QUnit.test( 'createSelectMenu():', ( assert ) => {
 		const menuItems = [ 'original', 'small', 'medium', 'large' ];
 		const def = 'large';
 		const $select = Utils.createSelectMenu(
@@ -40,7 +40,7 @@ const { Utils } = require( 'mmv.ui.reuse' );
 		}
 	} );
 
-	QUnit.test( 'updateSelectOptions():', function ( assert ) {
+	QUnit.test( 'updateSelectOptions():', ( assert ) => {
 		const $select = Utils.createSelectMenu(
 			[ 'original', 'small', 'medium', 'large' ],
 			'original'
@@ -62,7 +62,7 @@ const { Utils } = require( 'mmv.ui.reuse' );
 		mw.message = oldMessage;
 	} );
 
-	QUnit.test( 'getPossibleImageSizesForHtml()', function ( assert ) {
+	QUnit.test( 'getPossibleImageSizesForHtml()', ( assert ) => {
 		const exampleSizes = [
 			{
 				test: 'Extra large wide image',

@@ -25,7 +25,7 @@ const { MetadataPanelScroller } = require( 'mmv' );
 		}
 	} ) );
 
-	QUnit.test( 'empty()', function ( assert ) {
+	QUnit.test( 'empty()', ( assert ) => {
 		const $qf = $( '#qunit-fixture' );
 		const localStorage = getFakeLocalStorage();
 		const scroller = new MetadataPanelScroller( $qf, $( '<div>' ).appendTo( $qf ), localStorage );
@@ -34,7 +34,7 @@ const { MetadataPanelScroller } = require( 'mmv' );
 		assert.strictEqual( scroller.$container.hasClass( 'invite' ), false, 'We successfully reset the invite' );
 	} );
 
-	QUnit.test( 'Metadata div is only animated once', function ( assert ) {
+	QUnit.test( 'Metadata div is only animated once', ( assert ) => {
 		const $qf = $( '#qunit-fixture' );
 		let displayCount = null; // pretend it doesn't exist at first
 		const localStorage = createLocalStorage( {

@@ -15,12 +15,12 @@ const { OptionsDialog } = require( 'mmv' );
 
 	QUnit.module( 'mmv.ui.viewingOptions', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Constructor sense test', function ( assert ) {
+	QUnit.test( 'Constructor sense test', ( assert ) => {
 		const dialog = makeDialog();
 		assert.true( dialog instanceof OptionsDialog, 'Dialog is created successfully' );
 	} );
 
-	QUnit.test( 'Initialisation functions', function ( assert ) {
+	QUnit.test( 'Initialisation functions', ( assert ) => {
 		const dialog = makeDialog( true );
 
 		assert.strictEqual( dialog.$disableDiv.length, 1, 'Disable div is created.' );
@@ -33,9 +33,7 @@ const { OptionsDialog } = require( 'mmv' );
 		const dialog = makeDialog();
 		const deferred = $.Deferred();
 
-		this.sandbox.stub( dialog.config, 'setMediaViewerEnabledOnClick', function () {
-			return deferred;
-		} );
+		this.sandbox.stub( dialog.config, 'setMediaViewerEnabledOnClick', () => deferred );
 
 		dialog.initDisableDiv();
 
@@ -84,9 +82,7 @@ const { OptionsDialog } = require( 'mmv' );
 		const dialog = makeDialog();
 		const deferred = $.Deferred();
 
-		this.sandbox.stub( dialog.config, 'setMediaViewerEnabledOnClick', function () {
-			return deferred;
-		} );
+		this.sandbox.stub( dialog.config, 'setMediaViewerEnabledOnClick', () => deferred );
 
 		dialog.initEnableDiv();
 

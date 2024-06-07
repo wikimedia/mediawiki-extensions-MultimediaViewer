@@ -3,7 +3,7 @@ const { MetadataPanel, License } = require( 'mmv' );
 
 QUnit.module( 'mmv.ui.metadataPanel', QUnit.newMwEnvironment() );
 
-QUnit.test( '.empty()', function ( assert ) {
+QUnit.test( '.empty()', ( assert ) => {
 	const $qf = $( '#qunit-fixture' );
 	const panel = new MetadataPanel(
 		$qf,
@@ -19,7 +19,7 @@ QUnit.test( '.empty()', function ( assert ) {
 		'$location',
 		'$datetimeCreated',
 		'$datetimeUpdated'
-	].forEach( function ( thing ) {
+	].forEach( ( thing ) => {
 		assert.strictEqual( panel[ thing ].text(), '', thing + ' empty text' );
 	} );
 
@@ -29,12 +29,12 @@ QUnit.test( '.empty()', function ( assert ) {
 		'$locationLi',
 		'$datetimeCreatedLi',
 		'$datetimeUpdatedLi'
-	].forEach( function ( thing ) {
+	].forEach( ( thing ) => {
 		assert.true( panel[ thing ].hasClass( 'empty' ), thing + ' empty class' );
 	} );
 } );
 
-QUnit.test( '.setLocationData()', function ( assert ) {
+QUnit.test( '.setLocationData()', ( assert ) => {
 	const $qf = $( '#qunit-fixture' );
 	const panel = new MetadataPanel(
 		$qf,
@@ -172,7 +172,7 @@ QUnit.test( '.setImageInfo()', function ( assert ) {
 } );
 
 // FIXME: test broken since migrating to require/packageFiles
-QUnit.skip( 'Setting permission information works as expected', function ( assert ) {
+QUnit.skip( 'Setting permission information works as expected', ( assert ) => {
 	const $qf = $( '#qunit-fixture' );
 	const panel = new MetadataPanel(
 		$qf,
@@ -187,7 +187,7 @@ QUnit.skip( 'Setting permission information works as expected', function ( asser
 	assert.true( panel.$permissionLink.is( ':visible' ) );
 } );
 
-QUnit.test( 'Date formatting', function ( assert ) {
+QUnit.test( 'Date formatting', ( assert ) => {
 	const $qf = $( '#qunit-fixture' );
 	const panel = new MetadataPanel(
 		$qf,
