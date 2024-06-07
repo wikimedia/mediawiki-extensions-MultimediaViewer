@@ -221,8 +221,8 @@ const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
 		// Attach lightbox to testing fixture to avoid interference with other tests.
 		lightbox.attach( '#qunit-fixture' );
 
-		lightbox.buttons.$buttons.each( function () {
-			const $button = $( this );
+		lightbox.buttons.$buttons.each( ( i, button ) => {
+			const $button = $( button );
 			const offset = $button.show().offset();
 			const width = $button.width();
 			const height = $button.height();
