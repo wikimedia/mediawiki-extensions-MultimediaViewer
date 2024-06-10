@@ -46,6 +46,7 @@
 	"multimediaviewer-reuse-copy-embed": "เลือกและคัดลอก (หากรองรับ) รหัสเพื่อฝังไฟล์นี้",
 	"multimediaviewer-share-tab": "แบ่งปัน",
 	"multimediaviewer-embed-tab": "ฝัง",
+	"multimediaviewer-download": "ดาวน์โหลด",
 	"multimediaviewer-download-link": "ดาวน์โหลดไฟล์นี้",
 	"multimediaviewer-download-preview-link-title": "ดูในเบราว์เซอร์",
 	"multimediaviewer-download-original-button-name": "ดาวน์โหลดไฟล์ต้นฉบับ",
@@ -73,6 +74,7 @@
 	"multimediaviewer-large-embed-dimensions": "ใหญ่ $1",
 	"multimediaviewer-medium-embed-dimensions": "ปานกลาง $1",
 	"multimediaviewer-small-embed-dimensions": "เล็ก $1",
+	"multimediaviewer-embed-dimensions": "$1×$2 พิกเซล",
 	"multimediaviewer-description-page-button-text": "รายละเอียดเพิ่มเติมเกี่ยวกับไฟล์นี้",
 	"multimediaviewer-description-page-popup-text": "รายละเอียดเพิ่มเติมเกี่ยวกับไฟล์นี้บน $1",
 	"multimediaviewer-commons-subtitle": "คลังสื่อเสรี",
@@ -87,11 +89,14 @@
 	"multimediaviewer-credit-popup-text": "ข้อมูลผู้สร้างและแหล่งที่มา",
 	"multimediaviewer-title-popup-text-more": "ดูคำอธิบายแบบเต็ม",
 	"multimediaviewer-credit-popup-text-more": "ดูข้อมูลผู้สร้างและแหล่งที่มาแบบเต็ม",
+	"multimediaviewer-download-attribution": "การแสดงที่มา",
 	"multimediaviewer-download-attribution-cta-header": "คุณต้องระบุแหล่งที่มาของผู้เขียน",
 	"multimediaviewer-download-optional-attribution-cta-header": "คุณสามารถระบุแหล่งที่มาของผู้เขียนได้",
 	"multimediaviewer-download-attribution-cta": "แสดงวิธีให้ฉัน",
+	"multimediaviewer-copy-button": "คัดลอก",
 	"multimediaviewer-reuse-warning-noattribution": "ไฟล์นี้ไม่มีข้อมูลการระบุแหล่งที่มา",
 	"multimediaviewer-attr-plain": "ธรรมดา",
+	"multimediaviewer-attr-html": "เอชทีเอ็มแอล",
 	"multimediaviewer-options-tooltip": "เปิดหรือปิดใช้งานตัวแสดงสื่อ",
 	"multimediaviewer-options-dialog-header": "ปิดใช้งานตัวแสดงสื่อหรือไม่?",
 	"multimediaviewer-options-text-header": "ข้ามคุณสมบัติการดูนี้สำหรับไฟล์ทั้งหมด",
@@ -107,5 +112,6 @@
 	"multimediaviewer-enable-confirmation-header": "คุณได้เปิดใช้งานตัวแสดงสื่อสำหรับไฟล์ทั้งหมดแล้ว",
 	"multimediaviewer-enable-confirmation-text": "ครั้งต่อไปที่คุณคลิกภาพขนาดย่อบน $1 ตัวแสดงสื่อจะถูกนำมาใช้",
 	"multimediaviewer-enable-alert": "ตัวแสดงสื่อถูกปิดใช้งาน",
-	"multimediaviewer-disable-info-title": "คุณได้ปิดใช้งานตัวแสดงสื่อแล้ว"
+	"multimediaviewer-disable-info-title": "คุณได้ปิดใช้งานตัวแสดงสื่อแล้ว",
+	"multimediaviewer-loading": "กำลังโหลดตัวแสดงสื่อ"
 }
