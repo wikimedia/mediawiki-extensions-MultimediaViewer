@@ -36,30 +36,26 @@ class CanvasButtons extends UiElement {
 
 		this.$reuse = $( '<a>' )
 			.attr( 'role', 'button' )
-			.addClass( 'mw-mmv-reuse-button' )
-			.text( '\u00A0' )
+			.addClass( 'cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--icon-only mw-mmv-button mw-mmv-reuse-button' )
 			.prop( 'title', mw.msg( 'multimediaviewer-reuse-link' ) );
 
 		this.$options = $( '<button>' )
 			.text( ' ' )
 			.prop( 'title', mw.msg( 'multimediaviewer-options-tooltip' ) )
-			.addClass( 'mw-mmv-options-button' );
+			.addClass( 'cdx-button cdx-button--icon-only mw-mmv-button mw-mmv-options-button' );
 
 		this.$download = $( '<a>' )
 			.attr( 'role', 'button' )
-			.addClass( 'mw-mmv-download-button' )
-			.text( '\u00A0' )
+			.addClass( 'cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--icon-only mw-mmv-button mw-mmv-download-button' )
 			.prop( 'title', mw.msg( 'multimediaviewer-download-link' ) );
 
 		this.$next = $( '<button>' )
 			.prop( 'title', mw.msg( 'multimediaviewer-next-image-alt-text' ) )
-			.addClass( 'mw-mmv-next-image disabled' )
-			.text( '\u00A0' );
+			.addClass( 'cdx-button cdx-button--icon-only cdx-button--size-large mw-mmv-button mw-mmv-next-image disabled' );
 
 		this.$prev = $( '<button>' )
 			.prop( 'title', mw.msg( 'multimediaviewer-prev-image-alt-text' ) )
-			.addClass( 'mw-mmv-prev-image disabled' )
-			.text( '\u00A0' );
+			.addClass( 'cdx-button cdx-button--icon-only cdx-button--size-large mw-mmv-button mw-mmv-prev-image disabled' );
 
 		this.$nav = this.$next
 			.add( this.$prev );
@@ -103,18 +99,6 @@ class CanvasButtons extends UiElement {
 	}
 
 	/**
-	 * Stops the fading animation of the buttons and cancel any opacity value
-	 */
-	stopFade() {
-		this.$buttons
-			.stop( true )
-			.removeClass( 'hidden' )
-			.css( 'opacity', '' );
-
-		this.$container.trigger( $.Event( 'mmv-fade-stopped' ) );
-	}
-
-	/**
 	 * Toggles buttons being disabled or not
 	 *
 	 * @param {boolean} showPrevButton
@@ -123,74 +107,6 @@ class CanvasButtons extends UiElement {
 	toggle( showPrevButton, showNextButton ) {
 		this.$next.toggleClass( 'disabled', !showPrevButton );
 		this.$prev.toggleClass( 'disabled', !showNextButton );
-	}
-
-	/**
-	 * Fades out the active buttons
-	 */
-	fadeOut() {
-		// We don't use animation chaining because delay() can't be stop()ed
-		this.buttonsFadeTimeout = setTimeout( () => {
-			// FIXME: Use CSS transition
-			// eslint-disable-next-line no-jquery/no-animate
-			this.$buttons.not( '.disabled' ).animate( { opacity: 0 }, 1000, 'swing',
-				() => {
-					this.$buttons.addClass( 'hidden' );
-					this.$container.trigger( $.Event( 'mmv-faded-out' ) );
-				} );
-		}, 1500 );
-	}
-
-	/**
-	 * Checks if any active buttons are currently hovered, given a position
-	 *
-	 * @param {number} x The horizontal coordinate of the position
-	 * @param {number} y The vertical coordinate of the position
-	 * @return {boolean}
-	 */
-	isAnyActiveButtonHovered( x, y ) {
-		// We don't use mouseenter/mouseleave events because content is subject
-		// to change underneath the cursor, eg. when entering fullscreen or
-		// when going prev/next (the button can disappear when reaching ends)
-		let hovered = false;
-
-		this.$buttons.not( '.disabled' ).each( ( idx, e ) => {
-			const $e = $( e );
-			const offset = $e.offset();
-
-			if ( y >= offset.top &&
-				// using css( 'height' ) & css( 'width' ) instead of .height()
-				// and .width() since those don't include padding, and as a
-				// result can return a smaller size than is actually the button
-				y <= offset.top + parseInt( $e.css( 'height' ) ) &&
-				x >= offset.left &&
-				x <= offset.left + parseInt( $e.css( 'width' ) ) ) {
-				hovered = true;
-			}
-		} );
-
-		return hovered;
-	}
-
-	/**
-	 * Reveals all active buttons and schedule a fade out if needed
-	 *
-	 * @param {Object} [mousePosition] Mouse position containing 'x' and 'y' properties
-	 */
-	revealAndFade( mousePosition ) {
-		if ( this.buttonsFadeTimeout ) {
-			clearTimeout( this.buttonsFadeTimeout );
-		}
-
-		// Stop ongoing animations and make sure the buttons that need to be displayed are displayed
-		this.stopFade();
-
-		// mousePosition can be empty, for instance when we enter fullscreen and haven't
-		// recorded a real mousemove event yet
-		if ( !mousePosition ||
-			!this.isAnyActiveButtonHovered( mousePosition.x, mousePosition.y ) ) {
-			this.fadeOut();
-		}
 	}
 
 	/**

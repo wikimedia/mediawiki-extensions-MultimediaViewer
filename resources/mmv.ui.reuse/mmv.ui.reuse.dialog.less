@@ -11,10 +11,11 @@
 	// doesn't change when switching tabs
 	min-height: 300px;
 	// positioned relative to the reuse button
-	bottom: @metadatabar-above-fold-height + @progress-bar-height - 5px;
+	@bottom-offset: @metadatabar-above-fold-height + @buttons-offset-edge;
+	bottom: @bottom-offset - 5px;
 
 	.mw-mmv-dialog-down-arrow {
-		bottom: @metadatabar-above-fold-height + @progress-bar-height + 5px;
+		bottom: @bottom-offset + ( @buttons-size / 2 ) - ( @arrow-size / 2 );
 	}
 
 	.mw-mmv-dialog-warning {

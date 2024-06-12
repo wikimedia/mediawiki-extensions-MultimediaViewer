@@ -213,47 +213,6 @@ const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
 		restoreScrollTo();
 	} );
 
-	QUnit.test( 'isAnyActiveButtonHovered', ( assert ) => {
-		const lightbox = new LightboxInterface();
-
-		stubScrollTo();
-
-		// Attach lightbox to testing fixture to avoid interference with other tests.
-		lightbox.attach( '#qunit-fixture' );
-
-		lightbox.buttons.$buttons.each( ( i, button ) => {
-			const $button = $( button );
-			const offset = $button.show().offset();
-			const width = $button.width();
-			const height = $button.height();
-			const disabled = $button.hasClass( 'disabled' );
-
-			assert.strictEqual( lightbox.buttons.isAnyActiveButtonHovered( offset.left, offset.top ),
-				!disabled,
-				'Hover detection works for top-left corner of element' );
-			assert.strictEqual( lightbox.buttons.isAnyActiveButtonHovered( offset.left + width, offset.top ),
-				!disabled,
-				'Hover detection works for top-right corner of element' );
-			assert.strictEqual( lightbox.buttons.isAnyActiveButtonHovered( offset.left, offset.top + height ),
-				!disabled,
-				'Hover detection works for bottom-left corner of element' );
-			assert.strictEqual( lightbox.buttons.isAnyActiveButtonHovered( offset.left + width, offset.top + height ),
-				!disabled,
-				'Hover detection works for bottom-right corner of element' );
-			assert.strictEqual(
-				lightbox.buttons.isAnyActiveButtonHovered(
-					offset.left + ( width / 2 ), offset.top + ( height / 2 )
-				),
-				!disabled,
-				'Hover detection works for center of element'
-			);
-		} );
-
-		// Unattach lightbox from document
-		lightbox.unattach();
-		restoreScrollTo();
-	} );
-
 	QUnit.test( 'Keyboard prev/next', ( assert ) => {
 		const viewer = getMultimediaViewer();
 		const lightbox = new LightboxInterface();

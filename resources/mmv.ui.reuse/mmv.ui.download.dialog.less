@@ -8,10 +8,11 @@
 	height: initial;
 	// positioned relative to the download button
 	position: fixed;
-	bottom: @metadatabar-above-fold-height + @progress-bar-height + 35px;
+	@bottom-offset: @metadatabar-above-fold-height + @buttons-offset-edge + @buttons-offset-each;
+	bottom: @bottom-offset - 5px;
 
 	.mw-mmv-dialog-down-arrow {
-		bottom: @metadatabar-above-fold-height + @progress-bar-height + 45px;
+		bottom: @bottom-offset + ( @buttons-size / 2 )  - ( @arrow-size / 2 );
 		background-color: @background-color-base;
 	}
 

@@ -9,7 +9,7 @@
 /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 .mw-mmv-dialog {
 	position: fixed;
-	right: 58px;
+	right: @buttons-offset-edge + @buttons-offset-each + ( @arrow-size / 2 );
 	display: none;
 	width: @dialog-width;
 	height: @dialog-height;
@@ -18,7 +18,7 @@
 	z-index: 1004;
 
 	.mw-mmv-dialog-down-arrow {
-		right: 48px;
+		right: @buttons-offset-edge + @buttons-offset-each;
 		background-color: @background-color;
 		width: @arrow-size;
 		height: @arrow-size;

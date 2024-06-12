@@ -121,16 +121,16 @@ class LightboxInterface extends UiElement {
 		/** @property {DialogProxy|ReuseDialog} */
 		this.fileReuse = new DialogProxy( 'mmv-reuse-open', ( req ) => {
 			const { ReuseDialog } = req( 'mmv.ui.reuse' );
-			this.fileReuse = new ReuseDialog( this.$innerWrapper, this.buttons.$download, this.config );
+			this.fileReuse = new ReuseDialog( this.$preDiv, this.buttons.$download, this.config );
 			return this.fileReuse;
 		} );
 		/** @property {DialogProxy|DownloadDialog} */
 		this.downloadDialog = new DialogProxy( 'mmv-download-open', ( req ) => {
 			const { DownloadDialog } = req( 'mmv.ui.reuse' );
-			this.downloadDialog = new DownloadDialog( this.$innerWrapper, this.buttons.$download, this.config );
+			this.downloadDialog = new DownloadDialog( this.$preDiv, this.buttons.$download, this.config );
 			return this.downloadDialog;
 		} );
-		this.optionsDialog = new OptionsDialog( this.$innerWrapper, this.buttons.$options, this.config );
+		this.optionsDialog = new OptionsDialog( this.$preDiv, this.buttons.$options, this.config );
 	}
 
 	/**
@@ -151,9 +151,7 @@ class LightboxInterface extends UiElement {
 	 */
 	empty() {
 		this.panel.empty();
-
 		this.canvas.empty();
-
 		this.buttons.empty();
 
 		this.$main.addClass( 'metadata-panel-is-closed' )
@@ -216,14 +214,7 @@ class LightboxInterface extends UiElement {
 		// mousemove generates a ton of events, which is why we throttle it
 		this.handleEvent( 'mousemove.lip', mw.util.throttle( ( e ) => {
 			this.mousemove( e );
-		}, 250 ) );
-
-		this.handleEvent( 'mmv-faded-out', ( e ) => {
-			this.fadedOut( e );
-		} );
-		this.handleEvent( 'mmv-fade-stopped', ( e ) => {
-			this.fadeStopped( e );
-		} );
+		}, 100, true ) );
 
 		this.buttons.connect( this, {
 			next: [ 'emit', 'next' ],
@@ -233,7 +224,7 @@ class LightboxInterface extends UiElement {
 		const $parent = $( parentId || document.body );
 
 		// Clean up fullscreen data left attached to the DOM
-		this.$main.removeClass( 'jq-fullscreened' );
+		this.$main.removeClass( 'jq-fullscreened' ).removeClass( 'user-inactive' );
 		this.isFullscreen = false;
 
 		$parent
@@ -258,18 +249,11 @@ class LightboxInterface extends UiElement {
 			this.panel.scroller.toggle( 'down' );
 		} );
 
-		// Buttons fading might not had been reset properly after a hard fullscreen exit
-		// This needs to happen after the parent attach() because the buttons need to be attached
-		// to the DOM for $.fn.stop() to work
-		this.buttons.stopFade();
 		this.buttons.attach();
 
 		this.fileReuse.attach();
 		this.downloadDialog.attach();
 		this.optionsDialog.attach();
-
-		// Reset the cursor fading
-		this.fadeStopped();
 
 		this.attached = true;
 	}
@@ -334,6 +318,8 @@ class LightboxInterface extends UiElement {
 		}
 		this.isFullscreen = false;
 		this.$main.removeClass( 'jq-fullscreened' );
+		clearTimeout( this.interactionTimer );
+		this.userActivity();
 	}
 
 	/**
@@ -346,6 +332,34 @@ class LightboxInterface extends UiElement {
 		}
 		this.isFullscreen = true;
 		this.$main.addClass( 'jq-fullscreened' );
+		this.resetInteractionTimer();
+		this.userInactive();
+	}
+
+	/**
+	 * Interrupt and reset the 3sec delay to hide the controls
+	 */
+	resetInteractionTimer() {
+		clearTimeout( this.interactionTimer );
+		this.interactionTimer = setTimeout( () => {
+			this.userInactive();
+		}, 3000 );
+	}
+
+	/**
+	 * In fullscreen, hide the mouse cursor and the controls
+	 * Called from resetInteractionTimer()
+	 */
+	userInactive() {
+		this.$main.addClass( 'user-inactive' );
+	}
+
+	/**
+	 * In fullscreen, show the mouse cursor and the controls
+	 * Call this after any interactivity
+	 */
+	userActivity() {
+		this.$main.removeClass( 'user-inactive' );
 	}
 
 	/**
@@ -353,29 +367,18 @@ class LightboxInterface extends UiElement {
 	 */
 	setupCanvasButtons() {
 		this.$closeButton = $( '<button>' )
-			.text( ' ' )
-			.addClass( 'mw-mmv-close' )
+			.addClass( 'cdx-button cdx-button--icon-only mw-mmv-button mw-mmv-close' )
 			.prop( 'title', mw.msg( 'multimediaviewer-close-popup-text' ) )
 			.on( 'click', () => {
 				this.unattach();
 			} );
 
 		this.$fullscreenButton = $( '<button>' )
-			.text( ' ' )
-			.addClass( 'mw-mmv-fullscreen' )
+			.addClass( 'cdx-button cdx-button--icon-only mw-mmv-button mw-mmv-fullscreen' )
 			.prop( 'title', mw.msg( 'multimediaviewer-fullscreen-popup-text' ) )
-			.on( 'click', ( e ) => {
+			.on( 'click', () => {
 				if ( this.isFullscreen ) {
 					this.exitFullscreen();
-
-					// mousemove is throttled and the mouse coordinates only
-					// register every 250ms, so there is a chance that we moved
-					// our mouse over one of the buttons but it didn't register,
-					// and a fadeOut is triggered; when we're coming back from
-					// fullscreen, we'll want to make sure the mouse data is
-					// current so that the fadeOut behavior will not trigger
-					this.mousePosition = { x: e.pageX, y: e.pageY };
-					this.buttons.revealAndFade( this.mousePosition );
 				} else {
 					this.enterFullscreen();
 				}
@@ -412,14 +415,7 @@ class LightboxInterface extends UiElement {
 		}
 
 		if ( this.isFullscreen ) {
-			// When entering fullscreen without a mousemove, the browser
-			// still thinks that the cursor is where it was prior to entering
-			// fullscreen. I.e. on top of the fullscreen button
-			// Thus, we purposefully reset the saved position, so that
-			// the fade out really takes place (otherwise it's cancelled
-			// by updateControls which is called a few times when fullscreen opens)
-			this.mousePosition = { x: 0, y: 0 };
-			this.buttons.fadeOut();
+			this.userInactive();
 		}
 
 		// Some browsers only send resize events before toggling fullscreen, but not once the toggling is done
@@ -450,6 +446,10 @@ class LightboxInterface extends UiElement {
 		} else if ( e.key === 'End' ) {
 			this.emit( 'last' );
 			e.preventDefault();
+		} else if ( this.isFullscreen ) {
+			// Any other key in fullscreen reveals the controls
+			this.resetInteractionTimer();
+			this.userActivity();
 		}
 	}
 
@@ -469,35 +469,16 @@ class LightboxInterface extends UiElement {
 			return;
 		}
 
-		if ( e ) {
-			// Saving the mouse position is useful whenever we need to
-			// run LIP.mousemove manually, such as when going to the next/prev
-			// element
-			this.mousePosition = { x: e.pageX, y: e.pageY };
-		}
-
 		if ( this.isFullscreen ) {
-			this.buttons.revealAndFade( this.mousePosition );
+			this.resetInteractionTimer();
+			this.userActivity();
 		}
-	}
-
-	/**
-	 * Called when the buttons have completely faded out and disappeared
-	 */
-	fadedOut() {
-		this.$main.addClass( 'cursor-hidden' );
-	}
-
-	/**
-	 * Called when the buttons have stopped fading and are back into view
-	 */
-	fadeStopped() {
-		this.$main.removeClass( 'cursor-hidden' );
 	}
 
 	touchTap() {
 		if ( this.isFullscreen ) {
-			this.buttons.revealAndFade( this.mousePosition );
+			this.resetInteractionTimer();
+			this.userActivity();
 		}
 	}
 
@@ -508,7 +489,7 @@ class LightboxInterface extends UiElement {
 	 * @param {boolean} showNextButton Whether the next button should be revealed or not
 	 */
 	updateControls( showPrevButton, showNextButton ) {
-		const prevNextTop = `${ ( this.$imageWrapper.height() / 2 ) - 60 }px`;
+		const prevNextTop = `${ ( this.$imageWrapper.height() - 60 ) / 2 }px`;
 
 		if ( this.isFullscreen ) {
 			this.$postDiv.css( 'top', '' );

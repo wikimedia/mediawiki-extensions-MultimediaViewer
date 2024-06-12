@@ -90,6 +90,7 @@
 				"mediawiki.user",
 				"mediawiki.util",
 				"mmv.bootstrap",
+				"mmv.codex",
 				"mmv.head"
 			],
 			"messages": [
