@@ -115,20 +115,6 @@ class MultimediaViewer {
 		 */
 		this.ui = new LightboxInterface();
 
-		/**
-		 * How many sharp images have been displayed in Media Viewer since the pageload
-		 *
-		 * @property {number}
-		 */
-		this.imageDisplayedCount = 0;
-
-		/**
-		 * How many data-filled metadata panels have been displayed in Media Viewer since the pageload
-		 *
-		 * @property {number}
-		 */
-		this.metadataDisplayedCount = 0;
-
 		/** @property {string} documentTitle base document title, MediaViewer will expand this */
 		this.documentTitle = document.title;
 
