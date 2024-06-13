@@ -286,7 +286,6 @@ class MultimediaViewerBootstrap {
 		const $link = $thumb.closest( 'a.image, a.mw-file-description' );
 		const $thumbContainer = $link.closest( '.thumb' );
 		const $enlarge = $thumbContainer.find( '.magnify a' );
-		const link = $link.prop( 'href' );
 		const isFilePageMainThumb = $thumb.closest( '#file' ).length > 0;
 
 		if ( isFilePageMainThumb ) {
@@ -321,7 +320,6 @@ class MultimediaViewerBootstrap {
 		// This is the data that will be passed onto the mmv
 		const image = new LightboxImage(
 			$thumb.prop( 'src' ),
-			link,
 			title,
 			this.thumbs.length,
 			this.thumbs.filter( ( t ) => t.filePageTitle.getPrefixedText() === title.getPrefixedText() ).length + 1,
@@ -348,7 +346,6 @@ class MultimediaViewerBootstrap {
 			// no longer supported
 			'[typeof*="mw:Image"]'
 		);
-		const link = $link.prop( 'href' );
 		const title = mw.Title.newFromImg( $thumb );
 		let caption;
 		let $thumbCaption;
@@ -377,7 +374,6 @@ class MultimediaViewerBootstrap {
 		// This is the data that will be passed onto the mmv
 		const image = new LightboxImage(
 			$thumb.prop( 'src' ),
-			link,
 			title,
 			this.thumbs.length,
 			this.thumbs.filter( ( t ) => t.filePageTitle.getPrefixedText() === title.getPrefixedText() ).length + 1,
@@ -397,8 +393,6 @@ class MultimediaViewerBootstrap {
 	 * @param {mw.Title} title
 	 */
 	processFilePageThumb( $thumb, title ) {
-		const link = $thumb.closest( 'a' ).prop( 'href' );
-
 		// remove the buttons (and the clearing element) if they are already there
 		// this should not happen (at least until we support paged media) but just in case
 		// eslint-disable-next-line no-jquery/no-global-selector
@@ -430,7 +424,6 @@ class MultimediaViewerBootstrap {
 
 		const image = new LightboxImage(
 			$thumb.prop( 'src' ),
-			link,
 			title,
 			this.thumbs.length,
 			1,

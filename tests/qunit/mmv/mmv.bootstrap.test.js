@@ -366,40 +366,29 @@ const { asyncMethod, waitForAsync, getMultimediaViewer } = require( './mmv.testh
 	} );
 
 	// FIXME: Tests suspended as they do not pass in QUnit 2.x+ – T192932
-	QUnit.skip( 'Validate new LightboxImage object has sensible constructor parameters', function ( assert ) {
+	QUnit.test( 'Validate new LightboxImage object has sensible constructor parameters', function ( assert ) {
 		const viewer = getMultimediaViewer();
-		const fname = 'valid';
-		const imgSrc = '/' + fname + '.jpg/300px-' + fname + '.jpg';
-		const imgRegex = new RegExp( imgSrc + '$' );
-		const clock = this.sandbox.useFakeTimers();
-
-		const $div = createThumb( imgSrc, 'Blah blah', 'meow' );
-		const $link = $div.find( 'a.image' );
+		const fname = 'valid.jpg';
+		const imgSrc = '/' + fname + '/300px-' + fname;
+		createThumb( imgSrc, 'Blah blah', 'meow' );
 
 		// Create a new bootstrap object to trigger the DOM scan, etc.
 		const bootstrap = createBootstrap( viewer );
 		this.sandbox.stub( bootstrap, 'setupOverlay' );
-		this.sandbox.stub( viewer, 'createNewImage' );
 		viewer.loadImage = function () {};
-		viewer.createNewImage = function ( fileLink, filePageLink, fileTitle, index, thumb, caption, alt ) {
-			const html = thumb.outerHTML;
-
-			// FIXME: fileLink doesn't match imgRegex (null)
-			assert.ok( fileLink.match( imgRegex ), 'Thumbnail URL used in creating new image object' );
-			assert.strictEqual( filePageLink, '', 'File page link is sensible when creating new image object' );
-			assert.strictEqual( fileTitle.title, fname, 'Filename is correct when passed into new image constructor' );
-			assert.strictEqual( index, 0, 'The only image we created in the gallery is set at index 0 in the images array' );
-			assert.ok( html.indexOf( ' src="' + imgSrc + '"' ) > 0, 'The image element passed in contains the src=... we want.' );
-			assert.ok( html.indexOf( ' alt="meow"' ) > 0, 'The image element passed in contains the alt=... we want.' );
-			assert.strictEqual( caption, 'Blah blah', 'The caption passed in is correct' );
-			assert.strictEqual( alt, 'meow', 'The alt text passed in is correct' );
-		};
-
-		$link.trigger( { type: 'click', which: 1 } );
-		clock.tick( 10 );
-		assert.equal( bootstrap.setupOverlay.callCount, 1, 'Overlay was set up' );
-
-		clock.reset();
+		const done = assert.async();
+		bootstrap.loadViewer().then( () => {
+			assert.strictEqual( bootstrap.thumbs.length, 1, 'One thumbnail' );
+			/** @property {LightboxImage} */
+			const thumb = bootstrap.thumbs[ 0 ];
+			assert.true( new RegExp( imgSrc + '$' ).test( thumb.src ), 'Thumbnail URL used in creating new image object' );
+			assert.strictEqual( thumb.filePageTitle.title, fname, 'Filename is correct when passed into new image constructor' );
+			assert.strictEqual( thumb.index, 0, 'The only image we created in the gallery is set at index 0 in the images array' );
+			assert.strictEqual( thumb.caption, 'Blah blah', 'The caption passed in is correct' );
+			assert.strictEqual( thumb.alt, 'meow', 'The alt text passed in is correct' );
+			done();
+		} );
+		bootstrap.setupOverlay.reset();
 	} );
 
 	QUnit.test( 'Only load the viewer on a valid hash', ( assert ) => {
