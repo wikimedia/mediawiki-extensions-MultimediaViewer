@@ -44,7 +44,6 @@
 			"packageFiles": [
 				"mmv/mmv.js",
 				"mmv/logging/mmv.logging.ViewLogger.js",
-				"mmv/model/mmv.model.IwTitle.js",
 				"mmv/model/mmv.model.License.js",
 				"mmv/model/mmv.model.Image.js",
 				"mmv/model/mmv.model.Thumbnail.js",
@@ -346,7 +345,6 @@
 			"tests/qunit/mmv/mmv.HtmlUtils.test.js",
 			"tests/qunit/mmv/logging/mmv.logging.ViewLogger.test.js",
 			"tests/qunit/mmv/model/mmv.model.test.js",
-			"tests/qunit/mmv/model/mmv.model.IwTitle.test.js",
 			"tests/qunit/mmv/model/mmv.model.TaskQueue.test.js",
 			"tests/qunit/mmv/model/mmv.model.License.test.js",
 			"tests/qunit/mmv/model/mmv.model.Image.test.js",

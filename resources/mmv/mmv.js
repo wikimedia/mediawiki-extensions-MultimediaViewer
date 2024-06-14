@@ -23,7 +23,6 @@ const ImageProvider = require( './provider/mmv.provider.Image.js' );
 const ImageInfo = require( './provider/mmv.provider.ImageInfo.js' );
 const ThumbnailInfo = require( './provider/mmv.provider.ThumbnailInfo.js' );
 const ImageModel = require( './model/mmv.model.Image.js' );
-const IwTitle = require( './model/mmv.model.IwTitle.js' );
 const License = require( './model/mmv.model.License.js' );
 const TaskQueue = require( './model/mmv.model.TaskQueue.js' );
 const Thumbnail = require( './model/mmv.model.Thumbnail.js' );
@@ -899,7 +898,6 @@ module.exports = {
 	ImageInfo,
 	ImageModel,
 	ImageProvider,
-	IwTitle,
 	License,
 	LightboxInterface,
 	MetadataPanel,
