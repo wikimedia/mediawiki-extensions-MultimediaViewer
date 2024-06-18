@@ -21,19 +21,15 @@
 class LightboxImage {
 	/**
 	 * @param {string} fileLink Link to the file - generally a thumb URL
-	 * @param {string} filePageLink Link to the File: page
 	 * @param {mw.Title} fileTitle Represents the File: page
 	 * @param {number} index Which number file this is
 	 * @param {number} position The relative position of this image to others with same file
 	 * @param {HTMLImageElement} thumb The thumbnail that represents this image on the page
 	 * @param {string} [caption] The caption, if any.
 	 */
-	constructor( fileLink, filePageLink, fileTitle, index, position, thumb, caption ) {
+	constructor( fileLink, fileTitle, index, position, thumb, caption ) {
 		/** @property {string} Link to the file - generally a thumb URL */
 		this.src = fileLink;
-
-		/** @property {string} filePageLink URL to the image's file page */
-		this.filePageLink = filePageLink;
 
 		/** @property {mw.Title} filePageTitle Title of the image's file page */
 		this.filePageTitle = fileTitle;
