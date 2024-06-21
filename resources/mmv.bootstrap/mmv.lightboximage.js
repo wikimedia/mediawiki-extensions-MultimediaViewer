@@ -45,21 +45,15 @@ class LightboxImage {
 
 		/** @property {string} caption The caption of the image, if any */
 		this.caption = caption;
-	}
 
-	/** @return {string} The alt text of the image */
-	get alt() {
-		return $( this.thumbnail ).attr( 'alt' );
-	}
+		/** @property {string} The alt text of the image */
+		this.alt = $( this.thumbnail ).attr( 'alt' );
 
-	/** @return {number} Width of the full-sized file (read from HTML data attribute, might be missing) */
-	get originalWidth() {
-		return parseInt( $( this.thumbnail ).data( 'file-width' ), 10 );
-	}
+		/** @property {number} originalWidth of the full-sized file (read from HTML data attribute, might be missing) */
+		this.originalWidth = parseInt( $( this.thumbnail ).data( 'file-width' ), 10 );
 
-	/** @return {number} originalHeight Height of the full-sized file (read from HTML data attribute, might be missing) */
-	get originalHeight() {
-		return parseInt( $( this.thumbnail ).data( 'file-height' ), 10 );
+		/** @property {number} originalHeight Height of the full-sized file (read from HTML data attribute, might be missing) */
+		this.originalHeight = parseInt( $( this.thumbnail ).data( 'file-height' ), 10 );
 	}
 }
 
