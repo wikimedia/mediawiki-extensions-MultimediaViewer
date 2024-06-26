@@ -121,6 +121,7 @@
 	"multimediaviewer-download-attribution-cta-header": "您需要註明作者",
 	"multimediaviewer-download-optional-attribution-cta-header": "您可以註明作者",
 	"multimediaviewer-download-attribution-cta": "教我怎麼做",
+	"multimediaviewer-copy-button": "複製",
 	"multimediaviewer-download-attribution-copy": "選擇並複製 (若支援) 此檔案的署名文字",
 	"multimediaviewer-reuse-warning-deletion": "此檔案被列為應刪除。",
 	"multimediaviewer-reuse-warning-nonfree": "此檔案沒有自由授權條款。",
@@ -144,5 +145,6 @@
 	"multimediaviewer-enable-alert": "媒體檢視器現在已關閉",
 	"multimediaviewer-disable-info-title": "您已關閉媒體檢視器",
 	"multimediaviewer-disable-info": "您仍可以使用媒體檢視器來檢視個別檔案。",
-	"multimediaviewer-errorreport-privacywarning": "錯誤的詳情內容會附加到報告裡，並可公開檢視。若您對此不認同，您可以編輯以下報告並移除您不希望分享的資料。"
+	"multimediaviewer-errorreport-privacywarning": "錯誤的詳情內容會附加到報告裡，並可公開檢視。若您對此不認同，您可以編輯以下報告並移除您不希望分享的資料。",
+	"multimediaviewer-loading": "正在載入媒體檢視器。"
 }
