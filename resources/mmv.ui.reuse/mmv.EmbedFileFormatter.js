@@ -58,7 +58,7 @@ class EmbedFileFormatter {
 	 * @param {string} [author] author name (can contain HTML)
 	 * @param {string} [source] source name (can contain HTML)
 	 * @param {string} [attribution] custom attribution line (can contain HTML)
-	 * @param {Function} [formatterFunction] Format function for the text - defaults to whitelisting HTML links, but all else sanitized.
+	 * @param {Function} [formatterFunction] Format function for the text - defaults to allowlisting HTML links, but all else sanitized.
 	 * @return {string} Byline (can contain HTML)
 	 */
 	getByline( author, source, attribution, formatterFunction ) {

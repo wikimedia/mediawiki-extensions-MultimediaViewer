@@ -97,14 +97,14 @@ class HtmlUtils {
 	}
 
 	/**
-	 * Discards all nodes which do not match the whitelist,
-	 * but keeps the text and whitelisted nodes inside them.
+	 * Discards all nodes which do not match the allowlist,
+	 * but keeps the text and allowlisted nodes inside them.
 	 * Works in-place.
 	 *
 	 * @param {jQuery} $el
-	 * @param {string} whitelist a jQuery selector string such as 'a, span, br'
+	 * @param {string} allowlist a jQuery selector string such as 'a, span, br'
 	 */
-	static whitelistHtml( $el, whitelist ) {
+	static allowlistHtml( $el, allowlist ) {
 		let $prev;
 		let $child = $el.children().first();
 
@@ -115,9 +115,9 @@ class HtmlUtils {
 				return;
 			}
 
-			HtmlUtils.whitelistHtml( $child, whitelist );
+			HtmlUtils.allowlistHtml( $child, allowlist );
 
-			if ( !$child.is( whitelist ) ) {
+			if ( !$child.is( allowlist ) ) {
 				$prev = $child.prev();
 				$child.replaceWith( $child.contents() );
 			} else {
@@ -217,7 +217,7 @@ class HtmlUtils {
 			const $html = HtmlUtils.wrapAndJquerify( html );
 			HtmlUtils.filterInvisible( $html );
 			HtmlUtils.appendWhitespaceToBlockElements( $html );
-			HtmlUtils.whitelistHtml( $html, 'a, span, i, b, sup, sub, s' );
+			HtmlUtils.allowlistHtml( $html, 'a, span, i, b, sup, sub, s' );
 			cache.textWithTags[ html ] = HtmlUtils.mergeWhitespace( $html.html() );
 		}
 		return cache.textWithTags[ html ];
@@ -235,7 +235,7 @@ class HtmlUtils {
 			const $html = HtmlUtils.wrapAndJquerify( html );
 			HtmlUtils.filterInvisible( $html );
 			HtmlUtils.appendWhitespaceToBlockElements( $html );
-			HtmlUtils.whitelistHtml( $html, 'a, span' );
+			HtmlUtils.allowlistHtml( $html, 'a, span' );
 			cache.textWithLinks[ html ] = HtmlUtils.mergeWhitespace( $html.html() );
 		}
 		return cache.textWithLinks[ html ];
