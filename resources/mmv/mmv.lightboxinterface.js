@@ -65,6 +65,10 @@ class LightboxInterface extends UiElement {
 
 		this.localStorage = mw.storage;
 
+		// When opening we might override the theme-color, so remember the original value
+		const metaElement = document.querySelector( 'meta[name="theme-color"]' );
+		this.originalThemeColor = metaElement ? metaElement.getAttribute( 'content' ) : null;
+
 		/** @property {Config} config - */
 		this.config = new Config(
 			mw.config.get( 'wgMultimediaViewer', {} ),
@@ -192,6 +196,9 @@ class LightboxInterface extends UiElement {
 			return;
 		}
 
+		// Make sure devices set their theming to dark to match the background of the viewer
+		this.setThemeColor( '#000000' );
+
 		this.handleEvent( 'keyup', ( e ) => {
 			if ( e.keyCode === 27 && !( e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) ) {
 				// Escape button pressed
@@ -302,6 +309,8 @@ class LightboxInterface extends UiElement {
 			next: [ 'emit', 'next' ],
 			prev: [ 'emit', 'prev' ]
 		} );
+
+		this.setThemeColor( this.originalThemeColor );
 
 		this.attached = false;
 	}
@@ -499,6 +508,26 @@ class LightboxInterface extends UiElement {
 
 		this.buttons.setOffset( prevNextTop );
 		this.buttons.toggle( showPrevButton, showNextButton );
+	}
+
+	/**
+	 * Update the theme-color of the document
+	 *
+	 * @param {string|null} color to set as theme-color or null to remove the theme-color
+	 */
+	setThemeColor( color ) {
+		let metaElement = document.querySelector( 'meta[name="theme-color"]' );
+		if ( !metaElement ) {
+			metaElement = document.createElement( 'meta' );
+			metaElement.setAttribute( 'name', 'theme-color' );
+			document.head.appendChild( metaElement );
+		}
+		if ( color === null ) {
+			metaElement.remove();
+		} else {
+			this.originalThemeColor = metaElement.getAttribute( 'content' );
+			metaElement.setAttribute( 'content', color );
+		}
 	}
 }
 

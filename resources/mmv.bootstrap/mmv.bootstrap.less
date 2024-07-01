@@ -24,6 +24,10 @@
 body.mw-mmv-lightbox-open {
 	overflow-y: auto;
 
+	// This is to ensure the background area for the safe areas (notch) is black in fullscreen mode
+	// Separate from above as not all browsers that we support, support has().
+	background-color: #000;
+
 	// Stop the article from scrolling in the background
 	> *:not( .mw-notification-area-overlay ) {
 		display: none;
