@@ -433,17 +433,11 @@ class MultimediaViewerBootstrap {
 		this.thumbs.push( image );
 
 		$mmvButton.on( 'click', () => {
-			if ( this.statusInfoDialog ) {
-				this.statusInfoDialog.close();
-			}
 			this.openImage( image );
 			return false;
 		} );
 
 		$configButton.on( 'click', () => {
-			if ( this.statusInfoDialog ) {
-				this.statusInfoDialog.close();
-			}
 			$( document ).one( 'mmv-metadata', () => {
 				$( document ).trigger( 'mmv-options-open' );
 			} );
