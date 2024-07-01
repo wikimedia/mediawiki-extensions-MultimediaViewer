@@ -91,27 +91,27 @@ const { HtmlUtils } = require( 'mmv.bootstrap' );
 		assert.strictEqual( $invisibleChildWithVisibleSiblings.has( 'b' ).length, 1, '...but its visible siblings are not' );
 	} );
 
-	QUnit.test( 'whitelistHtml()', ( assert ) => {
-		const $whitelisted = $( '<div>abc<a>def</a>ghi</div>' );
-		const $nonWhitelisted = $( '<div>abc<span>def</span>ghi</div>' );
-		const $nonWhitelistedInWhitelisted = $( '<div>abc<a>d<span>e</span>f</a>ghi</div>' );
-		const $whitelistedInNonWhitelisted = $( '<div>abc<span>d<a>e</a>f</span>ghi</div>' );
+	QUnit.test( 'allowlistHtml()', ( assert ) => {
+		const $allowlisted = $( '<div>abc<a>def</a>ghi</div>' );
+		const $nonAllowlisted = $( '<div>abc<span>def</span>ghi</div>' );
+		const $nonAllowlistedInAllowlisted = $( '<div>abc<a>d<span>e</span>f</a>ghi</div>' );
+		const $allowlistedInNonAllowlisted = $( '<div>abc<span>d<a>e</a>f</span>ghi</div>' );
 		const $siblings = $( '<div>ab<span>c</span>d<a>e</a>f<span>g</span>hi</div>' );
 
-		HtmlUtils.whitelistHtml( $whitelisted, 'a' );
-		HtmlUtils.whitelistHtml( $nonWhitelisted, 'a' );
-		HtmlUtils.whitelistHtml( $nonWhitelistedInWhitelisted, 'a' );
-		HtmlUtils.whitelistHtml( $whitelistedInNonWhitelisted, 'a' );
-		HtmlUtils.whitelistHtml( $siblings, 'a' );
+		HtmlUtils.allowlistHtml( $allowlisted, 'a' );
+		HtmlUtils.allowlistHtml( $nonAllowlisted, 'a' );
+		HtmlUtils.allowlistHtml( $nonAllowlistedInAllowlisted, 'a' );
+		HtmlUtils.allowlistHtml( $allowlistedInNonAllowlisted, 'a' );
+		HtmlUtils.allowlistHtml( $siblings, 'a' );
 
-		assert.strictEqual( $whitelisted.has( 'a' ).length, 1, 'Whitelisted elements are kept.' );
-		assert.strictEqual( $nonWhitelisted.has( 'span' ).length, 0, 'Non-whitelisted elements are removed.' );
-		assert.strictEqual( $nonWhitelistedInWhitelisted.has( 'a' ).length, 1, 'Whitelisted parents are kept.' );
-		assert.strictEqual( $nonWhitelistedInWhitelisted.has( 'span' ).length, 0, 'Non-whitelisted children are removed.' );
-		assert.strictEqual( $whitelistedInNonWhitelisted.has( 'span' ).length, 0, 'Non-whitelisted parents are removed.' );
-		assert.strictEqual( $whitelistedInNonWhitelisted.has( 'a' ).length, 1, 'Whitelisted children are kept.' );
-		assert.strictEqual( $siblings.has( 'span' ).length, 0, 'Non-whitelisted siblings are removed.' );
-		assert.strictEqual( $siblings.has( 'a' ).length, 1, 'Whitelisted siblings are kept.' );
+		assert.strictEqual( $allowlisted.has( 'a' ).length, 1, 'Allowlisted elements are kept.' );
+		assert.strictEqual( $nonAllowlisted.has( 'span' ).length, 0, 'Non-allowlisted elements are removed.' );
+		assert.strictEqual( $nonAllowlistedInAllowlisted.has( 'a' ).length, 1, 'Allowlisted parents are kept.' );
+		assert.strictEqual( $nonAllowlistedInAllowlisted.has( 'span' ).length, 0, 'Non-allowlisted children are removed.' );
+		assert.strictEqual( $allowlistedInNonAllowlisted.has( 'span' ).length, 0, 'Non-allowlisted parents are removed.' );
+		assert.strictEqual( $allowlistedInNonAllowlisted.has( 'a' ).length, 1, 'Allowlisted children are kept.' );
+		assert.strictEqual( $siblings.has( 'span' ).length, 0, 'Non-allowlisted siblings are removed.' );
+		assert.strictEqual( $siblings.has( 'a' ).length, 1, 'Allowlisted siblings are kept.' );
 	} );
 
 	QUnit.test( 'appendWhitespaceToBlockElements()', ( assert ) => {
