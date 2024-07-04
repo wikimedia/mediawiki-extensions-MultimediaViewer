@@ -44,16 +44,29 @@ class StripeButtons extends UiElement {
 
 	/**
 	 * @inheritdoc
+	 * @param {LightboxImage} image
 	 * @param {ImageModel} imageInfo
 	 */
-	set( imageInfo ) {
+	set( image, imageInfo ) {
+		const match = image && image.src ?
+			image.src.match( /(lang|page)([\d\-a-z]+)-(\d+)px/ ) : // multi lingual SVG or PDF page
+			null;
+		const params = {};
+		if ( match ) {
+			params[ match[ 1 ] ] = match[ 2 ];
+		}
+
 		let descriptionUrl = imageInfo.descriptionUrl;
 		let isCommons = String( descriptionUrl ).includes( '//commons.wikimedia.org/' );
 
 		if ( imageInfo.pageID ) {
 			// The file has a local description page, override the description URL
-			descriptionUrl = imageInfo.title.getUrl();
+			descriptionUrl = imageInfo.title.getUrl( params );
 			isCommons = false;
+		} else {
+			const parsedUrl = new mw.Uri( descriptionUrl );
+			parsedUrl.extend( params );
+			descriptionUrl = parsedUrl.toString();
 		}
 
 		this.$descriptionPage.empty()
