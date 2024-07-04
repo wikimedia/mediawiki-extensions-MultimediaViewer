@@ -402,6 +402,7 @@
 	"config": {
 		"MediaViewerExtensions": {
 			"value": {
+				"djvu": "default",
 				"jpg": "default",
 				"jpeg": "default",
 				"gif": "default",
