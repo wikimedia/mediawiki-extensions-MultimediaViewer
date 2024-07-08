@@ -39,6 +39,7 @@
 	"multimediaviewer-reuse-loading-placeholder": "ДӀахӀуттуш йу...",
 	"multimediaviewer-share-tab": "Йекъа",
 	"multimediaviewer-embed-tab": "АгӀонг йилла",
+	"multimediaviewer-download": "Схьаэца",
 	"multimediaviewer-download-link": "Чуйаккха хӀара файл",
 	"multimediaviewer-download-preview-link-title": "Браузер чохь хьажар",
 	"multimediaviewer-download-original-button-name": "ДӀайолалун барамехь схьаэца",
@@ -80,9 +81,15 @@
 	"multimediaviewer-credit-popup-text": "Авторах а хьостах а лаьцна хаам",
 	"multimediaviewer-title-popup-text-more": "Хьажа цунах лаьцна мадарра",
 	"multimediaviewer-credit-popup-text-more": "Авторах а, хьостах а лаьцна мадарра хьажа",
+	"multimediaviewer-download-attribution": "Атрибуци",
 	"multimediaviewer-download-attribution-cta-header": "ДӀайазйе авторан цӀе",
 	"multimediaviewer-download-optional-attribution-cta-header": "ДӀайазйе авторан цӀе",
 	"multimediaviewer-download-attribution-cta": "Гайта соьга, санна",
+	"multimediaviewer-copy-button": "Копийан",
+	"multimediaviewer-download-attribution-copy": "Оцу файлана атрибуцин текст схьахаржа (ловш йелахь), тӀакха копийе",
+	"multimediaviewer-reuse-warning-deletion": "И файл дӀайаккхаран хаттар лоьруш ду.",
+	"multimediaviewer-reuse-warning-nonfree": "ХӀокху файлан маьрша лицензи йац.",
+	"multimediaviewer-reuse-warning-noattribution": "ХӀокху файлан атрибуцин информаци йац.",
 	"multimediaviewer-attr-plain": "Атта",
 	"multimediaviewer-options-tooltip": "Латор йа дӀайайар Медиа-хьожург",
 	"multimediaviewer-options-dialog-header": "ДӀайайъа «Медиафайлашка хьожург»?",
@@ -100,5 +107,6 @@
 	"multimediaviewer-enable-confirmation-text": "Кхечу хенахь $1 сайтехь файлан тӀе таӀийча хьана медиа-хьожург лелор йу.",
 	"multimediaviewer-enable-alert": "Медиа-хьожург хӀинца дӀайайина йу",
 	"multimediaviewer-disable-info-title": "Ахьа дӀайайина Медиа-хьожург",
-	"multimediaviewer-disable-info": "Хьа хӀинца а йиш йу цхьайолу файлашка медиа-хьожургцан хьажа."
+	"multimediaviewer-disable-info": "Хьа хӀинца а йиш йу цхьайолу файлашка медиа-хьожургцан хьажа.",
+	"multimediaviewer-loading": "Медиафайлашка хьожург чуйаккхар."
 }
