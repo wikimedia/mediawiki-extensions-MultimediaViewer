@@ -378,6 +378,7 @@ class LightboxInterface extends UiElement {
 		this.$closeButton = $( '<button>' )
 			.addClass( 'cdx-button cdx-button--icon-only mw-mmv-button mw-mmv-close' )
 			.prop( 'title', mw.msg( 'multimediaviewer-close-popup-text' ) )
+			.append( $( '<span>' ).addClass( 'mw-mmv-icon' ) )
 			.on( 'click', () => {
 				this.unattach();
 			} );
@@ -385,6 +386,7 @@ class LightboxInterface extends UiElement {
 		this.$fullscreenButton = $( '<button>' )
 			.addClass( 'cdx-button cdx-button--icon-only mw-mmv-button mw-mmv-fullscreen' )
 			.prop( 'title', mw.msg( 'multimediaviewer-fullscreen-popup-text' ) )
+			.append( $( '<span>' ).addClass( 'mw-mmv-icon' ) )
 			.on( 'click', () => {
 				if ( this.isFullscreen ) {
 					this.exitFullscreen();

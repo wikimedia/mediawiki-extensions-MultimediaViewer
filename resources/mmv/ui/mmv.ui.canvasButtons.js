@@ -37,25 +37,30 @@ class CanvasButtons extends UiElement {
 		this.$reuse = $( '<a>' )
 			.attr( 'role', 'button' )
 			.addClass( 'cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--icon-only mw-mmv-button mw-mmv-reuse-button' )
-			.prop( 'title', mw.msg( 'multimediaviewer-reuse-link' ) );
+			.prop( 'title', mw.msg( 'multimediaviewer-reuse-link' ) )
+			.append( $( '<span>' ).addClass( 'mw-mmv-icon' ) );
 
 		this.$options = $( '<button>' )
 			.text( ' ' )
 			.prop( 'title', mw.msg( 'multimediaviewer-options-tooltip' ) )
-			.addClass( 'cdx-button cdx-button--icon-only mw-mmv-button mw-mmv-options-button' );
+			.addClass( 'cdx-button cdx-button--icon-only mw-mmv-button mw-mmv-options-button' )
+			.append( $( '<span>' ).addClass( 'mw-mmv-icon' ) );
 
 		this.$download = $( '<a>' )
 			.attr( 'role', 'button' )
 			.addClass( 'cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--icon-only mw-mmv-button mw-mmv-download-button' )
-			.prop( 'title', mw.msg( 'multimediaviewer-download-link' ) );
+			.prop( 'title', mw.msg( 'multimediaviewer-download-link' ) )
+			.append( $( '<span>' ).addClass( 'mw-mmv-icon' ) );
 
 		this.$next = $( '<button>' )
 			.prop( 'title', mw.msg( 'multimediaviewer-next-image-alt-text' ) )
-			.addClass( 'cdx-button cdx-button--icon-only cdx-button--size-large mw-mmv-button mw-mmv-next-image disabled' );
+			.addClass( 'cdx-button cdx-button--icon-only cdx-button--size-large mw-mmv-button mw-mmv-next-image disabled' )
+			.append( $( '<span>' ).addClass( 'mw-mmv-icon' ) );
 
 		this.$prev = $( '<button>' )
 			.prop( 'title', mw.msg( 'multimediaviewer-prev-image-alt-text' ) )
-			.addClass( 'cdx-button cdx-button--icon-only cdx-button--size-large mw-mmv-button mw-mmv-prev-image disabled' );
+			.addClass( 'cdx-button cdx-button--icon-only cdx-button--size-large mw-mmv-button mw-mmv-prev-image disabled' )
+			.append( $( '<span>' ).addClass( 'mw-mmv-icon' ) );
 
 		this.$nav = this.$next
 			.add( this.$prev );

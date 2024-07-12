@@ -26,18 +26,19 @@
 		border-width: 1px;
 	}
 
-	&::after {
+	.mw-mmv-icon {
 		// Default transparency of the icon
-		content: '';
 		opacity: 0.8;
 	}
 
-	&.mw-mmv-dialog-open::after,
-	&:active::after,
-	&:focus::after,
-	&:hover::after {
-		transition: opacity 0.1s ease-in;
-		opacity: 1;
+	&.mw-mmv-dialog-open,
+	&:active,
+	&:focus,
+	&:hover {
+		.mw-mmv-icon {
+			transition: opacity 0.1s ease-in;
+			opacity: 1;
+		}
 	}
 
 	// when the cursor is hidden, the buttons are hidden as well
@@ -67,7 +68,7 @@
 		cursor: none;
 	}
 
-	&&::after {
+	.mw-mmv-icon {
 		mask-size: @buttons-icon-size-large;
 	}
 }
@@ -76,7 +77,7 @@
 .mw-mmv-close {
 	top: @buttons-offset-edge;
 
-	&::after {
+	.mw-mmv-icon {
 		.cdx-mixin-css-icon( @cdx-icon-close, @param-fill-color: @color-inverted-fixed );
 	}
 }
@@ -84,29 +85,27 @@
 .mw-mmv-fullscreen {
 	top: ( @buttons-offset-edge + ( @buttons-offset-each ) );
 
-	&::after {
+	.mw-mmv-icon {
 		.cdx-mixin-css-icon( @cdx-icon-full-screen, @param-fill-color: @color-inverted-fixed );
+
+		.jq-fullscreened & {
+			.cdx-mixin-css-icon( @cdx-icon-exit-fullscreen, @param-fill-color: @color-inverted-fixed );
+		}
 	}
 }
 
 .mw-mmv-options-button {
 	top: ( @buttons-offset-edge + ( 2 * @buttons-offset-each ) );
 
-	&::after {
+	.mw-mmv-icon {
 		.cdx-mixin-css-icon( @cdx-icon-settings, @param-fill-color: @color-inverted-fixed );
-	}
-}
-
-.jq-fullscreened {
-	.mw-mmv-fullscreen::after {
-		.cdx-mixin-css-icon( @cdx-icon-exit-fullscreen, @param-fill-color: @color-inverted-fixed );
 	}
 }
 
 .mw-mmv-next-image {
 	right: @size-icon-medium;
 
-	&::after {
+	.mw-mmv-icon {
 		.cdx-mixin-css-icon( @cdx-icon-next, @param-fill-color: @color-inverted-fixed, @param-size-icon: @size-icon-medium );
 	}
 }
@@ -114,7 +113,7 @@
 .mw-mmv-prev-image {
 	left: @size-icon-medium;
 
-	&::after {
+	.mw-mmv-icon {
 		.cdx-mixin-css-icon( @cdx-icon-previous, @param-fill-color: @color-inverted-fixed, @param-size-icon: @size-icon-medium );
 	}
 }
@@ -126,7 +125,7 @@
 		bottom: @buttons-offset-edge + @progress-bar-height;
 	}
 
-	&::after {
+	.mw-mmv-icon {
 		.cdx-mixin-css-icon( @cdx-icon-share, @param-fill-color: @color-inverted-fixed );
 	}
 }
@@ -138,7 +137,7 @@
 		bottom: @buttons-offset-edge + @progress-bar-height + @buttons-offset-each;
 	}
 
-	&::after {
+	.mw-mmv-icon {
 		.cdx-mixin-css-icon( @cdx-icon-download, @param-fill-color: @color-inverted-fixed );
 	}
 }
