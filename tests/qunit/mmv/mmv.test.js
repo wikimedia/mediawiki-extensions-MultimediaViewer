@@ -51,7 +51,6 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.displayPlaceholderThumbnail = function () {};
 		viewer.setImage = function () {};
 		viewer.scroll = function () {};
-		viewer.preloadFullscreenThumbnail = function () {};
 		viewer.fetchSizeIndependentLightboxInfo = () => $.Deferred().resolve( {} );
 		viewer.ui = {
 			setFileReuseData: function () {},
@@ -124,7 +123,6 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.displayPlaceholderThumbnail = function () {};
 		viewer.setImage = function () {};
 		viewer.scroll = function () {};
-		viewer.preloadFullscreenThumbnail = function () {};
 		viewer.preloadImagesMetadata = function () {};
 		viewer.preloadThumbnails = function () {};
 		viewer.fetchSizeIndependentLightboxInfo = () => $.Deferred().resolve( {} );
@@ -308,7 +306,6 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		// custom clock ensures progress handlers execute in correct sequence
 		const clock = this.sandbox.useFakeTimers();
 
-		viewer.preloadFullscreenThumbnail = function () {};
 		viewer.fetchSizeIndependentLightboxInfo = this.sandbox.stub();
 		viewer.ui = {
 			setFileReuseData: function () {},
@@ -399,7 +396,6 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		viewer.imageInfoProvider.get = () => $.Deferred().reject();
 		viewer.thumbnailInfoProvider.get = () => $.Deferred().reject();
 
-		viewer.preloadFullscreenThumbnail = function () {};
 		viewer.initWithThumbs( [] );
 
 		viewer.loadImage(

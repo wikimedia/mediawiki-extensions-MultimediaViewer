@@ -232,7 +232,6 @@ class MultimediaViewer {
 
 		this.preloadImagesMetadata();
 		this.preloadThumbnails();
-		// this.preloadFullscreenThumbnail( image ); // disabled - #474
 		const imageWidths = this.ui.canvas.getCurrentImageWidths();
 
 		const imagePromise = this.fetchThumbnailForLightboxImage( image, imageWidths.real );
@@ -564,17 +563,6 @@ class MultimediaViewer {
 		} );
 
 		this.thumbnailPreloadQueue.execute();
-	}
-
-	/**
-	 * Preload the fullscreen size of the current image.
-	 *
-	 * @param {LightboxImage} image
-	 */
-	preloadFullscreenThumbnail( image ) {
-		const imageWidths = this.ui.canvas.getLightboxImageWidthsForFullscreen( image );
-
-		this.fetchThumbnailForLightboxImage( image, imageWidths.real );
 	}
 
 	/**

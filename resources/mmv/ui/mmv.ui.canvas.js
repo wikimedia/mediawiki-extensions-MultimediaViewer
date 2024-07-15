@@ -324,11 +324,9 @@ thumbnail size: CSS: ${ thumbnailDimensions.cssWidth }x${ thumbnailDimensions.cs
 	/**
 	 * Returns width and height of the canvas area (i.e. the space available for the image).
 	 *
-	 * @param {boolean} forFullscreen if true, return size in fullscreen mode; otherwise, return current size
-	 *  (which might still be fullscreen mode).
 	 * @return {Object} Width and height in CSS pixels
 	 */
-	getDimensions( forFullscreen ) {
+	getDimensions() {
 		const $window = $( window );
 		// eslint-disable-next-line no-jquery/no-global-selector
 		const $aboveFold = $( '.mw-mmv-above-fold' );
@@ -339,17 +337,10 @@ thumbnail size: CSS: ${ thumbnailDimensions.cssWidth }x${ thumbnailDimensions.cs
 		const availableWidth = $window.width();
 		const availableHeight = $window.height() - ( isFullscreened ? 0 : $aboveFold.outerHeight() );
 
-		if ( forFullscreen ) {
-			return {
-				width: screen.width,
-				height: screen.height
-			};
-		} else {
-			return {
-				width: availableWidth,
-				height: availableHeight
-			};
-		}
+		return {
+			width: availableWidth,
+			height: availableHeight
+		};
 	}
 
 	/**
@@ -361,22 +352,6 @@ thumbnail size: CSS: ${ thumbnailDimensions.cssWidth }x${ thumbnailDimensions.cs
 	getLightboxImageWidths( image ) {
 		const thumb = image.thumbnail;
 		const canvasDimensions = this.getDimensions();
-
-		return this.thumbnailWidthCalculator.calculateWidths(
-			canvasDimensions.width, canvasDimensions.height, thumb.width, thumb.height );
-	}
-
-	/**
-	 * Gets the fullscreen widths for a given lightbox image.
-	 * Intended for use before the viewer is in fullscreen mode
-	 * (in fullscreen mode getLightboxImageWidths() works fine).
-	 *
-	 * @param {LightboxImage} image
-	 * @return {ThumbnailWidth}
-	 */
-	getLightboxImageWidthsForFullscreen( image ) {
-		const thumb = image.thumbnail;
-		const canvasDimensions = this.getDimensions( true );
 
 		return this.thumbnailWidthCalculator.calculateWidths(
 			canvasDimensions.width, canvasDimensions.height, thumb.width, thumb.height );
