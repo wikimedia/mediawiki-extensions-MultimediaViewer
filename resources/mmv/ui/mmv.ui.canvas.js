@@ -363,7 +363,11 @@ thumbnail size: CSS: ${ thumbnailDimensions.cssWidth }x${ thumbnailDimensions.cs
 		const canvasDimensions = this.getDimensions();
 
 		return this.thumbnailWidthCalculator.calculateWidths(
-			canvasDimensions.width, canvasDimensions.height, thumb.width, thumb.height );
+			canvasDimensions.width,
+			canvasDimensions.height,
+			image.originalWidth || thumb.width,
+			image.originalHeight || thumb.height
+		);
 	}
 
 	/**
