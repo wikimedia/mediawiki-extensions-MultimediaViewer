@@ -486,16 +486,12 @@ class MultimediaViewerBootstrap {
 	 * @return {string|undefined} Unsafe HTML may be present - caution
 	 */
 	findCaption( $thumbContainer, $link ) {
-		let $thumbCaption;
-
 		if ( !$thumbContainer.length ) {
 			return $link.prop( 'title' ) || undefined;
 		}
 
-		const $potentialCaptions = $thumbContainer.find( '.thumbcaption' );
-		if ( $potentialCaptions.length < 2 ) {
-			$thumbCaption = $potentialCaptions.eq( 0 );
-		} else {
+		let $thumbCaption = $thumbContainer.find( '.thumbcaption' );
+		if ( $thumbCaption.length > 1 ) {
 			// Template:Multiple_image or some such; try to find closest caption to the image
 			// eslint-disable-next-line no-jquery/no-sizzle
 			$thumbCaption = $link.closest( ':has(> .thumbcaption)', $thumbContainer )
