@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Don Alessandro",
 			"Ерней",
 			"Ильнар"
 		]
@@ -64,8 +65,8 @@
 	"multimediaviewer-credit-popup-text-more": "Автор һәм чыганак турында тулырак мәгълүмат",
 	"multimediaviewer-download-attribution-cta-header": "Сезга авторын күрсәтү кирәк",
 	"multimediaviewer-attr-plain": "Гади",
-	"multimediaviewer-options-dialog-header": "Медиа гизгечне ябаргамы?",
-	"multimediaviewer-options-text-header": "Әлеге мөмкинлекне бөтен файллар өчен дә сүндерергә.",
+	"multimediaviewer-options-dialog-header": "Медиа гизгеч ябылсынмы?",
+	"multimediaviewer-options-text-header": "Әлеге мөмкинлекне бөтен файллар өчен дә сүндерү.",
 	"multimediaviewer-options-text-body": "Кирәк чакта, сез аны файл турындагы мәгълүмат битендә куша аласыз.",
 	"multimediaviewer-options-learn-more": "Күбрәк белү",
 	"multimediaviewer-option-submit-button": "Медиа гизгечне ябу",
