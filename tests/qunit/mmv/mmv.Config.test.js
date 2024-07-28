@@ -22,12 +22,12 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 ( function () {
 	QUnit.module( 'mmv.Config', QUnit.newMwEnvironment() );
 
-	QUnit.test( 'Constructor sense test', ( assert ) => {
+	QUnit.test( 'constructor', ( assert ) => {
 		const config = new Config( {}, {}, {}, {}, null );
 		assert.true( config instanceof Config );
 	} );
 
-	QUnit.test( 'Localstorage get', function ( assert ) {
+	QUnit.test( 'getFromLocalStorage', function ( assert ) {
 		let localStorage, config;
 
 		localStorage = getUnsupportedLocalStorage(); // no browser support
@@ -53,7 +53,7 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'boom', 'Returns correct value ignoring fallback' );
 	} );
 
-	QUnit.test( 'Localstorage set', function ( assert ) {
+	QUnit.test( 'setInLocalStorage', function ( assert ) {
 		let localStorage, config;
 
 		localStorage = getUnsupportedLocalStorage(); // no browser support
@@ -139,10 +139,10 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 			removeItem: this.sandbox.stub()
 		} );
 		const mwUser = { isNamed: this.sandbox.stub() };
-		const mwConfig = new Map();
+		const mwConfig = new mw.Map();
+		mwConfig.set( 'wgMediaViewerEnabledByDefault', false );
 		const api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) };
 		const config = new Config( {}, mwConfig, mwUser, api, localStorage );
-		mwConfig.set( 'wgMediaViewerEnabledByDefault', false );
 
 		mwUser.isNamed.returns( true );
 		api.saveOption.returns( $.Deferred().resolve() );
@@ -159,14 +159,16 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 	} );
 
 	QUnit.test( 'shouldShowStatusInfo', function ( assert ) {
-		const mwConfig = new Map();
+		const mwConfig = new mw.Map();
 		const fakeLocalStorage = getFakeLocalStorage();
 		const mwUser = { isNamed: this.sandbox.stub() };
 		const api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) };
 
-		mwConfig.set( 'wgMediaViewer', true );
-		mwConfig.set( 'wgMediaViewerOnClick', true );
-		mwConfig.set( 'wgMediaViewerEnabledByDefault', true );
+		mwConfig.set( {
+			wgMediaViewer: true,
+			wgMediaViewerOnClick: true,
+			wgMediaViewerEnabledByDefault: true
+		} );
 		const config = new Config( {}, mwConfig, mwUser, api, fakeLocalStorage );
 		mwUser.isNamed.returns( true );
 

@@ -23,7 +23,7 @@ const { isMediaViewerEnabledOnClick } = require( 'mmv.head' );
 class Config {
 	/**
 	 * @param {Object} viewerConfig
-	 * @param {Map} mwConfig
+	 * @param {mw.Map} mwConfig
 	 * @param {Object} mwUser
 	 * @param {mw.Api} api
 	 * @param {mw.SafeStorage} localStorage
@@ -39,7 +39,7 @@ class Config {
 		/**
 		 * The mw.config object, for dependency injection
 		 *
-		 * @type {Map}
+		 * @type {mw.Map}
 		 */
 		this.mwConfig = mwConfig;
 
