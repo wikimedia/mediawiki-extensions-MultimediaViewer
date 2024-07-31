@@ -9,7 +9,8 @@
 			"Pahkiqaz",
 			"Pxos",
 			"Pyscowicz",
-			"Stryn"
+			"Stryn",
+			"Samoasambia"
 		]
 	},
 	"multimediaviewer-desc": "Näytä pienoiskuvat suuremmassa koossa kokoruututilassa",
@@ -23,6 +24,8 @@
 	"multimediaviewer-multiple-authors-combine": "$1 ja $2",
 	"multimediaviewer-metadata-error": "Kuvan tietoja ei voitu ladata (virhe: $1)",
 	"multimediaviewer-thumbnail-error": "Pahoittelut, tiedostoa ei voi näyttää",
+	"multimediaviewer-thumbnail-error-retry": "yritä uudelleen",
+	"multimediaviewer-thumbnail-error-report": "ilmoita ongelmasta",
 	"multimediaviewer-license-cc-pd": "Public Domain",
 	"multimediaviewer-license-pd": "Public Domain",
 	"multimediaviewer-license-default": "Näytä lisenssi",
