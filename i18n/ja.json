@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ant176",
 			"Chqaz",
 			"Kkairri",
 			"MathXplore",
@@ -106,7 +107,7 @@
 	"multimediaviewer-description-page-popup-text": "このファイルについての詳細を$1で見る",
 	"multimediaviewer-commons-subtitle": "フリーなマルチメディアの保管庫",
 	"multimediaviewer-view-expanded": "メディアビューアーで開く",
-	"multimediaviewer-view-config": "配列図",
+	"multimediaviewer-view-config": "設定",
 	"multimediaviewer-close-popup-text": "このツールを閉じる (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "全画面で表示",
 	"multimediaviewer-defullscreen-popup-text": "全画面表示を終了",
