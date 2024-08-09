@@ -56,10 +56,12 @@ class StripeButtons extends UiElement {
 			params[ match[ 1 ] ] = match[ 2 ];
 		}
 
+		const commons = '//commons.wikimedia.org';
+		const isCommonsServer = String( mw.config.get( 'wgServer' ) ).includes( commons );
 		let descriptionUrl = imageInfo.descriptionUrl;
-		let isCommons = String( descriptionUrl ).includes( '//commons.wikimedia.org/' );
+		let isCommons = String( descriptionUrl ).includes( commons );
 
-		if ( imageInfo.pageID ) {
+		if ( imageInfo.pageID && !isCommonsServer ) {
 			// The file has a local description page, override the description URL
 			descriptionUrl = imageInfo.title.getUrl( params );
 			isCommons = false;
