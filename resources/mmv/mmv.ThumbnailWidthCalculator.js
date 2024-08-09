@@ -36,17 +36,10 @@ class ThumbnailWidthCalculator {
 	 *     will be autodetected if omitted
 	 */
 	constructor( options ) {
+		const { thumbnailBucketSizes } = mw.config.get( 'wgMultimediaViewer', {} );
 		options = Object.assign( {
 			// default image widths
-			widthBuckets: [
-				320,
-				800,
-				1024,
-				1280,
-				1920,
-				2560,
-				2880
-			],
+			widthBuckets: thumbnailBucketSizes,
 
 			// screen pixel per CSS pixel
 			devicePixelRatio: window.devicePixelRatio || 1

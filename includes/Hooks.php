@@ -193,6 +193,7 @@ class Hooks implements
 			'discussionLink' => self::$discussionLink,
 			'helpLink' => self::$helpLink,
 			'useThumbnailGuessing' => (bool)$this->config->get( 'MediaViewerUseThumbnailGuessing' ),
+			'thumbnailBucketSizes' => $this->config->get( 'MediaViewerThumbnailBucketSizes' ),
 			'imageQueryParameter' => $this->config->get( 'MediaViewerImageQueryParameter' ),
 			'recordVirtualViewBeaconURI' => $this->config->get( 'MediaViewerRecordVirtualViewBeaconURI' ),
 			'extensions' => $this->config->get( 'MediaViewerExtensions' ),
