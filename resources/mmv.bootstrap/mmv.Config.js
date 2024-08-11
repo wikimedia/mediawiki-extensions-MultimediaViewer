@@ -36,60 +36,6 @@ class Config {
 	}
 
 	/**
-	 * Get value from local storage or fail gracefully.
-	 *
-	 * @param {string} key
-	 * @param {any} [fallback] value to return when key is not set or localStorage is not supported
-	 * @return {string|null} stored value or fallback or null if neither exists
-	 */
-	getFromLocalStorage( key, fallback ) {
-		const value = mw.storage.get( key );
-
-		// localStorage will only store strings; if values `null`, `false` or
-		// `0` are set, they'll come out as `"null"`, `"false"` or `"0"`, so we
-		// can be certain that an actual null is a failure to locate the item,
-		// and false is an issue with localStorage itself
-		if ( value !== null && value !== false ) {
-			return value;
-		}
-
-		if ( value === null ) {
-			mw.log( `Failed to fetch item ${ key } from localStorage` );
-		}
-
-		return fallback !== undefined ? fallback : null;
-	}
-
-	/**
-	 * Set item in local storage or fail gracefully.
-	 *
-	 * @param {string} key
-	 * @param {any} value
-	 * @return {boolean} whether storing the item was successful
-	 */
-	setInLocalStorage( key, value ) {
-		return mw.storage.set( key, value );
-	}
-
-	/**
-	 * Remove item from local storage or fail gracefully.
-	 *
-	 * @param {string} key
-	 * @return {boolean} whether storing the item was successful
-	 */
-	removeFromLocalStorage( key ) {
-		mw.storage.remove( key );
-
-		// mw.storage.remove catches all exceptions and returns false if any
-		// occur, so we can't distinguish between actual issues, and
-		// localStorage not being supported - however, localStorage.removeItem
-		// is not documented to throw any errors, so nothing to worry about;
-		// when localStorage is not supported, we'll consider removal successful
-		// (it can't have been there in the first place)
-		return true;
-	}
-
-	/**
 	 * (Semi-)permanently stores the setting whether MediaViewer should handle thumbnail clicks.
 	 * - for logged-in users, we use preferences
 	 * - for anons, we use localStorage
@@ -106,9 +52,9 @@ class Config {
 
 		if ( !mw.user.isNamed() ) {
 			if ( !enabled ) {
-				success = this.setInLocalStorage( 'wgMediaViewerOnClick', '0' ); // localStorage stringifies everything, best use strings in the first place
+				success = mw.storage.set( 'wgMediaViewerOnClick', '0' ); // localStorage stringifies everything, best use strings in the first place
 			} else {
-				success = this.removeFromLocalStorage( 'wgMediaViewerOnClick' );
+				success = mw.storage.remove( 'wgMediaViewerOnClick' );
 			}
 			if ( success ) {
 				deferred = $.Deferred().resolve();
@@ -146,7 +92,7 @@ class Config {
 	 * @return {boolean}
 	 */
 	shouldShowStatusInfo() {
-		return !isMediaViewerEnabledOnClick( mw.config, mw.user, mw.storage ) && this.getFromLocalStorage( 'mmv-showStatusInfo' ) === '1';
+		return !isMediaViewerEnabledOnClick( mw.config, mw.user, mw.storage ) && mw.storage.get( 'mmv-showStatusInfo' ) === '1';
 	}
 
 	/**
@@ -156,9 +102,9 @@ class Config {
 	 * @private
 	 */
 	maybeEnableStatusInfo() {
-		const currentShowStatusInfo = this.getFromLocalStorage( 'mmv-showStatusInfo' );
+		const currentShowStatusInfo = mw.storage.get( 'mmv-showStatusInfo' );
 		if ( currentShowStatusInfo === null ) {
-			this.setInLocalStorage( 'mmv-showStatusInfo', '1' );
+			mw.storage.set( 'mmv-showStatusInfo', '1' );
 		}
 	}
 
@@ -166,7 +112,7 @@ class Config {
 	 * Called when status info is displayed. Future shouldShowStatusInfo() calls will return false.
 	 */
 	disableStatusInfo() {
-		this.setInLocalStorage( 'mmv-showStatusInfo', '0' );
+		mw.storage.set( 'mmv-showStatusInfo', '0' );
 	}
 
 	/**

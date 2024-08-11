@@ -17,7 +17,7 @@
 
 const { isMediaViewerEnabledOnClick } = require( 'mmv.head' );
 const { Config } = require( 'mmv.bootstrap' );
-const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUnsupportedLocalStorage } = require( './mmv.testhelpers.js' );
+const { createLocalStorage, getFakeLocalStorage } = require( './mmv.testhelpers.js' );
 const config0 = mw.config;
 const storage = mw.storage;
 const user = mw.user;
@@ -36,68 +36,6 @@ const saveOption = mw.Api.prototype.saveOption;
 	QUnit.test( 'constructor', ( assert ) => {
 		const config = new Config( {} );
 		assert.true( config instanceof Config );
-	} );
-
-	QUnit.test( 'getFromLocalStorage', function ( assert ) {
-		let config;
-
-		mw.storage = getUnsupportedLocalStorage(); // no browser support
-		config = new Config( {} );
-		assert.strictEqual( config.getFromLocalStorage( 'foo' ), null, 'Returns null when not supported' );
-		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'bar', 'Returns fallback when not supported' );
-
-		mw.storage = getDisabledLocalStorage(); // browser supports it but disabled
-		config = new Config( {} );
-		assert.strictEqual( config.getFromLocalStorage( 'foo' ), null, 'Returns null when disabled' );
-		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'bar', 'Returns fallback when disabled' );
-
-		mw.storage = createLocalStorage( { getItem: this.sandbox.stub() } );
-		config = new Config( {} );
-
-		mw.storage.store.getItem.withArgs( 'foo' ).returns( null );
-		assert.strictEqual( config.getFromLocalStorage( 'foo' ), null, 'Returns null when key not set' );
-		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'bar', 'Returns fallback when key not set' );
-
-		mw.storage.store.getItem.reset();
-		mw.storage.store.getItem.withArgs( 'foo' ).returns( 'boom' );
-		assert.strictEqual( config.getFromLocalStorage( 'foo' ), 'boom', 'Returns correct value' );
-		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'boom', 'Returns correct value ignoring fallback' );
-	} );
-
-	QUnit.test( 'setInLocalStorage', function ( assert ) {
-		let config;
-
-		mw.storage = getUnsupportedLocalStorage(); // no browser support
-		config = new Config( {} );
-		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), false, 'Returns false when not supported' );
-
-		mw.storage = getDisabledLocalStorage(); // browser supports it but disabled
-		config = new Config( {} );
-		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), false, 'Returns false when disabled' );
-
-		mw.storage = createLocalStorage( { setItem: this.sandbox.stub(), removeItem: this.sandbox.stub() } );
-		config = new Config( {} );
-
-		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), true, 'Returns true when works' );
-
-		mw.storage.store.setItem.throwsException( 'localStorage full!' );
-		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), false, 'Returns false on error' );
-	} );
-
-	QUnit.test( 'Localstorage remove', function ( assert ) {
-		let config;
-
-		mw.storage = getUnsupportedLocalStorage(); // no browser support
-		config = new Config( {} );
-		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), true, 'Returns true when not supported' );
-
-		mw.storage = getDisabledLocalStorage(); // browser supports it but disabled
-		config = new Config( {} );
-		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), true, 'Returns true when disabled' );
-
-		mw.storage = createLocalStorage( { removeItem: this.sandbox.stub() } );
-		config = new Config( {} );
-		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), true, 'Returns true when works' );
 	} );
 
 	QUnit.test( 'isMediaViewerEnabledOnClick', function ( assert ) {
