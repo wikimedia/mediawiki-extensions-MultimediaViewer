@@ -22,10 +22,9 @@ const { recordVirtualViewBeaconURI } = require( '../config.json' );
  */
 class ViewLogger {
 	/**
-	 * @param {Config} config Config object
 	 * @param {Object} windowObject Browser window object
 	 */
-	constructor( config, windowObject ) {
+	constructor( windowObject ) {
 		/**
 		 * Was the last image view logged or was logging skipped?
 		 *

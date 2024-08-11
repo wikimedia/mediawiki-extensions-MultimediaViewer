@@ -36,10 +36,6 @@ class MultimediaViewerBootstrap {
 		// Exposed for tests
 		this.hoverWaitDuration = 200;
 
-		// TODO lazy-load config and htmlUtils
-		/** @property {Config} config - */
-		this.config = new Config();
-
 		/**
 		 * This flag is set to true when we were unable to load the viewer.
 		 *
@@ -437,8 +433,8 @@ class MultimediaViewerBootstrap {
 			return false;
 		} );
 
-		if ( this.config.shouldShowStatusInfo() ) {
-			this.config.disableStatusInfo();
+		if ( Config.shouldShowStatusInfo() ) {
+			Config.disableStatusInfo();
 			this.showStatusInfo();
 		}
 	}
@@ -605,7 +601,7 @@ class MultimediaViewerBootstrap {
 	getViewer( localRequire ) {
 		if ( this.viewer === undefined ) {
 			const { MultimediaViewer } = localRequire( 'mmv' );
-			this.viewer = new MultimediaViewer( this.config );
+			this.viewer = new MultimediaViewer();
 			this.viewer.setupEventHandlers();
 		}
 

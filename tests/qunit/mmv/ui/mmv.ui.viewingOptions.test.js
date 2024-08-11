@@ -1,10 +1,11 @@
+const { Config } = require( 'mmv.bootstrap' );
 const { OptionsDialog } = require( 'mmv' );
 
 ( function () {
 	function makeDialog( initialise ) {
 		const $qf = $( '#qunit-fixture' );
 		const $button = $( '<div>' ).appendTo( $qf );
-		const dialog = new OptionsDialog( $qf, $button, { setMediaViewerEnabledOnClick: function () {} } );
+		const dialog = new OptionsDialog( $qf, $button );
 
 		if ( initialise ) {
 			dialog.initPanel();
@@ -33,7 +34,7 @@ const { OptionsDialog } = require( 'mmv' );
 		const dialog = makeDialog();
 		const deferred = $.Deferred();
 
-		this.sandbox.stub( dialog.config, 'setMediaViewerEnabledOnClick', () => deferred );
+		this.sandbox.stub( Config, 'setMediaViewerEnabledOnClick', () => deferred );
 
 		dialog.initDisableDiv();
 
@@ -82,7 +83,7 @@ const { OptionsDialog } = require( 'mmv' );
 		const dialog = makeDialog();
 		const deferred = $.Deferred();
 
-		this.sandbox.stub( dialog.config, 'setMediaViewerEnabledOnClick', () => deferred );
+		this.sandbox.stub( Config, 'setMediaViewerEnabledOnClick', () => deferred );
 
 		dialog.initEnableDiv();
 

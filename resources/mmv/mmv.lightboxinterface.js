@@ -15,7 +15,6 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { Config } = require( 'mmv.bootstrap' );
 const Canvas = require( './ui/mmv.ui.canvas.js' );
 const CanvasButtons = require( './ui/mmv.ui.canvasButtons.js' );
 const MetadataPanel = require( './ui/mmv.ui.metadataPanel.js' );
@@ -67,9 +66,6 @@ class LightboxInterface extends UiElement {
 		const metaElement = document.querySelector( 'meta[name="theme-color"]' );
 		this.originalThemeColor = metaElement ? metaElement.getAttribute( 'content' ) : null;
 
-		/** @property {Config} config - */
-		this.config = new Config();
-
 		/**
 		 * @property {ThumbnailWidthCalculator}
 		 * @private
@@ -110,23 +106,23 @@ class LightboxInterface extends UiElement {
 
 		this.setupCanvasButtons();
 
-		this.panel = new MetadataPanel( this.$postDiv, this.$aboveFold, this.config );
+		this.panel = new MetadataPanel( this.$postDiv, this.$aboveFold );
 		this.buttons = new CanvasButtons( this.$preDiv, this.$closeButton, this.$fullscreenButton );
 		this.canvas = new Canvas( this.$innerWrapper, this.$imageWrapper, this.$wrapper );
 
 		/** @property {DialogProxy|ReuseDialog} */
 		this.fileReuse = new DialogProxy( 'mmv-reuse-open', ( req ) => {
 			const { ReuseDialog } = req( 'mmv.ui.reuse' );
-			this.fileReuse = new ReuseDialog( this.$preDiv, this.buttons.$download, this.config );
+			this.fileReuse = new ReuseDialog( this.$preDiv, this.buttons.$download );
 			return this.fileReuse;
 		} );
 		/** @property {DialogProxy|DownloadDialog} */
 		this.downloadDialog = new DialogProxy( 'mmv-download-open', ( req ) => {
 			const { DownloadDialog } = req( 'mmv.ui.reuse' );
-			this.downloadDialog = new DownloadDialog( this.$preDiv, this.buttons.$download, this.config );
+			this.downloadDialog = new DownloadDialog( this.$preDiv, this.buttons.$download );
 			return this.downloadDialog;
 		} );
-		this.optionsDialog = new OptionsDialog( this.$preDiv, this.buttons.$options, this.config );
+		this.optionsDialog = new OptionsDialog( this.$preDiv, this.buttons.$options );
 	}
 
 	/**

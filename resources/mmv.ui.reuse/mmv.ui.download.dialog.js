@@ -25,10 +25,9 @@ class DownloadDialog extends Dialog {
 	/**
 	 * @param {jQuery} $container the element to which the dialog will be appended
 	 * @param {jQuery} $openButton the button which opens the dialog. Only used for positioning.
-	 * @param {Config} config
 	 */
-	constructor( $container, $openButton, config ) {
-		super( $container, $openButton, config );
+	constructor( $container, $openButton ) {
+		super( $container, $openButton );
 
 		this.download = new DownloadPane( this.$dialog );
 		this.$dialog.addClass( 'mw-mmv-download-dialog' );

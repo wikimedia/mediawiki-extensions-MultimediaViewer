@@ -15,6 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { Config } = require( 'mmv.bootstrap' );
 const { getMediaHash } = require( 'mmv.head' );
 const ViewLogger = require( './logging/mmv.logging.ViewLogger.js' );
 const Api = require( './provider/mmv.provider.Api.js' );
@@ -51,19 +52,10 @@ let comingFromHashChange = false;
  * to manage the viewing experience of such content.
  */
 class MultimediaViewer {
-	/**
-	 * @param {Config} config Config object
-	 */
-	constructor( config ) {
+	constructor() {
 		const apiCacheMaxAge = 86400; // one day (24 hours * 60 min * 60 sec)
 		const apiCacheFiveMinutes = 300; // 5 min * 60 sec
 		const api = new mw.Api();
-
-		/**
-		 * @property {Config}
-		 * @private
-		 */
-		this.config = config;
 
 		/**
 		 * @property {ImageProvider}
@@ -76,7 +68,7 @@ class MultimediaViewer {
 		 * @private
 		 */
 		this.imageInfoProvider = new ImageInfo( api, {
-			language: this.config.language(),
+			language: Config.language(),
 			maxage: apiCacheFiveMinutes
 		} );
 
@@ -121,7 +113,7 @@ class MultimediaViewer {
 		/**
 		 * @property {ViewLogger} view -
 		 */
-		this.viewLogger = new ViewLogger( this.config, window );
+		this.viewLogger = new ViewLogger( window );
 
 		/**
 		 * Stores whether the real image was loaded and displayed already.

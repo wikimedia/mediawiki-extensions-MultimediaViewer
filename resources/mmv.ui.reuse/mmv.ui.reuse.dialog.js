@@ -26,10 +26,9 @@ class ReuseDialog extends Dialog {
 	/**
 	 * @param {jQuery} $container the element to which the dialog will be appended
 	 * @param {jQuery} $openButton the button which opens the dialog. Only used for positioning.
-	 * @param {Config} config
 	 */
-	constructor( $container, $openButton, config ) {
-		super( $container, $openButton, config );
+	constructor( $container, $openButton ) {
+		super( $container, $openButton );
 
 		this.share = new Share( this.$dialog );
 		this.embed = new Embed( this.$dialog );
