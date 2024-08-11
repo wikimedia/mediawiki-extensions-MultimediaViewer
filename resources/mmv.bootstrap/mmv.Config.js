@@ -24,13 +24,11 @@ class Config {
 	/**
 	 * @param {Object} viewerConfig
 	 * @param {mw.Map} mwConfig
-	 * @param {Object} mwUser
 	 * @param {mw.Api} api
 	 */
 	constructor(
 		viewerConfig = mw.config.get( 'wgMultimediaViewer', {} ),
 		mwConfig = mw.config,
-		mwUser = mw.user,
 		api = new mw.Api() ) {
 		/**
 		 * A plain object storing MediaViewer-specific settings
@@ -45,13 +43,6 @@ class Config {
 		 * @type {mw.Map}
 		 */
 		this.mwConfig = mwConfig;
-
-		/**
-		 * mw.user object, for dependency injection
-		 *
-		 * @type {Object}
-		 */
-		this.mwUser = mwUser;
 
 		/**
 		 * API object, for dependency injection
@@ -141,7 +132,7 @@ class Config {
 		let newPrefValue;
 		let success = true;
 
-		if ( !this.mwUser.isNamed() ) {
+		if ( !mw.user.isNamed() ) {
 			if ( !enabled ) {
 				success = this.setInLocalStorage( 'wgMediaViewerOnClick', '0' ); // localStorage stringifies everything, best use strings in the first place
 			} else {
@@ -183,7 +174,7 @@ class Config {
 	 * @return {boolean}
 	 */
 	shouldShowStatusInfo() {
-		return !isMediaViewerEnabledOnClick( this.mwConfig, this.mwUser, mw.storage ) && this.getFromLocalStorage( 'mmv-showStatusInfo' ) === '1';
+		return !isMediaViewerEnabledOnClick( this.mwConfig, mw.user, mw.storage ) && this.getFromLocalStorage( 'mmv-showStatusInfo' ) === '1';
 	}
 
 	/**
