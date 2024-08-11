@@ -23,19 +23,6 @@ const api = new mw.Api();
  */
 class Config {
 	/**
-	 * @param {Object} viewerConfig
-	 * @param {mw.Api} api
-	 */
-	constructor( viewerConfig = mw.config.get( 'wgMultimediaViewer', {} ) ) {
-		/**
-		 * A plain object storing MediaViewer-specific settings
-		 *
-		 * @type {Object}
-		 */
-		this.viewerConfig = viewerConfig;
-	}
-
-	/**
 	 * (Semi-)permanently stores the setting whether MediaViewer should handle thumbnail clicks.
 	 * - for logged-in users, we use preferences
 	 * - for anons, we use localStorage
@@ -116,52 +103,12 @@ class Config {
 	}
 
 	/**
-	 * Returns file extensions handled by Media Viewer.
-	 *
-	 * The object's keys are the file extensions.
-	 * The object's values are either 'default' when Media Viewer handles that file extension
-	 * directly or the name of a ResourceLoader module to load when such a file is opened.
-	 *
-	 * @return {Object}
-	 */
-	extensions() {
-		return this.viewerConfig.extensions;
-	}
-
-	/**
 	 * Returns UI language
 	 *
 	 * @return {string} Language code
 	 */
 	language() {
 		return mw.config.get( 'wgUserLanguage', false ) || mw.config.get( 'wgContentLanguage', 'en' );
-	}
-
-	/**
-	 * Returns URI of virtual view beacon or false if not set
-	 *
-	 * @return {string|boolean} URI
-	 */
-	recordVirtualViewBeaconURI() {
-		return this.viewerConfig.recordVirtualViewBeaconURI;
-	}
-
-	/**
-	 * Returns useThumbnailGuessing flag
-	 *
-	 * @return {boolean}
-	 */
-	useThumbnailGuessing() {
-		return this.viewerConfig.useThumbnailGuessing;
-	}
-
-	/**
-	 * Returns imageQueryParameter, if set
-	 *
-	 * @return {string|boolean}
-	 */
-	imageQueryParameter() {
-		return this.viewerConfig.imageQueryParameter;
 	}
 }
 

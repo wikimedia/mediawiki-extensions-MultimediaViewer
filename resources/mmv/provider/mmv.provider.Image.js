@@ -15,6 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const config = require( '../config.json' );
+
 /**
  * Loads an image.
  */
@@ -22,7 +24,7 @@ class ImageProvider {
 	/**
 	 * @param {string} imageQueryParameter When defined, is a query parameter to add to every image request
 	 */
-	constructor( imageQueryParameter ) {
+	constructor( imageQueryParameter = config.imageQueryParameter ) {
 		this.imageQueryParameter = imageQueryParameter;
 
 		/**

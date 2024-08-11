@@ -16,6 +16,7 @@
  */
 
 const ThumbnailWidth = require( './model/mmv.model.ThumbnailWidth.js' );
+const { thumbnailBucketSizes } = require( './config.json' );
 
 /**
  * A helper class for bucketing image sizes.
@@ -36,7 +37,6 @@ class ThumbnailWidthCalculator {
 	 *     will be autodetected if omitted
 	 */
 	constructor( options ) {
-		const { thumbnailBucketSizes } = mw.config.get( 'wgMultimediaViewer', {} );
 		options = Object.assign( {
 			// default image widths
 			widthBuckets: thumbnailBucketSizes,

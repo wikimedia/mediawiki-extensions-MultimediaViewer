@@ -19,7 +19,7 @@ const { getMediaHash, ROUTE_REGEXP, POSITION_REGEXP, LEGACY_ROUTE_REGEXP, isMedi
 const Config = require( './mmv.Config.js' );
 const HtmlUtils = require( './mmv.HtmlUtils.js' );
 const LightboxImage = require( './mmv.lightboximage.js' );
-
+const { extensions } = require( './config.json' );
 const mwRouter = require( 'mediawiki.router' );
 
 // We pass this to history.pushState/replaceState to indicate that we're controlling the page URL.
@@ -39,8 +39,6 @@ class MultimediaViewerBootstrap {
 		// TODO lazy-load config and htmlUtils
 		/** @property {Config} config - */
 		this.config = new Config();
-
-		this.validExtensions = this.config.extensions();
 
 		/**
 		 * This flag is set to true when we were unable to load the viewer.
@@ -241,7 +239,7 @@ class MultimediaViewerBootstrap {
 	 * @return {boolean}
 	 */
 	isValidExtension( title ) {
-		return title && title.getExtension() && ( title.getExtension().toLowerCase() in this.validExtensions );
+		return title && title.getExtension() && ( title.getExtension().toLowerCase() in extensions );
 	}
 
 	/**

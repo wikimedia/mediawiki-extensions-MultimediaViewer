@@ -51,18 +51,6 @@ class Hooks implements
 	ResourceLoaderGetConfigVarsHook,
 	ThumbnailBeforeProduceHTMLHook
 {
-	/** @var string Link to more information about this module */
-	protected static $infoLink =
-		'https://mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About';
-
-	/** @var string Link to a page where this module can be discussed */
-	protected static $discussionLink =
-		'https://mediawiki.org/wiki/Special:MyLanguage/Extension_talk:Media_Viewer/About';
-
-	/** @var string Link to help about this module */
-	protected static $helpLink =
-		'https://mediawiki.org/wiki/Special:MyLanguage/Help:Extension:Media_Viewer';
-
 	private Config $config;
 	private SpecialPageFactory $specialPageFactory;
 	private UserOptionsLookup $userOptionsLookup;
@@ -188,16 +176,6 @@ class Hooks implements
 	 * @param Config $config
 	 */
 	public function onResourceLoaderGetConfigVars( array &$vars, $skin, Config $config ): void {
-		$vars['wgMultimediaViewer'] = [
-			'infoLink' => self::$infoLink,
-			'discussionLink' => self::$discussionLink,
-			'helpLink' => self::$helpLink,
-			'useThumbnailGuessing' => (bool)$this->config->get( 'MediaViewerUseThumbnailGuessing' ),
-			'thumbnailBucketSizes' => $this->config->get( 'MediaViewerThumbnailBucketSizes' ),
-			'imageQueryParameter' => $this->config->get( 'MediaViewerImageQueryParameter' ),
-			'recordVirtualViewBeaconURI' => $this->config->get( 'MediaViewerRecordVirtualViewBeaconURI' ),
-			'extensions' => $this->config->get( 'MediaViewerExtensions' ),
-		];
 		$vars['wgMediaViewer'] = true;
 	}
 

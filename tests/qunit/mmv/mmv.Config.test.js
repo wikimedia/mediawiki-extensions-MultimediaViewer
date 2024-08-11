@@ -34,7 +34,7 @@ const saveOption = mw.Api.prototype.saveOption;
 	} ) );
 
 	QUnit.test( 'constructor', ( assert ) => {
-		const config = new Config( {} );
+		const config = new Config();
 		assert.true( config instanceof Config );
 	} );
 
@@ -91,7 +91,7 @@ const saveOption = mw.Api.prototype.saveOption;
 		mw.config = new mw.Map();
 		mw.config.set( 'wgMediaViewerEnabledByDefault', false );
 		mw.Api.prototype.saveOption = this.sandbox.stub().returns( $.Deferred().resolve() );
-		const config = new Config( {} );
+		const config = new Config();
 
 		mw.user.isNamed.returns( true );
 		mw.Api.prototype.saveOption.returns( $.Deferred().resolve() );
@@ -118,7 +118,7 @@ const saveOption = mw.Api.prototype.saveOption;
 			wgMediaViewerOnClick: true,
 			wgMediaViewerEnabledByDefault: true
 		} );
-		let config = new Config( {} );
+		let config = new Config();
 		mw.user.isNamed.returns( true );
 
 		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default' );
@@ -137,7 +137,7 @@ const saveOption = mw.Api.prototype.saveOption;
 
 		// make sure disabling calls maybeEnableStatusInfo() for logged-in as well
 		mw.storage = getFakeLocalStorage();
-		config = new Config( {} );
+		config = new Config();
 		mw.user.isNamed.returns( false );
 		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default for logged-in users' );
 		config.setMediaViewerEnabledOnClick( false );
@@ -145,7 +145,7 @@ const saveOption = mw.Api.prototype.saveOption;
 
 		// make sure popup is not shown immediately on disabled-by-default sites, but still works otherwise
 		mw.storage = getFakeLocalStorage();
-		config = new Config( {} );
+		config = new Config();
 		mw.config.set( 'wgMediaViewerEnabledByDefault', false );
 		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default #2' );
 		config.setMediaViewerEnabledOnClick( true );

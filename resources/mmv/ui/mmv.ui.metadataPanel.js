@@ -23,6 +23,7 @@ const Permission = require( './mmv.ui.permission.js' );
 const ProgressBar = require( './mmv.ui.progressBar.js' );
 const StripeButtons = require( './mmv.ui.stripeButtons.js' );
 const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
+const { infoLink } = require( '../config.json' );
 
 /**
  * Represents the metadata panel in the viewer
@@ -363,7 +364,7 @@ class MetadataPanel extends UiElement {
 	 */
 	initializeAboutLinks() {
 		this.$mmvAboutLink = $( '<a>' )
-			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).infoLink )
+			.prop( 'href', infoLink )
 			.text( mw.msg( 'multimediaviewer-about-mmv' ) )
 			.addClass( 'mw-mmv-about-link' );
 

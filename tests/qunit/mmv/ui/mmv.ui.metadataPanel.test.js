@@ -8,7 +8,7 @@ QUnit.test( '.empty()', ( assert ) => {
 	const panel = new MetadataPanel(
 		$qf,
 		$( '<div>' ).appendTo( $qf ),
-		new Config( {} )
+		new Config()
 	);
 	panel.empty();
 
@@ -38,7 +38,7 @@ QUnit.test( '.setLocationData()', ( assert ) => {
 	const panel = new MetadataPanel(
 		$qf,
 		$( '<div>' ).appendTo( $qf ),
-		new Config( {} )
+		new Config()
 	);
 	const fileName = 'Foobar.jpg';
 	let latitude = 12.3456789;
@@ -105,7 +105,7 @@ QUnit.test( '.setImageInfo()', function ( assert ) {
 	const panel = new MetadataPanel(
 		$qf,
 		$( '<div>' ).appendTo( $qf ),
-		new Config( {} )
+		new Config()
 	);
 	const title = 'Foo bar';
 	const image = {
@@ -175,7 +175,7 @@ QUnit.skip( 'Setting permission information works as expected', ( assert ) => {
 	const panel = new MetadataPanel(
 		$qf,
 		$( '<div>' ).appendTo( $qf ),
-		new Config( {} )
+		new Config()
 	);
 
 	// make sure license is visible as it contains the permission
@@ -189,7 +189,7 @@ QUnit.test( 'Date formatting', ( assert ) => {
 	const panel = new MetadataPanel(
 		$qf,
 		$( '<div>' ).appendTo( $qf ),
-		new Config( {} )
+		new Config()
 	);
 	const date1 = 'Garbage';
 	const result = panel.formatDate( date1 );
@@ -204,7 +204,7 @@ QUnit.test( 'About links', function ( assert ) {
 	// eslint-disable-next-line no-new
 	new MetadataPanel(
 		$qf.empty(), $( '<div>' ).appendTo( $qf ),
-		new Config( {} )
+		new Config()
 	);
 
 	assert.strictEqual( $qf.find( '.mw-mmv-about-link' ).length, 1, 'About link is created.' );

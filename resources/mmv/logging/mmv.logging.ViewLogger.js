@@ -15,6 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { recordVirtualViewBeaconURI } = require( '../config.json' );
+
 /**
  * Tracks how long users are viewing images for
  */
@@ -51,13 +53,6 @@ class ViewLogger {
 		 * @property {string}
 		 */
 		this.url = '';
-
-		/**
-		 * If set, URI to send the beacon request to in order to record the virtual view
-		 *
-		 * @property {string}
-		 */
-		this.recordVirtualViewBeaconURI = config.recordVirtualViewBeaconURI();
 
 		/**
 		 * Browser window
@@ -103,9 +98,9 @@ class ViewLogger {
 
 		this.stopViewDuration();
 
-		if ( this.recordVirtualViewBeaconURI ) {
+		if ( recordVirtualViewBeaconURI ) {
 			try {
-				uri = new mw.Uri( this.recordVirtualViewBeaconURI );
+				uri = new mw.Uri( recordVirtualViewBeaconURI );
 				uri.extend( {
 					duration: this.viewDuration,
 					uri: this.url

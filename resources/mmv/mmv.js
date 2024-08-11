@@ -41,6 +41,7 @@ const TruncatableTextField = require( './ui/mmv.ui.truncatableTextField.js' );
 const OptionsDialog = require( './ui/mmv.ui.viewingOptions.js' );
 const LightboxInterface = require( './mmv.lightboxinterface.js' );
 const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
+const { extensions, useThumbnailGuessing } = require( './config.json' );
 
 const router = require( 'mediawiki.router' );
 let comingFromHashChange = false;
@@ -68,7 +69,7 @@ class MultimediaViewer {
 		 * @property {ImageProvider}
 		 * @private
 		 */
-		this.imageProvider = new ImageProvider( this.config.imageQueryParameter() );
+		this.imageProvider = new ImageProvider();
 
 		/**
 		 * @property {ImageInfo}
@@ -601,11 +602,12 @@ class MultimediaViewer {
 	 * @param {string} [sampleUrl] a thumbnail URL for the same file (but with different size) (might be missing)
 	 * @param {number} [originalWidth] the width of the original, full-sized file (might be missing)
 	 * @param {number} [originalHeight] the height of the original, full-sized file (might be missing)
+	 * @param {boolean} [useThumbnailGuessing0] the useThumbnailGuessing flag
 	 * @return {jQuery.Promise.<Thumbnail, HTMLImageElement>} A promise resolving to
 	 *  a thumbnail model and an <img> element. It might or might not have progress events which
 	 *  return a single number.
 	 */
-	fetchThumbnail( fileTitle, width, sampleUrl, originalWidth, originalHeight ) {
+	fetchThumbnail( fileTitle, width, sampleUrl, originalWidth, originalHeight, useThumbnailGuessing0 = useThumbnailGuessing ) {
 		let guessing = false;
 		const combinedDeferred = $.Deferred();
 		let thumbnailPromise;
@@ -616,7 +618,7 @@ class MultimediaViewer {
 			width = originalWidth;
 		}
 
-		if ( sampleUrl && originalWidth && originalHeight && this.config.useThumbnailGuessing() ) {
+		if ( sampleUrl && originalWidth && originalHeight && useThumbnailGuessing0 ) {
 			guessing = true;
 			thumbnailPromise = this.guessedThumbnailInfoProvider.get(
 				fileTitle, sampleUrl, width, originalWidth, originalHeight
@@ -830,13 +832,12 @@ class MultimediaViewer {
 	 */
 	loadExtensionPlugins( extension ) {
 		const deferred = $.Deferred();
-		const config = this.config.extensions();
 
-		if ( !( extension in config ) || config[ extension ] === 'default' ) {
+		if ( !( extension in extensions ) || extensions[ extension ] === 'default' ) {
 			return deferred.resolve();
 		}
 
-		mw.loader.using( config[ extension ], () => {
+		mw.loader.using( extensions[ extension ], () => {
 			deferred.resolve();
 		} );
 
