@@ -31,7 +31,7 @@ class Config {
 	 * @param {boolean} enabled
 	 * @return {jQuery.Promise} a deferred which resolves/rejects on success/failure respectively
 	 */
-	setMediaViewerEnabledOnClick( enabled ) {
+	static setMediaViewerEnabledOnClick( enabled ) {
 		const defaultPrefValue = mw.config.get( 'wgMediaViewerEnabledByDefault' );
 		let deferred;
 		let newPrefValue;
@@ -68,7 +68,7 @@ class Config {
 			mw.config.set( 'wgMediaViewerOnClick', enabled );
 			if ( !enabled ) {
 				// set flag for showing a popup if this was a first-time disable
-				this.maybeEnableStatusInfo();
+				Config.maybeEnableStatusInfo();
 			}
 		} );
 	}
@@ -78,7 +78,7 @@ class Config {
 	 *
 	 * @return {boolean}
 	 */
-	shouldShowStatusInfo() {
+	static shouldShowStatusInfo() {
 		return !isMediaViewerEnabledOnClick( mw.config, mw.user, mw.storage ) && mw.storage.get( 'mmv-showStatusInfo' ) === '1';
 	}
 
@@ -88,7 +88,7 @@ class Config {
 	 *
 	 * @private
 	 */
-	maybeEnableStatusInfo() {
+	static maybeEnableStatusInfo() {
 		const currentShowStatusInfo = mw.storage.get( 'mmv-showStatusInfo' );
 		if ( currentShowStatusInfo === null ) {
 			mw.storage.set( 'mmv-showStatusInfo', '1' );
@@ -98,7 +98,7 @@ class Config {
 	/**
 	 * Called when status info is displayed. Future shouldShowStatusInfo() calls will return false.
 	 */
-	disableStatusInfo() {
+	static disableStatusInfo() {
 		mw.storage.set( 'mmv-showStatusInfo', '0' );
 	}
 
@@ -107,7 +107,7 @@ class Config {
 	 *
 	 * @return {string} Language code
 	 */
-	language() {
+	static language() {
 		return mw.config.get( 'wgUserLanguage', false ) || mw.config.get( 'wgContentLanguage', 'en' );
 	}
 }

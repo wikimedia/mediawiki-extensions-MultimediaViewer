@@ -15,6 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const { Config } = require( 'mmv.bootstrap' );
 const { isMediaViewerEnabledOnClick } = require( 'mmv.head' );
 const Dialog = require( './mmv.ui.dialog.js' );
 const { helpLink } = require( '../config.json' );
@@ -26,10 +27,9 @@ class OptionsDialog extends Dialog {
 	/**
 	 * @param {jQuery} $container the element to which the dialog will be appended
 	 * @param {jQuery} $openButton the button which opens the dialog. Only used for positioning.
-	 * @param {Config} config
 	 */
-	constructor( $container, $openButton, config ) {
-		super( $container, $openButton, config );
+	constructor( $container, $openButton ) {
+		super( $container, $openButton );
 
 		this.$dialog.addClass( 'mw-mmv-options-dialog' );
 		this.eventPrefix = 'options';
@@ -280,7 +280,7 @@ class OptionsDialog extends Dialog {
 				const $buttons = $( this ).closest( '.mw-mmv-options-submit' ).find( '.mw-mmv-options-submit-button, .mw-mmv-options-cancel-button' );
 				$buttons.prop( 'disabled', true );
 
-				this.config.setMediaViewerEnabledOnClick( enabled ).done( () => {
+				Config.setMediaViewerEnabledOnClick( enabled ).done( () => {
 					if ( enabled ) {
 						this.showEnableConfirmation();
 					} else {

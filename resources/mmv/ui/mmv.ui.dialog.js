@@ -24,9 +24,8 @@ class Dialog extends UiElement {
 	/**
 	 * @param {jQuery} $container the element to which the dialog will be appended
 	 * @param {jQuery} $openButton the button which opens the dialog. Only used for positioning.
-	 * @param {Config} config
 	 */
-	constructor( $container, $openButton, config ) {
+	constructor( $container, $openButton ) {
 		super( $container );
 
 		/** @property {boolean} isOpen Whether or not the dialog is open. */
@@ -36,8 +35,6 @@ class Dialog extends UiElement {
 		 * @property {string} eventPrefix Prefix specific to the class to be applied to events.
 		 */
 		this.eventPrefix = '';
-		/** @property {Config} config - */
-		this.config = config;
 
 		/** @property {jQuery} $openButton The click target which opens the dialog. */
 		this.$openButton = $openButton;

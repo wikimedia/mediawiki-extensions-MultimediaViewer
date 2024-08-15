@@ -34,15 +34,11 @@ class MetadataPanel extends UiElement {
 	 * @param {jQuery} $aboveFold The brighter headline of the metadata panel (.mw-mmv-above-fold).
 	 *  Called "aboveFold" for historical reasons, but actually a part of the next sibling of the element
 	 *  is also above the fold (bottom of the screen).
-	 * @param {Config} config A configuration object.
 	 */
-	constructor( $container, $aboveFold, config ) {
+	constructor( $container, $aboveFold ) {
 		super( $container );
 
 		this.$aboveFold = $aboveFold;
-
-		/** @property {Config} config - */
-		this.config = config;
 
 		this.initializeHeader();
 		this.initializeImageMetadata();

@@ -91,19 +91,18 @@ const saveOption = mw.Api.prototype.saveOption;
 		mw.config = new mw.Map();
 		mw.config.set( 'wgMediaViewerEnabledByDefault', false );
 		mw.Api.prototype.saveOption = this.sandbox.stub().returns( $.Deferred().resolve() );
-		const config = new Config();
 
 		mw.user.isNamed.returns( true );
 		mw.Api.prototype.saveOption.returns( $.Deferred().resolve() );
-		config.setMediaViewerEnabledOnClick( false );
+		Config.setMediaViewerEnabledOnClick( false );
 		assert.true( mw.Api.prototype.saveOption.called, 'For logged-in users, pref change is via API' );
 
 		mw.user.isNamed.returns( false );
-		config.setMediaViewerEnabledOnClick( false );
+		Config.setMediaViewerEnabledOnClick( false );
 		assert.true( mw.storage.store.setItem.called, 'For anons, opt-out is set in localStorage' );
 
 		mw.user.isNamed.returns( false );
-		config.setMediaViewerEnabledOnClick( true );
+		Config.setMediaViewerEnabledOnClick( true );
 		assert.true( mw.storage.store.removeItem.called, 'For anons, opt-in means clearing localStorage' );
 	} );
 
@@ -118,39 +117,36 @@ const saveOption = mw.Api.prototype.saveOption;
 			wgMediaViewerOnClick: true,
 			wgMediaViewerEnabledByDefault: true
 		} );
-		let config = new Config();
 		mw.user.isNamed.returns( true );
 
-		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default' );
-		config.setMediaViewerEnabledOnClick( false );
-		assert.strictEqual( config.shouldShowStatusInfo(), true, 'Status info is shown after MMV is disabled the first time' );
-		config.setMediaViewerEnabledOnClick( true );
-		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown when MMV is enabled' );
-		config.setMediaViewerEnabledOnClick( false );
-		assert.strictEqual( config.shouldShowStatusInfo(), true, 'Status info is shown after MMV is disabled the first time #2' );
-		config.disableStatusInfo();
-		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown when already displayed once' );
-		config.setMediaViewerEnabledOnClick( true );
-		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Further status changes have no effect' );
-		config.setMediaViewerEnabledOnClick( false );
-		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Further status changes have no effect #2' );
+		assert.strictEqual( Config.shouldShowStatusInfo(), false, 'Status info is not shown by default' );
+		Config.setMediaViewerEnabledOnClick( false );
+		assert.strictEqual( Config.shouldShowStatusInfo(), true, 'Status info is shown after MMV is disabled the first time' );
+		Config.setMediaViewerEnabledOnClick( true );
+		assert.strictEqual( Config.shouldShowStatusInfo(), false, 'Status info is not shown when MMV is enabled' );
+		Config.setMediaViewerEnabledOnClick( false );
+		assert.strictEqual( Config.shouldShowStatusInfo(), true, 'Status info is shown after MMV is disabled the first time #2' );
+		Config.disableStatusInfo();
+		assert.strictEqual( Config.shouldShowStatusInfo(), false, 'Status info is not shown when already displayed once' );
+		Config.setMediaViewerEnabledOnClick( true );
+		assert.strictEqual( Config.shouldShowStatusInfo(), false, 'Further status changes have no effect' );
+		Config.setMediaViewerEnabledOnClick( false );
+		assert.strictEqual( Config.shouldShowStatusInfo(), false, 'Further status changes have no effect #2' );
 
 		// make sure disabling calls maybeEnableStatusInfo() for logged-in as well
 		mw.storage = getFakeLocalStorage();
-		config = new Config();
 		mw.user.isNamed.returns( false );
-		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default for logged-in users' );
-		config.setMediaViewerEnabledOnClick( false );
-		assert.strictEqual( config.shouldShowStatusInfo(), true, 'Status info is shown after MMV is disabled the first time for logged-in users' );
+		assert.strictEqual( Config.shouldShowStatusInfo(), false, 'Status info is not shown by default for logged-in users' );
+		Config.setMediaViewerEnabledOnClick( false );
+		assert.strictEqual( Config.shouldShowStatusInfo(), true, 'Status info is shown after MMV is disabled the first time for logged-in users' );
 
 		// make sure popup is not shown immediately on disabled-by-default sites, but still works otherwise
 		mw.storage = getFakeLocalStorage();
-		config = new Config();
 		mw.config.set( 'wgMediaViewerEnabledByDefault', false );
-		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default #2' );
-		config.setMediaViewerEnabledOnClick( true );
-		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown when MMV is enabled #2' );
-		config.setMediaViewerEnabledOnClick( false );
-		assert.strictEqual( config.shouldShowStatusInfo(), true, 'Status info is shown after MMV is disabled the first time #2' );
+		assert.strictEqual( Config.shouldShowStatusInfo(), false, 'Status info is not shown by default #2' );
+		Config.setMediaViewerEnabledOnClick( true );
+		assert.strictEqual( Config.shouldShowStatusInfo(), false, 'Status info is not shown when MMV is enabled #2' );
+		Config.setMediaViewerEnabledOnClick( false );
+		assert.strictEqual( Config.shouldShowStatusInfo(), true, 'Status info is shown after MMV is disabled the first time #2' );
 	} );
 }() );
