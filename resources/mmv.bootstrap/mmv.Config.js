@@ -23,12 +23,10 @@ const { isMediaViewerEnabledOnClick } = require( 'mmv.head' );
 class Config {
 	/**
 	 * @param {Object} viewerConfig
-	 * @param {mw.Map} mwConfig
 	 * @param {mw.Api} api
 	 */
 	constructor(
 		viewerConfig = mw.config.get( 'wgMultimediaViewer', {} ),
-		mwConfig = mw.config,
 		api = new mw.Api() ) {
 		/**
 		 * A plain object storing MediaViewer-specific settings
@@ -36,13 +34,6 @@ class Config {
 		 * @type {Object}
 		 */
 		this.viewerConfig = viewerConfig;
-
-		/**
-		 * The mw.config object, for dependency injection
-		 *
-		 * @type {mw.Map}
-		 */
-		this.mwConfig = mwConfig;
 
 		/**
 		 * API object, for dependency injection
@@ -127,7 +118,7 @@ class Config {
 	 * @return {jQuery.Promise} a deferred which resolves/rejects on success/failure respectively
 	 */
 	setMediaViewerEnabledOnClick( enabled ) {
-		const defaultPrefValue = this.mwConfig.get( 'wgMediaViewerEnabledByDefault' );
+		const defaultPrefValue = mw.config.get( 'wgMediaViewerEnabledByDefault' );
 		let deferred;
 		let newPrefValue;
 		let success = true;
@@ -160,7 +151,7 @@ class Config {
 
 		return deferred.done( () => {
 			// make the change work without a reload
-			this.mwConfig.set( 'wgMediaViewerOnClick', enabled );
+			mw.config.set( 'wgMediaViewerOnClick', enabled );
 			if ( !enabled ) {
 				// set flag for showing a popup if this was a first-time disable
 				this.maybeEnableStatusInfo();
@@ -174,7 +165,7 @@ class Config {
 	 * @return {boolean}
 	 */
 	shouldShowStatusInfo() {
-		return !isMediaViewerEnabledOnClick( this.mwConfig, mw.user, mw.storage ) && this.getFromLocalStorage( 'mmv-showStatusInfo' ) === '1';
+		return !isMediaViewerEnabledOnClick( mw.config, mw.user, mw.storage ) && this.getFromLocalStorage( 'mmv-showStatusInfo' ) === '1';
 	}
 
 	/**
@@ -216,7 +207,7 @@ class Config {
 	 * @return {string} Language code
 	 */
 	language() {
-		return this.mwConfig.get( 'wgUserLanguage', false ) || this.mwConfig.get( 'wgContentLanguage', 'en' );
+		return mw.config.get( 'wgUserLanguage', false ) || mw.config.get( 'wgContentLanguage', 'en' );
 	}
 
 	/**

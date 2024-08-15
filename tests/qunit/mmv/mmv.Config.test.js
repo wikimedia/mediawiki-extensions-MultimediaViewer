@@ -18,19 +18,21 @@
 const { isMediaViewerEnabledOnClick } = require( 'mmv.head' );
 const { Config } = require( 'mmv.bootstrap' );
 const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUnsupportedLocalStorage } = require( './mmv.testhelpers.js' );
+const config0 = mw.config;
 const storage = mw.storage;
 const user = mw.user;
 
 ( function () {
 	QUnit.module( 'mmv.Config', QUnit.newMwEnvironment( {
 		afterEach: function () {
+			mw.config = config0;
 			mw.storage = storage;
 			mw.user = user;
 		}
 	} ) );
 
 	QUnit.test( 'constructor', ( assert ) => {
-		const config = new Config( {}, {}, {} );
+		const config = new Config( {}, {} );
 		assert.true( config instanceof Config );
 	} );
 
@@ -38,17 +40,17 @@ const user = mw.user;
 		let config;
 
 		mw.storage = getUnsupportedLocalStorage(); // no browser support
-		config = new Config( {}, {}, {} );
+		config = new Config( {}, {} );
 		assert.strictEqual( config.getFromLocalStorage( 'foo' ), null, 'Returns null when not supported' );
 		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'bar', 'Returns fallback when not supported' );
 
 		mw.storage = getDisabledLocalStorage(); // browser supports it but disabled
-		config = new Config( {}, {}, {} );
+		config = new Config( {}, {} );
 		assert.strictEqual( config.getFromLocalStorage( 'foo' ), null, 'Returns null when disabled' );
 		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'bar', 'Returns fallback when disabled' );
 
 		mw.storage = createLocalStorage( { getItem: this.sandbox.stub() } );
-		config = new Config( {}, {}, {} );
+		config = new Config( {}, {} );
 
 		mw.storage.store.getItem.withArgs( 'foo' ).returns( null );
 		assert.strictEqual( config.getFromLocalStorage( 'foo' ), null, 'Returns null when key not set' );
@@ -64,15 +66,15 @@ const user = mw.user;
 		let config;
 
 		mw.storage = getUnsupportedLocalStorage(); // no browser support
-		config = new Config( {}, {}, {} );
+		config = new Config( {}, {} );
 		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), false, 'Returns false when not supported' );
 
 		mw.storage = getDisabledLocalStorage(); // browser supports it but disabled
-		config = new Config( {}, {}, {} );
+		config = new Config( {}, {} );
 		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), false, 'Returns false when disabled' );
 
 		mw.storage = createLocalStorage( { setItem: this.sandbox.stub(), removeItem: this.sandbox.stub() } );
-		config = new Config( {}, {}, {} );
+		config = new Config( {}, {} );
 
 		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), true, 'Returns true when works' );
 
@@ -84,59 +86,59 @@ const user = mw.user;
 		let config;
 
 		mw.storage = getUnsupportedLocalStorage(); // no browser support
-		config = new Config( {}, {}, {} );
+		config = new Config( {}, {} );
 		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), true, 'Returns true when not supported' );
 
 		mw.storage = getDisabledLocalStorage(); // browser supports it but disabled
-		config = new Config( {}, {}, {} );
+		config = new Config( {}, {} );
 		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), true, 'Returns true when disabled' );
 
 		mw.storage = createLocalStorage( { removeItem: this.sandbox.stub() } );
-		config = new Config( {}, {}, {} );
+		config = new Config( {}, {} );
 		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), true, 'Returns true when works' );
 	} );
 
 	QUnit.test( 'isMediaViewerEnabledOnClick', function ( assert ) {
 		mw.storage = createLocalStorage( { getItem: this.sandbox.stub() } );
-		const mwConfig = { get: this.sandbox.stub() };
+		mw.config = { get: this.sandbox.stub() };
 		mw.user = { isNamed: this.sandbox.stub() };
 
 		mw.user.isNamed.returns( true );
-		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
-		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mw.user ), true, 'Returns true for logged-in with standard settings' );
+		mw.config.get.withArgs( 'wgMediaViewer' ).returns( true );
+		mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mw.config, mw.user ), true, 'Returns true for logged-in with standard settings' );
 
 		mw.user.isNamed.returns( true );
-		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( false );
-		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mw.user ), false, 'Returns false if opted out via user JS flag' );
+		mw.config.get.withArgs( 'wgMediaViewer' ).returns( false );
+		mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mw.config, mw.user ), false, 'Returns false if opted out via user JS flag' );
 
 		mw.user.isNamed.returns( true );
-		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
-		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( false );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mw.user ), false, 'Returns false if opted out via preferences' );
+		mw.config.get.withArgs( 'wgMediaViewer' ).returns( true );
+		mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( false );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mw.config, mw.user ), false, 'Returns false if opted out via preferences' );
 
 		mw.user.isNamed.returns( false );
-		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( false );
-		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mw.user ), false, 'Returns false if anon user opted out via user JS flag' );
+		mw.config.get.withArgs( 'wgMediaViewer' ).returns( false );
+		mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mw.config, mw.user ), false, 'Returns false if anon user opted out via user JS flag' );
 
 		mw.user.isNamed.returns( false );
-		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
-		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( false );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mw.user ), false, 'Returns false if anon user opted out in some weird way' ); // apparently someone created a browser extension to do this
+		mw.config.get.withArgs( 'wgMediaViewer' ).returns( true );
+		mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( false );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mw.config, mw.user ), false, 'Returns false if anon user opted out in some weird way' ); // apparently someone created a browser extension to do this
 
 		mw.user.isNamed.returns( false );
-		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
-		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
+		mw.config.get.withArgs( 'wgMediaViewer' ).returns( true );
+		mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
 		mw.storage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( null );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mw.user ), true, 'Returns true for anon with standard settings' );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mw.config, mw.user ), true, 'Returns true for anon with standard settings' );
 
 		mw.user.isNamed.returns( false );
-		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
-		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
+		mw.config.get.withArgs( 'wgMediaViewer' ).returns( true );
+		mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
 		mw.storage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( '0' );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mw.user ), false, 'Returns true for anon opted out via localSettings' );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mw.config, mw.user ), false, 'Returns true for anon opted out via localSettings' );
 	} );
 
 	QUnit.test( 'setMediaViewerEnabledOnClick sense check', function ( assert ) {
@@ -146,10 +148,10 @@ const user = mw.user;
 			removeItem: this.sandbox.stub()
 		} );
 		mw.user = { isNamed: this.sandbox.stub() };
-		const mwConfig = new mw.Map();
-		mwConfig.set( 'wgMediaViewerEnabledByDefault', false );
+		mw.config = new mw.Map();
+		mw.config.set( 'wgMediaViewerEnabledByDefault', false );
 		const api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) };
-		const config = new Config( {}, mwConfig, api );
+		const config = new Config( {}, api );
 
 		mw.user.isNamed.returns( true );
 		api.saveOption.returns( $.Deferred().resolve() );
@@ -166,17 +168,17 @@ const user = mw.user;
 	} );
 
 	QUnit.test( 'shouldShowStatusInfo', function ( assert ) {
-		const mwConfig = new mw.Map();
+		mw.config = new mw.Map();
 		mw.storage = getFakeLocalStorage();
 		mw.user = { isNamed: this.sandbox.stub() };
 		const api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) };
 
-		mwConfig.set( {
+		mw.config.set( {
 			wgMediaViewer: true,
 			wgMediaViewerOnClick: true,
 			wgMediaViewerEnabledByDefault: true
 		} );
-		let config = new Config( {}, mwConfig, api );
+		let config = new Config( {}, api );
 		mw.user.isNamed.returns( true );
 
 		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default' );
@@ -195,7 +197,7 @@ const user = mw.user;
 
 		// make sure disabling calls maybeEnableStatusInfo() for logged-in as well
 		mw.storage = getFakeLocalStorage();
-		config = new Config( {}, mwConfig, api );
+		config = new Config( {}, api );
 		mw.user.isNamed.returns( false );
 		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default for logged-in users' );
 		config.setMediaViewerEnabledOnClick( false );
@@ -203,8 +205,8 @@ const user = mw.user;
 
 		// make sure popup is not shown immediately on disabled-by-default sites, but still works otherwise
 		mw.storage = getFakeLocalStorage();
-		config = new Config( {}, mwConfig, api );
-		mwConfig.set( 'wgMediaViewerEnabledByDefault', false );
+		config = new Config( {}, api );
+		mw.config.set( 'wgMediaViewerEnabledByDefault', false );
 		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default #2' );
 		config.setMediaViewerEnabledOnClick( true );
 		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown when MMV is enabled #2' );
