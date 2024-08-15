@@ -16,6 +16,7 @@
  */
 
 const { isMediaViewerEnabledOnClick } = require( 'mmv.head' );
+const api = new mw.Api();
 
 /**
  * Contains/retrieves configuration/environment information for MediaViewer.
@@ -25,22 +26,13 @@ class Config {
 	 * @param {Object} viewerConfig
 	 * @param {mw.Api} api
 	 */
-	constructor(
-		viewerConfig = mw.config.get( 'wgMultimediaViewer', {} ),
-		api = new mw.Api() ) {
+	constructor( viewerConfig = mw.config.get( 'wgMultimediaViewer', {} ) ) {
 		/**
 		 * A plain object storing MediaViewer-specific settings
 		 *
 		 * @type {Object}
 		 */
 		this.viewerConfig = viewerConfig;
-
-		/**
-		 * API object, for dependency injection
-		 *
-		 * @type {mw.Api}
-		 */
-		this.api = api;
 	}
 
 	/**
@@ -98,17 +90,6 @@ class Config {
 	}
 
 	/**
-	 * Set user preference via AJAX
-	 *
-	 * @param {string} key
-	 * @param {string} value
-	 * @return {jQuery.Promise} a deferred which resolves/rejects on success/failure respectively
-	 */
-	setUserPreference( key, value ) {
-		return this.api.saveOption( key, value );
-	}
-
-	/**
 	 * (Semi-)permanently stores the setting whether MediaViewer should handle thumbnail clicks.
 	 * - for logged-in users, we use preferences
 	 * - for anons, we use localStorage
@@ -146,7 +127,7 @@ class Config {
 				// which in turn will cause the options API to delete the row and revert the pref to default
 				newPrefValue = enabled ? '1' : undefined;
 			}
-			deferred = this.setUserPreference( 'multimediaviewer-enable', newPrefValue );
+			deferred = api.saveOption( 'multimediaviewer-enable', newPrefValue );
 		}
 
 		return deferred.done( () => {
