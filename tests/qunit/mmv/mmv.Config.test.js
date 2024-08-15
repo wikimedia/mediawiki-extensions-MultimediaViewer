@@ -18,9 +18,14 @@
 const { isMediaViewerEnabledOnClick } = require( 'mmv.head' );
 const { Config } = require( 'mmv.bootstrap' );
 const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUnsupportedLocalStorage } = require( './mmv.testhelpers.js' );
+const storage = mw.storage;
 
 ( function () {
-	QUnit.module( 'mmv.Config', QUnit.newMwEnvironment() );
+	QUnit.module( 'mmv.Config', QUnit.newMwEnvironment( {
+		afterEach: function () {
+			mw.storage = storage;
+		}
+	} ) );
 
 	QUnit.test( 'constructor', ( assert ) => {
 		const config = new Config( {}, {}, {}, {}, null );
@@ -28,112 +33,112 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 	} );
 
 	QUnit.test( 'getFromLocalStorage', function ( assert ) {
-		let localStorage, config;
+		let config;
 
-		localStorage = getUnsupportedLocalStorage(); // no browser support
-		config = new Config( {}, {}, {}, {}, localStorage );
+		mw.storage = getUnsupportedLocalStorage(); // no browser support
+		config = new Config( {}, {}, {}, {} );
 		assert.strictEqual( config.getFromLocalStorage( 'foo' ), null, 'Returns null when not supported' );
 		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'bar', 'Returns fallback when not supported' );
 
-		localStorage = getDisabledLocalStorage(); // browser supports it but disabled
-		config = new Config( {}, {}, {}, {}, localStorage );
+		mw.storage = getDisabledLocalStorage(); // browser supports it but disabled
+		config = new Config( {}, {}, {}, {} );
 		assert.strictEqual( config.getFromLocalStorage( 'foo' ), null, 'Returns null when disabled' );
 		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'bar', 'Returns fallback when disabled' );
 
-		localStorage = createLocalStorage( { getItem: this.sandbox.stub() } );
-		config = new Config( {}, {}, {}, {}, localStorage );
+		mw.storage = createLocalStorage( { getItem: this.sandbox.stub() } );
+		config = new Config( {}, {}, {}, {} );
 
-		localStorage.store.getItem.withArgs( 'foo' ).returns( null );
+		mw.storage.store.getItem.withArgs( 'foo' ).returns( null );
 		assert.strictEqual( config.getFromLocalStorage( 'foo' ), null, 'Returns null when key not set' );
 		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'bar', 'Returns fallback when key not set' );
 
-		localStorage.store.getItem.reset();
-		localStorage.store.getItem.withArgs( 'foo' ).returns( 'boom' );
+		mw.storage.store.getItem.reset();
+		mw.storage.store.getItem.withArgs( 'foo' ).returns( 'boom' );
 		assert.strictEqual( config.getFromLocalStorage( 'foo' ), 'boom', 'Returns correct value' );
 		assert.strictEqual( config.getFromLocalStorage( 'foo', 'bar' ), 'boom', 'Returns correct value ignoring fallback' );
 	} );
 
 	QUnit.test( 'setInLocalStorage', function ( assert ) {
-		let localStorage, config;
+		let config;
 
-		localStorage = getUnsupportedLocalStorage(); // no browser support
-		config = new Config( {}, {}, {}, {}, localStorage );
+		mw.storage = getUnsupportedLocalStorage(); // no browser support
+		config = new Config( {}, {}, {}, {} );
 		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), false, 'Returns false when not supported' );
 
-		localStorage = getDisabledLocalStorage(); // browser supports it but disabled
-		config = new Config( {}, {}, {}, {}, localStorage );
+		mw.storage = getDisabledLocalStorage(); // browser supports it but disabled
+		config = new Config( {}, {}, {}, {} );
 		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), false, 'Returns false when disabled' );
 
-		localStorage = createLocalStorage( { setItem: this.sandbox.stub(), removeItem: this.sandbox.stub() } );
-		config = new Config( {}, {}, {}, {}, localStorage );
+		mw.storage = createLocalStorage( { setItem: this.sandbox.stub(), removeItem: this.sandbox.stub() } );
+		config = new Config( {}, {}, {}, {} );
 
 		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), true, 'Returns true when works' );
 
-		localStorage.store.setItem.throwsException( 'localStorage full!' );
+		mw.storage.store.setItem.throwsException( 'localStorage full!' );
 		assert.strictEqual( config.setInLocalStorage( 'foo', 'bar' ), false, 'Returns false on error' );
 	} );
 
 	QUnit.test( 'Localstorage remove', function ( assert ) {
-		let localStorage, config;
+		let config;
 
-		localStorage = getUnsupportedLocalStorage(); // no browser support
-		config = new Config( {}, {}, {}, {}, localStorage );
+		mw.storage = getUnsupportedLocalStorage(); // no browser support
+		config = new Config( {}, {}, {}, {} );
 		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), true, 'Returns true when not supported' );
 
-		localStorage = getDisabledLocalStorage(); // browser supports it but disabled
-		config = new Config( {}, {}, {}, {}, localStorage );
+		mw.storage = getDisabledLocalStorage(); // browser supports it but disabled
+		config = new Config( {}, {}, {}, {} );
 		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), true, 'Returns true when disabled' );
 
-		localStorage = createLocalStorage( { removeItem: this.sandbox.stub() } );
-		config = new Config( {}, {}, {}, {}, localStorage );
+		mw.storage = createLocalStorage( { removeItem: this.sandbox.stub() } );
+		config = new Config( {}, {}, {}, {} );
 		assert.strictEqual( config.removeFromLocalStorage( 'foo' ), true, 'Returns true when works' );
 	} );
 
 	QUnit.test( 'isMediaViewerEnabledOnClick', function ( assert ) {
-		const localStorage = createLocalStorage( { getItem: this.sandbox.stub() } );
+		mw.storage = createLocalStorage( { getItem: this.sandbox.stub() } );
 		const mwConfig = { get: this.sandbox.stub() };
 		const mwUser = { isNamed: this.sandbox.stub() };
 
 		mwUser.isNamed.returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser, localStorage ), true, 'Returns true for logged-in with standard settings' );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser ), true, 'Returns true for logged-in with standard settings' );
 
 		mwUser.isNamed.returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser, localStorage ), false, 'Returns false if opted out via user JS flag' );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser ), false, 'Returns false if opted out via user JS flag' );
 
 		mwUser.isNamed.returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( false );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser, localStorage ), false, 'Returns false if opted out via preferences' );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser ), false, 'Returns false if opted out via preferences' );
 
 		mwUser.isNamed.returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser, localStorage ), false, 'Returns false if anon user opted out via user JS flag' );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser ), false, 'Returns false if anon user opted out via user JS flag' );
 
 		mwUser.isNamed.returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( false );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser, localStorage ), false, 'Returns false if anon user opted out in some weird way' ); // apparently someone created a browser extension to do this
+		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser ), false, 'Returns false if anon user opted out in some weird way' ); // apparently someone created a browser extension to do this
 
 		mwUser.isNamed.returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		localStorage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( null );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser, localStorage ), true, 'Returns true for anon with standard settings' );
+		mw.storage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( null );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser ), true, 'Returns true for anon with standard settings' );
 
 		mwUser.isNamed.returns( false );
 		mwConfig.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mwConfig.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		localStorage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( '0' );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser, localStorage ), false, 'Returns true for anon opted out via localSettings' );
+		mw.storage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( '0' );
+		assert.strictEqual( isMediaViewerEnabledOnClick( mwConfig, mwUser ), false, 'Returns true for anon opted out via localSettings' );
 	} );
 
 	QUnit.test( 'setMediaViewerEnabledOnClick sense check', function ( assert ) {
-		const localStorage = createLocalStorage( {
+		mw.storage = createLocalStorage( {
 			getItem: this.sandbox.stub(),
 			setItem: this.sandbox.stub(),
 			removeItem: this.sandbox.stub()
@@ -142,7 +147,7 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 		const mwConfig = new mw.Map();
 		mwConfig.set( 'wgMediaViewerEnabledByDefault', false );
 		const api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) };
-		const config = new Config( {}, mwConfig, mwUser, api, localStorage );
+		const config = new Config( {}, mwConfig, mwUser, api );
 
 		mwUser.isNamed.returns( true );
 		api.saveOption.returns( $.Deferred().resolve() );
@@ -151,16 +156,16 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 
 		mwUser.isNamed.returns( false );
 		config.setMediaViewerEnabledOnClick( false );
-		assert.true( localStorage.store.setItem.called, 'For anons, opt-out is set in localStorage' );
+		assert.true( mw.storage.store.setItem.called, 'For anons, opt-out is set in localStorage' );
 
 		mwUser.isNamed.returns( false );
 		config.setMediaViewerEnabledOnClick( true );
-		assert.true( localStorage.store.removeItem.called, 'For anons, opt-in means clearing localStorage' );
+		assert.true( mw.storage.store.removeItem.called, 'For anons, opt-in means clearing localStorage' );
 	} );
 
 	QUnit.test( 'shouldShowStatusInfo', function ( assert ) {
 		const mwConfig = new mw.Map();
-		const fakeLocalStorage = getFakeLocalStorage();
+		mw.storage = getFakeLocalStorage();
 		const mwUser = { isNamed: this.sandbox.stub() };
 		const api = { saveOption: this.sandbox.stub().returns( $.Deferred().resolve() ) };
 
@@ -169,7 +174,7 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 			wgMediaViewerOnClick: true,
 			wgMediaViewerEnabledByDefault: true
 		} );
-		const config = new Config( {}, mwConfig, mwUser, api, fakeLocalStorage );
+		let config = new Config( {}, mwConfig, mwUser, api );
 		mwUser.isNamed.returns( true );
 
 		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default' );
@@ -187,14 +192,16 @@ const { createLocalStorage, getDisabledLocalStorage, getFakeLocalStorage, getUns
 		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Further status changes have no effect #2' );
 
 		// make sure disabling calls maybeEnableStatusInfo() for logged-in as well
-		config.localStorage = getFakeLocalStorage();
+		mw.storage = getFakeLocalStorage();
+		config = new Config( {}, mwConfig, mwUser, api );
 		mwUser.isNamed.returns( false );
 		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default for logged-in users' );
 		config.setMediaViewerEnabledOnClick( false );
 		assert.strictEqual( config.shouldShowStatusInfo(), true, 'Status info is shown after MMV is disabled the first time for logged-in users' );
 
 		// make sure popup is not shown immediately on disabled-by-default sites, but still works otherwise
-		config.localStorage = getFakeLocalStorage();
+		mw.storage = getFakeLocalStorage();
+		config = new Config( {}, mwConfig, mwUser, api );
 		mwConfig.set( 'wgMediaViewerEnabledByDefault', false );
 		assert.strictEqual( config.shouldShowStatusInfo(), false, 'Status info is not shown by default #2' );
 		config.setMediaViewerEnabledOnClick( true );

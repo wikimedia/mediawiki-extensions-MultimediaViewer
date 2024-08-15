@@ -63,20 +63,12 @@ class LightboxInterface extends UiElement {
 		super( $wrapper );
 		this.$wrapper = $wrapper;
 
-		this.localStorage = mw.storage;
-
 		// When opening we might override the theme-color, so remember the original value
 		const metaElement = document.querySelector( 'meta[name="theme-color"]' );
 		this.originalThemeColor = metaElement ? metaElement.getAttribute( 'content' ) : null;
 
 		/** @property {Config} config - */
-		this.config = new Config(
-			mw.config.get( 'wgMultimediaViewer', {} ),
-			mw.config,
-			mw.user,
-			new mw.Api(),
-			this.localStorage
-		);
+		this.config = new Config();
 
 		/**
 		 * @property {ThumbnailWidthCalculator}
@@ -118,7 +110,7 @@ class LightboxInterface extends UiElement {
 
 		this.setupCanvasButtons();
 
-		this.panel = new MetadataPanel( this.$postDiv, this.$aboveFold, this.localStorage, this.config );
+		this.panel = new MetadataPanel( this.$postDiv, this.$aboveFold, this.config );
 		this.buttons = new CanvasButtons( this.$preDiv, this.$closeButton, this.$fullscreenButton );
 		this.canvas = new Canvas( this.$innerWrapper, this.$imageWrapper, this.$wrapper );
 

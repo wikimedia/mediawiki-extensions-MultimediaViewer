@@ -26,9 +26,12 @@ class Config {
 	 * @param {mw.Map} mwConfig
 	 * @param {Object} mwUser
 	 * @param {mw.Api} api
-	 * @param {mw.SafeStorage} localStorage
 	 */
-	constructor( viewerConfig, mwConfig, mwUser, api, localStorage ) {
+	constructor(
+		viewerConfig = mw.config.get( 'wgMultimediaViewer', {} ),
+		mwConfig = mw.config,
+		mwUser = mw.user,
+		api = new mw.Api() ) {
 		/**
 		 * A plain object storing MediaViewer-specific settings
 		 *
@@ -56,13 +59,6 @@ class Config {
 		 * @type {mw.Api}
 		 */
 		this.api = api;
-
-		/**
-		 * The localStorage object, for dependency injection
-		 *
-		 * @type {mw.SafeStorage}
-		 */
-		this.localStorage = localStorage;
 	}
 
 	/**
@@ -73,7 +69,7 @@ class Config {
 	 * @return {string|null} stored value or fallback or null if neither exists
 	 */
 	getFromLocalStorage( key, fallback ) {
-		const value = this.localStorage.get( key );
+		const value = mw.storage.get( key );
 
 		// localStorage will only store strings; if values `null`, `false` or
 		// `0` are set, they'll come out as `"null"`, `"false"` or `"0"`, so we
@@ -98,7 +94,7 @@ class Config {
 	 * @return {boolean} whether storing the item was successful
 	 */
 	setInLocalStorage( key, value ) {
-		return this.localStorage.set( key, value );
+		return mw.storage.set( key, value );
 	}
 
 	/**
@@ -108,7 +104,7 @@ class Config {
 	 * @return {boolean} whether storing the item was successful
 	 */
 	removeFromLocalStorage( key ) {
-		this.localStorage.remove( key );
+		mw.storage.remove( key );
 
 		// mw.storage.remove catches all exceptions and returns false if any
 		// occur, so we can't distinguish between actual issues, and
@@ -187,7 +183,7 @@ class Config {
 	 * @return {boolean}
 	 */
 	shouldShowStatusInfo() {
-		return !isMediaViewerEnabledOnClick( this.mwConfig, this.mwUser, this.localStorage ) && this.getFromLocalStorage( 'mmv-showStatusInfo' ) === '1';
+		return !isMediaViewerEnabledOnClick( this.mwConfig, this.mwUser, mw.storage ) && this.getFromLocalStorage( 'mmv-showStatusInfo' ) === '1';
 	}
 
 	/**

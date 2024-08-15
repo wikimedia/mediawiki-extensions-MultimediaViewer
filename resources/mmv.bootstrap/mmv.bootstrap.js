@@ -38,13 +38,7 @@ class MultimediaViewerBootstrap {
 
 		// TODO lazy-load config and htmlUtils
 		/** @property {Config} config - */
-		this.config = new Config(
-			mw.config.get( 'wgMultimediaViewer', {} ),
-			mw.config,
-			mw.user,
-			new mw.Api(),
-			mw.storage
-		);
+		this.config = new Config();
 
 		this.validExtensions = this.config.extensions();
 

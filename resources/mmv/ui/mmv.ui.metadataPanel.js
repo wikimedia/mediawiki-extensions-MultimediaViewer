@@ -33,10 +33,9 @@ class MetadataPanel extends UiElement {
 	 * @param {jQuery} $aboveFold The brighter headline of the metadata panel (.mw-mmv-above-fold).
 	 *  Called "aboveFold" for historical reasons, but actually a part of the next sibling of the element
 	 *  is also above the fold (bottom of the screen).
-	 * @param {mw.SafeStorage} localStorage the localStorage object, for dependency injection
 	 * @param {Config} config A configuration object.
 	 */
-	constructor( $container, $aboveFold, localStorage, config ) {
+	constructor( $container, $aboveFold, config ) {
 		super( $container );
 
 		this.$aboveFold = $aboveFold;
@@ -44,7 +43,7 @@ class MetadataPanel extends UiElement {
 		/** @property {Config} config - */
 		this.config = config;
 
-		this.initializeHeader( localStorage );
+		this.initializeHeader();
 		this.initializeImageMetadata();
 		this.initializeAboutLinks();
 	}
@@ -165,14 +164,11 @@ class MetadataPanel extends UiElement {
 	/* Initialization methods */
 	/**
 	 * Initializes the header, which contains the title, credit, and license elements.
-	 *
-	 * @param {mw.SafeStorage} localStorage the localStorage object, for dependency injection
 	 */
-	initializeHeader( localStorage ) {
+	initializeHeader() {
 		this.progressBar = new ProgressBar( this.$aboveFold );
 
-		this.scroller = new MetadataPanelScroller( this.$container, this.$aboveFold,
-			localStorage );
+		this.scroller = new MetadataPanelScroller( this.$container, this.$aboveFold );
 
 		this.$titleDiv = $( '<div>' )
 			.addClass( 'mw-mmv-title-contain' )

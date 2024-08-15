@@ -24,15 +24,11 @@ class MetadataPanelScroller extends UiElement {
 	/**
 	 * @param {jQuery} $container The container for the panel (.mw-mmv-post-image).
 	 * @param {jQuery} $aboveFold The control bar element (.mw-mmv-above-fold).
-	 * @param {mw.SafeStorage} localStorage the localStorage object, for dependency injection
 	 */
-	constructor( $container, $aboveFold, localStorage ) {
+	constructor( $container, $aboveFold ) {
 		super( $container );
 
 		this.$aboveFold = $aboveFold;
-
-		/** @property {mw.SafeStorage} localStorage */
-		this.localStorage = localStorage;
 
 		/** @property {boolean} panelWasOpen state flag which will be used to detect open <-> closed transitions */
 		this.panelWasOpen = null;
@@ -66,9 +62,9 @@ class MetadataPanelScroller extends UiElement {
 		}, 250 ) );
 
 		this.$container.on( 'mmv-metadata-open', () => {
-			if ( !this.hasOpenedMetadata && this.localStorage.store ) {
+			if ( !this.hasOpenedMetadata && mw.storage.store ) {
 				this.hasOpenedMetadata = true;
-				this.localStorage.set( 'mmv.hasOpenedMetadata', '1' );
+				mw.storage.set( 'mmv.hasOpenedMetadata', '1' );
 			}
 		} );
 
@@ -133,7 +129,7 @@ class MetadataPanelScroller extends UiElement {
 	}
 
 	initialize() {
-		const value = this.localStorage.get( 'mmv.hasOpenedMetadata' );
+		const value = mw.storage.get( 'mmv.hasOpenedMetadata' );
 
 		// localStorage will only store strings; if values `null`, `false` or
 		// `0` are set, they'll come out as `"null"`, `"false"` or `"0"`, so we
