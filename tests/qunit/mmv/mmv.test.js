@@ -479,13 +479,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		let promise;
 		let useThumbnailGuessing;
 		const viewer = new MultimediaViewer( {
-			imageQueryParameter: function () {},
-			language: function () {},
-			recordVirtualViewBeaconURI: function () {},
-			extensions: function () {
-				return { jpg: 'default' };
-			},
-			useThumbnailGuessing: () => useThumbnailGuessing
+			language: function () {}
 		} );
 		const sandbox = this.sandbox;
 		const file = new mw.Title( 'File:Copyleft.svg' );
@@ -510,7 +504,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		guessedThumbnailInfoStub.returns( $.Deferred().resolve( { url: 'guessedURL' } ) );
 		thumbnailInfoStub.returns( $.Deferred().resolve( { url: 'apiURL' } ) );
 		imageStub.returns( $.Deferred().resolve( image ) );
-		promise = viewer.fetchThumbnail( file, width );
+		promise = viewer.fetchThumbnail( file, width, '', originalWidth, originalHeight, useThumbnailGuessing );
 		clock.tick( 10 );
 		assert.strictEqual( guessedThumbnailInfoStub.called, false, 'When we lack sample URL and original dimensions, GuessedThumbnailInfoProvider is not called' );
 		assert.strictEqual( thumbnailInfoStub.calledOnce, true, 'When we lack sample URL and original dimensions, ThumbnailInfoProvider is called once' );
@@ -523,7 +517,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		guessedThumbnailInfoStub.returns( $.Deferred().reject() );
 		thumbnailInfoStub.returns( $.Deferred().resolve( { url: 'apiURL' } ) );
 		imageStub.returns( $.Deferred().resolve( image ) );
-		promise = viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight );
+		promise = viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight, useThumbnailGuessing );
 		clock.tick( 10 );
 		assert.strictEqual( guessedThumbnailInfoStub.calledOnce, true, 'When the guesser bails out, GuessedThumbnailInfoProvider is called once' );
 		assert.strictEqual( thumbnailInfoStub.calledOnce, true, 'When the guesser bails out, ThumbnailInfoProvider is called once' );
@@ -536,7 +530,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		guessedThumbnailInfoStub.returns( $.Deferred().resolve( { url: 'guessedURL' } ) );
 		thumbnailInfoStub.returns( $.Deferred().resolve( { url: 'apiURL' } ) );
 		imageStub.returns( $.Deferred().resolve( image ) );
-		promise = viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight );
+		promise = viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight, useThumbnailGuessing );
 		clock.tick( 10 );
 		assert.strictEqual( guessedThumbnailInfoStub.calledOnce, true, 'When the guesser returns an URL, GuessedThumbnailInfoProvider is called once' );
 		assert.strictEqual( thumbnailInfoStub.called, false, 'When the guesser returns an URL, ThumbnailInfoProvider is not called' );
@@ -550,7 +544,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		thumbnailInfoStub.returns( $.Deferred().resolve( { url: 'apiURL' } ) );
 		imageStub.withArgs( 'guessedURL' ).returns( $.Deferred().reject() );
 		imageStub.withArgs( 'apiURL' ).returns( $.Deferred().resolve( image ) );
-		promise = viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight );
+		promise = viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight, useThumbnailGuessing );
 		clock.tick( 10 );
 		assert.strictEqual( guessedThumbnailInfoStub.calledOnce, true, 'When the guesser returns an URL, but that returns 404, GuessedThumbnailInfoProvider is called once' );
 		assert.strictEqual( thumbnailInfoStub.calledOnce, true, 'When the guesser returns an URL, but that returns 404, ThumbnailInfoProvider is called once' );
@@ -565,7 +559,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		thumbnailInfoStub.returns( $.Deferred().resolve( { url: 'apiURL' } ) );
 		imageStub.withArgs( 'guessedURL' ).returns( $.Deferred().reject() );
 		imageStub.withArgs( 'apiURL' ).returns( $.Deferred().reject() );
-		promise = viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight );
+		promise = viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight, useThumbnailGuessing );
 		clock.tick( 10 );
 		assert.strictEqual( guessedThumbnailInfoStub.calledOnce, true, 'When even the retry fails, GuessedThumbnailInfoProvider is called once' );
 		assert.strictEqual( thumbnailInfoStub.calledOnce, true, 'When even the retry fails, ThumbnailInfoProvider is called once' );
@@ -581,7 +575,7 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		guessedThumbnailInfoStub.returns( $.Deferred().resolve( { url: 'guessedURL' } ) );
 		thumbnailInfoStub.returns( $.Deferred().resolve( { url: 'apiURL' } ) );
 		imageStub.returns( $.Deferred().resolve( image ) );
-		promise = viewer.fetchThumbnail( file, width );
+		promise = viewer.fetchThumbnail( file, width, sampleURL, originalWidth, originalHeight, useThumbnailGuessing );
 		clock.tick( 10 );
 		assert.strictEqual( guessedThumbnailInfoStub.called, false, 'When guessing is disabled, GuessedThumbnailInfoProvider is not called' );
 		assert.strictEqual( thumbnailInfoStub.calledOnce, true, 'When guessing is disabled, ThumbnailInfoProvider is called once' );

@@ -17,6 +17,7 @@
 
 const { isMediaViewerEnabledOnClick } = require( 'mmv.head' );
 const Dialog = require( './mmv.ui.dialog.js' );
+const { helpLink } = require( '../config.json' );
 
 /**
  * Represents the viewing options dialog and the link to open it.
@@ -358,7 +359,7 @@ class OptionsDialog extends Dialog {
 	addInfoLink( $div ) {
 		$( '<a>' )
 			.addClass( 'mw-mmv-project-info-link' )
-			.prop( 'href', mw.config.get( 'wgMultimediaViewer' ).helpLink )
+			.prop( 'href', helpLink )
 			.text( mw.message( 'multimediaviewer-options-learn-more' ) )
 			.appendTo( $div.find( '.mw-mmv-options-text' ) );
 	}
