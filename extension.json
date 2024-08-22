@@ -27,7 +27,7 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "other",
 	"requires": {
-		"MediaWiki": ">= 1.42.0"
+		"MediaWiki": ">= 1.43"
 	},
 	"MessagesDirs": {
 		"MultimediaViewer": [
@@ -445,7 +445,15 @@
 		},
 		"MediaViewerThumbnailBucketSizes": {
 			"description": "Array of preselected widths used to generate thumbnail URLs to avoid arbitrary size requests (see also wgUploadThumbnailRenderMap).",
-			"value": [ 320, 800, 1024, 1280, 1920, 2560, 2880 ]
+			"value": [
+				320,
+				800,
+				1024,
+				1280,
+				1920,
+				2560,
+				2880
+			]
 		},
 		"MediaViewerEnableByDefault": {
 			"description": "If true, Media Viewer will be turned on by default.",
