@@ -144,5 +144,6 @@
 	"multimediaviewer-enable-alert": "MediaViewer is nu uitgeschakeld",
 	"multimediaviewer-disable-info-title": "U hebt de MediaViewer uitgeschakeld",
 	"multimediaviewer-disable-info": "U kunt nog steeds losse bestanden bekijken met de MediaViewer.",
-	"multimediaviewer-errorreport-privacywarning": "Details van de fout zijn bij het rapport gevoegd, dat voor het publiek zichtbaar zal zijn. Als u zich daar niet prettig bij voelt, kunt u het onderstaande rapport bewerken en alle gegevens verwijderen die u niet wilt delen."
+	"multimediaviewer-errorreport-privacywarning": "Details van de fout zijn bij het rapport gevoegd, dat voor het publiek zichtbaar zal zijn. Als u zich daar niet prettig bij voelt, kunt u het onderstaande rapport bewerken en alle gegevens verwijderen die u niet wilt delen.",
+	"multimediaviewer-loading": "Media Viewer wordt geladen."
 }
