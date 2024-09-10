@@ -93,28 +93,26 @@ class ViewLogger {
 	 * Records the amount of time the current image has been viewed
 	 */
 	recordViewDuration() {
-		let uri;
+		let url;
 
 		this.stopViewDuration();
 
 		if ( recordVirtualViewBeaconURI ) {
 			try {
-				uri = new mw.Uri( recordVirtualViewBeaconURI );
-				uri.extend( {
-					duration: this.viewDuration,
-					uri: this.url
-				} );
+				url = new URL( recordVirtualViewBeaconURI, location );
+				url.searchParams.set( 'duration', this.viewDuration );
+				url.searchParams.set( 'uri', this.url );
 			} catch ( e ) {
 				// the URI is malformed. We cannot log it.
 				return;
 			}
 
 			try {
-				navigator.sendBeacon( uri.toString() );
+				navigator.sendBeacon( url.toString() );
 			} catch ( e ) {
 				$.ajax( {
 					type: 'HEAD',
-					url: uri.toString()
+					url: url.toString()
 				} );
 			}
 
@@ -132,7 +130,7 @@ class ViewLogger {
 	 * @param {string} url URL of the image to record a virtual view for
 	 */
 	attach( url ) {
-		this.url = encodeURIComponent( url );
+		this.url = url;
 		this.startViewDuration();
 
 		$( this.window )

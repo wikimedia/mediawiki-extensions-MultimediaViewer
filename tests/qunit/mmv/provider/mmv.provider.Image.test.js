@@ -134,7 +134,7 @@ const { ImageProvider } = require( 'mmv' );
 
 		imageProvider.imagePreloadingSupported = () => false;
 		imageProvider.rawGet = function ( url ) {
-			assert.strictEqual( url, 'http://www.wikipedia.org/?foo', 'Extra parameter added' );
+			assert.strictEqual( url, 'http://www.wikipedia.org/?foo=', 'Extra parameter added' );
 
 			return $.Deferred().resolve();
 		};

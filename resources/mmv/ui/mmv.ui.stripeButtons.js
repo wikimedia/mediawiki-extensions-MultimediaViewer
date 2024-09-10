@@ -51,10 +51,6 @@ class StripeButtons extends UiElement {
 		const match = image && image.src ?
 			image.src.match( /(lang|page)([\d\-a-z]+)-(\d+)px/ ) : // multi lingual SVG or PDF page
 			null;
-		const params = {};
-		if ( match ) {
-			params[ match[ 1 ] ] = match[ 2 ];
-		}
 
 		const commons = '//commons.wikimedia.org';
 		const isCommonsServer = String( mw.config.get( 'wgServer' ) ).includes( commons );
@@ -62,12 +58,18 @@ class StripeButtons extends UiElement {
 		let isCommons = String( descriptionUrl ).includes( commons );
 
 		if ( imageInfo.pageID && !isCommonsServer ) {
+			const params = {};
+			if ( match ) {
+				params[ match[ 1 ] ] = match[ 2 ];
+			}
 			// The file has a local description page, override the description URL
 			descriptionUrl = imageInfo.title.getUrl( params );
 			isCommons = false;
 		} else {
-			const parsedUrl = new mw.Uri( descriptionUrl );
-			parsedUrl.extend( params );
+			const parsedUrl = new URL( descriptionUrl, location );
+			if ( match ) {
+				parsedUrl.searchParams.set( match[ 1 ], match[ 2 ] );
+			}
 			descriptionUrl = parsedUrl.toString();
 		}
 

@@ -47,13 +47,12 @@ class ImageProvider {
 	 */
 	get( url ) {
 		const cacheKey = url;
-		const extraParam = {};
 
 		if ( this.imageQueryParameter ) {
 			try {
-				const uri = new mw.Uri( url );
-				extraParam[ this.imageQueryParameter ] = null;
-				url = uri.extend( extraParam ).toString();
+				const uri = new URL( url, location );
+				uri.searchParams.set( this.imageQueryParameter, '' );
+				url = uri.toString();
 			} catch ( error ) {
 				return $.Deferred().reject( error.message );
 			}
