@@ -24,7 +24,6 @@
 namespace MediaWiki\Extension\MultimediaViewer;
 
 use CategoryPage;
-use ExtensionRegistry;
 use MediaWiki\Category\Category;
 use MediaWiki\Config\Config;
 use MediaWiki\Hook\ThumbnailBeforeProduceHTMLHook;
@@ -33,6 +32,7 @@ use MediaWiki\Output\Hook\MakeGlobalVariablesScriptHook;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\Hook\CategoryPageViewHook;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderGetConfigVarsHook;
 use MediaWiki\SpecialPage\SpecialPageFactory;
 use MediaWiki\User\Hook\UserGetDefaultOptionsHook;
