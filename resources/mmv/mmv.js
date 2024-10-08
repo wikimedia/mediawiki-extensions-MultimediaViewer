@@ -160,18 +160,7 @@ class MultimediaViewer {
 			} );
 		}
 
-		this.updateControls();
-	}
-
-	/**
-	 * Updates positioning of controls, usually after a resize event.
-	 */
-	updateControls() {
-		const numImages = this.thumbs ? this.thumbs.length : 0;
-		const showNextButton = this.currentIndex < ( numImages - 1 );
-		const showPreviousButton = this.currentIndex > 0;
-
-		this.ui.updateControls( showNextButton, showPreviousButton );
+		this.ui.updateControls();
 	}
 
 	/**
@@ -184,7 +173,7 @@ class MultimediaViewer {
 	 */
 	setImage( ui, thumbnail, imageElement, imageWidths ) {
 		ui.canvas.setImageAndMaxDimensions( thumbnail, imageElement, imageWidths );
-		this.updateControls();
+		this.ui.updateControls();
 	}
 
 	/**
@@ -675,14 +664,22 @@ class MultimediaViewer {
 	 * Opens the next image
 	 */
 	nextImage() {
-		this.loadIndex( this.currentIndex + 1 );
+		if ( this.currentIndex === this.thumbs.length - 1 ) {
+			this.firstImage();
+		} else {
+			this.loadIndex( this.currentIndex + 1 );
+		}
 	}
 
 	/**
 	 * Opens the previous image
 	 */
 	prevImage() {
-		this.loadIndex( this.currentIndex - 1 );
+		if ( this.currentIndex === 0 ) {
+			this.lastImage();
+		} else {
+			this.loadIndex( this.currentIndex - 1 );
+		}
 	}
 
 	/**

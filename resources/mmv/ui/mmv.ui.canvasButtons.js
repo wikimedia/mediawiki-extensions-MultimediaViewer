@@ -54,12 +54,12 @@ class CanvasButtons extends UiElement {
 
 		this.$next = $( '<button>' )
 			.prop( 'title', mw.msg( 'multimediaviewer-next-image-alt-text' ) )
-			.addClass( 'cdx-button cdx-button--icon-only cdx-button--size-large mw-mmv-button mw-mmv-next-image disabled' )
+			.addClass( 'cdx-button cdx-button--icon-only cdx-button--size-large mw-mmv-button mw-mmv-next-image' )
 			.append( $( '<span>' ).addClass( 'mw-mmv-icon' ) );
 
 		this.$prev = $( '<button>' )
 			.prop( 'title', mw.msg( 'multimediaviewer-prev-image-alt-text' ) )
-			.addClass( 'cdx-button cdx-button--icon-only cdx-button--size-large mw-mmv-button mw-mmv-prev-image disabled' )
+			.addClass( 'cdx-button cdx-button--icon-only cdx-button--size-large mw-mmv-button mw-mmv-prev-image' )
 			.append( $( '<span>' ).addClass( 'mw-mmv-icon' ) );
 
 		this.$nav = this.$next
@@ -101,17 +101,6 @@ class CanvasButtons extends UiElement {
 		this.$nav.css( {
 			top: offset
 		} );
-	}
-
-	/**
-	 * Toggles buttons being disabled or not
-	 *
-	 * @param {boolean} showPrevButton
-	 * @param {boolean} showNextButton
-	 */
-	toggle( showPrevButton, showNextButton ) {
-		this.$next.toggleClass( 'disabled', !showPrevButton );
-		this.$prev.toggleClass( 'disabled', !showNextButton );
 	}
 
 	/**
