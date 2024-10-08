@@ -47,7 +47,6 @@ class ReuseDialog extends Dialog {
 		this.handleEvent( 'mmv-reuse-open', this.handleOpenCloseClick.bind( this ) );
 
 		this.handleEvent( 'mmv-download-open', this.closeDialog.bind( this ) );
-		this.handleEvent( 'mmv-options-open', this.closeDialog.bind( this ) );
 	}
 
 	/**

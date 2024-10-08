@@ -39,7 +39,6 @@ const Permission = require( './ui/mmv.ui.permission.js' );
 const ProgressBar = require( './ui/mmv.ui.progressBar.js' );
 const StripeButtons = require( './ui/mmv.ui.stripeButtons.js' );
 const TruncatableTextField = require( './ui/mmv.ui.truncatableTextField.js' );
-const OptionsDialog = require( './ui/mmv.ui.viewingOptions.js' );
 const LightboxInterface = require( './mmv.lightboxinterface.js' );
 const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 const { extensions, useThumbnailGuessing } = require( './config.json' );
@@ -884,7 +883,6 @@ module.exports = {
 	MetadataPanel,
 	MetadataPanelScroller,
 	MultimediaViewer,
-	OptionsDialog,
 	Permission,
 	ProgressBar,
 	StripeButtons,

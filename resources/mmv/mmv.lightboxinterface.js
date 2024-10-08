@@ -18,7 +18,6 @@
 const Canvas = require( './ui/mmv.ui.canvas.js' );
 const CanvasButtons = require( './ui/mmv.ui.canvasButtons.js' );
 const MetadataPanel = require( './ui/mmv.ui.metadataPanel.js' );
-const OptionsDialog = require( './ui/mmv.ui.viewingOptions.js' );
 const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 const UiElement = require( './ui/mmv.ui.js' );
 
@@ -122,7 +121,6 @@ class LightboxInterface extends UiElement {
 			this.downloadDialog = new DownloadDialog( this.$preDiv, this.buttons.$download );
 			return this.downloadDialog;
 		} );
-		this.optionsDialog = new OptionsDialog( this.$preDiv, this.buttons.$options );
 	}
 
 	/**
@@ -248,7 +246,6 @@ class LightboxInterface extends UiElement {
 
 		this.fileReuse.attach();
 		this.downloadDialog.attach();
-		this.optionsDialog.attach();
 
 		this.attached = true;
 	}
@@ -284,9 +281,6 @@ class LightboxInterface extends UiElement {
 
 		this.downloadDialog.unattach();
 		this.downloadDialog.closeDialog();
-
-		this.optionsDialog.unattach();
-		this.optionsDialog.closeDialog();
 
 		// Canvas listens for events from dialogs, so should be unattached at the end
 		this.canvas.unattach();

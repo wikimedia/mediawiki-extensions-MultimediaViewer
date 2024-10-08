@@ -40,12 +40,6 @@ class CanvasButtons extends UiElement {
 			.prop( 'title', mw.msg( 'multimediaviewer-reuse-link' ) )
 			.append( $( '<span>' ).addClass( 'mw-mmv-icon' ) );
 
-		this.$options = $( '<button>' )
-			.text( ' ' )
-			.prop( 'title', mw.msg( 'multimediaviewer-options-tooltip' ) )
-			.addClass( 'cdx-button cdx-button--icon-only mw-mmv-button mw-mmv-options-button' )
-			.append( $( '<span>' ).addClass( 'mw-mmv-icon' ) );
-
 		this.$download = $( '<a>' )
 			.attr( 'role', 'button' )
 			.addClass( 'cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--icon-only mw-mmv-button mw-mmv-download-button' )
@@ -69,7 +63,6 @@ class CanvasButtons extends UiElement {
 			.add( this.$download )
 			.add( this.$reuse )
 			.add( this.$fullscreen )
-			.add( this.$options )
 			.add( this.$next )
 			.add( this.$prev );
 
@@ -121,8 +114,6 @@ class CanvasButtons extends UiElement {
 	 * @fires ReuseDialog#mmv-reuse-closed
 	 * @fires DownloadDialog#mmv-download-opened
 	 * @fires DownloadDialog#mmv-download-closed
-	 * @fires OptionsDialog#mmv-options-opened
-	 * @fires OptionsDialog#mmv-options-closed
 	 */
 	attach() {
 		this.$reuse.on( 'click.mmv-canvasButtons', ( e ) => {
@@ -139,16 +130,8 @@ class CanvasButtons extends UiElement {
 		this.handleEvent( 'mmv-download-opened', () => this.$download.addClass( 'open' ) );
 		this.handleEvent( 'mmv-download-closed', () => this.$download.removeClass( 'open' ) );
 
-		this.$options.on( 'click.mmv-canvasButtons', ( e ) => {
-			$( document ).trigger( 'mmv-options-open', e );
-			e.stopPropagation();
-		} );
-		this.handleEvent( 'mmv-options-opened', () => this.$options.addClass( 'open' ) );
-		this.handleEvent( 'mmv-options-closed', () => this.$options.removeClass( 'open' ) );
-
 		this.$download
 			.add( this.$reuse )
-			.add( this.$options )
 			.add( this.$close )
 			.add( this.$fullscreen );
 	}
