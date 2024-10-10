@@ -60,19 +60,6 @@
 	min-height: @buttons-size;
 }
 
-// Vertical positioning of left/right button
-.mw-mmv-next-image,
-.mw-mmv-prev-image {
-	&.disabled {
-		display: none;
-		cursor: none;
-	}
-
-	.mw-mmv-icon {
-		mask-size: @buttons-icon-size-large;
-	}
-}
-
 // Per button positioning and providing icons
 .mw-mmv-close {
 	top: @buttons-offset-edge;
@@ -106,6 +93,7 @@
 	right: @size-icon-medium;
 
 	.mw-mmv-icon {
+		mask-size: @buttons-icon-size-large;
 		.cdx-mixin-css-icon( @cdx-icon-next, @param-fill-color: @color-inverted-fixed, @param-size-icon: @size-icon-medium );
 	}
 }
@@ -114,6 +102,7 @@
 	left: @size-icon-medium;
 
 	.mw-mmv-icon {
+		mask-size: @buttons-icon-size-large;
 		.cdx-mixin-css-icon( @cdx-icon-previous, @param-fill-color: @color-inverted-fixed, @param-size-icon: @size-icon-medium );
 	}
 }
