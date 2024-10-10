@@ -1,7 +1,16 @@
 const { Config } = require( 'mmv.bootstrap' );
 const { MetadataPanel, License } = require( 'mmv' );
 
-QUnit.module( 'mmv.ui.metadataPanel', QUnit.newMwEnvironment() );
+const mwMessagesExists = mw.messages.exists;
+QUnit.module( 'mmv.ui.metadataPanel', QUnit.newMwEnvironment( {
+	beforeEach: () => {
+		// mock mw.messages.exists for License.getShortLink (multimediaviewer-license-cc-by-2.0)
+		mw.messages.exists = () => true;
+	},
+	afterEach: () => {
+		mw.messages.exists = mwMessagesExists;
+	}
+} ) );
 
 QUnit.test( '.empty()', ( assert ) => {
 	const $qf = $( '#qunit-fixture' );
@@ -46,9 +55,7 @@ QUnit.test( '.setLocationData()', ( assert ) => {
 	const imageData = {
 		latitude: latitude,
 		longitude: longitude,
-		hasCoords: function () {
-			return true;
-		},
+		hasCoords: () => true,
 		title: mw.Title.newFromText( 'File:Foobar.jpg' )
 	};
 
@@ -116,9 +123,7 @@ QUnit.test( '.setImageInfo()', function ( assert ) {
 		title: image.filePageTitle,
 		url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
 		descriptionUrl: 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
-		hasCoords: function () {
-			return false;
-		}
+		hasCoords: () => false
 	};
 	const clock = this.sandbox.useFakeTimers();
 
