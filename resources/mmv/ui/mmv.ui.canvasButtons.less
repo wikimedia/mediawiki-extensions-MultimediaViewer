@@ -51,7 +51,6 @@
 // Positioning of buttons
 .mw-mmv-download-button,
 .mw-mmv-reuse-button,
-.mw-mmv-options-button,
 .mw-mmv-close,
 .mw-mmv-fullscreen {
 	right: @buttons-offset-edge;
@@ -78,14 +77,6 @@
 		.jq-fullscreened & {
 			.cdx-mixin-css-icon( @cdx-icon-exit-fullscreen, @param-fill-color: @color-inverted-fixed );
 		}
-	}
-}
-
-.mw-mmv-options-button {
-	top: ( @buttons-offset-edge + ( 2 * @buttons-offset-each ) );
-
-	.mw-mmv-icon {
-		.cdx-mixin-css-icon( @cdx-icon-settings, @param-fill-color: @color-inverted-fixed );
 	}
 }
 

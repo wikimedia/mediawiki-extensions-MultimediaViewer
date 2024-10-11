@@ -50,4 +50,3 @@ require( './ui/mmv.ui.reuse.embed.test.js' );
 require( './ui/mmv.ui.reuse.share.test.js' );
 require( './ui/mmv.ui.reuse.utils.test.js' );
 require( './ui/mmv.ui.truncatableTextField.test.js' );
-require( './ui/mmv.ui.viewingOptions.test.js' );

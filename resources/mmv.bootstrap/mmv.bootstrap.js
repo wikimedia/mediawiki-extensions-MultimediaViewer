@@ -392,16 +392,9 @@ class MultimediaViewerBootstrap {
 			.append( ' ' )
 			.append( mw.msg( 'multimediaviewer-view-expanded' ) );
 
-		const $configButton = $( '<button>' )
-			.attr( 'title', mw.msg( 'multimediaviewer-view-config' ) )
-			.addClass( 'mw-mmv-view-config cdx-button cdx-button--icon-only' )
-			.append( $( '<span>' ).addClass( 'cdx-button__icon' ) )
-			// U+200B ZERO WIDTH SPACE to accomplish same height as $mmvButton
-			.append( '\u200B' );
-
 		const $filepageButtons = $( '<div>' )
 			.addClass( 'cdx-button-group mw-mmv-filepage-buttons' )
-			.append( $mmvButton, $configButton );
+			.append( $mmvButton );
 
 		// eslint-disable-next-line no-jquery/no-global-selector
 		$( '.fullMedia' ).append(
@@ -421,14 +414,6 @@ class MultimediaViewerBootstrap {
 		this.thumbs.push( image );
 
 		$mmvButton.on( 'click', () => {
-			this.openImage( image );
-			return false;
-		} );
-
-		$configButton.on( 'click', () => {
-			$( document ).one( 'mmv-metadata', () => {
-				$( document ).trigger( 'mmv-options-open' );
-			} );
 			this.openImage( image );
 			return false;
 		} );

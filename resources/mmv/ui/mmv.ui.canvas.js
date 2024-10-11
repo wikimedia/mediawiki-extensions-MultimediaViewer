@@ -155,15 +155,9 @@ class Canvas extends UiElement {
 			case 'mmv-reuse-closed':
 				this.reuseOpen = false;
 				break;
-			case 'mmv-options-opened':
-				this.optionsOpen = true;
-				break;
-			case 'mmv-options-closed':
-				this.optionsOpen = false;
-				break;
 		}
 
-		this.dialogOpen = this.reuseOpen || this.downloadOpen || this.optionsOpen;
+		this.dialogOpen = this.reuseOpen || this.downloadOpen;
 		this.$image.toggleClass( 'mw-mmv-dialog-is-open', this.dialogOpen );
 	}
 
@@ -174,16 +168,12 @@ class Canvas extends UiElement {
 	 * @fires ReuseDialog#mmv-reuse-closed
 	 * @fires DownloadDialog#mmv-download-opened
 	 * @fires DownloadDialog#mmv-download-closed
-	 * @fires OptionsDialog#mmv-options-opened
-	 * @fires OptionsDialog#mmv-options-closed
 	 */
 	setUpImageClick() {
 		this.handleEvent( 'mmv-reuse-opened', this.handleDialogEvent.bind( this ) );
 		this.handleEvent( 'mmv-reuse-closed', this.handleDialogEvent.bind( this ) );
 		this.handleEvent( 'mmv-download-opened', this.handleDialogEvent.bind( this ) );
 		this.handleEvent( 'mmv-download-closed', this.handleDialogEvent.bind( this ) );
-		this.handleEvent( 'mmv-options-opened', this.handleDialogEvent.bind( this ) );
-		this.handleEvent( 'mmv-options-closed', this.handleDialogEvent.bind( this ) );
 
 		this.$image.on( 'click.mmv-canvas', ( e ) => {
 			// ignore clicks if the metadata panel or one of the dialogs is open - assume the intent is to
