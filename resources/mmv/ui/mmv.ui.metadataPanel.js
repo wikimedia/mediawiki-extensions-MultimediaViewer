@@ -23,7 +23,6 @@ const Permission = require( './mmv.ui.permission.js' );
 const ProgressBar = require( './mmv.ui.progressBar.js' );
 const StripeButtons = require( './mmv.ui.stripeButtons.js' );
 const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
-const { infoLink } = require( '../config.json' );
 
 /**
  * Represents the metadata panel in the viewer
@@ -42,7 +41,6 @@ class MetadataPanel extends UiElement {
 
 		this.initializeHeader();
 		this.initializeImageMetadata();
-		this.initializeAboutLinks();
 	}
 
 	/**
@@ -353,23 +351,6 @@ class MetadataPanel extends UiElement {
 		this.$location = $( '<a>' )
 			.addClass( 'mw-mmv-location' )
 			.appendTo( this.$locationLi );
-	}
-
-	/**
-	 * Initializes two about links at the bottom of the panel.
-	 */
-	initializeAboutLinks() {
-		this.$mmvAboutLink = $( '<a>' )
-			.prop( 'href', infoLink )
-			.text( mw.msg( 'multimediaviewer-about-mmv' ) )
-			.addClass( 'mw-mmv-about-link' );
-
-		this.$mmvAboutLinks = $( '<div>' )
-			.addClass( 'mw-mmv-about-links' )
-			.append(
-				this.$mmvAboutLink
-			)
-			.appendTo( this.$imageMetadata );
 	}
 
 	/* Setters */

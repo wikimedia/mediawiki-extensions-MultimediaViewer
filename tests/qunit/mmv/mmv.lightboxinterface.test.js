@@ -203,7 +203,7 @@ const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
 
 		panelBottom = $( '.mw-mmv-post-image' ).position().top + $( '.mw-mmv-post-image' ).height();
 
-		assert.true( panelBottom > $( window ).height(), 'Image metadata extends beyond the viewport' );
+		assert.false( panelBottom > $( window ).height(), 'Image metadata does not extend beyond the viewport' );
 		assert.strictEqual( lightbox.isFullscreen, false, 'Lightbox knows that it\'s not in fullscreen mode' );
 
 		// Unattach lightbox from document
