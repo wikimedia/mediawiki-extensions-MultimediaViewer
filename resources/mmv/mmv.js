@@ -706,8 +706,8 @@ class MultimediaViewer {
 	 * Sets up the route handlers
 	 */
 	setupRouter() {
-		// handle empty hashes, and anchor links (page sections)
-		this.router.addRoute( /^[^/]*$/, () => {
+		// handle empty hashes, and anchor links (page sections, possibly including /)
+		this.router.addRoute( /.*$/, () => {
 			if ( this.isOpen ) {
 				comingFromHashChange = true;
 				document.title = this.createDocumentTitle( null );
