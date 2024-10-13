@@ -93,7 +93,6 @@ class MultimediaViewerBootstrap {
 	 */
 	setupRouter( router ) {
 		router.addRoute( Config.ROUTE_REGEXP, this.route.bind( this ) );
-		router.addRoute( Config.LEGACY_ROUTE_REGEXP, this.route.bind( this ) );
 		this.router = router;
 	}
 
@@ -549,7 +548,7 @@ class MultimediaViewerBootstrap {
 	 */
 	isViewerHash() {
 		const path = location.hash.slice( 1 );
-		return path.match( Config.ROUTE_REGEXP ) || path.match( Config.LEGACY_ROUTE_REGEXP );
+		return path.match( Config.ROUTE_REGEXP );
 	}
 
 	/**
