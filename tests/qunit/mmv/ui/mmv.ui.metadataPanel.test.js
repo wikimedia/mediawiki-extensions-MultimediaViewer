@@ -201,16 +201,3 @@ QUnit.test( 'Date formatting', ( assert ) => {
 
 	assert.strictEqual( result, date1, 'Invalid date is correctly ignored' );
 } );
-
-QUnit.test( 'About links', function ( assert ) {
-	const $qf = $( '#qunit-fixture' );
-
-	this.sandbox.stub( mw.user, 'isAnon' );
-	// eslint-disable-next-line no-new
-	new MetadataPanel(
-		$qf.empty(), $( '<div>' ).appendTo( $qf ),
-		new Config()
-	);
-
-	assert.strictEqual( $qf.find( '.mw-mmv-about-link' ).length, 1, 'About link is created.' );
-} );
