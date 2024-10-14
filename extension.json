@@ -91,7 +91,6 @@
 			"dependencies": [
 				"mediawiki.api",
 				"mediawiki.Title",
-				"mediawiki.Uri",
 				"mediawiki.jqueryMsg",
 				"mediawiki.router",
 				"mediawiki.storage",
