@@ -34,7 +34,6 @@
 	"multimediaviewer-restriction-trademarked": "Sellel pildil on elemente, mille suhtes võidakse kohaldada kaubamärgiseadusi.",
 	"multimediaviewer-restriction-default": "Selle pildi kasutus võib olla piiratud õiguslike sätetega, mis ei tulene autoriõiguse seadusest. Üksikasjade kohta vaata pildi kirjeldusleheküljelt.",
 	"multimediaviewer-restriction-default-and-others": "Selle pildi kasutust võivad piirata ka õiguslikud sätted, mis ei tulene autoriõiguse seadusest. Üksikasjade kohta vaata pildi kirjeldusleheküljelt.",
-	"multimediaviewer-about-mmv": "Failivaaturi kohta",
 	"multimediaviewer-geolocation": "Asukoht: $1",
 	"multimediaviewer-reuse-link": "Jaga või kasuta seda faili",
 	"multimediaviewer-reuse-loading-placeholder": "Laadimine...",
