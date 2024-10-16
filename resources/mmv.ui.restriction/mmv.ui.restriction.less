@@ -1,61 +1,70 @@
+@import 'mediawiki.skin.variables.less';
+
+.restriction-mask( @restriction-image ) {
+	background-color: @color-base;
+	mask-size: 16px;
+	-webkit-mask-image: @restriction-image;
+	mask-image: @restriction-image;
+}
+
 .mw-mmv-restriction-2257 {
 	/* @embed */
-	background-image: url( img/restrict-2257.svg );
+	.restriction-mask( url( img/restrict-2257.svg ) );
 }
 
 .mw-mmv-restriction-aus-reserve {
 	/* @embed */
-	background-image: url( img/restrict-aus-reserve.svg );
+	.restriction-mask( url( img/restrict-aus-reserve.svg ) );
 }
 
 .mw-mmv-restriction-communist {
 	/* @embed */
-	background-image: url( img/restrict-communist.svg );
+	.restriction-mask( url( img/restrict-communist.svg ) );
 }
 
 .mw-mmv-restriction-costume {
 	/* @embed */
-	background-image: url( img/restrict-costume.svg );
+	.restriction-mask( url( img/restrict-costume.svg ) );
 }
 
 .mw-mmv-restriction-currency {
 	/* @embed */
-	background-image: url( img/restrict-currency.svg );
+	.restriction-mask( url( img/restrict-currency.svg ) );
 }
 
 .mw-mmv-restriction-design {
 	/* @embed */
-	background-image: url( img/restrict-design.svg );
+	.restriction-mask( url( img/restrict-design.svg ) );
 }
 
 .mw-mmv-restriction-fan-art {
 	/* @embed */
-	background-image: url( img/restrict-fan-art.svg );
+	.restriction-mask( url( img/restrict-fan-art.svg ) );
 }
 
 .mw-mmv-restriction-ihl {
 	/* @embed */
-	background-image: url( img/restrict-ihl.svg );
+	.restriction-mask( url( img/restrict-ihl.svg ) );
 }
 
 .mw-mmv-restriction-insignia {
 	/* @embed */
-	background-image: url( img/restrict-insignia.svg );
+	.restriction-mask( url( img/restrict-insignia.svg ) );
 }
 
 .mw-mmv-restriction-ita-mibac {
 	/* @embed */
-	background-image: url( img/restrict-ita-mibac.svg );
+	.restriction-mask( url( img/restrict-ita-mibac.svg ) );
 }
 
 .mw-mmv-restriction-nazi {
 	/* @embed */
-	background-image: url( img/restrict-nazi.svg );
+	.restriction-mask( url( img/restrict-nazi.svg ) );
 }
 
 .mw-mmv-restriction-personality {
 	/* @embed */
-	background-image: url( img/restrict-personality.svg );
+	.restriction-mask( url( img/restrict-personality.svg ) );
 }
 
 .mw-mmv-restriction-trademarked::after {
@@ -64,5 +73,5 @@
 
 .mw-mmv-restriction-default {
 	/* @embed */
-	background-image: url( img/restrict-default.svg );
+	.restriction-mask( url( img/restrict-default.svg ) );
 }
