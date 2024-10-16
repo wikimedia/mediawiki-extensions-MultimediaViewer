@@ -18,10 +18,13 @@
 // This file is used to do the global initialization that we want on the real pages,
 // but do not want in the tests.
 
-const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
+const Config = require( './mmv.Config.js' );
+const MultimediaViewerBootstrap = require( './mmv.bootstrap.js' );
+const LightboxImage = require( './mmv.lightboximage.js' );
+const HtmlUtils = require( './mmv.HtmlUtils.js' );
 
 const bootstrap = new MultimediaViewerBootstrap();
 
 $( bootstrap.setupEventHandlers.bind( bootstrap ) );
 
-module.exports = bootstrap;
+module.exports = { MultimediaViewerBootstrap, LightboxImage, Config, HtmlUtils };

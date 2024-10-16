@@ -111,7 +111,7 @@ class Hooks implements
 		$isMobileFrontendView = ExtensionRegistry::getInstance()->isLoaded( 'MobileFrontend' ) &&
 			$this->mobileContext && $this->mobileContext->shouldDisplayMobileView();
 		if ( !$isMobileFrontendView ) {
-			$out->addModules( [ 'mmv.head', 'mmv.bootstrap.autostart' ] );
+			$out->addModules( [ 'mmv.bootstrap' ] );
 		}
 	}
 

@@ -97,8 +97,7 @@
 				"mediawiki.user",
 				"mediawiki.util",
 				"mmv.bootstrap",
-				"mmv.codex",
-				"mmv.head"
+				"mmv.codex"
 			],
 			"messages": [
 				"license-header",
@@ -279,6 +278,7 @@
 						"extensions": "MediaViewerExtensions"
 					}
 				},
+				"mmv.bootstrap/mmv.bootstrap.autostart.js",
 				"mmv.bootstrap/mmv.bootstrap.js",
 				"mmv.bootstrap/mmv.lightboximage.js",
 				"mmv.bootstrap/mmv.Config.js",
@@ -293,8 +293,7 @@
 				"mediawiki.router",
 				"mediawiki.Title",
 				"mediawiki.user",
-				"mediawiki.storage",
-				"mmv.head"
+				"mediawiki.storage"
 			],
 			"messages": [
 				"multimediaviewer-loading",
@@ -305,23 +304,12 @@
 			]
 		},
 		"mmv.bootstrap.autostart": {
-			"packageFiles": [
-				"mmv.bootstrap.autostart/mmv.bootstrap.autostart.js"
-			],
-			"dependencies": [
-				"mmv.head",
-				"mmv.bootstrap"
-			]
+			"deprecated": "Deprecated in 1.43, alias for mmw.bootstrap",
+			"dependencies": "mmv.bootstrap"
 		},
 		"mmv.head": {
-			"packageFiles": [
-				"mmv.head/mmv.head.js",
-				"mmv.head/base.js"
-			],
-			"dependencies": [
-				"mediawiki.user",
-				"mediawiki.storage"
-			]
+			"deprecated": "Deprecated in 1.43, alias for mmw.bootstrap",
+			"dependencies": "mmv.bootstrap"
 		}
 	},
 	"ResourceFileModulePaths": {
@@ -369,7 +357,6 @@
 			"tests/qunit/mmv/mmv.testhelpers.js"
 		],
 		"dependencies": [
-			"mmv.head",
 			"mmv.bootstrap",
 			"mmv",
 			"mmv.ui.reuse"

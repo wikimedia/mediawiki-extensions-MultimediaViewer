@@ -16,7 +16,6 @@
  */
 
 const { Config } = require( 'mmv.bootstrap' );
-const { getMediaHash } = require( 'mmv.head' );
 const ViewLogger = require( './logging/mmv.logging.ViewLogger.js' );
 const Api = require( './provider/mmv.provider.Api.js' );
 const GuessedThumbnailInfo = require( './provider/mmv.provider.GuessedThumbnailInfo.js' );
@@ -639,7 +638,7 @@ class MultimediaViewer {
 			const thumb = this.thumbs[ index ];
 			this.loadImage( thumb );
 			router.navigateTo( null, {
-				path: getMediaHash( thumb.filePageTitle, thumb.position ),
+				path: Config.getMediaHash( thumb.filePageTitle, thumb.position ),
 				useReplaceState: true
 			} );
 		}
