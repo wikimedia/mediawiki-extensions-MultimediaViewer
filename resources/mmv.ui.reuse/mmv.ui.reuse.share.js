@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { getMediaHash } = require( 'mmv.head' );
+const { Config } = require( 'mmv.bootstrap' );
 const Utils = require( './mmv.ui.utils.js' );
 const { UiElement } = require( 'mmv' );
 
@@ -56,7 +56,7 @@ class Share extends UiElement {
 	 * @param {ImageModel} image
 	 */
 	set( image ) {
-		const url = image.descriptionUrl + getMediaHash( image.title );
+		const url = image.descriptionUrl + Config.getMediaHash( image.title );
 		this.$pageInput.val( url );
 	}
 

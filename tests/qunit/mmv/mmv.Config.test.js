@@ -15,7 +15,6 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { isMediaViewerEnabledOnClick } = require( 'mmv.head' );
 const { Config } = require( 'mmv.bootstrap' );
 const { createLocalStorage, getFakeLocalStorage } = require( './mmv.testhelpers.js' );
 const config0 = mw.config;
@@ -46,39 +45,39 @@ const saveOption = mw.Api.prototype.saveOption;
 		mw.user.isNamed.returns( true );
 		mw.config.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mw.config, mw.user ), true, 'Returns true for logged-in with standard settings' );
+		assert.strictEqual( Config.isMediaViewerEnabledOnClick(), true, 'Returns true for logged-in with standard settings' );
 
 		mw.user.isNamed.returns( true );
 		mw.config.get.withArgs( 'wgMediaViewer' ).returns( false );
 		mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mw.config, mw.user ), false, 'Returns false if opted out via user JS flag' );
+		assert.strictEqual( Config.isMediaViewerEnabledOnClick(), false, 'Returns false if opted out via user JS flag' );
 
 		mw.user.isNamed.returns( true );
 		mw.config.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( false );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mw.config, mw.user ), false, 'Returns false if opted out via preferences' );
+		assert.strictEqual( Config.isMediaViewerEnabledOnClick(), false, 'Returns false if opted out via preferences' );
 
 		mw.user.isNamed.returns( false );
 		mw.config.get.withArgs( 'wgMediaViewer' ).returns( false );
 		mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mw.config, mw.user ), false, 'Returns false if anon user opted out via user JS flag' );
+		assert.strictEqual( Config.isMediaViewerEnabledOnClick(), false, 'Returns false if anon user opted out via user JS flag' );
 
 		mw.user.isNamed.returns( false );
 		mw.config.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( false );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mw.config, mw.user ), false, 'Returns false if anon user opted out in some weird way' ); // apparently someone created a browser extension to do this
+		assert.strictEqual( Config.isMediaViewerEnabledOnClick(), false, 'Returns false if anon user opted out in some weird way' ); // apparently someone created a browser extension to do this
 
 		mw.user.isNamed.returns( false );
 		mw.config.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
 		mw.storage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( null );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mw.config, mw.user ), true, 'Returns true for anon with standard settings' );
+		assert.strictEqual( Config.isMediaViewerEnabledOnClick(), true, 'Returns true for anon with standard settings' );
 
 		mw.user.isNamed.returns( false );
 		mw.config.get.withArgs( 'wgMediaViewer' ).returns( true );
 		mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
 		mw.storage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( '0' );
-		assert.strictEqual( isMediaViewerEnabledOnClick( mw.config, mw.user ), false, 'Returns true for anon opted out via localSettings' );
+		assert.strictEqual( Config.isMediaViewerEnabledOnClick(), false, 'Returns true for anon opted out via localSettings' );
 	} );
 
 	QUnit.test( 'setMediaViewerEnabledOnClick sense check', function ( assert ) {

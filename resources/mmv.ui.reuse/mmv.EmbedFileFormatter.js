@@ -15,8 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { getMediaHash } = require( 'mmv.head' );
-const { HtmlUtils } = require( 'mmv.bootstrap' );
+const { Config, HtmlUtils } = require( 'mmv.bootstrap' );
 
 /**
  * Converts data in various formats needed by the Embed sub-dialog
@@ -173,7 +172,7 @@ class EmbedFileFormatter {
 		return HtmlUtils.jqueryToHtml(
 			$( '<p>' ).append(
 				$( '<a>' )
-					.attr( 'href', info.imageInfo.descriptionUrl + getMediaHash( info.imageInfo.title ) )
+					.attr( 'href', info.imageInfo.descriptionUrl + Config.getMediaHash( info.imageInfo.title ) )
 					.append(
 						$( '<img>' )
 							.attr( 'src', imgUrl )

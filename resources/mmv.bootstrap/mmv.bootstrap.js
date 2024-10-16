@@ -15,7 +15,6 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { getMediaHash, ROUTE_REGEXP, POSITION_REGEXP, LEGACY_ROUTE_REGEXP, isMediaViewerEnabledOnClick } = require( 'mmv.head' );
 const Config = require( './mmv.Config.js' );
 const HtmlUtils = require( './mmv.HtmlUtils.js' );
 const LightboxImage = require( './mmv.lightboximage.js' );
@@ -70,10 +69,10 @@ class MultimediaViewerBootstrap {
 			let fileTitle;
 			viewer.comingFromHashChange = true;
 			try {
-				let position = fileName.match( POSITION_REGEXP );
+				let position = fileName.match( Config.POSITION_REGEXP );
 				if ( position ) {
 					position = +position[ 1 ];
-					fileName = fileName.replace( POSITION_REGEXP, '' );
+					fileName = fileName.replace( Config.POSITION_REGEXP, '' );
 				} else {
 					position = undefined;
 				}
@@ -93,8 +92,8 @@ class MultimediaViewerBootstrap {
 	 * @param {OO.Router} router
 	 */
 	setupRouter( router ) {
-		router.addRoute( ROUTE_REGEXP, this.route.bind( this ) );
-		router.addRoute( LEGACY_ROUTE_REGEXP, this.route.bind( this ) );
+		router.addRoute( Config.ROUTE_REGEXP, this.route.bind( this ) );
+		router.addRoute( Config.LEGACY_ROUTE_REGEXP, this.route.bind( this ) );
 		this.router = router;
 	}
 
@@ -206,9 +205,6 @@ class MultimediaViewerBootstrap {
 			this.$parsoidThumbs.each( ( i, thumb ) => this.processParsoidThumb( thumb ) );
 		} finally {
 			this.thumbsReadyDeferred.resolve();
-			// now that we have set up our real click handler we can remove the temporary
-			// handler added in mmv.head.js which just replays clicks to the real handler
-			$( document ).off( 'click.mmv-head' );
 		}
 	}
 
@@ -248,7 +244,7 @@ class MultimediaViewerBootstrap {
 		$thumbContainer.on( {
 			mouseenter: () => {
 				// There is no point preloading if clicking the thumb won't open Media Viewer
-				if ( !isMediaViewerEnabledOnClick() ) {
+				if ( !Config.isMediaViewerEnabledOnClick() ) {
 					return;
 				}
 				this.preloadOnHoverTimer = setTimeout( () => {
@@ -507,7 +503,7 @@ class MultimediaViewerBootstrap {
 	 */
 	openImage( image ) {
 		this.ensureEventHandlersAreSetUp();
-		const hash = getMediaHash( image.filePageTitle, image.position );
+		const hash = Config.getMediaHash( image.filePageTitle, image.position );
 		location.hash = hash;
 		history.replaceState( MANAGED_STATE, null, hash );
 	}
@@ -527,7 +523,7 @@ class MultimediaViewerBootstrap {
 		}
 
 		// Don't load if someone has specifically stopped us from doing so
-		if ( !isMediaViewerEnabledOnClick() ) {
+		if ( !Config.isMediaViewerEnabledOnClick() ) {
 			return true;
 		}
 
@@ -553,7 +549,7 @@ class MultimediaViewerBootstrap {
 	 */
 	isViewerHash() {
 		const path = location.hash.slice( 1 );
-		return path.match( ROUTE_REGEXP ) || path.match( LEGACY_ROUTE_REGEXP );
+		return path.match( Config.ROUTE_REGEXP ) || path.match( Config.LEGACY_ROUTE_REGEXP );
 	}
 
 	/**
@@ -685,4 +681,4 @@ class MultimediaViewerBootstrap {
 	}
 }
 
-module.exports = { MultimediaViewerBootstrap, LightboxImage, Config, HtmlUtils };
+module.exports = MultimediaViewerBootstrap;

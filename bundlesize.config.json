@@ -18,15 +18,7 @@
 		},
 		{
 			"resourceModule": "mmv.bootstrap",
-			"maxSize": "5.9 kB"
-		},
-		{
-			"resourceModule": "mmv.bootstrap.autostart",
-			"maxSize": "1 kB"
-		},
-		{
-			"resourceModule": "mmv.head",
-			"maxSize": "1 kB"
+			"maxSize": "5.6 kB"
 		}
 	]
 }

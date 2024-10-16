@@ -15,13 +15,74 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { isMediaViewerEnabledOnClick } = require( 'mmv.head' );
 const api = new mw.Api();
 
 /**
  * Contains/retrieves configuration/environment information for MediaViewer.
  */
 class Config {
+
+	/**
+	 * The media route prefix
+	 *
+	 * @return {string}
+	 */
+	static get ROUTE() {
+		return 'media';
+	}
+
+	/**
+	 * RegExp representing the media route
+	 *
+	 * @return {RegExp}
+	 */
+	static get ROUTE_REGEXP() {
+		return /^\/media\/(.+)$/;
+	}
+
+	/**
+	 * RegExp representing the media position as in "File:foo.jpg/3"
+	 *
+	 * @return {RegExp}
+	 */
+	static get POSITION_REGEXP() {
+		return /\/(\d+)$/;
+	}
+
+	/**
+	 * Regular expression representing the legacy media route
+	 *
+	 * @return {RegExp}
+	 */
+	static get LEGACY_ROUTE_REGEXP() {
+		return /^mediaviewer\/(.+)$/;
+	}
+
+	/**
+	 * Returns true if MediaViewer should handle thumbnail clicks.
+	 *
+	 * @return {boolean}
+	 */
+	static isMediaViewerEnabledOnClick() {
+		return mw.config.get( 'wgMediaViewer' ) && // global opt-out switch, can be set in user JS
+			mw.config.get( 'wgMediaViewerOnClick' ) && // thumbnail opt-out, can be set in preferences
+			( mw.user.isNamed() || !mw.storage.get( 'wgMediaViewerOnClick' ) || mw.storage.get( 'wgMediaViewerOnClick' ) === '1' ); // thumbnail opt-out for anons
+	}
+
+	/**
+	 * Returns the location hash (route string) for the given file title.
+	 *
+	 * @param {string} imageFileTitle the file title
+	 * @param {number} [position] the relative position of this image to others with same file
+	 * @return {string} the location hash
+	 * @member mw.mmv
+	 */
+	static getMediaHash( imageFileTitle, position ) {
+		return position > 1 ?
+			`#/${ this.ROUTE }/${ encodeURI( imageFileTitle ) }/${ position }` :
+			`#/${ this.ROUTE }/${ encodeURI( imageFileTitle ) }`;
+	}
+
 	/**
 	 * (Semi-)permanently stores the setting whether MediaViewer should handle thumbnail clicks.
 	 * - for logged-in users, we use preferences
@@ -79,7 +140,7 @@ class Config {
 	 * @return {boolean}
 	 */
 	static shouldShowStatusInfo() {
-		return !isMediaViewerEnabledOnClick( mw.config, mw.user, mw.storage ) && mw.storage.get( 'mmv-showStatusInfo' ) === '1';
+		return !this.isMediaViewerEnabledOnClick() && mw.storage.get( 'mmv-showStatusInfo' ) === '1';
 	}
 
 	/**
@@ -112,4 +173,5 @@ class Config {
 	}
 }
 
+mw.mmv = Config;
 module.exports = Config;
