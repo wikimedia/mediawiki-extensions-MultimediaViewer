@@ -450,6 +450,24 @@ const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 		}
 	} );
 
+	QUnit.test( 'Viewer is closed then navigating to #foo/bar/baz (page section including slash)', function ( assert ) {
+		location.hash = '#/media/foo';
+
+		const viewer = getMultimediaViewer();
+		viewer.isOpen = true;
+		viewer.ui = undefined;
+		this.sandbox.stub( viewer, 'close' );
+
+		location.hash = '#foo/bar/baz';
+
+		// Wait for route event handler to execute
+		const done = assert.async();
+		setTimeout( () => {
+			assert.true( viewer.close.called, 'The viewer was closed' );
+			done();
+		}, 100 );
+	} );
+
 	QUnit.test( 'Refuse to load too-big thumbnails', ( assert ) => {
 		let expectedWidth;
 		const reuestedWidth = 1000;
