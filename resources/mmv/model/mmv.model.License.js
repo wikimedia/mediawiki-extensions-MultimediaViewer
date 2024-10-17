@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { HtmlUtils } = require( 'mmv.bootstrap' );
+const HtmlUtils = require( '../mmv.HtmlUtils.js' );
 
 /**
  * Class for storing license information about an image. For available fields, see

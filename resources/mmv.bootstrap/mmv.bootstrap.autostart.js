@@ -21,10 +21,9 @@
 const Config = require( './mmv.Config.js' );
 const MultimediaViewerBootstrap = require( './mmv.bootstrap.js' );
 const LightboxImage = require( './mmv.lightboximage.js' );
-const HtmlUtils = require( './mmv.HtmlUtils.js' );
 
 const bootstrap = new MultimediaViewerBootstrap();
 
 $( bootstrap.setupEventHandlers.bind( bootstrap ) );
 
-module.exports = { MultimediaViewerBootstrap, LightboxImage, Config, HtmlUtils };
+module.exports = { MultimediaViewerBootstrap, LightboxImage, Config };

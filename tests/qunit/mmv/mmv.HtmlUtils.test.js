@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { HtmlUtils } = require( 'mmv.bootstrap' );
+const { HtmlUtils } = require( 'mmv' );
 
 ( function () {
 	/* eslint-disable no-jquery/no-parse-html-literal */

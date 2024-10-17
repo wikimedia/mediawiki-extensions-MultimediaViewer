@@ -16,6 +16,7 @@
  */
 
 const { Config } = require( 'mmv.bootstrap' );
+const HtmlUtils = require( './mmv.HtmlUtils.js' );
 const ViewLogger = require( './logging/mmv.logging.ViewLogger.js' );
 const Api = require( './provider/mmv.provider.Api.js' );
 const GuessedThumbnailInfo = require( './provider/mmv.provider.GuessedThumbnailInfo.js' );
@@ -265,7 +266,9 @@ class MultimediaViewer {
 				if ( this.currentIndex === image.index ) {
 					// Set title to caption or file name if caption is not available;
 					// see setTitle() in mmv.ui.metadataPanel for extended caption fallback
-					this.ui.panel.showError( image.caption || image.filePageTitle.getNameText(), error );
+					this.ui.panel.showError( image.caption ?
+						HtmlUtils.htmlToTextWithTags( image.caption ) :
+						image.filePageTitle.getNameText(), error );
 				}
 
 				return $.Deferred().reject( error );
@@ -871,6 +874,7 @@ module.exports = {
 	Description,
 	Dialog,
 	GuessedThumbnailInfo,
+	HtmlUtils,
 	ImageInfo,
 	ImageModel,
 	ImageProvider,

@@ -15,7 +15,8 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { Config, HtmlUtils } = require( 'mmv.bootstrap' );
+const { Config } = require( 'mmv.bootstrap' );
+const { HtmlUtils } = require( 'mmv' );
 
 /**
  * Converts data in various formats needed by the Embed sub-dialog

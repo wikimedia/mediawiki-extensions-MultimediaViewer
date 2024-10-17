@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { HtmlUtils } = require( 'mmv.bootstrap' );
+const HtmlUtils = require( '../mmv.HtmlUtils.js' );
 const Description = require( './mmv.ui.description.js' );
 const UiElement = require( './mmv.ui.js' );
 const MetadataPanelScroller = require( './mmv.ui.metadataPanelScroller.js' );

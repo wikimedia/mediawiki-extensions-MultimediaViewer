@@ -16,7 +16,6 @@
  */
 
 const Config = require( './mmv.Config.js' );
-const HtmlUtils = require( './mmv.HtmlUtils.js' );
 const LightboxImage = require( './mmv.lightboximage.js' );
 const { extensions } = require( './config.json' );
 const mwRouter = require( 'mediawiki.router' );
@@ -332,7 +331,6 @@ class MultimediaViewerBootstrap {
 		);
 		const title = mw.Title.newFromImg( $thumb );
 		let caption;
-		let $thumbCaption;
 
 		if ( !this.isValidExtension( title ) ) {
 			// Short-circuit event handler and interface setup, because
@@ -349,8 +347,7 @@ class MultimediaViewerBootstrap {
 		}
 
 		if ( ( $thumbContainer.prop( 'tagName' ) || '' ).toLowerCase() === 'figure' ) {
-			$thumbCaption = $thumbContainer.find( 'figcaption' );
-			caption = HtmlUtils.htmlToTextWithTags( $thumbCaption.html() || '' );
+			caption = $thumbContainer.find( 'figcaption' ).html() || '';
 		} else {
 			caption = $link.prop( 'title' ) || undefined;
 		}
@@ -482,7 +479,7 @@ class MultimediaViewerBootstrap {
 			$thumbCaption.find( '.magnify' ).remove();
 		}
 
-		return HtmlUtils.htmlToTextWithTags( $thumbCaption.html() || '' );
+		return $thumbCaption.html() || '';
 	}
 
 	/**

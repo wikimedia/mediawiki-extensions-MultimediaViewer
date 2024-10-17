@@ -62,6 +62,7 @@
 				"mmv/provider/mmv.provider.ThumbnailInfo.js",
 				"mmv/provider/mmv.provider.GuessedThumbnailInfo.js",
 				"mmv/provider/mmv.provider.Image.js",
+				"mmv/mmv.HtmlUtils.js",
 				"mmv/mmv.ThumbnailWidthCalculator.js",
 				"mmv/ui/mmv.ui.js",
 				"mmv/ui/mmv.ui.dialog.js",
@@ -281,8 +282,7 @@
 				"mmv.bootstrap/mmv.bootstrap.autostart.js",
 				"mmv.bootstrap/mmv.bootstrap.js",
 				"mmv.bootstrap/mmv.lightboximage.js",
-				"mmv.bootstrap/mmv.Config.js",
-				"mmv.bootstrap/mmv.HtmlUtils.js"
+				"mmv.bootstrap/mmv.Config.js"
 			],
 			"styles": [
 				"mmv.bootstrap/mmv.bootstrap.less"
