@@ -42,20 +42,9 @@ body.mw-mmv-lightbox-open {
 	}
 }
 
-.mw-mmv-filepage-buttons {
-	margin-top: 5px;
-
-	.cdx-button:nth-child(n + 2) {
-		border-left: none;
-	}
-
-	.mw-mmv-view-expanded .cdx-button__icon {
+.mw-mmv-view-expanded {
+	.cdx-button__icon {
 		.cdx-mixin-css-icon( @cdx-icon-image-gallery, @param-is-button-icon: true,
-			@param-size-icon: @size-icon-small );
-	}
-
-	.mw-mmv-view-config .cdx-button__icon {
-		.cdx-mixin-css-icon( @cdx-icon-settings, @param-is-button-icon: true,
 			@param-size-icon: @size-icon-small );
 	}
 }

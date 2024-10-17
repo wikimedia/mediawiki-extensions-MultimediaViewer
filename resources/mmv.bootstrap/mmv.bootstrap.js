@@ -380,7 +380,7 @@ class MultimediaViewerBootstrap {
 		// remove the buttons (and the clearing element) if they are already there
 		// this should not happen (at least until we support paged media) but just in case
 		// eslint-disable-next-line no-jquery/no-global-selector
-		$( '.mw-mmv-filepage-buttons' ).next().addBack().remove();
+		$( '.mw-mmv-view-expanded' ).remove();
 
 		const $mmvButton = $( '<button>' )
 			.addClass( 'mw-mmv-view-expanded cdx-button' )
@@ -388,16 +388,8 @@ class MultimediaViewerBootstrap {
 			.append( ' ' )
 			.append( mw.msg( 'multimediaviewer-view-expanded' ) );
 
-		const $filepageButtons = $( '<div>' )
-			.addClass( 'cdx-button-group mw-mmv-filepage-buttons' )
-			.append( $mmvButton );
-
 		// eslint-disable-next-line no-jquery/no-global-selector
-		$( '.fullMedia' ).append(
-			$filepageButtons,
-			$( '<div>' )
-				.css( 'clear', 'both' )
-		);
+		$( '.fullMedia' ).append( $mmvButton );
 
 		const image = new LightboxImage(
 			$thumb.prop( 'src' ),
@@ -409,10 +401,7 @@ class MultimediaViewerBootstrap {
 		);
 		this.thumbs.push( image );
 
-		$mmvButton.on( 'click', () => {
-			this.openImage( image );
-			return false;
-		} );
+		$mmvButton.on( 'click', () => this.openImage( image ) );
 
 		if ( Config.shouldShowStatusInfo() ) {
 			Config.disableStatusInfo();

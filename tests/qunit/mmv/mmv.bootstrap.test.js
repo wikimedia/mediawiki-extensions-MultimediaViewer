@@ -235,9 +235,6 @@ const { asyncMethod, waitForAsync, getMultimediaViewer } = require( './mmv.testh
 		const $link4 = $( '.fullMedia .mw-mmv-view-expanded' );
 		assert.ok( $link4.length, 'Link for viewing expanded file was set up.' );
 
-		const $link5 = $( '.fullMedia .mw-mmv-view-config' );
-		assert.ok( $link5.length, 'Link for opening enable/disable configuration was set up.' );
-
 		// Click on valid link
 		$link.trigger( { type: 'click', which: 1 } );
 		clock.tick( 10 );
