@@ -6,7 +6,8 @@
 // Common to all buttons
 // We override the codex background and borders to be their forced darkmode variant
 // We use transparency on the background and on the icon color
-.cdx-button.mw-mmv-button {
+// Increase of specificity by class name repeat to avoid rare white boxes, T374373
+.cdx-button.mw-mmv-button.mw-mmv-button {
 	background-color: @buttons-background-color-faded;
 	position: fixed;
 	z-index: 1003;
