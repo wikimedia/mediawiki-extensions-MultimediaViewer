@@ -135,44 +135,40 @@ class MultimediaViewer {
 
 	/**
 	 * Handles resize events in viewer.
-	 *
-	 * @protected
-	 * @param {LightboxInterface} ui lightbox that got resized
 	 */
-	resize( ui ) {
+	resize() {
 		const image = this.thumbs[ this.currentIndex ];
 		const ext = this.thumbs[ this.currentIndex ].filePageTitle.getExtension().toLowerCase();
 
 		this.preloadThumbnails();
 
 		if ( image ) {
-			const imageWidths = ui.canvas.getCurrentImageWidths();
+			const imageWidths = this.ui.canvas.getCurrentImageWidths();
 
 			this.fetchThumbnailForLightboxImage(
 				image, imageWidths.real
 			).then( ( thumbnail, image2 ) => {
 				// eslint-disable-next-line mediawiki/class-doc
 				image2.className = ext;
-				this.setImage( ui, thumbnail, image2, imageWidths );
+				this.setImage( thumbnail, image2, imageWidths );
 			}, ( error ) => {
 				this.ui.canvas.showError( error );
 			} );
 		}
 
-		this.ui.updateControls();
+		this.ui.updateControls( this.thumbs.length > 1 );
 	}
 
 	/**
 	 * Loads and sets the specified image. It also updates the controls.
 	 *
-	 * @param {LightboxInterface} ui image container
 	 * @param {Thumbnail} thumbnail thumbnail information
 	 * @param {HTMLImageElement} imageElement
 	 * @param {ThumbnailWidth} imageWidths
 	 */
-	setImage( ui, thumbnail, imageElement, imageWidths ) {
-		ui.canvas.setImageAndMaxDimensions( thumbnail, imageElement, imageWidths );
-		this.ui.updateControls();
+	setImage( thumbnail, imageElement, imageWidths ) {
+		this.ui.canvas.setImageAndMaxDimensions( thumbnail, imageElement, imageWidths );
+		this.ui.updateControls( this.thumbs.length > 1 );
 	}
 
 	/**
@@ -338,7 +334,7 @@ class MultimediaViewer {
 	 */
 	displayRealThumbnail( thumbnail, imageElement, imageWidths ) {
 		this.realThumbnailShown = true;
-		this.setImage( this.ui, thumbnail, imageElement, imageWidths );
+		this.setImage( thumbnail, imageElement, imageWidths );
 		this.viewLogger.attach( thumbnail.url );
 	}
 
@@ -791,7 +787,7 @@ class MultimediaViewer {
 		$( document ).on( 'mmv-close.mmvp', () => {
 			this.close();
 		} ).on( 'mmv-resize-end.mmvp', () => {
-			this.resize( this.ui );
+			this.resize();
 		} ).on( 'mmv-request-thumbnail.mmvp', ( e, size ) => {
 			if ( this.currentImage && this.currentImage.filePageTitle ) {
 				return this.thumbnailInfoProvider.get( this.currentImage.filePageTitle, this.currentImage.src, size );
