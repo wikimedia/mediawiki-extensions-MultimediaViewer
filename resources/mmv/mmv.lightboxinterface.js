@@ -477,8 +477,10 @@ class LightboxInterface extends UiElement {
 
 	/**
 	 * Updates the next and prev buttons
+	 *
+	 * @param {boolean} showPrevNext Show prev/next button
 	 */
-	updateControls() {
+	updateControls( showPrevNext ) {
 		const prevNextTop = `${ ( this.$imageWrapper.height() - 60 ) / 2 }px`;
 
 		if ( this.isFullscreen ) {
@@ -488,6 +490,7 @@ class LightboxInterface extends UiElement {
 		}
 
 		this.buttons.setOffset( prevNextTop );
+		this.buttons.$nav.toggle( showPrevNext );
 	}
 
 	/**

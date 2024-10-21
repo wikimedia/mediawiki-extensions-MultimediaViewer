@@ -57,7 +57,8 @@ class CanvasButtons extends UiElement {
 			.append( $( '<span>' ).addClass( 'mw-mmv-icon' ) );
 
 		this.$nav = this.$next
-			.add( this.$prev );
+			.add( this.$prev )
+			.hide();
 
 		this.$buttons = this.$close
 			.add( this.$download )
@@ -69,7 +70,7 @@ class CanvasButtons extends UiElement {
 		this.$buttons.appendTo( this.$container );
 
 		$( document ).on( 'mmv-close', () => {
-			this.$nav.addClass( 'disabled' );
+			this.$nav.hide();
 		} );
 
 		this.$close.on( 'click', () => {
