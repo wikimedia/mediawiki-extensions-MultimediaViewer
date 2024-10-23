@@ -396,14 +396,6 @@ const { asyncMethod, waitForAsync, getMultimediaViewer } = require( './mmv.testh
 		return hashTest( '/media', bootstrap, assert );
 	} );
 
-	QUnit.test( 'Load the viewer on a legacy hash', ( assert ) => {
-		location.hash = '';
-
-		const bootstrap = createBootstrap();
-
-		return hashTest( 'mediaviewer', bootstrap, assert );
-	} );
-
 	QUnit.test( 'Overlay is set up on hash change', function ( assert ) {
 		location.hash = '#/media/foo';
 
