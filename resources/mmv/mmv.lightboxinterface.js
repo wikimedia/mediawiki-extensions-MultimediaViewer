@@ -492,7 +492,12 @@ class LightboxInterface extends UiElement {
 
 		this.buttons.setOffset( prevNextTop );
 		this.buttons.$nav.toggle( imageCount > 1 );
-		this.buttons.$currentImageNumber.show().html( `${ currentIndex + 1 }&nbsp;&frasl;&nbsp;${ imageCount }` );
+		this.buttons.$currentImageNumber.show().text(
+			mw.msg( 'multimediaviewer-current-image-number',
+				mw.language.convertNumber( currentIndex + 1 ),
+				mw.language.convertNumber( imageCount )
+			)
+		);
 	}
 
 	/**
