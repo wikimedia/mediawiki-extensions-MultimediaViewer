@@ -490,6 +490,8 @@ class LightboxInterface extends UiElement {
 			this.$postDiv.css( 'top', this.$imageWrapper.height() );
 		}
 
+		this.buttons.$prev.toggleClass( 'mw-mmv-prev-image-loop', currentIndex === 0 );
+		this.buttons.$next.toggleClass( 'mw-mmv-next-image-loop', currentIndex === imageCount - 1 );
 		this.buttons.setOffset( prevNextTop );
 		this.buttons.$nav.toggle( imageCount > 1 );
 		this.buttons.$currentImageNumber.show().text(
