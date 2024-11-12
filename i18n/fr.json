@@ -19,7 +19,8 @@
 			"Verdy p",
 			"Weft",
 			"Windes",
-			"Wladek92"
+			"Wladek92",
+			"Mahabarata"
 		]
 	},
 	"multimediaviewer-desc": "Agrandit les vignettes dans une interface en plein écran",
@@ -118,8 +119,8 @@
 	"multimediaviewer-large-embed-dimensions": "Grand $1",
 	"multimediaviewer-medium-embed-dimensions": "Moyen $1",
 	"multimediaviewer-small-embed-dimensions": "Petit $1",
-	"multimediaviewer-embed-dimensions": "$1 × $2 px",
-	"multimediaviewer-embed-dimensions-separated": "- $1",
+	"multimediaviewer-embed-dimensions": "$1×$2 px",
+	"multimediaviewer-embed-dimensions-separated": "($1)",
 	"multimediaviewer-description-page-button-text": "Plus de détails sur ce fichier",
 	"multimediaviewer-description-page-popup-text": "Plus de détails sur ce fichier sur $1",
 	"multimediaviewer-commons-subtitle": "La médiathèque libre",
@@ -156,5 +157,6 @@
 	"multimediaviewer-enable-alert": "La visionneuse de médias est maintenant désactivée",
 	"multimediaviewer-disable-info-title": "Vous avez désactivé la visionneuse de médias",
 	"multimediaviewer-disable-info": "Vous pouvez toujours consulter des fichiers individuels avec la visionneuse de médias.",
-	"multimediaviewer-errorreport-privacywarning": "Les détails sur l’erreur sont joints au rapport, qui sera visible publiquement. Si cela ne vous convient pas, vous pouvez modifier le rapport ci-dessous et supprimer toutes les données que vous ne voulez pas partager."
+	"multimediaviewer-errorreport-privacywarning": "Les détails sur l’erreur sont joints au rapport, qui sera visible publiquement. Si cela ne vous convient pas, vous pouvez modifier le rapport ci-dessous et supprimer toutes les données que vous ne voulez pas partager.",
+	"multimediaviewer-loading": "Chargement de la visionneuse multimédia."
 }
