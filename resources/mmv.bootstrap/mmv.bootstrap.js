@@ -601,7 +601,7 @@ class MultimediaViewerBootstrap {
 
 	/**
 	 * Makes sure event handlers are set up properly via MultimediaViewerBootstrap.setupEventHandlers().
-	 * Called before loading the main mmv module. At this point, event handers for MultimediaViewerBootstrap
+	 * Called before loading the main mmv module. At this point, event handlers for MultimediaViewerBootstrap
 	 * should have been set up, but due to bug 70756 it cannot be guaranteed.
 	 */
 	ensureEventHandlersAreSetUp() {
