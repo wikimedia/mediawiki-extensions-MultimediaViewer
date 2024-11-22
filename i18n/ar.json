@@ -128,5 +128,6 @@
 	"multimediaviewer-enable-alert": "عارض الوسائط غير مفعل الآن",
 	"multimediaviewer-disable-info-title": "لقد عطلت عارض الوسائط",
 	"multimediaviewer-disable-info": "ما زال بإمكانك عرض الملفات المنفردة بعارض الوسائط.",
-	"multimediaviewer-errorreport-privacywarning": "يتم إرفاق تفاصيل الخطأ بالتقرير، والذي سيكون قابلا للعرض للجمهور، إذا لم تكن مرتاحا لذلك، فيمكنك تحرير التقرير أدناه وإزالة جميع البيانات التي لا تريد مشاركتها."
+	"multimediaviewer-errorreport-privacywarning": "يتم إرفاق تفاصيل الخطأ بالتقرير، والذي سيكون قابلا للعرض للجمهور، إذا لم تكن مرتاحا لذلك، فيمكنك تحرير التقرير أدناه وإزالة جميع البيانات التي لا تريد مشاركتها.",
+	"multimediaviewer-loading": "جاري تحميل عارض الوسائط."
 }
