@@ -303,14 +303,6 @@
 				"multimediaviewer-disable-info-title",
 				"multimediaviewer-disable-info"
 			]
-		},
-		"mmv.bootstrap.autostart": {
-			"deprecated": "Deprecated in 1.43, alias for mmw.bootstrap",
-			"dependencies": "mmv.bootstrap"
-		},
-		"mmv.head": {
-			"deprecated": "Deprecated in 1.43, alias for mmw.bootstrap",
-			"dependencies": "mmv.bootstrap"
 		}
 	},
 	"ResourceFileModulePaths": {
