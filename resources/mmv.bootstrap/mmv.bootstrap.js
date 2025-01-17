@@ -180,6 +180,8 @@ class MultimediaViewerBootstrap {
 		// viewer initialization state if this happens to let the MMVB.loadViewer() to process
 		// new images correctly
 		this.viewerInitialized = false;
+		// clear to avoid duplicates when wikipage.content is run multiple times
+		this.thumbs = [];
 
 		this.$parsoidThumbs = $content.find(
 			'[typeof*="mw:File"] a.mw-file-description img, ' +
