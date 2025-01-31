@@ -181,6 +181,12 @@ class MultimediaViewerBootstrap {
 		// new images correctly
 		this.viewerInitialized = false;
 
+		// only clear if the main content of the page has been changed (T385297)
+		if ( $content && $content.attr( 'id' ) === 'mw-content-text' ) {
+			// clear to avoid duplicates when wikipage.content is run multiple times (T382520)
+			this.thumbs = [];
+		}
+
 		this.$parsoidThumbs = $content.find(
 			'[typeof*="mw:File"] a.mw-file-description img, ' +
 			// TODO: Remove mw:Image when version 2.4.0 of the content is no
