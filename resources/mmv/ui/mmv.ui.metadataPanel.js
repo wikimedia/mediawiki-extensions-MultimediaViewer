@@ -556,6 +556,7 @@ class MetadataPanel extends UiElement {
 			// * multimediaviewer-restriction-ita-mibac
 			// * multimediaviewer-restriction-nazi
 			// * multimediaviewer-restriction-personality
+			// * multimediaviewer-restriction-LGBT
 			// * multimediaviewer-restriction-trademarked
 			// * multimediaviewer-restriction-default
 			// * multimediaviewer-restriction-default-and-others
@@ -605,6 +606,7 @@ class MetadataPanel extends UiElement {
 			// * multimediaviewer-restriction-ita-mibac
 			// * multimediaviewer-restriction-nazi
 			// * multimediaviewer-restriction-personality
+			// * multimediaviewer-restriction-LGBT
 			// * multimediaviewer-restriction-trademarked
 			// * multimediaviewer-restriction-default
 			// * multimediaviewer-restriction-default-and-others
@@ -624,6 +626,7 @@ class MetadataPanel extends UiElement {
 			// * mw-mmv-restriction-ita-mibac
 			// * mw-mmv-restriction-nazi
 			// * mw-mmv-restriction-personality
+			// * mw-mmv-restriction-LGBT
 			// * mw-mmv-restriction-trademarked:after
 			// * mw-mmv-restriction-default
 			.addClass( `mw-mmv-restriction-label-inner mw-mmv-restriction-${ type === 'default-and-others' ? 'default' : type }` )
