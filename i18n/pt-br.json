@@ -17,7 +17,7 @@
 	"multimediaviewer-optin-pref": "Ativar <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visualizador de mídia]</span>",
 	"multimediaviewer-file-page": "Ir para a página do arquivo correspondente",
 	"multimediaviewer-repository-local": "Mais detalhes",
-	"multimediaviewer-datetime-created": "Criada: $1",
+	"multimediaviewer-datetime-created": "Criado: $1",
 	"multimediaviewer-datetime-uploaded": "Enviado: $1",
 	"multimediaviewer-credit": "$1 - $2",
 	"multimediaviewer-credit-fallback": "Ver informações de autor",
