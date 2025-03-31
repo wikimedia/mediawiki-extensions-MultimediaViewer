@@ -9,7 +9,8 @@
 		"max-len": "off",
 		"no-jquery/no-class-state": "off",
 		"no-jquery/no-support": "off",
-		"es-x/no-resizable-and-growable-arraybuffers": "off"
+		"es-x/no-resizable-and-growable-arraybuffers": "off",
+		"no-jquery/no-done-fail": "warn"
 	},
 	"settings": {
 		"jsdoc": {
