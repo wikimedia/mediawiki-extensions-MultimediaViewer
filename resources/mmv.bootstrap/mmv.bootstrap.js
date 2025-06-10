@@ -395,7 +395,7 @@ const HtmlUtils = require( './mmv.HtmlUtils.js' );
 				.addClass( 'mw-mmv-view-expanded cdx-button' )
 				.append( $( '<span>' ).addClass( 'cdx-button__icon' ) )
 				.append( ' ' )
-				.append( mw.message( 'multimediaviewer-view-expanded' ).text() );
+				.append( mw.message( 'multimediaviewer-view-expanded' ).escaped() );
 
 			const $configButton = $( '<button>' )
 				.attr( 'title', mw.message( 'multimediaviewer-view-config' ).text() )
