@@ -373,7 +373,7 @@
 			.addClass( 'mw-mmv-view-expanded mw-ui-button' );
 
 		$label = $( '<span>' )
-			.text( mw.message( 'multimediaviewer-view-expanded' ).text() );
+			.text( mw.message( 'multimediaviewer-view-expanded' ).escaped() );
 
 		$icon.append( $label ).appendTo( $link );
 

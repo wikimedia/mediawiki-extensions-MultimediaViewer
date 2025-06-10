@@ -521,7 +521,7 @@
 					.text( mw.message( 'multimediaviewer-multiple-authors', authorCount - 1 ).text() )
 					.attr( 'href', filepageUrl )
 			);
-			$wrapper.append( mw.message( 'multimediaviewer-multiple-authors-combine', author, moreText ).text() );
+			$wrapper.append( mw.message( 'multimediaviewer-multiple-authors-combine', author, moreText ).escaped() );
 		} else {
 			$wrapper.append( author );
 		}

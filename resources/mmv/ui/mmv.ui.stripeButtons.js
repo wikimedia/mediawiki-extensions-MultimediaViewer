@@ -122,7 +122,7 @@
 			isCommons = false;
 		}
 
-		$button.text( mw.message( 'multimediaviewer-repository-local' ).text() )
+		$button.text( mw.message( 'multimediaviewer-repository-local' ).escaped() )
 			.attr( 'href', descriptionUrl );
 
 		$button.toggleClass( 'mw-mmv-repo-button-commons', isCommons );
