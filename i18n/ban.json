@@ -4,7 +4,9 @@
 			"Chinamoonroll"
 		]
 	},
+	"multimediaviewer-desc": "Nglimbakin gambar alit ring ukuran sané ageng ring antarmuka layar jangkep",
 	"multimediaviewer-optin-pref": "Idupang <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Panyingak Média]</span>",
+	"multimediaviewer-file-page": "Nuju kaca nerkas kakait",
 	"multimediaviewer-repository-local": "Pidarta sajangkepné",
 	"multimediaviewer-datetime-created": "Kakardi: $1",
 	"multimediaviewer-datetime-uploaded": "Kaunggah: $1",
@@ -38,6 +40,7 @@
 	"multimediaviewer-permission-link": "cingak parikrama",
 	"multimediaviewer-permission-link-hide": "engkebang parikrama",
 	"multimediaviewer-permission-viewmore": "Cingak malih",
+	"multimediaviewer-restriction-nazi": "Gambar puniki madaging lambang Nazi utawi fasis tiosan sané minab kalarang ring makudang negara.",
 	"multimediaviewer-about-mmv": "Indik antar muka puniki",
 	"multimediaviewer-optout-mmv": "Pademang Panyingak Média",
 	"multimediaviewer-optin-mmv": "Uripang Panyingak Média",
@@ -88,7 +91,7 @@
 	"multimediaviewer-view-expanded": "Buka ring Panyingak Média",
 	"multimediaviewer-view-config": "Konfigurasi",
 	"multimediaviewer-close-popup-text": "Tutup piranti puniki (Esc)",
-	"multimediaviewer-fullscreen-popup-text": "Sinahang ring layar penuh",
+	"multimediaviewer-fullscreen-popup-text": "Sinahang ring layar jangkep",
 	"multimediaviewer-defullscreen-popup-text": "Medal layar penuh",
 	"multimediaviewer-next-image-alt-text": "Sinahang gambar selanturné",
 	"multimediaviewer-prev-image-alt-text": "Sinahang gambar sadurungné",
