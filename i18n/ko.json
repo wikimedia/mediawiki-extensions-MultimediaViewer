@@ -13,6 +13,7 @@
 			"Kwj2772",
 			"Priviet",
 			"Revi",
+			"YeBoy371",
 			"Ykhwong",
 			"YuzaTea",
 			"아라"
@@ -62,6 +63,7 @@
 	"multimediaviewer-reuse-copy-embed": "이 파일을 내장하기 위한 코드 선택 및 복사(지원되는 경우)",
 	"multimediaviewer-share-tab": "공유",
 	"multimediaviewer-embed-tab": "포함하기",
+	"multimediaviewer-download": "다운로드",
 	"multimediaviewer-download-link": "이 파일을 다운로드",
 	"multimediaviewer-download-preview-link-title": "브라우저에서 보기",
 	"multimediaviewer-download-original-button-name": "원본 파일 다운로드",
@@ -74,6 +76,9 @@
 	"multimediaviewer-embed-wt": "위키텍스트",
 	"multimediaviewer-embed-html": "HTML",
 	"multimediaviewer-embed-explanation": "파일을 포함하려면 이 코드 사용",
+	"multimediaviewer-text-embed-credit-text-b": "저자: $1, $2",
+	"multimediaviewer-html-embed-credit-text-bl": "저자: $1, $2, $3",
+	"multimediaviewer-html-embed-credit-text-b": "저자: $1, $2",
 	"multimediaviewer-html-embed-credit-link-text": "링크",
 	"multimediaviewer-embed-byline": "$1 만듦",
 	"multimediaviewer-embed-license": "$1로 라이선스됨.",
@@ -113,5 +118,6 @@
 	"multimediaviewer-enable-confirmation-text": "다음에 $1에서 섬네일을 클릭하면, 미디어 뷰어를 사용합니다.",
 	"multimediaviewer-enable-alert": "미디어 뷰어가 지금 비활성화되어 있습니다",
 	"multimediaviewer-disable-info-title": "미디어 뷰어를 비활성화시켰습니다",
-	"multimediaviewer-disable-info": "미디어 뷰어를 사용하여 개별 파일을 계속 볼 수 있습니다."
+	"multimediaviewer-disable-info": "미디어 뷰어를 사용하여 개별 파일을 계속 볼 수 있습니다.",
+	"multimediaviewer-loading": "미디어 뷰어 활성화 중."
 }
