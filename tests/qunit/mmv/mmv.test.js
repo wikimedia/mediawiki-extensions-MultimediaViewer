@@ -1,17 +1,15 @@
 const { MultimediaViewer } = require( 'mmv' );
 const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
 const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
+const router = require( 'mediawiki.router' );
 
 QUnit.module( 'mmv', QUnit.newMwEnvironment( {
 	beforeEach: function () {
 		// prevent a real "back" navigation from taking place
-		this.sandbox.stub( require( 'mediawiki.router' ), 'back' );
+		this.sandbox.stub( router, 'back' );
 	},
 	afterEach: function () {
-		// reset the router so routes don't pile up
-		const router = require( 'mediawiki.router' );
-		router.off( 'route' );
-		router.registry = {};
+		router.resetForTest();
 	}
 } ) );
 
