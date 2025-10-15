@@ -405,7 +405,8 @@
 				1920,
 				2560,
 				2880
-			]
+			],
+			"merge_strategy": "provide_default"
 		},
 		"MediaViewerEnableByDefault": {
 			"description": "If true, Media Viewer will be turned on by default.",
