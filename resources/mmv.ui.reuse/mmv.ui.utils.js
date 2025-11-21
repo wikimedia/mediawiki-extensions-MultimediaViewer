@@ -15,6 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const config = require( './config.json' );
+
 /**
  * A helper class for reuse logic.
  */
@@ -159,44 +161,19 @@ class Utils {
 	 * @return {Utils.ImageSizes}
 	 */
 	static getPossibleImageSizesForHtml( width, height ) {
-		const buckets = {
-			small: { width: 500, height: 480 },
-			medium: { width: 1280, height: 720 }, // HD ready = 720p
-			large: { width: 1920, height: 1080 }, // Full HD = 1080p
-			xl: { width: 3840, height: 2160 } // 4K = 2160p
-		};
+		const buckets = config.downloadSizes;
 		const sizes = {};
 		const bucketNames = Object.keys( buckets );
-		const widthToHeight = height / width;
-		const heightToWidth = width / height;
 
 		for ( let i = 0; i < bucketNames.length; i++ ) {
 			const bucketName = bucketNames[ i ];
-			const dimensions = buckets[ bucketName ];
-			const bucketWidth = dimensions.width;
-			const bucketHeight = dimensions.height;
+			const bucketWidth = buckets[ bucketName ];
 
 			if ( width > bucketWidth ) {
 				// Width fits in the current bucket
-				const currentGuess = bucketWidth;
-
-				if ( currentGuess * widthToHeight > bucketHeight ) {
-					// Constrain in height, resize width accordingly
-					sizes[ bucketName ] = {
-						width: Math.round( bucketHeight * heightToWidth ),
-						height: bucketHeight
-					};
-				} else {
-					sizes[ bucketName ] = {
-						width: currentGuess,
-						height: Math.round( currentGuess * widthToHeight )
-					};
-				}
-			} else if ( height > bucketHeight ) {
-				// Height fits in the current bucket, resize width accordingly
 				sizes[ bucketName ] = {
-					width: Math.round( bucketHeight * heightToWidth ),
-					height: bucketHeight
+					width: bucketWidth,
+					height: Math.round( bucketWidth * height / width )
 				};
 			}
 		}

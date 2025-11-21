@@ -190,6 +190,10 @@
 		},
 		"mmv.ui.reuse": {
 			"packageFiles": [
+				{
+					"name": "mmv.ui.reuse/config.json",
+					"callback": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::getCommonConfig"
+				},
 				"mmv.ui.reuse/index.js",
 				"mmv.ui.reuse/mmv.ui.reuse.dialog.js",
 				"mmv.ui.reuse/mmv.ui.download.dialog.js",
@@ -476,6 +480,16 @@
 				1920,
 				3840
 			],
+			"merge_strategy": "provide_default"
+		},
+		"MediaViewerDownloadSizes": {
+			"description": "Array of preselected widths used to generate download URLs, widths need to be in $wgThumbnailSteps if used.",
+			"value": {
+				"small": 500,
+				"medium": 1280,
+				"large": 1920,
+				"xl": 3840
+			},
 			"merge_strategy": "provide_default"
 		},
 		"MediaViewerEnableByDefault": {

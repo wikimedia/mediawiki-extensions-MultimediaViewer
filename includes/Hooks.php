@@ -25,6 +25,7 @@ namespace MediaWiki\Extension\MultimediaViewer;
 
 use MediaWiki\Category\Category;
 use MediaWiki\Config\Config;
+use MediaWiki\Config\ConfigException;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Hook\GetDoubleUnderscoreIDsHook;
 use MediaWiki\Html\Html;
@@ -525,7 +526,16 @@ class Hooks implements
 	 */
 	public static function getCommonConfig( ?Context $context, Config $config ): array {
 		$steps = $config->get( MainConfigNames::ThumbnailSteps );
+		$downloadSizes = $config->get( 'MediaViewerDownloadSizes' );
+		if ( $steps && $downloadSizes ) {
+			foreach ( $downloadSizes as $k => $v ) {
+				if ( !in_array( $v, $steps ) ) {
+					throw new ConfigException( "MediaViewerThumbnailBucketSizes $k=$v not in ThumbnailSteps" );
+				}
+			}
+		}
 		return [
+			'downloadSizes' => $downloadSizes,
 			'thumbnailBucketSizes' => $steps ?: $config->get( 'MediaViewerThumbnailBucketSizes' ),
 		];
 	}

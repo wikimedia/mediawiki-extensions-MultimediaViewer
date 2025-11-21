@@ -68,9 +68,9 @@ QUnit.test( 'getPossibleImageSizesForHtml()', ( assert ) => {
 			width: 6000, height: 4000,
 			expected: {
 				small: { width: 500, height: 333 },
-				medium: { width: 1080, height: 720 },
-				large: { width: 1620, height: 1080 },
-				xl: { width: 3240, height: 2160 },
+				medium: { width: 1280, height: 853 },
+				large: { width: 1920, height: 1280 },
+				xl: { width: 3840, height: 2560 },
 				original: { width: 6000, height: 4000 }
 			}
 		},
@@ -80,8 +80,8 @@ QUnit.test( 'getPossibleImageSizesForHtml()', ( assert ) => {
 			width: 2048, height: 1536,
 			expected: {
 				small: { width: 500, height: 375 },
-				medium: { width: 960, height: 720 },
-				large: { width: 1440, height: 1080 },
+				medium: { width: 1280, height: 960 },
+				large: { width: 1920, height: 1440 },
 				original: { width: 2048, height: 1536 }
 			}
 		},
@@ -90,9 +90,6 @@ QUnit.test( 'getPossibleImageSizesForHtml()', ( assert ) => {
 			test: 'Big tall image',
 			width: 201, height: 1536,
 			expected: {
-				small: { width: 63, height: 480 },
-				medium: { width: 94, height: 720 },
-				large: { width: 141, height: 1080 },
 				original: { width: 201, height: 1536 }
 			}
 		},
