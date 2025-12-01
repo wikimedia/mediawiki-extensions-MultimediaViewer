@@ -68,6 +68,7 @@
 	"multimediaviewer-embed-dimensions": "$1 × $2 px",
 	"multimediaviewer-description-page-button-text": "Frekari upplýsingar um þessa skrá",
 	"multimediaviewer-description-page-popup-text": "Frekari upplýsingar um þessa skrá á $1",
+	"multimediaviewer-view-expanded": "Opna í margmiðlunarskoðara",
 	"multimediaviewer-view-config": "Uppsetning",
 	"multimediaviewer-defullscreen-popup-text": "Fara úr skjáfylliham",
 	"multimediaviewer-next-image-alt-text": "Lag",
@@ -77,5 +78,8 @@
 	"multimediaviewer-attr-plain": "Hreintexti",
 	"multimediaviewer-attr-html": "HTML",
 	"multimediaviewer-options-learn-more": "Vita meira",
-	"multimediaviewer-option-cancel-button": "Hætta við"
+	"multimediaviewer-option-cancel-button": "Hætta við",
+	"multimediaviewer-disable-confirmation-header": "Þú hefur gert margmiðlunarskoðarann óvirkan",
+	"multimediaviewer-enable-dialog-header": "Virkja margmiðlunarskoðara?",
+	"multimediaviewer-enable-submit-button": "Virkja margmiðlunarskoðara"
 }
