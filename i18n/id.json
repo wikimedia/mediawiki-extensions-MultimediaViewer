@@ -4,6 +4,7 @@
 			"Ahdan",
 			"Daud I.F. Argana",
 			"Ezagren",
+			"Penyuwangi",
 			"William Surya Permana"
 		]
 	},
@@ -110,9 +111,9 @@
 	"multimediaviewer-attr-plain": "Polos",
 	"multimediaviewer-disable-confirmation-header": "Anda telah menonaktifkan Penampil Media",
 	"multimediaviewer-disable-confirmation-text": "Saat Anda mengeklik gambar mini di $1 selanjutnya, Anda akan langsung melihat semua rincian berkas.",
-	"multimediaviewer-enable-dialog-header": "Aktifkan Penampil Media?",
+	"multimediaviewer-enable-dialog-header": "Nyalakan Penampil Media?",
 	"multimediaviewer-enable-text-header": "Aktifkan fitur penampil media ini untuk semua berkas secara baku.",
-	"multimediaviewer-enable-submit-button": "Aktifkan Penampil Media",
+	"multimediaviewer-enable-submit-button": "Nyalakan Penampil Media",
 	"multimediaviewer-enable-confirmation-header": "Anda telah mengaktifkan Penampil Media untuk semua berkas",
 	"multimediaviewer-enable-confirmation-text": "Saat Anda mengeklik gambar mini di $1 selanjutnya, Penampil Media akan digunakan.",
 	"multimediaviewer-enable-alert": "Penampil Media kini dinonaktifkan",
