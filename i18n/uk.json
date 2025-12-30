@@ -10,7 +10,8 @@
 			"Olion",
 			"Piramidion",
 			"Sergento",
-			"Ата"
+			"Ата",
+			"Movses"
 		]
 	},
 	"multimediaviewer-desc": "Розгорнути мініатюри в більшому розмірі у лайтбоксі.",
@@ -78,6 +79,7 @@
 	"multimediaviewer-reuse-copy-embed": "Виділіть і скопіюйте (якщо підтримується) цей код для вбудовування цього файлу",
 	"multimediaviewer-share-tab": "Поділитися",
 	"multimediaviewer-embed-tab": "Вбудований",
+	"multimediaviewer-download": "Завантажити",
 	"multimediaviewer-download-link": "Завантажити цей файл",
 	"multimediaviewer-download-preview-link-title": "Переглянути в браузері",
 	"multimediaviewer-download-original-button-name": "Завантажити початковий файл",
