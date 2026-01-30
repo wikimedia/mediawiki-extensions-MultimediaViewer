@@ -25,7 +25,8 @@ namespace MediaWiki\Extension\MultimediaViewer;
 
 use MediaWiki\Category\Category;
 use MediaWiki\Config\Config;
-use MediaWiki\Hook\ThumbnailBeforeProduceHTMLHook;
+use MediaWiki\Media\Hook\ThumbnailBeforeProduceHTMLHook;
+use MediaWiki\Media\ThumbnailImage;
 use MediaWiki\Output\Hook\BeforePageDisplayHook;
 use MediaWiki\Output\Hook\MakeGlobalVariablesScriptHook;
 use MediaWiki\Output\OutputPage;
@@ -40,7 +41,6 @@ use MediaWiki\User\Hook\UserGetDefaultOptionsHook;
 use MediaWiki\User\Options\UserOptionsLookup;
 use MediaWiki\User\User;
 use MobileContext;
-use ThumbnailImage;
 
 class Hooks implements
 	MakeGlobalVariablesScriptHook,
