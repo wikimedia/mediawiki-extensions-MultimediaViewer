@@ -117,19 +117,14 @@ class Hooks implements
 	 * @param Skin $skin
 	 */
 	public function onBeforePageDisplay( $out, $skin ): void {
-		$pageHasThumbnails = count( $out->getFileSearchOptions() ) > 0;
-		$pageIsFilePage = $out->getTitle()->inNamespace( NS_FILE );
-		// TODO: Have Flow work out if there are any images on the page
-		$pageIsFlowPage = ExtensionRegistry::getInstance()->isLoaded( 'Flow' ) &&
-			// CONTENT_MODEL_FLOW_BOARD
-			$out->getTitle()->getContentModel() === 'flow-board';
+		$pageIsSpecialPage = $out->getTitle()->inNamespace( NS_SPECIAL );
 		$fileRelatedSpecialPages = [ 'Newimages', 'Listfiles', 'Mostimages',
 			'MostGloballyLinkedFiles', 'Uncategorizedimages', 'Unusedimages', 'Search' ];
 		$pageIsFileRelatedSpecialPage = $out->getTitle()->inNamespace( NS_SPECIAL )
 			&& in_array( $this->specialPageFactory->resolveAlias( $out->getTitle()->getDBkey() )[0],
 				$fileRelatedSpecialPages );
 
-		if ( $pageHasThumbnails || $pageIsFilePage || $pageIsFileRelatedSpecialPage || $pageIsFlowPage ) {
+		if ( !$pageIsSpecialPage || $pageIsFileRelatedSpecialPage ) {
 			$this->getModules( $out );
 		}
 	}
