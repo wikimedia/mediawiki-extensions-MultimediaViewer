@@ -68,7 +68,7 @@ const { Utils } = require( 'mmv.ui.reuse' );
 				test: 'Extra large wide image',
 				width: 6000, height: 4000,
 				expected: {
-					small: { width: 640, height: 427 },
+					small: { width: 500, height: 333 },
 					medium: { width: 1080, height: 720 },
 					large: { width: 1620, height: 1080 },
 					xl: { width: 3240, height: 2160 },
@@ -80,7 +80,7 @@ const { Utils } = require( 'mmv.ui.reuse' );
 				test: 'Big wide image',
 				width: 2048, height: 1536,
 				expected: {
-					small: { width: 640, height: 480 },
+					small: { width: 500, height: 375 },
 					medium: { width: 960, height: 720 },
 					large: { width: 1440, height: 1080 },
 					original: { width: 2048, height: 1536 }
