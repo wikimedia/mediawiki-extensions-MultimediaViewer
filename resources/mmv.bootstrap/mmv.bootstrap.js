@@ -61,6 +61,18 @@ class MultimediaViewerBootstrap {
 	}
 
 	/**
+	 * Whether the beta UI should be used instead of the legacy viewer.
+	 * Activated by the ?mmvBeta=1 URL parameter on mobile (Minerva) only.
+	 * On desktop, the legacy viewer is always used.
+	 *
+	 * @return {boolean}
+	 */
+	isBetaMode() {
+		return new URLSearchParams( location.search ).get( 'mmvBeta' ) === '1' &&
+			mw.config.get( 'skin' ) === 'minerva';
+	}
+
+	/**
 	 * Routes to a given file.
 	 *
 	 * @param {string} fileName
@@ -141,11 +153,18 @@ class MultimediaViewerBootstrap {
 		// not be here.
 		this.setupOverlay();
 
-		return mw.loader.using( 'mmv' )
+		const moduleName = this.isBetaMode() ? 'mmv.ui.beta' : 'mmv';
+
+		return mw.loader.using( moduleName )
 			.then( ( require ) => {
 				if ( !this.viewer ) {
-					const { MultimediaViewer } = require( 'mmv' );
-					this.viewer = new MultimediaViewer();
+					if ( this.isBetaMode() ) {
+						const { BetaViewer } = require( 'mmv.ui.beta' );
+						this.viewer = new BetaViewer();
+					} else {
+						const { MultimediaViewer } = require( 'mmv' );
+						this.viewer = new MultimediaViewer();
+					}
 					this.viewer.setupEventHandlers();
 				}
 
@@ -262,7 +281,7 @@ class MultimediaViewerBootstrap {
 					return;
 				}
 				this.preloadOnHoverTimer = setTimeout( () => {
-					mw.loader.load( 'mmv' );
+					mw.loader.load( this.isBetaMode() ? 'mmv.ui.beta' : 'mmv' );
 				}, this.hoverWaitDuration );
 			},
 			mouseleave: () => {
@@ -425,7 +444,7 @@ class MultimediaViewerBootstrap {
 	 * Shows a popup notifying the user
 	 */
 	showStatusInfo() {
-		mw.loader.using( 'oojs-ui-core' ).done( () => {
+		mw.loader.using( 'oojs-ui-core' ).then( () => {
 			const content = document.createElement( 'div' );
 			content.textContent = mw.msg( 'multimediaviewer-disable-info' );
 

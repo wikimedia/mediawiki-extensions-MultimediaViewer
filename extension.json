@@ -271,6 +271,41 @@
 				"mmv.ui.restriction/mmv.ui.restriction.less"
 			]
 		},
+		"mmv.ui.beta": {
+			"packageFiles": [
+				"mmv.ui.beta/init.js",
+				"mmv.ui.beta/BetaViewer.js",
+				"mmv.ui.beta/App.vue",
+				"mmv.ui.beta/thumbnailGuessing.js",
+				{
+					"name": "mmv/config.json",
+					"callback": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::getThumbnailBucketConfig"
+				},
+				"mmv/model/mmv.model.ThumbnailWidth.js",
+				"mmv/mmv.ThumbnailWidthCalculator.js",
+				{
+					"name": "mmv.ui.beta/icons.json",
+					"callback": "MediaWiki\\ResourceLoader\\CodexModule::getIcons",
+					"callbackParam": [ "cdxIconClose", "cdxIconPrevious", "cdxIconNext" ]
+				}
+			],
+			"dependencies": [
+				"vue",
+				"@wikimedia/codex",
+				"mmv.bootstrap",
+				"mediawiki.router",
+				"mediawiki.Title",
+				"mediawiki.util"
+			],
+			"messages": [
+				"multimediaviewer-close-popup-text",
+				"multimediaviewer-next-image-alt-text",
+				"multimediaviewer-prev-image-alt-text",
+				"multimediaviewer-current-image-number",
+				"multimediaviewer-file-page",
+				"multimediaviewer-description-page-button-text"
+			]
+		},
 		"mmv.bootstrap": {
 			"packageFiles": [
 				{

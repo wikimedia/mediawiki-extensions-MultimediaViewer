@@ -25,6 +25,7 @@ namespace MediaWiki\Extension\MultimediaViewer;
 
 use MediaWiki\Category\Category;
 use MediaWiki\Config\Config;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Media\Hook\ThumbnailBeforeProduceHTMLHook;
 use MediaWiki\Media\ThumbnailImage;
 use MediaWiki\Output\Hook\BeforePageDisplayHook;
@@ -34,6 +35,7 @@ use MediaWiki\Page\CategoryPage;
 use MediaWiki\Page\Hook\CategoryPageViewHook;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MediaWiki\Registration\ExtensionRegistry;
+use MediaWiki\ResourceLoader\Context;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderGetConfigVarsHook;
 use MediaWiki\Skin\Skin;
 use MediaWiki\SpecialPage\SpecialPageFactory;
@@ -96,7 +98,13 @@ class Hooks implements
 		// To avoid loading MMV twice, we check the environment we are running in.
 		$isMobileFrontendView = ExtensionRegistry::getInstance()->isLoaded( 'MobileFrontend' ) &&
 			$this->mobileContext && $this->mobileContext->shouldDisplayMobileView();
-		if ( !$isMobileFrontendView ) {
+		if ( $isMobileFrontendView ) {
+			// On mobile, only load the bootstrap when the beta flag is set.
+			// This replaces MobileFrontend's own image viewer with the beta UI.
+			if ( $out->getRequest()->getFuzzyBool( 'mmvBeta' ) ) {
+				$out->addModules( [ 'mmv.bootstrap' ] );
+			}
+		} else {
 			$out->addModules( [ 'mmv.bootstrap' ] );
 		}
 	}
@@ -182,6 +190,22 @@ class Hooks implements
 		$vars['wgMediaViewerOnClick'] = $this->shouldHandleClicks( $user );
 		// needed because of T71942; could be different for anon and logged-in
 		$vars['wgMediaViewerEnabledByDefault'] = (bool)$isMultimediaViewerEnable;
+	}
+
+	/**
+	 * ResourceLoader callback to resolve thumbnail width buckets.
+	 * Uses $wgThumbnailSteps if configured, otherwise falls back to
+	 * $wgMediaViewerThumbnailBucketSizes.
+	 *
+	 * @param Context|null $context
+	 * @param Config $config
+	 * @return array
+	 */
+	public static function getThumbnailBucketConfig( ?Context $context, Config $config ): array {
+		$steps = $config->get( MainConfigNames::ThumbnailSteps );
+		return [
+			'thumbnailBucketSizes' => $steps ?: $config->get( 'MediaViewerThumbnailBucketSizes' ),
+		];
 	}
 
 	/**
