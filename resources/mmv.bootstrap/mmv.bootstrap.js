@@ -126,13 +126,9 @@ class MultimediaViewerBootstrap {
 	 * @return {jQuery.Promise}
 	 */
 	loadViewer( setupOverlay ) {
-		const deferred = $.Deferred();
-		let viewer;
-		let message;
-
 		// Don't load if someone has specifically stopped us from doing so
 		if ( mw.config.get( 'wgMediaViewer' ) !== true ) {
-			return deferred.reject();
+			return $.Deferred().reject();
 		}
 
 		if ( history.scrollRestoration ) {
@@ -148,40 +144,25 @@ class MultimediaViewerBootstrap {
 			this.setupOverlay();
 		}
 
-		mw.loader.using( 'mmv', ( req ) => {
-			try {
-				viewer = this.getViewer( req );
-			} catch ( e ) {
-				message = e.message;
-				if ( e.stack ) {
-					message += `\n${ e.stack }`;
-				}
-				deferred.reject( message );
-				return;
-			}
-			deferred.resolve( viewer );
-		}, ( error ) => {
-			deferred.reject( error.message );
-		} );
-
-		return deferred.promise()
+		return mw.loader.using( 'mmv' )
+			.then( ( req ) => this.getViewer( req ) )
 			.then(
-				( viewer2 ) => {
+				( viewer ) => {
 					if ( !this.viewerInitialized ) {
 						if ( this.thumbs.length ) {
-							viewer2.initWithThumbs( this.thumbs );
+							viewer.initWithThumbs( this.thumbs );
 						}
 
 						this.viewerInitialized = true;
 					}
-					return viewer2;
+					return viewer;
 				},
-				( message2 ) => {
-					mw.log.warn( message2 );
+				( error ) => {
+					mw.log.warn( error );
 					this.cleanupOverlay();
 					this.viewerIsBroken = true;
-					mw.notify( `Error loading MediaViewer: ${ message2 }` );
-					return $.Deferred().reject( message2 );
+					mw.notify( `Error loading MediaViewer: ${ error.message }` );
+					throw error;
 				}
 			).always( () => {
 				if ( this.$loadBar ) {

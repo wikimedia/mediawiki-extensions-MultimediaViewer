@@ -158,24 +158,24 @@ function hashTest( prefix, bootstrap, assert ) {
 	} );
 }
 
-QUnit.test( 'Promise does not hang on ResourceLoader errors', function ( assert ) {
+QUnit.test( 'Promise does not hang on ResourceLoader errors', async function ( assert ) {
 	const errorMessage = 'loading failed';
-	const done = assert.async();
 
 	this.sandbox.stub( mw.loader, 'using' )
-		.callsArgWith( 2, new Error( errorMessage, [ 'mmv' ] ) )
-		.withArgs( 'mediawiki.notification' ).returns( $.Deferred().reject() ); // needed for mw.notify
+		.returns( $.Deferred().reject( new Error( errorMessage ) ) );
 
 	const bootstrap = createBootstrap();
 	this.sandbox.stub( bootstrap, 'setupOverlay' );
 	this.sandbox.stub( bootstrap, 'cleanupOverlay' );
 
-	bootstrap.loadViewer( true ).fail( ( message ) => {
-		assert.strictEqual( bootstrap.setupOverlay.called, true, 'Overlay was set up' );
-		assert.strictEqual( bootstrap.cleanupOverlay.called, true, 'Overlay was cleaned up' );
-		assert.strictEqual( message, errorMessage, 'promise is rejected with the error message when loading fails' );
-		done();
-	} );
+	await assert.rejects(
+		bootstrap.loadViewer( true ),
+		new Error( errorMessage ),
+		'promise is rejected with the error when loading fails'
+	);
+
+	assert.strictEqual( bootstrap.setupOverlay.called, true, 'Overlay was set up' );
+	assert.strictEqual( bootstrap.cleanupOverlay.called, true, 'Overlay was cleaned up' );
 } );
 
 QUnit.test( 'Clicks are not captured once the loading fails', function ( assert ) {

@@ -744,17 +744,11 @@ class MultimediaViewer {
 	 * @return {jQuery.Promise}
 	 */
 	loadExtensionPlugins( extension ) {
-		const deferred = $.Deferred();
-
 		if ( !( extension in extensions ) || extensions[ extension ] === 'default' ) {
-			return deferred.resolve();
+			return $.Deferred().resolve();
 		}
 
-		mw.loader.using( extensions[ extension ], () => {
-			deferred.resolve();
-		} );
-
-		return deferred;
+		return mw.loader.using( extensions[ extension ] );
 	}
 }
 
