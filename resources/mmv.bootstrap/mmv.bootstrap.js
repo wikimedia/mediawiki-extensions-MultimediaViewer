@@ -66,7 +66,7 @@ class MultimediaViewerBootstrap {
 	 * @param {string} fileName
 	 */
 	route( fileName ) {
-		this.viewerPromise = this.loadViewer( true );
+		this.viewerPromise = this.loadViewer();
 		this.viewerPromise.then( ( viewer ) => {
 			let fileTitle;
 			viewer.comingFromHashChange = true;
@@ -122,10 +122,9 @@ class MultimediaViewerBootstrap {
 	/**
 	 * Loads the mmv module asynchronously and passes the thumb data to it
 	 *
-	 * @param {boolean} [setupOverlay]
 	 * @return {jQuery.Promise}
 	 */
-	loadViewer( setupOverlay ) {
+	loadViewer() {
 		// Don't load if someone has specifically stopped us from doing so
 		if ( mw.config.get( 'wgMediaViewer' ) !== true ) {
 			return $.Deferred().reject();
@@ -140,12 +139,18 @@ class MultimediaViewerBootstrap {
 		// loadViewer is called on every click and hash change and setting up
 		// the overlay is not needed on all of those; this logic really should
 		// not be here.
-		if ( setupOverlay ) {
-			this.setupOverlay();
-		}
+		this.setupOverlay();
 
 		return mw.loader.using( 'mmv' )
-			.then( ( req ) => this.getViewer( req ) )
+			.then( ( require ) => {
+				if ( !this.viewer ) {
+					const { MultimediaViewer } = require( 'mmv' );
+					this.viewer = new MultimediaViewer();
+					this.viewer.setupEventHandlers();
+				}
+
+				return this.viewer;
+			} )
 			.then(
 				( viewer ) => {
 					if ( !this.viewerInitialized ) {
@@ -570,22 +575,6 @@ class MultimediaViewerBootstrap {
 	}
 
 	/**
-	 * Instantiates a new viewer if necessary
-	 *
-	 * @param {Function} localRequire
-	 * @return {MultimediaViewer}
-	 */
-	getViewer( localRequire ) {
-		if ( this.viewer === undefined ) {
-			const { MultimediaViewer } = localRequire( 'mmv' );
-			this.viewer = new MultimediaViewer();
-			this.viewer.setupEventHandlers();
-		}
-
-		return this.viewer;
-	}
-
-	/**
 	 * Listens to events on the window/document
 	 */
 	setupEventHandlers() {
@@ -643,7 +632,10 @@ class MultimediaViewerBootstrap {
 				.attr( {
 					role: 'progressbar',
 					'aria-label': mw.msg( 'multimediaviewer-loading' )
-				} ).append( $( '<div>' ).addClass( 'cdx-progress-bar__bar' ) );
+				} )
+				.append(
+					$( '<div>' ).addClass( 'cdx-progress-bar__bar' )
+				);
 			this.$overlay.append( this.$loadBar );
 		}
 

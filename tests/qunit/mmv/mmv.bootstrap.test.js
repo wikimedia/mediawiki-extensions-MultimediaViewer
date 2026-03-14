@@ -115,13 +115,11 @@ function createBootstrap( viewer ) {
 	// MediaViewer should work without it, and so should the tests.
 	bootstrap.ensureEventHandlersAreSetUp = function () {};
 
-	bootstrap.getViewer = function () {
-		return viewer || {
-			loadImageByTitle: function () {},
-			initWithThumbs: function () {},
-			hash: function () {},
-			router: { checkRoute: function () {} }
-		};
+	bootstrap.viewer = viewer || {
+		loadImageByTitle: function () {},
+		initWithThumbs: function () {},
+		hash: function () {},
+		router: { checkRoute: function () {} }
 	};
 
 	return bootstrap;
@@ -169,7 +167,7 @@ QUnit.test( 'Promise does not hang on ResourceLoader errors', async function ( a
 	this.sandbox.stub( bootstrap, 'cleanupOverlay' );
 
 	await assert.rejects(
-		bootstrap.loadViewer( true ),
+		bootstrap.loadViewer(),
 		new Error( errorMessage ),
 		'promise is rejected with the error when loading fails'
 	);
