@@ -13,34 +13,6 @@ QUnit.module( 'mmv', QUnit.newMwEnvironment( {
 	}
 } ) );
 
-QUnit.test( 'eachPreloadableLightboxIndex()', ( assert ) => {
-	const viewer = getMultimediaViewer();
-	let expectedIndices;
-	let i;
-
-	viewer.preloadDistance = 3;
-	viewer.thumbs = [];
-
-	// 0..10
-	for ( i = 0; i < 11; i++ ) {
-		viewer.thumbs.push( { image: false } );
-	}
-
-	viewer.currentIndex = 2;
-	i = 0;
-	expectedIndices = [ 2, 3, 1, 4, 0, 5 ];
-	viewer.eachPreloadableLightboxIndex( ( index ) => {
-		assert.strictEqual( index, expectedIndices[ i++ ], 'preload on left edge' );
-	} );
-
-	viewer.currentIndex = 9;
-	i = 0;
-	expectedIndices = [ 9, 10, 8, 7, 6 ];
-	viewer.eachPreloadableLightboxIndex( ( index ) => {
-		assert.strictEqual( index, expectedIndices[ i++ ], 'preload on right edge' );
-	} );
-} );
-
 QUnit.test( 'Progress', function ( assert ) {
 	const imageDeferred = $.Deferred();
 	const viewer = getMultimediaViewer();
@@ -337,7 +309,7 @@ QUnit.test( 'New image loaded while another one is loading', function ( assert )
 		open: function () {},
 		empty: function () {} };
 	viewer.displayRealThumbnail = this.sandbox.stub();
-	viewer.eachPreloadableLightboxIndex = function () {};
+	viewer.pushLightboxImagesIntoQueue = function () {};
 	viewer.animateMetadataDivOnce = this.sandbox.stub().returns( $.Deferred().reject() );
 	viewer.imageProvider.get = this.sandbox.stub();
 	viewer.imageInfoProvider.get = () => $.Deferred().reject( {} );

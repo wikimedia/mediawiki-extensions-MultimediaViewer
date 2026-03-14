@@ -23,8 +23,6 @@
 				"MultimediaViewer": "MultimediaViewer",
 				"OptionsDialog": "OptionsDialog",
 				"ReuseDialog": "ReuseDialog",
-				"TaskQueue": "TaskQueue",
-				"TaskQueueLightboxImage": "TaskQueueLightboxImage",
 				"Thumbnail": "Thumbnail",
 				"ThumbnailWidth": "ThumbnailWidth",
 				"UiElement": "UiElement"

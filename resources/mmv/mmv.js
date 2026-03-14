@@ -25,7 +25,6 @@ const ImageInfo = require( './provider/mmv.provider.ImageInfo.js' );
 const ThumbnailInfo = require( './provider/mmv.provider.ThumbnailInfo.js' );
 const ImageModel = require( './model/mmv.model.Image.js' );
 const License = require( './model/mmv.model.License.js' );
-const TaskQueue = require( './model/mmv.model.TaskQueue.js' );
 const Thumbnail = require( './model/mmv.model.Thumbnail.js' );
 const ThumbnailWidth = require( './model/mmv.model.ThumbnailWidth.js' );
 const Canvas = require( './ui/mmv.ui.canvas.js' );
@@ -446,88 +445,39 @@ class MultimediaViewer {
 	}
 
 	/**
-	 * Orders lightboximage indexes for preloading. Works similar to $.each, except it only takes
-	 * the callback argument. Calls the callback with each lightboximage index in some sequence
-	 * that is ideal for preloading.
-	 *
-	 * @private
-	 * @param {function(number, LightboxImage)} callback
-	 */
-	eachPreloadableLightboxIndex( callback ) {
-		for ( let i = 0; i <= this.preloadDistance; i++ ) {
-			if ( this.currentIndex + i < this.thumbs.length ) {
-				callback(
-					this.currentIndex + i,
-					this.thumbs[ this.currentIndex + i ]
-				);
-			}
-			if ( i && this.currentIndex - i >= 0 ) { // skip duplicate for i==0
-				callback(
-					this.currentIndex - i,
-					this.thumbs[ this.currentIndex - i ]
-				);
-			}
-		}
-	}
-
-	/**
 	 * A helper function to fill up the preload queues.
 	 * taskFactory(lightboxImage) should return a preload task for the given lightboximage.
 	 *
 	 * @private
 	 * @param {function(LightboxImage)} taskFactory
-	 * @return {TaskQueue}
+	 * @return {void}
 	 */
 	pushLightboxImagesIntoQueue( taskFactory ) {
-		const queue = new TaskQueue();
+		const current = this.currentIndex;
+		if ( current < this.thumbs.length ) {
+			taskFactory( this.thumbs[ current ] )();
+		}
 
-		this.eachPreloadableLightboxIndex( ( i, lightboxImage ) => {
-			queue.push( taskFactory( lightboxImage ) );
-		} );
-
-		return queue;
-	}
-
-	/**
-	 * Cancels in-progress image metadata preloading.
-	 */
-	cancelImageMetadataPreloading() {
-		if ( this.metadataPreloadQueue ) {
-			this.metadataPreloadQueue.cancel();
+		const next = this.currentIndex + 1;
+		if ( next < this.thumbs.length ) {
+			taskFactory( this.thumbs[ next ] )();
 		}
 	}
 
 	/**
-	 * Cancels in-progress image thumbnail preloading.
-	 */
-	cancelThumbnailsPreloading() {
-		if ( this.thumbnailPreloadQueue ) {
-			this.thumbnailPreloadQueue.cancel();
-		}
-	}
-
-	/**
-	 * Preload metadata for next and prev N image (N = MMVP.preloadDistance).
-	 * Two images will be loaded at a time (one forward, one backward), with closer images
-	 * being loaded sooner.
+	 * Preload metadata for current and next image.
 	 */
 	preloadImagesMetadata() {
-		this.cancelImageMetadataPreloading();
-
-		this.metadataPreloadQueue = this.pushLightboxImagesIntoQueue( ( lightboxImage ) => () => this.fetchSizeIndependentLightboxInfo( lightboxImage.filePageTitle ) );
-
-		this.metadataPreloadQueue.execute();
+		this.pushLightboxImagesIntoQueue( ( lightboxImage ) => () => {
+			this.fetchSizeIndependentLightboxInfo( lightboxImage.filePageTitle );
+		} );
 	}
 
 	/**
-	 * Preload thumbnails for next and prev N image (N = MMVP.preloadDistance).
-	 * Two images will be loaded at a time (one forward, one backward), with closer images
-	 * being loaded sooner.
+	 * Preload thumbnail for current and next image.
 	 */
 	preloadThumbnails() {
-		this.cancelThumbnailsPreloading();
-
-		this.thumbnailPreloadQueue = this.pushLightboxImagesIntoQueue( ( lightboxImage ) => () => {
+		this.pushLightboxImagesIntoQueue( ( lightboxImage ) => () => {
 			// viewer.ui.canvas.getLightboxImageWidths needs the viewer to be open
 			// because it needs to read the size of visible elements
 			if ( !this.isOpen ) {
@@ -538,8 +488,6 @@ class MultimediaViewer {
 
 			return this.fetchThumbnailForLightboxImage( lightboxImage, imageWidths.real );
 		} );
-
-		this.thumbnailPreloadQueue.execute();
 	}
 
 	/**
@@ -819,29 +767,6 @@ class MultimediaViewer {
  */
 MultimediaViewer.prototype.progressCache = {};
 
-/**
- * Preload this many prev/next images to speed up navigation.
- * (E.g. preloadDistance = 3 means that the previous 3 and the next 3 images will be loaded.)
- * Preloading only happens when the viewer is open.
- *
- * @property {number}
- */
-MultimediaViewer.prototype.preloadDistance = 1;
-
-/**
- * Stores image metadata preloads, so they can be cancelled.
- *
- * @property {TaskQueue}
- */
-MultimediaViewer.prototype.metadataPreloadQueue = null;
-
-/**
- * Stores image thumbnail preloads, so they can be cancelled.
- *
- * @property {TaskQueue}
- */
-MultimediaViewer.prototype.thumbnailPreloadQueue = null;
-
 module.exports = {
 	Api,
 	Canvas,
@@ -861,7 +786,6 @@ module.exports = {
 	Permission,
 	ProgressBar,
 	StripeButtons,
-	TaskQueue,
 	Thumbnail,
 	ThumbnailInfo,
 	ThumbnailWidth,
