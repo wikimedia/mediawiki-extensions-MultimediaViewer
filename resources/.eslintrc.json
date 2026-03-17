@@ -12,6 +12,14 @@
 		"es-x/no-resizable-and-growable-arraybuffers": "off",
 		"no-jquery/no-done-fail": "warn"
 	},
+	"overrides": [
+		{
+			"files": [ "*.js", "*.vue" ],
+			"rules": {
+				"jsdoc/valid-types": "off"
+			}
+		}
+	],
 	"settings": {
 		"jsdoc": {
 			"preferredTypes": {

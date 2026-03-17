@@ -645,6 +645,10 @@ class MultimediaViewerBootstrap {
 				// Dark overlay should stay dark in dark mode
 				.addClass( 'mw-mmv-overlay mw-no-invert' );
 
+			if ( this.isBetaMode() ) {
+				this.$overlay.addClass( 'mw-mmv-overlay--beta' );
+			}
+
 			this.$loadBar = $( '<div>' )
 				.addClass( 'cdx-progress-bar' )
 				.attr( {

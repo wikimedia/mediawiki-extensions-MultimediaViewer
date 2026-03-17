@@ -280,6 +280,10 @@
 				"mmv.ui.beta/init.js",
 				"mmv.ui.beta/BetaViewer.js",
 				"mmv.ui.beta/App.vue",
+				"mmv.ui.beta/LightboxHeader.vue",
+				"mmv.ui.beta/LightboxImage.vue",
+				"mmv.ui.beta/LightboxCaption.vue",
+				"mmv.ui.beta/LightboxNav.vue",
 				"mmv.ui.beta/thumbnailGuessing.js",
 				{
 					"name": "mmv.ui.beta/icons.json",
@@ -294,7 +298,8 @@
 				"mmv.common",
 				"mediawiki.router",
 				"mediawiki.Title",
-				"mediawiki.util"
+				"mediawiki.util",
+				"mediawiki.api"
 			],
 			"messages": [
 				"multimediaviewer-close-popup-text",

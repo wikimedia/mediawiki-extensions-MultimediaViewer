@@ -12,10 +12,12 @@
 const { ThumbnailWidthCalculator } = require( 'mmv.common' );
 const calculator = new ThumbnailWidthCalculator();
 
+/** @typedef {import('./types').LightboxImage} LightboxImage */
+
 /**
  * Get a larger thumbnail URL for the given image, if possible.
  *
- * @param {Object} image A LightboxImage object
+ * @param {LightboxImage} image A LightboxImage object
  * @return {string|undefined} A URL for a larger thumbnail, or undefined if
  *   we can't guess one (falls back to image.src)
  */
