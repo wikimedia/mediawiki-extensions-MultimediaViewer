@@ -44,4 +44,39 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		$output->expects( $this->exactly( $modulesExpected ) )->method( 'addModules' );
 		$this->newHooksInstance()->onBeforePageDisplay( $output, $skin );
 	}
+
+	public function testOnBeforePageDisplayInjectsCarouselMarkup(): void {
+		$title = Title::newFromText( 'Main Page' );
+		$title->setContentModel( CONTENT_MODEL_WIKITEXT );
+		$skin = new SkinTemplate();
+		$output = $this->createMock( OutputPage::class );
+		$output->method( 'getTitle' )->willReturn( $title );
+		$output->expects( $this->once() )
+			->method( 'addModules' )
+			->with( [ 'mmv.carousel' ] );
+		$output->expects( $this->once() )
+			->method( 'prependHTML' )
+			->with( $this->callback( static function ( string $html ): bool {
+				return str_contains( $html, 'id="mmv-carousel-root"' ) &&
+					str_contains( $html, 'class="mw-mmv-wrapper mmv-carousel"' ) &&
+					str_contains( $html, 'class="mmv-carousel__items"' );
+			} ) );
+
+		$hooks = new class(
+			$this->getServiceContainer()->getMainConfig(),
+			$this->getServiceContainer()->getSpecialPageFactory(),
+			$this->getServiceContainer()->getUserOptionsLookup(),
+			null
+		) extends Hooks {
+			protected function shouldUseMobileCarousel(): bool {
+				return true;
+			}
+
+			protected function getModules( OutputPage $out ) {
+				$out->addModules( [ 'mmv.carousel' ] );
+			}
+		};
+
+		$hooks->onBeforePageDisplay( $output, $skin );
+	}
 }

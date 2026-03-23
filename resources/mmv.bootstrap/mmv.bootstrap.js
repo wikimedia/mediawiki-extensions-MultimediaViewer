@@ -256,7 +256,6 @@ class MultimediaViewerBootstrap {
 			'ul.mw-gallery-slideshow li.gallerybox' // thumbnails of a slideshow gallery
 		];
 		return $thumb.closest( selectors.join( ', ' ) ).length === 0;
-
 	}
 
 	/**

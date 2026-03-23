@@ -25,6 +25,7 @@ namespace MediaWiki\Extension\MultimediaViewer;
 
 use MediaWiki\Category\Category;
 use MediaWiki\Config\Config;
+use MediaWiki\Html\Html;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Media\Hook\ThumbnailBeforeProduceHTMLHook;
 use MediaWiki\Media\ThumbnailImage;
@@ -88,6 +89,17 @@ class Hooks implements
 	}
 
 	/**
+	 * Whether the current request is being served through MobileFrontend's mobile view.
+	 *
+	 * @return bool
+	 */
+	protected function isMobileFrontendView(): bool {
+		return ExtensionRegistry::getInstance()->isLoaded( 'MobileFrontend' ) &&
+			$this->mobileContext &&
+			$this->mobileContext->shouldDisplayMobileView();
+	}
+
+	/**
 	 * Handler for all places where we add the modules
 	 * Could be on article pages or on Category pages
 	 * @param OutputPage $out
@@ -96,17 +108,62 @@ class Hooks implements
 		// The MobileFrontend extension provides its own implementation of MultimediaViewer.
 		// See https://phabricator.wikimedia.org/T65504 and subtasks for more details.
 		// To avoid loading MMV twice, we check the environment we are running in.
-		$isMobileFrontendView = ExtensionRegistry::getInstance()->isLoaded( 'MobileFrontend' ) &&
-			$this->mobileContext && $this->mobileContext->shouldDisplayMobileView();
-		if ( $isMobileFrontendView ) {
-			// On mobile, only load the bootstrap when the beta flag is set.
-			// This replaces MobileFrontend's own image viewer with the beta UI.
+		$isMobileFrontendView = $this->isMobileFrontendView();
+		$modules = [];
+		if ( $this->shouldUseMobileCarousel() ) {
+			// mmv.carousel depends on mmv.bootstrap, so loading the carousel also loads bootstrap.
+			$modules[] = 'mmv.carousel';
+		} elseif ( $isMobileFrontendView ) {
+			// On mobile without the carousel, only load the bootstrap when the beta
+			// flag is set to replace MobileFrontend's viewer.
 			if ( $out->getRequest()->getFuzzyBool( 'mmvBeta' ) ) {
-				$out->addModules( [ 'mmv.bootstrap' ] );
+				$modules[] = 'mmv.bootstrap';
 			}
 		} else {
-			$out->addModules( [ 'mmv.bootstrap' ] );
+			$modules[] = 'mmv.bootstrap';
 		}
+
+		if ( $modules ) {
+			$out->addModules( $modules );
+		}
+	}
+
+	/**
+	 * Whether the mobile carousel entrypoint should be used for this request.
+	 *
+	 * @return bool
+	 */
+	protected function shouldUseMobileCarousel(): bool {
+		return $this->isMobileFrontendView() &&
+			$this->config->get( 'MediaViewerMobileCarousel' );
+	}
+
+	/**
+	 * Build the server-rendered carousel shell so the client module can
+	 * progressively enhance it.
+	 *
+	 * @return string
+	 */
+	private function buildCarouselHtml(): string {
+		return Html::rawElement(
+			'div',
+			[
+				'id' => 'mmv-carousel-root',
+				'class' => 'mw-mmv-wrapper mmv-carousel',
+				'data-mmv-carousel' => ' ',
+			],
+			Html::rawElement(
+				'div',
+				[ 'class' => 'mmv-carousel__viewport' ],
+				Html::rawElement(
+					'div',
+					[
+						'class' => 'mmv-carousel__items',
+						'role' => 'list'
+					]
+				)
+			)
+		);
 	}
 
 	/**
@@ -126,6 +183,9 @@ class Hooks implements
 
 		if ( !$pageIsSpecialPage || $pageIsFileRelatedSpecialPage ) {
 			$this->getModules( $out );
+			if ( $this->shouldUseMobileCarousel() ) {
+				$out->prependHTML( $this->buildCarouselHtml() );
+			}
 		}
 	}
 

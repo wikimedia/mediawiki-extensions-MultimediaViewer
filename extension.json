@@ -261,6 +261,15 @@
 				"mmv.ui.restriction/mmv.ui.restriction.less"
 			]
 		},
+		"mmv.carousel": {
+			"styles": [
+				"mmv.carousel/carousel.less"
+			],
+			"dependencies": [
+				"mmv.bootstrap",
+				"mediawiki.router"
+			]
+		},
 		"mmv.ui.beta": {
 			"packageFiles": [
 				"mmv.ui.beta/init.js",
@@ -392,6 +401,7 @@
 			"tests/qunit/mmv/mmv.testhelpers.js"
 		],
 		"dependencies": [
+			"mmv.carousel",
 			"mmv.bootstrap",
 			"mmv.common",
 			"mmv",
@@ -465,6 +475,10 @@
 		},
 		"MediaViewerRecordVirtualViewBeaconURI": {
 			"description": "If set, records a virtual view via the provided beacon URI.",
+			"value": false
+		},
+		"MediaViewerMobileCarousel": {
+			"description": "Enables the mobile carousel module for MultimediaViewer.",
 			"value": false
 		}
 	},
