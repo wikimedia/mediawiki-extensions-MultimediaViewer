@@ -62,6 +62,8 @@ class Hooks implements
 	) {
 	}
 
+	public const MIN_CAROUSEL_ITEMS = 3;
+
 	/**
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/UserGetDefaultOptions
 	 * @param array &$defaultOptions
@@ -113,6 +115,7 @@ class Hooks implements
 		if ( $this->shouldUseMobileCarousel() ) {
 			// mmv.carousel depends on mmv.bootstrap, so loading the carousel also loads bootstrap.
 			$modules[] = 'mmv.carousel';
+			$out->addModuleStyles( 'mmv.carousel.styles' );
 		} elseif ( $isMobileFrontendView ) {
 			// On mobile without the carousel, only load the bootstrap when the beta
 			// flag is set to replace MobileFrontend's viewer.
@@ -138,13 +141,60 @@ class Hooks implements
 			$this->config->get( 'MediaViewerMobileCarousel' );
 	}
 
+	// TODO: Extract carousel thumbs (T420392) - extract thumbnail data from
+	// the parser output eg. via getLinkList(MEDIA) for carousel rendering.
+	protected function getCarouselThumbs(): array {
+		return [];
+	}
+
+	/**
+	 * Build the HTML for carousel thumbnail items.
+	 *
+	 * @param array[] $thumbData Each thumb has keys: title, href, src, width, height, alt
+	 * @return string
+	 */
+	private function buildCarouselItems( array $thumbData ): string {
+		$html = '';
+		foreach ( $thumbData as $i => $data ) {
+			$html .= Html::rawElement(
+				'li',
+				[
+					'class' => 'mmv-carousel__item',
+					'data-mmv-title' => $data['title'],
+					'data-mmv-position' => (string)( $i + 1 ),
+				],
+				Html::rawElement(
+					'a',
+					[
+						'href' => $data['href'],
+						'class' => 'mmv-carousel__item-link mw-file-description',
+					],
+					Html::element(
+						'img',
+						[
+							'src' => $data['src'],
+							'width' => $data['width'],
+							'height' => $data['height'],
+							'alt' => $data['alt'],
+							'class' => 'mmv-carousel__item-image',
+							'loading' => 'lazy',
+						]
+					)
+				)
+			);
+		}
+		return $html;
+	}
+
 	/**
 	 * Build the server-rendered carousel shell so the client module can
 	 * progressively enhance it.
-	 *
+	 * @param array[] $thumbData carousel thumbnails
 	 * @return string
 	 */
-	private function buildCarouselHtml(): string {
+	private function buildCarouselHtml( array $thumbData ): string {
+		$itemsHtml = $this->buildCarouselItems( $thumbData );
+
 		return Html::rawElement(
 			'div',
 			[
@@ -156,11 +206,11 @@ class Hooks implements
 				'div',
 				[ 'class' => 'mmv-carousel__viewport' ],
 				Html::rawElement(
-					'div',
+					'ul',
 					[
-						'class' => 'mmv-carousel__items',
-						'role' => 'list'
-					]
+						'class' => 'mmv-carousel__items'
+					],
+					$itemsHtml
 				)
 			)
 		);
@@ -184,7 +234,10 @@ class Hooks implements
 		if ( !$pageIsSpecialPage || $pageIsFileRelatedSpecialPage ) {
 			$this->getModules( $out );
 			if ( $this->shouldUseMobileCarousel() ) {
-				$out->prependHTML( $this->buildCarouselHtml() );
+				$thumbData = $this->getCarouselThumbs();
+				if ( count( $thumbData ) >= self::MIN_CAROUSEL_ITEMS ) {
+					$out->prependHTML( $this->buildCarouselHtml( $thumbData ) );
+				}
 			}
 		}
 	}

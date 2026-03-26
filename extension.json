@@ -262,12 +262,17 @@
 			]
 		},
 		"mmv.carousel": {
-			"styles": [
-				"mmv.carousel/carousel.less"
-			],
+			"styles": [],
 			"dependencies": [
 				"mmv.bootstrap",
 				"mediawiki.router"
+			]
+		},
+		"mmv.carousel.styles": {
+			"localBasePath": "resources/mmv.carousel.styles",
+			"remoteExtPath": "MultimediaViewer/resources/mmv.carousel.styles",
+			"styles": [
+				"carousel.less"
 			]
 		},
 		"mmv.ui.beta": {
