@@ -1,37 +1,36 @@
-const { ImageModel } = require( 'mmv' );
+const { License, ImageModel } = require( 'mmv' );
 const { EmbedFileFormatter } = require( 'mmv.ui.reuse' );
-const { fixtures } = require( './mmv.testhelpers.js' );
 
 QUnit.module( 'mmv.EmbedFileFormatter', QUnit.newMwEnvironment() );
 
 function createEmbedFileInfo( options ) {
-	const imageInfo = ImageModel.newFromImageInfo(
+	const license = options.licenseShortName ?
+		new License(
+			options.licenseShortName,
+			options.licenseInternalName,
+			options.licenseLongName,
+			options.licenseUrl
+		) : undefined;
+	const imageInfo = new ImageModel(
 		options.title,
-		fixtures.imageinfoApi.makeBasic( {
-			url: options.imgUrl,
-			descriptionurl: options.filePageUrl,
-			descriptionshorturl: options.shortFilePageUrl,
-			extmetadata: {
-				Credit: options.source && {
-					value: options.source
-				},
-				Artist: options.author && {
-					value: options.author
-				},
-				LicenseShortName: options.licenseShortName && {
-					value: options.licenseShortName
-				},
-				License: options.licenseInternalName && {
-					value: options.licenseInternalName
-				},
-				UsageTerms: options.licenseLongName && {
-					value: options.licenseLongName
-				},
-				LicenseUrl: options.licenseUrl && {
-					value: options.licenseUrl
-				}
-			}
-		} )
+		options.title.getNameText(),
+		undefined,
+		undefined,
+		undefined,
+		undefined,
+		options.imgUrl,
+		options.filePageUrl,
+		options.shortFilePageUrl,
+		42,
+		'repo',
+		undefined,
+		undefined,
+		undefined,
+		undefined,
+		options.source,
+		options.author,
+		options.authorCount,
+		license
 	);
 	return {
 		imageInfo: imageInfo,

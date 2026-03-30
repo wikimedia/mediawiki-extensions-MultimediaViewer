@@ -43,18 +43,6 @@ class MetadataPanel extends UiElement {
 	}
 
 	/**
-	 * Check whether the image has geolocation data.
-	 *
-	 * @param {ImageModel} imageData
-	 * @return {boolean}
-	 */
-	static hasCoords( imageData ) {
-		// TODO: Confirm null check is impossible and remove
-		return imageData.latitude !== undefined && imageData.latitude !== null &&
-			imageData.longitude !== undefined && imageData.longitude !== null;
-	}
-
-	/**
 	 * FIXME this should be in the jquery.fullscreen plugin.
 	 *
 	 * @return {boolean}
@@ -652,7 +640,7 @@ class MetadataPanel extends UiElement {
 	 * @param {ImageModel} imageData
 	 */
 	setLocationData( imageData ) {
-		if ( !MetadataPanel.hasCoords( imageData ) ) {
+		if ( !imageData.hasCoords() ) {
 			return;
 		}
 

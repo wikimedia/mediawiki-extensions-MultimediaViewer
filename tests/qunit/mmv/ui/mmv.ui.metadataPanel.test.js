@@ -1,6 +1,5 @@
 const { Config } = require( 'mmv.bootstrap' );
-const { MetadataPanel, ImageModel, License } = require( 'mmv' );
-const { fixtures } = require( '../mmv.testhelpers.js' );
+const { MetadataPanel, License } = require( 'mmv' );
 
 const mwMessagesExists = mw.messages.exists;
 QUnit.module( 'mmv.ui.metadataPanel', QUnit.newMwEnvironment( {
@@ -43,25 +42,6 @@ QUnit.test( '.empty()', ( assert ) => {
 	} );
 } );
 
-QUnit.test( 'hasCoords()', ( assert ) => {
-	const firstImageData = ImageModel.newFromImageInfo(
-		mw.Title.newFromText( 'File:Foobar.pdf.jpg' ),
-		fixtures.imageinfoApi.makeBasic()
-	);
-	const secondImageData = ImageModel.newFromImageInfo(
-		mw.Title.newFromText( 'File:Foobar.pdf.jpg' ),
-		fixtures.imageinfoApi.makeBasic( {
-			extmetadata: {
-				GPSLatitude: { value: '39.91820938' },
-				GPSLongitude: { value: '78.09812938' }
-			}
-		} )
-	);
-
-	assert.false( MetadataPanel.hasCoords( firstImageData ), 'No coordinates present' );
-	assert.true( MetadataPanel.hasCoords( secondImageData ), 'Coordinates present' );
-} );
-
 QUnit.test( '.setLocationData()', ( assert ) => {
 	const $qf = $( '#qunit-fixture' );
 	const panel = new MetadataPanel(
@@ -75,6 +55,7 @@ QUnit.test( '.setLocationData()', ( assert ) => {
 	const imageData = {
 		latitude: latitude,
 		longitude: longitude,
+		hasCoords: () => true,
 		title: mw.Title.newFromText( 'File:Foobar.jpg' )
 	};
 

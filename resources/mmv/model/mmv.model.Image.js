@@ -21,6 +21,33 @@ const License = require( './mmv.model.License.js' );
  * Represents information about a single image
  */
 class ImageModel {
+	/**
+	 * @param {mw.Title} title
+	 * @param {string} name Image name (e.g. title of the artwork) or human-readable file if there is no better title
+	 * @param {number} size Filesize in bytes of the original image
+	 * @param {number} width Width of the original image
+	 * @param {number} height Height of the original image
+	 * @param {string} mimeType
+	 * @param {string} url URL to the image itself (original version)
+	 * @param {string} descriptionUrl URL to the image description page
+	 * @param {string} descriptionShortUrl A short URL to the description page for the image, using curid=...
+	 * @param {string} pageID pageId of the description page for the image
+	 * @param {string} repo The repository this image belongs to
+	 * @param {string} uploadDateTime The time and date the last upload occurred
+	 * @param {string} anonymizedUploadDateTime Anonymized and EL-friendly version of uploadDateTime
+	 * @param {string} creationDateTime The time and date the original upload occurred
+	 * @param {string} description
+	 * @param {string} source
+	 * @param {string} author
+	 * @param {number} authorCount
+	 * @param {License} license
+	 * @param {string} permission
+	 * @param {string} attribution Custom attribution string that replaces credit line when set
+	 * @param {string} deletionReason
+	 * @param {number} latitude
+	 * @param {number} longitude
+	 * @param {string[]} restrictions
+	 */
 	constructor(
 		title,
 		name,
@@ -51,7 +78,7 @@ class ImageModel {
 		/** @property {mw.Title} title The title of the image file */
 		this.title = title;
 
-		/** @property {string} name Title of the artwork, or human-readable file name */
+		/** @property {string} name Image name (e.g. title of the artwork) or human-readable file if there is no better title */
 		this.name = name;
 
 		/** @property {number} size The filesize, in bytes, of the original image */
@@ -69,10 +96,10 @@ class ImageModel {
 		/** @property {string} url The URL to the original image */
 		this.url = url;
 
-		/** @property {string} descriptionUrl The URL to the file description page */
+		/** @property {string} descriptionUrl The URL to the description page for the image */
 		this.descriptionUrl = descriptionUrl;
 
-		/** @property {string} descriptionShortUrl A short URL to the file description page */
+		/** @property {string} descriptionShortUrl A short URL to the description page for the image, using curid=... */
 		this.descriptionShortUrl = descriptionShortUrl;
 
 		/** @property {number} pageId of the description page for the image */
@@ -93,23 +120,22 @@ class ImageModel {
 		/** @property {string} description The description from the file page - unsafe HTML sometimes goes here */
 		this.description = description;
 
-		/** @property {string} source The source for the image - may include unsafe HTML */
+		/** @property {string} source The source for the image (could be an organization, e.g.) - unsafe HTML sometimes goes here */
 		this.source = source;
 
-		/** @property {string} author The author of the image - may include unsafe HTML */
+		/** @property {string} author The author of the image - unsafe HTML sometimes goes here */
 		this.author = author;
 
 		/**
-		 * @property {number} authorCount The number of different authors of the image.
-		 * This is guessed by the number of templates with author fields, which might be less
-		 * than the number of actual authors.
+		 * @property {number} authorCount The number of different authors of the image. This is guessed by the
+		 *   number of templates with author fields, so might be less than the number of actual authors.
 		 */
 		this.authorCount = authorCount;
 
-		/** @property {License} license */
+		/** @property {License} license The license under which the image is distributed */
 		this.license = license;
 
-		/** @property {string} permission Additional license conditions by the author (note that this is usually a big ugly HTML blob) */
+		/** @property {string} additional license conditions by the author (note that this is usually a big ugly HTML blob) */
 		this.permission = permission;
 
 		/** @property {string} attribution custom attribution string set by uploader that replaces credit line */
@@ -136,7 +162,9 @@ class ImageModel {
 	}
 
 	/**
-	 * Construct an ImageModel object from imageinfo API response data.
+	 * Constructs a new Image object out of an object containing
+	 *
+	 * imageinfo data from an API response.
 	 *
 	 * @static
 	 * @param {mw.Title} title
@@ -223,7 +251,10 @@ class ImageModel {
 		);
 
 		if ( innerInfo.thumburl ) {
-			imageData.thumbUrls[ innerInfo.thumbwidth ] = innerInfo.thumburl;
+			imageData.addThumbUrl(
+				innerInfo.thumbwidth,
+				innerInfo.thumburl
+			);
 		}
 
 		return imageData;
@@ -238,8 +269,10 @@ class ImageModel {
 	 * @return {License|undefined}
 	 */
 	static newLicenseFromImageInfo( extmeta ) {
+		let license;
+
 		if ( extmeta.LicenseShortName ) {
-			return new License(
+			license = new License(
 				this.parseExtmeta( extmeta.LicenseShortName, 'string' ),
 				this.parseExtmeta( extmeta.License, 'string' ),
 				this.parseExtmeta( extmeta.UsageTerms, 'string' ),
@@ -248,6 +281,8 @@ class ImageModel {
 				this.parseExtmeta( extmeta.NonFree, 'boolean' )
 			);
 		}
+
+		return license;
 	}
 
 	/**
@@ -261,30 +296,24 @@ class ImageModel {
 		let value = data && data.value;
 		if ( value === null || value === undefined ) {
 			return undefined;
-		}
-		if ( type === 'plaintext' ) {
+		} else if ( type === 'plaintext' ) {
 			return value.toString().replace( /<.*?>/g, '' );
-		}
-		if ( type === 'string' ) {
+		} else if ( type === 'string' ) {
 			return value.toString();
-		}
-		if ( type === 'integer' ) {
+		} else if ( type === 'integer' ) {
 			return parseInt( value, 10 );
-		}
-		if ( type === 'float' ) {
+		} else if ( type === 'float' ) {
 			return parseFloat( value );
-		}
-		if ( type === 'boolean' ) {
+		} else if ( type === 'boolean' ) {
 			value = value.toString().toLowerCase().replace( /^\s+|\s+$/g, '' );
 			if ( value in { 1: null, yes: null, true: null } ) {
 				return true;
-			}
-			if ( value in { 0: null, no: null, false: null } ) {
+			} else if ( value in { 0: null, no: null, false: null } ) {
 				return false;
+			} else {
+				return undefined;
 			}
-			return undefined;
-		}
-		if ( type === 'datetime' ) {
+		} else if ( type === 'datetime' ) {
 			value = value.toString();
 			// https://datatracker.ietf.org/doc/html/rfc3339
 			// adapted from https://stackoverflow.com/questions/3143070/regex-to-match-an-iso-8601-datetime-string
@@ -299,11 +328,41 @@ class ImageModel {
 				return value.slice( 0, 4 );
 			}
 			return value;
-		}
-		if ( type === 'list' ) {
+		} else if ( type === 'list' ) {
 			return value === '' ? [] : value.split( '|' );
+		} else {
+			throw new Error( 'Image.parseExtmeta: unknown type' );
 		}
-		throw new Error( 'Image.parseExtmeta: unknown type' );
+	}
+
+	/**
+	 * Add a thumb URL
+	 *
+	 * @param {number} width
+	 * @param {string} url
+	 */
+	addThumbUrl( width, url ) {
+		this.thumbUrls[ width ] = url;
+	}
+
+	/**
+	 * Get a thumb URL if we have it.
+	 *
+	 * @param {number} width
+	 * @return {string|undefined}
+	 */
+	getThumbUrl( width ) {
+		return this.thumbUrls[ width ];
+	}
+
+	/**
+	 * Check whether the image has geolocation data.
+	 *
+	 * @return {boolean}
+	 */
+	hasCoords() {
+		return this.latitude !== undefined && this.latitude !== null &&
+			this.longitude !== undefined && this.longitude !== null;
 	}
 }
 
