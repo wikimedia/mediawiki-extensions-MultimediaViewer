@@ -181,7 +181,6 @@ class MultimediaViewer {
 		const pluginsPromise = this.loadExtensionPlugins( image.filePageTitle.getExtension().toLowerCase() );
 
 		this.currentIndex = image.index;
-
 		this.currentImage = image;
 
 		if ( !this.isOpen ) {
