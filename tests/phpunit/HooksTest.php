@@ -6,6 +6,7 @@ use MediaWiki\Extension\MultimediaViewer\Hooks;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Skin\SkinTemplate;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
 
 /**
@@ -41,6 +42,7 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		$skin = new SkinTemplate();
 		$output = $this->createMock( OutputPage::class );
 		$output->method( 'getTitle' )->willReturn( $t );
+		$output->method( 'getUser' )->willReturn( User::newFromName( 'HooksTestUser' ) );
 		$output->expects( $this->exactly( $modulesExpected ) )->method( 'addModules' );
 		$this->newHooksInstance()->onBeforePageDisplay( $output, $skin );
 	}
@@ -102,7 +104,7 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		) extends Hooks {
 			public array $stubThumbs = [];
 
-			protected function shouldUseMobileCarousel(): bool {
+			protected function shouldUseMobileCarousel( User $user ): bool {
 				return true;
 			}
 
@@ -120,6 +122,7 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		$skin = new SkinTemplate();
 		$output = $this->createMock( OutputPage::class );
 		$output->method( 'getTitle' )->willReturn( $title );
+		$output->method( 'getUser' )->willReturn( User::newFromName( 'HooksTestCarouselUser' ) );
 		$output->expects( $this->once() )
 			->method( 'addModules' )
 			->with( [ 'mmv.carousel' ] );
@@ -146,6 +149,7 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		$skin = new SkinTemplate();
 		$output = $this->createMock( OutputPage::class );
 		$output->method( 'getTitle' )->willReturn( $title );
+		$output->method( 'getUser' )->willReturn( User::newFromName( 'HooksTestCarouselUserTwo' ) );
 		$output->expects( $this->never() )->method( 'prependHTML' );
 
 		$hooks = $this->makeCarouselHooks( [

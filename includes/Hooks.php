@@ -25,6 +25,7 @@ namespace MediaWiki\Extension\MultimediaViewer;
 
 use MediaWiki\Category\Category;
 use MediaWiki\Config\Config;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Html\Html;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Media\Hook\ThumbnailBeforeProduceHTMLHook;
@@ -60,9 +61,9 @@ class Hooks implements
 	ResourceLoaderGetConfigVarsHook,
 	ThumbnailBeforeProduceHTMLHook
 {
-
 	// Minimum number of images in a wiki page to enable the carousel.
 	private const MIN_CAROUSEL_IMAGES = 3;
+	private const DISABLE_IMAGE_CAROUSEL_PREFERENCE = 'disable_image_carousel';
 
 	public function __construct(
 		private readonly Config $config,
@@ -80,6 +81,8 @@ class Hooks implements
 		if ( $this->config->get( 'MediaViewerEnableByDefault' ) ) {
 			$defaultOptions['multimediaviewer-enable'] = 1;
 		}
+
+		$defaultOptions[self::DISABLE_IMAGE_CAROUSEL_PREFERENCE] = 0;
 	}
 
 	/**
@@ -88,6 +91,12 @@ class Hooks implements
 	 * @return bool
 	 */
 	protected function shouldHandleClicks( User $performer ): bool {
+		if ( $this->isMobileFrontendView() &&
+			$this->userOptionsLookup->getBoolOption( $performer, self::DISABLE_IMAGE_CAROUSEL_PREFERENCE )
+		) {
+			return false;
+		}
+
 		if ( $performer->isNamed() ) {
 			return (bool)$this->userOptionsLookup->getOption( $performer, 'multimediaviewer-enable' );
 		}
@@ -118,16 +127,22 @@ class Hooks implements
 		// The MobileFrontend extension provides its own implementation of MultimediaViewer.
 		// See https://phabricator.wikimedia.org/T65504 and subtasks for more details.
 		// To avoid loading MMV twice, we check the environment we are running in.
+		$user = $out->getUser();
 		$isMobileFrontendView = $this->isMobileFrontendView();
 		$modules = [];
-		if ( $this->shouldUseMobileCarousel() ) {
+		if ( $this->shouldUseMobileCarousel( $user ) ) {
 			// mmv.carousel depends on mmv.bootstrap, so loading the carousel also loads bootstrap.
 			$modules[] = 'mmv.carousel';
 			$out->addModuleStyles( 'mmv.carousel.styles' );
 		} elseif ( $isMobileFrontendView ) {
+			$hasDisabledMobileCarousel = $this->userOptionsLookup->getBoolOption(
+				$user,
+				self::DISABLE_IMAGE_CAROUSEL_PREFERENCE
+			);
 			// On mobile without the carousel, only load the bootstrap when the beta
-			// flag is set to replace MobileFrontend's viewer.
-			if ( $out->getRequest()->getFuzzyBool( 'mmvBeta' ) ) {
+			// flag is set to replace MobileFrontend's viewer. A user opt-out should
+			// suppress both the carousel shell and the beta viewer replacement.
+			if ( !$hasDisabledMobileCarousel && $out->getRequest()->getFuzzyBool( 'mmvBeta' ) ) {
 				$modules[] = 'mmv.bootstrap';
 			}
 		} else {
@@ -144,9 +159,19 @@ class Hooks implements
 	 *
 	 * @return bool
 	 */
-	protected function shouldUseMobileCarousel(): bool {
+	protected function shouldUseMobileCarousel( User $user ): bool {
 		return $this->isMobileFrontendView() &&
-			$this->config->get( 'MediaViewerMobileCarousel' );
+			$this->config->get( 'MediaViewerMobileCarousel' ) &&
+			!$this->userOptionsLookup->getBoolOption( $user, self::DISABLE_IMAGE_CAROUSEL_PREFERENCE );
+	}
+
+	/**
+	 * The current request skin name, including temporary `?useskin=` overrides.
+	 *
+	 * @return string
+	 */
+	protected function getCurrentRequestSkinName(): string {
+		return RequestContext::getMain()->getSkin()->getSkinName();
 	}
 
 	/**
@@ -349,11 +374,10 @@ class Hooks implements
 
 		if ( !$pageIsSpecialPage || $pageIsFileRelatedSpecialPage ) {
 			$this->getModules( $out );
-			if ( $this->shouldUseMobileCarousel() ) {
-				$images = $this->extractImages( $out );
-				// Enable the carousel if the number of images meets the minimum threshold
-				if ( count( $images ) >= self::MIN_CAROUSEL_IMAGES ) {
-					$out->prependHTML( $this->buildCarouselHtml( $images ) );
+			if ( $this->shouldUseMobileCarousel( $out->getUser() ) ) {
+				$thumbData = $this->extractImages( $out );
+				if ( count( $thumbData ) >= self::MIN_CAROUSEL_IMAGES ) {
+					$out->prependHTML( $this->buildCarouselHtml( $thumbData ) );
 				}
 			}
 		}
@@ -383,6 +407,16 @@ class Hooks implements
 		$prefs['multimediaviewer-enable'] = [
 			'type' => 'toggle',
 			'label-message' => 'multimediaviewer-optin-pref',
+			'section' => 'rendering/files',
+		];
+
+		if ( !$this->config->get( 'MediaViewerMobileCarousel' ) ) {
+			return;
+		}
+
+		$prefs[self::DISABLE_IMAGE_CAROUSEL_PREFERENCE] = [
+			'type' => $this->getCurrentRequestSkinName() === 'minerva' ? 'toggle' : 'hidden',
+			'label-message' => 'multimediaviewer-disable-image-carousel-pref',
 			'section' => 'rendering/files',
 		];
 	}
