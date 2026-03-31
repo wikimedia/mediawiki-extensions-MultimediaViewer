@@ -9,7 +9,7 @@
  * @module mmv.ui.beta.thumbnailGuessing
  */
 
-const ThumbnailWidthCalculator = require( '../mmv/mmv.ThumbnailWidthCalculator.js' );
+const { ThumbnailWidthCalculator } = require( 'mmv.common' );
 const calculator = new ThumbnailWidthCalculator();
 
 /**

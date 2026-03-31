@@ -16,17 +16,20 @@
  */
 
 const { Config } = require( 'mmv.bootstrap' );
-const HtmlUtils = require( './mmv.HtmlUtils.js' );
+const {
+	HtmlUtils,
+	Api,
+	GuessedThumbnailInfo,
+	ImageProvider,
+	ImageInfo,
+	ThumbnailInfo,
+	ImageModel,
+	License,
+	Thumbnail,
+	ThumbnailWidth,
+	ThumbnailWidthCalculator
+} = require( 'mmv.common' );
 const ViewLogger = require( './logging/mmv.logging.ViewLogger.js' );
-const Api = require( './provider/mmv.provider.Api.js' );
-const GuessedThumbnailInfo = require( './provider/mmv.provider.GuessedThumbnailInfo.js' );
-const ImageProvider = require( './provider/mmv.provider.Image.js' );
-const ImageInfo = require( './provider/mmv.provider.ImageInfo.js' );
-const ThumbnailInfo = require( './provider/mmv.provider.ThumbnailInfo.js' );
-const ImageModel = require( './model/mmv.model.Image.js' );
-const License = require( './model/mmv.model.License.js' );
-const Thumbnail = require( './model/mmv.model.Thumbnail.js' );
-const ThumbnailWidth = require( './model/mmv.model.ThumbnailWidth.js' );
 const Canvas = require( './ui/mmv.ui.canvas.js' );
 const CanvasButtons = require( './ui/mmv.ui.canvasButtons.js' );
 const Description = require( './ui/mmv.ui.description.js' );
@@ -39,7 +42,6 @@ const ProgressBar = require( './ui/mmv.ui.progressBar.js' );
 const StripeButtons = require( './ui/mmv.ui.stripeButtons.js' );
 const TruncatableTextField = require( './ui/mmv.ui.truncatableTextField.js' );
 const LightboxInterface = require( './mmv.lightboxinterface.js' );
-const ThumbnailWidthCalculator = require( './mmv.ThumbnailWidthCalculator.js' );
 const { extensions, useThumbnailGuessing } = require( './config.json' );
 
 const router = require( 'mediawiki.router' );

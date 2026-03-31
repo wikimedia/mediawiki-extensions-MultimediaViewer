@@ -196,10 +196,11 @@ class Hooks implements
 	 * @param Config $config
 	 * @return array
 	 */
-	public static function getThumbnailBucketConfig( ?Context $context, Config $config ): array {
+	public static function getCommonConfig( ?Context $context, Config $config ): array {
 		$steps = $config->get( MainConfigNames::ThumbnailSteps );
 		return [
 			'thumbnailBucketSizes' => $steps ?: $config->get( 'MediaViewerThumbnailBucketSizes' ),
+			'imageQueryParameter' => $config->get( 'MediaViewerImageQueryParameter' ),
 		];
 	}
 
