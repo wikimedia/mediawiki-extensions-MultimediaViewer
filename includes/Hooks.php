@@ -29,11 +29,14 @@ use MediaWiki\Html\Html;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Media\Hook\ThumbnailBeforeProduceHTMLHook;
 use MediaWiki\Media\ThumbnailImage;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\Hook\BeforePageDisplayHook;
 use MediaWiki\Output\Hook\MakeGlobalVariablesScriptHook;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\CategoryPage;
 use MediaWiki\Page\Hook\CategoryPageViewHook;
+use MediaWiki\Parser\ParserOptions;
+use MediaWiki\Parser\ParserOutputLinkTypes;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\ResourceLoader\Context;
@@ -54,6 +57,10 @@ class Hooks implements
 	ResourceLoaderGetConfigVarsHook,
 	ThumbnailBeforeProduceHTMLHook
 {
+
+	// Minimum amount of images in a wiki page to enable the carousel.
+	private const MIN_CAROUSEL_IMAGES = 3;
+
 	public function __construct(
 		private readonly Config $config,
 		private readonly SpecialPageFactory $specialPageFactory,
@@ -141,10 +148,49 @@ class Hooks implements
 			$this->config->get( 'MediaViewerMobileCarousel' );
 	}
 
-	// TODO: Extract carousel thumbs (T420392) - extract thumbnail data from
-	// the parser output eg. via getLinkList(MEDIA) for carousel rendering.
-	protected function getCarouselThumbs(): array {
-		return [];
+	/**
+	 * Extract thumbnail image data from the parser output of a wiki page.
+	 * The parser cache is used if possible.
+	 *
+	 * @param OutputPage $out An output page
+	 * @return array The extracted image data as per {@link ThumbExtractor::extract()}
+	 */
+	protected function extractImages( OutputPage $out ): array {
+		// Get the parser output
+		$mwServices = MediaWikiServices::getInstance();
+		$context = $out->getContext();
+		$wikiPage = $context->getWikiPage();
+		$parserOptions = ParserOptions::newFromContext( $context );
+		// NOTE This doesn't work if a page is loaded by MobileFrontendContentProvider
+		// `getParserOutput` automatically uses the parser cache if possible
+		$parserOutput = $wikiPage->getParserOutput( $parserOptions );
+
+		// TODO remove when the carousel experiment is over,
+		// https://gerrit.wikimedia.org/r/c/mediawiki/extensions/MultimediaViewer/+/1267037/comment/74720bca_62a9b6dc/
+		if ( $parserOutput === false ) {
+			return [];
+		}
+
+		// Get media files
+		$fileNames = [];
+		foreach ( $parserOutput->getLinkList( ParserOutputLinkTypes::MEDIA ) as $medium ) {
+			$fileNames[] = $medium['link']->getText();
+		}
+		$repoGroup = $mwServices->getRepoGroup();
+		$files = $repoGroup->findFiles( $fileNames );
+
+		// Instantiate a ThumbExtractor with a file extension allowlist and a CSS selector filter
+		// as provided by the config.
+		$thumbExtractor = new ThumbExtractor(
+			$files,
+			$this->config->get( 'MediaViewerExtensions' ),
+			$this->config->get( 'MediaViewerExcludedImageSelectors' )
+		);
+
+		// Get the DOM body fragment
+		$body = $parserOutput->getContentHolder()->getAsDom();
+
+		return $thumbExtractor->extract( $body );
 	}
 
 	/**
@@ -234,9 +280,10 @@ class Hooks implements
 		if ( !$pageIsSpecialPage || $pageIsFileRelatedSpecialPage ) {
 			$this->getModules( $out );
 			if ( $this->shouldUseMobileCarousel() ) {
-				$thumbData = $this->getCarouselThumbs();
-				if ( count( $thumbData ) >= self::MIN_CAROUSEL_ITEMS ) {
-					$out->prependHTML( $this->buildCarouselHtml( $thumbData ) );
+				$images = $this->extractImages( $out );
+				// Enable the carousel if the amount of images meets the minimum threhshold
+				if ( count( $images ) >= self::MIN_CAROUSEL_IMAGES ) {
+					$out->prependHTML( $this->buildCarouselHtml( $images ) );
 				}
 			}
 		}

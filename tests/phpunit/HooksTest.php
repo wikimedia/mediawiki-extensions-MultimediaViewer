@@ -106,7 +106,7 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 				return true;
 			}
 
-			protected function getCarouselThumbs(): array {
+			protected function extractImages( OutputPage $out ): array {
 				return $this->stubThumbs;
 			}
 		};
