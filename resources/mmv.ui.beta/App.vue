@@ -1,12 +1,23 @@
 <template>
 	<div
 		v-if="isOpen"
+		ref="lightbox"
 		class="mmv-lightbox"
 		:class="{ 'mmv-lightbox--chrome-hidden': !chromeVisible }"
 		role="dialog"
 		aria-modal="true"
 		aria-labelledby="mmv-lightbox-title"
 	>
+		<div
+			class="mmv-focus-sentinel"
+			tabindex="0"
+			@focus="onFocusTrapStart"
+		></div>
+		<div
+			ref="focusHolder"
+			class="mmv-focus-holder"
+			tabindex="-1"
+		></div>
 		<template v-if="image">
 			<lightbox-header></lightbox-header>
 			<lightbox-image @click="onViewportClick"></lightbox-image>
@@ -18,16 +29,22 @@
 			class="mmv-lightbox__progress"
 			:aria-label="$i18n( 'multimediaviewer-loading' ).text()"
 		></cdx-progress-bar>
+		<div
+			class="mmv-focus-sentinel"
+			tabindex="0"
+			@focus="onFocusTrapEnd"
+		></div>
 	</div>
 </template>
 
 <script>
-const { defineComponent, inject, computed } = require( 'vue' );
+const { defineComponent, inject, computed, useTemplateRef } = require( 'vue' );
 const { CdxProgressBar } = require( '@wikimedia/codex' );
 const LightboxHeader = require( './LightboxHeader.vue' );
 const LightboxImage = require( './LightboxImage.vue' );
 const LightboxCaption = require( './LightboxCaption.vue' );
 const LightboxNav = require( './LightboxNav.vue' );
+const { useFocusTrap } = require( './useFocusTrap.js' );
 
 /** @typedef {import('./types').ViewerState} ViewerState */
 
@@ -46,9 +63,17 @@ module.exports = exports = defineComponent( {
 		const state = inject( 'state' );
 		const toggleChromeFn = inject( 'toggleChrome' );
 
+		const lightboxRef = useTemplateRef( 'lightbox' );
+		const focusHolderRef = useTemplateRef( 'focusHolder' );
 		const isOpen = computed( () => state.isOpen.value );
 		const image = computed( () => state.image.value );
 		const chromeVisible = computed( () => state.chromeVisible.value );
+
+		const { onFocusTrapStart, onFocusTrapEnd } = useFocusTrap(
+			lightboxRef,
+			isOpen,
+			{ holderRef: focusHolderRef }
+		);
 
 		function onViewportClick( e ) {
 			if ( e.target.closest( 'a, button, [role="button"]' ) ) {
@@ -61,7 +86,9 @@ module.exports = exports = defineComponent( {
 			isOpen,
 			image,
 			chromeVisible,
-			onViewportClick
+			onViewportClick,
+			onFocusTrapStart,
+			onFocusTrapEnd
 		};
 	}
 } );
@@ -86,6 +113,14 @@ module.exports = exports = defineComponent( {
 	flex-direction: column;
 	background-color: @background-color-interactive-subtle;
 	color: @color-inverted-fixed;
+
+	.mmv-focus-sentinel,
+	.mmv-focus-holder {
+		position: absolute;
+		width: 0;
+		height: 0;
+		overflow: hidden;
+	}
 
 	&__progress {
 		max-width: 80vw;

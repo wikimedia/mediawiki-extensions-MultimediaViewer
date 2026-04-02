@@ -299,6 +299,7 @@
 				"mmv.ui.beta/LightboxCaption.vue",
 				"mmv.ui.beta/LightboxNav.vue",
 				"mmv.ui.beta/thumbnailGuessing.js",
+				"mmv.ui.beta/useFocusTrap.js",
 				{
 					"name": "mmv.ui.beta/icons.json",
 					"callback": "MediaWiki\\ResourceLoader\\CodexModule::getIcons",
