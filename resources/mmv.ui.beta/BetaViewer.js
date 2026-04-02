@@ -47,7 +47,8 @@ class BetaViewer {
 			imageInfo: ref( null ),
 			displayUrl: ref( '' ),
 			thumbs: ref( [] ),
-			isOpen: ref( false )
+			isOpen: ref( false ),
+			chromeVisible: ref( true )
 		};
 
 		// Provide a ui object with unattach() so bootstrap can close
@@ -252,6 +253,9 @@ class BetaViewer {
 			this.app.provide( 'close', () => this.close() );
 			this.app.provide( 'nextImage', () => this.nextImage() );
 			this.app.provide( 'prevImage', () => this.prevImage() );
+			this.app.provide( 'toggleChrome', () => {
+				this.state.chromeVisible.value = !this.state.chromeVisible.value;
+			} );
 			this.app.mount( this.mountEl );
 		}
 
@@ -276,6 +280,7 @@ class BetaViewer {
 
 		this.isOpen = false;
 		this.state.isOpen.value = false;
+		this.state.chromeVisible.value = true;
 		this.currentImage = null;
 		this.state.image.value = null;
 		this.state.imageInfo.value = null;

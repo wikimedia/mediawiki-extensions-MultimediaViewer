@@ -2,14 +2,14 @@
 	<div
 		v-if="isOpen"
 		class="mmv-lightbox"
+		:class="{ 'mmv-lightbox--chrome-hidden': !chromeVisible }"
 		role="dialog"
 		aria-modal="true"
 		aria-labelledby="mmv-lightbox-title"
-		@click.self="onClose"
 	>
 		<template v-if="image">
 			<lightbox-header></lightbox-header>
-			<lightbox-image></lightbox-image>
+			<lightbox-image @click="onViewportClick"></lightbox-image>
 			<lightbox-caption></lightbox-caption>
 			<lightbox-nav></lightbox-nav>
 		</template>
@@ -44,19 +44,24 @@ module.exports = exports = defineComponent( {
 	setup() {
 		/** @type {ViewerState} */
 		const state = inject( 'state' );
-		const closeFn = inject( 'close' );
+		const toggleChromeFn = inject( 'toggleChrome' );
 
 		const isOpen = computed( () => state.isOpen.value );
 		const image = computed( () => state.image.value );
+		const chromeVisible = computed( () => state.chromeVisible.value );
 
-		function onClose() {
-			closeFn();
+		function onViewportClick( e ) {
+			if ( e.target.closest( 'a, button, [role="button"]' ) ) {
+				return;
+			}
+			toggleChromeFn();
 		}
 
 		return {
 			isOpen,
 			image,
-			onClose
+			chromeVisible,
+			onViewportClick
 		};
 	}
 } );
@@ -87,6 +92,22 @@ module.exports = exports = defineComponent( {
 		min-width: 20vw;
 		width: 20rem;
 		margin: auto;
+	}
+
+	.mmv-lightbox-header,
+	.mmv-lightbox-caption,
+	.mmv-lightbox-nav {
+		transition: opacity 0.2s ease, visibility 0.2s ease;
+	}
+
+	&--chrome-hidden {
+		.mmv-lightbox-header,
+		.mmv-lightbox-caption,
+		.mmv-lightbox-nav {
+			opacity: 0;
+			visibility: hidden;
+			pointer-events: none;
+		}
 	}
 }
 </style>
