@@ -20,6 +20,13 @@
 		></div>
 		<template v-if="image">
 			<lightbox-header></lightbox-header>
+			<cdx-button
+				class="mmv-lightbox-close"
+				:aria-label="$i18n( 'multimediaviewer-close-popup-text' ).text()"
+				@click="onClose"
+			>
+				<cdx-icon :icon="cdxIconClose"></cdx-icon>
+			</cdx-button>
 			<lightbox-image @click="onViewportClick"></lightbox-image>
 			<lightbox-caption></lightbox-caption>
 			<lightbox-nav></lightbox-nav>
@@ -39,7 +46,8 @@
 
 <script>
 const { defineComponent, inject, computed, useTemplateRef } = require( 'vue' );
-const { CdxProgressBar } = require( '@wikimedia/codex' );
+const { CdxButton, CdxIcon, CdxProgressBar } = require( '@wikimedia/codex' );
+const { cdxIconClose } = require( './icons.json' );
 const LightboxHeader = require( './LightboxHeader.vue' );
 const LightboxImage = require( './LightboxImage.vue' );
 const LightboxCaption = require( './LightboxCaption.vue' );
@@ -52,6 +60,8 @@ const { useFocusTrap } = require( './useFocusTrap.js' );
 module.exports = exports = defineComponent( {
 	name: 'MmvLightbox',
 	components: {
+		CdxButton,
+		CdxIcon,
 		CdxProgressBar,
 		LightboxHeader,
 		LightboxImage,
@@ -62,6 +72,7 @@ module.exports = exports = defineComponent( {
 		/** @type {ViewerState} */
 		const state = inject( 'state' );
 		const toggleChromeFn = inject( 'toggleChrome' );
+		const closeFn = inject( 'close' );
 
 		const lightboxRef = useTemplateRef( 'lightbox' );
 		const focusHolderRef = useTemplateRef( 'focusHolder' );
@@ -82,11 +93,17 @@ module.exports = exports = defineComponent( {
 			toggleChromeFn();
 		}
 
+		function onClose() {
+			closeFn();
+		}
+
 		return {
 			isOpen,
 			image,
 			chromeVisible,
 			onViewportClick,
+			onClose,
+			cdxIconClose,
 			onFocusTrapStart,
 			onFocusTrapEnd
 		};
@@ -127,6 +144,13 @@ module.exports = exports = defineComponent( {
 		min-width: 20vw;
 		width: 20rem;
 		margin: auto;
+	}
+
+	.mmv-lightbox-close {
+		position: absolute;
+		top: @spacing-75;
+		right: @spacing-100;
+		z-index: 2;
 	}
 
 	.mmv-lightbox-header,

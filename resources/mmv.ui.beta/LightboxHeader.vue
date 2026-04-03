@@ -8,20 +8,11 @@
 				{{ author }}
 			</div>
 		</div>
-		<cdx-button
-			class="mmv-lightbox-header__close"
-			:aria-label="$i18n( 'multimediaviewer-close-popup-text' ).text()"
-			@click="onClose"
-		>
-			<cdx-icon :icon="cdxIconClose"></cdx-icon>
-		</cdx-button>
 	</div>
 </template>
 
 <script>
 const { defineComponent, inject, computed } = require( 'vue' );
-const { CdxButton, CdxIcon } = require( '@wikimedia/codex' );
-const { cdxIconClose } = require( './icons.json' );
 const { HtmlUtils } = require( 'mmv.common' );
 
 /** @typedef {import('./types').ViewerState} ViewerState */
@@ -29,15 +20,9 @@ const { HtmlUtils } = require( 'mmv.common' );
 // @vue/component
 module.exports = exports = defineComponent( {
 	name: 'LightboxHeader',
-	components: {
-		CdxButton,
-		CdxIcon
-	},
 	setup() {
 		/** @type {ViewerState} */
 		const state = inject( 'state' );
-		const closeFn = inject( 'close' );
-
 		const image = computed( () => state.image.value );
 		const imageInfo = computed( () => state.imageInfo.value );
 
@@ -55,16 +40,10 @@ module.exports = exports = defineComponent( {
 			return '';
 		} );
 
-		function onClose() {
-			closeFn();
-		}
-
 		return {
 			image,
 			imageTitle,
-			author,
-			onClose,
-			cdxIconClose
+			author
 		};
 	}
 } );
@@ -78,12 +57,13 @@ module.exports = exports = defineComponent( {
 	justify-content: space-between;
 	align-items: flex-start;
 	padding: @spacing-75 @spacing-100;
+	// Reserve space on the right for the absolutely-positioned close button.
+	padding-right: calc( @spacing-100 + @size-200 + @spacing-75 );
 	flex-shrink: 0;
 
 	&__text {
 		flex: 1;
 		min-width: 0;
-		padding-right: @spacing-75;
 	}
 
 	&__title {
