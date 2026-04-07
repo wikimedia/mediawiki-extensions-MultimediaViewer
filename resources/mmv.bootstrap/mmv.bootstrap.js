@@ -253,7 +253,8 @@ class MultimediaViewerBootstrap {
 			'.noviewer', // MediaViewer has been specifically disabled for this image
 			'.noarticletext', // we are on an error page for a non-existing article, the image is part of some template
 			'#siteNotice',
-			'ul.mw-gallery-slideshow li.gallerybox' // thumbnails of a slideshow gallery
+			'ul.mw-gallery-slideshow li.gallerybox', // thumbnails of a slideshow gallery
+			'#mmv-carousel-root' // carousel items have their own click handlers
 		];
 		return $thumb.closest( selectors.join( ', ' ) ).length === 0;
 	}

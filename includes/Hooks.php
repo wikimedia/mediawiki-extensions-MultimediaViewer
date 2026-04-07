@@ -43,10 +43,13 @@ use MediaWiki\ResourceLoader\Context;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderGetConfigVarsHook;
 use MediaWiki\Skin\Skin;
 use MediaWiki\SpecialPage\SpecialPageFactory;
+use MediaWiki\Title\Title;
 use MediaWiki\User\Hook\UserGetDefaultOptionsHook;
 use MediaWiki\User\Options\UserOptionsLookup;
 use MediaWiki\User\User;
 use MobileContext;
+use Wikimedia\Parsoid\Core\DOMCompat;
+use Wikimedia\Parsoid\Utils\DOMUtils;
 
 class Hooks implements
 	MakeGlobalVariablesScriptHook,
@@ -58,7 +61,7 @@ class Hooks implements
 	ThumbnailBeforeProduceHTMLHook
 {
 
-	// Minimum amount of images in a wiki page to enable the carousel.
+	// Minimum number of images in a wiki page to enable the carousel.
 	private const MIN_CAROUSEL_IMAGES = 3;
 
 	public function __construct(
@@ -68,8 +71,6 @@ class Hooks implements
 		private readonly ?MobileContext $mobileContext,
 	) {
 	}
-
-	public const MIN_CAROUSEL_ITEMS = 3;
 
 	/**
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/UserGetDefaultOptions
@@ -153,44 +154,113 @@ class Hooks implements
 	 * The parser cache is used if possible.
 	 *
 	 * @param OutputPage $out An output page
-	 * @return array The extracted image data as per {@link ThumbExtractor::extract()}
+	 * @return array[] Each item has keys: title, href, src, width, height, alt
 	 */
 	protected function extractImages( OutputPage $out ): array {
-		// Get the parser output
-		$mwServices = MediaWikiServices::getInstance();
-		$context = $out->getContext();
-		$wikiPage = $context->getWikiPage();
-		$parserOptions = ParserOptions::newFromContext( $context );
-		// NOTE This doesn't work if a page is loaded by MobileFrontendContentProvider
-		// `getParserOutput` automatically uses the parser cache if possible
-		$parserOutput = $wikiPage->getParserOutput( $parserOptions );
-
-		// TODO remove when the carousel experiment is over,
-		// https://gerrit.wikimedia.org/r/c/mediawiki/extensions/MultimediaViewer/+/1267037/comment/74720bca_62a9b6dc/
-		if ( $parserOutput === false ) {
-			return [];
-		}
-
-		// Get media files
-		$fileNames = [];
-		foreach ( $parserOutput->getLinkList( ParserOutputLinkTypes::MEDIA ) as $medium ) {
-			$fileNames[] = $medium['link']->getText();
-		}
-		$repoGroup = $mwServices->getRepoGroup();
-		$files = $repoGroup->findFiles( $fileNames );
-
-		// Instantiate a ThumbExtractor with a file extension allowlist and a CSS selector filter
-		// as provided by the config.
 		$thumbExtractor = new ThumbExtractor(
-			$files,
 			$this->config->get( 'MediaViewerExtensions' ),
 			$this->config->get( 'MediaViewerExcludedImageSelectors' )
 		);
 
-		// Get the DOM body fragment
-		$body = $parserOutput->getContentHolder()->getAsDom();
+		$mwServices = MediaWikiServices::getInstance();
+		$context = $out->getContext();
+		$wikiPage = $context->getWikiPage();
+		$parserOptions = ParserOptions::newFromContext( $context );
+		$parserOutput = $wikiPage->getParserOutput( $parserOptions );
 
-		return $thumbExtractor->extract( $body );
+		if ( $parserOutput ) {
+			// In production, extract thumbnails from parser output + file metadata
+			$fileNames = [];
+			foreach ( $parserOutput->getLinkList( ParserOutputLinkTypes::MEDIA ) as $medium ) {
+				$fileNames[] = $medium['link']->getText();
+			}
+			$files = $mwServices->getRepoGroup()->findFiles( $fileNames );
+			$body = $parserOutput->getContentHolder()->getAsDom();
+
+			return $this->mapForCarousel( $thumbExtractor->extract( $body, $files ) );
+		} else {
+			// In local dev with MobileFrontendContentProvider, extract from HTML directly
+			return $this->extractImagesFromHtml( $out->getHTML(), $thumbExtractor );
+		}
+	}
+
+	/**
+	 * Extract thumbnail data directly from HTML, without File objects.
+	 *
+	 * Used when ParserOutput is unavailable (e.g. MobileFrontendContentProvider
+	 * proxied pages). File names are parsed from link hrefs instead of
+	 * RepoGroup::findFiles().
+	 *
+	 * @param string $html Page HTML
+	 * @param ThumbExtractor $thumbExtractor
+	 * @return array[] Each item has keys: title, href, src, width, height, alt
+	 */
+	private function extractImagesFromHtml( string $html, ThumbExtractor $thumbExtractor ): array {
+		if ( $html === '' ) {
+			return [];
+		}
+
+		$doc = DOMCompat::newDocument( true );
+		$body = DOMUtils::parseHTMLToFragment( $doc, $html );
+
+		$seen = [];
+		$thumbData = [];
+
+		foreach ( $thumbExtractor->findThumbs( $body ) as $thumb ) {
+			// Find the parent <a> to get the file name
+			$anchor = DOMCompat::getParentElement( $thumb );
+			if ( !$anchor || $anchor->nodeName !== 'a' ) {
+				continue;
+			}
+			$href = $anchor->getAttribute( 'href' );
+
+			// Extract file name from href
+			// Parsoid: href="./File:Example.jpg"  Legacy: href="/wiki/File:Example.jpg"
+			if ( !preg_match( '#(?:^\./|/wiki/)File:(.+)$#', $href, $m ) ) {
+				continue;
+			}
+			$fileName = urldecode( $m[1] );
+
+			// Deduplicate by file name
+			if ( isset( $seen[$fileName] ) ) {
+				continue;
+			}
+			$seen[$fileName] = true;
+
+			$thumbData[] = [
+				'title' => Title::makeTitleSafe( NS_FILE, $fileName ),
+				'thumb' => $thumb,
+			];
+		}
+
+		// mapForCarousel reads from the thumb Elements, so it must be called
+		// while $doc is still in scope (Parsoid DOM frees nodes when their
+		// owning document is garbage-collected).
+		return $this->mapForCarousel( $thumbData );
+	}
+
+	/**
+	 * Map extracted thumbnail data to the flat array format used by
+	 * {@link buildCarouselItems}.
+	 *
+	 * @param array[] $thumbData Each item must have keys: title (Title), thumb (Element)
+	 * @return array[] Each item has keys: title, href, src, width, height, alt
+	 */
+	private function mapForCarousel( array $thumbData ): array {
+		$result = [];
+		foreach ( $thumbData as $item ) {
+			$thumb = $item['thumb'];
+			$result[] = [
+				'title' => $item['title']->getPrefixedText(),
+				'href' => $item['title']->getLocalURL(),
+				'src' => $thumb->getAttribute( 'src' )
+					?: $thumb->getAttribute( 'data-mw-src' ),
+				'width' => $thumb->getAttribute( 'width' ),
+				'height' => $thumb->getAttribute( 'height' ),
+				'alt' => $thumb->getAttribute( 'alt' ),
+			];
+		}
+		return $result;
 	}
 
 	/**
@@ -281,7 +351,7 @@ class Hooks implements
 			$this->getModules( $out );
 			if ( $this->shouldUseMobileCarousel() ) {
 				$images = $this->extractImages( $out );
-				// Enable the carousel if the amount of images meets the minimum threhshold
+				// Enable the carousel if the number of images meets the minimum threshold
 				if ( count( $images ) >= self::MIN_CAROUSEL_IMAGES ) {
 					$out->prependHTML( $this->buildCarouselHtml( $images ) );
 				}

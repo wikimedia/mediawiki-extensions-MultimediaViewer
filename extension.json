@@ -269,7 +269,11 @@
 			]
 		},
 		"mmv.carousel": {
-			"styles": [],
+			"localBasePath": "resources/mmv.carousel",
+			"remoteExtPath": "MultimediaViewer/resources/mmv.carousel",
+			"packageFiles": [
+				"carousel.js"
+			],
 			"dependencies": [
 				"mmv.bootstrap",
 				"mediawiki.router"

@@ -33,19 +33,19 @@ class ThumbExtractorTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testExtractReturnsEmptyForNullBody(): void {
-		$extractor = new ThumbExtractor( [], [], [] );
-		$this->assertSame( [], $extractor->extract( null ) );
+		$extractor = new ThumbExtractor( [], [] );
+		$this->assertSame( [], $extractor->extract( null, [] ) );
 	}
 
 	public function testExtractMatchesThumbToFile(): void {
 		$file = $this->makeFile( 'jpg', 123, 321 );
 		$files = [ 'Batman.jpg' => $file ];
-		$extractor = new ThumbExtractor( $files, [ 'jpg' => 'default' ], [] );
+		$extractor = new ThumbExtractor( [ 'jpg' => 'default' ], [] );
 
 		$snippet = '<a class="mw-file-description">'
 			. '<img src="/path/to/Batman.jpg/200px-Batman.jpg" width="200" height="200">'
 			. '</a>';
-		$result = $extractor->extract( $this->makeBody( $snippet ) );
+		$result = $extractor->extract( $this->makeBody( $snippet ), $files );
 
 		$this->assertCount( 1, $result );
 		$this->assertSame( 'Batman.jpg', $result[0]['name'] );
@@ -56,10 +56,10 @@ class ThumbExtractorTest extends MediaWikiIntegrationTestCase {
 	public function testExtractExcludesDisallowedExtension(): void {
 		$file = $this->makeFile( 'svg', 666, 666 );
 		$files = [ 'Bat_Sign.svg' => $file ];
-		$extractor = new ThumbExtractor( $files, [ 'jpg' => 'default' ], [] );
+		$extractor = new ThumbExtractor( [ 'jpg' => 'default' ], [] );
 
 		$snippet = '<a class="image"><img src="/path/to/Bat_Sign.svg"></a>';
-		$result = $extractor->extract( $this->makeBody( $snippet ) );
+		$result = $extractor->extract( $this->makeBody( $snippet ), $files );
 
 		$this->assertSame( [], $result );
 	}
@@ -67,10 +67,10 @@ class ThumbExtractorTest extends MediaWikiIntegrationTestCase {
 	public function testExtractExcludesSmallImage(): void {
 		$file = $this->makeFile( 'jpg', 16, 11 );
 		$files = [ 'Micro_Batman.jpg' => $file ];
-		$extractor = new ThumbExtractor( $files, [ 'jpg' => 'default' ], [] );
+		$extractor = new ThumbExtractor( [ 'jpg' => 'default' ], [] );
 
 		$snippet = '<a class="image"><img src="/path/to/Micro_Batman.jpg"></a>';
-		$result = $extractor->extract( $this->makeBody( $snippet ) );
+		$result = $extractor->extract( $this->makeBody( $snippet ), $files );
 
 		$this->assertSame( [], $result );
 	}
@@ -78,13 +78,13 @@ class ThumbExtractorTest extends MediaWikiIntegrationTestCase {
 	public function testExtractIsAllowedThumb(): void {
 		$file = $this->makeFile( 'jpg', 666, 666 );
 		$files = [ 'Meta_Batman.jpg' => $file ];
-		$extractor = new ThumbExtractor( $files, [ 'jpg' => 'default' ], [] );
+		$extractor = new ThumbExtractor( [ 'jpg' => 'default' ], [] );
 
 		// .metadata is a known non-content ancestor class and should be excluded
 		$snippet = '<div class="metadata">'
 			. '<a class="image"><img src="/path/to/Meta_Batman.jpg"></a>'
 			. '</div>';
-		$result = $extractor->extract( $this->makeBody( $snippet ) );
+		$result = $extractor->extract( $this->makeBody( $snippet ), $files );
 
 		$this->assertSame( [], $result );
 	}
@@ -92,12 +92,12 @@ class ThumbExtractorTest extends MediaWikiIntegrationTestCase {
 	public function testExtractIsExcludedBySelector(): void {
 		$file = $this->makeFile( 'jpg', 666, 666 );
 		$files = [ 'Side_Batman.jpg' => $file ];
-		$extractor = new ThumbExtractor( $files, [ 'jpg' => 'default' ], [ '.sidebar-box' ] );
+		$extractor = new ThumbExtractor( [ 'jpg' => 'default' ], [ '.sidebar-box' ] );
 
 		$snippet = '<div class="sidebar-box">'
 			. '<a class="image"><img src="/path/to/Side_Batman.jpg"></a>'
 			. '</div>';
-		$result = $extractor->extract( $this->makeBody( $snippet ) );
+		$result = $extractor->extract( $this->makeBody( $snippet ), $files );
 
 		$this->assertSame( [], $result );
 	}

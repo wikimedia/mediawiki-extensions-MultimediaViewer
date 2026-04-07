@@ -29,35 +29,42 @@ class ThumbExtractor {
 	 */
 	private const MIN_HEIGHT = 30;
 
-	private array $files;
-
 	private array $allowedExtensions;
 
 	private array $excludedImageSelectors;
 
 	/**
-	 * @param array $files A map of (file name => File objects) that represents media files in a wiki page,
-	 * as returned by {@link RepoGroup::findFiles()}.
-	 * Remember that files are not ordered by appearance in the page
 	 * @param string[] $allowedExtensions A file extension allowlist,
 	 * typically based on https://commons.wikimedia.org/wiki/Special:MediaStatistics
 	 * @param string[] $excludedImageSelectors CSS selectors whose ancestor presence causes an image to be excluded
 	 */
-	public function __construct( array $files, array $allowedExtensions, array $excludedImageSelectors ) {
-		$this->files = $files;
+	public function __construct( array $allowedExtensions, array $excludedImageSelectors ) {
 		$this->allowedExtensions = $allowedExtensions;
 		$this->excludedImageSelectors = $excludedImageSelectors;
+	}
+
+	/**
+	 * Select and filter thumbnail elements from a DOM body.
+	 *
+	 * Applies CSS selector-based selection and exclusion filtering, but does
+	 * not match against files. Useful when file metadata is unavailable (e.g.
+	 * when working with proxied HTML from MobileFrontendContentProvider).
+	 *
+	 * @param DocumentFragment $body A wiki page's DOM body fragment
+	 * @return Element[] The filtered thumbnail elements
+	 */
+	public function findThumbs( DocumentFragment $body ): array {
+		$allThumbs = $this->select( $body );
+		return $this->filterBySelectors( $allThumbs );
 	}
 
 	/**
 	 * Extract thumbnail image data from a wiki page.
 	 *
 	 * Steps:
-	 *   1. select thumbnail elements from a DOM body via CSS selectors
-	 *   2. filter elements via 2 kinds of CSS selectors
-	 *     A. known non-content areas as in {@link isAllowedThumb}
-	 *     B. defined in the `$wgReaderExperimentsExcludedImageSelectors` config variable
-	 *   3. filter files that don't have an allowed extension or whose size is too small
+	 *   1. select and filter thumbnail elements via {@link findThumbs}
+	 *   2. filter files that don't have an allowed extension or whose size is too small
+	 *   3. match filtered thumbnails to filtered files by file name
 	 *
 	 * Return an array with the following data:
 	 *   - name - file name, with underscores
@@ -69,18 +76,19 @@ class ThumbExtractor {
 	 *   - thumb - thumbnail DOM element
 	 *
 	 * @param DocumentFragment|null $body A wiki page's DOM body fragment
+	 * @param array $files A map of (file name => File objects) as returned by
+	 *   {@link RepoGroup::findFiles()}
 	 * @return array The extracted image data. Empty array if no images
 	 */
-	public function extract( ?DocumentFragment $body ): array {
+	public function extract( ?DocumentFragment $body, array $files ): array {
 		if ( $body === null ) {
 			return [];
 		}
 
 		$result = [];
 
-		$allThumbs = $this->select( $body );
-		$thumbs = $this->filterBySelectors( $allThumbs );
-		$files = $this->filterFiles();
+		$thumbs = $this->findThumbs( $body );
+		$filteredFiles = $this->filterFiles( $files );
 
 		foreach ( $thumbs as $thumb ) {
 			$src = DOMCompat::getAttribute( $thumb, 'src' )
@@ -90,7 +98,7 @@ class ThumbExtractor {
 				continue;
 			}
 
-			foreach ( $files as $file ) {
+			foreach ( $filteredFiles as $file ) {
 				if ( str_contains( $src, $file['name'] ) ) {
 					$file['thumb'] = $thumb;
 					$result[] = $file;
@@ -145,16 +153,16 @@ class ThumbExtractor {
 	/**
 	 * Filter files that don't have an allowed extension or whose size is too small.
 	 *
-	 * Files are passed in the class constructor.
 	 * A file is too small if both its width and height are less than or equal to
 	 * {@link self::MIN_WIDTH} and {@link self::MIN_HEIGHT} respectively.
 	 *
+	 * @param array $files A map of (file name => File objects)
 	 * @return array The filtered files with minimal metadata. Empty array if no files
 	 */
-	private function filterFiles(): array {
+	private function filterFiles( array $files ): array {
 		$filtered = [];
 
-		foreach ( $this->files as $name => $file ) {
+		foreach ( $files as $name => $file ) {
 			if ( $file && $file->exists() ) {
 				$extension = $file->getExtension();
 				$width = $file->getWidth();
