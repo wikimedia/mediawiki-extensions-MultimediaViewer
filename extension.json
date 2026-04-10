@@ -38,6 +38,9 @@
 			"i18n"
 		]
 	},
+	"ExtensionMessagesFiles": {
+		"MultimediaViewerMagic": "MultimediaViewer.i18n.magic.php"
+	},
 	"AutoloadNamespaces": {
 		"MediaWiki\\Extension\\MultimediaViewer\\": "includes/"
 	},
@@ -434,6 +437,7 @@
 		"GetPreferences": "main",
 		"BeforePageDisplay": "main",
 		"CategoryPageView": "main",
+		"GetDoubleUnderscoreIDs": "main",
 		"ResourceLoaderGetConfigVars": "main",
 		"MakeGlobalVariablesScript": "main",
 		"ThumbnailBeforeProduceHTML": "main"
@@ -444,7 +448,8 @@
 			"services": [
 				"MainConfig",
 				"SpecialPageFactory",
-				"UserOptionsLookup"
+				"UserOptionsLookup",
+				"PageProps"
 			],
 			"optional_services": [
 				"MobileFrontend.Context"

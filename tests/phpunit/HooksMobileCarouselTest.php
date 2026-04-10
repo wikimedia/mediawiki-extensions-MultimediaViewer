@@ -21,10 +21,12 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 			$this->getServiceContainer()->getMainConfig(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
+			$this->getServiceContainer()->getPageProps(),
 			null
 		) extends Hooks {
 			public array $stubThumbs = [];
 			public string $currentRequestSkinName = 'minerva';
+			public bool $pageExcludedFromMobileCarousel = false;
 
 			protected function isMobileFrontendView(): bool {
 				return true;
@@ -36,6 +38,10 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 
 			protected function extractImages( OutputPage $out ): array {
 				return $this->stubThumbs;
+			}
+
+			protected function isPageExcludedFromMobileCarousel( OutputPage $out ): bool {
+				return $this->pageExcludedFromMobileCarousel;
 			}
 		};
 	}
@@ -133,6 +139,33 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 			->method( 'prependHTML' );
 
 		$this->newHooksInstance()->onBeforePageDisplay( $output, $skin );
+	}
+
+	public function testOnBeforePageDisplaySkipsCarouselWhenExcludedByBehaviorSwitch(): void {
+		$this->overrideConfigValue( 'MediaViewerMobileCarousel', true );
+
+		$user = User::newFromName( 'HooksMobileCarouselExcludedUser' );
+		$title = Title::newFromText( 'Main Page' );
+		$title->setContentModel( CONTENT_MODEL_WIKITEXT );
+		$skin = new SkinTemplate();
+		$output = $this->createMock( OutputPage::class );
+		$output->method( 'getTitle' )->willReturn( $title );
+		$output->method( 'getUser' )->willReturn( $user );
+		$output->method( 'getRequest' )->willReturn( new FauxRequest() );
+		$output->expects( $this->never() )
+			->method( 'addModules' );
+		$output->expects( $this->never() )
+			->method( 'prependHTML' );
+
+		$hooks = $this->newHooksInstance();
+		$hooks->pageExcludedFromMobileCarousel = true;
+		$hooks->stubThumbs = [
+			self::makeFakeThumb( 'A' ),
+			self::makeFakeThumb( 'B' ),
+			self::makeFakeThumb( 'C' ),
+		];
+
+		$hooks->onBeforePageDisplay( $output, $skin );
 	}
 
 	public function testOnGetPreferencesAddsDisableImageCarouselPreference(): void {

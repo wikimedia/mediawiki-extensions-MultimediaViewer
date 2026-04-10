@@ -26,6 +26,7 @@ namespace MediaWiki\Extension\MultimediaViewer;
 use MediaWiki\Category\Category;
 use MediaWiki\Config\Config;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Hook\GetDoubleUnderscoreIDsHook;
 use MediaWiki\Html\Html;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Media\Hook\ThumbnailBeforeProduceHTMLHook;
@@ -36,6 +37,7 @@ use MediaWiki\Output\Hook\MakeGlobalVariablesScriptHook;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\CategoryPage;
 use MediaWiki\Page\Hook\CategoryPageViewHook;
+use MediaWiki\Page\PageProps;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Parser\ParserOutputLinkTypes;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
@@ -59,16 +61,19 @@ class Hooks implements
 	BeforePageDisplayHook,
 	CategoryPageViewHook,
 	ResourceLoaderGetConfigVarsHook,
+	GetDoubleUnderscoreIDsHook,
 	ThumbnailBeforeProduceHTMLHook
 {
 	// Minimum number of images in a wiki page to enable the carousel.
 	private const MIN_CAROUSEL_IMAGES = 3;
 	private const DISABLE_IMAGE_CAROUSEL_PREFERENCE = 'disable_image_carousel';
+	private const DISABLE_MOBILE_CAROUSEL_BEHAVIOR_SWITCH = 'nomediaviewercarousel';
 
 	public function __construct(
 		private readonly Config $config,
 		private readonly SpecialPageFactory $specialPageFactory,
 		private readonly UserOptionsLookup $userOptionsLookup,
+		private readonly PageProps $pageProps,
 		private readonly ?MobileContext $mobileContext,
 	) {
 	}
@@ -130,7 +135,7 @@ class Hooks implements
 		$user = $out->getUser();
 		$isMobileFrontendView = $this->isMobileFrontendView();
 		$modules = [];
-		if ( $this->shouldUseMobileCarousel( $user ) ) {
+		if ( $this->shouldUseMobileCarousel( $out ) ) {
 			// mmv.carousel depends on mmv.bootstrap, so loading the carousel also loads bootstrap.
 			$modules[] = 'mmv.carousel';
 			$out->addModuleStyles( 'mmv.carousel.styles' );
@@ -157,12 +162,51 @@ class Hooks implements
 	/**
 	 * Whether the mobile carousel entrypoint should be used for this request.
 	 *
+	 * The carousel is only available in MobileFrontend mobile view when the
+	 * feature flag is enabled, the current user has not opted out in
+	 * preferences, and the page has not opted out via
+	 * __NOMEDIAVIEWERCAROUSEL__.
+	 *
 	 * @return bool
 	 */
-	protected function shouldUseMobileCarousel( User $user ): bool {
-		return $this->isMobileFrontendView() &&
-			$this->config->get( 'MediaViewerMobileCarousel' ) &&
-			!$this->userOptionsLookup->getBoolOption( $user, self::DISABLE_IMAGE_CAROUSEL_PREFERENCE );
+	protected function shouldUseMobileCarousel( OutputPage $out ): bool {
+		if ( !$this->isMobileFrontendView() || !$this->config->get( 'MediaViewerMobileCarousel' ) ) {
+			return false;
+		}
+
+		$user = $out->getUser();
+		// Remaining opt-outs are per-user and per-page.
+		$hasDisabledCarouselPreference = $this->userOptionsLookup->getBoolOption(
+			$user,
+			self::DISABLE_IMAGE_CAROUSEL_PREFERENCE
+		);
+		$pageExcludesCarousel = $this->isPageExcludedFromMobileCarousel( $out );
+
+		return !$hasDisabledCarouselPreference &&
+			!$pageExcludesCarousel;
+	}
+
+	/**
+	 * Whether the current page declares that the mobile carousel should not be shown.
+	 *
+	 * This is driven by the __NOMEDIAVIEWERCAROUSEL__ behavior switch, which
+	 * MediaWiki records as a page property during parse. Checking page props
+	 * here lets request-time carousel decisions reuse parser output metadata
+	 * without reparsing the page content.
+	 *
+	 * @param OutputPage $out
+	 * @return bool
+	 */
+	protected function isPageExcludedFromMobileCarousel( OutputPage $out ): bool {
+		$title = $out->getTitle();
+		if ( !$title->canExist() ) {
+			return false;
+		}
+
+		return $this->pageProps->getProperties(
+			$title,
+			self::DISABLE_MOBILE_CAROUSEL_BEHAVIOR_SWITCH
+		) !== [];
 	}
 
 	/**
@@ -374,7 +418,7 @@ class Hooks implements
 
 		if ( !$pageIsSpecialPage || $pageIsFileRelatedSpecialPage ) {
 			$this->getModules( $out );
-			if ( $this->shouldUseMobileCarousel( $out->getUser() ) ) {
+			if ( $this->shouldUseMobileCarousel( $out ) ) {
 				$thumbData = $this->extractImages( $out );
 				if ( count( $thumbData ) >= self::MIN_CAROUSEL_IMAGES ) {
 					$out->prependHTML( $this->buildCarouselHtml( $thumbData ) );
@@ -430,6 +474,21 @@ class Hooks implements
 	 */
 	public function onResourceLoaderGetConfigVars( array &$vars, $skin, Config $config ): void {
 		$vars['wgMediaViewer'] = true;
+	}
+
+	/**
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/GetDoubleUnderscoreIDs
+	 *
+	 * Registers the __NOMEDIAVIEWERCAROUSEL__ behavior switch so MediaWiki
+	 * recognizes it during parse and records its presence as a page property.
+	 * That page property is later used to suppress the mobile carousel for
+	 * specific pages.
+	 *
+	 * @param string[] &$doubleUnderscoreIDs
+	 * @return void
+	 */
+	public function onGetDoubleUnderscoreIDs( &$doubleUnderscoreIDs ) {
+		$doubleUnderscoreIDs[] = self::DISABLE_MOBILE_CAROUSEL_BEHAVIOR_SWITCH;
 	}
 
 	/**

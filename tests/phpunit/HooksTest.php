@@ -19,6 +19,7 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 			$this->getServiceContainer()->getMainConfig(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
+			$this->getServiceContainer()->getPageProps(),
 			null
 		);
 	}
@@ -100,11 +101,12 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 			$this->getServiceContainer()->getMainConfig(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
+			$this->getServiceContainer()->getPageProps(),
 			null
 		) extends Hooks {
 			public array $stubThumbs = [];
 
-			protected function shouldUseMobileCarousel( User $user ): bool {
+			protected function shouldUseMobileCarousel( OutputPage $out ): bool {
 				return true;
 			}
 
@@ -158,5 +160,20 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		] );
 
 		$hooks->onBeforePageDisplay( $output, $skin );
+	}
+
+	public function testCarouselExclusionBehaviorSwitchIsRegistered(): void {
+		$doubleUnderscoreIDs = $this->getServiceContainer()
+			->getMagicWordFactory()
+			->getDoubleUnderscoreArray()
+			->getNames();
+
+		$this->assertContains( 'nomediaviewercarousel', $doubleUnderscoreIDs );
+		$this->assertTrue(
+			$this->getServiceContainer()
+				->getMagicWordFactory()
+				->get( 'nomediaviewercarousel' )
+				->matchStartToEnd( '__NOMEDIAVIEWERCAROUSEL__' )
+		);
 	}
 }
