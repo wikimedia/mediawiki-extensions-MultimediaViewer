@@ -52,6 +52,7 @@ use MediaWiki\User\Options\UserOptionsLookup;
 use MediaWiki\User\User;
 use MobileContext;
 use Wikimedia\Parsoid\Core\DOMCompat;
+use Wikimedia\Parsoid\DOM\Element;
 use Wikimedia\Parsoid\Utils\DOMUtils;
 
 class Hooks implements
@@ -312,7 +313,7 @@ class Hooks implements
 	 * Map extracted thumbnail data to the flat array format used by
 	 * {@link buildCarouselItems}.
 	 *
-	 * @param array[] $thumbData Each item must have keys: title (Title), thumb (Element)
+	 * @param array<array{title:Title,thumb:Element}> $thumbData
 	 * @return array[] Each item has keys: title, href, src, width, height, alt
 	 */
 	private function mapForCarousel( array $thumbData ): array {

@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 
 namespace MediaWiki\Extension\MultimediaViewer;
 
+use MediaWiki\FileRepo\File\File;
 use Wikimedia\Parsoid\Core\DOMCompat;
 use Wikimedia\Parsoid\DOM\DocumentFragment;
 use Wikimedia\Parsoid\DOM\Element;
@@ -76,9 +77,9 @@ class ThumbExtractor {
 	 *   - thumb - thumbnail DOM element
 	 *
 	 * @param DocumentFragment|null $body A wiki page's DOM body fragment
-	 * @param array $files A map of (file name => File objects) as returned by
+	 * @param array<string,File> $files A map of (file name => File objects) as returned by
 	 *   {@link RepoGroup::findFiles()}
-	 * @return array The extracted image data. Empty array if no images
+	 * @return array[] The extracted image data. Empty array if no images
 	 */
 	public function extract( ?DocumentFragment $body, array $files ): array {
 		if ( $body === null ) {
@@ -135,8 +136,8 @@ class ThumbExtractor {
 	/**
 	 * Filter image thumbnails via CSS selectors.
 	 *
-	 * @param array $thumbs Thumbnail elements
-	 * @return array The filtered elements. Empty array if no elements
+	 * @param Element[] $thumbs Thumbnail elements
+	 * @return Element[] The filtered elements. Empty array if no elements
 	 */
 	private function filterBySelectors( array $thumbs ): array {
 		$filtered = [];
@@ -156,8 +157,8 @@ class ThumbExtractor {
 	 * A file is too small if both its width and height are less than or equal to
 	 * {@link self::MIN_WIDTH} and {@link self::MIN_HEIGHT} respectively.
 	 *
-	 * @param array $files A map of (file name => File objects)
-	 * @return array The filtered files with minimal metadata. Empty array if no files
+	 * @param array<string,File> $files A map of (file name => File objects)
+	 * @return array[] The filtered files with minimal metadata. Empty array if no files
 	 */
 	private function filterFiles( array $files ): array {
 		$filtered = [];
