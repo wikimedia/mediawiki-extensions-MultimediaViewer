@@ -217,10 +217,7 @@ class MultimediaViewerBootstrap {
 		}
 
 		this.$parsoidThumbs = $content.find(
-			'[typeof*="mw:File"] a.mw-file-description img, ' +
-			// TODO: Remove mw:Image when version 2.4.0 of the content is no
-			// longer supported
-			'[typeof*="mw:Image"] a.mw-file-description img'
+			'[typeof*="mw:File"] a.mw-file-description img'
 		);
 
 		this.$thumbs = $content
@@ -357,12 +354,7 @@ class MultimediaViewerBootstrap {
 	processParsoidThumb( thumb ) {
 		const $thumb = $( thumb );
 		const $link = $thumb.closest( 'a.mw-file-description' );
-		const $thumbContainer = $link.closest(
-			'[typeof*="mw:File"], ' +
-			// TODO: Remove mw:Image when version 2.4.0 of the content is
-			// no longer supported
-			'[typeof*="mw:Image"]'
-		);
+		const $thumbContainer = $link.closest( '[typeof*="mw:File"]' );
 		const title = mw.Title.newFromImg( $thumb );
 		let caption;
 
