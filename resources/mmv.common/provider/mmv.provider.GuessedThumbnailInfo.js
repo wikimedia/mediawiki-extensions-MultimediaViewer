@@ -116,8 +116,17 @@ class GuessedThumbnailInfo {
 				// but the thumbnail still cannot be larger than the original file
 				return this.replaceSize( file, sampleUrl, originalWidth );
 			}
-		} else { // sampleIsFullSize && !needsOriginal
-			return this.guessThumbUrl( file, sampleUrl, width );
+		} else {
+			// if sampleIsFullSize && !needsOriginal
+			//
+			// Hardest version: try to guess thumbnail URL from original?
+			//
+			// Not implemented. This can be very complicated (the thumbnail might have other
+			// parameters than the size, which are impossible to guess, might be converted to some
+			// other format, might have a special shortened format depending on the length of the
+			// filename) and it is unlikely to be useful - it would be only called when we need
+			// a thumbnail that is smaller than the sample (the thumbnail which is already on the page).
+			return undefined;
 		}
 	}
 
@@ -287,24 +296,6 @@ class GuessedThumbnailInfo {
 		url = url.replace( '/thumb', '' );
 
 		return this.restoreFilename( url, file );
-	}
-
-	/**
-	 * Hardest version: try to guess thumbnail URL from original
-	 *
-	 * @protected
-	 * @param {mw.Title} file
-	 * @param {string} originalUrl URL for the original file
-	 * @param {number} width thumbnail width in pixels
-	 * @return {string|undefined} thumbnail URL
-	 */
-	guessThumbUrl() {
-		// Not implemented. This can be very complicated (the thumbnail might have other
-		// parameters than the size, which are impossible to guess, might be converted to some
-		// other format, might have a special shortened format depending on the length of the
-		// filename) and it is unlikely to be useful - it would be only called when we need
-		// a thumbnail that is smaller than the sample (the thumbnail which is already on the page).
-		return undefined;
 	}
 }
 

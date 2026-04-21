@@ -42,7 +42,7 @@ const ProgressBar = require( './ui/mmv.ui.progressBar.js' );
 const StripeButtons = require( './ui/mmv.ui.stripeButtons.js' );
 const TruncatableTextField = require( './ui/mmv.ui.truncatableTextField.js' );
 const LightboxInterface = require( './mmv.lightboxinterface.js' );
-const { extensions, useThumbnailGuessing } = require( './config.json' );
+const config = require( './config.json' );
 
 const router = require( 'mediawiki.router' );
 
@@ -144,7 +144,7 @@ class MultimediaViewer {
 		if ( image ) {
 			const imageWidths = this.ui.canvas.getCurrentImageWidths();
 
-			this.fetchThumbnailForLightboxImage(
+			this.fetchThumbnail(
 				image, imageWidths.real
 			).then( ( thumbnail, image2 ) => {
 				// eslint-disable-next-line mediawiki/class-doc
@@ -209,7 +209,7 @@ class MultimediaViewer {
 		this.preloadThumbnails();
 		const imageWidths = this.ui.canvas.getCurrentImageWidths();
 
-		const imagePromise = this.fetchThumbnailForLightboxImage( image, imageWidths.real );
+		const imagePromise = this.fetchThumbnail( image, imageWidths.real );
 
 		if ( imagePromise.state() === 'pending' ) {
 			this.displayPlaceholderThumbnail( image, $initialImage, imageWidths );
@@ -487,7 +487,7 @@ class MultimediaViewer {
 
 			const imageWidths = this.ui.canvas.getLightboxImageWidths( lightboxImage );
 
-			return this.fetchThumbnailForLightboxImage( lightboxImage, imageWidths.real );
+			return this.fetchThumbnail( lightboxImage, imageWidths.real );
 		} );
 	}
 
@@ -505,34 +505,22 @@ class MultimediaViewer {
 	/**
 	 * Loads size-dependent components of a lightbox - the thumbnail model and the image itself.
 	 *
-	 * @param {LightboxImage} image
-	 * @param {number} width the width of the requested thumbnail
-	 * @return {jQuery.Promise.<Thumbnail, HTMLImageElement>}
-	 */
-	fetchThumbnailForLightboxImage( image, width ) {
-		return this.fetchThumbnail(
-			image.filePageTitle,
-			width,
-			image.src,
-			image.originalWidth,
-			image.originalHeight
-		);
-	}
-
-	/**
-	 * Loads size-dependent components of a lightbox - the thumbnail model and the image itself.
-	 *
-	 * @param {mw.Title} fileTitle
-	 * @param {number} width the width of the requested thumbnail
-	 * @param {string} [sampleUrl] a thumbnail URL for the same file (but with different size) (might be missing)
-	 * @param {number} [originalWidth] the width of the original, full-sized file (might be missing)
-	 * @param {number} [originalHeight] the height of the original, full-sized file (might be missing)
-	 * @param {boolean} [useThumbnailGuessing0] the useThumbnailGuessing flag
+	 * @param {LightboxImage} image This must have
+	 *  - mw.Title `filePageTitle`
+	 *  - string `src`
+	 *  - number `originalWidth` (might be missing/NaN)
+	 *  - number `originalHeight` (might be missing/NaN)
+	 * @param {number} width The width of the requested thumbnail
 	 * @return {jQuery.Promise.<Thumbnail, HTMLImageElement>} A promise resolving to
 	 *  a thumbnail model and an <img> element. It might or might not have progress events which
 	 *  return a single number.
 	 */
-	fetchThumbnail( fileTitle, width, sampleUrl, originalWidth, originalHeight, useThumbnailGuessing0 = useThumbnailGuessing ) {
+	fetchThumbnail( image, width ) {
+		const fileTitle = image.filePageTitle;
+		const sampleUrl = image.src;
+		const originalWidth = image.originalWidth;
+		const originalHeight = image.originalHeight;
+
 		let guessing = false;
 		const combinedDeferred = $.Deferred();
 		let thumbnailPromise;
@@ -543,7 +531,7 @@ class MultimediaViewer {
 			width = originalWidth;
 		}
 
-		if ( sampleUrl && originalWidth && originalHeight && useThumbnailGuessing0 ) {
+		if ( originalWidth && originalHeight && config.useThumbnailGuessing ) {
 			guessing = true;
 			thumbnailPromise = this.guessedThumbnailInfoProvider.get(
 				fileTitle, sampleUrl, width, originalWidth, originalHeight
@@ -745,11 +733,11 @@ class MultimediaViewer {
 	 * @return {jQuery.Promise}
 	 */
 	loadExtensionPlugins( extension ) {
-		if ( !( extension in extensions ) || extensions[ extension ] === 'default' ) {
+		if ( !( extension in config.extensions ) || config.extensions[ extension ] === 'default' ) {
 			return $.Deferred().resolve();
 		}
 
-		return mw.loader.using( extensions[ extension ] );
+		return mw.loader.using( config.extensions[ extension ] );
 	}
 }
 
