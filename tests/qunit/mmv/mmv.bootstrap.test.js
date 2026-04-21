@@ -359,7 +359,6 @@ QUnit.test( 'Ensure that the correct title is loaded when clicking', function ( 
 	clock.restore();
 } );
 
-// FIXME: Tests suspended as they do not pass in QUnit 2.x+ – T192932
 QUnit.test( 'Validate new LightboxImage object has sensible constructor parameters', function ( assert ) {
 	const viewer = getMultimediaViewer();
 	const fname = 'valid.jpg';

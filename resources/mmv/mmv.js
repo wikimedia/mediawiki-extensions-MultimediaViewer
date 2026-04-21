@@ -364,7 +364,7 @@ class MultimediaViewer {
 				// business, so we make a sense check
 				throw new Error( 'MediaViewer internal error: displayPlaceholderThumbnail recursion' );
 			}
-			this.imageInfoProvider.get( image.filePageTitle ).done( ( imageInfo ) => {
+			this.imageInfoProvider.get( image.filePageTitle ).then( ( imageInfo ) => {
 				// Make sure the user has not navigated away while we were waiting for the size
 				if ( this.currentIndex === image.index ) {
 					image.originalWidth = imageInfo.width;
@@ -711,7 +711,7 @@ class MultimediaViewer {
 				return $.Deferred().reject();
 			}
 		} ).on( 'mmv-viewfile.mmvp', () => {
-			this.imageInfoProvider.get( this.currentImage.filePageTitle ).done( ( imageInfo ) => {
+			this.imageInfoProvider.get( this.currentImage.filePageTitle ).then( ( imageInfo ) => {
 				document.location = imageInfo.url;
 			} );
 		} );

@@ -30,54 +30,63 @@ class LightboxImage {
 	constructor( fileLink, fileTitle, index, position, thumb, caption ) {
 		/**
 		 * Link to the file - generally a thumb URL
+		 *
 		 * @member {string}
 		 */
 		this.src = fileLink;
 
 		/**
 		 * Title of the image's file page
+		 *
 		 * @member {mw.Title}
 		 */
 		this.filePageTitle = fileTitle;
 
 		/**
 		 * What number this image is in the array of indexed images
+		 *
 		 * @member {number}
 		 */
 		this.index = index;
 
 		/**
 		 * The relative position of this image to others with same file
+		 *
 		 * @member {number}
 		 */
 		this.position = position;
 
 		/**
 		 * The <img> element that holds the already-loaded thumbnail of the image
+		 *
 		 * @member {HTMLImageElement}
 		 */
 		this.thumbnail = thumb;
 
 		/**
 		 * The caption of the image, if any
+		 *
 		 * @member {string}
 		 */
 		this.caption = caption;
 
 		/**
 		 * The alt text of the image
+		 *
 		 * @member {string}
 		 */
 		this.alt = $( thumb ).attr( 'alt' );
 
 		/**
 		 * Width of the full-sized file (read from HTML data attribute, might be missing)
+		 *
 		 * @member {number}
 		 */
 		this.originalWidth = parseInt( $( thumb ).attr( 'data-file-width' ), 10 );
 
 		/**
 		 * Height of the full-sized file (read from HTML data attribute, might be missing)
+		 *
 		 * @member {number}
 		 */
 		this.originalHeight = parseInt( $( thumb ).attr( 'data-file-height' ), 10 );
