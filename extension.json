@@ -24,7 +24,8 @@
 		"Brooke Vibber",
 		"Eric Gardner",
 		"Kimberly Sarabia",
-		"Marco Fossati"
+		"Marco Fossati",
+		"Lauralyn Watson"
 	],
 	"url": "https://www.mediawiki.org/wiki/Extension:MultimediaViewer",
 	"descriptionmsg": "multimediaviewer-desc",
@@ -185,7 +186,8 @@
 				"CdxProgressBar",
 				"CdxSelect",
 				"CdxTabs",
-				"CdxTextInput"
+				"CdxTextInput",
+				"CdxToast"
 			]
 		},
 		"mmv.ui.reuse": {
@@ -289,6 +291,7 @@
 				"mmv.ui.beta/LightboxImage.vue",
 				"mmv.ui.beta/LightboxCaption.vue",
 				"mmv.ui.beta/LightboxNav.vue",
+				"mmv.ui.beta/LightboxError.vue",
 				"mmv.ui.beta/thumbnailGuessing.js",
 				"mmv.ui.beta/useFocusTrap.js",
 				{
@@ -328,6 +331,7 @@
 					"callback": "MediaWiki\\Extension\\MultimediaViewer\\Hooks::getCommonConfig"
 				},
 				"mmv.common/mmv.HtmlUtils.js",
+				"mmv.common/mmv.notifyTitleNotFound.js",
 				"mmv.common/mmv.ThumbnailWidthCalculator.js",
 				"mmv.common/model/mmv.model.ThumbnailWidth.js",
 				"mmv.common/model/mmv.model.License.js",
@@ -370,7 +374,10 @@
 			"messages": [
 				"multimediaviewer-loading",
 				"multimediaviewer-view-expanded",
-				"multimediaviewer-view-config"
+				"multimediaviewer-view-config",
+				"multimediaviewer-file-not-found-error",
+				"multimediaviewer-thumbnail-error",
+				"multimediaviewer-thumbnail-error-refresh-button"
 			]
 		}
 	},

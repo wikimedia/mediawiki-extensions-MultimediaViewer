@@ -18,21 +18,24 @@
 			class="mmv-focus-holder"
 			tabindex="-1"
 		></div>
-		<template v-if="image">
+		<cdx-button
+			class="mmv-lightbox-close"
+			:aria-label="$i18n( 'multimediaviewer-close-popup-text' ).text()"
+			@click="onClose"
+		>
+			<cdx-icon :icon="cdxIconClose"></cdx-icon>
+		</cdx-button>
+
+		<template v-if="image || hasError">
 			<lightbox-header></lightbox-header>
-			<cdx-button
-				class="mmv-lightbox-close"
-				:aria-label="$i18n( 'multimediaviewer-close-popup-text' ).text()"
-				@click="onClose"
-			>
-				<cdx-icon :icon="cdxIconClose"></cdx-icon>
-			</cdx-button>
 			<lightbox-image @click="onViewportClick"></lightbox-image>
 			<lightbox-caption></lightbox-caption>
 			<lightbox-nav></lightbox-nav>
+			<lightbox-error></lightbox-error>
 		</template>
+
 		<cdx-progress-bar
-			v-else
+			v-else-if="isLoading"
 			class="mmv-lightbox__progress"
 			:aria-label="$i18n( 'multimediaviewer-loading' ).text()"
 		></cdx-progress-bar>
@@ -52,6 +55,7 @@ const LightboxHeader = require( './LightboxHeader.vue' );
 const LightboxImage = require( './LightboxImage.vue' );
 const LightboxCaption = require( './LightboxCaption.vue' );
 const LightboxNav = require( './LightboxNav.vue' );
+const LightboxError = require( './LightboxError.vue' );
 const { useFocusTrap } = require( './useFocusTrap.js' );
 
 /** @typedef {import('./types').ViewerState} ViewerState */
@@ -63,6 +67,7 @@ module.exports = exports = defineComponent( {
 		CdxButton,
 		CdxIcon,
 		CdxProgressBar,
+		LightboxError,
 		LightboxHeader,
 		LightboxImage,
 		LightboxCaption,
@@ -73,12 +78,14 @@ module.exports = exports = defineComponent( {
 		const state = inject( 'state' );
 		const toggleChromeFn = inject( 'toggleChrome' );
 		const closeFn = inject( 'close' );
+		const hasError = inject( 'hasError' );
 
 		const lightboxRef = useTemplateRef( 'lightbox' );
 		const focusHolderRef = useTemplateRef( 'focusHolder' );
 		const isOpen = computed( () => state.isOpen.value );
 		const image = computed( () => state.image.value );
 		const chromeVisible = computed( () => state.chromeVisible.value );
+		const isLoading = computed( () => state.isLoading.value );
 
 		const { onFocusTrapStart, onFocusTrapEnd } = useFocusTrap(
 			lightboxRef,
@@ -101,6 +108,8 @@ module.exports = exports = defineComponent( {
 			isOpen,
 			image,
 			chromeVisible,
+			hasError,
+			isLoading,
 			onViewportClick,
 			onClose,
 			cdxIconClose,

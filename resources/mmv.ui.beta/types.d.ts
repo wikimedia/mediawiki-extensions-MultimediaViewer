@@ -24,4 +24,6 @@ export interface ViewerState {
 	thumbs: Ref<LightboxImage[]>;
 	isOpen: Ref<boolean>;
 	chromeVisible: Ref<boolean>;
+	errorMessage: Ref<string | null>;
+	isLoading: Ref<boolean>;
 }
