@@ -292,6 +292,9 @@ class GuessedThumbnailInfo {
 		}
 
 		// this depends on some config settings, but will work with default or WMF settings.
+		//
+		// FIXME: This strips everything after "Foo.jpg" in "0/0a/Foo.jpg/200px-thumb.jpg?params",
+		// including the params (T424082).
 		url = url.replace( /<filename>.*/, '<filename>' );
 		url = url.replace( '/thumb', '' );
 

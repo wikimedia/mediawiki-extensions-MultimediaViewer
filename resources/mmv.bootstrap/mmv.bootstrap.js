@@ -202,10 +202,11 @@ class MultimediaViewerBootstrap {
 	 */
 	processThumbs( $content ) {
 		// MMVB.processThumbs() is a callback for `wikipage.content` hook (see constructor)
-		// which as state in the documentation can be fired when content is added to the DOM
-		// https://doc.wikimedia.org/mediawiki-core/master/js/#!/api/mw.hook
-		// The content being added can contain thumbnails that the MultimediaViewer may need to
-		// process correctly and add the thumbs array, so it's necessary to invalidate the
+		// which is documentated as fired when new content is added to the DOM
+		// https://doc.wikimedia.org/mediawiki-core/master/js/Hooks.html#~event:'wikipage.content'
+		//
+		// The content being added can contain thumbnails that MultimediaViewer may need to
+		// process and add the thumbs array, so it's necessary to invalidate the
 		// viewer initialization state if this happens to let the MMVB.loadViewer() to process
 		// new images correctly
 		this.viewerInitialized = false;
@@ -331,9 +332,9 @@ class MultimediaViewerBootstrap {
 			return;
 		}
 
-		// This is the data that will be passed onto the mmv
 		const image = new LightboxImage(
-			$thumb.prop( 'src' ),
+			// T422586: If 2x srcset is used, pass that to to GuessedThumbnailInfo instead
+			$thumb.prop( 'currentSrc' ) || $thumb.prop( 'src' ),
 			title,
 			this.thumbs.length,
 			this.thumbs.filter( ( t ) => t.filePageTitle.getPrefixedText() === title.getPrefixedText() ).length + 1,
@@ -386,9 +387,9 @@ class MultimediaViewerBootstrap {
 			caption = $link.prop( 'title' ) || undefined;
 		}
 
-		// This is the data that will be passed onto the mmv
 		const image = new LightboxImage(
-			$thumb.prop( 'src' ),
+			// T422586: If 2x srcset is used, pass that to to GuessedThumbnailInfo instead
+			$thumb.prop( 'currentSrc' ) || $thumb.prop( 'src' ),
 			title,
 			this.thumbs.length,
 			this.thumbs.filter( ( t ) => t.filePageTitle.getPrefixedText() === title.getPrefixedText() ).length + 1,
