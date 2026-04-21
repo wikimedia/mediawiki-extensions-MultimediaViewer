@@ -217,7 +217,7 @@ class MultimediaViewerBootstrap {
 		}
 
 		this.$parsoidThumbs = $content.find(
-			'[typeof*="mw:File"] a.mw-file-description img'
+			'[typeof*="mw:File"] > a > img'
 		);
 
 		this.$thumbs = $content
@@ -353,10 +353,18 @@ class MultimediaViewerBootstrap {
 	 */
 	processParsoidThumb( thumb ) {
 		const $thumb = $( thumb );
-		const $link = $thumb.closest( 'a.mw-file-description' );
-		const $thumbContainer = $link.closest( '[typeof*="mw:File"]' );
+		let $link = $thumb.parent();
+		const $thumbContainer = $link.parent();
 		const title = mw.Title.newFromImg( $thumb );
 		let caption;
+
+		if ( !$link.hasClass( 'mw-file-description' ) ) {
+			if ( $link.next().hasClass( 'mw-file-magnify' ) ) {
+				$link = $link.next();
+			} else {
+				return;
+			}
+		}
 
 		if ( !this.isValidExtension( title ) ) {
 			// Short-circuit event handler and interface setup, because
