@@ -67,6 +67,7 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 			'title' => 'File:Cat.jpg',
 			'href' => '/wiki/File:Cat.jpg',
 			'src' => '/images/thumb/cat.jpg',
+			'srcset' => '/images/thumb/cat-240px.jpg 2x',
 			'width' => 120,
 			'height' => 90,
 			'alt' => 'A cat',
@@ -78,6 +79,7 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		$this->assertStringContainsString( 'href="/wiki/File:Cat.jpg"', $html );
 		$this->assertStringContainsString( 'class="mmv-carousel__item-link mw-file-description"', $html );
 		$this->assertStringContainsString( 'src="/images/thumb/cat.jpg"', $html );
+		$this->assertStringContainsString( 'srcset="/images/thumb/cat-240px.jpg 2x"', $html );
 		$this->assertStringContainsString( 'width="120"', $html );
 		$this->assertStringContainsString( 'height="90"', $html );
 		$this->assertStringContainsString( 'alt="A cat"', $html );
@@ -90,6 +92,7 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 			'title' => "File:$name.jpg",
 			'href' => "/wiki/File:$name.jpg",
 			'src' => "/$name.jpg",
+			'srcset' => "/$name-240px.jpg 2x",
 			'width' => 120,
 			'height' => 90,
 			'alt' => $name,

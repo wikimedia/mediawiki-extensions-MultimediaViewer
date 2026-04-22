@@ -224,7 +224,7 @@ class Hooks implements
 	 * The parser cache is used if possible.
 	 *
 	 * @param OutputPage $out An output page
-	 * @return array[] Each item has keys: title, href, src, width, height, alt
+	 * @return array[] Each item has keys: title, href, src, srcset, width, height, alt
 	 */
 	protected function extractImages( OutputPage $out ): array {
 		$thumbExtractor = new ThumbExtractor(
@@ -263,7 +263,7 @@ class Hooks implements
 	 *
 	 * @param string $html Page HTML
 	 * @param ThumbExtractor $thumbExtractor
-	 * @return array[] Each item has keys: title, href, src, width, height, alt
+	 * @return array[] Each item has keys: title, href, src, srcset, width, height, alt
 	 */
 	private function extractImagesFromHtml( string $html, ThumbExtractor $thumbExtractor ): array {
 		if ( $html === '' ) {
@@ -314,7 +314,7 @@ class Hooks implements
 	 * {@link buildCarouselItems}.
 	 *
 	 * @param array<array{title:Title,thumb:Element}> $thumbData
-	 * @return array[] Each item has keys: title, href, src, width, height, alt
+	 * @return array[] Each item has keys: title, href, src, srcset, width, height, alt
 	 */
 	private function mapForCarousel( array $thumbData ): array {
 		$result = [];
@@ -325,6 +325,8 @@ class Hooks implements
 				'href' => $item['title']->getLocalURL(),
 				'src' => $thumb->getAttribute( 'src' )
 					?: $thumb->getAttribute( 'data-mw-src' ),
+				'srcset' => $thumb->getAttribute( 'srcset' )
+					?: $thumb->getAttribute( 'data-mw-srcset' ),
 				'width' => $thumb->getAttribute( 'width' ),
 				'height' => $thumb->getAttribute( 'height' ),
 				'alt' => $thumb->getAttribute( 'alt' ),
@@ -336,7 +338,7 @@ class Hooks implements
 	/**
 	 * Build the HTML for carousel thumbnail items.
 	 *
-	 * @param array[] $thumbData Each thumb has keys: title, href, src, width, height, alt
+	 * @param array[] $thumbData Each thumb has keys: title, href, src, srcset, width, height, alt
 	 * @return string
 	 */
 	private function buildCarouselItems( array $thumbData ): string {
@@ -359,6 +361,7 @@ class Hooks implements
 						'img',
 						[
 							'src' => $data['src'],
+							'srcset' => $data['srcset'] ?: false,
 							'width' => $data['width'],
 							'height' => $data['height'],
 							'alt' => $data['alt'],

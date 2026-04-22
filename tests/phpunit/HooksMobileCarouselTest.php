@@ -51,6 +51,7 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 			'title' => "File:$name.jpg",
 			'href' => "/wiki/File:$name.jpg",
 			'src' => "/$name.jpg",
+			'srcset' => "/$name-240px.jpg 2x",
 			'width' => 120,
 			'height' => 90,
 			'alt' => $name,
