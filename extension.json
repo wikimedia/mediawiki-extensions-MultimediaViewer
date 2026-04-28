@@ -31,7 +31,7 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "other",
 	"requires": {
-		"MediaWiki": ">= 1.46"
+		"MediaWiki": ">= 1.47.0"
 	},
 	"MessagesDirs": {
 		"MultimediaViewer": [
@@ -303,7 +303,11 @@
 				{
 					"name": "mmv.ui.beta/icons.json",
 					"callback": "MediaWiki\\ResourceLoader\\CodexModule::getIcons",
-					"callbackParam": [ "cdxIconClose", "cdxIconPrevious", "cdxIconNext" ]
+					"callbackParam": [
+						"cdxIconClose",
+						"cdxIconPrevious",
+						"cdxIconNext"
+					]
 				}
 			],
 			"dependencies": [
