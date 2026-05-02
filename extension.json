@@ -103,14 +103,6 @@
 				"license-header",
 				"multimediaviewer-current-image-number",
 				"multimediaviewer-file-page",
-				"multimediaviewer-enable-alert",
-				"multimediaviewer-disable-confirmation-header",
-				"multimediaviewer-disable-confirmation-text",
-				"multimediaviewer-enable-dialog-header",
-				"multimediaviewer-enable-text-header",
-				"multimediaviewer-enable-submit-button",
-				"multimediaviewer-enable-confirmation-header",
-				"multimediaviewer-enable-confirmation-text",
 				"multimediaviewer-file-not-found-error",
 				"multimediaviewer-thumbnail-error",
 				"multimediaviewer-thumbnail-error-description",
@@ -380,9 +372,7 @@
 			"messages": [
 				"multimediaviewer-loading",
 				"multimediaviewer-view-expanded",
-				"multimediaviewer-view-config",
-				"multimediaviewer-disable-info-title",
-				"multimediaviewer-disable-info"
+				"multimediaviewer-view-config"
 			]
 		}
 	},

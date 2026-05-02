@@ -132,16 +132,6 @@
 	"multimediaviewer-reuse-warning-generic": "Check [$1 its details] before using it.",
 	"multimediaviewer-attr-plain": "Plain",
 	"multimediaviewer-attr-html": "HTML",
-	"multimediaviewer-disable-confirmation-header": "You have disabled Media Viewer",
-	"multimediaviewer-disable-confirmation-text": "Next time you click on a thumbnail on $1, you will directly view all file details.",
-	"multimediaviewer-enable-dialog-header": "Enable Media Viewer?",
-	"multimediaviewer-enable-text-header": "Enable this media viewing feature for all files by default.",
-	"multimediaviewer-enable-submit-button": "Enable Media Viewer",
-	"multimediaviewer-enable-confirmation-header": "You have enabled Media Viewer for all files",
-	"multimediaviewer-enable-confirmation-text": "Next time you click on a thumbnail on $1, Media Viewer will be used.",
-	"multimediaviewer-enable-alert": "Media Viewer is now disabled",
-	"multimediaviewer-disable-info-title": "You have disabled Media Viewer",
-	"multimediaviewer-disable-info": "You can still view individual files with Media Viewer.",
 	"multimediaviewer-errorreport-privacywarning": "Details of the error are attached to the report, which will be publicly viewable. If you are not comfortable with that, you can edit the report below and remove all the data you don't want to share.",
 	"multimediaviewer-loading": "Loading Media Viewer."
 }

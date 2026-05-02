@@ -434,38 +434,6 @@ class MultimediaViewerBootstrap {
 		this.thumbs.push( image );
 
 		$mmvButton.on( 'click', () => this.openImage( image ) );
-
-		if ( Config.shouldShowStatusInfo() ) {
-			Config.disableStatusInfo();
-			this.showStatusInfo();
-		}
-	}
-
-	/**
-	 * Shows a popup notifying the user
-	 */
-	showStatusInfo() {
-		mw.loader.using( 'oojs-ui-core' ).then( () => {
-			const content = document.createElement( 'div' );
-			content.textContent = mw.msg( 'multimediaviewer-disable-info' );
-
-			const popupWidget = new OO.ui.PopupWidget( {
-				label: mw.msg( 'multimediaviewer-disable-info-title' ),
-				$content: $( content ),
-				padded: true,
-				head: true,
-				anchor: true,
-				align: 'center',
-				position: 'above',
-				autoFlip: false,
-				horizontalPosition: 'start',
-				// eslint-disable-next-line no-jquery/no-global-selector
-				$floatableContainer: $( '.mw-mmv-view-expanded' )
-			} );
-			popupWidget.$element.appendTo( document.body );
-			popupWidget.toggleClipping( true );
-			popupWidget.toggle( true );
-		} );
 	}
 
 	/**
