@@ -527,7 +527,6 @@ class Hooks implements
 		$steps = $config->get( MainConfigNames::ThumbnailSteps );
 		return [
 			'thumbnailBucketSizes' => $steps ?: $config->get( 'MediaViewerThumbnailBucketSizes' ),
-			'imageQueryParameter' => $config->get( 'MediaViewerImageQueryParameter' ),
 		];
 	}
 

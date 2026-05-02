@@ -55,7 +55,6 @@
 					"config": {
 						"useThumbnailGuessing": "MediaViewerUseThumbnailGuessing",
 						"thumbnailBucketSizes": "MediaViewerThumbnailBucketSizes",
-						"imageQueryParameter": "MediaViewerImageQueryParameter",
 						"recordVirtualViewBeaconURI": "MediaViewerRecordVirtualViewBeaconURI",
 						"extensions": "MediaViewerExtensions"
 					}
@@ -496,10 +495,6 @@
 		"MediaViewerEnableByDefaultForAnonymous": {
 			"description": "Overrides $wgMediaViewerEnableByDefault for anonymous users. If set to null, will fall back to value of $wgMediaViewerEnableByDefault",
 			"value": null
-		},
-		"MediaViewerImageQueryParameter": {
-			"description": "If set, adds a query parameter to image requests made by Media Viewer",
-			"value": false
 		},
 		"MediaViewerRecordVirtualViewBeaconURI": {
 			"description": "If set, records a virtual view via the provided beacon URI.",

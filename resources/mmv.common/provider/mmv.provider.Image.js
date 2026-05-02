@@ -15,18 +15,11 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const config = require( '../config.json' );
-
 /**
  * Loads an image.
  */
 class ImageProvider {
-	/**
-	 * @param {string} imageQueryParameter When defined, is a query parameter to add to every image request
-	 */
-	constructor( imageQueryParameter = config.imageQueryParameter ) {
-		this.imageQueryParameter = imageQueryParameter;
-
+	constructor() {
 		/**
 		 * AJAX call cache.
 		 *
@@ -47,16 +40,6 @@ class ImageProvider {
 	 */
 	get( url ) {
 		const cacheKey = url;
-
-		if ( this.imageQueryParameter ) {
-			try {
-				const uri = new URL( url, location );
-				uri.searchParams.set( this.imageQueryParameter, '' );
-				url = uri.toString();
-			} catch ( error ) {
-				return $.Deferred().reject( error.message );
-			}
-		}
 
 		if ( !this.cache[ cacheKey ] ) {
 			this.cache[ cacheKey ] = this.rawGet( url, this.imagePreloadingSupported() );

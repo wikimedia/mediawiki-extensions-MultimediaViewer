@@ -75,7 +75,6 @@ MTH.getFakeLocalStorage = function () {
  */
 MTH.getMultimediaViewer = function () {
 	return new MultimediaViewer( {
-		imageQueryParameter: function () {},
 		language: function () {},
 		recordVirtualViewBeaconURI: function () {},
 		extensions: function () {

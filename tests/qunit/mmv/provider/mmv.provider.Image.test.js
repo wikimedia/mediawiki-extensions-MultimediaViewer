@@ -105,16 +105,3 @@ QUnit.test( 'Failed image load with preloading supported', async ( assert ) => {
 
 	await assert.rejects( imageProvider.get( url ) );
 } );
-
-QUnit.test( 'imageQueryParameter', async ( assert ) => {
-	const imageProvider = new ImageProvider( 'foo' );
-	imageProvider.imagePreloadingSupported = () => false;
-	let givenUrl;
-	imageProvider.rawGet = function ( url ) {
-		givenUrl = url;
-		return $.Deferred().resolve();
-	};
-
-	await imageProvider.get( 'http://www.wikipedia.org/' );
-	assert.strictEqual( givenUrl, 'http://www.wikipedia.org/?foo=', 'Extra parameter added' );
-} );
