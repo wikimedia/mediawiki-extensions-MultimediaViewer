@@ -429,30 +429,29 @@ QUnit.test( 'Events are not trapped after the viewer is closed', function ( asse
 	}
 } );
 
-QUnit.test( 'Viewer is closed then navigating to #foo/bar/baz (page section including slash)', ( assert ) => {
-	const done = assert.async();
+QUnit.test( 'Viewer is closed when navigating to #foo/bar/baz (page section including slash)', async ( assert ) => {
+	const waitForHashChange = () => new Promise( ( resolve ) => {
+		window.addEventListener( 'hashchange', () => {
+			setTimeout( resolve, 0 );
+		}, { once: true } );
+	} );
 
 	const bootstrap = new MultimediaViewerBootstrap();
 	bootstrap.setupEventHandlers();
+
+	let hashChanged = waitForHashChange();
 	location.hash = '#/media/File:Foo.jpg';
-	setTimeout( () => {
-		bootstrap.viewerPromise.then( ( viewer ) => {
-			viewer.isOpen = true;
-			// viewer.ui = undefined;
-			// const closeSpy = this.sandbox.spy( viewer.close );
-			// this.sandbox.stub( viewer, 'close' );
-			location.hash = '#foo/bar/baz';
+	await hashChanged;
+	const viewer = await bootstrap.viewerPromise;
+	viewer.isOpen = true;
 
-			// Wait for route event handler to execute
-			setTimeout( () => {
-				assert.false( viewer.isOpen, 'The viewer was closed' );
-				location.hash = '#';
-				bootstrap.cleanupEventHandlers();
-				done();
-			}, 100 );
+	hashChanged = waitForHashChange();
+	location.hash = '#foo/bar/baz';
+	await hashChanged;
 
-		} );
-	} );
+	assert.false( viewer.isOpen, 'The viewer was closed' );
+	location.hash = '#';
+	bootstrap.cleanupEventHandlers();
 } );
 
 QUnit.test.each( 'Refuse to load too-big thumbnail', {
