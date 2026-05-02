@@ -17,97 +17,32 @@ QUnit.module( 'mmv', QUnit.newMwEnvironment( {
 	}
 } ) );
 
-QUnit.test( 'resetThumbnailStates', ( assert ) => {
-	const viewer = getMultimediaViewer();
-
-	assert.strictEqual( viewer.realThumbnailShown, false, 'Real thumbnail state is correct' );
-
-	viewer.realThumbnailShown = true;
-
-	viewer.resetThumbnailStates();
-
-	assert.strictEqual( viewer.realThumbnailShown, false, 'Real thumbnail state is correct' );
-} );
-
-QUnit.test( 'Placeholder first, then real thumbnail', function ( assert ) {
-	const viewer = getMultimediaViewer();
-
-	viewer.setImage = function () {};
-	viewer.ui = { canvas: {
-		maybeDisplayPlaceholder: function () {
-		}
-	} };
-	viewer.imageInfoProvider.get = this.sandbox.stub();
-
-	viewer.displayPlaceholderThumbnail( { originalWidth: 100, originalHeight: 100 }, undefined, undefined );
-
-	assert.strictEqual( viewer.realThumbnailShown, false, 'Real thumbnail state is correct' );
-
-	viewer.displayRealThumbnail( { url: undefined } );
-
-	assert.strictEqual( viewer.realThumbnailShown, true, 'Real thumbnail state is correct' );
-} );
-
-QUnit.test( 'Placeholder first, then real thumbnail - missing size', function ( assert ) {
-	const viewer = getMultimediaViewer();
-
-	viewer.currentIndex = 1;
-	viewer.setImage = function () {};
-	viewer.ui = { canvas: {
-		maybeDisplayPlaceholder: function () {
-		}
-	} };
-	viewer.imageInfoProvider.get = this.sandbox.stub().returns( $.Deferred().resolve( { width: 100, height: 100 } ) );
-
-	viewer.displayPlaceholderThumbnail( { index: 1 }, undefined, undefined );
-
-	assert.strictEqual( viewer.realThumbnailShown, false, 'Real thumbnail state is correct' );
-
-	viewer.displayRealThumbnail( { url: undefined } );
-
-	assert.strictEqual( viewer.realThumbnailShown, true, 'Real thumbnail state is correct' );
-} );
-
-QUnit.test( 'Real thumbnail first, then placeholder', ( assert ) => {
-	const viewer = getMultimediaViewer();
-
-	viewer.setImage = function () {};
-	viewer.ui = {
-		showImage: function () {},
-		canvas: {}
-	};
-
-	viewer.displayRealThumbnail( { url: undefined } );
-
-	assert.strictEqual( viewer.realThumbnailShown, true, 'Real thumbnail state is correct' );
-
-	viewer.displayPlaceholderThumbnail( {}, undefined, undefined );
-
-	assert.strictEqual( viewer.realThumbnailShown, true, 'Real thumbnail state is correct' );
-} );
-
-QUnit.test( 'New image loaded while another one is loading', function ( assert ) {
+QUnit.test( 'New image loaded while another one is loading', async function ( assert ) {
 	const viewer = getMultimediaViewer();
 	const firstImageDeferred = $.Deferred();
 	const secondImageDeferred = $.Deferred();
-	const firstLigthboxInfoDeferred = $.Deferred();
-	const secondLigthboxInfoDeferred = $.Deferred();
+	const firstLightboxInfoDeferred = $.Deferred();
+	const secondLightboxInfoDeferred = $.Deferred();
 	const firstImage = {
 		filePageTitle: new mw.Title( 'File:Foo.jpg' ),
+		thumbnail: new Image( 100, 100 ),
 		index: 0
 	};
 	const secondImage = {
 		filePageTitle: new mw.Title( 'File:Bar.jpg' ),
+		thumbnail: new Image( 100, 100 ),
 		index: 1
 	};
 	const clock = this.sandbox.useFakeTimers();
 
 	viewer.fetchSizeIndependentLightboxInfo = this.sandbox.stub();
+	viewer.fetchThumbnail = this.sandbox.stub();
 	viewer.ui = {
 		setFileReuseData: function () {},
 		setupForLoad: function () {},
 		canvas: {
 			set: function () {},
+			showError: function () {},
 			getCurrentImageWidths: function () {
 				return { real: 0 };
 			},
@@ -117,6 +52,7 @@ QUnit.test( 'New image loaded while another one is loading', function ( assert )
 		},
 		panel: {
 			setImageInfo: this.sandbox.stub(),
+			showError: function () {},
 			scroller: {
 				animateMetadataOnce: function () {}
 			},
@@ -125,33 +61,31 @@ QUnit.test( 'New image loaded while another one is loading', function ( assert )
 		open: function () {},
 		empty: function () {} };
 	viewer.displayRealThumbnail = this.sandbox.stub();
-	viewer.pushLightboxImagesIntoQueue = function () {};
-	viewer.animateMetadataDivOnce = this.sandbox.stub().returns( $.Deferred().reject() );
-	viewer.imageProvider.get = this.sandbox.stub();
+	viewer.preloadImagesMetadata = function () {};
 	viewer.imageInfoProvider.get = () => $.Deferred().reject( {} );
-	viewer.thumbnailInfoProvider.get = () => $.Deferred().resolve( {} );
 
-	viewer.imageProvider.get.returns( firstImageDeferred.promise() );
-	viewer.fetchSizeIndependentLightboxInfo.returns( firstLigthboxInfoDeferred.promise() );
+	viewer.fetchThumbnail.returns( firstImageDeferred.promise() );
+	viewer.fetchSizeIndependentLightboxInfo.returns( firstLightboxInfoDeferred.promise() );
 	viewer.loadImage( firstImage );
 	clock.tick( 10 );
-	assert.strictEqual( viewer.animateMetadataDivOnce.called, false, 'Metadata of the first image should not be animated' );
 	assert.strictEqual( viewer.ui.panel.setImageInfo.called, false, 'Metadata of the first image should not be shown' );
 
-	viewer.imageProvider.get.returns( secondImageDeferred.promise() );
-	viewer.fetchSizeIndependentLightboxInfo.returns( secondLigthboxInfoDeferred.promise() );
+	viewer.fetchThumbnail.returns( secondImageDeferred.promise() );
+	viewer.fetchSizeIndependentLightboxInfo.returns( secondLightboxInfoDeferred.promise() );
 	viewer.loadImage( secondImage );
 	clock.tick( 10 );
 
-	firstImageDeferred.resolve( {}, {} );
-	firstLigthboxInfoDeferred.resolve( {} );
+	firstImageDeferred.resolve( { url: 'first-url' } );
+	firstLightboxInfoDeferred.resolve( {} );
 	clock.tick( 10 );
+	await null;
 	assert.strictEqual( viewer.displayRealThumbnail.called, false, 'The first image being done loading should have no effect' );
 
 	viewer.displayRealThumbnail = this.sandbox.spy( () => viewer.close() );
-	secondImageDeferred.resolve( {}, {} );
-	secondLigthboxInfoDeferred.resolve( {} );
+	secondImageDeferred.resolve( { url: 'second-url' } );
+	secondLightboxInfoDeferred.resolve( {} );
 	clock.tick( 10 );
+	await null;
 	assert.strictEqual( viewer.displayRealThumbnail.called, true, 'The second image being done loading should result in the image being shown' );
 
 	clock.restore();
@@ -178,7 +112,6 @@ QUnit.test( 'Events are not trapped after the viewer is closed', function ( asse
 
 	viewer.setupEventHandlers();
 
-	viewer.imageProvider.get = () => $.Deferred().reject();
 	viewer.imageInfoProvider.get = () => $.Deferred().reject();
 	viewer.thumbnailInfoProvider.get = () => $.Deferred().reject();
 
@@ -309,59 +242,26 @@ QUnit.test.each( 'fetchThumbnail()', {
 		sampleURL: 'https://example.test/thumb/8/8b/Copyleft.svg/300_guess_fail_no_px.png',
 		callCount: {
 			guessedThumbnailInfo: 1,
-			imageinfoApi: 1,
-			imageProvider: 1
+			imageinfoApi: 1
 		},
-		imageProviderArgs: [ [ 'apiURL' ] ]
+		expectedUrl: 'apiURL'
 	},
-	'guessed URL that loads is used': {
+	'guessed URL is used': {
 		sampleURL: 'https://example.test/thumb/8/8b/Copyleft.svg/300px-Copyleft.svg.png',
 		callCount: {
 			guessedThumbnailInfo: 1,
-			imageinfoApi: 0,
-			imageProvider: 1
+			imageinfoApi: 0
 		},
-		imageProviderArgs: [ [ 'https://example.test/thumb/8/8b/Copyleft.svg/600px-Copyleft.svg.png' ] ]
-	},
-	'guessed URL that 404s falls back to API': {
-		sampleURL: 'https://example.test/thumb/8/8b/Copyleft.svg/300px-Copyleft.svg.png',
-		imageLoadGuess: $.Deferred().reject(),
-		callCount: {
-			guessedThumbnailInfo: 1,
-			imageinfoApi: 1,
-			imageProvider: 2
-		},
-		imageProviderArgs: [
-			[ 'https://example.test/thumb/8/8b/Copyleft.svg/600px-Copyleft.svg.png' ],
-			[ 'apiURL' ]
-		]
-	},
-	'when the retry fallback fails fetchThumbnail should reject': {
-		sampleURL: 'https://example.test/thumb/8/8b/Copyleft.svg/300px-Copyleft.svg.png',
-		imageLoadGuess: $.Deferred().reject(),
-		imageLoadApi: $.Deferred().reject(),
-		callCount: {
-			guessedThumbnailInfo: 1,
-			imageinfoApi: 1,
-			imageProvider: 2
-		},
-		imageProviderArgs: [
-			[ 'https://example.test/thumb/8/8b/Copyleft.svg/600px-Copyleft.svg.png' ],
-			[ 'apiURL' ]
-		],
-		promiseState: 'rejected'
+		expectedUrl: 'https://example.test/thumb/8/8b/Copyleft.svg/600px-Copyleft.svg.png'
 	},
 	'with useThumbnailGuessing=false the API is used directly': {
 		useThumbnailGuessing: false,
 		sampleURL: 'https://example.test/thumb/8/8b/Copyleft.svg/300px-Copyleft.svg.png',
 		callCount: {
 			guessedThumbnailInfo: 0,
-			imageinfoApi: 1,
-			imageProvider: 1
+			imageinfoApi: 1
 		},
-		imageProviderArgs: [
-			[ 'apiURL' ]
-		]
+		expectedUrl: 'apiURL'
 	}
 }, ( assert, fixture ) => {
 	config.useThumbnailGuessing = fixture.useThumbnailGuessing ?? true;
@@ -372,9 +272,6 @@ QUnit.test.each( 'fetchThumbnail()', {
 	const guessedThumbnailInfoStub = sinon.spy( viewer.guessedThumbnailInfoProvider, 'get' );
 	const thumbnailInfoStub = viewer.thumbnailInfoProvider.get = sinon.stub()
 		.returns( $.Deferred().resolve( { url: 'apiURL' } ) );
-	const imageStub = viewer.imageProvider.get = fixture.imageLoader ?? sinon.stub();
-	imageStub.returns( fixture.imageLoadGuess ?? $.Deferred().resolve( {} ) );
-	imageStub.withArgs( 'apiURL' ).returns( fixture.imageLoadApi ?? $.Deferred().resolve( {} ) );
 
 	const thumb = $( '<img>' ).attr( {
 		src: fixture.sampleURL,
@@ -391,16 +288,18 @@ QUnit.test.each( 'fetchThumbnail()', {
 		thumb,
 		'My caption'
 	);
-	const promise = viewer.fetchThumbnail( image, 600 );
+	let resolvedThumbnail;
+	viewer.fetchThumbnail( image, 600 ).then( ( thumbnail ) => {
+		resolvedThumbnail = thumbnail;
+	} );
 
 	clock.tick( 10 );
 	assert.propEqual( {
 		guessedThumbnailInfo: guessedThumbnailInfoStub.callCount,
-		imageinfoApi: thumbnailInfoStub.callCount,
-		imageProvider: imageStub.callCount
+		imageinfoApi: thumbnailInfoStub.callCount
 	}, fixture.callCount, 'call counts' );
-	assert.deepEqual( imageStub.args, fixture.imageProviderArgs, 'ImageProvider arg' );
-	assert.strictEqual( promise.state(), fixture.promiseState ?? 'resolved', 'fetchThumbnail promise state' );
+	assert.strictEqual( resolvedThumbnail.url, fixture.expectedUrl, 'thumbnail URL' );
+	clock.restore();
 } );
 
 QUnit.test( 'document.title', function ( assert ) {

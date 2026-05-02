@@ -102,9 +102,11 @@ class Canvas extends UiElement {
 
 		this.imageRawMetadata = imageRawMetadata;
 		this.$image = $imageElement;
-		this.setUpImageClick();
-
 		this.$imageDiv.html( this.$image );
+		// jQuery's .html(node) empties the container first via .empty(), which calls cleanData on descendants
+		// — stripping the event handlers — before re-appending the same node.
+		// Thus, setUpImageClick must be after .html(node).
+		this.setUpImageClick();
 	}
 
 	/**
@@ -112,27 +114,26 @@ class Canvas extends UiElement {
 	 * This is used to display the actual image; it assumes set function was already called before.
 	 *
 	 * @param {Thumbnail} thumbnail thumbnail information
-	 * @param {HTMLImageElement} imageElement
-	 * @param {ThumbnailWidth} imageWidths
 	 */
-	setImageAndMaxDimensions( thumbnail, imageElement, imageWidths ) {
-		const $image = $( imageElement );
-
-		// we downscale larger images but do not scale up smaller ones, that would look ugly
-		if ( thumbnail.width > imageWidths.cssWidth ) {
-			imageElement.width = imageWidths.cssWidth;
-			imageElement.height = imageWidths.cssHeight;
-		}
-
-		if ( !this.$image.is( imageElement ) ) { // http://bugs.jquery.com/ticket/4087
-			this.$image.replaceWith( $image );
-			this.$image = $image;
-
-			// Since the image element got replaced, we need to rescue the dialog-open class.
-			this.$image.toggleClass( 'mw-mmv-dialog-is-open', this.dialogOpen );
-
-			this.setUpImageClick();
-		}
+	setImageAndMaxDimensions( thumbnail ) {
+		this.$image
+			.removeAttr( 'srcset' )
+			.removeAttr( 'decoding' ) // unsetting decoding=async avoids flicker when swapping img.src
+			.attr( 'src', thumbnail.url );
+		const imageLoaded = new Promise( ( resolve ) => {
+			if ( this.$image.prop( 'complete' ) ) {
+				resolve();
+			} else {
+				this.$image.one( 'load', resolve );
+			}
+		} );
+		imageLoaded.then( () => {
+			if ( this.$image.attr( 'src' ) === thumbnail.url ) {
+				const imageWidths = this.getCurrentImageWidths();
+				this.$image.width( imageWidths.cssWidth );
+				this.$image.height( imageWidths.cssHeight );
+			}
+		} );
 	}
 
 	/**
@@ -228,35 +229,28 @@ class Canvas extends UiElement {
 	}
 
 	/**
-	 * Sets page thumbnail for display if blowupFactor
-	 * <= MAX_BLOWUP_FACTOR. Otherwise thumb is not set.
+	 * Sets page thumbnail for display.
 	 * We set SVG files to the maximum screen size available.
 	 * Assumes set function called before.
 	 *
 	 * @param {{width: number, height: number}} size
 	 * @param {jQuery} $imagePlaceholder Image placeholder to be displayed while the real image loads.
-	 * @param {ThumbnailWidth} imageWidths
 	 */
-	maybeDisplayPlaceholder( size, $imagePlaceholder, imageWidths ) {
-		// Assume natural thumbnail size¸
+	maybeDisplayPlaceholder( size, $imagePlaceholder ) {
+		// Assume natural thumbnail size
 		let targetWidth = size.width;
 		let targetHeight = size.height;
 
 		// If the image is bigger than the screen we need to resize it
+		const imageWidths = this.getCurrentImageWidths();
 		if ( size.width > imageWidths.cssWidth ) { // This assumes imageInfo.width in CSS units
 			targetWidth = imageWidths.cssWidth;
 			targetHeight = imageWidths.cssHeight;
 		}
 
-		const blowupFactor = targetWidth / $imagePlaceholder.width();
-		// If the placeholder is too blown up, it's not worth showing it
-		if ( blowupFactor > Canvas.MAX_BLOWUP_FACTOR ) {
-			return;
-		}
-
 		$imagePlaceholder.width( targetWidth );
 		$imagePlaceholder.height( targetHeight );
-		this.set( this.imageRawMetadata, $imagePlaceholder.show() );
+		this.set( this.imageRawMetadata, $imagePlaceholder );
 	}
 
 	/**

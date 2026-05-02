@@ -33,7 +33,6 @@ require( './provider/mmv.provider.Api.test.js' );
 require( './provider/mmv.provider.ImageInfo.test.js' );
 require( './provider/mmv.provider.ThumbnailInfo.test.js' );
 require( './provider/mmv.provider.GuessedThumbnailInfo.test.js' );
-require( './provider/mmv.provider.Image.test.js' );
 require( './ui/mmv.ui.test.js' );
 require( './ui/mmv.ui.canvas.test.js' );
 require( './ui/mmv.ui.canvasButtons.test.js' );

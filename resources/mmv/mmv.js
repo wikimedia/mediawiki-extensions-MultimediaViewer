@@ -20,7 +20,6 @@ const {
 	HtmlUtils,
 	Api,
 	GuessedThumbnailInfo,
-	ImageProvider,
 	ImageInfo,
 	ThumbnailInfo,
 	ImageModel,
@@ -54,12 +53,6 @@ class MultimediaViewer {
 		const apiCacheMaxAge = 86400; // one day (24 hours * 60 min * 60 sec)
 		const apiCacheFiveMinutes = 300; // 5 min * 60 sec
 		const api = new mw.Api();
-
-		/**
-		 * @property {ImageProvider}
-		 * @private
-		 */
-		this.imageProvider = new ImageProvider();
 
 		/**
 		 * @property {ImageInfo}
@@ -111,14 +104,6 @@ class MultimediaViewer {
 		 * @property {ViewLogger} view -
 		 */
 		this.viewLogger = new ViewLogger( window );
-
-		/**
-		 * Stores whether the real image was loaded and displayed already.
-		 * This is reset when paging, so it is not necessarily accurate.
-		 *
-		 * @property {boolean}
-		 */
-		this.realThumbnailShown = false;
 	}
 
 	/**
@@ -136,36 +121,18 @@ class MultimediaViewer {
 	 */
 	resize() {
 		const image = this.thumbs[ this.currentIndex ];
-		const ext = this.thumbs[ this.currentIndex ].filePageTitle.getExtension().toLowerCase();
-
-		this.preloadThumbnails();
 
 		if ( image ) {
 			const imageWidths = this.ui.canvas.getCurrentImageWidths();
 
-			this.fetchThumbnail(
-				image, imageWidths.real
-			).then( ( thumbnail, image2 ) => {
-				// eslint-disable-next-line mediawiki/class-doc
-				image2.className = ext;
-				this.setImage( thumbnail, image2, imageWidths );
+			const thumbnailPromise = this.fetchThumbnail( image, imageWidths.real );
+			thumbnailPromise.then( ( thumbnail ) => {
+				this.displayRealThumbnail( thumbnail );
 			}, ( error ) => {
 				this.ui.canvas.showError( error );
 			} );
 		}
 
-		this.ui.updateControls( this.currentIndex, this.thumbs.length );
-	}
-
-	/**
-	 * Loads and sets the specified image. It also updates the controls.
-	 *
-	 * @param {Thumbnail} thumbnail thumbnail information
-	 * @param {HTMLImageElement} imageElement
-	 * @param {ThumbnailWidth} imageWidths
-	 */
-	setImage( thumbnail, imageElement, imageWidths ) {
-		this.ui.canvas.setImageAndMaxDimensions( thumbnail, imageElement, imageWidths );
 		this.ui.updateControls( this.currentIndex, this.thumbs.length );
 	}
 
@@ -197,42 +164,61 @@ class MultimediaViewer {
 		// size calculations in getCurrentImageWidths, which needs to know
 		// the aspect ratio
 		// eslint-disable-next-line mediawiki/class-doc
-		$initialImage.hide()
+		$initialImage
 			.removeAttr( 'style' )
 			.removeClass()
+			// Add file extension as class to display checkerboard pattern for transparent images
 			.addClass( `mw-mmv-placeholder-image ${ image.filePageTitle.getExtension().toLowerCase() }` );
 
-		this.ui.canvas.set( image, $initialImage );
+		const avoidBlowup = +$initialImage.attr( 'width' ) < 100 || +$initialImage.attr( 'height' ) < 100;
+		if ( avoidBlowup ) {
+			// avoid blowup of very small preview thumbnails
+			$initialImage.hide();
+		}
 
 		this.preloadImagesMetadata();
-		this.preloadThumbnails();
+		this.ui.canvas.set( image, $initialImage );
+
 		const imageWidths = this.ui.canvas.getCurrentImageWidths();
 
-		const imagePromise = this.fetchThumbnail( image, imageWidths.real );
-
-		if ( imagePromise.state() === 'pending' ) {
-			this.displayPlaceholderThumbnail( image, $initialImage, imageWidths );
-		}
-		this.resetThumbnailStates();
+		const thumbnailPromise = this.fetchThumbnail( image, imageWidths.real );
 
 		const metadataPromise = this.fetchSizeIndependentLightboxInfo( image.filePageTitle );
 
-		imagePromise.then(
+		this.displayPlaceholderThumbnail( image, $initialImage );
+
+		thumbnailPromise.then(
 			// done
-			( thumbnail, imageElement ) => {
+			( thumbnail ) => {
 				if ( this.currentIndex !== image.index ) {
 					return;
 				}
-
-				// eslint-disable-next-line mediawiki/class-doc
-				imageElement.className = `mw-mmv-final-image ${ image.filePageTitle.getExtension().toLowerCase() }`;
-				imageElement.alt = image.alt;
 
 				$.when( metadataPromise, pluginsPromise ).then( ( imageInfo ) => {
 					$( document ).trigger( $.Event( 'mmv-metadata', { viewer: this, image, imageInfo } ) );
 				} );
 
-				this.displayRealThumbnail( thumbnail, imageElement, imageWidths );
+				const initialImageLoaded = new Promise( ( resolve ) => {
+					if ( $initialImage.prop( 'complete' ) || avoidBlowup ) {
+						resolve();
+					} else {
+						$initialImage.one( 'load', resolve );
+					}
+				} );
+				// Swapping the HTMLImageElement.src after the small image has loaded ensures that
+				// the larger image one is only being displayed once it has been loaded.
+				initialImageLoaded.then( () => {
+					if ( this.currentIndex !== image.index ) {
+						return;
+					}
+					this.displayRealThumbnail( thumbnail );
+					$initialImage.removeClass( 'mw-mmv-placeholder-image' );
+					if ( avoidBlowup ) {
+						$initialImage.show();
+					}
+					this.viewLogger.attach( thumbnail.url );
+
+				} );
 			},
 			// fail
 			( error ) => {
@@ -267,13 +253,17 @@ class MultimediaViewer {
 			}
 		);
 
-		$.when( imagePromise, metadataPromise ).then( () => {
+		$.when( thumbnailPromise, metadataPromise ).then( () => {
 			if ( this.currentIndex !== image.index ) {
 				return;
 			}
 
 			this.ui.panel.scroller.animateMetadataOnce();
 		} );
+	}
+
+	displayRealThumbnail( thumbnail ) {
+		this.ui.canvas.setImageAndMaxDimensions( thumbnail );
 	}
 
 	/**
@@ -315,42 +305,14 @@ class MultimediaViewer {
 	}
 
 	/**
-	 * Resets the cross-request states needed to handle the thumbnail logic.
-	 */
-	resetThumbnailStates() {
-		this.realThumbnailShown = false;
-	}
-
-	/**
-	 * Display the real, full-resolution, thumbnail that was fetched with fetchThumbnail
-	 *
-	 * @param {Thumbnail} thumbnail
-	 * @param {HTMLImageElement} imageElement
-	 * @param {ThumbnailWidth} imageWidths
-	 */
-	displayRealThumbnail( thumbnail, imageElement, imageWidths ) {
-		this.realThumbnailShown = true;
-		this.setImage( thumbnail, imageElement, imageWidths );
-		this.viewLogger.attach( thumbnail.url );
-	}
-
-	/**
 	 * Display the thumbnail from the page
 	 *
 	 * @param {LightboxImage} image
 	 * @param {jQuery} $initialImage The thumbnail from the page
-	 * @param {ThumbnailWidth} imageWidths
 	 * @param {boolean} [recursion=false] for internal use, never set this when calling from outside
 	 */
-	displayPlaceholderThumbnail( image, $initialImage, imageWidths, recursion ) {
+	displayPlaceholderThumbnail( image, $initialImage, recursion ) {
 		const size = { width: image.originalWidth, height: image.originalHeight };
-
-		// If the actual image has already been displayed, there's no point showing the thumbnail.
-		// This can happen if the API request to get the original image size needed to show the
-		// placeholder thumbnail takes longer then loading the actual thumbnail.
-		if ( this.realThumbnailShown ) {
-			return;
-		}
 
 		// Width/height of the original image are added to the HTML by MediaViewer via a PHP hook,
 		// and can be missing in exotic circumstances, e. g. when the extension has only been
@@ -367,31 +329,11 @@ class MultimediaViewer {
 				if ( this.currentIndex === image.index ) {
 					image.originalWidth = imageInfo.width;
 					image.originalHeight = imageInfo.height;
-					this.displayPlaceholderThumbnail( image, $initialImage, imageWidths, true );
+					this.displayPlaceholderThumbnail( image, $initialImage, true );
 				}
 			} );
 		} else {
-			this.ui.canvas.maybeDisplayPlaceholder( size, $initialImage, imageWidths );
-		}
-	}
-
-	/**
-	 * A helper function to fill up the preload queues.
-	 * taskFactory(lightboxImage) should return a preload task for the given lightboximage.
-	 *
-	 * @private
-	 * @param {function(LightboxImage)} taskFactory
-	 * @return {void}
-	 */
-	pushLightboxImagesIntoQueue( taskFactory ) {
-		const current = this.currentIndex;
-		if ( current < this.thumbs.length ) {
-			taskFactory( this.thumbs[ current ] )();
-		}
-
-		const next = this.currentIndex + 1;
-		if ( next < this.thumbs.length ) {
-			taskFactory( this.thumbs[ next ] )();
+			this.ui.canvas.maybeDisplayPlaceholder( size, $initialImage );
 		}
 	}
 
@@ -399,25 +341,11 @@ class MultimediaViewer {
 	 * Preload metadata for current and next image.
 	 */
 	preloadImagesMetadata() {
-		this.pushLightboxImagesIntoQueue( ( lightboxImage ) => () => {
+		const current = this.currentIndex;
+		const next = this.currentIndex + 1;
+		[ current, next ].filter( ( i ) => i < this.thumbs.length ).forEach( ( i ) => {
+			const lightboxImage = this.thumbs[ i ];
 			this.fetchSizeIndependentLightboxInfo( lightboxImage.filePageTitle );
-		} );
-	}
-
-	/**
-	 * Preload thumbnail for current and next image.
-	 */
-	preloadThumbnails() {
-		this.pushLightboxImagesIntoQueue( ( lightboxImage ) => () => {
-			// viewer.ui.canvas.getLightboxImageWidths needs the viewer to be open
-			// because it needs to read the size of visible elements
-			if ( !this.isOpen ) {
-				return;
-			}
-
-			const imageWidths = this.ui.canvas.getLightboxImageWidths( lightboxImage );
-
-			return this.fetchThumbnail( lightboxImage, imageWidths.real );
 		} );
 	}
 
@@ -441,9 +369,8 @@ class MultimediaViewer {
 	 *  - number `originalWidth` (might be missing/NaN)
 	 *  - number `originalHeight` (might be missing/NaN)
 	 * @param {number} width The width of the requested thumbnail
-	 * @return {jQuery.Promise.<Thumbnail, HTMLImageElement>} A promise resolving to
-	 *  a thumbnail model and an <img> element. It might or might not have progress events which
-	 *  return a single number.
+	 * @return {jQuery.Promise.<Thumbnail>} A promise resolving to
+	 *  a thumbnail model.
 	 */
 	fetchThumbnail( image, width ) {
 		const fileTitle = image.filePageTitle;
@@ -451,43 +378,19 @@ class MultimediaViewer {
 		const originalWidth = image.originalWidth;
 		const originalHeight = image.originalHeight;
 
-		let guessing = false;
-		const combinedDeferred = $.Deferred();
-		let thumbnailPromise;
-		let imagePromise;
-
 		if ( fileTitle.getExtension().toLowerCase() !== 'svg' && originalWidth && width > originalWidth ) {
 			// Do not request images larger than the original image
 			width = originalWidth;
 		}
 
 		if ( originalWidth && originalHeight && config.useThumbnailGuessing ) {
-			guessing = true;
-			thumbnailPromise = this.guessedThumbnailInfoProvider.get(
+			return this.guessedThumbnailInfoProvider.get(
 				fileTitle, sampleUrl, width, originalWidth, originalHeight
 			).then( null, () => this.thumbnailInfoProvider.get( fileTitle, sampleUrl, width ) );
+			// FIXME what if the guessed thumbnail is incorrect?
 		} else {
-			thumbnailPromise = this.thumbnailInfoProvider.get( fileTitle, sampleUrl, width );
+			return this.thumbnailInfoProvider.get( fileTitle, sampleUrl, width );
 		}
-
-		imagePromise = thumbnailPromise.then( ( thumbnail ) => this.imageProvider.get( thumbnail.url ) );
-
-		if ( guessing ) {
-			// If we guessed wrong, need to retry with real URL on failure.
-			// As a side effect this introduces an extra (harmless) retry of a failed thumbnailInfoProvider.get call
-			// because thumbnailInfoProvider.get is already called above when guessedThumbnailInfoProvider.get fails.
-			imagePromise = imagePromise
-				.then( null, () => this.thumbnailInfoProvider.get( fileTitle, sampleUrl, width )
-					.then( ( thumbnail ) => this.imageProvider.get( thumbnail.url ) ) );
-		}
-
-		// In jQuery<3, $.when used to also relay notify, but that is no longer
-		// the case - but we still want to pass it along...
-		$.when( thumbnailPromise, imagePromise ).then( combinedDeferred.resolve, combinedDeferred.reject );
-		imagePromise.then( null, null, ( arg, progress ) => {
-			combinedDeferred.notify( progress );
-		} );
-		return combinedDeferred;
 	}
 
 	/**
@@ -681,7 +584,6 @@ module.exports = {
 	HtmlUtils,
 	ImageInfo,
 	ImageModel,
-	ImageProvider,
 	License,
 	LightboxInterface,
 	MetadataPanel,

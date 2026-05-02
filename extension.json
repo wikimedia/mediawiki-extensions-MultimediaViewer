@@ -330,7 +330,6 @@
 				"mmv.common/model/mmv.model.Thumbnail.js",
 				"mmv.common/provider/mmv.provider.Api.js",
 				"mmv.common/provider/mmv.provider.GuessedThumbnailInfo.js",
-				"mmv.common/provider/mmv.provider.Image.js",
 				"mmv.common/provider/mmv.provider.ImageInfo.js",
 				"mmv.common/provider/mmv.provider.ThumbnailInfo.js"
 			],
@@ -395,7 +394,6 @@
 			"tests/qunit/mmv/provider/mmv.provider.ImageInfo.test.js",
 			"tests/qunit/mmv/provider/mmv.provider.ThumbnailInfo.test.js",
 			"tests/qunit/mmv/provider/mmv.provider.GuessedThumbnailInfo.test.js",
-			"tests/qunit/mmv/provider/mmv.provider.Image.test.js",
 			"tests/qunit/mmv/ui/mmv.ui.test.js",
 			"tests/qunit/mmv/ui/mmv.ui.canvas.test.js",
 			"tests/qunit/mmv/ui/mmv.ui.canvasButtons.test.js",
