@@ -17,188 +17,6 @@ QUnit.module( 'mmv', QUnit.newMwEnvironment( {
 	}
 } ) );
 
-QUnit.test( 'Progress', function ( assert ) {
-	const imageDeferred = $.Deferred();
-	const viewer = getMultimediaViewer();
-	const fakeImage = {
-		filePageTitle: new mw.Title( 'File:Stuff.jpg' )
-	};
-	// custom clock ensures progress handlers execute in correct sequence
-	const clock = this.sandbox.useFakeTimers();
-
-	viewer.thumbs = [];
-	viewer.displayPlaceholderThumbnail = function () {};
-	viewer.setImage = function () {};
-	viewer.scroll = function () {};
-	viewer.fetchSizeIndependentLightboxInfo = () => $.Deferred().resolve( {} );
-	viewer.ui = {
-		setFileReuseData: function () {},
-		setupForLoad: function () {},
-		canvas: { set: function () {},
-			getCurrentImageWidths: function () {
-				return { real: 0 };
-			},
-			getDimensions: function () {
-				return {};
-			}
-		},
-		panel: {
-			setImageInfo: function () {},
-			scroller: {
-				animateMetadataOnce: function () {}
-			},
-			progressBar: {
-				hide: this.sandbox.stub(),
-				animateTo: this.sandbox.stub(),
-				jumpTo: this.sandbox.stub()
-			}
-		},
-		open: function () {} };
-
-	viewer.imageProvider.get = () => imageDeferred.promise();
-	viewer.imageInfoProvider.get = () => $.Deferred().resolve( {} );
-	viewer.thumbnailInfoProvider.get = () => $.Deferred().resolve( {} );
-
-	// loadImage will call setupProgressBar, which will attach done, fail &
-	// progress handlers
-	viewer.loadImage( fakeImage );
-	clock.tick( 10 );
-	assert.strictEqual( viewer.ui.panel.progressBar.jumpTo.lastCall.calledWith( 0 ), true,
-		'Percentage correctly reset by loadImage' );
-	assert.strictEqual( viewer.ui.panel.progressBar.animateTo.firstCall.calledWith( 5 ), true,
-		'Percentage correctly animated to 5 by loadImage' );
-
-	imageDeferred.notify( 'response', 45 );
-	clock.tick( 10 );
-	assert.strictEqual( viewer.ui.panel.progressBar.animateTo.secondCall.calledWith( 45 ), true,
-		'Percentage correctly funneled to panel UI' );
-
-	imageDeferred.resolve( {}, {} );
-	clock.tick( 10 );
-	assert.strictEqual( viewer.ui.panel.progressBar.animateTo.thirdCall.calledWith( 100 ), true,
-		'Percentage correctly funneled to panel UI' );
-
-	clock.restore();
-
-	viewer.close();
-} );
-
-QUnit.test( 'Progress when switching images', function ( assert ) {
-	const firstImageDeferred = $.Deferred();
-	const secondImageDeferred = $.Deferred();
-	const firstImage = {
-		index: 1,
-		filePageTitle: new mw.Title( 'File:First.jpg' )
-	};
-	const secondImage = {
-		index: 2,
-		filePageTitle: new mw.Title( 'File:Second.jpg' )
-	};
-	const viewer = getMultimediaViewer();
-	// custom clock ensures progress handlers execute in correct sequence
-	const clock = this.sandbox.useFakeTimers();
-
-	viewer.thumbs = [];
-	viewer.displayPlaceholderThumbnail = function () {};
-	viewer.setImage = function () {};
-	viewer.scroll = function () {};
-	viewer.preloadImagesMetadata = function () {};
-	viewer.preloadThumbnails = function () {};
-	viewer.fetchSizeIndependentLightboxInfo = () => $.Deferred().resolve( {} );
-	viewer.ui = {
-		setFileReuseData: function () {},
-		setupForLoad: function () {},
-		canvas: { set: function () {},
-			getCurrentImageWidths: function () {
-				return { real: 0 };
-			},
-			getDimensions: function () {
-				return {};
-			}
-		},
-		panel: {
-			setImageInfo: function () {},
-			scroller: {
-				animateMetadataOnce: function () {}
-			},
-			progressBar: {
-				hide: this.sandbox.stub(),
-				animateTo: this.sandbox.stub(),
-				jumpTo: this.sandbox.stub()
-			}
-		},
-		open: function () {},
-		empty: function () {} };
-
-	viewer.imageInfoProvider.get = () => $.Deferred().resolve( {} );
-	viewer.thumbnailInfoProvider.get = () => $.Deferred().resolve( {} );
-
-	// load some image
-	viewer.imageProvider.get = this.sandbox.stub().returns( firstImageDeferred );
-	viewer.loadImage( firstImage );
-	clock.tick( 10 );
-	assert.strictEqual( viewer.ui.panel.progressBar.jumpTo.getCall( 0 ).calledWith( 0 ), true,
-		'Percentage correctly reset for new first image' );
-	assert.strictEqual( viewer.ui.panel.progressBar.animateTo.getCall( 0 ).calledWith( 5 ), true,
-		'Percentage correctly animated to 5 for first new image' );
-
-	// progress on active image
-	firstImageDeferred.notify( 'response', 20 );
-	clock.tick( 10 );
-	assert.strictEqual( viewer.ui.panel.progressBar.animateTo.getCall( 1 ).calledWith( 20 ), true,
-		'Percentage correctly animated when active image is loading' );
-
-	// change to another image
-	viewer.imageProvider.get = this.sandbox.stub().returns( secondImageDeferred );
-	viewer.loadImage( secondImage );
-	clock.tick( 10 );
-	assert.strictEqual( viewer.ui.panel.progressBar.jumpTo.getCall( 1 ).calledWith( 0 ), true,
-		'Percentage correctly reset for second new image' );
-	assert.strictEqual( viewer.ui.panel.progressBar.animateTo.getCall( 2 ).calledWith( 5 ), true,
-		'Percentage correctly animated to 5 for second new image' );
-
-	// progress on active image
-	secondImageDeferred.notify( 'response', 30 );
-	clock.tick( 10 );
-	assert.strictEqual( viewer.ui.panel.progressBar.animateTo.getCall( 3 ).calledWith( 30 ), true,
-		'Percentage correctly animated when active image is loading' );
-
-	// progress on inactive image
-	firstImageDeferred.notify( 'response', 40 );
-	clock.tick( 10 );
-	assert.strictEqual( viewer.ui.panel.progressBar.animateTo.callCount, 4,
-		'Percentage not animated when inactive image is loading' );
-
-	// progress on active image
-	secondImageDeferred.notify( 'response', 50 );
-	clock.tick( 10 );
-	assert.strictEqual( viewer.ui.panel.progressBar.animateTo.getCall( 4 ).calledWith( 50 ), true,
-		'Percentage correctly ignored inactive image & only animated when active image is loading' );
-
-	// change back to first image
-	viewer.imageProvider.get = this.sandbox.stub().returns( firstImageDeferred );
-	viewer.loadImage( firstImage );
-	clock.tick( 10 );
-	assert.strictEqual( viewer.ui.panel.progressBar.jumpTo.getCall( 2 ).calledWith( 40 ), true,
-		'Percentage jumps to right value when changing images' );
-
-	secondImageDeferred.resolve( {}, {} );
-	clock.tick( 10 );
-	assert.strictEqual( viewer.ui.panel.progressBar.hide.called, false,
-		'Progress bar not hidden when something finishes in the background' );
-
-	// change back to second image, which has finished loading
-	viewer.imageProvider.get = this.sandbox.stub().returns( secondImageDeferred );
-	viewer.loadImage( secondImage );
-	clock.tick( 10 );
-	assert.strictEqual( viewer.ui.panel.progressBar.hide.called, true,
-		'Progress bar hidden when switching to finished image' );
-
-	clock.restore();
-
-	viewer.close();
-} );
-
 QUnit.test( 'resetThumbnailStates', ( assert ) => {
 	const viewer = getMultimediaViewer();
 
@@ -282,7 +100,6 @@ QUnit.test( 'New image loaded while another one is loading', function ( assert )
 		filePageTitle: new mw.Title( 'File:Bar.jpg' ),
 		index: 1
 	};
-	// custom clock ensures progress handlers execute in correct sequence
 	const clock = this.sandbox.useFakeTimers();
 
 	viewer.fetchSizeIndependentLightboxInfo = this.sandbox.stub();
@@ -302,11 +119,6 @@ QUnit.test( 'New image loaded while another one is loading', function ( assert )
 			setImageInfo: this.sandbox.stub(),
 			scroller: {
 				animateMetadataOnce: function () {}
-			},
-			progressBar: {
-				hide: this.sandbox.stub(),
-				animateTo: this.sandbox.stub(),
-				jumpTo: this.sandbox.stub()
 			},
 			empty: function () {}
 		},
@@ -330,11 +142,6 @@ QUnit.test( 'New image loaded while another one is loading', function ( assert )
 	viewer.fetchSizeIndependentLightboxInfo.returns( secondLigthboxInfoDeferred.promise() );
 	viewer.loadImage( secondImage );
 	clock.tick( 10 );
-
-	viewer.ui.panel.progressBar.animateTo.reset();
-	firstImageDeferred.notify( undefined, 45 );
-	clock.tick( 10 );
-	assert.strictEqual( viewer.ui.panel.progressBar.animateTo.reset.called, undefined, 'Progress of the first image should not be shown' );
 
 	firstImageDeferred.resolve( {}, {} );
 	firstLigthboxInfoDeferred.resolve( {} );

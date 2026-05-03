@@ -19,7 +19,6 @@ const Description = require( './mmv.ui.description.js' );
 const UiElement = require( './mmv.ui.js' );
 const MetadataPanelScroller = require( './mmv.ui.metadataPanelScroller.js' );
 const Permission = require( './mmv.ui.permission.js' );
-const ProgressBar = require( './mmv.ui.progressBar.js' );
 const StripeButtons = require( './mmv.ui.stripeButtons.js' );
 const TruncatableTextField = require( './mmv.ui.truncatableTextField.js' );
 
@@ -162,8 +161,6 @@ class MetadataPanel extends UiElement {
 		this.$location.empty();
 		this.$locationLi.addClass( 'empty' );
 
-		this.progressBar.empty();
-
 		this.$container.removeClass( 'mw-mmv-untruncated' );
 	}
 
@@ -172,8 +169,6 @@ class MetadataPanel extends UiElement {
 	 * Initializes the header, which contains the title, credit, and license elements.
 	 */
 	initializeHeader() {
-		this.progressBar = new ProgressBar( this.$aboveFold );
-
 		this.scroller = new MetadataPanelScroller( this.$container, this.$aboveFold );
 
 		this.$titleDiv = $( '<div>' )

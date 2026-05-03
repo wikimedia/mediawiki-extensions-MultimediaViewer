@@ -41,7 +41,6 @@ require( './ui/mmv.ui.description.test.js' );
 require( './ui/mmv.ui.download.pane.test.js' );
 require( './ui/mmv.ui.metadataPanel.test.js' );
 require( './ui/mmv.ui.metadataPanelScroller.test.js' );
-require( './ui/mmv.ui.progressBar.test.js' );
 require( './ui/mmv.ui.permission.test.js' );
 require( './ui/mmv.ui.stripeButtons.test.js' );
 require( './ui/mmv.ui.reuse.dialog.test.js' );

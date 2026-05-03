@@ -38,7 +38,6 @@ const UiElement = require( './ui/mmv.ui.js' );
 const MetadataPanel = require( './ui/mmv.ui.metadataPanel.js' );
 const MetadataPanelScroller = require( './ui/mmv.ui.metadataPanelScroller.js' );
 const Permission = require( './ui/mmv.ui.permission.js' );
-const ProgressBar = require( './ui/mmv.ui.progressBar.js' );
 const StripeButtons = require( './ui/mmv.ui.stripeButtons.js' );
 const TruncatableTextField = require( './ui/mmv.ui.truncatableTextField.js' );
 const LightboxInterface = require( './mmv.lightboxinterface.js' );
@@ -215,7 +214,6 @@ class MultimediaViewer {
 			this.displayPlaceholderThumbnail( image, $initialImage, imageWidths );
 		}
 		this.resetThumbnailStates();
-		this.setupProgressBar( image, imagePromise, imageWidths.real );
 
 		const metadataPromise = this.fetchSizeIndependentLightboxInfo( image.filePageTitle );
 
@@ -375,74 +373,6 @@ class MultimediaViewer {
 		} else {
 			this.ui.canvas.maybeDisplayPlaceholder( size, $initialImage, imageWidths );
 		}
-	}
-
-	/**
-	 * Displays a progress bar for the image loading, if necessary, and sets up handling of
-	 * all the related callbacks.
-	 *
-	 * @param {LightboxImage} image
-	 * @param {jQuery.Promise.<Thumbnail, HTMLImageElement>} imagePromise
-	 * @param {number} imageWidth needed for caching progress (FIXME)
-	 */
-	setupProgressBar( image, imagePromise, imageWidth ) {
-		const progressBar = this.ui.panel.progressBar;
-		const key = `${ image.filePageTitle.getPrefixedDb() }|${ imageWidth }`;
-
-		if ( !this.progressCache[ key ] ) {
-			// Animate progress bar to 5 to give a sense that something is happening, and make sure
-			// the progress bar is noticeable, even if we're sitting at 0% stuck waiting for
-			// server-side processing, such as thumbnail (re)generation
-			progressBar.jumpTo( 0 );
-			progressBar.animateTo( 5 );
-			this.progressCache[ key ] = 5;
-		} else {
-			progressBar.jumpTo( this.progressCache[ key ] );
-		}
-
-		// FIXME would be nice to have a "filtered" promise which does not fire when the image is not visible
-		imagePromise.then(
-			// done
-			( thumbnail, imageElement ) => {
-				this.progressCache[ key ] = 100;
-				if ( this.currentIndex === image.index ) {
-					// Fallback in case the browser doesn't have fancy progress updates
-					progressBar.animateTo( 100 );
-
-					// Hide progress bar, we're done
-					// TODO not really needed, but testcase depends on it
-					progressBar.hide();
-				}
-
-				return $.Deferred().resolve( thumbnail, imageElement );
-			},
-			// fail
-			( error ) => {
-				this.progressCache[ key ] = 100;
-
-				if ( this.currentIndex === image.index ) {
-					// Hide progress bar on error
-					progressBar.hide();
-				}
-
-				return $.Deferred().reject( error );
-			},
-			// progress
-			( progress ) => {
-				// We pretend progress is always at least 5%, so progress events below 5% should be ignored
-				// 100 will be handled by the done handler, do not mix two animations
-				if ( progress >= 5 && progress < 100 ) {
-					this.progressCache[ key ] = progress;
-
-					// Touch the UI only if the user is looking at this image
-					if ( this.currentIndex === image.index ) {
-						progressBar.animateTo( progress );
-					}
-				}
-
-				return progress;
-			}
-		);
 	}
 
 	/**
@@ -741,15 +671,6 @@ class MultimediaViewer {
 	}
 }
 
-/**
- * Image loading progress. Keyed by image (database) name + '|' + thumbnail width in pixels,
- * value is a number between 0-100.
- *
- * @private
- * @property {Object.<string, number>}
- */
-MultimediaViewer.prototype.progressCache = {};
-
 module.exports = {
 	Api,
 	Canvas,
@@ -767,7 +688,6 @@ module.exports = {
 	MetadataPanelScroller,
 	MultimediaViewer,
 	Permission,
-	ProgressBar,
 	StripeButtons,
 	Thumbnail,
 	ThumbnailInfo,
