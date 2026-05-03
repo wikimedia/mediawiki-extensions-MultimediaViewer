@@ -475,13 +475,11 @@
 		"MediaViewerThumbnailBucketSizes": {
 			"description": "Array of preselected widths used to generate thumbnail URLs to avoid arbitrary size requests (see also wgUploadThumbnailRenderMap).",
 			"value": [
-				320,
-				800,
-				1024,
+				500,
+				960,
 				1280,
 				1920,
-				2560,
-				2880
+				3840
 			],
 			"merge_strategy": "provide_default"
 		},
