@@ -98,15 +98,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Esti ficheru nun tien información d'atribución.",
 	"multimediaviewer-reuse-warning-generic": "Comprueba [$1 los detalles] antes d'utilizalu.",
 	"multimediaviewer-attr-plain": "Testu planu",
-	"multimediaviewer-disable-confirmation-header": "Desactivasti el visor de multimedia",
-	"multimediaviewer-disable-confirmation-text": "La siguiente vez que faigas clic n'una miniatura en $1, verás direutamente los detalles del ficheru.",
-	"multimediaviewer-enable-dialog-header": "¿Activar el visor de multimedia?",
-	"multimediaviewer-enable-text-header": "Activar esta función de visión pa tolos ficheros de mou predetermináu.",
-	"multimediaviewer-enable-submit-button": "Activar el visor de multimedia",
-	"multimediaviewer-enable-confirmation-header": "Activasti el visor de multimedia pa tolos ficheros",
-	"multimediaviewer-enable-confirmation-text": "La siguiente vez que faigas clic n'una miniatura en $1, usaráse'l Visor de multimedia.",
-	"multimediaviewer-enable-alert": "El Visor de multimedia agora ta desactiváu",
-	"multimediaviewer-disable-info-title": "Desactivasti el visor de multimedia",
-	"multimediaviewer-disable-info": "Inda pues ver los ficheros individualmente col Visor de multimedia.",
 	"multimediaviewer-errorreport-privacywarning": "Los detalles del error axúntense al informe, que va ser visible públicamente. Si nun tas cómodu con eso, pues editar l'informe más abaxo y desaniciar tolos datos que nun quixeras compartir."
 }

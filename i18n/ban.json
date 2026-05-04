@@ -106,10 +106,5 @@
 	"multimediaviewer-reuse-warning-nonfree": "Berkas puniki nénten malisénsi bébas.",
 	"multimediaviewer-reuse-warning-noattribution": "Berkas puniki nénten madué pidarta atribusi.",
 	"multimediaviewer-attr-html": "HTML",
-	"multimediaviewer-disable-confirmation-header": "Ragané sampun ngamatiang Panyingak Média",
-	"multimediaviewer-enable-dialog-header": "Ngidupang Panyingak Média?",
-	"multimediaviewer-enable-submit-button": "Ngidupang Panyingak Média",
-	"multimediaviewer-enable-confirmation-header": "Ragané sampun ngidupang Panyingak Média antuk samian berkas",
-	"multimediaviewer-enable-alert": "Panyingak Média mangkin kamatiang",
 	"multimediaviewer-loading": "Ngamuat Panyingak Média"
 }

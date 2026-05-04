@@ -57,12 +57,5 @@
 	"multimediaviewer-title-popup-text": "Deskrivadur",
 	"multimediaviewer-title-popup-text-more": "Gwelet deskrivadur klok",
 	"multimediaviewer-download-attribution-cta": "Diskouez din penaos ober",
-	"multimediaviewer-attr-plain": "Plaen",
-	"multimediaviewer-disable-confirmation-header": "Diweredekaet ho peus Media Viewer",
-	"multimediaviewer-enable-dialog-header": "Gweredekaat Media Viewer?",
-	"multimediaviewer-enable-text-header": "Gweredekaat an arc’hweladur gwelet mediaoù evit an holl restroù dre ziouer.",
-	"multimediaviewer-enable-submit-button": "Gweredekaat Media Viewer",
-	"multimediaviewer-enable-confirmation-header": "Gweredekaet ho peus Media Viewer evit an holl restroù",
-	"multimediaviewer-enable-alert": "Diweredekaet eo Media Viewer bremañ",
-	"multimediaviewer-disable-info-title": "Diweredekaet ho peus Media Viewer"
+	"multimediaviewer-attr-plain": "Plaen"
 }

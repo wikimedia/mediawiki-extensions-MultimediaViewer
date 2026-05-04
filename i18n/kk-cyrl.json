@@ -67,12 +67,5 @@
 	"multimediaviewer-credit-popup-text-more": "Толық авторы мен көзін көру",
 	"multimediaviewer-download-optional-attribution-cta-header": "Авторын анықтай аласыз",
 	"multimediaviewer-download-attribution-cta": "Қалай екенін маған көрсет",
-	"multimediaviewer-attr-plain": "Жәй мәтін",
-	"multimediaviewer-disable-confirmation-header": "Медиа көргішті өшірдіңіз",
-	"multimediaviewer-enable-dialog-header": "Медиа көргішті қосасыз ба?",
-	"multimediaviewer-enable-submit-button": "Медиа көргішті қосу",
-	"multimediaviewer-enable-confirmation-header": "Медиа көргішті барлық файл үшін қостыңыз",
-	"multimediaviewer-enable-alert": "Медиа көргіш өшірілді",
-	"multimediaviewer-disable-info-title": "Медиа көргішті өшіріп тастағансыз",
-	"multimediaviewer-disable-info": "Медиа қарап шығушымен жеке файлдарды қарай аласыз"
+	"multimediaviewer-attr-plain": "Жәй мәтін"
 }

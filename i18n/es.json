@@ -120,16 +120,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Este archivo no tiene información de atribución.",
 	"multimediaviewer-reuse-warning-generic": "Comprueba [$1 sus detalles] antes de utilizarlo.",
 	"multimediaviewer-attr-plain": "Texto sin formato",
-	"multimediaviewer-disable-confirmation-header": "Has desactivado el visor multimedia",
-	"multimediaviewer-disable-confirmation-text": "La próxima vez que haga clic en una miniatura en $1, verá de manera directa los detalles del archivo.",
-	"multimediaviewer-enable-dialog-header": "¿Activar el visor multimedia?",
-	"multimediaviewer-enable-text-header": "Activar esta función de visualización para todos los archivos de manera predeterminada.",
-	"multimediaviewer-enable-submit-button": "Activar el visor multimedia",
-	"multimediaviewer-enable-confirmation-header": "Has activado el visor multimedia para todos los archivos",
-	"multimediaviewer-enable-confirmation-text": "La próxima vez que hagas clic sobre una miniatura en $1, se usará el visor multimedia.",
-	"multimediaviewer-enable-alert": "Se ha desactivado el visor multimedia",
-	"multimediaviewer-disable-info-title": "Has desactivado el visor multimedia",
-	"multimediaviewer-disable-info": "Aún puede ver archivos individuales con el Visor Multimedia.",
 	"multimediaviewer-errorreport-privacywarning": "El informe contiene detalles del error que serán visibles públicamente. Si ello no te inspira confianza, puedes modificar el informe para quitarle cualquier dato que no quieras compartir.",
 	"multimediaviewer-loading": "Cargando el visor multimedia."
 }

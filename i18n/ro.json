@@ -102,15 +102,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Acest fișier nu are informații despre atribuire.",
 	"multimediaviewer-reuse-warning-generic": "Verificați [$1 detaliile sale] înainte de a îl utiliza.",
 	"multimediaviewer-attr-plain": "Simplu",
-	"multimediaviewer-disable-confirmation-header": "Ați dezactivat Vizualizatorul multimedia",
-	"multimediaviewer-disable-confirmation-text": "Data viitoare când veți face clic pe o miniatură la $1, veți accesa direct detaliile fișierului.",
-	"multimediaviewer-enable-dialog-header": "Activați Vizualizatorul multimedia?",
-	"multimediaviewer-enable-text-header": "Activează această opțiune de vizualizare multimedia în mod implicit pentru toate fișierele.",
-	"multimediaviewer-enable-submit-button": "Activează Vizualizatorul multimedia",
-	"multimediaviewer-enable-confirmation-header": "Ați activat Vizualizatorul multimedia pentru toate fișierele",
-	"multimediaviewer-enable-confirmation-text": "Data viitoare când veți face clic pe o miniatură la $1, se va lansa Vizualizatorul multimedia.",
-	"multimediaviewer-enable-alert": "Vizualizatorul multimedia este acum dezactivat",
-	"multimediaviewer-disable-info-title": "Ați dezactivat Vizualizatorul multimedia",
-	"multimediaviewer-disable-info": "Puteți vizualiza în continuare fișiere individuale cu Vizualizatorul multimedia.",
 	"multimediaviewer-errorreport-privacywarning": "Detaliile referitoare la eroare sunt atașate raportului care va fi făcut public. Dacă nu vă simțiți confortabil în această postură, puteți modifica raportul și să eliminați informațiile pe care nu le doriți publice."
 }

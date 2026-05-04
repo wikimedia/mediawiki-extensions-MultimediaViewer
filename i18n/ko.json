@@ -124,16 +124,6 @@
 	"multimediaviewer-reuse-warning-generic": "사용하기 전에 [$1 상세 내용]을 확인하십시오.",
 	"multimediaviewer-attr-plain": "일반",
 	"multimediaviewer-attr-html": "HTML",
-	"multimediaviewer-disable-confirmation-header": "미디어 뷰어를 비활성화했습니다",
-	"multimediaviewer-disable-confirmation-text": "다음에 $1의 섬네일을 클릭하면, 바로 모든 파일의 속성을 볼 수 있습니다.",
-	"multimediaviewer-enable-dialog-header": "미디어 뷰어를 활성화할까요?",
-	"multimediaviewer-enable-text-header": "기본적으로 모든 파일에 대해 이 미디어 보기 기능을 사용하도록 설정합니다.",
-	"multimediaviewer-enable-submit-button": "미디어 뷰어 활성화",
-	"multimediaviewer-enable-confirmation-header": "모든 파일에 대해 미디어 뷰어를 활성화하였습니다",
-	"multimediaviewer-enable-confirmation-text": "다음에 $1에서 섬네일을 클릭하면, 미디어 뷰어를 사용합니다.",
-	"multimediaviewer-enable-alert": "미디어 뷰어가 지금 비활성화되어 있습니다",
-	"multimediaviewer-disable-info-title": "미디어 뷰어를 비활성화시켰습니다",
-	"multimediaviewer-disable-info": "미디어 뷰어를 사용하여 개별 파일을 계속 볼 수 있습니다.",
 	"multimediaviewer-errorreport-privacywarning": "오류에 대한 자세한 내용은 보고서에 첨부되어 있으며, 이는 공개되어 있습니다. 공개를 원치 않으시면 아래에서 보고서를 편집하여 공유하고 싶지 않은 데이터를 모두 삭제할 수 있습니다.",
 	"multimediaviewer-loading": "미디어 뷰어 활성화 중."
 }

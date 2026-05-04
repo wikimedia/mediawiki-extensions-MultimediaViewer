@@ -84,15 +84,5 @@
 	"multimediaviewer-reuse-warning-nonfree": "Ĉi tiu dosiero ne havas liberan permesilon.",
 	"multimediaviewer-reuse-warning-noattribution": "Atribua informo mankas ĉe ĉi tiu dosiero.",
 	"multimediaviewer-reuse-warning-generic": "Kontrolu [$1 ĝiajn detalojn] antaŭ ol uzado.",
-	"multimediaviewer-attr-plain": "Plata teksto",
-	"multimediaviewer-disable-confirmation-header": "Vi malŝaltis Median Montrilon",
-	"multimediaviewer-disable-confirmation-text": "Sekvafoje kiam vi klakos al miniaturo en $1, vi rekte vidos ĉiujn dosierajn detalojn.",
-	"multimediaviewer-enable-dialog-header": "Ĉu ŝalti Median Montrilon?",
-	"multimediaviewer-enable-text-header": "Ŝalti tiun ĉi medi-montran funkcion defaŭlte por ĉiuj dosieroj.",
-	"multimediaviewer-enable-submit-button": "Ŝalti Median Montrilon",
-	"multimediaviewer-enable-confirmation-header": "Vi ŝaltis Median Montrilon por ĉiuj dosieroj",
-	"multimediaviewer-enable-confirmation-text": "Sekvafoje kiam vi klakos al miniaturo en $1, estos uzata Media Montrilo.",
-	"multimediaviewer-enable-alert": "Media Montrilo nun estas malŝaltita.",
-	"multimediaviewer-disable-info-title": "Vi malŝaltis Median Montrilon",
-	"multimediaviewer-disable-info": "Vi daŭre povas vidigi unuopajn dosierojn per Media Montrilo."
+	"multimediaviewer-attr-plain": "Plata teksto"
 }

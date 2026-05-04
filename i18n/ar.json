@@ -119,16 +119,6 @@
 	"multimediaviewer-reuse-warning-generic": "تحقق من [$1 تفاصيله] قبل استخدامه.",
 	"multimediaviewer-attr-plain": "عادي",
 	"multimediaviewer-attr-html": "إتش تي إم إل",
-	"multimediaviewer-disable-confirmation-header": "لقد عطلت عارض الوسائط",
-	"multimediaviewer-disable-confirmation-text": "في المرة التالية التي تنقر فيها على الصورة المصغرة في $1، ستقوم بعرض كل تفاصيل الملف مباشرة.",
-	"multimediaviewer-enable-dialog-header": "تفعيل عارض الوسائط؟",
-	"multimediaviewer-enable-text-header": "تمكين ميزة عرض الوسائط هذه لجميع الملفات افتراضيا.",
-	"multimediaviewer-enable-submit-button": "تفعيل عارض الوسائط",
-	"multimediaviewer-enable-confirmation-header": "لقد فعلت عارض الوسائط لكل الملفات",
-	"multimediaviewer-enable-confirmation-text": "في المرة التالية التي تنقر فيها على الصورة المصغرة في $1 ، سيتم استخدام عارض الوسائط.",
-	"multimediaviewer-enable-alert": "عارض الوسائط غير مفعل الآن",
-	"multimediaviewer-disable-info-title": "لقد عطلت عارض الوسائط",
-	"multimediaviewer-disable-info": "ما زال بإمكانك عرض الملفات المنفردة بعارض الوسائط.",
 	"multimediaviewer-errorreport-privacywarning": "يتم إرفاق تفاصيل الخطأ بالتقرير، والذي سيكون قابلا للعرض للجمهور، إذا لم تكن مرتاحا لذلك، فيمكنك تحرير التقرير أدناه وإزالة جميع البيانات التي لا تريد مشاركتها.",
 	"multimediaviewer-loading": "جاري تحميل عارض الوسائط."
 }

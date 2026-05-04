@@ -80,10 +80,5 @@
 	"multimediaviewer-credit-popup-text-more": "সম্পূৰ্ণ প্ৰণেতা আৰু উৎস চাওক",
 	"multimediaviewer-reuse-warning-nonfree": "এই ফাইলটোৰ মুক্ত অনুজ্ঞাপত্ৰ নাই।",
 	"multimediaviewer-attr-plain": "সাধাৰণ",
-	"multimediaviewer-attr-html": "এইচটিএমএল",
-	"multimediaviewer-disable-confirmation-header": "আপুনি মিডিয়া ভিউৱাৰ নিষ্ক্ৰিয় কৰিছে",
-	"multimediaviewer-enable-dialog-header": "মিডিয়া ভিউৱাৰ সক্ৰিয় কৰিবনে?",
-	"multimediaviewer-enable-submit-button": "মিডিয়া ভিউৱাৰ সক্ৰিয় কৰক",
-	"multimediaviewer-enable-alert": "মিডিয়া ভিউৱাৰ এতিয়া নিষ্ক্ৰিয়",
-	"multimediaviewer-disable-info-title": "আপুনি মিডিয়া ভিউৱাৰ নিষ্ক্ৰিয় কৰিছে"
+	"multimediaviewer-attr-html": "এইচটিএমএল"
 }

@@ -114,16 +114,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Diese Datei hat keine Informationen zur Namensnennung.",
 	"multimediaviewer-reuse-warning-generic": "Überprüfe [$1 ihre Einzelheiten], bevor du sie verwendest.",
 	"multimediaviewer-attr-plain": "Klartext",
-	"multimediaviewer-disable-confirmation-header": "Du hast den Medienbetrachter deaktiviert",
-	"multimediaviewer-disable-confirmation-text": "Wenn du das nächste Mal auf ein Vorschaubild auf $1 klickst, wirst du direkt alle Einzelheiten zur Datei ansehen können.",
-	"multimediaviewer-enable-dialog-header": "Medienbetrachter aktivieren?",
-	"multimediaviewer-enable-text-header": "Diese Medienbetrachtungsfunktion für alle Dateien standardmäßig aktivieren.",
-	"multimediaviewer-enable-submit-button": "Medienbetrachter aktivieren",
-	"multimediaviewer-enable-confirmation-header": "Du hast den Medienbetrachter für alle Dateien aktiviert",
-	"multimediaviewer-enable-confirmation-text": "Wenn du das nächste Mal auf ein Vorschaubild auf $1 klickst, wird der Medienbetrachter verwendet.",
-	"multimediaviewer-enable-alert": "Der Medienbetrachter ist jetzt deaktiviert",
-	"multimediaviewer-disable-info-title": "Du hast den Medienbetrachter deaktiviert",
-	"multimediaviewer-disable-info": "Du kannst dennoch einzelne Dateien mit dem Medienbetrachter ansehen.",
 	"multimediaviewer-errorreport-privacywarning": "Einzelheiten zum Fehler werden dem Bericht beigefügt, die öffentlich sichtbar sind. Falls du mit diesem Vorgehen nicht einverstanden bist, kannst du den Bericht unten bearbeiten und alle Daten entfernen, die du nicht teilen möchtest.",
 	"multimediaviewer-loading": "Medienbetrachter wird geladen."
 }

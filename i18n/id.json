@@ -109,15 +109,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Berkas ini tidak memiliki informasi atribusi.",
 	"multimediaviewer-reuse-warning-generic": "Periksa [$1 rinciannya] sebelum menggunakan.",
 	"multimediaviewer-attr-plain": "Polos",
-	"multimediaviewer-disable-confirmation-header": "Anda telah menonaktifkan Penampil Media",
-	"multimediaviewer-disable-confirmation-text": "Saat Anda mengeklik gambar mini di $1 selanjutnya, Anda akan langsung melihat semua rincian berkas.",
-	"multimediaviewer-enable-dialog-header": "Nyalakan Penampil Media?",
-	"multimediaviewer-enable-text-header": "Nyalakan fitur penampil media ini untuk semua berkas secara bawaan.",
-	"multimediaviewer-enable-submit-button": "Nyalakan Penampil Media",
-	"multimediaviewer-enable-confirmation-header": "Anda telah menyalakan Penampil Media untuk semua berkas",
-	"multimediaviewer-enable-confirmation-text": "Saat Anda mengeklik gambar mini di $1 selanjutnya, Penampil Media akan digunakan.",
-	"multimediaviewer-enable-alert": "Penampil Media kini dinonaktifkan",
-	"multimediaviewer-disable-info-title": "Anda telah menonaktifkan Penampil Media",
-	"multimediaviewer-disable-info": "Anda masih dapat melihat berkas individu dengan Penampil Media.",
 	"multimediaviewer-errorreport-privacywarning": "Rincian dari galat dilampirkan pada laporan, yang akan dapat dilihat secara umum. Jika Anda tidak merasa nyaman dengan hal ini, Anda dapat menyunting laporan di bawah ini dan menghapus semua data yang tidak ingin Anda bagikan."
 }

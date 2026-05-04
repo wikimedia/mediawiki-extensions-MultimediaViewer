@@ -109,15 +109,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Tällä tiedostolla ei ole nimeämistietoja.",
 	"multimediaviewer-reuse-warning-generic": "Tarkista [$1 tiedot] ennen sen käyttöä.",
 	"multimediaviewer-attr-plain": "Tavallinen",
-	"multimediaviewer-disable-confirmation-header": "Olet poistanut Mediakatselimen käytöstä",
-	"multimediaviewer-disable-confirmation-text": "Seuraavalla kerralla, kun napsautat pienoiskuvaa {{GRAMMAR:inessive|$1}}, näet suoraan kaikki tiedoston tiedot.",
-	"multimediaviewer-enable-dialog-header": "Ota Mediakatselin käyttöön?",
-	"multimediaviewer-enable-text-header": "Ota tämä median katseluominaisuus käyttöön oletusarvoisesti kaikille tiedostoille.",
-	"multimediaviewer-enable-submit-button": "Ota Mediakatselin käyttöön",
-	"multimediaviewer-enable-confirmation-header": "Olet ottanut Mediakatselimen käyttöön kaikille tiedostoille",
-	"multimediaviewer-enable-confirmation-text": "Mediakatselinta tullaan käyttämään seuraavalla kerralla, kun napsautat pienoiskuvaa {{GRAMMAR:inessive|$1}}.",
-	"multimediaviewer-enable-alert": "Mediakatselin on nyt poistettu käytöstä",
-	"multimediaviewer-disable-info-title": "Olet poistanut Mediakatselimen käytöstä",
-	"multimediaviewer-disable-info": "Voit silti tarkastella yksittäisiä tiedostoja Mediakatselimella.",
 	"multimediaviewer-loading": "Ladataan Mediakatselinta."
 }

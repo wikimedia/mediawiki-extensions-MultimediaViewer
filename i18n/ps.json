@@ -27,13 +27,5 @@
 	"multimediaviewer-view-expanded": "په رسنۍ کتونکي کې پرانيستل",
 	"multimediaviewer-close-popup-text": "دا اوزار تړل (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "پر لوی سکرين کتنه",
-	"multimediaviewer-download-optional-attribution-cta-header": "ليکوال ته يې اړونده کولی شی",
-	"multimediaviewer-disable-confirmation-text": "بل ځل ته چې تاسې د $1 په يو بټنوک ټک ورکوئ، نو سمدلاسه به د دوتنې ټول تفصيل درښکاره شي.",
-	"multimediaviewer-enable-dialog-header": "رسنۍ کتونکی چارنوې؟",
-	"multimediaviewer-enable-text-header": "د همدې رسنۍ د کتلو ځانتياوې په تلواليزه توگه د ټولو دوتنو لپاره چارنول.",
-	"multimediaviewer-enable-submit-button": "رسنۍ کتونکی چارنول",
-	"multimediaviewer-enable-confirmation-header": "تاسې د ټولو دوتنو لپاره رسنۍ کتونکی چارن کړی",
-	"multimediaviewer-enable-confirmation-text": "بل ځل ته چې تاسې د $1 په يو بټنوک ټک ورکوئ، نو رسنۍ کتونکی به وکارېږي.",
-	"multimediaviewer-disable-info-title": "تاسې رسنۍ کتونکی ناچارن کړ",
-	"multimediaviewer-disable-info": "تاسې لا تر اوسه پورې د رسنۍ کتونکي په مرسته ځانگړې دوتنې کتلی شی."
+	"multimediaviewer-download-optional-attribution-cta-header": "ليکوال ته يې اړونده کولی شی"
 }

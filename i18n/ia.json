@@ -102,16 +102,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Iste file non ha information de attribution.",
 	"multimediaviewer-reuse-warning-generic": "Verifica [$1 su detalios] ante de usar lo.",
 	"multimediaviewer-attr-plain": "Simple",
-	"multimediaviewer-disable-confirmation-header": "Tu ha disactivate Media Viiewer",
-	"multimediaviewer-disable-confirmation-text": "Le proxime vice que tu clicca sur un miniatura sur $1, tu videra directemente tote le detalios del file.",
-	"multimediaviewer-enable-dialog-header": "Activar Media Viewer?",
-	"multimediaviewer-enable-text-header": "Activar iste function de visualisation multimedial pro tote le files per predefinition.",
-	"multimediaviewer-enable-submit-button": "Activar Media Viewer",
-	"multimediaviewer-enable-confirmation-header": "Tu ha activate Media Viewer pro tote le files",
-	"multimediaviewer-enable-confirmation-text": "Le proxime vice que tu clicca sur un miniatura sur $1, Media Viewer essera usate.",
-	"multimediaviewer-enable-alert": "MediaViewer es ora disactivate",
-	"multimediaviewer-disable-info-title": "Tu ha disactivate Media Viiewer",
-	"multimediaviewer-disable-info": "Tu pote totevia vider files individual con Media Viewer.",
 	"multimediaviewer-errorreport-privacywarning": "Le detalios del error es attachate al reporto, le qual essera publicamente visibile. Si tu non te senti confortabile con isto, tu pote modificar le reporto hic infra e remover tote le datos que tu non vole condivider.",
 	"multimediaviewer-loading": "Cargamento de Media Viewer in curso."
 }

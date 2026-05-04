@@ -96,15 +96,5 @@
 	"multimediaviewer-reuse-warning-nonfree": "Ni berekas kaga' gableg ongji perdèo.",
 	"multimediaviewer-reuse-warning-noattribution": "Ni berekas kaga' gableg pengabaran nisbat.",
 	"multimediaviewer-reuse-warning-generic": "Perèksa [$1 tètèk bengèknya] sebelonnya maké ni.",
-	"multimediaviewer-attr-plain": "Polosan",
-	"multimediaviewer-disable-confirmation-header": "Lu udah matiin Pendeleng Wasilah",
-	"multimediaviewer-disable-confirmation-text": "Bèsok-bèsok pas ngeklik longokan di $1, lu bakalan langsung ngiat semua tètèk bengèk berekas.",
-	"multimediaviewer-enable-dialog-header": "Nyalain Pendeleng Wasilah?",
-	"multimediaviewer-enable-text-header": "Bawaannya nyalain ni keboléan pendeleng wasilah bakal semua berekas",
-	"multimediaviewer-enable-submit-button": "Nyalain Pendeleng Wasilah",
-	"multimediaviewer-enable-confirmation-header": "Lu udah nyalain Pendeleng Wasilah bakal semua berekas",
-	"multimediaviewer-enable-confirmation-text": "Bèsok-bèsok pas ngeklik longokan di $1, Pendeleng Wasilah nyang bakal dipaké.",
-	"multimediaviewer-enable-alert": "Pendeleng Wasilah sekarang dimatiin",
-	"multimediaviewer-disable-info-title": "Lu udah matiin Pendeleng Wasilah",
-	"multimediaviewer-disable-info": "Lu masing bisa ngiat berekasnya atu-atu paké Pendeleng Wasilah."
+	"multimediaviewer-attr-plain": "Polosan"
 }

@@ -84,13 +84,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Ca arkivo ne havas informi pri ol.",
 	"multimediaviewer-reuse-warning-generic": "Verifikez [$1 sua detali] ante uzar ol.",
 	"multimediaviewer-attr-plain": "simpla texto",
-	"multimediaviewer-disable-confirmation-header": "Vu klozis ''Media Viewer''",
-	"multimediaviewer-disable-confirmation-text": "Sequantafoye, kande vu kliktez miniaturo che $1, vu vidos direte omna detali pri l'arkivo.",
-	"multimediaviewer-enable-dialog-header": "Ka permisar ''Media Viewer''?",
-	"multimediaviewer-enable-submit-button": "Permisar ''Media Viewer''",
-	"multimediaviewer-enable-confirmation-header": "Vu permisis ''Media Viewer'' por tot artikli",
-	"multimediaviewer-enable-alert": "''Media Viewer'' nun deskapabligesis",
-	"multimediaviewer-disable-info-title": "Vu klozis ''Media Viewer''",
-	"multimediaviewer-disable-info": "Vu ankore povas vidar individual arkivi kun ''Media Viewer''.",
 	"multimediaviewer-errorreport-privacywarning": "Detali pri l'eroro adjuntesis a la reporto, qua povos videsar publike. Se vu ne prizas to, vu povos modifikar la reporto adinfre, e removar omna detali quin vu ne deziras partigar kun altri."
 }

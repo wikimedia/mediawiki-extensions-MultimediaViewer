@@ -119,15 +119,5 @@
 	"multimediaviewer-reuse-warning-generic": "ഉപയോഗിക്കുന്നതിന്റെ മുമ്പ് [$1 ഇതിന്റെ വിശദാംശങ്ങൾ] പരിശോധിക്കുക.",
 	"multimediaviewer-attr-plain": "വെറും എഴുത്ത്",
 	"multimediaviewer-attr-html": "എച്ച്.റ്റി.എം.എൽ.",
-	"multimediaviewer-disable-confirmation-header": "താങ്കൾ മീഡിയ ദർശനോപാധി ഒഴിവാക്കി",
-	"multimediaviewer-disable-confirmation-text": "അടുത്ത പ്രാവശ്യം $1 സംരംഭത്തിൽ ലഘുചിത്രത്തിൽ താങ്കൾ ഞെക്കുമ്പോൾ, താങ്കൾ നേരിട്ട് പ്രമാണത്തിന്റെ വിവരണതാളിലേക്കാവും ചെല്ലുക.",
-	"multimediaviewer-enable-dialog-header": "മീഡിയ ദർശനോപാധി സജ്ജമാക്കണോ?",
-	"multimediaviewer-enable-text-header": "ഈ മീഡിയ കാണൽ സൗകര്യം എല്ലാ പ്രമാണങ്ങൾക്കുമായി സ്വതേയുള്ളതായി സജ്ജമാക്കുക.",
-	"multimediaviewer-enable-submit-button": "മീഡിയ ദർശനോപാധി സജ്ജമാക്കുക",
-	"multimediaviewer-enable-confirmation-header": "എല്ലാ പ്രമാണങ്ങൾക്കും താങ്കൾ മീഡിയ ദർശനോപാധി സജ്ജമാക്കി",
-	"multimediaviewer-enable-confirmation-text": "അടുത്ത പ്രാവശ്യം $1 സംരംഭത്തിൽ ലഘുചിത്രത്തിൽ താങ്കൾ ഞെക്കുമ്പോൾ, മീഡിയ ദർശനോപാധി ഉപയോഗിക്കപ്പെടുന്നതാണ്.",
-	"multimediaviewer-enable-alert": "മീഡിയ ദർശനോപാധി ഇപ്പോൾ പ്രവർത്തനരഹിതമാണ്",
-	"multimediaviewer-disable-info-title": "താങ്കൾ മീഡിയ ദർശനോപാധി പ്രവർത്തനരഹിതമാക്കി",
-	"multimediaviewer-disable-info": "താങ്കൾക്ക് ഇപ്പോഴും ഒറ്റയൊറ്റ പ്രമാണങ്ങൾ മീഡിയ ദർശനോപാധി ഉപയോഗിച്ച് കാണാവുന്നതാണ്.",
 	"multimediaviewer-errorreport-privacywarning": "പിഴവിന്റെ വിശദാംശങ്ങൾ റിപ്പോർട്ടിലേക്ക് ചേർത്തു, ഇത് പരസ്യമായി കാണാവുന്നതായിരിക്കും. അത് അനുയോജ്യമായി താങ്കൾക്ക് അനുഭവപ്പെടുന്നില്ലെങ്കിൽ, റിപ്പോർട്ട് താഴെ തിരുത്താവുന്നതും, താങ്കൾ പങ്ക് വെയ്ക്കാൻ ആഗ്രഹിക്കാത്ത വിവരങ്ങൾ നീക്കം ചെയ്യാവുന്നതും ആണ്."
 }

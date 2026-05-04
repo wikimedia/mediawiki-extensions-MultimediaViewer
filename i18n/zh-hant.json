@@ -121,16 +121,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "此檔案沒有署名資訊。",
 	"multimediaviewer-reuse-warning-generic": "使用前請檢查[$1 詳情]。",
 	"multimediaviewer-attr-plain": "純文字",
-	"multimediaviewer-disable-confirmation-header": "您已關閉媒體檢視器",
-	"multimediaviewer-disable-confirmation-text": "下次您點選 $1 上的縮圖時，您會直接檢視所有檔案明細。",
-	"multimediaviewer-enable-dialog-header": "開啟媒體檢視器?",
-	"multimediaviewer-enable-text-header": "預設對所有檔案開啟此媒體檢視功能。",
-	"multimediaviewer-enable-submit-button": "開啟媒體檢視器",
-	"multimediaviewer-enable-confirmation-header": "您已對所有檔案開啟媒體檢視器",
-	"multimediaviewer-enable-confirmation-text": "下次您點選 $1 上的縮圖時，會使用媒體檢視器。",
-	"multimediaviewer-enable-alert": "媒體檢視器現在已關閉",
-	"multimediaviewer-disable-info-title": "您已關閉媒體檢視器",
-	"multimediaviewer-disable-info": "您仍可以使用媒體檢視器來檢視個別檔案。",
 	"multimediaviewer-errorreport-privacywarning": "錯誤的詳情內容會附加到報告裡，並可公開檢視。若您對此不認同，您可以編輯以下報告並移除您不希望分享的資料。",
 	"multimediaviewer-loading": "正在載入媒體檢視器。"
 }

@@ -116,16 +116,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Ten plik nie posiada żadnych informacji dotyczących autorstwa.",
 	"multimediaviewer-reuse-warning-generic": "Przed użyciem sprawdź [$1 jego szczegóły].",
 	"multimediaviewer-attr-plain": "Zwykły tekst",
-	"multimediaviewer-disable-confirmation-header": "Wyłączyłeś Media Viewer",
-	"multimediaviewer-disable-confirmation-text": "Kiedy następnym razem klikniesz na $1, od razu wyświetlą ci się wszystkie szczegóły pliku.",
-	"multimediaviewer-enable-dialog-header": "Włączyć Media Viewer?",
-	"multimediaviewer-enable-text-header": "Włącz to narzędzie wyświetlania multimediów domyślnie dla wszystkich plików.",
-	"multimediaviewer-enable-submit-button": "Włącz Media Viewer",
-	"multimediaviewer-enable-confirmation-header": "Włączyłeś Media Viewer dla wszystkich plików",
-	"multimediaviewer-enable-confirmation-text": "Kiedy następnym razem klikniesz na miniaturkę na {{GRAMMAR:MS.lp|$1}}, wyświetli się Media Viewer.",
-	"multimediaviewer-enable-alert": "Media Viewer jest wyłączony",
-	"multimediaviewer-disable-info-title": "Wyłączyłeś Media Viewer",
-	"multimediaviewer-disable-info": "Wciąż możesz oglądać poszczególne pliki za pomocą Media Viewera",
 	"multimediaviewer-errorreport-privacywarning": "Szczegóły błędu są dołączane do zgłoszenia, które będzie publicznie widoczne. Jeśli nie czujesz się z tym komfortowo, możesz zmodyfikować swoje zgłoszenie i usunąć dane, których nie chcesz udostępniać.",
 	"multimediaviewer-loading": "Wczytywanie przeglądarki multimediów."
 }

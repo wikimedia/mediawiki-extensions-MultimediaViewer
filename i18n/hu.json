@@ -85,13 +85,5 @@
 	"multimediaviewer-reuse-warning-deletion": "Ezt a fájlt törlésre jelölték.",
 	"multimediaviewer-reuse-warning-nonfree": "Ez a fájl nem rendelkezik szabad licenccel.",
 	"multimediaviewer-reuse-warning-generic": "Ellenőrizd a [$1 részleteket], mielőtt használnád.",
-	"multimediaviewer-attr-plain": "Sima",
-	"multimediaviewer-disable-confirmation-header": "Letiltottad a Képnézegetőt",
-	"multimediaviewer-disable-confirmation-text": "Amikor legközelebb egy bélyegképre kattintasz a(z) $1 wikin, azonnal látni fogod az összes fájladatot.",
-	"multimediaviewer-enable-dialog-header": "Engedélyezed a Képnézegetőt?",
-	"multimediaviewer-enable-submit-button": "A Képnézegető engedélyezése",
-	"multimediaviewer-enable-confirmation-text": "Amikor legközelebb egy bélyegképre kattintasz a(z) $1 wikin, a Képnézegető fog megjelenni.",
-	"multimediaviewer-enable-alert": "A Képnézegető most le van tiltva",
-	"multimediaviewer-disable-info-title": "Letiltottad a Képnézegetőt",
-	"multimediaviewer-disable-info": "Továbbra is megtekinthetsz egyes fájlokat a Képnézegetővel."
+	"multimediaviewer-attr-plain": "Sima"
 }

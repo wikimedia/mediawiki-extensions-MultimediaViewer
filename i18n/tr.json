@@ -118,16 +118,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Bu dosyanın ilişkilendirme bilgisi yok.",
 	"multimediaviewer-reuse-warning-generic": "Kullanmadan önce [$1 ayrıntılarını] kontrol edin.",
 	"multimediaviewer-attr-plain": "Sade",
-	"multimediaviewer-disable-confirmation-header": "Medya Görüntüleyici'yi devre dışı bıraktınız",
-	"multimediaviewer-disable-confirmation-text": "Bir daha ki sefere $1 üzerindeki bir küçük resmi tıkladığınızda, tüm dosya ayrıntılarını doğrudan görüntülersiniz.",
-	"multimediaviewer-enable-dialog-header": "Medya Görüntüleyici'yi etkinleştirilsin mi?",
-	"multimediaviewer-enable-text-header": "Varsayılan olarak tüm dosyalar için bu medya görüntüleme özelliğini etkinleştirin.",
-	"multimediaviewer-enable-submit-button": "Medya Görüntüleyici'yi etkinleştir",
-	"multimediaviewer-enable-confirmation-header": "Medya Görüntüleyici'yi tüm dosyalar için etkinleştirdiniz",
-	"multimediaviewer-enable-confirmation-text": "Bir daha ki sefere $1 üzerindeki bir küçük resmi tıkladığınızda Medya Görüntüleyici kullanılır.",
-	"multimediaviewer-enable-alert": "Medya Görüntüleyici artık devre dışı",
-	"multimediaviewer-disable-info-title": "Medya Görüntüleyiciyi devre dışı bıraktınız",
-	"multimediaviewer-disable-info": "Medya Görüntüleyici ile dosyaları tek tek görüntüleyebilirsiniz.",
 	"multimediaviewer-errorreport-privacywarning": "Hatanın ayrıntıları rapora eklenir ve bu rapor herkes tarafından görülebilir. Bundan memnun değilseniz, aşağıdaki raporu düzenleyebilir ve paylaşmak istemediğiniz tüm verileri kaldırabilirsiniz.",
 	"multimediaviewer-loading": "Ortam Görüntüleyici yükleniyor."
 }

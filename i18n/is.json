@@ -76,8 +76,5 @@
 	"multimediaviewer-download-attribution-cta": "Sýndu mér hvernig",
 	"multimediaviewer-attr-plain": "Hreintexti",
 	"multimediaviewer-attr-html": "HTML",
-	"multimediaviewer-disable-confirmation-header": "Þú hefur gert margmiðlunarskoðarann óvirkan",
-	"multimediaviewer-enable-dialog-header": "Virkja margmiðlunarskoðara?",
-	"multimediaviewer-enable-submit-button": "Virkja margmiðlunarskoðara",
 	"multimediaviewer-loading": "Hleð inn margmiðlunarskoðara."
 }

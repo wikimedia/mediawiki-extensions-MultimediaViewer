@@ -93,14 +93,5 @@
 	"multimediaviewer-reuse-warning-generic": "ตรวจสอบ[$1 รายละเอียด]ก่อนใช้",
 	"multimediaviewer-attr-plain": "ธรรมดา",
 	"multimediaviewer-attr-html": "เอชทีเอ็มแอล",
-	"multimediaviewer-disable-confirmation-header": "คุณได้ปิดใช้งานตัวแสดงสื่อแล้ว",
-	"multimediaviewer-disable-confirmation-text": "ครั้งต่อไปที่คุณกดภาพขนาดย่อบน $1 คุณจะดูรายละเอียดไฟล์ทั้งหมดได้โดยตรง",
-	"multimediaviewer-enable-dialog-header": "เปิดใช้งานตัวแสดงสื่อหรือไม่?",
-	"multimediaviewer-enable-text-header": "เปิดใช้งานคุณสมบัติตัวแสดงสื่อนี้สำหรับไฟล์ทั้งหมดตามค่าเริ่มต้น",
-	"multimediaviewer-enable-submit-button": "เปิดใช้งานตัวแสดงสื่อ",
-	"multimediaviewer-enable-confirmation-header": "คุณได้เปิดใช้งานตัวแสดงสื่อสำหรับไฟล์ทั้งหมดแล้ว",
-	"multimediaviewer-enable-confirmation-text": "ครั้งต่อไปที่คุณกดภาพขนาดย่อบน $1 ตัวแสดงสื่อจะถูกนำมาใช้",
-	"multimediaviewer-enable-alert": "ตัวแสดงสื่อถูกปิดใช้งาน",
-	"multimediaviewer-disable-info-title": "คุณได้ปิดใช้งานตัวแสดงสื่อแล้ว",
 	"multimediaviewer-loading": "กำลังโหลดตัวแสดงสื่อ"
 }

@@ -114,15 +114,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "این تصویر اطلاعات پدیدآورنده ندارد",
 	"multimediaviewer-reuse-warning-generic": "قبل از استفاده [$1 جزئیات آن را] بررسی کنید.",
 	"multimediaviewer-attr-plain": "ساده",
-	"multimediaviewer-attr-html": "HTML",
-	"multimediaviewer-disable-confirmation-header": "شما نمایش‌دهندهٔ رسانه را غیرفعال کردید",
-	"multimediaviewer-disable-confirmation-text": "دفعهٔ بعد که روی تصویر بندانگشتی در $1 کلیک می‌کنید، به طور مستقیم جزئیات همهٔ پرونده‌ها را می‌بینید.",
-	"multimediaviewer-enable-dialog-header": "نمایش‌دهندهٔ رسانه را فعال می‌کنید؟",
-	"multimediaviewer-enable-text-header": "این قابلیت مشاهدهٔ رسانه را برای همهٔ پرونده‌ها به صورت پیش‌فرض فعال کنید.",
-	"multimediaviewer-enable-submit-button": "فعال‌ساختن نمایش‌دهندهٔ رسانه",
-	"multimediaviewer-enable-confirmation-header": "شما نمایش‌دهندهٔ رسانه را برای همهٔ پرونده‌ها فعال کردید",
-	"multimediaviewer-enable-confirmation-text": "دفعهٔ بعد که روی تصویر بندانگشتی در $1 کلیک می‌کنید، نمایش‌دهندهٔ رسانه استفاده خواهد شد.",
-	"multimediaviewer-enable-alert": "نمایش‌دهندهٔ رسانه اکنون غیرفعال است",
-	"multimediaviewer-disable-info-title": "شما نمایش‌دهندهٔ رسانه را غیرفعال کردید",
-	"multimediaviewer-disable-info": "شما هنوز می‌توانید پرونده‌های منحصربه‌فرد را با نمایش‌دهندهٔ رسانه مشاهده کنید."
+	"multimediaviewer-attr-html": "HTML"
 }

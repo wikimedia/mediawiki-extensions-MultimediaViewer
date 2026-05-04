@@ -97,15 +97,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Ова датотека нема информације о ауторству.",
 	"multimediaviewer-reuse-warning-generic": "Проверите [$1 њене детаље] пре коришћења.",
 	"multimediaviewer-attr-plain": "Обичан текст",
-	"multimediaviewer-disable-confirmation-header": "Искључили сте приказивач медија",
-	"multimediaviewer-disable-confirmation-text": "Следећи пут када кликнете на неку слику на $1, биће вам приказани сви детаљи дотичне датотеке.",
-	"multimediaviewer-enable-dialog-header": "Укључити приказивач медија?",
-	"multimediaviewer-enable-text-header": "Укључи ову функцију за приказ медија као подразумевану за све датотеке.",
-	"multimediaviewer-enable-submit-button": "Укључи приказивач медија",
-	"multimediaviewer-enable-confirmation-header": "Укључили сте приказивач датотека за све датотеке",
-	"multimediaviewer-enable-confirmation-text": "Следећи пут када кликнете на неку слику на $1, приказивач датотека ће је приказати.",
-	"multimediaviewer-enable-alert": "Приказивач медија је сада искључен",
-	"multimediaviewer-disable-info-title": "Искључили сте приказивач медија",
-	"multimediaviewer-disable-info": "И даље можете користити приказивач медија за појединачне датотеке.",
 	"multimediaviewer-loading": "Учитавање приказивача медија"
 }

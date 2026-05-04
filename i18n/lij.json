@@ -97,15 +97,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Sto file chie o l'è sensa informassioin d'atribussion.",
 	"multimediaviewer-reuse-warning-generic": "Controlla i [$1 so detalli] primma de doeuviâlo.",
 	"multimediaviewer-attr-plain": "Normâ",
-	"multimediaviewer-disable-confirmation-header": "T'hæ dizabilitou o Vizô Murtimediâ",
-	"multimediaviewer-disable-confirmation-text": "A proscima votta che ti clicchi 'na miniatua in $1, ti vixoaliziæ direttamente tutti i detalli do file.",
-	"multimediaviewer-enable-dialog-header": "Abilitâ o Vizô Murtimediâ?",
-	"multimediaviewer-enable-text-header": "Abillita questa fonsionalitæ de vixoalizassion murtimediâ pe tutti i file comme predefinia.",
-	"multimediaviewer-enable-submit-button": "Abillita o Vizô Murtimediâ",
-	"multimediaviewer-enable-confirmation-header": "T'hæ abilitou o Vizô Murtimediâ pe tutti i file",
-	"multimediaviewer-enable-confirmation-text": "A proscima votta che ti clicchi 'na miniatua in $1, saiâ doeuviou o Vizô Murtimediâ.",
-	"multimediaviewer-enable-alert": "Oua o Vizô Murtimediâ o l'è dizabilitou",
-	"multimediaviewer-disable-info-title": "T'hæ dizabilitou o Vizô Murtimediâ",
-	"multimediaviewer-disable-info": "Ti poeu ancon amiâ i scingoli file co-o Vizô Murtimediâ.",
 	"multimediaviewer-errorreport-privacywarning": "I detalli de l'aro son aligæ a-o raporto, ch'o saiâ vixibbile pubricamente. Se questo no te conven, ti poeu modificâ o raporto chì de sotta e levâghe tutti i dæti che no ti voeu condividde."
 }

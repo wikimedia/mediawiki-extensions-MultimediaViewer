@@ -72,15 +72,5 @@
 	"multimediaviewer-download-optional-attribution-cta-header": "Die outeur se naam kan vermeld word",
 	"multimediaviewer-download-attribution-cta": "Wys my hoe",
 	"multimediaviewer-download-attribution-copy": "Merk en kopieer (indien ondersteun) die die outeursvermelding vir dié lêer",
-	"multimediaviewer-attr-plain": "Eenvoudig",
-	"multimediaviewer-disable-confirmation-header": "Mediakyker is gedeaktiveer",
-	"multimediaviewer-disable-confirmation-text": "Met die volgende klik op 'n duimnael op $1, sal u direk die lêerbesonderhede sien.",
-	"multimediaviewer-enable-dialog-header": "Aktiveer Mediakyker?",
-	"multimediaviewer-enable-text-header": "Aktiveer dié manier om media te kyk by verstek vir alle lêers.",
-	"multimediaviewer-enable-submit-button": "Aktiveer Mediakyker",
-	"multimediaviewer-enable-confirmation-header": "Mediakyker is geaktiveer vir alle lêers",
-	"multimediaviewer-enable-confirmation-text": "Met die volgende klik op 'n duimnael op $1 sal Mediakyker gebruik word.",
-	"multimediaviewer-enable-alert": "Mediakyker is nou gedaktiveerd",
-	"multimediaviewer-disable-info-title": "Mediakyker is gedeaktiveer",
-	"multimediaviewer-disable-info": "Dit is steeds moontlik om individuele lêers met Mediakyker te bekyk."
+	"multimediaviewer-attr-plain": "Eenvoudig"
 }

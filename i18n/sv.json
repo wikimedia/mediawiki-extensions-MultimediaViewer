@@ -115,16 +115,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Den här filen har ingen attributinformation",
 	"multimediaviewer-reuse-warning-generic": "Kontrollera [$1 filens detaljer] före användning.",
 	"multimediaviewer-attr-plain": "Klartext",
-	"multimediaviewer-disable-confirmation-header": "Du har inaktiverat Media Viewer",
-	"multimediaviewer-disable-confirmation-text": "Nästa gång du klickar på en miniatyrbild på $1 kommer du direkt se all filinformation.",
-	"multimediaviewer-enable-dialog-header": "Aktiverar Media Viewer?",
-	"multimediaviewer-enable-text-header": "Aktivera denna mediavisare för alla filer som standard.",
-	"multimediaviewer-enable-submit-button": "Aktivera Media Viewer",
-	"multimediaviewer-enable-confirmation-header": "Du har aktiverat Media Viewer för alla filer",
-	"multimediaviewer-enable-confirmation-text": "Nästa gång du klickar på en miniatyrbild på $1 kommer Media Viewer att användas.",
-	"multimediaviewer-enable-alert": "Media Viewer är nu inaktiverad",
-	"multimediaviewer-disable-info-title": "Du har inaktiverat Media Viewer",
-	"multimediaviewer-disable-info": "Du kan fortfarande visa enskilda filer med Media Viewer.",
 	"multimediaviewer-errorreport-privacywarning": "Detaljer om felet bifogas rapporten, som kommer att vara tillgänglig för allmänheten. Om du inte trivs med det kan du redigera rapporten nedan och ta bort all data du inte vill dela.",
 	"multimediaviewer-loading": "Aktivera Mediavisaren"
 }

@@ -114,16 +114,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Tento soubor nemá informace o autorovi.",
 	"multimediaviewer-reuse-warning-generic": "Před jeho použitím zkontrolujte [$1 podrobnosti].",
 	"multimediaviewer-attr-plain": "Prostý text",
-	"multimediaviewer-disable-confirmation-header": "Vypnuli jste Prohlížeč médií",
-	"multimediaviewer-disable-confirmation-text": "Když příště na {{grammar:6sg|$1}} kliknete na náhled, zobrazí se rovnou všechny podrobnosti o souboru.",
-	"multimediaviewer-enable-dialog-header": "Zapnout Prohlížeč médií?",
-	"multimediaviewer-enable-text-header": "Zapnout tento prohlížeč pro implicitní zobrazení všech souborů.",
-	"multimediaviewer-enable-submit-button": "Zapnout Prohlížeč médií",
-	"multimediaviewer-enable-confirmation-header": "Zapnuli jste Prohlížeč médií pro všechny soubory",
-	"multimediaviewer-enable-confirmation-text": "Když příště na {{grammar:6sg|$1}} kliknete na náhled, použije se Prohlížeč médií.",
-	"multimediaviewer-enable-alert": "Prohlížeč médií je teď vypnut",
-	"multimediaviewer-disable-info-title": "Vypnuli jste Prohlížeč médií",
-	"multimediaviewer-disable-info": "I nadále si můžete Prohlížečem médií prohlížet jednotlivé soubory.",
 	"multimediaviewer-errorreport-privacywarning": "Podrobnosti o chybě jsou připojeny k hlášení, které bude veřejně dostupné. Pokud se vám to nelíbí, můžete níže hlášení upravit a odstranit všechny údaje, které nechcete sdílet.",
 	"multimediaviewer-loading": "Prohlížeč médií se nahrává."
 }

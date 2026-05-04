@@ -133,16 +133,6 @@
 	"multimediaviewer-reuse-warning-generic": "Проверьте [$1 сведения о нём] перед тем, как воспользоваться.",
 	"multimediaviewer-attr-plain": "Просто текст",
 	"multimediaviewer-attr-html": "HTML",
-	"multimediaviewer-disable-confirmation-header": "Вы отключили Медиа-просмотрщик",
-	"multimediaviewer-disable-confirmation-text": "Следующий раз, когда вы щёлкните на миниатюре файла на сайте $1, вы напрямую сможете просматривать все сведения о файле.",
-	"multimediaviewer-enable-dialog-header": "Включить Медиа-просмотрщик?",
-	"multimediaviewer-enable-text-header": "Включить эту функцию медиапросмотра по умолчанию для всех файлов.",
-	"multimediaviewer-enable-submit-button": "Включить Медиа-просмотрщик",
-	"multimediaviewer-enable-confirmation-header": "Вы включили Медиа-просмотрщик для всех файлов",
-	"multimediaviewer-enable-confirmation-text": "В следующий раз будет использован Медиа-просмотрщик, когда вы щёлкните по миниатюре файла на $1.",
-	"multimediaviewer-enable-alert": "Медиа-просмотрщик сейчас отключён",
-	"multimediaviewer-disable-info-title": "Вы отключили Медиа-просмотрщик",
-	"multimediaviewer-disable-info": "Вы всё ещё можете просматривать отдельные файлы через Медиа-просмотрщик!",
 	"multimediaviewer-errorreport-privacywarning": "Подробная информация об ошибке прилагается к отчёту, который будет общедоступным. Если вас это не устраивает, вы можете отредактировать отчёт ниже и удалить все данные, которыми вы не хотите поделиться.",
 	"multimediaviewer-loading": "Загрузка средства просмотра медиафайлов."
 }

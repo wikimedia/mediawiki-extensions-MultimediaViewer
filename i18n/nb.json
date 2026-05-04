@@ -106,16 +106,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Denne filen har ingen attribusjonsinformasjon.",
 	"multimediaviewer-reuse-warning-generic": "Sjekk [$1 detaljene dens] før du bruker den.",
 	"multimediaviewer-attr-plain": "Enkel tekst",
-	"multimediaviewer-disable-confirmation-header": "Du har skrudd av mediefremviseren",
-	"multimediaviewer-disable-confirmation-text": "Neste gang du trykker på et miniatyrbilde på $1, vil du du bli sendt direkte til fildetaljene.",
-	"multimediaviewer-enable-dialog-header": "Aktivere mediefremviseren?",
-	"multimediaviewer-enable-text-header": "Aktiver denne funksjonen som standard for alle filer.",
-	"multimediaviewer-enable-submit-button": "Aktiver mediefremviseren",
-	"multimediaviewer-enable-confirmation-header": "Du har aktivert mediefremviseren for alle filer",
-	"multimediaviewer-enable-confirmation-text": "Mediefremviseren bli brukt neste gang du trykker på et miniatyrbilde på $1.",
-	"multimediaviewer-enable-alert": "Mediefremviseren er deaktivert som standard",
-	"multimediaviewer-disable-info-title": "Du har deaktivert mediefremviseren",
-	"multimediaviewer-disable-info": "Du kan fremdeles vise enkeltfiler i mediefremviseren.",
 	"multimediaviewer-errorreport-privacywarning": "Detaljer om feilen legges ved rapporten, og vil være synlige offentlig. Om du ikke er komfortabel med det kan du redigere rapporten nedenfor og fjerne data du ikke ønsker å dele.",
 	"multimediaviewer-loading": "Laster mediefremviseren."
 }

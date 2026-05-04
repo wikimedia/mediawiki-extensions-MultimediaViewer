@@ -110,15 +110,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Αυτό το αρχείο δεν περιέχει πληροφορίες απόδοσης σε δημιουργό.",
 	"multimediaviewer-reuse-warning-generic": "Ελέγξτε [$1 τις λεπτομέρειές του] πριν το χρησιμοποιήσετε.",
 	"multimediaviewer-attr-plain": "Απλό",
-	"multimediaviewer-disable-confirmation-header": "Έχετε απενεργοποιήσει το Media Viewer",
-	"multimediaviewer-disable-confirmation-text": "Την επόμενη φορά που κάνετε κλικ σε μια μικρογραφία στο $1, θα μπορείτε άμεσα να προβάλετε όλες τις λεπτομέρειες του αρχείου.",
-	"multimediaviewer-enable-dialog-header": "Ενεργοποίηση Media Viewer;",
-	"multimediaviewer-enable-text-header": "Ενεργοποιήστε αυτή τη δυνατότητα προβολής πολυμέσων για όλα τα αρχεία από προεπιλογή.",
-	"multimediaviewer-enable-submit-button": "Ενεργοποίηση Media Viewer",
-	"multimediaviewer-enable-confirmation-header": "Έχετε ενεργοποιημένο το Media Viewer για όλα τα αρχεία",
-	"multimediaviewer-enable-confirmation-text": "Την επόμενη φορά που θα κάνετε κλικ σε μια μικρογραφία στο $1, το Media Viewer θα χρησιμοποιηθεί.",
-	"multimediaviewer-enable-alert": "Ο Media Viewer είναι απενεργοποιημένος τώρα",
-	"multimediaviewer-disable-info-title": "Έχετε απενεργοποιήσει το Media Viewer",
-	"multimediaviewer-disable-info": "Μπορείτε ακόμα να προβάλετε μεμονωμένα αρχεία με το Media Viewer.",
 	"multimediaviewer-errorreport-privacywarning": "Λεπτομέρειες σχετικά με το σφάλμα επισυνάπτονται στην αναφορά, η οποία θα είναι δημόσια ορατή. Αν δεν είστε άνετοι με αυτό, μπορείτε να επεξεργαστείτε την παρακάτω αναφορά και να αφαιρέσετε όλα τα δεδομένα που δεν θέλετε να μοιραστείτε."
 }

@@ -104,15 +104,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Este ficheiro não tem informação de atribuição do crédito.",
 	"multimediaviewer-reuse-warning-generic": "Verifique [$1 os detalhes] antes de utilizá-lo.",
 	"multimediaviewer-attr-plain": "Simples",
-	"multimediaviewer-disable-confirmation-header": "Desativou o Visualizador Multimédia",
-	"multimediaviewer-disable-confirmation-text": "Da próxima vez que clicar numa miniatura em $1, terá acesso direto aos detalhes do ficheiro.",
-	"multimediaviewer-enable-dialog-header": "Ativar o Visualizador Multimédia?",
-	"multimediaviewer-enable-text-header": "Ativar esta funcionalidade de visualização multimédia para todos os ficheiros por padrão.",
-	"multimediaviewer-enable-submit-button": "Ativar o Visualizador Multimédia",
-	"multimediaviewer-enable-confirmation-header": "Ativou o Visualizador Multimédia para todos os ficheiros",
-	"multimediaviewer-enable-confirmation-text": "Da próxima vez que clicar uma miniatura em $1, o Visualizador Multimédia será usado.",
-	"multimediaviewer-enable-alert": "O Visualizador Multimédia está agora desativado",
-	"multimediaviewer-disable-info-title": "Desativou o Visualizador Multimédia",
-	"multimediaviewer-disable-info": "Pode ainda ver ficheiros individuais com o Visualizador Multimédia.",
 	"multimediaviewer-errorreport-privacywarning": "Os detalhes do erro foram anexados ao relatório, que será publicamente visível. Se não concordar, pode editar o relatório abaixo e remover todos os dados que não deseja partilhar."
 }

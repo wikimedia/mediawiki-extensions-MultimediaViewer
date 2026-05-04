@@ -20,12 +20,5 @@
 	"multimediaviewer-view-expanded": "Отваряне в Media Viewer",
 	"multimediaviewer-title-popup-text": "Описание",
 	"multimediaviewer-title-popup-text-more": "Преглед на пълното описание",
-	"multimediaviewer-credit-popup-text-more": "Показване на цялостна информация за автора и източника",
-	"multimediaviewer-disable-confirmation-header": "Вие изключихте Media Viewer",
-	"multimediaviewer-enable-dialog-header": "Включване на Media Viewer?",
-	"multimediaviewer-enable-submit-button": "Включване на Media Viewer",
-	"multimediaviewer-enable-confirmation-header": "Вие включихте Media Viewer за всички файлове",
-	"multimediaviewer-enable-alert": "Media Viewer е изключен",
-	"multimediaviewer-disable-info-title": "Вие изключихте Media Viewer",
-	"multimediaviewer-disable-info": "Все още можете да преглеждате отделни файлове с Media Viewer."
+	"multimediaviewer-credit-popup-text-more": "Показване на цялостна информация за автора и източника"
 }

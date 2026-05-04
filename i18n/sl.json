@@ -120,15 +120,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Ta datoteka nima pripisanih informacij o avtorju.",
 	"multimediaviewer-reuse-warning-generic": "Preden datoteko $1 uporabite, preverite [$1 podatke o njej].",
 	"multimediaviewer-attr-plain": "Golo",
-	"multimediaviewer-disable-confirmation-header": "Pregledovalnik datotek ste izklopili",
-	"multimediaviewer-disable-confirmation-text": "Ko boste v projektu $1 naslednjič kliknili sličico, si boste lahko takoj ogledali vse podatke o datoteki.",
-	"multimediaviewer-enable-dialog-header": "Vklopim Pregledovalnik datotek?",
-	"multimediaviewer-enable-text-header": "To možnost prikazovanja predstavnostnih vsebin po privzetem omogoči za vse datoteke.",
-	"multimediaviewer-enable-submit-button": "Omogoči Pregledovalnik datotek",
-	"multimediaviewer-enable-confirmation-header": "Za vse datoteke ste omogočili Pregledovalnik datotek",
-	"multimediaviewer-enable-confirmation-text": "Naslednjič, ko boste v projektu $1 kliknili sličico, Pregledovalnik datotek ne bo uporabljen.",
-	"multimediaviewer-enable-alert": "Pregledovalnik datotek je zdaj izklopljen",
-	"multimediaviewer-disable-info-title": "Pregledovalnik datotek ste izklopili",
-	"multimediaviewer-disable-info": "S Pregledovalnikom datotek si še vedno lahko ogledate posamezne datoteke.",
 	"multimediaviewer-errorreport-privacywarning": "Podatki o napaki so priloženi poročilu in bodo javno vidni. Če tega ne želite, lahko poročilo uredite in izbrišete vse podatke, ki jih ne želite deliti."
 }

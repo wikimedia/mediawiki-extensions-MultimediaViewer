@@ -111,15 +111,5 @@
 	"multimediaviewer-reuse-warning-generic": "এটি ব্যবহার করার আগে [$1 এর বিস্তারিত] পরীক্ষা করুন।",
 	"multimediaviewer-attr-plain": "সাধারণ",
 	"multimediaviewer-attr-html": "এইচটিএমএল",
-	"multimediaviewer-disable-confirmation-header": "আপনি মিডিয়া ভিউয়ার নিষ্ক্রিয় করেছেন",
-	"multimediaviewer-disable-confirmation-text": "পরবর্তী সময় আপনি যখন $1-এর একটি থাম্বনেইলে ক্লিক করবেন, আপনি সরাসরি ফাইলের সব বিবরণ দেখতে পাবেন।",
-	"multimediaviewer-enable-dialog-header": "মিডিয়া ভিউয়ার সক্রিয় করবেন?",
-	"multimediaviewer-enable-text-header": "ডিফল্ট হিসাবে সব ফাইলের জন্য এই মিডিয়া দেখার বৈশিষ্ট্য সক্রিয় করুন।",
-	"multimediaviewer-enable-submit-button": "মিডিয়া ভিউয়ার সক্রিয় করো",
-	"multimediaviewer-enable-confirmation-header": "আপনি সকল ফাইলের জন্য মিডিয়া ভিউয়ার সক্রিয় করেছেন",
-	"multimediaviewer-enable-confirmation-text": "পরবর্তী সময় আপনি যখন $1-এর একটি থাম্বনেইলে ক্লিক করবেন, তখন মিডিয়া ভিউয়ার ব্যবহার করা হবে।",
-	"multimediaviewer-enable-alert": "মিডিয়া ভিউয়ার এখন নিষ্ক্রিয়",
-	"multimediaviewer-disable-info-title": "আপনি মিডিয়া ভিউয়ার নিষ্ক্রিয় করেছেন",
-	"multimediaviewer-disable-info": "আপনি এখনও মিডিয়া ভিউয়ার দিয়ে পৃথক ফাইল দেখতে পারবেন।",
 	"multimediaviewer-loading": "মিডিয়া ভিউয়ার লোড করা হচ্ছে।"
 }

@@ -93,13 +93,5 @@
 	"multimediaviewer-download-attribution-cta-header": "Feumaidh tu urram a thoirt air an ùghdar",
 	"multimediaviewer-download-attribution-cta": "Seall dhomh ciamar",
 	"multimediaviewer-attr-plain": "Lom",
-	"multimediaviewer-attr-html": "HTML",
-	"multimediaviewer-disable-confirmation-header": "Tha thu air sealladair nam meadhanan a chur à comas",
-	"multimediaviewer-disable-confirmation-text": "An ath-thuras a bhriogas tu air dealbhag air $1, chì thu fiosrachadh slàn air an fhaidhle sa bhad.",
-	"multimediaviewer-enable-dialog-header": "A bheil thu airson sealladair nam meadhanan a chur an comas?",
-	"multimediaviewer-enable-text-header": "Cuir am feart seo airson meadhanan a shealltainn an comas airson a h-uile faidhle a ghnàth.",
-	"multimediaviewer-enable-submit-button": "Cuir sealladair nam meadhanan an comas",
-	"multimediaviewer-enable-confirmation-text": "An ath thuras a bhriogas tu air dealbhag air $1, thèid sealladair nam meadhanan a chleachdadh.",
-	"multimediaviewer-disable-info-title": "Tha thu air sealladair nam meadhanan a chur à comas",
-	"multimediaviewer-disable-info": "'S urrainn dhut faidhlichean fa leth a shealltainn ann an sealladair nam meadhanan fhathast."
+	"multimediaviewer-attr-html": "HTML"
 }

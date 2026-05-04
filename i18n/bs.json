@@ -55,15 +55,5 @@
 	"multimediaviewer-title-popup-text-more": "Prikaži cijeli opis",
 	"multimediaviewer-download-attribution-cta-header": "Trebate navesti autora",
 	"multimediaviewer-download-attribution-cta": "Pokaži mi kako",
-	"multimediaviewer-attr-plain": "Običan tekst",
-	"multimediaviewer-disable-confirmation-header": "Isključili ste preglednik medija",
-	"multimediaviewer-disable-confirmation-text": "Sljedeći put kad kliknete na umanjenu sliku na projektu $1, odmah ćete vidjeti pojedinosti datoteke.",
-	"multimediaviewer-enable-dialog-header": "Omogući preglednik multimedijskih datoteka?",
-	"multimediaviewer-enable-text-header": "Uključi ovu mogućnost ubuduće kao podrazumijevanu za sve datoteke.",
-	"multimediaviewer-enable-submit-button": "Uključi preglednik medija",
-	"multimediaviewer-enable-confirmation-header": "Uključili ste preglednik medija za sve datoteke",
-	"multimediaviewer-enable-confirmation-text": "Sljedeći put kad kliknete na smanjenu sliku na projektu $1, koristit će se preglednik.",
-	"multimediaviewer-enable-alert": "Preglednik medija je trenutno isključen",
-	"multimediaviewer-disable-info-title": "Onemogućili ste preglednik multimedijskih datoteka",
-	"multimediaviewer-disable-info": "Još uvijek možete koristiti preglednik multimedijskih datoteka za pojedinačne datoteke."
+	"multimediaviewer-attr-plain": "Običan tekst"
 }

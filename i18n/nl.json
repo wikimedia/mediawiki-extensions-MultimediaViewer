@@ -122,16 +122,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Dit bestand bevat geen naamsvermeldingsinformatie.",
 	"multimediaviewer-reuse-warning-generic": "Controleer [$1 de details] alvorens het gebruik.",
 	"multimediaviewer-attr-plain": "Zonder opmaak",
-	"multimediaviewer-disable-confirmation-header": "U hebt de MediaViewer uitgeschakeld",
-	"multimediaviewer-disable-confirmation-text": "De volgende keer dat u op een miniatuur op $1 klikt, ziet u direct alle bestandsdetails.",
-	"multimediaviewer-enable-dialog-header": "MediaViewer inschakelen?",
-	"multimediaviewer-enable-text-header": "Schakel deze mediaweergavefunctie standaard in voor alle bestanden.",
-	"multimediaviewer-enable-submit-button": "MediaViewer inschakelen",
-	"multimediaviewer-enable-confirmation-header": "U hebt Media Viewer ingeschakeld voor alle bestanden",
-	"multimediaviewer-enable-confirmation-text": "De volgende keer dat u op een miniatuur op $1 klikt, wordt Media Viewer gebruikt.",
-	"multimediaviewer-enable-alert": "MediaViewer is nu uitgeschakeld",
-	"multimediaviewer-disable-info-title": "U hebt de MediaViewer uitgeschakeld",
-	"multimediaviewer-disable-info": "U kunt nog steeds losse bestanden bekijken met de MediaViewer.",
 	"multimediaviewer-errorreport-privacywarning": "Details van de fout zijn bij het rapport gevoegd, dat voor het publiek zichtbaar zal zijn. Als u zich daar niet prettig bij voelt, kunt u het onderstaande rapport bewerken en alle gegevens verwijderen die u niet wilt delen.",
 	"multimediaviewer-loading": "Media Viewer wordt geladen."
 }

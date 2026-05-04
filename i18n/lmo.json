@@ -97,15 +97,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Quell fail chì el gh'hà minga di atribuzzion.",
 	"multimediaviewer-reuse-warning-generic": "Controla i [$1 so detali] inanz de drovall.",
 	"multimediaviewer-attr-plain": "Normal",
-	"multimediaviewer-disable-confirmation-header": "T'hee disativad el Visualizador Audiovisiv",
-	"multimediaviewer-disable-confirmation-text": "La volta che la ven che te clichet in su una minadura in su $1, te vedaret tut i detali del fail.",
-	"multimediaviewer-enable-dialog-header": "Ativà el Visualizador Audiovisiv?",
-	"multimediaviewer-enable-text-header": "Ativa come predefinida questa fonzion che la fà vedè tut i fail audiovisiv.",
-	"multimediaviewer-enable-submit-button": "Ativa el Visualizador Audiovisiv",
-	"multimediaviewer-enable-confirmation-header": "T'hee ativad el Visualizador Audiovisiv per tut i fail",
-	"multimediaviewer-enable-confirmation-text": "La volta che la ven che te clichet in su una miniadura $1, el sarà drovad el Visualizador Audiovisiv.",
-	"multimediaviewer-enable-alert": "Adess el Visualizador Audiovisiv l'è disativad",
-	"multimediaviewer-disable-info-title": "T'hee disativad el Visualizador Audiovisiv",
-	"multimediaviewer-disable-info": "Te podet ancamò vedè i fail deperlor cont el Visualizador Audiovisiv.",
 	"multimediaviewer-errorreport-privacywarning": "I detali de l'eror a inn tacad al report, che 'l sarà visibile publicament. Se 'te voeuret , te podet modifegà el raport chì de sota e toeu via tut i dati che te voeuret no spartì in gir."
 }

@@ -119,15 +119,5 @@
 	"multimediaviewer-reuse-warning-generic": "Prieš naudodami patikrinkite [$1 informaciją].",
 	"multimediaviewer-attr-plain": "Paprastas",
 	"multimediaviewer-attr-html": "HTML",
-	"multimediaviewer-disable-confirmation-header": "Jūs išjungėte nuotraukų peržiūros įrankį",
-	"multimediaviewer-disable-confirmation-text": "Kitąsyk kai paspausite ant miniatiūros $1 svetainėje, jus nukreips tiesiai į vaizdo aprašymo puslapį.",
-	"multimediaviewer-enable-dialog-header": "Įjungti nuotraukų peržvalgos įrankį?",
-	"multimediaviewer-enable-text-header": "Įjungti šį nuotraukų peržiūros įrankį pagal nutylėjimą visoms rinkmenoms.",
-	"multimediaviewer-enable-submit-button": "Įjungti nuotraukų peržiūros įrankį",
-	"multimediaviewer-enable-confirmation-header": "Išjungėte nuotraukų peržvalgos įrankį visų atmainų rinkmenoms",
-	"multimediaviewer-enable-confirmation-text": "Kitąsyk, kai paspausite ant miniatiūros $1 svetainėje, bus naudojamas nuotraukų peržvalgos įrankis.",
-	"multimediaviewer-enable-alert": "Nuotraukų peržvalgos įrankis dabar išjungtas",
-	"multimediaviewer-disable-info-title": "Jūs išjungėte nuotraukų peržiūros įrankį",
-	"multimediaviewer-disable-info": "Jūs vis dar galite peržiūrėti atskirus vaizdus su nuotraukų peržvalgos įrankiu",
 	"multimediaviewer-errorreport-privacywarning": "Išsami informacija apie klaidą pridedama prie ataskaitos, kurią bus galima peržiūrėti viešai. Jei jums tai nepatinka, galite redaguoti toliau pateiktą ataskaitą ir pašalinti visus duomenis, kurių nenorite bendrinti."
 }

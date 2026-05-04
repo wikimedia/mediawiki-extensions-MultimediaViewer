@@ -101,15 +101,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Гэты файл не мае атрыбутыўнай інфармацыі.",
 	"multimediaviewer-reuse-warning-generic": "Праверце [$1 яго падрабязнасці] перад яго выкарыстаннем.",
 	"multimediaviewer-attr-plain": "Просты",
-	"multimediaviewer-disable-confirmation-header": "Вы адключылі Праглядальнік медыяфайлаў",
-	"multimediaviewer-disable-confirmation-text": "Наступны раз, калі Вы націсніце на эскіз на $1, то наўпрост пабачыце ўсе звесткі пра файл.",
-	"multimediaviewer-enable-dialog-header": "Уключыць Праглядальнік медыяфайлаў?",
-	"multimediaviewer-enable-text-header": "Прадвызначана, уключыць гэту функцыю медыяпрагляду для ўсіх файлаў.",
-	"multimediaviewer-enable-submit-button": "Уключыць Праглядальнік медыяфайлаў",
-	"multimediaviewer-enable-confirmation-header": "Вы ўключылі Праглядальнік медыяфайлаў для ўсіх файлаў",
-	"multimediaviewer-enable-confirmation-text": "Наступны раз, калі Вы націсніце на эскіз на $1, будзе выкарыстаны Праглядальнік медыяфайлаў.",
-	"multimediaviewer-enable-alert": "Праглядальнік медыяфайлаў цяпер адключаны",
-	"multimediaviewer-disable-info-title": "Вы адключылі Праглядальнік медыяфайлаў",
-	"multimediaviewer-disable-info": "Вы ўсё яшчэ можаце праглядаць асобныя файлы з дапамогай Праглядальніка медыяфайлаў",
 	"multimediaviewer-errorreport-privacywarning": "Падрабязнасці пра памылку далучаны да звароту, які будзе даступны для публічнага прагляду. Калі Вас гэта не задавальняе, можаце адрэдагаваць зварот і прыбраць усе звесткі, якімі не хочаце дзяліцца."
 }

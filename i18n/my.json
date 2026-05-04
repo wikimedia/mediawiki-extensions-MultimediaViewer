@@ -41,9 +41,5 @@
 	"multimediaviewer-small-embed-dimensions": "အသေး $1",
 	"multimediaviewer-description-page-popup-text": "$1 ရှိ ဤဖိုင်အကြောင်း နောက်ထပ် အချက်အလက်များ",
 	"multimediaviewer-title-popup-text": "ဖော်ပြချက်",
-	"multimediaviewer-title-popup-text-more": "ဖော်ပြချက်အပြည့်အစုံ ကြည့်မည်",
-	"multimediaviewer-disable-confirmation-header": "မီဒီယာ မြင်ကွင်းကို ပိတ်လိုက်ပါပြီ",
-	"multimediaviewer-enable-dialog-header": "မီဒီယာ မြင်ကွင်းကို ခွင့်ပြုမည်လား",
-	"multimediaviewer-enable-submit-button": "မီဒီယာ မြင်ကွင်းကို ခွင့်ပြုမည်",
-	"multimediaviewer-disable-info-title": "မီဒီယာ မြင်ကွင်းကို ပိတ်လိုက်ပါပြီ"
+	"multimediaviewer-title-popup-text-more": "ဖော်ပြချက်အပြည့်အစုံ ကြည့်မည်"
 }

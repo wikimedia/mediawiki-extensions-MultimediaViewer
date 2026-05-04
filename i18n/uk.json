@@ -138,16 +138,6 @@
 	"multimediaviewer-reuse-warning-generic": "Перевірте [$1 його подробиці], перед тим як використовувати.",
 	"multimediaviewer-attr-plain": "Простий текст",
 	"multimediaviewer-attr-html": "HTML",
-	"multimediaviewer-disable-confirmation-header": "Ви вимкнули Медіапереглядач",
-	"multimediaviewer-disable-confirmation-text": "Наступного разу при клацанні на мініатюру файлу на сайті $1, Ви потрапите безпосередньо на сторінку опису файлу.",
-	"multimediaviewer-enable-dialog-header": "Увімкнути Медіапереглядач?",
-	"multimediaviewer-enable-text-header": "Увімкнути цю функцію перегляду для всіх медіа-файлів за замовчуванням.",
-	"multimediaviewer-enable-submit-button": "Увімкнути Медіапереглядач",
-	"multimediaviewer-enable-confirmation-header": "Ви увімкнули Медіапереглядач для всіх файлів",
-	"multimediaviewer-enable-confirmation-text": "Наступного разу при клацанні на мініатюру файлу на сайті $1, буде використано Медіапереглядач.",
-	"multimediaviewer-enable-alert": "Медіапереглядач тепер вимкнено",
-	"multimediaviewer-disable-info-title": "Ви вимкнули Медіапереглядач",
-	"multimediaviewer-disable-info": "Ви все ще можете переглядати окремі файли за допомогою Медіапереглядача.",
 	"multimediaviewer-errorreport-privacywarning": "Відомості про помилку прикріплені до звіту, який буде доступний для публічного перегляду. Якщо для Вас це незручно, Ви можете відредагувати звіт нижче та усунути всі дані, якими Ви не бажаєте ділитися.",
 	"multimediaviewer-loading": "Завантаження Медіапереглядача."
 }

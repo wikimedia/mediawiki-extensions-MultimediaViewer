@@ -62,15 +62,5 @@
 	"multimediaviewer-download-attribution-cta-header": "Du må godskriva opphavspersonen",
 	"multimediaviewer-download-optional-attribution-cta-header": "Du kan godskriva opphavspersonen",
 	"multimediaviewer-download-attribution-cta": "Vis meg korleis",
-	"multimediaviewer-attr-plain": "Enkel",
-	"multimediaviewer-disable-confirmation-header": "Du har slege av medieframsynaren",
-	"multimediaviewer-disable-confirmation-text": "Du vert sendt rett til alle fildetaljane neste gongen du klikkar på ei miniatyrbilete på $1.",
-	"multimediaviewer-enable-dialog-header": "Slå på medieframsynaren?",
-	"multimediaviewer-enable-text-header": "Slå på denne medieframsyningsfunksjonen for alle filer som standard.",
-	"multimediaviewer-enable-submit-button": "Slå på medieframsynaren",
-	"multimediaviewer-enable-confirmation-header": "Du har slege på medieframsynaren for alle filer",
-	"multimediaviewer-enable-confirmation-text": "Medieframsynaren vert nytta neste gongen du klikkar på ei miniatyrbilete på $1.",
-	"multimediaviewer-enable-alert": "Medieframsynaren er no slegen av",
-	"multimediaviewer-disable-info-title": "Du har slege av medieframsynaren",
-	"multimediaviewer-disable-info": "Du kan framleis sjå einskildfiler med medieframsynaren."
+	"multimediaviewer-attr-plain": "Enkel"
 }

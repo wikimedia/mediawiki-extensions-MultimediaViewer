@@ -114,16 +114,6 @@
 	"multimediaviewer-reuse-warning-generic": "Prije uporabe provjerite [$1 njene pojedinosti].",
 	"multimediaviewer-attr-plain": "Običan tekst",
 	"multimediaviewer-attr-html": "HTML",
-	"multimediaviewer-disable-confirmation-header": "Onemogućili ste preglednik",
-	"multimediaviewer-disable-confirmation-text": "Sljedeći put kad kliknete na minijaturu slike na projektu $1, bit ćete preusmjereni na pojedinosti datoteke.",
-	"multimediaviewer-enable-dialog-header": "Omogućiti preglednik multimedijskih datoteka?",
-	"multimediaviewer-enable-text-header": "Omogući ovu mogućnost ubuduće kao podrazumijevanu za sve datoteke.",
-	"multimediaviewer-enable-submit-button": "Omogući preglednik",
-	"multimediaviewer-enable-confirmation-header": "Omogućili ste preglednik za sve datoteke",
-	"multimediaviewer-enable-confirmation-text": "Sljedeći put kad kliknete na minijaturu slike na projektu $1, u uporabi će biti preglednik.",
-	"multimediaviewer-enable-alert": "Preglednik multimedijskih datoteka trenutačno je onemogućen.",
-	"multimediaviewer-disable-info-title": "Onemogućili ste preglednik",
-	"multimediaviewer-disable-info": "Još uvijek možete pregledavati pojedinačne datoteke u pregledniku.",
 	"multimediaviewer-errorreport-privacywarning": "Pojedinosti pogreške su priložene izvješću koje će biti javno vidljivo. Ako niste suglasni s tim, možete urediti izvješće i ukloniti podatke koje ne želite objaviti javno.",
 	"multimediaviewer-loading": "Učitavanje preglednika multimedijskih datoteka."
 }

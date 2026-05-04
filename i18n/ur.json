@@ -64,11 +64,5 @@
 	"multimediaviewer-download-attribution-cta-header": "آپ تصویر کو اس کے مصنف سے لازماً منسوب کریں",
 	"multimediaviewer-download-optional-attribution-cta-header": "آپ تصویر کو اس کے مصنف سے منسوب کر سکتے ہیں",
 	"multimediaviewer-download-attribution-cta": "مجھے دکھائیں کس طرح کرتے ہیں",
-	"multimediaviewer-attr-plain": "سادہ",
-	"multimediaviewer-disable-confirmation-header": "آپ نے میڈیا نمائش گر کو غیر فعال کر دیا ہے",
-	"multimediaviewer-enable-dialog-header": "میڈیا نمائش گر کو فعال کريں؟",
-	"multimediaviewer-enable-submit-button": "میڈیا نمائش گر کو فعال کريں",
-	"multimediaviewer-enable-confirmation-header": "آپ نے تمام فائلوں کے لیے میڈیا نمائش گر کو فعال کر دیا ہے",
-	"multimediaviewer-enable-alert": "میڈیا نمائش گر اب غیر فعال ہوگیا ہے",
-	"multimediaviewer-disable-info-title": "آپ نے میڈیا نمائش گر کو غیر فعال کر دیا ہے"
+	"multimediaviewer-attr-plain": "سادہ"
 }

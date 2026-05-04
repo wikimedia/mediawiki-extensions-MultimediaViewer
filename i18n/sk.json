@@ -60,8 +60,5 @@
 	"multimediaviewer-credit-popup-text-more": "Zobraziť úplné informácie o autorovi a zdroji",
 	"multimediaviewer-download-attribution-cta-header": "Musíte uviesť autora",
 	"multimediaviewer-download-optional-attribution-cta-header": "Môžete uviesť autora",
-	"multimediaviewer-download-attribution-cta": "Ukážte mi ako",
-	"multimediaviewer-enable-text-header": "Nastaviť prehliadač médií ako predvolený pre všetky súbory.",
-	"multimediaviewer-enable-submit-button": "Zapnúť Prehliadač médií",
-	"multimediaviewer-enable-alert": "Prehliadač médií je teraz vypnutý"
+	"multimediaviewer-download-attribution-cta": "Ukážte mi ako"
 }

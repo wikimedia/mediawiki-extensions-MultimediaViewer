@@ -116,15 +116,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Tập tin này thiếu thông tin ghi công.",
 	"multimediaviewer-reuse-warning-generic": "Hãy kiểm tra [$1 chi tiết] trước khi sử dụng nó.",
 	"multimediaviewer-attr-plain": "Văn bản thuần",
-	"multimediaviewer-disable-confirmation-header": "Bạn đã tắt cửa sổ phương tiện",
-	"multimediaviewer-disable-confirmation-text": "Lần sau khi bạn nhấn chuột vào một hình thu nhỏ trên $1, bạn sẽ được dẫn trực tiếp đến trang có tất cả các chi tiết của tập tin.",
-	"multimediaviewer-enable-dialog-header": "Bật cửa sổ phương tiện?",
-	"multimediaviewer-enable-text-header": "Xem tất cả các tập tin trong cửa sổ phương tiện theo mặc định.",
-	"multimediaviewer-enable-submit-button": "Bật cửa sổ phương tiện",
-	"multimediaviewer-enable-confirmation-header": "Bạn đã bật cửa sổ phương tiện cho tất cả các tập tin",
-	"multimediaviewer-enable-confirmation-text": "Lần sau khi bạn nhấn chuột vào một hình thu nhỏ trên $1, nó sẽ xuất hiện trong cửa sổ phương tiện.",
-	"multimediaviewer-enable-alert": "Cửa sổ phương tiện đã tắt",
-	"multimediaviewer-disable-info-title": "Đã tắt cửa sổ phương tiện",
-	"multimediaviewer-disable-info": "Bạn vẫn có thể xem tập tin riêng trong cửa sổ phương tiện.",
 	"multimediaviewer-errorreport-privacywarning": "Các chi tiết lỗi được đính kèm vào bản báo cáo công khai. Nếu bạn không đồng ý với điều này, bạn có thể sửa đổi bản báo cáo bên dưới và xóa tất cả dữ liệu mà bạn không muốn chia sẻ."
 }

@@ -111,15 +111,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Questo file non ha informazioni sull'attribuzione.",
 	"multimediaviewer-reuse-warning-generic": "Controlla i [$1 suoi dettagli] prima di utilizzarlo.",
 	"multimediaviewer-attr-plain": "Normale",
-	"multimediaviewer-disable-confirmation-header": "Hai disabilitato MediaViewer",
-	"multimediaviewer-disable-confirmation-text": "La prossima volta che clicchi su un'anteprima in $1, vedrai direttamente tutti i dettagli del file.",
-	"multimediaviewer-enable-dialog-header": "Attivare Media Viewer?",
-	"multimediaviewer-enable-text-header": "Abilita questa funzionalità di visualizzazione di file multimediali per tutti i file come predefinita.",
-	"multimediaviewer-enable-submit-button": "Attiva Media Viewer",
-	"multimediaviewer-enable-confirmation-header": "Hai abilitato Media Viewer per tutti i file",
-	"multimediaviewer-enable-confirmation-text": "La prossima volta che clicchi su un'anteprima in $1, verrà usato Media Viewer.",
-	"multimediaviewer-enable-alert": "Media Viewer è ora disabilitato",
-	"multimediaviewer-disable-info-title": "Hai disabilitato Media Viewer",
-	"multimediaviewer-disable-info": "Puoi ancora vedere file individuali con Media Viewer.",
 	"multimediaviewer-errorreport-privacywarning": "I dettagli dell'errore sono allegati al report, che sarà visibile pubblicamente. Se non sei a tuo agio con ciò, puoi modificare il report qui sotto e rimuovere tutti i dati che non vuoi condividere."
 }

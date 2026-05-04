@@ -79,12 +79,5 @@
 	"multimediaviewer-download-optional-attribution-cta-header": "Gallwch chi briodoli'r awdur",
 	"multimediaviewer-download-attribution-cta": "Dangoswch i mi sut",
 	"multimediaviewer-reuse-warning-generic": "Gwiriwch [$1 ei manylion] cyn ei defnyddio.",
-	"multimediaviewer-attr-plain": "Plaen",
-	"multimediaviewer-disable-confirmation-header": "Rydych chi wedi analluogi'r Syllwr Cyfryngau",
-	"multimediaviewer-enable-dialog-header": "Galluogi'r Syllwr Cyfryngau?",
-	"multimediaviewer-enable-submit-button": "Galluogi'r Syllwr Cyfryngau",
-	"multimediaviewer-enable-confirmation-header": "Rydych chi wedi galluogi'r Syllwr Cyfryngau ar gyfer pob ffeil",
-	"multimediaviewer-enable-alert": "Mae'r Syllwr Cyfryngau bellach wedi'i analluogi",
-	"multimediaviewer-disable-info-title": "Rydych chi wedi analluogi'r Syllwr Cyfryngau",
-	"multimediaviewer-disable-info": "Gallwch barhau i weld ffeiliau unigol gyda'r Syllwr Cyfryngau."
+	"multimediaviewer-attr-plain": "Plaen"
 }
