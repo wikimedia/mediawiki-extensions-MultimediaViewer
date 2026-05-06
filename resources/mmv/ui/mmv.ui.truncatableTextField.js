@@ -133,7 +133,6 @@ class TruncatableTextField extends UiElement {
 
 	empty() {
 		this.$element.empty();
-		// eslint-disable-next-line mediawiki/class-doc
 		this.$container
 			.removeClass( this.options.styles.concat( [ 'mw-mmv-ttf-untruncated', 'mw-mmv-ttf-truncated' ] ) )
 			.addClass( 'empty' );
@@ -223,7 +222,6 @@ class TruncatableTextField extends UiElement {
 	changeStyle() {
 		let newClass = 'mw-mmv-ttf-normal';
 
-		// eslint-disable-next-line mediawiki/class-doc
 		this.$container
 			.removeClass( this.options.styles.concat( [ 'mw-mmv-ttf-untruncated', 'mw-mmv-ttf-truncated' ] ) )
 			.addClass( newClass );
@@ -236,7 +234,6 @@ class TruncatableTextField extends UiElement {
 
 			const oldClass = newClass;
 			newClass = v;
-			// eslint-disable-next-line mediawiki/class-doc
 			this.$container.removeClass( oldClass ).addClass( newClass );
 		}
 	}

@@ -277,7 +277,6 @@ class DownloadPane extends UiElement {
 			'multimediaviewer-download-attribution-cta-header' :
 			'multimediaviewer-download-optional-attribution-cta-header';
 		// Message defined above
-		// eslint-disable-next-line mediawiki/msg-doc
 		this.$attributionHowHeader.text( mw.msg( attributionCtaMessage ) );
 	}
 

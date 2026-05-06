@@ -170,7 +170,6 @@ class MultimediaViewer {
 		// know what size it should be. We still assign it to allow for
 		// size calculations in getCurrentImageWidths, which needs to know
 		// the aspect ratio
-		// eslint-disable-next-line mediawiki/class-doc
 		$initialImage
 			.removeAttr( 'style' )
 			.removeClass()
