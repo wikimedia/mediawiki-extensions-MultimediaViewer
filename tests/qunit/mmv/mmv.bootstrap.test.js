@@ -87,9 +87,17 @@ function createLegacyThumb( imageSrc, caption, alt ) {
 	return $div;
 }
 
-function createBlockImage( imageSrc, caption, alt ) {
+function createBlockImage( imageSrc, caption, alt, link ) {
 	const $figure = $( '<figure>' ).attr( 'typeof', 'mw:File/Thumb' ).appendTo( '#qunit-fixture' );
-	const $link = $( '<a>' ).addClass( 'mw-file-description' ).appendTo( $figure );
+
+	const $link = $( '<a>' ).appendTo( $figure );
+	if ( link ) {
+		$link.attr( 'href', link );
+		// Added by mediawiki.page.media.js
+		$( '<a>' ).addClass( 'mw-file-magnify' ).appendTo( $figure );
+	} else {
+		$link.addClass( 'mw-file-description' );
+	}
 
 	$( '<figcaption>' ).appendTo( $figure ).text( caption );
 	$( '<img>' ).attr( 'src', ( imageSrc || 'thumb.jpg' ) ).attr( 'alt', alt ).appendTo( $link );
@@ -552,4 +560,24 @@ QUnit.test( 'findCaption', ( assert ) => {
 	assert.strictEqual( bootstrap.findCaption( $inline, $inline.children().first() ), 'Inline', 'Inline image caption is found.' );
 	assert.strictEqual( bootstrap.findCaption( $block, $block.children().first() ), 'Block', 'Block image caption is found.' );
 	assert.strictEqual( bootstrap.findCaption( $gallery, $gallery.children().first() ), 'Gallery', 'Gallery image caption is found.' );
+} );
+
+QUnit.test( 'Recognize thumbs with mw-file-magnify links', function ( assert ) {
+	const cases = [
+		[ 'foo.jpg', 'Foo' ],
+		[ 'bar.jpg', 'Bar', null, 'http://example.com' ]
+	];
+	cases.forEach( ( arr ) => createBlockImage( ...arr ) );
+
+	const bootstrap = createBootstrap();
+	this.sandbox.stub( bootstrap, 'setupOverlay' );
+	const done = assert.async();
+	bootstrap.loadViewer().then( () => {
+		assert.strictEqual( bootstrap.thumbs.length, cases.length, `${ cases.length } thumbnails` );
+		bootstrap.thumbs.forEach( ( thumb, i ) => {
+			assert.strictEqual( thumb.caption, cases[ i ][ 1 ], 'The caption passed in is correct' );
+		} );
+		done();
+	} );
+	bootstrap.setupOverlay.reset();
 } );
