@@ -48,8 +48,8 @@ class MultimediaViewerBootstrap {
 		 * @property {LightboxImage[]}
 		 */
 		this.thumbs = [];
+		this.$legacyThumbs = null; // will be set by processThumbs
 		this.$thumbs = null; // will be set by processThumbs
-		this.$parsoidThumbs = null; // will be set in processThumbs
 
 		// find and setup all thumbs on this page
 		// this will run initially and then every time the content changes,
@@ -217,23 +217,27 @@ class MultimediaViewerBootstrap {
 			this.thumbs = [];
 		}
 
-		this.$parsoidThumbs = $content.find(
+		this.$thumbs = $content.find(
 			'[typeof*="mw:File"] > a > img'
 		);
 
-		this.$thumbs = $content
+		this.$legacyThumbs = $content
 			.find(
+				// T318433: Legacy styles
 				'.gallery .image img, ' +
 				'a.image img, ' +
+				// T348275: For Special:ListFiles
 				'a.mw-file-description img, ' +
+				// File page main thumb
 				'#file a img'
 			)
-			// Skip duplicates that are actually Parsoid thumbs
-			.not( this.$parsoidThumbs );
+			// Skip duplicates that are actually thumbs
+			// since mw-file-description will match both
+			.not( this.$thumbs );
 
 		try {
+			this.$legacyThumbs.each( ( i, thumb ) => this.processLegacyThumb( thumb ) );
 			this.$thumbs.each( ( i, thumb ) => this.processThumb( thumb ) );
-			this.$parsoidThumbs.each( ( i, thumb ) => this.processParsoidThumb( thumb ) );
 		} finally {
 			this.thumbsReadyDeferred.resolve();
 		}
@@ -291,11 +295,11 @@ class MultimediaViewerBootstrap {
 	}
 
 	/**
-	 * Processes a thumb
+	 * Processes a legacy thumb
 	 *
 	 * @param {Object} thumb
 	 */
-	processThumb( thumb ) {
+	processLegacyThumb( thumb ) {
 		let title;
 		const $thumb = $( thumb );
 		const $link = $thumb.closest( 'a.image, a.mw-file-description' );
@@ -347,12 +351,12 @@ class MultimediaViewerBootstrap {
 	}
 
 	/**
-	 * Processes a Parsoid thumb, making use of the specified structure,
+	 * Processes a thumb, making use of the specified structure,
 	 *   https://www.mediawiki.org/wiki/Specs/HTML#Media
 	 *
 	 * @param {Object} thumb
 	 */
-	processParsoidThumb( thumb ) {
+	processThumb( thumb ) {
 		const $thumb = $( thumb );
 		let $link = $thumb.parent();
 		const $thumbContainer = $link.parent();
