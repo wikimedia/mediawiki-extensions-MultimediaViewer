@@ -65,7 +65,7 @@ QUnit.module( 'mmv.bootstrap', QUnit.newMwEnvironment( {
 	}
 } ) );
 
-function createGallery( imageSrc, caption ) {
+function createLegacyGallery( imageSrc, caption ) {
 	const $div = $( '<div>' ).addClass( 'gallery' ).appendTo( '#qunit-fixture' );
 	const $galleryBox = $( '<div>' ).addClass( 'gallerybox' ).appendTo( $div );
 	const $thumbwrap = $( '<div>' ).addClass( 'thumb' ).appendTo( $galleryBox );
@@ -77,7 +77,7 @@ function createGallery( imageSrc, caption ) {
 	return $div;
 }
 
-function createThumb( imageSrc, caption, alt ) {
+function createLegacyThumb( imageSrc, caption, alt ) {
 	const $div = $( '<div>' ).addClass( 'thumb' ).appendTo( '#qunit-fixture' );
 	const $link = $( '<a>' ).addClass( 'image' ).appendTo( $div );
 
@@ -87,13 +87,46 @@ function createThumb( imageSrc, caption, alt ) {
 	return $div;
 }
 
-function createNormal( imageSrc, caption ) {
+function createBlockImage( imageSrc, caption, alt ) {
+	const $figure = $( '<figure>' ).attr( 'typeof', 'mw:File/Thumb' ).appendTo( '#qunit-fixture' );
+	const $link = $( '<a>' ).addClass( 'mw-file-description' ).appendTo( $figure );
+
+	$( '<figcaption>' ).appendTo( $figure ).text( caption );
+	$( '<img>' ).attr( 'src', ( imageSrc || 'thumb.jpg' ) ).attr( 'alt', alt ).appendTo( $link );
+
+	return $figure;
+}
+
+function createInlineImage( imageSrc, caption, alt ) {
+	const $span = $( '<span>' ).attr( 'typeof', 'mw:File' ).appendTo( '#qunit-fixture' );
+	const $link = $( '<a>' ).attr( 'title', caption ).addClass( 'mw-file-description' ).appendTo( $span );
+
+	$( '<img>' ).attr( 'src', ( imageSrc || 'thumb.jpg' ) ).attr( 'alt', alt ).appendTo( $link );
+
+	return $span;
+}
+
+function createGallery( imageSrc, caption ) {
+	const $ol = $( '<ol>' ).addClass( 'gallery' ).appendTo( '#qunit-fixture' );
+	const $galleryBox = $( '<li>' ).addClass( 'gallerybox' ).appendTo( $ol );
+	const $thumbwrap = $( '<div>' ).addClass( 'thumb' ).appendTo( $galleryBox );
+
+	// The caption is deliberately omitted here to ensure
+	// we're getting from the gallerytext
+	createInlineImage( imageSrc ).appendTo( $thumbwrap );
+
+	$( '<div>' ).addClass( 'gallerytext' ).text( caption ).appendTo( $galleryBox );
+
+	return $ol;
+}
+
+function createLegacyNormal( imageSrc, caption ) {
 	const $link = $( '<a>' ).prop( 'title', caption ).addClass( 'image' ).appendTo( '#qunit-fixture' );
 	$( '<img>' ).prop( 'src', ( imageSrc || 'thumb.jpg' ) ).appendTo( $link );
 	return $link;
 }
 
-function createMultipleImage( images ) {
+function createLegacyMultipleImage( images ) {
 	const $contain = $( '<div>' ).addClass( 'thumb' );
 	const $thumbinner = $( '<div>' ).addClass( 'thumbinner' ).appendTo( $contain );
 	for ( let i = 0; i < images.length; ++i ) {
@@ -202,7 +235,7 @@ QUnit.skip( 'Check viewer invoked when clicking on valid image links', function 
 	const clock = this.sandbox.useFakeTimers();
 
 	// Create gallery with valid link image
-	const div = createGallery();
+	const div = createLegacyGallery();
 	const $link = div.find( 'a.image' );
 
 	// Valid isolated thumbnail
@@ -288,7 +321,7 @@ QUnit.test( 'Skip images with invalid extensions', function ( assert ) {
 	const clock = this.sandbox.useFakeTimers();
 
 	// Create gallery with image that has invalid name extension
-	const div = createGallery( 'thumb.badext' );
+	const div = createLegacyGallery( 'thumb.badext' );
 	const link = div.find( 'a.image' );
 
 	// Create a new bootstrap object to trigger the DOM scan, etc.
@@ -309,7 +342,7 @@ QUnit.skip( 'Accept only left clicks without modifier keys, skip the rest', func
 	const clock = this.sandbox.useFakeTimers();
 
 	// Create gallery with image that has valid name extension
-	const $div = createGallery();
+	const $div = createLegacyGallery();
 
 	// Create a new bootstrap object to trigger the DOM scan, etc.
 	const bootstrap = createBootstrap( viewer );
@@ -363,7 +396,7 @@ QUnit.test( 'Validate new LightboxImage object has sensible constructor paramete
 	const viewer = getMultimediaViewer();
 	const fname = 'valid.jpg';
 	const imgSrc = '/' + fname + '/300px-' + fname;
-	createThumb( imgSrc, 'Blah blah', 'meow' );
+	createLegacyThumb( imgSrc, 'Blah blah', 'meow' );
 
 	// Create a new bootstrap object to trigger the DOM scan, etc.
 	const bootstrap = createBootstrap( viewer );
@@ -450,8 +483,8 @@ QUnit.test( 'Preload JS/CSS dependencies on thumb hover', function ( assert ) {
 	const clock = this.sandbox.useFakeTimers();
 	const viewer = { initWithThumbs: function () {} };
 
-	// Create gallery with image that has valid name extension
-	const $div = createThumb();
+	// Create thumb that has valid name extension
+	const $div = createLegacyThumb();
 
 	// Create a new bootstrap object to trigger the DOM scan, etc.
 	const bootstrap = createBootstrap( viewer );
@@ -493,19 +526,30 @@ QUnit.test( 'isAllowedThumb', ( assert ) => {
 	assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image with a noviewer class is disallowed.' );
 } );
 
-QUnit.test( 'findCaption', ( assert ) => {
-	const gallery = createGallery( 'foo.jpg', 'Baz' );
-	const thumb = createThumb( 'foo.jpg', 'Quuuuux' );
-	const link = createNormal( 'foo.jpg', 'Foobar' );
-	const multiple = createMultipleImage( [
+QUnit.test( 'findLegacyCaption', ( assert ) => {
+	const gallery = createLegacyGallery( 'foo.jpg', 'Baz' );
+	const thumb = createLegacyThumb( 'foo.jpg', 'Quuuuux' );
+	const link = createLegacyNormal( 'foo.jpg', 'Foobar' );
+	const multiple = createLegacyMultipleImage( [
 		[ 'foo.jpg', 'Image #1' ],
 		[ 'bar.jpg', 'Image #2' ],
 		[ 'foobar.jpg', 'Image #3' ]
 	] );
 	const bootstrap = createBootstrap();
 
-	assert.strictEqual( bootstrap.findCaption( gallery.find( '.thumb' ), gallery.find( 'a.image' ) ), 'Baz', 'A gallery caption is found.' );
-	assert.strictEqual( bootstrap.findCaption( thumb, thumb.find( 'a.image' ) ), 'Quuuuux', 'A thumbnail caption is found.' );
-	assert.strictEqual( bootstrap.findCaption( $(), link ), 'Foobar', 'The caption is found even if the image is not a thumbnail.' );
-	assert.strictEqual( bootstrap.findCaption( multiple, multiple.find( 'img[src="bar.jpg"]' ).closest( 'a' ) ), 'Image #2', 'The caption is found in {{Multiple image}}.' );
+	assert.strictEqual( bootstrap.findLegacyCaption( gallery.find( '.thumb' ), gallery.find( 'a.image' ) ), 'Baz', 'A gallery caption is found.' );
+	assert.strictEqual( bootstrap.findLegacyCaption( thumb, thumb.find( 'a.image' ) ), 'Quuuuux', 'A thumbnail caption is found.' );
+	assert.strictEqual( bootstrap.findLegacyCaption( $(), link ), 'Foobar', 'The caption is found even if the image is not a thumbnail.' );
+	assert.strictEqual( bootstrap.findLegacyCaption( multiple, multiple.find( 'img[src="bar.jpg"]' ).closest( 'a' ) ), 'Image #2', 'The caption is found in {{Multiple image}}.' );
+} );
+
+QUnit.test( 'findCaption', ( assert ) => {
+	const $inline = createInlineImage( 'foo.jpg', 'Inline' );
+	const $block = createBlockImage( 'foo.jpg', 'Block' );
+	const $gallery = createGallery( 'foo.jpg', 'Gallery' ).find( '[typeof*="mw:File"]' );
+	const bootstrap = createBootstrap();
+
+	assert.strictEqual( bootstrap.findCaption( $inline, $inline.children().first() ), 'Inline', 'Inline image caption is found.' );
+	assert.strictEqual( bootstrap.findCaption( $block, $block.children().first() ), 'Block', 'Block image caption is found.' );
+	assert.strictEqual( bootstrap.findCaption( $gallery, $gallery.children().first() ), 'Gallery', 'Gallery image caption is found.' );
 } );
