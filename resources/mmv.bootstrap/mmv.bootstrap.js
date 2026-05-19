@@ -43,7 +43,6 @@ class MultimediaViewerBootstrap {
 
 		this.viewerPromise = null;
 
-		this.thumbsReadyDeferred = $.Deferred();
 		/**
 		 * @type {LightboxImage[]}
 		 */
@@ -237,19 +236,15 @@ class MultimediaViewerBootstrap {
 			// since mw-file-description will match both
 			.not( this.$thumbs );
 
-		try {
-			// Ensure that thumbs remain in document order
-			// regardless of which type we are dealing with
-			this.$thumbs.add( this.$legacyThumbs ).each( ( i, thumb ) => {
-				if ( this.$legacyThumbs.is( thumb ) ) {
-					this.processLegacyThumb( thumb );
-				} else {
-					this.processThumb( thumb );
-				}
-			} );
-		} finally {
-			this.thumbsReadyDeferred.resolve();
-		}
+		// Ensure that thumbs remain in document order
+		// regardless of which type we are dealing with
+		this.$thumbs.add( this.$legacyThumbs ).each( ( i, thumb ) => {
+			if ( this.$legacyThumbs.is( thumb ) ) {
+				this.processLegacyThumb( thumb );
+			} else {
+				this.processThumb( thumb );
+			}
+		} );
 	}
 
 	/**
@@ -706,10 +701,6 @@ class MultimediaViewerBootstrap {
 				this.savedScrollTop = undefined;
 			} );
 		}
-	}
-
-	whenThumbsReady() {
-		return this.thumbsReadyDeferred.promise();
 	}
 }
 
