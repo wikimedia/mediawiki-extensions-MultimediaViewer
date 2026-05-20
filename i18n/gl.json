@@ -24,7 +24,6 @@
 	"multimediaviewer-thumbnail-error": "Sentímolo, non se pode amosar o ficheiro",
 	"multimediaviewer-thumbnail-error-description": "Semella haber un problema técnico. Pode $1 se persiste. Erro: $2",
 	"multimediaviewer-thumbnail-error-retry": "reintentar",
-	"multimediaviewer-thumbnail-error-report": "informar sobre o problema",
 	"multimediaviewer-license-cc-pd": "Dominio público",
 	"multimediaviewer-license-pd": "Dominio público",
 	"multimediaviewer-license-default": "Ver a licenza",
@@ -107,6 +106,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Este ficheiro non ten información de atribución.",
 	"multimediaviewer-reuse-warning-generic": "Compruebe [$1 os seus detalles] antes de utilizalo.",
 	"multimediaviewer-attr-plain": "Simple",
-	"multimediaviewer-errorreport-privacywarning": "Os detalles do erro achegáronse no informe, que será visible publicamente. Se non concorda con isto, pode editar o informe de abaixo e eliminar todos os datos que non queira compartir.",
 	"multimediaviewer-loading": "Cargando o visor de ficheiros multimedia."
 }

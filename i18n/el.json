@@ -28,7 +28,6 @@
 	"multimediaviewer-thumbnail-error": "Συγνώμη, το αρχείο δεν μπορεί να προβληθεί",
 	"multimediaviewer-thumbnail-error-description": "Φαίνεται να υπάρχει τεχνικό θέμα. Μπορείτε να $1 αν συνεχίζει. Σφάλμα: $2",
 	"multimediaviewer-thumbnail-error-retry": "ξανά προσπάθεια",
-	"multimediaviewer-thumbnail-error-report": "αναφέρετε το πρόβλημα",
 	"multimediaviewer-license-cc-by-4.0": "CC BY 4.0",
 	"multimediaviewer-license-cc-by-sa-4.0": "CC BY-SA 4.0",
 	"multimediaviewer-license-cc-pd": "Κοινό κτήμα",
@@ -109,6 +108,5 @@
 	"multimediaviewer-reuse-warning-nonfree": "Αυτό το αρχείο δεν διαθέτει ελεύθερη άδεια.",
 	"multimediaviewer-reuse-warning-noattribution": "Αυτό το αρχείο δεν περιέχει πληροφορίες απόδοσης σε δημιουργό.",
 	"multimediaviewer-reuse-warning-generic": "Ελέγξτε [$1 τις λεπτομέρειές του] πριν το χρησιμοποιήσετε.",
-	"multimediaviewer-attr-plain": "Απλό",
-	"multimediaviewer-errorreport-privacywarning": "Λεπτομέρειες σχετικά με το σφάλμα επισυνάπτονται στην αναφορά, η οποία θα είναι δημόσια ορατή. Αν δεν είστε άνετοι με αυτό, μπορείτε να επεξεργαστείτε την παρακάτω αναφορά και να αφαιρέσετε όλα τα δεδομένα που δεν θέλετε να μοιραστείτε."
+	"multimediaviewer-attr-plain": "Απλό"
 }

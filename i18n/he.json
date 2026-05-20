@@ -25,7 +25,6 @@
 	"multimediaviewer-thumbnail-error": "מצטערים, לא ניתן להציג את הקובץ",
 	"multimediaviewer-thumbnail-error-description": "נראה שיש בעיה טכנית. באפשרותך $1 אם היא ממשיכה. שגיאה: $2",
 	"multimediaviewer-thumbnail-error-retry": "לנסות שוב",
-	"multimediaviewer-thumbnail-error-report": "לדווח את הבעיה",
 	"multimediaviewer-license-cc-pd": "נחלת הכלל",
 	"multimediaviewer-license-pd": "נחלת הכלל",
 	"multimediaviewer-license-default": "הצגת הרישיון",
@@ -113,6 +112,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "לקובץ הזה אין מידע על ייחוס.",
 	"multimediaviewer-reuse-warning-generic": "נא לבדוק [$1 את הפרטים שלו] לפני השימוש בו.",
 	"multimediaviewer-attr-plain": "טקסט רגיל",
-	"multimediaviewer-errorreport-privacywarning": "פרטי השגיאה מצורפים לדו\"ח, שיהיה זמין לצפייה באופן ציבורי. אם זה לא מתאים לך, באפשרותך לערוך את הדו\"ח להלן ולמחוק את כל הנתונים שאינך רוצה לשתף.",
 	"multimediaviewer-loading": "טעינת מציג מדיה."
 }

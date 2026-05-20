@@ -27,7 +27,6 @@
 	"multimediaviewer-thumbnail-error": "Pahoittelut, tiedostoa ei voida näyttää",
 	"multimediaviewer-thumbnail-error-description": "Tekninen ongelma. $1, jos se jatkuu. Virhe: $2",
 	"multimediaviewer-thumbnail-error-retry": "yritä uudelleen",
-	"multimediaviewer-thumbnail-error-report": "ilmoita ongelmasta",
 	"multimediaviewer-license-cc-pd": "Public Domain",
 	"multimediaviewer-license-pd": "Public Domain",
 	"multimediaviewer-license-default": "Näytä lisenssi",

@@ -17,7 +17,6 @@
 	"multimediaviewer-thumbnail-error": "Spiaxenti, o file o no poeu vese vixoalizou",
 	"multimediaviewer-thumbnail-error-description": "Pâ che ghe segge 'n problema tecnico. S'o persciste ti poeu $1. Errô: $2",
 	"multimediaviewer-thumbnail-error-retry": "proeuva torna",
-	"multimediaviewer-thumbnail-error-report": "segnalla o problema",
 	"multimediaviewer-license-cc-pd": "Pubbrico Dominnio",
 	"multimediaviewer-license-pd": "Pubbrico Dominnio",
 	"multimediaviewer-license-default": "Amia a lisensia",
@@ -96,6 +95,5 @@
 	"multimediaviewer-reuse-warning-nonfree": "Sto file chie o no g'ha 'na lisensia libbera.",
 	"multimediaviewer-reuse-warning-noattribution": "Sto file chie o l'è sensa informassioin d'atribussion.",
 	"multimediaviewer-reuse-warning-generic": "Controlla i [$1 so detalli] primma de doeuviâlo.",
-	"multimediaviewer-attr-plain": "Normâ",
-	"multimediaviewer-errorreport-privacywarning": "I detalli de l'aro son aligæ a-o raporto, ch'o saiâ vixibbile pubricamente. Se questo no te conven, ti poeu modificâ o raporto chì de sotta e levâghe tutti i dæti che no ti voeu condividde."
+	"multimediaviewer-attr-plain": "Normâ"
 }

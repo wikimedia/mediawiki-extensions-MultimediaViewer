@@ -17,7 +17,6 @@
 	"multimediaviewer-thumbnail-error": "Ne rincress, el fail el po vesser minga mostrad",
 	"multimediaviewer-thumbnail-error-description": "El par che ghe sia un problema tecnich. Semai che 'l persista te podet $1. Eror: $2",
 	"multimediaviewer-thumbnail-error-retry": "prova an'mò",
-	"multimediaviewer-thumbnail-error-report": "segnala el problema",
 	"multimediaviewer-license-cc-pd": "Domini Publich",
 	"multimediaviewer-license-pd": "Domini Publich",
 	"multimediaviewer-license-default": "Varda la licenza",
@@ -96,6 +95,5 @@
 	"multimediaviewer-reuse-warning-nonfree": "Quell fail chì el gh'hà no una licenza libera.",
 	"multimediaviewer-reuse-warning-noattribution": "Quell fail chì el gh'hà minga di atribuzzion.",
 	"multimediaviewer-reuse-warning-generic": "Controla i [$1 so detali] inanz de drovall.",
-	"multimediaviewer-attr-plain": "Normal",
-	"multimediaviewer-errorreport-privacywarning": "I detali de l'eror a inn tacad al report, che 'l sarà visibile publicament. Se 'te voeuret , te podet modifegà el raport chì de sota e toeu via tut i dati che te voeuret no spartì in gir."
+	"multimediaviewer-attr-plain": "Normal"
 }

@@ -26,7 +26,6 @@
 	"multimediaviewer-thumbnail-error": "Rất tiếc, không thể hiển thị tập tin",
 	"multimediaviewer-thumbnail-error-description": "Hình như đã gặp vấn đề về kỹ thuật. Bạn có thể $1 nếu tiếp tục xảy ra. Lỗi: $2",
 	"multimediaviewer-thumbnail-error-retry": "thử lại",
-	"multimediaviewer-thumbnail-error-report": "báo cáo về vấn đề",
 	"multimediaviewer-license-cc-by-4.0": "CC-BY 4.0",
 	"multimediaviewer-license-cc-by-sa-4.0": "CC BY-SA 4.0",
 	"multimediaviewer-license-cc-pd": "Phạm vi công cộng",
@@ -115,6 +114,5 @@
 	"multimediaviewer-reuse-warning-nonfree": "Tập tin này không có giấy phép mở.",
 	"multimediaviewer-reuse-warning-noattribution": "Tập tin này thiếu thông tin ghi công.",
 	"multimediaviewer-reuse-warning-generic": "Hãy kiểm tra [$1 chi tiết] trước khi sử dụng nó.",
-	"multimediaviewer-attr-plain": "Văn bản thuần",
-	"multimediaviewer-errorreport-privacywarning": "Các chi tiết lỗi được đính kèm vào bản báo cáo công khai. Nếu bạn không đồng ý với điều này, bạn có thể sửa đổi bản báo cáo bên dưới và xóa tất cả dữ liệu mà bạn không muốn chia sẻ."
+	"multimediaviewer-attr-plain": "Văn bản thuần"
 }

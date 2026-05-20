@@ -26,7 +26,6 @@
 	"multimediaviewer-thumbnail-error": "Je nám líto, soubor nelze zobrazit",
 	"multimediaviewer-thumbnail-error-description": "Vypadá to na technické potíže. Můžete to $1, pokud se to nezlepší. Chyba: $2",
 	"multimediaviewer-thumbnail-error-retry": "zkusit znovu",
-	"multimediaviewer-thumbnail-error-report": "problém nahlásit",
 	"multimediaviewer-license-cc-pd": "Volné dílo",
 	"multimediaviewer-license-pd": "Volné dílo",
 	"multimediaviewer-license-default": "Zobrazit licenci",
@@ -114,6 +113,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Tento soubor nemá informace o autorovi.",
 	"multimediaviewer-reuse-warning-generic": "Před jeho použitím zkontrolujte [$1 podrobnosti].",
 	"multimediaviewer-attr-plain": "Prostý text",
-	"multimediaviewer-errorreport-privacywarning": "Podrobnosti o chybě jsou připojeny k hlášení, které bude veřejně dostupné. Pokud se vám to nelíbí, můžete níže hlášení upravit a odstranit všechny údaje, které nechcete sdílet.",
 	"multimediaviewer-loading": "Prohlížeč médií se nahrává."
 }

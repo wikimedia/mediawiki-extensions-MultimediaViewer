@@ -24,7 +24,6 @@
 	"multimediaviewer-thumbnail-error": "Desculpe, o ficheiro não pode ser apresentado",
 	"multimediaviewer-thumbnail-error-description": "Parece haver um problema técnico. Pode $1, caso o problema continue. Erro: $2",
 	"multimediaviewer-thumbnail-error-retry": "tentar novamente",
-	"multimediaviewer-thumbnail-error-report": "comunicar o erro",
 	"multimediaviewer-license-cc-pd": "Domínio Público",
 	"multimediaviewer-license-pd": "Domínio público",
 	"multimediaviewer-license-default": "Ver licença",
@@ -103,6 +102,5 @@
 	"multimediaviewer-reuse-warning-nonfree": "Este ficheiro não tem uma licença livre.",
 	"multimediaviewer-reuse-warning-noattribution": "Este ficheiro não tem informação de atribuição do crédito.",
 	"multimediaviewer-reuse-warning-generic": "Verifique [$1 os detalhes] antes de utilizá-lo.",
-	"multimediaviewer-attr-plain": "Simples",
-	"multimediaviewer-errorreport-privacywarning": "Os detalhes do erro foram anexados ao relatório, que será publicamente visível. Se não concordar, pode editar o relatório abaixo e remover todos os dados que não deseja partilhar."
+	"multimediaviewer-attr-plain": "Simples"
 }

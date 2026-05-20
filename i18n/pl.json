@@ -33,7 +33,6 @@
 	"multimediaviewer-thumbnail-error": "Niestety, nie można wyświetlić pliku",
 	"multimediaviewer-thumbnail-error-description": "Wygląda na to, że mamy problem techniczny. Możesz $1, jeśli będzie nadal występował. Błąd: $2",
 	"multimediaviewer-thumbnail-error-retry": "ponowić próbę",
-	"multimediaviewer-thumbnail-error-report": "zgłosić problem",
 	"multimediaviewer-license-cc-pd": "Domena publiczna",
 	"multimediaviewer-license-pd": "Domena publiczna",
 	"multimediaviewer-license-default": "Zobacz licencję",
@@ -116,6 +115,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "Ten plik nie posiada żadnych informacji dotyczących autorstwa.",
 	"multimediaviewer-reuse-warning-generic": "Przed użyciem sprawdź [$1 jego szczegóły].",
 	"multimediaviewer-attr-plain": "Zwykły tekst",
-	"multimediaviewer-errorreport-privacywarning": "Szczegóły błędu są dołączane do zgłoszenia, które będzie publicznie widoczne. Jeśli nie czujesz się z tym komfortowo, możesz zmodyfikować swoje zgłoszenie i usunąć dane, których nie chcesz udostępniać.",
 	"multimediaviewer-loading": "Wczytywanie przeglądarki multimediów."
 }

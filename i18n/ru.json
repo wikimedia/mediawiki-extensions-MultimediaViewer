@@ -39,7 +39,6 @@
 	"multimediaviewer-thumbnail-error": "Извините, файл не может быть отображён",
 	"multimediaviewer-thumbnail-error-description": "Похоже, возникла какая-то техническая проблема. Вы можете $1, если она будет повторяться. Ошибка: $2",
 	"multimediaviewer-thumbnail-error-retry": "повторить",
-	"multimediaviewer-thumbnail-error-report": "сообщить о проблеме",
 	"multimediaviewer-license-cc-pd": "Общественное достояние",
 	"multimediaviewer-license-pd": "Общественное достояние",
 	"multimediaviewer-license-default": "Посмотреть лицензию",
@@ -133,6 +132,5 @@
 	"multimediaviewer-reuse-warning-generic": "Проверьте [$1 сведения о нём] перед тем, как воспользоваться.",
 	"multimediaviewer-attr-plain": "Просто текст",
 	"multimediaviewer-attr-html": "HTML",
-	"multimediaviewer-errorreport-privacywarning": "Подробная информация об ошибке прилагается к отчёту, который будет общедоступным. Если вас это не устраивает, вы можете отредактировать отчёт ниже и удалить все данные, которыми вы не хотите поделиться.",
 	"multimediaviewer-loading": "Загрузка средства просмотра медиафайлов."
 }

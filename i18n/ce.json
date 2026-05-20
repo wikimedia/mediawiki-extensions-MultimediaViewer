@@ -19,7 +19,6 @@
 	"multimediaviewer-thumbnail-error": "Бехк ма билла, файл гайта йиш йац",
 	"multimediaviewer-thumbnail-error-description": "Цхьа техникин проблема йолчух тера ду. $1 йиш йу хьан, нагахь санна иза карладаьлча. ГӀалат: $2.",
 	"multimediaviewer-thumbnail-error-retry": "йухагӀорта",
-	"multimediaviewer-thumbnail-error-report": "проблемах лаьцна хаамбан",
 	"multimediaviewer-license-cc-pd": "Йукъараллин рицкъ",
 	"multimediaviewer-license-pd": "Йукъараллин рицкъ",
 	"multimediaviewer-license-default": "Лицензига хьажар",
@@ -102,6 +101,5 @@
 	"multimediaviewer-reuse-warning-noattribution": "ХӀокху файлан атрибуцин информаци йац.",
 	"multimediaviewer-reuse-warning-generic": "Дехар до, лелоле [$1 цуьнах хаам] хьажа.",
 	"multimediaviewer-attr-plain": "Атта",
-	"multimediaviewer-errorreport-privacywarning": "ГӀалатех лаьцна йуьззина информаци йу отчетан тӀетоьхна, иза массарна а тӀекхочуш хира йу. Нагахь санна хьайна нийса ца хетахь, ахьа хийца мегар ду лахахь йолу отчет, цу тӀера хаамаш дӀабаха, хьайна дӀасабаржо ца лууш болу.",
 	"multimediaviewer-loading": "Медиафайлашка хьожург чуйаккхар."
 }

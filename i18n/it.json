@@ -31,7 +31,6 @@
 	"multimediaviewer-thumbnail-error": "Spiacenti, il file non può essere visualizzato",
 	"multimediaviewer-thumbnail-error-description": "Sembra esserci un problema tecnico. Puoi $1 se persiste. Errore: $2",
 	"multimediaviewer-thumbnail-error-retry": "riprova",
-	"multimediaviewer-thumbnail-error-report": "segnalare il problema",
 	"multimediaviewer-license-cc-pd": "Pubblico dominio",
 	"multimediaviewer-license-pd": "Pubblico dominio",
 	"multimediaviewer-license-default": "Vedi la licenza",
@@ -110,6 +109,5 @@
 	"multimediaviewer-reuse-warning-nonfree": "Questo file non ha una licenza libera.",
 	"multimediaviewer-reuse-warning-noattribution": "Questo file non ha informazioni sull'attribuzione.",
 	"multimediaviewer-reuse-warning-generic": "Controlla i [$1 suoi dettagli] prima di utilizzarlo.",
-	"multimediaviewer-attr-plain": "Normale",
-	"multimediaviewer-errorreport-privacywarning": "I dettagli dell'errore sono allegati al report, che sarà visibile pubblicamente. Se non sei a tuo agio con ciò, puoi modificare il report qui sotto e rimuovere tutti i dati che non vuoi condividere."
+	"multimediaviewer-attr-plain": "Normale"
 }

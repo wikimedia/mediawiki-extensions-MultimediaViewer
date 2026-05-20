@@ -22,7 +22,6 @@
 	"multimediaviewer-thumbnail-error": "Datoteke žal ni mogoče prikazati",
 	"multimediaviewer-thumbnail-error-description": "Prišlo je do tehnične težave. Če vztraja, lahko $1. Napaka: $2.",
 	"multimediaviewer-thumbnail-error-retry": "poskusi znova",
-	"multimediaviewer-thumbnail-error-report": "sporoči težavo",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",
 	"multimediaviewer-license-cc-by-sa-1.0": "CC BY-SA 1.0",
 	"multimediaviewer-license-cc-by-2.0": "CC BY 2.0",
@@ -119,6 +118,5 @@
 	"multimediaviewer-reuse-warning-nonfree": "Ta datoteka ni na voljo pod prosto licenco.",
 	"multimediaviewer-reuse-warning-noattribution": "Ta datoteka nima pripisanih informacij o avtorju.",
 	"multimediaviewer-reuse-warning-generic": "Preden datoteko $1 uporabite, preverite [$1 podatke o njej].",
-	"multimediaviewer-attr-plain": "Golo",
-	"multimediaviewer-errorreport-privacywarning": "Podatki o napaki so priloženi poročilu in bodo javno vidni. Če tega ne želite, lahko poročilo uredite in izbrišete vse podatke, ki jih ne želite deliti."
+	"multimediaviewer-attr-plain": "Golo"
 }

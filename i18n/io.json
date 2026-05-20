@@ -14,7 +14,6 @@
 	"multimediaviewer-thumbnail-error": "Pardonez, l'arkivo ne povas montresar",
 	"multimediaviewer-thumbnail-error-description": "Semblas esar teknikala problemo. Vu povas $1 se ol duros eventar. Eroro: $2",
 	"multimediaviewer-thumbnail-error-retry": "riprobez",
-	"multimediaviewer-thumbnail-error-report": "informar la problemo",
 	"multimediaviewer-license-cc-pd": "Publika domeno",
 	"multimediaviewer-license-pd": "Publika domeno",
 	"multimediaviewer-license-default": "Montrez licenco",
@@ -83,6 +82,5 @@
 	"multimediaviewer-reuse-warning-nonfree": "Ca arkivo ne havas libera licenco.",
 	"multimediaviewer-reuse-warning-noattribution": "Ca arkivo ne havas informi pri ol.",
 	"multimediaviewer-reuse-warning-generic": "Verifikez [$1 sua detali] ante uzar ol.",
-	"multimediaviewer-attr-plain": "simpla texto",
-	"multimediaviewer-errorreport-privacywarning": "Detali pri l'eroro adjuntesis a la reporto, qua povos videsar publike. Se vu ne prizas to, vu povos modifikar la reporto adinfre, e removar omna detali quin vu ne deziras partigar kun altri."
+	"multimediaviewer-attr-plain": "simpla texto"
 }
