@@ -7,7 +7,6 @@ use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Skin\SkinTemplate;
 use MediaWiki\Title\Title;
-use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
 
 /**
@@ -44,7 +43,9 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		$skin = new SkinTemplate();
 		$output = $this->createMock( OutputPage::class );
 		$output->method( 'getTitle' )->willReturn( $t );
-		$output->method( 'getUser' )->willReturn( User::newFromName( 'HooksTestUser' ) );
+		$output->method( 'getUser' )->willReturn(
+			$this->getServiceContainer()->getUserFactory()->newFromName( 'HooksTestUser' )
+		);
 		$output->expects( $this->exactly( $modulesExpected ) )->method( 'addModules' );
 		$this->newHooksInstance()->onBeforePageDisplay( $output, $skin );
 	}
@@ -132,7 +133,9 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		$skin = new SkinTemplate();
 		$output = $this->createMock( OutputPage::class );
 		$output->method( 'getTitle' )->willReturn( $title );
-		$output->method( 'getUser' )->willReturn( User::newFromName( 'HooksTestCarouselUser' ) );
+		$output->method( 'getUser' )->willReturn(
+			$this->getServiceContainer()->getUserFactory()->newFromName( 'HooksTestCarouselUser' )
+		);
 		$output->method( 'getRequest' )->willReturn( new FauxRequest( [] ) );
 		$output->expects( $this->once() )
 			->method( 'addModules' )
@@ -160,7 +163,9 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		$skin = new SkinTemplate();
 		$output = $this->createMock( OutputPage::class );
 		$output->method( 'getTitle' )->willReturn( $title );
-		$output->method( 'getUser' )->willReturn( User::newFromName( 'HooksTestCarouselUserTwo' ) );
+		$output->method( 'getUser' )->willReturn(
+			$this->getServiceContainer()->getUserFactory()->newFromName( 'HooksTestCarouselUserTwo' )
+		);
 		$output->method( 'getRequest' )->willReturn( new FauxRequest( [] ) );
 		$output->expects( $this->never() )->method( 'prependHTML' );
 

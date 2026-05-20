@@ -9,6 +9,7 @@ use MediaWiki\Request\FauxRequest;
 use MediaWiki\Skin\SkinTemplate;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
+use MediaWiki\User\UserRigorOptions;
 use MediaWikiIntegrationTestCase;
 use Wikimedia\TestingAccessWrapper;
 
@@ -74,7 +75,9 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testOnBeforePageDisplayInjectsCarouselMarkupWhenEnabled(): void {
-		[ $skin, $output ] = $this->prepare( User::newFromName( 'HooksMobileCarouselUser' ) );
+		$user = $this->getServiceContainer()->getUserFactory()
+			->newFromName( 'HooksMobileCarouselUser' );
+		[ $skin, $output ] = $this->prepare( $user );
 
 		$output->expects( $this->once() )
 			->method( 'addModules' )
@@ -98,7 +101,9 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testOnBeforePageDisplayInjectsCarouselMarkupForAnonymousReaders(): void {
-		[ $skin, $output ] = $this->prepare( User::newFromName( '127.0.0.1', false ) );
+		$user = $this->getServiceContainer()->getUserFactory()
+			->newFromName( '127.0.0.1', UserRigorOptions::RIGOR_NONE );
+		[ $skin, $output ] = $this->prepare( $user );
 
 		$output->expects( $this->once() )
 			->method( 'addModules' )
@@ -154,7 +159,9 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testOnBeforePageDisplaySkipsCarouselWhenNotApplicable(): void {
-		[ $skin, $output ] = $this->prepare( User::newFromName( 'HooksMobileCarouselUser' ) );
+		$user = $this->getServiceContainer()->getUserFactory()
+			->newFromName( 'HooksMobileCarouselUser' );
+		[ $skin, $output ] = $this->prepare( $user );
 
 		// No carousel and no beta opt-in, so no modules are added at all.
 		$output->expects( $this->never() )
@@ -174,7 +181,9 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testOnBeforePageDisplaySkipsCarouselWhenFewerThanMinImages(): void {
-		[ $skin, $output ] = $this->prepare( User::newFromName( 'HooksMobileCarouselUser' ) );
+		$user = $this->getServiceContainer()->getUserFactory()
+			->newFromName( 'HooksMobileCarouselUser' );
+		[ $skin, $output ] = $this->prepare( $user );
 
 		// Modules are still added, but no HTML is prepended
 		$output->expects( $this->once() )
@@ -195,7 +204,9 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 
 	public function testOnBeforePageDisplayLoadsBetaViewerAlongsideCarousel(): void {
 		[ $skin, $output ] = $this->prepare(
-			User::newFromName( 'HooksMobileCarouselUser' ), [ 'mmvBeta' => '1' ] );
+			$this->getServiceContainer()->getUserFactory()->newFromName( 'HooksMobileCarouselUser' ),
+			[ 'mmvBeta' => '1' ]
+		);
 
 		// ?mmvBeta=1 alone loads the bootstrap alongside the carousel so it can
 		// intercept the shared #/media/ route ahead of the MobileFrontend
@@ -216,7 +227,9 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 
 	public function testOnBeforePageDisplayLoadsBetaViewerWithoutCarousel(): void {
 		[ $skin, $output ] = $this->prepare(
-			User::newFromName( 'HooksMobileCarouselUser' ), [ 'mmvBeta' => '1' ] );
+			$this->getServiceContainer()->getUserFactory()->newFromName( 'HooksMobileCarouselUser' ),
+			[ 'mmvBeta' => '1' ]
+		);
 
 		// No carousel on this page, but ?mmvBeta=1 still loads the beta viewer.
 		$output->expects( $this->once() )
@@ -232,7 +245,9 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testOnBeforePageDisplaySkipsBetaViewerWithoutMmvBetaParam(): void {
-		[ $skin, $output ] = $this->prepare( User::newFromName( 'HooksMobileCarouselUser' ) );
+		[ $skin, $output ] = $this->prepare(
+			$this->getServiceContainer()->getUserFactory()->newFromName( 'HooksMobileCarouselUser' )
+		);
 
 		// Without ?mmvBeta=1 the bootstrap must not load: only the carousel does,
 		// routing clicks to the MobileFrontend lightbox.
