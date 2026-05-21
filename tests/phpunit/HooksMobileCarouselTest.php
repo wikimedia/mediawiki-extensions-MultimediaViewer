@@ -3,11 +3,13 @@
 namespace MediaWiki\Extension\MultimediaViewer\Tests;
 
 use MediaWiki\Extension\MultimediaViewer\Hooks;
+use MediaWiki\Extension\MultimediaViewer\ThumbExtractor;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Skin\SkinTemplate;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \MediaWiki\Extension\MultimediaViewer\Hooks
@@ -111,6 +113,42 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 		];
 
 		$hooks->onBeforePageDisplay( $output, $skin );
+	}
+
+	/**
+	 * Regression test: the mobile carousel must extract thumbnails even when the
+	 * DOM backend reports element names in upper case.
+	 *
+	 * extractImagesFromHtml() locates each thumbnail's parent <a> to read the
+	 * file name. Comparing $anchor->nodeName to a lower-case 'a' silently
+	 * dropped every thumbnail on DOM backends that return upper-case names
+	 * (newer libraries, and PHP 8.4 for the native DOM), so the carousel fell
+	 * below its image minimum and never rendered. The comparison must be
+	 * case-insensitive (DOMUtils::nodeName()).
+	 */
+	public function testExtractImagesFromHtmlHandlesUpperCaseAnchorNodeNames(): void {
+		// Mirrors the markup served by MobileFrontendContentProvider when it
+		// proxies an article: protocol-relative File: hrefs wrapped in
+		// <a class="mw-file-description">.
+		$names = [ 'Eiffel', 'Louvre', 'Pantheon' ];
+		$html = '';
+		foreach ( $names as $name ) {
+			$html .= '<figure typeof="mw:File/Thumb">'
+				. '<a href="//en.wikipedia.org/wiki/File:' . $name . '.jpg" class="mw-file-description">'
+				. '<img src="//upload.wikimedia.org/' . $name . '.jpg" class="mw-file-element"'
+				. ' width="220" height="124" alt="' . $name . '">'
+				. '</a></figure>';
+		}
+
+		$thumbExtractor = new ThumbExtractor( [ 'jpg' => 'default' ], [] );
+		$hooks = TestingAccessWrapper::newFromObject( $this->newHooksInstance() );
+
+		$thumbs = $hooks->extractImagesFromHtml( $html, $thumbExtractor );
+
+		$this->assertCount( 3, $thumbs, 'all three proxied thumbnails should be extracted' );
+		$this->assertSame( 'File:Eiffel.jpg', $thumbs[0]['title'] );
+		$this->assertSame( '//upload.wikimedia.org/Eiffel.jpg', $thumbs[0]['src'] );
+		$this->assertSame( '//upload.wikimedia.org/Pantheon.jpg', $thumbs[2]['src'] );
 	}
 
 	public function testOnBeforePageDisplaySkipsCarouselWhenNotApplicable(): void {

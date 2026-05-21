@@ -295,9 +295,11 @@ class Hooks implements
 		$thumbData = [];
 
 		foreach ( $thumbExtractor->findThumbs( $body ) as $thumb ) {
-			// Find the parent <a> to get the file name
+			// Find the parent <a> to get the file name. Rely on
+			// DOMUtils::nodeName() to abstract over differences in
+			// PHP versions (which may use uppercase or lowercase tag names).
 			$anchor = DOMCompat::getParentElement( $thumb );
-			if ( !$anchor || $anchor->nodeName !== 'a' ) {
+			if ( !$anchor || DOMUtils::nodeName( $anchor ) !== 'a' ) {
 				continue;
 			}
 			$href = $anchor->getAttribute( 'href' );
