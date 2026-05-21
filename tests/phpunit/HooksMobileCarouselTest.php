@@ -158,6 +158,34 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 		$this->assertSame( '//upload.wikimedia.org/Pantheon.jpg', $thumbs[2]['src'] );
 	}
 
+	public function testExtractImagesFromHtmlPreservesAltTextAndAllowsMissingAltText(): void {
+		$html = '<figure typeof="mw:File/Thumb">'
+			. '<a href="//en.wikipedia.org/wiki/File:Eiffel.jpg" class="mw-file-description">'
+			. '<img src="//upload.wikimedia.org/Eiffel.jpg" class="mw-file-element"'
+			. ' width="220" height="124" alt="Eiffel Tower at dusk">'
+			. '</a></figure>'
+			. '<figure typeof="mw:File/Thumb">'
+			. '<a href="//en.wikipedia.org/wiki/File:Louvre.jpg" class="mw-file-description">'
+			. '<img src="//upload.wikimedia.org/Louvre.jpg" class="mw-file-element"'
+			. ' width="220" height="124" alt="">'
+			. '</a></figure>'
+			. '<figure typeof="mw:File/Thumb">'
+			. '<a href="//en.wikipedia.org/wiki/File:Pantheon.jpg" class="mw-file-description">'
+			. '<img src="//upload.wikimedia.org/Pantheon.jpg" class="mw-file-element"'
+			. ' width="220" height="124" alt="Pantheon facade">'
+			. '</a></figure>';
+
+		$thumbExtractor = new ThumbExtractor( [ 'jpg' => 'default' ], [] );
+		$hooks = TestingAccessWrapper::newFromObject( $this->newHooksInstance() );
+
+		$thumbs = $hooks->extractImagesFromHtml( $html, $thumbExtractor );
+
+		$this->assertCount( 3, $thumbs, 'missing alt text should not suppress carousel images' );
+		$this->assertSame( 'Eiffel Tower at dusk', $thumbs[0]['alt'] );
+		$this->assertSame( '', $thumbs[1]['alt'] );
+		$this->assertSame( 'Pantheon facade', $thumbs[2]['alt'] );
+	}
+
 	public function testOnBeforePageDisplaySkipsCarouselWhenNotApplicable(): void {
 		$user = $this->getServiceContainer()->getUserFactory()
 			->newFromName( 'HooksMobileCarouselUser' );

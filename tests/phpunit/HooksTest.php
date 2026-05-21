@@ -60,6 +60,17 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		return $method->invoke( $this->newHooksInstance(), $thumbData );
 	}
 
+	/**
+	 * Call the private buildCarouselHtml method via reflection.
+	 * @param array[] $thumbData
+	 * @param string $pageTitle
+	 * @return string
+	 */
+	private function buildCarouselHtml( array $thumbData, string $pageTitle ): string {
+		$method = new \ReflectionMethod( Hooks::class, 'buildCarouselHtml' );
+		return $method->invoke( $this->newHooksInstance(), $thumbData, $pageTitle );
+	}
+
 	public function testBuildCarouselItemsEmpty(): void {
 		$this->assertSame( '', $this->buildCarouselItems( [] ) );
 	}
@@ -80,6 +91,7 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		$this->assertStringContainsString( 'data-mmv-position="1"', $html );
 		$this->assertStringContainsString( 'href="/wiki/File:Cat.jpg"', $html );
 		$this->assertStringContainsString( 'class="mmv-carousel__item-link mw-file-description"', $html );
+		$this->assertStringContainsString( 'aria-label="A cat"', $html );
 		$this->assertStringContainsString( 'src="/images/thumb/cat.jpg"', $html );
 		$this->assertStringContainsString( 'srcset="/images/thumb/cat-240px.jpg 2x"', $html );
 		$this->assertStringContainsString( 'width="120"', $html );
@@ -87,6 +99,53 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		$this->assertStringContainsString( 'alt="A cat"', $html );
 		$this->assertStringContainsString( 'class="mmv-carousel__item-image"', $html );
 		$this->assertStringContainsString( 'loading="lazy"', $html );
+	}
+
+	public function testBuildCarouselItemsFallsBackToFilenameForAriaLabel(): void {
+		$html = $this->buildCarouselItems( [ [
+			'title' => 'File:Cat.jpg',
+			'href' => '/wiki/File:Cat.jpg',
+			'src' => '/images/thumb/cat.jpg',
+			'srcset' => '',
+			'width' => 120,
+			'height' => 90,
+			'alt' => '',
+			'label' => 'Cat',
+		] ] );
+
+		$this->assertStringContainsString( 'class="mmv-carousel__item"', $html );
+		$this->assertStringContainsString( 'alt=""', $html );
+		$this->assertStringContainsString( 'aria-label="Cat"', $html );
+	}
+
+	public function testBuildCarouselHtmlIncludesLabelWithCount(): void {
+		$html = $this->buildCarouselHtml(
+			[
+				self::makeFakeThumb( 'A' ),
+				self::makeFakeThumb( 'B' ),
+				self::makeFakeThumb( 'C' ),
+			],
+			'Main Page'
+		);
+
+		$this->assertStringContainsString(
+			'aria-label="Images in Main Page, 3 items"',
+			$html
+		);
+	}
+
+	public function testBuildCarouselHtmlFallsBackToGenericArticleLabelWhenTitleMissing(): void {
+		$html = $this->buildCarouselHtml(
+			[
+				self::makeFakeThumb( 'A' ),
+			],
+			''
+		);
+
+		$this->assertStringContainsString(
+			'aria-label="Images in article, 1 item"',
+			$html
+		);
 	}
 
 	private static function makeFakeThumb( string $name ): array {

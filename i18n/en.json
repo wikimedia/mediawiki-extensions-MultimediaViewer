@@ -6,6 +6,8 @@
 	},
 	"multimediaviewer-current-image-number": "$1 ⁄ $2",
 	"multimediaviewer-desc": "Expand thumbnails in a larger size in a fullscreen interface",
+	"multimediaviewer-carousel-label": "Images in $1, $2 {{PLURAL:$2|item|items}}",
+	"multimediaviewer-carousel-label-article": "article",
 	"multimediaviewer-file-page": "Go to corresponding file page",
 	"multimediaviewer-repository-local": "More details",
 	"multimediaviewer-datetime-created": "Created: $1",
