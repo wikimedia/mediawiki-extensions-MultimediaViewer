@@ -1,7 +1,7 @@
 <template>
 	<div v-if="image" class="mmv-lightbox-caption">
 		<div
-			v-if="image.caption"
+			v-if="captionHtml"
 			class="mmv-lightbox-caption__text"
 			v-html="captionHtml"
 		></div>
@@ -31,9 +31,15 @@ module.exports = exports = defineComponent( {
 		const image = computed( () => state.image.value );
 		const imageInfo = computed( () => state.imageInfo.value );
 
+		// The header title already shows the caption (or the description if
+		// there is no caption), so to avoid repeating the same text, the
+		// caption area shows the description only when a caption also exists.
+		// Mirrors the legacy Description.set() behavior.
 		const captionHtml = computed( () => {
-			if ( image.value && image.value.caption ) {
-				return HtmlUtils.htmlToTextWithTags( image.value.caption );
+			if ( image.value && image.value.caption &&
+				imageInfo.value && imageInfo.value.description
+			) {
+				return HtmlUtils.htmlToTextWithTags( imageInfo.value.description );
 			}
 			return '';
 		} );
