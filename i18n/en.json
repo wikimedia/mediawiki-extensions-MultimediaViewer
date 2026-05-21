@@ -6,8 +6,6 @@
 	},
 	"multimediaviewer-current-image-number": "$1 ⁄ $2",
 	"multimediaviewer-desc": "Expand thumbnails in a larger size in a fullscreen interface",
-	"multimediaviewer-optin-pref": "Enable <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
-	"multimediaviewer-disable-image-carousel-pref": "Disable image carousel on the mobile site",
 	"multimediaviewer-file-page": "Go to corresponding file page",
 	"multimediaviewer-repository-local": "More details",
 	"multimediaviewer-datetime-created": "Created: $1",
@@ -130,5 +128,7 @@
 	"multimediaviewer-reuse-warning-generic": "Check [$1 its details] before using it.",
 	"multimediaviewer-attr-plain": "Plain",
 	"multimediaviewer-attr-html": "HTML",
-	"multimediaviewer-loading": "Loading Media Viewer."
+	"multimediaviewer-loading": "Loading Media Viewer.",
+	"multimediaviewer-beta-feature-name": "Image carousel",
+	"multimediaviewer-beta-feature-description": "Show article images at the top of the page."
 }

@@ -4,7 +4,6 @@ namespace MediaWiki\Extension\MultimediaViewer\Tests;
 
 use MediaWiki\Extension\MultimediaViewer\Hooks;
 use MediaWiki\Output\OutputPage;
-use MediaWiki\Request\FauxRequest;
 use MediaWiki\Skin\SkinTemplate;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
@@ -24,9 +23,9 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 			$this->getServiceContainer()->getPageProps(),
 			null
 		) extends Hooks {
-			public array $stubThumbs = [];
 			public string $currentRequestSkinName = 'minerva';
-			public bool $pageExcludedFromMobileCarousel = false;
+			public array $stubThumbs = [];
+			public bool $useCarousel = true;
 
 			protected function isMobileFrontendView(): bool {
 				return true;
@@ -40,10 +39,22 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 				return $this->stubThumbs;
 			}
 
-			protected function isPageExcludedFromMobileCarousel( OutputPage $out ): bool {
-				return $this->pageExcludedFromMobileCarousel;
+			protected function shouldUseMobileCarousel( OutputPage $out ): bool {
+				return $this->useCarousel;
 			}
 		};
+	}
+
+	private function prepare( User $user ): array {
+		$this->overrideConfigValue( 'MediaViewerMobileCarousel', true );
+		$title = Title::newFromText( 'Main Page' );
+		$title->setContentModel( CONTENT_MODEL_WIKITEXT );
+		$skin = new SkinTemplate();
+		$output = $this->createMock( OutputPage::class );
+		$output->method( 'getTitle' )->willReturn( $title );
+		$output->method( 'getUser' )->willReturn( $user );
+
+		return [ $skin, $output ];
 	}
 
 	private static function makeFakeThumb( string $name ): array {
@@ -59,15 +70,8 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testOnBeforePageDisplayInjectsCarouselMarkupWhenEnabled(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileCarousel', true );
+		[ $skin, $output ] = $this->prepare( User::newFromName( 'HooksMobileCarouselUser' ) );
 
-		$user = User::newFromName( 'HooksMobileCarouselUser' );
-		$title = Title::newFromText( 'Main Page' );
-		$title->setContentModel( CONTENT_MODEL_WIKITEXT );
-		$skin = new SkinTemplate();
-		$output = $this->createMock( OutputPage::class );
-		$output->method( 'getTitle' )->willReturn( $title );
-		$output->method( 'getUser' )->willReturn( $user );
 		$output->expects( $this->once() )
 			->method( 'addModules' )
 			->with( [ 'mmv.carousel' ] );
@@ -90,15 +94,8 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testOnBeforePageDisplayInjectsCarouselMarkupForAnonymousReaders(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileCarousel', true );
+		[ $skin, $output ] = $this->prepare( User::newFromName( '127.0.0.1', false ) );
 
-		$user = User::newFromName( '127.0.0.1', false );
-		$title = Title::newFromText( 'Main Page' );
-		$title->setContentModel( CONTENT_MODEL_WIKITEXT );
-		$skin = new SkinTemplate();
-		$output = $this->createMock( OutputPage::class );
-		$output->method( 'getTitle' )->willReturn( $title );
-		$output->method( 'getUser' )->willReturn( $user );
 		$output->expects( $this->once() )
 			->method( 'addModules' )
 			->with( [ 'mmv.carousel' ] );
@@ -116,50 +113,18 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 		$hooks->onBeforePageDisplay( $output, $skin );
 	}
 
-	public function testOnBeforePageDisplaySkipsCarouselWhenDisabledByPreference(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileCarousel', true );
+	public function testOnBeforePageDisplaySkipsCarouselWhenNotApplicable(): void {
+		[ $skin, $output ] = $this->prepare( User::newFromName( 'HooksMobileCarouselUser' ) );
 
-		$user = $this->getTestUser()->getUser();
-		$this->getServiceContainer()->getUserOptionsManager()->setOption(
-			$user,
-			'disable_image_carousel',
-			1
-		);
-		$user->saveSettings();
-
-		$title = Title::newFromText( 'Main Page' );
-		$title->setContentModel( CONTENT_MODEL_WIKITEXT );
-		$skin = new SkinTemplate();
-		$output = $this->createMock( OutputPage::class );
-		$output->method( 'getTitle' )->willReturn( $title );
-		$output->method( 'getUser' )->willReturn( $user );
-		$output->method( 'getRequest' )->willReturn( new FauxRequest( [ 'mmvBeta' => '1' ] ) );
-		$output->expects( $this->never() )
-			->method( 'addModules' );
-		$output->expects( $this->never() )
-			->method( 'prependHTML' );
-
-		$this->newHooksInstance()->onBeforePageDisplay( $output, $skin );
-	}
-
-	public function testOnBeforePageDisplaySkipsCarouselWhenExcludedByBehaviorSwitch(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileCarousel', true );
-
-		$user = User::newFromName( 'HooksMobileCarouselExcludedUser' );
-		$title = Title::newFromText( 'Main Page' );
-		$title->setContentModel( CONTENT_MODEL_WIKITEXT );
-		$skin = new SkinTemplate();
-		$output = $this->createMock( OutputPage::class );
-		$output->method( 'getTitle' )->willReturn( $title );
-		$output->method( 'getUser' )->willReturn( $user );
-		$output->method( 'getRequest' )->willReturn( new FauxRequest() );
+		// mmv.bootstrap is loaded only when the beta feature is active,
+		// otherwise no modules are added at all.
 		$output->expects( $this->never() )
 			->method( 'addModules' );
 		$output->expects( $this->never() )
 			->method( 'prependHTML' );
 
 		$hooks = $this->newHooksInstance();
-		$hooks->pageExcludedFromMobileCarousel = true;
+		$hooks->useCarousel = false;
 		$hooks->stubThumbs = [
 			self::makeFakeThumb( 'A' ),
 			self::makeFakeThumb( 'B' ),
@@ -169,52 +134,31 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 		$hooks->onBeforePageDisplay( $output, $skin );
 	}
 
-	public function testOnGetPreferencesAddsDisableImageCarouselPreference(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileCarousel', true );
+	public function testOnBeforePageDisplaySkipsCarouselWhenFewerThanMinImages(): void {
+		[ $skin, $output ] = $this->prepare( User::newFromName( 'HooksMobileCarouselUser' ) );
 
-		$prefs = [];
+		// Modules are still added, but no HTML is prepended
+		$output->expects( $this->once() )
+			->method( 'addModules' )
+			->with( [ 'mmv.carousel' ] );
+		$output->expects( $this->never() )
+			->method( 'prependHTML' );
 
-		$this->newHooksInstance()->onGetPreferences( User::newFromName( 'PreferenceTestUser' ), $prefs );
-
-		$this->assertArrayHasKey( 'disable_image_carousel', $prefs );
-		$this->assertSame( 'toggle', $prefs['disable_image_carousel']['type'] );
-		$this->assertSame(
-			'multimediaviewer-disable-image-carousel-pref',
-			$prefs['disable_image_carousel']['label-message']
-		);
-		$this->assertSame( 'rendering/files', $prefs['disable_image_carousel']['section'] );
-		$this->assertSame( 'toggle', $prefs['disable_image_carousel']['type'] );
-	}
-
-	public function testOnGetPreferencesSkipsDisableImageCarouselPreferenceWhenConfigDisabled(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileCarousel', false );
-
-		$prefs = [];
-
-		$this->newHooksInstance()->onGetPreferences( User::newFromName( 'PreferenceTestUser' ), $prefs );
-
-		$this->assertArrayHasKey( 'multimediaviewer-enable', $prefs );
-		$this->assertArrayNotHasKey( 'disable_image_carousel', $prefs );
-	}
-
-	public function testOnGetPreferencesAddsDisableImageCarouselPreferenceAsHiddenForNonMinerva(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileCarousel', true );
-
-		$prefs = [];
 		$hooks = $this->newHooksInstance();
-		$hooks->currentRequestSkinName = 'vector-2022';
+		// 2 images: below the MIN_CAROUSEL_IMAGES threshold of 3
+		$hooks->stubThumbs = [
+			self::makeFakeThumb( 'A' ),
+			self::makeFakeThumb( 'B' ),
+		];
 
-		$hooks->onGetPreferences( User::newFromName( 'PreferenceTestUser' ), $prefs );
-
-		$this->assertArrayHasKey( 'disable_image_carousel', $prefs );
-		$this->assertSame( 'hidden', $prefs['disable_image_carousel']['type'] );
+		$hooks->onBeforePageDisplay( $output, $skin );
 	}
 
-	public function testOnMakeGlobalVariablesScriptDisablesClicksWhenCarouselPreferenceIsSet(): void {
+	public function testOnMakeGlobalVariablesScriptSetsOnClickFalseWhenViewerDisabled(): void {
 		$user = $this->getTestUser()->getUser();
 		$userOptionsManager = $this->getServiceContainer()->getUserOptionsManager();
-		$userOptionsManager->setOption( $user, 'multimediaviewer-enable', 1 );
-		$userOptionsManager->setOption( $user, 'disable_image_carousel', 1 );
+		// Explicitly disable the viewer so shouldHandleClicks() returns false
+		$userOptionsManager->setOption( $user, 'multimediaviewer-enable', 0 );
 		$user->saveSettings();
 
 		$output = $this->createMock( OutputPage::class );
@@ -224,5 +168,20 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 		$this->newHooksInstance()->onMakeGlobalVariablesScript( $vars, $output );
 
 		$this->assertFalse( $vars['wgMediaViewerOnClick'] );
+	}
+
+	public function testOnMakeGlobalVariablesScriptSetsOnClickTrueWhenViewerEnabled(): void {
+		$user = $this->getTestUser()->getUser();
+		$userOptionsManager = $this->getServiceContainer()->getUserOptionsManager();
+		$userOptionsManager->setOption( $user, 'multimediaviewer-enable', 1 );
+		$user->saveSettings();
+
+		$output = $this->createMock( OutputPage::class );
+		$output->method( 'getUser' )->willReturn( $user );
+
+		$vars = [];
+		$this->newHooksInstance()->onMakeGlobalVariablesScript( $vars, $output );
+
+		$this->assertTrue( $vars['wgMediaViewerOnClick'] );
 	}
 }

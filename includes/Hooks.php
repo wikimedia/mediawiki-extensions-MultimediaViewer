@@ -27,6 +27,7 @@ use MediaWiki\Category\Category;
 use MediaWiki\Config\Config;
 use MediaWiki\Config\ConfigException;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Extension\BetaFeatures\BetaFeatures;
 use MediaWiki\Hook\GetDoubleUnderscoreIDsHook;
 use MediaWiki\Html\Html;
 use MediaWiki\MainConfigNames;
@@ -41,7 +42,6 @@ use MediaWiki\Page\Hook\CategoryPageViewHook;
 use MediaWiki\Page\PageProps;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Parser\ParserOutputLinkTypes;
-use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\ResourceLoader\Context;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderGetConfigVarsHook;
@@ -59,7 +59,6 @@ use Wikimedia\Parsoid\Utils\DOMUtils;
 class Hooks implements
 	MakeGlobalVariablesScriptHook,
 	UserGetDefaultOptionsHook,
-	GetPreferencesHook,
 	BeforePageDisplayHook,
 	CategoryPageViewHook,
 	ResourceLoaderGetConfigVarsHook,
@@ -68,8 +67,11 @@ class Hooks implements
 {
 	// Minimum number of images in a wiki page to enable the carousel.
 	private const MIN_CAROUSEL_IMAGES = 3;
-	private const DISABLE_IMAGE_CAROUSEL_PREFERENCE = 'disable_image_carousel';
 	private const DISABLE_MOBILE_CAROUSEL_BEHAVIOR_SWITCH = 'nomediaviewercarousel';
+	// Beta features key, used to populate a checkbox in the user's beta preferences.
+	// Must be registered in the production allowlist:
+	// https://github.com/wikimedia/operations-mediawiki-config/blob/22cee2b5dfc729e9dd49ae5cd878c7735f2bf66c/wmf-config/InitialiseSettings.php#L6532
+	public const BETA_FEATURES_KEY = 'multimediaviewer-beta';
 
 	public function __construct(
 		private readonly Config $config,
@@ -88,8 +90,6 @@ class Hooks implements
 		if ( $this->config->get( 'MediaViewerEnableByDefault' ) ) {
 			$defaultOptions['multimediaviewer-enable'] = 1;
 		}
-
-		$defaultOptions[self::DISABLE_IMAGE_CAROUSEL_PREFERENCE] = 0;
 	}
 
 	/**
@@ -99,7 +99,7 @@ class Hooks implements
 	 */
 	protected function shouldHandleClicks( User $performer ): bool {
 		if ( $this->isMobileFrontendView() &&
-			$this->userOptionsLookup->getBoolOption( $performer, self::DISABLE_IMAGE_CAROUSEL_PREFERENCE )
+			$this->isBetaFeatureEnabled( $performer )
 		) {
 			return false;
 		}
@@ -134,22 +134,19 @@ class Hooks implements
 		// The MobileFrontend extension provides its own implementation of MultimediaViewer.
 		// See https://phabricator.wikimedia.org/T65504 and subtasks for more details.
 		// To avoid loading MMV twice, we check the environment we are running in.
-		$user = $out->getUser();
-		$isMobileFrontendView = $this->isMobileFrontendView();
 		$modules = [];
 		if ( $this->shouldUseMobileCarousel( $out ) ) {
-			// mmv.carousel depends on mmv.bootstrap, so loading the carousel also loads bootstrap.
+			// Mobile + carousel: load mmv.carousel.
+			// mmv.bootstrap is a dependency, so it's included.
 			$modules[] = 'mmv.carousel';
 			$out->addModuleStyles( 'mmv.carousel.styles' );
-		} elseif ( $isMobileFrontendView ) {
-			$hasDisabledMobileCarousel = $this->userOptionsLookup->getBoolOption(
-				$user,
-				self::DISABLE_IMAGE_CAROUSEL_PREFERENCE
-			);
-			// On mobile without the carousel, only load the bootstrap when the beta
-			// flag is set to replace MobileFrontend's viewer. A user opt-out should
-			// suppress both the carousel shell and the beta viewer replacement.
-			if ( !$hasDisabledMobileCarousel && $out->getRequest()->getFuzzyBool( 'mmvBeta' ) ) {
+		} elseif ( $this->isMobileFrontendView() ) {
+			// Mobile, no carousel, beta viewer: load mmv.boostrap.
+			// The user must have opted into the beta feature.
+			if (
+				$this->isBetaFeatureEnabled( $out->getUser() ) &&
+				$out->getRequest()->getFuzzyBool( 'mmvBeta' )
+			) {
 				$modules[] = 'mmv.bootstrap';
 			}
 		} else {
@@ -164,28 +161,31 @@ class Hooks implements
 	/**
 	 * Whether the mobile carousel entrypoint should be used for this request.
 	 *
-	 * The carousel is only available in MobileFrontend mobile view when the
-	 * feature flag is enabled, the current user has not opted out in
-	 * preferences, and the page has not opted out via
-	 * __NOMEDIAVIEWERCAROUSEL__.
+	 * Conditions:
+	 *  - request is being served through MobileFrontend's mobile view
+	 *  - MediaViewerMobileCarousel config flag is enabled
+	 *  - current user has opted in via beta feature preferences
+	 *  - current page isn't excluded via __NOMEDIAVIEWERCAROUSEL__
 	 *
+	 * @param OutputPage $out
 	 * @return bool
 	 */
 	protected function shouldUseMobileCarousel( OutputPage $out ): bool {
-		if ( !$this->isMobileFrontendView() || !$this->config->get( 'MediaViewerMobileCarousel' ) ) {
+		if (
+			// Mobile view
+			!$this->isMobileFrontendView() ||
+			// Config flag
+			!$this->config->get( 'MediaViewerMobileCarousel' )
+		) {
 			return false;
 		}
 
-		$user = $out->getUser();
-		// Remaining opt-outs are per-user and per-page.
-		$hasDisabledCarouselPreference = $this->userOptionsLookup->getBoolOption(
-			$user,
-			self::DISABLE_IMAGE_CAROUSEL_PREFERENCE
+		return (
+			// Beta feature opt-in
+			$this->isBetaFeatureEnabled( $out->getUser() ) &&
+			// Page exclusion
+			!$this->isPageExcludedFromMobileCarousel( $out )
 		);
-		$pageExcludesCarousel = $this->isPageExcludedFromMobileCarousel( $out );
-
-		return !$hasDisabledCarouselPreference &&
-			!$pageExcludesCarousel;
 	}
 
 	/**
@@ -209,6 +209,23 @@ class Hooks implements
 			$title,
 			self::DISABLE_MOBILE_CAROUSEL_BEHAVIOR_SWITCH
 		) !== [];
+	}
+
+	/**
+	 * Whether the beta feature is enabled.
+	 *
+	 * Conditions:
+	 * - MediaViewerBetaFeature config flag is enabled
+	 * - BetaFeatures extension is loaded
+	 * - user has opted in
+	 *
+	 * @param User $user
+	 * @return bool
+	 */
+	protected function isBetaFeatureEnabled( User $user ): bool {
+		return $this->config->get( 'MediaViewerBetaFeature' ) &&
+			ExtensionRegistry::getInstance()->isLoaded( 'BetaFeatures' ) &&
+			BetaFeatures::isFeatureEnabled( $user, self::BETA_FEATURES_KEY );
 	}
 
 	/**
@@ -444,30 +461,6 @@ class Hooks implements
 			$out = $catPage->getContext()->getOutput();
 			$this->getModules( $out );
 		}
-	}
-
-	/**
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/GetPreferences
-	 * Adds a default-enabled preference to gate the feature
-	 * @param User $user
-	 * @param array &$prefs
-	 */
-	public function onGetPreferences( $user, &$prefs ) {
-		$prefs['multimediaviewer-enable'] = [
-			'type' => 'toggle',
-			'label-message' => 'multimediaviewer-optin-pref',
-			'section' => 'rendering/files',
-		];
-
-		if ( !$this->config->get( 'MediaViewerMobileCarousel' ) ) {
-			return;
-		}
-
-		$prefs[self::DISABLE_IMAGE_CAROUSEL_PREFERENCE] = [
-			'type' => $this->getCurrentRequestSkinName() === 'minerva' ? 'toggle' : 'hidden',
-			'label-message' => 'multimediaviewer-disable-image-carousel-pref',
-			'section' => 'rendering/files',
-		];
 	}
 
 	/**

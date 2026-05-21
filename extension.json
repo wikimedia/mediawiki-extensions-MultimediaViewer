@@ -424,13 +424,13 @@
 	},
 	"Hooks": {
 		"UserGetDefaultOptions": "main",
-		"GetPreferences": "main",
 		"BeforePageDisplay": "main",
 		"CategoryPageView": "main",
 		"GetDoubleUnderscoreIDs": "main",
 		"ResourceLoaderGetConfigVars": "main",
 		"MakeGlobalVariablesScript": "main",
-		"ThumbnailBeforeProduceHTML": "main"
+		"ThumbnailBeforeProduceHTML": "main",
+		"GetBetaFeaturePreferences": "betafeatures"
 	},
 	"HookHandlers": {
 		"main": {
@@ -443,6 +443,12 @@
 			],
 			"optional_services": [
 				"MobileFrontend.Context"
+			]
+		},
+		"betafeatures": {
+			"class": "MediaWiki\\Extension\\MultimediaViewer\\BetaFeatureHookHandler",
+			"services": [
+				"MainConfig"
 			]
 		}
 	},
@@ -544,6 +550,10 @@
 				"a.mw-file-description[href$=\":Noantimage.svg\"]",
 				"a.mw-file-description[href$=\":Nosnail.png\"]"
 			]
+		},
+		"MediaViewerBetaFeature": {
+			"description": "Enables opt-in via Beta feature preferences.",
+			"value": false
 		}
 	},
 	"manifest_version": 2
