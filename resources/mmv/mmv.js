@@ -133,6 +133,8 @@ class MultimediaViewer {
 			} );
 		}
 
+		// This is done again later by displayRealThumbnail(), but do it now as well
+		// to ensure icon positioning responds quickly when resizing.
 		this.ui.updateControls( this.currentIndex, this.thumbs.length );
 	}
 
@@ -264,6 +266,7 @@ class MultimediaViewer {
 
 	displayRealThumbnail( thumbnail ) {
 		this.ui.canvas.setImageAndMaxDimensions( thumbnail );
+		this.ui.updateControls( this.currentIndex, this.thumbs.length );
 	}
 
 	/**
