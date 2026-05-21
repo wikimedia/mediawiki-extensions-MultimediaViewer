@@ -213,6 +213,7 @@
 				"mediawiki.widgets"
 			],
 			"messages": [
+				"multimediaviewer-carousel-label",
 				"multimediaviewer-copy-button",
 				"multimediaviewer-default-embed-dimensions",
 				"multimediaviewer-original-embed-dimensions",

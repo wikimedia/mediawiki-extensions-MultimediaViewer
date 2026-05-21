@@ -327,7 +327,7 @@ class Hooks implements
 	 * {@link buildCarouselItems}.
 	 *
 	 * @param array<array{title:Title,thumb:Element}> $thumbData
-	 * @return array[] Each item has keys: title, href, src, srcset, width, height, alt
+	 * @return array[] Each item has keys: title, href, src, srcset, width, height, alt, label
 	 */
 	private function mapForCarousel( array $thumbData ): array {
 		$result = [];
@@ -348,6 +348,11 @@ class Hooks implements
 				'width' => $thumb->getAttribute( 'width' ),
 				'height' => $thumb->getAttribute( 'height' ),
 				'alt' => $thumb->getAttribute( 'alt' ),
+				// Fallback for aria-label when alt text is absent:
+				// strip extension and replace underscores with spaces.
+				'label' => str_replace( '_', ' ',
+					preg_replace( '/\.[^.]+$/', '', $item['title']->getText() )
+				),
 			];
 		}
 		return array_values( $result );
@@ -356,7 +361,7 @@ class Hooks implements
 	/**
 	 * Build the HTML for carousel thumbnail items.
 	 *
-	 * @param array[] $thumbData Each thumb has keys: title, href, src, srcset, width, height, alt
+	 * @param array[] $thumbData Each thumb has keys: title, href, src, srcset, width, height, alt, label
 	 * @return string
 	 */
 	private function buildCarouselItems( array $thumbData ): string {
@@ -374,6 +379,10 @@ class Hooks implements
 					[
 						'href' => $data['href'],
 						'class' => 'mmv-carousel__item-link mw-file-description',
+						// Give each link an explicit accessible name. Reuse the
+						// image alt text when present, otherwise fall back to the
+						// cleaned-up filename.
+						'aria-label' => $data['alt'] !== '' ? $data['alt'] : ( $data['label'] ?? false ),
 					],
 					Html::element(
 						'img',
@@ -397,30 +406,51 @@ class Hooks implements
 	 * Build the server-rendered carousel shell so the client module can
 	 * progressively enhance it.
 	 * @param array[] $thumbData carousel thumbnails
+	 * @param string $pageTitle display title of the page, used in the carousel's accessible label
 	 * @return string
 	 */
-	private function buildCarouselHtml( array $thumbData ): string {
+	private function buildCarouselHtml( array $thumbData, string $pageTitle ): string {
 		$itemsHtml = $this->buildCarouselItems( $thumbData );
 
 		return Html::rawElement(
 			'div',
 			[
 				'id' => 'mmv-carousel-root',
-				'class' => 'mw-mmv-wrapper mmv-carousel',
-				'data-mmv-carousel' => ' ',
+				'class' => 'mw-mmv-wrapper mmv-carousel'
 			],
 			Html::rawElement(
-				'div',
-				[ 'class' => 'mmv-carousel__viewport' ],
-				Html::rawElement(
-					'ul',
-					[
-						'class' => 'mmv-carousel__items'
-					],
-					$itemsHtml
-				)
+				'ul',
+				[
+					'class' => 'mmv-carousel__items',
+					'aria-label' => $this->getCarouselLabel( $pageTitle, count( $thumbData ) ),
+					// Explicit role preserves list semantics when list-style:none
+					// causes some browsers to strip them.
+					'role' => 'list',
+				],
+				$itemsHtml
 			)
 		);
+	}
+
+	/**
+	 * Build the accessible label for the carousel's list container.
+	 *
+	 * Keep the article title when available, and only fall back to a generic
+	 * noun when the title is empty. The item count is already known and cheap
+	 * to include, so always expose it.
+	 *
+	 * @param string $pageTitle
+	 * @param int $itemCount
+	 * @return string
+	 */
+	private function getCarouselLabel( string $pageTitle, int $itemCount ): string {
+		$labelTitle = trim( $pageTitle ) !== ''
+			? $pageTitle
+			: wfMessage( 'multimediaviewer-carousel-label-article' )->text();
+
+		return wfMessage( 'multimediaviewer-carousel-label', $labelTitle )
+			->numParams( $itemCount )
+			->text();
 	}
 
 	/**
@@ -443,7 +473,7 @@ class Hooks implements
 			if ( $this->shouldUseMobileCarousel( $out ) ) {
 				$thumbData = $this->extractImages( $out );
 				if ( count( $thumbData ) >= self::MIN_CAROUSEL_IMAGES ) {
-					$out->prependHTML( $this->buildCarouselHtml( $thumbData ) );
+					$out->prependHTML( $this->buildCarouselHtml( $thumbData, $out->getTitle()->getText() ) );
 				}
 			}
 		}
