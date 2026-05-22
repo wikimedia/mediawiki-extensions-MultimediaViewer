@@ -98,12 +98,6 @@ class Hooks implements
 	 * @return bool
 	 */
 	protected function shouldHandleClicks( User $performer ): bool {
-		if ( $this->isMobileFrontendView() &&
-			$this->isBetaFeatureEnabled( $performer )
-		) {
-			return false;
-		}
-
 		if ( $performer->isNamed() ) {
 			return (bool)$this->userOptionsLookup->getOption( $performer, 'multimediaviewer-enable' );
 		}
