@@ -26,6 +26,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	): Hooks {
 		$hooks = new class(
 			$this->getServiceContainer()->getMainConfig(),
+			$this->getServiceContainer()->getRepoGroup(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
 			$this->getServiceContainer()->getPageProps(),
@@ -74,6 +75,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$method = new \ReflectionMethod( Hooks::class, 'extractCarouselImageElements' );
 		$hooks = new Hooks(
 			$this->getServiceContainer()->getMainConfig(),
+			$this->getServiceContainer()->getRepoGroup(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
 			$this->getServiceContainer()->getPageProps(),

@@ -28,12 +28,12 @@ use MediaWiki\Config\Config;
 use MediaWiki\Config\ConfigException;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\BetaFeatures\BetaFeatures;
+use MediaWiki\FileRepo\RepoGroup;
 use MediaWiki\Hook\GetDoubleUnderscoreIDsHook;
 use MediaWiki\Html\Html;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Media\Hook\ThumbnailBeforeProduceHTMLHook;
 use MediaWiki\Media\ThumbnailImage;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\Hook\BeforePageDisplayHook;
 use MediaWiki\Output\Hook\MakeGlobalVariablesScriptHook;
 use MediaWiki\Output\OutputPage;
@@ -82,6 +82,7 @@ class Hooks implements
 
 	public function __construct(
 		private readonly Config $config,
+		private readonly RepoGroup $repoGroup,
 		private readonly SpecialPageFactory $specialPageFactory,
 		private readonly UserOptionsLookup $userOptionsLookup,
 		private readonly PageProps $pageProps,
@@ -363,7 +364,7 @@ class Hooks implements
 			foreach ( $parserOutput->getLinkList( ParserOutputLinkTypes::MEDIA ) as $medium ) {
 				$fileNames[] = $medium['link']->getText();
 			}
-			$files = MediaWikiServices::getInstance()->getRepoGroup()->findFiles( $fileNames );
+			$files = $this->repoGroup->findFiles( $fileNames );
 
 			$carouselItems = array_values( array_filter(
 				$carouselItems,
