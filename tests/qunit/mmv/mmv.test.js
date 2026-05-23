@@ -1,16 +1,11 @@
-const { MultimediaViewer } = require( 'mmv' );
 const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
-const { MultimediaViewerBootstrap, LightboxImage } = require( 'mmv.bootstrap' );
+const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
 const router = require( 'mediawiki.router' );
-const config = require( 'mmv/mmv/config.json' );
 
 QUnit.module( 'mmv', QUnit.newMwEnvironment( {
 	beforeEach: function () {
 		// prevent a real "back" navigation from taking place
 		this.sandbox.stub( router, 'back' );
-
-		// T277470: Apply consistent $wgMediaViewerUseThumbnailGuessing=false default
-		sinon.replace( config, 'useThumbnailGuessing', false );
 	},
 	afterEach: function () {
 		router.resetForTest();
@@ -35,8 +30,7 @@ QUnit.test( 'New image loaded while another one is loading', async function ( as
 	};
 	const clock = this.sandbox.useFakeTimers();
 
-	viewer.fetchSizeIndependentLightboxInfo = this.sandbox.stub();
-	viewer.fetchThumbnail = this.sandbox.stub();
+	viewer.fetchImageInfo = this.sandbox.stub();
 	viewer.ui = {
 		setFileReuseData: function () {},
 		setupForLoad: function () {},
@@ -64,14 +58,12 @@ QUnit.test( 'New image loaded while another one is loading', async function ( as
 	viewer.preloadImagesMetadata = function () {};
 	viewer.imageInfoProvider.get = () => $.Deferred().reject( {} );
 
-	viewer.fetchThumbnail.returns( firstImageDeferred.promise() );
-	viewer.fetchSizeIndependentLightboxInfo.returns( firstLightboxInfoDeferred.promise() );
+	viewer.fetchImageInfo.returns( firstLightboxInfoDeferred.promise() );
 	viewer.loadImage( firstImage );
 	clock.tick( 10 );
 	assert.strictEqual( viewer.ui.panel.setImageInfo.called, false, 'Metadata of the first image should not be shown' );
 
-	viewer.fetchThumbnail.returns( secondImageDeferred.promise() );
-	viewer.fetchSizeIndependentLightboxInfo.returns( secondLightboxInfoDeferred.promise() );
+	viewer.fetchImageInfo.returns( secondLightboxInfoDeferred.promise() );
 	viewer.loadImage( secondImage );
 	clock.tick( 10 );
 
@@ -113,7 +105,6 @@ QUnit.test( 'Events are not trapped after the viewer is closed', function ( asse
 	viewer.setupEventHandlers();
 
 	viewer.imageInfoProvider.get = () => $.Deferred().reject();
-	viewer.thumbnailInfoProvider.get = () => $.Deferred().reject();
 
 	viewer.initWithThumbs( [] );
 
@@ -192,114 +183,6 @@ QUnit.test( 'Viewer is closed when navigating to #foo/bar/baz (page section incl
 	assert.false( viewer.isOpen, 'The viewer was closed' );
 	location.hash = '#';
 	bootstrap.cleanupEventHandlers();
-} );
-
-QUnit.test.each( 'Refuse to load too-big thumbnail', {
-	'thumb for non-vector image should be capped to original size': {
-		thumb: $( '<img>' ).attr( {
-			src: 'https://example.test/images/0/0a/Foobar.png',
-			width: 200,
-			height: 150,
-			'data-file-width': '800',
-			'data-file-height': '600'
-		} )[ 0 ],
-		expected: 800
-	},
-	'thumb for vector image can be larger': {
-		thumb: $( '<img>' ).attr( {
-			src: 'https://example.test/images/thumb/1/1b/Foobar.svg/200px-Foobar.svg',
-			width: 200,
-			height: 150,
-			'data-file-width': '800',
-			'data-file-height': '600'
-		} )[ 0 ],
-		expected: 1000
-	}
-
-}, ( assert, { thumb, expected } ) => {
-	const viewer = getMultimediaViewer();
-
-	let actualWidth;
-	viewer.thumbnailInfoProvider.get = function ( fileTitle, sampleUrl, width ) {
-		actualWidth = width;
-		return $.Deferred().reject();
-	};
-
-	const image = new LightboxImage(
-		thumb.src,
-		mw.Title.newFromImg( thumb ),
-		0,
-		1,
-		thumb,
-		'My caption'
-	);
-	viewer.fetchThumbnail( image, 1000 );
-	assert.strictEqual( actualWidth, expected, 'actual width' );
-} );
-
-QUnit.test.each( 'fetchThumbnail()', {
-	'cannot guess falls back to API': {
-		sampleURL: 'https://example.test/thumb/8/8b/Copyleft.svg/300_guess_fail_no_px.png',
-		callCount: {
-			guessedThumbnailInfo: 1,
-			imageinfoApi: 1
-		},
-		expectedUrl: 'apiURL'
-	},
-	'guessed URL is used': {
-		sampleURL: 'https://example.test/thumb/8/8b/Copyleft.svg/300px-Copyleft.svg.png',
-		callCount: {
-			guessedThumbnailInfo: 1,
-			imageinfoApi: 0
-		},
-		expectedUrl: 'https://example.test/thumb/8/8b/Copyleft.svg/600px-Copyleft.svg.png'
-	},
-	'with useThumbnailGuessing=false the API is used directly': {
-		useThumbnailGuessing: false,
-		sampleURL: 'https://example.test/thumb/8/8b/Copyleft.svg/300px-Copyleft.svg.png',
-		callCount: {
-			guessedThumbnailInfo: 0,
-			imageinfoApi: 1
-		},
-		expectedUrl: 'apiURL'
-	}
-}, ( assert, fixture ) => {
-	config.useThumbnailGuessing = fixture.useThumbnailGuessing ?? true;
-	const clock = sinon.useFakeTimers();
-	const viewer = new MultimediaViewer( {
-		language: function () {}
-	} );
-	const guessedThumbnailInfoStub = sinon.spy( viewer.guessedThumbnailInfoProvider, 'get' );
-	const thumbnailInfoStub = viewer.thumbnailInfoProvider.get = sinon.stub()
-		.returns( $.Deferred().resolve( { url: 'apiURL' } ) );
-
-	const thumb = $( '<img>' ).attr( {
-		src: fixture.sampleURL,
-		width: 300,
-		height: 300,
-		'data-file-width': '1000',
-		'data-file-height': '1000'
-	} )[ 0 ];
-	const image = new LightboxImage(
-		thumb.getAttribute( 'src' ),
-		new mw.Title( 'File:Copyleft.svg' ),
-		0,
-		1,
-		thumb,
-		'My caption'
-	);
-	let resolvedThumbnail;
-	viewer.fetchThumbnail( image, 600 ).then( ( thumbnail ) => {
-		resolvedThumbnail = thumbnail;
-	} );
-
-	clock.tick( 10 );
-	assert.propEqual( {
-		guessedThumbnailInfo: guessedThumbnailInfoStub.callCount,
-		imageinfoApi: thumbnailInfoStub.callCount
-	}, fixture.callCount, 'call counts' );
-	assert.strictEqual( resolvedThumbnail.url, fixture.expectedUrl, 'thumbnail URL' );
-	clock.restore();
 } );
 
 QUnit.test( 'document.title', function ( assert ) {

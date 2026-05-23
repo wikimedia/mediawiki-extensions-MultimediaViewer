@@ -20,12 +20,9 @@ const {
 	HtmlUtils,
 	notifyTitleNotFound,
 	Api,
-	GuessedThumbnailInfo,
 	ImageInfo,
-	ThumbnailInfo,
 	ImageModel,
 	License,
-	Thumbnail,
 	ThumbnailWidth,
 	ThumbnailWidthCalculator
 } = require( 'mmv.common' );
@@ -51,7 +48,6 @@ const router = require( 'mediawiki.router' );
  */
 class MultimediaViewer {
 	constructor() {
-		const apiCacheMaxAge = 86400; // one day (24 hours * 60 min * 60 sec)
 		const apiCacheFiveMinutes = 300; // 5 min * 60 sec
 		const api = new mw.Api();
 
@@ -63,19 +59,6 @@ class MultimediaViewer {
 			language: Config.language(),
 			maxage: apiCacheFiveMinutes
 		} );
-
-		/**
-		 * @type {ThumbnailInfo}
-		 * @private
-		 */
-		this.thumbnailInfoProvider = new ThumbnailInfo( api,
-			{ maxage: apiCacheMaxAge } );
-
-		/**
-		 * @type {ThumbnailInfo}
-		 * @private
-		 */
-		this.guessedThumbnailInfoProvider = new GuessedThumbnailInfo();
 
 		/**
 		 * Image index on page.
@@ -128,13 +111,9 @@ class MultimediaViewer {
 		const image = this.thumbs[ this.currentIndex ];
 
 		if ( image ) {
-			const imageWidths = this.ui.canvas.getCurrentImageWidths();
-
-			const thumbnailPromise = this.fetchThumbnail( image, imageWidths.real );
-			thumbnailPromise.then( ( thumbnail ) => {
-				this.displayRealThumbnail( thumbnail );
-			}, ( error ) => {
-				this.ui.canvas.showError( error );
+			const imageInfoPromise = this.fetchImageInfo( image.filePageTitle );
+			imageInfoPromise.then( ( imageInfo ) => {
+				this.displayRealThumbnail( imageInfo );
 			} );
 		}
 
@@ -185,55 +164,41 @@ class MultimediaViewer {
 		this.preloadImagesMetadata();
 		this.ui.canvas.set( image, $initialImage );
 
-		const imageWidths = this.ui.canvas.getCurrentImageWidths();
-
-		const thumbnailPromise = this.fetchThumbnail( image, imageWidths.real );
-
-		const metadataPromise = this.fetchSizeIndependentLightboxInfo( image.filePageTitle );
+		const imageInfoPromise = this.fetchImageInfo( image.filePageTitle );
 
 		this.displayPlaceholderThumbnail( image, $initialImage );
 
-		thumbnailPromise.then(
-			// done
-			( thumbnail ) => {
-				if ( this.currentIndex !== image.index ) {
-					return;
-				}
+		if ( this.currentIndex !== image.index ) {
+			return;
+		}
 
-				$.when( metadataPromise, pluginsPromise ).then( ( imageInfo ) => {
-					$( document ).trigger( $.Event( 'mmv-metadata', { viewer: this, image, imageInfo } ) );
-				} );
+		$.when( imageInfoPromise, pluginsPromise ).then( ( imageInfo ) => {
+			$( document ).trigger( $.Event( 'mmv-metadata', { viewer: this, image, imageInfo } ) );
+		} );
 
-				const initialImageLoaded = new Promise( ( resolve ) => {
-					if ( $initialImage.prop( 'complete' ) || avoidBlowup ) {
-						resolve();
-					} else {
-						$initialImage.one( 'load', resolve );
-					}
-				} );
-				// Swapping the HTMLImageElement.src after the small image has loaded ensures that
-				// the larger image one is only being displayed once it has been loaded.
-				initialImageLoaded.then( () => {
-					if ( this.currentIndex !== image.index ) {
-						return;
-					}
-					this.displayRealThumbnail( thumbnail );
-					$initialImage.removeClass( 'mw-mmv-placeholder-image' );
-					if ( avoidBlowup ) {
-						$initialImage.show();
-					}
-					this.viewLogger.attach( thumbnail.url );
-
-				} );
-			},
-			// fail
-			( error ) => {
-				this.ui.canvas.showError( error );
-				return $.Deferred().reject( error );
+		const initialImageLoaded = new Promise( ( resolve ) => {
+			if ( $initialImage.prop( 'complete' ) || avoidBlowup ) {
+				resolve();
+			} else {
+				$initialImage.one( 'load', resolve );
 			}
-		);
+		} );
+		// Swapping the HTMLImageElement.src after the small image has loaded ensures that
+		// the larger image one is only being displayed once it has been loaded.
+		$.when( imageInfoPromise, initialImageLoaded ).then( ( imageInfo ) => {
+			if ( this.currentIndex !== image.index ) {
+				return;
+			}
+			this.displayRealThumbnail( imageInfo );
+			$initialImage.removeClass( 'mw-mmv-placeholder-image' );
+			if ( avoidBlowup ) {
+				$initialImage.show();
+			}
+			this.viewLogger.attach( imageInfo.url );
 
-		metadataPromise.then(
+		} );
+
+		imageInfoPromise.then(
 			// done
 			( imageInfo ) => {
 				if ( this.currentIndex !== image.index ) {
@@ -244,6 +209,8 @@ class MultimediaViewer {
 
 				// File reuse steals a bunch of information from the DOM, so do it last
 				this.ui.setFileReuseData( imageInfo, image.caption, image.alt );
+
+				this.ui.panel.scroller.animateMetadataOnce();
 			},
 			// fail
 			( error ) => {
@@ -258,18 +225,10 @@ class MultimediaViewer {
 				return $.Deferred().reject( error );
 			}
 		);
-
-		$.when( thumbnailPromise, metadataPromise ).then( () => {
-			if ( this.currentIndex !== image.index ) {
-				return;
-			}
-
-			this.ui.panel.scroller.animateMetadataOnce();
-		} );
 	}
 
-	displayRealThumbnail( thumbnail ) {
-		this.ui.canvas.setImageAndMaxDimensions( thumbnail );
+	displayRealThumbnail( imageInfo ) {
+		this.ui.canvas.setImageAndMaxDimensions( imageInfo );
 		this.ui.updateControls( this.currentIndex, this.thumbs.length );
 	}
 
@@ -349,7 +308,7 @@ class MultimediaViewer {
 		const next = this.currentIndex + 1;
 		[ current, next ].filter( ( i ) => i < this.thumbs.length ).forEach( ( i ) => {
 			const lightboxImage = this.thumbs[ i ];
-			this.fetchSizeIndependentLightboxInfo( lightboxImage.filePageTitle );
+			this.fetchImageInfo( lightboxImage.filePageTitle );
 		} );
 	}
 
@@ -360,41 +319,8 @@ class MultimediaViewer {
 	 * @param {mw.Title} fileTitle Title of the file page for the image.
 	 * @return {jQuery.Promise.<ImageModel>}
 	 */
-	fetchSizeIndependentLightboxInfo( fileTitle ) {
+	fetchImageInfo( fileTitle ) {
 		return this.imageInfoProvider.get( fileTitle );
-	}
-
-	/**
-	 * Loads size-dependent components of a lightbox - the thumbnail model and the image itself.
-	 *
-	 * @param {LightboxImage} image This must have
-	 *  - mw.Title `filePageTitle`
-	 *  - string `src`
-	 *  - number `originalWidth` (might be missing/NaN)
-	 *  - number `originalHeight` (might be missing/NaN)
-	 * @param {number} width The width of the requested thumbnail
-	 * @return {jQuery.Promise.<Thumbnail>} A promise resolving to
-	 *  a thumbnail model.
-	 */
-	fetchThumbnail( image, width ) {
-		const fileTitle = image.filePageTitle;
-		const sampleUrl = image.src;
-		const originalWidth = image.originalWidth;
-		const originalHeight = image.originalHeight;
-
-		if ( fileTitle.getExtension().toLowerCase() !== 'svg' && originalWidth && width > originalWidth ) {
-			// Do not request images larger than the original image
-			width = originalWidth;
-		}
-
-		if ( originalWidth && originalHeight && config.useThumbnailGuessing ) {
-			return this.guessedThumbnailInfoProvider.get(
-				fileTitle, sampleUrl, width, originalWidth, originalHeight
-			).catch( () => this.thumbnailInfoProvider.get( fileTitle, sampleUrl, width ) );
-			// FIXME what if the guessed thumbnail is incorrect?
-		} else {
-			return this.thumbnailInfoProvider.get( fileTitle, sampleUrl, width );
-		}
 	}
 
 	/**
@@ -520,13 +446,6 @@ class MultimediaViewer {
 	 */
 
 	/**
-	 * Used by components to request a thumbnail URL for the current thumbnail, with a given size.
-	 *
-	 * @event MultimediaViewer#mmv-request-thumbnail
-	 * @param {number} size
-	 */
-
-	/**
 	 * Registers all event handlers
 	 */
 	setupEventHandlers() {
@@ -541,12 +460,6 @@ class MultimediaViewer {
 			this.close();
 		} ).on( 'mmv-resize-end.mmvp', () => {
 			this.resize();
-		} ).on( 'mmv-request-thumbnail.mmvp', ( e, size ) => {
-			if ( this.currentImage && this.currentImage.filePageTitle ) {
-				return this.thumbnailInfoProvider.get( this.currentImage.filePageTitle, this.currentImage.src, size );
-			} else {
-				return $.Deferred().reject();
-			}
 		} ).on( 'mmv-viewfile.mmvp', () => {
 			this.imageInfoProvider.get( this.currentImage.filePageTitle ).then( ( imageInfo ) => {
 				document.location = imageInfo.url;
@@ -584,7 +497,6 @@ module.exports = {
 	CanvasButtons,
 	Description,
 	Dialog,
-	GuessedThumbnailInfo,
 	HtmlUtils,
 	ImageInfo,
 	ImageModel,
@@ -595,8 +507,6 @@ module.exports = {
 	MultimediaViewer,
 	Permission,
 	StripeButtons,
-	Thumbnail,
-	ThumbnailInfo,
 	ThumbnailWidth,
 	ThumbnailWidthCalculator,
 	TruncatableTextField,

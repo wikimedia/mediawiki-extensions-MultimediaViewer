@@ -16,11 +16,26 @@
  */
 
 const { ReuseDialog } = require( 'mmv.ui.reuse' );
+const { ImageModel } = require( 'mmv' );
+const { fixtures } = require( '../mmv.testhelpers.js' );
 
 function makeReuseDialog( sandbox ) {
 	const $fixture = $( '#qunit-fixture' );
 	const config = { getFromLocalStorage: sandbox.stub(), setInLocalStorage: sandbox.stub() };
 	return new ReuseDialog( $fixture, $( '<div>' ).appendTo( $fixture ), config );
+}
+
+function makeImage( extmetadata ) {
+	return new ImageModel(
+		mw.Title.newFromText( 'File:Foobar.jpg' ),
+		fixtures.imageinfoApi.makeBasic( {
+			url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
+			descriptionurl: 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
+			width: 100,
+			height: 80,
+			extmetadata
+		} )
+	);
 }
 
 QUnit.module( 'mmv.ui.reuse.Dialog', QUnit.newMwEnvironment() );
@@ -132,16 +147,7 @@ QUnit.test( 'start/stopListeningToOutsideClick():', function ( assert ) {
 QUnit.test( 'set()/empty() sense check:', function ( assert ) {
 	const reuseDialog = makeReuseDialog( this.sandbox );
 	reuseDialog.embed.resetCurrentSizeMenuToDefault = () => {};
-	const title = mw.Title.newFromText( 'File:Foobar.jpg' );
-	const src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
-	const url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg';
-	const image = { // fake ImageModel
-		title: title,
-		url: src,
-		descriptionUrl: url,
-		width: 100,
-		height: 80
-	};
+	const image = makeImage();
 	reuseDialog.set( image, 'caption' );
 	reuseDialog.empty();
 
@@ -151,16 +157,7 @@ QUnit.test( 'set()/empty() sense check:', function ( assert ) {
 QUnit.test( 'openDialog()/closeDialog():', function ( assert ) {
 	const reuseDialog = makeReuseDialog( this.sandbox );
 	reuseDialog.embed.resetCurrentSizeMenuToDefault = () => {};
-	const title = mw.Title.newFromText( 'File:Foobar.jpg' );
-	const src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
-	const url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg';
-	const image = { // fake ImageModel
-		title: title,
-		url: src,
-		descriptionUrl: url,
-		width: 100,
-		height: 80
-	};
+	const image = makeImage();
 
 	reuseDialog.set( image, 'caption' );
 	reuseDialog.setValues = undefined;
@@ -178,17 +175,8 @@ QUnit.test( 'openDialog()/closeDialog():', function ( assert ) {
 
 QUnit.test( 'getImageWarnings():', function ( assert ) {
 	const reuseDialog = makeReuseDialog( this.sandbox );
-	const title = mw.Title.newFromText( 'File:Foobar.jpg' );
-	const src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
-	const url = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg';
-	const image = { // fake ImageModel
-		title: title,
-		url: src,
-		descriptionUrl: url,
-		width: 100,
-		height: 80
-	};
-	const imageDeleted = Object.assign( { deletionReason: 'deleted file test' }, image );
+	const image = makeImage();
+	const imageDeleted = makeImage( { DeletionReason: { value: 'deleted file test' } } );
 
 	// Test that the lack of license is picked up
 	assert.strictEqual( reuseDialog.getImageWarnings( image ).length, 1, 'Lack of license detected' );

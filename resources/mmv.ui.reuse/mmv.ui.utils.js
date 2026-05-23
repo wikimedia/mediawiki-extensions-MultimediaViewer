@@ -92,23 +92,6 @@ class Utils {
 	}
 
 	/**
-	 * Gets a promise for the large thumbnail URL. This is needed because thumbnail URLs cannot
-	 * be reliably guessed, even if we know the full size of the image - most of the time replacing
-	 * the size in another thumbnail URL works (as long as the new size is not larger than the full
-	 * size), but if the file name is very long and with the larger size the URL length would
-	 * exceed a certain threshold, a different schema is used instead.
-	 *
-	 * @param {number} width
-	 *
-	 * @fires MultimediaViewer#mmv-request-thumbnail
-	 * @return {jQuery.Promise.<string>}
-	 */
-	static getThumbnailUrlPromise( width ) {
-		return $( document ).triggerHandler( 'mmv-request-thumbnail', width ) ||
-			$.Deferred().reject();
-	}
-
-	/**
 	 * Updates the select options based on calculated sizes.
 	 *
 	 * @private

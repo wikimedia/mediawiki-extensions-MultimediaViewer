@@ -113,13 +113,17 @@ class Canvas extends UiElement {
 	 * Resizes image to the given dimensions and displays it on the canvas.
 	 * This is used to display the actual image; it assumes set function was already called before.
 	 *
-	 * @param {Thumbnail} thumbnail thumbnail information
+	 * @param {ImageModel} imageInfo thumbnail information
 	 */
-	setImageAndMaxDimensions( thumbnail ) {
+	setImageAndMaxDimensions( imageInfo ) {
+		const srcset = Object.values( imageInfo.thumburls || {} )
+			.map( ( { url, width } ) => `${ url } ${ width }w` );
+
 		this.$image
-			.removeAttr( 'srcset' )
 			.removeAttr( 'decoding' ) // unsetting decoding=async avoids flicker when swapping img.src
-			.attr( 'src', thumbnail.url );
+			.attr( 'data-url', imageInfo.url )
+			.attr( 'sizes', 'auto' )
+			.attr( 'srcset', srcset.join() );
 		const imageLoaded = new Promise( ( resolve ) => {
 			if ( this.$image.prop( 'complete' ) ) {
 				resolve();
@@ -128,7 +132,7 @@ class Canvas extends UiElement {
 			}
 		} );
 		imageLoaded.then( () => {
-			if ( this.$image.attr( 'src' ) === thumbnail.url ) {
+			if ( this.$image.attr( 'data-url' ) === imageInfo.url ) {
 				const imageWidths = this.getCurrentImageWidths();
 				this.$image.width( imageWidths.cssWidth );
 				this.$image.height( imageWidths.cssHeight );

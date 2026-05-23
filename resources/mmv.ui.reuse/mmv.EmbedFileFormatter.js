@@ -129,7 +129,7 @@ class EmbedFileFormatter {
 	 * @return {string}
 	 */
 	getCreditHtml( imageInfo ) {
-		const shortURL = imageInfo.descriptionShortUrl;
+		const shortURL = imageInfo.descriptionShortUrl || '';
 		const shortLink = HtmlUtils.makeLinkText( mw.message( 'multimediaviewer-html-embed-credit-link-text' ), { href: shortURL } );
 		const license = imageInfo.license;
 		const byline = this.getByline( imageInfo.author, imageInfo.source, imageInfo.attribution );

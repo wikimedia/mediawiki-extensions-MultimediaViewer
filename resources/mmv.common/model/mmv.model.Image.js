@@ -81,6 +81,13 @@ class ImageModel {
 		return this.innerInfo.descriptionshorturl;
 	}
 
+	/**
+	 * @return {Object} An object indexed by image widths with URLs to appropriately sized thumbnails
+	 */
+	get thumburls() {
+		return this.innerInfo.thumburls;
+	}
+
 	/** @return {number} ID of the description page for the image */
 	get pageID() {
 		return this.imageInfo.pageid;
@@ -184,14 +191,6 @@ class ImageModel {
 	}
 
 	/**
-	 * @return {Object} An object indexed by image widths with URLs to appropriately sized thumbnails
-	 */
-	get thumbUrls() {
-		const inner = this.innerInfo;
-		return inner.thumburl ? { [ inner.thumbwidth ]: inner.thumburl } : {};
-	}
-
-	/**
 	 * Reads and parses a value from the imageinfo API extmetadata field.
 	 *
 	 * @param {Array} data
@@ -245,6 +244,22 @@ class ImageModel {
 			return value === '' ? [] : value.split( '|' );
 		}
 		throw new Error( 'Image.parseExtmeta: unknown type' );
+	}
+
+	/**
+	 * Returns the URL of the smallest available thumbnail at least as wide as the requested
+	 * width. The imageinfo API provides URLs for all supported thumbnail sizes in
+	 * {@link ImageModel#thumburls}, so no separate request is needed. When no thumbnail is wide
+	 * enough (or none are available), the full-size original URL is returned.
+	 *
+	 * @param {number} width
+	 * @return {string}
+	 */
+	getThumbnailUrl( width ) {
+		const thumbnail = Object.values( this.thumburls || {} )
+			.sort( ( a, b ) => a.width - b.width )
+			.find( ( candidate ) => candidate.width >= width );
+		return thumbnail ? thumbnail.url : this.url;
 	}
 }
 

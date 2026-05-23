@@ -351,7 +351,7 @@ class MultimediaViewerBootstrap {
 		}
 
 		const image = new LightboxImage(
-			// T422586: If 2x srcset is used, pass that to to GuessedThumbnailInfo instead
+			// T422586: If 2x srcset is used, pass that as the sample thumbnail URL
 			$thumb.prop( 'currentSrc' ) || $thumb.prop( 'src' ),
 			title,
 			this.thumbs.length,
@@ -399,7 +399,7 @@ class MultimediaViewerBootstrap {
 		}
 
 		const image = new LightboxImage(
-			// T422586: If 2x srcset is used, pass that to to GuessedThumbnailInfo instead
+			// T422586: If 2x srcset is used, pass that as the sample thumbnail URL
 			$thumb.prop( 'currentSrc' ) || $thumb.prop( 'src' ),
 			title,
 			this.thumbs.length,

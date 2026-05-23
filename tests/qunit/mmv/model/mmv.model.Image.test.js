@@ -115,7 +115,36 @@ QUnit.test( 'constructor + getters', ( assert ) => {
 		longName: 'Creative Commons Zero',
 		attributionRequired: false
 	}, 'License object' );
-	assert.true( $.isPlainObject( imageData.thumbUrls ), 'Thumb URL cache is set up properly' );
+} );
+
+QUnit.test( 'getThumbnailUrl()', ( assert ) => {
+	const originalUrl = 'https://upload.wikimedia.org/original.jpg';
+	const imageData = new ImageModel(
+		mw.Title.newFromText( 'File:Foo.jpg' ),
+		fixtures.imageinfoApi.makeBasic( {
+			url: originalUrl,
+			thumburls: {
+				320: { url: 'https://upload.wikimedia.org/320.jpg', width: 320 },
+				800: { url: 'https://upload.wikimedia.org/800.jpg', width: 800 }
+			}
+		} )
+	);
+
+	assert.strictEqual( imageData.getThumbnailUrl( 300 ),
+		'https://upload.wikimedia.org/320.jpg', 'Smallest thumbnail at least as wide is returned' );
+	assert.strictEqual( imageData.getThumbnailUrl( 320 ),
+		'https://upload.wikimedia.org/320.jpg', 'Exact width match is returned' );
+	assert.strictEqual( imageData.getThumbnailUrl( 500 ),
+		'https://upload.wikimedia.org/800.jpg', 'Next larger thumbnail is returned' );
+	assert.strictEqual( imageData.getThumbnailUrl( 1000 ), originalUrl,
+		'Original URL is returned when no thumbnail is wide enough' );
+
+	const noThumbs = new ImageModel(
+		mw.Title.newFromText( 'File:Foo.jpg' ),
+		fixtures.imageinfoApi.makeBasic( { url: originalUrl } )
+	);
+	assert.strictEqual( noThumbs.getThumbnailUrl( 300 ), originalUrl,
+		'Original URL is returned when no thumbnails are available' );
 } );
 
 QUnit.test( 'parseExtmeta()', ( assert ) => {

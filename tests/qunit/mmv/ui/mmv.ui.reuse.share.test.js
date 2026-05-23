@@ -16,6 +16,8 @@
  */
 
 const { Share } = require( 'mmv.ui.reuse' );
+const { ImageModel } = require( 'mmv' );
+const { fixtures } = require( '../mmv.testhelpers.js' );
 
 function makeShare() {
 	return new Share( $( '#qunit-fixture' ) );
@@ -32,11 +34,13 @@ QUnit.test( 'Sense test, object creation and UI construction', ( assert ) => {
 
 QUnit.test( 'set()/empty():', ( assert ) => {
 	const share = makeShare();
-	const image = { // fake ImageModel
-		title: new mw.Title( 'File:Foobar.jpg' ),
-		url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
-		descriptionUrl: '//commons.wikimedia.org/wiki/File:Foobar.jpg'
-	};
+	const image = new ImageModel(
+		new mw.Title( 'File:Foobar.jpg' ),
+		fixtures.imageinfoApi.makeBasic( {
+			url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
+			descriptionurl: '//commons.wikimedia.org/wiki/File:Foobar.jpg'
+		} )
+	);
 
 	assert.notStrictEqual( !share.$pageInput.val(), '', 'pageInput is empty.' );
 

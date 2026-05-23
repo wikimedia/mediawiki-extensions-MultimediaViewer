@@ -16,6 +16,8 @@
  */
 
 const { Download: DownloadPane, Utils } = require( 'mmv.ui.reuse' );
+const { ImageModel } = require( 'mmv' );
+const { fixtures } = require( '../mmv.testhelpers.js' );
 
 QUnit.module( 'mmv.ui.download.pane', QUnit.newMwEnvironment() );
 
@@ -34,11 +36,12 @@ QUnit.test( 'Sense test, object creation and UI construction', ( assert ) => {
 
 QUnit.test( 'set()/empty():', ( assert ) => {
 	const download = new DownloadPane( $( '#qunit-fixture' ) );
-	const src = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
-	const image = { // fake ImageModel
-		title: new mw.Title( 'File:Foobar.jpg' ),
-		url: src
-	};
+	const image = new ImageModel(
+		new mw.Title( 'File:Foobar.jpg' ),
+		fixtures.imageinfoApi.makeBasic( {
+			url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg'
+		} )
+	);
 
 	assert.strictEqual( download.imageExtension, undefined, 'Image extension is not set.' );
 
@@ -59,30 +62,38 @@ QUnit.test( 'set()/empty():', ( assert ) => {
 	Utils.updateMenuOptions = updateMenuOptions;
 } );
 
-QUnit.test( 'handleSizeSwitch():', ( assert ) => {
+QUnit.test( 'handleSizeSwitch():', function ( assert ) {
 	const download = new DownloadPane( $( '#qunit-fixture' ) );
-	const newImageUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/NewFoobar.jpg';
+	const thumbnailUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/NewFoobar.jpg';
+	const originalUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
 
-	const getThumbnailUrlPromise = Utils.getThumbnailUrlPromise;
-	Utils.getThumbnailUrlPromise = function () {
-		return $.Deferred().resolve( { url: newImageUrl } ).promise();
-	};
+	download.image = new ImageModel(
+		new mw.Title( 'File:Foobar.jpg' ),
+		fixtures.imageinfoApi.makeBasic( {
+			url: originalUrl,
+			thumburls: { 500: { url: thumbnailUrl, width: 500 } }
+		} )
+	);
+	const getThumbnailUrl = this.sandbox.spy( download.image, 'getThumbnailUrl' );
 
 	download.setDownloadUrl = function ( url ) {
-		assert.strictEqual( url, newImageUrl, 'URL passed to setDownloadUrl is correct' );
+		assert.strictEqual( url, thumbnailUrl, 'Thumbnail URL passed to setDownloadUrl for non-original size' );
 	};
 
+	// data-width is normally populated by Utils.updateSelectOptions() via set()
+	download.$downloadSizeMenu.find( 'option[value="small"]' ).data( 'width', 500 );
+	download.$downloadSizeMenu.val( 'small' );
 	download.handleSizeSwitch();
+	assert.true( getThumbnailUrl.calledWith( 500 ), 'getThumbnailUrl() called with the selected width' );
 
-	download.image = { url: newImageUrl };
-
-	Utils.getThumbnailUrlPromise = function () {
-		assert.true( false, 'Should not fetch the thumbnail if the image is original size.' );
+	download.setDownloadUrl = function ( url ) {
+		assert.strictEqual( url, originalUrl, 'Original URL passed to setDownloadUrl for original size' );
 	};
+	getThumbnailUrl.resetHistory();
 
+	download.$downloadSizeMenu.val( 'original' );
 	download.handleSizeSwitch();
-
-	Utils.getThumbnailUrlPromise = getThumbnailUrlPromise;
+	assert.false( getThumbnailUrl.called, 'getThumbnailUrl() not called for original size' );
 } );
 
 QUnit.test( 'getExtensionFromUrl():', ( assert ) => {

@@ -16,8 +16,17 @@
  */
 
 const { Embed, Utils } = require( 'mmv.ui.reuse' );
+const { ImageModel } = require( 'mmv' );
+const { fixtures } = require( '../mmv.testhelpers.js' );
 
 const $qf = $( '#qunit-fixture' );
+
+function makeImage( imageinfo ) {
+	return new ImageModel(
+		mw.Title.newFromText( 'File:Foobar.jpg' ),
+		fixtures.imageinfoApi.makeBasic( imageinfo )
+	);
+}
 
 QUnit.module( 'mmv.ui.reuse.Embed', QUnit.newMwEnvironment() );
 
@@ -112,10 +121,9 @@ QUnit.test( 'updateEmbedHtml(): Do nothing if set() not called before.', ( asser
 
 QUnit.test( 'updateEmbedHtml():', ( assert ) => {
 	const embed = new Embed( $qf );
-	const title = mw.Title.newFromText( 'File:Foobar.jpg' );
 	const url = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
 	const thumbUrl = 'https://upload.wikimedia.org/wikipedia/thumb/Foobar.jpg';
-	const imageInfo = { url, title };
+	const imageInfo = makeImage( { url } );
 	const caption = '-';
 	const alt = undefined;
 	const info = {
@@ -167,10 +175,9 @@ QUnit.test( 'updateEmbedWikitext(): Do nothing if set() not called before.', ( a
 
 QUnit.test( 'updateEmbedWikitext():', ( assert ) => {
 	const embed = new Embed( $qf );
-	const title = mw.Title.newFromText( 'File:Foobar.jpg' );
 	const url = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
 
-	const imageInfo = { url, title };
+	const imageInfo = makeImage( { url } );
 	const caption = '-';
 	const alt = undefined;
 	const info = {
@@ -240,22 +247,17 @@ QUnit.test( 'set():', ( assert ) => {
 	embed.resetCurrentSizeMenuToDefault = function () {
 		assert.true( true, 'resetCurrentSizeMenuToDefault() is called.' );
 	};
-	const getThumbnailUrlPromise = Utils.getThumbnailUrlPromise;
-	Utils.getThumbnailUrlPromise = function () {
-		return $.Deferred().resolve().promise();
-	};
 	embed.updateEmbedHtml = function () {
 		assert.true( true, 'updateEmbedHtml() is called after data is collected.' );
 	};
 
 	assert.false( $.isPlainObject( embed.embedFileInfo ), 'embedFileInfo not set yet.' );
 
-	embed.set( { width, height }, 'caption' );
+	embed.set( makeImage( { width, height } ), 'caption' );
 
 	assert.true( $.isPlainObject( embed.embedFileInfo ), 'embedFileInfo set.' );
 
 	Utils.updateMenuOptions = updateMenuOptions;
-	Utils.getThumbnailUrlPromise = getThumbnailUrlPromise;
 } );
 
 QUnit.test( 'empty():', ( assert ) => {
@@ -272,7 +274,7 @@ QUnit.test( 'empty():', ( assert ) => {
 		}
 	};
 
-	embed.set( {}, {} );
+	embed.set( makeImage(), {} );
 	embed.updateEmbedHtml( { url: 'x' }, width, height );
 	embed.updateEmbedWikitext( width );
 
@@ -294,7 +296,7 @@ QUnit.test( 'attach()/unattach():', ( assert ) => {
 
 	embed.resetCurrentSizeMenuToDefault = () => {};
 
-	embed.set( { width, height }, 'caption' );
+	embed.set( makeImage( { width, height } ), 'caption' );
 
 	embed.handleTypeSwitch = function () {
 		assert.true( false, 'handleTypeSwitch should not have been called.' );

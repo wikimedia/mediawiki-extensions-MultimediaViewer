@@ -186,7 +186,7 @@ class Embed extends UiElement {
 	 *
 	 * Assumes that the set() method has already been called to update this.embedFileInfo
 	 *
-	 * @param {Thumbnail} thumbnail (can be just an empty object)
+	 * @param {Object} thumbnail object with a `url` property (can be empty)
 	 * @param {number} width New width to set
 	 * @param {number} height New height to set
 	 */
@@ -265,10 +265,9 @@ class Embed extends UiElement {
 		// Reset defaults
 		this.resetCurrentSizeMenuToDefault();
 
-		Utils.getThumbnailUrlPromise( Embed.LARGE_IMAGE_WIDTH_THRESHOLD )
-			.then( ( thumbnail ) => {
-				this.updateEmbedHtml( thumbnail );
-			} );
+		this.updateEmbedHtml( {
+			url: imageInfo.getThumbnailUrl( Embed.LARGE_IMAGE_WIDTH_THRESHOLD )
+		} );
 	}
 
 	/**

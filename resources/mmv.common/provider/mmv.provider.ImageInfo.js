@@ -48,6 +48,7 @@ class ImageInfo extends Api {
 		return [
 			'timestamp',
 			'url',
+			'thumburls',
 			'size',
 			'mime',
 			'extmetadata'
