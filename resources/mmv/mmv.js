@@ -55,7 +55,7 @@ class MultimediaViewer {
 		const api = new mw.Api();
 
 		/**
-		 * @property {ImageInfo}
+		 * @type {ImageInfo}
 		 * @private
 		 */
 		this.imageInfoProvider = new ImageInfo( api, {
@@ -64,14 +64,14 @@ class MultimediaViewer {
 		} );
 
 		/**
-		 * @property {ThumbnailInfo}
+		 * @type {ThumbnailInfo}
 		 * @private
 		 */
 		this.thumbnailInfoProvider = new ThumbnailInfo( api,
 			{ maxage: apiCacheMaxAge } );
 
 		/**
-		 * @property {ThumbnailInfo}
+		 * @type {ThumbnailInfo}
 		 * @private
 		 */
 		this.guessedThumbnailInfoProvider = new GuessedThumbnailInfo();
@@ -79,12 +79,12 @@ class MultimediaViewer {
 		/**
 		 * Image index on page.
 		 *
-		 * @property {number}
+		 * @type {number}
 		 */
 		this.currentIndex = 0;
 
 		/**
-		 * @property {OO.Router} router
+		 * @type {OO.Router}
 		 */
 		this.router = router;
 		this.comingFromHashChange = false;
@@ -92,16 +92,20 @@ class MultimediaViewer {
 		/**
 		 * UI object used to display the pictures in the page.
 		 *
-		 * @property {LightboxInterface}
+		 * @type {LightboxInterface}
 		 * @private
 		 */
 		this.ui = new LightboxInterface();
 
-		/** @property {string} documentTitle base document title, MediaViewer will expand this */
+		/**
+		 * base document title, MediaViewer will expand this
+		 *
+		 * @type {string}
+		 */
 		this.documentTitle = document.title;
 
 		/**
-		 * @property {ViewLogger} view -
+		 * @type {ViewLogger}
 		 */
 		this.viewLogger = new ViewLogger( window );
 	}
