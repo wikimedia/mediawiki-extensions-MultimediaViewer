@@ -265,7 +265,7 @@ class Embed extends UiElement {
 		// Reset defaults
 		this.resetCurrentSizeMenuToDefault();
 
-		Utils.getThumbnailUrlPromise( this.LARGE_IMAGE_WIDTH_THRESHOLD )
+		Utils.getThumbnailUrlPromise( Embed.LARGE_IMAGE_WIDTH_THRESHOLD )
 			.done( ( thumbnail ) => {
 				this.updateEmbedHtml( thumbnail );
 			} );
