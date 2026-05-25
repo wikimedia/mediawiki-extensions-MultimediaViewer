@@ -6,7 +6,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Uvećava minijature preko celog ekrana",
-	"multimediaviewer-optin-pref": "Uključi <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About prikazivač medija]</span>",
 	"multimediaviewer-file-page": "Idi na odgovarajuću stranicu datoteke",
 	"multimediaviewer-repository-local": "Više detalja",
 	"multimediaviewer-datetime-created": "Napravljeno na datum $1",

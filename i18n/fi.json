@@ -14,7 +14,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Näytää pienoiskuvat suuremmassa koossa kokoruututilassa",
-	"multimediaviewer-optin-pref": "Ota käyttöön <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Mediakatselin]</span>",
 	"multimediaviewer-file-page": "Siirry tiedoston omalle sivulle",
 	"multimediaviewer-repository-local": "Lisätiedot",
 	"multimediaviewer-datetime-created": "Luotu: $1",
@@ -108,5 +107,7 @@
 	"multimediaviewer-reuse-warning-noattribution": "Tällä tiedostolla ei ole nimeämistietoja.",
 	"multimediaviewer-reuse-warning-generic": "Tarkista [$1 tiedot] ennen sen käyttöä.",
 	"multimediaviewer-attr-plain": "Tavallinen",
-	"multimediaviewer-loading": "Ladataan Mediakatselinta."
+	"multimediaviewer-loading": "Ladataan Mediakatselinta.",
+	"multimediaviewer-beta-feature-name": "Kuvakaruselli",
+	"multimediaviewer-beta-feature-description": "Näyttää artikkelin kuvat sivun yläreunassa."
 }

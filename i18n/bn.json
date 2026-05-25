@@ -10,7 +10,6 @@
 		]
 	},
 	"multimediaviewer-desc": "একটি পূর্ণস্ক্রিন ইন্টারফেসের মধ্যে একটি বড় মাপের থাম্বনেল প্রসারিত করে।",
-	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About মিডিয়া ভিউয়ার]</span> সক্রিয় করো",
 	"multimediaviewer-file-page": "সংশ্লিষ্ট ফাইল পৃষ্ঠাতে যান",
 	"multimediaviewer-repository-local": "আরও বিস্তারিত",
 	"multimediaviewer-datetime-created": "তৈরী হয়েছে: $1",

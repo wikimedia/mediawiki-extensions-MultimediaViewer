@@ -15,8 +15,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Expandir miniaturas em tamanho maior numa interface em tela cheia",
-	"multimediaviewer-optin-pref": "Ativar <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visualizador de mídia]</span>",
-	"multimediaviewer-disable-image-carousel-pref": "Desativar carrossel de imagens no site móvel",
 	"multimediaviewer-file-page": "Ir para a página do arquivo correspondente",
 	"multimediaviewer-repository-local": "Mais detalhes",
 	"multimediaviewer-datetime-created": "Criado: $1",
@@ -138,5 +136,7 @@
 	"multimediaviewer-reuse-warning-generic": "Verifique [$1 os detalhes] antes de utilizá-lo.",
 	"multimediaviewer-attr-plain": "Simples",
 	"multimediaviewer-attr-html": "HTML",
-	"multimediaviewer-loading": "Carregando o Visualizador de Mídia."
+	"multimediaviewer-loading": "Carregando o Visualizador de Mídia.",
+	"multimediaviewer-beta-feature-name": "Carrossel de imagens",
+	"multimediaviewer-beta-feature-description": "Exibe imagens do artigo na parte superior da página."
 }

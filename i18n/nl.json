@@ -21,8 +21,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Miniatuurafbeeldingen schermvullend weergeven.",
-	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About MediaViewer]</span> inschakelen",
-	"multimediaviewer-disable-image-carousel-pref": "Afbeeldingencarrousel uitschakelen op de mobiele site",
 	"multimediaviewer-file-page": "Naar de bestandspagina gaan",
 	"multimediaviewer-repository-local": "Meer informatie",
 	"multimediaviewer-datetime-created": "Gemaakt: $1",
@@ -121,5 +119,7 @@
 	"multimediaviewer-reuse-warning-noattribution": "Dit bestand bevat geen naamsvermeldingsinformatie.",
 	"multimediaviewer-reuse-warning-generic": "Controleer [$1 de details] alvorens het gebruik.",
 	"multimediaviewer-attr-plain": "Zonder opmaak",
-	"multimediaviewer-loading": "Media Viewer wordt geladen."
+	"multimediaviewer-loading": "Media Viewer wordt geladen.",
+	"multimediaviewer-beta-feature-name": "Afbeeldingencarrousel",
+	"multimediaviewer-beta-feature-description": "Pagina-afbeeldingen bovenaan de pagina weergeven."
 }

@@ -15,8 +15,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Ermöglicht die Darstellung von Vorschaubildern in einer Vollbildschnittstelle.",
-	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Medienbetrachter]</span> aktivieren",
-	"multimediaviewer-disable-image-carousel-pref": "Bildkarussell auf der mobilen Website deaktivieren",
 	"multimediaviewer-file-page": "Gehe zur zugehörigen Dateiseite",
 	"multimediaviewer-repository-local": "Weitere Einzelheiten",
 	"multimediaviewer-datetime-created": "Erstellt: $1",
@@ -113,5 +111,7 @@
 	"multimediaviewer-reuse-warning-noattribution": "Diese Datei hat keine Informationen zur Namensnennung.",
 	"multimediaviewer-reuse-warning-generic": "Überprüfe [$1 ihre Einzelheiten], bevor du sie verwendest.",
 	"multimediaviewer-attr-plain": "Klartext",
-	"multimediaviewer-loading": "Medienbetrachter wird geladen."
+	"multimediaviewer-loading": "Medienbetrachter wird geladen.",
+	"multimediaviewer-beta-feature-name": "Bilderkarussell",
+	"multimediaviewer-beta-feature-description": "Artikelbilder oben auf der Seite anzeigen."
 }

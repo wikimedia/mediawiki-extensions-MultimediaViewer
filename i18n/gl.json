@@ -10,8 +10,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Expande as miniaturas ata un tamaño maior dentro dunha interface a pantalla completa",
-	"multimediaviewer-optin-pref": "Activar o <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visor de ficheiros multimedia]</span>",
-	"multimediaviewer-disable-image-carousel-pref": "Desactivar o carrusel de imaxes no sitio web para móbiles",
 	"multimediaviewer-file-page": "Ir á páxina de ficheiro correspondente",
 	"multimediaviewer-repository-local": "Máis detalles",
 	"multimediaviewer-datetime-created": "Creación: $1",
@@ -106,5 +104,7 @@
 	"multimediaviewer-reuse-warning-noattribution": "Este ficheiro non ten información de atribución.",
 	"multimediaviewer-reuse-warning-generic": "Compruebe [$1 os seus detalles] antes de utilizalo.",
 	"multimediaviewer-attr-plain": "Simple",
-	"multimediaviewer-loading": "Cargando o visor de ficheiros multimedia."
+	"multimediaviewer-loading": "Cargando o visor de ficheiros multimedia.",
+	"multimediaviewer-beta-feature-name": "Carrusel de imaxes",
+	"multimediaviewer-beta-feature-description": "Mostrar as imaxes do artigo na parte superior da páxina."
 }

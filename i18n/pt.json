@@ -11,7 +11,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Ampliar miniaturas para tamanho maior numa interface em ecrã cheio",
-	"multimediaviewer-optin-pref": "Ativar <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Visualizador Multimédia]</span>",
 	"multimediaviewer-file-page": "Ir para a página de ficheiro correspondente",
 	"multimediaviewer-repository-local": "Mais detalhes",
 	"multimediaviewer-datetime-created": "Criação: $1",

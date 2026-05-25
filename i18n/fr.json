@@ -24,7 +24,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Agrandit les vignettes dans une interface en plein écran",
-	"multimediaviewer-optin-pref": "Activer la <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visionneuse de médias]</span>",
 	"multimediaviewer-file-page": "Aller à la page du fichier correspondant",
 	"multimediaviewer-repository-local": "Plus de détails",
 	"multimediaviewer-datetime-created": "Date de création : $1",

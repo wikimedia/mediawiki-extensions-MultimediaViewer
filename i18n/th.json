@@ -11,7 +11,6 @@
 		]
 	},
 	"multimediaviewer-desc": "ขยายรูปขนาดย่อให้มีขนาดใหญ่ขึ้นในอินเทอร์เฟซเต็มหน้าจอ",
-	"multimediaviewer-optin-pref": "เปิดใช้งาน<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About ตัวแสดงสื่อ]</span>",
 	"multimediaviewer-file-page": "ไปยังหน้าไฟล์ที่ตรงกัน",
 	"multimediaviewer-repository-local": "ดูรายละเอียดเพิ่มเติม",
 	"multimediaviewer-datetime-created": "สร้างเมื่อ: $1",

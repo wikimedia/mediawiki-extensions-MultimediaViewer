@@ -7,7 +7,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Zobrazí náhľady obrázkov na celú obrazovku.",
-	"multimediaviewer-optin-pref": "Zapnúť <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Prehliadač médií]</span>",
 	"multimediaviewer-repository-local": "Viac informácií",
 	"multimediaviewer-datetime-created": "Vytvorené: $1",
 	"multimediaviewer-datetime-uploaded": "Nahrané: $1",
