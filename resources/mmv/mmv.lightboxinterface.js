@@ -18,7 +18,6 @@
 const Canvas = require( './ui/mmv.ui.canvas.js' );
 const CanvasButtons = require( './ui/mmv.ui.canvasButtons.js' );
 const MetadataPanel = require( './ui/mmv.ui.metadataPanel.js' );
-const { ThumbnailWidthCalculator } = require( 'mmv.common' );
 const UiElement = require( './ui/mmv.ui.js' );
 
 /** Proxy for a Dialog. Initialises and attaches the dialog upon first use. */
@@ -64,12 +63,6 @@ class LightboxInterface extends UiElement {
 		// When opening we might override the theme-color, so remember the original value
 		const metaElement = document.querySelector( 'meta[name="theme-color"]' );
 		this.originalThemeColor = metaElement ? metaElement.getAttribute( 'content' ) : null;
-
-		/**
-		 * @property {ThumbnailWidthCalculator}
-		 * @private
-		 */
-		this.thumbnailWidthCalculator = new ThumbnailWidthCalculator();
 
 		this.$main = $( '<div>' )
 			.addClass( 'mw-mmv-main' );
