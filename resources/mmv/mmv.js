@@ -389,7 +389,7 @@ class MultimediaViewer {
 		if ( originalWidth && originalHeight && config.useThumbnailGuessing ) {
 			return this.guessedThumbnailInfoProvider.get(
 				fileTitle, sampleUrl, width, originalWidth, originalHeight
-			).then( null, () => this.thumbnailInfoProvider.get( fileTitle, sampleUrl, width ) );
+			).catch( () => this.thumbnailInfoProvider.get( fileTitle, sampleUrl, width ) );
 			// FIXME what if the guessed thumbnail is incorrect?
 		} else {
 			return this.thumbnailInfoProvider.get( fileTitle, sampleUrl, width );
