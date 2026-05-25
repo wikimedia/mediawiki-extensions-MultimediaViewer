@@ -20,7 +20,7 @@ const { fixtures } = require( '../mmv.testhelpers.js' );
 
 QUnit.module( 'mmv.model.Image', QUnit.newMwEnvironment() );
 
-QUnit.test( 'newFromImageInfo', ( assert ) => {
+QUnit.test( 'constructor + getters', ( assert ) => {
 	const title = mw.Title.newFromText( 'File:Foo bar.jpg' );
 
 	const pageID = 42;
@@ -43,7 +43,7 @@ QUnit.test( 'newFromImageInfo', ( assert ) => {
 	const deletionReason = 'poor quality';
 	const attribution = 'Created by my cats on a winter morning';
 
-	const imageData = ImageModel.newFromImageInfo(
+	const imageData = new ImageModel(
 		title,
 		{
 			...fixtures.imageinfoApi.makeBasic( {
@@ -78,7 +78,13 @@ QUnit.test( 'newFromImageInfo', ( assert ) => {
 	);
 
 	assert.strictEqual( imageData.title, title, 'Title' );
-	assert.propContains( imageData, {
+
+	const getters = Object.entries( Object.getOwnPropertyDescriptors( ImageModel.prototype ) )
+		.filter( ( [ , descriptor ] ) => typeof descriptor.get === 'function' )
+		.map( ( [ name ] ) => name );
+	assert.propContains( Object.fromEntries(
+		getters.map( ( name ) => [ name, imageData[ name ] ] )
+	), {
 		name: 'Foo bar',
 		size,
 		width,

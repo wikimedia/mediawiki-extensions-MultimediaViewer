@@ -21,233 +21,174 @@ const License = require( './mmv.model.License.js' );
  * Represents information about a single image
  */
 class ImageModel {
-	constructor(
-		title,
-		name,
-		size,
-		width,
-		height,
-		mimeType,
-		url,
-		descriptionUrl,
-		descriptionShortUrl,
-		pageID,
-		repo,
-		uploadDateTime,
-		anonymizedUploadDateTime,
-		creationDateTime,
-		description,
-		source,
-		author,
-		authorCount,
-		license,
-		permission,
-		attribution,
-		deletionReason,
-		latitude,
-		longitude,
-		restrictions
-	) {
-		/** @property {mw.Title} title The title of the image file */
+	/**
+	 * @param {mw.Title} title The title of the image file
+	 * @param {Object} imageInfo Raw page object from the imageinfo API response
+	 */
+	constructor( title, imageInfo ) {
 		this.title = title;
+		this.imageInfo = imageInfo;
+	}
 
-		/** @property {string} name Title of the artwork, or human-readable file name */
-		this.name = name;
+	/** @return {Object} The first imageinfo entry */
+	get innerInfo() {
+		return this.imageInfo.imageinfo[ 0 ];
+	}
 
-		/** @property {number} size The filesize, in bytes, of the original image */
-		this.size = size;
+	/** @return {Object} The extmetadata block */
+	get extmeta() {
+		return this.innerInfo.extmetadata;
+	}
 
-		/** @property {number} width The width, in pixels, of the original image */
-		this.width = width;
+	/** @return {string} Title of the artwork, or human-readable file name */
+	get name() {
+		const name = ImageModel.parseExtmeta( this.extmeta && this.extmeta.ObjectName, 'plaintext' );
+		return name || this.title.getNameText();
+	}
 
-		/** @property {number} height The height, in pixels, of the original image */
-		this.height = height;
+	/** @return {number} The filesize, in bytes, of the original image */
+	get size() {
+		return this.innerInfo.size;
+	}
 
-		/** @property {string} mimeType The MIME type of the original image */
-		this.mimeType = mimeType;
+	/** @return {number} The width, in pixels, of the original image */
+	get width() {
+		return this.innerInfo.width;
+	}
 
-		/** @property {string} url The URL to the original image */
-		this.url = url;
+	/** @return {number} The height, in pixels, of the original image */
+	get height() {
+		return this.innerInfo.height;
+	}
 
-		/** @property {string} descriptionUrl The URL to the file description page */
-		this.descriptionUrl = descriptionUrl;
+	/** @return {string} The MIME type of the original image */
+	get mimeType() {
+		return this.innerInfo.mime;
+	}
 
-		/** @property {string} descriptionShortUrl A short URL to the file description page */
-		this.descriptionShortUrl = descriptionShortUrl;
+	/** @return {string} The URL to the original image */
+	get url() {
+		return this.innerInfo.url;
+	}
 
-		/** @property {number} pageId of the description page for the image */
-		this.pageID = pageID;
+	/** @return {string} The URL to the file description page */
+	get descriptionUrl() {
+		return this.innerInfo.descriptionurl;
+	}
 
-		/** @property {string} repo The name of the repository where this image is stored */
-		this.repo = repo;
+	/** @return {string} A short URL to the file description page */
+	get descriptionShortUrl() {
+		return this.innerInfo.descriptionshorturl;
+	}
 
-		/** @property {string} uploadDateTime The date and time of the last upload */
-		this.uploadDateTime = uploadDateTime;
+	/** @return {number} ID of the description page for the image */
+	get pageID() {
+		return this.imageInfo.pageid;
+	}
 
-		/** @property {string} anonymizedUploadDateTime The anonymized date and time of the last upload */
-		this.anonymizedUploadDateTime = anonymizedUploadDateTime;
+	/** @return {string} The name of the repository where this image is stored */
+	get repo() {
+		return this.imageInfo.imagerepository;
+	}
 
-		/** @property {string} creationDateTime The date and time that the image was created */
-		this.creationDateTime = creationDateTime;
+	/** @return {string} The date and time of the last upload */
+	get uploadDateTime() {
+		return ImageModel.parseExtmeta( this.extmeta && this.extmeta.DateTime, 'datetime' );
+	}
 
-		/** @property {string} description The description from the file page - unsafe HTML sometimes goes here */
-		this.description = description;
+	/** @return {string} The anonymized date and time of the last upload */
+	get anonymizedUploadDateTime() {
+		const value = this.uploadDateTime;
+		if ( value === undefined ) {
+			return undefined;
+		}
+		// Convert to "timestamp" format commonly used in EventLogging,
+		// then anonymise to day granularity so the file is not identifiable
+		const digits = value.replace( /[^\d]/g, '' );
+		return `${ digits.slice( 0, digits.length - 6 ) }000000`;
+	}
 
-		/** @property {string} source The source for the image - may include unsafe HTML */
-		this.source = source;
+	/** @return {string} The date and time that the image was created */
+	get creationDateTime() {
+		return ImageModel.parseExtmeta( this.extmeta && this.extmeta.DateTimeOriginal, 'datetime' );
+	}
 
-		/** @property {string} author The author of the image - may include unsafe HTML */
-		this.author = author;
+	/** @return {string} The description from the file page - unsafe HTML sometimes goes here */
+	get description() {
+		return ImageModel.parseExtmeta( this.extmeta && this.extmeta.ImageDescription, 'string' );
+	}
 
-		/**
-		 * @property {number} authorCount The number of different authors of the image.
-		 * This is guessed by the number of templates with author fields, which might be less
-		 * than the number of actual authors.
-		 */
-		this.authorCount = authorCount;
+	/** @return {string} The source for the image - may include unsafe HTML */
+	get source() {
+		return ImageModel.parseExtmeta( this.extmeta && this.extmeta.Credit, 'string' );
+	}
 
-		/** @property {License} license */
-		this.license = license;
-
-		/** @property {string} permission Additional license conditions by the author (note that this is usually a big ugly HTML blob) */
-		this.permission = permission;
-
-		/** @property {string} attribution custom attribution string set by uploader that replaces credit line */
-		this.attribution = attribution;
-
-		/** @property {string|null} reason for pending deletion, null if image is not about to be deleted */
-		this.deletionReason = deletionReason;
-
-		/** @property {number} latitude The latitude of the place where the image was created */
-		this.latitude = latitude;
-
-		/** @property {number} longitude The longitude of the place where the image was created */
-		this.longitude = longitude;
-
-		/** @property {string[]} restrictions Any re-use restrictions for the image, eg trademarked */
-		this.restrictions = restrictions;
-
-		/**
-		 * @property {Object} thumbUrls
-		 * An object indexed by image widths
-		 * with URLs to appropriately sized thumbnails
-		 */
-		this.thumbUrls = {};
+	/** @return {string} The author of the image - may include unsafe HTML */
+	get author() {
+		return ImageModel.parseExtmeta( this.extmeta && this.extmeta.Artist, 'string' );
 	}
 
 	/**
-	 * Construct an ImageModel object from imageinfo API response data.
-	 *
-	 * @static
-	 * @param {mw.Title} title
-	 * @param {Object} imageInfo
-	 * @return {ImageModel}
+	 * @return {number} The number of different authors of the image.
+	 * This is guessed by the number of templates with author fields, which might be less
+	 * than the number of actual authors.
 	 */
-	static newFromImageInfo( title, imageInfo ) {
-		let name;
-		let uploadDateTime;
-		let anonymizedUploadDateTime;
-		let creationDateTime;
-		let description;
-		let source;
-		let author;
-		let authorCount;
-		let license;
-		let permission;
-		let attribution;
-		let deletionReason;
-		let latitude;
-		let longitude;
-		let restrictions;
-		const innerInfo = imageInfo.imageinfo[ 0 ];
-		const extmeta = innerInfo.extmetadata;
+	get authorCount() {
+		return ImageModel.parseExtmeta( this.extmeta && this.extmeta.AuthorCount, 'integer' );
+	}
 
-		if ( extmeta ) {
-			creationDateTime = this.parseExtmeta( extmeta.DateTimeOriginal, 'datetime' );
-			uploadDateTime = this.parseExtmeta( extmeta.DateTime, 'datetime' );
-
-			// Convert to "timestamp" format commonly used in EventLogging
-			anonymizedUploadDateTime = uploadDateTime.replace( /[^\d]/g, '' );
-
-			// Anonymise the timestamp to avoid making the file identifiable
-			// We only need to know the day
-			anonymizedUploadDateTime = `${ anonymizedUploadDateTime.slice( 0, anonymizedUploadDateTime.length - 6 ) }000000`;
-
-			name = this.parseExtmeta( extmeta.ObjectName, 'plaintext' );
-
-			description = this.parseExtmeta( extmeta.ImageDescription, 'string' );
-			source = this.parseExtmeta( extmeta.Credit, 'string' );
-			author = this.parseExtmeta( extmeta.Artist, 'string' );
-			authorCount = this.parseExtmeta( extmeta.AuthorCount, 'integer' );
-
-			license = this.newLicenseFromImageInfo( extmeta );
-			permission = this.parseExtmeta( extmeta.Permission, 'string' );
-			attribution = this.parseExtmeta( extmeta.Attribution, 'string' );
-			deletionReason = this.parseExtmeta( extmeta.DeletionReason, 'string' );
-			restrictions = this.parseExtmeta( extmeta.Restrictions, 'list' );
-
-			latitude = this.parseExtmeta( extmeta.GPSLatitude, 'float' );
-			longitude = this.parseExtmeta( extmeta.GPSLongitude, 'float' );
+	/** @return {License} */
+	get license() {
+		const extmeta = this.extmeta;
+		if ( !extmeta || !extmeta.LicenseShortName ) {
+			return undefined;
 		}
-
-		if ( !name ) {
-			name = title.getNameText();
-		}
-
-		const imageData = new ImageModel(
-			title,
-			name,
-			innerInfo.size,
-			innerInfo.width,
-			innerInfo.height,
-			innerInfo.mime,
-			innerInfo.url,
-			innerInfo.descriptionurl,
-			innerInfo.descriptionshorturl,
-			imageInfo.pageid,
-			imageInfo.imagerepository,
-			uploadDateTime,
-			anonymizedUploadDateTime,
-			creationDateTime,
-			description,
-			source,
-			author,
-			authorCount,
-			license,
-			permission,
-			attribution,
-			deletionReason,
-			latitude,
-			longitude,
-			restrictions
+		return new License(
+			ImageModel.parseExtmeta( extmeta.LicenseShortName, 'string' ),
+			ImageModel.parseExtmeta( extmeta.License, 'string' ),
+			ImageModel.parseExtmeta( extmeta.UsageTerms, 'string' ),
+			ImageModel.parseExtmeta( extmeta.LicenseUrl, 'string' ),
+			ImageModel.parseExtmeta( extmeta.AttributionRequired, 'boolean' ),
+			ImageModel.parseExtmeta( extmeta.NonFree, 'boolean' )
 		);
+	}
 
-		if ( innerInfo.thumburl ) {
-			imageData.thumbUrls[ innerInfo.thumbwidth ] = innerInfo.thumburl;
-		}
+	/** @return {string} Additional license conditions by the author (note that this is usually a big ugly HTML blob) */
+	get permission() {
+		return ImageModel.parseExtmeta( this.extmeta && this.extmeta.Permission, 'string' );
+	}
 
-		return imageData;
+	/** @return {string} custom attribution string set by uploader that replaces credit line */
+	get attribution() {
+		return ImageModel.parseExtmeta( this.extmeta && this.extmeta.Attribution, 'string' );
+	}
+
+	/** @return {string} reason for pending deletion, undefined if image is not about to be deleted */
+	get deletionReason() {
+		return ImageModel.parseExtmeta( this.extmeta && this.extmeta.DeletionReason, 'string' );
+	}
+
+	/** @return {number} The latitude of the place where the image was created */
+	get latitude() {
+		return ImageModel.parseExtmeta( this.extmeta && this.extmeta.GPSLatitude, 'float' );
+	}
+
+	/** @return {number} The longitude of the place where the image was created */
+	get longitude() {
+		return ImageModel.parseExtmeta( this.extmeta && this.extmeta.GPSLongitude, 'float' );
+	}
+
+	/** @return {string[]} Any re-use restrictions for the image, eg trademarked */
+	get restrictions() {
+		return ImageModel.parseExtmeta( this.extmeta && this.extmeta.Restrictions, 'list' );
 	}
 
 	/**
-	 * Constructs a new License object out of an object containing
-	 * imageinfo data from an API response.
-	 *
-	 * @static
-	 * @param {Object} extmeta the extmeta array of the imageinfo data
-	 * @return {License|undefined}
+	 * @return {Object} An object indexed by image widths with URLs to appropriately sized thumbnails
 	 */
-	static newLicenseFromImageInfo( extmeta ) {
-		if ( extmeta.LicenseShortName ) {
-			return new License(
-				this.parseExtmeta( extmeta.LicenseShortName, 'string' ),
-				this.parseExtmeta( extmeta.License, 'string' ),
-				this.parseExtmeta( extmeta.UsageTerms, 'string' ),
-				this.parseExtmeta( extmeta.LicenseUrl, 'string' ),
-				this.parseExtmeta( extmeta.AttributionRequired, 'boolean' ),
-				this.parseExtmeta( extmeta.NonFree, 'boolean' )
-			);
-		}
+	get thumbUrls() {
+		const inner = this.innerInfo;
+		return inner.thumburl ? { [ inner.thumbwidth ]: inner.thumburl } : {};
 	}
 
 	/**

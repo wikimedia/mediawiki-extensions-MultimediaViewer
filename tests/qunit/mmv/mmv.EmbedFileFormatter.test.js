@@ -5,7 +5,7 @@ const { fixtures } = require( './mmv.testhelpers.js' );
 QUnit.module( 'mmv.EmbedFileFormatter', QUnit.newMwEnvironment() );
 
 function createEmbedFileInfo( options ) {
-	const imageInfo = ImageModel.newFromImageInfo(
+	const imageInfo = new ImageModel(
 		options.title,
 		fixtures.imageinfoApi.makeBasic( {
 			url: options.imgUrl,

@@ -44,11 +44,11 @@ QUnit.test( '.empty()', ( assert ) => {
 } );
 
 QUnit.test( 'hasCoords()', ( assert ) => {
-	const firstImageData = ImageModel.newFromImageInfo(
+	const firstImageData = new ImageModel(
 		mw.Title.newFromText( 'File:Foobar.pdf.jpg' ),
 		fixtures.imageinfoApi.makeBasic()
 	);
-	const secondImageData = ImageModel.newFromImageInfo(
+	const secondImageData = new ImageModel(
 		mw.Title.newFromText( 'File:Foobar.pdf.jpg' ),
 		fixtures.imageinfoApi.makeBasic( {
 			extmetadata: {
