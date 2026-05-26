@@ -208,15 +208,20 @@ QUnit.skip( 'Setting permission information works as expected', ( assert ) => {
 	assert.true( panel.$permissionLink.is( ':visible' ) );
 } );
 
-QUnit.test( 'Date formatting', ( assert ) => {
+QUnit.test.each( 'Date formatting', {
+	garbage: { input: 'Garbage', expected: 'Garbage' },
+	year: { input: '2008', expected: '2008' },
+	yearMonth: { input: '2008-02', expected: 'February 2008' },
+	yearMonthDay: { input: '2008-02-14', expected: '14 February 2008' },
+	yearMonthDayTime: { input: '2008-02-14 12:34:56', expected: '14 February 2008' }
+}, ( assert, fixture ) => {
 	const $qf = $( '#qunit-fixture' );
 	const panel = new MetadataPanel(
 		$qf,
 		$( '<div>' ).appendTo( $qf ),
 		new Config()
 	);
-	const date1 = 'Garbage';
-	const result = panel.formatDate( date1 );
+	const result = panel.formatDate( fixture.input );
 
-	assert.strictEqual( result, date1, 'Invalid date is correctly ignored' );
+	assert.strictEqual( result, fixture.expected );
 } );

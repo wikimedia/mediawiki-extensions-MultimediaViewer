@@ -775,14 +775,15 @@ class MetadataPanel extends UiElement {
 			lang = 'en-GB';
 		}
 		if ( dateString.length === 4 ) {
-			// assume yyyy
+			// assume yyyy (T58794)
 			return dateString;
 		}
 		const date = new Date( dateString );
 		try {
 			if ( date instanceof Date && !isNaN( date ) ) {
 				return date.toLocaleString( lang, {
-					day: 'numeric',
+					// when length is 7, assume yyyy-mm (T409629)
+					day: dateString.length === 7 ? undefined : 'numeric',
 					month: 'long',
 					year: 'numeric',
 					timeZone: 'UTC'
