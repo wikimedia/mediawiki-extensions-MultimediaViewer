@@ -136,5 +136,6 @@
 	"multimediaviewer-reuse-warning-generic": "Перевірте [$1 його подробиці], перед тим як використовувати.",
 	"multimediaviewer-attr-plain": "Простий текст",
 	"multimediaviewer-attr-html": "HTML",
-	"multimediaviewer-loading": "Завантаження Медіапереглядача."
+	"multimediaviewer-loading": "Завантаження Медіапереглядача.",
+	"multimediaviewer-beta-feature-name": "Карусель зображень"
 }
