@@ -1,11 +1,11 @@
 [
 	{
 		"resourceModule": "mmv",
-		"maxSize": "25.3 kB"
+		"maxSize": "18.7 kB"
 	},
 	{
-		"resourceModule": "mmv.ui.restriction",
-		"maxSize": "0.5 kB"
+		"resourceModule": "mmv.bootstrap",
+		"maxSize": "5.0 kB"
 	},
 	{
 		"resourceModule": "mmv.codex",
@@ -13,11 +13,15 @@
 		"maxSize": null
 	},
 	{
-		"resourceModule": "mmv.ui.reuse",
-		"maxSize": "5.7 kB"
+		"resourceModule": "mmv.common",
+		"maxSize": "4.9 kB"
 	},
 	{
-		"resourceModule": "mmv.bootstrap",
+		"resourceModule": "mmv.ui.restriction",
+		"maxSize": "1 kB"
+	},
+	{
+		"resourceModule": "mmv.ui.reuse",
 		"maxSize": "5.5 kB"
 	}
 ]
