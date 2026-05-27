@@ -107,5 +107,7 @@
 	"multimediaviewer-reuse-warning-nonfree": "Questo file non ha una licenza libera.",
 	"multimediaviewer-reuse-warning-noattribution": "Questo file non ha informazioni sull'attribuzione.",
 	"multimediaviewer-reuse-warning-generic": "Controlla i [$1 suoi dettagli] prima di utilizzarlo.",
-	"multimediaviewer-attr-plain": "Normale"
+	"multimediaviewer-attr-plain": "Normale",
+	"multimediaviewer-beta-feature-name": "Carosello di immagini",
+	"multimediaviewer-beta-feature-description": "Mostra le immagini della voce nella parte superiore della pagina."
 }
