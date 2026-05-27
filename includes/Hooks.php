@@ -165,16 +165,11 @@ class Hooks implements
 	 * @return bool
 	 */
 	protected function shouldUseMobileCarousel( OutputPage $out ): bool {
-		if (
-			// Mobile view
-			!$this->isMobileFrontendView() ||
-			// Config flag
-			!$this->config->get( 'MediaViewerMobileCarousel' )
-		) {
-			return false;
-		}
-
 		return (
+			// Mobile view
+			$this->isMobileFrontendView() &&
+			// Config flag
+			$this->config->get( 'MediaViewerMobileCarousel' ) &&
 			// Beta feature opt-in
 			$this->isBetaFeatureEnabled( $out->getUser() ) &&
 			// Page exclusion
@@ -195,6 +190,12 @@ class Hooks implements
 	 */
 	protected function isPageExcludedFromMobileCarousel( OutputPage $out ): bool {
 		$title = $out->getTitle();
+
+		// Articles only
+		if ( $title->getNamespace() !== NS_MAIN ) {
+			return false;
+		}
+
 		if ( !$title->canExist() ) {
 			return false;
 		}
