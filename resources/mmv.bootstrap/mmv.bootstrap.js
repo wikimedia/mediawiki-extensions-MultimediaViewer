@@ -223,6 +223,8 @@ class MultimediaViewerBootstrap {
 
 		this.$legacyThumbs = $content
 			.find(
+				// T427542: MobileFrontend legacy parser thumbs
+				'.lazy-image-placeholder, ' +
 				// T318433: Legacy styles
 				'.gallery .image img, ' +
 				'a.image img, ' +
@@ -236,8 +238,15 @@ class MultimediaViewerBootstrap {
 			.not( this.$thumbs );
 
 		try {
-			this.$legacyThumbs.each( ( i, thumb ) => this.processLegacyThumb( thumb ) );
-			this.$thumbs.each( ( i, thumb ) => this.processThumb( thumb ) );
+			// Ensure that thumbs remain in document order
+			// regardless of which type we are dealing with
+			this.$thumbs.add( this.$legacyThumbs ).each( ( i, thumb ) => {
+				if ( this.$legacyThumbs.is( thumb ) ) {
+					this.processLegacyThumb( thumb );
+				} else {
+					this.processThumb( thumb );
+				}
+			} );
 		} finally {
 			this.thumbsReadyDeferred.resolve();
 		}
@@ -301,11 +310,21 @@ class MultimediaViewerBootstrap {
 	 */
 	processLegacyThumb( thumb ) {
 		let title;
-		const $thumb = $( thumb );
+		let $thumb = $( thumb );
 		const $link = $thumb.closest( 'a.image, a.mw-file-description' );
 		const $thumbContainer = $link.closest( '.thumb' );
 		const $enlarge = $thumbContainer.find( '.magnify a' );
 		const isFilePageMainThumb = $thumb.closest( '#file' ).length > 0;
+
+		// If we encounter MobileFrontend's legacy parser map it to an img.
+		if ( $thumb.hasClass( 'lazy-image-placeholder' ) ) {
+			// Check if allowed first since this new element is detached from DOM.
+			if ( this.isAllowedThumb( $thumb ) ) {
+				$thumb = $( '<img>' ).attr( 'src', $thumb.data( 'mw-src' ) );
+			} else {
+				return;
+			}
+		}
 
 		if ( isFilePageMainThumb ) {
 			// main thumbnail (file preview area) of a file page
