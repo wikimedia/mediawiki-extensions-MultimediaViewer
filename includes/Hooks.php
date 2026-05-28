@@ -67,7 +67,12 @@ class Hooks implements
 {
 	// Minimum number of images in a wiki page to enable the carousel.
 	private const MIN_CAROUSEL_IMAGES = 3;
-	private const DISABLE_MOBILE_CAROUSEL_BEHAVIOR_SWITCH = 'nomediaviewercarousel';
+	// Page property that represents the __NOMEDIAVIEWERCAROUSEL__ magic word / behavior switch.
+	// When `__NOMEDIAVIEWERCAROUSEL__` is in the page content,
+	// the `nomediaviewercarousel` page property is set during parse.
+	// Checking page props lets request-time carousel decisions reuse the
+	// parser output metadata without reparsing the page content.
+	private const DISABLE_MOBILE_CAROUSEL_PAGE_PROPERTY = 'nomediaviewercarousel';
 	// Beta features key, used to populate a checkbox in the user's beta preferences.
 	// Must be registered in the production allowlist:
 	// https://github.com/wikimedia/operations-mediawiki-config/blob/22cee2b5dfc729e9dd49ae5cd878c7735f2bf66c/wmf-config/InitialiseSettings.php#L6532
@@ -153,13 +158,13 @@ class Hooks implements
 	}
 
 	/**
-	 * Whether the mobile carousel entrypoint should be used for this request.
+	 * Whether the request should use the mobile carousel entrypoint.
 	 *
 	 * Conditions:
-	 *  - request is being served through MobileFrontend's mobile view
+	 *  - request is served through MobileFrontend's mobile view
 	 *  - MediaViewerMobileCarousel config flag is enabled
-	 *  - current user has opted in via beta feature preferences
-	 *  - current page isn't excluded via __NOMEDIAVIEWERCAROUSEL__
+	 *  - user has opted in via beta feature preferences
+	 *  - page is a suitable candidate
 	 *
 	 * @param OutputPage $out
 	 * @return bool
@@ -172,38 +177,35 @@ class Hooks implements
 			$this->config->get( 'MediaViewerMobileCarousel' ) &&
 			// Beta feature opt-in
 			$this->isBetaFeatureEnabled( $out->getUser() ) &&
-			// Page exclusion
-			!$this->isPageExcludedFromMobileCarousel( $out )
+			// Candidate page
+			$this->shouldPageGetMobileCarousel( $out )
 		);
 	}
 
 	/**
-	 * Whether the current page declares that the mobile carousel should not be shown.
+	 * Whether the page should get the mobile carousel.
 	 *
-	 * This is driven by the __NOMEDIAVIEWERCAROUSEL__ behavior switch, which
-	 * MediaWiki records as a page property during parse. Checking page props
-	 * here lets request-time carousel decisions reuse parser output metadata
-	 * without reparsing the page content.
+	 * Conditions:
+	 * - article page
+	 * - real page, e.g., not special
+	 * - content does not have the __NOMEDIAVIEWERCAROUSEL__ magic word
 	 *
 	 * @param OutputPage $out
 	 * @return bool
 	 */
-	protected function isPageExcludedFromMobileCarousel( OutputPage $out ): bool {
+	protected function shouldPageGetMobileCarousel( OutputPage $out ): bool {
 		$title = $out->getTitle();
 
-		// Articles only
-		if ( $title->getNamespace() !== NS_MAIN ) {
-			return false;
-		}
-
-		if ( !$title->canExist() ) {
-			return false;
-		}
-
-		return $this->pageProps->getProperties(
-			$title,
-			self::DISABLE_MOBILE_CAROUSEL_BEHAVIOR_SWITCH
-		) !== [];
+		return (
+			// Article
+			$title->getNamespace() === NS_MAIN &&
+			// Real page
+			$title->canExist() &&
+			// No __NOMEDIAVIEWERCAROUSEL__
+			$this->pageProps->getProperties(
+				$title, self::DISABLE_MOBILE_CAROUSEL_PAGE_PROPERTY
+			) === []
+		);
 	}
 
 	/**
@@ -473,6 +475,7 @@ class Hooks implements
 
 	/**
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/GetDoubleUnderscoreIDs
+	 * @see https://www.mediawiki.org/wiki/Help:Magic_words#Behavior_switches
 	 *
 	 * Registers the __NOMEDIAVIEWERCAROUSEL__ behavior switch so MediaWiki
 	 * recognizes it during parse and records its presence as a page property.
@@ -483,7 +486,7 @@ class Hooks implements
 	 * @return void
 	 */
 	public function onGetDoubleUnderscoreIDs( &$doubleUnderscoreIDs ) {
-		$doubleUnderscoreIDs[] = self::DISABLE_MOBILE_CAROUSEL_BEHAVIOR_SWITCH;
+		$doubleUnderscoreIDs[] = self::DISABLE_MOBILE_CAROUSEL_PAGE_PROPERTY;
 	}
 
 	/**
