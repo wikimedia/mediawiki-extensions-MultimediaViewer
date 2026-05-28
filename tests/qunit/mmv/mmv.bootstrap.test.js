@@ -147,6 +147,23 @@ function createLegacyMultipleImage( images ) {
 	return $contain;
 }
 
+// Simulates the post-transform markup produced by MobileFrontend's
+// lazy-load image transform in legacy parser output (T427542)
+function createLazyImagePlaceholder( title, src ) {
+	const $link = $( '<a>' )
+		.addClass( 'mw-file-description' )
+		.attr( 'href', '/wiki/' + title )
+		.appendTo( '#qunit-fixture' );
+	$( '<span>' )
+		.addClass( 'lazy-image-placeholder' )
+		.attr( 'data-mw-src', src )
+		.attr( 'data-alt', '' )
+		.attr( 'data-width', '220' )
+		.attr( 'data-height', '220' )
+		.appendTo( $link );
+	return $link;
+}
+
 function createBootstrap( viewer ) {
 	const bootstrap = new MultimediaViewerBootstrap();
 
@@ -580,4 +597,36 @@ QUnit.test( 'Recognize thumbs with mw-file-magnify links', function ( assert ) {
 		done();
 	} );
 	bootstrap.setupOverlay.reset();
+} );
+
+QUnit.test( 'Lazy-load placeholders are mapped to thumbs', ( assert ) => {
+	createLazyImagePlaceholder( 'File:Lazy.jpg', '/Lazy.jpg/300px-Lazy.jpg' );
+
+	const bootstrap = createBootstrap();
+
+	assert.strictEqual( bootstrap.thumbs.length, 1, 'Placeholder registered a thumb' );
+	assert.strictEqual(
+		bootstrap.thumbs[ 0 ].filePageTitle.getPrefixedText(),
+		'File:Lazy.jpg',
+		'Title derived from the placeholder data-mw-src'
+	);
+} );
+
+QUnit.test( 'Thumbs are registered in document order regardless of type', ( assert ) => {
+	// Interleave non-legacy (mw:File) thumbs with a legacy lazy-load
+	// placeholder, as MobileFrontend produces when the lead section is left
+	// un-lazied while later sections are transformed. Legacy and non-legacy
+	// thumbs are processed by different code paths; this.thumbs must still
+	// reflect the order the images appear on the page (T427542).
+	createBlockImage( '/Alpha.jpg/300px-Alpha.jpg', 'Alpha' );
+	createLazyImagePlaceholder( 'File:Beta.jpg', '/Beta.jpg/300px-Beta.jpg' );
+	createBlockImage( '/Gamma.jpg/300px-Gamma.jpg', 'Gamma' );
+
+	const bootstrap = createBootstrap();
+
+	assert.deepEqual(
+		bootstrap.thumbs.map( ( t ) => t.filePageTitle.getPrefixedText() ),
+		[ 'File:Alpha.jpg', 'File:Beta.jpg', 'File:Gamma.jpg' ],
+		'thumbs follow document order, not legacy-then-non-legacy grouping'
+	);
 } );
