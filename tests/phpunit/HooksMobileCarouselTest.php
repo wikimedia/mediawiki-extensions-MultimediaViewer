@@ -5,6 +5,7 @@ namespace MediaWiki\Extension\MultimediaViewer\Tests;
 use MediaWiki\Extension\MultimediaViewer\Hooks;
 use MediaWiki\Extension\MultimediaViewer\ThumbExtractor;
 use MediaWiki\Output\OutputPage;
+use MediaWiki\Request\FauxRequest;
 use MediaWiki\Skin\SkinTemplate;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
@@ -47,7 +48,7 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 		};
 	}
 
-	private function prepare( User $user ): array {
+	private function prepare( User $user, array $requestParams = [] ): array {
 		$this->overrideConfigValue( 'MediaViewerMobileCarousel', true );
 		$title = Title::newFromText( 'Main Page' );
 		$title->setContentModel( CONTENT_MODEL_WIKITEXT );
@@ -55,6 +56,7 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 		$output = $this->createMock( OutputPage::class );
 		$output->method( 'getTitle' )->willReturn( $title );
 		$output->method( 'getUser' )->willReturn( $user );
+		$output->method( 'getRequest' )->willReturn( new FauxRequest( $requestParams ) );
 
 		return [ $skin, $output ];
 	}
@@ -154,8 +156,7 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 	public function testOnBeforePageDisplaySkipsCarouselWhenNotApplicable(): void {
 		[ $skin, $output ] = $this->prepare( User::newFromName( 'HooksMobileCarouselUser' ) );
 
-		// mmv.bootstrap is loaded only when the beta feature is active,
-		// otherwise no modules are added at all.
+		// No carousel and no beta opt-in, so no modules are added at all.
 		$output->expects( $this->never() )
 			->method( 'addModules' );
 		$output->expects( $this->never() )
@@ -187,6 +188,63 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 		$hooks->stubThumbs = [
 			self::makeFakeThumb( 'A' ),
 			self::makeFakeThumb( 'B' ),
+		];
+
+		$hooks->onBeforePageDisplay( $output, $skin );
+	}
+
+	public function testOnBeforePageDisplayLoadsBetaViewerAlongsideCarousel(): void {
+		[ $skin, $output ] = $this->prepare(
+			User::newFromName( 'HooksMobileCarouselUser' ), [ 'mmvBeta' => '1' ] );
+
+		// ?mmvBeta=1 alone loads the bootstrap alongside the carousel so it can
+		// intercept the shared #/media/ route ahead of the MobileFrontend
+		// lightbox (T427679).
+		$output->expects( $this->once() )
+			->method( 'addModules' )
+			->with( [ 'mmv.carousel', 'mmv.bootstrap' ] );
+
+		$hooks = $this->newHooksInstance();
+		$hooks->stubThumbs = [
+			self::makeFakeThumb( 'A' ),
+			self::makeFakeThumb( 'B' ),
+			self::makeFakeThumb( 'C' ),
+		];
+
+		$hooks->onBeforePageDisplay( $output, $skin );
+	}
+
+	public function testOnBeforePageDisplayLoadsBetaViewerWithoutCarousel(): void {
+		[ $skin, $output ] = $this->prepare(
+			User::newFromName( 'HooksMobileCarouselUser' ), [ 'mmvBeta' => '1' ] );
+
+		// No carousel on this page, but ?mmvBeta=1 still loads the beta viewer.
+		$output->expects( $this->once() )
+			->method( 'addModules' )
+			->with( [ 'mmv.bootstrap' ] );
+		$output->expects( $this->never() )
+			->method( 'prependHTML' );
+
+		$hooks = $this->newHooksInstance();
+		$hooks->useCarousel = false;
+
+		$hooks->onBeforePageDisplay( $output, $skin );
+	}
+
+	public function testOnBeforePageDisplaySkipsBetaViewerWithoutMmvBetaParam(): void {
+		[ $skin, $output ] = $this->prepare( User::newFromName( 'HooksMobileCarouselUser' ) );
+
+		// Without ?mmvBeta=1 the bootstrap must not load: only the carousel does,
+		// routing clicks to the MobileFrontend lightbox.
+		$output->expects( $this->once() )
+			->method( 'addModules' )
+			->with( [ 'mmv.carousel' ] );
+
+		$hooks = $this->newHooksInstance();
+		$hooks->stubThumbs = [
+			self::makeFakeThumb( 'A' ),
+			self::makeFakeThumb( 'B' ),
+			self::makeFakeThumb( 'C' ),
 		];
 
 		$hooks->onBeforePageDisplay( $output, $skin );

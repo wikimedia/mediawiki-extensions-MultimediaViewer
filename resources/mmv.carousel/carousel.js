@@ -1,8 +1,12 @@
-// Attach click handlers to carousel items once the DOM is ready.
-// Deferred to avoid side effects during module load (which interferes
-// with the QUnit test environment).
+// Wire up the mobile carousel by routing item clicks through the shared
+// "#/media/<file>" router hash (used by both the MobileFrontend lightbox
+// component as well as MMV). If the mobile-friendly "mmvBeta" module is
+// loaded, it will handle carousel item clicks; if not, MobileFrontend will.
+//
+// Deferred to avoid side effects during module load (which interferes with
+// the QUnit test environment).
 $( () => {
-	const { Config } = require( 'mmv.bootstrap' );
+	const router = require( 'mediawiki.router' );
 	const carouselItems = Array.from( document.querySelectorAll( '.mmv-carousel__item' ) );
 
 	carouselItems.forEach( ( item ) => {
@@ -20,11 +24,15 @@ $( () => {
 			if ( e.button !== 0 || e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) {
 				return;
 			}
-			if ( !Config.isMediaViewerEnabledOnClick() ) {
+			// Normalise to the DB key (underscores, File: prefix) so the title
+			// matches the filenames the overlay derives from the page's own
+			// thumbnails (caption + prev/next navigation).
+			const fileTitle = mw.Title.newFromText( title );
+			if ( !fileTitle ) {
 				return;
 			}
 			e.preventDefault();
-			location.hash = Config.getMediaHash( new mw.Title( title ) );
+			router.navigate( '#/media/' + encodeURIComponent( fileTitle.getPrefixedDb() ) );
 		} );
 	} );
 } );
