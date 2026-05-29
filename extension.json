@@ -268,8 +268,8 @@
 				"carousel.js"
 			],
 			"dependencies": [
-				"mmv.bootstrap",
-				"mediawiki.router"
+				"mediawiki.router",
+				"mediawiki.Title"
 			]
 		},
 		"mmv.carousel.styles": {

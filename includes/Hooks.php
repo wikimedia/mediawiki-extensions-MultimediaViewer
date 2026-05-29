@@ -134,18 +134,21 @@ class Hooks implements
 		// See https://phabricator.wikimedia.org/T65504 and subtasks for more details.
 		// To avoid loading MMV twice, we check the environment we are running in.
 		$modules = [];
-		if ( $this->shouldUseMobileCarousel( $out ) ) {
-			// Mobile + carousel: load mmv.carousel.
-			// mmv.bootstrap is a dependency, so it's included.
-			$modules[] = 'mmv.carousel';
-			$out->addModuleStyles( 'mmv.carousel.styles' );
-		} elseif ( $this->isMobileFrontendView() ) {
-			// Mobile, no carousel, beta viewer: load mmv.boostrap.
-			// The user must have opted into the beta feature.
-			if (
-				$this->isBetaFeatureEnabled( $out->getUser() ) &&
-				$out->getRequest()->getFuzzyBool( 'mmvBeta' )
-			) {
+		if ( $this->isMobileFrontendView() ) {
+			// On mobile we do not load the legacy desktop viewer. Image clicks
+			// fall through to the MobileFrontend lightbox (the "#/media/" overlay
+			// MinervaNeue registers), which is what the carousel routes to. See
+			// T427679.
+			if ( $this->shouldUseMobileCarousel( $out ) ) {
+				$modules[] = 'mmv.carousel';
+				$out->addModuleStyles( 'mmv.carousel.styles' );
+			}
+			// Opt-in beta mobile viewer: ?mmvBeta=1 loads mmv.bootstrap, which
+			// registers the same "#/media/" route on the shared router and so
+			// intercepts both body and carousel image clicks ahead of the
+			// MobileFrontend lightbox. The URL parameter alone enables it; it is
+			// independent of the mobile carousel beta feature.
+			if ( $out->getRequest()->getFuzzyBool( 'mmvBeta' ) ) {
 				$modules[] = 'mmv.bootstrap';
 			}
 		} else {
