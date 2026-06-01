@@ -127,6 +127,7 @@ class ThumbExtractor {
 			'a.image img',
 			'a.image .lazy-image-placeholder',
 			'a.mw-file-description img',
+			'a.mw-file-description .lazy-image-placeholder',
 			'#file a img',
 		] );
 
