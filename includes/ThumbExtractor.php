@@ -130,7 +130,33 @@ class ThumbExtractor {
 			'#file a img',
 		] );
 
-		return DOMCompat::querySelectorAll( $body, $selectors );
+		$thumbs = DOMCompat::querySelectorAll( $body, $selectors );
+
+		// $thumbs is not guaranteed to be in the correct order in
+		// which the nodes appear in the document
+		if ( $thumbs && method_exists( $thumbs[ 0 ], 'compareDocumentPosition' ) ) {
+			// PHP 8.4+ has built-in position comparison
+			usort(
+				$thumbs,
+				static fn ( $a, $b ) => $a->compareDocumentPosition( $b ) & 2 ? 1 : -1,
+			);
+		} elseif ( count( $thumbs ) > 1 ) {
+			// Older versions don't; we'll determine the relative
+			// position of thumbs in the document by locating it
+			// in the HTML and sort accordingly
+			$doc = $body->ownerDocument;
+			$bodyHtml = $doc->saveHTML( $body );
+			$positions = array_map(
+				static fn ( $thumb ) => strpos( $bodyHtml, $doc->saveHTML( $thumb ) ),
+				$thumbs,
+			);
+			uksort(
+				$thumbs,
+				static fn ( $a, $b ) => $positions[ $a ] <=> $positions[ $b ],
+			);
+		}
+
+		return $thumbs;
 	}
 
 	/**
