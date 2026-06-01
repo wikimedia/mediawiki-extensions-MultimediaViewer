@@ -291,7 +291,6 @@ class Hooks implements
 		$doc = DOMCompat::newDocument( true );
 		$body = DOMUtils::parseHTMLToFragment( $doc, $html );
 
-		$seen = [];
 		$thumbData = [];
 
 		foreach ( $thumbExtractor->findThumbs( $body ) as $thumb ) {
@@ -310,12 +309,6 @@ class Hooks implements
 				continue;
 			}
 			$fileName = urldecode( $m[1] );
-
-			// Deduplicate by file name
-			if ( isset( $seen[$fileName] ) ) {
-				continue;
-			}
-			$seen[$fileName] = true;
 
 			$thumbData[] = [
 				'title' => Title::makeTitleSafe( NS_FILE, $fileName ),
@@ -340,8 +333,13 @@ class Hooks implements
 		$result = [];
 		foreach ( $thumbData as $item ) {
 			$thumb = $item['thumb'];
-			$result[] = [
-				'title' => $item['title']->getPrefixedText(),
+			$prefixedText = $item['title']->getPrefixedText();
+			if ( isset( $result[$prefixedText] ) ) {
+				continue;
+			}
+
+			$result[$prefixedText] = [
+				'title' => $prefixedText,
 				'href' => $item['title']->getLocalURL(),
 				'src' => $thumb->getAttribute( 'src' )
 					?: $thumb->getAttribute( 'data-mw-src' ),
@@ -352,7 +350,7 @@ class Hooks implements
 				'alt' => $thumb->getAttribute( 'alt' ),
 			];
 		}
-		return $result;
+		return array_values( $result );
 	}
 
 	/**
