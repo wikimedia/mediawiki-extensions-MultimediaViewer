@@ -147,5 +147,7 @@
 	"multimediaviewer-reuse-warning-noattribution": "该文件没有署名信息。",
 	"multimediaviewer-reuse-warning-generic": "使用前请检查[$1 其详情]。",
 	"multimediaviewer-attr-plain": "纯文本",
-	"multimediaviewer-loading": "正在加载媒体查看器。"
+	"multimediaviewer-loading": "正在加载媒体查看器。",
+	"multimediaviewer-beta-feature-name": "图像轮播",
+	"multimediaviewer-beta-feature-description": "在页面顶部显示条目图像。"
 }
