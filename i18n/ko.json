@@ -21,6 +21,8 @@
 		]
 	},
 	"multimediaviewer-desc": "섬네일을 전체 화면 인터페이스에서 더 큰 크기로 확장합니다.",
+	"multimediaviewer-carousel-label": "$1의 이미지, $2개 {{PLURAL:$2|항목}}",
+	"multimediaviewer-carousel-label-article": "문서",
 	"multimediaviewer-file-page": "해당 파일 문서로 가기",
 	"multimediaviewer-repository-local": "자세한 내용",
 	"multimediaviewer-datetime-created": "만듦: $1",

@@ -15,6 +15,8 @@
 		]
 	},
 	"multimediaviewer-desc": "Ermöglicht die Darstellung von Vorschaubildern in einer Vollbildschnittstelle.",
+	"multimediaviewer-carousel-label": "Bilder in $1, $2 {{PLURAL:$2|Element|Elemente}}",
+	"multimediaviewer-carousel-label-article": "Artikel",
 	"multimediaviewer-file-page": "Gehe zur zugehörigen Dateiseite",
 	"multimediaviewer-repository-local": "Weitere Einzelheiten",
 	"multimediaviewer-datetime-created": "Erstellt: $1",
