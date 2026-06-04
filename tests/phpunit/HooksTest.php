@@ -71,6 +71,11 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		return $method->invoke( $this->newHooksInstance(), $thumbData, $pageTitle );
 	}
 
+	private function shouldPageGetMobileCarousel( OutputPage $output ): bool {
+		$method = new \ReflectionMethod( Hooks::class, 'shouldPageGetMobileCarousel' );
+		return $method->invoke( $this->newHooksInstance(), $output );
+	}
+
 	public function testBuildCarouselItemsEmpty(): void {
 		$this->assertSame( '', $this->buildCarouselItems( [] ) );
 	}
@@ -249,5 +254,14 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 				->get( 'nomediaviewercarousel' )
 				->matchStartToEnd( '__NOMEDIAVIEWERCAROUSEL__' )
 		);
+	}
+
+	public function testShouldPageGetMobileCarouselSkipsMainPage(): void {
+		$this->overrideConfigValue( 'MainPage', 'Main Page' );
+
+		$output = $this->createMock( OutputPage::class );
+		$output->method( 'getTitle' )->willReturn( Title::newFromText( 'Main Page' ) );
+
+		$this->assertFalse( $this->shouldPageGetMobileCarousel( $output ) );
 	}
 }

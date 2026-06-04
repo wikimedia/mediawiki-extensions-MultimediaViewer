@@ -190,6 +190,7 @@ class Hooks implements
 	 *
 	 * Conditions:
 	 * - article page
+	 * - not the main page
 	 * - real page, e.g., not special
 	 * - content does not have the __NOMEDIAVIEWERCAROUSEL__ magic word
 	 *
@@ -202,6 +203,8 @@ class Hooks implements
 		return (
 			// Article
 			$title->getNamespace() === NS_MAIN &&
+			// Not the main page
+			!$title->isMainPage() &&
 			// Real page
 			$title->canExist() &&
 			// No __NOMEDIAVIEWERCAROUSEL__
