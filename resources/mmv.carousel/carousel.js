@@ -9,6 +9,27 @@ $( () => {
 	const router = require( 'mediawiki.router' );
 	const carouselItems = Array.from( document.querySelectorAll( '.mmv-carousel__item' ) );
 
+	// Instrumentation with TestKitchen as a soft dependency.
+	// Discussion at
+	// https://gerrit.wikimedia.org/r/c/mediawiki/extensions/MultimediaViewer/+/1297716/comments/4151eb46_78975b42.
+	let instrument;
+	mw.loader.using( 'ext.testKitchen' )
+		.then( () => {
+			instrument = mw.testKitchen.getInstrument( 'image-browsing' );
+			// Instrument image carousel impression.
+			// The carousel module is added server-side in Hooks.php#getModules,
+			// but there's no guarantee we have any images:
+			// check before firing the impression event.
+			if ( carouselItems.length !== 0 ) {
+				// eslint-disable-next-line camelcase
+				instrument.send( 'impression', { action_source: 'image_carousel' } );
+			}
+		} )
+		.catch( () => {
+			// eslint-disable-next-line no-console
+			console.info( '[MultimediaViewer] TestKitchen not available: skipping instrumentation.' );
+		} );
+
 	carouselItems.forEach( ( item ) => {
 		const img = item.querySelector( 'img.mmv-carousel__item-image' );
 
@@ -41,6 +62,16 @@ $( () => {
 				return;
 			}
 			e.preventDefault();
+
+			if ( instrument ) {
+				// Instrument image carousel click
+				instrument.send(
+					'click',
+					// eslint-disable-next-line camelcase
+					{ action_subtype: 'view_image', action_source: 'image_carousel' }
+				);
+			}
+
 			router.navigate( '#/media/' + encodeURIComponent( fileTitle.getPrefixedDb() ) );
 		} );
 	} );
