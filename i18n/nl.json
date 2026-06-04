@@ -21,6 +21,8 @@
 		]
 	},
 	"multimediaviewer-desc": "Miniatuurafbeeldingen schermvullend weergeven.",
+	"multimediaviewer-carousel-label": "Afbeeldingen in $1; $2 {{PLURAL:$2|item|items}}",
+	"multimediaviewer-carousel-label-article": "pagina",
 	"multimediaviewer-file-page": "Naar de bestandspagina gaan",
 	"multimediaviewer-repository-local": "Meer informatie",
 	"multimediaviewer-datetime-created": "Gemaakt: $1",

@@ -5,6 +5,8 @@
 		]
 	},
 	"multimediaviewer-desc": "Aggrandir miniaturas in un interfacie a plen schermo",
+	"multimediaviewer-carousel-label": "Imagines in $1, $2 elemento{{PLURAL:$2||s}}",
+	"multimediaviewer-carousel-label-article": "articulo",
 	"multimediaviewer-file-page": "Visitar le pagina del file correspondente",
 	"multimediaviewer-repository-local": "Plus detalios",
 	"multimediaviewer-datetime-created": "Create: $1",

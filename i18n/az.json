@@ -11,6 +11,8 @@
 		]
 	},
 	"multimediaviewer-desc": "Tam ekran interfeysində kiçik şəkilləri daha böyük ölçüdə genişləndirin",
+	"multimediaviewer-carousel-label": "$1 səhifəsindəki şəkillər, $2 {{PLURAL:$2|element}}",
+	"multimediaviewer-carousel-label-article": "məqalə",
 	"multimediaviewer-file-page": "Müvafiq fayl səhifəsinə get",
 	"multimediaviewer-repository-local": "Daha ətraflı",
 	"multimediaviewer-datetime-created": "Yaradılma tarixi: $1",

@@ -5,6 +5,8 @@
 		]
 	},
 	"multimediaviewer-desc": "Kordhi thumbnails si ay u noqdaan kuwo waaweyn gudaha is-dhexgal shaashad-buuxda ah",
+	"multimediaviewer-carousel-label": "Sawirrada ku jira $1, $2 {{PLURAL:$2|shay|shayo}}",
+	"multimediaviewer-carousel-label-article": "maqaal",
 	"multimediaviewer-file-page": "U gudub bogga faylka u dhigma",
 	"multimediaviewer-repository-local": "Faahfaahin dheeraad ah",
 	"multimediaviewer-datetime-created": "La abuuray: $1",
