@@ -53,7 +53,8 @@ class GuessedThumbnailInfo {
 			png: 1,
 			jpg: 1,
 			jpeg: 1,
-			gif: 1
+			gif: 1,
+			webp: 1
 		};
 	}
 
