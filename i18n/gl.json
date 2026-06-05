@@ -10,6 +10,8 @@
 		]
 	},
 	"multimediaviewer-desc": "Expande as miniaturas ata un tamaño maior dentro dunha interface a pantalla completa",
+	"multimediaviewer-carousel-label": "Imaxes en «$1», $2 {{PLURAL:$2|elemento|elementos}}",
+	"multimediaviewer-carousel-label-article": "artigo",
 	"multimediaviewer-file-page": "Ir á páxina de ficheiro correspondente",
 	"multimediaviewer-repository-local": "Máis detalles",
 	"multimediaviewer-datetime-created": "Creación: $1",
