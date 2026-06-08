@@ -15,7 +15,6 @@
 		// (as will be the case upon initial load, where we already
 		// want these applied to prevent FOUC - rare cases where
 		// we then find none of the images are visible, will collapse)
-		height: @height-carousel;
 		margin-top: @spacing-50;
 		margin-bottom: @space-placeholder-scrollbar + @spacing-50;
 		border-bottom: @border-width-base @border-style-base @border-color-subtle;
@@ -51,9 +50,10 @@
 			}
 		}
 
-		&-image {
-			display: block;
-			height: @size-full;
+		img.mmv-carousel__item-image {
+			// override minerva style
+			/* stylelint-disable-next-line declaration-no-important */
+			height: @height-carousel !important;
 			width: auto;
 			object-fit: cover;
 			border-radius: @border-radius-base;
@@ -85,8 +85,6 @@
 	a > img.mmv-carousel__item-image {
 		/* stylelint-disable-next-line declaration-no-important */
 		max-width: unset !important;
-		/* stylelint-disable-next-line declaration-no-important */
-		height: @size-full !important;
 	}
 }
 
