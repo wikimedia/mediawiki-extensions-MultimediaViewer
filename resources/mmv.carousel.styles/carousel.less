@@ -51,15 +51,14 @@
 		}
 
 		img.mmv-carousel__item-image {
-			// override minerva style
-			/* stylelint-disable-next-line declaration-no-important */
-			height: @height-carousel !important;
 			width: auto;
 			object-fit: cover;
 			border-radius: @border-radius-base;
 			border: @border-subtle;
 			aspect-ratio: 105/104;
 			box-sizing: border-box;
+			// !important to override minerva style
+			height: @height-carousel !important; /* stylelint-disable-line declaration-no-important */
 		}
 	}
 

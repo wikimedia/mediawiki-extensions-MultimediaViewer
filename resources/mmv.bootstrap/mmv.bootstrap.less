@@ -10,14 +10,11 @@
 	z-index: 1000;
 	background-color: #000;
 	display: flex;
-	justify-items: center;
-	align-items: center;
-	align-content: center;
-	justify-content: center;
+	place-items: center;
+	place-content: center;
 
 	.cdx-progress-bar {
 		.cdx-mode-dark(); // Ensure this component always renders in dark mode
-
 		max-width: 80vw;
 		min-width: 20vw;
 		width: 20rem;
@@ -53,7 +50,10 @@ body.mw-mmv-lightbox-open {
 
 .mw-mmv-view-expanded {
 	.cdx-button__icon {
-		.cdx-mixin-css-icon( @cdx-icon-image-gallery, @param-is-button-icon: true,
-			@param-size-icon: @size-icon-small );
+		.cdx-mixin-css-icon(
+			@cdx-icon-image-gallery,
+			@param-is-button-icon: true,
+			@param-size-icon: @size-icon-small
+		);
 	}
 }
