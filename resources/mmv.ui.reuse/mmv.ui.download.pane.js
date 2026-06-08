@@ -204,7 +204,7 @@ class DownloadPane extends UiElement {
 		} else {
 			// Disable download while we get the image
 			this.$downloadButton.addClass( 'disabledLink' );
-			Utils.getThumbnailUrlPromise( value.width ).done( ( thumbnail ) => {
+			Utils.getThumbnailUrlPromise( value.width ).then( ( thumbnail ) => {
 				this.setDownloadUrl( thumbnail.url );
 			} );
 		}

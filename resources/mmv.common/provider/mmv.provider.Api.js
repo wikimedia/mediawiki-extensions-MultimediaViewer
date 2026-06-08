@@ -70,7 +70,7 @@ class Api {
 	getCachedPromise( key, getPromise ) {
 		if ( !this.cache[ key ] ) {
 			this.cache[ key ] = getPromise();
-			this.cache[ key ].fail( ( error ) => {
+			this.cache[ key ].catch( ( error ) => {
 				// constructor.name is usually not reliable in inherited classes, but OOjs fixes that
 				mw.log( `${ this.constructor.name } provider failed to load: `, error );
 			} );

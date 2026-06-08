@@ -5,11 +5,20 @@
 
 .mmv-carousel {
 	background: @background-color-neutral-subtle;
-	border-bottom: @border-width-base @border-style-base @border-color-subtle;
-	margin-top: @spacing-50;
-	margin-bottom: @space-placeholder-scrollbar + @spacing-50;
-	height: @height-carousel;
 	overflow: auto hidden;
+
+	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+	&:has( &__item[ data-visible='true' ] ),
+	&:not( :has( &__item[ data-visible ] ) ) {
+		// Only apply layout-shift inducing styles when there are
+		// visible images, or when we don't yet know any of that
+		// (as will be the case upon initial load, where we already
+		// want these applied to prevent FOUC - rare cases where
+		// we then find none of the images are visible, will collapse)
+		margin-top: @spacing-50;
+		margin-bottom: @space-placeholder-scrollbar + @spacing-50;
+		border-bottom: @border-width-base @border-style-base @border-color-subtle;
+	}
 
 	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 	&__items {
@@ -26,6 +35,11 @@
 		cursor: pointer;
 		height: @size-full;
 
+		&[ data-visible='false' ] {
+			// Make sure to properly hide items where the image is not visible
+			display: none;
+		}
+
 		&-link {
 			display: block;
 			height: @size-full;
@@ -36,9 +50,10 @@
 			}
 		}
 
-		&-image {
-			display: block;
-			height: @size-full;
+		img.mmv-carousel__item-image {
+			// override minerva style
+			/* stylelint-disable-next-line declaration-no-important */
+			height: @height-carousel !important;
 			width: auto;
 			object-fit: cover;
 			border-radius: @border-radius-base;
@@ -46,6 +61,12 @@
 			aspect-ratio: 105/104;
 			box-sizing: border-box;
 		}
+	}
+
+	// Fix render height of images hidden through
+	// https://en.wikipedia.org/wiki/Help:Options_to_hide_an_image#Hide_all_images_until_they_are_clicked_on
+	span.hide-images-wrapper {
+		height: @size-full;
 	}
 }
 
@@ -64,8 +85,6 @@
 	a > img.mmv-carousel__item-image {
 		/* stylelint-disable-next-line declaration-no-important */
 		max-width: unset !important;
-		/* stylelint-disable-next-line declaration-no-important */
-		height: @size-full !important;
 	}
 }
 
