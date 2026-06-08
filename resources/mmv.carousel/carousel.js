@@ -10,6 +10,15 @@ $( () => {
 	const carouselItems = Array.from( document.querySelectorAll( '.mmv-carousel__item' ) );
 
 	carouselItems.forEach( ( item ) => {
+		const img = item.querySelector( 'img.mmv-carousel__item-image' );
+
+		// Check visibility of the image so we can adjust as needed in
+		// cases where users explicitly want to hide certain images
+		// @see https://en.wikipedia.org/wiki/Help:Options_to_hide_an_image#Disable_images_on_specific_pages
+		item.dataset.visible = img.checkVisibility ?
+			img.checkVisibility() : // Modern browsers
+			!!( img.offsetWidth || img.offsetHeight || img.getClientRects().length ); // jQuery .visible equivalent
+
 		const title = item.dataset.mmvTitle;
 		if ( !title ) {
 			return;
