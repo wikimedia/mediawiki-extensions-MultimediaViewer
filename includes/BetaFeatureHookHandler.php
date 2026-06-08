@@ -37,8 +37,8 @@ class BetaFeatureHookHandler implements GetBetaFeaturePreferencesHook {
 				'label-message' => 'multimediaviewer-beta-feature-name',
 				'desc-message' => 'multimediaviewer-beta-feature-description',
 				'screenshot' => [
-					'ltr' => "$path/MultimediaViewer/resources/assets/beta-feature-ltr.svg",
-					'rtl' => "$path/MultimediaViewer/resources/assets/beta-feature-rtl.svg",
+					'ltr' => "$path/MultimediaViewer/resources/assets/beta-feature-ltr.png",
+					'rtl' => "$path/MultimediaViewer/resources/assets/beta-feature-rtl.png",
 				],
 				'info-link'
 				=> 'https://www.mediawiki.org/wiki/Readers/Reader_Growth/Image_Browsing',
