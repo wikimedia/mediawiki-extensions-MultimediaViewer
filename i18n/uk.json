@@ -15,6 +15,8 @@
 		]
 	},
 	"multimediaviewer-desc": "Розгорнути мініатюри в більшому розмірі у лайтбоксі.",
+	"multimediaviewer-carousel-label": "Зображення в $1, $2 {{PLURAL:$2|елемент|елементи|елементів}}",
+	"multimediaviewer-carousel-label-article": "стаття",
 	"multimediaviewer-file-page": "Перейти на сторінку відповідного файлу",
 	"multimediaviewer-repository-local": "Докладніше",
 	"multimediaviewer-datetime-created": "Створено $1",
@@ -137,5 +139,6 @@
 	"multimediaviewer-attr-plain": "Простий текст",
 	"multimediaviewer-attr-html": "HTML",
 	"multimediaviewer-loading": "Завантаження Медіапереглядача.",
-	"multimediaviewer-beta-feature-name": "Карусель зображень"
+	"multimediaviewer-beta-feature-name": "Карусель зображень",
+	"multimediaviewer-beta-feature-description": "Показувати зображення статті у верхній частині сторінки."
 }
