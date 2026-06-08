@@ -27,6 +27,12 @@ class BetaFeatureHookHandler implements GetBetaFeaturePreferencesHook {
 	 * @param array[] &$prefs
 	 */
 	public function onGetBetaFeaturePreferences( User $user, array &$prefs ) {
+		global $wgFullyInitialised;
+		if ( !$wgFullyInitialised ) {
+			// During setup, skin detection relies on the session user which
+			// isn't available yet. (T401400)
+			return;
+		}
 		if ( RequestContext::getMain()->getSkinName() !== 'minerva' ) {
 			return;
 		}
