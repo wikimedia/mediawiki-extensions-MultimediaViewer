@@ -99,8 +99,16 @@ class ThumbExtractor {
 				continue;
 			}
 
+			// Decode percent-encoded characters in the src URL so that
+			// file names containing special characters (commas, Unicode,
+			// parentheses, etc.) can match. The src attribute from Parsoid
+			// contains encoded forms like %2C or %C3%A2, whereas file
+			// names from RepoGroup::findFiles() are in decoded form.
+			// See T428610.
+			$decodedSrc = rawurldecode( $src );
+
 			foreach ( $filteredFiles as $file ) {
-				if ( str_contains( $src, $file['name'] ) ) {
+				if ( str_contains( $decodedSrc, $file['name'] ) ) {
 					$file['thumb'] = $thumb;
 					$result[] = $file;
 				}

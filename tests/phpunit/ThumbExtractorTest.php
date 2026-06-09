@@ -101,4 +101,43 @@ class ThumbExtractorTest extends MediaWikiIntegrationTestCase {
 
 		$this->assertSame( [], $result );
 	}
+
+	/**
+	 * Regression test for T428610: images whose src attributes contain
+	 * percent-encoded characters (commas, Unicode, parentheses) must
+	 * still match the decoded file names from RepoGroup::findFiles().
+	 */
+	public function testExtractMatchesEncodedSrcToDecodedFileName(): void {
+		$file = $this->makeFile( 'jpg', 800, 600 );
+		$files = [ 'Hue,_Vietnam.jpg' => $file ];
+		$extractor = new ThumbExtractor( [ 'jpg' => 'default' ], [] );
+
+		// The src contains %2C for the comma, as Parsoid would produce
+		$snippet = '<a class="mw-file-description">'
+			. '<img src="/path/to/Hue%2C_Vietnam.jpg/200px-Hue%2C_Vietnam.jpg" width="200" height="200">'
+			. '</a>';
+		$result = $extractor->extract( $this->makeBody( $snippet ), $files );
+
+		$this->assertCount( 1, $result );
+		$this->assertSame( 'Hue,_Vietnam.jpg', $result[0]['name'] );
+	}
+
+	/**
+	 * Regression test for T428610: Unicode characters in file names must
+	 * also match when the src attribute uses percent-encoding.
+	 */
+	public function testExtractMatchesEncodedUnicodeSrcToFileName(): void {
+		$file = $this->makeFile( 'jpg', 800, 600 );
+		$files = [ 'Khâm_Đức.jpg' => $file ];
+		$extractor = new ThumbExtractor( [ 'jpg' => 'default' ], [] );
+
+		// Percent-encoded UTF-8: â = %C3%A2, Đ = %C4%90, ứ = %E1%BB%A9
+		$snippet = '<a class="mw-file-description">'
+			. '<img src="/path/to/Kh%C3%A2m_%C4%90%E1%BB%A9c.jpg/200px.jpg" width="200" height="200">'
+			. '</a>';
+		$result = $extractor->extract( $this->makeBody( $snippet ), $files );
+
+		$this->assertCount( 1, $result );
+		$this->assertSame( 'Khâm_Đức.jpg', $result[0]['name'] );
+	}
 }
