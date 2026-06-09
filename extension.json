@@ -521,6 +521,7 @@
 				".clade",
 				".navbox",
 				".noprint",
+				".nomobile",
 				"a.mw-file-description[href$=\":No_photo.svg\"]",
 				"a.mw-file-description[href$=\":No-photo.svg\"]",
 				"a.mw-file-description[href$=\":No-image.png\"]",
