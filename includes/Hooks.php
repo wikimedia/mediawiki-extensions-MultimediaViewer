@@ -146,34 +146,42 @@ class Hooks implements
 	 * @param OutputPage $out
 	 */
 	protected function getModules( OutputPage $out ) {
-		// The MobileFrontend extension provides its own implementation of MultimediaViewer.
-		// See https://phabricator.wikimedia.org/T65504 and subtasks for more details.
-		// To avoid loading MMV twice, we check the environment we are running in.
-		$modules = [];
-		if ( $this->isMobileFrontendView() ) {
-			// On mobile we do not load the legacy desktop viewer. Image clicks
-			// fall through to the MobileFrontend lightbox (the "#/media/" overlay
-			// MinervaNeue registers), which is what the carousel routes to. See
-			// T427679.
-			if ( $this->shouldUseMobileCarousel( $out ) ) {
-				$modules[] = 'mmv.carousel';
-				$out->addModuleStyles( 'mmv.carousel.styles' );
-			}
-			// Opt-in beta mobile viewer: ?mmvBeta=1 loads mmv.bootstrap, which
-			// registers the same "#/media/" route on the shared router and so
-			// intercepts both body and carousel image clicks ahead of the
-			// MobileFrontend lightbox. The URL parameter alone enables it; it is
-			// independent of the mobile carousel beta feature.
-			if ( $out->getRequest()->getFuzzyBool( 'mmvBeta' ) ) {
-				$modules[] = 'mmv.bootstrap';
-			}
-		} else {
-			$modules[] = 'mmv.bootstrap';
+		// Desktop view: always load the viewer.
+		if ( !$this->isMobileFrontendView() ) {
+			$out->addModules( 'mmv.bootstrap' );
+			return;
 		}
 
-		if ( $modules ) {
-			$out->addModules( $modules );
+		// Mobile view: only load the viewer if the user has opted in to the
+		// beta with ?mmvBeta=1 (T427679). Otherwise load nothing here; the
+		// carousel module is handled by maybeAddMobileCarousel().
+		if ( $out->getRequest()->getFuzzyBool( 'mmvBeta' ) ) {
+			$out->addModules( 'mmv.bootstrap' );
 		}
+	}
+
+	/**
+	 * Render the mobile carousel server-side and load its JS module.
+	 *
+	 * The module is added only when carousel markup is actually rendered
+	 * (a qualifying request and enough thumbnails), so the client module
+	 * can assume carousel items exist in the DOM.
+	 *
+	 * @param OutputPage $out
+	 */
+	private function maybeAddMobileCarousel( OutputPage $out ): void {
+		if ( !$this->shouldUseMobileCarousel( $out ) ) {
+			return;
+		}
+
+		$thumbData = $this->extractImages( $out );
+		if ( count( $thumbData ) < self::MIN_CAROUSEL_IMAGES ) {
+			return;
+		}
+
+		$out->addModules( 'mmv.carousel' );
+		$out->addModuleStyles( 'mmv.carousel.styles' );
+		$out->prependHTML( $this->buildCarouselHtml( $thumbData, $out->getTitle()->getText() ) );
 	}
 
 	/**
@@ -499,12 +507,7 @@ class Hooks implements
 
 		if ( !$pageIsSpecialPage || $pageIsFileRelatedSpecialPage ) {
 			$this->getModules( $out );
-			if ( $this->shouldUseMobileCarousel( $out ) ) {
-				$thumbData = $this->extractImages( $out );
-				if ( count( $thumbData ) >= self::MIN_CAROUSEL_IMAGES ) {
-					$out->prependHTML( $this->buildCarouselHtml( $thumbData, $out->getTitle()->getText() ) );
-				}
-			}
+			$this->maybeAddMobileCarousel( $out );
 		}
 	}
 

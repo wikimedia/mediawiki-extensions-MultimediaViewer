@@ -218,7 +218,7 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		$output->method( 'getRequest' )->willReturn( new FauxRequest( [] ) );
 		$output->expects( $this->once() )
 			->method( 'addModules' )
-			->with( [ 'mmv.carousel' ] );
+			->with( 'mmv.carousel' );
 		$output->expects( $this->once() )
 			->method( 'prependHTML' )
 			->with( $this->callback( static function ( string $html ): bool {
@@ -247,6 +247,8 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		);
 		$output->method( 'getRequest' )->willReturn( new FauxRequest( [] ) );
 		$output->expects( $this->never() )->method( 'prependHTML' );
+		// Below the threshold the carousel module must not be loaded (T428627).
+		$output->expects( $this->never() )->method( 'addModules' );
 
 		$hooks = $this->makeCarouselHooks( [
 			self::makeFakeThumb( 'A' ),

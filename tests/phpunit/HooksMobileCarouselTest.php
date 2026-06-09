@@ -146,7 +146,7 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 
 		$output->expects( $this->once() )
 			->method( 'addModules' )
-			->with( [ 'mmv.carousel' ] );
+			->with( 'mmv.carousel' );
 		$output->expects( $this->once() )
 			->method( 'prependHTML' )
 			->with( $this->callback( static function ( string $html ): bool {
@@ -172,7 +172,7 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 
 		$output->expects( $this->once() )
 			->method( 'addModules' )
-			->with( [ 'mmv.carousel' ] );
+			->with( 'mmv.carousel' );
 		$output->expects( $this->once() )
 			->method( 'prependHTML' )
 			->with( $this->stringContains( 'id="mmv-carousel-root"' ) );
@@ -278,10 +278,10 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 			->newFromName( 'HooksMobileCarouselUser' );
 		[ $skin, $output ] = $this->prepare( $user );
 
-		// Modules are still added, but no HTML is prepended
-		$output->expects( $this->once() )
-			->method( 'addModules' )
-			->with( [ 'mmv.carousel' ] );
+		// Below the threshold no carousel is rendered, so the carousel module
+		// must not be loaded either (T428627).
+		$output->expects( $this->never() )
+			->method( 'addModules' );
 		$output->expects( $this->never() )
 			->method( 'prependHTML' );
 
@@ -304,9 +304,11 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 		// ?mmvBeta=1 alone loads the bootstrap alongside the carousel so it can
 		// intercept the shared #/media/ route ahead of the MobileFrontend
 		// lightbox (T427679).
-		$output->expects( $this->once() )
-			->method( 'addModules' )
-			->with( [ 'mmv.carousel', 'mmv.bootstrap' ] );
+		$addedModules = [];
+		$output->method( 'addModules' )
+			->willReturnCallback( static function ( $modules ) use ( &$addedModules ) {
+				$addedModules[] = $modules;
+			} );
 
 		$hooks = $this->newHooksInstance();
 		$hooks->stubThumbs = [
@@ -316,6 +318,8 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 		];
 
 		$hooks->onBeforePageDisplay( $output, $skin );
+
+		$this->assertSame( [ 'mmv.bootstrap', 'mmv.carousel' ], $addedModules );
 	}
 
 	public function testOnBeforePageDisplayLoadsBetaViewerWithoutCarousel(): void {
@@ -327,7 +331,7 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 		// No carousel on this page, but ?mmvBeta=1 still loads the beta viewer.
 		$output->expects( $this->once() )
 			->method( 'addModules' )
-			->with( [ 'mmv.bootstrap' ] );
+			->with( 'mmv.bootstrap' );
 		$output->expects( $this->never() )
 			->method( 'prependHTML' );
 
@@ -346,7 +350,7 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 		// routing clicks to the MobileFrontend lightbox.
 		$output->expects( $this->once() )
 			->method( 'addModules' )
-			->with( [ 'mmv.carousel' ] );
+			->with( 'mmv.carousel' );
 
 		$hooks = $this->newHooksInstance();
 		$hooks->stubThumbs = [

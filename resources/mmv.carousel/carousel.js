@@ -17,13 +17,10 @@ $( () => {
 		.then( () => {
 			instrument = mw.testKitchen.getInstrument( 'image-browsing' );
 			// Instrument image carousel impression.
-			// The carousel module is added server-side in Hooks.php#getModules,
-			// but there's no guarantee we have any images:
-			// check before firing the impression event.
-			if ( carouselItems.length !== 0 ) {
-				// eslint-disable-next-line camelcase
-				instrument.send( 'impression', { action_source: 'image_carousel' } );
-			}
+			// This module is only loaded when Hooks.php rendered the carousel
+			// markup, so carousel items are guaranteed to be present.
+			// eslint-disable-next-line camelcase
+			instrument.send( 'impression', { action_source: 'image_carousel' } );
 		} )
 		.catch( () => {
 			// eslint-disable-next-line no-console
