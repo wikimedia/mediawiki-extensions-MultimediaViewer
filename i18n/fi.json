@@ -10,10 +10,12 @@
 			"Pxos",
 			"Pyscowicz",
 			"Samoasambia",
-			"Stryn"
+			"Stryn",
+			"Wikipeedikko"
 		]
 	},
 	"multimediaviewer-desc": "Näytää pienoiskuvat suuremmassa koossa kokoruututilassa",
+	"multimediaviewer-carousel-label-article": "artikkeli",
 	"multimediaviewer-file-page": "Siirry tiedoston omalle sivulle",
 	"multimediaviewer-repository-local": "Lisätiedot",
 	"multimediaviewer-datetime-created": "Luotu: $1",
