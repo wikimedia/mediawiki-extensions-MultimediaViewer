@@ -3,7 +3,6 @@
 namespace MediaWiki\Extension\MultimediaViewer;
 
 use MediaWiki\Config\Config;
-use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\BetaFeatures\Hooks\GetBetaFeaturePreferencesHook;
 use MediaWiki\MainConfigNames;
 use MediaWiki\User\User;
@@ -27,16 +26,6 @@ class BetaFeatureHookHandler implements GetBetaFeaturePreferencesHook {
 	 * @param array[] &$prefs
 	 */
 	public function onGetBetaFeaturePreferences( User $user, array &$prefs ) {
-		global $wgFullyInitialised;
-		if ( !$wgFullyInitialised ) {
-			// During setup, skin detection relies on the session user which
-			// isn't available yet. (T401400)
-			return;
-		}
-		if ( RequestContext::getMain()->getSkinName() !== 'minerva' ) {
-			return;
-		}
-
 		if ( $this->config->get( 'MediaViewerBetaFeature' ) ) {
 			$path = $this->config->get( MainConfigNames::ExtensionAssetsPath );
 			$prefs[Hooks::BETA_FEATURES_KEY] = [
