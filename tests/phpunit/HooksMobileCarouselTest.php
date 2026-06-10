@@ -62,6 +62,71 @@ class HooksMobileCarouselTest extends MediaWikiIntegrationTestCase {
 		return [ $skin, $output ];
 	}
 
+	/**
+	 * Build an OutputPage mock representing a request for an ordinary
+	 * article, with a configurable action / diff param / revision state.
+	 */
+	private function makeArticleOutputPage(
+		string $action = 'view',
+		array $requestParams = [],
+		bool $isRevisionCurrent = true
+	): OutputPage {
+		$title = Title::newFromText( 'Paris' );
+		$title->setContentModel( CONTENT_MODEL_WIKITEXT );
+		$output = $this->createMock( OutputPage::class );
+		$output->method( 'getTitle' )->willReturn( $title );
+		$output->method( 'getActionName' )->willReturn( $action );
+		$output->method( 'getRequest' )->willReturn( new FauxRequest( $requestParams ) );
+		$output->method( 'isRevisionCurrent' )->willReturn( $isRevisionCurrent );
+
+		return $output;
+	}
+
+	public function testShouldPageGetMobileCarouselOnPlainView(): void {
+		$hooks = TestingAccessWrapper::newFromObject( $this->newHooksInstance() );
+
+		$this->assertTrue(
+			$hooks->shouldPageGetMobileCarousel( $this->makeArticleOutputPage() )
+		);
+	}
+
+	public function testShouldPageGetMobileCarouselRejectsNonViewActions(): void {
+		$hooks = TestingAccessWrapper::newFromObject( $this->newHooksInstance() );
+
+		foreach ( [ 'history', 'edit', 'info' ] as $action ) {
+			$this->assertFalse(
+				$hooks->shouldPageGetMobileCarousel( $this->makeArticleOutputPage( $action ) ),
+				"carousel should not show for action=$action"
+			);
+		}
+	}
+
+	public function testShouldPageGetMobileCarouselRejectsDiffs(): void {
+		$hooks = TestingAccessWrapper::newFromObject( $this->newHooksInstance() );
+
+		// Diffs are served as part of the view action (T428701)
+		$this->assertFalse(
+			$hooks->shouldPageGetMobileCarousel(
+				$this->makeArticleOutputPage( 'view', [ 'diff' => '12345' ] )
+			)
+		);
+		$this->assertFalse(
+			$hooks->shouldPageGetMobileCarousel(
+				$this->makeArticleOutputPage( 'view', [ 'diff' => 'prev', 'oldid' => '12345' ] )
+			)
+		);
+	}
+
+	public function testShouldPageGetMobileCarouselRejectsOldRevisions(): void {
+		$hooks = TestingAccessWrapper::newFromObject( $this->newHooksInstance() );
+
+		$this->assertFalse(
+			$hooks->shouldPageGetMobileCarousel(
+				$this->makeArticleOutputPage( 'view', [ 'oldid' => '12345' ], false )
+			)
+		);
+	}
+
 	private static function makeFakeThumb( string $name ): array {
 		return [
 			'title' => "File:$name.jpg",

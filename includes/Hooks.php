@@ -189,6 +189,10 @@ class Hooks implements
 	 * Whether the page should get the mobile carousel.
 	 *
 	 * Conditions:
+	 * - plain view action: not a diff (which is still action=view), not an
+	 *   old revision, and not history/edit/etc. (T428701). Old revisions are
+	 *   excluded because thumbnails are extracted from the current revision's
+	 *   parser output and would not match the displayed content.
 	 * - article page
 	 * - not the main page
 	 * - real page, e.g., not special
@@ -201,6 +205,12 @@ class Hooks implements
 		$title = $out->getTitle();
 
 		return (
+			// Plain view: not history, edit, etc.
+			$out->getActionName() === 'view' &&
+			// Not a diff, which is served as part of the view action
+			!$out->getRequest()->getCheck( 'diff' ) &&
+			// Not an old revision (?oldid=) view
+			$out->isRevisionCurrent() &&
 			// Article
 			$title->getNamespace() === NS_MAIN &&
 			// Not the main page
