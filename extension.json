@@ -44,8 +44,8 @@
 	"AutoloadNamespaces": {
 		"MediaWiki\\Extension\\MultimediaViewer\\": "includes/"
 	},
-	"AutoloadClasses": {
-		"MediaWiki\\Extension\\MultimediaViewer\\ThumbExtractor": "includes/ThumbExtractor.php"
+	"TestAutoloadNamespaces": {
+		"MediaWiki\\Extension\\MultimediaViewer\\Tests\\": "tests/phpunit/"
 	},
 	"ResourceModules": {
 		"mmv": {

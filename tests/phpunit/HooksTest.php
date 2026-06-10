@@ -2,27 +2,14 @@
 
 namespace MediaWiki\Extension\MultimediaViewer\Tests;
 
-use MediaWiki\Extension\MultimediaViewer\Hooks;
 use MediaWiki\Output\OutputPage;
-use MediaWiki\Request\FauxRequest;
 use MediaWiki\Skin\SkinTemplate;
 use MediaWiki\Title\Title;
-use MediaWikiIntegrationTestCase;
 
 /**
  * @covers \MediaWiki\Extension\MultimediaViewer\Hooks
  */
-class HooksTest extends MediaWikiIntegrationTestCase {
-
-	public function newHooksInstance() {
-		return new Hooks(
-			$this->getServiceContainer()->getMainConfig(),
-			$this->getServiceContainer()->getSpecialPageFactory(),
-			$this->getServiceContainer()->getUserOptionsLookup(),
-			$this->getServiceContainer()->getPageProps(),
-			null
-		);
-	}
+class HooksTest extends HooksTestCase {
 
 	/**
 	 * Regression test for T428742: the multimediaviewer-enable preference
@@ -52,59 +39,29 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 	 * @dataProvider provideOnBeforePageDisplay
 	 */
 	public function testOnBeforePageDisplay( $pagename, $modulesExpected ) {
-		$t = Title::newFromText( $pagename );
-		// Force content model to avoid DB queries
-		$t->setContentModel( CONTENT_MODEL_WIKITEXT );
+		$output = $this->makeOutputPage( Title::newFromText( $pagename ) );
 		$skin = new SkinTemplate();
-		$output = $this->createMock( OutputPage::class );
-		$output->method( 'getTitle' )->willReturn( $t );
-		$output->method( 'getUser' )->willReturn(
-			$this->getServiceContainer()->getUserFactory()->newFromName( 'HooksTestUser' )
-		);
+
+		// The carousel module is only loaded when enough thumbnails exist
+		// for carousel markup to actually render (T428627).
+		$hooks = $this->newHooksInstance( [
+			self::makeFakeThumbData( 'A.jpg' ),
+			self::makeFakeThumbData( 'B.jpg' ),
+			self::makeFakeThumbData( 'C.jpg' ),
+		] );
+
 		$output->expects( $this->exactly( $modulesExpected ) )->method( 'addModules' );
-		$this->newHooksInstance()->onBeforePageDisplay( $output, $skin );
-	}
-
-	/**
-	 * Call the private buildCarouselItems method via reflection.
-	 * @param array[] $thumbData
-	 * @return string
-	 */
-	private function buildCarouselItems( array $thumbData ): string {
-		$method = new \ReflectionMethod( Hooks::class, 'buildCarouselItems' );
-		return $method->invoke( $this->newHooksInstance(), $thumbData );
-	}
-
-	/**
-	 * Call the private buildCarouselHtml method via reflection.
-	 * @param array[] $thumbData
-	 * @param string $pageTitle
-	 * @return string
-	 */
-	private function buildCarouselHtml( array $thumbData, string $pageTitle ): string {
-		$method = new \ReflectionMethod( Hooks::class, 'buildCarouselHtml' );
-		return $method->invoke( $this->newHooksInstance(), $thumbData, $pageTitle );
-	}
-
-	private function shouldPageGetMobileCarousel( OutputPage $output ): bool {
-		$method = new \ReflectionMethod( Hooks::class, 'shouldPageGetMobileCarousel' );
-		return $method->invoke( $this->newHooksInstance(), $output );
+		$hooks->onBeforePageDisplay( $output, $skin );
 	}
 
 	public function testBuildCarouselItemsEmpty(): void {
-		$this->assertSame( '', $this->buildCarouselItems( [] ) );
+		$this->assertSame( '', $this->buildCarouselItemsHtml( [] ) );
 	}
 
 	public function testBuildCarouselItemsRendersItem(): void {
-		$html = $this->buildCarouselItems( [ [
-			'title' => 'File:Cat.jpg',
-			'href' => '/wiki/File:Cat.jpg',
-			'src' => '/images/thumb/cat.jpg',
-			'srcset' => '/images/thumb/cat-240px.jpg 2x',
-			'width' => 120,
-			'height' => 90,
-			'alt' => 'A cat',
-		] ] );
+		$html = $this->buildCarouselItemsHtml( [
+			self::makeFakeThumbData( 'Cat.jpg', 'A cat' ),
+		] );
 
 		$this->assertStringContainsString( 'class="mmv-carousel__item"', $html );
 		$this->assertStringContainsString( 'data-mmv-title="File:Cat.jpg"', $html );
@@ -112,8 +69,14 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		$this->assertStringContainsString( 'href="/wiki/File:Cat.jpg"', $html );
 		$this->assertStringContainsString( 'class="mmv-carousel__item-link mw-file-description"', $html );
 		$this->assertStringContainsString( 'aria-label="A cat"', $html );
-		$this->assertStringContainsString( 'src="/images/thumb/cat.jpg"', $html );
-		$this->assertStringContainsString( 'srcset="/images/thumb/cat-240px.jpg 2x"', $html );
+		$this->assertStringContainsString(
+			'src="//upload.wikimedia.org/wikipedia/commons/thumb/1/10/Cat.jpg/120px-Cat.jpg"',
+			$html
+		);
+		$this->assertStringContainsString(
+			'srcset="//upload.wikimedia.org/wikipedia/commons/thumb/1/10/Cat.jpg/240px-Cat.jpg 2x"',
+			$html
+		);
 		$this->assertStringContainsString( 'width="120"', $html );
 		$this->assertStringContainsString( 'height="90"', $html );
 		$this->assertStringContainsString( 'alt="A cat"', $html );
@@ -122,16 +85,9 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testBuildCarouselItemsFallsBackToFilenameForAriaLabel(): void {
-		$html = $this->buildCarouselItems( [ [
-			'title' => 'File:Cat.jpg',
-			'href' => '/wiki/File:Cat.jpg',
-			'src' => '/images/thumb/cat.jpg',
-			'srcset' => '',
-			'width' => 120,
-			'height' => 90,
-			'alt' => '',
-			'label' => 'Cat',
-		] ] );
+		$html = $this->buildCarouselItemsHtml( [
+			self::makeFakeThumbData( 'Cat.jpg', '' ),
+		] );
 
 		$this->assertStringContainsString( 'class="mmv-carousel__item"', $html );
 		$this->assertStringContainsString( 'alt=""', $html );
@@ -141,9 +97,9 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 	public function testBuildCarouselHtmlIncludesLabelWithCount(): void {
 		$html = $this->buildCarouselHtml(
 			[
-				self::makeFakeThumb( 'A' ),
-				self::makeFakeThumb( 'B' ),
-				self::makeFakeThumb( 'C' ),
+				self::makeFakeThumbData( 'A.jpg' ),
+				self::makeFakeThumbData( 'B.jpg' ),
+				self::makeFakeThumbData( 'C.jpg' ),
 			],
 			'Main Page'
 		);
@@ -157,7 +113,7 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 	public function testBuildCarouselHtmlFallsBackToGenericArticleLabelWhenTitleMissing(): void {
 		$html = $this->buildCarouselHtml(
 			[
-				self::makeFakeThumb( 'A' ),
+				self::makeFakeThumbData( 'A.jpg' ),
 			],
 			''
 		);
@@ -168,54 +124,15 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	private static function makeFakeThumb( string $name ): array {
-		return [
-			'title' => "File:$name.jpg",
-			'href' => "/wiki/File:$name.jpg",
-			'src' => "/$name.jpg",
-			'srcset' => "/$name-240px.jpg 2x",
-			'width' => 120,
-			'height' => 90,
-			'alt' => $name,
-		];
-	}
-
-	private function makeCarouselHooks( array $thumbs ): Hooks {
-		$hooks = new class(
-			$this->getServiceContainer()->getMainConfig(),
-			$this->getServiceContainer()->getSpecialPageFactory(),
-			$this->getServiceContainer()->getUserOptionsLookup(),
-			$this->getServiceContainer()->getPageProps(),
-			null
-		) extends Hooks {
-			public array $stubThumbs = [];
-
-			protected function isMobileFrontendView(): bool {
-				return true;
-			}
-
-			protected function shouldUseMobileCarousel( OutputPage $out ): bool {
-				return true;
-			}
-
-			protected function extractImages( OutputPage $out ): array {
-				return $this->stubThumbs;
-			}
-		};
-		$hooks->stubThumbs = $thumbs;
-		return $hooks;
-	}
-
 	public function testOnBeforePageDisplayInjectsCarouselMarkup(): void {
-		$title = Title::newFromText( 'Main Page' );
-		$title->setContentModel( CONTENT_MODEL_WIKITEXT );
+		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
-		$output = $this->createMock( OutputPage::class );
-		$output->method( 'getTitle' )->willReturn( $title );
-		$output->method( 'getUser' )->willReturn(
-			$this->getServiceContainer()->getUserFactory()->newFromName( 'HooksTestCarouselUser' )
-		);
-		$output->method( 'getRequest' )->willReturn( new FauxRequest( [] ) );
+		$hooks = $this->newHooksInstance( [
+			self::makeFakeThumbData( 'A.jpg' ),
+			self::makeFakeThumbData( 'B.jpg' ),
+			self::makeFakeThumbData( 'C.jpg' ),
+		] );
+
 		$output->expects( $this->once() )
 			->method( 'addModules' )
 			->with( 'mmv.carousel' );
@@ -226,35 +143,20 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 					str_contains( $html, 'class="mw-mmv-wrapper mmv-carousel"' ) &&
 					str_contains( $html, 'class="mmv-carousel__items"' );
 			} ) );
-
-		$hooks = $this->makeCarouselHooks( [
-			self::makeFakeThumb( 'A' ),
-			self::makeFakeThumb( 'B' ),
-			self::makeFakeThumb( 'C' ),
-		] );
-
 		$hooks->onBeforePageDisplay( $output, $skin );
 	}
 
 	public function testCarouselBelowThresholdNotInjected(): void {
-		$title = Title::newFromText( 'Main Page' );
-		$title->setContentModel( CONTENT_MODEL_WIKITEXT );
+		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
-		$output = $this->createMock( OutputPage::class );
-		$output->method( 'getTitle' )->willReturn( $title );
-		$output->method( 'getUser' )->willReturn(
-			$this->getServiceContainer()->getUserFactory()->newFromName( 'HooksTestCarouselUserTwo' )
-		);
-		$output->method( 'getRequest' )->willReturn( new FauxRequest( [] ) );
+		$hooks = $this->newHooksInstance( [
+			self::makeFakeThumbData( 'A.jpg' ),
+			self::makeFakeThumbData( 'B.jpg' )
+		] );
+
 		$output->expects( $this->never() )->method( 'prependHTML' );
 		// Below the threshold the carousel module must not be loaded (T428627).
 		$output->expects( $this->never() )->method( 'addModules' );
-
-		$hooks = $this->makeCarouselHooks( [
-			self::makeFakeThumb( 'A' ),
-			self::makeFakeThumb( 'B' )
-		] );
-
 		$hooks->onBeforePageDisplay( $output, $skin );
 	}
 
@@ -281,4 +183,5 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 
 		$this->assertFalse( $this->shouldPageGetMobileCarousel( $output ) );
 	}
+
 }
