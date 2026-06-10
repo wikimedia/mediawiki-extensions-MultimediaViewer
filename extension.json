@@ -524,6 +524,8 @@
 				".nomobile",
 				".infobox-signature",
 				".references",
+				"a.mw-file-description[href*=\":Status_iucn\"]",
+				"a.mw-file-description[href*=\":Status_TNC\"]",
 				"a.mw-file-description[href$=\":No_photo.svg\"]",
 				"a.mw-file-description[href$=\":No-photo.svg\"]",
 				"a.mw-file-description[href$=\":No-image.png\"]",
