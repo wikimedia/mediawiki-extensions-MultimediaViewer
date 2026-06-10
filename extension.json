@@ -522,6 +522,7 @@
 				".navbox",
 				".noprint",
 				".nomobile",
+				".infobox-signature",
 				"a.mw-file-description[href$=\":No_photo.svg\"]",
 				"a.mw-file-description[href$=\":No-photo.svg\"]",
 				"a.mw-file-description[href$=\":No-image.png\"]",
