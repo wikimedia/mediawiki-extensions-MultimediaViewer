@@ -516,6 +516,10 @@
 			"description": "Enables the mobile carousel module for MultimediaViewer.",
 			"value": false
 		},
+		"MediaViewerMobileBeta": {
+			"description": "If true, the beta mobile viewer (mmv.ui.beta) replaces the MobileFrontend image viewer for all users on the mobile site, except logged-in users who have disabled MediaViewer in their preferences.",
+			"value": false
+		},
 		"MediaViewerExcludedImageSelectors": {
 			"description": "CSS selectors for images that should be excluded. These selectors typically indicate template-generated images, placeholders, or images that don't make sense in a carousel or gallery context.",
 			"value": [
