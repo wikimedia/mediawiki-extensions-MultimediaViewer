@@ -430,6 +430,7 @@
 		"GetDoubleUnderscoreIDs": "main",
 		"ResourceLoaderGetConfigVars": "main",
 		"MakeGlobalVariablesScript": "main",
+		"GetPreferences": "main",
 		"ThumbnailBeforeProduceHTML": "main",
 		"GetBetaFeaturePreferences": "betafeatures"
 	},

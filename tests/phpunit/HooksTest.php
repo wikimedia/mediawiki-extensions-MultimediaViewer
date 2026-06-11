@@ -24,6 +24,21 @@ class HooksTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
+	/**
+	 * Regression test for T428742: the multimediaviewer-enable preference
+	 * must remain visible in Special:Preferences.
+	 */
+	public function testOnGetPreferencesRegistersEnableToggle() {
+		$prefs = [];
+		$this->newHooksInstance()->onGetPreferences(
+			$this->getServiceContainer()->getUserFactory()->newFromName( 'HooksTestUser' ),
+			$prefs
+		);
+
+		$this->assertArrayHasKey( 'multimediaviewer-enable', $prefs );
+		$this->assertSame( 'toggle', $prefs['multimediaviewer-enable']['type'] );
+	}
+
 	public static function provideOnBeforePageDisplay() {
 		return [
 			'no files' => [ 'Main Page', 1 ],
