@@ -30,6 +30,8 @@
 		]
 	},
 	"multimediaviewer-desc": "在全屏界面中以更大尺寸展开缩略图",
+	"multimediaviewer-carousel-label": "$1上的图像，共$2{{PLURAL:$2|项}}",
+	"multimediaviewer-carousel-label-article": "条目",
 	"multimediaviewer-file-page": "前往对应的文件页面",
 	"multimediaviewer-repository-local": "更多详情",
 	"multimediaviewer-datetime-created": "创作时间：$1",
