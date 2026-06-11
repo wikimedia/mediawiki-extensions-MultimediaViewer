@@ -42,6 +42,7 @@ use MediaWiki\Page\Hook\CategoryPageViewHook;
 use MediaWiki\Page\PageProps;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Parser\ParserOutputLinkTypes;
+use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\ResourceLoader\Context;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderGetConfigVarsHook;
@@ -59,6 +60,7 @@ use Wikimedia\Parsoid\Utils\DOMUtils;
 class Hooks implements
 	MakeGlobalVariablesScriptHook,
 	UserGetDefaultOptionsHook,
+	GetPreferencesHook,
 	BeforePageDisplayHook,
 	CategoryPageViewHook,
 	ResourceLoaderGetConfigVarsHook,
@@ -95,6 +97,20 @@ class Hooks implements
 		if ( $this->config->get( 'MediaViewerEnableByDefault' ) ) {
 			$defaultOptions['multimediaviewer-enable'] = 1;
 		}
+	}
+
+	/**
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/GetPreferences
+	 * Adds a default-enabled preference to gate the feature
+	 * @param User $user
+	 * @param array &$prefs
+	 */
+	public function onGetPreferences( $user, &$prefs ) {
+		$prefs['multimediaviewer-enable'] = [
+			'type' => 'toggle',
+			'label-message' => 'multimediaviewer-optin-pref',
+			'section' => 'rendering/files',
+		];
 	}
 
 	/**
