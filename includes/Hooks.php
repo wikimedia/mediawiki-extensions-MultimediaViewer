@@ -177,8 +177,8 @@ class Hooks implements
 		$thumbExtractor = new ThumbExtractor(
 			array_keys( $this->config->get( 'MediaViewerExtensions' ) ),
 			$this->config->get( 'MediaViewerExcludedImageSelectors' ),
-			30,
-			30,
+			100,
+			100,
 			$this->config->get( MainConfigNames::ArticlePath )
 		);
 		$context = $out->getContext();
