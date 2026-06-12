@@ -7,7 +7,6 @@
 		]
 	},
 	"multimediaviewer-desc": "পূৰ্ণাঙ্গ স্ক্ৰীণৰ ইণ্টাৰফেছত ক্ষুদ্ৰ প্ৰতিকৃতিবোৰ ডাঙৰ আকাৰত প্ৰসাৰিত কৰক",
-	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About মিডিয়া ভিউৱাৰ]</span> সক্ষম কৰক",
 	"multimediaviewer-file-page": "সংশ্লিষ্ট ফাইল পৃষ্ঠালৈ যাওক",
 	"multimediaviewer-repository-local": "অধিক সবিশেষ",
 	"multimediaviewer-datetime-created": "সৃষ্টিৰ সময়: $1",

@@ -15,7 +15,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Επεκτείνετε τις μικρογραφίες σε μεγαλύτερο μέγεθος σε ένα περιβάλλον εργασίας πλήρους οθόνης.",
-	"multimediaviewer-optin-pref": "Ενεργοποίηση <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
 	"multimediaviewer-file-page": "Μεταβείτε στην αντίστοιχη σελίδα του αρχείου",
 	"multimediaviewer-repository-local": "Περισσότερες λεπτομέρειες",
 	"multimediaviewer-datetime-created": "Δημιουργήθηκε: $1",

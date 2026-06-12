@@ -12,7 +12,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Zvětší náhledy obrázků do celoobrazovkového rozhraní.",
-	"multimediaviewer-optin-pref": "Aktivovat <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Prohlížeč médií]</span>",
 	"multimediaviewer-file-page": "Přejít na stránku s popisem souboru",
 	"multimediaviewer-repository-local": "Více informací",
 	"multimediaviewer-datetime-created": "Vytvořeno: $1",

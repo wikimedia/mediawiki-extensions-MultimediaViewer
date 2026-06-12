@@ -21,7 +21,6 @@
 		]
 	},
 	"multimediaviewer-desc": "Miniatuurafbeeldingen schermvullend weergeven.",
-	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About MediaViewer]</span> inschakelen",
 	"multimediaviewer-disable-image-carousel-pref": "Afbeeldingencarrousel uitschakelen op de mobiele site",
 	"multimediaviewer-file-page": "Naar de bestandspagina gaan",
 	"multimediaviewer-repository-local": "Meer informatie",
@@ -77,7 +76,7 @@
 	"multimediaviewer-download-large-button-name": "Groot formaat downloaden",
 	"multimediaviewer-download-xl-button-name": "Extra groot formaat downloaden",
 	"multimediaviewer-link-to-page": "Koppeling naar de pagina met de bestandsbeschrijving",
-	"multimediaviewer-link-to-file": "Koppeling naar het originele bestand",
+	"multimediaviewer-link-to-file": "Koppeling naar het oorspronkelijke bestand",
 	"multimediaviewer-share-explanation": "Kopiëren en delen",
 	"multimediaviewer-embed-wt": "Wikitekst",
 	"multimediaviewer-embed-html": "HTML",

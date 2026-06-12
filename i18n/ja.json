@@ -15,7 +15,6 @@
 		]
 	},
 	"multimediaviewer-desc": "縮小画像を全画面表示インターフェイス内に拡大表示する",
-	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About メディアビューアー]</span>を有効にする",
 	"multimediaviewer-file-page": "対応するファイル ページに移動",
 	"multimediaviewer-repository-local": "詳細",
 	"multimediaviewer-datetime-created": "作成: $1",
