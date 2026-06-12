@@ -78,5 +78,6 @@
 	"multimediaviewer-credit-popup-text-more": "সম্পূৰ্ণ প্ৰণেতা আৰু উৎস চাওক",
 	"multimediaviewer-reuse-warning-nonfree": "এই ফাইলটোৰ মুক্ত অনুজ্ঞাপত্ৰ নাই।",
 	"multimediaviewer-attr-plain": "সাধাৰণ",
-	"multimediaviewer-attr-html": "এইচটিএমএল"
+	"multimediaviewer-attr-html": "এইচটিএমএল",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About মিডিয়া ভিউৱাৰ]</span> সক্ষম কৰক"
 }

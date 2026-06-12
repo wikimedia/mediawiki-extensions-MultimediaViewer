@@ -79,5 +79,6 @@
 	"multimediaviewer-download-attribution-cta": "ڪيئن مونکي ڏيکاريو",
 	"multimediaviewer-reuse-warning-deletion": "هن فائيل کي ڊاهڻ لاءِ چيو ويو آهي.",
 	"multimediaviewer-reuse-warning-nonfree": "هن فائيل کي ڪو آزاد اجازتنامو ناهي.",
-	"multimediaviewer-attr-plain": "سادو"
+	"multimediaviewer-attr-plain": "سادو",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About ميڊيا ڏيکاريندڙ]</span> کي فعال ڪريو"
 }

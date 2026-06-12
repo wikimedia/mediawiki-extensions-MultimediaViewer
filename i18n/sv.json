@@ -113,5 +113,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Den här filen har ingen attributinformation",
 	"multimediaviewer-reuse-warning-generic": "Kontrollera [$1 filens detaljer] före användning.",
 	"multimediaviewer-attr-plain": "Klartext",
+	"multimediaviewer-optin-pref": "Aktivera <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Mediavisaren]</span>",
 	"multimediaviewer-loading": "Aktivera Mediavisaren"
 }

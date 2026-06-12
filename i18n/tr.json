@@ -116,5 +116,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Bu dosyanın ilişkilendirme bilgisi yok.",
 	"multimediaviewer-reuse-warning-generic": "Kullanmadan önce [$1 ayrıntılarını] kontrol edin.",
 	"multimediaviewer-attr-plain": "Sade",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Medya Görüntüleyici]</span>'yi etkinleştir",
 	"multimediaviewer-loading": "Ortam Görüntüleyici yükleniyor."
 }

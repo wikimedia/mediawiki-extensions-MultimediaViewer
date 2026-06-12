@@ -91,5 +91,6 @@
 	"multimediaviewer-download-attribution-cta-header": "Feumaidh tu urram a thoirt air an ùghdar",
 	"multimediaviewer-download-attribution-cta": "Seall dhomh ciamar",
 	"multimediaviewer-attr-plain": "Lom",
-	"multimediaviewer-attr-html": "HTML"
+	"multimediaviewer-attr-html": "HTML",
+	"multimediaviewer-optin-pref": "Cuir <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About sealladair nam headhanan]</span> an comas"
 }

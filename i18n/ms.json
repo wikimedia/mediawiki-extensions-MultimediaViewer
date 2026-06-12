@@ -11,5 +11,6 @@
 	"multimediaviewer-reuse-link": "Sebarkan atau terapkan fail ini",
 	"multimediaviewer-download-link": "Muat turun fail ini",
 	"multimediaviewer-view-expanded": "Buka dalam Media Viewer",
-	"multimediaviewer-copy-button": "Salin"
+	"multimediaviewer-copy-button": "Salin",
+	"multimediaviewer-optin-pref": "Hidupkan <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>"
 }

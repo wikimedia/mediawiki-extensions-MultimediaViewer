@@ -108,7 +108,8 @@
 	"multimediaviewer-reuse-warning-noattribution": "Bu faylda atribusiya məlumatı yoxdur.",
 	"multimediaviewer-reuse-warning-generic": "İstifadə etməzdən əvvəl [$1 onun detallarını] yoxlayın.",
 	"multimediaviewer-attr-plain": "Sadə",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media nümayişetdiricisini]</span> aktivləşdir",
 	"multimediaviewer-loading": "Media Viewer yüklənir.",
 	"multimediaviewer-beta-feature-name": "Şəkil karuseli",
-	"multimediaviewer-beta-feature-description": "Məqalənin şəkillərini səhifənin yuxarı hissəsində göstər."
+	"multimediaviewer-beta-feature-description": "Məqalənin şəkillərini mobildə səhifənin yuxarı hissəsində göstər."
 }

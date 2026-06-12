@@ -104,5 +104,6 @@
 	"multimediaviewer-reuse-warning-nonfree": "Berkas puniki nénten malisénsi bébas.",
 	"multimediaviewer-reuse-warning-noattribution": "Berkas puniki nénten madué pidarta atribusi.",
 	"multimediaviewer-attr-html": "HTML",
+	"multimediaviewer-optin-pref": "Idupang <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Panyingak Média]</span>",
 	"multimediaviewer-loading": "Ngamuat Panyingak Média"
 }

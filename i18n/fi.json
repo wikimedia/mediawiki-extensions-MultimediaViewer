@@ -109,7 +109,8 @@
 	"multimediaviewer-reuse-warning-noattribution": "Tällä tiedostolla ei ole nimeämistietoja.",
 	"multimediaviewer-reuse-warning-generic": "Tarkista [$1 tiedot] ennen sen käyttöä.",
 	"multimediaviewer-attr-plain": "Tavallinen",
+	"multimediaviewer-optin-pref": "Ota käyttöön <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Mediakatselin]</span>",
 	"multimediaviewer-loading": "Ladataan Mediakatselinta.",
 	"multimediaviewer-beta-feature-name": "Kuvakaruselli",
-	"multimediaviewer-beta-feature-description": "Näyttää artikkelin kuvat sivun yläreunassa."
+	"multimediaviewer-beta-feature-description": "Näyttää artikkelin kuvat sivun yläreunassa mobiililaitteilla."
 }

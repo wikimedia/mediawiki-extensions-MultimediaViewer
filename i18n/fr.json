@@ -145,5 +145,6 @@
 	"multimediaviewer-reuse-warning-generic": "Vérifier [$1 ses détails] avant de l’utiliser.",
 	"multimediaviewer-attr-plain": "Texte brut",
 	"multimediaviewer-attr-html": "HTML",
+	"multimediaviewer-optin-pref": "Activer la <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visionneuse de médias]</span>",
 	"multimediaviewer-loading": "Chargement de la visionneuse multimédia."
 }

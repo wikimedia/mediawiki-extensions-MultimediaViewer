@@ -98,5 +98,6 @@
 	"multimediaviewer-reuse-warning-nonfree": "У гэтага файла няма свабоднай ліцэнзіі.",
 	"multimediaviewer-reuse-warning-noattribution": "Гэты файл не мае атрыбутыўнай інфармацыі.",
 	"multimediaviewer-reuse-warning-generic": "Праверце [$1 яго падрабязнасці] перад яго выкарыстаннем.",
-	"multimediaviewer-attr-plain": "Просты"
+	"multimediaviewer-attr-plain": "Просты",
+	"multimediaviewer-optin-pref": "Уключыць <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About «Праглядальнік медыяфайлаў»]</span>"
 }

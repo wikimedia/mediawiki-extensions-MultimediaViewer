@@ -116,5 +116,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "ഈ പ്രമാണത്തിന് യാതൊരു കടപ്പാട് വിവരങ്ങളും ഇല്ല.",
 	"multimediaviewer-reuse-warning-generic": "ഉപയോഗിക്കുന്നതിന്റെ മുമ്പ് [$1 ഇതിന്റെ വിശദാംശങ്ങൾ] പരിശോധിക്കുക.",
 	"multimediaviewer-attr-plain": "വെറും എഴുത്ത്",
-	"multimediaviewer-attr-html": "എച്ച്.റ്റി.എം.എൽ."
+	"multimediaviewer-attr-html": "എച്ച്.റ്റി.എം.എൽ.",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About മീഡിയ കാണൽ സൗകര്യം]</span> സജ്ജമാക്കുക"
 }

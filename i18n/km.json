@@ -13,5 +13,6 @@
 	"multimediaviewer-html-embed-credit-text-bl": "ដោយ $1, $2, $3",
 	"multimediaviewer-html-embed-credit-text-b": "ដោយ $1, $2",
 	"multimediaviewer-html-embed-credit-link-text": "តំណ​ភ្ជាប់",
-	"multimediaviewer-embed-byline": "ដោយ $1"
+	"multimediaviewer-embed-byline": "ដោយ $1",
+	"multimediaviewer-optin-pref": "បើកប្រើ <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>"
 }

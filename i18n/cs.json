@@ -112,5 +112,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Tento soubor nemá informace o autorovi.",
 	"multimediaviewer-reuse-warning-generic": "Před jeho použitím zkontrolujte [$1 podrobnosti].",
 	"multimediaviewer-attr-plain": "Prostý text",
+	"multimediaviewer-optin-pref": "Aktivovat <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Prohlížeč médií]</span>",
 	"multimediaviewer-loading": "Prohlížeč médií se nahrává."
 }

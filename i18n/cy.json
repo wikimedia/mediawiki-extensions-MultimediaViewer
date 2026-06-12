@@ -77,5 +77,6 @@
 	"multimediaviewer-download-optional-attribution-cta-header": "Gallwch chi briodoli'r awdur",
 	"multimediaviewer-download-attribution-cta": "Dangoswch i mi sut",
 	"multimediaviewer-reuse-warning-generic": "Gwiriwch [$1 ei manylion] cyn ei defnyddio.",
-	"multimediaviewer-attr-plain": "Plaen"
+	"multimediaviewer-attr-plain": "Plaen",
+	"multimediaviewer-optin-pref": "Galluogi'r <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Syllwr Cyfryngau]</span>"
 }

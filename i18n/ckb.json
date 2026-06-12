@@ -41,5 +41,6 @@
 	"multimediaviewer-title-popup-text-more": "وەسفی تەواو ببینە",
 	"multimediaviewer-credit-popup-text-more": "بەرھەمھێنەر و سەرچاوە بە تەواوی ببینە",
 	"multimediaviewer-download-attribution-cta": "نیشانم بدە چۆن",
-	"multimediaviewer-attr-plain": "ئاسایی"
+	"multimediaviewer-attr-plain": "ئاسایی",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About چاولێکەری میدیا]</span> چالاک بکە"
 }

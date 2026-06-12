@@ -118,5 +118,6 @@
 	"multimediaviewer-reuse-warning-nonfree": "このファイルはフリーライセンスではありません。",
 	"multimediaviewer-reuse-warning-noattribution": "このファイルには帰属情報がありません。",
 	"multimediaviewer-reuse-warning-generic": "使用する前に[$1 詳細]を確認してください。",
-	"multimediaviewer-attr-plain": "プレーン"
+	"multimediaviewer-attr-plain": "プレーン",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About メディアビューアー]</span>を有効にする"
 }

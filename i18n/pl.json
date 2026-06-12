@@ -114,5 +114,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Ten plik nie posiada żadnych informacji dotyczących autorstwa.",
 	"multimediaviewer-reuse-warning-generic": "Przed użyciem sprawdź [$1 jego szczegóły].",
 	"multimediaviewer-attr-plain": "Zwykły tekst",
+	"multimediaviewer-optin-pref": "Aktywuj <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About przeglądarkę multimediów]</span>",
 	"multimediaviewer-loading": "Wczytywanie przeglądarki multimediów."
 }

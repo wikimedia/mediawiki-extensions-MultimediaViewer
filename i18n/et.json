@@ -91,5 +91,6 @@
 	"multimediaviewer-reuse-warning-nonfree": "Selle faili juures pole vaba litsentsi.",
 	"multimediaviewer-reuse-warning-noattribution": "Selle faili juures puudub autoriteave.",
 	"multimediaviewer-reuse-warning-generic": "Enne selle kasutamist kontrolli [$1 selle üksikasju].",
-	"multimediaviewer-attr-plain": "Lihttekst"
+	"multimediaviewer-attr-plain": "Lihttekst",
+	"multimediaviewer-optin-pref": "Kasuta <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About failivaaturit]</span>"
 }

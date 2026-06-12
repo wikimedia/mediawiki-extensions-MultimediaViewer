@@ -26,5 +26,6 @@
 	"multimediaviewer-view-expanded": "په رسنۍ کتونکي کې پرانيستل",
 	"multimediaviewer-close-popup-text": "دا اوزار تړل (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "پر لوی سکرين کتنه",
-	"multimediaviewer-download-optional-attribution-cta-header": "ليکوال ته يې اړونده کولی شی"
+	"multimediaviewer-download-optional-attribution-cta-header": "ليکوال ته يې اړونده کولی شی",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About رسنۍ کتونکی]</span> چارنول"
 }

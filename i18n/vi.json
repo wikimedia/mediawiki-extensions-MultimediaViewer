@@ -113,5 +113,6 @@
 	"multimediaviewer-reuse-warning-nonfree": "Tập tin này không có giấy phép mở.",
 	"multimediaviewer-reuse-warning-noattribution": "Tập tin này thiếu thông tin ghi công.",
 	"multimediaviewer-reuse-warning-generic": "Hãy kiểm tra [$1 chi tiết] trước khi sử dụng nó.",
-	"multimediaviewer-attr-plain": "Văn bản thuần"
+	"multimediaviewer-attr-plain": "Văn bản thuần",
+	"multimediaviewer-optin-pref": "Bật <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About cửa sổ phương tiện]</span>"
 }

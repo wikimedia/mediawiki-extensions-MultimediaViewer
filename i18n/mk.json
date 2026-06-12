@@ -110,5 +110,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Оваа податотека нема приписни податоци.",
 	"multimediaviewer-reuse-warning-generic": "Погледајте ги [$1 поединостите] пред да ја употребите.",
 	"multimediaviewer-attr-plain": "Прост",
+	"multimediaviewer-optin-pref": "Вклучи го <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Прегледувачот]</span>",
 	"multimediaviewer-loading": "Го вчитувам Прегледувачот."
 }

@@ -104,5 +104,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Denne filen har ingen attribusjonsinformasjon.",
 	"multimediaviewer-reuse-warning-generic": "Sjekk [$1 detaljene dens] før du bruker den.",
 	"multimediaviewer-attr-plain": "Enkel tekst",
+	"multimediaviewer-optin-pref": "Aktiver <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About mediefremviseren]</span>",
 	"multimediaviewer-loading": "Laster mediefremviseren."
 }

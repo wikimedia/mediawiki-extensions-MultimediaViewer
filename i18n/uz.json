@@ -47,5 +47,6 @@
 	"multimediaviewer-next-image-alt-text": "Keyingi tasvirni koʻrsatish",
 	"multimediaviewer-prev-image-alt-text": "Avvalgi tasvirni koʻrsatish",
 	"multimediaviewer-title-popup-text": "Tavsif",
-	"multimediaviewer-title-popup-text-more": "Toʻliq tavsifni koʻrish"
+	"multimediaviewer-title-popup-text-more": "Toʻliq tavsifni koʻrish",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>ni yoqish"
 }

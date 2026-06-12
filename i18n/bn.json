@@ -109,5 +109,6 @@
 	"multimediaviewer-reuse-warning-generic": "এটি ব্যবহার করার আগে [$1 এর বিস্তারিত] পরীক্ষা করুন।",
 	"multimediaviewer-attr-plain": "সাধারণ",
 	"multimediaviewer-attr-html": "এইচটিএমএল",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About মিডিয়া ভিউয়ার]</span> সক্রিয় করো",
 	"multimediaviewer-loading": "মিডিয়া ভিউয়ার লোড করা হচ্ছে।"
 }

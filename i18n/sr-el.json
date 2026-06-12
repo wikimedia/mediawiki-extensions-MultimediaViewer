@@ -89,5 +89,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Ova datoteka nema informacije o autorstvu.",
 	"multimediaviewer-reuse-warning-generic": "Proverite [$1 njene detalje] pre korišćenja.",
 	"multimediaviewer-attr-plain": "Običan tekst",
+	"multimediaviewer-optin-pref": "Uključi <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About prikazivač medija]</span>",
 	"multimediaviewer-loading": "Učitavanje prikazivača medija"
 }

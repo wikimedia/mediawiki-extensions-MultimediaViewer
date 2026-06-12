@@ -95,5 +95,6 @@
 	"multimediaviewer-reuse-warning-nonfree": "Esti ficheru nun tien una llicencia llibre.",
 	"multimediaviewer-reuse-warning-noattribution": "Esti ficheru nun tien información d'atribución.",
 	"multimediaviewer-reuse-warning-generic": "Comprueba [$1 los detalles] antes d'utilizalu.",
-	"multimediaviewer-attr-plain": "Testu planu"
+	"multimediaviewer-attr-plain": "Testu planu",
+	"multimediaviewer-optin-pref": "Activar el <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visor de multimedia]</span>"
 }

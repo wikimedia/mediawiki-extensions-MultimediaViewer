@@ -56,5 +56,6 @@
 	"multimediaviewer-title-popup-text": "Deskrivadur",
 	"multimediaviewer-title-popup-text-more": "Gwelet deskrivadur klok",
 	"multimediaviewer-download-attribution-cta": "Diskouez din penaos ober",
-	"multimediaviewer-attr-plain": "Plaen"
+	"multimediaviewer-attr-plain": "Plaen",
+	"multimediaviewer-optin-pref": "Gweredekaat <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>"
 }

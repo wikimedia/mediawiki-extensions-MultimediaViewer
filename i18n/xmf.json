@@ -21,5 +21,6 @@
 	"multimediaviewer-permission-link": "პიჯალეფიშ ძირაფა",
 	"multimediaviewer-permission-link-hide": "პიჯალეფიშ ინოკიჩუა",
 	"multimediaviewer-permission-viewmore": "უმოსიშ ძირაფა",
-	"multimediaviewer-geolocation": "ორენიː $1"
+	"multimediaviewer-geolocation": "ორენიː $1",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About მედია-მიშმაჯინეშ]</span> ჩართება"
 }
