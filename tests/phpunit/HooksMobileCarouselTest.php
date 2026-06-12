@@ -2,18 +2,129 @@
 
 namespace MediaWiki\Extension\MultimediaViewer\Tests;
 
+use MediaWiki\Extension\MultimediaViewer\Hooks;
 use MediaWiki\Extension\MultimediaViewer\ThumbExtractor;
 use MediaWiki\Output\OutputPage;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Skin\SkinTemplate;
+use MediaWiki\Title\Title;
 use MediaWiki\User\UserRigorOptions;
 use Wikimedia\Parsoid\Core\DOMCompat;
+use Wikimedia\Parsoid\DOM\Element;
+use Wikimedia\Parsoid\Utils\DOMUtils;
 
 /**
  * @covers \MediaWiki\Extension\MultimediaViewer\Hooks
  * @group Database
  */
 class HooksMobileCarouselTest extends HooksTestCase {
+	public function newHooksInstance(
+		array $carouselItems = [],
+		bool $useCarousel = true,
+		string $currentRequestSkinName = 'minerva'
+	): Hooks {
+		$hooks = new class(
+			$this->getServiceContainer()->getMainConfig(),
+			$this->getServiceContainer()->getSpecialPageFactory(),
+			$this->getServiceContainer()->getUserOptionsLookup(),
+			$this->getServiceContainer()->getPageProps(),
+			null
+		) extends Hooks {
+			public array $stubCarouselItems;
+			public bool $useCarousel;
+			public string $currentRequestSkinName;
+
+			protected function isMobileFrontendView(): bool {
+				return true;
+			}
+
+			protected function getCurrentRequestSkinName(): string {
+				return $this->currentRequestSkinName;
+			}
+
+			protected function shouldUseMobileCarousel( OutputPage $out ): bool {
+				return $this->useCarousel;
+			}
+
+			protected function extractCarouselImageElements(
+				ThumbExtractor $thumbExtractor,
+				string $html,
+				?ParserOutput $parserOutput = null
+			): array {
+				return $this->stubCarouselItems;
+			}
+		};
+		$hooks->stubCarouselItems = $carouselItems;
+		$hooks->useCarousel = $useCarousel;
+		$hooks->currentRequestSkinName = $currentRequestSkinName;
+		return $hooks;
+	}
+
+	protected function shouldPageGetMobileCarousel( OutputPage $output ): bool {
+		$method = new \ReflectionMethod( Hooks::class, 'shouldPageGetMobileCarousel' );
+		return $method->invoke( $this->newHooksInstance(), $output );
+	}
+
+	protected function extractCarouselImageElements(
+		ThumbExtractor $thumbExtractor,
+		string $html,
+		?ParserOutput $parserOutput = null
+	): array {
+		$method = new \ReflectionMethod( Hooks::class, 'extractCarouselImageElements' );
+		$hooks = new Hooks(
+			$this->getServiceContainer()->getMainConfig(),
+			$this->getServiceContainer()->getSpecialPageFactory(),
+			$this->getServiceContainer()->getUserOptionsLookup(),
+			$this->getServiceContainer()->getPageProps(),
+			null
+		);
+		return $method->invoke( $hooks, $thumbExtractor, $html, $parserOutput );
+	}
+
+	protected function buildCarouselItemsHtml( array $thumbData ): string {
+		$method = new \ReflectionMethod( Hooks::class, 'buildCarouselItemsHtml' );
+		return $method->invoke( $this->newHooksInstance(), $thumbData );
+	}
+
+	protected function buildCarouselHtml( array $thumbData, string $pageTitle ): string {
+		$method = new \ReflectionMethod( Hooks::class, 'buildCarouselHtml' );
+		return $method->invoke( $this->newHooksInstance(), $thumbData, $pageTitle );
+	}
+
+	protected static function makeFakeThumb( string $filename, ?string $alt = null ): Element {
+		$alt = $alt !== null ? "alt=\"$alt\"" : '';
+		$src = <<<HTML
+			<a
+				href="/wiki/File:$filename"
+				class="mw-file-description"
+			>
+				<img
+					$alt
+					src="//upload.wikimedia.org/wikipedia/commons/thumb/1/10/$filename/120px-$filename"
+					decoding="async"
+					width="120"
+					height="90"
+					class="mw-file-element"
+					srcset="//upload.wikimedia.org/wikipedia/commons/thumb/1/10/$filename/240px-$filename 2x"
+					data-file-width="2400"
+					data-file-height="1800"
+				>
+			</a>
+		HTML;
+
+		$doc = DOMCompat::newDocument( true );
+		$fragment = DOMUtils::parseHTMLToFragment( $doc, $src );
+		return $fragment->firstElementChild->firstElementChild;
+	}
+
+	protected static function makeFakeThumbData( string $filename, ?string $alt = null ): array {
+		return [
+			'thumb' => self::makeFakeThumb( $filename, $alt ),
+			'title' => Title::newFromText( "File:$filename" ),
+		];
+	}
+
 	public function testShouldPageGetMobileCarouselOnPlainView(): void {
 		$output = $this->makeOutputPage();
 
@@ -288,4 +399,97 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$this->assertTrue( $vars['wgMediaViewerOnClick'] );
 	}
 
+	public function testBuildCarouselItemsEmpty(): void {
+		$this->assertSame( '', $this->buildCarouselItemsHtml( [] ) );
+	}
+
+	public function testBuildCarouselItemsRendersItem(): void {
+		$html = $this->buildCarouselItemsHtml( [
+			self::makeFakeThumbData( 'Cat.jpg', 'A cat' ),
+		] );
+
+		$this->assertStringContainsString( 'class="mmv-carousel__item"', $html );
+		$this->assertStringContainsString( 'data-mmv-title="File:Cat.jpg"', $html );
+		$this->assertStringContainsString( 'data-mmv-position="1"', $html );
+		$this->assertStringContainsString( 'href="/wiki/File:Cat.jpg"', $html );
+		$this->assertStringContainsString( 'class="mmv-carousel__item-link mw-file-description"', $html );
+		$this->assertStringContainsString( 'aria-label="A cat"', $html );
+		$this->assertStringContainsString(
+			'src="//upload.wikimedia.org/wikipedia/commons/thumb/1/10/Cat.jpg/120px-Cat.jpg"',
+			$html
+		);
+		$this->assertStringContainsString(
+			'srcset="//upload.wikimedia.org/wikipedia/commons/thumb/1/10/Cat.jpg/240px-Cat.jpg 2x"',
+			$html
+		);
+		$this->assertStringContainsString( 'width="120"', $html );
+		$this->assertStringContainsString( 'height="90"', $html );
+		$this->assertStringContainsString( 'alt="A cat"', $html );
+		$this->assertStringContainsString( 'class="mmv-carousel__item-image"', $html );
+		$this->assertStringContainsString( 'loading="lazy"', $html );
+	}
+
+	public function testBuildCarouselItemsFallsBackToFilenameForAriaLabel(): void {
+		$html = $this->buildCarouselItemsHtml( [
+			self::makeFakeThumbData( 'Cat.jpg', '' ),
+		] );
+
+		$this->assertStringContainsString( 'class="mmv-carousel__item"', $html );
+		$this->assertStringContainsString( 'alt=""', $html );
+		$this->assertStringContainsString( 'aria-label="Cat"', $html );
+	}
+
+	public function testBuildCarouselHtmlIncludesLabelWithCount(): void {
+		$html = $this->buildCarouselHtml(
+			[
+				self::makeFakeThumbData( 'A.jpg' ),
+				self::makeFakeThumbData( 'B.jpg' ),
+				self::makeFakeThumbData( 'C.jpg' ),
+			],
+			'Main Page'
+		);
+
+		$this->assertStringContainsString(
+			'aria-label="Images in Main Page, 3 items"',
+			$html
+		);
+	}
+
+	public function testBuildCarouselHtmlFallsBackToGenericArticleLabelWhenTitleMissing(): void {
+		$html = $this->buildCarouselHtml(
+			[
+				self::makeFakeThumbData( 'A.jpg' ),
+			],
+			''
+		);
+
+		$this->assertStringContainsString(
+			'aria-label="Images in article, 1 item"',
+			$html
+		);
+	}
+
+	public function testCarouselExclusionBehaviorSwitchIsRegistered(): void {
+		$doubleUnderscoreIDs = $this->getServiceContainer()
+			->getMagicWordFactory()
+			->getDoubleUnderscoreArray()
+			->getNames();
+
+		$this->assertContains( 'nomediaviewercarousel', $doubleUnderscoreIDs );
+		$this->assertTrue(
+			$this->getServiceContainer()
+				->getMagicWordFactory()
+				->get( 'nomediaviewercarousel' )
+				->matchStartToEnd( '__NOMEDIAVIEWERCAROUSEL__' )
+		);
+	}
+
+	public function testShouldPageGetMobileCarouselSkipsMainPage(): void {
+		$this->overrideConfigValue( 'MainPage', 'Main Page' );
+
+		$output = $this->createMock( OutputPage::class );
+		$output->method( 'getTitle' )->willReturn( Title::newFromText( 'Main Page' ) );
+
+		$this->assertFalse( $this->shouldPageGetMobileCarousel( $output ) );
+	}
 }
