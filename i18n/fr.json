@@ -24,6 +24,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Agrandit les vignettes dans une interface en plein écran",
+	"multimediaviewer-carousel-label-article": "article",
 	"multimediaviewer-file-page": "Aller à la page du fichier correspondant",
 	"multimediaviewer-repository-local": "Plus de détails",
 	"multimediaviewer-datetime-created": "Date de création : $1",

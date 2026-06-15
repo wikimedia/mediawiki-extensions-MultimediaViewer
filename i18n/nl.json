@@ -124,5 +124,5 @@
 	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About MediaViewer]</span> inschakelen",
 	"multimediaviewer-loading": "Media Viewer wordt geladen.",
 	"multimediaviewer-beta-feature-name": "Afbeeldingencarrousel",
-	"multimediaviewer-beta-feature-description": "Pagina-afbeeldingen bovenaan de pagina weergeven."
+	"multimediaviewer-beta-feature-description": "Pagina-afbeeldingen bovenaan de pagina weergeven op mobiele apparaten."
 }
