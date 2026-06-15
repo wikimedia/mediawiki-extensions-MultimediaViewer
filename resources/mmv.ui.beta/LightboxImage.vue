@@ -3,6 +3,7 @@
 		<img
 			v-if="image"
 			class="mmv-lightbox-image__el"
+			:class="image.filePageTitle.getExtension().toLowerCase() /* add extension to display checkerboard pattern for transparent images */"
 			:src="displayUrl"
 			:width="imageWidth"
 			:height="imageHeight"
@@ -65,6 +66,18 @@ module.exports = exports = defineComponent( {
 		max-width: @size-full;
 		max-height: @size-full;
 		object-fit: contain;
+
+		// Allowlist file types that are potentially transparent.
+		// We don't set it for other file types because Media Viewer plugins
+		// can find that undesirable (eg. 3d)
+		&.gif,
+		&.png,
+		&.webp,
+		&.svg,
+		&.tiff,
+		&.tif {
+			background: url( ../mmv/ui/checker.png ) repeat;
+		}
 	}
 }
 </style>
