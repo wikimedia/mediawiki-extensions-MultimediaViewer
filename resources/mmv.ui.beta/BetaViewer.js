@@ -16,6 +16,13 @@ const { getLargerThumbnailUrl } = require( './thumbnailGuessing.js' );
 const PREFETCH_DELAY = 250;
 
 /**
+ * Delay (ms) before showing the loading indicator.
+ * Loads that resolve within this window swap straight in,
+ * so quick navigation never flashes a loading indicator.
+ */
+const LOADING_INDICATOR_DELAY = 150;
+
+/**
  * Beta image viewer using Vue 3 and Codex.
  * Implements the interface expected by MultimediaViewerBootstrap so it can
  * be used as a drop-in replacement for the legacy MultimediaViewer class.
@@ -75,10 +82,10 @@ class BetaViewer {
 		this.imageInfoProvider = null;
 
 		/**
-		 * Handle to abort any pending image requests plus the pending
-		 * prefetch timer.
+		 * Handle to abort any pending image request, plus the pending prefetch
+		 * and loading-indicator timers.
 		 *
-		 * @type {?{controller: ?AbortController, prefetchTimer: ?number}}
+		 * @type {?{controller: ?AbortController, prefetchTimer: ?number, loadingTimer: ?number}}
 		 */
 		this.inFlight = null;
 
@@ -193,10 +200,8 @@ class BetaViewer {
 			controller = new AbortController();
 		}
 
-		this.inFlight = { controller, prefetchTimer: null };
+		this.inFlight = { controller, prefetchTimer: null, loadingTimer: null };
 		this.currentImage = image;
-		this.state.image.value = null;
-		this.state.displayUrl.value = '';
 		this.state.errorMessage.value = null;
 		this.state.isLoading.value = true;
 		this.open();
@@ -208,11 +213,22 @@ class BetaViewer {
 			);
 		}
 
+		// Show the loading indicator only if the image takes a noticeable
+		// moment to arrive: blank the displayed image after a short delay
+		// (revealing App.vue's progress bar). The Promise.all below cancels
+		// this if it resolves first, so quick navigation never flashes it.
+		this.inFlight.loadingTimer = setTimeout( () => {
+			if ( this.currentImage === image ) {
+				this.state.image.value = null;
+			}
+		}, LOADING_INDICATOR_DELAY );
+
 		const infoPromise = this.imageInfoProvider.get( image.filePageTitle );
 		const thumbPromise = this.loadLargerThumbnail( image, controller && controller.signal );
 
 		Promise.all( [ infoPromise, thumbPromise ] ).then( ( [ imageData, largerUrl ] ) => {
 			if ( this.currentImage === image ) {
+				clearTimeout( this.inFlight.loadingTimer );
 				this.state.imageInfo.value = imageData;
 				this.state.displayUrl.value = largerUrl || image.src;
 				this.state.image.value = image;
@@ -227,6 +243,9 @@ class BetaViewer {
 				// Remove the failed image file from the cache to allow
 				// re-trying a fresh request.
 				this.imageInfoProvider.invalidate( image.filePageTitle );
+				// Clear any image kept on screen from before the delay so the
+				// error state doesn't pair a stale image with the toast.
+				this.state.image.value = null;
 				this.state.isLoading.value = false;
 				this.showError( mw.msg( 'multimediaviewer-thumbnail-error' ) );
 			}
@@ -252,6 +271,7 @@ class BetaViewer {
 			}
 
 			clearTimeout( this.inFlight.prefetchTimer );
+			clearTimeout( this.inFlight.loadingTimer );
 			this.inFlight = null;
 		}
 	}
