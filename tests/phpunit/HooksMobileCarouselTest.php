@@ -121,7 +121,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	protected static function makeFakeThumbData( string $filename, ?string $alt = null ): array {
 		return [
 			'thumb' => self::makeFakeThumb( $filename, $alt ),
-			'title' => Title::newFromText( "File:$filename" ),
+			'title' => Title::makeTitle( NS_FILE, $filename ),
 		];
 	}
 
@@ -488,7 +488,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$this->overrideConfigValue( 'MainPage', 'Main Page' );
 
 		$output = $this->createMock( OutputPage::class );
-		$output->method( 'getTitle' )->willReturn( Title::newFromText( 'Main Page' ) );
+		$output->method( 'getTitle' )->willReturn( Title::makeTitle( NS_MAIN, 'Main Page' ) );
 
 		$this->assertFalse( $this->shouldPageGetMobileCarousel( $output ) );
 	}

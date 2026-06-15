@@ -34,7 +34,7 @@ class HooksTestCase extends MediaWikiIntegrationTestCase {
 	) {
 		$user = $user ?? $this->getServiceContainer()->getUserFactory()->newFromName( 'HooksTestCarouselUser' );
 
-		$title = $title ?? Title::newFromText( 'Test Page' );
+		$title = $title ?? Title::makeTitle( NS_MAIN, 'Test Page' );
 		$title->setContentModel( CONTENT_MODEL_WIKITEXT );
 
 		$wikiPage = $this->createMock( WikiPage::class );
