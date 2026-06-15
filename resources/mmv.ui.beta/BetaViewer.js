@@ -9,6 +9,13 @@ const { getLargerThumbnailUrl } = require( './thumbnailGuessing.js' );
 /** @typedef {import('./types').ViewerState} ViewerState */
 
 /**
+ * Delay (ms) before prefetching neighbors so that these
+ * requests don't compete for bandwidth with the image
+ * actually being viewed.
+ */
+const PREFETCH_DELAY = 250;
+
+/**
  * Beta image viewer using Vue 3 and Codex.
  * Implements the interface expected by MultimediaViewerBootstrap so it can
  * be used as a drop-in replacement for the legacy MultimediaViewer class.
@@ -66,6 +73,14 @@ class BetaViewer {
 		 * @type {ImageInfo|null}
 		 */
 		this.imageInfoProvider = null;
+
+		/**
+		 * Handle to abort any pending image requests plus the pending
+		 * prefetch timer.
+		 *
+		 * @type {?{controller: ?AbortController, prefetchTimer: ?number}}
+		 */
+		this.inFlight = null;
 
 		// Reactive state shared with the Vue app via provide/inject.
 		// We use Vue.ref() so that changes here propagate to the template.
@@ -168,6 +183,17 @@ class BetaViewer {
 	 * @param {LightboxImage} image
 	 */
 	loadImage( image ) {
+		// Cancel any previous in-flight requests
+		this.cancelInFlight();
+
+		// Set up an AbortController (if supported) to cancel
+		// this request in the future if necessary
+		let controller = null;
+		if ( typeof AbortController !== 'undefined' ) {
+			controller = new AbortController();
+		}
+
+		this.inFlight = { controller, prefetchTimer: null };
 		this.currentImage = image;
 		this.state.image.value = null;
 		this.state.displayUrl.value = '';
@@ -183,7 +209,7 @@ class BetaViewer {
 		}
 
 		const infoPromise = this.imageInfoProvider.get( image.filePageTitle );
-		const thumbPromise = this.loadLargerThumbnail( image );
+		const thumbPromise = this.loadLargerThumbnail( image, controller && controller.signal );
 
 		Promise.all( [ infoPromise, thumbPromise ] ).then( ( [ imageData, largerUrl ] ) => {
 			if ( this.currentImage === image ) {
@@ -194,15 +220,40 @@ class BetaViewer {
 			}
 		} ).catch( () => {
 			if ( this.currentImage === image ) {
-				// When the request fails, remove the failed image file from
-				// the cache to allow re-trying a fresh request.
+				// The load failed: tear down this navigation's in-flight work so
+				// the pending prefetch timer doesn't fire and any still-loading
+				// thumbnail download is aborted.
+				this.cancelInFlight();
+				// Remove the failed image file from the cache to allow
+				// re-trying a fresh request.
 				this.imageInfoProvider.invalidate( image.filePageTitle );
 				this.state.isLoading.value = false;
 				this.showError( mw.msg( 'multimediaviewer-thumbnail-error' ) );
 			}
 		} );
 
-		this.prefetchAdjacent( image );
+		// Pre-fetch neighbor images silently in the background, but do so after
+		// a short delay so that we don't compete with the primary image request
+		// in environments where bandwidth is constrained.
+		this.inFlight.prefetchTimer = setTimeout(
+			() => this.prefetchAdjacent( image ),
+			PREFETCH_DELAY
+		);
+	}
+
+	/**
+	 * Cancel the in-flight image request from the most recent
+	 * loadImage() call
+	 */
+	cancelInFlight() {
+		if ( this.inFlight ) {
+			if ( this.inFlight.controller ) {
+				this.inFlight.controller.abort();
+			}
+
+			clearTimeout( this.inFlight.prefetchTimer );
+			this.inFlight = null;
+		}
 	}
 
 	/**
@@ -218,9 +269,10 @@ class BetaViewer {
 	 * Preload a larger thumbnail for the given image.
 	 *
 	 * @param {LightboxImage} image
+	 * @param {AbortSignal} [signal] Aborts the in-flight download when fired
 	 * @return {Promise<string|null>} Resolves with the URL, or null on failure
 	 */
-	loadLargerThumbnail( image ) {
+	loadLargerThumbnail( image, signal ) {
 		const url = getLargerThumbnailUrl( image );
 
 		if ( !url ) {
@@ -228,9 +280,40 @@ class BetaViewer {
 		}
 
 		return new Promise( ( resolve ) => {
+			if ( signal && signal.aborted ) {
+				resolve( null );
+				return;
+			}
+
 			const loader = new Image();
-			loader.onload = () => resolve( url );
-			loader.onerror = () => resolve( null );
+
+			const onabort = () => {
+				// User navigated away: setting src to empty aborts the in-flight
+				// request, and we resolve null so the caller falls back to image.src.
+				loader.src = '';
+				resolve( null );
+			};
+
+			loader.onload = () => {
+				if ( signal ) {
+					signal.removeEventListener( 'abort', onabort );
+				}
+				resolve( url );
+			};
+
+			loader.onerror = () => {
+				if ( signal ) {
+					signal.removeEventListener( 'abort', onabort );
+				}
+				// Best-effort: resolve null (not reject) so a failed larger thumbnail
+				// degrades to image.src. Also fires post-abort, where resolve is a no-op.
+				resolve( null );
+			};
+
+			if ( signal ) {
+				signal.addEventListener( 'abort', onabort, { once: true } );
+			}
+
 			loader.src = url;
 		} );
 	}
@@ -358,6 +441,7 @@ class BetaViewer {
 			return;
 		}
 
+		this.cancelInFlight();
 		this.isOpen = false;
 		this.state.isOpen.value = false;
 		this.state.chromeVisible.value = true;
