@@ -79,7 +79,7 @@ module.exports = exports = defineComponent( {
 	align-items: center;
 	justify-content: center;
 	gap: @spacing-100;
-	padding: @spacing-75 @spacing-100;
+	padding: @spacing-75 @spacing-100 @spacing-150;
 	flex-shrink: 0;
 	border-top: solid 1px @border-color-muted;
 
