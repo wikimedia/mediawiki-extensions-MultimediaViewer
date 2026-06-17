@@ -62,14 +62,14 @@ class MultimediaViewerBootstrap {
 
 	/**
 	 * Whether the beta UI should be used instead of the legacy viewer.
-	 * Activated by the ?mmvBeta=1 URL parameter on mobile (Minerva) only.
-	 * On desktop, the legacy viewer is always used.
+	 * Enabled by the server for mobile views when $wgMediaViewerMobileBeta
+	 * is set (T428774), or by the ?mmvBeta=1 URL parameter on any skin.
 	 *
 	 * @return {boolean}
 	 */
 	isBetaMode() {
-		return new URLSearchParams( location.search ).get( 'mmvBeta' ) === '1' &&
-			mw.config.get( 'skin' ) === 'minerva';
+		return mw.config.get( 'wgMediaViewerMobileBeta' ) === true ||
+			new URLSearchParams( location.search ).get( 'mmvBeta' ) === '1';
 	}
 
 	/**

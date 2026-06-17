@@ -26,18 +26,18 @@ class HooksTest extends HooksTestCase {
 
 	public static function provideOnBeforePageDisplay() {
 		return [
-			'no files' => [ 'Main Page', 1 ],
-			'with files' => [ 'Main Page', 1 ],
-			'special with files' => [ 'Special:ListFiles', 1 ],
-			'special no files' => [ 'Special:Watchlist', 0 ],
+			'no files' => [ NS_MAIN, 'Main Page', 1 ],
+			'with files' => [ NS_MAIN, 'Main Page', 1 ],
+			'special with files' => [ NS_SPECIAL, 'ListFiles', 1 ],
+			'special no files' => [ NS_SPECIAL, 'Watchlist', 0 ],
 		];
 	}
 
 	/**
 	 * @dataProvider provideOnBeforePageDisplay
 	 */
-	public function testOnBeforePageDisplay( $pagename, $modulesExpected ) {
-		$output = $this->makeOutputPage( Title::newFromText( $pagename ) );
+	public function testOnBeforePageDisplay( $ns, $pagename, $modulesExpected ) {
+		$output = $this->makeOutputPage( Title::makeTitle( $ns, $pagename ) );
 		$skin = new SkinTemplate();
 
 		$output->expects( $this->exactly( $modulesExpected ) )->method( 'addModules' );

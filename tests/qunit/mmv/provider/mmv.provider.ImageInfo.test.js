@@ -293,3 +293,48 @@ QUnit.test( 'ImageInfo missing page test', async ( assert ) => {
 		'error message for missing file'
 	);
 } );
+
+QUnit.test( 'ImageInfo invalidate evicts the cache so a failed request can be retried', async ( assert ) => {
+	let apiCallCount = 0;
+	let shouldFail = true;
+	const api = { get: function () {
+		apiCallCount++;
+		if ( shouldFail ) {
+			// Mimic mw.Api's transport-level rejection (e.g. a network error).
+			return $.Deferred().reject( 'http' );
+		}
+		return $.Deferred().resolve( {
+			query: {
+				pages: [ {
+					ns: 6,
+					title: 'File:Stuff.jpg',
+					imageinfo: [ {
+						url: 'https://upload.wikimedia.org/wikipedia/commons/1/19/Stuff.jpg',
+						extmetadata: {}
+					} ]
+				} ]
+			}
+		} );
+	} };
+	const file = new mw.Title( 'File:Stuff.jpg' );
+	const imageInfoProvider = new ImageInfo( api );
+
+	// The first request fails; getCachedPromise() caches the rejected promise.
+	await assert.rejects( imageInfoProvider.get( file ), 'first request rejects' );
+
+	// A second get() reuses the cached rejection without hitting the API again.
+	await assert.rejects( imageInfoProvider.get( file ), 'cached rejection is reused' );
+	assert.strictEqual( apiCallCount, 1, 'no new request while the rejection is cached' );
+
+	// After invalidate(), the next get() re-runs the request and can succeed.
+	shouldFail = false;
+	imageInfoProvider.invalidate( file );
+	const image = await imageInfoProvider.get( file );
+
+	assert.strictEqual( apiCallCount, 2, 'invalidate() forces a fresh request' );
+	assert.strictEqual(
+		image.url,
+		'https://upload.wikimedia.org/wikipedia/commons/1/19/Stuff.jpg',
+		'the retried request resolves successfully'
+	);
+} );

@@ -94,7 +94,6 @@ module.exports = exports = defineComponent( {
 	&__author {
 		font-size: @font-size-small;
 		color: @color-subtle;
-		line-height: @line-height-small;
 		margin-top: @spacing-25;
 		display: -webkit-box;
 		-webkit-line-clamp: 2;

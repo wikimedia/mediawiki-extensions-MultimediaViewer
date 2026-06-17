@@ -1,7 +1,7 @@
-const { createMwApp, ref } = require( 'vue' );
+const { createMwApp, ref, computed } = require( 'vue' );
 const App = require( './App.vue' );
 const { Config } = require( 'mmv.bootstrap' );
-const { ImageInfo } = require( 'mmv.common' );
+const { ImageInfo, notifyTitleNotFound } = require( 'mmv.common' );
 const { getLargerThumbnailUrl } = require( './thumbnailGuessing.js' );
 
 /** @typedef {import('./types').LightboxImage} LightboxImage */
@@ -76,7 +76,9 @@ class BetaViewer {
 			displayUrl: ref( '' ),
 			thumbs: ref( [] ),
 			isOpen: ref( false ),
-			chromeVisible: ref( true )
+			chromeVisible: ref( true ),
+			errorMessage: ref( null ),
+			isLoading: ref( false )
 		};
 
 		// Provide a ui object with unattach() so bootstrap can close
@@ -142,7 +144,22 @@ class BetaViewer {
 		}
 		if ( image ) {
 			this.loadImage( image );
+		} else {
+			this.onTitleNotFound( fileTitle );
 		}
+	}
+
+	/**
+	 * Called when the hash navigates to a file title not present on the current page.
+	 * Closes the viewer and notifies the user with a link to the file page.
+	 *
+	 * @param {mw.Title} title
+	 */
+	onTitleNotFound( title ) {
+		// Clear the URL hash to prevent navigation to non-existent title
+		location.hash = '';
+		this.close();
+		notifyTitleNotFound( title );
 	}
 
 	/**
@@ -152,6 +169,10 @@ class BetaViewer {
 	 */
 	loadImage( image ) {
 		this.currentImage = image;
+		this.state.image.value = null;
+		this.state.displayUrl.value = '';
+		this.state.errorMessage.value = null;
+		this.state.isLoading.value = true;
 		this.open();
 
 		if ( !this.imageInfoProvider ) {
@@ -169,10 +190,28 @@ class BetaViewer {
 				this.state.imageInfo.value = imageData;
 				this.state.displayUrl.value = largerUrl || image.src;
 				this.state.image.value = image;
+				this.state.isLoading.value = false;
+			}
+		} ).catch( () => {
+			if ( this.currentImage === image ) {
+				// When the request fails, remove the failed image file from
+				// the cache to allow re-trying a fresh request.
+				this.imageInfoProvider.invalidate( image.filePageTitle );
+				this.state.isLoading.value = false;
+				this.showError( mw.msg( 'multimediaviewer-thumbnail-error' ) );
 			}
 		} );
 
 		this.prefetchAdjacent( image );
+	}
+
+	/**
+	 * Display an error message.
+	 *
+	 * @param {string} message
+	 */
+	showError( message ) {
+		this.state.errorMessage.value = message;
 	}
 
 	/**
@@ -284,6 +323,13 @@ class BetaViewer {
 			this.app.provide( 'toggleChrome', () => {
 				this.state.chromeVisible.value = !this.state.chromeVisible.value;
 			} );
+			this.app.provide( 'showError', ( message ) => this.showError( message ) );
+			this.app.provide( 'hasError', computed( () => !!this.state.errorMessage.value ) );
+			this.app.provide( 'reload', () => {
+				if ( this.currentImage ) {
+					this.loadImage( this.currentImage );
+				}
+			} );
 			this.app.mount( this.mountEl );
 		}
 
@@ -302,6 +348,12 @@ class BetaViewer {
 	 * Close the viewer overlay.
 	 */
 	close() {
+		// Trigger cleanup unconditionally because loadViewer() calls
+		// setupOverlay() before the viewer module loads, so the overlay may be
+		// present even when close() is called before the viewer was opened
+		// (e.g. title not found on a fresh page load).
+		$( document ).trigger( 'mmv-cleanup-overlay' );
+
 		if ( !this.isOpen ) {
 			return;
 		}
@@ -313,6 +365,8 @@ class BetaViewer {
 		this.state.image.value = null;
 		this.state.imageInfo.value = null;
 		this.state.displayUrl.value = '';
+		this.state.errorMessage.value = null;
+		this.state.isLoading.value = false;
 
 		document.title = this.createDocumentTitle( null );
 
@@ -320,8 +374,6 @@ class BetaViewer {
 			// Reset the hash so the viewer doesn't re-open on back navigation
 			location.hash = '';
 		}
-
-		$( document ).trigger( 'mmv-cleanup-overlay' );
 	}
 
 	/**

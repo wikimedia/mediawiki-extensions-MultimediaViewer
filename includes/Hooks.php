@@ -152,12 +152,39 @@ class Hooks implements
 			return;
 		}
 
-		// Mobile view: only load the viewer if the user has opted in to the
-		// beta with ?mmvBeta=1 (T427679). Otherwise load nothing here; the
-		// carousel module is handled by maybeAddMobileCarousel().
-		if ( $out->getRequest()->getFuzzyBool( 'mmvBeta' ) ) {
+		// Mobile view: the carousel module is handled by
+		// maybeAddMobileCarousel(). Beta mobile viewer: loading mmv.bootstrap
+		// registers the "#/media/" route on the shared router ahead of the
+		// MobileFrontend lightbox, which stands down whenever the bootstrap is
+		// loaded (T169622). It is enabled sitewide via $wgMediaViewerMobileBeta
+		// (T428774) or per-request via ?mmvBeta=1; both are independent of the
+		// mobile carousel beta feature.
+		if (
+			$this->shouldUseMobileBetaViewer( $out ) ||
+			$out->getRequest()->getFuzzyBool( 'mmvBeta' )
+		) {
 			$out->addModules( 'mmv.bootstrap' );
 		}
+	}
+
+	/**
+	 * Whether the beta mobile viewer should replace the MobileFrontend
+	 * image viewer for this request (T428774).
+	 *
+	 * Conditions:
+	 *  - request is served through MobileFrontend's mobile view
+	 *  - MediaViewerMobileBeta config flag is enabled
+	 *  - the user has not disabled MediaViewer in their preferences
+	 *
+	 * @param OutputPage $out
+	 * @return bool
+	 */
+	protected function shouldUseMobileBetaViewer( OutputPage $out ): bool {
+		return (
+			$this->isMobileFrontendView() &&
+			$this->config->get( 'MediaViewerMobileBeta' ) &&
+			$this->shouldHandleClicks( $out->getUser() )
+		);
 	}
 
 	/**
@@ -528,6 +555,10 @@ class Hooks implements
 		$vars['wgMediaViewerOnClick'] = $this->shouldHandleClicks( $user );
 		// needed because of T71942; could be different for anon and logged-in
 		$vars['wgMediaViewerEnabledByDefault'] = (bool)$isMultimediaViewerEnable;
+		// Tells the bootstrap to use the beta mobile viewer instead of the
+		// legacy desktop viewer (T428774). Exported here rather than via
+		// ResourceLoaderGetConfigVars because it varies per request.
+		$vars['wgMediaViewerMobileBeta'] = $this->shouldUseMobileBetaViewer( $out );
 	}
 
 	/**

@@ -121,7 +121,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	protected static function makeFakeThumbData( string $filename, ?string $alt = null ): array {
 		return [
 			'thumb' => self::makeFakeThumb( $filename, $alt ),
-			'title' => Title::newFromText( "File:$filename" ),
+			'title' => Title::makeTitle( NS_FILE, $filename ),
 		];
 	}
 
@@ -360,12 +360,88 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			self::makeFakeThumbData( 'C.jpg' ),
 		] );
 
-		// Without ?mmvBeta=1 the bootstrap must not load: only the carousel does,
-		// routing clicks to the MobileFrontend lightbox.
+		// Without ?mmvBeta=1 (and with $wgMediaViewerMobileBeta off) the
+		// bootstrap must not load: only the carousel does, routing clicks to
+		// the MobileFrontend lightbox.
 		$output->expects( $this->once() )
 			->method( 'addModules' )
 			->with( 'mmv.carousel' );
 		$hooks->onBeforePageDisplay( $output, $skin );
+	}
+
+	public function testOnBeforePageDisplayLoadsBetaViewerWhenMobileBetaEnabled(): void {
+		$this->overrideConfigValue( 'MediaViewerMobileBeta', true );
+		// A registered user who has not disabled MediaViewer
+		// ($wgMediaViewerEnableByDefault is on).
+		$output = $this->makeOutputPage( user: $this->getTestUser()->getUser() );
+		$skin = new SkinTemplate();
+
+		$hooks = $this->newHooksInstance( [
+			self::makeFakeThumbData( 'A.jpg' ),
+			self::makeFakeThumbData( 'B.jpg' ),
+			self::makeFakeThumbData( 'C.jpg' ),
+		] );
+
+		// With $wgMediaViewerMobileBeta enabled the bootstrap loads for all
+		// mobile views without needing the ?mmvBeta=1 parameter (T428774).
+		$addedModules = [];
+		$output->method( 'addModules' )
+			->willReturnCallback( static function ( $modules ) use ( &$addedModules ) {
+				$addedModules[] = $modules;
+			} );
+
+		$hooks->onBeforePageDisplay( $output, $skin );
+
+		$this->assertSame( [ 'mmv.bootstrap', 'mmv.carousel' ], $addedModules );
+	}
+
+	public function testOnBeforePageDisplaySkipsBetaViewerWhenUserOptedOut(): void {
+		$user = $this->getTestUser()->getUser();
+		$userOptionsManager = $this->getServiceContainer()->getUserOptionsManager();
+		$userOptionsManager->setOption( $user, 'multimediaviewer-enable', 0 );
+		$user->saveSettings();
+
+		$this->overrideConfigValue( 'MediaViewerMobileBeta', true );
+		$output = $this->makeOutputPage( user: $user );
+		$skin = new SkinTemplate();
+
+		$hooks = $this->newHooksInstance( [
+			self::makeFakeThumbData( 'A.jpg' ),
+			self::makeFakeThumbData( 'B.jpg' ),
+			self::makeFakeThumbData( 'C.jpg' ),
+		] );
+
+		// Logged-in users who have disabled MediaViewer keep the MobileFrontend
+		// lightbox: only the carousel module loads.
+		$output->expects( $this->once() )
+			->method( 'addModules' )
+			->with( 'mmv.carousel' );
+		$hooks->onBeforePageDisplay( $output, $skin );
+	}
+
+	public function testOnMakeGlobalVariablesScriptExportsMobileBetaWhenEnabled(): void {
+		$this->overrideConfigValue( 'MediaViewerMobileBeta', true );
+		$user = $this->getTestUser()->getUser();
+
+		$output = $this->createMock( OutputPage::class );
+		$output->method( 'getUser' )->willReturn( $user );
+
+		$vars = [];
+		$this->newHooksInstance()->onMakeGlobalVariablesScript( $vars, $output );
+
+		$this->assertTrue( $vars['wgMediaViewerMobileBeta'] );
+	}
+
+	public function testOnMakeGlobalVariablesScriptExportsMobileBetaFalseByDefault(): void {
+		$user = $this->getTestUser()->getUser();
+
+		$output = $this->createMock( OutputPage::class );
+		$output->method( 'getUser' )->willReturn( $user );
+
+		$vars = [];
+		$this->newHooksInstance()->onMakeGlobalVariablesScript( $vars, $output );
+
+		$this->assertFalse( $vars['wgMediaViewerMobileBeta'] );
 	}
 
 	public function testOnMakeGlobalVariablesScriptSetsOnClickFalseWhenViewerDisabled(): void {
@@ -488,7 +564,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$this->overrideConfigValue( 'MainPage', 'Main Page' );
 
 		$output = $this->createMock( OutputPage::class );
-		$output->method( 'getTitle' )->willReturn( Title::newFromText( 'Main Page' ) );
+		$output->method( 'getTitle' )->willReturn( Title::makeTitle( NS_MAIN, 'Main Page' ) );
 
 		$this->assertFalse( $this->shouldPageGetMobileCarousel( $output ) );
 	}

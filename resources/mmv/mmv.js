@@ -18,6 +18,7 @@
 const { Config } = require( 'mmv.bootstrap' );
 const {
 	HtmlUtils,
+	notifyTitleNotFound,
 	Api,
 	GuessedThumbnailInfo,
 	ImageInfo,
@@ -305,10 +306,7 @@ class MultimediaViewer {
 	 */
 	onTitleNotFound( title ) {
 		this.close();
-		const text = mw.msg( 'multimediaviewer-file-not-found-error', title.getMainText() );
-		const $link = $( '<a>' ).text( mw.msg( 'multimediaviewer-file-page' ) ).prop( 'href', title.getUrl() );
-		const $message = $( '<div>' ).text( text ).append( $( '<br>' ) ).append( $link );
-		mw.notify( $message );
+		notifyTitleNotFound( title );
 	}
 
 	/**

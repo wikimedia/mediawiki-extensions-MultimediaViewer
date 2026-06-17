@@ -110,6 +110,15 @@ class ImageInfo extends Api {
 			}
 		} ) );
 	}
+
+	/**
+	 * Evict the entry of a given file from the cache.
+	 *
+	 * @param {mw.Title} file
+	 */
+	invalidate( file ) {
+		delete this.cache[ file.getPrefixedDb() ];
+	}
 }
 
 module.exports = ImageInfo;
