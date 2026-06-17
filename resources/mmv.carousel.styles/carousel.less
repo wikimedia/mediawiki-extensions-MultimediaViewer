@@ -1,4 +1,5 @@
 @import 'mediawiki.skin.variables.less';
+@import 'mediawiki.mixins.less';
 @height-carousel: 175px;
 // Reserve space for the scrollbar. Scrollbar height is determined by browser
 @space-placeholder-scrollbar: @spacing-100;
@@ -94,17 +95,8 @@
 
 // In dark mode, apply a light background to carousel images so transparent
 // images with dark content remain visible against the dark page background.
-html.skin-theme-clientpref-night {
-	img.mmv-carousel__item-image {
+img.mmv-carousel__item-image {
+	.darkmode-override( {
 		background-color: @background-color-base-fixed;
-	}
-}
-
-/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
-@media screen and ( prefers-color-scheme: dark ) {
-	html.skin-theme-clientpref-os {
-		img.mmv-carousel__item-image {
-			background-color: @background-color-base-fixed;
-		}
-	}
+	} );
 }
