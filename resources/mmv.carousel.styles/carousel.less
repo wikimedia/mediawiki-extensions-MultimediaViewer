@@ -58,7 +58,10 @@
 			aspect-ratio: 105/104;
 			box-sizing: border-box;
 			// !important to override minerva style
-			height: @height-carousel !important; /* stylelint-disable-line declaration-no-important */
+			/* stylelint-disable declaration-no-important */
+			height: @height-carousel !important;
+			max-width: unset !important;
+			/* stylelint-enable declaration-no-important */
 		}
 	}
 
@@ -80,11 +83,6 @@
 	li.mmv-carousel__item {
 		margin-bottom: 0;
 	}
-
-	a > img.mmv-carousel__item-image {
-		/* stylelint-disable-next-line declaration-no-important */
-		max-width: unset !important;
-	}
 }
 
 // Override MMV wrapper styles. The element is no longer a positioned element
@@ -92,4 +90,21 @@
 // z-index will no longer have an effect.
 .mw-mmv-wrapper.mmv-carousel {
 	position: static;
+}
+
+// In dark mode, apply a light background to carousel images so transparent
+// images with dark content remain visible against the dark page background.
+html.skin-theme-clientpref-night {
+	img.mmv-carousel__item-image {
+		background-color: @background-color-base-fixed;
+	}
+}
+
+/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+@media screen and ( prefers-color-scheme: dark ) {
+	html.skin-theme-clientpref-os {
+		img.mmv-carousel__item-image {
+			background-color: @background-color-base-fixed;
+		}
+	}
 }
