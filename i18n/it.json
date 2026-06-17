@@ -30,6 +30,7 @@
 	"multimediaviewer-thumbnail-error": "Spiacenti, il file non può essere visualizzato",
 	"multimediaviewer-thumbnail-error-description": "Sembra esserci un problema tecnico. Puoi $1 se persiste. Errore: $2",
 	"multimediaviewer-thumbnail-error-retry": "riprova",
+	"multimediaviewer-thumbnail-error-refresh-button": "Aggiorna",
 	"multimediaviewer-license-cc-pd": "Pubblico dominio",
 	"multimediaviewer-license-pd": "Pubblico dominio",
 	"multimediaviewer-license-default": "Vedi la licenza",
