@@ -72,6 +72,7 @@ module.exports = exports = defineComponent( {
 		const toggleChromeFn = inject( 'toggleChrome' );
 		const closeFn = inject( 'close' );
 		const hasError = inject( 'hasError' );
+		const sendInteraction = inject( 'sendInteraction' );
 
 		const lightboxRef = useTemplateRef( 'lightbox' );
 		const focusHolderRef = useTemplateRef( 'focusHolder' );
@@ -89,10 +90,18 @@ module.exports = exports = defineComponent( {
 			if ( e.target.closest( 'a, button, [role="button"]' ) ) {
 				return;
 			}
+			sendInteraction( 'click', {
+				// eslint-disable-next-line camelcase
+				action_subtype: 'toggle_header_and_footer'
+			} );
 			toggleChromeFn();
 		}
 
 		function onClose() {
+			sendInteraction( 'click', {
+				// eslint-disable-next-line camelcase
+				action_subtype: 'close'
+			} );
 			closeFn();
 		}
 

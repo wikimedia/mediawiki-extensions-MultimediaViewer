@@ -7,12 +7,14 @@
 		<div
 			v-if="captionHtml"
 			class="mmv-lightbox-caption__text"
+			@click="onCaptionClick"
 			v-html="captionHtml"
 		></div>
 		<a
 			class="mmv-lightbox-caption__link"
 			:href="filePageUrl"
 			:title="$i18n( 'multimediaviewer-file-page' ).text()"
+			@click="onFileLinkClick"
 		>
 			{{ licenseText }}
 		</a>
@@ -31,6 +33,7 @@ module.exports = exports = defineComponent( {
 	setup() {
 		/** @type {ViewerState} */
 		const state = inject( 'state' );
+		const sendInteraction = inject( 'sendInteraction' );
 
 		const image = computed( () => state.image.value );
 		const imageInfo = computed( () => state.imageInfo.value );
@@ -67,12 +70,30 @@ module.exports = exports = defineComponent( {
 		// real license. Prefetched images apply info before paint, so no fade.
 		const captionReady = computed( () => !!imageInfo.value );
 
+		function onFileLinkClick() {
+			sendInteraction( 'click', {
+				// eslint-disable-next-line camelcase
+				action_subtype: 'go_to_file'
+			} );
+		}
+
+		function onCaptionClick( event ) {
+			if ( event.target instanceof Element && event.target.closest( 'a' ) ) {
+				sendInteraction( 'click', {
+					// eslint-disable-next-line camelcase
+					action_subtype: 'go_to_wikilink'
+				} );
+			}
+		}
+
 		return {
 			image,
 			captionHtml,
 			filePageUrl,
 			licenseText,
-			captionReady
+			captionReady,
+			onFileLinkClick,
+			onCaptionClick
 		};
 	}
 } );

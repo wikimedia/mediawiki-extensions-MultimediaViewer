@@ -43,6 +43,7 @@ module.exports = exports = defineComponent( {
 		const nextImageFn = inject( 'nextImage' );
 		const prevImageFn = inject( 'prevImage' );
 		const hasError = inject( 'hasError' );
+		const sendInteraction = inject( 'sendInteraction' );
 
 		const image = computed( () => state.image.value );
 		const thumbs = computed( () => state.thumbs.value );
@@ -56,10 +57,18 @@ module.exports = exports = defineComponent( {
 		} );
 
 		function onNext() {
+			sendInteraction( 'click', {
+				// eslint-disable-next-line camelcase
+				action_subtype: 'browse'
+			} );
 			nextImageFn();
 		}
 
 		function onPrev() {
+			sendInteraction( 'click', {
+				// eslint-disable-next-line camelcase
+				action_subtype: 'browse'
+			} );
 			prevImageFn();
 		}
 

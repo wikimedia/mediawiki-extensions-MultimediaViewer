@@ -8,6 +8,8 @@ const { getLargerThumbnailUrl } = require( './thumbnailGuessing.js' );
 /** @typedef {import('./types').ImageModel} ImageModel */
 /** @typedef {import('./types').ViewerState} ViewerState */
 
+const INSTRUMENT_NAME = 'image-browsing';
+
 /**
  * Delay (ms) before prefetching neighbors so that these
  * requests don't compete for bandwidth with the image
@@ -73,6 +75,17 @@ class BetaViewer {
 		 * @type {ImageInfo|null}
 		 */
 		this.imageInfoProvider = null;
+		this.instrument = null;
+
+		// T428777 Instrument MMV detail view's interactions
+		mw.loader.using( 'ext.testKitchen' )
+			.then( () => {
+				this.instrument = mw.testKitchen.getInstrument( INSTRUMENT_NAME );
+			} )
+			.catch( () => {
+				// eslint-disable-next-line no-console
+				console.info( '[MMV Beta] TestKitchen not available: skipping instrumentation.' );
+			} );
 
 		/**
 		 * Handle to abort any pending image request, plus the pending prefetch timer.
@@ -120,10 +133,22 @@ class BetaViewer {
 			}
 
 			if ( e.key === 'Escape' ) {
+				this.sendInteraction( 'click', {
+					// eslint-disable-next-line camelcase
+					action_subtype: 'close'
+				} );
 				this.close();
 			} else if ( e.key === 'ArrowLeft' ) {
+				this.sendInteraction( 'click', {
+					// eslint-disable-next-line camelcase
+					action_subtype: 'browse'
+				} );
 				this.prevImage();
 			} else if ( e.key === 'ArrowRight' ) {
+				this.sendInteraction( 'click', {
+					// eslint-disable-next-line camelcase
+					action_subtype: 'browse'
+				} );
 				this.nextImage();
 			}
 		};
@@ -430,6 +455,9 @@ class BetaViewer {
 			this.app.provide( 'close', () => this.close() );
 			this.app.provide( 'nextImage', () => this.nextImage() );
 			this.app.provide( 'prevImage', () => this.prevImage() );
+			this.app.provide( 'sendInteraction', ( action, interactionData ) => {
+				this.sendInteraction( action, interactionData );
+			} );
 			this.app.provide( 'toggleChrome', () => {
 				this.state.chromeVisible.value = !this.state.chromeVisible.value;
 			} );
@@ -498,6 +526,22 @@ class BetaViewer {
 		}
 
 		return this.documentTitle;
+	}
+
+	sendInteraction( action, interactionData ) {
+		if ( !this.instrument ) {
+			return;
+		}
+
+		const payload = Object.assign(
+			{
+				// eslint-disable-next-line camelcase
+				action_source: 'detail_view'
+			},
+			interactionData
+		);
+
+		this.instrument.send( action, payload );
 	}
 }
 
