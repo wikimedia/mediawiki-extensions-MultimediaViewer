@@ -18,5 +18,6 @@
 	"multimediaviewer-geolocation": "Vėita: $1",
 	"multimediaviewer-description-page-button-text": "Daugiau žėniū aple ta abruozdieli",
 	"multimediaviewer-view-expanded": "Atverė so abruozdieliu parveiza",
-	"multimediaviewer-title-popup-text": "Aprašīms"
+	"multimediaviewer-title-popup-text": "Aprašīms",
+	"multimediaviewer-optin-pref": "Ijongtė <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About abruozdieliu parvaizas rakonda]</span>"
 }

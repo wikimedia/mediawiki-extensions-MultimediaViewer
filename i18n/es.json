@@ -118,5 +118,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Este archivo no tiene información de atribución.",
 	"multimediaviewer-reuse-warning-generic": "Comprueba [$1 sus detalles] antes de utilizarlo.",
 	"multimediaviewer-attr-plain": "Texto sin formato",
+	"multimediaviewer-optin-pref": "Activar el <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Visor Multimedia]</span>",
 	"multimediaviewer-loading": "Cargando el visor multimedia."
 }

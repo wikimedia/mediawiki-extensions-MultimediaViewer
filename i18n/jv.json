@@ -22,5 +22,6 @@
 	"multimediaviewer-permission-link": "deleng paugeran",
 	"multimediaviewer-permission-link-hide": "dhelikaké paugeran",
 	"multimediaviewer-permission-viewmore": "Tuduhaké liyané",
-	"multimediaviewer-view-expanded": "Bukak ing Panontonan Médhia"
+	"multimediaviewer-view-expanded": "Bukak ing Panontonan Médhia",
+	"multimediaviewer-optin-pref": "Urubaké <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Panontonan Médhia]</span>"
 }

@@ -101,7 +101,8 @@
 	"multimediaviewer-reuse-warning-noattribution": "Iste file non ha information de attribution.",
 	"multimediaviewer-reuse-warning-generic": "Verifica [$1 su detalios] ante de usar lo.",
 	"multimediaviewer-attr-plain": "Simple",
+	"multimediaviewer-optin-pref": "Activar <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visualisator multimedial]</span>",
 	"multimediaviewer-loading": "Cargamento de Media Viewer in curso.",
 	"multimediaviewer-beta-feature-name": "Carosello de imagines",
-	"multimediaviewer-beta-feature-description": "Monstrar le imagines del articulo al initio del pagina."
+	"multimediaviewer-beta-feature-description": "Monstrar le imagines del articulo al initio del pagina sur apparatos mobile."
 }

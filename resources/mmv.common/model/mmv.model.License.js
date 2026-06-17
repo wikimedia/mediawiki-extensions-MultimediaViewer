@@ -42,22 +42,46 @@ class License {
 			throw new Error( 'License: shortName is required' );
 		}
 
-		/** @property {string} shortName short (abbreviated) name of the license (e.g. CC-BY-SA-3.0) */
+		/**
+		 * short (abbreviated) name of the license (e.g. CC-BY-SA-3.0)
+		 *
+		 * @type {string}
+		 */
 		this.shortName = shortName;
 
-		/** @property {string} internalName internal name of the license, used for localization (e.g. cc-by-sa ) */
+		/**
+		 * internal name of the license, used for localization (e.g. cc-by-sa )
+		 *
+		 * @type {string}
+		 */
 		this.internalName = internalName;
 
-		/** @property {string} longName full name of the license (e.g. Creative Commons etc. etc.) */
+		/**
+		 * full name of the license (e.g. Creative Commons etc. etc.)
+		 *
+		 * @type {string}
+		 */
 		this.longName = longName;
 
-		/** @property {string} deedUrl URL to the description of the license (e.g. the CC deed) */
+		/**
+		 * URL to the description of the license (e.g. the CC deed)
+		 *
+		 * @type {string}
+		 */
 		this.deedUrl = deedUrl;
 
-		/** @property {boolean} attributionRequired does the author need to be attributed on reuse? */
+		/**
+		 * does the author need to be attributed on reuse?
+		 *
+		 * @type {boolean}
+		 */
 		this.attributionRequired = attributionRequired;
 
-		/** @property {boolean} nonFree is this a non-free license? */
+		/**
+		 * is this a non-free license?
+		 *
+		 * @type {boolean}
+		 */
 		this.nonFree = nonFree;
 	}
 

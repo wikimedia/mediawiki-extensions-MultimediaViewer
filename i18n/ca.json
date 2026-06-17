@@ -69,5 +69,6 @@
 	"multimediaviewer-close-popup-text": "Tanca aquesta eina (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Mostra a pantalla completa",
 	"multimediaviewer-defullscreen-popup-text": "Surt del mode de pantalla completa",
-	"multimediaviewer-title-popup-text": "Descripció"
+	"multimediaviewer-title-popup-text": "Descripció",
+	"multimediaviewer-optin-pref": "Activa el <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visor multimèdia]</span>"
 }

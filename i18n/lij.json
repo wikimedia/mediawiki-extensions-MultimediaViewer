@@ -94,5 +94,6 @@
 	"multimediaviewer-reuse-warning-nonfree": "Sto file chie o no g'ha 'na lisensia libbera.",
 	"multimediaviewer-reuse-warning-noattribution": "Sto file chie o l'è sensa informassioin d'atribussion.",
 	"multimediaviewer-reuse-warning-generic": "Controlla i [$1 so detalli] primma de doeuviâlo.",
-	"multimediaviewer-attr-plain": "Normâ"
+	"multimediaviewer-attr-plain": "Normâ",
+	"multimediaviewer-optin-pref": "O l'attiva o <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Vizô Murtimediâ]</span>"
 }

@@ -27,15 +27,31 @@ module.exports = exports = defineComponent( {
 		const imageInfo = computed( () => state.imageInfo.value );
 
 		const imageTitle = computed( () => {
+			if ( image.value && image.value.caption ) {
+				return HtmlUtils.htmlToText( image.value.caption );
+			}
+			if ( imageInfo.value && imageInfo.value.description ) {
+				return HtmlUtils.htmlToText( imageInfo.value.description );
+			}
 			if ( image.value && image.value.filePageTitle ) {
 				return image.value.filePageTitle.getNameText();
 			}
 			return '';
 		} );
 
+		// Unlike the legacy panel's setCredit(), don't combine author and
+		// source: on Commons the source field is usually boilerplate
+		// ( "Own work", transfer notices ), and this compact header has no
+		// equivalent of the legacy truncate/expand behavior.
 		const author = computed( () => {
+			if ( imageInfo.value && imageInfo.value.attribution ) {
+				return HtmlUtils.htmlToText( imageInfo.value.attribution );
+			}
 			if ( imageInfo.value && imageInfo.value.author ) {
 				return HtmlUtils.htmlToText( imageInfo.value.author );
+			}
+			if ( imageInfo.value && imageInfo.value.source ) {
+				return HtmlUtils.htmlToText( imageInfo.value.source );
 			}
 			return '';
 		} );
@@ -78,8 +94,11 @@ module.exports = exports = defineComponent( {
 	&__author {
 		font-size: @font-size-small;
 		color: @color-subtle;
-		line-height: @line-height-small;
 		margin-top: @spacing-25;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 
 		// Add a zero-width space so that there is always 1 line worth of text
 		// content in the author area (to prevent layout shift while the metadata

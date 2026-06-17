@@ -117,5 +117,6 @@
 	"multimediaviewer-reuse-warning-nonfree": "Ta datoteka ni na voljo pod prosto licenco.",
 	"multimediaviewer-reuse-warning-noattribution": "Ta datoteka nima pripisanih informacij o avtorju.",
 	"multimediaviewer-reuse-warning-generic": "Preden datoteko $1 uporabite, preverite [$1 podatke o njej].",
-	"multimediaviewer-attr-plain": "Golo"
+	"multimediaviewer-attr-plain": "Golo",
+	"multimediaviewer-optin-pref": "Vklopi <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Pregledovalnik datotek]</span>"
 }

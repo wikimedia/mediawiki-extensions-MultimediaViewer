@@ -1,5 +1,8 @@
 <template>
-	<div v-if="thumbs.length > 1" class="mmv-lightbox-nav">
+	<div
+		v-if="thumbs.length > 1"
+		class="mmv-lightbox-nav"
+		:class=" { 'mmv-lightbox-nav--hide-border': hasError } ">
 		<cdx-button
 			class="mmv-lightbox-nav__prev"
 			:aria-label="$i18n( 'multimediaviewer-prev-image-alt-text' ).text()"
@@ -39,6 +42,7 @@ module.exports = exports = defineComponent( {
 		const state = inject( 'state' );
 		const nextImageFn = inject( 'nextImage' );
 		const prevImageFn = inject( 'prevImage' );
+		const hasError = inject( 'hasError' );
 
 		const image = computed( () => state.image.value );
 		const thumbs = computed( () => state.thumbs.value );
@@ -65,7 +69,8 @@ module.exports = exports = defineComponent( {
 			onNext,
 			onPrev,
 			cdxIconPrevious,
-			cdxIconNext
+			cdxIconNext,
+			hasError
 		};
 	}
 } );
@@ -74,18 +79,23 @@ module.exports = exports = defineComponent( {
 <style lang="less">
 @import 'mediawiki.skin.variables.less';
 
+/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 .mmv-lightbox-nav {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	gap: @spacing-100;
-	padding: @spacing-75 @spacing-100;
+	padding: @spacing-75 @spacing-100 @spacing-150;
 	flex-shrink: 0;
 	border-top: solid 1px @border-color-muted;
 
 	&__counter {
 		font-size: @font-size-small;
 		opacity: @opacity-icon-subtle;
+	}
+
+	&--hide-border {
+		border-top: unset;
 	}
 }
 </style>

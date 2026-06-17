@@ -71,5 +71,6 @@
 	"multimediaviewer-download-optional-attribution-cta-header": "Die outeur se naam kan vermeld word",
 	"multimediaviewer-download-attribution-cta": "Wys my hoe",
 	"multimediaviewer-download-attribution-copy": "Merk en kopieer (indien ondersteun) die die outeursvermelding vir dié lêer",
-	"multimediaviewer-attr-plain": "Eenvoudig"
+	"multimediaviewer-attr-plain": "Eenvoudig",
+	"multimediaviewer-optin-pref": "Aktiveer <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Mediakyker]</span>"
 }

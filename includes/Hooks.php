@@ -41,6 +41,7 @@ use MediaWiki\Page\CategoryPage;
 use MediaWiki\Page\Hook\CategoryPageViewHook;
 use MediaWiki\Page\PageProps;
 use MediaWiki\Parser\ParserOptions;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Parser\ParserOutputLinkTypes;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MediaWiki\Registration\ExtensionRegistry;
@@ -54,7 +55,6 @@ use MediaWiki\User\Options\UserOptionsLookup;
 use MediaWiki\User\User;
 use MobileContext;
 use Wikimedia\Parsoid\Core\DOMCompat;
-use Wikimedia\Parsoid\DOM\Element;
 use Wikimedia\Parsoid\Utils\DOMUtils;
 
 class Hooks implements
@@ -146,34 +146,83 @@ class Hooks implements
 	 * @param OutputPage $out
 	 */
 	protected function getModules( OutputPage $out ) {
-		// The MobileFrontend extension provides its own implementation of MultimediaViewer.
-		// See https://phabricator.wikimedia.org/T65504 and subtasks for more details.
-		// To avoid loading MMV twice, we check the environment we are running in.
-		$modules = [];
-		if ( $this->isMobileFrontendView() ) {
-			// On mobile we do not load the legacy desktop viewer. Image clicks
-			// fall through to the MobileFrontend lightbox (the "#/media/" overlay
-			// MinervaNeue registers), which is what the carousel routes to. See
-			// T427679.
-			if ( $this->shouldUseMobileCarousel( $out ) ) {
-				$modules[] = 'mmv.carousel';
-				$out->addModuleStyles( 'mmv.carousel.styles' );
-			}
-			// Opt-in beta mobile viewer: ?mmvBeta=1 loads mmv.bootstrap, which
-			// registers the same "#/media/" route on the shared router and so
-			// intercepts both body and carousel image clicks ahead of the
-			// MobileFrontend lightbox. The URL parameter alone enables it; it is
-			// independent of the mobile carousel beta feature.
-			if ( $out->getRequest()->getFuzzyBool( 'mmvBeta' ) ) {
-				$modules[] = 'mmv.bootstrap';
-			}
-		} else {
-			$modules[] = 'mmv.bootstrap';
+		// Desktop view: always load the viewer.
+		if ( !$this->isMobileFrontendView() ) {
+			$out->addModules( 'mmv.bootstrap' );
+			return;
 		}
 
-		if ( $modules ) {
-			$out->addModules( $modules );
+		// Mobile view: the carousel module is handled by
+		// maybeAddMobileCarousel(). Beta mobile viewer: loading mmv.bootstrap
+		// registers the "#/media/" route on the shared router ahead of the
+		// MobileFrontend lightbox, which stands down whenever the bootstrap is
+		// loaded (T169622). It is enabled sitewide via $wgMediaViewerMobileBeta
+		// (T428774) or per-request via ?mmvBeta=1; both are independent of the
+		// mobile carousel beta feature.
+		if (
+			$this->shouldUseMobileBetaViewer( $out ) ||
+			$out->getRequest()->getFuzzyBool( 'mmvBeta' )
+		) {
+			$out->addModules( 'mmv.bootstrap' );
 		}
+	}
+
+	/**
+	 * Whether the beta mobile viewer should replace the MobileFrontend
+	 * image viewer for this request (T428774).
+	 *
+	 * Conditions:
+	 *  - request is served through MobileFrontend's mobile view
+	 *  - MediaViewerMobileBeta config flag is enabled
+	 *  - the user has not disabled MediaViewer in their preferences
+	 *
+	 * @param OutputPage $out
+	 * @return bool
+	 */
+	protected function shouldUseMobileBetaViewer( OutputPage $out ): bool {
+		return (
+			$this->isMobileFrontendView() &&
+			$this->config->get( 'MediaViewerMobileBeta' ) &&
+			$this->shouldHandleClicks( $out->getUser() )
+		);
+	}
+
+	/**
+	 * Render the mobile carousel server-side and load its JS module.
+	 *
+	 * The module is added only when carousel markup is actually rendered
+	 * (a qualifying request and enough thumbnails), so the client module
+	 * can assume carousel items exist in the DOM.
+	 *
+	 * @param OutputPage $out
+	 */
+	private function maybeAddMobileCarousel( OutputPage $out ): void {
+		if ( !$this->shouldUseMobileCarousel( $out ) ) {
+			return;
+		}
+
+		$thumbExtractor = new ThumbExtractor(
+			array_keys( $this->config->get( 'MediaViewerExtensions' ) ),
+			$this->config->get( 'MediaViewerExcludedImageSelectors' ),
+			100,
+			100,
+			$this->config->get( MainConfigNames::ArticlePath )
+		);
+		$context = $out->getContext();
+		$carouselItems = $this->extractCarouselImageElements(
+			$thumbExtractor,
+			$out->getHTML(),
+			$context->getWikiPage()->getParserOutput(
+				ParserOptions::newFromContext( $context )
+			) ?: null
+		);
+		if ( count( $carouselItems ) < self::MIN_CAROUSEL_IMAGES ) {
+			return;
+		}
+
+		$out->addModules( 'mmv.carousel' );
+		$out->addModuleStyles( 'mmv.carousel.styles' );
+		$out->prependHTML( $this->buildCarouselHtml( $carouselItems, $out->getTitle()->getText() ) );
 	}
 
 	/**
@@ -205,6 +254,10 @@ class Hooks implements
 	 * Whether the page should get the mobile carousel.
 	 *
 	 * Conditions:
+	 * - plain view action: not a diff (which is still action=view), not an
+	 *   old revision, and not history/edit/etc. (T428701). Old revisions are
+	 *   excluded because thumbnails are extracted from the current revision's
+	 *   parser output and would not match the displayed content.
 	 * - article page
 	 * - not the main page
 	 * - real page, e.g., not special
@@ -217,6 +270,12 @@ class Hooks implements
 		$title = $out->getTitle();
 
 		return (
+			// Plain view: not history, edit, etc.
+			$out->getActionName() === 'view' &&
+			// Not a diff, which is served as part of the view action
+			!$out->getRequest()->getCheck( 'diff' ) &&
+			// Not an old revision (?oldid=) view
+			$out->isRevisionCurrent() &&
 			// Article
 			$title->getNamespace() === NS_MAIN &&
 			// Not the main page
@@ -260,157 +319,102 @@ class Hooks implements
 	 * Extract thumbnail image data from the parser output of a wiki page.
 	 * The parser cache is used if possible.
 	 *
-	 * @param OutputPage $out An output page
-	 * @return array[] Each item has keys: title, href, src, srcset, width, height, alt
+	 * @param ThumbExtractor $thumbExtractor
+	 * @param string $html
+	 * @param ?ParserOutput $parserOutput
+	 * @return array{title: Title, thumb: \Wikimedia\Parsoid\DOM\Element}[]
 	 */
-	protected function extractImages( OutputPage $out ): array {
-		$thumbExtractor = new ThumbExtractor(
-			$this->config->get( 'MediaViewerExtensions' ),
-			$this->config->get( 'MediaViewerExcludedImageSelectors' )
-		);
+	protected function extractCarouselImageElements(
+		ThumbExtractor $thumbExtractor,
+		string $html,
+		?ParserOutput $parserOutput = null
+	): array {
+		$doc = DOMCompat::newDocument( true );
+		$body = DOMUtils::parseHTMLToFragment( $doc, $html );
 
-		$mwServices = MediaWikiServices::getInstance();
-		$context = $out->getContext();
-		$wikiPage = $context->getWikiPage();
-		$parserOptions = ParserOptions::newFromContext( $context );
-		$parserOutput = $wikiPage->getParserOutput( $parserOptions );
+		$thumbs = $thumbExtractor->findThumbs( $body );
+		$carouselItems = [];
+		foreach ( $thumbs as $thumb ) {
+			$anchor = DOMCompat::getParentElement( $thumb );
+			$title = $thumbExtractor->extractTitleFromAnchorElement( $anchor );
+			if ( !$title ) {
+				continue;
+			}
+
+			// Guard against duplicates/overwrites
+			$prefixedText = $title->getPrefixedText();
+			if ( isset( $carouselItems[$prefixedText] ) ) {
+				continue;
+			}
+
+			$carouselItems[$prefixedText] = [
+				'title' => $title,
+				'thumb' => $thumb,
+			];
+		}
+		$carouselItems = array_values( $carouselItems );
 
 		if ( $parserOutput ) {
-			// In production, extract thumbnails from parser output + file metadata
+			// Doublecheck thumbs against media known in ParserOutput.
+			// Note: this code path with not be run for external content
+			// served through MobileFrontendContentProvider, for which
+			// we don't have parser output.
 			$fileNames = [];
 			foreach ( $parserOutput->getLinkList( ParserOutputLinkTypes::MEDIA ) as $medium ) {
 				$fileNames[] = $medium['link']->getText();
 			}
-			$files = $mwServices->getRepoGroup()->findFiles( $fileNames );
-			$body = $parserOutput->getContentHolder()->getAsDom();
+			$files = MediaWikiServices::getInstance()->getRepoGroup()->findFiles( $fileNames );
 
-			return $this->mapForCarousel( $thumbExtractor->extract( $body, $files ) );
-		} else {
-			// In local dev with MobileFrontendContentProvider, extract from HTML directly
-			return $this->extractImagesFromHtml( $out->getHTML(), $thumbExtractor );
-		}
-	}
-
-	/**
-	 * Extract thumbnail data directly from HTML, without File objects.
-	 *
-	 * Used when ParserOutput is unavailable (e.g. MobileFrontendContentProvider
-	 * proxied pages). File names are parsed from link hrefs instead of
-	 * RepoGroup::findFiles().
-	 *
-	 * @param string $html Page HTML
-	 * @param ThumbExtractor $thumbExtractor
-	 * @return array[] Each item has keys: title, href, src, srcset, width, height, alt
-	 */
-	private function extractImagesFromHtml( string $html, ThumbExtractor $thumbExtractor ): array {
-		if ( $html === '' ) {
-			return [];
+			$carouselItems = array_values( array_filter(
+				$carouselItems,
+				static function ( $item ) use ( $files ) {
+					$filename = $item['title']->getDBkey();
+					return isset( $files[$filename] ) && $files[$filename]->exists();
+				}
+			) );
 		}
 
-		$doc = DOMCompat::newDocument( true );
-		$body = DOMUtils::parseHTMLToFragment( $doc, $html );
-
-		$thumbData = [];
-
-		foreach ( $thumbExtractor->findThumbs( $body ) as $thumb ) {
-			// Find the parent <a> to get the file name. Rely on
-			// DOMUtils::nodeName() to abstract over differences in
-			// PHP versions (which may use uppercase or lowercase tag names).
-			$anchor = DOMCompat::getParentElement( $thumb );
-			if ( !$anchor || DOMUtils::nodeName( $anchor ) !== 'a' ) {
-				continue;
-			}
-			$href = $anchor->getAttribute( 'href' );
-
-			// Extract file name from href
-			// Parsoid: href="./File:Example.jpg"  Legacy: href="/wiki/File:Example.jpg"
-			if ( !preg_match( '#(?:^\./|/wiki/)File:(.+)$#', $href, $m ) ) {
-				continue;
-			}
-			$fileName = urldecode( $m[1] );
-
-			$thumbData[] = [
-				'title' => Title::makeTitleSafe( NS_FILE, $fileName ),
-				'thumb' => $thumb,
-			];
-		}
-
-		// mapForCarousel reads from the thumb Elements, so it must be called
-		// while $doc is still in scope (Parsoid DOM frees nodes when their
-		// owning document is garbage-collected).
-		return $this->mapForCarousel( $thumbData );
-	}
-
-	/**
-	 * Map extracted thumbnail data to the flat array format used by
-	 * {@link buildCarouselItems}.
-	 *
-	 * @param array<array{title:Title,thumb:Element}> $thumbData
-	 * @return array[] Each item has keys: title, href, src, srcset, width, height, alt, label
-	 */
-	private function mapForCarousel( array $thumbData ): array {
-		$result = [];
-		foreach ( $thumbData as $item ) {
-			$thumb = $item['thumb'];
-			$prefixedText = $item['title']->getPrefixedText();
-			if ( isset( $result[$prefixedText] ) ) {
-				continue;
-			}
-
-			$result[$prefixedText] = [
-				'title' => $prefixedText,
-				'href' => $item['title']->getLocalURL(),
-				'src' => $thumb->getAttribute( 'src' )
-					?: $thumb->getAttribute( 'data-mw-src' ),
-				'srcset' => $thumb->getAttribute( 'srcset' )
-					?: $thumb->getAttribute( 'data-mw-srcset' ),
-				'width' => $thumb->getAttribute( 'width' ),
-				'height' => $thumb->getAttribute( 'height' ),
-				'alt' => $thumb->getAttribute( 'alt' ),
-				// Fallback for aria-label when alt text is absent:
-				// strip extension and replace underscores with spaces.
-				'label' => str_replace( '_', ' ',
-					preg_replace( '/\.[^.]+$/', '', $item['title']->getText() )
-				),
-			];
-		}
-		return array_values( $result );
+		return $carouselItems;
 	}
 
 	/**
 	 * Build the HTML for carousel thumbnail items.
 	 *
-	 * @param array[] $thumbData Each thumb has keys: title, href, src, srcset, width, height, alt, label
+	 * @param array{title: Title, thumb: \Wikimedia\Parsoid\DOM\Element}[] $carouselItems
 	 * @return string
 	 */
-	private function buildCarouselItems( array $thumbData ): string {
+	private function buildCarouselItemsHtml( array $carouselItems ): string {
 		$html = '';
-		foreach ( $thumbData as $i => $data ) {
+		foreach ( $carouselItems as $i => $item ) {
 			$html .= Html::rawElement(
 				'li',
 				[
 					'class' => 'mmv-carousel__item',
-					'data-mmv-title' => $data['title'],
+					'data-mmv-title' => $item['title']->getPrefixedText(),
 					'data-mmv-position' => (string)( $i + 1 ),
 				],
 				Html::rawElement(
 					'a',
 					[
-						'href' => $data['href'],
+						'href' => $item['title']->getLocalURL(),
 						'class' => 'mmv-carousel__item-link mw-file-description',
 						// Give each link an explicit accessible name. Reuse the
 						// image alt text when present, otherwise fall back to the
 						// cleaned-up filename.
-						'aria-label' => $data['alt'] !== '' ? $data['alt'] : ( $data['label'] ?? false ),
+						'aria-label' => DOMCompat::getAttribute( $item['thumb'], 'alt' ) ?:
+							preg_replace( '/\.[^.]+$/', '', $item['title']->getText() ),
 					],
 					Html::element(
 						'img',
 						[
-							'src' => $data['src'],
-							'srcset' => $data['srcset'] ?: false,
-							'width' => $data['width'],
-							'height' => $data['height'],
-							'alt' => $data['alt'],
+							'src' => DOMCompat::getAttribute( $item['thumb'], 'src' ) ?:
+								DOMCompat::getAttribute( $item['thumb'], 'data-mw-src' ),
+							'srcset' => DOMCompat::getAttribute( $item['thumb'], 'srcset' ) ??
+								DOMCompat::getAttribute( $item['thumb'], 'data-mw-srcset' ) ??
+								false,
+							'width' => DOMCompat::getAttribute( $item['thumb'], 'width' ),
+							'height' => DOMCompat::getAttribute( $item['thumb'], 'height' ),
+							'alt' => DOMCompat::getAttribute( $item['thumb'], 'alt' ),
 							'class' => 'mmv-carousel__item-image',
 							'loading' => 'lazy',
 						]
@@ -424,13 +428,11 @@ class Hooks implements
 	/**
 	 * Build the server-rendered carousel shell so the client module can
 	 * progressively enhance it.
-	 * @param array[] $thumbData carousel thumbnails
+	 * @param array{title: Title, thumb: \Wikimedia\Parsoid\DOM\Element}[] $carouselItems carousel thumbnails
 	 * @param string $pageTitle display title of the page, used in the carousel's accessible label
 	 * @return string
 	 */
-	private function buildCarouselHtml( array $thumbData, string $pageTitle ): string {
-		$itemsHtml = $this->buildCarouselItems( $thumbData );
-
+	private function buildCarouselHtml( array $carouselItems, string $pageTitle ): string {
 		return Html::rawElement(
 			'div',
 			[
@@ -441,12 +443,12 @@ class Hooks implements
 				'ul',
 				[
 					'class' => 'mmv-carousel__items',
-					'aria-label' => $this->getCarouselLabel( $pageTitle, count( $thumbData ) ),
+					'aria-label' => $this->getCarouselLabel( $pageTitle, count( $carouselItems ) ),
 					// Explicit role preserves list semantics when list-style:none
 					// causes some browsers to strip them.
 					'role' => 'list',
 				],
-				$itemsHtml
+				$this->buildCarouselItemsHtml( $carouselItems )
 			)
 		);
 	}
@@ -483,18 +485,15 @@ class Hooks implements
 		$pageIsSpecialPage = $out->getTitle()->inNamespace( NS_SPECIAL );
 		$fileRelatedSpecialPages = [ 'Newimages', 'Listfiles', 'Mostimages',
 			'MostGloballyLinkedFiles', 'Uncategorizedimages', 'Unusedimages', 'Search' ];
-		$pageIsFileRelatedSpecialPage = $out->getTitle()->inNamespace( NS_SPECIAL )
-			&& in_array( $this->specialPageFactory->resolveAlias( $out->getTitle()->getDBkey() )[0],
-				$fileRelatedSpecialPages );
+		$pageIsFileRelatedSpecialPage = $out->getTitle()->inNamespace( NS_SPECIAL ) &&
+			in_array(
+				$this->specialPageFactory->resolveAlias( $out->getTitle()->getDBkey() )[0],
+				$fileRelatedSpecialPages
+			);
 
 		if ( !$pageIsSpecialPage || $pageIsFileRelatedSpecialPage ) {
 			$this->getModules( $out );
-			if ( $this->shouldUseMobileCarousel( $out ) ) {
-				$thumbData = $this->extractImages( $out );
-				if ( count( $thumbData ) >= self::MIN_CAROUSEL_IMAGES ) {
-					$out->prependHTML( $this->buildCarouselHtml( $thumbData, $out->getTitle()->getText() ) );
-				}
-			}
+			$this->maybeAddMobileCarousel( $out );
 		}
 	}
 
@@ -556,6 +555,10 @@ class Hooks implements
 		$vars['wgMediaViewerOnClick'] = $this->shouldHandleClicks( $user );
 		// needed because of T71942; could be different for anon and logged-in
 		$vars['wgMediaViewerEnabledByDefault'] = (bool)$isMultimediaViewerEnable;
+		// Tells the bootstrap to use the beta mobile viewer instead of the
+		// legacy desktop viewer (T428774). Exported here rather than via
+		// ResourceLoaderGetConfigVars because it varies per request.
+		$vars['wgMediaViewerMobileBeta'] = $this->shouldUseMobileBetaViewer( $out );
 	}
 
 	/**

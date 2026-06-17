@@ -116,5 +116,6 @@
 	"multimediaviewer-reuse-warning-generic": "تحقق من [$1 تفاصيله] قبل استخدامه.",
 	"multimediaviewer-attr-plain": "عادي",
 	"multimediaviewer-attr-html": "إتش تي إم إل",
+	"multimediaviewer-optin-pref": "تمكين <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About عارض الوسائط]</span>",
 	"multimediaviewer-loading": "جاري تحميل عارض الوسائط."
 }

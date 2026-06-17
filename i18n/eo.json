@@ -82,5 +82,6 @@
 	"multimediaviewer-reuse-warning-nonfree": "Ĉi tiu dosiero ne havas liberan permesilon.",
 	"multimediaviewer-reuse-warning-noattribution": "Atribua informo mankas ĉe ĉi tiu dosiero.",
 	"multimediaviewer-reuse-warning-generic": "Kontrolu [$1 ĝiajn detalojn] antaŭ ol uzado.",
-	"multimediaviewer-attr-plain": "Plata teksto"
+	"multimediaviewer-attr-plain": "Plata teksto",
+	"multimediaviewer-optin-pref": "Ŝalti <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Median Montrilon]</span>"
 }

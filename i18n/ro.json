@@ -99,5 +99,6 @@
 	"multimediaviewer-reuse-warning-nonfree": "Acest fișier nu are o licență liberă.",
 	"multimediaviewer-reuse-warning-noattribution": "Acest fișier nu are informații despre atribuire.",
 	"multimediaviewer-reuse-warning-generic": "Verificați [$1 detaliile sale] înainte de a îl utiliza.",
-	"multimediaviewer-attr-plain": "Simplu"
+	"multimediaviewer-attr-plain": "Simplu",
+	"multimediaviewer-optin-pref": "Activează <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Vizualizatorul multimedia]</span>"
 }

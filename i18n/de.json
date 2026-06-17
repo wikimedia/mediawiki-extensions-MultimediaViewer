@@ -113,7 +113,8 @@
 	"multimediaviewer-reuse-warning-noattribution": "Diese Datei hat keine Informationen zur Namensnennung.",
 	"multimediaviewer-reuse-warning-generic": "Überprüfe [$1 ihre Einzelheiten], bevor du sie verwendest.",
 	"multimediaviewer-attr-plain": "Klartext",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Medienbetrachter]</span> aktivieren",
 	"multimediaviewer-loading": "Medienbetrachter wird geladen.",
 	"multimediaviewer-beta-feature-name": "Bilderkarussell",
-	"multimediaviewer-beta-feature-description": "Artikelbilder oben auf der Seite anzeigen."
+	"multimediaviewer-beta-feature-description": "Auf mobilen Geräten Artikelbilder oben auf der Seite anzeigen."
 }

@@ -76,5 +76,6 @@
 	"multimediaviewer-reuse-warning-nonfree": "ߞߐߕߐ߮ ߣߌ߲߬ ߟߊߞߏߟߏ߲߫ ߕߍ߫ ߕߌ߰ߦߊ ߡߊ߬.",
 	"multimediaviewer-reuse-warning-noattribution": "ߞߎ߲߬ߠߊ߬ߝߏߣߌ߲߫ ߘߍ߬ߡߍ߲߬ߘߌ߬ߣߍ߲߫ ߞߐߕߐ߮ ߣߌ߲߬ ߠߊ߫.",
 	"multimediaviewer-reuse-warning-generic": "[$1 ߞߎ߲߬ߠߊ߬ߝߏߣߌ߲ ߠߎ߬] ߝߛߍ߬ߝߛߍ߫ ߊ߬ ߟߊߓߊ߯ߙߊ ߢߍ߫.",
-	"multimediaviewer-attr-plain": "ߣߐ߰ߡߊ߲"
+	"multimediaviewer-attr-plain": "ߣߐ߰ߡߊ߲",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span> ߓߌ߬ߟߵߊ߬ ߟߊ߫"
 }

@@ -61,5 +61,6 @@
 	"multimediaviewer-credit-popup-text-more": "Kitaen ti napno a mannurat ken taudan",
 	"multimediaviewer-download-attribution-cta-header": "Nasken a pammadayawam ti mannurat",
 	"multimediaviewer-download-attribution-cta": "Ipakitam kaniak no kasano",
-	"multimediaviewer-attr-plain": "Naranas"
+	"multimediaviewer-attr-plain": "Naranas",
+	"multimediaviewer-optin-pref": "Pakabaelan ti <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>"
 }

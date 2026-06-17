@@ -37,7 +37,7 @@ class MultimediaViewerBootstrap {
 		/**
 		 * This flag is set to true when we were unable to load the viewer.
 		 *
-		 * @property {boolean}
+		 * @type {boolean}
 		 */
 		this.viewerIsBroken = false;
 
@@ -45,7 +45,7 @@ class MultimediaViewerBootstrap {
 
 		this.thumbsReadyDeferred = $.Deferred();
 		/**
-		 * @property {LightboxImage[]}
+		 * @type {LightboxImage[]}
 		 */
 		this.thumbs = [];
 		this.$legacyThumbs = null; // will be set by processThumbs
@@ -62,14 +62,14 @@ class MultimediaViewerBootstrap {
 
 	/**
 	 * Whether the beta UI should be used instead of the legacy viewer.
-	 * Activated by the ?mmvBeta=1 URL parameter on mobile (Minerva) only.
-	 * On desktop, the legacy viewer is always used.
+	 * Enabled by the server for mobile views when $wgMediaViewerMobileBeta
+	 * is set (T428774), or by the ?mmvBeta=1 URL parameter on any skin.
 	 *
 	 * @return {boolean}
 	 */
 	isBetaMode() {
-		return new URLSearchParams( location.search ).get( 'mmvBeta' ) === '1' &&
-			mw.config.get( 'skin' ) === 'minerva';
+		return mw.config.get( 'wgMediaViewerMobileBeta' ) === true ||
+			new URLSearchParams( location.search ).get( 'mmvBeta' ) === '1';
 	}
 
 	/**
@@ -614,7 +614,11 @@ class MultimediaViewerBootstrap {
 	 * Listens to events on the window/document
 	 */
 	setupEventHandlers() {
-		/** @property {boolean} eventHandlersHaveBeenSetUp tracks domready event handler state */
+		/**
+		 * tracks domready event handler state
+		 *
+		 * @type {boolean}
+		 */
 		this.eventHandlersHaveBeenSetUp = true;
 
 		// Interpret any hash that might already be in the url

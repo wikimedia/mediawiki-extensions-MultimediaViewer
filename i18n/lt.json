@@ -116,5 +116,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "Šis failas neturi priskyrimo informacijos.",
 	"multimediaviewer-reuse-warning-generic": "Prieš naudodami patikrinkite [$1 informaciją].",
 	"multimediaviewer-attr-plain": "Paprastas",
-	"multimediaviewer-attr-html": "HTML"
+	"multimediaviewer-attr-html": "HTML",
+	"multimediaviewer-optin-pref": "Įjungti <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About nuotraukų peržvalgos programą]</span>"
 }

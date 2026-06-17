@@ -63,5 +63,6 @@
 	"multimediaviewer-download-attribution-cta-header": "آپ تصویر کو اس کے مصنف سے لازماً منسوب کریں",
 	"multimediaviewer-download-optional-attribution-cta-header": "آپ تصویر کو اس کے مصنف سے منسوب کر سکتے ہیں",
 	"multimediaviewer-download-attribution-cta": "مجھے دکھائیں کس طرح کرتے ہیں",
-	"multimediaviewer-attr-plain": "سادہ"
+	"multimediaviewer-attr-plain": "سادہ",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About میڈیا نمائش گر]</span> کو فعال کریں"
 }

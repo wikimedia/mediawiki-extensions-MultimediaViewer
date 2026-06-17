@@ -47,5 +47,6 @@
 	"multimediaviewer-description-page-button-text": "Más detalles",
 	"multimediaviewer-description-page-popup-text": "Más detalles en $1",
 	"multimediaviewer-commons-subtitle": "El repositorio multimedia libre",
-	"multimediaviewer-view-expanded": "Vista expandida"
+	"multimediaviewer-view-expanded": "Vista expandida",
+	"multimediaviewer-optin-pref": "Habilita nueva experiencia de visualización multimedia"
 }

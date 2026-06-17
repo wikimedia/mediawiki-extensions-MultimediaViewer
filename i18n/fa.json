@@ -112,5 +112,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "این تصویر اطلاعات پدیدآورنده ندارد",
 	"multimediaviewer-reuse-warning-generic": "قبل از استفاده [$1 جزئیات آن را] بررسی کنید.",
 	"multimediaviewer-attr-plain": "ساده",
-	"multimediaviewer-attr-html": "HTML"
+	"multimediaviewer-attr-html": "HTML",
+	"multimediaviewer-optin-pref": "فعال کردن <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About نمایشگر رسانه‌ای]</span>"
 }

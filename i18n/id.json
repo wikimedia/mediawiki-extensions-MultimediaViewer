@@ -106,5 +106,6 @@
 	"multimediaviewer-reuse-warning-nonfree": "Berkas ini tidak berlisensi bebas.",
 	"multimediaviewer-reuse-warning-noattribution": "Berkas ini tidak memiliki informasi atribusi.",
 	"multimediaviewer-reuse-warning-generic": "Periksa [$1 rinciannya] sebelum menggunakan.",
-	"multimediaviewer-attr-plain": "Polos"
+	"multimediaviewer-attr-plain": "Polos",
+	"multimediaviewer-optin-pref": "Nyalakan <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Penampil Media]</span>"
 }

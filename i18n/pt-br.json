@@ -136,6 +136,7 @@
 	"multimediaviewer-reuse-warning-generic": "Verifique [$1 os detalhes] antes de utilizá-lo.",
 	"multimediaviewer-attr-plain": "Simples",
 	"multimediaviewer-attr-html": "HTML",
+	"multimediaviewer-optin-pref": "Ativar <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visualizador de mídia]</span>",
 	"multimediaviewer-loading": "Carregando o Visualizador de Mídia.",
 	"multimediaviewer-beta-feature-name": "Carrossel de imagens",
 	"multimediaviewer-beta-feature-description": "Exibe imagens do artigo na parte superior da página."

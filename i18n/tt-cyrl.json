@@ -56,5 +56,6 @@
 	"multimediaviewer-title-popup-text-more": "Тулы тасвирны карау",
 	"multimediaviewer-credit-popup-text-more": "Автор һәм чыганак турында тулырак мәгълүмат",
 	"multimediaviewer-download-attribution-cta-header": "Сезга авторын күрсәтү кирәк",
-	"multimediaviewer-attr-plain": "Гади"
+	"multimediaviewer-attr-plain": "Гади",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Медиа гизгечне]</span> куллану"
 }

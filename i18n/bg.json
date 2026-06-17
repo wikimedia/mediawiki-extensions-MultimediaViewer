@@ -19,5 +19,6 @@
 	"multimediaviewer-view-expanded": "Отваряне в Media Viewer",
 	"multimediaviewer-title-popup-text": "Описание",
 	"multimediaviewer-title-popup-text-more": "Преглед на пълното описание",
-	"multimediaviewer-credit-popup-text-more": "Показване на цялостна информация за автора и източника"
+	"multimediaviewer-credit-popup-text-more": "Показване на цялостна информация за автора и източника",
+	"multimediaviewer-optin-pref": "Включване на <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>"
 }

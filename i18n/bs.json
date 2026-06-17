@@ -53,5 +53,6 @@
 	"multimediaviewer-title-popup-text-more": "Prikaži cijeli opis",
 	"multimediaviewer-download-attribution-cta-header": "Trebate navesti autora",
 	"multimediaviewer-download-attribution-cta": "Pokaži mi kako",
-	"multimediaviewer-attr-plain": "Običan tekst"
+	"multimediaviewer-attr-plain": "Običan tekst",
+	"multimediaviewer-optin-pref": "Uključi <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Medijski preglednik]</span>"
 }

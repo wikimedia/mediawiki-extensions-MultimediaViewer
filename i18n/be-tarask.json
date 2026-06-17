@@ -37,5 +37,6 @@
 	"multimediaviewer-view-expanded": "Адкрыць у мэдыяпраглядальніку",
 	"multimediaviewer-close-popup-text": "Закрыць гэты інструмэнт (Esc)",
 	"multimediaviewer-fullscreen-popup-text": "Паказаць на ўвесь экран",
-	"multimediaviewer-copy-button": "Капіяваць"
+	"multimediaviewer-copy-button": "Капіяваць",
+	"multimediaviewer-optin-pref": "Уключыць <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About мэдыяпраглядальнік]</span>"
 }

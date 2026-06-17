@@ -91,5 +91,6 @@
 	"multimediaviewer-reuse-warning-generic": "ตรวจสอบ[$1 รายละเอียด]ก่อนใช้",
 	"multimediaviewer-attr-plain": "ธรรมดา",
 	"multimediaviewer-attr-html": "เอชทีเอ็มแอล",
+	"multimediaviewer-optin-pref": "เปิดใช้งาน<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About ตัวแสดงสื่อ]</span>",
 	"multimediaviewer-loading": "กำลังโหลดตัวแสดงสื่อ"
 }

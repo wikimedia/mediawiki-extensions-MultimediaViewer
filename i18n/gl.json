@@ -106,7 +106,8 @@
 	"multimediaviewer-reuse-warning-noattribution": "Este ficheiro non ten información de atribución.",
 	"multimediaviewer-reuse-warning-generic": "Compruebe [$1 os seus detalles] antes de utilizalo.",
 	"multimediaviewer-attr-plain": "Simple",
+	"multimediaviewer-optin-pref": "Activar o <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visor de ficheiros multimedia]</span>",
 	"multimediaviewer-loading": "Cargando o visor de ficheiros multimedia.",
 	"multimediaviewer-beta-feature-name": "Carrusel de imaxes",
-	"multimediaviewer-beta-feature-description": "Mostrar as imaxes do artigo na parte superior da páxina."
+	"multimediaviewer-beta-feature-description": "Mostrar as imaxes do artigo na parte superior da páxina nos dispositivos móbiles."
 }

@@ -21,6 +21,7 @@
 	"multimediaviewer-thumbnail-error": "Sorry, the file cannot be displayed",
 	"multimediaviewer-thumbnail-error-description": "There seems to be a technical issue. You can $1 if it persists. Error: $2",
 	"multimediaviewer-thumbnail-error-retry": "retry",
+	"multimediaviewer-thumbnail-error-refresh-button": "Refresh",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",
 	"multimediaviewer-license-cc-sa-1.0": "CC SA 1.0",
 	"multimediaviewer-license-cc-by-sa-1.0": "CC BY-SA 1.0",
@@ -133,5 +134,5 @@
 	"multimediaviewer-optin-pref": "Enable <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
 	"multimediaviewer-loading": "Loading Media Viewer.",
 	"multimediaviewer-beta-feature-name": "Image carousel",
-	"multimediaviewer-beta-feature-description": "Show article images at the top of the page."
+	"multimediaviewer-beta-feature-description": "Show article images at the top of the page on mobile devices."
 }

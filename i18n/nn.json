@@ -61,5 +61,6 @@
 	"multimediaviewer-download-attribution-cta-header": "Du må godskriva opphavspersonen",
 	"multimediaviewer-download-optional-attribution-cta-header": "Du kan godskriva opphavspersonen",
 	"multimediaviewer-download-attribution-cta": "Vis meg korleis",
-	"multimediaviewer-attr-plain": "Enkel"
+	"multimediaviewer-attr-plain": "Enkel",
+	"multimediaviewer-optin-pref": "Slå på <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About medieframsynaren]</span>"
 }

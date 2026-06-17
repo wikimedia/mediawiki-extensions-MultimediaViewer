@@ -131,5 +131,6 @@
 	"multimediaviewer-reuse-warning-generic": "Проверьте [$1 сведения о нём] перед тем, как воспользоваться.",
 	"multimediaviewer-attr-plain": "Просто текст",
 	"multimediaviewer-attr-html": "HTML",
+	"multimediaviewer-optin-pref": "Включить <span class=\"plainlinks\">«[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Медиа-просмотрщик]</span>»",
 	"multimediaviewer-loading": "Загрузка средства просмотра медиафайлов."
 }

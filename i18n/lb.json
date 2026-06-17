@@ -77,5 +77,6 @@
 	"multimediaviewer-copy-button": "Kopéieren",
 	"multimediaviewer-reuse-warning-deletion": "Et gouf virgeschloen dëse Fichier ze läschen.",
 	"multimediaviewer-reuse-warning-nonfree": "Dëse Fichier huet keng fräi Lizenz.",
-	"multimediaviewer-reuse-warning-noattribution": "Dëse Fichier huet keng Informatiounen iwwer den Auteur."
+	"multimediaviewer-reuse-warning-noattribution": "Dëse Fichier huet keng Informatiounen iwwer den Auteur.",
+	"multimediaviewer-optin-pref": "De <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span> aktivéieren"
 }

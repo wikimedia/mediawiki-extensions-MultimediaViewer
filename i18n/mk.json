@@ -5,7 +5,10 @@
 			"Vlad5250"
 		]
 	},
+	"multimediaviewer-current-image-number": "$1 ⁄ $2",
 	"multimediaviewer-desc": "Зголемување на минијатурите на цел екран",
+	"multimediaviewer-carousel-label": "Слики во $1, $2 {{PLURAL:$2|предмет|предмети}}",
+	"multimediaviewer-carousel-label-article": "статија",
 	"multimediaviewer-file-page": "Оди на соодветната податотечна страница",
 	"multimediaviewer-repository-local": "Поподробно",
 	"multimediaviewer-datetime-created": "Создадено: $1",
@@ -110,5 +113,9 @@
 	"multimediaviewer-reuse-warning-noattribution": "Оваа податотека нема приписни податоци.",
 	"multimediaviewer-reuse-warning-generic": "Погледајте ги [$1 поединостите] пред да ја употребите.",
 	"multimediaviewer-attr-plain": "Прост",
-	"multimediaviewer-loading": "Го вчитувам Прегледувачот."
+	"multimediaviewer-attr-html": "HTML",
+	"multimediaviewer-optin-pref": "Вклучи го <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Прегледувачот]</span>",
+	"multimediaviewer-loading": "Го вчитувам Прегледувачот.",
+	"multimediaviewer-beta-feature-name": "Сликоврт",
+	"multimediaviewer-beta-feature-description": "Прикажувај слики од статии најгоре на страницата на мобилни уреди."
 }

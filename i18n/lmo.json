@@ -94,5 +94,6 @@
 	"multimediaviewer-reuse-warning-nonfree": "Quell fail chì el gh'hà no una licenza libera.",
 	"multimediaviewer-reuse-warning-noattribution": "Quell fail chì el gh'hà minga di atribuzzion.",
 	"multimediaviewer-reuse-warning-generic": "Controla i [$1 so detali] inanz de drovall.",
-	"multimediaviewer-attr-plain": "Normal"
+	"multimediaviewer-attr-plain": "Normal",
+	"multimediaviewer-optin-pref": "Ativa <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>"
 }

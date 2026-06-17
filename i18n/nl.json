@@ -77,7 +77,7 @@
 	"multimediaviewer-download-large-button-name": "Groot formaat downloaden",
 	"multimediaviewer-download-xl-button-name": "Extra groot formaat downloaden",
 	"multimediaviewer-link-to-page": "Koppeling naar de pagina met de bestandsbeschrijving",
-	"multimediaviewer-link-to-file": "Koppeling naar het originele bestand",
+	"multimediaviewer-link-to-file": "Koppeling naar het oorspronkelijke bestand",
 	"multimediaviewer-share-explanation": "Kopiëren en delen",
 	"multimediaviewer-embed-wt": "Wikitekst",
 	"multimediaviewer-embed-html": "HTML",
@@ -121,7 +121,8 @@
 	"multimediaviewer-reuse-warning-noattribution": "Dit bestand bevat geen naamsvermeldingsinformatie.",
 	"multimediaviewer-reuse-warning-generic": "Controleer [$1 de details] alvorens het gebruik.",
 	"multimediaviewer-attr-plain": "Zonder opmaak",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About MediaViewer]</span> inschakelen",
 	"multimediaviewer-loading": "Media Viewer wordt geladen.",
 	"multimediaviewer-beta-feature-name": "Afbeeldingencarrousel",
-	"multimediaviewer-beta-feature-description": "Pagina-afbeeldingen bovenaan de pagina weergeven."
+	"multimediaviewer-beta-feature-description": "Pagina-afbeeldingen bovenaan de pagina weergeven op mobiele apparaten."
 }

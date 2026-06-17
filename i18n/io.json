@@ -81,5 +81,6 @@
 	"multimediaviewer-reuse-warning-nonfree": "Ca arkivo ne havas libera licenco.",
 	"multimediaviewer-reuse-warning-noattribution": "Ca arkivo ne havas informi pri ol.",
 	"multimediaviewer-reuse-warning-generic": "Verifikez [$1 sua detali] ante uzar ol.",
-	"multimediaviewer-attr-plain": "simpla texto"
+	"multimediaviewer-attr-plain": "simpla texto",
+	"multimediaviewer-optin-pref": "Permisar <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>"
 }

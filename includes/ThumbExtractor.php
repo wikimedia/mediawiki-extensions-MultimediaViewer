@@ -4,9 +4,11 @@ declare( strict_types = 1 );
 namespace MediaWiki\Extension\MultimediaViewer;
 
 use MediaWiki\FileRepo\File\File;
+use MediaWiki\Title\Title;
 use Wikimedia\Parsoid\Core\DOMCompat;
 use Wikimedia\Parsoid\DOM\DocumentFragment;
 use Wikimedia\Parsoid\DOM\Element;
+use Wikimedia\Parsoid\Utils\DOMUtils;
 use Wikimedia\Zest\Zest;
 
 /**
@@ -19,29 +21,39 @@ use Wikimedia\Zest\Zest;
  *   - minimum image size
  */
 class ThumbExtractor {
-
 	/**
-	 * Minimum image width in pixels.
+	 * Exclusions of thumbnails in known non-content areas.
+	 * Should be kept equivalent to MultimediaViewer's isAllowedThumb implementation
+	 *
+	 * @const string[]
 	 */
-	private const MIN_WIDTH = 30;
-
-	/**
-	 * Minimum image height in pixels.
-	 */
-	private const MIN_HEIGHT = 30;
-
-	private array $allowedExtensions;
-
-	private array $excludedImageSelectors;
+	private const DISALLOWED_SELECTORS = [
+		// This is inside an informational template like {{refimprove}} on enwiki
+		'.metadata',
+		// MediaViewer has been specifically disabled for this image
+		'.noviewer',
+		// We are on an error page for a non-existing article, the image is part of some template
+		'.noarticletext',
+		'#siteNotice',
+		// Thumbnails of a slideshow gallery
+		'ul.mw-gallery-slideshow li.gallerybox',
+	];
 
 	/**
 	 * @param string[] $allowedExtensions A file extension allowlist,
 	 * typically based on https://commons.wikimedia.org/wiki/Special:MediaStatistics
 	 * @param string[] $excludedImageSelectors CSS selectors whose ancestor presence causes an image to be excluded
+	 * @param int $minWidth Minimum image width in pixels
+	 * @param int $minHeight Minimum image height in pixels
+	 * @param string $articlePath ArticlePath config value
 	 */
-	public function __construct( array $allowedExtensions, array $excludedImageSelectors ) {
-		$this->allowedExtensions = $allowedExtensions;
-		$this->excludedImageSelectors = $excludedImageSelectors;
+	public function __construct(
+		private array $allowedExtensions,
+		private array $excludedImageSelectors,
+		private int $minWidth,
+		private int $minHeight,
+		private string $articlePath,
+	) {
 	}
 
 	/**
@@ -55,68 +67,19 @@ class ThumbExtractor {
 	 * @return Element[] The filtered thumbnail elements
 	 */
 	public function findThumbs( DocumentFragment $body ): array {
-		$allThumbs = $this->select( $body );
-		return $this->filterBySelectors( $allThumbs );
-	}
-
-	/**
-	 * Extract thumbnail image data from a wiki page.
-	 *
-	 * Steps:
-	 *   1. select and filter thumbnail elements via {@link findThumbs}
-	 *   2. filter files that don't have an allowed extension or whose size is too small
-	 *   3. match filtered thumbnails to filtered files by file name
-	 *
-	 * Return an array with the following data:
-	 *   - name - file name, with underscores
-	 *   - title - {@link Title} object
-	 *   - extension - file extension
-	 *   - width - original image width
-	 *   - height - original image height
-	 *   - url - original image URL
-	 *   - thumb - thumbnail DOM element
-	 *
-	 * @param DocumentFragment|null $body A wiki page's DOM body fragment
-	 * @param array<string,File> $files A map of (file name => File objects) as returned by
-	 *   {@link RepoGroup::findFiles()}
-	 * @return array[] The extracted image data. Empty array if no images
-	 */
-	public function extract( ?DocumentFragment $body, array $files ): array {
-		if ( $body === null ) {
-			return [];
-		}
-
-		$result = [];
-
-		$thumbs = $this->findThumbs( $body );
-		$filteredFiles = $this->filterFiles( $files );
-
-		foreach ( $thumbs as $thumb ) {
-			$src = DOMCompat::getAttribute( $thumb, 'src' )
-				?? DOMCompat::getAttribute( $thumb, 'data-mw-src' );
-
-			if ( $src === null ) {
-				continue;
-			}
-
-			foreach ( $filteredFiles as $file ) {
-				if ( str_contains( $src, $file['name'] ) ) {
-					$file['thumb'] = $thumb;
-					$result[] = $file;
-				}
-			}
-		}
-
-		return $result;
+		$thumbs = $this->select( $body );
+		$thumbs = $this->sort( $body, $thumbs );
+		$thumbs = $this->filter( $thumbs );
+		return $thumbs;
 	}
 
 	/**
 	 * Select image thumbnails from a DOM body via CSS selectors.
 	 *
 	 * @param DocumentFragment $body A wiki page's DOM body fragment
-	 * @return (iterable<Element>&\Countable)|array<Element> The extracted elements
+	 * @return Element[] The extracted elements
 	 */
-	private function select( DocumentFragment $body ): iterable {
+	private function select( DocumentFragment $body ): array {
 		$selectors = implode( ', ', [
 			// Parsoid thumbs
 			'[typeof~="mw:File"] a.mw-file-description img',
@@ -131,8 +94,15 @@ class ThumbExtractor {
 			'#file a img',
 		] );
 
-		$thumbs = DOMCompat::querySelectorAll( $body, $selectors );
+		return iterator_to_array( DOMCompat::querySelectorAll( $body, $selectors ) );
+	}
 
+	/**
+	 * @param DocumentFragment $body A wiki page's DOM body fragment
+	 * @param Element[] $thumbs
+	 * @return Element[]
+	 */
+	private function sort( DocumentFragment $body, array $thumbs ): array {
 		// $thumbs is not guaranteed to be in the correct order in
 		// which the nodes appear in the document
 		if ( $thumbs && method_exists( $thumbs[ 0 ], 'compareDocumentPosition' ) ) {
@@ -161,96 +131,101 @@ class ThumbExtractor {
 	}
 
 	/**
-	 * Filter image thumbnails via CSS selectors.
+	 * Filter files that don't match the given constraints
+	 * (e.g. don't have an allowed extension or whose size, is too small, or match
+	 * disallowed selectors)
 	 *
-	 * @param Element[] $thumbs Thumbnail elements
-	 * @return Element[] The filtered elements. Empty array if no elements
+	 * @param Element[] $thumbs
+	 * @return Element[]
 	 */
-	private function filterBySelectors( array $thumbs ): array {
-		$filtered = [];
-
-		foreach ( $thumbs as $thumb ) {
-			if ( $this->isAllowedThumb( $thumb ) && !$this->isExcludedBySelector( $thumb ) ) {
-				$filtered[] = $thumb;
-			}
-		}
-
-		return $filtered;
-	}
-
-	/**
-	 * Filter files that don't have an allowed extension or whose size is too small.
-	 *
-	 * A file is too small if both its width and height are less than or equal to
-	 * {@link self::MIN_WIDTH} and {@link self::MIN_HEIGHT} respectively.
-	 *
-	 * @param array<string,File> $files A map of (file name => File objects)
-	 * @return array[] The filtered files with minimal metadata. Empty array if no files
-	 */
-	private function filterFiles( array $files ): array {
-		$filtered = [];
-
-		foreach ( $files as $name => $file ) {
-			if ( $file && $file->exists() ) {
-				$extension = $file->getExtension();
-				$width = $file->getWidth();
-				$height = $file->getHeight();
-
-				if (
-					array_key_exists( $extension, $this->allowedExtensions ) &&
-					( $width > self::MIN_WIDTH || $height > self::MIN_HEIGHT )
-				) {
-					$filtered[] = [
-						'name' => $name,
-						'title' => $file->getTitle(),
-						'extension' => $extension,
-						'width' => $width,
-						'height' => $height,
-						'url' => $file->getFullUrl(),
-					];
+	private function filter( array $thumbs ): array {
+		return array_values( array_filter(
+			$thumbs,
+			function ( $thumb ): bool {
+				// Find the parent <a> to get the file name. Rely on
+				// DOMUtils::nodeName() to abstract over differences in
+				// PHP versions (which may use uppercase or lowercase tag names).
+				$anchor = DOMCompat::getParentElement( $thumb );
+				$title = $this->extractTitleFromAnchorElement( $anchor );
+				if ( !$title || $title->getNamespace() !== NS_FILE ) {
+					return false;
 				}
+
+				$filename = $title->getDBkey();
+				$n = strrpos( $filename, '.' );
+				$extension = File::normalizeExtension( $n ? substr( $filename, $n + 1 ) : '' );
+				if ( !in_array( $extension, $this->allowedExtensions ) ) {
+					return false;
+				}
+
+				// if width/height is set, ensure it matches the minima defined
+				$width = DOMCompat::getAttribute( $thumb, 'width' ) ??
+					DOMCompat::getAttribute( $thumb, 'data-width' );
+				$height = DOMCompat::getAttribute( $thumb, 'height' ) ??
+					DOMCompat::getAttribute( $thumb, 'data-height' );
+				if (
+					( $width !== null && ( (int)$width ) < $this->minWidth ) ||
+					( $height !== null && ( (int)$height ) < $this->minHeight )
+				) {
+					return false;
+				}
+
+				$disallowedSelectors = array_merge(
+					self::DISALLOWED_SELECTORS,
+					$this->excludedImageSelectors
+				);
+				if ( $this->matchesSelectors( $thumb, $disallowedSelectors ) ) {
+					return false;
+				}
+
+				return true;
 			}
+		) );
+	}
+
+	public function extractTitleFromAnchorElement( ?Element $anchor ): ?Title {
+		if ( !$anchor || DOMUtils::nodeName( $anchor ) !== 'a' ) {
+			return null;
 		}
 
-		return $filtered;
+		// Decode percent-encoded characters in the src URL so that
+		// links containing special characters (commas, Unicode,
+		// parentheses, etc.) can match. The href attribute can contain
+		// contains encoded forms like %2C or %C3%A2 (although the
+		// legacy parser and Parsoid handle them differently), whereas
+		// titles are in decoded form.
+		// See T428610.
+		$href = rawurldecode( $anchor->getAttribute( 'href' ) );
+
+		// Extract file name from href
+		// Parsoid: href="//en.wikipedia.org/wiki/File:Example.jpg"
+		// Legacy: href="/wiki/File:Example.jpg"
+		$path = parse_url( $href, PHP_URL_PATH );
+		$articlePathRegex = '/' . str_replace( '\\$1', '(.+)', preg_quote( $this->articlePath, '/' ) ) . '/';
+
+		if (
+			!preg_match( $articlePathRegex, $path, $match ) &&
+			// Fallback for content this wiki did not render: pages proxied
+			// from a foreign wiki (MobileFrontendContentProvider) carry the
+			// *source* wiki's article path ("/wiki/$1" on Wikimedia sites),
+			// and Parsoid emits relative "./Title" hrefs.
+			!preg_match( '#(?:^\./|/wiki/)(.+)$#', $path, $match )
+		) {
+			return null;
+		}
+
+		return Title::newFromText( $match[1] );
 	}
 
 	/**
-	 * Check for exclusions of thumbnails in known non-content areas.
-	 *
-	 * Should be kept equivalent to MultimediaViewer's isAllowedThumb implementation.
+	 * Check if the thumbnail matches any of the given CSS selectors.
 	 *
 	 * @param Element $thumb An image thumbnail element
-	 * @return bool Whether the image is safe to use for carousel purposes
+	 * @param string[] $selectors CSS selectors whose ancestor presence causes an image to be excluded
+	 * @return bool
 	 */
-	private function isAllowedThumb( Element $thumb ): bool {
-		$selectors = implode( ', ', [
-			// This is inside an informational template like {{refimprove}} on enwiki
-			'.metadata',
-			// MediaViewer has been specifically disabled for this image
-			'.noviewer',
-			// We are on an error page for a non-existing article, the image is part of some template
-			'.noarticletext',
-			'#siteNotice',
-			// Thumbnails of a slideshow gallery
-			'ul.mw-gallery-slideshow li.gallerybox',
-		] );
-
-		return $this->closest( $thumb, $selectors ) === null;
-	}
-
-	/**
-	 * Check if the thumbnail is excluded by any of the CSS selectors
-	 * passed in this class constructor.
-	 *
-	 * These selectors should come from the $wgReaderExperimentsExcludedImageSelectors
-	 * config variable.
-	 *
-	 * @param Element $thumb An image thumbnail element
-	 * @return bool Whether the image should be excluded
-	 */
-	private function isExcludedBySelector( Element $thumb ): bool {
-		foreach ( $this->excludedImageSelectors as $selector ) {
+	private function matchesSelectors( Element $thumb, array $selectors ): bool {
+		foreach ( $selectors as $selector ) {
 			if ( $this->closest( $thumb, $selector ) !== null ) {
 				return true;
 			}

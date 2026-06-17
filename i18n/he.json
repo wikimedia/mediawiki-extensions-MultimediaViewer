@@ -110,5 +110,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "לקובץ הזה אין מידע על ייחוס.",
 	"multimediaviewer-reuse-warning-generic": "נא לבדוק [$1 את הפרטים שלו] לפני השימוש בו.",
 	"multimediaviewer-attr-plain": "טקסט רגיל",
+	"multimediaviewer-optin-pref": "הפעלת <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About מציג המדיה]</span>",
 	"multimediaviewer-loading": "טעינת מציג מדיה."
 }

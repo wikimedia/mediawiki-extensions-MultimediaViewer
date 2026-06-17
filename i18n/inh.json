@@ -7,5 +7,6 @@
 		]
 	},
 	"multimediaviewer-download-original-button-name": "Хьаараяккха юххьанцара йола файл",
-	"multimediaviewer-original-embed-dimensions": "Юххьанцара файл $1"
+	"multimediaviewer-original-embed-dimensions": "Юххьанцара файл $1",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">«[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Медиа-хьежарг]</span>» хьалсага"
 }

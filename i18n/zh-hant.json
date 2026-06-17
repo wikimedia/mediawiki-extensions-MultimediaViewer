@@ -119,5 +119,6 @@
 	"multimediaviewer-reuse-warning-noattribution": "此檔案沒有署名資訊。",
 	"multimediaviewer-reuse-warning-generic": "使用前請檢查[$1 詳情]。",
 	"multimediaviewer-attr-plain": "純文字",
+	"multimediaviewer-optin-pref": "開啟 <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About 媒體檢視器]</span>",
 	"multimediaviewer-loading": "正在載入媒體檢視器。"
 }

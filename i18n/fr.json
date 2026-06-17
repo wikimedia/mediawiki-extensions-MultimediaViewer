@@ -24,6 +24,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Agrandit les vignettes dans une interface en plein écran",
+	"multimediaviewer-carousel-label-article": "article",
 	"multimediaviewer-file-page": "Aller à la page du fichier correspondant",
 	"multimediaviewer-repository-local": "Plus de détails",
 	"multimediaviewer-datetime-created": "Date de création : $1",
@@ -145,5 +146,6 @@
 	"multimediaviewer-reuse-warning-generic": "Vérifier [$1 ses détails] avant de l’utiliser.",
 	"multimediaviewer-attr-plain": "Texte brut",
 	"multimediaviewer-attr-html": "HTML",
+	"multimediaviewer-optin-pref": "Activer la <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visionneuse de médias]</span>",
 	"multimediaviewer-loading": "Chargement de la visionneuse multimédia."
 }

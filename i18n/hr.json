@@ -112,5 +112,6 @@
 	"multimediaviewer-reuse-warning-generic": "Prije uporabe provjerite [$1 njene pojedinosti].",
 	"multimediaviewer-attr-plain": "Običan tekst",
 	"multimediaviewer-attr-html": "HTML",
+	"multimediaviewer-optin-pref": "Omogući <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About preglednik multimedijskih datoteka]</span>",
 	"multimediaviewer-loading": "Učitavanje preglednika multimedijskih datoteka."
 }

@@ -107,5 +107,6 @@
 	"multimediaviewer-reuse-warning-nonfree": "Αυτό το αρχείο δεν διαθέτει ελεύθερη άδεια.",
 	"multimediaviewer-reuse-warning-noattribution": "Αυτό το αρχείο δεν περιέχει πληροφορίες απόδοσης σε δημιουργό.",
 	"multimediaviewer-reuse-warning-generic": "Ελέγξτε [$1 τις λεπτομέρειές του] πριν το χρησιμοποιήσετε.",
-	"multimediaviewer-attr-plain": "Απλό"
+	"multimediaviewer-attr-plain": "Απλό",
+	"multimediaviewer-optin-pref": "Ενεργοποίηση <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>"
 }

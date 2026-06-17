@@ -138,7 +138,8 @@
 	"multimediaviewer-reuse-warning-generic": "Перевірте [$1 його подробиці], перед тим як використовувати.",
 	"multimediaviewer-attr-plain": "Простий текст",
 	"multimediaviewer-attr-html": "HTML",
+	"multimediaviewer-optin-pref": "Увімкнути <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Медіапереглядач]</span>",
 	"multimediaviewer-loading": "Завантаження Медіапереглядача.",
 	"multimediaviewer-beta-feature-name": "Карусель зображень",
-	"multimediaviewer-beta-feature-description": "Показувати зображення статті у верхній частині сторінки."
+	"multimediaviewer-beta-feature-description": "Показувати зображення статті у верхній частині сторінки на мобільних пристроях."
 }
