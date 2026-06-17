@@ -5,6 +5,7 @@
 			"Vlad5250"
 		]
 	},
+	"multimediaviewer-current-image-number": "$1 ⁄ $2",
 	"multimediaviewer-desc": "Зголемување на минијатурите на цел екран",
 	"multimediaviewer-optin-pref": "Вклучи го <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Прегледувачот]</span>",
 	"multimediaviewer-file-page": "Оди на соодветната податотечна страница",
@@ -111,6 +112,7 @@
 	"multimediaviewer-reuse-warning-noattribution": "Оваа податотека нема приписни податоци.",
 	"multimediaviewer-reuse-warning-generic": "Погледајте ги [$1 поединостите] пред да ја употребите.",
 	"multimediaviewer-attr-plain": "Прост",
+	"multimediaviewer-attr-html": "HTML",
 	"multimediaviewer-disable-confirmation-header": "Прегледувачот ви е исклучен.",
 	"multimediaviewer-disable-confirmation-text": "Следен пат кога ќе стиснете на минијатура на $1, право ќе ви се прикажат  сите поединости за податотеката",
 	"multimediaviewer-enable-dialog-header": "Да го вклучам Прегледувачот?",
