@@ -5,6 +5,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Kordhi thumbnails si ay u noqdaan kuwo waaweyn gudaha is-dhexgal shaashad-buuxda ah",
+	"multimediaviewer-optin-pref": "Daar <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
 	"multimediaviewer-file-page": "U gudub bogga faylka u dhigma",
 	"multimediaviewer-repository-local": "Faahfaahin dheeraad ah",
 	"multimediaviewer-datetime-created": "La abuuray: $1",
