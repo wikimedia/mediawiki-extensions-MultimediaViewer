@@ -36,6 +36,7 @@
 	"multimediaviewer-thumbnail-error": "죄송합니다. 이 파일을 표시할 수 없습니다.",
 	"multimediaviewer-thumbnail-error-description": "기술적 문제인 것 같습니다. 문제가 지속되는 경우 $1할 수 있습니다. 오류: $2",
 	"multimediaviewer-thumbnail-error-retry": "다시 시도",
+	"multimediaviewer-thumbnail-error-refresh-button": "새로 고침",
 	"multimediaviewer-license-cc-pd": "퍼블릭 도메인",
 	"multimediaviewer-license-pd": "퍼블릭 도메인",
 	"multimediaviewer-license-default": "라이선스 보기",

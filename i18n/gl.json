@@ -24,6 +24,7 @@
 	"multimediaviewer-thumbnail-error": "Sentímolo, non se pode amosar o ficheiro",
 	"multimediaviewer-thumbnail-error-description": "Semella haber un problema técnico. Pode $1 se persiste. Erro: $2",
 	"multimediaviewer-thumbnail-error-retry": "reintentar",
+	"multimediaviewer-thumbnail-error-refresh-button": "Actualizar",
 	"multimediaviewer-license-cc-pd": "Dominio público",
 	"multimediaviewer-license-pd": "Dominio público",
 	"multimediaviewer-license-default": "Ver a licenza",

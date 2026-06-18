@@ -35,6 +35,7 @@
 	"multimediaviewer-thumbnail-error": "Sorry, het bestand kan niet worden weergeven",
 	"multimediaviewer-thumbnail-error-description": "Er is een technisch probleem. U kunt $1 als dit zich blijft voordoen. Fout: $2",
 	"multimediaviewer-thumbnail-error-retry": "het opnieuw proberen",
+	"multimediaviewer-thumbnail-error-refresh-button": "Vernieuwen",
 	"multimediaviewer-license-cc-pd": "Publiek domein",
 	"multimediaviewer-license-pd": "Publiek domein",
 	"multimediaviewer-license-default": "Licentie weergeven",
