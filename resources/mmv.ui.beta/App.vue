@@ -33,12 +33,6 @@
 			<lightbox-nav></lightbox-nav>
 			<lightbox-error></lightbox-error>
 		</template>
-
-		<cdx-progress-bar
-			v-else-if="isLoading"
-			class="mmv-lightbox__progress"
-			:aria-label="$i18n( 'multimediaviewer-loading' ).text()"
-		></cdx-progress-bar>
 		<div
 			class="mmv-focus-sentinel"
 			tabindex="0"
@@ -49,7 +43,7 @@
 
 <script>
 const { defineComponent, inject, computed, useTemplateRef } = require( 'vue' );
-const { CdxButton, CdxIcon, CdxProgressBar } = require( '@wikimedia/codex' );
+const { CdxButton, CdxIcon } = require( '@wikimedia/codex' );
 const { cdxIconClose } = require( './icons.json' );
 const LightboxHeader = require( './LightboxHeader.vue' );
 const LightboxImage = require( './LightboxImage.vue' );
@@ -66,7 +60,6 @@ module.exports = exports = defineComponent( {
 	components: {
 		CdxButton,
 		CdxIcon,
-		CdxProgressBar,
 		LightboxError,
 		LightboxHeader,
 		LightboxImage,
@@ -85,7 +78,6 @@ module.exports = exports = defineComponent( {
 		const isOpen = computed( () => state.isOpen.value );
 		const image = computed( () => state.image.value );
 		const chromeVisible = computed( () => state.chromeVisible.value );
-		const isLoading = computed( () => state.isLoading.value );
 
 		const { onFocusTrapStart, onFocusTrapEnd } = useFocusTrap(
 			lightboxRef,
@@ -109,7 +101,6 @@ module.exports = exports = defineComponent( {
 			image,
 			chromeVisible,
 			hasError,
-			isLoading,
 			onViewportClick,
 			onClose,
 			cdxIconClose,
@@ -126,7 +117,6 @@ module.exports = exports = defineComponent( {
 
 .mmv-lightbox {
 	.cdx-mode-dark();
-
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -146,13 +136,6 @@ module.exports = exports = defineComponent( {
 		width: 0;
 		height: 0;
 		overflow: hidden;
-	}
-
-	&__progress {
-		max-width: 80vw;
-		min-width: 20vw;
-		width: 20rem;
-		margin: auto;
 	}
 
 	.mmv-lightbox-close {
