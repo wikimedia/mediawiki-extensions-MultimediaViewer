@@ -16,13 +16,6 @@ const { getLargerThumbnailUrl } = require( './thumbnailGuessing.js' );
 const PREFETCH_DELAY = 250;
 
 /**
- * Delay (ms) before showing the loading indicator.
- * Loads that resolve within this window swap straight in,
- * so quick navigation never flashes a loading indicator.
- */
-const LOADING_INDICATOR_DELAY = 150;
-
-/**
  * Beta image viewer using Vue 3 and Codex.
  * Implements the interface expected by MultimediaViewerBootstrap so it can
  * be used as a drop-in replacement for the legacy MultimediaViewer class.
@@ -82,10 +75,9 @@ class BetaViewer {
 		this.imageInfoProvider = null;
 
 		/**
-		 * Handle to abort any pending image request, plus the pending prefetch
-		 * and loading-indicator timers.
+		 * Handle to abort any pending image request, plus the pending prefetch timer.
 		 *
-		 * @type {?{controller: ?AbortController, prefetchTimer: ?number, loadingTimer: ?number}}
+		 * @type {?{controller: ?AbortController, prefetchTimer: ?number}}
 		 */
 		this.inFlight = null;
 
@@ -100,7 +92,12 @@ class BetaViewer {
 			isOpen: ref( false ),
 			chromeVisible: ref( true ),
 			errorMessage: ref( null ),
-			isLoading: ref( false )
+			// Incremented each time the user navigates: bumped in loadImage().
+			// Various async operations get "stamped" with this ID and are only
+			// applied if loadId has not changed since the operation started.
+			// This reactive value is technically a "monotonic identifier"; it
+			// will only increment (never decrements).
+			loadId: ref( 0 )
 		};
 
 		// Provide a ui object with unattach() so bootstrap can close
@@ -200,10 +197,23 @@ class BetaViewer {
 			controller = new AbortController();
 		}
 
-		this.inFlight = { controller, prefetchTimer: null, loadingTimer: null };
+		this.inFlight = { controller, prefetchTimer: null };
 		this.currentImage = image;
+
+		// Increment loadId so we can ensure none of the async operations below
+		// get applied if the user performs subsequent navigation
+		const myLoadId = ++this.state.loadId.value;
+
+		// Discard any previous error message / metadata
 		this.state.errorMessage.value = null;
-		this.state.isLoading.value = true;
+		this.state.imageInfo.value = null;
+
+		// Show the chrome (title, counter, nav) and the image's on-page thumbnail
+		// (image.src) immediately, so navigation advances per tap. displayUrl is ''
+		// if there is no on-page thumbnail for some reason.
+		this.state.displayUrl.value = image.src || '';
+		this.state.image.value = image;
+
 		this.open();
 
 		if ( !this.imageInfoProvider ) {
@@ -213,41 +223,39 @@ class BetaViewer {
 			);
 		}
 
-		// Show the loading indicator only if the image takes a noticeable
-		// moment to arrive: blank the displayed image after a short delay
-		// (revealing App.vue's progress bar). The Promise.all below cancels
-		// this if it resolves first, so quick navigation never flashes it.
-		this.inFlight.loadingTimer = setTimeout( () => {
-			if ( this.currentImage === image ) {
-				this.state.image.value = null;
-			}
-		}, LOADING_INDICATOR_DELAY );
-
 		const infoPromise = this.imageInfoProvider.get( image.filePageTitle );
 		const thumbPromise = this.loadLargerThumbnail( image, controller && controller.signal );
 
-		Promise.all( [ infoPromise, thumbPromise ] ).then( ( [ imageData, largerUrl ] ) => {
-			if ( this.currentImage === image ) {
-				clearTimeout( this.inFlight.loadingTimer );
+		// Fetch image metadata and display it as soon as it becomes available. A
+		// metadata (API) failure is the only fatal error for this navigation, so
+		// its .catch() tears down the navigation and surfaces a toast.
+		infoPromise.then( ( imageData ) => {
+			if ( this.state.loadId.value === myLoadId ) {
 				this.state.imageInfo.value = imageData;
-				this.state.displayUrl.value = largerUrl || image.src;
-				this.state.image.value = image;
-				this.state.isLoading.value = false;
 			}
 		} ).catch( () => {
-			if ( this.currentImage === image ) {
-				// The load failed: tear down this navigation's in-flight work so
-				// the pending prefetch timer doesn't fire and any still-loading
-				// thumbnail download is aborted.
+			if ( this.state.loadId.value === myLoadId ) {
+				// Tear down this navigation's in-flight work so the pending
+				// prefetch timer doesn't fire and any still-loading thumbnail
+				// download is aborted.
 				this.cancelInFlight();
 				// Remove the failed image file from the cache to allow
 				// re-trying a fresh request.
 				this.imageInfoProvider.invalidate( image.filePageTitle );
-				// Clear any image kept on screen from before the delay so the
-				// error state doesn't pair a stale image with the toast.
+				// Clear the placeholder so the error state doesn't pair a stale
+				// image with the toast.
 				this.state.image.value = null;
-				this.state.isLoading.value = false;
+				this.state.displayUrl.value = '';
 				this.showError( mw.msg( 'multimediaviewer-thumbnail-error' ) );
+			}
+		} );
+
+		// Swap the placeholder for the full-resolution image once it has loaded.
+		// No rejection handler needed: loadLargerThumbnail() never rejects (it
+		// resolves null on failure, degrading to image.src).
+		thumbPromise.then( ( largerUrl ) => {
+			if ( this.state.loadId.value === myLoadId ) {
+				this.state.displayUrl.value = largerUrl || image.src;
 			}
 		} );
 
@@ -271,7 +279,6 @@ class BetaViewer {
 			}
 
 			clearTimeout( this.inFlight.prefetchTimer );
-			clearTimeout( this.inFlight.loadingTimer );
 			this.inFlight = null;
 		}
 	}
@@ -470,7 +477,6 @@ class BetaViewer {
 		this.state.imageInfo.value = null;
 		this.state.displayUrl.value = '';
 		this.state.errorMessage.value = null;
-		this.state.isLoading.value = false;
 
 		document.title = this.createDocumentTitle( null );
 

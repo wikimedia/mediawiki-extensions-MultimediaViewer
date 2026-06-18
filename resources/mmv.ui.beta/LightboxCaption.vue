@@ -1,5 +1,9 @@
 <template>
-	<div v-if="image" class="mmv-lightbox-caption">
+	<div
+		v-if="image"
+		class="mmv-lightbox-caption"
+		:class="{ 'mmv-lightbox-caption--loaded': captionReady }"
+	>
 		<div
 			v-if="captionHtml"
 			class="mmv-lightbox-caption__text"
@@ -58,11 +62,17 @@ module.exports = exports = defineComponent( {
 			return mw.msg( 'multimediaviewer-description-page-button-text' );
 		} );
 
+		// Fade the description/license in once imageInfo arrives, rather than
+		// showing the generic file-page fallback first and swapping it for the
+		// real license. Prefetched images apply info before paint, so no fade.
+		const captionReady = computed( () => !!imageInfo.value );
+
 		return {
 			image,
 			captionHtml,
 			filePageUrl,
-			licenseText
+			licenseText,
+			captionReady
 		};
 	}
 } );
@@ -74,6 +84,15 @@ module.exports = exports = defineComponent( {
 .mmv-lightbox-caption {
 	flex-shrink: 0;
 	padding: @spacing-75 @spacing-100;
+
+	// Fade in when metadata arrives late; instant on navigation (the transition
+	// lives on the loaded state). Height is reserved regardless of opacity.
+	opacity: 0;
+
+	&--loaded {
+		opacity: 1;
+		transition: opacity 0.2s ease;
+	}
 
 	&__text {
 		font-size: @font-size-small;

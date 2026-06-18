@@ -1,10 +1,17 @@
 <template>
 	<div class="mmv-lightbox-header">
 		<div v-if="image" class="mmv-lightbox-header__text">
-			<div id="mmv-lightbox-title" class="mmv-lightbox-header__title">
+			<div
+				id="mmv-lightbox-title"
+				class="mmv-lightbox-header__title"
+				:class="{ 'mmv-lightbox-header__title--loaded': titleReady }"
+			>
 				{{ imageTitle }}
 			</div>
-			<div class="mmv-lightbox-header__author">
+			<div
+				class="mmv-lightbox-header__author"
+				:class="{ 'mmv-lightbox-header__author--loaded': authorReady }"
+			>
 				{{ author }}
 			</div>
 		</div>
@@ -56,10 +63,17 @@ module.exports = exports = defineComponent( {
 			return '';
 		} );
 
+		// The title is "ready" as soon as it can show its final value: either the
+		// on-page caption (available synchronously) or the loaded imageInfo.
+		const titleReady = computed( () => !!( ( image.value && image.value.caption ) || imageInfo.value ) );
+		const authorReady = computed( () => !!imageInfo.value );
+
 		return {
 			image,
 			imageTitle,
-			author
+			author,
+			titleReady,
+			authorReady
 		};
 	}
 } );
@@ -89,6 +103,16 @@ module.exports = exports = defineComponent( {
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
+
+		// Fade the text in only when it arrives late (see *--loaded). The
+		// transition lives on the loaded state so showing fades in, while
+		// clearing on navigation hides instantly (no fade-out flicker).
+		opacity: 0;
+
+		&--loaded {
+			opacity: 1;
+			transition: opacity 0.2s ease;
+		}
 	}
 
 	&__author {
@@ -99,6 +123,12 @@ module.exports = exports = defineComponent( {
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
+		opacity: 0;
+
+		&--loaded {
+			opacity: 1;
+			transition: opacity 0.2s ease;
+		}
 
 		// Add a zero-width space so that there is always 1 line worth of text
 		// content in the author area (to prevent layout shift while the metadata

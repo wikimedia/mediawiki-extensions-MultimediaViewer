@@ -25,5 +25,5 @@ export interface ViewerState {
 	isOpen: Ref<boolean>;
 	chromeVisible: Ref<boolean>;
 	errorMessage: Ref<string | null>;
-	isLoading: Ref<boolean>;
+	loadId: Ref<number>;
 }
