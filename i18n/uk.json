@@ -15,6 +15,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Розгорнути мініатюри в більшому розмірі у лайтбоксі.",
+	"multimediaviewer-optin-pref": "Увімкнути <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Медіапереглядач]</span>",
 	"multimediaviewer-file-page": "Перейти на сторінку відповідного файлу",
 	"multimediaviewer-repository-local": "Докладніше",
 	"multimediaviewer-datetime-created": "Створено $1",

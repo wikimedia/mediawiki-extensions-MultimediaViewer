@@ -9,6 +9,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Пашырае эскізы ў большы памер на ўвесь экран.",
+	"multimediaviewer-optin-pref": "Уключыць <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About «Праглядальнік медыяфайлаў»]</span>",
 	"multimediaviewer-file-page": "Перайсці на старонку адпаведнага файла",
 	"multimediaviewer-repository-local": "Падрабязней",
 	"multimediaviewer-datetime-created": "Створаны: $1",

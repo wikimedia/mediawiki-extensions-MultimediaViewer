@@ -8,6 +8,7 @@
 		]
 	},
 	"multimediaviewer-desc": "سڄي اسڪرين واري انٽرفيس ۾ ننڍي فائيل کي وڏو ڪري ڏيکاريو",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About ميڊيا ڏيکاريندڙ]</span> کي فعال ڪريو",
 	"multimediaviewer-file-page": "فائيل جي لاڳاپيل صفحي ڏانھن وڃو",
 	"multimediaviewer-repository-local": "وڌيڪ تفصيل",
 	"multimediaviewer-datetime-created": "سرجيل: $1",

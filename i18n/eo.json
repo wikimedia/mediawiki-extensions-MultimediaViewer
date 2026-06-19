@@ -9,6 +9,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Etendi miniaturojn al larĝa grandeco en plenekrana interfaco.",
+	"multimediaviewer-optin-pref": "Ŝalti <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Median Montrilon]</span>",
 	"multimediaviewer-file-page": "Iri al la paĝo kun priskribo de la dosiero",
 	"multimediaviewer-repository-local": "Pliaj detaloj",
 	"multimediaviewer-datetime-created": "Kreita: $1",

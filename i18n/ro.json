@@ -10,6 +10,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Extinde miniaturile la o dimensiune mai mare într-o interfață pe tot ecranul",
+	"multimediaviewer-optin-pref": "Activează <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Vizualizatorul multimedia]</span>",
 	"multimediaviewer-file-page": "Du-te la pagina asociată fișierului",
 	"multimediaviewer-repository-local": "Mai multe detalii",
 	"multimediaviewer-datetime-created": "Creată: $1",

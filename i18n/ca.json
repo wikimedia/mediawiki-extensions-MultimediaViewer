@@ -13,6 +13,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Amplia les miniatures en una interfície a pantalla completa.",
+	"multimediaviewer-optin-pref": "Activa el <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visor multimèdia]</span>",
 	"multimediaviewer-file-page": "Vés a la pàgina corresponent del fitxer",
 	"multimediaviewer-repository-local": "Més informació",
 	"multimediaviewer-datetime-created": "Creat: $1",

@@ -15,6 +15,7 @@
 		]
 	},
 	"multimediaviewer-desc": "تصاویر بندانگشتی در اندازهٔ بزرگ‌تر داخل یک رابط کاربری تمام‌صفحه گسترش یابند.",
+	"multimediaviewer-optin-pref": "فعال کردن <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About نمایشگر رسانه‌ای]</span>",
 	"multimediaviewer-file-page": "رفتن به صفحهٔ مرتبط با پرونده",
 	"multimediaviewer-repository-local": "جزئیات بیشتر",
 	"multimediaviewer-datetime-created": "ایجادشده: $1",

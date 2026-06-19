@@ -19,6 +19,7 @@
 		]
 	},
 	"multimediaviewer-desc": "使用全螢幕介面以較大尺寸的方式顯示展開後的縮圖",
+	"multimediaviewer-optin-pref": "開啟 <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About 媒體檢視器]</span>",
 	"multimediaviewer-file-page": "前往相關的檔案頁面",
 	"multimediaviewer-repository-local": "更多詳細資料",
 	"multimediaviewer-datetime-created": "建立於：$1",

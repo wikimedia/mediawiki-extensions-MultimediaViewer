@@ -8,6 +8,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Ehangu bawdluniau yn fwy ar ryngwyneb sgrîn lawn",
+	"multimediaviewer-optin-pref": "Galluogi'r <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Syllwr Cyfryngau]</span>",
 	"multimediaviewer-file-page": "Mynd i'r dudalen ffeil gyfatebol",
 	"multimediaviewer-repository-local": "Mwy o fanylion",
 	"multimediaviewer-datetime-created": "Crëwyd: $1",

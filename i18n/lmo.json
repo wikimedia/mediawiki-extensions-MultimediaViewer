@@ -5,6 +5,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Slaga foeura i miniadure a una grandezza maggiora in una interfacia a schermo intero",
+	"multimediaviewer-optin-pref": "Ativa <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
 	"multimediaviewer-file-page": "Và a la pagina del fail corispondenta",
 	"multimediaviewer-repository-local": "Di alter detali",
 	"multimediaviewer-datetime-created": "Cread: $1",

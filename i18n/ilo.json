@@ -5,6 +5,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Palawaen dagiti bassit a ladawan iti dakdakkel iti napno a pangbuyaan ti interface.",
+	"multimediaviewer-optin-pref": "Pakabaelan ti <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
 	"multimediaviewer-file-page": "Mapan iti maitutop a panid ti papeles",
 	"multimediaviewer-repository-local": "Adu pay a salsalaysay",
 	"multimediaviewer-datetime-created": "Pinartuat: $1",

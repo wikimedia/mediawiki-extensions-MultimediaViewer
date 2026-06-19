@@ -13,6 +13,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Išplėsti labiau miniatiūras esant pilno dydžio vartotojo aplinkai.",
+	"multimediaviewer-optin-pref": "Įjungti <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About nuotraukų peržvalgos programą]</span>",
 	"multimediaviewer-file-page": "Eiti į atitinkamą rinkmenos puslapį",
 	"multimediaviewer-repository-local": "Plačiau",
 	"multimediaviewer-datetime-created": "Sukurta: $1",

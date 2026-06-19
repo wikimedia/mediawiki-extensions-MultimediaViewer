@@ -18,6 +18,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Küçük resimleri daha büyük boyutlara genişleterek, tam ekran arayüzde gösterir",
+	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Medya Görüntüleyici]</span>'yi etkinleştir",
 	"multimediaviewer-file-page": "İlgili dosya sayfasına git",
 	"multimediaviewer-repository-local": "Bu dosya hakkında daha fazla bilgi",
 	"multimediaviewer-datetime-created": "Oluşturulma tarihi: $1",

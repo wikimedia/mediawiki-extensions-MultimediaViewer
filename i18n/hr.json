@@ -7,6 +7,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Sličice u većoj veličini u prikazu preko cijelog zaslona",
+	"multimediaviewer-optin-pref": "Omogući <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About preglednik multimedijskih datoteka]</span>",
 	"multimediaviewer-file-page": "Idi na odgovarajuću stranicu datoteke",
 	"multimediaviewer-repository-local": "Više pojedinosti",
 	"multimediaviewer-datetime-created": "Stvoreno: $1",

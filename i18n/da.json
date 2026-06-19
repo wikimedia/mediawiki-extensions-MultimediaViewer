@@ -7,6 +7,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Udvid miniaturebilleder i en større størrelse på en fuld skærm.",
+	"multimediaviewer-optin-pref": "Aktiver <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
 	"multimediaviewer-file-page": "Gå til tilsvarende filside",
 	"multimediaviewer-repository-local": "Flere detaljer",
 	"multimediaviewer-datetime-created": "Oprettet: $1",

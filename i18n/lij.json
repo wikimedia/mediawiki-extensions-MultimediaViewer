@@ -5,6 +5,7 @@
 		]
 	},
 	"multimediaviewer-desc": "O l'ingrandisce e miniatue inte 'n'interfaccia a schermo intrego.",
+	"multimediaviewer-optin-pref": "O l'attiva o <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Vizô Murtimediâ]</span>",
 	"multimediaviewer-file-page": "Vanni a-a corispondente paggina do file",
 	"multimediaviewer-repository-local": "Ciu detalli",
 	"multimediaviewer-datetime-created": "Creou: $1",

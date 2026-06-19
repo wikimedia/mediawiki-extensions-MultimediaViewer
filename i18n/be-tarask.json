@@ -7,6 +7,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Разгарнуць мініятуры большага памеру ў поўнаэкранным інтэрфэйсе",
+	"multimediaviewer-optin-pref": "Уключыць <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About мэдыяпраглядальнік]</span>",
 	"multimediaviewer-file-page": "Перайсьці на старонку адпаведнага файлу",
 	"multimediaviewer-repository-local": "Падрабязьней",
 	"multimediaviewer-datetime-created": "Створаны: $1",

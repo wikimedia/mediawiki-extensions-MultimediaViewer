@@ -8,6 +8,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Võimaldab vaadata pisipilte täisekraaniliideses.",
+	"multimediaviewer-optin-pref": "Kasuta <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About failivaaturit]</span>",
 	"multimediaviewer-file-page": "Mine failileheküljele",
 	"multimediaviewer-repository-local": "Rohkem üksikasju",
 	"multimediaviewer-datetime-created": "Valmistatud: $1",
