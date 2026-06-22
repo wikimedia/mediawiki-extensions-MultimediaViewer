@@ -27,7 +27,6 @@ use MediaWiki\Category\Category;
 use MediaWiki\Config\Config;
 use MediaWiki\Config\ConfigException;
 use MediaWiki\Context\RequestContext;
-use MediaWiki\Extension\BetaFeatures\BetaFeatures;
 use MediaWiki\FileRepo\RepoGroup;
 use MediaWiki\Hook\GetDoubleUnderscoreIDsHook;
 use MediaWiki\Html\Html;
@@ -75,10 +74,6 @@ class Hooks implements
 	// Checking page props lets request-time carousel decisions reuse the
 	// parser output metadata without reparsing the page content.
 	private const DISABLE_MOBILE_CAROUSEL_PAGE_PROPERTY = 'nomediaviewercarousel';
-	// Beta features key, used to populate a checkbox in the user's beta preferences.
-	// Must be registered in the production allowlist:
-	// https://github.com/wikimedia/operations-mediawiki-config/blob/22cee2b5dfc729e9dd49ae5cd878c7735f2bf66c/wmf-config/InitialiseSettings.php#L6532
-	public const BETA_FEATURES_KEY = 'multimediaviewer-beta';
 
 	public function __construct(
 		private readonly Config $config,
@@ -159,7 +154,7 @@ class Hooks implements
 		// MobileFrontend lightbox, which stands down whenever the bootstrap is
 		// loaded (T169622). It is enabled sitewide via $wgMediaViewerMobileBeta
 		// (T428774) or per-request via ?mmvBeta=1; both are independent of the
-		// mobile carousel beta feature.
+		// mobile carousel rollout gate.
 		if (
 			$this->shouldUseMobileBetaViewer( $out ) ||
 			$out->getRequest()->getFuzzyBool( 'mmvBeta' )
@@ -232,7 +227,6 @@ class Hooks implements
 	 * Conditions:
 	 *  - request is served through MobileFrontend's mobile view
 	 *  - MediaViewerMobileCarousel config flag is enabled
-	 *  - user has opted in via beta feature preferences
 	 *  - page is a suitable candidate
 	 *
 	 * @param OutputPage $out
@@ -244,8 +238,6 @@ class Hooks implements
 			$this->isMobileFrontendView() &&
 			// Config flag
 			$this->config->get( 'MediaViewerMobileCarousel' ) &&
-			// Beta feature opt-in
-			$this->isBetaFeatureEnabled( $out->getUser() ) &&
 			// Candidate page
 			$this->shouldPageGetMobileCarousel( $out )
 		);
@@ -288,23 +280,6 @@ class Hooks implements
 				$title, self::DISABLE_MOBILE_CAROUSEL_PAGE_PROPERTY
 			) === []
 		);
-	}
-
-	/**
-	 * Whether the beta feature is enabled.
-	 *
-	 * Conditions:
-	 * - MediaViewerBetaFeature config flag is enabled
-	 * - BetaFeatures extension is loaded
-	 * - user has opted in
-	 *
-	 * @param User $user
-	 * @return bool
-	 */
-	protected function isBetaFeatureEnabled( User $user ): bool {
-		return $this->config->get( 'MediaViewerBetaFeature' ) &&
-			ExtensionRegistry::getInstance()->isLoaded( 'BetaFeatures' ) &&
-			BetaFeatures::isFeatureEnabled( $user, self::BETA_FEATURES_KEY );
 	}
 
 	/**
