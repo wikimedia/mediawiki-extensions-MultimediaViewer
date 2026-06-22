@@ -67,6 +67,34 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		return $method->invoke( $this->newHooksInstance(), $output );
 	}
 
+	protected function shouldUseMobileCarousel(
+		OutputPage $output,
+		bool $pageQualifies = true
+	): bool {
+		$method = new \ReflectionMethod( Hooks::class, 'shouldUseMobileCarousel' );
+		$hooks = new class(
+			$this->getServiceContainer()->getMainConfig(),
+			$this->getServiceContainer()->getRepoGroup(),
+			$this->getServiceContainer()->getSpecialPageFactory(),
+			$this->getServiceContainer()->getUserOptionsLookup(),
+			$this->getServiceContainer()->getPageProps(),
+			null
+		) extends Hooks {
+			public bool $pageQualifies;
+
+			protected function isMobileFrontendView(): bool {
+				return true;
+			}
+
+			protected function shouldPageGetMobileCarousel( OutputPage $out ): bool {
+				return $this->pageQualifies;
+			}
+		};
+		$hooks->pageQualifies = $pageQualifies;
+
+		return $method->invoke( $hooks, $output );
+	}
+
 	protected function extractCarouselImageElements(
 		ThumbExtractor $thumbExtractor,
 		string $html,
@@ -160,6 +188,27 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	public function testShouldPageGetMobileCarouselRejectsOldRevisions(): void {
 		$output = $this->makeOutputPage( isRevisionCurrent: false );
 		$this->assertFalse( $this->shouldPageGetMobileCarousel( $output ) );
+	}
+
+	public function testShouldUseMobileCarouselRequiresConfigFlag(): void {
+		$this->overrideConfigValue( 'MediaViewerMobileCarousel', false );
+		$output = $this->makeOutputPage();
+
+		$this->assertFalse( $this->shouldUseMobileCarousel( $output ) );
+	}
+
+	public function testShouldUseMobileCarouselUsesConfigFlagForProductionRollout(): void {
+		$this->overrideConfigValue( 'MediaViewerMobileCarousel', true );
+		$output = $this->makeOutputPage();
+
+		$this->assertTrue( $this->shouldUseMobileCarousel( $output ) );
+	}
+
+	public function testShouldUseMobileCarouselStillRequiresCandidatePage(): void {
+		$this->overrideConfigValue( 'MediaViewerMobileCarousel', true );
+		$output = $this->makeOutputPage();
+
+		$this->assertFalse( $this->shouldUseMobileCarousel( $output, false ) );
 	}
 
 	public function testOnBeforePageDisplayInjectsCarouselMarkupWhenEnabled(): void {
@@ -286,7 +335,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			false
 		);
 
-		// No carousel and no beta opt-in, so no modules are added at all.
+		// No carousel request, so no modules are added at all.
 		$output->expects( $this->never() )
 			->method( 'addModules' );
 		$output->expects( $this->never() )

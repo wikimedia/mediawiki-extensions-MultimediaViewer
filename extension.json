@@ -438,8 +438,7 @@
 		"ResourceLoaderGetConfigVars": "main",
 		"MakeGlobalVariablesScript": "main",
 		"GetPreferences": "main",
-		"ThumbnailBeforeProduceHTML": "main",
-		"GetBetaFeaturePreferences": "betafeatures"
+		"ThumbnailBeforeProduceHTML": "main"
 	},
 	"HookHandlers": {
 		"main": {
@@ -453,12 +452,6 @@
 			],
 			"optional_services": [
 				"MobileFrontend.Context"
-			]
-		},
-		"betafeatures": {
-			"class": "MediaWiki\\Extension\\MultimediaViewer\\BetaFeatureHookHandler",
-			"services": [
-				"MainConfig"
 			]
 		}
 	},
@@ -521,7 +514,7 @@
 			"value": false
 		},
 		"MediaViewerMobileCarousel": {
-			"description": "Enables the mobile carousel module for MultimediaViewer.",
+			"description": "Enables the mobile image carousel for qualifying article pages in MobileFrontend.",
 			"value": false
 		},
 		"MediaViewerMobileBeta": {
@@ -570,10 +563,6 @@
 				"a.mw-file-description[href$=\":Noantimage.svg\"]",
 				"a.mw-file-description[href$=\":Nosnail.png\"]"
 			]
-		},
-		"MediaViewerBetaFeature": {
-			"description": "Enables opt-in via Beta feature preferences.",
-			"value": false
 		}
 	},
 	"manifest_version": 2
