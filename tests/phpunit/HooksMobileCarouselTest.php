@@ -9,6 +9,7 @@ use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Skin\SkinTemplate;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use MediaWiki\User\UserRigorOptions;
 use Wikimedia\Parsoid\Core\DOMCompat;
 use Wikimedia\Parsoid\DOM\Element;
@@ -69,7 +70,8 @@ class HooksMobileCarouselTest extends HooksTestCase {
 
 	protected function shouldUseMobileCarousel(
 		OutputPage $output,
-		bool $pageQualifies = true
+		bool $pageQualifies = true,
+		bool $betaOptIn = false
 	): bool {
 		$method = new \ReflectionMethod( Hooks::class, 'shouldUseMobileCarousel' );
 		$hooks = new class(
@@ -81,6 +83,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			null
 		) extends Hooks {
 			public bool $pageQualifies;
+			public bool $betaOptIn;
 
 			protected function isMobileFrontendView(): bool {
 				return true;
@@ -89,8 +92,15 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			protected function shouldPageGetMobileCarousel( OutputPage $out ): bool {
 				return $this->pageQualifies;
 			}
+
+			// Stub the beta gate so these tests don't depend on the
+			// BetaFeatures extension being installed in the test run.
+			protected function isBetaFeatureEnabled( User $user ): bool {
+				return $this->betaOptIn;
+			}
 		};
 		$hooks->pageQualifies = $pageQualifies;
+		$hooks->betaOptIn = $betaOptIn;
 
 		return $method->invoke( $hooks, $output );
 	}
@@ -190,25 +200,47 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$this->assertFalse( $this->shouldPageGetMobileCarousel( $output ) );
 	}
 
-	public function testShouldUseMobileCarouselRequiresConfigFlag(): void {
+	public function testShouldUseMobileCarouselRequiresConfigOrBetaOptIn(): void {
+		// Neither the production config flag nor the beta opt-in: no carousel.
 		$this->overrideConfigValue( 'MediaViewerMobileCarousel', false );
 		$output = $this->makeOutputPage();
 
-		$this->assertFalse( $this->shouldUseMobileCarousel( $output ) );
+		$this->assertFalse(
+			$this->shouldUseMobileCarousel( $output, true, false )
+		);
 	}
 
 	public function testShouldUseMobileCarouselUsesConfigFlagForProductionRollout(): void {
+		// Sitewide production rollout: enabled for everyone, no beta opt-in.
 		$this->overrideConfigValue( 'MediaViewerMobileCarousel', true );
 		$output = $this->makeOutputPage();
 
-		$this->assertTrue( $this->shouldUseMobileCarousel( $output ) );
+		$this->assertTrue(
+			$this->shouldUseMobileCarousel( $output, true, false )
+		);
+	}
+
+	public function testShouldUseMobileCarouselEnabledViaBetaOptIn(): void {
+		// Production flag off, but the user opted in via the beta feature.
+		$this->overrideConfigValue( 'MediaViewerMobileCarousel', false );
+		$output = $this->makeOutputPage();
+
+		$this->assertTrue(
+			$this->shouldUseMobileCarousel( $output, true, true )
+		);
 	}
 
 	public function testShouldUseMobileCarouselStillRequiresCandidatePage(): void {
+		// Enabled via either gate, the page must still be a valid candidate.
 		$this->overrideConfigValue( 'MediaViewerMobileCarousel', true );
 		$output = $this->makeOutputPage();
 
-		$this->assertFalse( $this->shouldUseMobileCarousel( $output, false ) );
+		$this->assertFalse(
+			$this->shouldUseMobileCarousel( $output, false, false )
+		);
+		$this->assertFalse(
+			$this->shouldUseMobileCarousel( $output, false, true )
+		);
 	}
 
 	public function testShouldUseMobileCarouselRespectsReaderOptOut(): void {
@@ -222,6 +254,34 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$output = $this->makeOutputPage( user: $user );
 
 		$this->assertFalse( $this->shouldUseMobileCarousel( $output ) );
+	}
+
+	public function testShouldUseMobileCarouselOptOutOverridesBetaOptIn(): void {
+		// A reader who opted into the beta but turned the carousel off in
+		// preferences should not see it, even with the sitewide flag off.
+		$user = $this->getTestUser()->getUser();
+		$userOptionsManager = $this->getServiceContainer()->getUserOptionsManager();
+		$userOptionsManager->setOption( $user, 'enable_image_carousel', 0 );
+		$user->saveSettings();
+
+		$this->overrideConfigValue( 'MediaViewerMobileCarousel', false );
+		$output = $this->makeOutputPage( user: $user );
+
+		$this->assertFalse( $this->shouldUseMobileCarousel( $output, true, true ) );
+	}
+
+	public function testBetaOptInSuppressedWhenEnabledSitewide(): void {
+		// The sitewide rollout flag takes precedence over the beta opt-in:
+		// when the carousel is enabled for everyone, isBetaFeatureEnabled()
+		// returns false and short-circuits before reaching the BetaFeatures
+		// extension, so the opt-in is not applied as a redundant control.
+		$this->overrideConfigValue( 'MediaViewerMobileCarousel', true );
+		$this->overrideConfigValue( 'MediaViewerBetaFeature', true );
+
+		$user = $this->getTestUser()->getUser();
+		$method = new \ReflectionMethod( Hooks::class, 'isBetaFeatureEnabled' );
+
+		$this->assertFalse( $method->invoke( $this->newHooksInstance(), $user ) );
 	}
 
 	public function testOnBeforePageDisplayInjectsCarouselMarkupWhenEnabled(): void {

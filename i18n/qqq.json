@@ -147,5 +147,7 @@
 	"multimediaviewer-attr-html": "{{optional}}\nLabel for a button that lets the user pick HTML as an output format.\n{{Identical|HTML}}",
 	"multimediaviewer-optin-pref": "Label for preference to enable the Media Viewer.",
 	"multimediaviewer-enable-image-carousel-pref": "Label for preference to enable the MultimediaViewer image carousel on the mobile site.",
-	"multimediaviewer-loading": "Label for indeterminate progress bar shown while the dialog is loading."
+	"multimediaviewer-loading": "Label for indeterminate progress bar shown while the dialog is loading.",
+	"multimediaviewer-beta-feature-name": "Name of beta feature. Shown on preferences beta section when multimedia viewer is enabled as a beta feature.",
+	"multimediaviewer-beta-feature-description": "Description of beta feature. Shown on preferences beta section when multimedia viewer is enabled as a beta feature."
 }
