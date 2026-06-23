@@ -133,5 +133,7 @@
 	"multimediaviewer-attr-html": "HTML",
 	"multimediaviewer-optin-pref": "Enable <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
 	"multimediaviewer-enable-image-carousel-pref": "Enable image carousel on the mobile site",
-	"multimediaviewer-loading": "Loading Media Viewer."
+	"multimediaviewer-loading": "Loading Media Viewer.",
+	"multimediaviewer-beta-feature-name": "Image carousel",
+	"multimediaviewer-beta-feature-description": "Show article images at the top of the page on mobile devices."
 }

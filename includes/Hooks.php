@@ -27,6 +27,7 @@ use MediaWiki\Category\Category;
 use MediaWiki\Config\Config;
 use MediaWiki\Config\ConfigException;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Extension\BetaFeatures\BetaFeatures;
 use MediaWiki\FileRepo\RepoGroup;
 use MediaWiki\Hook\GetDoubleUnderscoreIDsHook;
 use MediaWiki\Html\Html;
@@ -76,6 +77,10 @@ class Hooks implements
 	private const DISABLE_MOBILE_CAROUSEL_PAGE_PROPERTY = 'nomediaviewercarousel';
 	// User preference key for the per-reader opt-out of the mobile image carousel.
 	private const ENABLE_IMAGE_CAROUSEL_PREFERENCE = 'enable_image_carousel';
+	// Beta features key, used to populate a checkbox in the user's beta preferences.
+	// Must be registered in the production allowlist (defined in mediawiki-config repo
+	// in wmf-config/InitialiseSettings.php as `wgBetaFeaturesAllowList` ).
+	public const BETA_FEATURES_KEY = 'multimediaviewer-beta';
 
 	public function __construct(
 		private readonly Config $config,
@@ -244,7 +249,11 @@ class Hooks implements
 	 *
 	 * Conditions:
 	 *  - request is served through MobileFrontend's mobile view
-	 *  - MediaViewerMobileCarousel config flag is enabled
+	 *  - the carousel is enabled for this request, either sitewide via the
+	 *    MediaViewerMobileCarousel config flag (production rollout) or per-user
+	 *    via the beta feature opt-in. The sitewide flag takes precedence: where
+	 *    it is on, the carousel is shown to everyone and the beta opt-in is not
+	 *    offered as a separate control.
 	 *  - the reader has not opted out via the enable_image_carousel preference
 	 *  - page is a suitable candidate
 	 *
@@ -255,8 +264,11 @@ class Hooks implements
 		return (
 			// Mobile view
 			$this->isMobileFrontendView() &&
-			// Config flag
-			$this->config->get( 'MediaViewerMobileCarousel' ) &&
+			// Enabled sitewide (production) or opted in via beta feature
+			(
+				$this->config->get( 'MediaViewerMobileCarousel' ) ||
+				$this->isBetaFeatureEnabled( $out->getUser() )
+			) &&
 			// Reader has not opted out via preferences
 			$this->userOptionsLookup->getBoolOption(
 				$out->getUser(), self::ENABLE_IMAGE_CAROUSEL_PREFERENCE
@@ -303,6 +315,30 @@ class Hooks implements
 				$title, self::DISABLE_MOBILE_CAROUSEL_PAGE_PROPERTY
 			) === []
 		);
+	}
+
+	/**
+	 * Whether the beta feature opt-in applies to this user.
+	 *
+	 * Conditions:
+	 * - the carousel is not already enabled sitewide: the
+	 *   MediaViewerMobileCarousel flag takes precedence, so the opt-in is moot
+	 *   once the carousel is rolled out for everyone
+	 * - MediaViewerBetaFeature config flag is enabled
+	 * - BetaFeatures extension is loaded
+	 * - user has opted in
+	 *
+	 * The sitewide check is first so this short-circuits before reaching the
+	 * BetaFeatures extension when the carousel is already enabled sitewide.
+	 *
+	 * @param User $user
+	 * @return bool
+	 */
+	protected function isBetaFeatureEnabled( User $user ): bool {
+		return !$this->config->get( 'MediaViewerMobileCarousel' ) &&
+			$this->config->get( 'MediaViewerBetaFeature' ) &&
+			ExtensionRegistry::getInstance()->isLoaded( 'BetaFeatures' ) &&
+			BetaFeatures::isFeatureEnabled( $user, self::BETA_FEATURES_KEY );
 	}
 
 	/**

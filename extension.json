@@ -438,7 +438,8 @@
 		"ResourceLoaderGetConfigVars": "main",
 		"MakeGlobalVariablesScript": "main",
 		"GetPreferences": "main",
-		"ThumbnailBeforeProduceHTML": "main"
+		"ThumbnailBeforeProduceHTML": "main",
+		"GetBetaFeaturePreferences": "betafeatures"
 	},
 	"HookHandlers": {
 		"main": {
@@ -452,6 +453,12 @@
 			],
 			"optional_services": [
 				"MobileFrontend.Context"
+			]
+		},
+		"betafeatures": {
+			"class": "MediaWiki\\Extension\\MultimediaViewer\\BetaFeatureHookHandler",
+			"services": [
+				"MainConfig"
 			]
 		}
 	},
@@ -514,7 +521,7 @@
 			"value": false
 		},
 		"MediaViewerMobileCarousel": {
-			"description": "Enables the mobile image carousel for qualifying article pages in MobileFrontend.",
+			"description": "Enables the mobile image carousel sitewide for qualifying article pages in MobileFrontend (production rollout). Takes precedence over the opt-in beta feature (see MediaViewerBetaFeature): where this is on, the carousel is shown to everyone and the beta opt-in is suppressed.",
 			"value": false
 		},
 		"MediaViewerMobileBeta": {
@@ -563,6 +570,10 @@
 				"a.mw-file-description[href$=\":Noantimage.svg\"]",
 				"a.mw-file-description[href$=\":Nosnail.png\"]"
 			]
+		},
+		"MediaViewerBetaFeature": {
+			"description": "Offers the mobile image carousel as an opt-in Beta feature preference, for previewing it ahead of a sitewide rollout. Only takes effect where MediaViewerMobileCarousel is off; the sitewide flag takes precedence and suppresses the opt-in.",
+			"value": false
 		}
 	},
 	"manifest_version": 2
