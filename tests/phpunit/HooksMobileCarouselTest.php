@@ -609,8 +609,6 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		] );
 
 		$this->assertStringContainsString( 'class="mmv-carousel__item"', $html );
-		$this->assertStringContainsString( 'data-mmv-title="File:Cat.jpg"', $html );
-		$this->assertStringContainsString( 'data-mmv-position="1"', $html );
 		$this->assertStringContainsString( 'href="/wiki/File:Cat.jpg"', $html );
 		$this->assertStringContainsString( 'class="mmv-carousel__item-link mw-file-description"', $html );
 		$this->assertStringContainsString( 'aria-label="A cat"', $html );

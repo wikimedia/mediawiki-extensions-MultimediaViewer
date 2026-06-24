@@ -425,8 +425,6 @@ class Hooks implements
 				'li',
 				[
 					'class' => 'mmv-carousel__item',
-					'data-mmv-title' => $item['title']->getPrefixedText(),
-					'data-mmv-position' => (string)( $i + 1 ),
 				],
 				Html::rawElement(
 					'a',

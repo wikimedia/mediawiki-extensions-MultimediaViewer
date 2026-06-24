@@ -37,11 +37,6 @@ $( () => {
 			img.checkVisibility() : // Modern browsers
 			!!( img.offsetWidth || img.offsetHeight || img.getClientRects().length ); // jQuery .visible equivalent
 
-		const title = item.dataset.mmvTitle;
-		if ( !title ) {
-			return;
-		}
-
 		const link = item.querySelector( 'a' );
 		if ( !link ) {
 			return;
@@ -54,7 +49,7 @@ $( () => {
 			// Normalise to the DB key (underscores, File: prefix) so the title
 			// matches the filenames the overlay derives from the page's own
 			// thumbnails (caption + prev/next navigation).
-			const fileTitle = mw.Title.newFromText( title );
+			const fileTitle = mw.Title.newFromImg( img );
 			if ( !fileTitle ) {
 				return;
 			}
