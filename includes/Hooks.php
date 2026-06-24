@@ -74,6 +74,8 @@ class Hooks implements
 	// Checking page props lets request-time carousel decisions reuse the
 	// parser output metadata without reparsing the page content.
 	private const DISABLE_MOBILE_CAROUSEL_PAGE_PROPERTY = 'nomediaviewercarousel';
+	// User preference key for the per-reader opt-out of the mobile image carousel.
+	private const ENABLE_IMAGE_CAROUSEL_PREFERENCE = 'enable_image_carousel';
 
 	public function __construct(
 		private readonly Config $config,
@@ -93,6 +95,9 @@ class Hooks implements
 		if ( $this->config->get( 'MediaViewerEnableByDefault' ) ) {
 			$defaultOptions['multimediaviewer-enable'] = 1;
 		}
+
+		// The carousel is shown unless the reader explicitly opts out.
+		$defaultOptions[self::ENABLE_IMAGE_CAROUSEL_PREFERENCE] = 1;
 	}
 
 	/**
@@ -105,6 +110,19 @@ class Hooks implements
 		$prefs['multimediaviewer-enable'] = [
 			'type' => 'toggle',
 			'label-message' => 'multimediaviewer-optin-pref',
+			'section' => 'rendering/files',
+		];
+
+		// Only offer the carousel opt-out where the carousel can actually appear.
+		if ( !$this->config->get( 'MediaViewerMobileCarousel' ) ) {
+			return;
+		}
+
+		// The carousel is a mobile feature, so the visible toggle is only shown
+		// on Minerva; on other skins the value is preserved but hidden.
+		$prefs[self::ENABLE_IMAGE_CAROUSEL_PREFERENCE] = [
+			'type' => $this->getCurrentRequestSkinName() === 'minerva' ? 'toggle' : 'hidden',
+			'label-message' => 'multimediaviewer-enable-image-carousel-pref',
 			'section' => 'rendering/files',
 		];
 	}
@@ -227,6 +245,7 @@ class Hooks implements
 	 * Conditions:
 	 *  - request is served through MobileFrontend's mobile view
 	 *  - MediaViewerMobileCarousel config flag is enabled
+	 *  - the reader has not opted out via the enable_image_carousel preference
 	 *  - page is a suitable candidate
 	 *
 	 * @param OutputPage $out
@@ -238,6 +257,10 @@ class Hooks implements
 			$this->isMobileFrontendView() &&
 			// Config flag
 			$this->config->get( 'MediaViewerMobileCarousel' ) &&
+			// Reader has not opted out via preferences
+			$this->userOptionsLookup->getBoolOption(
+				$out->getUser(), self::ENABLE_IMAGE_CAROUSEL_PREFERENCE
+			) &&
 			// Candidate page
 			$this->shouldPageGetMobileCarousel( $out )
 		);
