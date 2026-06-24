@@ -211,6 +211,19 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$this->assertFalse( $this->shouldUseMobileCarousel( $output, false ) );
 	}
 
+	public function testShouldUseMobileCarouselRespectsReaderOptOut(): void {
+		// Carousel enabled sitewide, but the reader opted out via preferences.
+		$user = $this->getTestUser()->getUser();
+		$userOptionsManager = $this->getServiceContainer()->getUserOptionsManager();
+		$userOptionsManager->setOption( $user, 'enable_image_carousel', 0 );
+		$user->saveSettings();
+
+		$this->overrideConfigValue( 'MediaViewerMobileCarousel', true );
+		$output = $this->makeOutputPage( user: $user );
+
+		$this->assertFalse( $this->shouldUseMobileCarousel( $output ) );
+	}
+
 	public function testOnBeforePageDisplayInjectsCarouselMarkupWhenEnabled(): void {
 		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
