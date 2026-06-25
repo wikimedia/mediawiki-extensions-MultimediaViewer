@@ -2,6 +2,7 @@ const { createMwApp, ref, computed } = require( 'vue' );
 const App = require( './App.vue' );
 const { Config } = require( 'mmv.bootstrap' );
 const { ImageInfo, notifyTitleNotFound } = require( 'mmv.common' );
+const router = require( 'mediawiki.router' );
 const { getLargerThumbnailUrl } = require( './thumbnailGuessing.js' );
 
 /** @typedef {import('./types').LightboxImage} LightboxImage */
@@ -416,9 +417,11 @@ class BetaViewer {
 		const idx = this.thumbs.indexOf( this.currentImage );
 		const next = ( idx + 1 ) % this.thumbs.length;
 		const image = this.thumbs[ next ];
-		const hash = Config.getMediaHash( image.filePageTitle, image.position );
 
-		location.hash = hash;
+		router.navigateTo( null, {
+			path: Config.getMediaHash( image.filePageTitle, image.position ),
+			useReplaceState: true
+		} );
 	}
 
 	/**
@@ -432,9 +435,11 @@ class BetaViewer {
 		const idx = this.thumbs.indexOf( this.currentImage );
 		const prev = ( idx - 1 + this.thumbs.length ) % this.thumbs.length;
 		const image = this.thumbs[ prev ];
-		const hash = Config.getMediaHash( image.filePageTitle, image.position );
 
-		location.hash = hash;
+		router.navigateTo( null, {
+			path: Config.getMediaHash( image.filePageTitle, image.position ),
+			useReplaceState: true
+		} );
 	}
 
 	/**
@@ -509,8 +514,8 @@ class BetaViewer {
 		document.title = this.createDocumentTitle( null );
 
 		if ( !this.comingFromHashChange ) {
-			// Reset the hash so the viewer doesn't re-open on back navigation
-			location.hash = '';
+			// Navigate back to article
+			router.back();
 		}
 	}
 

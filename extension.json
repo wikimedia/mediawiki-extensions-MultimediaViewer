@@ -272,7 +272,8 @@
 			],
 			"dependencies": [
 				"mediawiki.router",
-				"mediawiki.Title"
+				"mediawiki.Title",
+				"mmv.bootstrap"
 			]
 		},
 		"mmv.carousel.styles": {

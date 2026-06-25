@@ -7,6 +7,7 @@
 // the QUnit test environment).
 $( () => {
 	const router = require( 'mediawiki.router' );
+	const { Config } = require( 'mmv.bootstrap' );
 	const carouselItems = Array.from( document.querySelectorAll( '.mmv-carousel__item' ) );
 
 	// Instrumentation with TestKitchen as a soft dependency.
@@ -64,7 +65,9 @@ $( () => {
 				);
 			}
 
-			router.navigate( '#/media/' + encodeURIComponent( fileTitle.getPrefixedDb() ) );
+			router.navigateTo( null, {
+				path: Config.getMediaHash( fileTitle.getPrefixedDb() )
+			} );
 		} );
 	} );
 } );
