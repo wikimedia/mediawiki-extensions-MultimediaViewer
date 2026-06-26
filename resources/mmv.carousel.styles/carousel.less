@@ -66,6 +66,12 @@
 		img.mmv-carousel__item-image {
 			width: auto;
 			object-fit: cover;
+			// Bias the crop towards the top of the image. With a near-square
+			// tile, only taller-than-tile (portrait) images have vertical
+			// overflow to reposition, so this keeps their subject (typically a
+			// head, near the top) instead of clipping it. Landscape images have
+			// no vertical overflow, so this is a no-op for them.
+			object-position: center top;
 			border-radius: @border-radius-base;
 			border: @border-subtle;
 			aspect-ratio: 105/104;
