@@ -1,5 +1,6 @@
 <template>
 	<div
+		ref="imageContainerRef"
 		class="mmv-lightbox-image"
 		:aria-busy="isBusy ? 'true' : 'false'"
 	>
@@ -10,6 +11,7 @@
 				image.filePageTitle.getExtension().toLowerCase(), /* extension → checkerboard for transparent images */
 				{ 'mmv-lightbox-image__el--loaded': imgLoaded }
 			]"
+			:style="{ width: thumbnailWidths.cssWidth + 'px', height: thumbnailWidths.cssHeight + 'px' }"
 			:src="displayUrl"
 			:width="imageWidth"
 			:height="imageHeight"
@@ -26,8 +28,9 @@
 </template>
 
 <script>
-const { defineComponent, inject, computed, ref, watch, onBeforeUnmount } = require( 'vue' );
+const { defineComponent, inject, computed, ref, useTemplateRef, watch, onBeforeUnmount } = require( 'vue' );
 const { CdxProgressBar } = require( '@wikimedia/codex' );
+const { ThumbnailWidthCalculator } = require( 'mmv.common' );
 
 /** @typedef {import('./types').ViewerState} ViewerState */
 
@@ -49,6 +52,8 @@ module.exports = exports = defineComponent( {
 		const state = inject( 'state' );
 		const showError = inject( 'showError' );
 
+		const imageContainerRef = useTemplateRef( 'imageContainerRef' );
+
 		const image = computed( () => state.image.value );
 		const displayUrl = computed( () => state.displayUrl.value );
 		const loadId = computed( () => state.loadId.value );
@@ -66,6 +71,20 @@ module.exports = exports = defineComponent( {
 				return image.value.originalHeight;
 			}
 			return undefined;
+		} );
+
+		const thumbnailWidths = computed( () => {
+			if ( !imageContainerRef.value ) {
+				return {};
+			}
+			const containerRect = imageContainerRef.value.getBoundingClientRect();
+			const thumbnailWidthCalculator = new ThumbnailWidthCalculator();
+			return thumbnailWidthCalculator.calculateWidths(
+				containerRect.width,
+				containerRect.height,
+				image.value.originalWidth || image.value.thumbnail.width,
+				image.value.originalHeight || image.value.thumbnail.height
+			);
 		} );
 
 		// Whether the on-page article thumbnail has already decoded.
@@ -128,10 +147,12 @@ module.exports = exports = defineComponent( {
 		}
 
 		return {
+			imageContainerRef,
 			image,
 			displayUrl,
 			imageWidth,
 			imageHeight,
+			thumbnailWidths,
 			imgLoaded,
 			imgHasError,
 			isBusy,
