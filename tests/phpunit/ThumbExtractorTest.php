@@ -70,6 +70,19 @@ class ThumbExtractorTest extends MediaWikiIntegrationTestCase {
 		$this->assertSame( [], $result );
 	}
 
+	public function testFindThumbsExcludesNoCarouselClass(): void {
+		$extractor = new ThumbExtractor( [ 'jpg' ], [], 30, 30, '/wiki/$1' );
+
+		// .nocarousel excludes an image from the carousel only (unlike
+		// .noviewer, which also excludes it from MediaViewer and carousel).
+		$snippet = '<div class="nocarousel">'
+			. '<a class="image" href="/wiki/File:Excluded_Batman.jpg"><img src="/path/to/Excluded_Batman.jpg"></a>'
+			. '</div>';
+		$result = $extractor->findThumbs( $this->makeBody( $snippet ) );
+
+		$this->assertSame( [], $result );
+	}
+
 	public function testFindThumbsIsExcludedBySelector(): void {
 		$extractor = new ThumbExtractor( [ 'jpg' ], [ '.sidebar-box' ], 30, 30, '/wiki/$1' );
 

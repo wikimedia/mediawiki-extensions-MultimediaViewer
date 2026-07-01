@@ -23,11 +23,14 @@ use Wikimedia\Zest\Zest;
 class ThumbExtractor {
 	/**
 	 * Exclusions of thumbnails in known non-content areas.
-	 * Should be kept equivalent to MultimediaViewer's isAllowedThumb implementation
 	 *
 	 * @const string[]
 	 */
 	private const DISALLOWED_SELECTORS = [
+		// Selectors below this line should be kept in sync with MultimediaViewer's
+		// isAllowedThumb implementation. They apply equally to MultimediaViewer
+		// and the carousel.
+		//
 		// This is inside an informational template like {{refimprove}} on enwiki
 		'.metadata',
 		// MediaViewer has been specifically disabled for this image
@@ -37,6 +40,13 @@ class ThumbExtractor {
 		'#siteNotice',
 		// Thumbnails of a slideshow gallery
 		'ul.mw-gallery-slideshow li.gallerybox',
+
+		// Selectors below this line are carousel-only. They must not be added
+		// to MultimediaViewer's isAllowedThumb, since they should not affect
+		// the viewer itself.
+		//
+		// Image is excluded from the carousel only; still shown in the viewer
+		'.nocarousel',
 	];
 
 	/**
