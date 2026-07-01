@@ -164,6 +164,28 @@ function createLazyImagePlaceholder( title, src ) {
 	return $link;
 }
 
+// Simulates a {{Infobox}} image cell: a .infobox-image <td> holding one or more
+// mw:File images and, optionally, a sibling .infobox-caption (T429839).
+function createInfoboxImage( imageSrc, caption ) {
+	const $table = $( '<table>' ).addClass( 'infobox' ).appendTo( '#qunit-fixture' );
+	const $cell = $( '<td>' ).addClass( 'infobox-image' )
+		.appendTo( $( '<tr>' ).appendTo( $( '<tbody>' ).appendTo( $table ) ) );
+
+	const addImage = ( src ) => {
+		const $span = $( '<span>' ).attr( 'typeof', 'mw:File/Frameless' ).appendTo( $cell );
+		const $link = $( '<a>' ).addClass( 'mw-file-description' ).appendTo( $span );
+		$( '<img>' ).attr( 'src', src ).appendTo( $link );
+		return $link;
+	};
+
+	const $link = addImage( imageSrc || 'thumb.jpg' );
+	if ( caption !== null && caption !== undefined ) {
+		$( '<div>' ).addClass( 'infobox-caption' ).text( caption ).appendTo( $cell );
+	}
+
+	return { $table, $cell, $link, addImage };
+}
+
 function createBootstrap( viewer ) {
 	const bootstrap = new MultimediaViewerBootstrap();
 
@@ -566,6 +588,9 @@ QUnit.test( 'findLegacyCaption', ( assert ) => {
 	assert.strictEqual( bootstrap.findLegacyCaption( thumb, thumb.find( 'a.image' ) ), 'Quuuuux', 'A thumbnail caption is found.' );
 	assert.strictEqual( bootstrap.findLegacyCaption( $(), link ), 'Foobar', 'The caption is found even if the image is not a thumbnail.' );
 	assert.strictEqual( bootstrap.findLegacyCaption( multiple, multiple.find( 'img[src="bar.jpg"]' ).closest( 'a' ) ), 'Image #2', 'The caption is found in {{Multiple image}}.' );
+
+	const infobox = createInfoboxImage( 'foo.jpg', 'Infobox' );
+	assert.strictEqual( bootstrap.findLegacyCaption( $(), infobox.$link ), 'Infobox', 'An infobox caption is found when the image is not a thumbnail.' );
 } );
 
 QUnit.test( 'findCaption', ( assert ) => {
@@ -577,6 +602,51 @@ QUnit.test( 'findCaption', ( assert ) => {
 	assert.strictEqual( bootstrap.findCaption( $inline, $inline.children().first() ), 'Inline', 'Inline image caption is found.' );
 	assert.strictEqual( bootstrap.findCaption( $block, $block.children().first() ), 'Block', 'Block image caption is found.' );
 	assert.strictEqual( bootstrap.findCaption( $gallery, $gallery.children().first() ), 'Gallery', 'Gallery image caption is found.' );
+
+	const infobox = createInfoboxImage( 'foo.jpg', 'Infobox' );
+	assert.strictEqual( bootstrap.findCaption( infobox.$link.parent(), infobox.$link ), 'Infobox', 'Infobox image caption is found.' );
+} );
+
+QUnit.test( 'findInfoboxCaption (T429839)', ( assert ) => {
+	const bootstrap = createBootstrap();
+
+	// Standard {{Infobox}} image: caption lives in the image's own cell.
+	const withCaption = createInfoboxImage( 'foo.jpg', 'A caption' );
+	assert.strictEqual( bootstrap.findInfoboxCaption( withCaption.$link ), 'A caption', 'Caption in the image\'s own .infobox-image cell is found.' );
+
+	// Logo / flag with no caption in the cell: show nothing.
+	const noCaption = createInfoboxImage( 'foo.jpg', null );
+	assert.strictEqual( bootstrap.findInfoboxCaption( noCaption.$link ), undefined, 'A caption-less infobox image returns nothing.' );
+
+	// Single-image guard: a cell with two images and one caption is ambiguous,
+	// so no caption is attached (e.g. light/dark logo variants).
+	const shared = createInfoboxImage( 'light.png', 'Shared caption' );
+	shared.addImage( 'dark.png' );
+	assert.strictEqual( bootstrap.findInfoboxCaption( shared.$link ), undefined, 'A cell with multiple images does not share a caption.' );
+
+	// Wrong-association guard: a signature in a non-.infobox-image cell must not
+	// inherit the portrait's caption elsewhere in the same infobox.
+	const portrait = createInfoboxImage( 'portrait.jpg', 'Portrait caption' );
+	const $sigCell = $( '<td>' ).addClass( 'infobox-full-data' )
+		.appendTo( $( '<tr>' ).appendTo( portrait.$table.find( 'tbody' ) ) );
+	const $sigLink = $( '<a>' ).addClass( 'mw-file-description' )
+		.append( $( '<img>' ).attr( 'src', 'signature.svg' ) )
+		.appendTo( $( '<span>' ).attr( 'typeof', 'mw:File' ).appendTo( $sigCell ) );
+	assert.strictEqual( bootstrap.findInfoboxCaption( portrait.$link ), 'Portrait caption', 'The portrait keeps its own caption.' );
+	assert.strictEqual( bootstrap.findInfoboxCaption( $sigLink ), undefined, 'A signature outside the .infobox-image cell inherits no caption.' );
+
+	// An image outside any infobox is unaffected.
+	const $inline = createInlineImage( 'foo.jpg', 'title' );
+	assert.strictEqual( bootstrap.findInfoboxCaption( $inline.children().first() ), undefined, 'A non-infobox image returns nothing.' );
+} );
+
+QUnit.test( 'Infobox captions flow through to thumbs (T429839)', ( assert ) => {
+	createInfoboxImage( 'foo.jpg', 'Infobox caption' );
+
+	const bootstrap = createBootstrap();
+
+	assert.strictEqual( bootstrap.thumbs.length, 1, 'Infobox image registered as a thumb' );
+	assert.strictEqual( bootstrap.thumbs[ 0 ].caption, 'Infobox caption', 'The infobox caption is attached to the thumb' );
 } );
 
 QUnit.test( 'Recognize thumbs with mw-file-magnify links', function ( assert ) {

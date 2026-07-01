@@ -464,9 +464,14 @@ class MultimediaViewerBootstrap {
 
 		if ( $galleryCaption.length ) {
 			return $galleryCaption.html() || '';
-		} else {
-			return $link.prop( 'title' ) || undefined;
 		}
+
+		const infoboxCaption = this.findInfoboxCaption( $link );
+		if ( infoboxCaption !== undefined ) {
+			return infoboxCaption;
+		}
+
+		return $link.prop( 'title' ) || undefined;
 	}
 
 	/**
@@ -478,6 +483,12 @@ class MultimediaViewerBootstrap {
 	 */
 	findLegacyCaption( $thumbContainer, $link ) {
 		if ( !$thumbContainer.length ) {
+			// Infobox images are not wrapped in a .thumb container, so there is no
+			// thumbcaption to find; look for an infobox caption before giving up.
+			const infoboxCaption = this.findInfoboxCaption( $link );
+			if ( infoboxCaption !== undefined ) {
+				return infoboxCaption;
+			}
 			return $link.prop( 'title' ) || undefined;
 		}
 
@@ -499,6 +510,39 @@ class MultimediaViewerBootstrap {
 		}
 
 		return $thumbCaption.html() || '';
+	}
+
+	/**
+	 * Finds the caption for an image that lives in an infobox (T429839).
+	 *
+	 * The lookup is deliberately scoped to the image's own cell and never to the
+	 * whole infobox: a caption belonging to a *different* image (a signature, a
+	 * secondary photo) must never be shown. For the same reason we only return a
+	 * caption when the cell holds exactly one image and one caption, so a shared
+	 * cell (e.g. light/dark logo variants) can't attach one caption to several
+	 * images. When in doubt, return nothing.
+	 *
+	 * @param {jQuery} $link The link (a.mw-file-description / a.image) around the image
+	 * @return {string|undefined} Unsafe HTML may be present - caution
+	 */
+	findInfoboxCaption( $link ) {
+		const $cell = $link.closest( '.infobox-image' );
+
+		// Bail unless the image sits in exactly one .infobox-image cell holding a
+		// single Media Viewer-eligible image; a cell with several images is
+		// ambiguous and we prefer no caption to a possibly-wrong one.
+		if ( $cell.length !== 1 ||
+			$cell.find( 'a.mw-file-description, a.image' ).length !== 1
+		) {
+			return undefined;
+		}
+
+		const $caption = $cell.find( '.infobox-caption' );
+		if ( $caption.length !== 1 ) {
+			return undefined;
+		}
+
+		return $caption.html() || undefined;
 	}
 
 	/**
