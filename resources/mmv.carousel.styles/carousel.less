@@ -41,6 +41,12 @@
 			display: none;
 		}
 
+		// Deferred items (data-src, no src) can only be loaded by carousel.js;
+		// without JS, show a shorter carousel instead of blank tiles.
+		.client-nojs &--deferred {
+			display: none;
+		}
+
 		&-link {
 			display: block;
 			height: @size-full;
@@ -49,6 +55,12 @@
 			&:focus-visible {
 				outline-offset: -2px;
 			}
+		}
+
+		// Skeleton state for deferred tiles whose image has not loaded yet;
+		// carousel.js removes the class once the image arrives.
+		img.mmv-carousel__item-image--pending {
+			background-color: @background-color-neutral;
 		}
 
 		img.mmv-carousel__item-image {
@@ -95,7 +107,9 @@
 
 // In dark mode, apply a light background to carousel images so transparent
 // images with dark content remain visible against the dark page background.
-img.mmv-carousel__item-image {
+// Tiles still waiting on their image keep the theme-aware placeholder
+// background instead.
+img.mmv-carousel__item-image:not( .mmv-carousel__item-image--pending ) {
 	.darkmode-override( {
 		background-color: @background-color-base-fixed;
 	} );

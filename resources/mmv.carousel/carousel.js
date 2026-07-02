@@ -10,6 +10,68 @@ $( () => {
 	const { Config } = require( 'mmv.bootstrap' );
 	const carouselItems = Array.from( document.querySelectorAll( '.mmv-carousel__item' ) );
 
+	// Items beyond the first few are server-rendered without a src
+	// (data-src/data-srcset instead), because native loading=lazy leaves the
+	// preload lookahead to the browser, which fetches images far beyond the
+	// scrollport. Load them ourselves as they approach the visible area.
+	const loadDeferredImage = ( img ) => {
+		if ( !img.dataset.src ) {
+			return;
+		}
+		// Keep the placeholder background until pixels have arrived, so
+		// transparent images render as usual once loaded.
+		img.addEventListener( 'load', () => {
+			img.classList.remove( 'mmv-carousel__item-image--pending' );
+		}, { once: true } );
+		if ( img.dataset.srcset ) {
+			img.srcset = img.dataset.srcset;
+			delete img.dataset.srcset;
+		}
+		img.src = img.dataset.src;
+		delete img.dataset.src;
+	};
+
+	const deferredImages = Array.from(
+		document.querySelectorAll( '.mmv-carousel__item img[data-src]' )
+	);
+	if ( deferredImages.length ) {
+		if ( 'IntersectionObserver' in window ) {
+			// Only load a tile once it has stayed within the lookahead area
+			// for a beat: a fast fling sweeps every tile through the observer
+			// box, and promoting them all would queue a strip's worth of
+			// downloads ahead of the tiles the reader actually lands on.
+			const SUSTAINED_INTERSECTION_MS = 150;
+			const pendingTimers = new Map();
+			const observer = new IntersectionObserver( ( entries ) => {
+				entries.forEach( ( entry ) => {
+					const img = entry.target;
+					if ( entry.isIntersecting ) {
+						if ( !pendingTimers.has( img ) ) {
+							pendingTimers.set( img, setTimeout( () => {
+								pendingTimers.delete( img );
+								loadDeferredImage( img );
+								observer.unobserve( img );
+							}, SUSTAINED_INTERSECTION_MS ) );
+						}
+					} else if ( pendingTimers.has( img ) ) {
+						clearTimeout( pendingTimers.get( img ) );
+						pendingTimers.delete( img );
+					}
+				} );
+			}, {
+				// The root must be the scroll container (overflow lives on the
+				// carousel wrapper, not on the items list).
+				root: document.getElementById( 'mmv-carousel-root' ),
+				// Horizontal lookahead of roughly three items, so images are
+				// ready by the time the reader scrolls them into view.
+				rootMargin: '0px 500px'
+			} );
+			deferredImages.forEach( ( img ) => observer.observe( img ) );
+		} else {
+			deferredImages.forEach( loadDeferredImage );
+		}
+	}
+
 	// Instrumentation with TestKitchen as a soft dependency.
 	// Discussion at
 	// https://gerrit.wikimedia.org/r/c/mediawiki/extensions/MultimediaViewer/+/1297716/comments/4151eb46_78975b42.
@@ -47,6 +109,9 @@ $( () => {
 			if ( e.button !== 0 || e.altKey || e.ctrlKey || e.shiftKey || e.metaKey ) {
 				return;
 			}
+			// A fast scroll can outrun the observer; make sure the image has
+			// a src before deriving the title from it below.
+			loadDeferredImage( img );
 			// Normalise to the DB key (underscores, File: prefix) so the title
 			// matches the filenames the overlay derives from the page's own
 			// thumbnails (caption + prev/next navigation).

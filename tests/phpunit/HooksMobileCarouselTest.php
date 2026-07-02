@@ -627,6 +627,43 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$this->assertStringContainsString( 'loading="lazy"', $html );
 	}
 
+	public function testBuildCarouselItemsDefersImagesBeyondEagerCount(): void {
+		$items = [];
+		foreach ( [ 'A.jpg', 'B.jpg', 'C.jpg', 'D.jpg', 'E.jpg', 'F.jpg', 'G.jpg', 'H.jpg' ] as $name ) {
+			$items[] = self::makeFakeThumbData( $name );
+		}
+		$html = $this->buildCarouselItemsHtml( $items );
+
+		$doc = DOMCompat::newDocument( true );
+		$fragment = DOMUtils::parseHTMLToFragment( $doc, $html );
+		$images = DOMCompat::querySelectorAll( $fragment, 'img' );
+		$this->assertCount( 8, $images );
+
+		// The first CAROUSEL_EAGER_IMAGES items load normally.
+		foreach ( array_slice( $images, 0, 6 ) as $img ) {
+			$this->assertTrue( $img->hasAttribute( 'src' ) );
+			$this->assertFalse( $img->hasAttribute( 'data-src' ) );
+		}
+
+		// The rest carry data-src/data-srcset for carousel.js to load,
+		// keep their dimensions so the tile box stays stable, and start
+		// out in the pending (placeholder) state.
+		foreach ( array_slice( $images, 6 ) as $img ) {
+			$this->assertFalse( $img->hasAttribute( 'src' ) );
+			$this->assertFalse( $img->hasAttribute( 'srcset' ) );
+			$this->assertTrue( $img->hasAttribute( 'data-src' ) );
+			$this->assertTrue( $img->hasAttribute( 'data-srcset' ) );
+			$this->assertSame( '120', DOMCompat::getAttribute( $img, 'width' ) );
+			$this->assertStringContainsString( '--pending', DOMCompat::getAttribute( $img, 'class' ) );
+		}
+
+		$this->assertSame(
+			'//upload.wikimedia.org/wikipedia/commons/thumb/1/10/G.jpg/120px-G.jpg',
+			DOMCompat::getAttribute( $images[6], 'data-src' )
+		);
+		$this->assertCount( 2, DOMCompat::querySelectorAll( $fragment, 'li.mmv-carousel__item--deferred' ) );
+	}
+
 	public function testBuildCarouselItemsFallsBackToFilenameForAriaLabel(): void {
 		$html = $this->buildCarouselItemsHtml( [
 			self::makeFakeThumbData( 'Cat.jpg', '' ),

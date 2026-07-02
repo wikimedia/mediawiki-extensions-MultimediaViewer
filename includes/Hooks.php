@@ -69,6 +69,10 @@ class Hooks implements
 {
 	// Minimum number of images in a wiki page to enable the carousel.
 	private const MIN_CAROUSEL_IMAGES = 3;
+	// Number of carousel items rendered with a real src attribute. The rest
+	// are deferred (data-src) and loaded by carousel.js as they approach the
+	// visible area; six fills the initial view even at desktop widths.
+	private const CAROUSEL_EAGER_IMAGES = 6;
 	// Page property that represents the __NOMEDIAVIEWERCAROUSEL__ magic word / behavior switch.
 	// When `__NOMEDIAVIEWERCAROUSEL__` is in the page content,
 	// the `nomediaviewercarousel` page property is set during parse.
@@ -421,10 +425,19 @@ class Hooks implements
 	private function buildCarouselItemsHtml( array $carouselItems ): string {
 		$html = '';
 		foreach ( $carouselItems as $i => $item ) {
+			// Items beyond the first few defer their image loading to
+			// carousel.js (see the IntersectionObserver there for rationale).
+			$deferred = $i >= self::CAROUSEL_EAGER_IMAGES;
+			$src = DOMCompat::getAttribute( $item['thumb'], 'src' ) ?:
+				DOMCompat::getAttribute( $item['thumb'], 'data-mw-src' );
+			$srcset = DOMCompat::getAttribute( $item['thumb'], 'srcset' ) ??
+				DOMCompat::getAttribute( $item['thumb'], 'data-mw-srcset' ) ??
+				false;
+
 			$html .= Html::rawElement(
 				'li',
 				[
-					'class' => 'mmv-carousel__item',
+					'class' => [ 'mmv-carousel__item', 'mmv-carousel__item--deferred' => $deferred ],
 				],
 				Html::rawElement(
 					'a',
@@ -440,15 +453,19 @@ class Hooks implements
 					Html::element(
 						'img',
 						[
-							'src' => DOMCompat::getAttribute( $item['thumb'], 'src' ) ?:
-								DOMCompat::getAttribute( $item['thumb'], 'data-mw-src' ),
-							'srcset' => DOMCompat::getAttribute( $item['thumb'], 'srcset' ) ??
-								DOMCompat::getAttribute( $item['thumb'], 'data-mw-srcset' ) ??
-								false,
+							'src' => $deferred ? false : $src,
+							'srcset' => $deferred ? false : $srcset,
+							'data-src' => $deferred ? $src : false,
+							'data-srcset' => $deferred ? $srcset : false,
 							'width' => DOMCompat::getAttribute( $item['thumb'], 'width' ),
 							'height' => DOMCompat::getAttribute( $item['thumb'], 'height' ),
 							'alt' => DOMCompat::getAttribute( $item['thumb'], 'alt' ),
-							'class' => 'mmv-carousel__item-image',
+							// --pending renders a placeholder background until
+							// carousel.js has loaded the image.
+							'class' => [
+								'mmv-carousel__item-image',
+								'mmv-carousel__item-image--pending' => $deferred,
+							],
 							'loading' => 'lazy',
 						]
 					)
