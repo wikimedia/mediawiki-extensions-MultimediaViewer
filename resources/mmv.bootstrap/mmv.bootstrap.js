@@ -483,6 +483,13 @@ class MultimediaViewerBootstrap {
 	 */
 	findLegacyCaption( $thumbContainer, $link ) {
 		if ( !$thumbContainer.length ) {
+			// T428648: MobileFrontend's legacy-parser lazy-load placeholders
+			// sit inside figure/figcaption markup, which has no .thumb
+			// container.
+			const $figcaption = $link.closest( 'figure' ).find( 'figcaption' );
+			if ( $figcaption.length ) {
+				return $figcaption.html() || '';
+			}
 			// Infobox images are not wrapped in a .thumb container, so there is no
 			// thumbcaption to find; look for an infobox caption before giving up.
 			const infoboxCaption = this.findInfoboxCaption( $link );

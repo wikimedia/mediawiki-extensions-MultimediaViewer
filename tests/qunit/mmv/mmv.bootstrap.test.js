@@ -148,12 +148,20 @@ function createLegacyMultipleImage( images ) {
 }
 
 // Simulates the post-transform markup produced by MobileFrontend's
-// lazy-load image transform in legacy parser output (T427542)
-function createLazyImagePlaceholder( title, src ) {
+// lazy-load image transform in legacy parser output (T427542). When a
+// caption is given, the link is wrapped in the figure/figcaption
+// markup the transform operates on (T428648).
+function createLazyImagePlaceholder( title, src, caption ) {
+	let $parent = $( '#qunit-fixture' );
+	if ( caption !== undefined ) {
+		$parent = $( '<figure>' )
+			.attr( 'typeof', 'mw:File/Thumb' )
+			.appendTo( $parent );
+	}
 	const $link = $( '<a>' )
 		.addClass( 'mw-file-description' )
 		.attr( 'href', '/wiki/' + title )
-		.appendTo( '#qunit-fixture' );
+		.appendTo( $parent );
 	$( '<span>' )
 		.addClass( 'lazy-image-placeholder' )
 		.attr( 'data-mw-src', src )
@@ -161,6 +169,9 @@ function createLazyImagePlaceholder( title, src ) {
 		.attr( 'data-width', '220' )
 		.attr( 'data-height', '220' )
 		.appendTo( $link );
+	if ( caption !== undefined ) {
+		$( '<figcaption>' ).text( caption ).appendTo( $parent );
+	}
 	return $link;
 }
 
@@ -679,6 +690,25 @@ QUnit.test( 'Lazy-load placeholders are mapped to thumbs', ( assert ) => {
 		bootstrap.thumbs[ 0 ].filePageTitle.getPrefixedText(),
 		'File:Lazy.jpg',
 		'Title derived from the placeholder data-mw-src'
+	);
+} );
+
+QUnit.test( 'Lazy-load placeholders in figures get their figcaption', ( assert ) => {
+	createLazyImagePlaceholder( 'File:Lazy.jpg', '/Lazy.jpg/300px-Lazy.jpg', 'Lazy caption' );
+	createLazyImagePlaceholder( 'File:Bare.jpg', '/Bare.jpg/300px-Bare.jpg' );
+
+	const bootstrap = createBootstrap();
+
+	assert.strictEqual( bootstrap.thumbs.length, 2, 'Both placeholders registered thumbs' );
+	assert.strictEqual(
+		bootstrap.thumbs[ 0 ].caption,
+		'Lazy caption',
+		'Caption taken from the surrounding figure\'s figcaption (T428648)'
+	);
+	assert.strictEqual(
+		bootstrap.thumbs[ 1 ].caption,
+		undefined,
+		'Placeholder without figure/figcaption still has no caption'
 	);
 } );
 
