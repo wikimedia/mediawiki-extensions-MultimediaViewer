@@ -25,6 +25,7 @@
 	"multimediaviewer-thumbnail-error": "Bağışlayın, faylı göstərmək mümkün olmadı",
 	"multimediaviewer-thumbnail-error-description": "Çox güman ki, texniki problem var. Davam edərsə, $1 edə bilərsiniz. Xəta: $2",
 	"multimediaviewer-thumbnail-error-retry": "yenidən cəhd et",
+	"multimediaviewer-thumbnail-error-refresh-button": "Yenilə",
 	"multimediaviewer-license-cc-pd": "İctimai mülkiyyət",
 	"multimediaviewer-license-pd": "İctimai mülkiyyət",
 	"multimediaviewer-license-default": "Lisenziyaya bax",
@@ -109,6 +110,7 @@
 	"multimediaviewer-reuse-warning-generic": "İstifadə etməzdən əvvəl [$1 onun detallarını] yoxlayın.",
 	"multimediaviewer-attr-plain": "Sadə",
 	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media nümayişetdiricisini]</span> aktivləşdir",
+	"multimediaviewer-enable-image-carousel-pref": "Mobil saytda şəkil karuselini aktivləşdir",
 	"multimediaviewer-loading": "Media Viewer yüklənir.",
 	"multimediaviewer-beta-feature-name": "Şəkil karuseli",
 	"multimediaviewer-beta-feature-description": "Məqalənin şəkillərini mobildə səhifənin yuxarı hissəsində göstər."

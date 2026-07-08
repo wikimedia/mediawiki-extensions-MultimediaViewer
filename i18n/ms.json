@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Anakmalaysia",
+			"Hakimi97",
 			"Tofeiku"
 		]
 	},
@@ -12,5 +13,7 @@
 	"multimediaviewer-download-link": "Muat turun fail ini",
 	"multimediaviewer-view-expanded": "Buka dalam Media Viewer",
 	"multimediaviewer-copy-button": "Salin",
-	"multimediaviewer-optin-pref": "Hidupkan <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>"
+	"multimediaviewer-optin-pref": "Hidupkan <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Media Viewer]</span>",
+	"multimediaviewer-beta-feature-name": "Karusel imej",
+	"multimediaviewer-beta-feature-description": "Paparkan imej rencana di bahagian teratas laman pada peranti mudah alih."
 }

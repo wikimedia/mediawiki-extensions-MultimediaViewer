@@ -125,6 +125,7 @@
 	"multimediaviewer-attr-plain": "일반",
 	"multimediaviewer-attr-html": "HTML",
 	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About 미디어 뷰어]</span> 사용",
+	"multimediaviewer-enable-image-carousel-pref": "모바일 사이트에서의 이미지 캐러셀을 활성화",
 	"multimediaviewer-loading": "미디어 뷰어 활성화 중.",
 	"multimediaviewer-beta-feature-name": "이미지 캐러셀",
 	"multimediaviewer-beta-feature-description": "문서 이미지를 모바일 기기 페이지 상단에 표시합니다."

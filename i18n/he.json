@@ -11,6 +11,8 @@
 		]
 	},
 	"multimediaviewer-desc": "הגדלת תמונות ממוזערות במידות גדולות יותר למסך מלא",
+	"multimediaviewer-carousel-label": "תמונות בדף $1, {{PLURAL:$2|פריט אחד|$2 פריטים}}",
+	"multimediaviewer-carousel-label-article": "ערך",
 	"multimediaviewer-file-page": "מעבר אל דף הקובץ המתאים",
 	"multimediaviewer-repository-local": "פרטים נוספים",
 	"multimediaviewer-datetime-created": "נוצר: $1",
@@ -23,6 +25,7 @@
 	"multimediaviewer-thumbnail-error": "מצטערים, לא ניתן להציג את הקובץ",
 	"multimediaviewer-thumbnail-error-description": "נראה שיש בעיה טכנית. באפשרותך $1 אם היא ממשיכה. שגיאה: $2",
 	"multimediaviewer-thumbnail-error-retry": "לנסות שוב",
+	"multimediaviewer-thumbnail-error-refresh-button": "ריענון",
 	"multimediaviewer-license-cc-pd": "נחלת הכלל",
 	"multimediaviewer-license-pd": "נחלת הכלל",
 	"multimediaviewer-license-default": "הצגת הרישיון",
@@ -111,5 +114,8 @@
 	"multimediaviewer-reuse-warning-generic": "נא לבדוק [$1 את הפרטים שלו] לפני השימוש בו.",
 	"multimediaviewer-attr-plain": "טקסט רגיל",
 	"multimediaviewer-optin-pref": "הפעלת <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About מציג המדיה]</span>",
-	"multimediaviewer-loading": "טעינת מציג מדיה."
+	"multimediaviewer-enable-image-carousel-pref": "הפעלת קרוסלת תמונות באתר הנייד",
+	"multimediaviewer-loading": "טעינת מציג מדיה.",
+	"multimediaviewer-beta-feature-name": "קרוסלת תמונות",
+	"multimediaviewer-beta-feature-description": "הצגת תמונות מהערך בראש הדף במכשירים ניידים."
 }

@@ -16,6 +16,8 @@
 		]
 	},
 	"multimediaviewer-desc": "زيادة حجم الصور المصغرة في واجهة ملء الشاشة.",
+	"multimediaviewer-carousel-label": "الصور في $1 ، $2 {{PLURAL:$2| عنصر|عناصر}}",
+	"multimediaviewer-carousel-label-article": "شرط",
 	"multimediaviewer-file-page": "الذهاب إلى الصفحة التابعة للملف",
 	"multimediaviewer-repository-local": "مزيد من التفاصيل",
 	"multimediaviewer-datetime-created": "الإنشاء: $1",
@@ -28,6 +30,7 @@
 	"multimediaviewer-thumbnail-error": "خطأ: تعذر تحميل الملف معطل",
 	"multimediaviewer-thumbnail-error-description": "يبدو أن هناك مشكلة فنية، يمكنك $1 إذا استمرت، الخطأ: $2",
 	"multimediaviewer-thumbnail-error-retry": "إعادة المحاولة",
+	"multimediaviewer-thumbnail-error-refresh-button": "ينعش",
 	"multimediaviewer-license-cc-pd": "ملكية عامة",
 	"multimediaviewer-license-pd": "ملكية عامة",
 	"multimediaviewer-license-default": "عرض الترخيص",
@@ -117,5 +120,8 @@
 	"multimediaviewer-attr-plain": "عادي",
 	"multimediaviewer-attr-html": "إتش تي إم إل",
 	"multimediaviewer-optin-pref": "تمكين <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About عارض الوسائط]</span>",
-	"multimediaviewer-loading": "جاري تحميل عارض الوسائط."
+	"multimediaviewer-enable-image-carousel-pref": "تفعيل عرض الصور المتسلسل على موقع الجوال",
+	"multimediaviewer-loading": "جاري تحميل عارض الوسائط.",
+	"multimediaviewer-beta-feature-name": "معرض الصور الدوار",
+	"multimediaviewer-beta-feature-description": "اعرض صور المقالات في أعلى الصفحة على الأجهزة المحمولة."
 }

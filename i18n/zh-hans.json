@@ -44,6 +44,7 @@
 	"multimediaviewer-thumbnail-error": "对不起，该文件无法显示",
 	"multimediaviewer-thumbnail-error-description": "似乎出现了技术问题。如果问题仍然存在，您可以$1。错误：$2",
 	"multimediaviewer-thumbnail-error-retry": "重试",
+	"multimediaviewer-thumbnail-error-refresh-button": "刷新",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",
 	"multimediaviewer-license-cc-by-sa-1.0": "CC BY-SA 1.0",
 	"multimediaviewer-license-cc-by-2.0": "CC BY 2.0",
@@ -150,7 +151,8 @@
 	"multimediaviewer-reuse-warning-generic": "使用前请检查[$1 其详情]。",
 	"multimediaviewer-attr-plain": "纯文本",
 	"multimediaviewer-optin-pref": "启用<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About 媒体文件查看器]</span>",
+	"multimediaviewer-enable-image-carousel-pref": "在移动端站点启用图像轮播",
 	"multimediaviewer-loading": "正在加载媒体查看器。",
 	"multimediaviewer-beta-feature-name": "图像轮播",
-	"multimediaviewer-beta-feature-description": "在页面顶部显示条目图像。"
+	"multimediaviewer-beta-feature-description": "在移动设备上将条目图像显示在页面顶部。"
 }

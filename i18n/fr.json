@@ -38,6 +38,7 @@
 	"multimediaviewer-thumbnail-error": "Désolé, le fichier ne peut pas être chargé.",
 	"multimediaviewer-thumbnail-error-description": "Il semble y avoir un problème technique. Vous pouvez $1 pour voir s’il persiste. Erreur : $2",
 	"multimediaviewer-thumbnail-error-retry": "essayer à nouveau",
+	"multimediaviewer-thumbnail-error-refresh-button": "Rafraîchir",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",
 	"multimediaviewer-license-cc-sa-1.0": "CC SA 1.0",
 	"multimediaviewer-license-cc-by-sa-1.0": "CC BY-SA 1.0",
@@ -147,5 +148,6 @@
 	"multimediaviewer-attr-plain": "Texte brut",
 	"multimediaviewer-attr-html": "HTML",
 	"multimediaviewer-optin-pref": "Activer la <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visionneuse de médias]</span>",
-	"multimediaviewer-loading": "Chargement de la visionneuse multimédia."
+	"multimediaviewer-loading": "Chargement de la visionneuse multimédia.",
+	"multimediaviewer-beta-feature-description": "Afficher les images des articles en haut de la page sur les appareils mobiles."
 }

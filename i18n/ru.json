@@ -14,6 +14,7 @@
 			"Ole Yves",
 			"Pacha Tchernof",
 			"Putnik",
+			"Shabe",
 			"Smigles",
 			"Stjn",
 			"Striking Blue",
@@ -24,7 +25,10 @@
 			"Yurina Tatiana"
 		]
 	},
+	"multimediaviewer-current-image-number": "$1 ⁄ $2",
 	"multimediaviewer-desc": "Раскрывает эскизы в большие изображения на весь экран.",
+	"multimediaviewer-carousel-label": "Изображения страницы «$1», $2 {{PLURAL:$2|изображение|изображения|изображений}}",
+	"multimediaviewer-carousel-label-article": "статья",
 	"multimediaviewer-file-page": "Перейти на страницу соответствующего файла",
 	"multimediaviewer-repository-local": "Подробнее",
 	"multimediaviewer-datetime-created": "Создано: $1",
@@ -38,6 +42,7 @@
 	"multimediaviewer-thumbnail-error": "Извините, файл не может быть отображён",
 	"multimediaviewer-thumbnail-error-description": "Похоже, возникла какая-то техническая проблема. Вы можете $1, если она будет повторяться. Ошибка: $2",
 	"multimediaviewer-thumbnail-error-retry": "повторить",
+	"multimediaviewer-thumbnail-error-refresh-button": "Обновить",
 	"multimediaviewer-license-cc-pd": "Общественное достояние",
 	"multimediaviewer-license-pd": "Общественное достояние",
 	"multimediaviewer-license-default": "Посмотреть лицензию",
@@ -132,5 +137,8 @@
 	"multimediaviewer-attr-plain": "Просто текст",
 	"multimediaviewer-attr-html": "HTML",
 	"multimediaviewer-optin-pref": "Включить <span class=\"plainlinks\">«[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Медиа-просмотрщик]</span>»",
-	"multimediaviewer-loading": "Загрузка средства просмотра медиафайлов."
+	"multimediaviewer-enable-image-carousel-pref": "Включить карусель изображений на мобильном сайте",
+	"multimediaviewer-loading": "Загрузка средства просмотра медиафайлов.",
+	"multimediaviewer-beta-feature-name": "Карусель изображений",
+	"multimediaviewer-beta-feature-description": "Отображает изображения статьи в верхней части страницы на мобильных устройствах."
 }

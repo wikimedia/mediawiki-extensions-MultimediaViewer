@@ -92,5 +92,7 @@
 	"multimediaviewer-reuse-warning-noattribution": "Selle faili juures puudub autoriteave.",
 	"multimediaviewer-reuse-warning-generic": "Enne selle kasutamist kontrolli [$1 selle üksikasju].",
 	"multimediaviewer-attr-plain": "Lihttekst",
-	"multimediaviewer-optin-pref": "Kasuta <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About failivaaturit]</span>"
+	"multimediaviewer-optin-pref": "Kasuta <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About failivaaturit]</span>",
+	"multimediaviewer-beta-feature-name": "Pildikarussell",
+	"multimediaviewer-beta-feature-description": "Näita mobiiliseadmes artikli pilte lehekülje ülaservas."
 }

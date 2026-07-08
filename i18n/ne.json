@@ -3,6 +3,7 @@
 		"authors": [
 			"Bada Kaji",
 			"NehalDaveND",
+			"Pratik11",
 			"पर्वत सुबेदी",
 			"बडा काजी",
 			"सरोज कुमार ढकाल",
@@ -57,5 +58,6 @@
 	"multimediaviewer-download-attribution-cta-header": "तपाईंले लेखकलाई श्रेय दिन आवश्यक छ",
 	"multimediaviewer-download-optional-attribution-cta-header": "तपाई लेखकलाई श्रेय दिन सक्नुहुन्छ",
 	"multimediaviewer-download-attribution-cta": "मलाई कसरी देखाउनुहोस्",
-	"multimediaviewer-attr-plain": "सादा"
+	"multimediaviewer-attr-plain": "सादा",
+	"multimediaviewer-enable-image-carousel-pref": "मोबाइल साइटमा छवि क्यारोसेल सक्षम गर्नुहोस्"
 }

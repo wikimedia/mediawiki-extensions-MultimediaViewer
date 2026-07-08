@@ -22,6 +22,7 @@
 	"multimediaviewer-thumbnail-error": "За жал, не можев да ја прикажам податотеката",
 	"multimediaviewer-thumbnail-error-description": "Имаме технички проблем. Можете да $1 ако упорно се јавува. Грешка: $2",
 	"multimediaviewer-thumbnail-error-retry": "пробај пак",
+	"multimediaviewer-thumbnail-error-refresh-button": "Превчитај",
 	"multimediaviewer-license-cc-by-4.0": "CC BY 4.0",
 	"multimediaviewer-license-cc-by-sa-4.0": "CC BY-SA 4.0",
 	"multimediaviewer-license-cc-pd": "Јавна сопственост",
@@ -115,6 +116,7 @@
 	"multimediaviewer-attr-plain": "Прост",
 	"multimediaviewer-attr-html": "HTML",
 	"multimediaviewer-optin-pref": "Вклучи го <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Прегледувачот]</span>",
+	"multimediaviewer-enable-image-carousel-pref": "Оневозможи го сликовртот во мобилен преглед",
 	"multimediaviewer-loading": "Го вчитувам Прегледувачот.",
 	"multimediaviewer-beta-feature-name": "Сликоврт",
 	"multimediaviewer-beta-feature-description": "Прикажувај слики од статии најгоре на страницата на мобилни уреди."
