@@ -314,12 +314,19 @@ class Canvas extends UiElement {
 	getLightboxImageWidths( image ) {
 		const thumb = image.thumbnail;
 		const canvasDimensions = this.getDimensions();
+		const originalWidth = image.originalWidth || thumb.width;
+		const originalHeight = image.originalHeight || thumb.height;
+		// SVG scales losslessly and should fill the available space. Raster images should
+		// be shown at their natural size to preserve original quality.
+		// We also have to account for WP:NFCC, where we intentionally reduce quality
+		const isVector = image.filePageTitle.getExtension().toLowerCase() === 'svg';
+		const boundingWidth = isVector ? canvasDimensions.width : Math.min( canvasDimensions.width, originalWidth );
 
 		return this.thumbnailWidthCalculator.calculateWidths(
-			canvasDimensions.width,
+			boundingWidth,
 			canvasDimensions.height,
-			image.originalWidth || thumb.width,
-			image.originalHeight || thumb.height
+			originalWidth,
+			originalHeight
 		);
 	}
 
