@@ -175,6 +175,27 @@ function createLazyImagePlaceholder( title, src, caption ) {
 	return $link;
 }
 
+// Simulates legacy multi-image template markup (e.g. {{Multiple image}})
+// around modern media DOM (T428648):
+// .thumb > .thumbinner > .tsingle > .thumbimage + .thumbcaption
+// A null caption omits the .thumbcaption for that block.
+function createTemplateThumb( images ) {
+	const $thumb = $( '<div>' ).addClass( 'thumb' ).appendTo( '#qunit-fixture' );
+	const $inner = $( '<div>' ).addClass( 'thumbinner' ).appendTo( $thumb );
+	const links = images.map( ( image ) => {
+		const $single = $( '<div>' ).addClass( 'tsingle' ).appendTo( $inner );
+		const $image = $( '<div>' ).addClass( 'thumbimage' ).appendTo( $single );
+		const $span = $( '<span>' ).attr( 'typeof', 'mw:File' ).appendTo( $image );
+		const $link = $( '<a>' ).addClass( 'mw-file-description' ).appendTo( $span );
+		$( '<img>' ).attr( 'src', image[ 0 ] ).addClass( 'mw-file-element' ).appendTo( $link );
+		if ( image[ 1 ] !== null ) {
+			$( '<div>' ).addClass( 'thumbcaption' ).text( image[ 1 ] ).appendTo( $single );
+		}
+		return $link;
+	} );
+	return { $thumb, links };
+}
+
 // Simulates a {{Infobox}} image cell: a .infobox-image <td> holding one or more
 // mw:File images and, optionally, a sibling .infobox-caption (T429839).
 function createInfoboxImage( imageSrc, caption ) {
@@ -652,6 +673,36 @@ QUnit.test( 'findCaption', ( assert ) => {
 
 	const infobox = createInfoboxImage( 'foo.jpg', 'Infobox' );
 	assert.strictEqual( bootstrap.findCaption( infobox.$link.parent(), infobox.$link ), 'Infobox', 'Infobox image caption is found.' );
+
+	const template = createTemplateThumb( [ [ 'foo.jpg', 'Template' ] ] );
+	assert.strictEqual( bootstrap.findCaption( template.links[ 0 ].parent(), template.links[ 0 ] ), 'Template', 'Multi-image template caption is found.' );
+} );
+
+QUnit.test( 'findTemplateCaption (T428648)', ( assert ) => {
+	const bootstrap = createBootstrap();
+
+	const multi = createTemplateThumb( [
+		[ 'foo.jpg', 'First caption' ],
+		[ 'bar.jpg', 'Second caption' ]
+	] );
+	assert.strictEqual( bootstrap.findTemplateCaption( multi.links[ 0 ] ), 'First caption', 'The first image gets its own caption.' );
+	assert.strictEqual( bootstrap.findTemplateCaption( multi.links[ 1 ] ), 'Second caption', 'The second image gets its own caption.' );
+
+	const uncaptioned = createTemplateThumb( [ [ 'foo.jpg', null ] ] );
+	assert.strictEqual( bootstrap.findTemplateCaption( uncaptioned.links[ 0 ] ), undefined, 'A caption-less block returns nothing.' );
+
+	// Single-image guard: two images sharing a block with one caption is
+	// ambiguous, so no caption is attached.
+	const shared = createTemplateThumb( [ [ 'light.png', 'Shared caption' ] ] );
+	const $sharedSpan = $( '<span>' ).attr( 'typeof', 'mw:File' )
+		.appendTo( shared.links[ 0 ].closest( '.thumbimage' ) );
+	$( '<a>' ).addClass( 'mw-file-description' )
+		.append( $( '<img>' ).attr( 'src', 'dark.png' ) )
+		.appendTo( $sharedSpan );
+	assert.strictEqual( bootstrap.findTemplateCaption( shared.links[ 0 ] ), undefined, 'A block with multiple images does not share a caption.' );
+
+	const $inline = createInlineImage( 'foo.jpg', 'title' );
+	assert.strictEqual( bootstrap.findTemplateCaption( $inline.children().first() ), undefined, 'An image outside any .thumb wrapper returns nothing.' );
 } );
 
 QUnit.test( 'findInfoboxCaption (T429839)', ( assert ) => {

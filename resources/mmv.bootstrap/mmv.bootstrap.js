@@ -503,6 +503,11 @@ class MultimediaViewerBootstrap {
 			return infoboxCaption;
 		}
 
+		const templateCaption = this.findTemplateCaption( $link );
+		if ( templateCaption !== undefined ) {
+			return templateCaption;
+		}
+
 		return $link.prop( 'title' ) || undefined;
 	}
 
@@ -581,6 +586,40 @@ class MultimediaViewerBootstrap {
 
 		const $caption = $cell.find( '.infobox-caption' );
 		if ( $caption.length !== 1 ) {
+			return undefined;
+		}
+
+		return $caption.html() || undefined;
+	}
+
+	/**
+	 * Finds the caption for an image wrapped in legacy template markup:
+	 * .thumb/.tsingle/.thumbcaption divs around modern media DOM, as
+	 * emitted by e.g. {{Multiple image}} (T428648).
+	 *
+	 * As with findInfoboxCaption(), only return a caption when the nearest
+	 * caption-bearing scope (e.g. the image's own .tsingle block) holds
+	 * exactly one image and one caption; a shared scope is ambiguous and
+	 * we prefer no caption to a possibly-wrong one.
+	 *
+	 * @param {jQuery} $link The link (a.mw-file-description / a.image) around the image
+	 * @return {string|undefined} Unsafe HTML may be present - caution
+	 */
+	findTemplateCaption( $link ) {
+		const $thumb = $link.closest( '.thumb' );
+		if ( !$thumb.length ) {
+			return undefined;
+		}
+
+		let $scope = $link.parent();
+		while ( !$scope.children( '.thumbcaption' ).length && !$scope.is( $thumb ) ) {
+			$scope = $scope.parent();
+		}
+
+		const $caption = $scope.children( '.thumbcaption' );
+		if ( $caption.length !== 1 ||
+			$scope.find( 'a.mw-file-description, a.image' ).length !== 1
+		) {
 			return undefined;
 		}
 
