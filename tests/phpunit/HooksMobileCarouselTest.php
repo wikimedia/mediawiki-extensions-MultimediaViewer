@@ -616,15 +616,40 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			'src="//upload.wikimedia.org/wikipedia/commons/thumb/1/10/Cat.jpg/120px-Cat.jpg"',
 			$html
 		);
-		$this->assertStringContainsString(
-			'srcset="//upload.wikimedia.org/wikipedia/commons/thumb/1/10/Cat.jpg/240px-Cat.jpg 2x"',
-			$html
-		);
 		$this->assertStringContainsString( 'width="120"', $html );
 		$this->assertStringContainsString( 'height="90"', $html );
 		$this->assertStringContainsString( 'alt="A cat"', $html );
 		$this->assertStringContainsString( 'class="mmv-carousel__item-image"', $html );
 		$this->assertStringContainsString( 'loading="lazy"', $html );
+	}
+
+	public function testBuildCarouselItemsRendersItemFromRepo(): void {
+		$mockThumb = $this->createMock( \MediaWiki\Media\MediaTransformOutput::class );
+		$mockThumb->method( 'isError' )->willReturn( false );
+		$mockThumb->method( 'getUrl' )->willReturn( '//example.com/250px-Cat.jpg' );
+		$mockThumb->method( 'getWidth' )->willReturn( 250 );
+		$mockThumb->method( 'getHeight' )->willReturn( 188 );
+
+		$mockFile = $this->createMock( \MediaWiki\FileRepo\File\File::class );
+		$mockFile->method( 'transform' )->willReturn( $mockThumb );
+
+		$mockRepoGroup = $this->createMock( \MediaWiki\FileRepo\RepoGroup::class );
+		$mockRepoGroup->method( 'findFile' )->willReturn( $mockFile );
+
+		$this->setService( 'RepoGroup', $mockRepoGroup );
+
+		$html = $this->buildCarouselItemsHtml( [
+			self::makeFakeThumbData( 'Cat.jpg', 'A cat' ),
+		] );
+
+		$this->assertStringContainsString( 'class="mmv-carousel__item"', $html );
+		$this->assertStringContainsString( 'href="/wiki/File:Cat.jpg"', $html );
+		$this->assertStringContainsString(
+			'src="//example.com/250px-Cat.jpg"',
+			$html
+		);
+		$this->assertStringContainsString( 'width="250"', $html );
+		$this->assertStringContainsString( 'height="188"', $html );
 	}
 
 	public function testBuildCarouselItemsDefersImagesBeyondEagerCount(): void {
@@ -645,14 +670,14 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			$this->assertFalse( $img->hasAttribute( 'data-src' ) );
 		}
 
-		// The rest carry data-src/data-srcset for carousel.js to load,
+		// The rest carry data-src for carousel.js to load,
 		// keep their dimensions so the tile box stays stable, and start
 		// out in the pending (placeholder) state.
 		foreach ( array_slice( $images, 6 ) as $img ) {
 			$this->assertFalse( $img->hasAttribute( 'src' ) );
 			$this->assertFalse( $img->hasAttribute( 'srcset' ) );
 			$this->assertTrue( $img->hasAttribute( 'data-src' ) );
-			$this->assertTrue( $img->hasAttribute( 'data-srcset' ) );
+			$this->assertFalse( $img->hasAttribute( 'data-srcset' ) );
 			$this->assertSame( '120', DOMCompat::getAttribute( $img, 'width' ) );
 			$this->assertStringContainsString( '--pending', DOMCompat::getAttribute( $img, 'class' ) );
 		}

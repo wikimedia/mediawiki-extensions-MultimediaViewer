@@ -73,6 +73,9 @@ class Hooks implements
 	// are deferred (data-src) and loaded by carousel.js as they approach the
 	// visible area; six fills the initial view even at desktop widths.
 	private const CAROUSEL_EAGER_IMAGES = 6;
+	// Width for carousel tile images (tiles render at ~175px CSS).
+	// These should be kept in sync with https://www.mediawiki.org/wiki/Manual:$wgThumbnailSteps
+	private const CAROUSEL_THUMB_WIDTH = 250;
 	// Page property that represents the __NOMEDIAVIEWERCAROUSEL__ magic word / behavior switch.
 	// When `__NOMEDIAVIEWERCAROUSEL__` is in the page content,
 	// the `nomediaviewercarousel` page property is set during parse.
@@ -428,11 +431,23 @@ class Hooks implements
 			// Items beyond the first few defer their image loading to
 			// carousel.js (see the IntersectionObserver there for rationale).
 			$deferred = $i >= self::CAROUSEL_EAGER_IMAGES;
-			$src = DOMCompat::getAttribute( $item['thumb'], 'src' ) ?:
-				DOMCompat::getAttribute( $item['thumb'], 'data-mw-src' );
-			$srcset = DOMCompat::getAttribute( $item['thumb'], 'srcset' ) ??
-				DOMCompat::getAttribute( $item['thumb'], 'data-mw-srcset' ) ??
-				false;
+
+			// Use thumbnail sizes suited to the carousel's own display size
+			// rather than whatever sizes the article happened to use.
+			$file = $this->repoGroup->findFile( $item['title'] );
+			$thumb = $file ? $file->transform( [ 'width' => self::CAROUSEL_THUMB_WIDTH ] ) : null;
+
+			if ( $thumb && !$thumb->isError() ) {
+				$src = $thumb->getUrl();
+				$width = $thumb->getWidth();
+				$height = $thumb->getHeight();
+			} else {
+				// Fallback to the original attributes from the DOM element
+				$src = DOMCompat::getAttribute( $item['thumb'], 'src' ) ?:
+					DOMCompat::getAttribute( $item['thumb'], 'data-mw-src' );
+				$width = DOMCompat::getAttribute( $item['thumb'], 'width' );
+				$height = DOMCompat::getAttribute( $item['thumb'], 'height' );
+			}
 
 			$html .= Html::rawElement(
 				'li',
@@ -454,11 +469,9 @@ class Hooks implements
 						'img',
 						[
 							'src' => $deferred ? false : $src,
-							'srcset' => $deferred ? false : $srcset,
 							'data-src' => $deferred ? $src : false,
-							'data-srcset' => $deferred ? $srcset : false,
-							'width' => DOMCompat::getAttribute( $item['thumb'], 'width' ),
-							'height' => DOMCompat::getAttribute( $item['thumb'], 'height' ),
+							'width' => $width,
+							'height' => $height,
 							'alt' => DOMCompat::getAttribute( $item['thumb'], 'alt' ),
 							// --pending renders a placeholder background until
 							// carousel.js has loaded the image.
