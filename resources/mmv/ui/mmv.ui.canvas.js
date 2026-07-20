@@ -15,7 +15,7 @@
  * along with MediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { HtmlUtils, ThumbnailWidthCalculator } = require( 'mmv.common' );
+const { ThumbnailWidthCalculator } = require( 'mmv.common' );
 const UiElement = require( './mmv.ui.js' );
 
 /**
@@ -83,7 +83,7 @@ class Canvas extends UiElement {
 	 * Clears everything.
 	 */
 	empty() {
-		this.$imageDiv.addClass( 'empty' ).removeClass( 'error' );
+		this.$imageDiv.addClass( 'empty' );
 
 		this.$imageDiv.empty();
 	}
@@ -255,36 +255,6 @@ class Canvas extends UiElement {
 		$imagePlaceholder.width( targetWidth );
 		$imagePlaceholder.height( targetHeight );
 		this.set( this.imageRawMetadata, $imagePlaceholder );
-	}
-
-	/**
-	 * Displays a message and error icon when loading the image fails.
-	 *
-	 * @param {string} error error message
-	 */
-	showError( error ) {
-		const $retryLink = $( '<a>' ).addClass( 'mw-mmv-retry-link' ).text(
-			mw.msg( 'multimediaviewer-thumbnail-error-retry' ) );
-
-		this.$imageDiv.empty()
-			.addClass( 'error' )
-			.append(
-				$( '<div>' ).addClass( 'error-box' ).append(
-					$( '<div>' ).addClass( 'mw-mmv-error-text' ).text(
-						mw.msg( 'multimediaviewer-thumbnail-error' )
-					)
-				).append(
-					$( '<div>' ).addClass( 'mw-mmv-error-description' ).append(
-						mw.msg( 'multimediaviewer-thumbnail-error-description',
-							HtmlUtils.jqueryToHtml( $retryLink ),
-							error
-						)
-					)
-				)
-			);
-		this.$imageDiv.find( '.mw-mmv-retry-link' ).on( 'click', () => {
-			location.reload();
-		} );
 	}
 
 	/**

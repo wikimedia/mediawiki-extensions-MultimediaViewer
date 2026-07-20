@@ -36,13 +36,7 @@ QUnit.test( 'New image loaded while another one is loading', async function ( as
 		setupForLoad: function () {},
 		canvas: {
 			set: function () {},
-			showError: function () {},
-			getCurrentImageWidths: function () {
-				return { real: 0 };
-			},
-			getDimensions: function () {
-				return {};
-			}
+			maybeDisplayPlaceholder: function () {}
 		},
 		panel: {
 			setImageInfo: this.sandbox.stub(),

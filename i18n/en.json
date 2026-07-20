@@ -19,8 +19,6 @@
 	"multimediaviewer-metadata-error": "Could not load image details (error: $1)",
 	"multimediaviewer-file-not-found-error": "Sorry, the file $1 cannot be displayed since it is not present on the current page.",
 	"multimediaviewer-thumbnail-error": "Sorry, the file cannot be displayed",
-	"multimediaviewer-thumbnail-error-description": "There seems to be a technical issue. You can $1 if it persists. Error: $2",
-	"multimediaviewer-thumbnail-error-retry": "retry",
 	"multimediaviewer-thumbnail-error-refresh-button": "Refresh",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",
 	"multimediaviewer-license-cc-sa-1.0": "CC SA 1.0",
