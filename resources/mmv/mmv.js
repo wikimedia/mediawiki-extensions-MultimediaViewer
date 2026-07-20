@@ -111,7 +111,7 @@ class MultimediaViewer {
 		const image = this.thumbs[ this.currentIndex ];
 
 		if ( image ) {
-			const imageInfoPromise = this.fetchImageInfo( image.filePageTitle );
+			const imageInfoPromise = this.fetchImageInfo( image );
 			imageInfoPromise.then( ( imageInfo ) => {
 				this.displayRealThumbnail( imageInfo );
 			} );
@@ -164,7 +164,7 @@ class MultimediaViewer {
 		this.preloadImagesMetadata();
 		this.ui.canvas.set( image, $initialImage );
 
-		const imageInfoPromise = this.fetchImageInfo( image.filePageTitle );
+		const imageInfoPromise = this.fetchImageInfo( image );
 
 		this.displayPlaceholderThumbnail( image, $initialImage );
 
@@ -287,7 +287,7 @@ class MultimediaViewer {
 				// business, so we make a sense check
 				throw new Error( 'MediaViewer internal error: displayPlaceholderThumbnail recursion' );
 			}
-			this.imageInfoProvider.get( image.filePageTitle ).then( ( imageInfo ) => {
+			this.fetchImageInfo( image ).then( ( imageInfo ) => {
 				// Make sure the user has not navigated away while we were waiting for the size
 				if ( this.currentIndex === image.index ) {
 					image.originalWidth = imageInfo.width;
@@ -308,7 +308,7 @@ class MultimediaViewer {
 		const next = this.currentIndex + 1;
 		[ current, next ].filter( ( i ) => i < this.thumbs.length ).forEach( ( i ) => {
 			const lightboxImage = this.thumbs[ i ];
-			this.fetchImageInfo( lightboxImage.filePageTitle );
+			this.fetchImageInfo( lightboxImage );
 		} );
 	}
 
@@ -316,11 +316,14 @@ class MultimediaViewer {
 	 * Loads all the size-independent information needed by the lightbox (image metadata, repo
 	 * information).
 	 *
-	 * @param {mw.Title} fileTitle Title of the file page for the image.
+	 * @param {LightboxImage} image
 	 * @return {jQuery.Promise.<ImageModel>}
 	 */
-	fetchImageInfo( fileTitle ) {
-		return this.imageInfoProvider.get( fileTitle );
+	fetchImageInfo( image ) {
+		// Pass the handler-specific parameter (multilingual SVG `lang`, PDF `page`) so the
+		// API renders the thumbnail URLs as the same variant.
+		const urlParam = image.getUrlParam();
+		return this.imageInfoProvider.get( image.filePageTitle, urlParam ? urlParam.urlParam : undefined );
 	}
 
 	/**
@@ -461,7 +464,7 @@ class MultimediaViewer {
 		} ).on( 'mmv-resize-end.mmvp', () => {
 			this.resize();
 		} ).on( 'mmv-viewfile.mmvp', () => {
-			this.imageInfoProvider.get( this.currentImage.filePageTitle ).then( ( imageInfo ) => {
+			this.fetchImageInfo( this.currentImage ).then( ( imageInfo ) => {
 				document.location = imageInfo.url;
 			} );
 		} );

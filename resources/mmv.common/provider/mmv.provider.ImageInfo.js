@@ -88,15 +88,24 @@ class ImageInfo extends Api {
 	 * Runs an API GET request to get the image info.
 	 *
 	 * @param {mw.Title} file
+	 * @param {string} [iiurlparam] handler-specific parameter string (e.g. `langde-800px`
+	 *  for a multilingual SVG or `page2-800px` for a PDF page). When set, the returned
+	 *  thumbnail URLs ({@link ImageModel#thumburls}) are rendered as the same variant.
 	 * @return {jQuery.Promise} a promise which resolves to an Image object.
 	 */
-	get( file ) {
-		return this.getCachedPromise( file.getPrefixedDb(), () => this.apiGetWithMaxAge( {
+	get( file, iiurlparam ) {
+		// Keep the plain title as the cache key when no handler parameter is set, so
+		// invalidate() (which is keyed by title alone) keeps working for the common case.
+		const cacheKey = iiurlparam ?
+			[ file.getPrefixedDb(), iiurlparam ].join() :
+			file.getPrefixedDb();
+		return this.getCachedPromise( cacheKey, () => this.apiGetWithMaxAge( {
 			formatversion: 2,
 			action: 'query',
 			prop: 'imageinfo',
 			titles: file.getPrefixedDb(),
 			iiprop: this.iiprop,
+			iiurlparam,
 			iiextmetadatafilter: this.iiextmetadatafilter,
 			iiextmetadatalanguage: this.options.language,
 			uselang: 'content'

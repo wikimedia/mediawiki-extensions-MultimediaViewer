@@ -111,7 +111,8 @@ QUnit.test( 'Events are not trapped after the viewer is closed', function ( asse
 	viewer.loadImage(
 		{
 			filePageTitle: new mw.Title( 'File:Stuff.jpg' ),
-			thumbnail: new Image( 10, 10 )
+			thumbnail: new Image( 10, 10 ),
+			getUrlParam: () => null
 		},
 		new Image()
 	);

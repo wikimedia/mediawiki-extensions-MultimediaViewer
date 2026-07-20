@@ -91,6 +91,20 @@ class LightboxImage {
 		 */
 		this.originalHeight = parseInt( $( thumb ).attr( 'data-file-height' ), 10 );
 	}
+
+	/**
+	 * Parses the handler-specific thumbnail parameter (multilingual SVG `lang` or PDF `page`)
+	 * from the sample thumbnail URL, if present.
+	 *
+	 * @return {{name: string, value: string, urlParam: string}|null} `name`/`value` are the
+	 *  handler parameter (e.g. `lang`/`de`), `urlParam` is the width-less `iiurlparam` string
+	 *  (e.g. `langde`).
+	 */
+	getUrlParam() {
+		// The trailing `-<n>px` width only anchors the match; it is dropped from `urlParam`.
+		const match = this.src && this.src.match( /(lang|page)([\d\-a-z]+)-\d+px/ ); // multi lingual SVG or PDF page
+		return match ? { name: match[ 1 ], value: match[ 2 ], urlParam: match[ 1 ] + match[ 2 ] } : null;
+	}
 }
 
 module.exports = LightboxImage;

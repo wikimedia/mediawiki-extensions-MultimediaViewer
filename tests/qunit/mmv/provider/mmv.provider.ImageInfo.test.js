@@ -334,3 +334,40 @@ QUnit.test( 'ImageInfo invalidate evicts the cache so a failed request can be re
 		'the retried request resolves successfully'
 	);
 } );
+
+QUnit.test( 'ImageInfo passes iiurlparam and caches per handler parameter', async ( assert ) => {
+	const calls = [];
+	const api = { get: function ( params ) {
+		calls.push( params );
+		return $.Deferred().resolve( {
+			query: {
+				pages: [ {
+					ns: 6,
+					title: 'File:Stuff.svg',
+					imageinfo: [ {
+						url: 'https://upload.wikimedia.org/wikipedia/commons/1/19/Stuff.svg',
+						extmetadata: {}
+					} ]
+				} ]
+			}
+		} );
+	} };
+	const file = new mw.Title( 'File:Stuff.svg' );
+	const imageInfoProvider = new ImageInfo( api );
+
+	await imageInfoProvider.get( file, 'langde' );
+	assert.strictEqual( calls[ 0 ].iiurlparam, 'langde', 'iiurlparam is passed to the API' );
+
+	// A different handler parameter is a distinct request, not a cache hit.
+	await imageInfoProvider.get( file, 'langfr' );
+	assert.strictEqual( calls.length, 2, 'a different iiurlparam triggers a new request' );
+
+	// The same handler parameter reuses the cached promise.
+	await imageInfoProvider.get( file, 'langde' );
+	assert.strictEqual( calls.length, 2, 'the same iiurlparam is served from cache' );
+
+	// No handler parameter is cached separately (and keyed by title alone).
+	await imageInfoProvider.get( file );
+	assert.strictEqual( calls.length, 3, 'the parameterless request is cached separately' );
+	assert.strictEqual( calls[ 2 ].iiurlparam, undefined, 'no iiurlparam is sent when none is given' );
+} );
