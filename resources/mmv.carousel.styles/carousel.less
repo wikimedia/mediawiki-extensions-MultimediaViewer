@@ -18,7 +18,6 @@
 		// we then find none of the images are visible, will collapse)
 		margin-top: @spacing-50;
 		margin-bottom: @space-placeholder-scrollbar + @spacing-50;
-		border-bottom: @border-width-base @border-style-base @border-color-subtle;
 	}
 
 	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
@@ -48,8 +47,14 @@
 		}
 
 		&-link {
-			display: block;
-			height: @size-full;
+			display: flex;
+			height: @height-carousel;
+			width: auto;
+			aspect-ratio: 105/104;
+			flex-direction: column;
+			border: @border-subtle;
+			border-radius: @border-radius-base;
+			overflow: hidden;
 
 			/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 			&:focus-visible {
@@ -64,7 +69,7 @@
 		}
 
 		img.mmv-carousel__item-image {
-			width: auto;
+			flex: 1;
 			object-fit: cover;
 			// Bias the crop towards the top of the image. With a near-square
 			// tile, only taller-than-tile (portrait) images have vertical
@@ -72,15 +77,29 @@
 			// head, near the top) instead of clipping it. Landscape images have
 			// no vertical overflow, so this is a no-op for them.
 			object-position: center top;
-			border-radius: @border-radius-base;
-			border: @border-subtle;
-			aspect-ratio: 105/104;
 			box-sizing: border-box;
+			width: 100%;
 			// !important to override minerva style
+			/* stylelint-disable-next-line declaration-no-important */
+			height: 100% !important;
+		}
+
+		&-caption {
+			color: @color-base;
+			padding: 0;
 			/* stylelint-disable declaration-no-important */
-			height: @height-carousel !important;
-			max-width: unset !important;
+			margin: @spacing-50 !important;
+			font-size: @font-size-small !important;
 			/* stylelint-enable declaration-no-important */
+			line-height: @line-height-x-small;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2; // Truncate after 2 lines
+			overflow: hidden;
+
+			&:empty {
+				display: none;
+			}
 		}
 	}
 

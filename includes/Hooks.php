@@ -389,8 +389,11 @@ class Hooks implements
 				continue;
 			}
 
+			$caption = $thumbExtractor->extractCaptionFromAnchorElement( $anchor, $body );
+
 			$carouselItems[$prefixedText] = [
 				'title' => $title,
+				'caption' => $caption,
 				'thumb' => $thumb,
 			];
 		}
@@ -481,7 +484,12 @@ class Hooks implements
 							],
 							'loading' => 'lazy',
 						]
-					)
+					) .
+					( isset( $item['caption'] ) ? Html::element(
+						'p',
+						[ 'class' => [ 'mmv-carousel__item-caption' ] ],
+						$item['caption']
+					) : '' )
 				)
 			);
 		}

@@ -483,18 +483,23 @@ class MultimediaViewerBootstrap {
 	 */
 	findCaption( $thumbContainer, $link ) {
 		if ( ( $thumbContainer.prop( 'tagName' ) || '' ).toLowerCase() === 'figure' ) {
-			return $thumbContainer.find( 'figcaption' ).html() || '';
+			const figCaption = $thumbContainer.find( 'figcaption' ).html() || '';
+			if ( figCaption ) {
+				return figCaption;
+			}
 		}
 
 		// Span might be nested in gallery
 		const $galleryCaption = this.findGalleryCaption( $thumbContainer );
-
 		if ( $galleryCaption.length ) {
-			return $galleryCaption.html() || '';
+			const galleryCaption = $galleryCaption.html() || '';
+			if ( galleryCaption ) {
+				return galleryCaption;
+			}
 		}
 
 		const infoboxCaption = this.findInfoboxCaption( $link );
-		if ( infoboxCaption !== undefined ) {
+		if ( infoboxCaption ) {
 			return infoboxCaption;
 		}
 
@@ -515,12 +520,15 @@ class MultimediaViewerBootstrap {
 			// container.
 			const $figcaption = $link.closest( 'figure' ).find( 'figcaption' );
 			if ( $figcaption.length ) {
-				return $figcaption.html() || '';
+				const figCaption = $figcaption.html() || '';
+				if ( figCaption ) {
+					return figCaption;
+				}
 			}
 			// Infobox images are not wrapped in a .thumb container, so there is no
 			// thumbcaption to find; look for an infobox caption before giving up.
 			const infoboxCaption = this.findInfoboxCaption( $link );
-			if ( infoboxCaption !== undefined ) {
+			if ( infoboxCaption ) {
 				return infoboxCaption;
 			}
 			return $link.prop( 'title' ) || undefined;
