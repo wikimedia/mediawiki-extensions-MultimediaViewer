@@ -274,6 +274,25 @@ class MultimediaViewerBootstrap {
 	}
 
 	/**
+	 * Checks whether a thumbnail depicts an old (archived) version of a file rather
+	 * than its current version, e.g. the entries on Special:ListFiles?ilshowall=1.
+	 *
+	 * Old versions live in the "/archive/" upload zone and encode the upload
+	 * timestamp in the path as "<timestamp>!<name>". Media Viewer can only display
+	 * the current version of a file (that is all the imageinfo API returns), and
+	 * mw.Title.newFromImg() cannot even parse these URLs correctly, so we leave such
+	 * thumbnails alone: the click is not hijacked and the link keeps its normal
+	 * behaviour (navigating to the old version) instead of showing the wrong image
+	 * or a misleading error.
+	 *
+	 * @param {string} src Thumbnail URL
+	 * @return {boolean}
+	 */
+	isOldFileVersionThumb( src ) {
+		return src.includes( '/archive/' );
+	}
+
+	/**
 	 * Preload JS/CSS when the mouse cursor hovers the thumb container
 	 * (thumb image + caption + border)
 	 *
@@ -341,6 +360,10 @@ class MultimediaViewerBootstrap {
 			return;
 		}
 
+		if ( !isFilePageMainThumb && this.isOldFileVersionThumb( $thumb.prop( 'currentSrc' ) || $thumb.prop( 'src' ) ) ) {
+			return;
+		}
+
 		if ( $thumbContainer.length ) {
 			this.preloadAssets( $thumbContainer );
 		}
@@ -391,6 +414,10 @@ class MultimediaViewerBootstrap {
 		}
 
 		if ( !this.isAllowedThumb( $thumb ) ) {
+			return;
+		}
+
+		if ( this.isOldFileVersionThumb( $thumb.prop( 'currentSrc' ) || $thumb.prop( 'src' ) ) ) {
 			return;
 		}
 

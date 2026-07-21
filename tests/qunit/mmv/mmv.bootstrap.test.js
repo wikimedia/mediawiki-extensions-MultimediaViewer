@@ -584,6 +584,42 @@ QUnit.test( 'isAllowedThumb', ( assert ) => {
 	assert.strictEqual( bootstrap.isAllowedThumb( $thumb ), false, 'Image with a noviewer class is disallowed.' );
 } );
 
+QUnit.test( 'isOldFileVersionThumb', ( assert ) => {
+	const bootstrap = createBootstrap();
+
+	assert.strictEqual(
+		bootstrap.isOldFileVersionThumb( 'https://upload.wikimedia.org/wikipedia/commons/thumb/archive/f/f2/20240406194541%21Silk_loom.jpg/250px-Silk_loom.jpg' ),
+		true,
+		'An archived (old version) thumbnail is recognized.'
+	);
+	assert.strictEqual(
+		bootstrap.isOldFileVersionThumb( 'https://upload.wikimedia.org/wikipedia/commons/archive/f/f2/20240406194541%21Silk_loom.jpg' ),
+		true,
+		'An archived (old version) full-size image is recognized.'
+	);
+	assert.strictEqual(
+		bootstrap.isOldFileVersionThumb( 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Silk_loom.jpg/250px-Silk_loom.jpg' ),
+		false,
+		'A current thumbnail is not treated as an old version.'
+	);
+	assert.strictEqual(
+		bootstrap.isOldFileVersionThumb( 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Archive.jpg/250px-Archive.jpg' ),
+		false,
+		'A current file named "Archive" is not treated as an old version.'
+	);
+} );
+
+QUnit.test( 'Skip old file version thumbnails', ( assert ) => {
+	const viewer = getMultimediaViewer();
+	createLegacyThumb( 'https://upload.wikimedia.org/wikipedia/commons/thumb/archive/f/f2/20240406194541%21Silk_loom.jpg/250px-Silk_loom.jpg' );
+	createLegacyThumb( 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Silk_loom.jpg/250px-Silk_loom.jpg' );
+
+	const bootstrap = createBootstrap( viewer );
+
+	assert.strictEqual( bootstrap.thumbs.length, 1, 'Only the current version thumbnail is registered.' );
+	assert.strictEqual( bootstrap.thumbs[ 0 ].filePageTitle.getPrefixedText(), 'File:Silk loom.jpg', 'The registered thumbnail is the current version.' );
+} );
+
 QUnit.test( 'findLegacyCaption', ( assert ) => {
 	const gallery = createLegacyGallery( 'foo.jpg', 'Baz' );
 	const thumb = createLegacyThumb( 'foo.jpg', 'Quuuuux' );
