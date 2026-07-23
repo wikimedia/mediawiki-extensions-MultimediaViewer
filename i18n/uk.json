@@ -140,6 +140,7 @@
 	"multimediaviewer-attr-plain": "Простий текст",
 	"multimediaviewer-attr-html": "HTML",
 	"multimediaviewer-optin-pref": "Увімкнути <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Медіапереглядач]</span>",
+	"multimediaviewer-enable-image-carousel-pref": "Увімкнути карусель зображень на мобільному сайті",
 	"multimediaviewer-loading": "Завантаження Медіапереглядача.",
 	"multimediaviewer-beta-feature-name": "Карусель зображень",
 	"multimediaviewer-beta-feature-description": "Показувати зображення статті у верхній частині сторінки на мобільних пристроях."
