@@ -107,7 +107,7 @@ class Embed extends UiElement {
 		// Html sizes pulldown menu
 		this.$embedSizeSwitchHtml = Utils.createSelectMenu(
 			[ 'small', 'medium', 'large', 'original' ],
-			'original'
+			'medium'
 		);
 
 		$( '<div>' ).addClass( 'mw-mmv-flex mw-mmv-mb-75' ).append(
@@ -144,8 +144,16 @@ class Embed extends UiElement {
 	handleSizeSwitch() {
 		// eslint-disable-next-line no-jquery/no-sizzle
 		const $html = this.$embedSizeSwitchHtml.find( ':selected' );
-		if ( $html.length ) {
-			this.updateEmbedHtml( {}, $html.data( 'width' ), $html.data( 'height' ) );
+		if ( $html.length && this.embedFileInfo ) {
+			const name = $html.data( 'name' );
+			const width = $html.data( 'width' );
+			const height = $html.data( 'height' );
+
+			const thumbnail = ( name === 'original' ) ?
+				{ url: this.embedFileInfo.imageInfo.url } :
+				{ url: this.embedFileInfo.imageInfo.getThumbnailUrl( width ) };
+
+			this.updateEmbedHtml( thumbnail, width, height );
 		}
 		// eslint-disable-next-line no-jquery/no-sizzle
 		const $wikitext = this.$embedSizeSwitchWikitext.find( ':selected' );
@@ -177,7 +185,14 @@ class Embed extends UiElement {
 	 */
 	resetCurrentSizeMenuToDefault() {
 		this.$embedSizeSwitchWikitext.val( 'default' );
-		this.$embedSizeSwitchHtml.val( 'original' );
+		this.$embedSizeSwitchHtml.val( 'medium' );
+		const selectEl = this.$embedSizeSwitchHtml[ 0 ];
+		if ( selectEl && selectEl.selectedOptions && selectEl.selectedOptions[ 0 ] && selectEl.selectedOptions[ 0 ].disabled ) {
+			const enabledOpt = Array.from( selectEl.options ).find( ( opt ) => !opt.disabled );
+			if ( enabledOpt ) {
+				this.$embedSizeSwitchHtml.val( enabledOpt.value );
+			}
+		}
 		this.handleSizeSwitch();
 	}
 
@@ -195,12 +210,7 @@ class Embed extends UiElement {
 			return;
 		}
 
-		let src = thumbnail.url || this.embedFileInfo.imageInfo.url;
-
-		// If the image dimension requested are "large", use the current image url
-		if ( width > Embed.LARGE_IMAGE_WIDTH_THRESHOLD || height > Embed.LARGE_IMAGE_HEIGHT_THRESHOLD ) {
-			src = this.embedFileInfo.imageInfo.url;
-		}
+		const src = ( thumbnail && thumbnail.url ) || this.embedFileInfo.imageInfo.url;
 
 		this.$embedTextHtml.val(
 			this.formatter.getThumbnailHtml( this.embedFileInfo, src, width, height )
@@ -264,10 +274,6 @@ class Embed extends UiElement {
 
 		// Reset defaults
 		this.resetCurrentSizeMenuToDefault();
-
-		this.updateEmbedHtml( {
-			url: imageInfo.getThumbnailUrl( Embed.LARGE_IMAGE_WIDTH_THRESHOLD )
-		} );
 	}
 
 	/**

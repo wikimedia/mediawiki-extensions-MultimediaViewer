@@ -60,16 +60,21 @@ QUnit.test( 'handleSizeSwitch(): Skip if no item selected.', ( assert ) => {
 
 QUnit.test( 'handleSizeSwitch(): HTML/Wikitext size menu item selected.', ( assert ) => {
 	const embed = new Embed( $qf );
+	const url = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
+	const imageInfo = makeImage( { url } );
+	embed.embedFileInfo = { imageInfo };
+
 	const width = '10';
 	const height = '20';
 
 	const $option = embed.$embedSizeSwitchHtml.children().first();
+	$option.data( 'name', 'small' );
 	$option.data( 'width', width );
 	$option.data( 'height', height );
 	embed.$embedSizeSwitchHtml.val( $option.val() );
 
 	embed.updateEmbedHtml = function ( thumb, w, h ) {
-		assert.strictEqual( thumb.url, undefined, 'Empty thumbnail passed.' );
+		assert.strictEqual( thumb.url, url, 'Thumbnail URL passed.' );
 		assert.strictEqual( w, width, 'Correct width passed.' );
 		assert.strictEqual( h, height, 'Correct height passed.' );
 	};
@@ -131,7 +136,7 @@ QUnit.test( 'updateEmbedHtml():', ( assert ) => {
 		caption,
 		alt
 	};
-	let width = 10;
+	const width = 10;
 	const height = 20;
 
 	embed.resetCurrentSizeMenuToDefault = () => {};
@@ -147,17 +152,10 @@ QUnit.test( 'updateEmbedHtml():', ( assert ) => {
 	};
 	embed.updateEmbedHtml( {}, width, height );
 
-	// Small image, thumbnail info present
+	// Thumbnail info present
 	embed.formatter.getThumbnailHtml = function ( i, u ) {
 		assert.strictEqual( u, thumbUrl, 'Image src passed correctly.' );
 	};
-	embed.updateEmbedHtml( { url: thumbUrl }, width, height );
-
-	// Big image, thumbnail info present
-	embed.formatter.getThumbnailHtml = function ( i, u ) {
-		assert.strictEqual( u, url, 'Image src passed correctly.' );
-	};
-	width = 1300;
 	embed.updateEmbedHtml( { url: thumbUrl }, width, height );
 } );
 
