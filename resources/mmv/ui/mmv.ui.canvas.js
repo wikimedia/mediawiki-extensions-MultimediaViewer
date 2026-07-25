@@ -116,13 +116,14 @@ class Canvas extends UiElement {
 	 * @param {ImageModel} imageInfo thumbnail information
 	 */
 	setImageAndMaxDimensions( imageInfo ) {
+		const imageWidths = this.getCurrentImageWidths();
 		const srcset = Object.values( imageInfo.thumburls || {} )
 			.map( ( { url, width } ) => `${ url } ${ width }w` );
 
 		this.$image
 			.removeAttr( 'decoding' ) // unsetting decoding=async avoids flicker when swapping img.src
 			.attr( 'data-url', imageInfo.url )
-			.attr( 'sizes', 'auto' )
+			.attr( 'sizes', `${ imageWidths.cssWidth }px` )
 			.attr( 'srcset', srcset.join() );
 		const imageLoaded = new Promise( ( resolve ) => {
 			if ( this.$image.prop( 'complete' ) ) {
@@ -133,7 +134,6 @@ class Canvas extends UiElement {
 		} );
 		imageLoaded.then( () => {
 			if ( this.$image.attr( 'data-url' ) === imageInfo.url ) {
-				const imageWidths = this.getCurrentImageWidths();
 				this.$image.width( imageWidths.cssWidth );
 				this.$image.height( imageWidths.cssHeight );
 			}
