@@ -15,6 +15,8 @@
 		]
 	},
 	"multimediaviewer-desc": "Expandir miniaturas em tamanho maior numa interface em tela cheia",
+	"multimediaviewer-carousel-label": "Imagens em $1, $2 {{PLURAL:$2|item|itens}}",
+	"multimediaviewer-carousel-label-article": "artigo",
 	"multimediaviewer-file-page": "Ir para a página do arquivo correspondente",
 	"multimediaviewer-repository-local": "Mais detalhes",
 	"multimediaviewer-datetime-created": "Criado: $1",
@@ -28,6 +30,7 @@
 	"multimediaviewer-thumbnail-error": "Desculpe, o arquivo não pode ser exibido",
 	"multimediaviewer-thumbnail-error-description": "Parece haver um problema técnico. Pode $1, caso o problema continue. Erro: $2",
 	"multimediaviewer-thumbnail-error-retry": "tentar novamente",
+	"multimediaviewer-thumbnail-error-refresh-button": "Atualizar",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",
 	"multimediaviewer-license-cc-sa-1.0": "CC SA 1.0",
 	"multimediaviewer-license-cc-by-sa-1.0": "CC BY-SA 1.0",
@@ -137,7 +140,8 @@
 	"multimediaviewer-attr-plain": "Simples",
 	"multimediaviewer-attr-html": "HTML",
 	"multimediaviewer-optin-pref": "Ativar <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visualizador de mídia]</span>",
+	"multimediaviewer-enable-image-carousel-pref": "Ativar carrossel de imagens no site móvel",
 	"multimediaviewer-loading": "Carregando o Visualizador de Mídia.",
 	"multimediaviewer-beta-feature-name": "Carrossel de imagens",
-	"multimediaviewer-beta-feature-description": "Exibe imagens do artigo na parte superior da página."
+	"multimediaviewer-beta-feature-description": "Exibe imagens do artigo na parte superior da página em dispositivos móveis."
 }
