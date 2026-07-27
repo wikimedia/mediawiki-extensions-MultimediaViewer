@@ -1,11 +1,20 @@
 @import 'mediawiki.skin.variables.less';
 @import 'mediawiki.mixins.less';
-@height-carousel: 175px;
+
+// @margin-content will be used to break out of MinervaNeue's margins,
+// but MinervaNeue need not be an explicit dependency
+@margin-content: 0px;
+@import (optional) '../../../../skins/MinervaNeue/minerva.less/minerva.variables.less';
+
+@min-size-carousel: 172px;
+@carousel-item-gap: @spacing-35;
+// Width of the first off-screen thumbnail to show a peek of, to illustrate
+// that the carousel is a horizontally scrollable thing
+@carousel-item-peek: 15px;
 // Reserve space for the scrollbar. Scrollbar height is determined by browser
 @space-placeholder-scrollbar: @spacing-100;
 
 .mmv-carousel {
-	background: @background-color-neutral-subtle;
 	overflow: auto hidden;
 
 	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
@@ -22,18 +31,23 @@
 
 	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 	&__items {
+		background: @background-color-neutral-subtle;
+		padding: 2px;
 		display: flex;
 		align-items: center;
 		list-style: none;
 		margin: 0;
 		height: @size-full;
-		gap: @spacing-35;
+		gap: @carousel-item-gap;
 	}
 
 	&__item {
 		flex: 0 0 auto;
 		cursor: pointer;
-		height: @size-full;
+		aspect-ratio: 1;
+		min-width: @min-size-carousel;
+		max-width: 30vh;
+		width: calc( calc( 100% + @margin-content + @carousel-item-gap ) / 2 - @carousel-item-peek );
 
 		&[ data-visible='false' ] {
 			// Make sure to properly hide items where the image is not visible
@@ -48,10 +62,9 @@
 
 		&-link {
 			display: flex;
-			height: @height-carousel;
-			width: auto;
-			aspect-ratio: 105/104;
 			flex-direction: column;
+			width: @size-full;
+			height: @size-full;
 			border: @border-subtle;
 			border-radius: @border-radius-base;
 			overflow: hidden;
@@ -111,7 +124,11 @@
 }
 
 // Override Minerva styles
-.content {
+body.skin-minerva .content .mmv-carousel {
+	margin-left: -@margin-content;
+	margin-right: -@margin-content;
+	padding: 0 @margin-content;
+
 	ul.mmv-carousel__items {
 		list-style-type: none;
 		padding-left: 0;
