@@ -677,7 +677,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			$this->assertFalse( $img->hasAttribute( 'src' ) );
 			$this->assertFalse( $img->hasAttribute( 'srcset' ) );
 			$this->assertTrue( $img->hasAttribute( 'data-src' ) );
-			$this->assertFalse( $img->hasAttribute( 'data-srcset' ) );
+			$this->assertTrue( $img->hasAttribute( 'data-srcset' ) );
 			$this->assertSame( '120', DOMCompat::getAttribute( $img, 'width' ) );
 			$this->assertStringContainsString( '--pending', DOMCompat::getAttribute( $img, 'class' ) );
 		}

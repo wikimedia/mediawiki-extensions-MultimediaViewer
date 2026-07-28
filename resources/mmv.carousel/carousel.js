@@ -23,6 +23,10 @@ $( () => {
 		img.addEventListener( 'load', () => {
 			img.classList.remove( 'mmv-carousel__item-image--pending' );
 		}, { once: true } );
+		if ( img.dataset.sizes ) {
+			img.sizes = img.dataset.sizes;
+			delete img.dataset.sizes;
+		}
 		if ( img.dataset.srcset ) {
 			img.srcset = img.dataset.srcset;
 			delete img.dataset.srcset;

@@ -73,9 +73,10 @@ class Hooks implements
 	// are deferred (data-src) and loaded by carousel.js as they approach the
 	// visible area; six fills the initial view even at desktop widths.
 	private const CAROUSEL_EAGER_IMAGES = 6;
-	// Width for carousel tile images (tiles render at ~175px CSS).
-	// These should be kept in sync with https://www.mediawiki.org/wiki/Manual:$wgThumbnailSteps
-	private const CAROUSEL_THUMB_WIDTH = 250;
+	// Width for carousel tile images (tiles render at ~172px CSS).
+	// Actual thumbnail size will be the next step up from this size,
+	// based on https://www.mediawiki.org/wiki/Manual:$wgThumbnailSteps
+	private const MIN_CAROUSEL_THUMB_SIZE = 172;
 	// Page property that represents the __NOMEDIAVIEWERCAROUSEL__ magic word / behavior switch.
 	// When `__NOMEDIAVIEWERCAROUSEL__` is in the page content,
 	// the `nomediaviewercarousel` page property is set during parse.
@@ -429,27 +430,56 @@ class Hooks implements
 	 * @return string
 	 */
 	private function buildCarouselItemsHtml( array $carouselItems ): string {
+		$thumbSteps = $this->config->get( MainConfigNames::ThumbnailSteps );
+
 		$html = '';
 		foreach ( $carouselItems as $i => $item ) {
 			// Items beyond the first few defer their image loading to
 			// carousel.js (see the IntersectionObserver there for rationale).
 			$deferred = $i >= self::CAROUSEL_EAGER_IMAGES;
 
+			// Default to the original attributes from the DOM element
+			$src = DOMCompat::getAttribute( $item['thumb'], 'src' ) ?:
+				DOMCompat::getAttribute( $item['thumb'], 'data-mw-src' );
+			$width = DOMCompat::getAttribute( $item['thumb'], 'width' );
+			$height = DOMCompat::getAttribute( $item['thumb'], 'height' );
+			$srcset = DOMCompat::getAttribute( $item['thumb'], 'srcset' );
+
 			// Use thumbnail sizes suited to the carousel's own display size
 			// rather than whatever sizes the article happened to use.
 			$file = $this->repoGroup->findFile( $item['title'] );
-			$thumb = $file ? $file->transform( [ 'width' => self::CAROUSEL_THUMB_WIDTH ] ) : null;
+			if ( $file ) {
+				// Given we may be stretching vertically (in the case of landscape
+				// photos), we might need to increase the thumbnail width to ensure
+				// the photo can accommodate the requisite height
+				$width = $file->getWidth() <= $file->getHeight() ?
+					self::MIN_CAROUSEL_THUMB_SIZE :
+					(int)round( $file->getWidth() / $file->getHeight() * self::MIN_CAROUSEL_THUMB_SIZE );
 
-			if ( $thumb && !$thumb->isError() ) {
-				$src = $thumb->getUrl();
-				$width = $thumb->getWidth();
-				$height = $thumb->getHeight();
-			} else {
-				// Fallback to the original attributes from the DOM element
-				$src = DOMCompat::getAttribute( $item['thumb'], 'src' ) ?:
-					DOMCompat::getAttribute( $item['thumb'], 'data-mw-src' );
-				$width = DOMCompat::getAttribute( $item['thumb'], 'width' );
-				$height = DOMCompat::getAttribute( $item['thumb'], 'height' );
+				// Also get additional srcset sizes, both for retina screens, and for
+				// responsive images shown larger than the `self::MIN_CAROUSEL_THUMB_SIZE`
+				// minimum
+				$srcsetData = array_reduce(
+					$thumbSteps ?? [],
+					static function ( $srcset, $step ) use ( $file, $width ) {
+						if ( $step > $width ) {
+							$thumb = $file->transform( [ 'width' => $step ] );
+							if ( $thumb && !$thumb->isError() ) {
+								$srcset[] = "{$thumb->getUrl()} {$thumb->getWidth()}w";
+							}
+						}
+						return $srcset;
+					},
+					[]
+				);
+				$srcset = $srcsetData ? implode( ',', $srcsetData ) : $srcset;
+
+				$thumb = $file->transform( [ 'width' => $width ] );
+				if ( $thumb && !$thumb->isError() ) {
+					$src = $thumb->getUrl();
+					$width = $thumb->getWidth();
+					$height = $thumb->getHeight();
+				}
 			}
 
 			$html .= Html::rawElement(
@@ -472,7 +502,21 @@ class Hooks implements
 						'img',
 						[
 							'src' => $deferred ? false : $src,
+							'srcset' => $deferred ? false : $srcset,
+							// Using "auto" to allow browser to pick a different src from srcset,
+							// given that these images are responsive and possibly displayed at
+							// sizes larger than the given minimum. This, however, depends on
+							// loading=lazy to work (browser support); if that is not the case,
+							// browsers will default to `src`, which is usually likely good enough
+							// given that carousel thumbs are fairly unlikely to grow much bigger
+							// than the thumbnail step above our minimum (the alternative would be
+							// settings explicit width conditions in `sizes`, but given that those
+							// would be based on viewport dimensions, that is also likely to often
+							// be wrong given that we have min/max height restrictions)
+							'sizes' => $deferred ? false : 'auto',
 							'data-src' => $deferred ? $src : false,
+							'data-srcset' => $deferred ? $srcset : false,
+							'data-sizes' => $deferred ? 'auto' : false,
 							'width' => $width,
 							'height' => $height,
 							'alt' => DOMCompat::getAttribute( $item['thumb'], 'alt' ),
