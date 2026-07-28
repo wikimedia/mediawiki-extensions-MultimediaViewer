@@ -209,8 +209,6 @@ class MultimediaViewer {
 
 				// File reuse steals a bunch of information from the DOM, so do it last
 				this.ui.setFileReuseData( imageInfo, image.caption, image.alt );
-
-				this.ui.panel.scroller.animateMetadataOnce();
 			},
 			// fail
 			( error ) => {

@@ -3,22 +3,6 @@ const { MultimediaViewer } = require( 'mmv' );
 const MTH = {};
 
 /**
- * Returns the exception thrown by callback, or undefined if no exception was thrown.
- *
- * @param {Function} callback
- * @return {Error}
- */
-MTH.getException = function ( callback ) {
-	let ex;
-	try {
-		callback();
-	} catch ( e ) {
-		ex = e;
-	}
-	return ex;
-};
-
-/**
  * Creates an mw.storage-like object.
  *
  * @param {Object} storage localStorage stub with getItem, setItem, removeItem methods
@@ -26,46 +10,6 @@ MTH.getException = function ( callback ) {
  */
 MTH.createLocalStorage = function ( storage ) {
 	return new ( Object.getPrototypeOf( mw.storage ) ).constructor( storage );
-};
-
-/**
- * Returns an mw.storage that mimicks lack of localStorage support.
- *
- * @return {mw.SafeStorage} Local storage-like object
- */
-MTH.getUnsupportedLocalStorage = function () {
-	return MTH.createLocalStorage( undefined );
-};
-
-/**
- * Returns an mw.storage that mimicks localStorage being disabled in browser.
- *
- * @return {mw.SafeStorage} Local storage-like object
- */
-MTH.getDisabledLocalStorage = function () {
-	const e = function () {
-		throw new Error( 'Error' );
-	};
-
-	return MTH.createLocalStorage( {
-		getItem: e,
-		setItem: e,
-		removeItem: e
-	} );
-};
-
-/**
- * Returns a fake local storage which is not saved between reloads.
- *
- * @return {mw.SafeStorage} Local storage-like object
- */
-MTH.getFakeLocalStorage = function () {
-	const bag = new Map();
-	return MTH.createLocalStorage( {
-		getItem: ( key ) => bag.get( key ) || null,
-		setItem: ( key, value ) => bag.set( key, value ),
-		removeItem: ( key ) => bag.delete( key )
-	} );
 };
 
 /**

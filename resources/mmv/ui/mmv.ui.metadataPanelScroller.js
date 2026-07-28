@@ -36,24 +36,6 @@ class MetadataPanelScroller extends UiElement {
 		 * @type {boolean}
 		 */
 		this.panelWasOpen = null;
-
-		/**
-		 * Whether this user has ever opened the metadata panel.
-		 * Based on a localstorage flag; will be set to true if the client does not support localstorage.
-		 *
-		 * @type {boolean}
-		 */
-		this.hasOpenedMetadata = undefined;
-
-		/**
-		 * Whether we've already fired an animation for the metadata div in this lightbox session.
-		 *
-		 * @type {boolean}
-		 * @private
-		 */
-		this.hasAnimatedMetadata = false;
-
-		this.initialize();
 	}
 
 	attach() {
@@ -64,28 +46,14 @@ class MetadataPanelScroller extends UiElement {
 		$( window ).on( 'scroll.mmvp', mw.util.throttle( () => {
 			this.scroll();
 		}, 250 ) );
-
-		this.$container.on( 'mmv-metadata-open', () => {
-			if ( !this.hasOpenedMetadata && mw.storage.store ) {
-				this.hasOpenedMetadata = true;
-				mw.storage.set( 'mmv.hasOpenedMetadata', '1' );
-			}
-		} );
-
-		// reset animation flag when the viewer is reopened
-		this.hasAnimatedMetadata = false;
 	}
 
 	unattach() {
 		this.clearEvents();
 		$( window ).off( 'scroll.mmvp' );
-		this.$container.off( 'mmv-metadata-open' );
 	}
 
 	empty() {
-		// need to remove this to avoid animating again when reopening lightbox on same page
-		this.$container.removeClass( 'invite' );
-
 		this.panelWasOpen = this.panelIsOpen();
 	}
 
@@ -129,31 +97,6 @@ class MetadataPanelScroller extends UiElement {
 		this.$container.css( 'min-height', '' );
 		if ( this.panelWasFullyOpen ) {
 			$( window ).scrollTop( this.getScrollTopWhenOpen() );
-		}
-	}
-
-	initialize() {
-		const value = mw.storage.get( 'mmv.hasOpenedMetadata' );
-
-		// localStorage will only store strings; if values `null`, `false` or
-		// `0` are set, they'll come out as `"null"`, `"false"` or `"0"`, so we
-		// can be certain that an actual null is a failure to locate the item,
-		// and false is an issue with localStorage itself
-		if ( value !== false ) {
-			this.hasOpenedMetadata = value !== null;
-		} else {
-			// if there was an issue with localStorage, treat it as opened
-			this.hasOpenedMetadata = true;
-		}
-	}
-
-	/**
-	 * Animates the metadata area when the viewer is first opened.
-	 */
-	animateMetadataOnce() {
-		if ( !this.hasOpenedMetadata && !this.hasAnimatedMetadata ) {
-			this.hasAnimatedMetadata = true;
-			this.$container.addClass( 'invite' );
 		}
 	}
 

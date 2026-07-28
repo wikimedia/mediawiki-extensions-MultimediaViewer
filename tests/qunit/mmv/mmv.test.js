@@ -47,9 +47,6 @@ QUnit.test( 'New image loaded while another one is loading', async function ( as
 		panel: {
 			setImageInfo: this.sandbox.stub(),
 			showError: function () {},
-			scroller: {
-				animateMetadataOnce: function () {}
-			},
 			empty: function () {}
 		},
 		open: function () {},
