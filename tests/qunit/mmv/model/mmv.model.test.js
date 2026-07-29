@@ -22,17 +22,14 @@ QUnit.module( 'mmv.model', QUnit.newMwEnvironment() );
 QUnit.test( 'ThumbnailWidth constructor sense check', ( assert ) => {
 	const cssWidth = 23;
 	const cssHeight = 29;
-	const screenWidth = 42;
 	const realWidth = 123;
-	let thumbnailWidth = new ThumbnailWidth(
-		cssWidth, cssHeight, screenWidth, realWidth );
+	let thumbnailWidth = new ThumbnailWidth( cssWidth, cssHeight, realWidth );
 
 	assert.strictEqual( thumbnailWidth.cssWidth, cssWidth, 'Width is set correctly' );
 	assert.strictEqual( thumbnailWidth.cssHeight, cssHeight, 'Height is set correctly' );
-	assert.strictEqual( thumbnailWidth.screen, screenWidth, 'Screen width is set correctly' );
 	assert.strictEqual( thumbnailWidth.real, realWidth, 'Real width is set correctly' );
 
 	assert.throws( () => {
-		thumbnailWidth = new ThumbnailWidth( cssWidth, screenWidth );
+		thumbnailWidth = new ThumbnailWidth( cssWidth, cssHeight );
 	}, 'Exception is thrown when parameters are missing' );
 } );

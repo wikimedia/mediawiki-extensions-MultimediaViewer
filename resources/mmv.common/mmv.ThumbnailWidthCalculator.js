@@ -142,10 +142,9 @@ class ThumbnailWidthCalculator {
 		const cssHeight = Math.max( 1, Math.round( cssWidth * ratio ) );
 
 		const screenPixelWidth = Math.max( 1, cssWidth * this.devicePixelRatio );
-
 		const bucketedWidth = this.findNextBucket( screenPixelWidth );
 
-		return new ThumbnailWidth( cssWidth, cssHeight, screenPixelWidth, bucketedWidth );
+		return new ThumbnailWidth( cssWidth, cssHeight, bucketedWidth );
 	}
 }
 

@@ -17,21 +17,15 @@
 
 /**
  * Represents image width information.
- *
- * To utilize caching as much as possible, we use images which are displayed at a slightly
- * different size than their screen size. The ThumbnailWidth model stores the various types of
- * sizes and helps avoiding accidental incompatible assignments. (Think of it as a slightly
- * overcomplicated Hungarian notation)
  */
 class ThumbnailWidth {
 	/**
 	 * @param {number} cssWidth width in CSS pixels
 	 * @param {number} cssHeight height in CSS pixels
-	 * @param {number} screen width in screen pixels
 	 * @param {number} real width in real pixels
 	 */
-	constructor( cssWidth, cssHeight, screen, real ) {
-		if ( !cssWidth || !cssHeight || !screen || !real ) {
+	constructor( cssWidth, cssHeight, real ) {
+		if ( !cssWidth || !cssHeight || !real ) {
 			throw new Error( 'All parameters are required and cannot be empty or zero' );
 		}
 
@@ -50,17 +44,6 @@ class ThumbnailWidth {
 		 * @type {number}
 		 */
 		this.cssHeight = cssHeight;
-
-		/**
-		 * Width of the thumbnail on the screen, in device pixels. On most devices this is the same as
-		 * the CSS width, but devices with high pixel density displays have multiple screen pixels
-		 * in a CSS pixel.
-		 *
-		 * This value is mostly used internally; for most purposes you will need one of the others.
-		 *
-		 * @type {number}
-		 */
-		this.screen = screen;
 
 		/**
 		 * "Real" width of the thumbnail. This is the number you need to use in API requests when
