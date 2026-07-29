@@ -1,5 +1,5 @@
 const { MultimediaViewerBootstrap } = require( 'mmv.bootstrap' );
-const { asyncMethod, waitForAsync, getMultimediaViewer } = require( './mmv.testhelpers.js' );
+const { getMultimediaViewer } = require( './mmv.testhelpers.js' );
 
 QUnit.module( 'mmv.bootstrap', QUnit.newMwEnvironment( {
 	// mw.Title relies on these three config vars
@@ -237,37 +237,6 @@ function createBootstrap( viewer ) {
 	return bootstrap;
 }
 
-function hashTest( prefix, bootstrap, assert ) {
-	const hash = prefix + '/foo';
-	let callCount = 0;
-
-	bootstrap.loadViewer = function () {
-		callCount++;
-		return $.Deferred().reject();
-	};
-
-	// Hijack loadViewer, which will return a promise that we'll have to
-	// wait for if we want to see these tests through
-	asyncMethod( bootstrap, 'loadViewer' );
-
-	// invalid hash, should not trigger MMV load
-	location.hash = 'Foo';
-
-	// actual hash we want to test for, should trigger MMV load
-	// use setTimeout to add new hash change to end of the call stack,
-	// ensuring that event handlers for our previous change can execute
-	// without us interfering with another immediate change
-	setTimeout( () => {
-		location.hash = hash;
-	} );
-
-	return waitForAsync().then( () => {
-		assert.strictEqual( callCount, 1, 'Viewer should be loaded once' );
-		bootstrap.cleanupEventHandlers();
-		location.hash = '';
-	} );
-}
-
 QUnit.test( 'Promise does not hang on ResourceLoader errors', async function ( assert ) {
 	const errorMessage = 'loading failed';
 
@@ -496,12 +465,26 @@ QUnit.test( 'Validate new LightboxImage object has sensible constructor paramete
 	bootstrap.setupOverlay.reset();
 } );
 
-QUnit.test( 'Only load the viewer on a valid hash', ( assert ) => {
+QUnit.test( 'Only load the viewer on a valid hash', async function ( assert ) {
 	location.hash = '';
 
 	const bootstrap = createBootstrap();
+	this.sandbox.stub( bootstrap, 'setupOverlay' ).returns( $.Deferred().reject() );
 
-	return hashTest( '/media', bootstrap, assert );
+	location.hash = '#Foo';
+	await new Promise( ( resolve ) => {
+		setTimeout( resolve );
+	} );
+	assert.strictEqual( bootstrap.setupOverlay.callCount, 0, 'invalid hash should not trigger MMV load' );
+
+	location.hash = '#/media/foo';
+	await new Promise( ( resolve ) => {
+		setTimeout( resolve );
+	} );
+	assert.strictEqual( bootstrap.setupOverlay.callCount, 1, 'Viewer should be loaded once' );
+
+	bootstrap.cleanupEventHandlers();
+	location.hash = '';
 } );
 
 QUnit.test( 'Overlay is set up on hash change', function ( assert ) {
@@ -511,8 +494,10 @@ QUnit.test( 'Overlay is set up on hash change', function ( assert ) {
 	this.sandbox.stub( bootstrap, 'setupOverlay' );
 
 	bootstrap.hash();
+	assert.strictEqual( bootstrap.setupOverlay.callCount, 1, 'Overlay is set up' );
 
-	assert.true( bootstrap.setupOverlay.called, 'Overlay is set up' );
+	bootstrap.cleanupEventHandlers();
+	location.hash = '';
 } );
 
 QUnit.test( 'Overlay is not set up on an irrelevant hash change', function ( assert ) {
