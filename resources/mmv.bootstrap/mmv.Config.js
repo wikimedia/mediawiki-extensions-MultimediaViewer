@@ -53,9 +53,10 @@ class Config {
 	 * @return {boolean}
 	 */
 	static isMediaViewerEnabledOnClick() {
-		return mw.config.get( 'wgMediaViewer' ) && // global opt-out switch, can be set in user JS
-			mw.config.get( 'wgMediaViewerOnClick' ) && // thumbnail opt-out, can be set in preferences
-			( mw.user.isNamed() || !mw.storage.get( 'wgMediaViewerOnClick' ) || mw.storage.get( 'wgMediaViewerOnClick' ) === '1' ); // thumbnail opt-out for anons
+		// global opt-out switch, can be set in user JS
+		return mw.config.get( 'wgMediaViewer' ) &&
+			// thumbnail opt-out, can be set in preferences
+			mw.config.get( 'wgMediaViewerOnClick' );
 	}
 
 	/**

@@ -89,7 +89,6 @@
 				"mediawiki.Title",
 				"mediawiki.jqueryMsg",
 				"mediawiki.router",
-				"mediawiki.storage",
 				"mediawiki.user",
 				"mediawiki.util",
 				"mmv.bootstrap",
@@ -365,8 +364,7 @@
 				"mediawiki.api",
 				"mediawiki.router",
 				"mediawiki.Title",
-				"mediawiki.user",
-				"mediawiki.storage"
+				"mediawiki.user"
 			],
 			"messages": [
 				"multimediaviewer-loading",

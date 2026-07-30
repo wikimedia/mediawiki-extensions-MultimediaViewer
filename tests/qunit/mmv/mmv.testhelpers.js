@@ -3,16 +3,6 @@ const { MultimediaViewer } = require( 'mmv' );
 const MTH = {};
 
 /**
- * Creates an mw.storage-like object.
- *
- * @param {Object} storage localStorage stub with getItem, setItem, removeItem methods
- * @return {mw.SafeStorage} Local storage-like object
- */
-MTH.createLocalStorage = function ( storage ) {
-	return new ( Object.getPrototypeOf( mw.storage ) ).constructor( storage );
-};
-
-/**
  * Returns a viewer object with all the appropriate placeholder functions.
  *
  * @return {MultimediaViewer}

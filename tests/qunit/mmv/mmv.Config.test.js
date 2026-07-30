@@ -16,16 +16,13 @@
  */
 
 const { Config } = require( 'mmv.bootstrap' );
-const { createLocalStorage } = require( './mmv.testhelpers.js' );
 const config0 = mw.config;
-const storage = mw.storage;
 const user = mw.user;
 const saveOption = mw.Api.prototype.saveOption;
 
 QUnit.module( 'mmv.Config', QUnit.newMwEnvironment( {
 	afterEach: function () {
 		mw.config = config0;
-		mw.storage = storage;
 		mw.user = user;
 		mw.Api.prototype.saveOption = saveOption;
 	}
@@ -37,7 +34,6 @@ QUnit.test( 'constructor', ( assert ) => {
 } );
 
 QUnit.test( 'isMediaViewerEnabledOnClick', function ( assert ) {
-	mw.storage = createLocalStorage( { getItem: this.sandbox.stub() } );
 	mw.config = { get: this.sandbox.stub() };
 	mw.user = { isNamed: this.sandbox.stub() };
 
@@ -69,12 +65,5 @@ QUnit.test( 'isMediaViewerEnabledOnClick', function ( assert ) {
 	mw.user.isNamed.returns( false );
 	mw.config.get.withArgs( 'wgMediaViewer' ).returns( true );
 	mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-	mw.storage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( null );
 	assert.strictEqual( Config.isMediaViewerEnabledOnClick(), true, 'Returns true for anon with standard settings' );
-
-	mw.user.isNamed.returns( false );
-	mw.config.get.withArgs( 'wgMediaViewer' ).returns( true );
-	mw.config.get.withArgs( 'wgMediaViewerOnClick' ).returns( true );
-	mw.storage.store.getItem.withArgs( 'wgMediaViewerOnClick' ).returns( '0' );
-	assert.strictEqual( Config.isMediaViewerEnabledOnClick(), false, 'Returns true for anon opted out via localSettings' );
 } );
