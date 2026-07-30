@@ -47,6 +47,15 @@ class MultimediaViewerBootstrap {
 		 * @type {LightboxImage[]}
 		 */
 		this.thumbs = [];
+
+		/**
+		 * Per-file thumb count (by prefixed title), for duplicate positions
+		 *
+		 * NOTE: Must be kept in sync with LightboxImage#position in this.thumbs.
+		 *
+		 * @type {Map<string, number>}
+		 */
+		this.thumbCounts = new Map();
 		this.$legacyThumbs = null; // will be set by processThumbs
 		this.$thumbs = null; // will be set by processThumbs
 
@@ -214,6 +223,7 @@ class MultimediaViewerBootstrap {
 		if ( $content && $content.attr( 'id' ) === 'mw-content-text' ) {
 			// clear to avoid duplicates when wikipage.content is run multiple times (T382520)
 			this.thumbs = [];
+			this.thumbCounts.clear();
 		}
 
 		this.$thumbs = $content.find(
@@ -378,7 +388,7 @@ class MultimediaViewerBootstrap {
 			$thumb.prop( 'currentSrc' ) || $thumb.prop( 'src' ),
 			title,
 			this.thumbs.length,
-			this.thumbs.filter( ( t ) => t.filePageTitle.getPrefixedText() === title.getPrefixedText() ).length + 1,
+			this.nextDuplicatePosition( title ),
 			$thumb[ 0 ],
 			this.findLegacyCaption( $thumbContainer, $link )
 		);
@@ -430,7 +440,7 @@ class MultimediaViewerBootstrap {
 			$thumb.prop( 'currentSrc' ) || $thumb.prop( 'src' ),
 			title,
 			this.thumbs.length,
-			this.thumbs.filter( ( t ) => t.filePageTitle.getPrefixedText() === title.getPrefixedText() ).length + 1,
+			this.nextDuplicatePosition( title ),
 			$thumb[ 0 ],
 			this.findCaption( $thumbContainer, $link )
 		);
@@ -465,13 +475,27 @@ class MultimediaViewerBootstrap {
 			$thumb.prop( 'src' ),
 			title,
 			this.thumbs.length,
-			1,
+			this.nextDuplicatePosition( title ),
 			$thumb[ 0 ],
 			''
 		);
 		this.thumbs.push( image );
 
 		$mmvButton.on( 'click', () => this.openImage( image ) );
+	}
+
+	/**
+	 * 1-based position of a thumb among duplicates of the same file, incrementing the running count.
+	 *
+	 * @param {mw.Title} title
+	 * @return {number}
+	 * @private
+	 */
+	nextDuplicatePosition( title ) {
+		const key = title.getPrefixedText();
+		const position = ( this.thumbCounts.get( key ) || 0 ) + 1;
+		this.thumbCounts.set( key, position );
+		return position;
 	}
 
 	/**
