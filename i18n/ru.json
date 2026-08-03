@@ -40,8 +40,6 @@
 	"multimediaviewer-metadata-error": "Не удалось загрузить сведения об изображении (ошибка: $1)",
 	"multimediaviewer-file-not-found-error": "Извините, файл $1 не может быть отображён, так как он отсутствует на текущей странице.",
 	"multimediaviewer-thumbnail-error": "Извините, файл не может быть отображён",
-	"multimediaviewer-thumbnail-error-description": "Похоже, возникла какая-то техническая проблема. Вы можете $1, если она будет повторяться. Ошибка: $2",
-	"multimediaviewer-thumbnail-error-retry": "повторить",
 	"multimediaviewer-thumbnail-error-refresh-button": "Обновить",
 	"multimediaviewer-license-cc-pd": "Общественное достояние",
 	"multimediaviewer-license-pd": "Общественное достояние",

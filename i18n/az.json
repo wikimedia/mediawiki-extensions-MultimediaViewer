@@ -23,8 +23,6 @@
 	"multimediaviewer-metadata-error": "Şəkil detallarını yükləmək mümkün olmadı (xəta: $1)",
 	"multimediaviewer-file-not-found-error": "Üzr istəyirik, $1 faylı cari səhifədə olmadığı üçün göstərilə bilməz.",
 	"multimediaviewer-thumbnail-error": "Bağışlayın, faylı göstərmək mümkün olmadı",
-	"multimediaviewer-thumbnail-error-description": "Çox güman ki, texniki problem var. Davam edərsə, $1 edə bilərsiniz. Xəta: $2",
-	"multimediaviewer-thumbnail-error-retry": "yenidən cəhd et",
 	"multimediaviewer-thumbnail-error-refresh-button": "Yenilə",
 	"multimediaviewer-license-cc-pd": "İctimai mülkiyyət",
 	"multimediaviewer-license-pd": "İctimai mülkiyyət",

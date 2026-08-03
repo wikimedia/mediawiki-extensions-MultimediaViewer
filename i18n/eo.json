@@ -18,8 +18,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 kaj $2",
 	"multimediaviewer-metadata-error": "Ne eblas ŝuti detalojn pri la bildo (eraro: $1)",
 	"multimediaviewer-thumbnail-error": "Pardonu, la dosiero ne povas esti montrita",
-	"multimediaviewer-thumbnail-error-description": "Ŝajnas esti ĉi tie teĥnika problemo. Vi povas $1 se ĝi persistas. Eraro: $2",
-	"multimediaviewer-thumbnail-error-retry": "reprovi",
 	"multimediaviewer-license-cc-pd": "Publika havaĵo",
 	"multimediaviewer-license-pd": "Publika havaĵo",
 	"multimediaviewer-license-default": "Montri permesilon",

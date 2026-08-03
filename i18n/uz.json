@@ -11,7 +11,6 @@
 	"multimediaviewer-multiple-authors": "{{PLURAL:$1|bittadan oshiq muallif|$1 tadan oshiq muallif}}",
 	"multimediaviewer-multiple-authors-combine": "$1 va $2",
 	"multimediaviewer-metadata-error": "Tasvir tafsilotlari yuklanmadi (xato: $1)",
-	"multimediaviewer-thumbnail-error-retry": "qaytadan",
 	"multimediaviewer-license-cc-pd": "Jamiyat mulki",
 	"multimediaviewer-license-pd": "Jamiyat mulki",
 	"multimediaviewer-license-default": "Litsenziyani koʻrish",

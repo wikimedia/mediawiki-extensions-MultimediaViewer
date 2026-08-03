@@ -28,8 +28,6 @@
 	"multimediaviewer-metadata-error": "Não foi possível carregar os detalhes da imagem (error:$1)",
 	"multimediaviewer-file-not-found-error": "Desculpe, o arquivo $1 não pode ser exibido porque não está presente na página atual.",
 	"multimediaviewer-thumbnail-error": "Desculpe, o arquivo não pode ser exibido",
-	"multimediaviewer-thumbnail-error-description": "Parece haver um problema técnico. Pode $1, caso o problema continue. Erro: $2",
-	"multimediaviewer-thumbnail-error-retry": "tentar novamente",
 	"multimediaviewer-thumbnail-error-refresh-button": "Atualizar",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",
 	"multimediaviewer-license-cc-sa-1.0": "CC SA 1.0",

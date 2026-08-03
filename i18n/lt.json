@@ -23,8 +23,6 @@
 	"multimediaviewer-metadata-error": "Nepavyksta įkelti vaizdo duomenų (klaida: $1)",
 	"multimediaviewer-file-not-found-error": "Atsiprašome, failas $1 negali būti rodomas, nes jo nėra dabartiniame puslapyje.",
 	"multimediaviewer-thumbnail-error": "Atsiprašome, negalima parodyti failo",
-	"multimediaviewer-thumbnail-error-description": "Atrodo, kad iškilo techninė problema. Galite $1, jei tai tęsiasi. Klaida: $2",
-	"multimediaviewer-thumbnail-error-retry": "bandyti dar kartą",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",
 	"multimediaviewer-license-cc-sa-1.0": "CC SA 1.0",
 	"multimediaviewer-license-cc-by-sa-1.0": "CC BY-SA 1.0",

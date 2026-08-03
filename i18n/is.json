@@ -13,7 +13,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 og $2",
 	"multimediaviewer-metadata-error": "Gat ekki hlaðið inn myndagögnum. (villa: $1)",
 	"multimediaviewer-thumbnail-error": "Því miður var ekki hægt að sýna skránna.",
-	"multimediaviewer-thumbnail-error-retry": "Reyna aftur",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",
 	"multimediaviewer-license-cc-by-sa-1.0": "CC BY-SA 1.0",
 	"multimediaviewer-license-cc-by-2.0": "CC BY 2.0",

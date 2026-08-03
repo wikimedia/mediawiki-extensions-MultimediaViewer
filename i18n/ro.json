@@ -19,8 +19,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 și $2",
 	"multimediaviewer-metadata-error": "Nu s-au putut încărca detaliile imaginii (eroare: $1).",
 	"multimediaviewer-thumbnail-error": "Din păcate fișierul nu poate fi afișat",
-	"multimediaviewer-thumbnail-error-description": "Se pare că a apărut o eroare tehnică. Puteți să $1 dacă aceasta persistă. Eroare: $2",
-	"multimediaviewer-thumbnail-error-retry": "reîncercați",
 	"multimediaviewer-license-cc-pd": "Domeniu public",
 	"multimediaviewer-license-pd": "Domeniu public",
 	"multimediaviewer-license-default": "Vezi licența",

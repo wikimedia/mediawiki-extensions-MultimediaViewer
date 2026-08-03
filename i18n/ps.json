@@ -23,8 +23,6 @@
 	"multimediaviewer-metadata-error": "د انځور سپيناوی نشي بارېدای (تېروتنه: $1)",
 	"multimediaviewer-file-not-found-error": "بښنه غواړم، د $1 دوتنه نشي ښودل کېدای، ځکه چې دا په اوسني مخ کې شتون نه لري.",
 	"multimediaviewer-thumbnail-error": "بښنه غواړم، دوتنه نشي ښودل کېدای",
-	"multimediaviewer-thumbnail-error-description": "داسې ښکاري چې کومه تخنيکي ستونزه شته. که دوام وکړي؛ نو تاسو $1 کولی شئ. تېروتنه: $2",
-	"multimediaviewer-thumbnail-error-retry": "بيا هڅه‌کول",
 	"multimediaviewer-thumbnail-error-refresh-button": "بياتاندول",
 	"multimediaviewer-license-cc-by-1.0": "سي‌سي بي‌وای ۱.۰",
 	"multimediaviewer-license-cc-sa-1.0": "سي‌سي اېس‌ای ۱.۰",

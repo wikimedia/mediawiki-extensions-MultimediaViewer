@@ -16,8 +16,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 agus $2",
 	"multimediaviewer-metadata-error": "Cha deach leinn fiosrachadh an deilbh a luchdadh (mearachd: $1)",
 	"multimediaviewer-thumbnail-error": "Tha sinn duilich ach cha chan urrainn dhuinn am faidhle a shealltainn",
-	"multimediaviewer-thumbnail-error-description": "Tha coltas gu bheil duilgheadas teicnigeach ann. 'S urrainn dhut $1 no $3 ma mhaireas e. Mearachd: $2",
-	"multimediaviewer-thumbnail-error-retry": "feuchainn ris a-rithist",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",
 	"multimediaviewer-license-cc-sa-1.0": "CC SA 1.0",
 	"multimediaviewer-license-cc-by-sa-1.0": "CC BY-SA 1.0",

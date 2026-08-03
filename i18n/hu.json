@@ -17,8 +17,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 és $2",
 	"multimediaviewer-metadata-error": "Nem sikerült betölteni a kép adatait (hibaüzenet: $1)",
 	"multimediaviewer-thumbnail-error": "Sajnáljuk, a fájl nem jeleníthető meg",
-	"multimediaviewer-thumbnail-error-description": "Úgy tűnik, technikai hiba lépett fel. $1, ha nem szűnik meg. Hibaüzenet: $2",
-	"multimediaviewer-thumbnail-error-retry": "Újrapróbálkozhatsz",
 	"multimediaviewer-license-cc-pd": "Közkincs",
 	"multimediaviewer-license-pd": "Közkincs",
 	"multimediaviewer-license-default": "Licenc megtekintése",

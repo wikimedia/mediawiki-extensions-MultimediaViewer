@@ -14,7 +14,6 @@
 	"multimediaviewer-multiple-authors": "тагын {{PLURAL:$1|бер автор|$1 автор}}",
 	"multimediaviewer-multiple-authors-combine": "$1 һәм $2",
 	"multimediaviewer-thumbnail-error": "Гафу итегез, файлны ачу мөмкин түгел",
-	"multimediaviewer-thumbnail-error-retry": "кабатлау",
 	"multimediaviewer-license-cc-pd": "Җәмгыять мирасы",
 	"multimediaviewer-license-pd": "Җәмгыять мирасы",
 	"multimediaviewer-license-default": "Лицензияне карау",

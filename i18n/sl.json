@@ -19,8 +19,6 @@
 	"multimediaviewer-metadata-error": "Podatkov o sliki ni bilo mogoče naložiti (napaka: $1)",
 	"multimediaviewer-file-not-found-error": "Žal datoteke $1 ni mogoče prikazati, ker je ni na trenutni strani.",
 	"multimediaviewer-thumbnail-error": "Datoteke žal ni mogoče prikazati",
-	"multimediaviewer-thumbnail-error-description": "Prišlo je do tehnične težave. Če vztraja, lahko $1. Napaka: $2.",
-	"multimediaviewer-thumbnail-error-retry": "poskusi znova",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",
 	"multimediaviewer-license-cc-by-sa-1.0": "CC BY-SA 1.0",
 	"multimediaviewer-license-cc-by-2.0": "CC BY 2.0",

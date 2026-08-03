@@ -25,8 +25,6 @@
 	"multimediaviewer-metadata-error": "Δεν ήταν δυνατή η φόρτωση λεπτομερειών εικόνας (σφάλμα: $1)",
 	"multimediaviewer-file-not-found-error": "Λυπούμαστε, το αρχείο $1 δεν μπορεί να εμφανιστεί επειδή δεν υπάρχει στην τρέχουσα σελίδα.",
 	"multimediaviewer-thumbnail-error": "Συγνώμη, το αρχείο δεν μπορεί να προβληθεί",
-	"multimediaviewer-thumbnail-error-description": "Φαίνεται να υπάρχει τεχνικό θέμα. Μπορείτε να $1 αν συνεχίζει. Σφάλμα: $2",
-	"multimediaviewer-thumbnail-error-retry": "ξανά προσπάθεια",
 	"multimediaviewer-license-cc-by-4.0": "CC BY 4.0",
 	"multimediaviewer-license-cc-by-sa-4.0": "CC BY-SA 4.0",
 	"multimediaviewer-license-cc-pd": "Κοινό κτήμα",

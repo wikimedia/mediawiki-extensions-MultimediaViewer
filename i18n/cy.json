@@ -17,8 +17,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 a $2",
 	"multimediaviewer-metadata-error": "Ni ellir llwytho manylion y ddelwedd (gwall: $1)",
 	"multimediaviewer-thumbnail-error": "Mae'n ddrwg gennym, ni ellir dangos y ffeil",
-	"multimediaviewer-thumbnail-error-description": "Mae'n ymddangos bod yna broblem dechnegol. Gallwch chi $1 os yw'n parhau. Gwall: $2",
-	"multimediaviewer-thumbnail-error-retry": "ailgeisio",
 	"multimediaviewer-license-cc-pd": "Parth Cyhoeddus",
 	"multimediaviewer-license-pd": "Parth Cyhoeddus",
 	"multimediaviewer-license-default": "Gweld y drwydded",

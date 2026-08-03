@@ -11,7 +11,6 @@
 	"multimediaviewer-multiple-authors": "{{PLURAL:$1|norr_enne|noch $1 mih Schrihver|un söns keine}} Schrihver",
 	"multimediaviewer-multiple-authors-combine": "$1 un $2",
 	"multimediaviewer-metadata-error": "Mer kunnte kein Eijnzeljeijte övver dat bed lahde, der Jrond: $1",
-	"multimediaviewer-thumbnail-error-retry": "norr_ens versöhke",
 	"multimediaviewer-license-cc-pd": "Allmende (jemeinfrei, <i lang=\"en\">public domain</i>)",
 	"multimediaviewer-license-pd": "Allmende (jemeinfrei, <i lang=\"en\">public domain</i>)",
 	"multimediaviewer-license-default": "De Lezänz beraache",

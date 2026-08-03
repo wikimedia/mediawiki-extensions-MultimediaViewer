@@ -18,8 +18,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 i $2",
 	"multimediaviewer-metadata-error": "Nije bilo moguće učitavanje pojedinosti slike (pogreška: $1)",
 	"multimediaviewer-thumbnail-error": "Žao nam je, datoteku nije moguće prikazati",
-	"multimediaviewer-thumbnail-error-description": "Čini se da je došlo do tehničke poteškoće. Možete $1 ako se opet pojavi. Pogreška: $2",
-	"multimediaviewer-thumbnail-error-retry": "ponoviti",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",
 	"multimediaviewer-license-cc-sa-1.0": "CC SA 1.0",
 	"multimediaviewer-license-cc-by-sa-1.0": "CC BY-SA 1.0",

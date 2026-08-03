@@ -18,8 +18,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 dan $2",
 	"multimediaviewer-metadata-error": "Tidak dapat memuat rincian gambar (galat: $1)",
 	"multimediaviewer-thumbnail-error": "Maaf, berkas ini tidak dapat ditampilkan",
-	"multimediaviewer-thumbnail-error-description": "Tampaknya ada masalah teknis. Anda dapat $1 jika masalah berlanjut. Galat: $2",
-	"multimediaviewer-thumbnail-error-retry": "mencoba lagi",
 	"multimediaviewer-license-cc-pd": "Domain Publik",
 	"multimediaviewer-license-pd": "Domain Publik",
 	"multimediaviewer-license-default": "Lihat lisensi",

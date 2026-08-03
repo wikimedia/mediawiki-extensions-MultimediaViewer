@@ -23,8 +23,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 và $2",
 	"multimediaviewer-metadata-error": "Không thể tải chi tiết hình ảnh (lỗi: $1)",
 	"multimediaviewer-thumbnail-error": "Rất tiếc, không thể hiển thị tập tin",
-	"multimediaviewer-thumbnail-error-description": "Hình như đã gặp vấn đề về kỹ thuật. Bạn có thể $1 nếu tiếp tục xảy ra. Lỗi: $2",
-	"multimediaviewer-thumbnail-error-retry": "thử lại",
 	"multimediaviewer-license-cc-by-4.0": "CC-BY 4.0",
 	"multimediaviewer-license-cc-by-sa-4.0": "CC BY-SA 4.0",
 	"multimediaviewer-license-cc-pd": "Phạm vi công cộng",

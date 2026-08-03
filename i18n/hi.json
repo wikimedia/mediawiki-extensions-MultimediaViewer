@@ -22,8 +22,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 और $2",
 	"multimediaviewer-metadata-error": "चित्र की जानकारी को लोड न किया जा सका (त्रुटि: $1)",
 	"multimediaviewer-thumbnail-error": "क्षमा करें, चित्र को दिखाया नहीं जा सकता",
-	"multimediaviewer-thumbnail-error-description": "ऐसा लगता है कोई तकनीकी त्रुटि आई है। अगर यह बरकरार रहती है, आप $1 सकते हैं। त्रुटि: $2",
-	"multimediaviewer-thumbnail-error-retry": "पुनः प्रयास कर",
 	"multimediaviewer-license-cc-pd": "सार्वजनिक डोमेन",
 	"multimediaviewer-license-pd": "सार्वजनिक डोमेन",
 	"multimediaviewer-license-default": "लाइसेंस देखें",

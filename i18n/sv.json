@@ -27,8 +27,6 @@
 	"multimediaviewer-metadata-error": "Kunde inte läsa in bilddetaljer. (Fel: $1)",
 	"multimediaviewer-file-not-found-error": "Tyvärr kan filen $1 inte visas eftersom den inte finns på den aktuella sidan.",
 	"multimediaviewer-thumbnail-error": "Tyvärr, filen kan inte visas",
-	"multimediaviewer-thumbnail-error-description": "Ett tekniskt fel har uppstått. Du kan $1 om det kvarstår. Felmeddelande: $2",
-	"multimediaviewer-thumbnail-error-retry": "försöka igen",
 	"multimediaviewer-license-cc-by-4.0": "CC BY 4.0",
 	"multimediaviewer-license-cc-by-sa-4.0": "CC BY-SA 4.0",
 	"multimediaviewer-license-cc-pd": "Public Domain",

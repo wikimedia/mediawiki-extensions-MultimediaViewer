@@ -17,8 +17,6 @@
 	"multimediaviewer-metadata-error": "Kuma suurtagelin in la soo geliyo faahfaahinta sawirka (khalad: $1)",
 	"multimediaviewer-file-not-found-error": "Waan ka xunnahay, faylka $1 lama soo bandhigi karo maadaama uusan ku jirin bogga hadda jira.",
 	"multimediaviewer-thumbnail-error": "Waan ka xunnahay, faylka lama soo bandhigi karo",
-	"multimediaviewer-thumbnail-error-description": "Waxay u muuqataa in ay jirto dhibaato farsamo. Waxaad $1 haddii ay sii socoto. Khalad: $2",
-	"multimediaviewer-thumbnail-error-retry": "isku day mar kale",
 	"multimediaviewer-thumbnail-error-refresh-button": "Cusboonaysii",
 	"multimediaviewer-license-cc-pd": "Domain-ka dadweynaha",
 	"multimediaviewer-license-pd": "Domain-ka dadweynaha",

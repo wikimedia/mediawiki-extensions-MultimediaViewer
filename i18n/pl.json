@@ -30,8 +30,6 @@
 	"multimediaviewer-metadata-error": "Nie można załadować szczegółów obrazu (błąd: $1)",
 	"multimediaviewer-file-not-found-error": "Przepraszamy, plik $1 nie może zostać wyświetlony, ponieważ nie ma go na bieżącej stronie.",
 	"multimediaviewer-thumbnail-error": "Niestety, nie można wyświetlić pliku",
-	"multimediaviewer-thumbnail-error-description": "Wygląda na to, że mamy problem techniczny. Możesz $1, jeśli będzie nadal występował. Błąd: $2",
-	"multimediaviewer-thumbnail-error-retry": "ponowić próbę",
 	"multimediaviewer-license-cc-pd": "Domena publiczna",
 	"multimediaviewer-license-pd": "Domena publiczna",
 	"multimediaviewer-license-default": "Zobacz licencję",

@@ -15,8 +15,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 i $2",
 	"multimediaviewer-metadata-error": "Nije moguće učitati detalje o slici (greška: $1)",
 	"multimediaviewer-thumbnail-error": "Nije moguće prikazati datoteku",
-	"multimediaviewer-thumbnail-error-description": "Izgleda da je došlo do tehničkog problema. $1 ako se nastavi. Greška: $2",
-	"multimediaviewer-thumbnail-error-retry": "Pokušajte ponovo",
 	"multimediaviewer-license-cc-pd": "Javno vlasništvo",
 	"multimediaviewer-license-pd": "Javno vlasništvo",
 	"multimediaviewer-license-default": "Licenca",

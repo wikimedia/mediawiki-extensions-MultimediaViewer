@@ -11,8 +11,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 e $2",
 	"multimediaviewer-metadata-error": "Ne povis montrar detali pri l'imajo (eroro: $1)",
 	"multimediaviewer-thumbnail-error": "Pardonez, l'arkivo ne povas montresar",
-	"multimediaviewer-thumbnail-error-description": "Semblas esar teknikala problemo. Vu povas $1 se ol duros eventar. Eroro: $2",
-	"multimediaviewer-thumbnail-error-retry": "riprobez",
 	"multimediaviewer-license-cc-pd": "Publika domeno",
 	"multimediaviewer-license-pd": "Publika domeno",
 	"multimediaviewer-license-default": "Montrez licenco",

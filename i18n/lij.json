@@ -14,8 +14,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 e $2",
 	"multimediaviewer-metadata-error": "Imposcibbile caregâ i detalli de l'inmaggine (aro: $1)",
 	"multimediaviewer-thumbnail-error": "Spiaxenti, o file o no poeu vese vixoalizou",
-	"multimediaviewer-thumbnail-error-description": "Pâ che ghe segge 'n problema tecnico. S'o persciste ti poeu $1. Errô: $2",
-	"multimediaviewer-thumbnail-error-retry": "proeuva torna",
 	"multimediaviewer-license-cc-pd": "Pubbrico Dominnio",
 	"multimediaviewer-license-pd": "Pubbrico Dominnio",
 	"multimediaviewer-license-default": "Amia a lisensia",

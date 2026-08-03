@@ -10,7 +10,6 @@
 	"multimediaviewer-credit-fallback": "Egileari buruzko informazioa ikusi",
 	"multimediaviewer-multiple-authors": "{{PLURAL:$1|egile bat gehiago|$1 egile gehiago}}",
 	"multimediaviewer-multiple-authors-combine": "$1 eta $2",
-	"multimediaviewer-thumbnail-error-retry": "saiatu berriro",
 	"multimediaviewer-license-cc-pd": "Jabetza Publikoa",
 	"multimediaviewer-license-pd": "Jabetza Publikoa",
 	"multimediaviewer-license-default": "Lizentzia ikusi",

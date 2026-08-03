@@ -15,8 +15,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 y $2",
 	"multimediaviewer-metadata-error": "Nun pudieron cargase los datos de la imaxe (error: $1)",
 	"multimediaviewer-thumbnail-error": "Nun ye posible amosar el ficheru",
-	"multimediaviewer-thumbnail-error-description": "Paez qu'hai un problema téunicu. Puedes $1 si siguiera produciéndose. Error: $2",
-	"multimediaviewer-thumbnail-error-retry": "reintentar",
 	"multimediaviewer-license-cc-pd": "Dominiu públicu",
 	"multimediaviewer-license-pd": "Dominiu públicu",
 	"multimediaviewer-license-default": "Ver la llicencia",

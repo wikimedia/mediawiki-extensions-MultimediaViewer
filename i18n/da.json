@@ -20,8 +20,6 @@
 	"multimediaviewer-metadata-error": "Kan ikke indlæse billeddetaljer (fejl: $1)",
 	"multimediaviewer-file-not-found-error": "Beklager, filen $1 kan ikke vises, da den ikke findes på den aktuelle side.",
 	"multimediaviewer-thumbnail-error": "Beklager, filen kan ikke vises",
-	"multimediaviewer-thumbnail-error-description": "Der ser ud til at være et teknisk problem. Du kan få $1 hvis det fortsætter. Fejl: $2",
-	"multimediaviewer-thumbnail-error-retry": "prøv igen",
 	"multimediaviewer-thumbnail-error-refresh-button": "Opdatér",
 	"multimediaviewer-license-cc-pd": "Offentlig ejendom",
 	"multimediaviewer-license-pd": "Public Domain",

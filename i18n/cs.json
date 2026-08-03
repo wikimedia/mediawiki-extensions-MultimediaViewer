@@ -23,8 +23,6 @@
 	"multimediaviewer-metadata-error": "Nelze načíst podrobnosti k obrázku (chyba: $1)",
 	"multimediaviewer-file-not-found-error": "Omlouváme se, ale soubor $1 nelze zobrazit, protože se na aktuální stránce nenachází.",
 	"multimediaviewer-thumbnail-error": "Je nám líto, soubor nelze zobrazit",
-	"multimediaviewer-thumbnail-error-description": "Vypadá to na technické potíže. Můžete to $1, pokud se to nezlepší. Chyba: $2",
-	"multimediaviewer-thumbnail-error-retry": "zkusit znovu",
 	"multimediaviewer-license-cc-pd": "Volné dílo",
 	"multimediaviewer-license-pd": "Volné dílo",
 	"multimediaviewer-license-default": "Zobrazit licenci",

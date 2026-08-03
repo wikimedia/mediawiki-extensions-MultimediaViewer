@@ -18,8 +18,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 і $2",
 	"multimediaviewer-metadata-error": "Не атрымалася загрузіць падрабязнае апісанне выявы (памылка: $1)",
 	"multimediaviewer-thumbnail-error": "Прабачце, файл не можа быць паказаны",
-	"multimediaviewer-thumbnail-error-description": "Здаецца, узнікла нейкая тэхнічная праблема. Вы можаце $1, калі яна будзе паўтарацца. Памылка: $2",
-	"multimediaviewer-thumbnail-error-retry": "паўтарыць",
 	"multimediaviewer-license-cc-pd": "Грамадскі набытак",
 	"multimediaviewer-license-pd": "Грамадскі набытак",
 	"multimediaviewer-license-default": "Прагляд ліцэнзіі",

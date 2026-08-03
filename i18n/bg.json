@@ -22,8 +22,6 @@
 	"multimediaviewer-metadata-error": "Подробностите за изображението не можаха да се заредят (грешка: $1)",
 	"multimediaviewer-file-not-found-error": "За съжаление файлът $1 не може да бъде показан, тъй като не присъства на текущата страница.",
 	"multimediaviewer-thumbnail-error": "За съжаление файлът не може да бъде показан",
-	"multimediaviewer-thumbnail-error-description": "Изглежда има технически проблем. Можете да $1, ако той продължи. Грешка: $2",
-	"multimediaviewer-thumbnail-error-retry": "повторен опит",
 	"multimediaviewer-thumbnail-error-refresh-button": "Опресняване",
 	"multimediaviewer-license-cc-pd": "Обществено достояние",
 	"multimediaviewer-license-pd": "Обществено достояние",

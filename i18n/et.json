@@ -18,8 +18,6 @@
 	"multimediaviewer-multiple-authors-combine": "$1 ja $2",
 	"multimediaviewer-metadata-error": "Pildi üksikasju ei õnnestunud laadida (tõrge: $1)",
 	"multimediaviewer-thumbnail-error": "Kahjuks ei õnnestunud faili kuvada",
-	"multimediaviewer-thumbnail-error-description": "Paistab, et tegu on tehnilise probleemiga. Saad $1, kui see on püsiv. Tõrge: $2",
-	"multimediaviewer-thumbnail-error-retry": "uuesti proovida",
 	"multimediaviewer-license-cc-pd": "Avalik omand",
 	"multimediaviewer-license-pd": "Avalik omand",
 	"multimediaviewer-license-default": "Vaata litsentsi",

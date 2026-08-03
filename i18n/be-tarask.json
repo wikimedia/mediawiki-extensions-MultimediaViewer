@@ -15,7 +15,6 @@
 	"multimediaviewer-credit-fallback": "Паказаць інфармацыю пра аўтара",
 	"multimediaviewer-multiple-authors": "{{PLURAL:$1|яшчэ адзін аўтар|$1 іншыя аўтары|$1 іншых аўтараў}}",
 	"multimediaviewer-multiple-authors-combine": "$1 і $2",
-	"multimediaviewer-thumbnail-error-retry": "паўтарыць",
 	"multimediaviewer-license-cc-pd": "Грамадзкі набытак",
 	"multimediaviewer-permission-link": "паказаць умовы",
 	"multimediaviewer-geolocation": "Месцазнаходжаньне: $1",
