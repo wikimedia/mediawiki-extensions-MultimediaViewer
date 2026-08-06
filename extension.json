@@ -279,6 +279,7 @@
 			],
 			"dependencies": [
 				"mediawiki.router",
+				"mediawiki.storage",
 				"mediawiki.Title",
 				"mmv.bootstrap",
 				"vue",
@@ -292,6 +293,11 @@
 			]
 		},
 		"mmv.carousel.styles": {
+			"class": "MediaWiki\\ResourceLoader\\CodexModule",
+			"codexStyleOnly": true,
+			"codexComponents": [
+				"CdxButton"
+			],
 			"localBasePath": "resources/mmv.carousel.styles",
 			"remoteExtPath": "MultimediaViewer/resources/mmv.carousel.styles",
 			"styles": [

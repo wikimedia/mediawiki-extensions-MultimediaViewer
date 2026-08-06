@@ -1,5 +1,34 @@
 'use strict';
 
+const SESSION_STORAGE_KEY = 'multimediaviewer.carousel.hidden';
+
+function isCarouselHidden() {
+	return !!( mw.storage && mw.storage.session && mw.storage.session.get( SESSION_STORAGE_KEY ) === '1' );
+}
+
+function setCarouselHidden( isHidden ) {
+	if ( !mw.storage || !mw.storage.session ) {
+		return;
+	}
+	if ( isHidden ) {
+		mw.storage.session.set( SESSION_STORAGE_KEY, '1' );
+	} else {
+		mw.storage.session.remove( SESSION_STORAGE_KEY );
+	}
+}
+
+const updateHiddenState = ( nextHiddenState, options = {} ) => {
+	const { persist = true } = options;
+	const carouselRoot = document.getElementById( 'mmv-carousel-root' );
+	if ( !carouselRoot ) {
+		return;
+	}
+
+	carouselRoot.classList.toggle( 'mmv-carousel--collapsed', nextHiddenState );
+	if ( persist ) {
+		setCarouselHidden( nextHiddenState );
+	}
+};
 function loadDeferredImage( img ) {
 	if ( !img.dataset.src ) {
 		return;
@@ -52,9 +81,9 @@ function loadDeferredImages( deferredImages ) {
 				}
 			} );
 		}, {
-			// The root must be the scroll container (overflow lives on the
-			// carousel wrapper, not on the items list).
-			root: document.getElementById( 'mmv-carousel-root' ),
+			// Observe against the horizontally scrolling items list so the
+			// floating header stays pinned to the carousel frame.
+			root: document.querySelector( '.mmv-carousel__items' ) || document.getElementById( 'mmv-carousel-root' ),
 			// Horizontal lookahead of roughly three items, so images are
 			// ready by the time the reader scrolls them into view.
 			rootMargin: '0px 500px'
@@ -157,6 +186,20 @@ function init( carouselItems ) {
 // Deferred to avoid side effects during module load (which interferes with
 // the QUnit test environment).
 $( () => {
+	const carouselRoot = document.getElementById( 'mmv-carousel-root' );
+	const toggleButtons = carouselRoot ? Array.from( carouselRoot.querySelectorAll( '.mmv-carousel__toggle' ) ) : [];
+
+	toggleButtons.forEach( ( toggleButton ) => {
+		toggleButton.addEventListener( 'click', () => {
+			updateHiddenState( !carouselRoot.classList.contains( 'mmv-carousel--collapsed' ) );
+			// We're swapping out the entire button, hiding the one that just got clicked,
+			// so it will lose focus; let's restore that by focusing the button again
+			// (not need to target the correct one, this will only work on the visible
+			// one and be a no-op for that one that's hidden)
+			toggleButtons.forEach( ( node ) => node.focus() );
+		} );
+	} );
+
 	const carouselItems = Array.from( document.querySelectorAll( '.mmv-carousel__item' ) );
 	const visibleCarouselItems = carouselItems.filter( ( item ) => {
 		const img = item.querySelector( 'img.mmv-carousel__item-image' );
@@ -172,4 +215,7 @@ $( () => {
 	carouselItems.forEach( ( item ) => ( item.dataset.visible = visibleCarouselItems.includes( item ) ) );
 
 	init( visibleCarouselItems );
+
+	const initialHiddenState = isCarouselHidden();
+	updateHiddenState( initialHiddenState, { persist: false } );
 } );

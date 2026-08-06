@@ -578,8 +578,73 @@ class Hooks implements
 				'class' => 'mw-mmv-wrapper mmv-carousel'
 			],
 			Html::rawElement(
+				'div',
+				[ 'class' => 'mmv-carousel__controls' ],
+				Html::rawElement(
+					'span',
+					[ 'class' => 'mmv-carousel__count' ],
+					Html::element( 'span', [
+						'class' => 'mmv-carousel__count-icon',
+						'aria-hidden' => 'true'
+					] ) .
+					Html::element(
+						'span',
+						[ 'class' => 'mmv-carousel__count-text' ],
+						wfMessage( 'multimediaviewer-carousel-image-count' )
+							->numParams( count( $carouselItems ) )
+							->text()
+					)
+				) .
+				// Carousel visible = display "hide" button (= default). Either this button
+				// or the other one (below) will be displayed; one will always be hidden.
+				Html::rawElement(
+					'button',
+					[
+						'type' => 'button',
+						'class' => implode( ' ', [
+							'mmv-carousel__toggle',
+							'cdx-button',
+							'mmv-carousel__toggle--expanded',
+							'cdx-button--action-default',
+							'cdx-button--weight-quiet',
+							'cdx-button--size-small'
+						] ),
+						'aria-controls' => 'mmv-carousel-items',
+						'aria-expanded' => 'true',
+					],
+					Html::element( 'span', [
+						'class' => 'cdx-button__icon cdx-button__icon-eye-closed',
+						'aria-hidden' => 'true'
+					] ) .
+					wfMessage( 'multimediaviewer-carousel-hide' )->escaped()
+				) .
+				// Carousel invisible = display "show" button contents.
+				Html::rawElement(
+					'button',
+					[
+						'type' => 'button',
+						'class' => implode( ' ', [
+							'mmv-carousel__toggle',
+							'cdx-button',
+							'mmv-carousel__toggle--collapsed',
+							'cdx-button--action-default',
+							'cdx-button--weight-quiet',
+							'cdx-button--size-small'
+						] ),
+						'aria-controls' => 'mmv-carousel-items',
+						'aria-expanded' => 'false',
+					],
+					Html::element( 'span', [
+						'class' => 'cdx-button__icon cdx-button__icon-eye',
+						'aria-hidden' => 'true'
+					] ) .
+					wfMessage( 'multimediaviewer-carousel-show' )->escaped()
+				)
+			) .
+			Html::rawElement(
 				'ul',
 				[
+					'id' => 'mmv-carousel-items',
 					'class' => 'mmv-carousel__items',
 					'aria-label' => $this->getCarouselLabel( $pageTitle, count( $carouselItems ) ),
 					// Explicit role preserves list semantics when list-style:none

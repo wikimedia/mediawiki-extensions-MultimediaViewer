@@ -764,6 +764,10 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			'aria-label="Images in Main Page, 3 items"',
 			$html
 		);
+		$this->assertStringContainsString( 'class="mmv-carousel__controls"', $html );
+		$this->assertStringContainsString( 'class="mmv-carousel__toggle cdx-button', $html );
+		$this->assertStringContainsString( 'aria-controls="mmv-carousel-items"', $html );
+		$this->assertStringContainsString( 'aria-expanded="true"', $html );
 	}
 
 	public function testBuildCarouselHtmlFallsBackToGenericArticleLabelWhenTitleMissing(): void {

@@ -13,9 +13,10 @@
 @carousel-item-peek: 15px;
 // Reserve space for the scrollbar. Scrollbar height is determined by browser
 @space-placeholder-scrollbar: @spacing-100;
+@size-icon-carousel-toggle: 10px;
 
 .mmv-carousel {
-	overflow: auto hidden;
+	position: relative;
 
 	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 	&:has( &__item[ data-visible='true' ] ),
@@ -26,7 +27,91 @@
 		// want these applied to prevent FOUC - rare cases where
 		// we then find none of the images are visible, will collapse)
 		margin-top: @spacing-50;
-		margin-bottom: @space-placeholder-scrollbar + @spacing-50;
+		margin-bottom: @spacing-50;
+	}
+
+	&__controls {
+		position: absolute;
+		display: flex;
+		justify-content: space-between;
+		padding: @spacing-50;
+		top: 0;
+		right: 0;
+	}
+
+	&__count {
+		display: none;
+		align-items: center;
+		gap: @spacing-35;
+		font-size: @font-size-x-small;
+		line-height: @line-height-x-small;
+		color: @color-base;
+	}
+
+	&__count-icon {
+		.cdx-mixin-css-icon( @cdx-icon-image-gallery, @param-size-icon: @size-icon-x-small );
+		flex-shrink: 0;
+	}
+
+	.cdx-button__icon-eye-closed {
+		.cdx-mixin-css-icon( @cdx-icon-eye-closed, @param-is-button-icon: true, @param-size-icon: @size-icon-carousel-toggle );
+	}
+
+	.cdx-button__icon-eye {
+		.cdx-mixin-css-icon( @cdx-icon-eye, @param-is-button-icon: true, @param-size-icon: @size-icon-carousel-toggle );
+	}
+
+	.cdx-button.mmv-carousel__toggle {
+		flex-shrink: 0;
+		color: @color-base;
+		font-size: @font-size-x-small;
+		font-weight: @font-weight-normal;
+		line-height: @line-height-x-small;
+
+		// Codex style override
+		&.cdx-button--weight-quiet {
+			background-color: @background-color-neutral;
+
+			&:hover,
+			&:active {
+				background-color: @background-color-neutral;
+			}
+
+			&:focus {
+				border-color: @border-color-progressive--focus;
+			}
+		}
+	}
+
+	&:not( .mmv-carousel--collapsed ) {
+		.mmv-carousel__toggle--collapsed {
+			display: none;
+		}
+	}
+
+	&.mmv-carousel--collapsed {
+		.mmv-carousel__toggle--expanded {
+			display: none;
+		}
+
+		.mmv-carousel__controls {
+			position: static;
+			background: @background-color-neutral-subtle;
+		}
+
+		.mmv-carousel__count {
+			display: inline-flex;
+		}
+
+		ul.mmv-carousel__items {
+			display: none;
+		}
+	}
+
+	.client-nojs & {
+		&__controls {
+			display: none;
+		}
 	}
 
 	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
@@ -34,6 +119,7 @@
 		background: @background-color-neutral-subtle;
 		padding: 2px;
 		display: flex;
+		overflow: auto hidden;
 		align-items: center;
 		list-style: none;
 		margin: 0;
@@ -81,6 +167,7 @@
 			background-color: @background-color-neutral;
 		}
 
+		/* stylelint-disable declaration-no-important */
 		img.mmv-carousel__item-image {
 			flex: 1;
 			min-height: 0;
@@ -94,17 +181,16 @@
 			box-sizing: border-box;
 			width: 100%;
 			// !important to override minerva style
-			/* stylelint-disable-next-line declaration-no-important */
 			height: 100% !important;
 		}
+		/* stylelint-enable declaration-no-important */
 
+		/* stylelint-disable declaration-no-important */
 		&-caption {
 			color: @color-base;
 			padding: 0;
-			/* stylelint-disable declaration-no-important */
 			margin: @spacing-50 !important;
 			font-size: @font-size-small !important;
-			/* stylelint-enable declaration-no-important */
 			line-height: @line-height-x-small;
 			display: -webkit-box;
 			-webkit-box-orient: vertical;
@@ -115,6 +201,7 @@
 				display: none;
 			}
 		}
+		/* stylelint-enable declaration-no-important */
 	}
 
 	// Fix render height of images hidden through
@@ -141,9 +228,7 @@ body.skin-minerva .content .mmv-carousel {
 	}
 }
 
-// Override MMV wrapper styles. The element is no longer a positioned element
-// and therefore other CSS properties such as top, right, bottom, left, and
-// z-index will no longer have an effect.
+// Restore the positioning context for the floating controls.
 .mw-mmv-wrapper.mmv-carousel {
 	position: static;
 }
