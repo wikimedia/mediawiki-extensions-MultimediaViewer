@@ -26,6 +26,16 @@ QUnit.test( 'getUrlParam', ( assert ) => {
 		{ name: 'page', value: '2', urlParam: 'page2' },
 		'PDF page is parsed'
 	);
+	assert.deepEqual(
+		getUrlParam( 'https://upload.wikimedia.org/thumb/1/12/Foo.tif/lossy-page1-800px-Foo.tif.jpg' ),
+		{ name: 'page', value: '1', urlParam: 'lossy-page1' },
+		'paged TIFF page is parsed with lossy prefix'
+	);
+	assert.deepEqual(
+		getUrlParam( 'https://upload.wikimedia.org/thumb/1/12/Foo.tif/lossless-page1-800px-Foo.tif.jpg' ),
+		{ name: 'page', value: '1', urlParam: 'lossless-page1' },
+		'paged TIFF page is parsed with lossless prefix'
+	);
 	assert.strictEqual(
 		getUrlParam( 'https://upload.wikimedia.org/thumb/1/12/Foo.jpg/800px-Foo.jpg' ),
 		null,
