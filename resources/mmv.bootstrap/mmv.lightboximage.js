@@ -93,17 +93,23 @@ class LightboxImage {
 	}
 
 	/**
-	 * Parses the handler-specific thumbnail parameter (multilingual SVG `lang` or PDF `page`)
-	 * from the sample thumbnail URL, if present.
+	 * Parses the handler-specific thumbnail parameter (multilingual SVG `lang`, PDF `page`,
+	 * or paged TIFF `lossy`-prefixed `page`) from the sample thumbnail URL, if present.
 	 *
 	 * @return {{name: string, value: string, urlParam: string}|null} `name`/`value` are the
 	 *  handler parameter (e.g. `lang`/`de`), `urlParam` is the width-less `iiurlparam` string
-	 *  (e.g. `langde`).
+	 *  (e.g. `langde`, or `lossy-page1` for paged TIFFs).
 	 */
 	getUrlParam() {
 		// The trailing `-<n>px` width only anchors the match; it is dropped from `urlParam`.
-		const match = this.src && this.src.match( /(lang|page)([\d\-a-z]+)-\d+px/ ); // multi lingual SVG or PDF page
-		return match ? { name: match[ 1 ], value: match[ 2 ], urlParam: match[ 1 ] + match[ 2 ] } : null;
+		// The optional leading `lossy`/`lossless` captures PagedTiffHandler's compression flag,
+		// which it requires as part of its iiurlparam string (unlike plain PDF `page` params).
+		const match = this.src && this.src.match( /\/(?:(lossy|lossless)-)?(lang|page)([\d\-a-z]+)-\d+px-/ );
+		if ( !match ) {
+			return null;
+		}
+		const prefix = match[ 1 ] ? match[ 1 ] + '-' : '';
+		return { name: match[ 2 ], value: match[ 3 ], urlParam: prefix + match[ 2 ] + match[ 3 ] };
 	}
 }
 
