@@ -308,6 +308,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	}
 
 	public function testOnBeforePageDisplayInjectsCarouselMarkupWhenEnabled(): void {
+		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
 		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
 
@@ -334,6 +335,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	}
 
 	public function testOnBeforePageDisplayInjectsCarouselMarkupForAnonymousReaders(): void {
+		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
 		$output = $this->makeOutputPage(
 			user: $this->getServiceContainer()->getUserFactory()
 				->newFromName( '127.0.0.1', UserRigorOptions::RIGOR_NONE )
@@ -359,6 +361,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	}
 
 	public function testOnBeforePageDisplayLoadsWikimediaEventsAAInstrumentWhenAvailable(): void {
+		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
 		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
 
@@ -395,6 +398,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		bool $wikimediaEventsLoaded,
 		bool $expectInstrument
 	): void {
+		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
 		$this->overrideConfigValue( 'MediaViewerMobileCarousel', false );
 		$this->overrideConfigValue( 'MediaViewerBetaFeature', false );
 		$user = $this->getServiceContainer()->getUserFactory()
@@ -535,6 +539,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	}
 
 	public function testOnBeforePageDisplaySkipsCarouselWhenNotApplicable(): void {
+		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
 		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
 
@@ -556,6 +561,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	}
 
 	public function testOnBeforePageDisplaySkipsCarouselWhenFewerThanMinImages(): void {
+		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
 		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
 
@@ -614,6 +620,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	}
 
 	public function testOnBeforePageDisplaySkipsBetaViewerWithoutMmvBetaParam(): void {
+		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
 		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
 
@@ -701,7 +708,8 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$this->assertTrue( $vars['wgMediaViewerMobileBeta'] );
 	}
 
-	public function testOnMakeGlobalVariablesScriptExportsMobileBetaFalseByDefault(): void {
+	public function testOnMakeGlobalVariablesScriptExportsMobileBetaDisabled(): void {
+		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
 		$user = $this->getTestUser()->getUser();
 
 		$output = $this->createMock( OutputPage::class );
