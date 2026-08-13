@@ -1,27 +1,6 @@
 [
 	{
-		"resourceModule": "mmv",
-		"maxSize": "19.0 kB"
-	},
-	{
 		"resourceModule": "mmv.bootstrap",
 		"maxSize": "6.4 kB"
-	},
-	{
-		"resourceModule": "mmv.codex",
-		"@maxSize": "Don't enforce here. This is composed of upstream files from Codex in MediaWiki core.",
-		"maxSize": null
-	},
-	{
-		"resourceModule": "mmv.common",
-		"maxSize": "4.9 kB"
-	},
-	{
-		"resourceModule": "mmv.ui.restriction",
-		"maxSize": "1 kB"
-	},
-	{
-		"resourceModule": "mmv.ui.reuse",
-		"maxSize": "5.6 kB"
 	}
 ]
