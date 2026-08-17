@@ -394,7 +394,9 @@ class MultimediaViewerBootstrap {
 		}
 
 		if ( isFilePageMainThumb ) {
-			this.processFilePageThumb( $thumb, title );
+			mw.loader.using( 'mmv.codex' ).then( () => {
+				this.processFilePageThumb( $thumb, title );
+			} );
 			return;
 		}
 

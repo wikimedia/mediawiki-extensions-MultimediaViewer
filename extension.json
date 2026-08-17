@@ -178,7 +178,6 @@
 			"codexComponents": [
 				"CdxButton",
 				"CdxDialog",
-				"CdxProgressBar",
 				"CdxSelect",
 				"CdxTabs",
 				"CdxTextInput",
@@ -341,6 +340,11 @@
 			]
 		},
 		"mmv.bootstrap": {
+			"class": "MediaWiki\\ResourceLoader\\CodexModule",
+			"codexStyleOnly": true,
+			"codexComponents": [
+				"CdxProgressBar"
+			],
 			"packageFiles": [
 				{
 					"name": "mmv.bootstrap/config.json",
@@ -357,7 +361,6 @@
 				"mmv.bootstrap/mmv.bootstrap.less"
 			],
 			"dependencies": [
-				"mmv.codex",
 				"mediawiki.api",
 				"mediawiki.router",
 				"mediawiki.Title",
