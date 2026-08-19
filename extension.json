@@ -262,12 +262,33 @@
 			"localBasePath": "resources/mmv.carousel",
 			"remoteExtPath": "MultimediaViewer/resources/mmv.carousel",
 			"packageFiles": [
-				"carousel.js"
+				"carousel.js",
+				"instrument.js",
+				"App.vue",
+				"Detail.vue",
+				"FocusTrap.vue",
+				{
+					"name": "icons.json",
+					"callback": "MediaWiki\\ResourceLoader\\CodexModule::getIcons",
+					"callbackParam": [
+						"cdxIconClose",
+						"cdxIconArrowDown",
+						"cdxIconFullscreen"
+					]
+				}
 			],
 			"dependencies": [
 				"mediawiki.router",
 				"mediawiki.Title",
-				"mmv.bootstrap"
+				"mmv.bootstrap",
+				"vue",
+				"@wikimedia/codex"
+			],
+			"messages": [
+				"multimediaviewer-carousel-dialog-close-button-label",
+				"multimediaviewer-carousel-dialog-scroll-button-label",
+				"multimediaviewer-carousel-dialog-view-button-label",
+				"multimediaviewer-carousel-dialog-scroll-error"
 			]
 		},
 		"mmv.carousel.styles": {

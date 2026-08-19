@@ -527,6 +527,8 @@ class Hooks implements
 								'mmv-carousel__item-image--pending' => $deferred,
 							],
 							'loading' => 'lazy',
+							'data-file-width' => DOMCompat::getAttribute( $item['thumb'], 'data-file-width' ),
+							'data-file-height' => DOMCompat::getAttribute( $item['thumb'], 'data-file-height' ),
 						]
 					) .
 					( isset( $item['caption'] ) ? Html::element(
