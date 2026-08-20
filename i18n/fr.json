@@ -147,5 +147,6 @@
 	"multimediaviewer-attr-html": "HTML",
 	"multimediaviewer-optin-pref": "Activer la <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About visionneuse de médias]</span>",
 	"multimediaviewer-loading": "Chargement de la visionneuse multimédia.",
+	"multimediaviewer-beta-feature-name": "Carousel d'images",
 	"multimediaviewer-beta-feature-description": "Afficher les images des articles en haut de la page sur les appareils mobiles."
 }
