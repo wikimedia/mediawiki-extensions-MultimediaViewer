@@ -205,7 +205,12 @@ class ThumbExtractor {
 		// legacy parser and Parsoid handle them differently), whereas
 		// titles are in decoded form.
 		// See T428610.
-		$href = rawurldecode( $anchor->getAttribute( 'href' ) );
+		$hrefAttribute = DOMCompat::getAttribute( $anchor, 'href' );
+		if ( $hrefAttribute === null || $hrefAttribute === '' ) {
+			return null;
+		}
+
+		$href = rawurldecode( $hrefAttribute );
 
 		// Extract file name from href
 		// Parsoid: href="//en.wikipedia.org/wiki/File:Example.jpg"
