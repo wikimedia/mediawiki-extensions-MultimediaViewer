@@ -249,19 +249,18 @@ class ThumbExtractor {
 			return null;
 		}
 
-		$findFigcaption = static function ( Element $container ): ?string {
+		$findFigcaption = static function ( Element $container ): ?Element {
 			if ( DOMUtils::nodeName( $container ) !== 'figure' ) {
 				return null;
 			}
-			$caption = DOMCompat::querySelector( $container, 'figcaption' );
-			return $caption ? $caption->textContent : null;
+			return DOMCompat::querySelector( $container, 'figcaption' );
 		};
 
-		$findThumbCaption = static function ( Element $container, Element $anchor ): ?string {
+		$findThumbCaption = static function ( Element $container, Element $anchor ): ?Element {
 			$thumbCaptions = DOMCompat::querySelectorAll( $container, '.thumbcaption' );
 
 			if ( iterator_count( $thumbCaptions ) <= 1 ) {
-				return isset( $thumbCaptions[0] ) ? $thumbCaptions[0]->textContent : null;
+				return $thumbCaptions[0] ?? null;
 			}
 
 			// Template:Multiple_image or some such; try to find closest caption to the image
@@ -275,7 +274,7 @@ class ThumbExtractor {
 					static fn ( $childNode ) => Zest::matches( $childNode, '.thumbcaption' )
 				) );
 				if ( $thumbCaptions ) {
-					return isset( $thumbCaptions[0] ) ? $thumbCaptions[0]->textContent : null;
+					return $thumbCaptions[0] ?? null;
 				}
 				$parent = DOMCompat::getParentElement( $parent );
 			}
@@ -283,7 +282,7 @@ class ThumbExtractor {
 			return null;
 		};
 
-		$findGalleryCaption = function ( Element $anchor ): ?string {
+		$findGalleryCaption = function ( Element $anchor ): ?Element {
 			$galleryItem = $this->closest( $anchor, '.gallerybox' );
 			if (
 				!$galleryItem ||
@@ -303,11 +302,10 @@ class ThumbExtractor {
 			) {
 				return null;
 			}
-			$caption = DOMCompat::querySelector( $galleryItem, '.gallerytext' );
-			return $caption ? $caption->textContent : null;
+			return DOMCompat::querySelector( $galleryItem, '.gallerytext' );
 		};
 
-		$findInfoboxCaption = function ( Element $anchor ): ?string {
+		$findInfoboxCaption = function ( Element $anchor ): ?Element {
 			$infoboxImage = $this->closest( $anchor, '.infobox-image' );
 			if (
 				!$infoboxImage ||
@@ -317,14 +315,26 @@ class ThumbExtractor {
 			) {
 				return null;
 			}
-			$caption = DOMCompat::querySelector( $infoboxImage, '.infobox-caption' );
-			return $caption ? $caption->textContent : null;
+			return DOMCompat::querySelector( $infoboxImage, '.infobox-caption' );
 		};
 
-		$findAnchorCaption = static function ( Element $anchor ): ?string {
-			return $anchor->hasAttribute( 'title' ) ?
-				$anchor->getAttribute( 'title' ) :
-				null;
+		$findAnchorCaption = static function ( Element $anchor ): ?Element {
+			if ( !$anchor->hasAttribute( 'title' ) ) {
+				return null;
+			}
+
+			$title = $anchor->getAttribute( 'title' );
+
+			// Convert to a node for convenience, so we can process the
+			// content in the exact same way all other "caption" content
+			// (which tends to live within nodes) is processed
+			$doc = DOMCompat::newDocument( true );
+			return DOMCompat::getFirstElementChild(
+				DOMUtils::parseHTMLToFragment(
+					$doc,
+					'<div>' . htmlspecialchars( $title ) . '</div>'
+				)
+			);
 		};
 
 		$caption = $findFigcaption( $container ) ?:
@@ -337,14 +347,23 @@ class ThumbExtractor {
 			return null;
 		}
 
-		// Further sanitize captions output
-		$doc = DOMCompat::newDocument( true );
-		$node = DOMUtils::parseHTMLToFragment( $doc, '<div>' . $caption . '</div>' )->firstElementChild;
-		// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
-		foreach ( DOMCompat::querySelectorAll( $node, '.magnify' ) as $nodeToRemove ) {
+		// Further sanitize captions output.
+		$caption = $caption->cloneNode( true );
+		'@phan-var Element $caption';
+		$selectorsToRemove = implode( ', ', [
+			'.magnify',
+			'.reference',
+			'.legend',
+			'.mw-empty-elt',
+			'style',
+			'link',
+		] );
+		foreach ( DOMCompat::querySelectorAll( $caption, $selectorsToRemove ) as $nodeToRemove ) {
 			$nodeToRemove->remove();
 		}
-		return $node->textContent;
+
+		$caption = trim( $caption->textContent );
+		return $caption ?: null;
 	}
 
 	/**
