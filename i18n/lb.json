@@ -7,6 +7,8 @@
 		]
 	},
 	"multimediaviewer-carousel-label-article": "Artikel",
+	"multimediaviewer-carousel-dialog-close-button-label": "Zoumaachen",
+	"multimediaviewer-carousel-dialog-view-button-label": "Detailer weisen",
 	"multimediaviewer-repository-local": "Méi Detailer",
 	"multimediaviewer-datetime-created": "Ugeluecht: $1",
 	"multimediaviewer-datetime-uploaded": "Eropgelueden: $1",

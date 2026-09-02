@@ -18,6 +18,7 @@
 	},
 	"multimediaviewer-desc": "Espande le miniature in dimensioni maggiori in un'interfaccia a schermo intero.",
 	"multimediaviewer-carousel-label-article": "voci",
+	"multimediaviewer-carousel-dialog-close-button-label": "Chiudi",
 	"multimediaviewer-file-page": "Vai alla corrispondente pagina del file",
 	"multimediaviewer-repository-local": "Ulteriori dettagli",
 	"multimediaviewer-datetime-created": "Creato: $1",
