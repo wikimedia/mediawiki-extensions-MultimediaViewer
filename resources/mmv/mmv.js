@@ -146,7 +146,6 @@ class MultimediaViewer {
 			this.fetchThumbnailForLightboxImage(
 				image, imageWidths.real
 			).then( ( thumbnail, image2 ) => {
-				// eslint-disable-next-line mediawiki/class-doc
 				image2.className = ext;
 				this.setImage( thumbnail, image2, imageWidths );
 			}, ( error ) => {
@@ -197,7 +196,6 @@ class MultimediaViewer {
 		// know what size it should be. We still assign it to allow for
 		// size calculations in getCurrentImageWidths, which needs to know
 		// the aspect ratio
-		// eslint-disable-next-line mediawiki/class-doc
 		$initialImage.hide()
 			.removeAttr( 'style' )
 			.removeClass()
@@ -226,7 +224,6 @@ class MultimediaViewer {
 					return;
 				}
 
-				// eslint-disable-next-line mediawiki/class-doc
 				imageElement.className = `mw-mmv-final-image ${ image.filePageTitle.getExtension().toLowerCase() }`;
 				imageElement.alt = image.alt;
 
