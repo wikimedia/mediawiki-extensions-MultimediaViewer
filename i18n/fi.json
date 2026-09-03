@@ -15,7 +15,12 @@
 		]
 	},
 	"multimediaviewer-desc": "Näytää pienoiskuvat suuremmassa koossa kokoruututilassa",
+	"multimediaviewer-carousel-label": "Kuvat sivulla $1, $2 {{PLURAL:$2|kohde|kohdetta}}",
 	"multimediaviewer-carousel-label-article": "artikkeli",
+	"multimediaviewer-carousel-dialog-close-button-label": "Sulje",
+	"multimediaviewer-carousel-dialog-scroll-button-label": "Vieritä kuvaan",
+	"multimediaviewer-carousel-dialog-view-button-label": "Näytä tiedot",
+	"multimediaviewer-carousel-dialog-scroll-error": "Kyseistä kuvaa ei löydetty artikkelista.",
 	"multimediaviewer-file-page": "Siirry tiedoston omalle sivulle",
 	"multimediaviewer-repository-local": "Lisätiedot",
 	"multimediaviewer-datetime-created": "Luotu: $1",
