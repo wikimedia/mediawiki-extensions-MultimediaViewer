@@ -52,7 +52,16 @@ class License {
 		this.longName = longName;
 
 		/** @property {string} deedUrl URL to the description of the license (e.g. the CC deed) */
-		this.deedUrl = deedUrl;
+		this.deedUrl = undefined;
+		try {
+			// Filter out non-http(s) license urls
+			// https://phabricator.wikimedia.org/T435999
+			const url = new URL( deedUrl );
+			if ( url.protocol === 'http:' || url.protocol === 'https:' ) {
+				this.deedUrl = deedUrl;
+			}
+		} catch ( e ) {
+		}
 
 		/** @property {boolean} attributionRequired does the author need to be attributed on reuse? */
 		this.attributionRequired = attributionRequired;
