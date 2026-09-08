@@ -68,16 +68,7 @@ class License {
 		 *
 		 * @type {string}
 		 */
-		this.deedUrl = undefined;
-		try {
-			// Filter out non-http(s) license urls
-			// https://phabricator.wikimedia.org/T435999
-			const url = new URL( deedUrl );
-			if ( [ 'http:', 'https:' ].includes( url.protocol ) ) {
-				this.deedUrl = deedUrl;
-			}
-		} catch ( e ) {
-		}
+		this.deedUrl = deedUrl;
 
 		/**
 		 * does the author need to be attributed on reuse?
