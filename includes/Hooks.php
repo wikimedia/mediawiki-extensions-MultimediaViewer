@@ -459,19 +459,24 @@ class Hooks implements
 				// Also get additional srcset sizes, both for retina screens, and for
 				// responsive images shown larger than the `self::MIN_CAROUSEL_THUMB_SIZE`
 				// minimum
-				$srcsetData = array_reduce(
-					$thumbSteps ?? [],
-					static function ( $srcset, $step ) use ( $file, $width ) {
-						if ( $step > $width ) {
-							$thumb = $file->transform( [ 'width' => $step ] );
-							if ( $thumb && !$thumb->isError() ) {
-								$srcset[] = "{$thumb->getUrl()} {$thumb->getWidth()}w";
-							}
-						}
-						return $srcset;
-					},
-					[]
-				);
+				$srcsetData = [];
+				foreach ( $thumbSteps ?? [] as $step ) {
+					if ( $step < $width ) {
+						// No point generating srcset options smaller than src
+						continue;
+					}
+
+					$thumb = $file->transform( [ 'width' => $step ] );
+					if ( $thumb && !$thumb->isError() ) {
+						$srcsetData[] = "{$thumb->getUrl()} {$thumb->getWidth()}w";
+					}
+
+					if ( $file->getWidth() && $step >= $file->getWidth() ) {
+						// Once we're at or beyond max image width, there will
+						// not be any larger thumbnails so we can stop
+						break;
+					}
+				}
 				$srcset = $srcsetData ? implode( ',', $srcsetData ) : $srcset;
 
 				$thumb = $file->transform( [ 'width' => $width ] );

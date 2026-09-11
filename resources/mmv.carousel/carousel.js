@@ -125,16 +125,26 @@ function init( carouselItems ) {
 
 			// Construct a parseImageUrl()-like result where resizeUrl is guaranteed
 			// to exist and produce a valid url (defaulting to current src if none
-			// otherwise possible), and has max available width set (to facilitate
-			// upscaling as much as needed)
+			// otherwise possible or requested width exceeds the original), and has
+			// max available width set (to facilitate upscaling as much as needed)
 			const resizeableThumbnail = mw.util.parseImageUrl( img.src );
+			const originalImageWidth = img.dataset.fileWidth ||
+				( resizeableThumbnail && resizeableThumbnail.width ) ||
+				parseInt( img.getAttribute( 'width' ) ) ||
+				img.clientWidth;
+			const srcset = img.srcset.split( ',' ).reduce( ( result, line ) => {
+				const [ , url, size ] = line.match( /^(.+?)\s+([0-9]+)w$/ );
+				result[ size ] = url;
+				return result;
+			}, {} );
+			const maxSrcsetWidth = Math.max( 0, ...Object.keys( srcset ).map( ( v ) => parseInt( v, 10 ) ) );
+			const maxSrcsetUrl = srcset[ maxSrcsetWidth ];
 			fileImageRef.value = {
 				name: fileTitleRef.value.getMainText(),
-				width: img.dataset.fileWidth ||
-					( resizeableThumbnail && resizeableThumbnail.width ) ||
-					parseInt( img.getAttribute( 'width' ) ) ||
-					img.clientWidth,
-				resizeUrl: resizeableThumbnail && resizeableThumbnail.resizeUrl || ( () => ( img.src ) )
+				width: originalImageWidth,
+				resizeUrl: ( width ) => resizeableThumbnail && resizeableThumbnail.resizeUrl && width <= originalImageWidth ?
+					resizeableThumbnail.resizeUrl( width ) :
+					( maxSrcsetUrl || img.src )
 			};
 			fileCaptionRef.value = caption ? caption.textContent : null;
 
