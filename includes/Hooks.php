@@ -168,6 +168,16 @@ class Hooks implements
 	}
 
 	/**
+	 * Whether the WikimediaEvents extension is available to receive the
+	 * carousel A/A instrumentation module (T437076).
+	 *
+	 * @return bool
+	 */
+	protected function isWikimediaEventsLoaded(): bool {
+		return ExtensionRegistry::getInstance()->isLoaded( 'WikimediaEvents' );
+	}
+
+	/**
 	 * Handler for all places where we add the modules
 	 * Could be on article pages or on Category pages
 	 * @param OutputPage $out
@@ -245,6 +255,12 @@ class Hooks implements
 		);
 		if ( count( $carouselItems ) < self::MIN_CAROUSEL_IMAGES ) {
 			return;
+		}
+
+		// T437076: Load the A/A instrument only when this page gets the carousel. Send events
+		// client-side so that cached page views are instrumented as well.
+		if ( $this->isWikimediaEventsLoaded() ) {
+			$out->addModules( 'ext.wikimediaEvents.preImageCarouselRetestAA' );
 		}
 
 		$out->addModules( 'mmv.carousel' );
