@@ -135,17 +135,41 @@ function init( carouselItems ) {
 				return;
 			}
 
+			e.preventDefault();
+			e.stopPropagation();
+
 			const img = item.querySelector( 'img.mmv-carousel__item-image' );
 			const caption = item.querySelector( '.mmv-carousel__item-caption' );
 
-			// A fast scroll can outrun the observer; make sure the image has
-			// a src before deriving the title from it below.
-			loadDeferredImage( img );
+			if ( img ) {
+				// A fast scroll can outrun the observer; make sure the image has
+				// a src before deriving the title from it below.
+				loadDeferredImage( img );
+			}
 
 			// Normalise to the DB key (underscores, File: prefix) so the title
 			// matches the filenames the overlay derives from the page's own
 			// thumbnails (caption + prev/next navigation).
-			fileTitleRef.value = mw.Title.newFromImg( img );
+			let title = img ? mw.Title.newFromImg( img ) : null;
+			if ( !title ) {
+				const href = link.getAttribute( 'href' ) || link.href;
+				if ( href ) {
+					try {
+						const url = new URL( href, location.origin );
+						// On wikis without clean-URL rewrite rules, the title lives
+						// in the `title` query param (index.php?title=File:Foo.jpg),
+						// not the last path segment (which works for clean URLs
+						// like `/wiki/File:Foo.jpg`). Prefer the query param when present.
+						const titleText = url.searchParams.get( 'title' ) ||
+							decodeURIComponent( url.pathname ).replace( /^.*\//, '' );
+						title = mw.Title.newFromText( titleText );
+					} catch ( _err ) {
+						// Malformed URI, ignore
+					}
+				}
+			}
+
+			fileTitleRef.value = title;
 			if ( !fileTitleRef.value ) {
 				fileImageRef.value = null;
 				fileCaptionRef.value = null;
@@ -156,28 +180,40 @@ function init( carouselItems ) {
 			// to exist and produce a valid url (defaulting to current src if none
 			// otherwise possible or requested width exceeds the original), and has
 			// max available width set (to facilitate upscaling as much as needed)
-			const resizeableThumbnail = mw.util.parseImageUrl( img.src );
-			const originalImageWidth = img.dataset.fileWidth ||
+			const resizeableThumbnail = img ? mw.util.parseImageUrl( img.src ) : null;
+			const originalImageWidth = ( img && parseInt( img.dataset.fileWidth, 10 ) ) ||
 				( resizeableThumbnail && resizeableThumbnail.width ) ||
-				parseInt( img.getAttribute( 'width' ) ) ||
-				img.clientWidth;
-			const srcset = img.srcset.split( ',' ).reduce( ( result, line ) => {
-				const [ , url, size ] = line.match( /^(.+?)\s+([0-9]+)w$/ );
-				result[ size ] = url;
-				return result;
-			}, {} );
-			const maxSrcsetWidth = Math.max( 0, ...Object.keys( srcset ).map( ( v ) => parseInt( v, 10 ) ) );
-			const maxSrcsetUrl = srcset[ maxSrcsetWidth ];
+				( img && parseInt( img.getAttribute( 'width' ), 10 ) ) ||
+				( img && img.clientWidth ) ||
+				0;
+
+			let maxSrcsetUrl = null;
+			let maxSrcsetWidth = 0;
+			if ( img && img.srcset ) {
+				const entries = img.srcset.split( ',' );
+				for ( let i = 0; i < entries.length; i++ ) {
+					const match = entries[ i ].trim().match( /^(\S+)\s+(\d+)w$/ );
+					if ( match ) {
+						const candidateWidth = parseInt( match[ 2 ], 10 );
+						if ( candidateWidth > maxSrcsetWidth ) {
+							maxSrcsetWidth = candidateWidth;
+							maxSrcsetUrl = match[ 1 ];
+						}
+					}
+				}
+			}
+
 			fileImageRef.value = {
 				name: fileTitleRef.value.getMainText(),
 				width: originalImageWidth,
-				resizeUrl: ( width ) => resizeableThumbnail && resizeableThumbnail.resizeUrl && width < originalImageWidth ?
-					resizeableThumbnail.resizeUrl( width ) :
-					( maxSrcsetUrl || img.src )
+				resizeUrl: ( width ) => {
+					if ( resizeableThumbnail && resizeableThumbnail.resizeUrl && ( !originalImageWidth || width < originalImageWidth ) ) {
+						return resizeableThumbnail.resizeUrl( width );
+					}
+					return maxSrcsetUrl || ( img && img.src ) || '';
+				}
 			};
 			fileCaptionRef.value = caption ? caption.textContent : null;
-
-			e.preventDefault();
 		} );
 	} );
 }
