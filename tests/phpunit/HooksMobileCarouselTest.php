@@ -23,7 +23,8 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	public function newHooksInstance(
 		array $carouselItems = [],
 		bool $useCarousel = true,
-		string $currentRequestSkinName = 'minerva'
+		string $currentRequestSkinName = 'minerva',
+		bool $wikimediaEventsLoaded = false
 	): Hooks {
 		$hooks = new class(
 			$this->getServiceContainer()->getMainConfig(),
@@ -36,6 +37,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			public array $stubCarouselItems;
 			public bool $useCarousel;
 			public string $currentRequestSkinName;
+			public bool $wikimediaEventsLoaded;
 
 			protected function isMobileFrontendView(): bool {
 				return true;
@@ -56,11 +58,22 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			): array {
 				return $this->stubCarouselItems;
 			}
+
+			// Stub the WikimediaEvents gate so these tests don't depend on
+			// that extension being installed in the test run.
+			protected function isWikimediaEventsLoaded(): bool {
+				return $this->wikimediaEventsLoaded;
+			}
 		};
 		$hooks->stubCarouselItems = $carouselItems;
 		$hooks->useCarousel = $useCarousel;
 		$hooks->currentRequestSkinName = $currentRequestSkinName;
+		$hooks->wikimediaEventsLoaded = $wikimediaEventsLoaded;
 		return $hooks;
+	}
+
+	private function getCarouselModules(): array {
+		return [ 'mmv.carousel' ];
 	}
 
 	protected function shouldPageGetMobileCarousel( OutputPage $output ): bool {
@@ -294,9 +307,12 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			self::makeFakeThumbData( 'C.jpg' ),
 		] );
 
-		$output->expects( $this->once() )
+		$expectedModules = $this->getCarouselModules();
+		$output->expects( $this->exactly( count( $expectedModules ) ) )
 			->method( 'addModules' )
-			->with( 'mmv.carousel' );
+			->with( $this->callback( static function ( string $module ) use ( &$expectedModules ): bool {
+				return $module === array_shift( $expectedModules );
+			} ) );
 		$output->expects( $this->once() )
 			->method( 'prependHTML' )
 			->with( $this->callback( static function ( string $html ): bool {
@@ -320,13 +336,42 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			self::makeFakeThumbData( 'C.jpg' ),
 		] );
 
-		$output->expects( $this->once() )
+		$expectedModules = $this->getCarouselModules();
+		$output->expects( $this->exactly( count( $expectedModules ) ) )
 			->method( 'addModules' )
-			->with( 'mmv.carousel' );
+			->with( $this->callback( static function ( string $module ) use ( &$expectedModules ): bool {
+				return $module === array_shift( $expectedModules );
+			} ) );
 		$output->expects( $this->once() )
 			->method( 'prependHTML' )
 			->with( $this->stringContains( 'id="mmv-carousel-root"' ) );
 		$hooks->onBeforePageDisplay( $output, $skin );
+	}
+
+	public function testOnBeforePageDisplayLoadsWikimediaEventsAAInstrumentWhenAvailable(): void {
+		$output = $this->makeOutputPage();
+		$skin = new SkinTemplate();
+
+		$hooks = $this->newHooksInstance( [
+			self::makeFakeThumbData( 'A.jpg' ),
+			self::makeFakeThumbData( 'B.jpg' ),
+			self::makeFakeThumbData( 'C.jpg' ),
+		], true, 'minerva', true );
+
+		// T437076: when WikimediaEvents is installed, the A/A instrument module
+		// loads before the carousel module.
+		$addedModules = [];
+		$output->method( 'addModules' )
+			->willReturnCallback( static function ( $modules ) use ( &$addedModules ) {
+				$addedModules[] = $modules;
+			} );
+
+		$hooks->onBeforePageDisplay( $output, $skin );
+
+		$this->assertSame(
+			[ 'ext.wikimediaEvents.preImageCarouselRetestAA', 'mmv.carousel' ],
+			$addedModules
+		);
 	}
 
 	/**
@@ -456,7 +501,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 
 		$hooks->onBeforePageDisplay( $output, $skin );
 
-		$this->assertSame( [ 'mmv.bootstrap', 'mmv.carousel' ], $addedModules );
+		$this->assertSame( array_merge( [ 'mmv.bootstrap' ], $this->getCarouselModules() ), $addedModules );
 	}
 
 	public function testOnBeforePageDisplayLoadsBetaViewerWithoutCarousel(): void {
@@ -487,9 +532,12 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		// Without ?mmvBeta=1 (and with $wgMediaViewerMobileBeta off) the
 		// bootstrap must not load: only the carousel does, routing clicks to
 		// the MobileFrontend lightbox.
-		$output->expects( $this->once() )
+		$expectedModules = $this->getCarouselModules();
+		$output->expects( $this->exactly( count( $expectedModules ) ) )
 			->method( 'addModules' )
-			->with( 'mmv.carousel' );
+			->with( $this->callback( static function ( string $module ) use ( &$expectedModules ): bool {
+				return $module === array_shift( $expectedModules );
+			} ) );
 		$hooks->onBeforePageDisplay( $output, $skin );
 	}
 
@@ -516,7 +564,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 
 		$hooks->onBeforePageDisplay( $output, $skin );
 
-		$this->assertSame( [ 'mmv.bootstrap', 'mmv.carousel' ], $addedModules );
+		$this->assertSame( array_merge( [ 'mmv.bootstrap' ], $this->getCarouselModules() ), $addedModules );
 	}
 
 	public function testOnBeforePageDisplaySkipsBetaViewerWhenUserOptedOut(): void {
@@ -537,9 +585,12 @@ class HooksMobileCarouselTest extends HooksTestCase {
 
 		// Logged-in users who have disabled MediaViewer keep the MobileFrontend
 		// lightbox: only the carousel module loads.
-		$output->expects( $this->once() )
+		$expectedModules = $this->getCarouselModules();
+		$output->expects( $this->exactly( count( $expectedModules ) ) )
 			->method( 'addModules' )
-			->with( 'mmv.carousel' );
+			->with( $this->callback( static function ( string $module ) use ( &$expectedModules ): bool {
+				return $module === array_shift( $expectedModules );
+			} ) );
 		$hooks->onBeforePageDisplay( $output, $skin );
 	}
 
