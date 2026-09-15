@@ -13,6 +13,7 @@
 	"multimediaviewer-desc": "הגדלת תמונות ממוזערות במידות גדולות יותר למסך מלא",
 	"multimediaviewer-carousel-label": "תמונות בדף $1, {{PLURAL:$2|פריט אחד|$2 פריטים}}",
 	"multimediaviewer-carousel-label-article": "ערך",
+	"multimediaviewer-carousel-dialog-close-button-label": "סגירה",
 	"multimediaviewer-file-page": "מעבר אל דף הקובץ המתאים",
 	"multimediaviewer-repository-local": "פרטים נוספים",
 	"multimediaviewer-datetime-created": "נוצר: $1",
