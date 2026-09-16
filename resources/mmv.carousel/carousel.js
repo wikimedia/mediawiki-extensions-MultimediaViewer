@@ -171,7 +171,7 @@ function init( carouselItems ) {
 			fileImageRef.value = {
 				name: fileTitleRef.value.getMainText(),
 				width: originalImageWidth,
-				resizeUrl: ( width ) => resizeableThumbnail && resizeableThumbnail.resizeUrl && width <= originalImageWidth ?
+				resizeUrl: ( width ) => resizeableThumbnail && resizeableThumbnail.resizeUrl && width < originalImageWidth ?
 					resizeableThumbnail.resizeUrl( width ) :
 					( maxSrcsetUrl || img.src )
 			};
