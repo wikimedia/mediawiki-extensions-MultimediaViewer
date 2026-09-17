@@ -21,6 +21,9 @@
 		]
 	},
 	"multimediaviewer-desc": "Powiększ miniatury ilustracji do wielkości ekranu",
+	"multimediaviewer-carousel-hide": "Ukryj",
+	"multimediaviewer-carousel-image-count": "$1 {{PLURAL:$1|obraz|obrazy|obrazów}}",
+	"multimediaviewer-carousel-show": "Pokaż",
 	"multimediaviewer-file-page": "Przejdź na stronę opisu pliku",
 	"multimediaviewer-repository-local": "Więcej szczegółów",
 	"multimediaviewer-datetime-created": "Utworzony: $1",
