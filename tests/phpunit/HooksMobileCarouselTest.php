@@ -22,9 +22,11 @@ use Wikimedia\Parsoid\Utils\DOMUtils;
 class HooksMobileCarouselTest extends HooksTestCase {
 	public function newHooksInstance(
 		array $carouselItems = [],
-		bool $useCarousel = true,
+		?bool $useCarousel = true,
 		string $currentRequestSkinName = 'minerva',
-		bool $wikimediaEventsLoaded = false
+		bool $wikimediaEventsLoaded = false,
+		bool $mobileView = true,
+		bool $pageQualifies = true
 	): Hooks {
 		$hooks = new class(
 			$this->getServiceContainer()->getMainConfig(),
@@ -35,12 +37,18 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			null
 		) extends Hooks {
 			public array $stubCarouselItems;
-			public bool $useCarousel;
+			public ?bool $useCarousel;
+			public bool $mobileView;
+			public bool $pageQualifies;
 			public string $currentRequestSkinName;
 			public bool $wikimediaEventsLoaded;
 
 			protected function isMobileFrontendView(): bool {
-				return true;
+				return $this->mobileView;
+			}
+
+			protected function shouldPageGetMobileCarousel( OutputPage $out ): bool {
+				return $this->pageQualifies;
 			}
 
 			protected function getCurrentRequestSkinName(): string {
@@ -48,7 +56,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			}
 
 			protected function shouldUseMobileCarousel( OutputPage $out ): bool {
-				return $this->useCarousel;
+				return $this->useCarousel ?? parent::shouldUseMobileCarousel( $out );
 			}
 
 			protected function extractCarouselImageElements(
@@ -65,6 +73,8 @@ class HooksMobileCarouselTest extends HooksTestCase {
 				return $this->wikimediaEventsLoaded;
 			}
 		};
+		$hooks->mobileView = $mobileView;
+		$hooks->pageQualifies = $pageQualifies;
 		$hooks->stubCarouselItems = $carouselItems;
 		$hooks->useCarousel = $useCarousel;
 		$hooks->currentRequestSkinName = $currentRequestSkinName;
@@ -372,6 +382,60 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			[ 'ext.wikimediaEvents.preImageCarouselRetestAA', 'mmv.carousel' ],
 			$addedModules
 		);
+	}
+
+	/**
+	 * @dataProvider provideAAEligibility
+	 */
+	public function testAAEligibilityWithoutCarouselRollout(
+		bool $mobileView,
+		bool $pageQualifies,
+		bool $optOut,
+		int $imageCount,
+		bool $wikimediaEventsLoaded,
+		bool $expectInstrument
+	): void {
+		$this->overrideConfigValue( 'MediaViewerMobileCarousel', false );
+		$this->overrideConfigValue( 'MediaViewerBetaFeature', false );
+		$user = $this->getServiceContainer()->getUserFactory()
+			->newFromName( '127.0.0.1', UserRigorOptions::RIGOR_NONE );
+		$this->getServiceContainer()->getUserOptionsManager()
+			->setOption( $user, 'enable_image_carousel', $optOut ? 0 : 1 );
+		$output = $this->makeOutputPage( user: $user );
+		$items = array_slice( [
+			self::makeFakeThumbData( 'A.jpg' ),
+			self::makeFakeThumbData( 'B.jpg' ),
+			self::makeFakeThumbData( 'C.jpg' ),
+		], 0, $imageCount );
+		$hooks = $this->newHooksInstance(
+			$items, null, 'minerva', $wikimediaEventsLoaded, $mobileView, $pageQualifies
+		);
+
+		if ( $expectInstrument ) {
+			$output->expects( $this->once() )->method( 'addModules' )
+				->with( 'ext.wikimediaEvents.preImageCarouselRetestAA' );
+		} elseif ( !$mobileView ) {
+			// Desktop still loads the existing viewer, but no A/A instrument.
+			$output->expects( $this->once() )->method( 'addModules' )
+				->with( 'mmv.bootstrap' );
+		} else {
+			$output->expects( $this->never() )->method( 'addModules' );
+		}
+		$output->expects( $this->never() )->method( 'addModuleStyles' );
+		$output->expects( $this->never() )->method( 'prependHTML' );
+
+		$hooks->onBeforePageDisplay( $output, new SkinTemplate() );
+	}
+
+	public static function provideAAEligibility(): array {
+		return [
+			'eligible without rollout or beta' => [ true, true, false, 3, true, true ],
+			'desktop' => [ false, true, false, 3, true, false ],
+			'unsuitable article' => [ true, false, false, 3, true, false ],
+			'reader opt-out' => [ true, true, true, 3, true, false ],
+			'too few images' => [ true, true, false, 2, true, false ],
+			'WikimediaEvents unavailable' => [ true, true, false, 3, false, false ],
+		];
 	}
 
 	/**

@@ -227,14 +227,15 @@ class Hooks implements
 	/**
 	 * Render the mobile carousel server-side and load its JS module.
 	 *
-	 * The module is added only when carousel markup is actually rendered
+	 * The carousel module is added only when carousel markup is actually rendered
 	 * (a qualifying request and enough thumbnails), so the client module
-	 * can assume carousel items exist in the DOM.
+	 * can assume carousel items exist in the DOM. The A/A instrument also loads
+	 * for eligible visits where rollout settings prevent carousel rendering.
 	 *
 	 * @param OutputPage $out
 	 */
 	private function maybeAddMobileCarousel( OutputPage $out ): void {
-		if ( !$this->shouldUseMobileCarousel( $out ) ) {
+		if ( !$this->isMobileCarouselEligible( $out ) ) {
 			return;
 		}
 
@@ -257,10 +258,14 @@ class Hooks implements
 			return;
 		}
 
-		// T437076: Load the A/A instrument only when this page gets the carousel. Send events
-		// client-side so that cached page views are instrumented as well.
+		// T437076: Measure eligible visits independently of sitewide rollout or beta opt-in.
+		// Send events client-side so that cached page views are instrumented as well.
 		if ( $this->isWikimediaEventsLoaded() ) {
 			$out->addModules( 'ext.wikimediaEvents.preImageCarouselRetestAA' );
+		}
+
+		if ( !$this->shouldUseMobileCarousel( $out ) ) {
+			return;
 		}
 
 		$out->addModules( 'mmv.carousel' );
@@ -286,20 +291,24 @@ class Hooks implements
 	 */
 	protected function shouldUseMobileCarousel( OutputPage $out ): bool {
 		return (
-			// Mobile view
-			$this->isMobileFrontendView() &&
-			// Enabled sitewide (production) or opted in via beta feature
-			(
-				$this->config->get( 'MediaViewerMobileCarousel' ) ||
-				$this->isBetaFeatureEnabled( $out->getUser() )
-			) &&
-			// Reader has not opted out via preferences
+			$this->config->get( 'MediaViewerMobileCarousel' ) ||
+			$this->isBetaFeatureEnabled( $out->getUser() )
+		) && $this->isMobileCarouselEligible( $out );
+	}
+
+	/**
+	 * Check reader and page eligibility independently of carousel rollout.
+	 * The minimum image count is checked separately after thumbnail extraction.
+	 *
+	 * @param OutputPage $out
+	 * @return bool
+	 */
+	protected function isMobileCarouselEligible( OutputPage $out ): bool {
+		return $this->isMobileFrontendView() &&
 			$this->userOptionsLookup->getBoolOption(
 				$out->getUser(), self::ENABLE_IMAGE_CAROUSEL_PREFERENCE
 			) &&
-			// Candidate page
-			$this->shouldPageGetMobileCarousel( $out )
-		);
+			$this->shouldPageGetMobileCarousel( $out );
 	}
 
 	/**
