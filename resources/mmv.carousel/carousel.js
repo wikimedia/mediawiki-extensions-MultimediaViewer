@@ -1,3 +1,9 @@
+/**
+ * Mobile image carousel initialization and display controls.
+ *
+ * @module mmv.carousel
+ */
+
 'use strict';
 
 const SESSION_STORAGE_KEY = 'multimediaviewer.carousel.hidden';
@@ -94,7 +100,9 @@ function loadDeferredImages( deferredImages ) {
 	}
 }
 
-function init( carouselItems ) {
+// TODO(image-carousel-retest): Remove treatment options after choosing the permanent UI.
+// Includes caption filtering and showJumpLink injection below; keep normal carousel behavior.
+function init( carouselItems, options ) {
 	if ( !carouselItems.length ) {
 		return;
 	}
@@ -111,10 +119,12 @@ function init( carouselItems ) {
 	container.setAttribute( 'id', 'mmv-carousel-detail' );
 	document.getElementById( 'content' ).appendChild( container );
 	const app = Vue.createMwApp( App );
-	app.provide( 'instrument', getInstrumentProxy( 'image-browsing' ) );
+	const instrument = getInstrumentProxy( 'image-browsing' );
+	app.provide( 'instrument', instrument );
 	app.provide( 'titleRef', fileTitleRef );
 	app.provide( 'imageRef', fileImageRef );
 	app.provide( 'captionRef', fileCaptionRef );
+	app.provide( 'showJumpLink', options.showJumpLink );
 	app.mount( '#mmv-carousel-detail' );
 
 	// Items beyond the first few are server-rendered without a src
@@ -213,21 +223,51 @@ function init( carouselItems ) {
 					return maxSrcsetUrl || ( img && img.src ) || '';
 				}
 			};
-			fileCaptionRef.value = caption ? caption.textContent : null;
+			fileCaptionRef.value = options.showCaptions && caption ? caption.textContent : null;
+			// Record the accepted thumbnail action after the detail view renders.
+			// Reactive title changes alone are not user interactions.
+			const selectedTitle = fileTitleRef.value;
+			Vue.nextTick( () => {
+				if ( fileTitleRef.value !== selectedTitle ) {
+					return;
+				}
+				// TODO(image-carousel-retest): Remove this hook fire; retain the existing instrument.send.
+				mw.hook( 'mmv.carousel.action' ).fire( 'thumbnailOpen' );
+				instrument.send( 'click', {
+					// eslint-disable-next-line camelcase
+					action_subtype: 'view_image', action_source: 'image_carousel'
+				} );
+			} );
 		} );
 	} );
 }
 
-// Wire up the mobile carousel.
-// Deferred to avoid side effects during module load (which interferes with
-// the QUnit test environment).
-$( () => {
+// TODO(image-carousel-retest): Remove the experiment startup handoff once ReaderExperiments
+// stops calling initialize: deferred root reveal, arm options, readiness promise,
+// data-mmv-defer-init guard, and module export. Preserve normal automatic startup.
+let initialization;
+
+const initializeCarousel = ( options ) => {
 	const carouselRoot = document.getElementById( 'mmv-carousel-root' );
+	if ( !carouselRoot ) {
+		return false;
+	}
+	// Apply the arm while the server-rendered root is still hidden.
+	Array.from( carouselRoot.querySelectorAll( '.mmv-carousel__item-caption' ) ).forEach( ( node ) => {
+		node.style.display = options.showCaptions ? '' : 'none';
+	} );
+	Array.from( carouselRoot.querySelectorAll( '.mmv-carousel__toggle' ) ).forEach( ( node ) => {
+		node.style.display = options.showToggle ? '' : 'none';
+	} );
+	carouselRoot.style.removeProperty( 'display' );
 	const toggleButtons = carouselRoot ? Array.from( carouselRoot.querySelectorAll( '.mmv-carousel__toggle' ) ) : [];
 
 	toggleButtons.forEach( ( toggleButton ) => {
 		toggleButton.addEventListener( 'click', () => {
-			updateHiddenState( !carouselRoot.classList.contains( 'mmv-carousel--collapsed' ) );
+			const hidden = !carouselRoot.classList.contains( 'mmv-carousel--collapsed' );
+			updateHiddenState( hidden );
+			// TODO(image-carousel-retest): Remove this event bridge; preserve hide/show behavior.
+			mw.hook( 'mmv.carousel.action' ).fire( hidden ? 'carouselHide' : 'carouselShow' );
 			// We're swapping out the entire button, hiding the one that just got clicked,
 			// so it will lose focus; let's restore that by focusing the button again
 			// (not need to target the correct one, this will only work on the visible
@@ -250,8 +290,40 @@ $( () => {
 	// @see https://en.wikipedia.org/wiki/Help:Options_to_hide_an_image#Disable_images_on_specific_pages
 	carouselItems.forEach( ( item ) => ( item.dataset.visible = visibleCarouselItems.includes( item ) ) );
 
-	init( visibleCarouselItems );
+	if ( !visibleCarouselItems.length ) {
+		carouselRoot.style.display = 'none';
+		return false;
+	}
+	init( visibleCarouselItems, options );
 
 	const initialHiddenState = isCarouselHidden();
 	updateHiddenState( initialHiddenState, { persist: false } );
+	return require( 'vue' ).nextTick().then( () => true );
+};
+
+/**
+ * Apply display options before showing deferred markup, then mount the viewer.
+ * Resolves after Vue has applied the UI, so callers can safely record exposure.
+ *
+ * @param {Object} [options] Carousel display options
+ * @return {Promise<boolean>}
+ */
+const initialize = ( options = {} ) => {
+	if ( !initialization ) {
+		initialization = Promise.resolve().then( () => initializeCarousel( Object.assign( {
+			showCaptions: true, showJumpLink: true, showToggle: true
+		}, options ) ) );
+	}
+	return initialization;
+};
+
+// Normal rollout keeps its automatic initialization. Experiment markup opts out
+// so ReaderExperiments can confirm assignment before revealing/mounting it.
+$( () => {
+	const root = document.getElementById( 'mmv-carousel-root' );
+	if ( root && root.dataset.mmvDeferInit !== '1' ) {
+		initialize();
+	}
 } );
+
+module.exports = { initialize };
