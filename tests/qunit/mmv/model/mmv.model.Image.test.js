@@ -117,6 +117,58 @@ QUnit.test( 'constructor + getters', ( assert ) => {
 	}, 'License object' );
 } );
 
+QUnit.test( 'commonsTitle', ( assert ) => {
+	const makeImage = ( extmetadata ) => new ImageModel(
+		mw.Title.newFromText( 'File:Foo bar.jpg' ),
+		fixtures.imageinfoApi.makeBasic( { extmetadata } )
+	);
+
+	assert.strictEqual(
+		makeImage( {
+			ObjectName: {
+				value: '<i>Frederick the Great Playing the Flute at Sanssouci</i>',
+				source: 'commons-desc-page'
+			}
+		} ).commonsTitle,
+		'Frederick the Great Playing the Flute at Sanssouci',
+		'title from the file page is returned, as plain text'
+	);
+
+	assert.strictEqual(
+		makeImage( {
+			ObjectName: {
+				value: '<i>Frederick the Great Playing the Flute at Sanssouci</i>' +
+					'<span style="display:none">label QS:Len,"Frederick the Great"</span>',
+				source: 'commons-desc-page'
+			}
+		} ).commonsTitle,
+		'Frederick the Great Playing the Flute at Sanssouci',
+		'hidden elements (e.g. Quick Statements data) are not included'
+	);
+
+	// MediaWiki core always provides an ObjectName built from the file name
+	// (without the extension) when the file page has no title
+	const fallback = makeImage( {
+		ObjectName: { value: 'Foo bar', source: 'mediawiki-metadata' }
+	} );
+	assert.strictEqual(
+		fallback.commonsTitle,
+		undefined,
+		'file name derived by MediaWiki is not treated as a title'
+	);
+	assert.strictEqual(
+		fallback.name,
+		'Foo bar',
+		'name still returns the file name in that case'
+	);
+
+	assert.strictEqual(
+		makeImage( {} ).commonsTitle,
+		undefined,
+		'no title when ObjectName is missing'
+	);
+} );
+
 QUnit.test( 'getThumbnailUrl()', ( assert ) => {
 	const originalUrl = 'https://upload.wikimedia.org/original.jpg';
 	const imageData = new ImageModel(

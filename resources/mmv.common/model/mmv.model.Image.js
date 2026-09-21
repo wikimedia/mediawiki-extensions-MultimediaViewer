@@ -16,6 +16,7 @@
  */
 
 const License = require( './mmv.model.License.js' );
+const HtmlUtils = require( '../mmv.HtmlUtils.js' );
 
 /**
  * Represents information about a single image
@@ -44,6 +45,28 @@ class ImageModel {
 	get name() {
 		const name = ImageModel.parseExtmeta( this.extmeta && this.extmeta.ObjectName, 'plaintext' );
 		return name || this.title.getNameText();
+	}
+
+	/**
+	 * Unlike {@link ImageModel#name}, this does not fall back to the file name.
+	 * MediaWiki core always adds an ObjectName built from the file name (with source
+	 * "mediawiki-metadata"), which is not a real title and is ignored here.
+	 *
+	 * The title is converted with HtmlUtils.htmlToText(), which drops hidden elements
+	 * (e.g. the Quick Statements data that the Artwork template includes). It does not
+	 * choose a language: if the file page gives the title in several languages, the
+	 * text of all of them is returned.
+	 * TODO: Follow-up to address multilingual title
+	 *
+	 * @return {string|undefined} Title of the artwork, or undefined if the file page has none
+	 */
+	get commonsTitle() {
+		const objectName = this.extmeta && this.extmeta.ObjectName;
+		if ( !objectName || objectName.source === 'mediawiki-metadata' ) {
+			return undefined;
+		}
+		const html = ImageModel.parseExtmeta( objectName, 'string' );
+		return html === undefined ? undefined : HtmlUtils.htmlToText( html );
 	}
 
 	/** @return {number} The filesize, in bytes, of the original image */

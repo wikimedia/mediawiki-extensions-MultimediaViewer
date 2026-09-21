@@ -342,7 +342,8 @@
 				"multimediaviewer-prev-image-alt-text",
 				"multimediaviewer-current-image-number",
 				"multimediaviewer-file-page",
-				"multimediaviewer-description-page-button-text"
+				"multimediaviewer-description-page-button-text",
+				"multimediaviewer-dialog-label"
 			]
 		},
 		"mmv.common": {

@@ -140,5 +140,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "Enable image carousel on the mobile site",
 	"multimediaviewer-loading": "Loading Media Viewer.",
 	"multimediaviewer-beta-feature-name": "Image carousel",
-	"multimediaviewer-beta-feature-description": "Show article images at the top of the page on mobile devices."
+	"multimediaviewer-beta-feature-description": "Show article images at the top of the page on mobile devices.",
+	"multimediaviewer-dialog-label": "Media Viewer"
 }

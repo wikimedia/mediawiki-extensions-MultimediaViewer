@@ -154,5 +154,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "Label for preference to enable the MultimediaViewer image carousel on the mobile site.",
 	"multimediaviewer-loading": "Label for indeterminate progress bar shown while the dialog is loading.",
 	"multimediaviewer-beta-feature-name": "Name of beta feature. Shown on preferences beta section when multimedia viewer is enabled as a beta feature.",
-	"multimediaviewer-beta-feature-description": "Description of beta feature. Shown on preferences beta section when multimedia viewer is enabled as a beta feature."
+	"multimediaviewer-beta-feature-description": "Description of beta feature. Shown on preferences beta section when multimedia viewer is enabled as a beta feature.",
+	"multimediaviewer-dialog-label": "Accessible name read by screen readers that labels the Media Viewer dialog."
 }

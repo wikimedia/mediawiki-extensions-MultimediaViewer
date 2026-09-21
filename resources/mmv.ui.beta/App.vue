@@ -6,7 +6,7 @@
 		:class="{ 'mmv-lightbox--chrome-hidden': !chromeVisible }"
 		role="dialog"
 		aria-modal="true"
-		aria-labelledby="mmv-lightbox-title"
+		:aria-label="dialogLabel"
 	>
 		<div
 			class="mmv-focus-sentinel"
@@ -80,6 +80,19 @@ module.exports = exports = defineComponent( {
 		const image = computed( () => state.image.value );
 		const chromeVisible = computed( () => state.chromeVisible.value );
 
+		const imageInfo = computed( () => state.imageInfo.value );
+		// Accessible name for the dialog. It isn't tied to the visible header
+		// title, which is intentionally blank when the file page has no title.
+		const dialogLabel = computed( () => {
+			if ( imageInfo.value && imageInfo.value.commonsTitle ) {
+				return imageInfo.value.commonsTitle;
+			}
+			if ( image.value && image.value.filePageTitle ) {
+				return image.value.filePageTitle.getNameText();
+			}
+			return mw.msg( 'multimediaviewer-dialog-label' );
+		} );
+
 		const { onFocusTrapStart, onFocusTrapEnd } = useFocusTrap(
 			lightboxRef,
 			isOpen,
@@ -114,7 +127,8 @@ module.exports = exports = defineComponent( {
 			onClose,
 			cdxIconClose,
 			onFocusTrapStart,
-			onFocusTrapEnd
+			onFocusTrapEnd,
+			dialogLabel
 		};
 	}
 } );

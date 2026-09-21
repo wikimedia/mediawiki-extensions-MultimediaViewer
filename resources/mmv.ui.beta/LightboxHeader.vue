@@ -2,7 +2,6 @@
 	<div class="mmv-lightbox-header">
 		<div v-if="image" class="mmv-lightbox-header__text">
 			<div
-				id="mmv-lightbox-title"
 				class="mmv-lightbox-header__title"
 				:class="{ 'mmv-lightbox-header__title--loaded': titleReady }"
 			>
@@ -33,15 +32,11 @@ module.exports = exports = defineComponent( {
 		const image = computed( () => state.image.value );
 		const imageInfo = computed( () => state.imageInfo.value );
 
+		// The title from the file page metadata. Deliberately no fallback to
+		// the file name so the title is left blank when the file page has none.
 		const imageTitle = computed( () => {
-			if ( image.value && image.value.caption ) {
-				return HtmlUtils.htmlToText( image.value.caption );
-			}
-			if ( imageInfo.value && imageInfo.value.description ) {
-				return HtmlUtils.htmlToText( imageInfo.value.description );
-			}
-			if ( image.value && image.value.filePageTitle ) {
-				return image.value.filePageTitle.getNameText();
+			if ( imageInfo.value ) {
+				return imageInfo.value.commonsTitle;
 			}
 			return '';
 		} );
@@ -63,9 +58,9 @@ module.exports = exports = defineComponent( {
 			return '';
 		} );
 
-		// The title is "ready" as soon as it can show its final value: either the
-		// on-page caption (available synchronously) or the loaded imageInfo.
-		const titleReady = computed( () => !!( ( image.value && image.value.caption ) || imageInfo.value ) );
+		// The title is "ready" once imageInfo has loaded, as that is where its
+		// final value comes from.
+		const titleReady = computed( () => !!imageInfo.value );
 		const authorReady = computed( () => !!imageInfo.value );
 
 		return {
