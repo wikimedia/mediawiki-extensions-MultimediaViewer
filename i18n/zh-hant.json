@@ -11,6 +11,7 @@
 			"Liangent",
 			"LittlePaw365",
 			"Liuxinyu970226",
+			"LowensteinYang",
 			"Simon Shek",
 			"Tranve",
 			"Winston Sung",
@@ -18,7 +19,9 @@
 			"列维劳德"
 		]
 	},
+	"multimediaviewer-current-image-number": "第$1張，共$2張",
 	"multimediaviewer-desc": "使用全螢幕介面以較大尺寸的方式顯示展開後的縮圖",
+	"multimediaviewer-carousel-label": "在$1內的圖片，其擁有$2{{PLURAL:$2|項目}}",
 	"multimediaviewer-file-page": "前往相關的檔案頁面",
 	"multimediaviewer-repository-local": "更多詳細資料",
 	"multimediaviewer-datetime-created": "建立於：$1",
