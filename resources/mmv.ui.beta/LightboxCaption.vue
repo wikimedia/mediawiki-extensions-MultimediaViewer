@@ -72,6 +72,10 @@ module.exports = exports = defineComponent( {
 		const captionReady = computed( () => !!imageInfo.value );
 
 		function onFileLinkClick() {
+			// TODO(image-carousel-retest): Remove only this event bridge after the retest.
+			// Reuse the existing license/file-page link and preserve its destination.
+			// The subscriber gates retest events by readiness and treatment assignment.
+			mw.hook( 'mmv.carousel.action' ).fire( 'licenseInfo' );
 			sendInteraction( 'click', {
 				// eslint-disable-next-line camelcase
 				action_subtype: 'go_to_file'

@@ -33,6 +33,7 @@
 
 					<div class="mmv-carousel-detail--dialog--buttons">
 						<cdx-button
+							v-if="showJumpLink"
 							action="progressive"
 							weight="quiet"
 							@click="$emit( 'scroll', title )"
@@ -70,6 +71,12 @@ module.exports = exports = defineComponent( {
 		CdxIcon
 	},
 	props: {
+		// TODO(image-carousel-retest): Remove this treatment prop and its template v-if
+		// once the permanent jump-link behavior is chosen.
+		showJumpLink: {
+			type: Boolean,
+			required: true
+		},
 		title: {
 			type: /** @type {mw.Title} */ ( Object ),
 			default: null,

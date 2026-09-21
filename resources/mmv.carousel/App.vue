@@ -3,6 +3,7 @@
 		:title="titleRef"
 		:image="imageRef"
 		:caption="captionRef"
+		:show-jump-link="showJumpLink"
 		@view="onViewImage"
 		@scroll="onScrollToImage"
 		@close="onClose"
@@ -10,7 +11,7 @@
 </template>
 
 <script>
-const { defineComponent, inject, watch } = require( 'vue' );
+const { defineComponent, inject } = require( 'vue' );
 const Detail = require( './Detail.vue' );
 
 // @vue/component
@@ -46,6 +47,9 @@ module.exports = exports = defineComponent( {
 
 		const instrument = inject( 'instrument' );
 		const titleRef = inject( 'titleRef' );
+		// TODO(image-carousel-retest): Remove arm-specific injection, export, and prop binding
+		// once the permanent jump-link behavior is chosen; update the scroll guard below.
+		const showJumpLink = inject( 'showJumpLink', true );
 
 		// Track a carousel impression
 		instrument.send(
@@ -54,39 +58,30 @@ module.exports = exports = defineComponent( {
 			{ action_source: 'image_carousel' }
 		);
 
-		// As soon as title changes (i.e. user has clicked one of the images), track
-		// that interaction
-		watch(
-			titleRef,
-			( title ) => {
-				if ( title ) {
-					instrument.send(
-						'click',
-						// eslint-disable-next-line camelcase
-						{ action_subtype: 'view_image', action_source: 'image_carousel' }
-					);
-				}
-			},
-			{ immediate: true }
-		);
-
-		function onClose( title ) {
-			// @todo instrument
-
+		function onClose() {
 			titleRef.value = null;
 		}
 
 		function onViewImage( title ) {
+			if ( !title || titleRef.value !== title ) {
+				return;
+			}
+			// TODO(image-carousel-retest): Remove this event bridge; preserve navigation.
+			mw.hook( 'mmv.carousel.action' ).fire( 'viewDetails' );
 			router.navigateTo( null, {
 				path: Config.getMediaHash( title.getPrefixedDb() )
 			} );
-
-			// @todo instrument
 
 			titleRef.value = null;
 		}
 
 		function onScrollToImage( title ) {
+			if ( !showJumpLink || !title || titleRef.value !== title ) {
+				return;
+			}
+			// Count the accepted action even if the destination cannot be found.
+			// TODO(image-carousel-retest): Remove this event bridge; preserve scrolling.
+			mw.hook( 'mmv.carousel.action' ).fire( 'scrollToImage' );
 			const articleImage = document.querySelector( `.mw-parser-output a[href$="${ CSS.escape( title.getPrefixedDb() ) }"] img` );
 			if ( !articleImage ) {
 				mw.notify( mw.message( 'multimediaviewer-carousel-dialog-scroll-error' ).text() );
@@ -116,12 +111,11 @@ module.exports = exports = defineComponent( {
 
 			articleImage.scrollIntoView( { behavior: 'smooth' } );
 
-			// @todo instrument
-
 			titleRef.value = null;
 		}
 
 		return {
+			showJumpLink,
 			onClose,
 			onViewImage,
 			onScrollToImage

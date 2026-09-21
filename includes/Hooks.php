@@ -34,6 +34,7 @@ use MediaWiki\Html\Html;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Media\Hook\ThumbnailBeforeProduceHTMLHook;
 use MediaWiki\Media\ThumbnailImage;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\Hook\BeforePageDisplayHook;
 use MediaWiki\Output\Hook\MakeGlobalVariablesScriptHook;
 use MediaWiki\Output\OutputPage;
@@ -264,13 +265,24 @@ class Hooks implements
 			$out->addModules( 'ext.wikimediaEvents.preImageCarouselRetestAA' );
 		}
 
-		if ( !$this->shouldUseMobileCarousel( $out ) ) {
+		// TODO(image-carousel-retest): Remove this experiment override after the retest.
+		// Restore the direct rollout check; remove MediaWikiServices if unused and
+		// the attributes argument/plumbing in buildCarouselHtml once no consumers remain.
+		$render = $this->shouldUseMobileCarousel( $out );
+		$attributes = [];
+		// Experiments may override rollout after the same eligibility checks for
+		// every arm. Control can load its entry point without carousel markup.
+		MediaWikiServices::getInstance()->getHookContainer()->run(
+			'MultimediaViewerBeforeMobileCarousel',
+			[ $out, count( $carouselItems ), &$render, &$attributes ]
+		);
+		if ( !$render ) {
 			return;
 		}
 
 		$out->addModules( 'mmv.carousel' );
 		$out->addModuleStyles( 'mmv.carousel.styles' );
-		$out->prependHTML( $this->buildCarouselHtml( $carouselItems, $out->getTitle()->getText() ) );
+		$out->prependHTML( $this->buildCarouselHtml( $carouselItems, $out->getTitle()->getText(), $attributes ) );
 	}
 
 	/**
@@ -577,15 +589,18 @@ class Hooks implements
 	 * progressively enhance it.
 	 * @param array{title: Title, thumb: \Wikimedia\Parsoid\DOM\Element}[] $carouselItems carousel thumbnails
 	 * @param string $pageTitle display title of the page, used in the carousel's accessible label
+	 * @param array $attributes Additional root attributes supplied by the rendering hook
 	 * @return string
 	 */
-	private function buildCarouselHtml( array $carouselItems, string $pageTitle ): string {
+	private function buildCarouselHtml(
+		array $carouselItems, string $pageTitle, array $attributes = []
+	): string {
 		return Html::rawElement(
 			'div',
 			[
 				'id' => 'mmv-carousel-root',
 				'class' => 'mw-mmv-wrapper mmv-carousel'
-			],
+			] + $attributes,
 			Html::rawElement(
 				'div',
 				[ 'class' => 'mmv-carousel__controls' ],
