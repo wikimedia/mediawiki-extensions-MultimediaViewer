@@ -111,7 +111,7 @@ class ImageInfo extends Api {
 			uselang: 'content'
 		} ).then( ( data ) => this.getQueryPage( data ) ).then( ( page ) => {
 			if ( page.imageinfo && page.imageinfo.length ) {
-				return new ImageModel( file, page );
+				return new ImageModel( file, page, this.options.language );
 			} else if ( page.missing === true && page.imagerepository === '' ) {
 				return $.Deferred().reject( `file does not exist: ${ file.getPrefixedDb() }` );
 			} else {

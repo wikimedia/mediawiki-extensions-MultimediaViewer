@@ -118,9 +118,10 @@ QUnit.test( 'constructor + getters', ( assert ) => {
 } );
 
 QUnit.test( 'commonsTitle', ( assert ) => {
-	const makeImage = ( extmetadata ) => new ImageModel(
+	const makeImage = ( extmetadata, language ) => new ImageModel(
 		mw.Title.newFromText( 'File:Foo bar.jpg' ),
-		fixtures.imageinfoApi.makeBasic( { extmetadata } )
+		fixtures.imageinfoApi.makeBasic( { extmetadata } ),
+		language
 	);
 
 	assert.strictEqual(
@@ -144,6 +145,42 @@ QUnit.test( 'commonsTitle', ( assert ) => {
 		} ).commonsTitle,
 		'Frederick the Great Playing the Flute at Sanssouci',
 		'hidden elements (e.g. Quick Statements data) are not included'
+	);
+
+	// Shaped like the ObjectName of an {{Artwork}} file with a title in several
+	// languages: one [lang]-tagged element per language, plus hidden Quick
+	// Statements data that must not be shown.
+	const multilingualExtmetadata = {
+		ObjectName: {
+			value: '<div class="fn">' +
+				'<div style="font-size:0.9em;display:inline-block;">German: ' +
+				'<div lang="de"><i>Flötenkonzert Friedrichs des Großen in Sanssouci</i></div></div>' +
+				'<div style="font-weight:bold;display:inline-block;">' +
+				'<div lang="en"><i>Frederick the Great Playing the Flute at Sanssouci</i></div></div>' +
+				'<div style="display: none;">label QS:Len,"Frederick the Great"</div>' +
+				'</div>',
+			source: 'commons-desc-page'
+		}
+	};
+	assert.strictEqual(
+		makeImage( multilingualExtmetadata, 'en' ).commonsTitle,
+		'Frederick the Great Playing the Flute at Sanssouci',
+		'the element matching the requested language is used, not a concatenation of all of them'
+	);
+	assert.strictEqual(
+		makeImage( multilingualExtmetadata, 'de' ).commonsTitle,
+		'Flötenkonzert Friedrichs des Großen in Sanssouci',
+		'a different requested language selects that language instead'
+	);
+	assert.strictEqual(
+		makeImage( multilingualExtmetadata, 'fr' ).commonsTitle,
+		undefined,
+		'an unavailable language shows no title, rather than an unrelated one'
+	);
+	assert.strictEqual(
+		makeImage( multilingualExtmetadata ).commonsTitle,
+		undefined,
+		'no requested language also shows no title'
 	);
 
 	// MediaWiki core always provides an ObjectName built from the file name

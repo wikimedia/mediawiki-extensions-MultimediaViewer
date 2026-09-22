@@ -25,10 +25,16 @@ class ImageModel {
 	/**
 	 * @param {mw.Title} title The title of the image file
 	 * @param {Object} imageInfo Raw page object from the imageinfo API response
+	 * @param {string} [language] The language the caller requested extmetadata in
+	 * (i.e. the iiextmetadatalanguage used for the API request that produced
+	 * imageInfo). Unlike imageInfo, it isn't part of that response, instead it's
+	 * supplied by the caller. Used by {@link ImageModel#commonsTitle} to pick a
+	 * language out of a title.
 	 */
-	constructor( title, imageInfo ) {
+	constructor( title, imageInfo, language ) {
 		this.title = title;
 		this.imageInfo = imageInfo;
+		this.language = language;
 	}
 
 	/** @return {Object} The first imageinfo entry */
@@ -52,13 +58,17 @@ class ImageModel {
 	 * MediaWiki core always adds an ObjectName built from the file name (with source
 	 * "mediawiki-metadata"), which is not a real title and is ignored here.
 	 *
-	 * The title is converted with HtmlUtils.htmlToText(), which drops hidden elements
-	 * (e.g. the Quick Statements data that the Artwork template includes). It does not
-	 * choose a language: if the file page gives the title in several languages, the
-	 * text of all of them is returned.
-	 * TODO: Follow-up to address multilingual title
+	 * Some titles (e.g. from the Artwork/Photograph templates) give the title
+	 * in several languages at once, each as a separate `[lang]`-tagged element,
+	 * rather than through the API's own language negotiation. HtmlUtils.selectByLanguage()
+	 * picks the one matching this.language before the result is converted to
+	 * text. This also drops any hidden elements (e.g. the Quick Statements data
+	 * that the Artwork template includes). If the title is given in several
+	 * languages and none of them match, this returns undefined rather than
+	 * showing a title in an unrelated language.
 	 *
 	 * @return {string|undefined} Title of the artwork, or undefined if the file page has none
+	 *  or none of its languages match
 	 */
 	get commonsTitle() {
 		const objectName = this.extmeta && this.extmeta.ObjectName;
@@ -66,7 +76,11 @@ class ImageModel {
 			return undefined;
 		}
 		const html = ImageModel.parseExtmeta( objectName, 'string' );
-		return html === undefined ? undefined : HtmlUtils.htmlToText( html );
+		if ( html === undefined ) {
+			return undefined;
+		}
+		const selected = HtmlUtils.selectByLanguage( html, this.language );
+		return selected === undefined ? undefined : HtmlUtils.htmlToText( selected );
 	}
 
 	/** @return {number} The filesize, in bytes, of the original image */

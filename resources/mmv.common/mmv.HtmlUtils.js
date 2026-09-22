@@ -173,6 +173,33 @@ class HtmlUtils {
 	}
 
 	/**
+	 * Given an HTML string that may give the same content in several languages
+	 * (e.g. an Artwork/Photograph template title, given as one `[lang]`-tagged
+	 * element per language), returns the HTML of the element matching the given
+	 * language. Hidden (`display: none`) elements are never matched.
+	 *
+	 * If there is no `[lang]` element at all, the input is returned unchanged
+	 * (this is what happens for a plain, single-language value). But if there
+	 * is at least one `[lang]` element and none of them match, undefined is
+	 * returned rather than guessing at an unrelated language, e.g. showing a
+	 * German title to a reader who asked for Spanish.
+	 *
+	 * @param {string} html
+	 * @param {string} [language] language code to prefer, e.g. from mw.config.get( 'wgUserLanguage' )
+	 * @return {string|undefined}
+	 */
+	static selectByLanguage( html, language ) {
+		const $el = HtmlUtils.wrapAndJquerify( html );
+		HtmlUtils.filterInvisible( $el );
+		const $languageNodes = $el.find( '[lang]' );
+		if ( !$languageNodes.length ) {
+			return html;
+		}
+		const $match = $languageNodes.filter( ( i, node ) => node.getAttribute( 'lang' ) === language );
+		return $match.length ? HtmlUtils.jqueryToHtml( $match.first() ) : undefined;
+	}
+
+	/**
 	 * Cleans up superfluous whitespace.
 	 * Given that the results will be displayed in a HTML environment, this doesn't have any real
 	 * effect. It is mostly there to make testing easier.

@@ -144,6 +144,27 @@ QUnit.test( 'mergeWhitespace()', ( assert ) => {
 		'multiple spaces are collapsed into a single one' );
 } );
 
+QUnit.test( 'selectByLanguage()', ( assert ) => {
+	const html = '<div><span lang="de">Hallo</span><span lang="en">Hello</span></div>';
+
+	assert.strictEqual( HtmlUtils.selectByLanguage( html, 'en' ), '<span lang="en">Hello</span>',
+		'the element matching the requested language is returned' );
+	assert.strictEqual( HtmlUtils.selectByLanguage( html, 'de' ), '<span lang="de">Hallo</span>',
+		'a different requested language selects that element instead' );
+	assert.strictEqual( HtmlUtils.selectByLanguage( html, 'fr' ), undefined,
+		'an unavailable language returns undefined rather than an unrelated language' );
+	assert.strictEqual( HtmlUtils.selectByLanguage( html ), undefined,
+		'no requested language also returns undefined' );
+
+	const hiddenLanguage = '<div><span lang="de" style="display:none">Hallo</span><span lang="en">Hello</span></div>';
+	assert.strictEqual( HtmlUtils.selectByLanguage( hiddenLanguage, 'de' ), undefined,
+		'a hidden element is never matched, even when its language is requested, so this is treated like a missing match' );
+
+	const noLanguage = '<span>Hello</span>';
+	assert.strictEqual( HtmlUtils.selectByLanguage( noLanguage, 'en' ), noLanguage,
+		'a value with no [lang] element is returned unchanged' );
+} );
+
 QUnit.test( 'htmlToText()', ( assert ) => {
 	const html = '<table><tr><td>Foo</td><td><a>bar</a></td><td style="display: none">baz</td></tr></table>';
 
