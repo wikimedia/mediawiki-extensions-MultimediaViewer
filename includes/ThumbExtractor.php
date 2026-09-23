@@ -17,6 +17,7 @@ use Wikimedia\Zest\Zest;
  * Applies the following set of filters:
  *   - CSS selectors that indicate navigational icons and SVG infobox images
  *   - CSS selectors as passed by a config variable via the constructor
+ *   - CSS selectors that exclude lead infoboxes (infoboxes within section 0)
  *   - file extension allowlist
  *   - minimum image size
  */
@@ -47,6 +48,11 @@ class ThumbExtractor {
 		//
 		// Image is excluded from the carousel only; still shown in the viewer
 		'.nocarousel',
+
+		// Exclude lead infoboxes - Parsoid
+		'section[data-mw-section-id="0"] .infobox',
+		// Exclude lead infoboxes - Legacy parser
+		'section#mf-section-0 .infobox',
 	];
 
 	/**

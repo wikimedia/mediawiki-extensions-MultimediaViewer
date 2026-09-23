@@ -504,6 +504,36 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$this->assertSame( 'Pantheon facade', DOMCompat::getAttribute( $thumbs[2]['thumb'], 'alt' ) );
 	}
 
+	public function testExtractCarouselImageElementsExcludesLeadInfoboxImages(): void {
+		$figure = static fn ( string $name ) => '<figure typeof="mw:File/Thumb">'
+			. '<a href="//en.wikipedia.org/wiki/File:' . $name . '.jpg" class="mw-file-description">'
+			. '<img src="//upload.wikimedia.org/' . $name . '.jpg" class="mw-file-element"'
+			. ' width="220" height="124" alt="' . $name . '">'
+			. '</a></figure>';
+		$infobox = static fn ( string $name ) => '<table class="infobox"><tr><td>'
+			. $figure( $name ) . '</td></tr></table>';
+
+		// The third image is the lead infobox image. Since two images remain, it's
+		// below the three image threshold (MIN_CAROUSEL_IMAGES), so the carousel
+		// would not render.
+		$html = '<section data-mw-section-id="0">' . $infobox( 'Infobox' ) . $figure( 'Eiffel' ) . '</section>'
+			. '<section data-mw-section-id="1">' . $figure( 'Louvre' ) . '</section>';
+
+		$thumbExtractor = new ThumbExtractor( [ 'jpg' ], [], 30, 30, '/wiki/$1' );
+		$thumbs = $this->extractCarouselImageElements( $thumbExtractor, $html );
+
+		$this->assertCount( 2, $thumbs );
+		$this->assertLessThan( 3, count( $thumbs ) );
+		$this->assertSame( 'File:Eiffel.jpg', $thumbs[0]['title']->getPrefixedDbKey() );
+		$this->assertSame( 'File:Louvre.jpg', $thumbs[1]['title']->getPrefixedDbKey() );
+
+		// An infobox outside the lead section still counts.
+		$html = '<section data-mw-section-id="0">' . $figure( 'Eiffel' ) . '</section>'
+			. '<section data-mw-section-id="1">' . $infobox( 'Louvre' ) . $figure( 'Pantheon' ) . '</section>';
+		$thumbs = $this->extractCarouselImageElements( $thumbExtractor, $html );
+		$this->assertCount( 3, $thumbs );
+	}
+
 	public function testOnBeforePageDisplaySkipsCarouselWhenNotApplicable(): void {
 		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();

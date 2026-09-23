@@ -83,6 +83,74 @@ class ThumbExtractorTest extends MediaWikiIntegrationTestCase {
 		$this->assertSame( [], $result );
 	}
 
+	public static function provideLeadInfoboxSnippets(): array {
+		$image = static fn ( string $name ) => '<a class="mw-file-description" href="/wiki/File:' . $name . '.jpg">'
+			. '<img src="/path/to/' . $name . '.jpg" width="200" height="200"></a>';
+		return [
+			'Parsoid lead section' => [
+				'<section data-mw-section-id="0"><table class="infobox"><tr><td>'
+					. $image( 'Infobox' ) . '</td></tr></table></section>',
+				0,
+			],
+			'legacy parser lead section' => [
+				'<section class="mf-section-0" id="mf-section-0"><table class="infobox"><tr><td>'
+					. $image( 'Infobox' ) . '</td></tr></table></section>',
+				0,
+			],
+			'non-infobox image in Parsoid lead section' => [
+				'<section data-mw-section-id="0">' . $image( 'Lead' ) . '</section>',
+				1,
+			],
+			'non-infobox image in legacy parser lead section' => [
+				'<section class="mf-section-0" id="mf-section-0">' . $image( 'Lead' ) . '</section>',
+				1,
+			],
+			'Parsoid non-lead section infobox' => [
+				'<section data-mw-section-id="1"><table class="infobox"><tr><td>'
+					. $image( 'Infobox' ) . '</td></tr></table></section>',
+				1,
+			],
+			'legacy parser non-lead section infobox' => [
+				'<section class="mf-section-1" id="mf-section-1"><table class="infobox"><tr><td>'
+					. $image( 'Infobox' ) . '</td></tr></table></section>',
+				1,
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideLeadInfoboxSnippets
+	 */
+	public function testFindThumbsExcludesLeadInfoboxOnly( string $snippet, int $expectedCount ): void {
+		$extractor = new ThumbExtractor( [ 'jpg' ], [], 30, 30, '/wiki/$1' );
+
+		$result = $extractor->findThumbs( $this->makeBody( $snippet ) );
+
+		$this->assertCount( $expectedCount, $result );
+	}
+
+	public function testExtractCaptionFromAnchorElementUsesInfoboxCaption(): void {
+		$extractor = new ThumbExtractor( [ 'jpg' ], [], 30, 30, '/wiki/$1' );
+
+		// Non-lead infobox images are still in the carousel and keep their caption.
+		$body = $this->makeBody(
+			'<section data-mw-section-id="1"><table class="infobox"><tr>'
+			. '<td class="infobox-image">'
+			. '<a class="mw-file-description" href="/wiki/File:Batman.jpg" title="Title fallback">'
+			. '<img src="/path/to/Batman.jpg" width="200" height="200"></a>'
+			. '<div class="infobox-caption">Infobox caption</div>'
+			. '</td></tr></table></section>'
+		);
+		$thumbs = $extractor->findThumbs( $body );
+		$this->assertCount( 1, $thumbs );
+
+		$anchor = DOMCompat::getParentElement( $thumbs[0] );
+		$this->assertSame(
+			'Infobox caption',
+			$extractor->extractCaptionFromAnchorElement( $anchor, $body )
+		);
+	}
+
 	public function testFindThumbsIsExcludedBySelector(): void {
 		$extractor = new ThumbExtractor( [ 'jpg' ], [ '.sidebar-box' ], 30, 30, '/wiki/$1' );
 
