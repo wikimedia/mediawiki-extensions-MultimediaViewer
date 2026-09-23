@@ -231,4 +231,46 @@ class ThumbExtractorTest extends MediaWikiIntegrationTestCase {
 		}
 	}
 
+	public static function provideExtractCaptionFromAnchorElement(): array {
+		return [
+			'legend-only text leaves a dangling colon' => [
+				'1859: <div class="legend"><span>&nbsp;</span>Kingdom of Sardinia</div>',
+				'1859',
+			],
+			'colon followed by nbsp and empty template wrappers' => [
+				'1859:&nbsp;<span class="mw-empty-elt"><style>.legend{}</style></span>'
+					. '<div class="legend">Papal States</div>',
+				'1859',
+			],
+			'colon inside caption text is kept' => [
+				'Ratio 3:1 map',
+				'Ratio 3:1 map',
+			],
+			'trailing text after legend is kept' => [
+				'1860: <div class="legend">Papal States</div><br>After the annexation',
+				'1860: After the annexation',
+			],
+			'only a colon yields no caption' => [
+				': <div class="legend">Papal States</div>',
+				null,
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideExtractCaptionFromAnchorElement
+	 */
+	public function testExtractCaptionFromAnchorElement( string $galleryText, ?string $expected ): void {
+		$body = $this->makeBody(
+			'<ul class="gallery"><li class="gallerybox"><div class="thumb"><span typeof="mw:File">'
+			. '<a href="/wiki/File:Italia1859.png" class="mw-file-description">'
+			. '<img src="//thumb.example/120px-Italia1859.png" width="120" height="120"></a></span></div>'
+			. '<div class="gallerytext">' . $galleryText . '</div></li></ul>'
+		);
+		$extractor = new ThumbExtractor( [ 'png' ], [], 30, 30, '/wiki/$1' );
+		$anchor = DOMCompat::querySelector( $body, 'a.mw-file-description' );
+
+		$this->assertSame( $expected, $extractor->extractCaptionFromAnchorElement( $anchor, $body ) );
+	}
+
 }

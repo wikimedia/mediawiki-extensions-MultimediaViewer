@@ -362,7 +362,9 @@ class ThumbExtractor {
 			$nodeToRemove->remove();
 		}
 
-		$caption = trim( $caption->textContent );
+		// Trim (including non-breaking spaces), then drop a dangling colon. For
+		// edge cases like "1859: {{legend|...}}" caption text.
+		$caption = preg_replace( '/^\s+|[\s:]+$/u', '', $caption->textContent );
 		return $caption ?: null;
 	}
 
