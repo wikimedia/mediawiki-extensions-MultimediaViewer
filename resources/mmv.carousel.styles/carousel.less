@@ -15,6 +15,12 @@
 @space-placeholder-scrollbar: @spacing-100;
 @size-icon-carousel-toggle: 10px;
 
+// Keep wide article content from expanding the page and the image preview viewport.
+/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+body:has( .mmv-carousel ) .mw-parser-output {
+	overflow-x: auto;
+}
+
 .mmv-carousel {
 	position: relative;
 

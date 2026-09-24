@@ -177,10 +177,10 @@ body:has( .mmv-carousel-detail ) {
 		border: @border-subtle;
 		background: @background-color-base;
 		box-shadow: @box-shadow-outset-large-below @box-shadow-color-alpha-base, @box-shadow-outset-large-around @box-shadow-color-alpha-base;
+		box-sizing: border-box;
+		max-width: calc( 100% - 32px );
 		max-height: 100vh;
 		max-height: 100dvh;
-		max-width: 100vw;
-		max-width: 100dvw;
 		display: flex;
 		flex-direction: column;
 
