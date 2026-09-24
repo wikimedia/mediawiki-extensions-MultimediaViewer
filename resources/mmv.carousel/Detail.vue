@@ -6,6 +6,7 @@
 			role="dialog"
 			aria-modal="true"
 			@keydown.esc="onClose"
+			@click.self="onClose"
 		>
 			<focus-trap>
 				<div class="mmv-carousel-detail--dialog">
