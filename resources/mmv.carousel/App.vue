@@ -88,13 +88,36 @@ module.exports = exports = defineComponent( {
 				throw new Error( `Failed to locate carousel image ${ title.getPrefixedDb() }` );
 			}
 
+			// Legacy section containers can be the nearest ancestor with an ID,
+			// but MobileFrontend's hash handler only checks the target's parents.
+			// Use the heading's toggle handler to reveal those sections first.
+			const sections = [];
+			for ( let node = articleImage.parentElement; node; node = node.parentElement ) {
+				if ( node.classList.contains( 'collapsible-block' ) ) {
+					sections.push( node );
+				}
+			}
+			// Open outer sections first, leaving already expanded sections alone.
+			sections.reverse().forEach( ( section ) => {
+				const heading = section.previousElementSibling;
+				if (
+					heading &&
+					heading.classList.contains( 'collapsible-heading' ) &&
+					!heading.classList.contains( 'open-block' )
+				) {
+					heading.click();
+				}
+			} );
+
 			const isVisible = ( node ) => node.checkVisibility ?
 				node.checkVisibility() : // Modern browsers
 				!!( node.offsetWidth || node.offsetHeight || node.getClientRects().length ); // jQuery .visible equivalent
 
 			if ( !isVisible( articleImage ) ) {
-				// Section may be collapsed...
-				// Find the closest parent with an id & navigate to it to ensure it's expanded
+				// Legacy sections were expanded above so this is the fallback for
+				// anything still hidden (e.g. Parsoid's mf-collapsible-content sections).
+				// Navigate to the closest ancestor with an id and fire a synthetic
+				// hashchange, which MobileFrontend pick up to open the section.
 				let idNode = articleImage;
 				while ( idNode && !idNode.hasAttribute( 'id' ) && idNode.parentNode ) {
 					idNode = idNode.parentNode;
