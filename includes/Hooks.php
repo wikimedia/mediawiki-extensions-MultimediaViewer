@@ -41,9 +41,6 @@ use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\CategoryPage;
 use MediaWiki\Page\Hook\CategoryPageViewHook;
 use MediaWiki\Page\PageProps;
-use MediaWiki\Parser\ParserOptions;
-use MediaWiki\Parser\ParserOutput;
-use MediaWiki\Parser\ParserOutputLinkTypes;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\ResourceLoader\Context;
@@ -247,13 +244,9 @@ class Hooks implements
 			50,
 			$this->config->get( MainConfigNames::ArticlePath )
 		);
-		$context = $out->getContext();
 		$carouselItems = $this->extractCarouselImageElements(
 			$thumbExtractor,
-			$out->getHTML(),
-			$context->getWikiPage()->getParserOutput(
-				ParserOptions::newFromContext( $context )
-			) ?: null
+			$out->getHTML()
 		);
 		if ( count( $carouselItems ) < self::MIN_CAROUSEL_IMAGES ) {
 			return;
@@ -396,18 +389,18 @@ class Hooks implements
 	}
 
 	/**
-	 * Extract thumbnail image data from the parser output of a wiki page.
-	 * The parser cache is used if possible.
+	 * Extract carousel image candidates from the rendered HTML.
+	 *
+	 * Works off the rendered HTML rather than ParserOutput so that no parse
+	 * or parser-cache lookup happens on the pageview path (T439182).
 	 *
 	 * @param ThumbExtractor $thumbExtractor
-	 * @param string $html
-	 * @param ?ParserOutput $parserOutput
+	 * @param string $html rendered HTML from OutputPage::getHTML()
 	 * @return array{title: Title, thumb: \Wikimedia\Parsoid\DOM\Element}[]
 	 */
 	protected function extractCarouselImageElements(
 		ThumbExtractor $thumbExtractor,
-		string $html,
-		?ParserOutput $parserOutput = null
+		string $html
 	): array {
 		$doc = DOMCompat::newDocument( true );
 		$body = DOMUtils::parseHTMLToFragment( $doc, $html );
@@ -435,29 +428,7 @@ class Hooks implements
 				'thumb' => $thumb,
 			];
 		}
-		$carouselItems = array_values( $carouselItems );
-
-		if ( $parserOutput ) {
-			// Doublecheck thumbs against media known in ParserOutput.
-			// Note: this code path with not be run for external content
-			// served through MobileFrontendContentProvider, for which
-			// we don't have parser output.
-			$fileNames = [];
-			foreach ( $parserOutput->getLinkList( ParserOutputLinkTypes::MEDIA ) as $medium ) {
-				$fileNames[] = $medium['link']->getText();
-			}
-			$files = $this->repoGroup->findFiles( $fileNames );
-
-			$carouselItems = array_values( array_filter(
-				$carouselItems,
-				static function ( $item ) use ( $files ) {
-					$filename = $item['title']->getDBkey();
-					return isset( $files[$filename] ) && $files[$filename]->exists();
-				}
-			) );
-		}
-
-		return $carouselItems;
+		return array_values( $carouselItems );
 	}
 
 	/**

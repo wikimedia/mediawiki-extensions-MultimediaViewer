@@ -5,7 +5,6 @@ namespace MediaWiki\Extension\MultimediaViewer\Tests;
 use MediaWiki\Extension\MultimediaViewer\Hooks;
 use MediaWiki\Extension\MultimediaViewer\ThumbExtractor;
 use MediaWiki\Output\OutputPage;
-use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Skin\SkinTemplate;
 use MediaWiki\Title\Title;
@@ -61,8 +60,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 
 			protected function extractCarouselImageElements(
 				ThumbExtractor $thumbExtractor,
-				string $html,
-				?ParserOutput $parserOutput = null
+				string $html
 			): array {
 				return $this->stubCarouselItems;
 			}
@@ -130,8 +128,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 
 	protected function extractCarouselImageElements(
 		ThumbExtractor $thumbExtractor,
-		string $html,
-		?ParserOutput $parserOutput = null
+		string $html
 	): array {
 		$method = new \ReflectionMethod( Hooks::class, 'extractCarouselImageElements' );
 		$hooks = new Hooks(
@@ -142,7 +139,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			$this->getServiceContainer()->getPageProps(),
 			null
 		);
-		return $method->invoke( $hooks, $thumbExtractor, $html, $parserOutput );
+		return $method->invoke( $hooks, $thumbExtractor, $html );
 	}
 
 	protected function buildCarouselItemsHtml( array $thumbData ): string {
