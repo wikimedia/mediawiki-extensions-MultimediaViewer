@@ -218,8 +218,8 @@ class ThumbExtractorTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * Regression test for T428610: images whose anchor href attributes
 	 * contain percent-encoded characters (commas, Unicode, parentheses)
-	 * must still build a valid (decoded) title (which will also match
-	 * file names from RepoGroup::findFiles())
+	 * must still build a valid (decoded) title, which the carousel relies on
+	 * for each item's File: page link and accessible name.
 	 *
 	 * @dataProvider provideExtractTitleFromAnchorElement
 	 */
