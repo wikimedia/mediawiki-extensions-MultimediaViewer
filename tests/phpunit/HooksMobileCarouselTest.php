@@ -4,6 +4,7 @@ namespace MediaWiki\Extension\MultimediaViewer\Tests;
 
 use MediaWiki\Extension\MultimediaViewer\Hooks;
 use MediaWiki\Extension\MultimediaViewer\ThumbExtractor;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Skin\SkinTemplate;
@@ -19,6 +20,11 @@ use Wikimedia\Parsoid\Utils\DOMUtils;
  * @group Database
  */
 class HooksMobileCarouselTest extends HooksTestCase {
+	// $wgThumbnailSteps has no core default, so any test asserting a
+	// rewritten thumbnail size must pin it rather than inherit whatever the
+	// running wiki happens to configure; CI runs without it.
+	private const THUMBNAIL_STEPS = [ 20, 40, 60, 120, 250, 330, 500, 960, 1280, 1920, 3840 ];
+
 	public function newHooksInstance(
 		array $carouselItems = [],
 		?bool $useCarousel = true,
@@ -29,7 +35,6 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	): Hooks {
 		$hooks = new class(
 			$this->getServiceContainer()->getMainConfig(),
-			$this->getServiceContainer()->getRepoGroup(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
 			$this->getServiceContainer()->getPageProps(),
@@ -97,7 +102,6 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$method = new \ReflectionMethod( Hooks::class, 'shouldUseMobileCarousel' );
 		$hooks = new class(
 			$this->getServiceContainer()->getMainConfig(),
-			$this->getServiceContainer()->getRepoGroup(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
 			$this->getServiceContainer()->getPageProps(),
@@ -133,7 +137,6 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$method = new \ReflectionMethod( Hooks::class, 'extractCarouselImageElements' );
 		$hooks = new Hooks(
 			$this->getServiceContainer()->getMainConfig(),
-			$this->getServiceContainer()->getRepoGroup(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
 			$this->getServiceContainer()->getPageProps(),
@@ -152,7 +155,12 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		return $method->invoke( $this->newHooksInstance(), $thumbData, $pageTitle );
 	}
 
-	protected static function makeFakeThumb( string $filename, ?string $alt = null ): Element {
+	protected static function makeFakeThumb(
+		string $filename,
+		?string $alt = null,
+		int $fileWidth = 2400,
+		int $fileHeight = 1800
+	): Element {
 		$alt = $alt !== null ? "alt=\"$alt\"" : '';
 		$src = <<<HTML
 			<a
@@ -167,8 +175,8 @@ class HooksMobileCarouselTest extends HooksTestCase {
 					height="90"
 					class="mw-file-element"
 					srcset="//upload.wikimedia.org/wikipedia/commons/thumb/1/10/$filename/240px-$filename 2x"
-					data-file-width="2400"
-					data-file-height="1800"
+					data-file-width="$fileWidth"
+					data-file-height="$fileHeight"
 				>
 			</a>
 		HTML;
@@ -178,9 +186,14 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		return $fragment->firstElementChild->firstElementChild;
 	}
 
-	protected static function makeFakeThumbData( string $filename, ?string $alt = null ): array {
+	protected static function makeFakeThumbData(
+		string $filename,
+		?string $alt = null,
+		int $fileWidth = 2400,
+		int $fileHeight = 1800
+	): array {
 		return [
-			'thumb' => self::makeFakeThumb( $filename, $alt ),
+			'thumb' => self::makeFakeThumb( $filename, $alt, $fileWidth, $fileHeight ),
 			'title' => Title::makeTitle( NS_FILE, $filename ),
 		];
 	}
@@ -754,6 +767,8 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	}
 
 	public function testBuildCarouselItemsRendersItem(): void {
+		$this->overrideConfigValue( MainConfigNames::ThumbnailSteps, self::THUMBNAIL_STEPS );
+
 		$html = $this->buildCarouselItemsHtml( [
 			self::makeFakeThumbData( 'Cat.jpg', 'A cat' ),
 		] );
@@ -763,46 +778,96 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$this->assertStringContainsString( 'class="mmv-carousel__item-link mw-file-description"', $html );
 		$this->assertStringContainsString( 'aria-label="A cat"', $html );
 		$this->assertStringContainsString(
-			'src="//upload.wikimedia.org/wikipedia/commons/thumb/1/10/Cat.jpg/120px-Cat.jpg"',
+			'src="//upload.wikimedia.org/wikipedia/commons/thumb/1/10/Cat.jpg/250px-Cat.jpg"',
 			$html
 		);
-		$this->assertStringContainsString( 'width="120"', $html );
-		$this->assertStringContainsString( 'height="90"', $html );
+		$this->assertStringContainsString( 'width="250"', $html );
+		$this->assertStringContainsString( 'height="187"', $html );
 		$this->assertStringContainsString( 'alt="A cat"', $html );
 		$this->assertStringContainsString( 'class="mmv-carousel__item-image"', $html );
 		$this->assertStringContainsString( 'loading="lazy"', $html );
 	}
 
-	public function testBuildCarouselItemsRendersItemFromRepo(): void {
-		$mockThumb = $this->createMock( \MediaWiki\Media\MediaTransformOutput::class );
-		$mockThumb->method( 'isError' )->willReturn( false );
-		$mockThumb->method( 'getUrl' )->willReturn( '//example.com/250px-Cat.jpg' );
-		$mockThumb->method( 'getWidth' )->willReturn( 250 );
-		$mockThumb->method( 'getHeight' )->willReturn( 188 );
+	public function testBuildCarouselItemsNeverRequestsTheFilesOwnWidth(): void {
+		$this->overrideConfigValue( MainConfigNames::ThumbnailSteps, self::THUMBNAIL_STEPS );
 
-		$mockFile = $this->createMock( \MediaWiki\FileRepo\File\File::class );
-		$mockFile->method( 'transform' )->willReturn( $mockThumb );
+		// A file exactly as wide as a thumbnail step (250) must not have that
+		// step requested: core's ImageHandler serves the original at or above the
+		// source width rather than generating a thumbnail, so `250px-Exact.jpg`
+		// would not exist. Fall back to the article's own thumbnail instead.
+		$html = $this->buildCarouselItemsHtml( [
+			self::makeFakeThumbData( 'Exact.jpg', 'Exactly one step wide', 250, 250 ),
+		] );
 
-		$mockRepoGroup = $this->createMock( \MediaWiki\FileRepo\RepoGroup::class );
-		$mockRepoGroup->method( 'findFile' )->willReturn( $mockFile );
+		$this->assertStringContainsString( 'class="mmv-carousel__item"', $html );
+		$this->assertStringNotContainsString( '250px-Exact.jpg', $html );
+		$this->assertStringContainsString( '120px-Exact.jpg', $html );
+	}
 
-		$this->setService( 'RepoGroup', $mockRepoGroup );
+	public function testBuildCarouselItemsSurvivesThumbWithoutSrc(): void {
+		$this->overrideConfigValue( MainConfigNames::ThumbnailSteps, self::THUMBNAIL_STEPS );
+
+		// A thumb carrying neither src nor data-mw-src must not produce a fatal
+		// error page. The closure that rewrites thumbnail URLs takes a string,
+		// and passing it null would throw a TypeError. The item should still
+		// render, falling back to the article's srcset without a src.
+		$thumbData = self::makeFakeThumbData( 'Cat.jpg', 'A cat' );
+		$thumbData['thumb']->removeAttribute( 'src' );
+
+		$html = $this->buildCarouselItemsHtml( [ $thumbData ] );
+
+		$this->assertStringContainsString( 'class="mmv-carousel__item"', $html );
+		$this->assertStringContainsString( 'href="/wiki/File:Cat.jpg"', $html );
+	}
+
+	public function testBuildCarouselItemsKeepsItemWhenNoLargerThumbnailStepFits(): void {
+		$this->overrideConfigValue( MainConfigNames::ThumbnailSteps, self::THUMBNAIL_STEPS );
+
+		// A 200x200 file is smaller than MIN_CAROUSEL_THUMB_SIZE's smallest
+		// qualifying step (250), so there is nothing to resize to. The item
+		// must still be rendered, using its original src.
+		$html = $this->buildCarouselItemsHtml( [
+			self::makeFakeThumbData( 'Small.jpg', 'A small image', 200, 200 ),
+		] );
+
+		$this->assertStringContainsString( 'class="mmv-carousel__item"', $html );
+		$this->assertStringContainsString( 'href="/wiki/File:Small.jpg"', $html );
+		$this->assertStringContainsString( '120px-Small.jpg', $html );
+	}
+
+	public function testBuildCarouselItemsKeepsItemWhenThumbnailStepsUnconfigured(): void {
+		// Core's default for ThumbnailSteps is null, so no step can ever
+		// qualify; items must still render rather than the carousel coming
+		// out empty.
+		$this->overrideConfigValue( MainConfigNames::ThumbnailSteps, null );
 
 		$html = $this->buildCarouselItemsHtml( [
 			self::makeFakeThumbData( 'Cat.jpg', 'A cat' ),
 		] );
 
 		$this->assertStringContainsString( 'class="mmv-carousel__item"', $html );
-		$this->assertStringContainsString( 'href="/wiki/File:Cat.jpg"', $html );
-		$this->assertStringContainsString(
-			'src="//example.com/250px-Cat.jpg"',
-			$html
-		);
-		$this->assertStringContainsString( 'width="250"', $html );
-		$this->assertStringContainsString( 'height="188"', $html );
+		$this->assertStringContainsString( '120px-Cat.jpg', $html );
+	}
+
+	public function testBuildCarouselRenderedItemsMatchReportedCount(): void {
+		$this->overrideConfigValue( MainConfigNames::ThumbnailSteps, self::THUMBNAIL_STEPS );
+
+		// Two of these three files are too small for any thumbnail step to
+		// apply. The count badge and the aria-label are derived from the item
+		// array, so every item must render or they disagree with the list.
+		$html = $this->buildCarouselHtml( [
+			self::makeFakeThumbData( 'Small1.jpg', 'a', 200, 200 ),
+			self::makeFakeThumbData( 'Small2.jpg', 'b', 200, 200 ),
+			self::makeFakeThumbData( 'Big.jpg', 'c' ),
+		], 'Test Page' );
+
+		$this->assertSame( 3, substr_count( $html, 'class="mmv-carousel__item"' ) );
+		$this->assertStringContainsString( '3 images', $html );
 	}
 
 	public function testBuildCarouselItemsDefersImagesBeyondEagerCount(): void {
+		$this->overrideConfigValue( MainConfigNames::ThumbnailSteps, self::THUMBNAIL_STEPS );
+
 		$items = [];
 		foreach ( [ 'A.jpg', 'B.jpg', 'C.jpg', 'D.jpg', 'E.jpg', 'F.jpg', 'G.jpg', 'H.jpg' ] as $name ) {
 			$items[] = self::makeFakeThumbData( $name );
@@ -828,12 +893,12 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			$this->assertFalse( $img->hasAttribute( 'srcset' ) );
 			$this->assertTrue( $img->hasAttribute( 'data-src' ) );
 			$this->assertTrue( $img->hasAttribute( 'data-srcset' ) );
-			$this->assertSame( '120', DOMCompat::getAttribute( $img, 'width' ) );
+			$this->assertSame( '250', DOMCompat::getAttribute( $img, 'width' ) );
 			$this->assertStringContainsString( '--pending', DOMCompat::getAttribute( $img, 'class' ) );
 		}
 
 		$this->assertSame(
-			'//upload.wikimedia.org/wikipedia/commons/thumb/1/10/G.jpg/120px-G.jpg',
+			'//upload.wikimedia.org/wikipedia/commons/thumb/1/10/G.jpg/250px-G.jpg',
 			DOMCompat::getAttribute( $images[6], 'data-src' )
 		);
 		$this->assertCount( 2, DOMCompat::querySelectorAll( $fragment, 'li.mmv-carousel__item--deferred' ) );

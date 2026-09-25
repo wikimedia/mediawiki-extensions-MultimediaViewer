@@ -28,7 +28,6 @@ use MediaWiki\Config\Config;
 use MediaWiki\Config\ConfigException;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\BetaFeatures\BetaFeatures;
-use MediaWiki\FileRepo\RepoGroup;
 use MediaWiki\Hook\GetDoubleUnderscoreIDsHook;
 use MediaWiki\Html\Html;
 use MediaWiki\MainConfigNames;
@@ -90,7 +89,6 @@ class Hooks implements
 
 	public function __construct(
 		private readonly Config $config,
-		private readonly RepoGroup $repoGroup,
 		private readonly SpecialPageFactory $specialPageFactory,
 		private readonly UserOptionsLookup $userOptionsLookup,
 		private readonly PageProps $pageProps,
@@ -440,6 +438,57 @@ class Hooks implements
 	private function buildCarouselItemsHtml( array $carouselItems ): string {
 		$thumbSteps = $this->config->get( MainConfigNames::ThumbnailSteps );
 
+		// Partially lifted from mw.util.parseImageUrl
+		$parseImageUrl = static function ( string $url ) {
+			// phpcs:disable Generic.Files.LineLength.TooLong
+			$regexes = [
+				// Thumbnails
+				// /<hash prefix>/<name>/[<options>-]<width>-<name*>[.<ext>]
+				// where <name*> could be the filename, 'thumbnail.<ext>' (for long filenames)
+				// or the base-36 SHA1 of the filename.
+				'/\\/[\\da-f]\\/[\\da-f]{2}\\/([^\\s\\/]+)\\/(?:[^\\s\\/]+-)?(\\d+)px-(?:\\1|thumbnail|[a-z\\d]{31})(?:\\.[^\\s\\/?]+)?(?:\\?[^\\s]+)?$/',
+
+				// Full size images
+				// /<hash prefix>/<name>
+				'/\\/[\\da-f]\\/[\\da-f]{2}\\/([^\\s\\/?]+)(?:\\?[^\\s]+)?$/',
+
+				// Thumbnails in non-hashed upload directories
+				// /<name>/[<options>-]<width>-<name*>[.<ext>]
+				'/\\/([^\\s\\/]+)\\/(?:[^\\s\\/]+-)?(\\d+)px-(?:\\1|thumbnail|[a-z\\d]{31})[^\\s\\/?]*(?:\\?[^\\s]+)?$/',
+
+				// Full-size images in non-hashed upload directories
+				// /<name>
+				'/\\/([^\\s\\/?]+)(?:\\?[^\\s]+)?$/',
+			];
+			// phpcs:enable Generic.Files.LineLength.TooLong
+
+			foreach ( $regexes as $regex ) {
+				if ( preg_match( $regex, $url, $match ) ) {
+					$name = $match[1];
+					$width = $match[2] ?? null;
+
+					$urlTemplate = null;
+					if ( $width ) {
+						$urlTemplate = str_replace( $name, '{name}', $url );
+						$urlTemplate = str_replace( $width . 'px-', '{width}px-', $urlTemplate );
+						$urlTemplate = str_replace( '{name}', $name, $urlTemplate );
+					}
+
+					return [
+						'name' => $name,
+						'width' => $width,
+						'resizeUrl' => static function ( int $newWidth ) use ( $urlTemplate ) {
+							return $urlTemplate ?
+								str_replace( '{width}px-', $newWidth . 'px-', $urlTemplate ) :
+								null;
+						},
+					];
+				}
+			}
+
+			return null;
+		};
+
 		$html = '';
 		foreach ( $carouselItems as $i => $item ) {
 			// Items beyond the first few defer their image loading to
@@ -455,44 +504,48 @@ class Hooks implements
 
 			// Use thumbnail sizes suited to the carousel's own display size
 			// rather than whatever sizes the article happened to use.
-			$file = $this->repoGroup->findFile( $item['title'] );
-			if ( $file ) {
+			$dataFileWidth = (int)DOMCompat::getAttribute( $item['thumb'], 'data-file-width' );
+			$dataFileHeight = (int)DOMCompat::getAttribute( $item['thumb'], 'data-file-height' );
+
+			$imageData = $src ? $parseImageUrl( $src ) : null;
+			if ( $dataFileWidth && $dataFileHeight && $imageData && $imageData['width'] ) {
 				// Given we may be stretching vertically (in the case of landscape
 				// photos), we might need to increase the thumbnail width to ensure
 				// the photo can accommodate the requisite height
-				$width = $file->getWidth() <= $file->getHeight() ?
+				$displayWidth = $dataFileWidth <= $dataFileHeight ?
 					self::MIN_CAROUSEL_THUMB_SIZE :
-					(int)round( $file->getWidth() / $file->getHeight() * self::MIN_CAROUSEL_THUMB_SIZE );
+					round( $dataFileWidth / $dataFileHeight * self::MIN_CAROUSEL_THUMB_SIZE );
+
+				// Cap strictly below the file's own width: at or above it core
+				// serves the original rather than generating a thumbnail, so a
+				// `{$dataFileWidth}px-` URL would not exist.
+				$relevantThumbSteps = array_filter(
+					$thumbSteps ?? [],
+					static fn ( $step ) => $step >= $displayWidth && $step < $dataFileWidth,
+				);
+			} else {
+				$relevantThumbSteps = [];
+			}
+
+			// With no larger step available there is nothing worth rewriting: the
+			// file is already at or below the size the carousel wants. Keep the
+			// item and fall back to the attributes the article's own thumbnail
+			// carries, so the rendered items stay in sync with the item count
+			// reported in buildCarouselHtml().
+			if ( $relevantThumbSteps ) {
+				$width = min( $relevantThumbSteps );
+				$height = (int)( $width * $dataFileHeight / $dataFileWidth );
+				$src = $imageData[ 'resizeUrl' ]( $width );
 
 				// Also get additional srcset sizes, both for retina screens, and for
 				// responsive images shown larger than the `self::MIN_CAROUSEL_THUMB_SIZE`
 				// minimum
 				$srcsetData = [];
-				foreach ( $thumbSteps ?? [] as $step ) {
-					if ( $step < $width ) {
-						// No point generating srcset options smaller than src
-						continue;
-					}
-
-					$thumb = $file->transform( [ 'width' => $step ] );
-					if ( $thumb && !$thumb->isError() ) {
-						$srcsetData[] = "{$thumb->getUrl()} {$thumb->getWidth()}w";
-					}
-
-					if ( $file->getWidth() && $step >= $file->getWidth() ) {
-						// Once we're at or beyond max image width, there will
-						// not be any larger thumbnails so we can stop
-						break;
-					}
+				foreach ( $relevantThumbSteps as $step ) {
+					$srcsetUrl = $imageData[ 'resizeUrl' ]( $step );
+					$srcsetData[] = "{$srcsetUrl} {$step}w";
 				}
 				$srcset = $srcsetData ? implode( ',', $srcsetData ) : $srcset;
-
-				$thumb = $file->transform( [ 'width' => $width ] );
-				if ( $thumb && !$thumb->isError() ) {
-					$src = $thumb->getUrl();
-					$width = $thumb->getWidth();
-					$height = $thumb->getHeight();
-				}
 			}
 
 			$html .= Html::rawElement(
@@ -540,8 +593,8 @@ class Hooks implements
 								'mmv-carousel__item-image--pending' => $deferred,
 							],
 							'loading' => 'lazy',
-							'data-file-width' => DOMCompat::getAttribute( $item['thumb'], 'data-file-width' ),
-							'data-file-height' => DOMCompat::getAttribute( $item['thumb'], 'data-file-height' ),
+							'data-file-width' => $dataFileWidth,
+							'data-file-height' => $dataFileHeight,
 						]
 					) .
 					( isset( $item['caption'] ) ? Html::element(

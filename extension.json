@@ -467,7 +467,6 @@
 			"class": "MediaWiki\\Extension\\MultimediaViewer\\Hooks",
 			"services": [
 				"MainConfig",
-				"RepoGroup",
 				"SpecialPageFactory",
 				"UserOptionsLookup",
 				"PageProps"
