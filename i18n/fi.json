@@ -120,5 +120,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "Ota kuvakaruselli käyttöön mobiilisivustolla",
 	"multimediaviewer-loading": "Ladataan Mediakatselinta.",
 	"multimediaviewer-beta-feature-name": "Kuvakaruselli",
-	"multimediaviewer-beta-feature-description": "Näyttää artikkelin kuvat sivun yläreunassa mobiililaitteilla."
+	"multimediaviewer-beta-feature-description": "Näyttää artikkelin kuvat sivun yläreunassa mobiililaitteilla.",
+	"multimediaviewer-dialog-label": "Mediakatselin"
 }

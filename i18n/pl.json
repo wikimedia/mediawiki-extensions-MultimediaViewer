@@ -123,5 +123,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "Włącz karuzelę obrazów w wersji mobilnej strony",
 	"multimediaviewer-loading": "Wczytywanie przeglądarki multimediów.",
 	"multimediaviewer-beta-feature-name": "Karuzela obrazów",
-	"multimediaviewer-beta-feature-description": "Wyświetla obrazy towarzyszące artykułom u góry strony na urządzeniach mobilnych."
+	"multimediaviewer-beta-feature-description": "Wyświetla obrazy towarzyszące artykułom u góry strony na urządzeniach mobilnych.",
+	"multimediaviewer-dialog-label": "Przeglądarka multimediów"
 }

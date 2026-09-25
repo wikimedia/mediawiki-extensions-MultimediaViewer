@@ -123,5 +123,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "Bildkarussell auf der mobilen Website aktivieren",
 	"multimediaviewer-loading": "Medienbetrachter wird geladen.",
 	"multimediaviewer-beta-feature-name": "Bilderkarussell",
-	"multimediaviewer-beta-feature-description": "Auf mobilen Geräten Artikelbilder oben auf der Seite anzeigen."
+	"multimediaviewer-beta-feature-description": "Auf mobilen Geräten Artikelbilder oben auf der Seite anzeigen.",
+	"multimediaviewer-dialog-label": "Medienbetrachter"
 }

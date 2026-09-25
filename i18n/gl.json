@@ -116,5 +116,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "Activar o carrusel de imaxes no sitio web para móbiles",
 	"multimediaviewer-loading": "Cargando o visor de ficheiros multimedia.",
 	"multimediaviewer-beta-feature-name": "Carrusel de imaxes",
-	"multimediaviewer-beta-feature-description": "Mostrar as imaxes do artigo na parte superior da páxina nos dispositivos móbiles."
+	"multimediaviewer-beta-feature-description": "Mostrar as imaxes do artigo na parte superior da páxina nos dispositivos móbiles.",
+	"multimediaviewer-dialog-label": "Visor multimedia"
 }

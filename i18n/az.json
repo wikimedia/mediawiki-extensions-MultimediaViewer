@@ -118,5 +118,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "Mobil saytda şəkil karuselini aktivləşdir",
 	"multimediaviewer-loading": "Media Viewer yüklənir.",
 	"multimediaviewer-beta-feature-name": "Şəkil karuseli",
-	"multimediaviewer-beta-feature-description": "Məqalənin şəkillərini mobildə səhifənin yuxarı hissəsində göstər."
+	"multimediaviewer-beta-feature-description": "Məqalənin şəkillərini mobildə səhifənin yuxarı hissəsində göstər.",
+	"multimediaviewer-dialog-label": "Media görüntüləyicisi"
 }
