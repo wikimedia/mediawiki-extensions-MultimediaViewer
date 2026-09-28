@@ -157,6 +157,15 @@ class Hooks implements
 	 *
 	 * @return bool
 	 */
+	protected function isDesktopView(): bool {
+		return !$this->isMobileFrontendView();
+	}
+
+	/**
+	 * Whether the current request is being served through MobileFrontend's mobile view.
+	 *
+	 * @return bool
+	 */
 	protected function isMobileFrontendView(): bool {
 		return ExtensionRegistry::getInstance()->isLoaded( 'MobileFrontend' ) &&
 			$this->mobileContext &&
@@ -179,21 +188,7 @@ class Hooks implements
 	 * @param OutputPage $out
 	 */
 	protected function getModules( OutputPage $out ) {
-		// Desktop view: always load the viewer.
-		if ( !$this->isMobileFrontendView() ) {
-			$out->addModules( 'mmv.bootstrap' );
-			return;
-		}
-
-		// Mobile view: the carousel module is handled by
-		// maybeAddMobileCarousel(). Mobile viewer: loading mmv.bootstrap
-		// registers the "#/media/" route on the shared router ahead of the
-		// MobileFrontend lightbox, which stands down whenever the bootstrap is
-		// loaded (T169622). It is enabled sitewide via $wgMediaViewerMobileBeta
-		// (T428774) independent of the mobile carousel rollout gate.
-		if ( $this->shouldUseVueViewer( $out ) ) {
-			$out->addModules( 'mmv.bootstrap' );
-		}
+		$out->addModules( 'mmv.bootstrap' );
 	}
 
 	/**
@@ -202,7 +197,7 @@ class Hooks implements
 	 *
 	 * Conditions:
 	 *  - request is served through MobileFrontend's mobile view
-	 *  - MediaViewerMobileBeta config flag is enabled
+	 *  - MediaViewerDesktopBeta config flag is enabled
 	 *  - the user has not disabled MediaViewer in their preferences
 	 *
 	 * @param OutputPage $out
@@ -210,10 +205,10 @@ class Hooks implements
 	 */
 	protected function shouldUseVueViewer( OutputPage $out ): bool {
 		return (
-			$this->isMobileFrontendView() &&
-			$this->config->get( 'MediaViewerMobileBeta' ) &&
-			$this->shouldHandleClicks( $out->getUser() )
-		);
+			$this->isMobileFrontendView() ||
+			$this->config->get( 'MediaViewerDesktopVue' )
+		) &&
+			$this->shouldHandleClicks( $out->getUser() );
 	}
 
 	/**
@@ -799,7 +794,7 @@ class Hooks implements
 		// Tells the bootstrap to use the mobile viewer instead of the
 		// legacy desktop viewer (T428774). Exported here rather than via
 		// ResourceLoaderGetConfigVars because it varies per request.
-		$vars['wgMediaViewerMobileBeta'] = $this->shouldUseVueViewer( $out );
+		$vars['wgMediaViewerDesktopVue'] = $this->shouldUseVueViewer( $out );
 	}
 
 	/**

@@ -91,7 +91,9 @@ class MultimediaViewerBootstrap {
 	 * @return {boolean}
 	 */
 	useVueMultimediaViewer() {
-		return mw.config.get( 'wgMediaViewerMobileBeta' ) === true;
+		// FIXME: Drop wgMediaViewerMobileBeta check 2 weeks after this change has been merged.
+		return mw.config.get( 'wgMediaViewerMobileBeta' ) === true ||
+			mw.config.get( 'wgMediaViewerDesktopVue' ) === true;
 	}
 
 	/**

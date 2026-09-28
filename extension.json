@@ -539,9 +539,9 @@
 			"description": "Enables the mobile image carousel sitewide for qualifying article pages in MobileFrontend (production rollout). Takes precedence over the opt-in beta feature (see MediaViewerBetaFeature): where this is on, the carousel is shown to everyone and the beta opt-in is suppressed.",
 			"value": false
 		},
-		"MediaViewerMobileBeta": {
-			"description": "If true, the Vue multimedia viewer (mmv.ui.vue) replaces the MobileFrontend image viewer for all users on the mobile site, except logged-in users who have disabled MediaViewer in their preferences.",
-			"value": true
+		"MediaViewerDesktopVue": {
+			"description": "If true, the Vue-based viewer is used on the desktop site.",
+			"value": false
 		},
 		"MediaViewerExcludedImageSelectors": {
 			"description": "CSS selectors for images that should be excluded. These selectors typically indicate template-generated images, placeholders, or images that don't make sense in a carousel or gallery context.",

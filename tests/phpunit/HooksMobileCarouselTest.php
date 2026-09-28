@@ -54,6 +54,10 @@ class HooksMobileCarouselTest extends HooksTestCase {
 				return $this->mobileView;
 			}
 
+			protected function isDesktopView(): bool {
+				return !$this->mobileView;
+			}
+
 			protected function shouldPageGetMobileCarousel( OutputPage $out ): bool {
 				return $this->pageQualifies;
 			}
@@ -340,7 +344,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	}
 
 	public function testOnBeforePageDisplayInjectsCarouselMarkupWhenEnabled(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
+		$this->overrideConfigValue( 'MediaViewerDesktopVue', false );
 		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
 
@@ -350,7 +354,10 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			self::makeFakeThumbData( 'C.jpg' ),
 		] );
 
-		$expectedModules = $this->getCarouselModules();
+		$expectedModules = array_merge(
+			[ 'mmv.bootstrap' ],
+			$this->getCarouselModules()
+		);
 		$output->expects( $this->exactly( count( $expectedModules ) ) )
 			->method( 'addModules' )
 			->with( $this->callback( static function ( string $module ) use ( &$expectedModules ): bool {
@@ -367,7 +374,6 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	}
 
 	public function testOnBeforePageDisplayInjectsCarouselMarkupForAnonymousReaders(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
 		$output = $this->makeOutputPage(
 			user: $this->getServiceContainer()->getUserFactory()
 				->newFromName( '127.0.0.1', UserRigorOptions::RIGOR_NONE )
@@ -380,7 +386,10 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			self::makeFakeThumbData( 'C.jpg' ),
 		] );
 
-		$expectedModules = $this->getCarouselModules();
+		$expectedModules = array_merge(
+			[ 'mmv.bootstrap' ],
+			$this->getCarouselModules()
+		);
 		$output->expects( $this->exactly( count( $expectedModules ) ) )
 			->method( 'addModules' )
 			->with( $this->callback( static function ( string $module ) use ( &$expectedModules ): bool {
@@ -393,7 +402,6 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	}
 
 	public function testOnBeforePageDisplayLoadsWikimediaEventsAAInstrumentWhenAvailable(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
 		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
 
@@ -414,7 +422,8 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$hooks->onBeforePageDisplay( $output, $skin );
 
 		$this->assertSame(
-			[ 'ext.wikimediaEvents.preImageCarouselRetestAA', 'mmv.carousel' ],
+			[ 'mmv.bootstrap',
+				'ext.wikimediaEvents.preImageCarouselRetestAA', 'mmv.carousel' ],
 			$addedModules
 		);
 	}
@@ -430,7 +439,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		bool $wikimediaEventsLoaded,
 		bool $expectInstrument
 	): void {
-		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
+		$this->overrideConfigValue( 'MediaViewerDesktopVue', false );
 		$this->overrideConfigValue( 'MediaViewerMobileCarousel', false );
 		$this->overrideConfigValue( 'MediaViewerBetaFeature', false );
 		$user = $this->getServiceContainer()->getUserFactory()
@@ -444,14 +453,18 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		);
 
 		if ( $expectInstrument ) {
-			$output->expects( $this->once() )->method( 'addModules' )
-				->with( 'ext.wikimediaEvents.preImageCarouselRetestAA' );
-		} elseif ( !$mobileView ) {
+			$expectedModules = [
+				'mmv.bootstrap',
+				'ext.wikimediaEvents.preImageCarouselRetestAA'
+			];
+			$output->expects( $this->exactly( 2 ) )->method( 'addModules' )
+				->with( $this->callback( static function ( string $module ) use ( &$expectedModules ): bool {
+					return $module === array_shift( $expectedModules );
+				} ) );
+		} else {
 			// Desktop still loads the existing viewer, but no A/A instrument.
 			$output->expects( $this->once() )->method( 'addModules' )
 				->with( 'mmv.bootstrap' );
-		} else {
-			$output->expects( $this->never() )->method( 'addModules' );
 		}
 		$output->expects( $this->never() )->method( 'addModuleStyles' );
 		$output->expects( $this->never() )->method( 'prependHTML' );
@@ -471,7 +484,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	}
 
 	public function testOnBeforePageDisplaySkipsCarouselWhenNotApplicable(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
+		$this->overrideConfigValue( 'MediaViewerDesktopVue', false );
 		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
 
@@ -484,16 +497,17 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			false
 		);
 
-		// No carousel request, so no modules are added at all.
-		$output->expects( $this->never() )
-			->method( 'addModules' );
+		// No carousel request, but mmv.bootstrap still requested
+		$output->expects( $this->once() )
+			->method( 'addModules' )
+			->with( 'mmv.bootstrap' );
 		$output->expects( $this->never() )
 			->method( 'prependHTML' );
 		$hooks->onBeforePageDisplay( $output, $skin );
 	}
 
 	public function testOnBeforePageDisplaySkipsCarouselWhenFewerThanMinImages(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
+		$this->overrideConfigValue( 'MediaViewerDesktopVue', false );
 		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
 
@@ -505,15 +519,15 @@ class HooksMobileCarouselTest extends HooksTestCase {
 
 		// Below the threshold no carousel is rendered, so the carousel module
 		// must not be loaded either (T428627).
-		$output->expects( $this->never() )
-			->method( 'addModules' );
+		$output->expects( $this->once() )
+			->method( 'addModules' )
+			->with( 'mmv.bootstrap' );
 		$output->expects( $this->never() )
 			->method( 'prependHTML' );
 		$hooks->onBeforePageDisplay( $output, $skin );
 	}
 
 	public function testOnBeforePageDisplayLoadsVueViewerAlongsideCarousel(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileBeta', true );
 		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
 
@@ -523,9 +537,8 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			self::makeFakeThumbData( 'C.jpg' ),
 		] );
 
-		// $wgMediaViewerMobileBeta alone loads the bootstrap alongside the carousel so it can
-		// intercept the shared #/media/ route ahead of the MobileFrontend
-		// lightbox (T427679).
+		// Loads the bootstrap alongside the carousel so it can
+		// intercept the shared #/media/ route
 		$addedModules = [];
 		$output->method( 'addModules' )
 			->willReturnCallback( static function ( $modules ) use ( &$addedModules ) {
@@ -538,13 +551,12 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	}
 
 	public function testOnBeforePageDisplayLoadsVueViewerWithoutCarousel(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileBeta', true );
 		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
 
 		$hooks = $this->newHooksInstance( [], false );
 
-		// No carousel on this page, but $wgMediaViewerMobileBeta still loads the mobile viewer.
+		// No carousel on this page
 		$output->expects( $this->once() )
 			->method( 'addModules' )
 			->with( 'mmv.bootstrap' );
@@ -554,7 +566,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	}
 
 	public function testOnBeforePageDisplaySkipsVueViewerWithoutMmvBetaParam(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
+		$this->overrideConfigValue( 'MediaViewerDesktopVue', false );
 		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
 
@@ -564,10 +576,10 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			self::makeFakeThumbData( 'C.jpg' ),
 		] );
 
-		// With $wgMediaViewerMobileBeta off the
-		// bootstrap must not load: only the carousel does, routing clicks to
-		// the MobileFrontend lightbox.
-		$expectedModules = $this->getCarouselModules();
+		$expectedModules = array_merge(
+			[ 'mmv.bootstrap' ],
+			$this->getCarouselModules()
+		);
 		$output->expects( $this->exactly( count( $expectedModules ) ) )
 			->method( 'addModules' )
 			->with( $this->callback( static function ( string $module ) use ( &$expectedModules ): bool {
@@ -577,7 +589,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	}
 
 	public function testOnBeforePageDisplayLoadsVueViewerWhenVueViewerEnabled(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileBeta', true );
+		$this->overrideConfigValue( 'MediaViewerDesktopVue', true );
 		// A registered user who has not disabled MediaViewer
 		// ($wgMediaViewerEnableByDefault is on).
 		$output = $this->makeOutputPage( user: $this->getTestUser()->getUser() );
@@ -589,7 +601,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			self::makeFakeThumbData( 'C.jpg' ),
 		] );
 
-		// With $wgMediaViewerMobileBeta enabled the bootstrap loads for all
+		// With $wgMediaViewerDesktopVue enabled the bootstrap loads for all
 		// mobile views.
 		$addedModules = [];
 		$output->method( 'addModules' )
@@ -608,7 +620,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$userOptionsManager->setOption( $user, 'multimediaviewer-enable', 0 );
 		$user->saveSettings();
 
-		$this->overrideConfigValue( 'MediaViewerMobileBeta', true );
+		$this->overrideConfigValue( 'MediaViewerDesktopVue', true );
 		$output = $this->makeOutputPage( user: $user );
 		$skin = new SkinTemplate();
 
@@ -618,9 +630,11 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			self::makeFakeThumbData( 'C.jpg' ),
 		] );
 
-		// Logged-in users who have disabled MediaViewer keep the MobileFrontend
-		// lightbox: only the carousel module loads.
-		$expectedModules = $this->getCarouselModules();
+		// Logged-in users who have disabled MediaViewer load the mmv.bootstrap module
+		// (disabled via $wgMediaViewerOnClick)
+		$expectedModules = array_merge(
+			[ 'mmv.bootstrap' ], $this->getCarouselModules()
+		);
 		$output->expects( $this->exactly( count( $expectedModules ) ) )
 			->method( 'addModules' )
 			->with( $this->callback( static function ( string $module ) use ( &$expectedModules ): bool {
@@ -630,29 +644,41 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	}
 
 	public function testOnMakeGlobalVariablesScriptExportsVueViewerWhenEnabled(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileBeta', true );
+		$this->overrideConfigValue( 'MediaViewerDesktopVue', true );
 		$user = $this->getTestUser()->getUser();
 
 		$output = $this->createMock( OutputPage::class );
 		$output->method( 'getUser' )->willReturn( $user );
 
 		$vars = [];
-		$this->newHooksInstance()->onMakeGlobalVariablesScript( $vars, $output );
+		$this->newHooksInstance(
+			[],
+			true,
+			'vector-2022',
+			false,
+			false
+		)->onMakeGlobalVariablesScript( $vars, $output );
 
-		$this->assertTrue( $vars['wgMediaViewerMobileBeta'] );
+		$this->assertTrue( $vars['wgMediaViewerDesktopVue'] );
 	}
 
 	public function testOnMakeGlobalVariablesScriptExportsVueViewerDisabled(): void {
-		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
+		$this->overrideConfigValue( 'MediaViewerDesktopVue', false );
 		$user = $this->getTestUser()->getUser();
 
 		$output = $this->createMock( OutputPage::class );
 		$output->method( 'getUser' )->willReturn( $user );
 
 		$vars = [];
-		$this->newHooksInstance()->onMakeGlobalVariablesScript( $vars, $output );
+		$this->newHooksInstance(
+			[],
+			true,
+			'vector-2022',
+			false,
+			false
+		)->onMakeGlobalVariablesScript( $vars, $output );
 
-		$this->assertFalse( $vars['wgMediaViewerMobileBeta'] );
+		$this->assertFalse( $vars['wgMediaViewerDesktopVue'] );
 	}
 
 	public function testOnMakeGlobalVariablesScriptSetsOnClickFalseWhenViewerDisabled(): void {
