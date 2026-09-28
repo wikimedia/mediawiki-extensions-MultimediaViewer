@@ -23,6 +23,7 @@ body:has( .mmv-carousel ) .mw-parser-output {
 
 .mmv-carousel {
 	position: relative;
+	overflow: auto hidden;
 
 	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 	&:has( &__item[ data-visible='true' ] ),
@@ -125,7 +126,6 @@ body:has( .mmv-carousel ) .mw-parser-output {
 		background: @background-color-neutral-subtle;
 		padding: 2px;
 		display: flex;
-		overflow: auto hidden;
 		align-items: center;
 		list-style: none;
 		margin: 0;
