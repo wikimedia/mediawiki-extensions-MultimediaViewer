@@ -22,6 +22,7 @@ class HooksTestCase extends MediaWikiIntegrationTestCase {
 			$this->getServiceContainer()->getUserOptionsLookup(),
 			$this->getServiceContainer()->getPageProps(),
 			$this->getServiceContainer()->getParserOutputAccess(),
+			$this->getServiceContainer()->getWANObjectCache(),
 			null
 		);
 	}
