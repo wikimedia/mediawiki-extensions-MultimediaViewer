@@ -468,7 +468,8 @@
 				"MainConfig",
 				"SpecialPageFactory",
 				"UserOptionsLookup",
-				"PageProps"
+				"PageProps",
+				"ParserOutputAccess"
 			],
 			"optional_services": [
 				"MobileFrontend.Context"

@@ -21,6 +21,7 @@ class HooksTestCase extends MediaWikiIntegrationTestCase {
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
 			$this->getServiceContainer()->getPageProps(),
+			$this->getServiceContainer()->getParserOutputAccess(),
 			null
 		);
 	}
@@ -48,6 +49,7 @@ class HooksTestCase extends MediaWikiIntegrationTestCase {
 
 		$output = $this->createMock( OutputPage::class );
 		$output->method( 'getTitle' )->willReturn( $title );
+		$output->method( 'getWikiPage' )->willReturn( $wikiPage );
 		$output->method( 'getHtml' )->willReturn( '' );
 		$output->method( 'getContext' )->willReturn( $context );
 		$output->method( 'getUser' )->willReturn( $user );
