@@ -159,5 +159,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "在移动端站点启用图像轮播",
 	"multimediaviewer-loading": "正在加载媒体查看器。",
 	"multimediaviewer-beta-feature-name": "图像轮播",
-	"multimediaviewer-beta-feature-description": "在移动设备上将条目图像显示在页面顶部。"
+	"multimediaviewer-beta-feature-description": "在移动设备上将条目图像显示在页面顶部。",
+	"multimediaviewer-dialog-label": "媒体查看器"
 }

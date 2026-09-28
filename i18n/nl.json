@@ -131,5 +131,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "Afbeeldingencarrousel inschakelen op de mobiele site",
 	"multimediaviewer-loading": "Media Viewer wordt geladen.",
 	"multimediaviewer-beta-feature-name": "Afbeeldingencarrousel",
-	"multimediaviewer-beta-feature-description": "Pagina-afbeeldingen bovenaan de pagina weergeven op mobiele apparaten."
+	"multimediaviewer-beta-feature-description": "Pagina-afbeeldingen bovenaan de pagina weergeven op mobiele apparaten.",
+	"multimediaviewer-dialog-label": "Mediaviewer"
 }

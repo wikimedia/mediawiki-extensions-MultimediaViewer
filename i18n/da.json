@@ -114,5 +114,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "Aktivér billedkarrusel på mobilwebstedet",
 	"multimediaviewer-loading": "Indlæser mediefremviser.",
 	"multimediaviewer-beta-feature-name": "Billedkarrusel",
-	"multimediaviewer-beta-feature-description": "Vis billeder af artikler øverst på siden på mobile enheder."
+	"multimediaviewer-beta-feature-description": "Vis billeder af artikler øverst på siden på mobile enheder.",
+	"multimediaviewer-dialog-label": "Mediefremviser"
 }
