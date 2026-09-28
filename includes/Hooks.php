@@ -54,6 +54,8 @@ use MediaWiki\User\Hook\UserGetDefaultOptionsHook;
 use MediaWiki\User\Options\UserOptionsLookup;
 use MediaWiki\User\User;
 use MobileContext;
+use Wikimedia\LightweightObjectStore\ExpirationAwareness;
+use Wikimedia\ObjectCache\WANObjectCache;
 use Wikimedia\Parsoid\Core\DOMCompat;
 use Wikimedia\Parsoid\Utils\DOMUtils;
 
@@ -96,6 +98,7 @@ class Hooks implements
 		private readonly UserOptionsLookup $userOptionsLookup,
 		private readonly PageProps $pageProps,
 		private readonly ParserOutputAccess $parserOutputAccess,
+		private readonly WANObjectCache $wanObjectCache,
 		private readonly ?MobileContext $mobileContext,
 	) {
 	}
@@ -256,18 +259,30 @@ class Hooks implements
 			return;
 		}
 
-		$thumbExtractor = new ThumbExtractor(
-			array_keys( $this->config->get( 'MediaViewerExtensions' ) ),
-			$this->config->get( 'MediaViewerExcludedImageSelectors' ),
-			50,
-			50,
-			$this->config->get( MainConfigNames::ArticlePath )
+		$carouselItems = $this->wanObjectCache->getWithSetCallback(
+			$this->wanObjectCache->makeKey(
+				'multimediaviewer-carousel-items',
+				$out->getRevisionId()
+			),
+			$out->getRevisionId() !== null ?
+				ExpirationAwareness::TTL_DAY :
+				ExpirationAwareness::TTL_UNCACHEABLE,
+			function () use ( $out ) {
+				$thumbExtractor = new ThumbExtractor(
+					array_keys( $this->config->get( 'MediaViewerExtensions' ) ),
+					$this->config->get( 'MediaViewerExcludedImageSelectors' ),
+					50,
+					50,
+					$this->config->get( MainConfigNames::ArticlePath )
+				);
+				return $this->extractCarouselImageElements(
+					$thumbExtractor,
+					$out->getHTML()
+				);
+			}
 		);
-		$carouselItems = $this->extractCarouselImageElements(
-			$thumbExtractor,
-			$out->getHTML()
-		);
-		if ( count( $carouselItems ) < self::MIN_CAROUSEL_IMAGES ) {
+
+		if ( !$carouselItems || count( $carouselItems ) < self::MIN_CAROUSEL_IMAGES ) {
 			return;
 		}
 
@@ -415,7 +430,7 @@ class Hooks implements
 	 *
 	 * @param ThumbExtractor $thumbExtractor
 	 * @param string $html rendered HTML from OutputPage::getHTML()
-	 * @return array{title: Title, thumb: \Wikimedia\Parsoid\DOM\Element}[]
+	 * @return array{title: string, caption: ?string, thumb: array}[]
 	 */
 	protected function extractCarouselImageElements(
 		ThumbExtractor $thumbExtractor,
@@ -434,17 +449,26 @@ class Hooks implements
 			}
 
 			// Guard against duplicates/overwrites
-			$prefixedText = $title->getPrefixedText();
-			if ( isset( $carouselItems[$prefixedText] ) ) {
+			$prefixedDbKey = $title->getPrefixedDBkey();
+			if ( isset( $carouselItems[$prefixedDbKey] ) ) {
 				continue;
 			}
 
 			$caption = $thumbExtractor->extractCaptionFromAnchorElement( $anchor, $body );
 
-			$carouselItems[$prefixedText] = [
-				'title' => $title,
+			$carouselItems[$prefixedDbKey] = [
+				'title' => $prefixedDbKey,
 				'caption' => $caption,
-				'thumb' => $thumb,
+				'thumb' => [
+					'src' => DOMCompat::getAttribute( $thumb, 'src' ) ?:
+						DOMCompat::getAttribute( $thumb, 'data-mw-src' ),
+					'width' => (int)DOMCompat::getAttribute( $thumb, 'width' ),
+					'height' => (int)DOMCompat::getAttribute( $thumb, 'height' ),
+					'srcset' => DOMCompat::getAttribute( $thumb, 'srcset' ),
+					'alt' => DOMCompat::getAttribute( $thumb, 'alt' ),
+					'data-file-width' => ( (int)DOMCompat::getAttribute( $thumb, 'data-file-width' ) ?: null ),
+					'data-file-height' => ( (int)DOMCompat::getAttribute( $thumb, 'data-file-height' ) ?: null ),
+				],
 			];
 		}
 		return array_values( $carouselItems );
@@ -453,7 +477,7 @@ class Hooks implements
 	/**
 	 * Build the HTML for carousel thumbnail items.
 	 *
-	 * @param array{title: Title, thumb: \Wikimedia\Parsoid\DOM\Element}[] $carouselItems
+	 * @param array{title: string, caption: ?string, thumb: array}[] $carouselItems
 	 * @return string
 	 */
 	private function buildCarouselItemsHtml( array $carouselItems ): string {
@@ -512,21 +536,22 @@ class Hooks implements
 
 		$html = '';
 		foreach ( $carouselItems as $i => $item ) {
+			$title = Title::newFromDBkey( $item['title'] );
+
 			// Items beyond the first few defer their image loading to
 			// carousel.js (see the IntersectionObserver there for rationale).
 			$deferred = $i >= self::CAROUSEL_EAGER_IMAGES;
 
 			// Default to the original attributes from the DOM element
-			$src = DOMCompat::getAttribute( $item['thumb'], 'src' ) ?:
-				DOMCompat::getAttribute( $item['thumb'], 'data-mw-src' );
-			$width = DOMCompat::getAttribute( $item['thumb'], 'width' );
-			$height = DOMCompat::getAttribute( $item['thumb'], 'height' );
-			$srcset = DOMCompat::getAttribute( $item['thumb'], 'srcset' );
+			$src = $item['thumb']['src'];
+			$width = $item['thumb']['width'];
+			$height = $item['thumb']['height'];
+			$srcset = $item['thumb']['srcset'];
 
 			// Use thumbnail sizes suited to the carousel's own display size
 			// rather than whatever sizes the article happened to use.
-			$dataFileWidth = (int)DOMCompat::getAttribute( $item['thumb'], 'data-file-width' );
-			$dataFileHeight = (int)DOMCompat::getAttribute( $item['thumb'], 'data-file-height' );
+			$dataFileWidth = $item['thumb']['data-file-width'];
+			$dataFileHeight = $item['thumb']['data-file-height'];
 
 			$imageData = $src ? $parseImageUrl( $src ) : null;
 			if ( $dataFileWidth && $dataFileHeight && $imageData && $imageData['width'] ) {
@@ -577,13 +602,12 @@ class Hooks implements
 				Html::rawElement(
 					'a',
 					[
-						'href' => $item['title']->getLocalURL(),
+						'href' => $title->getLocalURL(),
 						'class' => 'mmv-carousel__item-link mw-file-description',
 						// Give each link an explicit accessible name. Reuse the
 						// image alt text when present, otherwise fall back to the
 						// cleaned-up filename.
-						'aria-label' => DOMCompat::getAttribute( $item['thumb'], 'alt' ) ?:
-							preg_replace( '/\.[^.]+$/', '', $item['title']->getText() ),
+						'aria-label' => $item['thumb']['alt'] ?: preg_replace( '/\.[^.]+$/', '', $title->getText() ),
 					],
 					Html::element(
 						'img',
@@ -606,7 +630,7 @@ class Hooks implements
 							'data-sizes' => $deferred ? 'auto' : false,
 							'width' => $width,
 							'height' => $height,
-							'alt' => DOMCompat::getAttribute( $item['thumb'], 'alt' ),
+							'alt' => $item['thumb']['alt'],
 							// --pending renders a placeholder background until
 							// carousel.js has loaded the image.
 							'class' => [
@@ -632,7 +656,7 @@ class Hooks implements
 	/**
 	 * Build the server-rendered carousel shell so the client module can
 	 * progressively enhance it.
-	 * @param array{title: Title, thumb: \Wikimedia\Parsoid\DOM\Element}[] $carouselItems carousel thumbnails
+	 * @param array{title: string, caption: ?string, thumb: array}[] $carouselItems carousel thumbnails
 	 * @param string $pageTitle display title of the page, used in the carousel's accessible label
 	 * @param array $attributes Additional root attributes supplied by the rendering hook
 	 * @return string

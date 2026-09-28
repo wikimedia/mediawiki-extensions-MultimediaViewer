@@ -469,7 +469,8 @@
 				"SpecialPageFactory",
 				"UserOptionsLookup",
 				"PageProps",
-				"ParserOutputAccess"
+				"ParserOutputAccess",
+				"WANObjectCache"
 			],
 			"optional_services": [
 				"MobileFrontend.Context"

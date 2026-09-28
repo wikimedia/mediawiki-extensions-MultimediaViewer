@@ -12,7 +12,6 @@ use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWiki\User\UserRigorOptions;
 use Wikimedia\Parsoid\Core\DOMCompat;
-use Wikimedia\Parsoid\DOM\Element;
 use Wikimedia\Parsoid\Utils\DOMUtils;
 
 /**
@@ -39,6 +38,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			$this->getServiceContainer()->getUserOptionsLookup(),
 			$this->getServiceContainer()->getPageProps(),
 			$this->getServiceContainer()->getParserOutputAccess(),
+			$this->getServiceContainer()->getWANObjectCache(),
 			null
 		) extends Hooks {
 			public array $stubCarouselItems;
@@ -107,6 +107,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			$this->getServiceContainer()->getUserOptionsLookup(),
 			$this->getServiceContainer()->getPageProps(),
 			$this->getServiceContainer()->getParserOutputAccess(),
+			$this->getServiceContainer()->getWANObjectCache(),
 			null
 		) extends Hooks {
 			public bool $pageQualifies;
@@ -143,6 +144,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			$this->getServiceContainer()->getUserOptionsLookup(),
 			$this->getServiceContainer()->getPageProps(),
 			$this->getServiceContainer()->getParserOutputAccess(),
+			$this->getServiceContainer()->getWANObjectCache(),
 			null
 		);
 		return $method->invoke( $hooks, $thumbExtractor, $html );
@@ -158,37 +160,6 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		return $method->invoke( $this->newHooksInstance(), $thumbData, $pageTitle );
 	}
 
-	protected static function makeFakeThumb(
-		string $filename,
-		?string $alt = null,
-		int $fileWidth = 2400,
-		int $fileHeight = 1800
-	): Element {
-		$alt = $alt !== null ? "alt=\"$alt\"" : '';
-		$src = <<<HTML
-			<a
-				href="/wiki/File:$filename"
-				class="mw-file-description"
-			>
-				<img
-					$alt
-					src="//upload.wikimedia.org/wikipedia/commons/thumb/1/10/$filename/120px-$filename"
-					decoding="async"
-					width="120"
-					height="90"
-					class="mw-file-element"
-					srcset="//upload.wikimedia.org/wikipedia/commons/thumb/1/10/$filename/240px-$filename 2x"
-					data-file-width="$fileWidth"
-					data-file-height="$fileHeight"
-				>
-			</a>
-		HTML;
-
-		$doc = DOMCompat::newDocument( true );
-		$fragment = DOMUtils::parseHTMLToFragment( $doc, $src );
-		return $fragment->firstElementChild->firstElementChild;
-	}
-
 	protected static function makeFakeThumbData(
 		string $filename,
 		?string $alt = null,
@@ -196,8 +167,17 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		int $fileHeight = 1800
 	): array {
 		return [
-			'thumb' => self::makeFakeThumb( $filename, $alt, $fileWidth, $fileHeight ),
 			'title' => Title::makeTitle( NS_FILE, $filename ),
+			'caption' => null,
+			'thumb' => [
+				'src' => "//upload.wikimedia.org/wikipedia/commons/thumb/1/10/$filename/120px-$filename",
+				'width' => 120,
+				'height' => 90,
+				'srcset' => "//upload.wikimedia.org/wikipedia/commons/thumb/1/10/$filename/240px-$filename 2x",
+				'alt' => $alt,
+				'data-file-width' => $fileWidth,
+				'data-file-height' => $fileHeight,
+			],
 		];
 	}
 
@@ -480,14 +460,14 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$thumbs = $this->extractCarouselImageElements( $thumbExtractor, $html );
 
 		$this->assertCount( 3, $thumbs, 'all three proxied thumbnails should be extracted' );
-		$this->assertSame( 'File:Eiffel.jpg', $thumbs[0]['title']->getPrefixedDbKey() );
+		$this->assertSame( 'File:Eiffel.jpg', $thumbs[0]['title'] );
 		$this->assertSame(
 			'//upload.wikimedia.org/Eiffel.jpg',
-			DOMCompat::getAttribute( $thumbs[0]['thumb'], 'src' )
+			$thumbs[0]['thumb']['src']
 		);
 		$this->assertSame(
 			'//upload.wikimedia.org/Pantheon.jpg',
-			DOMCompat::getAttribute( $thumbs[2]['thumb'], 'src' )
+			$thumbs[2]['thumb']['src']
 		);
 	}
 
@@ -512,9 +492,9 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$thumbs = $this->extractCarouselImageElements( $thumbExtractor, $html );
 
 		$this->assertCount( 3, $thumbs, 'missing alt text should not suppress carousel images' );
-		$this->assertSame( 'Eiffel Tower at dusk', DOMCompat::getAttribute( $thumbs[0]['thumb'], 'alt' ) );
-		$this->assertSame( '', DOMCompat::getAttribute( $thumbs[1]['thumb'], 'alt' ) );
-		$this->assertSame( 'Pantheon facade', DOMCompat::getAttribute( $thumbs[2]['thumb'], 'alt' ) );
+		$this->assertSame( 'Eiffel Tower at dusk', $thumbs[0]['thumb']['alt'] );
+		$this->assertSame( '', $thumbs[1]['thumb']['alt'] );
+		$this->assertSame( 'Pantheon facade', $thumbs[2]['thumb']['alt'] );
 	}
 
 	public function testExtractCarouselImageElementsExcludesLeadInfoboxImages(): void {
@@ -537,8 +517,8 @@ class HooksMobileCarouselTest extends HooksTestCase {
 
 		$this->assertCount( 2, $thumbs );
 		$this->assertLessThan( 3, count( $thumbs ) );
-		$this->assertSame( 'File:Eiffel.jpg', $thumbs[0]['title']->getPrefixedDbKey() );
-		$this->assertSame( 'File:Louvre.jpg', $thumbs[1]['title']->getPrefixedDbKey() );
+		$this->assertSame( 'File:Eiffel.jpg', $thumbs[0]['title'] );
+		$this->assertSame( 'File:Louvre.jpg', $thumbs[1]['title'] );
 
 		// An infobox outside the lead section still counts.
 		$html = '<section data-mw-section-id="0">' . $figure( 'Eiffel' ) . '</section>'
@@ -807,7 +787,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		// and passing it null would throw a TypeError. The item should still
 		// render, falling back to the article's srcset without a src.
 		$thumbData = self::makeFakeThumbData( 'Cat.jpg', 'A cat' );
-		$thumbData['thumb']->removeAttribute( 'src' );
+		$thumbData['thumb']['src'] = null;
 
 		$html = $this->buildCarouselItemsHtml( [ $thumbData ] );
 
