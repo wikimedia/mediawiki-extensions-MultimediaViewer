@@ -40,6 +40,9 @@ use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\CategoryPage;
 use MediaWiki\Page\Hook\CategoryPageViewHook;
 use MediaWiki\Page\PageProps;
+use MediaWiki\Page\ParserOutputAccess;
+use MediaWiki\Parser\ParserOptions;
+use MediaWiki\Parser\ParserOutputLinkTypes;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\ResourceLoader\Context;
@@ -92,6 +95,7 @@ class Hooks implements
 		private readonly SpecialPageFactory $specialPageFactory,
 		private readonly UserOptionsLookup $userOptionsLookup,
 		private readonly PageProps $pageProps,
+		private readonly ParserOutputAccess $parserOutputAccess,
 		private readonly ?MobileContext $mobileContext,
 	) {
 	}
@@ -232,6 +236,23 @@ class Hooks implements
 	 */
 	private function maybeAddMobileCarousel( OutputPage $out ): void {
 		if ( !$this->isMobileCarouselEligible( $out ) ) {
+			return;
+		}
+
+		// The DOM build/traversal we'll be doing further down is fairly
+		// expensive, and somethings to avoid if we can help it.
+		// Parser output can help us narrow down to only pages that satisfy
+		// our minimum images requirement (but only if parser output is
+		// already available in cache, as generating it is even more
+		// expensive than what we want to avoid here)
+		$cachedParserOutput = $this->parserOutputAccess->getCachedParserOutput(
+			$out->getWikiPage(),
+			ParserOptions::newFromAnon(),
+		);
+		if (
+			$cachedParserOutput &&
+			count( $cachedParserOutput->getLinkList( ParserOutputLinkTypes::MEDIA ) ) < self::MIN_CAROUSEL_IMAGES
+		) {
 			return;
 		}
 

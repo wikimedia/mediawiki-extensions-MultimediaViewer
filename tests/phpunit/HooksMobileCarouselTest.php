@@ -38,6 +38,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
 			$this->getServiceContainer()->getPageProps(),
+			$this->getServiceContainer()->getParserOutputAccess(),
 			null
 		) extends Hooks {
 			public array $stubCarouselItems;
@@ -105,6 +106,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
 			$this->getServiceContainer()->getPageProps(),
+			$this->getServiceContainer()->getParserOutputAccess(),
 			null
 		) extends Hooks {
 			public bool $pageQualifies;
@@ -140,6 +142,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
 			$this->getServiceContainer()->getPageProps(),
+			$this->getServiceContainer()->getParserOutputAccess(),
 			null
 		);
 		return $method->invoke( $hooks, $thumbExtractor, $html );
