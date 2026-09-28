@@ -87,9 +87,10 @@ function loadDeferredImages( deferredImages ) {
 				}
 			} );
 		}, {
-			// Observe against the horizontally scrolling items list so the
-			// floating header stays pinned to the carousel frame.
-			root: document.querySelector( '.mmv-carousel__items' ) || document.getElementById( 'mmv-carousel-root' ),
+			// Observe against the element that scrolls/clips horizontally,
+			// so the lookahead tracks the carousel's own scroll position
+			// rather than the page viewport.
+			root: document.querySelector( '.mmv-carousel' ) || document.getElementById( 'mmv-carousel-root' ),
 			// Horizontal lookahead of roughly three items, so images are
 			// ready by the time the reader scrolls them into view.
 			rootMargin: '0px 500px'
