@@ -735,16 +735,23 @@ class Hooks implements
 				)
 			) .
 			Html::rawElement(
-				'ul',
-				[
-					'id' => 'mmv-carousel-items',
-					'class' => 'mmv-carousel__items',
-					'aria-label' => $this->getCarouselLabel( $pageTitle, count( $carouselItems ) ),
-					// Explicit role preserves list semantics when list-style:none
-					// causes some browsers to strip them.
-					'role' => 'list',
-				],
-				$this->buildCarouselItemsHtml( $carouselItems )
+				'div',
+				// Scrolls and clips the list. Separate from the root element, which
+				// is the containing block for the floating controls and so must not
+				// scroll them out of view along with the items.
+				[ 'class' => 'mmv-carousel__scroll' ],
+				Html::rawElement(
+					'ul',
+					[
+						'id' => 'mmv-carousel-items',
+						'class' => 'mmv-carousel__items',
+						'aria-label' => $this->getCarouselLabel( $pageTitle, count( $carouselItems ) ),
+						// Explicit role preserves list semantics when list-style:none
+						// causes some browsers to strip them.
+						'role' => 'list',
+					],
+					$this->buildCarouselItemsHtml( $carouselItems )
+				)
 			)
 		);
 	}

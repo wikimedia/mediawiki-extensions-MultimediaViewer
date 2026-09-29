@@ -23,7 +23,6 @@ body:has( .mmv-carousel ) .mw-parser-output {
 
 .mmv-carousel {
 	position: relative;
-	overflow: auto hidden;
 
 	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 	&:has( &__item[ data-visible='true' ] ),
@@ -44,6 +43,7 @@ body:has( .mmv-carousel ) .mw-parser-output {
 		padding: @spacing-50;
 		top: 0;
 		right: 0;
+		isolation: isolate;
 	}
 
 	&__count {
@@ -119,6 +119,14 @@ body:has( .mmv-carousel ) .mw-parser-output {
 		&__controls {
 			display: none;
 		}
+	}
+
+	// The horizontally scrolling element. Kept separate from .mmv-carousel,
+	// which is the containing block for the absolutely positioned controls. If
+	// the two were the same element, the controls would scroll with the items
+	// and be clipped by overflow-y.
+	&__scroll {
+		overflow: auto hidden;
 	}
 
 	/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
@@ -219,9 +227,13 @@ body:has( .mmv-carousel ) .mw-parser-output {
 
 // Override Minerva styles
 body.skin-minerva .content .mmv-carousel {
-	margin-left: -@margin-content;
-	margin-right: -@margin-content;
-	padding: 0 @margin-content;
+	// Bleed the scrolling element into the page margins, so peeking items stay
+	// visible there instead of being clipped at the edge.
+	.mmv-carousel__scroll {
+		margin-left: -@margin-content;
+		margin-right: -@margin-content;
+		padding: 0 @margin-content;
+	}
 
 	ul.mmv-carousel__items {
 		list-style-type: none;
@@ -234,9 +246,18 @@ body.skin-minerva .content .mmv-carousel {
 	}
 }
 
-// Restore the positioning context for the floating controls.
+// The carousel root carries mw-mmv-wrapper (so the lightbox overlay keeps it
+// visible), which brings the lightbox's own positioning with it: position:
+// absolute, top/left/right offsets and z-index: 1001. Reset those, but
+// re-assert position: relative so the floating controls anchor to the carousel
+// instead of to whichever positioned ancestor happens to sit above it such as
+// a fundraising banner.
 .mw-mmv-wrapper.mmv-carousel {
-	position: static;
+	position: relative;
+	top: auto;
+	left: auto;
+	right: auto;
+	z-index: auto;
 }
 
 // In dark mode, apply a light background to carousel images so transparent
