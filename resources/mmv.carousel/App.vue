@@ -82,7 +82,12 @@ module.exports = exports = defineComponent( {
 			// Count the accepted action even if the destination cannot be found.
 			// TODO(image-carousel-retest): Remove this event bridge; preserve scrolling.
 			mw.hook( 'mmv.carousel.action' ).fire( 'scrollToImage' );
-			const articleImage = document.querySelector( `.mw-parser-output a[href$="${ CSS.escape( title.getPrefixedDb() ) }"] img` );
+			const articleImage = document.querySelector(
+				// Parsoid
+				`.mw-parser-output[data-mw-parsoid-version] a[href$="${ CSS.escape( title.getPrefixedDb() ) }"] img, ` +
+				// Legacy parser
+				`.mw-parser-output:not( [data-mw-parsoid-version] ) a[href$="${ CSS.escape( title.getPrefixedDb().replace( /&/g, '%26' ) ) }"] img`
+			);
 			if ( !articleImage ) {
 				mw.notify( mw.message( 'multimediaviewer-carousel-dialog-scroll-error' ).text() );
 				throw new Error( `Failed to locate carousel image ${ title.getPrefixedDb() }` );

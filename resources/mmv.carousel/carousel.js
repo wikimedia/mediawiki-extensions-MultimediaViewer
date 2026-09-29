@@ -162,21 +162,22 @@ function init( carouselItems, options ) {
 			// matches the filenames the overlay derives from the page's own
 			// thumbnails (caption + prev/next navigation).
 			let title = img ? mw.Title.newFromImg( img ) : null;
-			if ( !title ) {
-				const href = link.getAttribute( 'href' ) || link.href;
-				if ( href ) {
-					try {
-						const url = new URL( href, location.origin );
-						// On wikis without clean-URL rewrite rules, the title lives
-						// in the `title` query param (index.php?title=File:Foo.jpg),
-						// not the last path segment (which works for clean URLs
-						// like `/wiki/File:Foo.jpg`). Prefer the query param when present.
-						const titleText = url.searchParams.get( 'title' ) ||
-							decodeURIComponent( url.pathname ).replace( /^.*\//, '' );
-						title = mw.Title.newFromText( titleText );
-					} catch ( _err ) {
-						// Malformed URI, ignore
-					}
+			const href = link.getAttribute( 'href' ) || link.href;
+			if ( href ) {
+				// Prefer title from a[href] over title from image[src], because
+				// they don't always match in the case of redirects (on Parsoid):
+				// (where a[href] is the redirect and img[src] the redirect target)
+				try {
+					const url = new URL( href, location.origin );
+					// On wikis without clean-URL rewrite rules, the title lives
+					// in the `title` query param (index.php?title=File:Foo.jpg),
+					// not the last path segment (which works for clean URLs
+					// like `/wiki/File:Foo.jpg`). Prefer the query param when present.
+					const titleText = url.searchParams.get( 'title' ) ||
+						decodeURIComponent( url.pathname ).replace( /^.*\//, '' );
+					title = mw.Title.newFromText( titleText );
+				} catch ( _err ) {
+					// Malformed URI, ignore
 				}
 			}
 
