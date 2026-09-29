@@ -19,6 +19,7 @@
 	"multimediaviewer-desc": "تصاویر بندانگشتی در اندازهٔ بزرگ‌تر داخل یک رابط کاربری تمام‌صفحه گسترش یابند.",
 	"multimediaviewer-carousel-label": "تصویرها در $1، $2 {{PLURAL:$2|مورد}}",
 	"multimediaviewer-carousel-label-article": "مقاله",
+	"multimediaviewer-carousel-dialog-scroll-button-label": "رفتن به تصویر",
 	"multimediaviewer-carousel-dialog-view-button-label": "نمایش جزئیات",
 	"multimediaviewer-carousel-hide": "پنهان کردن",
 	"multimediaviewer-carousel-image-count": "$1 {{PLURAL:$1|تصویر|تصاویر}}",

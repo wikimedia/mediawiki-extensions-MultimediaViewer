@@ -10,6 +10,7 @@
 		]
 	},
 	"multimediaviewer-desc": "Membentangkan gambar mini dalam ukuran yang lebih desar di dalam sebuah antar muka layar penuh",
+	"multimediaviewer-carousel-dialog-scroll-button-label": "Gulir ke gambar",
 	"multimediaviewer-carousel-dialog-view-button-label": "Lihat detail",
 	"multimediaviewer-carousel-hide": "Sembunyikan",
 	"multimediaviewer-carousel-image-count": "$1 {{PLURAL:$1|gambar|gambar}}",
