@@ -3,6 +3,7 @@
 		"authors": [
 			"Dominikmatus",
 			"Littledogboy",
+			"MFossati (WMF)",
 			"Macofe",
 			"Matěj Suchánek",
 			"Mormegil",
@@ -12,6 +13,15 @@
 		]
 	},
 	"multimediaviewer-desc": "Zvětší náhledy obrázků do celoobrazovkového rozhraní.",
+	"multimediaviewer-carousel-label": "Obrázky na stránce $1, $2 {{PLURAL:$2|položka|položky|položek}}",
+	"multimediaviewer-carousel-label-article": "článku",
+	"multimediaviewer-carousel-dialog-close-button-label": "Zavřít",
+	"multimediaviewer-carousel-dialog-scroll-button-label": "Přejít na obrázek",
+	"multimediaviewer-carousel-dialog-view-button-label": "Zobrazit podrobnosti",
+	"multimediaviewer-carousel-dialog-scroll-error": "V článku se mi nepodařilo tento obrázek najít.",
+	"multimediaviewer-carousel-hide": "Skrýt",
+	"multimediaviewer-carousel-image-count": "$1 {{PLURAL:$1|obrázek|obrázky|obrázků}}",
+	"multimediaviewer-carousel-show": "Zobrazit",
 	"multimediaviewer-file-page": "Přejít na stránku s popisem souboru",
 	"multimediaviewer-repository-local": "Více informací",
 	"multimediaviewer-datetime-created": "Vytvořeno: $1",
@@ -23,6 +33,7 @@
 	"multimediaviewer-metadata-error": "Nelze načíst podrobnosti k obrázku (chyba: $1)",
 	"multimediaviewer-file-not-found-error": "Omlouváme se, ale soubor $1 nelze zobrazit, protože se na aktuální stránce nenachází.",
 	"multimediaviewer-thumbnail-error": "Je nám líto, soubor nelze zobrazit",
+	"multimediaviewer-thumbnail-error-refresh-button": "Obnovit",
 	"multimediaviewer-license-cc-pd": "Volné dílo",
 	"multimediaviewer-license-pd": "Volné dílo",
 	"multimediaviewer-license-default": "Zobrazit licenci",
@@ -111,5 +122,9 @@
 	"multimediaviewer-reuse-warning-generic": "Před jeho použitím zkontrolujte [$1 podrobnosti].",
 	"multimediaviewer-attr-plain": "Prostý text",
 	"multimediaviewer-optin-pref": "Aktivovat <span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About Prohlížeč médií]</span>",
-	"multimediaviewer-loading": "Prohlížeč médií se nahrává."
+	"multimediaviewer-enable-image-carousel-pref": "Na mobilním webu zapnout karusel obrázků",
+	"multimediaviewer-loading": "Prohlížeč médií se nahrává.",
+	"multimediaviewer-beta-feature-name": "Karusel obrázků",
+	"multimediaviewer-beta-feature-description": "Na mobilních zařízeních obrázky z článku zobrazovat v horní části stránky.",
+	"multimediaviewer-dialog-label": "Prohlížeč médií"
 }
