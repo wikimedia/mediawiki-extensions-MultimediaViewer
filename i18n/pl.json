@@ -6,6 +6,7 @@
 			"CiaPan",
 			"Darellur",
 			"Jacenty359",
+			"MFossati (WMF)",
 			"Macofe",
 			"Matik7",
 			"Matma Rex",
@@ -21,6 +22,8 @@
 		]
 	},
 	"multimediaviewer-desc": "Powiększ miniatury ilustracji do wielkości ekranu",
+	"multimediaviewer-carousel-dialog-scroll-button-label": "Przewiń do zdjęcia",
+	"multimediaviewer-carousel-dialog-view-button-label": "Wyświetl szczegóły",
 	"multimediaviewer-carousel-hide": "Ukryj",
 	"multimediaviewer-carousel-image-count": "$1 {{PLURAL:$1|obraz|obrazy|obrazów}}",
 	"multimediaviewer-carousel-show": "Pokaż",

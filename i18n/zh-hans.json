@@ -13,6 +13,7 @@
 			"Linforest",
 			"LittlePaw365",
 			"Liuxinyu970226",
+			"MFossati (WMF)",
 			"NigelSoft",
 			"Papapasan",
 			"Qiyue2001",
@@ -36,9 +37,9 @@
 	"multimediaviewer-carousel-dialog-scroll-button-label": "滚动到图像",
 	"multimediaviewer-carousel-dialog-view-button-label": "查看详情",
 	"multimediaviewer-carousel-dialog-scroll-error": "条目里没找到这个图像。",
-	"multimediaviewer-carousel-hide": "隐藏",
+	"multimediaviewer-carousel-hide": "收起",
 	"multimediaviewer-carousel-image-count": "$1幅{{PLURAL:$1|图像}}",
-	"multimediaviewer-carousel-show": "显示",
+	"multimediaviewer-carousel-show": "展开",
 	"multimediaviewer-file-page": "前往对应的文件页面",
 	"multimediaviewer-repository-local": "更多详情",
 	"multimediaviewer-datetime-created": "创作时间：$1",
@@ -159,5 +160,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "在移动端站点启用图像轮播",
 	"multimediaviewer-loading": "正在加载媒体查看器。",
 	"multimediaviewer-beta-feature-name": "图像轮播",
-	"multimediaviewer-beta-feature-description": "在移动设备上将条目图像显示在页面顶部。"
+	"multimediaviewer-beta-feature-description": "在移动设备上将条目图像显示在页面顶部。",
+	"multimediaviewer-dialog-label": "媒体查看器"
 }
