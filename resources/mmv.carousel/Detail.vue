@@ -178,7 +178,12 @@ body:has( .mmv-carousel-detail ) {
 		background: @background-color-base;
 		box-shadow: @box-shadow-outset-large-below @box-shadow-color-alpha-base, @box-shadow-outset-large-around @box-shadow-color-alpha-base;
 		box-sizing: border-box;
-		max-width: calc( 100% - 32px );
+		// Deliberately a definite `width` rather than `max-width`. With
+		// `max-width` the dialog shrinks to fit its content while the image
+		// stretches to the dialog, and Webkit cannot resolve that circular
+		// dependency: it settles on the button row's width and renders both
+		// too small (T439007). Leave spacing on each side.
+		width: calc( 100% - @spacing-100 * 2 );
 		max-height: 100vh;
 		max-height: 100dvh;
 		display: flex;
@@ -191,8 +196,15 @@ body:has( .mmv-carousel-detail ) {
 		}
 
 		img {
-			overflow: hidden;
+			// Let a tall image scale down to fit the dialog. Without this, flexbox
+			// won't shrink it below its natural height and it overflows instead.
+			min-height: 0;
 			object-fit: contain;
+			align-self: center;
+			// `-webkit-` prefix below iOS 16
+			width: -webkit-fit-content;
+			width: fit-content;
+			max-width: 100%;
 		}
 
 		& &--caption {
