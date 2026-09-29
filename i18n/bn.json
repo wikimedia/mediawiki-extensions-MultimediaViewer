@@ -4,18 +4,12 @@
 			"Aftab1995",
 			"Aftabuzzaman",
 			"Aishik Rehman",
-			"MFossati (WMF)",
 			"Macofe",
 			"Tauhid16",
 			"আফতাবুজ্জামান"
 		]
 	},
 	"multimediaviewer-desc": "একটি পূর্ণস্ক্রিন ইন্টারফেসের মধ্যে একটি বড় মাপের থাম্বনেল প্রসারিত করে।",
-	"multimediaviewer-carousel-dialog-scroll-button-label": "ছবিতে স্ক্রল করুন",
-	"multimediaviewer-carousel-dialog-view-button-label": "বিস্তারিত দেখুন",
-	"multimediaviewer-carousel-hide": "লুকান",
-	"multimediaviewer-carousel-image-count": "$1 {{PLURAL:$1|ছবি|ছবিগুলো}}",
-	"multimediaviewer-carousel-show": "দেখুন",
 	"multimediaviewer-file-page": "সংশ্লিষ্ট ফাইল পৃষ্ঠাতে যান",
 	"multimediaviewer-repository-local": "আরও বিস্তারিত",
 	"multimediaviewer-datetime-created": "তৈরী হয়েছে: $1",
