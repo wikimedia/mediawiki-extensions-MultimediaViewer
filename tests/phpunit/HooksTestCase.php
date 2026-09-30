@@ -28,7 +28,6 @@ class HooksTestCase extends MediaWikiIntegrationTestCase {
 			$this->getServiceContainer()->getMainConfig(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
-			$this->getServiceContainer()->getPageProps(),
 			$this->getServiceContainer()->getParserOutputAccess(),
 			$this->getServiceContainer()->getWANObjectCache(),
 			null
@@ -65,6 +64,21 @@ class HooksTestCase extends MediaWikiIntegrationTestCase {
 		$output->method( 'getRequest' )->willReturn( $request );
 		$output->method( 'getActionName' )->willReturn( $actionName );
 		$output->method( 'isRevisionCurrent' )->willReturn( $isRevisionCurrent );
+
+		// Make setProperty()/getProperty() store and return values.
+		// Left as bare mocks they are no-ops returning null. This makes
+		// __NOMEDIAVIEWERCAROUSEL__ opt-out testable.
+		$properties = [];
+		$output->method( 'setProperty' )->willReturnCallback(
+			static function ( $name, $value ) use ( &$properties ) {
+				$properties[$name] = $value;
+			}
+		);
+		$output->method( 'getProperty' )->willReturnCallback(
+			static function ( $name ) use ( &$properties ) {
+				return $properties[$name] ?? null;
+			}
+		);
 
 		return $output;
 	}

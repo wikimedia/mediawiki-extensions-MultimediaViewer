@@ -36,10 +36,10 @@ use MediaWiki\Media\ThumbnailImage;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\Hook\BeforePageDisplayHook;
 use MediaWiki\Output\Hook\MakeGlobalVariablesScriptHook;
+use MediaWiki\Output\Hook\OutputPageParserOutputHook;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\CategoryPage;
 use MediaWiki\Page\Hook\CategoryPageViewHook;
-use MediaWiki\Page\PageProps;
 use MediaWiki\Page\ParserOutputAccess;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Parser\ParserOutputLinkTypes;
@@ -67,7 +67,8 @@ class Hooks implements
 	CategoryPageViewHook,
 	ResourceLoaderGetConfigVarsHook,
 	GetDoubleUnderscoreIDsHook,
-	ThumbnailBeforeProduceHTMLHook
+	ThumbnailBeforeProduceHTMLHook,
+	OutputPageParserOutputHook
 {
 	// Minimum number of images in a wiki page to enable the carousel.
 	private const MIN_CAROUSEL_IMAGES = 3;
@@ -96,7 +97,6 @@ class Hooks implements
 		private readonly Config $config,
 		private readonly SpecialPageFactory $specialPageFactory,
 		private readonly UserOptionsLookup $userOptionsLookup,
-		private readonly PageProps $pageProps,
 		private readonly ParserOutputAccess $parserOutputAccess,
 		private readonly WANObjectCache $wanObjectCache,
 		private readonly ?MobileContext $mobileContext,
@@ -383,9 +383,9 @@ class Hooks implements
 			// Real page
 			$title->canExist() &&
 			// No __NOMEDIAVIEWERCAROUSEL__
-			$this->pageProps->getProperties(
-				$title, self::DISABLE_MOBILE_CAROUSEL_PAGE_PROPERTY
-			) === []
+			// Behavior switch records an empty string value,
+			// so this must test for presence rather than truthiness
+			$out->getProperty( self::DISABLE_MOBILE_CAROUSEL_PAGE_PROPERTY ) === null
 		);
 	}
 
@@ -797,6 +797,17 @@ class Hooks implements
 		if ( !$pageIsSpecialPage || $pageIsFileRelatedSpecialPage ) {
 			$this->getModules( $out );
 			$this->maybeAddMobileCarousel( $out );
+		}
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function onOutputPageParserOutput( $outputPage, $parserOutput ): void {
+		// Ensure prop is carried over to OutputPage instance
+		$disable = $parserOutput->getPageProperty( self::DISABLE_MOBILE_CAROUSEL_PAGE_PROPERTY );
+		if ( $disable !== null ) {
+			$outputPage->setProperty( self::DISABLE_MOBILE_CAROUSEL_PAGE_PROPERTY, $disable );
 		}
 	}
 
