@@ -12,7 +12,7 @@
 	],
 	"source": {
 		"include": [ "resources" ],
-		"exclude": [ "resources/mmv.ui.beta" ]
+		"exclude": [ "resources/mmv.ui.vue" ]
 	},
 	"sourceType": "module",
 	"templates": {

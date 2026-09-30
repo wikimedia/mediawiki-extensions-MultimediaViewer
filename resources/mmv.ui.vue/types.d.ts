@@ -1,5 +1,5 @@
 /**
- * Type definitions for the MMV beta viewer UI module.
+ * Type definitions for the Vue MMV UI module.
  *
  * Runtime classes are imported and re-exported so that consumers only need
  * a single import source.  Only types that have no corresponding class
@@ -14,7 +14,7 @@ import ImageModel from '../mmv.common/model/mmv.model.Image.js';
 export { LightboxImage, ImageModel };
 
 /**
- * Reactive state shared between BetaViewer (imperative host) and the
+ * Reactive state shared between VueMultimediaViewer (imperative host) and the
  * Vue component tree via provide/inject.
  */
 export interface ViewerState {

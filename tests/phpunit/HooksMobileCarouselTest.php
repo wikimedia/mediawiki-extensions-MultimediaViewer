@@ -512,8 +512,9 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$hooks->onBeforePageDisplay( $output, $skin );
 	}
 
-	public function testOnBeforePageDisplayLoadsBetaViewerAlongsideCarousel(): void {
-		$output = $this->makeOutputPage( request: new FauxRequest( [ 'mmvBeta' => '1' ] ) );
+	public function testOnBeforePageDisplayLoadsVueViewerAlongsideCarousel(): void {
+		$this->overrideConfigValue( 'MediaViewerMobileBeta', true );
+		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
 
 		$hooks = $this->newHooksInstance( [
@@ -522,7 +523,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			self::makeFakeThumbData( 'C.jpg' ),
 		] );
 
-		// ?mmvBeta=1 alone loads the bootstrap alongside the carousel so it can
+		// $wgMediaViewerMobileBeta alone loads the bootstrap alongside the carousel so it can
 		// intercept the shared #/media/ route ahead of the MobileFrontend
 		// lightbox (T427679).
 		$addedModules = [];
@@ -536,13 +537,14 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$this->assertSame( array_merge( [ 'mmv.bootstrap' ], $this->getCarouselModules() ), $addedModules );
 	}
 
-	public function testOnBeforePageDisplayLoadsBetaViewerWithoutCarousel(): void {
-		$output = $this->makeOutputPage( request: new FauxRequest( [ 'mmvBeta' => '1' ] ) );
+	public function testOnBeforePageDisplayLoadsVueViewerWithoutCarousel(): void {
+		$this->overrideConfigValue( 'MediaViewerMobileBeta', true );
+		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
 
 		$hooks = $this->newHooksInstance( [], false );
 
-		// No carousel on this page, but ?mmvBeta=1 still loads the beta viewer.
+		// No carousel on this page, but $wgMediaViewerMobileBeta still loads the mobile viewer.
 		$output->expects( $this->once() )
 			->method( 'addModules' )
 			->with( 'mmv.bootstrap' );
@@ -551,7 +553,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$hooks->onBeforePageDisplay( $output, $skin );
 	}
 
-	public function testOnBeforePageDisplaySkipsBetaViewerWithoutMmvBetaParam(): void {
+	public function testOnBeforePageDisplaySkipsVueViewerWithoutMmvBetaParam(): void {
 		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
 		$output = $this->makeOutputPage();
 		$skin = new SkinTemplate();
@@ -562,7 +564,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			self::makeFakeThumbData( 'C.jpg' ),
 		] );
 
-		// Without ?mmvBeta=1 (and with $wgMediaViewerMobileBeta off) the
+		// With $wgMediaViewerMobileBeta off the
 		// bootstrap must not load: only the carousel does, routing clicks to
 		// the MobileFrontend lightbox.
 		$expectedModules = $this->getCarouselModules();
@@ -574,7 +576,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$hooks->onBeforePageDisplay( $output, $skin );
 	}
 
-	public function testOnBeforePageDisplayLoadsBetaViewerWhenMobileBetaEnabled(): void {
+	public function testOnBeforePageDisplayLoadsVueViewerWhenVueViewerEnabled(): void {
 		$this->overrideConfigValue( 'MediaViewerMobileBeta', true );
 		// A registered user who has not disabled MediaViewer
 		// ($wgMediaViewerEnableByDefault is on).
@@ -588,7 +590,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		] );
 
 		// With $wgMediaViewerMobileBeta enabled the bootstrap loads for all
-		// mobile views without needing the ?mmvBeta=1 parameter (T428774).
+		// mobile views.
 		$addedModules = [];
 		$output->method( 'addModules' )
 			->willReturnCallback( static function ( $modules ) use ( &$addedModules ) {
@@ -600,7 +602,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$this->assertSame( array_merge( [ 'mmv.bootstrap' ], $this->getCarouselModules() ), $addedModules );
 	}
 
-	public function testOnBeforePageDisplaySkipsBetaViewerWhenUserOptedOut(): void {
+	public function testOnBeforePageDisplaySkipsVueViewerWhenUserOptedOut(): void {
 		$user = $this->getTestUser()->getUser();
 		$userOptionsManager = $this->getServiceContainer()->getUserOptionsManager();
 		$userOptionsManager->setOption( $user, 'multimediaviewer-enable', 0 );
@@ -627,7 +629,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$hooks->onBeforePageDisplay( $output, $skin );
 	}
 
-	public function testOnMakeGlobalVariablesScriptExportsMobileBetaWhenEnabled(): void {
+	public function testOnMakeGlobalVariablesScriptExportsVueViewerWhenEnabled(): void {
 		$this->overrideConfigValue( 'MediaViewerMobileBeta', true );
 		$user = $this->getTestUser()->getUser();
 
@@ -640,7 +642,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$this->assertTrue( $vars['wgMediaViewerMobileBeta'] );
 	}
 
-	public function testOnMakeGlobalVariablesScriptExportsMobileBetaDisabled(): void {
+	public function testOnMakeGlobalVariablesScriptExportsVueViewerDisabled(): void {
 		$this->overrideConfigValue( 'MediaViewerMobileBeta', false );
 		$user = $this->getTestUser()->getUser();
 

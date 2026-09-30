@@ -1,12 +1,12 @@
 /**
- * Thumbnail URL guessing utilities for the beta viewer.
+ * Thumbnail URL guessing utilities for the Vue multimedia viewer.
  * Adapted from mmv.provider.GuessedThumbnailInfo.
  *
  * Rewrites an existing thumbnail URL to request a different size, avoiding
  * an API round-trip. This works reliably on WMF wikis where thumbnails are
  * generated on demand via the 404 handler.
  *
- * @module mmv.ui.beta.thumbnailGuessing
+ * @module mmv.ui.vue.thumbnailGuessing
  */
 
 const { ThumbnailWidthCalculator } = require( 'mmv.common' );

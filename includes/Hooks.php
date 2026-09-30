@@ -186,22 +186,18 @@ class Hooks implements
 		}
 
 		// Mobile view: the carousel module is handled by
-		// maybeAddMobileCarousel(). Beta mobile viewer: loading mmv.bootstrap
+		// maybeAddMobileCarousel(). Mobile viewer: loading mmv.bootstrap
 		// registers the "#/media/" route on the shared router ahead of the
 		// MobileFrontend lightbox, which stands down whenever the bootstrap is
 		// loaded (T169622). It is enabled sitewide via $wgMediaViewerMobileBeta
-		// (T428774) or per-request via ?mmvBeta=1; both are independent of the
-		// mobile carousel rollout gate.
-		if (
-			$this->shouldUseMobileBetaViewer( $out ) ||
-			$out->getRequest()->getFuzzyBool( 'mmvBeta' )
-		) {
+		// (T428774) independent of the mobile carousel rollout gate.
+		if ( $this->shouldUseVueViewer( $out ) ) {
 			$out->addModules( 'mmv.bootstrap' );
 		}
 	}
 
 	/**
-	 * Whether the beta mobile viewer should replace the MobileFrontend
+	 * Whether the Vue multimedia viewer should replace the MobileFrontend
 	 * image viewer for this request (T428774).
 	 *
 	 * Conditions:
@@ -212,7 +208,7 @@ class Hooks implements
 	 * @param OutputPage $out
 	 * @return bool
 	 */
-	protected function shouldUseMobileBetaViewer( OutputPage $out ): bool {
+	protected function shouldUseVueViewer( OutputPage $out ): bool {
 		return (
 			$this->isMobileFrontendView() &&
 			$this->config->get( 'MediaViewerMobileBeta' ) &&
@@ -800,10 +796,10 @@ class Hooks implements
 		$vars['wgMediaViewerOnClick'] = $this->shouldHandleClicks( $user );
 		// needed because of T71942; could be different for anon and logged-in
 		$vars['wgMediaViewerEnabledByDefault'] = (bool)$isMultimediaViewerEnable;
-		// Tells the bootstrap to use the beta mobile viewer instead of the
+		// Tells the bootstrap to use the mobile viewer instead of the
 		// legacy desktop viewer (T428774). Exported here rather than via
 		// ResourceLoaderGetConfigVars because it varies per request.
-		$vars['wgMediaViewerMobileBeta'] = $this->shouldUseMobileBetaViewer( $out );
+		$vars['wgMediaViewerMobileBeta'] = $this->shouldUseVueViewer( $out );
 	}
 
 	/**

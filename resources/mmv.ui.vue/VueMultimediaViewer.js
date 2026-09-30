@@ -19,11 +19,11 @@ const INSTRUMENT_NAME = 'image-browsing';
 const PREFETCH_DELAY = 250;
 
 /**
- * Beta image viewer using Vue 3 and Codex.
+ * Vue multimedia viewer using Vue 3 and Codex.
  * Implements the interface expected by MultimediaViewerBootstrap so it can
  * be used as a drop-in replacement for the legacy MultimediaViewer class.
  */
-class BetaViewer {
+class VueMultimediaViewer {
 	constructor() {
 		/** @type {boolean} */
 		this.isOpen = false;
@@ -85,7 +85,7 @@ class BetaViewer {
 			} )
 			.catch( () => {
 				// eslint-disable-next-line no-console
-				console.info( '[MMV Beta] TestKitchen not available: skipping instrumentation.' );
+				console.info( '[MMV Vue] TestKitchen not available: skipping instrumentation.' );
 			} );
 
 		/**
@@ -448,7 +448,7 @@ class BetaViewer {
 	open() {
 		if ( !this.app ) {
 			this.mountEl = document.createElement( 'div' );
-			this.mountEl.id = 'mmv-beta-root';
+			this.mountEl.id = 'mmv-mobile-root';
 
 			// mw-mmv-wrapper is whitelisted in mmv.bootstrap.less so it stays
 			// visible when body.mw-mmv-lightbox-open hides other children.
@@ -550,4 +550,4 @@ class BetaViewer {
 	}
 }
 
-module.exports = BetaViewer;
+module.exports = VueMultimediaViewer;

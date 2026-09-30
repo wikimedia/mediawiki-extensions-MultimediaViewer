@@ -37,7 +37,7 @@ const { ThumbnailWidthCalculator } = require( 'mmv.common' );
 /**
  * Delay (ms) before the image-area loading indicator appears, so quick loads
  * (cached / prefetched thumbnails) never flash a spinner. Pairs with
- * PREFETCH_DELAY (250) in BetaViewer.js, which warms neighbor thumbnails.
+ * PREFETCH_DELAY (250) in VueMultimediaViewer.js, which warms neighbor thumbnails.
  */
 const LOADING_INDICATOR_DELAY = 150;
 
@@ -98,7 +98,7 @@ module.exports = exports = defineComponent( {
 		const delayElapsed = ref( false );
 		let spinnerTimer = null;
 
-		// loadId (bumped by BetaViewer.loadImage) is the "source of truth" for
+		// loadId (bumped by VueMultimediaViewer.loadImage) is the "source of truth" for
 		// navigation events. Whenever the user navigates to a new image in the
 		// viewer, these values (which control much of what is visible on the
 		// screen) are reset. Error state and whether the user sees a loading

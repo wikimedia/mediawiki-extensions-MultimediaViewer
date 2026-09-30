@@ -18,7 +18,7 @@
 /**
  * Display a mw.notify message when a URL hash file title is not found on
  * the current page.  Logic is shared between the desktop viewer (mmv.js) and
- * the beta viewer (BetaViewer.js); each caller is responsible for closing the
+ * the Vue multimedia viewer (VueMultimediaViewer.js); each caller is responsible for closing the
  * viewer before calling this function.
  *
  * @memberof module:mmv.common

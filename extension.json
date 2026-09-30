@@ -304,20 +304,20 @@
 				"carousel.less"
 			]
 		},
-		"mmv.ui.beta": {
+		"mmv.ui.vue": {
 			"packageFiles": [
-				"mmv.ui.beta/init.js",
-				"mmv.ui.beta/BetaViewer.js",
-				"mmv.ui.beta/App.vue",
-				"mmv.ui.beta/LightboxHeader.vue",
-				"mmv.ui.beta/LightboxImage.vue",
-				"mmv.ui.beta/LightboxCaption.vue",
-				"mmv.ui.beta/LightboxNav.vue",
-				"mmv.ui.beta/LightboxError.vue",
-				"mmv.ui.beta/thumbnailGuessing.js",
-				"mmv.ui.beta/useFocusTrap.js",
+				"mmv.ui.vue/init.js",
+				"mmv.ui.vue/VueMultimediaViewer.js",
+				"mmv.ui.vue/App.vue",
+				"mmv.ui.vue/LightboxHeader.vue",
+				"mmv.ui.vue/LightboxImage.vue",
+				"mmv.ui.vue/LightboxCaption.vue",
+				"mmv.ui.vue/LightboxNav.vue",
+				"mmv.ui.vue/LightboxError.vue",
+				"mmv.ui.vue/thumbnailGuessing.js",
+				"mmv.ui.vue/useFocusTrap.js",
 				{
-					"name": "mmv.ui.beta/icons.json",
+					"name": "mmv.ui.vue/icons.json",
 					"callback": "MediaWiki\\ResourceLoader\\CodexModule::getIcons",
 					"callbackParam": [
 						"cdxIconClose",
@@ -542,7 +542,7 @@
 			"value": false
 		},
 		"MediaViewerMobileBeta": {
-			"description": "If true, the beta mobile viewer (mmv.ui.beta) replaces the MobileFrontend image viewer for all users on the mobile site, except logged-in users who have disabled MediaViewer in their preferences.",
+			"description": "If true, the Vue multimedia viewer (mmv.ui.vue) replaces the MobileFrontend image viewer for all users on the mobile site, except logged-in users who have disabled MediaViewer in their preferences.",
 			"value": true
 		},
 		"MediaViewerExcludedImageSelectors": {

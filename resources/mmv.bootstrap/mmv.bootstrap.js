@@ -84,15 +84,14 @@ class MultimediaViewerBootstrap {
 	}
 
 	/**
-	 * Whether the beta UI should be used instead of the legacy viewer.
+	 * Whether the Vue MMV UI should be used instead of the legacy viewer.
 	 * Enabled by the server for mobile views when $wgMediaViewerMobileBeta
-	 * is set (T428774), or by the ?mmvBeta=1 URL parameter on any skin.
+	 * is set (T428774).
 	 *
 	 * @return {boolean}
 	 */
-	isBetaMode() {
-		return mw.config.get( 'wgMediaViewerMobileBeta' ) === true ||
-			new URLSearchParams( location.search ).get( 'mmvBeta' ) === '1';
+	useVueMultimediaViewer() {
+		return mw.config.get( 'wgMediaViewerMobileBeta' ) === true;
 	}
 
 	/**
@@ -176,14 +175,14 @@ class MultimediaViewerBootstrap {
 		// not be here.
 		this.setupOverlay();
 
-		const moduleName = this.isBetaMode() ? 'mmv.ui.beta' : 'mmv';
+		const moduleName = this.useVueMultimediaViewer() ? 'mmv.ui.vue' : 'mmv';
 
 		return mw.loader.using( moduleName )
 			.then( ( require ) => {
 				if ( !this.viewer ) {
-					if ( this.isBetaMode() ) {
-						const { BetaViewer } = require( 'mmv.ui.beta' );
-						this.viewer = new BetaViewer();
+					if ( this.useVueMultimediaViewer() ) {
+						const { VueMultimediaViewer } = require( 'mmv.ui.vue' );
+						this.viewer = new VueMultimediaViewer();
 					} else {
 						const { MultimediaViewer } = require( 'mmv' );
 						this.viewer = new MultimediaViewer();
@@ -331,7 +330,7 @@ class MultimediaViewerBootstrap {
 					return;
 				}
 				this.preloadOnHoverTimer = setTimeout( () => {
-					mw.loader.load( this.isBetaMode() ? 'mmv.ui.beta' : 'mmv' );
+					mw.loader.load( this.useVueMultimediaViewer() ? 'mmv.ui.vue' : 'mmv' );
 				}, this.hoverWaitDuration );
 			},
 			mouseleave: () => {
@@ -822,8 +821,8 @@ class MultimediaViewerBootstrap {
 				// Dark overlay should stay dark in dark mode
 				.addClass( 'mw-mmv-overlay mw-no-invert' );
 
-			if ( this.isBetaMode() ) {
-				this.$overlay.addClass( 'mw-mmv-overlay--beta' );
+			if ( this.useVueMultimediaViewer() ) {
+				this.$overlay.addClass( 'mw-mmv-overlay--vue' );
 			}
 
 			this.$loadBar = $( '<div>' )
