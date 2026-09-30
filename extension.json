@@ -470,8 +470,7 @@
 				"MainConfig",
 				"SpecialPageFactory",
 				"UserOptionsLookup",
-				"ParserOutputAccess",
-				"WANObjectCache"
+				"ExtensionRegistry"
 			],
 			"optional_services": [
 				"MobileFrontend.Context"
@@ -594,5 +593,18 @@
 			"value": false
 		}
 	},
+	"ParsoidModules": [
+		{
+			"name": "MultimediaViewer",
+			"domProcessors": [
+				{
+					"class": "MediaWiki\\Extension\\MultimediaViewer\\CarouselDomProcessor",
+					"services": [
+						"MainConfig"
+					]
+				}
+			]
+		}
+	],
 	"manifest_version": 2
 }

@@ -40,22 +40,16 @@ use MediaWiki\Output\Hook\OutputPageParserOutputHook;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\CategoryPage;
 use MediaWiki\Page\Hook\CategoryPageViewHook;
-use MediaWiki\Page\ParserOutputAccess;
-use MediaWiki\Parser\ParserOptions;
-use MediaWiki\Parser\ParserOutputLinkTypes;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\ResourceLoader\Context;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderGetConfigVarsHook;
-use MediaWiki\Skin\Skin;
 use MediaWiki\SpecialPage\SpecialPageFactory;
 use MediaWiki\Title\Title;
 use MediaWiki\User\Hook\UserGetDefaultOptionsHook;
 use MediaWiki\User\Options\UserOptionsLookup;
 use MediaWiki\User\User;
 use MobileContext;
-use Wikimedia\LightweightObjectStore\ExpirationAwareness;
-use Wikimedia\ObjectCache\WANObjectCache;
 use Wikimedia\Parsoid\Core\DOMCompat;
 use Wikimedia\Parsoid\Utils\DOMUtils;
 
@@ -97,8 +91,7 @@ class Hooks implements
 		private readonly Config $config,
 		private readonly SpecialPageFactory $specialPageFactory,
 		private readonly UserOptionsLookup $userOptionsLookup,
-		private readonly ParserOutputAccess $parserOutputAccess,
-		private readonly WANObjectCache $wanObjectCache,
+		private readonly ExtensionRegistry $extensionRegistry,
 		private readonly ?MobileContext $mobileContext,
 	) {
 	}
@@ -234,53 +227,27 @@ class Hooks implements
 	 * (a qualifying request and enough thumbnails), so the client module
 	 * can assume carousel items exist in the DOM. The A/A instrument also loads
 	 * for eligible visits where rollout settings prevent carousel rendering.
-	 *
-	 * @param OutputPage $out
 	 */
-	private function maybeAddMobileCarousel( OutputPage $out ): void {
+	protected function maybeAddMobileCarousel( OutputPage $out ): void {
 		if ( !$this->isMobileCarouselEligible( $out ) ) {
 			return;
 		}
 
-		// The DOM build/traversal we'll be doing further down is fairly
-		// expensive, and somethings to avoid if we can help it.
-		// Parser output can help us narrow down to only pages that satisfy
-		// our minimum images requirement (but only if parser output is
-		// already available in cache, as generating it is even more
-		// expensive than what we want to avoid here)
-		$cachedParserOutput = $this->parserOutputAccess->getCachedParserOutput(
-			$out->getWikiPage(),
-			ParserOptions::newFromAnon(),
-		);
+		$carouselItems = $out->getMetadata()->getExtensionData( CarouselDomProcessor::EXTENSION_DATA_NAME );
 		if (
-			$cachedParserOutput &&
-			count( $cachedParserOutput->getLinkList( ParserOutputLinkTypes::MEDIA ) ) < self::MIN_CAROUSEL_IMAGES
+			$carouselItems === null &&
+			$out->getRevisionId() === null &&
+			$this->extensionRegistry->isLoaded( 'MobileFrontendContentProvider' )
 		) {
-			return;
+			// Dev convenience: pages served through
+			// MobileFrontendContentProvider will not have gone through
+			// the Parsoid DOM processor with the accurate (proxied)
+			// content - let's regenerate carousel items here
+			$doc = DOMCompat::newDocument( true );
+			$dom = DOMUtils::parseHTMLToFragment( $doc, $out->getHTML() );
+			$carouselDomProcessor = new CarouselDomProcessor( $this->config );
+			$carouselItems = $carouselDomProcessor->extractCarouselImages( $dom );
 		}
-
-		$carouselItems = $this->wanObjectCache->getWithSetCallback(
-			$this->wanObjectCache->makeKey(
-				'multimediaviewer-carousel-items',
-				$out->getRevisionId()
-			),
-			$out->getRevisionId() !== null ?
-				ExpirationAwareness::TTL_DAY :
-				ExpirationAwareness::TTL_UNCACHEABLE,
-			function () use ( $out ) {
-				$thumbExtractor = new ThumbExtractor(
-					array_keys( $this->config->get( 'MediaViewerExtensions' ) ),
-					$this->config->get( 'MediaViewerExcludedImageSelectors' ),
-					50,
-					50,
-					$this->config->get( MainConfigNames::ArticlePath )
-				);
-				return $this->extractCarouselImageElements(
-					$thumbExtractor,
-					$out->getHTML()
-				);
-			}
-		);
 
 		if ( !$carouselItems || count( $carouselItems ) < self::MIN_CAROUSEL_IMAGES ) {
 			return;
@@ -420,58 +387,6 @@ class Hooks implements
 	 */
 	protected function getCurrentRequestSkinName(): string {
 		return RequestContext::getMain()->getSkin()->getSkinName();
-	}
-
-	/**
-	 * Extract carousel image candidates from the rendered HTML.
-	 *
-	 * Works off the rendered HTML rather than ParserOutput so that no parse
-	 * or parser-cache lookup happens on the pageview path (T439182).
-	 *
-	 * @param ThumbExtractor $thumbExtractor
-	 * @param string $html rendered HTML from OutputPage::getHTML()
-	 * @return array{title: string, caption: ?string, thumb: array}[]
-	 */
-	protected function extractCarouselImageElements(
-		ThumbExtractor $thumbExtractor,
-		string $html
-	): array {
-		$doc = DOMCompat::newDocument( true );
-		$body = DOMUtils::parseHTMLToFragment( $doc, $html );
-
-		$thumbs = $thumbExtractor->findThumbs( $body );
-		$carouselItems = [];
-		foreach ( $thumbs as $thumb ) {
-			$anchor = DOMCompat::getParentElement( $thumb );
-			$title = $thumbExtractor->extractTitleFromAnchorElement( $anchor );
-			if ( !$title ) {
-				continue;
-			}
-
-			// Guard against duplicates/overwrites
-			$prefixedDbKey = $title->getPrefixedDBkey();
-			if ( isset( $carouselItems[$prefixedDbKey] ) ) {
-				continue;
-			}
-
-			$caption = $thumbExtractor->extractCaptionFromAnchorElement( $anchor, $body );
-
-			$carouselItems[$prefixedDbKey] = [
-				'title' => $prefixedDbKey,
-				'caption' => $caption,
-				'thumb' => [
-					'src' => DOMCompat::getAttribute( $thumb, 'src' ) ?:
-						DOMCompat::getAttribute( $thumb, 'data-mw-src' ),
-					'width' => (int)DOMCompat::getAttribute( $thumb, 'width' ),
-					'height' => (int)DOMCompat::getAttribute( $thumb, 'height' ),
-					'srcset' => DOMCompat::getAttribute( $thumb, 'srcset' ),
-					'alt' => DOMCompat::getAttribute( $thumb, 'alt' ),
-					'data-file-width' => ( (int)DOMCompat::getAttribute( $thumb, 'data-file-width' ) ?: null ),
-					'data-file-height' => ( (int)DOMCompat::getAttribute( $thumb, 'data-file-height' ) ?: null ),
-				],
-			];
-		}
-		return array_values( $carouselItems );
 	}
 
 	/**
@@ -781,8 +696,8 @@ class Hooks implements
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/BeforePageDisplay
 	 * Add JavaScript to the page when an image is on it
 	 * and the user has enabled the feature
-	 * @param OutputPage $out
-	 * @param Skin $skin
+	 *
+	 * @inheritDoc
 	 */
 	public function onBeforePageDisplay( $out, $skin ): void {
 		$pageIsSpecialPage = $out->getTitle()->inNamespace( NS_SPECIAL );
@@ -808,6 +723,22 @@ class Hooks implements
 		$disable = $parserOutput->getPageProperty( self::DISABLE_MOBILE_CAROUSEL_PAGE_PROPERTY );
 		if ( $disable !== null ) {
 			$outputPage->setProperty( self::DISABLE_MOBILE_CAROUSEL_PAGE_PROPERTY, $disable );
+		}
+
+		// Copy over carousel data from the original ParserOutput
+		// object onto OutputPage's metadata ParserOutput object.
+		// That latter is a stripped-down version that does not
+		// otherwise carry over this extension data that we'll want
+		// to use in `maybeAddMobileCarousel` (called in
+		// onBeforePageDisplay hook)
+		// We could theoretically execute `maybeAddMobileCarousel`
+		// from this hook as well, except that in this hook,
+		// $outputPage does not yet contain content provided through
+		// MobileFrontendContentProvider, so we'd lose our dev
+		// convenience (or have to duplicate the code)
+		$carouselItems = $parserOutput->getExtensionData( CarouselDomProcessor::EXTENSION_DATA_NAME );
+		if ( $carouselItems !== null ) {
+			$outputPage->getMetadata()->setExtensionData( CarouselDomProcessor::EXTENSION_DATA_NAME, $carouselItems );
 		}
 	}
 

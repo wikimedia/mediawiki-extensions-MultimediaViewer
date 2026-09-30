@@ -6,6 +6,7 @@ namespace MediaWiki\Extension\MultimediaViewer;
 use MediaWiki\FileRepo\File\File;
 use MediaWiki\Title\Title;
 use Wikimedia\Parsoid\Core\DOMCompat;
+use Wikimedia\Parsoid\DOM\Document;
 use Wikimedia\Parsoid\DOM\DocumentFragment;
 use Wikimedia\Parsoid\DOM\Element;
 use Wikimedia\Parsoid\Utils\DOMUtils;
@@ -79,10 +80,10 @@ class ThumbExtractor {
 	 * not match against files. Useful when file metadata is unavailable (e.g.
 	 * when working with proxied HTML from MobileFrontendContentProvider).
 	 *
-	 * @param DocumentFragment $body A wiki page's DOM body fragment
+	 * @param Document|DocumentFragment|Element $body A wiki page's DOM body
 	 * @return Element[] The filtered thumbnail elements
 	 */
-	public function findThumbs( DocumentFragment $body ): array {
+	public function findThumbs( Document|DocumentFragment|Element $body ): array {
 		$thumbs = $this->select( $body );
 		$thumbs = $this->sort( $body, $thumbs );
 		$thumbs = $this->filter( $thumbs );
@@ -92,10 +93,10 @@ class ThumbExtractor {
 	/**
 	 * Select image thumbnails from a DOM body via CSS selectors.
 	 *
-	 * @param DocumentFragment $body A wiki page's DOM body fragment
+	 * @param Document|DocumentFragment|Element $body A wiki page's DOM body
 	 * @return Element[] The extracted elements
 	 */
-	private function select( DocumentFragment $body ): array {
+	private function select( Document|DocumentFragment|Element $body ): array {
 		$selectors = implode( ', ', [
 			// Parsoid thumbs
 			'[typeof~="mw:File"] a.mw-file-description img',
@@ -114,11 +115,11 @@ class ThumbExtractor {
 	}
 
 	/**
-	 * @param DocumentFragment $body A wiki page's DOM body fragment
+	 * @param Document|DocumentFragment|Element $body A wiki page's DOM body
 	 * @param Element[] $thumbs
 	 * @return Element[]
 	 */
-	private function sort( DocumentFragment $body, array $thumbs ): array {
+	private function sort( Document|DocumentFragment|Element $body, array $thumbs ): array {
 		// $thumbs is not guaranteed to be in the correct order in
 		// which the nodes appear in the document
 		if ( $thumbs && method_exists( $thumbs[ 0 ], 'compareDocumentPosition' ) ) {
@@ -244,7 +245,7 @@ class ThumbExtractor {
 		// called from a place where it is still available, lest the $anchor not
 		// be orphaned as the upward nodes (which this method will access) have
 		// been garbage collected away
-		DocumentFragment $body,
+		Document|DocumentFragment|Element $body,
 	): ?string {
 		if ( !$anchor || DOMUtils::nodeName( $anchor ) !== 'a' ) {
 			return null;
