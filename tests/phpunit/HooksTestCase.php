@@ -15,6 +15,14 @@ use MediaWikiIntegrationTestCase;
  * @covers \MediaWiki\Extension\MultimediaViewer\Hooks
  */
 class HooksTestCase extends MediaWikiIntegrationTestCase {
+
+	protected function setUp(): void {
+		parent::setUp();
+		// Isolate MMV's own logic from extensions that override $render
+		// or $attributes on locally installed wikis.
+		$this->clearHook( 'MultimediaViewerBeforeMobileCarousel' );
+	}
+
 	public function newHooksInstance(): Hooks {
 		return new Hooks(
 			$this->getServiceContainer()->getMainConfig(),
