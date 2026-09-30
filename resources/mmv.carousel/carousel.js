@@ -180,6 +180,23 @@ function init( carouselItems, options ) {
 				}
 			}
 
+			// TODO(image-carousel-retest): Remove this branch after choosing the permanent UI.
+			// These retest arms bypass the preview without selecting its reactive title.
+			if ( options.openMediaViewerDirectly && title ) {
+				const router = require( 'mediawiki.router' );
+				const { Config } = require( 'mmv.bootstrap' );
+				// Record the accepted click before navigating, as the preview's controls do.
+				mw.hook( 'mmv.carousel.action' ).fire( 'thumbnailOpen' );
+				instrument.send( 'click', {
+					// eslint-disable-next-line camelcase
+					action_subtype: 'view_image', action_source: 'image_carousel'
+				} );
+				router.navigateTo( null, {
+					path: Config.getMediaHash( title.getPrefixedDb() )
+				} );
+				return;
+			}
+
 			fileTitleRef.value = title;
 			if ( !fileTitleRef.value ) {
 				fileImageRef.value = null;
