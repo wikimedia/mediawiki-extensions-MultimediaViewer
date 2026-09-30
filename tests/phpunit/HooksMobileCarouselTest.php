@@ -6,6 +6,7 @@ use MediaWiki\Extension\MultimediaViewer\Hooks;
 use MediaWiki\Extension\MultimediaViewer\ThumbExtractor;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Output\OutputPage;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Skin\SkinTemplate;
 use MediaWiki\Title\Title;
@@ -22,6 +23,9 @@ class HooksMobileCarouselTest extends HooksTestCase {
 	// $wgThumbnailSteps has no core default, so any test asserting a
 	// rewritten thumbnail size must pin it rather than inherit whatever the
 	// running wiki happens to configure; CI runs without it.
+	// Mirrors Hooks::DISABLE_MOBILE_CAROUSEL_PAGE_PROPERTY, which is private.
+	private const DISABLE_PAGE_PROPERTY = 'nomediaviewercarousel';
+
 	private const THUMBNAIL_STEPS = [ 20, 40, 60, 120, 250, 330, 500, 960, 1280, 1920, 3840 ];
 
 	public function newHooksInstance(
@@ -36,7 +40,6 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			$this->getServiceContainer()->getMainConfig(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
-			$this->getServiceContainer()->getPageProps(),
 			$this->getServiceContainer()->getParserOutputAccess(),
 			$this->getServiceContainer()->getWANObjectCache(),
 			null
@@ -105,7 +108,6 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			$this->getServiceContainer()->getMainConfig(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
-			$this->getServiceContainer()->getPageProps(),
 			$this->getServiceContainer()->getParserOutputAccess(),
 			$this->getServiceContainer()->getWANObjectCache(),
 			null
@@ -142,7 +144,6 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			$this->getServiceContainer()->getMainConfig(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
-			$this->getServiceContainer()->getPageProps(),
 			$this->getServiceContainer()->getParserOutputAccess(),
 			$this->getServiceContainer()->getWANObjectCache(),
 			null
@@ -213,6 +214,59 @@ class HooksMobileCarouselTest extends HooksTestCase {
 
 	public function testShouldPageGetMobileCarouselRejectsOldRevisions(): void {
 		$output = $this->makeOutputPage( isRevisionCurrent: false );
+		$this->assertFalse( $this->shouldPageGetMobileCarousel( $output ) );
+	}
+
+	public function testShouldPageGetMobileCarouselRejectsOptedOutPages(): void {
+		// __NOMEDIAVIEWERCAROUSEL__ is a behavior switch, and both the legacy
+		// parser and Parsoid record those via setUnsortedPageProperty(), whose
+		// default value is an empty string. A truthiness check on the property
+		// therefore reads "disabled" as "not disabled".
+		$parserOutput = new ParserOutput();
+		$parserOutput->setUnsortedPageProperty( self::DISABLE_PAGE_PROPERTY );
+		$this->assertSame(
+			'',
+			$parserOutput->getPageProperty( self::DISABLE_PAGE_PROPERTY ),
+			'behavior switches are expected to store an empty string'
+		);
+
+		$output = $this->makeOutputPage();
+		$this->newHooksInstance()->onOutputPageParserOutput( $output, $parserOutput );
+
+		$this->assertSame( '', $output->getProperty( self::DISABLE_PAGE_PROPERTY ) );
+		$this->assertFalse(
+			$this->shouldPageGetMobileCarousel( $output ),
+			'__NOMEDIAVIEWERCAROUSEL__ must suppress the carousel'
+		);
+	}
+
+	public function testShouldPageGetMobileCarouselAllowsPagesWithoutOptOut(): void {
+		$output = $this->makeOutputPage();
+		$this->newHooksInstance()->onOutputPageParserOutput( $output, new ParserOutput() );
+
+		$this->assertNull( $output->getProperty( self::DISABLE_PAGE_PROPERTY ) );
+		$this->assertTrue( $this->shouldPageGetMobileCarousel( $output ) );
+	}
+
+	public function testOnOutputPageParserOutputKeepsOptOutAcrossLaterParserOutputs(): void {
+		// The hook fires once per ParserOutput added to the page. Supplementary
+		// ones (e.g. from OutputPage::addTOCPlaceholder()) carry no page
+		// property, and must not wipe the article's opt-out.
+		$output = $this->makeOutputPage();
+		$hooks = $this->newHooksInstance();
+
+		$articleOutput = new ParserOutput();
+		$articleOutput->setUnsortedPageProperty( self::DISABLE_PAGE_PROPERTY );
+		$hooks->onOutputPageParserOutput( $output, $articleOutput );
+
+		// A bare, supplementary ParserOutput arrives afterwards.
+		$hooks->onOutputPageParserOutput( $output, new ParserOutput() );
+
+		$this->assertSame(
+			'',
+			$output->getProperty( self::DISABLE_PAGE_PROPERTY ),
+			'a later bare ParserOutput must not wipe the opt-out'
+		);
 		$this->assertFalse( $this->shouldPageGetMobileCarousel( $output ) );
 	}
 

@@ -460,6 +460,7 @@
 		"MakeGlobalVariablesScript": "main",
 		"GetPreferences": "main",
 		"ThumbnailBeforeProduceHTML": "main",
+		"OutputPageParserOutput": "main",
 		"GetBetaFeaturePreferences": "betafeatures"
 	},
 	"HookHandlers": {
@@ -469,7 +470,6 @@
 				"MainConfig",
 				"SpecialPageFactory",
 				"UserOptionsLookup",
-				"PageProps",
 				"ParserOutputAccess",
 				"WANObjectCache"
 			],
