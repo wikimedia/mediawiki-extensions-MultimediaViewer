@@ -2,8 +2,8 @@
 
 namespace MediaWiki\Extension\MultimediaViewer\Tests;
 
+use MediaWiki\Extension\MultimediaViewer\CarouselDomProcessor;
 use MediaWiki\Extension\MultimediaViewer\Hooks;
-use MediaWiki\Extension\MultimediaViewer\ThumbExtractor;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Parser\ParserOutput;
@@ -40,8 +40,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			$this->getServiceContainer()->getMainConfig(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
-			$this->getServiceContainer()->getParserOutputAccess(),
-			$this->getServiceContainer()->getWANObjectCache(),
+			$this->getServiceContainer()->getExtensionRegistry(),
 			null
 		) extends Hooks {
 			public array $stubCarouselItems;
@@ -67,17 +66,20 @@ class HooksMobileCarouselTest extends HooksTestCase {
 				return $this->useCarousel ?? parent::shouldUseMobileCarousel( $out );
 			}
 
-			protected function extractCarouselImageElements(
-				ThumbExtractor $thumbExtractor,
-				string $html
-			): array {
-				return $this->stubCarouselItems;
-			}
-
 			// Stub the WikimediaEvents gate so these tests don't depend on
 			// that extension being installed in the test run.
 			protected function isWikimediaEventsLoaded(): bool {
 				return $this->wikimediaEventsLoaded;
+			}
+
+			// Seed OutputPage with the stub carousel items the same way it
+			// would already have them when parsed externally
+			protected function maybeAddMobileCarousel( OutputPage $out ): void {
+				$out->getMetadata()->setExtensionData(
+					CarouselDomProcessor::EXTENSION_DATA_NAME,
+					$this->stubCarouselItems
+				);
+				parent::maybeAddMobileCarousel( $out );
 			}
 		};
 		$hooks->mobileView = $mobileView;
@@ -108,8 +110,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			$this->getServiceContainer()->getMainConfig(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
-			$this->getServiceContainer()->getParserOutputAccess(),
-			$this->getServiceContainer()->getWANObjectCache(),
+			$this->getServiceContainer()->getExtensionRegistry(),
 			null
 		) extends Hooks {
 			public bool $pageQualifies;
@@ -133,22 +134,6 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$hooks->betaOptIn = $betaOptIn;
 
 		return $method->invoke( $hooks, $output );
-	}
-
-	protected function extractCarouselImageElements(
-		ThumbExtractor $thumbExtractor,
-		string $html
-	): array {
-		$method = new \ReflectionMethod( Hooks::class, 'extractCarouselImageElements' );
-		$hooks = new Hooks(
-			$this->getServiceContainer()->getMainConfig(),
-			$this->getServiceContainer()->getSpecialPageFactory(),
-			$this->getServiceContainer()->getUserOptionsLookup(),
-			$this->getServiceContainer()->getParserOutputAccess(),
-			$this->getServiceContainer()->getWANObjectCache(),
-			null
-		);
-		return $method->invoke( $hooks, $thumbExtractor, $html );
 	}
 
 	protected function buildCarouselItemsHtml( array $thumbData ): string {
@@ -453,11 +438,7 @@ class HooksMobileCarouselTest extends HooksTestCase {
 		$this->getServiceContainer()->getUserOptionsManager()
 			->setOption( $user, 'enable_image_carousel', $optOut ? 0 : 1 );
 		$output = $this->makeOutputPage( user: $user );
-		$items = array_slice( [
-			self::makeFakeThumbData( 'A.jpg' ),
-			self::makeFakeThumbData( 'B.jpg' ),
-			self::makeFakeThumbData( 'C.jpg' ),
-		], 0, $imageCount );
+		$items = array_fill( 0, $imageCount, self::makeFakeThumbData( 'A.jpg' ) );
 		$hooks = $this->newHooksInstance(
 			$items, null, 'minerva', $wikimediaEventsLoaded, $mobileView, $pageQualifies
 		);
@@ -487,102 +468,6 @@ class HooksMobileCarouselTest extends HooksTestCase {
 			'too few images' => [ true, true, false, 2, true, false ],
 			'WikimediaEvents unavailable' => [ true, true, false, 3, false, false ],
 		];
-	}
-
-	/**
-	 * Regression test: the mobile carousel must extract thumbnails even when the
-	 * DOM backend reports element names in upper case.
-	 *
-	 * extractCarouselImageElements() locates each thumbnail's parent <a> to read
-	 * the file name. Comparing $anchor->nodeName to a lower-case 'a' silently
-	 * dropped every thumbnail on DOM backends that return upper-case names
-	 * (newer libraries, and PHP 8.4 for the native DOM), so the carousel fell
-	 * below its image minimum and never rendered. The comparison must be
-	 * case-insensitive (DOMUtils::nodeName()).
-	 */
-	public function testExtractCarouselImageElementsHandlesUpperCaseAnchorNodeNames(): void {
-		// Mirrors the markup served by MobileFrontendContentProvider when it
-		// proxies an article: protocol-relative File: hrefs wrapped in
-		// <a class="mw-file-description">.
-		$names = [ 'Eiffel', 'Louvre', 'Pantheon' ];
-		$html = '';
-		foreach ( $names as $name ) {
-			$html .= '<figure typeof="mw:File/Thumb">'
-				. '<a href="//en.wikipedia.org/wiki/File:' . $name . '.jpg" class="mw-file-description">'
-				. '<img src="//upload.wikimedia.org/' . $name . '.jpg" class="mw-file-element"'
-				. ' width="220" height="124" alt="' . $name . '">'
-				. '</a></figure>';
-		}
-
-		$thumbExtractor = new ThumbExtractor( [ 'jpg' ], [], 30, 30, '/wiki/$1' );
-		$thumbs = $this->extractCarouselImageElements( $thumbExtractor, $html );
-
-		$this->assertCount( 3, $thumbs, 'all three proxied thumbnails should be extracted' );
-		$this->assertSame( 'File:Eiffel.jpg', $thumbs[0]['title'] );
-		$this->assertSame(
-			'//upload.wikimedia.org/Eiffel.jpg',
-			$thumbs[0]['thumb']['src']
-		);
-		$this->assertSame(
-			'//upload.wikimedia.org/Pantheon.jpg',
-			$thumbs[2]['thumb']['src']
-		);
-	}
-
-	public function testExtractCarouselImageElementsPreservesAltTextAndAllowsMissingAltText(): void {
-		$html = '<figure typeof="mw:File/Thumb">'
-			. '<a href="//en.wikipedia.org/wiki/File:Eiffel.jpg" class="mw-file-description">'
-			. '<img src="//upload.wikimedia.org/Eiffel.jpg" class="mw-file-element"'
-			. ' width="220" height="124" alt="Eiffel Tower at dusk">'
-			. '</a></figure>'
-			. '<figure typeof="mw:File/Thumb">'
-			. '<a href="//en.wikipedia.org/wiki/File:Louvre.jpg" class="mw-file-description">'
-			. '<img src="//upload.wikimedia.org/Louvre.jpg" class="mw-file-element"'
-			. ' width="220" height="124" alt="">'
-			. '</a></figure>'
-			. '<figure typeof="mw:File/Thumb">'
-			. '<a href="//en.wikipedia.org/wiki/File:Pantheon.jpg" class="mw-file-description">'
-			. '<img src="//upload.wikimedia.org/Pantheon.jpg" class="mw-file-element"'
-			. ' width="220" height="124" alt="Pantheon facade">'
-			. '</a></figure>';
-
-		$thumbExtractor = new ThumbExtractor( [ 'jpg' ], [], 30, 30, '/wiki/$1' );
-		$thumbs = $this->extractCarouselImageElements( $thumbExtractor, $html );
-
-		$this->assertCount( 3, $thumbs, 'missing alt text should not suppress carousel images' );
-		$this->assertSame( 'Eiffel Tower at dusk', $thumbs[0]['thumb']['alt'] );
-		$this->assertSame( '', $thumbs[1]['thumb']['alt'] );
-		$this->assertSame( 'Pantheon facade', $thumbs[2]['thumb']['alt'] );
-	}
-
-	public function testExtractCarouselImageElementsExcludesLeadInfoboxImages(): void {
-		$figure = static fn ( string $name ) => '<figure typeof="mw:File/Thumb">'
-			. '<a href="//en.wikipedia.org/wiki/File:' . $name . '.jpg" class="mw-file-description">'
-			. '<img src="//upload.wikimedia.org/' . $name . '.jpg" class="mw-file-element"'
-			. ' width="220" height="124" alt="' . $name . '">'
-			. '</a></figure>';
-		$infobox = static fn ( string $name ) => '<table class="infobox"><tr><td>'
-			. $figure( $name ) . '</td></tr></table>';
-
-		// The third image is the lead infobox image. Since two images remain, it's
-		// below the three image threshold (MIN_CAROUSEL_IMAGES), so the carousel
-		// would not render.
-		$html = '<section data-mw-section-id="0">' . $infobox( 'Infobox' ) . $figure( 'Eiffel' ) . '</section>'
-			. '<section data-mw-section-id="1">' . $figure( 'Louvre' ) . '</section>';
-
-		$thumbExtractor = new ThumbExtractor( [ 'jpg' ], [], 30, 30, '/wiki/$1' );
-		$thumbs = $this->extractCarouselImageElements( $thumbExtractor, $html );
-
-		$this->assertCount( 2, $thumbs );
-		$this->assertLessThan( 3, count( $thumbs ) );
-		$this->assertSame( 'File:Eiffel.jpg', $thumbs[0]['title'] );
-		$this->assertSame( 'File:Louvre.jpg', $thumbs[1]['title'] );
-
-		// An infobox outside the lead section still counts.
-		$html = '<section data-mw-section-id="0">' . $figure( 'Eiffel' ) . '</section>'
-			. '<section data-mw-section-id="1">' . $infobox( 'Louvre' ) . $figure( 'Pantheon' ) . '</section>';
-		$thumbs = $this->extractCarouselImageElements( $thumbExtractor, $html );
-		$this->assertCount( 3, $thumbs );
 	}
 
 	public function testOnBeforePageDisplaySkipsCarouselWhenNotApplicable(): void {

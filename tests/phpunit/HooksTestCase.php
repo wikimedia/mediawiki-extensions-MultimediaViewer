@@ -6,7 +6,9 @@ use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\MultimediaViewer\Hooks;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\WikiPage;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Skin\SkinTemplate;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
@@ -28,8 +30,7 @@ class HooksTestCase extends MediaWikiIntegrationTestCase {
 			$this->getServiceContainer()->getMainConfig(),
 			$this->getServiceContainer()->getSpecialPageFactory(),
 			$this->getServiceContainer()->getUserOptionsLookup(),
-			$this->getServiceContainer()->getParserOutputAccess(),
-			$this->getServiceContainer()->getWANObjectCache(),
+			$this->getServiceContainer()->getExtensionRegistry(),
 			null
 		);
 	}
@@ -55,6 +56,10 @@ class HooksTestCase extends MediaWikiIntegrationTestCase {
 
 		$request = $request ?? new FauxRequest();
 
+		$skin = new SkinTemplate( [ 'name' => 'skin' ] );
+
+		$metadata = new ParserOutput();
+
 		$output = $this->createMock( OutputPage::class );
 		$output->method( 'getTitle' )->willReturn( $title );
 		$output->method( 'getWikiPage' )->willReturn( $wikiPage );
@@ -64,6 +69,8 @@ class HooksTestCase extends MediaWikiIntegrationTestCase {
 		$output->method( 'getRequest' )->willReturn( $request );
 		$output->method( 'getActionName' )->willReturn( $actionName );
 		$output->method( 'isRevisionCurrent' )->willReturn( $isRevisionCurrent );
+		$output->method( 'getSkin' )->willReturn( $skin );
+		$output->method( 'getMetadata' )->willReturn( $metadata );
 
 		// Make setProperty()/getProperty() store and return values.
 		// Left as bare mocks they are no-ops returning null. This makes
