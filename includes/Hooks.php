@@ -164,16 +164,6 @@ class Hooks implements
 	}
 
 	/**
-	 * Whether the WikimediaEvents extension is available to receive the
-	 * carousel A/A instrumentation module (T437076).
-	 *
-	 * @return bool
-	 */
-	protected function isWikimediaEventsLoaded(): bool {
-		return ExtensionRegistry::getInstance()->isLoaded( 'WikimediaEvents' );
-	}
-
-	/**
 	 * Handler for all places where we add the modules
 	 * Could be on article pages or on Category pages
 	 * @param OutputPage $out
@@ -208,7 +198,7 @@ class Hooks implements
 	 *
 	 * The carousel module is added only when carousel markup is actually rendered
 	 * (a qualifying request and enough thumbnails), so the client module
-	 * can assume carousel items exist in the DOM. The A/A instrument also loads
+	 * can assume carousel items exist in the DOM. The experiment hook also runs
 	 * for eligible visits where rollout settings prevent carousel rendering.
 	 */
 	protected function maybeAddMobileCarousel( OutputPage $out ): void {
@@ -234,12 +224,6 @@ class Hooks implements
 
 		if ( !$carouselItems || count( $carouselItems ) < self::MIN_CAROUSEL_IMAGES ) {
 			return;
-		}
-
-		// T437076: Measure eligible visits independently of sitewide rollout or beta opt-in.
-		// Send events client-side so that cached page views are instrumented as well.
-		if ( $this->isWikimediaEventsLoaded() ) {
-			$out->addModules( 'ext.wikimediaEvents.preImageCarouselRetestAA' );
 		}
 
 		// TODO(image-carousel-retest): Remove this experiment override after the retest.
