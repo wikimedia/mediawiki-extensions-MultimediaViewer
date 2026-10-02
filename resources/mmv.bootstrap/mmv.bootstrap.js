@@ -85,15 +85,12 @@ class MultimediaViewerBootstrap {
 
 	/**
 	 * Whether the Vue MMV UI should be used instead of the legacy viewer.
-	 * Enabled by the server for mobile views when $wgMediaViewerMobileBeta
-	 * is set (T428774).
+	 * Enabled by the server for mobile views when $wgMediaViewerDesktopVue.
 	 *
 	 * @return {boolean}
 	 */
 	useVueMultimediaViewer() {
-		// FIXME: Drop wgMediaViewerMobileBeta check 2 weeks after this change has been merged.
-		return mw.config.get( 'wgMediaViewerMobileBeta' ) === true ||
-			mw.config.get( 'wgMediaViewerDesktopVue' ) === true;
+		return mw.config.get( 'wgMediaViewerDesktopVue' ) === true;
 	}
 
 	/**
