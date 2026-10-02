@@ -108,8 +108,10 @@ class CarouselDomProcessorTest extends HooksTestCase {
 		// The third image is the lead infobox image. Since two images remain, it's
 		// below the three image threshold (MIN_CAROUSEL_IMAGES), so the carousel
 		// would not render.
-		$html = '<section data-mw-section-id="0">' . $infobox( 'Infobox' ) . $figure( 'Eiffel' ) . '</section>'
-			. '<section data-mw-section-id="1">' . $figure( 'Louvre' ) . '</section>';
+		$html = $infobox( 'Infobox' )
+			. $figure( 'Eiffel' )
+			. '<h1>Title</h1>'
+			. $figure( 'Louvre' );
 		$doc = DOMCompat::newDocument( true );
 		$dom = DOMUtils::parseHTMLToFragment( $doc, $html );
 		$thumbs = $processor->extractCarouselImages( $dom );
@@ -120,8 +122,10 @@ class CarouselDomProcessorTest extends HooksTestCase {
 		$this->assertSame( 'File:Louvre.jpg', $thumbs[1]['title'] );
 
 		// An infobox outside the lead section still counts.
-		$html = '<section data-mw-section-id="0">' . $figure( 'Eiffel' ) . '</section>'
-			. '<section data-mw-section-id="1">' . $infobox( 'Louvre' ) . $figure( 'Pantheon' ) . '</section>';
+		$html = $figure( 'Eiffel' )
+			. '<h1>Title</h1>'
+			. $infobox( 'Louvre' )
+			. $figure( 'Pantheon' );
 		$doc = DOMCompat::newDocument( true );
 		$dom = DOMUtils::parseHTMLToFragment( $doc, $html );
 		$thumbs = $processor->extractCarouselImages( $dom );
