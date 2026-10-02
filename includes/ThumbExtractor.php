@@ -50,10 +50,12 @@ class ThumbExtractor {
 		// Image is excluded from the carousel only; still shown in the viewer
 		'.nocarousel',
 
-		// Exclude lead infoboxes - Parsoid
-		'section[data-mw-section-id="0"] .infobox',
-		// Exclude lead infoboxes - Legacy parser
-		'section#mf-section-0 .infobox',
+		// Exclude infoboxes moved to quick facts.
+		// This should not be relevant in production (because extraction happens
+		// in an earlier post-parsing stage, prior to infoboxes having been moved),
+		// but is purely intended for local development parity when dealing with
+		// external content provided by MobileFrontendContentProvider
+		'.mf-quick-facts .infobox',
 	];
 
 	/**
@@ -86,7 +88,7 @@ class ThumbExtractor {
 	public function findThumbs( Document|DocumentFragment|Element $body ): array {
 		$thumbs = $this->select( $body );
 		$thumbs = $this->sort( $body, $thumbs );
-		$thumbs = $this->filter( $thumbs );
+		$thumbs = $this->filter( $body, $thumbs );
 		return $thumbs;
 	}
 
@@ -96,7 +98,7 @@ class ThumbExtractor {
 	 * @param Document|DocumentFragment|Element $body A wiki page's DOM body
 	 * @return Element[] The extracted elements
 	 */
-	private function select( Document|DocumentFragment|Element $body ): array {
+	public function select( Document|DocumentFragment|Element $body ): array {
 		$selectors = implode( ', ', [
 			// Parsoid thumbs
 			'[typeof~="mw:File"] a.mw-file-description img',
@@ -152,13 +154,16 @@ class ThumbExtractor {
 	 * (e.g. don't have an allowed extension or whose size, is too small, or match
 	 * disallowed selectors)
 	 *
+	 * @param Document|DocumentFragment|Element $body A wiki page's DOM body
 	 * @param Element[] $thumbs
 	 * @return Element[]
 	 */
-	private function filter( array $thumbs ): array {
+	private function filter( Document|DocumentFragment|Element $body, array $thumbs ): array {
+		$leadSectionThumbs = $this->getLeadSectionThumbs( $body, $thumbs );
+
 		return array_values( array_filter(
 			$thumbs,
-			function ( $thumb ): bool {
+			function ( $thumb ) use ( $leadSectionThumbs ): bool {
 				// Find the parent <a> to get the file name. Rely on
 				// DOMUtils::nodeName() to abstract over differences in
 				// PHP versions (which may use uppercase or lowercase tag names).
@@ -195,9 +200,61 @@ class ThumbExtractor {
 					return false;
 				}
 
+				// Exclude lead section infobox images
+				if (
+					$this->matchesSelectors( $thumb, [ '.infobox' ] ) &&
+					in_array( $thumb, $leadSectionThumbs, true )
+				) {
+					return false;
+				}
+
 				return true;
 			}
 		) );
+	}
+
+	/**
+	 * Collect an array of all lead section thumbs, where
+	 * "lead section" is defined by every node that is
+	 * encountered before the first heading (h1, h2, ...)
+	 *
+	 * @param Document|DocumentFragment|Element $body
+	 * @param Element[] $thumbs
+	 * @return Element[]
+	 */
+	public function getLeadSectionThumbs( Document|DocumentFragment|Element $body, array $thumbs ): array {
+		$result = [];
+		$node = $body->firstChild;
+		while ( $node && $node !== $body ) {
+			// Break off when first header found
+			if ( in_array( DOMUtils::nodeName( $node ), [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ] ) ) {
+				break;
+			}
+
+			// Have not yet encountered a header thus far; keep track of node
+			if ( in_array( $node, $thumbs, true ) ) {
+				$result[] = $node;
+			}
+
+			// First descend into children, then siblings
+			if ( $node->firstChild ) {
+				$node = $node->firstChild;
+				continue;
+			}
+			if ( $node->nextSibling ) {
+				$node = $node->nextSibling;
+				continue;
+			}
+			// Children exhausted; back up to the next parent sibling
+			do {
+				$node = $node->parentNode;
+			} while ( $node && !$node->nextSibling );
+			if ( $node && $node !== $body ) {
+				$node = $node->nextSibling;
+			}
+		}
+
+		return $result;
 	}
 
 	public function extractTitleFromAnchorElement( ?Element $anchor ): ?Title {

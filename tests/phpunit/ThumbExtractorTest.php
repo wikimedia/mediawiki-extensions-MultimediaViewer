@@ -7,6 +7,7 @@ use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use Wikimedia\Parsoid\Core\DOMCompat;
 use Wikimedia\Parsoid\DOM\DocumentFragment;
+use Wikimedia\Parsoid\DOM\Element;
 use Wikimedia\Parsoid\Utils\DOMUtils;
 
 /**
@@ -19,6 +20,60 @@ class ThumbExtractorTest extends MediaWikiIntegrationTestCase {
 		$fragment = $doc->createDocumentFragment();
 		DOMCompat::setInnerHTML( $fragment, $html );
 		return $fragment;
+	}
+
+	public static function provideGetLeadSectionThumbs(): array {
+		return [
+			'lead section only' => [
+				<<<HTML
+				<a class="mw-file-description" href="/wiki/File:One.jpg">
+					<img src="/path/to/One.jpg/200px-One.jpg" width="200" height="200">
+				</a>
+				HTML,
+				[
+					'/path/to/One.jpg/200px-One.jpg',
+				],
+			],
+			'image not in lead section' => [
+				<<<HTML
+				<h2>Title</h2>
+				<a class="mw-file-description" href="/wiki/File:One.jpg">
+					<img src="/path/to/One.jpg/200px-One.jpg" width="200" height="200">
+				</a>
+				HTML,
+				[],
+			],
+			'image in lead section + image not in lead section' => [
+				<<<HTML
+				<a class="mw-file-description" href="/wiki/File:One.jpg">
+					<img src="/path/to/One.jpg/200px-One.jpg" width="200" height="200">
+				</a>
+				<h2>Title</h2>
+				<a class="mw-file-description" href="/wiki/File:Two.jpg">
+					<img src="/path/to/Two.jpg/200px-Two.jpg" width="200" height="200">
+				</a>
+				HTML,
+				[
+					'/path/to/One.jpg/200px-One.jpg',
+				],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideGetLeadSectionThumbs
+	 */
+	public function testGetLeadSectionThumbs( string $html, array $expect ): void {
+		$extractor = new ThumbExtractor( [ 'jpg' ], [], 30, 30, '/wiki/$1' );
+
+		$body = $this->makeBody( $html );
+		$thumbs = $extractor->select( $body );
+
+		$result = array_map(
+			static fn ( Element $thumb ) => $thumb->getAttribute( 'src' ),
+			$extractor->getLeadSectionThumbs( $body, $thumbs ),
+		);
+		$this->assertArrayEquals( $expect, $result );
 	}
 
 	public function testFindThumbsMatchesThumbToFile(): void {
@@ -87,32 +142,29 @@ class ThumbExtractorTest extends MediaWikiIntegrationTestCase {
 		$image = static fn ( string $name ) => '<a class="mw-file-description" href="/wiki/File:' . $name . '.jpg">'
 			. '<img src="/path/to/' . $name . '.jpg" width="200" height="200"></a>';
 		return [
-			'Parsoid lead section' => [
-				'<section data-mw-section-id="0"><table class="infobox"><tr><td>'
-					. $image( 'Infobox' ) . '</td></tr></table></section>',
+			'Lead section infobox' => [
+				<<<HTML
+				<table class="infobox">
+					<tr>
+						<td>{$image( 'Infobox' )}</td>
+					</tr>
+				</table>
+				HTML,
 				0,
 			],
-			'legacy parser lead section' => [
-				'<section class="mf-section-0" id="mf-section-0"><table class="infobox"><tr><td>'
-					. $image( 'Infobox' ) . '</td></tr></table></section>',
-				0,
-			],
-			'non-infobox image in Parsoid lead section' => [
-				'<section data-mw-section-id="0">' . $image( 'Lead' ) . '</section>',
+			'Non-infobox image in lead section' => [
+				$image( 'Lead' ),
 				1,
 			],
-			'non-infobox image in legacy parser lead section' => [
-				'<section class="mf-section-0" id="mf-section-0">' . $image( 'Lead' ) . '</section>',
-				1,
-			],
-			'Parsoid non-lead section infobox' => [
-				'<section data-mw-section-id="1"><table class="infobox"><tr><td>'
-					. $image( 'Infobox' ) . '</td></tr></table></section>',
-				1,
-			],
-			'legacy parser non-lead section infobox' => [
-				'<section class="mf-section-1" id="mf-section-1"><table class="infobox"><tr><td>'
-					. $image( 'Infobox' ) . '</td></tr></table></section>',
+			'Non-lead section infobox' => [
+				<<<HTML
+				<h1>Title</h1>
+				<table class="infobox">
+					<tr>
+						<td>{$image( 'Infobox' )}</td>
+					</tr>
+				</table>
+				HTML,
 				1,
 			],
 		];
@@ -134,12 +186,13 @@ class ThumbExtractorTest extends MediaWikiIntegrationTestCase {
 
 		// Non-lead infobox images are still in the carousel and keep their caption.
 		$body = $this->makeBody(
-			'<section data-mw-section-id="1"><table class="infobox"><tr>'
+			'<h1>Title</h1>'
+			. '<table class="infobox"><tr>'
 			. '<td class="infobox-image">'
 			. '<a class="mw-file-description" href="/wiki/File:Batman.jpg" title="Title fallback">'
 			. '<img src="/path/to/Batman.jpg" width="200" height="200"></a>'
 			. '<div class="infobox-caption">Infobox caption</div>'
-			. '</td></tr></table></section>'
+			. '</td></tr></table>'
 		);
 		$thumbs = $extractor->findThumbs( $body );
 		$this->assertCount( 1, $thumbs );
