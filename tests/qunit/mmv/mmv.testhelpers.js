@@ -17,6 +17,21 @@ MTH.getMultimediaViewer = function () {
 	} );
 };
 
+/**
+ * Copy the values of an object's prototype getters into a plain object,
+ * so that they can be compared with assert.propContains().
+ *
+ * @param {Object} obj
+ * @return {Object}
+ */
+MTH.flattenGetters = function ( obj ) {
+	return Object.fromEntries(
+		Object.entries( Object.getOwnPropertyDescriptors( Object.getPrototypeOf( obj ) ) )
+			.filter( ( [ , descriptor ] ) => typeof descriptor.get === 'function' )
+			.map( ( [ name ] ) => [ name, obj[ name ] ] )
+	);
+};
+
 MTH.fixtures = {};
 MTH.fixtures.imageinfoApi = {};
 MTH.fixtures.imageinfoApi.makeBasic = function ( imageinfo = {} ) {

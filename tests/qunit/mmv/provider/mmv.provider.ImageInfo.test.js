@@ -15,7 +15,8 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { ImageInfo, ImageModel } = require( 'mmv' );
+const { ImageInfo } = require( 'mmv' );
+const { flattenGetters } = require( '../mmv.testhelpers.js' );
 
 QUnit.module( 'mmv.provider.ImageInfo', QUnit.newMwEnvironment( {
 	// mw.Title relies on these three config vars
@@ -198,15 +199,8 @@ QUnit.test( 'get() [good]', async ( assert ) => {
 	} );
 
 	const image = await imageInfoProvider.get( file );
-	// Flatten the getters
-	const getters = Object.entries( Object.getOwnPropertyDescriptors( ImageModel.prototype ) )
-		.filter( ( [ , descriptor ] ) => typeof descriptor.get === 'function' )
-		.map( ( [ name ] ) => name );
-	const imageObj = Object.fromEntries(
-		getters.map( ( name ) => [ name, image[ name ] ] )
-	);
 	assert.strictEqual( image.title.getPrefixedDb(), 'File:Stuff.jpg', 'title is set correctly' );
-	assert.propContains( imageObj, {
+	assert.propContains( flattenGetters( image ), {
 		name: 'Some stuff',
 		size: 346684,
 		width: 720,

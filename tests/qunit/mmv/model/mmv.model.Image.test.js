@@ -16,7 +16,7 @@
  */
 
 const { ImageModel } = require( 'mmv' );
-const { fixtures } = require( '../mmv.testhelpers.js' );
+const { fixtures, flattenGetters } = require( '../mmv.testhelpers.js' );
 
 QUnit.module( 'mmv.model.Image', QUnit.newMwEnvironment() );
 
@@ -77,12 +77,7 @@ QUnit.test( 'constructor + getters', ( assert ) => {
 
 	assert.strictEqual( imageData.title, title, 'Title' );
 
-	const getters = Object.entries( Object.getOwnPropertyDescriptors( ImageModel.prototype ) )
-		.filter( ( [ , descriptor ] ) => typeof descriptor.get === 'function' )
-		.map( ( [ name ] ) => name );
-	assert.propContains( Object.fromEntries(
-		getters.map( ( name ) => [ name, imageData[ name ] ] )
-	), {
+	assert.propContains( flattenGetters( imageData ), {
 		name: 'Foo bar',
 		size,
 		width,
