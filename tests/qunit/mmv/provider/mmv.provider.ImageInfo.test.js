@@ -84,10 +84,9 @@ QUnit.test( 'constructor', ( assert ) => {
 } );
 
 QUnit.test( 'get() [good]', async ( assert ) => {
-	let apiCallCount = 0;
-
-	const api = { get: function () {
-		apiCallCount++;
+	const calls = [];
+	const api = { get: function ( params ) {
+		calls.push( params );
 		return $.Deferred().resolve( {
 			query: {
 				pages: [
@@ -193,7 +192,11 @@ QUnit.test( 'get() [good]', async ( assert ) => {
 		} );
 	} };
 	const file = new mw.Title( 'File:Stuff.jpg' );
-	const imageInfoProvider = new ImageInfo( api );
+	// See mmv.js#MultimediaViewer.constructor
+	const imageInfoProvider = new ImageInfo( api, {
+		language: 'fr',
+		maxage: 300
+	} );
 
 	const image = await imageInfoProvider.get( file );
 	// Flatten the getters
@@ -234,10 +237,20 @@ QUnit.test( 'get() [good]', async ( assert ) => {
 		attributionRequired: false,
 		nonFree: true
 	} );
+	assert.strictEqual( calls.length, 1 );
+	assert.propContains( calls[ 0 ], {
+		action: 'query',
+		titles: 'File:Stuff.jpg',
+		uselang: 'content',
+		prop: 'imageinfo',
+		iiextmetadatalanguage: 'fr',
+		maxage: 300,
+		smaxage: 300
+	} );
 
 	// the provider should return a second call from cache instead of a second fetch
 	await imageInfoProvider.get( file );
-	assert.strictEqual( apiCallCount, 1 );
+	assert.strictEqual( calls.length, 1 );
 } );
 
 QUnit.test( 'get() [fail 1]', async ( assert ) => {
