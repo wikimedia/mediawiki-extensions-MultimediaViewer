@@ -15,7 +15,7 @@
  * along with MultimediaViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { ImageInfo } = require( 'mmv' );
+const { ImageInfo, ImageModel } = require( 'mmv' );
 
 QUnit.module( 'mmv.provider.ImageInfo', QUnit.newMwEnvironment( {
 	// mw.Title relies on these three config vars
@@ -76,15 +76,16 @@ QUnit.module( 'mmv.provider.ImageInfo', QUnit.newMwEnvironment( {
 	}
 } ) );
 
-QUnit.test( 'ImageInfo constructor sense check', ( assert ) => {
+QUnit.test( 'constructor', ( assert ) => {
 	const api = { get: function () {} };
 	const imageInfoProvider = new ImageInfo( api );
 
 	assert.true( imageInfoProvider instanceof ImageInfo );
 } );
 
-QUnit.test( 'ImageInfo get test', ( assert ) => {
+QUnit.test( 'get() [good]', async ( assert ) => {
 	let apiCallCount = 0;
+
 	const api = { get: function () {
 		apiCallCount++;
 		return $.Deferred().resolve( {
@@ -195,44 +196,54 @@ QUnit.test( 'ImageInfo get test', ( assert ) => {
 	const file = new mw.Title( 'File:Stuff.jpg' );
 	const imageInfoProvider = new ImageInfo( api );
 
-	return imageInfoProvider.get( file ).then( ( image ) => {
-		assert.strictEqual( image.title.getPrefixedDb(), 'File:Stuff.jpg', 'title is set correctly' );
-		assert.strictEqual( image.name, 'Some stuff', 'name is set correctly' );
-		assert.strictEqual( image.size, 346684, 'size is set correctly' );
-		assert.strictEqual( image.width, 720, 'width is set correctly' );
-		assert.strictEqual( image.height, 1412, 'height is set correctly' );
-		assert.strictEqual( image.mimeType, 'image/jpeg', 'mimeType is set correctly' );
-		assert.strictEqual( image.url, 'https://upload.wikimedia.org/wikipedia/commons/1/19/Stuff.jpg', 'url is set correctly' );
-		assert.strictEqual( image.descriptionUrl, 'https://commons.wikimedia.org/wiki/File:Stuff.jpg', 'descriptionUrl is set correctly' );
-		assert.strictEqual( image.repo, 'shared', 'repo is set correctly' );
-		assert.strictEqual( image.uploadDateTime, '2013-08-25T14:41:02Z', 'uploadDateTime is set correctly' );
-		assert.strictEqual( image.anonymizedUploadDateTime, '20130825000000', 'anonymizedUploadDateTime is set correctly' );
-		assert.strictEqual( image.creationDateTime, '2009-02-18', 'creationDateTime is set correctly' );
-		assert.strictEqual( image.description, 'Wikis stuff', 'description is set correctly' );
-		assert.strictEqual( image.source, 'Wikipedia', 'source is set correctly' );
-		assert.strictEqual( image.author, 'John Smith', 'author is set correctly' );
-		assert.strictEqual( image.authorCount, 2, 'author count is set correctly' );
-		assert.strictEqual( image.attribution, 'By John Smith', 'attribution is set correctly' );
-		assert.strictEqual( image.license.shortName, 'CC0', 'license short name is set correctly' );
-		assert.strictEqual( image.license.internalName, 'cc0', 'license internal name is set correctly' );
-		assert.strictEqual( image.license.longName, 'Creative Commons Public Domain Dedication', 'license long name is set correctly' );
-		assert.strictEqual( image.license.deedUrl, 'http://creativecommons.org/publicdomain/zero/1.0/', 'license URL is set correctly' );
-		assert.strictEqual( image.license.attributionRequired, false, 'Attribution required flag is honored' );
-		assert.strictEqual( image.license.nonFree, true, 'Non-free flag is honored' );
-		assert.strictEqual( image.permission, 'Do not use. Ever.', 'permission is set correctly' );
-		assert.strictEqual( image.deletionReason, 'copyvio', 'permission is set correctly' );
-		assert.strictEqual( image.latitude, 90, 'latitude is set correctly' );
-		assert.strictEqual( image.longitude, 180, 'longitude is set correctly' );
-		assert.deepEqual( image.restrictions, [ 'trademarked', 'insignia' ], 'restrictions is set correctly' );
-	} ).then(
-		// call the data provider a second time to check caching
-		() => imageInfoProvider.get( file )
-	).then( () => {
-		assert.strictEqual( apiCallCount, 1 );
+	const image = await imageInfoProvider.get( file );
+	// Flatten the getters
+	const getters = Object.entries( Object.getOwnPropertyDescriptors( ImageModel.prototype ) )
+		.filter( ( [ , descriptor ] ) => typeof descriptor.get === 'function' )
+		.map( ( [ name ] ) => name );
+	const imageObj = Object.fromEntries(
+		getters.map( ( name ) => [ name, image[ name ] ] )
+	);
+	assert.strictEqual( image.title.getPrefixedDb(), 'File:Stuff.jpg', 'title is set correctly' );
+	assert.propContains( imageObj, {
+		name: 'Some stuff',
+		size: 346684,
+		width: 720,
+		height: 1412,
+		// TODO: Remove unused?
+		mimeType: 'image/jpeg',
+		url: 'https://upload.wikimedia.org/wikipedia/commons/1/19/Stuff.jpg',
+		descriptionUrl: 'https://commons.wikimedia.org/wiki/File:Stuff.jpg',
+		repo: 'shared',
+		uploadDateTime: '2013-08-25T14:41:02Z',
+		anonymizedUploadDateTime: '20130825000000',
+		creationDateTime: '2009-02-18',
+		description: 'Wikis stuff',
+		source: 'Wikipedia',
+		author: 'John Smith',
+		authorCount: 2,
+		attribution: 'By John Smith',
+		permission: 'Do not use. Ever.',
+		deletionReason: 'copyvio',
+		latitude: 90,
+		longitude: 180,
+		restrictions: [ 'trademarked', 'insignia' ]
 	} );
+	assert.propContains( image.license, {
+		shortName: 'CC0',
+		internalName: 'cc0',
+		longName: 'Creative Commons Public Domain Dedication',
+		deedUrl: 'http://creativecommons.org/publicdomain/zero/1.0/',
+		attributionRequired: false,
+		nonFree: true
+	} );
+
+	// the provider should return a second call from cache instead of a second fetch
+	await imageInfoProvider.get( file );
+	assert.strictEqual( apiCallCount, 1 );
 } );
 
-QUnit.test( 'ImageInfo fail test', async ( assert ) => {
+QUnit.test( 'get() [fail 1]', async ( assert ) => {
 	const api = { get: function () {
 		return $.Deferred().resolve( {} );
 	} };
@@ -245,7 +256,7 @@ QUnit.test( 'ImageInfo fail test', async ( assert ) => {
 	);
 } );
 
-QUnit.test( 'ImageInfo fail test 2', async ( assert ) => {
+QUnit.test( 'get() [fail 2]', async ( assert ) => {
 	const api = { get: function () {
 		return $.Deferred().resolve( {
 			query: {
@@ -266,7 +277,7 @@ QUnit.test( 'ImageInfo fail test 2', async ( assert ) => {
 	);
 } );
 
-QUnit.test( 'ImageInfo missing page test', async ( assert ) => {
+QUnit.test( 'get() [missing page]', async ( assert ) => {
 	const api = { get: function () {
 		return $.Deferred().resolve( {
 			query: {
@@ -290,7 +301,7 @@ QUnit.test( 'ImageInfo missing page test', async ( assert ) => {
 	);
 } );
 
-QUnit.test( 'ImageInfo invalidate evicts the cache so a failed request can be retried', async ( assert ) => {
+QUnit.test( 'invalidate()', async ( assert ) => {
 	let apiCallCount = 0;
 	let shouldFail = true;
 	const api = { get: function () {
@@ -335,7 +346,7 @@ QUnit.test( 'ImageInfo invalidate evicts the cache so a failed request can be re
 	);
 } );
 
-QUnit.test( 'ImageInfo passes iiurlparam and caches per handler parameter', async ( assert ) => {
+QUnit.test( 'get() [with iiurlparam]', async ( assert ) => {
 	const calls = [];
 	const api = { get: function ( params ) {
 		calls.push( params );
