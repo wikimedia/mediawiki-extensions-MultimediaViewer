@@ -28,8 +28,6 @@ MTH.fixtures.imageinfoApi.makeBasic = function ( imageinfo = {} ) {
 			size: 1,
 			width: 0,
 			height: 0,
-			// iiprop=mime
-			mime: 'image/jpeg',
 			// iiprop=url
 			url: undefined,
 			descriptionurl: undefined,

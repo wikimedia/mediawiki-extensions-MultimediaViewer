@@ -98,11 +98,6 @@ class ImageModel {
 		return this.innerInfo.height;
 	}
 
-	/** @return {string} The MIME type of the original image */
-	get mimeType() {
-		return this.innerInfo.mime;
-	}
-
 	/** @return {string} The URL to the original image */
 	get url() {
 		return this.innerInfo.url;

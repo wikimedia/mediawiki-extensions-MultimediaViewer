@@ -184,8 +184,7 @@ QUnit.test( 'get() [good]', async ( assert ) => {
 										value: 'copyvio',
 										source: 'commons-desc-page'
 									}
-								},
-								mime: 'image/jpeg'
+								}
 							}
 						]
 					}
@@ -210,8 +209,6 @@ QUnit.test( 'get() [good]', async ( assert ) => {
 		size: 346684,
 		width: 720,
 		height: 1412,
-		// TODO: Remove unused?
-		mimeType: 'image/jpeg',
 		url: 'https://upload.wikimedia.org/wikipedia/commons/1/19/Stuff.jpg',
 		descriptionUrl: 'https://commons.wikimedia.org/wiki/File:Stuff.jpg',
 		repo: 'shared',

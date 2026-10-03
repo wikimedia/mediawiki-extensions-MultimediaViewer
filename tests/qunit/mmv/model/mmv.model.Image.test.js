@@ -29,7 +29,6 @@ QUnit.test( 'constructor + getters', ( assert ) => {
 	const size = 100;
 	const width = 10;
 	const height = 15;
-	const mime = 'image/jpeg';
 	const url = 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg';
 	const descriptionurl = 'https://commons.wikimedia.org/wiki/File:Foobar.jpg';
 	const descriptionshorturl = '';
@@ -50,7 +49,6 @@ QUnit.test( 'constructor + getters', ( assert ) => {
 				size,
 				width,
 				height,
-				mime,
 				url,
 				descriptionurl,
 				descriptionshorturl,
@@ -89,7 +87,6 @@ QUnit.test( 'constructor + getters', ( assert ) => {
 		size,
 		width,
 		height,
-		mimeType: mime,
 		url,
 		descriptionUrl: descriptionurl,
 		descriptionShortUrl: descriptionshorturl,

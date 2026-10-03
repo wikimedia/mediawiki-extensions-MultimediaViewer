@@ -50,7 +50,6 @@ class ImageInfo extends Api {
 			'url',
 			'thumburls',
 			'size',
-			'mime',
 			'extmetadata'
 		];
 	}
