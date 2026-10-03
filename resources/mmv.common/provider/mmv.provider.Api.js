@@ -21,28 +21,7 @@
  * @abstract
  */
 class Api {
-	/**
-	 * @param {mw.Api} api
-	 * @param {Object} [options]
-	 * @param {number} [options.maxage] cache expiration time, in seconds
-	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
-	 */
-	constructor( api, options ) {
-		/**
-		 * API object for dependency injection.
-		 *
-		 * @type {mw.Api}
-		 */
-		this.api = api;
-
-		/**
-		 * Options object; the exact format and meaning is unspecified and could be different
-		 * from subclass to subclass.
-		 *
-		 * @type {Object}
-		 */
-		this.options = options || {};
-
+	constructor() {
 		/**
 		 * API call cache.
 		 *
@@ -76,27 +55,6 @@ class Api {
 			} );
 		}
 		return this.cache[ key ];
-	}
-
-	/**
-	 * Calls mw.Api.get, with caching parameters.
-	 *
-	 * @param {Object} params Parameters to the API query.
-	 * @param {Object} [ajaxOptions] ajaxOptions argument for mw.Api.get
-	 * @param {number|null} [maxage] Cache the call for this many seconds.
-	 *  Sets both the maxage (client-side) and smaxage (proxy-side) caching parameters.
-	 *  Null means no caching. Undefined means the default caching period is used.
-	 * @return {jQuery.Promise} the return value from mw.Api.get
-	 */
-	apiGetWithMaxAge( params, ajaxOptions, maxage ) {
-		if ( maxage === undefined ) {
-			maxage = this.options.maxage;
-		}
-		if ( maxage ) {
-			params.maxage = params.smaxage = maxage;
-		}
-
-		return this.api.get( params, ajaxOptions );
 	}
 
 	/**

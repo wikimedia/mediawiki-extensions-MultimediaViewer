@@ -78,7 +78,7 @@ QUnit.module( 'mmv.provider.ImageInfo', QUnit.newMwEnvironment( {
 
 QUnit.test( 'constructor', ( assert ) => {
 	const api = { get: function () {} };
-	const imageInfoProvider = new ImageInfo( api );
+	const imageInfoProvider = new ImageInfo( api, { language: 'qqx' } );
 
 	assert.true( imageInfoProvider instanceof ImageInfo );
 } );
@@ -194,8 +194,7 @@ QUnit.test( 'get() [good]', async ( assert ) => {
 	const file = new mw.Title( 'File:Stuff.jpg' );
 	// See mmv.js#MultimediaViewer.constructor
 	const imageInfoProvider = new ImageInfo( api, {
-		language: 'fr',
-		maxage: 300
+		language: 'fr'
 	} );
 
 	const image = await imageInfoProvider.get( file );
@@ -258,7 +257,7 @@ QUnit.test( 'get() [fail 1]', async ( assert ) => {
 		return $.Deferred().resolve( {} );
 	} };
 	const file = new mw.Title( 'File:Stuff.jpg' );
-	const imageInfoProvider = new ImageInfo( api );
+	const imageInfoProvider = new ImageInfo( api, { language: 'qqx' } );
 
 	await assert.rejects(
 		imageInfoProvider.get( file ),
@@ -279,7 +278,7 @@ QUnit.test( 'get() [fail 2]', async ( assert ) => {
 		} );
 	} };
 	const file = new mw.Title( 'File:Stuff.jpg' );
-	const imageInfoProvider = new ImageInfo( api );
+	const imageInfoProvider = new ImageInfo( api, { language: 'qqx' } );
 
 	await assert.rejects(
 		imageInfoProvider.get( file ),
@@ -302,7 +301,7 @@ QUnit.test( 'get() [missing page]', async ( assert ) => {
 		} );
 	} };
 	const file = new mw.Title( 'File:Stuff.jpg' );
-	const imageInfoProvider = new ImageInfo( api );
+	const imageInfoProvider = new ImageInfo( api, { language: 'qqx' } );
 
 	await assert.rejects(
 		imageInfoProvider.get( file ),
@@ -334,7 +333,7 @@ QUnit.test( 'invalidate()', async ( assert ) => {
 		} );
 	} };
 	const file = new mw.Title( 'File:Stuff.jpg' );
-	const imageInfoProvider = new ImageInfo( api );
+	const imageInfoProvider = new ImageInfo( api, { language: 'qqx' } );
 
 	// The first request fails; getCachedPromise() caches the rejected promise.
 	await assert.rejects( imageInfoProvider.get( file ), 'first request rejects' );
@@ -374,7 +373,7 @@ QUnit.test( 'get() [with iiurlparam]', async ( assert ) => {
 		} );
 	} };
 	const file = new mw.Title( 'File:Stuff.svg' );
-	const imageInfoProvider = new ImageInfo( api );
+	const imageInfoProvider = new ImageInfo( api, { language: 'qqx' } );
 
 	await imageInfoProvider.get( file, 'langde' );
 	assert.strictEqual( calls[ 0 ].iiurlparam, 'langde', 'iiurlparam is passed to the API' );

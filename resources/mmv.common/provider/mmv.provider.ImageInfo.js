@@ -18,6 +18,10 @@
 const Api = require( './mmv.provider.Api.js' );
 const ImageModel = require( '../model/mmv.model.Image.js' );
 
+// HTTP cache expiration in seconds (5 minutes)
+// Will be used for MW API requests for both CDN cache and browser cache
+const API_MAXAGE = 300;
+
 /**
  * Gets file information.
  *
@@ -26,17 +30,14 @@ const ImageModel = require( '../model/mmv.model.Image.js' );
 class ImageInfo extends Api {
 	/**
 	 * @param {mw.Api} api
-	 * @param {Object} [options]
-	 * @param {string} [options.language=null] image metadata language
-	 * @param {number} [options.maxage] cache expiration time, in seconds
-	 *  Will be used for both client-side cache (maxage) and reverse proxies (s-maxage)
+	 * @param {Object} options
+	 * @param {string} options.language image metadata language
 	 */
 	constructor( api, options ) {
-		options = Object.assign( {
-			language: null
-		}, options );
+		super();
 
-		super( api, options );
+		this.api = api;
+		this.language = options.language;
 	}
 
 	/**
@@ -98,7 +99,7 @@ class ImageInfo extends Api {
 		const cacheKey = iiurlparam ?
 			[ file.getPrefixedDb(), iiurlparam ].join() :
 			file.getPrefixedDb();
-		return this.getCachedPromise( cacheKey, () => this.apiGetWithMaxAge( {
+		return this.getCachedPromise( cacheKey, () => this.api.get( {
 			formatversion: 2,
 			action: 'query',
 			prop: 'imageinfo',
@@ -106,11 +107,13 @@ class ImageInfo extends Api {
 			iiprop: this.iiprop,
 			iiurlparam,
 			iiextmetadatafilter: this.iiextmetadatafilter,
-			iiextmetadatalanguage: this.options.language,
-			uselang: 'content'
+			iiextmetadatalanguage: this.language,
+			uselang: 'content',
+			maxage: API_MAXAGE,
+			smaxage: API_MAXAGE
 		} ).then( ( data ) => this.getQueryPage( data ) ).then( ( page ) => {
 			if ( page.imageinfo && page.imageinfo.length ) {
-				return new ImageModel( file, page, this.options.language );
+				return new ImageModel( file, page, this.language );
 			} else if ( page.missing === true && page.imagerepository === '' ) {
 				return $.Deferred().reject( `file does not exist: ${ file.getPrefixedDb() }` );
 			} else {

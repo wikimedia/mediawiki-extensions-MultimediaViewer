@@ -19,48 +19,13 @@ const { Api } = require( 'mmv' );
 
 QUnit.module( 'mmv.provider.Api', QUnit.newMwEnvironment() );
 
-QUnit.test( 'Api constructor sense check', ( assert ) => {
-	const api = { get: function () {} };
-	const options = {};
-	const apiProvider = new Api( api, options );
-	const ApiProviderWithNoOptions = new Api( api );
-
+QUnit.test( 'constructor', ( assert ) => {
+	const apiProvider = new Api();
 	assert.true( apiProvider instanceof Api );
-	assert.true( ApiProviderWithNoOptions instanceof Api );
-} );
-
-QUnit.test( 'apiGetWithMaxAge()', function ( assert ) {
-	const api = {};
-	let options = {};
-	let apiProvider = new Api( api, options );
-
-	api.get = this.sandbox.stub();
-	apiProvider.apiGetWithMaxAge( {} );
-	assert.false( 'maxage' in api.get.getCall( 0 ).args[ 0 ], 'maxage is not set by default' );
-	assert.false( 'smaxage' in api.get.getCall( 0 ).args[ 0 ], 'smaxage is not set by default' );
-
-	options = { maxage: 123 };
-	apiProvider = new Api( api, options );
-
-	api.get = this.sandbox.stub();
-	apiProvider.apiGetWithMaxAge( {} );
-	assert.strictEqual( api.get.getCall( 0 ).args[ 0 ].maxage, 123, 'maxage falls back to provider default' );
-	assert.strictEqual( api.get.getCall( 0 ).args[ 0 ].smaxage, 123, 'smaxage falls back to provider default' );
-
-	api.get = this.sandbox.stub();
-	apiProvider.apiGetWithMaxAge( {}, null, 456 );
-	assert.strictEqual( api.get.getCall( 0 ).args[ 0 ].maxage, 456, 'maxage can be overridden' );
-	assert.strictEqual( api.get.getCall( 0 ).args[ 0 ].smaxage, 456, 'smaxage can be overridden' );
-
-	api.get = this.sandbox.stub();
-	apiProvider.apiGetWithMaxAge( {}, null, null );
-	assert.false( 'maxage' in api.get.getCall( 0 ).args[ 0 ], 'maxage can be overridden to unset' );
-	assert.false( 'smaxage' in api.get.getCall( 0 ).args[ 0 ], 'smaxage can be overridden to unset' );
 } );
 
 QUnit.test( 'getCachedPromise success', async ( assert ) => {
-	const api = { get: function () {} };
-	const apiProvider = new Api( api );
+	const apiProvider = new Api();
 	const logSpy = sinon.spy( mw, 'log' );
 
 	let sourceCalled = 0;
@@ -94,8 +59,7 @@ QUnit.test( 'getCachedPromise success', async ( assert ) => {
 } );
 
 QUnit.test( 'getCachedPromise failure', async ( assert ) => {
-	const api = { get: function () {} };
-	const apiProvider = new Api( api );
+	const apiProvider = new Api();
 	const logSpy = sinon.spy( mw, 'log' );
 
 	let sourceCalled = 0;
@@ -129,8 +93,7 @@ QUnit.test( 'getCachedPromise failure', async ( assert ) => {
 } );
 
 QUnit.test( 'getErrorMessage', ( assert ) => {
-	const api = { get: function () {} };
-	const apiProvider = new Api( api );
+	const apiProvider = new Api();
 
 	const errorMessage = apiProvider.getErrorMessage( {
 		servedby: 'mw1194',
@@ -147,8 +110,7 @@ QUnit.test( 'getErrorMessage', ( assert ) => {
 } );
 
 QUnit.test( 'getQueryPage', async ( assert ) => {
-	const api = { get: function () {} };
-	const apiProvider = new Api( api );
+	const apiProvider = new Api();
 	const data = {
 		query: {
 			pages: [

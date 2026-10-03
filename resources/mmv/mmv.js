@@ -48,7 +48,6 @@ const router = require( 'mediawiki.router' );
  */
 class MultimediaViewer {
 	constructor() {
-		const apiCacheFiveMinutes = 300; // 5 min * 60 sec
 		const api = new mw.Api();
 
 		/**
@@ -56,8 +55,7 @@ class MultimediaViewer {
 		 * @private
 		 */
 		this.imageInfoProvider = new ImageInfo( api, {
-			language: Config.language(),
-			maxage: apiCacheFiveMinutes
+			language: Config.language()
 		} );
 
 		/**
