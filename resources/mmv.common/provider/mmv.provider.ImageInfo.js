@@ -126,7 +126,17 @@ class ImageInfo {
 		}
 
 		const data = await promise;
-		const page = this.getQueryPage( data );
+		if ( !data ||
+			!data.query ||
+			!Array.isArray( data.query.pages ) ||
+			data.query.pages.length !== 1
+		) {
+			// If we got to this point either the pages array is missing completely, or the
+			// first element is not the requested page. Neither is supposed to happen
+			// (if the page simply did not exist, there would still be a record for it).
+			throw new Error( this.getErrorMessage( data ) );
+		}
+		const page = data.query.pages[ 0 ];
 		if ( page.imageinfo && page.imageinfo.length ) {
 			return new ImageModel( file, page, this.language );
 		} else if ( page.missing === true && page.imagerepository === '' ) {
@@ -161,28 +171,6 @@ class ImageInfo {
 			errorMessage = `${ errorCode }: ${ errorMessage }`;
 		}
 		return errorMessage;
-	}
-
-	/**
-	 * Get the first page from an action=query API result.
-	 *
-	 * @param {Object} data
-	 * @return {Object} page data
-	 * @throws {Error} API error message
-	 */
-	getQueryPage( data ) {
-		if ( data &&
-			data.query &&
-			Array.isArray( data.query.pages ) &&
-			data.query.pages.length === 1
-		) {
-			return data.query.pages[ 0 ];
-		}
-
-		// If we got to this point either the pages array is missing completely, or the
-		// first element is not the requested page. Neither is supposed to happen
-		// (if the page simply did not exist, there would still be a record for it).
-		throw new Error( this.getErrorMessage( data ) );
 	}
 }
 

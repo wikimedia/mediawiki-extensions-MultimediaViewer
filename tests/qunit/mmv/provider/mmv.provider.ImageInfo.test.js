@@ -304,6 +304,63 @@ QUnit.test( 'get() [missing page]', async ( assert ) => {
 	);
 } );
 
+QUnit.test( 'get() [resp.query.pages undefined]', async ( assert ) => {
+	const api = { get: function () {
+		return $.Deferred().resolve( {
+			query: {
+			}
+		} );
+	} };
+	const file = new mw.Title( 'File:Stuff.jpg' );
+	const imageInfoProvider = new ImageInfo( api, { language: 'qqx' } );
+
+	await assert.rejects(
+		imageInfoProvider.get( file ),
+		/unknown error/
+	);
+} );
+
+QUnit.test( 'get() [resp.query.pages empty]', async ( assert ) => {
+	const api = { get: function () {
+		return $.Deferred().resolve( {
+			query: {
+				pages: []
+			}
+		} );
+	} };
+	const file = new mw.Title( 'File:Stuff.jpg' );
+	const imageInfoProvider = new ImageInfo( api, { language: 'qqx' } );
+
+	await assert.rejects(
+		imageInfoProvider.get( file ),
+		/unknown error/
+	);
+} );
+
+QUnit.test( 'get() [resp.query.pages contains two entries]', async ( assert ) => {
+	const api = { get: function () {
+		return $.Deferred().resolve( {
+			query: {
+				pages: [
+					{
+						title: 'File:Stuff.jpg'
+					},
+					{
+						title: 'File:OtherStuff.jpg'
+					}
+				]
+			}
+		} );
+	} };
+	const file = new mw.Title( 'File:Stuff.jpg' );
+	const imageInfoProvider = new ImageInfo( api, { language: 'qqx' } );
+
+	await assert.rejects(
+		imageInfoProvider.get( file ),
+		/unknown error/
+	);
+} );
+
 QUnit.test( 'get() [cached failure]', async ( assert ) => {
 	let sourceCalled = 0;
 	const api = { get: function () {
@@ -435,42 +492,4 @@ QUnit.test( 'getErrorMessage', ( assert ) => {
 		'error message is parsed correctly' );
 
 	assert.strictEqual( apiProvider.getErrorMessage( {} ), 'unknown error', 'missing error message is handled' );
-} );
-
-QUnit.test( 'getQueryPage', ( assert ) => {
-	const apiProvider = new ImageInfo( {}, {} );
-	const data = {
-		query: {
-			pages: [
-				{
-					title: 'File:Stuff.jpg'
-				}
-			]
-		}
-	};
-
-	const field = apiProvider.getQueryPage( data );
-	assert.strictEqual( field, data.query.pages[ 0 ], 'specified page is found' );
-
-	assert.throws( () => apiProvider.getQueryPage( {} ), 'data is missing' );
-	assert.throws( () => apiProvider.getQueryPage( { data: { query: {} } } ), 'pages are missing' );
-	assert.throws(
-		() => apiProvider.getQueryPage( { data: { query: { pages: [] } } } ),
-		'pages are empty'
-	);
-	assert.throws(
-		() => apiProvider.getQueryPage( {
-			query: {
-				pages: [
-					{
-						title: 'File:Stuff.jpg'
-					},
-					{
-						title: 'File:OtherStuff.jpg'
-					}
-				]
-			}
-		} ),
-		'data contains two entries'
-	);
 } );
