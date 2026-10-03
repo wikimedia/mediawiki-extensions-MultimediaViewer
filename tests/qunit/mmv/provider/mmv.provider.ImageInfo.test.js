@@ -304,9 +304,42 @@ QUnit.test( 'get() [missing page]', async ( assert ) => {
 	);
 } );
 
+QUnit.test( 'get() [cached failure]', async ( assert ) => {
+	let sourceCalled = 0;
+	const api = { get: function () {
+		sourceCalled++;
+		return $.Deferred().resolve( {
+			query: {
+				pages: [
+					{
+						title: 'File:Stuff.jpg',
+						missing: true,
+						imagerepository: ''
+					}
+				]
+			}
+		} );
+	} };
+	const file = new mw.Title( 'File:Stuff.jpg' );
+	const imageInfoProvider = new ImageInfo( api, { language: 'qqx' } );
+
+	await assert.rejects(
+		imageInfoProvider.get( file ),
+		/file does not exist: File:Stuff.jpg/,
+		'error message for missing file'
+	);
+	await assert.rejects(
+		imageInfoProvider.get( file ),
+		/file does not exist: File:Stuff.jpg/,
+		'error message for missing file'
+	);
+	assert.strictEqual( sourceCalled, 1, 'uncached calls' );
+} );
+
 QUnit.test( 'invalidate()', async ( assert ) => {
 	let apiCallCount = 0;
 	let shouldFail = true;
+	const logSpy = sinon.spy( mw.log, 'warn' );
 	const api = { get: function () {
 		apiCallCount++;
 		if ( shouldFail ) {
@@ -329,8 +362,9 @@ QUnit.test( 'invalidate()', async ( assert ) => {
 	const file = new mw.Title( 'File:Stuff.jpg' );
 	const imageInfoProvider = new ImageInfo( api, { language: 'qqx' } );
 
-	// The first request fails; getCachedPromise() caches the rejected promise.
+	// The first request fails; get() caches the rejected promise.
 	await assert.rejects( imageInfoProvider.get( file ), 'first request rejects' );
+	assert.strictEqual( logSpy.called, true, 'mw.log.error was called' );
 
 	// A second get() reuses the cached rejection without hitting the API again.
 	await assert.rejects( imageInfoProvider.get( file ), 'cached rejection is reused' );
@@ -386,74 +420,6 @@ QUnit.test( 'get() [with iiurlparam]', async ( assert ) => {
 	assert.strictEqual( calls[ 2 ].iiurlparam, undefined, 'no iiurlparam is sent when none is given' );
 } );
 
-QUnit.test( 'getCachedPromise [success]', async ( assert ) => {
-	const apiProvider = new ImageInfo( {}, {} );
-	const logSpy = sinon.spy( mw, 'log' );
-
-	let sourceCalled = 0;
-	function promiseSource( result ) {
-		return function () {
-			sourceCalled++;
-			return $.Deferred().resolve( result );
-		};
-	}
-
-	assert.strictEqual(
-		await apiProvider.getCachedPromise( 'foo', promiseSource( 1 ) ),
-		1,
-		'fresh foo result'
-	);
-	assert.strictEqual(
-		await apiProvider.getCachedPromise( 'bar', promiseSource( 2 ) ),
-		2,
-		'fresh bar result'
-	);
-
-	sourceCalled = 0;
-	assert.strictEqual(
-		await apiProvider.getCachedPromise( 'foo', promiseSource( 3 ) ),
-		1,
-		'cached foo result'
-	);
-	assert.strictEqual( sourceCalled, 0, 'uncached calls' );
-
-	assert.strictEqual( logSpy.callCount, 0, 'mw.log should not have been called' );
-} );
-
-QUnit.test( 'getCachedPromise [failure]', async ( assert ) => {
-	const apiProvider = new ImageInfo( {}, {} );
-	const logSpy = sinon.spy( mw, 'log' );
-
-	let sourceCalled = 0;
-	function promiseSource( result ) {
-		return function () {
-			sourceCalled++;
-			return $.Deferred().reject( result );
-		};
-	}
-
-	await assert.rejects(
-		apiProvider.getCachedPromise( 'foo', promiseSource( 1 ) ),
-		( result ) => result === 1,
-		'fresh foo rejection'
-	);
-	await assert.rejects(
-		apiProvider.getCachedPromise( 'bar', promiseSource( 2 ) ),
-		( result ) => result === 2,
-		'fresh bar rejection'
-	);
-
-	sourceCalled = 0;
-	await assert.rejects(
-		apiProvider.getCachedPromise( 'foo', promiseSource( 3 ) ),
-		( result ) => result === 1,
-		'cached foo rejection'
-	);
-	assert.strictEqual( sourceCalled, 0, 'uncached calls' );
-
-	assert.strictEqual( logSpy.called, true, 'mw.log was called' );
-} );
-
 QUnit.test( 'getErrorMessage', ( assert ) => {
 	const apiProvider = new ImageInfo( {}, {} );
 
@@ -471,7 +437,7 @@ QUnit.test( 'getErrorMessage', ( assert ) => {
 	assert.strictEqual( apiProvider.getErrorMessage( {} ), 'unknown error', 'missing error message is handled' );
 } );
 
-QUnit.test( 'getQueryPage', async ( assert ) => {
+QUnit.test( 'getQueryPage', ( assert ) => {
 	const apiProvider = new ImageInfo( {}, {} );
 	const data = {
 		query: {
@@ -483,17 +449,17 @@ QUnit.test( 'getQueryPage', async ( assert ) => {
 		}
 	};
 
-	const field = await apiProvider.getQueryPage( data );
+	const field = apiProvider.getQueryPage( data );
 	assert.strictEqual( field, data.query.pages[ 0 ], 'specified page is found' );
 
-	await assert.rejects( apiProvider.getQueryPage( {} ), 'data is missing' );
-	await assert.rejects( apiProvider.getQueryPage( { data: { query: {} } } ), 'pages are missing' );
-	await assert.rejects(
-		apiProvider.getQueryPage( { data: { query: { pages: [] } } } ),
+	assert.throws( () => apiProvider.getQueryPage( {} ), 'data is missing' );
+	assert.throws( () => apiProvider.getQueryPage( { data: { query: {} } } ), 'pages are missing' );
+	assert.throws(
+		() => apiProvider.getQueryPage( { data: { query: { pages: [] } } } ),
 		'pages are empty'
 	);
-	await assert.rejects(
-		apiProvider.getQueryPage( {
+	assert.throws(
+		() => apiProvider.getQueryPage( {
 			query: {
 				pages: [
 					{
@@ -505,6 +471,6 @@ QUnit.test( 'getQueryPage', async ( assert ) => {
 				]
 			}
 		} ),
-		'promise rejected when data contains two entries'
+		'data contains two entries'
 	);
 } );

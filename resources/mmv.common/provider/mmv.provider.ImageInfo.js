@@ -95,35 +95,45 @@ class ImageInfo {
 	 * @param {string} [iiurlparam] handler-specific parameter string (e.g. `langde-800px`
 	 *  for a multilingual SVG or `page2-800px` for a PDF page). When set, the returned
 	 *  thumbnail URLs ({@link ImageModel#thumburls}) are rendered as the same variant.
-	 * @return {jQuery.Promise} a promise which resolves to an Image object.
+	 * @return {Promise<ImageModel>}
+	 * @throws {Error}
 	 */
-	get( file, iiurlparam ) {
+	async get( file, iiurlparam ) {
 		// Keep the plain title as the cache key when no handler parameter is set, so
 		// invalidate() (which is keyed by title alone) keeps working for the common case.
 		const cacheKey = iiurlparam ?
 			[ file.getPrefixedDb(), iiurlparam ].join() :
 			file.getPrefixedDb();
-		return this.getCachedPromise( cacheKey, () => this.api.get( {
-			formatversion: 2,
-			action: 'query',
-			prop: 'imageinfo',
-			titles: file.getPrefixedDb(),
-			iiprop: this.iiprop,
-			iiurlparam,
-			iiextmetadatafilter: this.iiextmetadatafilter,
-			iiextmetadatalanguage: this.language,
-			uselang: 'content',
-			maxage: API_MAXAGE,
-			smaxage: API_MAXAGE
-		} ).then( ( data ) => this.getQueryPage( data ) ).then( ( page ) => {
-			if ( page.imageinfo && page.imageinfo.length ) {
-				return new ImageModel( file, page, this.language );
-			} else if ( page.missing === true && page.imagerepository === '' ) {
-				return $.Deferred().reject( `file does not exist: ${ file.getPrefixedDb() }` );
-			} else {
-				return $.Deferred().reject( 'unknown error' );
-			}
-		} ) );
+
+		let promise = this.cache[ cacheKey ];
+		if ( !promise ) {
+			promise = this.cache[ cacheKey ] = this.api.get( {
+				formatversion: 2,
+				action: 'query',
+				prop: 'imageinfo',
+				titles: file.getPrefixedDb(),
+				iiprop: this.iiprop,
+				iiurlparam,
+				iiextmetadatafilter: this.iiextmetadatafilter,
+				iiextmetadatalanguage: this.language,
+				uselang: 'content',
+				maxage: API_MAXAGE,
+				smaxage: API_MAXAGE
+			} );
+			promise.catch( ( error ) => {
+				mw.log.warn( 'mmv.provider.ImageInfo failed to load: ', error );
+			} );
+		}
+
+		const data = await promise;
+		const page = this.getQueryPage( data );
+		if ( page.imageinfo && page.imageinfo.length ) {
+			return new ImageModel( file, page, this.language );
+		} else if ( page.missing === true && page.imagerepository === '' ) {
+			throw new Error( `file does not exist: ${ file.getPrefixedDb() }` );
+		} else {
+			throw new Error( 'unknown error' );
+		}
 	}
 
 	/**
@@ -133,31 +143,6 @@ class ImageInfo {
 	 */
 	invalidate( file ) {
 		delete this.cache[ file.getPrefixedDb() ];
-	}
-
-	/**
-	 * Wraps a caching layer around a function returning a promise; if getCachedPromise has been
-	 * called with the same key already, it will return the previous result.
-	 *
-	 * Since it is the promise and not the API response that gets cached, this method can ensure
-	 * that there are no race conditions and multiple calls to the same resource: even if the
-	 * request is still in progress, separate calls (with the same key) to getCachedPromise will
-	 * share on the same promise object.
-	 * The promise is cached even if it is rejected, so if the API request fails, all later calls
-	 * to getCachedPromise will fail immediately without retrying the request.
-	 *
-	 * @param {string} key cache key
-	 * @param {function(): jQuery.Promise} getPromise a function to get the promise on cache miss
-	 * @return {jQuery.Promise}
-	 */
-	getCachedPromise( key, getPromise ) {
-		if ( !this.cache[ key ] ) {
-			this.cache[ key ] = getPromise();
-			this.cache[ key ].catch( ( error ) => {
-				mw.log( 'ImageInfo provider failed to load: ', error );
-			} );
-		}
-		return this.cache[ key ];
 	}
 
 	/**
@@ -179,13 +164,11 @@ class ImageInfo {
 	}
 
 	/**
-	 * Returns a promise with the specified page from the API result.
-	 * This is intended to be used as a .then() callback for action=query&prop=(...) APIs.
+	 * Get the first page from an action=query API result.
 	 *
 	 * @param {Object} data
-	 * @return {jQuery.Promise} when successful, the first argument will be the page data,
-	 *     when unsuccessful, it will be an error message. The second argument is always
-	 *     the full API response.
+	 * @return {Object} page data
+	 * @throws {Error} API error message
 	 */
 	getQueryPage( data ) {
 		if ( data &&
@@ -193,14 +176,13 @@ class ImageInfo {
 			Array.isArray( data.query.pages ) &&
 			data.query.pages.length === 1
 		) {
-			// pages is an array and the first element is always the requested title
-			return $.Deferred().resolve( data.query.pages[ 0 ], data );
+			return data.query.pages[ 0 ];
 		}
 
 		// If we got to this point either the pages array is missing completely, or the
 		// first element is not the requested page. Neither is supposed to happen
 		// (if the page simply did not exist, there would still be a record for it).
-		return $.Deferred().reject( this.getErrorMessage( data ), data );
+		throw new Error( this.getErrorMessage( data ) );
 	}
 }
 

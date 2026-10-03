@@ -212,9 +212,12 @@ class MultimediaViewer {
 				if ( this.currentIndex === image.index ) {
 					// Set title to caption or file name if caption is not available;
 					// see setTitle() in mmv.ui.metadataPanel for extended caption fallback
-					this.ui.panel.showError( image.caption ?
-						HtmlUtils.htmlToTextWithTags( image.caption ) :
-						image.filePageTitle.getNameText(), error );
+					this.ui.panel.showError(
+						image.caption ?
+							HtmlUtils.htmlToTextWithTags( image.caption ) :
+							image.filePageTitle.getNameText(),
+						error
+					);
 				}
 
 				return $.Deferred().reject( error );
@@ -312,13 +315,17 @@ class MultimediaViewer {
 	 * information).
 	 *
 	 * @param {LightboxImage} image
-	 * @return {jQuery.Promise.<ImageModel>}
+	 * @return {Promise<ImageModel>}
 	 */
 	fetchImageInfo( image ) {
 		// Pass the handler-specific parameter (multilingual SVG `lang`, PDF `page`) so the
 		// API renders the thumbnail URLs as the same variant.
 		const urlParam = image.getUrlParam();
-		return this.imageInfoProvider.get( image.filePageTitle, urlParam ? urlParam.urlParam : undefined );
+		const p = this.imageInfoProvider.get( image.filePageTitle, urlParam ? urlParam.urlParam : undefined );
+		// Silence the "uncaught in promise" console warning for now
+		// TODO: Callers should handle this
+		p.catch( () => {} );
+		return p;
 	}
 
 	/**

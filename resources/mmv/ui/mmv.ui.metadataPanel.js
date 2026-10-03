@@ -751,10 +751,10 @@ class MetadataPanel extends UiElement {
 	 * Show an error message, in case the data could not be loaded
 	 *
 	 * @param {string} title image title
-	 * @param {string} error error message
+	 * @param {Error|string} error error message
 	 */
 	showError( title, error ) {
-		this.creditField.set( mw.msg( 'multimediaviewer-metadata-error', error ) );
+		this.creditField.set( mw.msg( 'multimediaviewer-metadata-error', ( error && error.message ) || error ) );
 		this.$title.html( title );
 	}
 
