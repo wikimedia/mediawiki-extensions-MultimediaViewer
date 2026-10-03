@@ -359,7 +359,6 @@
 				"mmv.common/model/mmv.model.ThumbnailWidth.js",
 				"mmv.common/model/mmv.model.License.js",
 				"mmv.common/model/mmv.model.Image.js",
-				"mmv.common/provider/mmv.provider.Api.js",
 				"mmv.common/provider/mmv.provider.ImageInfo.js"
 			],
 			"dependencies": [
@@ -425,7 +424,6 @@
 			"tests/qunit/mmv/model/mmv.model.test.js",
 			"tests/qunit/mmv/model/mmv.model.License.test.js",
 			"tests/qunit/mmv/model/mmv.model.Image.test.js",
-			"tests/qunit/mmv/provider/mmv.provider.Api.test.js",
 			"tests/qunit/mmv/provider/mmv.provider.ImageInfo.test.js",
 			"tests/qunit/mmv/ui/mmv.ui.test.js",
 			"tests/qunit/mmv/ui/mmv.ui.canvas.test.js",

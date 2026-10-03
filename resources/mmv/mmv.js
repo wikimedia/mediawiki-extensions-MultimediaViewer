@@ -19,7 +19,6 @@ const { Config } = require( 'mmv.bootstrap' );
 const {
 	HtmlUtils,
 	notifyTitleNotFound,
-	Api,
 	ImageInfo,
 	ImageModel,
 	License,
@@ -491,7 +490,6 @@ class MultimediaViewer {
 }
 
 module.exports = {
-	Api,
 	Canvas,
 	CanvasButtons,
 	Description,
