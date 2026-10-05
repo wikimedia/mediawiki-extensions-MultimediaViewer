@@ -27,6 +27,9 @@
 	"multimediaviewer-carousel-dialog-scroll-button-label": "이미지로 스크롤",
 	"multimediaviewer-carousel-dialog-view-button-label": "자세한 내용 보기",
 	"multimediaviewer-carousel-dialog-scroll-error": "문서에서 해당 이미지를 찾을 수 없습니다.",
+	"multimediaviewer-carousel-hide": "숨기기",
+	"multimediaviewer-carousel-image-count": "{{PLURAL:$1|이미지}} $1개",
+	"multimediaviewer-carousel-show": "보이기",
 	"multimediaviewer-file-page": "해당 파일 문서로 가기",
 	"multimediaviewer-repository-local": "자세한 내용",
 	"multimediaviewer-datetime-created": "만듦: $1",
@@ -130,5 +133,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "모바일 사이트에서의 이미지 캐러셀을 활성화",
 	"multimediaviewer-loading": "미디어 뷰어 활성화 중.",
 	"multimediaviewer-beta-feature-name": "이미지 캐러셀",
-	"multimediaviewer-beta-feature-description": "문서 이미지를 모바일 기기 페이지 상단에 표시합니다."
+	"multimediaviewer-beta-feature-description": "문서 이미지를 모바일 기기 페이지 상단에 표시합니다.",
+	"multimediaviewer-dialog-label": "미디어 뷰어"
 }

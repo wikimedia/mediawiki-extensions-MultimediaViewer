@@ -11,6 +11,13 @@
 	"multimediaviewer-desc": "V celozaslonskem vmesniku razširi sličice na večjo velikost",
 	"multimediaviewer-carousel-label": "Slike v $1, $2 {{PLURAL:$2|predmet|predmeta|predmeti|predmetov}}",
 	"multimediaviewer-carousel-label-article": "članek",
+	"multimediaviewer-carousel-dialog-close-button-label": "Zapri",
+	"multimediaviewer-carousel-dialog-scroll-button-label": "Skoči na sliko",
+	"multimediaviewer-carousel-dialog-view-button-label": "Ogled podrobnosti",
+	"multimediaviewer-carousel-dialog-scroll-error": "Te slike v članku ni bilo mogoče najti.",
+	"multimediaviewer-carousel-hide": "Skrij",
+	"multimediaviewer-carousel-image-count": "$1 {{PLURAL:$1|slika|sliki|slike|slik}}",
+	"multimediaviewer-carousel-show": "Pokaži",
 	"multimediaviewer-file-page": "Pojdi na pripadajočo opisno stran datoteke",
 	"multimediaviewer-repository-local": "Več podatkov",
 	"multimediaviewer-datetime-created": "Ustvarjeno: $1",
@@ -135,5 +142,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "Omogoči vrtiljak slik na mobilni strani",
 	"multimediaviewer-loading": "Nalaganje Pregledovalnika predstavnosti",
 	"multimediaviewer-beta-feature-name": "Vrtiljak slik",
-	"multimediaviewer-beta-feature-description": "Prikaži slike člankov na vrhu strani na mobilnih napravah."
+	"multimediaviewer-beta-feature-description": "Prikaži slike člankov na vrhu strani na mobilnih napravah.",
+	"multimediaviewer-dialog-label": "Pregledovalnik predstavnosti"
 }

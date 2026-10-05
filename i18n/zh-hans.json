@@ -7,6 +7,7 @@
 			"Diskdance",
 			"Duolaimi",
 			"GuoPC",
+			"Honoka55",
 			"Hudafu",
 			"Hydra",
 			"Liangent",
@@ -30,6 +31,7 @@
 			"飞舞回堂前"
 		]
 	},
+	"multimediaviewer-current-image-number": "第$1张，共$2张",
 	"multimediaviewer-desc": "在全屏界面中以更大尺寸展开缩略图",
 	"multimediaviewer-carousel-label": "$1上的图像，共$2{{PLURAL:$2|项}}",
 	"multimediaviewer-carousel-label-article": "条目",

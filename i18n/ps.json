@@ -12,6 +12,12 @@
 	"multimediaviewer-desc": "په بشپړسکرين مخبڼه کې د بټنوکونو لويه کچه وغځوئ",
 	"multimediaviewer-carousel-label": "انځورونه په $1، $2 کې {{PLURAL:$2|توکی|توکي}}",
 	"multimediaviewer-carousel-label-article": "ليکنه",
+	"multimediaviewer-carousel-dialog-close-button-label": "تړل",
+	"multimediaviewer-carousel-dialog-view-button-label": "سپيناوی کتل",
+	"multimediaviewer-carousel-dialog-scroll-error": "ليکنه کې دا انځور ونه موندل شو.",
+	"multimediaviewer-carousel-hide": "پټول",
+	"multimediaviewer-carousel-image-count": "$1 {{PLURAL:$1|انځور|انځورونه}}",
+	"multimediaviewer-carousel-show": "ښودل",
 	"multimediaviewer-file-page": "د اوند دوتنې مخ ته ورشئ",
 	"multimediaviewer-repository-local": "نور سپيناوی",
 	"multimediaviewer-datetime-created": "جوړشوی: $1",
@@ -136,5 +142,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "گرځنده وېبځي کې د انځورونو څرخوونکی چارنول",
 	"multimediaviewer-loading": "رسنۍ کتونکی بارېږي.",
 	"multimediaviewer-beta-feature-name": "انځور څرخوونکی",
-	"multimediaviewer-beta-feature-description": "د موبايل وسيلو کې د مخ سر کې د ليکنې انځورونه وښاياست."
+	"multimediaviewer-beta-feature-description": "د موبايل وسيلو کې د مخ سر کې د ليکنې انځورونه وښاياست.",
+	"multimediaviewer-dialog-label": "رسنۍ کتونکی"
 }

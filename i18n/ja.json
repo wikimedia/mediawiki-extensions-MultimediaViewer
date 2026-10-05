@@ -19,7 +19,7 @@
 	"multimediaviewer-carousel-dialog-scroll-button-label": "画像へスクロール",
 	"multimediaviewer-carousel-dialog-view-button-label": "詳細を表示",
 	"multimediaviewer-carousel-hide": "非表示",
-	"multimediaviewer-carousel-image-count": "$1 {{PLURAL:$1|画像|画像}}",
+	"multimediaviewer-carousel-image-count": "$1 {{PLURAL:$1|画像}}",
 	"multimediaviewer-carousel-show": "表示",
 	"multimediaviewer-file-page": "対応するファイル ページに移動",
 	"multimediaviewer-repository-local": "詳細",

@@ -26,7 +26,7 @@
 	"multimediaviewer-carousel-dialog-scroll-button-label": "捲動至圖片",
 	"multimediaviewer-carousel-dialog-view-button-label": "檢視詳情",
 	"multimediaviewer-carousel-hide": "收起",
-	"multimediaviewer-carousel-image-count": "$1幅{{PLURAL:$1|圖片|圖片}}",
+	"multimediaviewer-carousel-image-count": "$1幅{{PLURAL:$1|圖片|圖片們}}",
 	"multimediaviewer-carousel-show": "展開",
 	"multimediaviewer-file-page": "前往相關的檔案頁面",
 	"multimediaviewer-repository-local": "更多詳細資料",
