@@ -19,8 +19,10 @@
 	"multimediaviewer-desc": "زيادة حجم الصور المصغرة في واجهة ملء الشاشة.",
 	"multimediaviewer-carousel-label": "الصور في $1 ، $2 {{PLURAL:$2| عنصر|عناصر}}",
 	"multimediaviewer-carousel-label-article": "شرط",
+	"multimediaviewer-carousel-dialog-close-button-label": "إغلاق",
 	"multimediaviewer-carousel-dialog-scroll-button-label": "التمرير إلى الصورة",
 	"multimediaviewer-carousel-dialog-view-button-label": "عرض التفاصيل",
+	"multimediaviewer-carousel-dialog-scroll-error": "لم أجد تلك الصورة في المقال.",
 	"multimediaviewer-carousel-hide": "إخفاء",
 	"multimediaviewer-carousel-image-count": "$1 {{PLURAL:$1|صورة|صور}}",
 	"multimediaviewer-carousel-show": "إظهار",
@@ -127,5 +129,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "تفعيل عرض الصور المتسلسل على موقع الجوال",
 	"multimediaviewer-loading": "جاري تحميل عارض الوسائط.",
 	"multimediaviewer-beta-feature-name": "معرض الصور الدوار",
-	"multimediaviewer-beta-feature-description": "اعرض صور المقالات في أعلى الصفحة على الأجهزة المحمولة."
+	"multimediaviewer-beta-feature-description": "اعرض صور المقالات في أعلى الصفحة على الأجهزة المحمولة.",
+	"multimediaviewer-dialog-label": "عارض الوسائط"
 }
