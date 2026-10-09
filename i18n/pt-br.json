@@ -17,6 +17,13 @@
 	"multimediaviewer-desc": "Expandir miniaturas em tamanho maior numa interface em tela cheia",
 	"multimediaviewer-carousel-label": "Imagens em $1, $2 {{PLURAL:$2|item|itens}}",
 	"multimediaviewer-carousel-label-article": "artigo",
+	"multimediaviewer-carousel-dialog-close-button-label": "Fechar",
+	"multimediaviewer-carousel-dialog-scroll-button-label": "Rolar até a imagem",
+	"multimediaviewer-carousel-dialog-view-button-label": "Ver detalhes",
+	"multimediaviewer-carousel-dialog-scroll-error": "Não foi possível encontrar essa imagem no artigo.",
+	"multimediaviewer-carousel-hide": "Ocultar",
+	"multimediaviewer-carousel-image-count": "$1 {{PLURAL:$1|imagem|imagens}}",
+	"multimediaviewer-carousel-show": "Exibir",
 	"multimediaviewer-file-page": "Ir para a página do arquivo correspondente",
 	"multimediaviewer-repository-local": "Mais detalhes",
 	"multimediaviewer-datetime-created": "Criado: $1",
@@ -141,5 +148,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "Ativar carrossel de imagens no site móvel",
 	"multimediaviewer-loading": "Carregando o Visualizador de Mídia.",
 	"multimediaviewer-beta-feature-name": "Carrossel de imagens",
-	"multimediaviewer-beta-feature-description": "Exibe imagens do artigo na parte superior da página em dispositivos móveis."
+	"multimediaviewer-beta-feature-description": "Exibe imagens do artigo na parte superior da página em dispositivos móveis.",
+	"multimediaviewer-dialog-label": "Visualizador de Mídia"
 }
