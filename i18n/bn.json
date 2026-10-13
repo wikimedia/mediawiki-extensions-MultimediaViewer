@@ -11,10 +11,11 @@
 		]
 	},
 	"multimediaviewer-desc": "একটি পূর্ণস্ক্রিন ইন্টারফেসের মধ্যে একটি বড় মাপের থাম্বনেল প্রসারিত করে।",
+	"multimediaviewer-carousel-dialog-close-button-label": "বন্ধ করুন",
 	"multimediaviewer-carousel-dialog-scroll-button-label": "ছবিতে স্ক্রল করুন",
 	"multimediaviewer-carousel-dialog-view-button-label": "বিস্তারিত দেখুন",
 	"multimediaviewer-carousel-hide": "লুকান",
-	"multimediaviewer-carousel-image-count": "$1 {{PLURAL:$1|ছবি|ছবিগুলো}}",
+	"multimediaviewer-carousel-image-count": "$1টি {{PLURAL:$1|ছবি}}",
 	"multimediaviewer-carousel-show": "দেখুন",
 	"multimediaviewer-file-page": "সংশ্লিষ্ট ফাইল পৃষ্ঠাতে যান",
 	"multimediaviewer-repository-local": "আরও বিস্তারিত",
@@ -25,6 +26,7 @@
 	"multimediaviewer-multiple-authors-combine": "$1 এবং $2",
 	"multimediaviewer-metadata-error": "চিত্রের বিস্তারিত লোড করা যায়নি (ত্রুটি: $1)",
 	"multimediaviewer-thumbnail-error": "দুঃখিত, ফাইলটি প্রদর্শন করা সম্ভব নয়",
+	"multimediaviewer-thumbnail-error-refresh-button": "পুনঃসতেজ",
 	"multimediaviewer-license-cc-by-1.0": "সিসি বাই ১.০",
 	"multimediaviewer-license-cc-sa-1.0": "সিসি এসএ ১.০",
 	"multimediaviewer-license-cc-by-sa-1.0": "সিসি বাই-এসএ ১.০",
@@ -114,5 +116,7 @@
 	"multimediaviewer-attr-plain": "সাধারণ",
 	"multimediaviewer-attr-html": "এইচটিএমএল",
 	"multimediaviewer-optin-pref": "<span class=\"plainlinks\">[https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Media_Viewer/About মিডিয়া ভিউয়ার]</span> সক্রিয় করো",
-	"multimediaviewer-loading": "মিডিয়া ভিউয়ার লোড করা হচ্ছে।"
+	"multimediaviewer-loading": "মিডিয়া ভিউয়ার লোড করা হচ্ছে।",
+	"multimediaviewer-beta-feature-name": "ছবির ক্যারোসেল",
+	"multimediaviewer-dialog-label": "মিডিয়া ভিউয়ার"
 }
