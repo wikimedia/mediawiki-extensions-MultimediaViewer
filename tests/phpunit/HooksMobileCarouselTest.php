@@ -54,10 +54,6 @@ class HooksMobileCarouselTest extends HooksTestCase {
 				return $this->mobileView;
 			}
 
-			protected function isDesktopView(): bool {
-				return !$this->mobileView;
-			}
-
 			protected function shouldPageGetMobileCarousel( OutputPage $out ): bool {
 				return $this->pageQualifies;
 			}

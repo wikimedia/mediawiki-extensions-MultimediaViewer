@@ -157,15 +157,6 @@ class Hooks implements
 	 *
 	 * @return bool
 	 */
-	protected function isDesktopView(): bool {
-		return !$this->isMobileFrontendView();
-	}
-
-	/**
-	 * Whether the current request is being served through MobileFrontend's mobile view.
-	 *
-	 * @return bool
-	 */
 	protected function isMobileFrontendView(): bool {
 		return ExtensionRegistry::getInstance()->isLoaded( 'MobileFrontend' ) &&
 			$this->mobileContext &&
@@ -192,13 +183,14 @@ class Hooks implements
 	}
 
 	/**
-	 * Whether the Vue multimedia viewer should replace the MobileFrontend
-	 * image viewer for this request (T428774).
+	 * Whether to use the Vue multimedia viewer instead of the default.
+	 *
 	 *
 	 * Conditions:
-	 *  - request is served through MobileFrontend's mobile view
-	 *  - MediaViewerDesktopBeta config flag is enabled
-	 *  - the user has not disabled MediaViewer in their preferences
+	 *  - request uses MobileFrontend's mobile view (T428774)
+	 *    or $wgMediaViewerDesktopBeta is enabled (T436799)
+	 *  - and, MediaViewer is not disabled via site configuration
+	 *    or current user's preferences.
 	 *
 	 * @param OutputPage $out
 	 * @return bool
