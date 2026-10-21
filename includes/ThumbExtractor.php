@@ -335,7 +335,9 @@ class ThumbExtractor {
 			) {
 				$thumbCaptions = array_values( array_filter(
 					iterator_to_array( $parent->childNodes ),
-					static fn ( $childNode ) => Zest::matches( $childNode, '.thumbcaption' )
+					// Zest only handles elements; skip text and comment nodes
+					static fn ( $childNode ) => $childNode instanceof Element &&
+						Zest::matches( $childNode, '.thumbcaption' )
 				) );
 				if ( $thumbCaptions ) {
 					return $thumbCaptions[0] ?? null;

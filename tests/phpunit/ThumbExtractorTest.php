@@ -204,6 +204,34 @@ class ThumbExtractorTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
+	public function testExtractCaptionFromAnchorElementWithMultipleThumbCaptions(): void {
+		$extractor = new ThumbExtractor( [ 'jpg' ], [], 30, 30, '/wiki/$1' );
+
+		// Template:Multiple_image style markup; the text nodes between the
+		// elements must not trip up the search for the closest caption.
+		$body = $this->makeBody(
+			'<div class="thumb">'
+			. '<div class="tsingle"> '
+			. '<a href="/wiki/File:First.jpg"><img src="/path/to/First.jpg" width="200" height="200"></a>'
+			. ' text <div class="thumbcaption">First caption</div> '
+			. '</div>'
+			. '<div class="tsingle"> '
+			. '<a href="/wiki/File:Second.jpg"><img src="/path/to/Second.jpg" width="200" height="200"></a>'
+			. ' text <div class="thumbcaption">Second caption</div> '
+			. '</div>'
+			. '</div>'
+		);
+		$anchors = DOMCompat::querySelectorAll( $body, 'a' );
+		$this->assertSame(
+			'First caption',
+			$extractor->extractCaptionFromAnchorElement( $anchors[0], $body )
+		);
+		$this->assertSame(
+			'Second caption',
+			$extractor->extractCaptionFromAnchorElement( $anchors[1], $body )
+		);
+	}
+
 	public function testFindThumbsIsExcludedBySelector(): void {
 		$extractor = new ThumbExtractor( [ 'jpg' ], [ '.sidebar-box' ], 30, 30, '/wiki/$1' );
 
