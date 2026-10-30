@@ -11,7 +11,13 @@
 			<cdx-icon :icon="cdxIconPrevious"></cdx-icon>
 		</cdx-button>
 		<span class="mmv-lightbox-nav__counter" aria-live="polite">
-			{{ $i18n( 'multimediaviewer-current-image-number', currentIndex + 1, thumbs.length ).text() }}
+			{{ 
+				$i18n(
+					'multimediaviewer-current-image-number',
+					localizedThumbnailNumber.current,
+					localizedThumbnailNumber.total
+				).text()
+			}}
 		</span>
 		<cdx-button
 			class="mmv-lightbox-nav__next"
@@ -56,6 +62,15 @@ module.exports = exports = defineComponent( {
 			return idx >= 0 ? idx : 0;
 		} );
 
+		// Converts current thumbnail number and total thumbnail image count
+		// into correctly internationalized numerals.
+		const localizedThumbnailNumber = computed(() => {
+			return {
+				current: mw.language.convertNumber(currentIndex.value + 1),
+				total: mw.language.convertNumber(thumbs.value.length)
+			}
+		})
+
 		function onNext() {
 			sendInteraction( 'click', {
 				// eslint-disable-next-line camelcase
@@ -74,7 +89,7 @@ module.exports = exports = defineComponent( {
 
 		return {
 			thumbs,
-			currentIndex,
+			localizedThumbnailNumber,
 			onNext,
 			onPrev,
 			cdxIconPrevious,

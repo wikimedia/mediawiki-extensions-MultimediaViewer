@@ -334,7 +334,8 @@
 				"mediawiki.router",
 				"mediawiki.Title",
 				"mediawiki.util",
-				"mediawiki.api"
+				"mediawiki.api",
+				"mediawiki.language"
 			],
 			"messages": [
 				"multimediaviewer-close-popup-text",
