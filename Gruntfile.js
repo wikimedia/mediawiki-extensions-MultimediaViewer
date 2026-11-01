@@ -15,7 +15,7 @@ module.exports = function ( grunt ) {
 				fix: grunt.option( 'fix' )
 			},
 			all: [
-				'**/*.{js,json}',
+				'**/*.{js,json,vue}',
 				'!{vendor,node_modules,docs}/**'
 			]
 		},
@@ -25,8 +25,8 @@ module.exports = function ( grunt ) {
 				cache: true
 			},
 			src: [
-				'resources/mmv/**/*.{css,less}',
-				'resources/mmv.*/**/*.{css,less}'
+				'resources/mmv/**/*.{css,less,vue}',
+				'resources/mmv.*/**/*.{css,less,vue}'
 			]
 		},
 		// Image Optimization
