@@ -8,6 +8,9 @@
 		]
 	},
 	"multimediaviewer-desc": "Võimaldab vaadata pisipilte täisekraaniliideses.",
+	"multimediaviewer-carousel-hide": "Peida",
+	"multimediaviewer-carousel-image-count": "$1 {{PLURAL:$1|pilt|pilti}}",
+	"multimediaviewer-carousel-show": "Näita",
 	"multimediaviewer-file-page": "Mine failileheküljele",
 	"multimediaviewer-repository-local": "Rohkem üksikasju",
 	"multimediaviewer-datetime-created": "Valmistatud: $1",
