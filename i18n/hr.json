@@ -9,6 +9,13 @@
 	"multimediaviewer-desc": "Sličice u većoj veličini u prikazu preko cijelog zaslona",
 	"multimediaviewer-carousel-label": "Slike u $1, $2 {{PLURAL:$2|stavka|stavke|stavki}}",
 	"multimediaviewer-carousel-label-article": "članak",
+	"multimediaviewer-carousel-dialog-close-button-label": "Zatvori",
+	"multimediaviewer-carousel-dialog-scroll-button-label": "Idi na sliku",
+	"multimediaviewer-carousel-dialog-view-button-label": "Više pojedinosti",
+	"multimediaviewer-carousel-dialog-scroll-error": "Ovu sliku nije moguće pronaći u članku.",
+	"multimediaviewer-carousel-hide": "Sakrij",
+	"multimediaviewer-carousel-image-count": "$1 {{PLURAL:$1|slika|slike|slika}}",
+	"multimediaviewer-carousel-show": "Prikaži",
 	"multimediaviewer-file-page": "Idi na odgovarajuću stranicu datoteke",
 	"multimediaviewer-repository-local": "Više pojedinosti",
 	"multimediaviewer-datetime-created": "Stvoreno: $1",
@@ -17,7 +24,9 @@
 	"multimediaviewer-multiple-authors": "{{PLURAL:$1|još jedan autor|još $1 autora}}",
 	"multimediaviewer-multiple-authors-combine": "$1 i $2",
 	"multimediaviewer-metadata-error": "Nije bilo moguće učitavanje pojedinosti slike (pogreška: $1)",
+	"multimediaviewer-file-not-found-error": "Žao nam je, datoteka $1 ne može se prikazati jer ne postoji na trenutačnoj stranici.",
 	"multimediaviewer-thumbnail-error": "Žao nam je, datoteku nije moguće prikazati",
+	"multimediaviewer-thumbnail-error-refresh-button": "Osvježi",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",
 	"multimediaviewer-license-cc-sa-1.0": "CC SA 1.0",
 	"multimediaviewer-license-cc-by-sa-1.0": "CC BY-SA 1.0",
@@ -116,5 +125,6 @@
 	"multimediaviewer-enable-image-carousel-pref": "Omogući traku sa slikama na mobilnim uređajima",
 	"multimediaviewer-loading": "Učitavanje preglednika multimedijskih datoteka.",
 	"multimediaviewer-beta-feature-name": "Traka sa slikama",
-	"multimediaviewer-beta-feature-description": "Na mobilnim uređajima na vrhu stranice prikaži slike vezane za članak."
+	"multimediaviewer-beta-feature-description": "Na mobilnim uređajima na vrhu stranice prikaži slike vezane za članak.",
+	"multimediaviewer-dialog-label": "Preglednik medija"
 }
