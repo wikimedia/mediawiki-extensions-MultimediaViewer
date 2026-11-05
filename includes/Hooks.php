@@ -178,7 +178,7 @@ class Hooks implements
 	 *
 	 * Conditions:
 	 *  - request uses MobileFrontend's mobile view (T428774)
-	 *    or $wgMediaViewerDesktopBeta is enabled (T436799)
+	 *    or $wgMediaViewerDesktopVue is enabled (T436799)
 	 *  - and, MediaViewer is not disabled via site configuration
 	 *    or current user's preferences.
 	 *
