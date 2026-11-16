@@ -34,7 +34,7 @@
 	"multimediaviewer-multiple-authors": "{{PLURAL:$1|یک نویسندهٔ بیشتر|$1 نویسندهٔ بیشتر}}",
 	"multimediaviewer-multiple-authors-combine": "$1 و $2",
 	"multimediaviewer-metadata-error": "نمی‌توان جزئیات تصویر را بارگیری کرد (خطا: $1)",
-	"multimediaviewer-file-not-found-error": "با عرض پوزش، پروندهٔ $1 نمی‌توان نمایش داده شود چرا که در صفحهٔ فعلی وجود ندارد.",
+	"multimediaviewer-file-not-found-error": "با عرض پوزش، پروندهٔ $1 نمی‌تواند نمایش داده شود چراکه در صفحهٔ کنونی وجود ندارد.",
 	"multimediaviewer-thumbnail-error": "با عرض پوزش، پرونده نمی‌تواند نمایش یابد",
 	"multimediaviewer-thumbnail-error-refresh-button": "تازه‌سازی",
 	"multimediaviewer-license-cc-by-1.0": "CC BY 1.0",
