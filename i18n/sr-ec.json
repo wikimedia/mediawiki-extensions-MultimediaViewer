@@ -12,6 +12,10 @@
 		]
 	},
 	"multimediaviewer-desc": "Увећава минијатуре преко целог екрана",
+	"multimediaviewer-carousel-dialog-close-button-label": "Затвори",
+	"multimediaviewer-carousel-dialog-view-button-label": "Детаљи",
+	"multimediaviewer-carousel-hide": "Сакриј",
+	"multimediaviewer-carousel-show": "Прикажи",
 	"multimediaviewer-file-page": "Иди на одговарајућу страницу датотеке",
 	"multimediaviewer-repository-local": "Више детаља",
 	"multimediaviewer-datetime-created": "Направљено на датум $1",
