@@ -147,7 +147,7 @@ class MetadataPanel extends UiElement {
 		this.$license.empty().prop( 'href', '#' );
 		this.$licenseLi.addClass( 'empty' );
 		this.$permissionLink.hide();
-		this.$restrictions.children().hide();
+		this.$restrictions.empty();
 
 		this.$filename.empty();
 		this.$filenamePrefix.empty();
@@ -549,6 +549,10 @@ class MetadataPanel extends UiElement {
 		const restrictionsSet = {};
 		let showDefault = false;
 		let validRestrictions = 0;
+
+		// Replace the labels of an earlier call. The image info can arrive more than
+		// once when the user switches between images quickly.
+		this.$restrictions.empty();
 
 		restrictions.forEach( ( value, index ) => {
 			// The following messages are used here:
