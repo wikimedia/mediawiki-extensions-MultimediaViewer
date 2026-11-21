@@ -194,6 +194,42 @@ QUnit.test( '.setImageInfo()', function ( assert ) {
 	clock.restore();
 } );
 
+QUnit.test( 'Restrictions are not shown twice', function ( assert ) {
+	const $qf = $( '#qunit-fixture' );
+	const panel = new MetadataPanel(
+		$qf,
+		$( '<div>' ).appendTo( $qf ),
+		new Config()
+	);
+	const image = {
+		filePageTitle: mw.Title.newFromText( 'File:Foo bar.jpg' ),
+		src: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
+		getUrlParam: () => null
+	};
+	const imageData = {
+		title: image.filePageTitle,
+		url: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Foobar.jpg',
+		descriptionUrl: 'https://commons.wikimedia.org/wiki/File:Foobar.jpg',
+		hasCoords: () => false,
+		restrictions: [ 'trademarked', 'insignia' ]
+	};
+	const clock = this.sandbox.useFakeTimers();
+
+	// When images are switched quickly, the info of one image can arrive twice
+	panel.setImageInfo( image, imageData );
+	panel.setImageInfo( image, imageData );
+	clock.tick( 10 );
+	assert.strictEqual( panel.$restrictions.children().length, 2, 'Each restriction is shown once' );
+
+	panel.empty();
+	imageData.restrictions = [ 'communist' ];
+	panel.setImageInfo( image, imageData );
+	clock.tick( 10 );
+	assert.strictEqual( panel.$restrictions.children().length, 1, 'Restrictions of the previous image are removed' );
+
+	clock.restore();
+} );
+
 // FIXME: test broken since migrating to require/packageFiles
 QUnit.skip( 'Setting permission information works as expected', ( assert ) => {
 	const $qf = $( '#qunit-fixture' );
