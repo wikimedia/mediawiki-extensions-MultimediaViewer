@@ -11,7 +11,8 @@
 			"Nikosgranturismogt",
 			"Nikosguard",
 			"Protnet",
-			"Xaris333"
+			"Xaris333",
+			"Jimkats"
 		]
 	},
 	"multimediaviewer-desc": "Επεκτείνετε τις μικρογραφίες σε μεγαλύτερο μέγεθος σε ένα περιβάλλον εργασίας πλήρους οθόνης.",
@@ -54,7 +55,7 @@
 	"multimediaviewer-restriction-default-and-others": "Αυτή η εικόνα μπορεί να περιορίζεται περαιτέρω από άλλες νομικές διατάξεις εκτός του νόμου περί πνευματικών δικαιωμάτων. Για λεπτομέρειες, ανατρέξτε στη σελίδα περιγραφής αρχείου.",
 	"multimediaviewer-geolocation": "Τοποθεσία: $1",
 	"multimediaviewer-reuse-link": "Μοιραστείτε ή ενσωματώστε αυτό το αρχείο",
-	"multimediaviewer-reuse-loading-placeholder": "Φόρτωση σε εξέλιξη...",
+	"multimediaviewer-reuse-loading-placeholder": "Φορτώνει…",
 	"multimediaviewer-reuse-copy-share": "Επιλέξτε και αντιγράψτε (εάν υποστηρίζεται) το σύνδεσμο για την κοινή χρήση αυτού του αρχείου",
 	"multimediaviewer-reuse-copy-embed": "Επιλέξτε και αντιγράψτε (εάν υποστηρίζεται) τον κώδικα για την ενσωμάτωση αυτού του αρχείου",
 	"multimediaviewer-share-tab": "Κοινοποίηση",
